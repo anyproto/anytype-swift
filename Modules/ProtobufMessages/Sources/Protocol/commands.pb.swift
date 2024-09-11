@@ -29373,6 +29373,15 @@ public struct Anytype_Rpc {
 
         public var messageID: String = String()
 
+        public var event: Anytype_ResponseEvent {
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        public var hasEvent: Bool {return self._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        public mutating func clearEvent() {self._event = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -29425,6 +29434,7 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Chat.AddMessage.Response.Error? = nil
+        fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
       public init() {}
@@ -76623,6 +76633,7 @@ extension Anytype_Rpc.Chat.AddMessage.Response: SwiftProtobuf.Message, SwiftProt
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "messageId"),
+    3: .same(proto: "event"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -76633,6 +76644,7 @@ extension Anytype_Rpc.Chat.AddMessage.Response: SwiftProtobuf.Message, SwiftProt
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._event) }()
       default: break
       }
     }
@@ -76649,12 +76661,16 @@ extension Anytype_Rpc.Chat.AddMessage.Response: SwiftProtobuf.Message, SwiftProt
     if !self.messageID.isEmpty {
       try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 2)
     }
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.AddMessage.Response, rhs: Anytype_Rpc.Chat.AddMessage.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.messageID != rhs.messageID {return false}
+    if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
