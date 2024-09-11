@@ -5,13 +5,15 @@ import Services
 @MainActor
 final class AllContentWidgetViewModel: ObservableObject {
     
-    private let onWidgetTap: () -> Void
+    private let spaceId: String
+    private weak var output: (any CommonWidgetModuleOutput)?
     
-    init(onWidgetTap: @escaping () -> Void) {
-        self.onWidgetTap = onWidgetTap
+    init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
+        self.spaceId = spaceId
+        self.output = output
     }
     
     func onTapWidget() {
-        onWidgetTap()
+        output?.onObjectSelected(screenData: .allContent(spaceId: spaceId))
     }
 }

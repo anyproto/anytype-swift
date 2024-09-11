@@ -11,6 +11,7 @@ enum EditorScreenData: Hashable, Codable {
     case page(EditorPageObject)
     case set(EditorSetObject)
     case discussion(EditorDiscussionObject)
+    case allContent(spaceId: String)
 }
 
 struct EditorPageObject: Hashable, Codable {

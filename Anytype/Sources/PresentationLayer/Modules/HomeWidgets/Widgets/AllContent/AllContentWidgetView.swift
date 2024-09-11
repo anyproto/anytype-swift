@@ -6,9 +6,13 @@ struct AllContentWidgetView: View {
     @StateObject private var model: AllContentWidgetViewModel
     @Binding var homeState: HomeWidgetsState
     
-    init(homeState: Binding<HomeWidgetsState>, onWidgetTap: @escaping () -> Void) {
+    init(
+        spaceId: String,
+        homeState: Binding<HomeWidgetsState>,
+        output: (any CommonWidgetModuleOutput)?
+    ) {
         _homeState = homeState
-        _model = StateObject(wrappedValue: AllContentWidgetViewModel(onWidgetTap: onWidgetTap))
+        _model = StateObject(wrappedValue: AllContentWidgetViewModel(spaceId: spaceId, output: output))
     }
     
     var body: some View {

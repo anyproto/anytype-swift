@@ -983,6 +983,10 @@
 		2E31C96D2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31C96C2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift */; };
 		2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */; };
 		2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */; };
+		2E33F5792C909D6100CDC082 /* AllContentCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F5782C909D6100CDC082 /* AllContentCoordinatorView.swift */; };
+		2E33F57B2C909D6900CDC082 /* AllContentCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F57A2C909D6900CDC082 /* AllContentCoordinatorViewModel.swift */; };
+		2E33F57D2C909E3F00CDC082 /* AllContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F57C2C909E3F00CDC082 /* AllContentView.swift */; };
+		2E33F57F2C909E4800CDC082 /* AllContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F57E2C909E4800CDC082 /* AllContentViewModel.swift */; };
 		2E37F01428C768B900337BD4 /* SetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* SetViewRow.swift */; };
 		2E3CCA0B28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CCA0A28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift */; };
 		2E3E0DDC29F1C2C9009F68D8 /* KeyboardToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3E0DDB29F1C2C9009F68D8 /* KeyboardToolbarView.swift */; };
@@ -2849,6 +2853,10 @@
 		2E31C96C2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListInteractorProtocol.swift; sourceTree = "<group>"; };
 		2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookmarkViewModel.swift; sourceTree = "<group>"; };
 		2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModelProtocol.swift; sourceTree = "<group>"; };
+		2E33F5782C909D6100CDC082 /* AllContentCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentCoordinatorView.swift; sourceTree = "<group>"; };
+		2E33F57A2C909D6900CDC082 /* AllContentCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2E33F57C2C909E3F00CDC082 /* AllContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentView.swift; sourceTree = "<group>"; };
+		2E33F57E2C909E4800CDC082 /* AllContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentViewModel.swift; sourceTree = "<group>"; };
 		2E37F01328C768B900337BD4 /* SetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRow.swift; sourceTree = "<group>"; };
 		2E3CCA0A28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUIEditorSyncStatusItem.swift; sourceTree = "<group>"; };
 		2E3E0DDB29F1C2C9009F68D8 /* KeyboardToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarView.swift; sourceTree = "<group>"; };
@@ -6807,6 +6815,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2E33F5762C909CB900CDC082 /* AllContent */,
 				3D93489A2C74CB3300CD4DB8 /* SpaceHub */,
 				2A0C4CCD2C4EA0BF000F7387 /* MessageReactionPicker */,
 				2A4191DC2C368F5600117FB8 /* Discussion */,
@@ -7716,6 +7725,25 @@
 				2E31C96C2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift */,
 			);
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		2E33F5762C909CB900CDC082 /* AllContent */ = {
+			isa = PBXGroup;
+			children = (
+				2E33F5772C909D2E00CDC082 /* Coordinator */,
+				2E33F57C2C909E3F00CDC082 /* AllContentView.swift */,
+				2E33F57E2C909E4800CDC082 /* AllContentViewModel.swift */,
+			);
+			path = AllContent;
+			sourceTree = "<group>";
+		};
+		2E33F5772C909D2E00CDC082 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2E33F5782C909D6100CDC082 /* AllContentCoordinatorView.swift */,
+				2E33F57A2C909D6900CDC082 /* AllContentCoordinatorViewModel.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		2E412D0128466AC900C973FF /* Sorts */ = {
@@ -11653,6 +11681,7 @@
 				2E9994852940D1D500FFBED9 /* SetDocument.swift in Sources */,
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
 				2EE33DC52B55832300D0CDDB /* DateRelationCalendarViewModel.swift in Sources */,
+				2E33F57D2C909E3F00CDC082 /* AllContentView.swift in Sources */,
 				125B6EBC26F235F400BCD7D6 /* EditorSearchCell.swift in Sources */,
 				127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */,
 				2AAF4A5F2C57A21C003BBB81 /* MessageLinkObjectViewStyle.swift in Sources */,
@@ -11997,6 +12026,7 @@
 				2A66937B2A7104EA007747DD /* ObjectIconImageUsecase.swift in Sources */,
 				125B6EBE26F235F400BCD7D6 /* EditorSearchCellConfiguration.swift in Sources */,
 				3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */,
+				2E33F57B2C909D6900CDC082 /* AllContentCoordinatorViewModel.swift in Sources */,
 				2A30B20D2BB44C7900206806 /* QrCodeViewModel.swift in Sources */,
 				2A816AD12AD8069400975BCA /* SpaceView.swift in Sources */,
 				124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */,
@@ -12513,6 +12543,7 @@
 				C99DCE95283B6D1F0051F99D /* TemplatePickerView.swift in Sources */,
 				120F7D44267CD1AC00327734 /* ObjectCoverPicker.swift in Sources */,
 				531F0DEA283CCD8D000A0B31 /* Debouncer.swift in Sources */,
+				2E33F57F2C909E4800CDC082 /* AllContentViewModel.swift in Sources */,
 				2E0A6CD32A376E4400A28AF2 /* LoginViewModel.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				2A5B53BB2A80DCB200BC993B /* SpaceSettingsCoordinatorViewModel.swift in Sources */,
@@ -13006,6 +13037,7 @@
 				2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */,
 				125683D027DF14F5003A8251 /* TagsSearchInteractor.swift in Sources */,
 				3DD1129E2B95FE62007682F4 /* MembershipTierSelectionView.swift in Sources */,
+				2E33F5792C909D6100CDC082 /* AllContentCoordinatorView.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				2ECB34372A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift in Sources */,
 				12B691D327F4CB5D00A0C336 /* ImageCornersGuideline.swift in Sources */,
