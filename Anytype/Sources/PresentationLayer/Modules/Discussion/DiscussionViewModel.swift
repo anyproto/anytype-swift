@@ -14,6 +14,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private var blockService: any BlockServiceProtocol
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
@@ -104,18 +106,41 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     private func updateMessages() {
         
-        let newMesageBlocks = messages.compactMap { message  in
-            MessageViewData(
+        let yourProfileIdentity = accountParticipantsStorage.participants.first?.identity
+        
+        let newMessageBlocks = messages.compactMap { message -> MessageViewData in
+            
+            let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
+                
+                let content: MessageReactionModelContent
+                
+                if value.ids.count == 1,
+                   let firstId = value.ids.first,
+                   let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) }) {
+                       content = .icon(icon)
+                   } else {
+                       content = .count(value.ids.count)
+                   }
+                
+                return MessageReactionModel(
+                    emoji: key,
+                    content: content,
+                    selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false
+                )
+            }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
+            
+            return MessageViewData(
                 spaceId: spaceId,
                 objectId: objectId,
                 chatId: chatId,
                 message: message,
-                participant: participants.first { $0.identity == message.creator }
+                participant: participants.first { $0.identity == message.creator },
+                reactions: reactions
             )
         }
         
-        guard newMesageBlocks != mesageBlocks else { return }
-        mesageBlocks = newMesageBlocks
+        guard newMessageBlocks != mesageBlocks else { return }
+        mesageBlocks = newMessageBlocks
         
         if scrollToLastForNextUpdate {
             messagesScrollUpdate = .scrollToLast

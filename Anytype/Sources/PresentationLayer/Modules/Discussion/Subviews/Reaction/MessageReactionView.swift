@@ -11,21 +11,28 @@ struct MessageReactionView: View {
         AsyncButton {
             try await onTap()
         } label: {
-            HStack(spacing: 2) {
+            HStack(spacing: 4) {
                 Text(model.emoji)
                 // Don't needed anytype style because emojy font will be replace to system
                     .font(.system(size: 18))
-                Text("\(model.count)")
-                    .anytypeFontStyle(.caption1Medium)
-                    .foregroundColor(.Text.primary)
-                    .padding(.horizontal, 5)
+                switch model.content {
+                case .count(let count):
+                    Text("\(count)")
+                        .anytypeFontStyle(.caption1Medium)
+                        .foregroundColor(.Text.primary)
+                        .frame(minWidth: 18)
+                case .icon(let icon):
+                    IconView(icon: icon)
+                        .frame(width: 20, height: 20)
+                }
+                
             }
             .dynamicTypeSize(.large)
             .frame(height: 32)
-            .padding(.horizontal, 6)
-            .background(model.selected ? Color.Button.inactive : Color.Background.highlightedMedium)
+            .padding(.horizontal, 8)
+            .background(model.selected ? Color.VeryLight.amber : Color.Background.highlightedMedium)
             .cornerRadius(16, style: .circular)
-            .border(16, color: model.selected ? Color.Button.button : Color.clear, lineWidth: 1)
+            .border(16, color: model.selected ? Color.System.amber50 : Color.clear, lineWidth: 1)
         }
     }
 }
@@ -33,11 +40,11 @@ struct MessageReactionView: View {
 #Preview {
     VStack {
         MessageReactionView(
-            model: MessageReactionModel(emoji: "😘", count: 4, selected: false),
+            model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false),
             onTap: {}
         )
         MessageReactionView(
-            model: MessageReactionModel(emoji: "😁", count: 4, selected: true),
+            model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true),
             onTap: {}
         )
     }
