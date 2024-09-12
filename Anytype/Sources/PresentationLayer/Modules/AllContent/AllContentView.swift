@@ -11,10 +11,11 @@ struct AllContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             TitleView(title: Loc.allContent)
+            types
             content
         }
-        .onAppear {
-            model.onAppear()
+        .task(id: model.state) {
+            await model.restartSubscription()
         }
         .onDisappear() {
             model.onDisappear()
@@ -32,6 +33,27 @@ struct AllContentView: View {
         }
         .scrollIndicators(.never)
         .scrollDismissesKeyboard(.immediately)
+    }
+    
+    private var types: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 20) {
+                ForEach(AllContentType.allCases, id: \.self) { type in
+                    Button {
+                        UISelectionFeedbackGenerator().selectionChanged()
+                        model.onTypeChanged(type)
+                    } label: {
+                        AnytypeText(
+                            type.title,
+                            style: .uxTitle2Medium
+                        )
+                        .foregroundColor(model.state.type == type ? Color.Button.button : Color.Button.active)
+                    }
+                }
+            }
+            .frame(height: 40)
+            .padding(.horizontal, 20)
+        }
     }
 }
 

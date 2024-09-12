@@ -5,6 +5,7 @@ import Services
 final class AllContentViewModel: ObservableObject {
 
     @Published var rows: [SearchObjectRowView.Model] = []
+    @Published var state = AllContentState()
     
     @Injected(\.allContentSubscriptionService)
     private var allContentSubscriptionService: any AllContentSubscriptionServiceProtocol
@@ -15,21 +16,20 @@ final class AllContentViewModel: ObservableObject {
         self.spaceId = spaceId
     }
     
-    func onAppear() {
-        startSubscription()
-    }
-    
     func onDisappear() {
         stopSubscription()
     }
     
-    private func startSubscription() {
-        Task {
-            await allContentSubscriptionService.startSubscription(
-                spaceId: spaceId
-            ) { [weak self] details in
-                self?.updateRows(with: details)
-            }
+    func onTypeChanged(_ type: AllContentType) {
+        state.type = type
+    }
+    
+    func restartSubscription() async {
+        await allContentSubscriptionService.startSubscription(
+            spaceId: spaceId,
+            supportedLayouts: state.type.supportedLayouts
+        ) { [weak self] details in
+            self?.updateRows(with: details)
         }
     }
     
