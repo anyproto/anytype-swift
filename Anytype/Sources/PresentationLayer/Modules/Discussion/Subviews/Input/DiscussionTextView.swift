@@ -40,6 +40,7 @@ struct DiscussionTextView: UIViewRepresentable {
             .paragraphStyle: paragraph,
             .kern: Constants.style.config.kern
         ]
+        textView.textColor = .Text.primary
         
         return textView
     }
