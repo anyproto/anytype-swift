@@ -686,6 +686,7 @@
 "Logout and clear data" = "Wyloguj i wyczyść dane";
 "New" = "Nowy";
 "Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";
