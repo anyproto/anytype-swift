@@ -4,10 +4,6 @@ import Services
 @MainActor
 final class DiscussionEmptyStateViewModel: ObservableObject {
     
-    @Published var title: String = ""
-    @Published var description: String = ""
-    @Published var icon: Icon?
-    
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
@@ -15,6 +11,13 @@ final class DiscussionEmptyStateViewModel: ObservableObject {
     private let document: any BaseDocumentProtocol
     private let onIconSelected: () -> Void
     private let onDone: () -> Void
+    
+    
+    @Published var title: String = ""
+    @Published var description: String = ""
+    @Published var icon: Icon?
+
+    private var dataLoaded = false
     
     init(objectId: String, onIconSelected: @escaping () -> Void, onDone: @escaping () -> Void) {
         self.document = openDocumentProvider.document(objectId: objectId)
@@ -24,8 +27,11 @@ final class DiscussionEmptyStateViewModel: ObservableObject {
     
     func startDetailsSubscription() async {
         for await details in document.detailsPublisher.values {
-            title = details.name
-            description = details.description
+            if !dataLoaded {
+                title = details.name
+                description = details.description
+            }
+            dataLoaded = true
             icon = details.objectIconImageWithPlaceholder
         }
     }

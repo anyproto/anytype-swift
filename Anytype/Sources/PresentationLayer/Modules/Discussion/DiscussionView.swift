@@ -9,13 +9,15 @@ struct DiscussionView: View {
     }
     
     var body: some View {
-        DiscussionSpacingContainer {
+        VStack(spacing: 0) {
             headerView
-            mainView
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                if model.canEdit {
-                    inputPanel
-                }
+            DiscussionSpacingContainer {
+                mainView
+                    .safeAreaInset(edge: .bottom, spacing: 0) {
+                        if model.canEdit {
+                            inputPanel
+                        }
+                    }
             }
         }
         .task {
@@ -55,7 +57,7 @@ struct DiscussionView: View {
         DiscussionHeader(
             syncStatusData: model.syncStatusData,
             icon: model.objectIcon,
-            title: model.title,
+            title: model.mesageBlocks.isEmpty ? "" : model.title,
             onSyncStatusTap: { model.onSyncStatusTap() },
             onSettingsTap: { model.onSettingsTap() }
         )
@@ -63,7 +65,7 @@ struct DiscussionView: View {
     
     @ViewBuilder
     private var mainView: some View {
-        if model.mesageBlocks.isEmpty {
+        if model.mesageBlocks.isEmpty && model.dataLoaded {
             DiscussionEmptyStateView(objectId: model.objectId) {
                 // TODO: On icon selected
             } onDone: {

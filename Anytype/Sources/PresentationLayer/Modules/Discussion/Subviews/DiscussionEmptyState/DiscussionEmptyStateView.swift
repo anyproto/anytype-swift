@@ -24,7 +24,7 @@ struct DiscussionEmptyStateView: View {
                     model.didTapIcon()
                 }
             Spacer.fixedHeight(20)
-            TextField("Untitled Chat", text: $model.title, axis: .vertical)
+            TextField(Loc.Message.ChatTitle.placeholder, text: $model.title, axis: .vertical)
                 .anytypeFontStyle(.title)
                 .foregroundStyle(Color.Text.primary)
                 .focused($focusedField, equals: .title)
@@ -39,7 +39,7 @@ struct DiscussionEmptyStateView: View {
                 }
             
             Spacer.fixedHeight(8)
-            TextField("Description", text: $model.description, axis: .vertical)
+            TextField(Loc.BlockText.ContentType.Description.placeholder, text: $model.description, axis: .vertical)
                 .anytypeFontStyle(.relation1Regular)
                 .foregroundStyle(Color.Text.primary)
                 .submitLabel(.next)

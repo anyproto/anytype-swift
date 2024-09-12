@@ -1203,3 +1203,4 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
