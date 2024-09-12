@@ -687,6 +687,7 @@
 "Logout and clear data" = "注销并清除数据";
 "New" = "新建";
 "Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";

@@ -687,6 +687,7 @@
 "Logout and clear data" = "登出並清除資料";
 "New" = "新增";
 "Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您確定要刪除您的帳戶嗎？";

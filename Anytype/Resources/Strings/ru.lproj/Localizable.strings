@@ -204,7 +204,7 @@
 "Favorites" = "Избранное";
 "Recent" = "Недавние";
 "Bin" = "Корзина";
-"All content" = "All content";
+"All content" = "Весь контент";
 
 // Settings
 "Wallpaper" = "Обои";
@@ -686,6 +686,7 @@
 "Logout and clear data" = "Выйти и очистить данные";
 "New" = "Новый";
 "Blurred icon" = "Размытая\n иконка";
+"My First Space" = "Моё первое пространство";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
