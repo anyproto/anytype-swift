@@ -188,4 +188,9 @@ final class SearchService: SearchServiceProtocol {
         
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
+    
+    func searchAll(text: String, spaceId: String) async throws -> [ObjectDetails] {
+        let filters = SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
+        return try await searchMiddleService.search(filters: filters, fullText: text)
+    }
 }

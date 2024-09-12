@@ -203,6 +203,16 @@ public class SearchHelper {
         return filter
     }
     
+    public static func objectsIds(_ objectsIds: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = objectsIds.protobufValue
+        
+        filter.relationKey = BundledRelationKey.id.rawValue
+        
+        return filter
+    }
+    
     public static func identityProfileLink(_ identityId: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal

@@ -12,10 +12,14 @@ struct AllContentView: View {
         VStack(spacing: 0) {
             TitleView(title: Loc.allContent)
             types
+            SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
             content
         }
         .task(id: model.state) {
             await model.restartSubscription()
+        }
+        .task(id: model.searchText) {
+            await model.search()
         }
         .onDisappear() {
             model.onDisappear()
