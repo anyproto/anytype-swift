@@ -8,7 +8,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     // MARK: - DI
     
     private let spaceId: String
-    private let objectId: String
+    let objectId: String
     private let chatId: String
     private weak var output: (any DiscussionModuleOutput)?
     
@@ -37,6 +37,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var title = ""
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     @Published var objectIcon: Icon?
+    @Published var inputFocused = false
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []

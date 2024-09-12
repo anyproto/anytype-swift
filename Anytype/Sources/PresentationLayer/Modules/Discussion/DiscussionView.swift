@@ -9,18 +9,12 @@ struct DiscussionView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        DiscussionSpacingContainer {
             headerView
-            DiscussionSpacingContainer {
-                DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
-                    MessageView(data: $0, output: model)
-                } scrollToBottom: {
-                    await model.scrollToBottom()
-                }
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    if model.canEdit {
-                        inputPanel
-                    }
+            mainView
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if model.canEdit {
+                    inputPanel
                 }
             }
         }
@@ -46,7 +40,7 @@ struct DiscussionView: View {
             MessageLinkInputViewContainer(objects: model.linkedObjects) {
                 model.onTapRemoveLinkedObject(details: $0)
             }
-            DiscusionInput(text: $model.message, hasAdditionalData: model.linkedObjects.isNotEmpty) {
+            DiscusionInput(text: $model.message, editing: $model.inputFocused, hasAdditionalData: model.linkedObjects.isNotEmpty) {
                 model.onTapAddObjectToMessage()
             } onTapSend: {
                 model.onTapSendMessage()
@@ -65,7 +59,23 @@ struct DiscussionView: View {
             onSyncStatusTap: { model.onSyncStatusTap() },
             onSettingsTap: { model.onSettingsTap() }
         )
-        
+    }
+    
+    @ViewBuilder
+    private var mainView: some View {
+        if model.mesageBlocks.isEmpty {
+            DiscussionEmptyStateView(objectId: model.objectId) {
+                // TODO: On icon selected
+            } onDone: {
+                model.inputFocused = true
+            }
+        } else {
+            DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
+                MessageView(data: $0, output: model)
+            } scrollToBottom: {
+                await model.scrollToBottom()
+            }
+        }
     }
 }
 
