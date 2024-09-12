@@ -34,4 +34,12 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
         guard let chatId else { return }
         showEmojiData = MessageReactionPickerData(chatObjectId: chatId, messageId: messageId)
     }
+    
+    func onSettingsSelected() {
+        // TODO: open settings
+    }
+    
+    func onSyncStatusSelected() {
+        // TODO: open sync status
+    }
 }
