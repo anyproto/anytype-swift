@@ -22,6 +22,9 @@ struct DiscussionCoordinatorView: View {
             .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
                 SyncStatusInfoView(spaceId: model.spaceId)
             }
+            .sheet(item: $model.objectIconPickerData) {
+                ObjectIconPicker(data: $0)
+            }
     }
     
     @ViewBuilder

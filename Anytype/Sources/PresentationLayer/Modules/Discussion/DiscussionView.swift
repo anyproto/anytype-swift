@@ -56,8 +56,8 @@ struct DiscussionView: View {
     private var headerView: some View {
         DiscussionHeader(
             syncStatusData: model.syncStatusData,
-            icon: model.objectIcon,
-            title: model.mesageBlocks.isEmpty ? "" : model.title,
+            icon: model.showTitleData ? model.objectIcon : nil,
+            title: model.showTitleData ? model.title : "",
             onSyncStatusTap: { model.onSyncStatusTap() },
             onSettingsTap: { model.onSettingsTap() }
         )
@@ -65,9 +65,9 @@ struct DiscussionView: View {
     
     @ViewBuilder
     private var mainView: some View {
-        if model.mesageBlocks.isEmpty && model.dataLoaded {
+        if model.showContentEmptyState {
             DiscussionEmptyStateView(objectId: model.objectId) {
-                // TODO: On icon selected
+                model.didTapIcon()
             } onDone: {
                 model.inputFocused = true
             }

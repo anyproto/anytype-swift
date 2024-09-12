@@ -6,4 +6,5 @@ protocol DiscussionModuleOutput: AnyObject {
     func didSelectAddReaction(messageId: String)
     func onSyncStatusSelected()
     func onSettingsSelected()
+    func onIconSelected()
 }

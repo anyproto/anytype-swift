@@ -39,7 +39,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var objectIcon: Icon?
     @Published var inputFocused = false
     @Published var dataLoaded = false
-    
+    var showTitleData: Bool { mesageBlocks.isNotEmpty }
+    var showContentEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
@@ -145,6 +146,10 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func onSettingsTap() {
         output?.onSettingsSelected()
+    }
+    
+    func didTapIcon() {
+        output?.onIconSelected()
     }
     
     // MARK: - Private
