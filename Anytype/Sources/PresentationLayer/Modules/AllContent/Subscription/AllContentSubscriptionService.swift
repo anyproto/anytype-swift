@@ -5,6 +5,8 @@ import Services
 protocol AllContentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
+        supportedLayouts: [DetailsLayout],
+        limitedObjectsIds: [String]?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async
     func stopSubscription() async
@@ -28,6 +30,8 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
     
     func startSubscription(
         spaceId: String,
+        supportedLayouts: [DetailsLayout],
+        limitedObjectsIds: [String]?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async {
         
@@ -39,7 +43,10 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
         let filters: [DataviewFilter] = .builder {
             SearchHelper.spaceId(spaceId)
             SearchHelper.notHiddenFilters()
-            SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles)
+            SearchHelper.layoutFilter(supportedLayouts)
+            if let limitedObjectsIds {
+                SearchHelper.objectsIds(limitedObjectsIds)
+            }
         }
         
         let searchData: SubscriptionData = .search(
