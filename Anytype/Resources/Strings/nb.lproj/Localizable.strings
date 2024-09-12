@@ -686,6 +686,7 @@
 "Logout and clear data" = "Logg ut og slett data";
 "New" = "Ny";
 "Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Er du sikker på at du vil slette hvelvet ditt?";
