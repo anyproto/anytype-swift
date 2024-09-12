@@ -46,7 +46,7 @@ struct DiscussionView: View {
             MessageLinkInputViewContainer(objects: model.linkedObjects) {
                 model.onTapRemoveLinkedObject(details: $0)
             }
-            DiscusionInput(text: $model.message) {
+            DiscusionInput(text: $model.message, hasAdditionalData: model.linkedObjects.isNotEmpty) {
                 model.onTapAddObjectToMessage()
             } onTapSend: {
                 model.onTapSendMessage()

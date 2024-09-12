@@ -67,9 +67,11 @@ private struct MessageInternalView: View {
                 headerSize = $0
             }
 
-            Text(model.message)
-                .anytypeStyle(.bodyRegular)
-                .foregroundColor(.Text.primary)
+            if model.message.isNotEmpty {
+                Text(model.message)
+                    .anytypeStyle(.bodyRegular)
+                    .foregroundColor(.Text.primary)
+            }
             
             if model.linkedObjects.isNotEmpty {
                 Spacer.fixedHeight(8)

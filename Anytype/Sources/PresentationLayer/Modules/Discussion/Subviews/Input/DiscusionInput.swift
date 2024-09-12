@@ -5,6 +5,7 @@ struct DiscusionInput: View {
     @Binding var text: AttributedString
     
     @State private var editing: Bool = false
+    let hasAdditionalData: Bool
     let onTapAddObject: () -> Void
     let onTapSend: () -> Void
     
@@ -30,7 +31,7 @@ struct DiscusionInput: View {
                 }
             }
             
-            if !text.isEmpty {
+            if hasAdditionalData || !text.isEmpty {
                 Button {
                     onTapSend()
                 } label: {
@@ -46,5 +47,5 @@ struct DiscusionInput: View {
 }
 
 #Preview {
-    DiscusionInput(text: .constant(AttributedString()), onTapAddObject: {}, onTapSend: {})
+    DiscusionInput(text: .constant(AttributedString()), hasAdditionalData: true, onTapAddObject: {}, onTapSend: {})
 }
