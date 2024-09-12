@@ -10,14 +10,17 @@ struct DiscussionCoordinatorView: View {
     
     var body: some View {
         chatView
+            .task {
+                await model.startHandleDetails()
+            }
             .sheet(item: $model.objectToMessageSearchData) {
                 BlockObjectSearchView(data: $0)
             }
             .sheet(item: $model.showEmojiData) {
                 MessageReactionPickerView(data: $0)
             }
-            .task {
-                await model.startHandleDetails()
+            .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
+                SyncStatusInfoView(spaceId: model.spaceId)
             }
     }
     

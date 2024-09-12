@@ -11,6 +11,7 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     @Published var objectToMessageSearchData: BlockObjectSearchData?
     @Published var showEmojiData: MessageReactionPickerData?
     @Published var chatId: String?
+    @Published var showSyncStatusInfo = false
     
     init(data: EditorDiscussionObject) {
         self.objectId = data.objectId
@@ -40,6 +41,6 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     }
     
     func onSyncStatusSelected() {
-        // TODO: open sync status
+        showSyncStatusInfo = true
     }
 }
