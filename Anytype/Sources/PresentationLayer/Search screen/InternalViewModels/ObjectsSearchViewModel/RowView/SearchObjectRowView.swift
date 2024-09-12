@@ -62,7 +62,8 @@ struct SearchObjectRowView: View {
 
 extension SearchObjectRowView {
     
-    struct Model {
+    struct Model: Hashable {
+        let id: String
         let icon: Icon?
         let title: String
         let subtitle: String?

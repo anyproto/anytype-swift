@@ -107,6 +107,7 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
                     viewBuilder:  {
                         SearchObjectRowView(
                             viewModel: SearchObjectRowView.Model(
+                                id: Constants.newObjectId, 
                                 icon: .asset(.X32.plus),
                                 title: Loc.Widgets.Actions.newObject,
                                 subtitle: nil,
@@ -161,6 +162,7 @@ private extension Array where Element == WidgetAnytypeLibrarySource {
 private extension SearchObjectRowView.Model {
     
     init(source: WidgetAnytypeLibrarySource) {
+        self.id = source.type.rawValue
         self.icon = source.icon
         self.title = source.name
         self.subtitle = source.description
@@ -173,6 +175,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
         let title = details.title
+        self.id = details.id
         self.icon = details.objectIconImage
         self.title = title
         self.subtitle = details.description

@@ -988,6 +988,7 @@
 		2E33F57D2C909E3F00CDC082 /* AllContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F57C2C909E3F00CDC082 /* AllContentView.swift */; };
 		2E33F57F2C909E4800CDC082 /* AllContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F57E2C909E4800CDC082 /* AllContentViewModel.swift */; };
 		2E33F5812C91D55C00CDC082 /* BaseDocumentProtocol+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F5802C91D55C00CDC082 /* BaseDocumentProtocol+Block.swift */; };
+		2E33F5862C91F01E00CDC082 /* AllContentSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F5852C91F01E00CDC082 /* AllContentSubscriptionService.swift */; };
 		2E37F01428C768B900337BD4 /* SetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* SetViewRow.swift */; };
 		2E3CCA0B28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CCA0A28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift */; };
 		2E3E0DDC29F1C2C9009F68D8 /* KeyboardToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3E0DDB29F1C2C9009F68D8 /* KeyboardToolbarView.swift */; };
@@ -2859,6 +2860,7 @@
 		2E33F57C2C909E3F00CDC082 /* AllContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentView.swift; sourceTree = "<group>"; };
 		2E33F57E2C909E4800CDC082 /* AllContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentViewModel.swift; sourceTree = "<group>"; };
 		2E33F5802C91D55C00CDC082 /* BaseDocumentProtocol+Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Block.swift"; sourceTree = "<group>"; };
+		2E33F5852C91F01E00CDC082 /* AllContentSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentSubscriptionService.swift; sourceTree = "<group>"; };
 		2E37F01328C768B900337BD4 /* SetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRow.swift; sourceTree = "<group>"; };
 		2E3CCA0A28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUIEditorSyncStatusItem.swift; sourceTree = "<group>"; };
 		2E3E0DDB29F1C2C9009F68D8 /* KeyboardToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarView.swift; sourceTree = "<group>"; };
@@ -7733,6 +7735,7 @@
 		2E33F5762C909CB900CDC082 /* AllContent */ = {
 			isa = PBXGroup;
 			children = (
+				2E33F5842C91EFFC00CDC082 /* Subscription */,
 				2E33F5772C909D2E00CDC082 /* Coordinator */,
 				2E33F57C2C909E3F00CDC082 /* AllContentView.swift */,
 				2E33F57E2C909E4800CDC082 /* AllContentViewModel.swift */,
@@ -7747,6 +7750,14 @@
 				2E33F57A2C909D6900CDC082 /* AllContentCoordinatorViewModel.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2E33F5842C91EFFC00CDC082 /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				2E33F5852C91F01E00CDC082 /* AllContentSubscriptionService.swift */,
+			);
+			path = Subscription;
 			sourceTree = "<group>";
 		};
 		2E412D0128466AC900C973FF /* Sorts */ = {
@@ -13037,6 +13048,7 @@
 				3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */,
 				3D24913627BD271900821595 /* DocumentUpdate.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
+				2E33F5862C91F01E00CDC082 /* AllContentSubscriptionService.swift in Sources */,
 				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
 				2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */,
 				125683D027DF14F5003A8251 /* TagsSearchInteractor.swift in Sources */,
