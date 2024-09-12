@@ -34,6 +34,7 @@ struct AllContentView: View {
                     selectionIndicatorViewModel: nil
                 )
             }
+            AnytypeNavigationSpacer(minHeight: 130)
         }
         .scrollIndicators(.never)
         .scrollDismissesKeyboard(.immediately)
