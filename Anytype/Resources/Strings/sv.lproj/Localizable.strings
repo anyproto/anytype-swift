@@ -686,6 +686,7 @@
 "Logout and clear data" = "Logga ut och rensa data";
 "New" = "New";
 "Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
