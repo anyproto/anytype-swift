@@ -11,6 +11,7 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     @Published var objectToMessageSearchData: BlockObjectSearchData?
     @Published var showEmojiData: MessageReactionPickerData?
     @Published var chatId: String?
+    @Published var showSyncStatusInfo = false
     
     init(data: EditorDiscussionObject) {
         self.objectId = data.objectId
@@ -33,5 +34,13 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     func didSelectAddReaction(messageId: String) {
         guard let chatId else { return }
         showEmojiData = MessageReactionPickerData(chatObjectId: chatId, messageId: messageId)
+    }
+    
+    func onSettingsSelected() {
+        // TODO: open settings
+    }
+    
+    func onSyncStatusSelected() {
+        showSyncStatusInfo = true
     }
 }

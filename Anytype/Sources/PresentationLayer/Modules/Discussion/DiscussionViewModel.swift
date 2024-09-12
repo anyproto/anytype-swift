@@ -18,6 +18,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private var chatService: any ChatServiceProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
@@ -32,6 +34,9 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var messagesScrollUpdate: DiscussionCollectionDiffApply = .auto
     @Published var message: AttributedString = ""
     @Published var canEdit = false
+    @Published var title = ""
+    @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
+    @Published var objectIcon: Icon?
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
@@ -65,9 +70,22 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         }
     }
     
-    func startHandlePermissions() async {
+    func subscribeOnPermissions() async {
         for await permissions in document.permissionsPublisher.values {
             canEdit = permissions.canEditMessages
+        }
+    }
+    
+    func subscribeOnDetails() async {
+        for await details in document.detailsPublisher.values {
+            title = details.title
+            objectIcon = details.objectIconImage
+        }
+    }
+    
+    func subscribeOnSyncStatus() async {
+        for await status in document.syncStatusDataPublisher.values {
+            syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
         }
     }
     
@@ -115,6 +133,14 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func scrollToBottom() async {
         try? await chatStorage.loadNextPage()
+    }
+    
+    func onSyncStatusTap() {
+        output?.onSyncStatusSelected()
+    }
+    
+    func onSettingsTap() {
+        output?.onSettingsSelected()
     }
     
     // MARK: - Private

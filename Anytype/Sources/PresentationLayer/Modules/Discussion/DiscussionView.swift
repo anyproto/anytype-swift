@@ -9,20 +9,29 @@ struct DiscussionView: View {
     }
     
     var body: some View {
-        DiscussionSpacingContainer {
-            DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
-                MessageView(data: $0, output: model)
-            } scrollToBottom: {
-                await model.scrollToBottom()
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                if model.canEdit {
-                    inputPanel
+        VStack(spacing: 0) {
+            headerView
+            DiscussionSpacingContainer {
+                DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
+                    MessageView(data: $0, output: model)
+                } scrollToBottom: {
+                    await model.scrollToBottom()
+                }
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    if model.canEdit {
+                        inputPanel
+                    }
                 }
             }
         }
         .task {
-            await model.startHandlePermissions()
+            await model.subscribeOnPermissions()
+        }
+        .task {
+            await model.subscribeOnDetails()
+        }
+        .task {
+            await model.subscribeOnSyncStatus()
         }
         .task {
             await model.subscribeOnParticipants()
@@ -46,6 +55,17 @@ struct DiscussionView: View {
         .overlay(alignment: .top) {
             AnytypeDivider()
         }
+    }
+    
+    private var headerView: some View {
+        DiscussionHeader(
+            syncStatusData: model.syncStatusData,
+            icon: model.objectIcon,
+            title: model.title,
+            onSyncStatusTap: { model.onSyncStatusTap() },
+            onSettingsTap: { model.onSettingsTap() }
+        )
+        
     }
 }
 
