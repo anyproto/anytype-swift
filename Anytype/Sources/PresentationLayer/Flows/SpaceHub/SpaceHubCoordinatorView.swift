@@ -54,13 +54,17 @@ struct SpaceHubCoordinatorView: View {
                 model.typeSearchForObjectCreationModule(spaceId: $0.value)
             }
             .sheet(item: $model.showChangeSourceData) {
-                WidgetChangeSourceSearchView(data: $0)
+                WidgetChangeSourceSearchView(data: $0) {
+                    model.onFinishChangeSource(screenData: $0)
+                }
             }
             .sheet(item: $model.showChangeTypeData) {
                 WidgetTypeChangeView(data: $0)
             }
             .sheet(item: $model.showCreateWidgetData) {
-                CreateWidgetCoordinatorView(data: $0)
+                CreateWidgetCoordinatorView(data: $0) {
+                    model.onFinishCreateSource(screenData: $0)
+                }
             }
             .sheet(item: $model.showSpaceSettingsData) {
                 SpaceSettingsCoordinatorView(workspaceInfo: $0)

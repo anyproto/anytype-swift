@@ -16,13 +16,13 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     private let widgetObjectId: String
     private let widgetId: String
     private let context: AnalyticsWidgetContext
-    private let onFinish: () -> Void
+    private let onFinish: (_ openObject: EditorScreenData?) -> Void
     
     init(
         widgetObjectId: String,
         widgetId: String,
         context: AnalyticsWidgetContext,
-        onFinish: @escaping () -> Void
+        onFinish: @escaping (_ openObject: EditorScreenData?) -> Void
     ) {
         self.widgetObjectId = widgetObjectId
         self.widgetId = widgetId
@@ -32,13 +32,13 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
 
     // MARK: - WidgetSourceSearchInternalViewModelProtocol
     
-    func onSelect(source: WidgetSource) {
+    func onSelect(source: WidgetSource, openObject: EditorScreenData?) {
         guard let info = document.widgetInfo(blockId: widgetId) else { return }
         
         AnytypeAnalytics.instance().logChangeWidgetSource(source: source.analyticsSource, route: .inner, context: context)
         
         guard info.source != source else {
-            onFinish()
+            onFinish(openObject)
             return
         }
         
@@ -48,7 +48,7 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
                 widgetBlockId: widgetId,
                 sourceId: source.sourceId
             )
-            onFinish()
+            onFinish(openObject)
         }
     }
 }
