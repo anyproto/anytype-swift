@@ -8,10 +8,12 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     private let document: any BaseDocumentProtocol
     let objectId: String
     let spaceId: String
+    
     @Published var objectToMessageSearchData: BlockObjectSearchData?
     @Published var showEmojiData: MessageReactionPickerData?
     @Published var chatId: String?
     @Published var showSyncStatusInfo = false
+    @Published var objectIconPickerData: ObjectIconPickerData?
     
     init(data: EditorDiscussionObject) {
         self.objectId = data.objectId
@@ -42,5 +44,9 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     
     func onSyncStatusSelected() {
         showSyncStatusInfo = true
+    }
+    
+    func onIconSelected() {
+        objectIconPickerData = ObjectIconPickerData(document: document)
     }
 }

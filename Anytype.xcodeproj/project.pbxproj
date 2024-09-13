@@ -909,6 +909,8 @@
 		2AFF7AC4299CDA6900B7746B /* BinSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */; };
 		2AFF7AC8299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC7299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift */; };
 		2AFF7ACC299D24C300B7746B /* DocumentViewModelSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7ACB299D24C300B7746B /* DocumentViewModelSetter.swift */; };
+		2AFFB4352C93233F00A606CB /* DiscussionEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFB4342C93233800A606CB /* DiscussionEmptyStateView.swift */; };
+		2AFFB4382C932AA000A606CB /* DiscussionEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFB4372C932A9E00A606CB /* DiscussionEmptyStateViewModel.swift */; };
 		2AFFFB842924DFC600A487E1 /* UIHelpersDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */; };
 		2AFFFB862924EE1000A487E1 /* ViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */; };
 		2AFFFB9F2927B05700A487E1 /* AccountEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */; };
@@ -2785,6 +2787,8 @@
 		2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinSubscriptionService.swift; sourceTree = "<group>"; };
 		2AFF7AC7299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeRelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		2AFF7ACB299D24C300B7746B /* DocumentViewModelSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelSetter.swift; sourceTree = "<group>"; };
+		2AFFB4342C93233800A606CB /* DiscussionEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionEmptyStateView.swift; sourceTree = "<group>"; };
+		2AFFB4372C932A9E00A606CB /* DiscussionEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionEmptyStateViewModel.swift; sourceTree = "<group>"; };
 		2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpersDI.swift; sourceTree = "<group>"; };
 		2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider.swift; sourceTree = "<group>"; };
 		2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEventHandler.swift; sourceTree = "<group>"; };
@@ -6543,6 +6547,7 @@
 		2A8317772C46B88200C2D369 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				2AFFB4362C932A9400A606CB /* DiscussionEmptyState */,
 				2A883C462C81DA0B0037095B /* DiscussionCollectionView.swift */,
 				2A64E24B2C579D2200DB56C4 /* LinkObject */,
 				2A4F81F62C5103DC00DEE559 /* Reaction */,
@@ -7524,6 +7529,15 @@
 				2AB508152AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift */,
 			);
 			path = Formatters;
+			sourceTree = "<group>";
+		};
+		2AFFB4362C932A9400A606CB /* DiscussionEmptyState */ = {
+			isa = PBXGroup;
+			children = (
+				2AFFB4372C932A9E00A606CB /* DiscussionEmptyStateViewModel.swift */,
+				2AFFB4342C93233800A606CB /* DiscussionEmptyStateView.swift */,
+			);
+			path = DiscussionEmptyState;
 			sourceTree = "<group>";
 		};
 		2AFFFB9D2927B02500A487E1 /* Account */ = {
@@ -12083,6 +12097,7 @@
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
 				2A845D752B0D027300AFD252 /* WidgetSwipeActionView.swift in Sources */,
 				2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */,
+				2AFFB4382C932AA000A606CB /* DiscussionEmptyStateViewModel.swift in Sources */,
 				2E999487294240C300FFBED9 /* SetDocumentProtocol.swift in Sources */,
 				2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */,
 				53CC99B3280DB6CC00C39CCF /* EventConfigurtion.swift in Sources */,
@@ -12957,6 +12972,7 @@
 				12EB9B2C27743D1700BA732F /* RelationFile.swift in Sources */,
 				3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */,
 				2E1AA8022BCFFCA50089B136 /* VaultViewModel.swift in Sources */,
+				2AFFB4352C93233F00A606CB /* DiscussionEmptyStateView.swift in Sources */,
 				2E2EA2CC2A5339CE00569E1E /* DotsView.swift in Sources */,
 				2A673C0B29B0B26D00E3D672 /* SettingsCoordinatorViewModel.swift in Sources */,
 				2ADD14EF2AE2B9A50060BC33 /* HomeCreateObjectTip.swift in Sources */,

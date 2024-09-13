@@ -8,7 +8,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     // MARK: - DI
     
     private let spaceId: String
-    private let objectId: String
+    let objectId: String
     private let chatId: String
     private weak var output: (any DiscussionModuleOutput)?
     
@@ -37,6 +37,10 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var title = ""
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     @Published var objectIcon: Icon?
+    @Published var inputFocused = false
+    @Published var dataLoaded = false
+    var showTitleData: Bool { mesageBlocks.isNotEmpty }
+    var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
@@ -99,6 +103,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         try await chatStorage.startSubscription()
         for await messages in await chatStorage.messagesPublisher.values {
             self.messages = messages
+            self.dataLoaded = true
             updateMessages()
             scrollToLastForNextUpdate = false
         }
@@ -141,6 +146,10 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func onSettingsTap() {
         output?.onSettingsSelected()
+    }
+    
+    func didTapIcon() {
+        output?.onIconSelected()
     }
     
     // MARK: - Private

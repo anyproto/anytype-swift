@@ -12,16 +12,12 @@ struct DiscussionView: View {
         VStack(spacing: 0) {
             headerView
             DiscussionSpacingContainer {
-                DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
-                    MessageView(data: $0, output: model)
-                } scrollToBottom: {
-                    await model.scrollToBottom()
-                }
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    if model.canEdit {
-                        inputPanel
+                mainView
+                    .safeAreaInset(edge: .bottom, spacing: 0) {
+                        if model.canEdit {
+                            inputPanel
+                        }
                     }
-                }
             }
         }
         .task {
@@ -46,7 +42,7 @@ struct DiscussionView: View {
             MessageLinkInputViewContainer(objects: model.linkedObjects) {
                 model.onTapRemoveLinkedObject(details: $0)
             }
-            DiscusionInput(text: $model.message, hasAdditionalData: model.linkedObjects.isNotEmpty) {
+            DiscusionInput(text: $model.message, editing: $model.inputFocused, hasAdditionalData: model.linkedObjects.isNotEmpty) {
                 model.onTapAddObjectToMessage()
             } onTapSend: {
                 model.onTapSendMessage()
@@ -60,12 +56,28 @@ struct DiscussionView: View {
     private var headerView: some View {
         DiscussionHeader(
             syncStatusData: model.syncStatusData,
-            icon: model.objectIcon,
-            title: model.title,
+            icon: model.showTitleData ? model.objectIcon : nil,
+            title: model.showTitleData ? model.title : "",
             onSyncStatusTap: { model.onSyncStatusTap() },
             onSettingsTap: { model.onSettingsTap() }
         )
-        
+    }
+    
+    @ViewBuilder
+    private var mainView: some View {
+        if model.showEmptyState {
+            DiscussionEmptyStateView(objectId: model.objectId) {
+                model.didTapIcon()
+            } onDone: {
+                model.inputFocused = true
+            }
+        } else {
+            DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
+                MessageView(data: $0, output: model)
+            } scrollToBottom: {
+                await model.scrollToBottom()
+            }
+        }
     }
 }
 
