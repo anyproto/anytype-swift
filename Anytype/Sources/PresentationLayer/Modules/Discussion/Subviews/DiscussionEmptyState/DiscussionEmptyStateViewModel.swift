@@ -40,22 +40,18 @@ final class DiscussionEmptyStateViewModel: ObservableObject {
         onIconSelected()
     }
     
-    func titleUpdated() {
-        Task {
-            try await objectActionsService.updateBundledDetails(
-                contextID: document.objectId,
-                details: [.name(title)]
-            )
-        }
+    func titleUpdated() async throws {
+        try await objectActionsService.updateBundledDetails(
+            contextID: document.objectId,
+            details: [.name(title)]
+        )
     }
     
-    func descriptionUpdated() {
-        Task {
-            try await objectActionsService.updateBundledDetails(
-                contextID: document.objectId,
-                details: [.description(description)]
-            )
-        }
+    func descriptionUpdated() async throws {
+        try await objectActionsService.updateBundledDetails(
+            contextID: document.objectId,
+            details: [.description(description)]
+        )
     }
     
     func didTapDone() {

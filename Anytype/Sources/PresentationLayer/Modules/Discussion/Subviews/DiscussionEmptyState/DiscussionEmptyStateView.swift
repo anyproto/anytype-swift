@@ -32,10 +32,9 @@ struct DiscussionEmptyStateView: View {
                 .onChange(of: model.title) { newValue in
                     // onSubmit doesn't work if axis == .vertical
                     if newValue.last == "\n" {
-                        model.title.removeLast()
+                        model.title = newValue.replacingOccurrences(of: "\n", with: "")
                         focusedField = .description
                     }
-                    model.titleUpdated()
                 }
             
             Spacer.fixedHeight(8)
@@ -47,16 +46,21 @@ struct DiscussionEmptyStateView: View {
                 .onChange(of: model.description) { newValue in
                     // onSubmit doesn't work if axis == .vertical
                     if newValue.last == "\n" {
-                        model.description.removeLast()
+                        model.description = newValue.replacingOccurrences(of: "\n", with: "")
                         model.didTapDone()
                     }
-                    model.descriptionUpdated()
                 }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 25)
         .task {
             await model.startDetailsSubscription()
+        }
+        .throwingTask(id: model.title) {
+            try await model.titleUpdated()
+        }
+        .throwingTask(id: model.description) {
+            try await model.descriptionUpdated()
         }
         .onAppear {
             focusedField = .title
