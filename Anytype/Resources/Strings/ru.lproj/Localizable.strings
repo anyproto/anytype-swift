@@ -146,6 +146,8 @@
 "Relations" = "Свойства";
 "History" = "История";
 "Objects" = "Объекты";
+"Bookmarks" = "Bookmarks";
+"Files" = "Files";
 "Lists" = "Списки";
 "Pinned" = "Закреплённые";
 "Delete" = "Удалить";
@@ -979,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Ваш запрос на присоединение к **%@** пространству был одобрен с **%@** правами доступа. Пространство будет доступно на вашем устройстве в ближайшее время.";
 "ParticipantRequestDeclineNotification.Text" = "Ваш запрос присоединиться к пространству **%@** был отклонен.";
 "RequestToLeaveNotification.Text" = "**%@** хочет покинуть пространство **%@**.";
-"ParticipantRemoveNotification.Text" = "Вы были удалены из пространства, или оно было удалено владельцем.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** сделал запрос на присоединение к пространству **%@**";
 "RequestToJoinNotification.GoToSpace" = "Перейти в пространство";
 "RequestToJoinNotification.ViewRequest" = "Посмотреть запрос";
@@ -1206,3 +1208,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "Добавить реакцию";
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";
