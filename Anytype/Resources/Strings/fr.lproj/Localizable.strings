@@ -204,6 +204,7 @@
 "Favorites" = "Favoris";
 "Recent" = "Récent";
 "Bin" = "Corbeille";
+"All content" = "Tout le contenu";
 
 // Settings
 "Wallpaper" = "Fond d'écran";
@@ -684,7 +685,8 @@
 "Cancel deletion" = "Annuler la suppression";
 "Logout and clear data" = "Se déconnecter et effacer les données";
 "New" = "Nouveau";
-"Blurred icon" = "Blurred\n icon";
+"Blurred icon" = "Icône\n floue";
+"My First Space" = "Mon premier espace";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";

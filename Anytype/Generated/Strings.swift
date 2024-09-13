@@ -58,6 +58,7 @@ internal enum Loc {
   internal static let blurredIcon = Loc.tr("Localizable", "Blurred icon")
   internal static let bookmark = Loc.tr("Localizable", "Bookmark")
   internal static let bookmarkBlockSubtitle = Loc.tr("Localizable", "Bookmark block subtitle")
+  internal static let bookmarks = Loc.tr("Localizable", "Bookmarks")
   internal static let callout = Loc.tr("Localizable", "Callout")
   internal static let cancel = Loc.tr("Localizable", "Cancel")
   internal static let cancelDeletion = Loc.tr("Localizable", "Cancel deletion")
@@ -143,6 +144,7 @@ internal enum Loc {
   internal static let featuredRelations = Loc.tr("Localizable", "Featured relations")
   internal static let file = Loc.tr("Localizable", "File")
   internal static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle")
+  internal static let files = Loc.tr("Localizable", "Files")
   internal static let filter = Loc.tr("Localizable", "Filter")
   internal static let forever = Loc.tr("Localizable", "Forever")
   internal static let foreverFree = Loc.tr("Localizable", "Forever free")
@@ -192,6 +194,7 @@ internal enum Loc {
   internal static let move = Loc.tr("Localizable", "Move")
   internal static let moveTo = Loc.tr("Localizable", "Move to")
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin")
+  internal static let myFirstSpace = Loc.tr("Localizable", "My First Space")
   internal static let myself = Loc.tr("Localizable", "Myself")
   internal static let name = Loc.tr("Localizable", "Name")
   internal static let new = Loc.tr("Localizable", "New")
@@ -422,6 +425,15 @@ internal enum Loc {
     internal enum CameraPermissions {
       internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings")
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings")
+    }
+  }
+  internal enum AllContent {
+    internal enum Mode {
+      internal static let unlinked = Loc.tr("Localizable", "AllContent.Mode.Unlinked")
+    }
+    internal enum Sort {
+      internal static let dateCreated = Loc.tr("Localizable", "AllContent.Sort.DateCreated")
+      internal static let dateUpdated = Loc.tr("Localizable", "AllContent.Sort.DateUpdated")
     }
   }
   internal enum Auth {
@@ -1081,7 +1093,9 @@ internal enum Loc {
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall")
   }
   internal enum ParticipantRemoveNotification {
-    internal static let text = Loc.tr("Localizable", "ParticipantRemoveNotification.Text")
+    internal static func text(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "ParticipantRemoveNotification.Text", String(describing: p1))
+    }
   }
   internal enum ParticipantRequestApprovedNotification {
     internal static func text(_ p1: Any, _ p2: Any) -> String {

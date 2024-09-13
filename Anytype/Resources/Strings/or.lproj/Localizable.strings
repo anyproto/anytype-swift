@@ -204,6 +204,7 @@
 "Favorites" = "ପସନ୍ଦ";
 "Recent" = "ଏବେକାର";
 "Bin" = "ବିନ";
+"All content" = "All content";
 
 // Settings
 "Wallpaper" = "ୱାଲପେପର୍‌";
@@ -687,6 +688,7 @@
 "Logout and clear data" = "Logout and clear data";
 "New" = "New";
 "Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

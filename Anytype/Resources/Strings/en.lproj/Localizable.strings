@@ -146,6 +146,8 @@
 "Relations" = "Relations";
 "History" = "History";
 "Objects" = "Objects";
+"Bookmarks" = "Bookmarks";
+"Files" = "Files";
 "Lists" = "Lists";
 "Pinned" = "Pinned";
 "Delete" = "Delete";
@@ -686,6 +688,7 @@
 "Logout and clear data" = "Logout and clear data";
 "New" = "New";
 "Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -822,7 +825,6 @@
 "Widgets.Library.RecentlyEdited.Name" = "Recently edited";
 "Widgets.Library.RecentlyOpened.Name" = "Recently opened";
 "Widgets.Library.RecentlyOpened.Description" = "On this device";
-"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "Anytype is ready to update";
 "Widgets.Source.Library" = "Default sets";
 "Widgets.Source.Objects" = "Your objects";
@@ -979,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
 "RequestToJoinNotification.GoToSpace" = "Go to Space";
 "RequestToJoinNotification.ViewRequest" = "View request";
@@ -1203,4 +1205,8 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
-"Message.ChatTitle.Placeholder" = "Untitled Chat";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

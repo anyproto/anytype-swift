@@ -24,7 +24,7 @@ extension SpacePermissions {
         canLeave = !isOwner && spaceView.isActive && !isLocalMode
         canBeDelete = (isOwner && (spaceView.spaceAccessType == .private || spaceView.spaceAccessType == .shared))
                         || (!isOwner && spaceView.accountStatus == .spaceRemoving)
-        canBeArchive = spaceView.accountStatus == .spaceRemoving
+        canBeArchive = spaceView.isActive
         canCancelJoinRequest = spaceView.accountStatus == .spaceJoining
         canDeleteLink = isOwner && !isLocalMode
         canEditPermissions = isOwner && !isLocalMode

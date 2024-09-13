@@ -51,7 +51,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     // MARK: - Private
     private func startSubscriptions() {
-        participantSpacesStorage.activeParticipantSpacesPublisher
+        participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher
             .receiveOnMain()
             .sink { [weak self] spaces in
                 guard let self else { return }

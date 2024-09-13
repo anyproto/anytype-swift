@@ -203,6 +203,16 @@ public class SearchHelper {
         return filter
     }
     
+    public static func objectsIds(_ objectsIds: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = objectsIds.protobufValue
+        
+        filter.relationKey = BundledRelationKey.id.rawValue
+        
+        return filter
+    }
+    
     public static func identityProfileLink(_ identityId: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
@@ -298,6 +308,13 @@ public class SearchHelper {
         }
     }
     
+    public static func onlyUnlinked() -> [DataviewFilter] {
+        .builder {
+            SearchHelper.emptyLinks()
+            SearchHelper.emptyBacklinks()
+        }
+    }
+    
     // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {
@@ -306,6 +323,22 @@ public class SearchHelper {
         filter.value = type.protobufValue
         filter.relationKey = BundledRelationKey.targetObjectType.rawValue
 
+        return filter
+    }
+    
+    private static func emptyLinks() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .empty
+        filter.relationKey = BundledRelationKey.links.rawValue
+        
+        return filter
+    }
+    
+    private static func emptyBacklinks() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .empty
+        filter.relationKey = BundledRelationKey.backlinks.rawValue
+        
         return filter
     }
 }

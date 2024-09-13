@@ -204,6 +204,7 @@
 "Favorites" = "Favoriten";
 "Recent" = "Kürzlich";
 "Bin" = "Papierkorb";
+"All content" = "Gesamter Inhalt";
 
 // Settings
 "Wallpaper" = "Hintergrundbild";
@@ -684,7 +685,8 @@
 "Cancel deletion" = "Löschung abbrechen";
 "Logout and clear data" = "Abmelden und Daten löschen";
 "New" = "Neu";
-"Blurred icon" = "Blurred\n icon";
+"Blurred icon" = "Unscharfes\n Symbol";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";

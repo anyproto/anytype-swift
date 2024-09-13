@@ -315,4 +315,8 @@ extension Container {
     var spaceSetupManager: Factory<any SpaceSetupManagerProtocol> {
         self { SpaceSetupManager() }.singleton
     }
+    
+    var allContentSubscriptionService: Factory<any AllContentSubscriptionServiceProtocol> {
+        self { AllContentSubscriptionService() }
+    }
 }

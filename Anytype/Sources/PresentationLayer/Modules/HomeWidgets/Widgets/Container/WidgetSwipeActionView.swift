@@ -51,27 +51,33 @@ struct WidgetSwipeActionView<Content: View>: View {
     
     var body: some View {
         ZStack {
-            if dragOffsetX > 0 {
-                ZStack(alignment: .trailing) {
-                    Color.Widget.actionsBackground
-                        .cornerRadius(16, style: .continuous)
-                    
-                    if isEnable {
-                        VStack(spacing: 0) {
-                            Image(asset: .X32.plus)
-                                .foregroundColor(.Text.white)
-                            if showTitle {
-                                AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium)
+                    ZStack(alignment: .trailing) {
+                        Color.Widget.actionsBackground
+                            .cornerRadius(16, style: .continuous)
+                        
+                        if isEnable {
+                            VStack(spacing: 0) {
+                                Image(asset: .X32.plus)
                                     .foregroundColor(.Text.white)
+                                if showTitle {
+                                    AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium)
+                                        .foregroundColor(.Text.white)
+                                }
                             }
+                            .frame(width: 96)
+                            .padding(.trailing, 18)
+                            .opacity(percent)
+                            .scaleEffect(CGSize(width: percent, height: percent))
                         }
-                        .frame(width: 96)
-                        .padding(.trailing, 18)
-                        .opacity(percent)
-                        .scaleEffect(CGSize(width: percent, height: percent))
                     }
-                }
-            }
+                    .mask {
+                        Rectangle()
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 16)
+                                    .offset(x: -contentOffset)
+                                    .blendMode(.destinationOut)
+                            }
+                    }
             
             content
                 .offset(x: -contentOffset)

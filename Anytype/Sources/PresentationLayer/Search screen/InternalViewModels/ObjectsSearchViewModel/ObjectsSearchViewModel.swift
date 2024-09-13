@@ -122,6 +122,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
         let title = details.title
+        self.id = details.id
         self.icon = details.objectIconImage
         self.title = title
         self.subtitle = details.objectType.name

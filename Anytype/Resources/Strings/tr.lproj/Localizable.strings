@@ -204,6 +204,7 @@
 "Favorites" = "Favoriler";
 "Recent" = "En son";
 "Bin" = "Çöp kutusu";
+"All content" = "Tüm içerik";
 
 // Settings
 "Wallpaper" = "Duvar kağıdı";
@@ -517,7 +518,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Bu sorgu sadece masaüstünde değiştirilebilir";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Kümeyi Koleksiyona dönüştür";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Seti koleksiyona dönüştür";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Sorguyu değiştir";
 
 // MARK: - Collection: empty view
@@ -576,7 +577,7 @@
 "Deselect all" = "Tüm seçimi kaldır";
 "Deselect" = "Seçimi kaldır";
 "Shared" = "Paylaşılan";
-"Sets" = "Küme";
+"Sets" = "Setler";
 "Collections" = "Koleksiyonlar";
 "Default object type" = "Varsayılan nesne türü";
 "Personalization" = "Kişiselleştirme";
@@ -684,7 +685,8 @@
 "Cancel deletion" = "Silme işlemini iptal et";
 "Logout and clear data" = "Oturumu kapat ve verileri temizle";
 "New" = "Yeni";
-"Blurred icon" = "Blurred\n icon";
+"Blurred icon" = "Bulanık\n simge";
+"My First Space" = "Benim İlk Alanım";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
@@ -779,7 +781,7 @@
 "Content.Common.Error" = "Bir şeyler ters gitti tekrar deneyin.";
 "Content.Bookmark.Add" = "Bir web yer imi ekle";
 "Content.Bookmark.Loading" = "Yükleniyor, lütfen bekleyin...";
-"Content.DataView.InlineSet.Subtitle" = "Satır içi küme";
+"Content.DataView.InlineSet.Subtitle" = "Satır içi set";
 "Content.DataView.InlineCollection.Subtitle" = "Satır içi koleksiyon";
 "Content.DataView.InlineSet.NoSource" = "Kaynak yok";
 "Content.DataView.InlineSet.NoData" = "Veri Yok";

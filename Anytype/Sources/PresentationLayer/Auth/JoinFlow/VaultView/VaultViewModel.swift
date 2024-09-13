@@ -17,6 +17,8 @@ final class VaultViewModel: ObservableObject {
     private var seedService: any SeedServiceProtocol
     @Injected(\.usecaseService)
     private var usecaseService: any UsecaseServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     
     init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         self.state = state
@@ -49,6 +51,7 @@ final class VaultViewModel: ObservableObject {
                     imagePath: ""
                 )
                 try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
+                try? await workspaceService.workspaceSetDetails(spaceId: account.info.accountSpaceId, details: [.name(Loc.myFirstSpace)])
                 try? seedService.saveSeed(state.mnemonic)
                 
                 onSuccess()

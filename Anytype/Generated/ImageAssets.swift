@@ -192,6 +192,9 @@ internal extension ImageAsset {
       static let table = ImageAsset.bundle(name: "x24/View/Table")
     }
   }
+  enum X28 {
+    static let sort = ImageAsset.bundle(name: "x28/Sort")
+  }
   enum X32 {
     static let actions = ImageAsset.bundle(name: "x32/Actions")
     static let actions2 = ImageAsset.bundle(name: "x32/Actions2")

@@ -204,6 +204,7 @@
 "Favorites" = "Favorit";
 "Recent" = "Baru-Baru Ini";
 "Bin" = "Bak Sampah";
+"All content" = "All content";
 
 // Settings
 "Wallpaper" = "Latar belakang";
@@ -685,6 +686,7 @@
 "Logout and clear data" = "Keluar dan bersihkan data";
 "New" = "Baru";
 "Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
