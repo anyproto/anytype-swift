@@ -146,6 +146,8 @@
 "Relations" = "Relaties";
 "History" = "Geschiedenis";
 "Objects" = "Objecten";
+"Bookmarks" = "Bookmarks";
+"Files" = "Bestanden";
 "Lists" = "Lijsten";
 "Pinned" = "Vastgezet";
 "Delete" = "Verwijder";
@@ -980,7 +982,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Jouw verzoek om deel te nemen aan de ruimte **%@** is goedgekeurd met **%@** toegangsrechten. De ruimte zal binnenkort beschikbaar zijn op jouw apparaat.";
 "ParticipantRequestDeclineNotification.Text" = "Jouw verzoek om deel te nemen aan de ruimte**%@** is afgewezen.";
 "RequestToLeaveNotification.Text" = "**%@** wil de ruimte **%@** verlaten.";
-"ParticipantRemoveNotification.Text" = "Je werd verwijderd uit de ruimte, of de ruimte werd verwijderd door de eigenaar.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** heeft verzocht om aan de ruimte **%@** deel te nemen.";
 "RequestToJoinNotification.GoToSpace" = "Ga naar ruimte";
 "RequestToJoinNotification.ViewRequest" = "Bekijk verzoek";
@@ -1205,3 +1207,8 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";
