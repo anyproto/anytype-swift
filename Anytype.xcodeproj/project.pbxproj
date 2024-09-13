@@ -991,6 +991,8 @@
 		2E33F5862C91F01E00CDC082 /* AllContentSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F5852C91F01E00CDC082 /* AllContentSubscriptionService.swift */; };
 		2E33F5882C930B9400CDC082 /* AllContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F5872C930B9300CDC082 /* AllContentType.swift */; };
 		2E33F58A2C93120A00CDC082 /* AllContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F5892C93120A00CDC082 /* AllContentState.swift */; };
+		2E33F58C2C9342A200CDC082 /* AllContentSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F58B2C9342A200CDC082 /* AllContentSort.swift */; };
+		2E33F58E2C9459B500CDC082 /* AllContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E33F58D2C9459B500CDC082 /* AllContentMode.swift */; };
 		2E37F01428C768B900337BD4 /* SetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* SetViewRow.swift */; };
 		2E3CCA0B28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CCA0A28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift */; };
 		2E3E0DDC29F1C2C9009F68D8 /* KeyboardToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3E0DDB29F1C2C9009F68D8 /* KeyboardToolbarView.swift */; };
@@ -2865,6 +2867,8 @@
 		2E33F5852C91F01E00CDC082 /* AllContentSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentSubscriptionService.swift; sourceTree = "<group>"; };
 		2E33F5872C930B9300CDC082 /* AllContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentType.swift; sourceTree = "<group>"; };
 		2E33F5892C93120A00CDC082 /* AllContentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentState.swift; sourceTree = "<group>"; };
+		2E33F58B2C9342A200CDC082 /* AllContentSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentSort.swift; sourceTree = "<group>"; };
+		2E33F58D2C9459B500CDC082 /* AllContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentMode.swift; sourceTree = "<group>"; };
 		2E37F01328C768B900337BD4 /* SetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRow.swift; sourceTree = "<group>"; };
 		2E3CCA0A28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUIEditorSyncStatusItem.swift; sourceTree = "<group>"; };
 		2E3E0DDB29F1C2C9009F68D8 /* KeyboardToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarView.swift; sourceTree = "<group>"; };
@@ -7745,6 +7749,8 @@
 				2E33F57E2C909E4800CDC082 /* AllContentViewModel.swift */,
 				2E33F5872C930B9300CDC082 /* AllContentType.swift */,
 				2E33F5892C93120A00CDC082 /* AllContentState.swift */,
+				2E33F58B2C9342A200CDC082 /* AllContentSort.swift */,
+				2E33F58D2C9459B500CDC082 /* AllContentMode.swift */,
 			);
 			path = AllContent;
 			sourceTree = "<group>";
@@ -11516,6 +11522,7 @@
 				2AFF7AC4299CDA6900B7746B /* BinSubscriptionService.swift in Sources */,
 				2A65E9B42AE1294900D40657 /* InitialCoordinatorViewModel.swift in Sources */,
 				2A8302BD2B07A058002D6655 /* AnytypeNavigationAdditionalSafeArea.swift in Sources */,
+				2E33F58C2C9342A200CDC082 /* AllContentSort.swift in Sources */,
 				2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */,
 				129C54C927FC4EA200C390C7 /* NewRelationView.swift in Sources */,
 				2A62B71F2BA84336001EAD28 /* RequestToLeaveNotificationViewModel.swift in Sources */,
@@ -12594,6 +12601,7 @@
 				3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				2E967CA92C4FE9A900394C09 /* VersionHistoryDateFormatter.swift in Sources */,
+				2E33F58E2C9459B500CDC082 /* AllContentMode.swift in Sources */,
 				2E6CF1602BE111C7002C7023 /* RelationsSearchCoordinatorView.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
 				53F7441927F4A119005C9BB0 /* AnytypePopupViewModel.swift in Sources */,

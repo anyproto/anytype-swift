@@ -427,6 +427,15 @@ internal enum Loc {
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings")
     }
   }
+  internal enum AllContent {
+    internal enum Mode {
+      internal static let unlinked = Loc.tr("Localizable", "AllContent.Mode.Unlinked")
+    }
+    internal enum Sort {
+      internal static let dateCreated = Loc.tr("Localizable", "AllContent.Sort.DateCreated")
+      internal static let dateUpdated = Loc.tr("Localizable", "AllContent.Sort.DateUpdated")
+    }
+  }
   internal enum Auth {
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle")
     internal static let logIn = Loc.tr("Localizable", "Auth.LogIn")

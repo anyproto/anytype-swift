@@ -21,8 +21,10 @@ final class AllContentViewModel: ObservableObject {
     
     func restartSubscription() async {
         await allContentSubscriptionService.startSubscription(
-            spaceId: spaceId,
-            supportedLayouts: state.type.supportedLayouts,
+            spaceId: spaceId, 
+            sorts: [state.sort.asDataviewSort()],
+            supportedLayouts: state.type.supportedLayouts, 
+            onlyUnlinked: state.mode == .unlinked,
             limitedObjectsIds: state.limitedObjectsIds
         ) { [weak self] details in
             self?.updateRows(with: details)
@@ -46,8 +48,21 @@ final class AllContentViewModel: ObservableObject {
         }
     }
     
+    func onModeChanged(_ mode: AllContentMode) {
+        state.mode = mode
+    }
+    
     func onTypeChanged(_ type: AllContentType) {
         state.type = type
+    }
+    
+    func onSortChanged(_ sortRelation: AllContentSort.Relation) {
+        if state.sort.relation == sortRelation {
+            let type: DataviewSort.TypeEnum = state.sort.type == .asc ? .desc : .asc
+            state.sort = AllContentSort(relation: sortRelation, type: type)
+        } else {
+            state.sort = AllContentSort(relation: sortRelation)
+        }
     }
     
     func onDisappear() {
