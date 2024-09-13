@@ -130,7 +130,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             switchSpace(info: info)
         }
     }
-
+    
     // MARK: - Private
     
     private func startSubscriptions() {
@@ -313,10 +313,7 @@ extension SpaceHubCoordinatorViewModel: HomeWidgetsModuleOutput {
             widgetObjectId: spaceInfo.widgetsId,
             spaceId: spaceInfo.accountSpaceId,
             widgetId: widgetId,
-            context: context,
-            onFinish: { [weak self] in
-                self?.showChangeSourceData = nil
-            }
+            context: context
         )
     }
 
@@ -350,6 +347,19 @@ extension SpaceHubCoordinatorViewModel: HomeWidgetsModuleOutput {
     
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
         setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
+    }
+    
+    func onFinishChangeSource(screenData: EditorScreenData?) {
+        showChangeSourceData = nil
+        if let screenData {
+            openObject(screenData: screenData)
+        }
+    }
+    
+    func onFinishCreateSource(screenData: EditorScreenData?) {
+        if let screenData {
+            openObject(screenData: screenData)
+        }
     }
 }
 
