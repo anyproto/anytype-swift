@@ -10,7 +10,7 @@ struct AllContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TitleView(title: Loc.allContent)
+            navigationBar
             types
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
             content
@@ -23,6 +23,47 @@ struct AllContentView: View {
         }
         .onDisappear() {
             model.onDisappear()
+        }
+    }
+    
+    private var navigationBar: some View {
+        HStack(alignment: .center, spacing: 0) {
+            Spacer()
+            AnytypeText(Loc.allContent, style: .uxTitle1Semibold)
+            Spacer()
+        }
+        .overlay(alignment: .leading) {
+            sortsMenu
+        }
+        .frame(height: 48)
+        .padding(.horizontal, 16)
+    }
+    
+    private var sortsMenu: some View {
+        Menu {
+            ForEach(AllContentSort.Relation.allCases, id: \.self) { sortRelation in
+                Button {
+                    model.onSortChanged(sortRelation)
+                } label: {
+                    HStack(spacing: 0) {
+                        AnytypeText(
+                            sortRelation.title,
+                            style: .uxTitle2Medium
+                        )
+                        .foregroundColor(.Button.button)
+                        
+                        Spacer()
+                        
+                        if model.state.sort.relation == sortRelation {
+                            Image(asset: model.state.sort.type == .asc ? .X24.Arrow.down : .X24.Arrow.up)
+                                .foregroundColor(.Text.primary)
+                        }
+                    }
+                }
+            }
+        } label: {
+            Image(asset: .X28.sort)
+                .foregroundColor(.Button.active)
         }
     }
     

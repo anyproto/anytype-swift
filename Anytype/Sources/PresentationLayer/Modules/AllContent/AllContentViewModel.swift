@@ -21,7 +21,8 @@ final class AllContentViewModel: ObservableObject {
     
     func restartSubscription() async {
         await allContentSubscriptionService.startSubscription(
-            spaceId: spaceId,
+            spaceId: spaceId, 
+            sorts: [state.sort.asDataviewSort()],
             supportedLayouts: state.type.supportedLayouts,
             limitedObjectsIds: state.limitedObjectsIds
         ) { [weak self] details in
@@ -48,6 +49,15 @@ final class AllContentViewModel: ObservableObject {
     
     func onTypeChanged(_ type: AllContentType) {
         state.type = type
+    }
+    
+    func onSortChanged(_ sortRelation: AllContentSort.Relation) {
+        if state.sort.relation == sortRelation {
+            let type: DataviewSort.TypeEnum = state.sort.type == .asc ? .desc : .asc
+            state.sort = AllContentSort(relation: sortRelation, type: type)
+        } else {
+            state.sort = AllContentSort(relation: sortRelation)
+        }
     }
     
     func onDisappear() {

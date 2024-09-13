@@ -1205,3 +1205,7 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";

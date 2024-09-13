@@ -5,6 +5,7 @@ import Services
 protocol AllContentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
+        sorts: [DataviewSort],
         supportedLayouts: [DetailsLayout],
         limitedObjectsIds: [String]?,
         update: @escaping ([ObjectDetails]) -> Void
@@ -30,15 +31,11 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
     
     func startSubscription(
         spaceId: String,
+        sorts: [DataviewSort],
         supportedLayouts: [DetailsLayout],
         limitedObjectsIds: [String]?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async {
-        
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.spaceId(spaceId)
@@ -52,7 +49,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
-                sorts: [sort],
+                sorts: sorts,
                 filters: filters,
                 limit: Constants.limit,
                 offset: 0,
