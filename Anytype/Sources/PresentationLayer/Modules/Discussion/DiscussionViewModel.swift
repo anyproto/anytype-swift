@@ -40,7 +40,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var inputFocused = false
     @Published var dataLoaded = false
     var showTitleData: Bool { mesageBlocks.isNotEmpty }
-    var showContentEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
+    var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []

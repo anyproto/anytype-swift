@@ -65,7 +65,7 @@ struct DiscussionView: View {
     
     @ViewBuilder
     private var mainView: some View {
-        if model.showContentEmptyState {
+        if model.showEmptyState {
             DiscussionEmptyStateView(objectId: model.objectId) {
                 model.didTapIcon()
             } onDone: {
