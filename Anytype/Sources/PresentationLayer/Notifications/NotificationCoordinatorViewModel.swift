@@ -18,7 +18,6 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var subscription: AnyCancellable?
     private var dismissAllPresented: DismissAllPresented?
     
-    @Published var exportSpaceUrl: URL?
     @Published var spaceRequestAlert: SpaceRequestAlertData?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
@@ -110,11 +109,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             show(view: view)
         case .participantRemove(let data):
             let view = ParticipantRemoveNotificationView(
-                notification: NotificationParticipantRemove(common: notification, remove: data),
-                onExport: { [weak self] spaceUrl in
-                    await self?.dismissAllPresented?()
-                    self?.exportSpaceUrl = spaceUrl
-                }
+                notification: NotificationParticipantRemove(common: notification, remove: data)
             )
             show(view: view)
         case .import, .export, .test, .none:
