@@ -10,6 +10,6 @@ final class ParticipantRemoveNotificationViewModel: ObservableObject {
     
     init(notification: NotificationParticipantRemove) {
         self.notification = notification
-        message = Loc.ParticipantRemoveNotification.text
+        message = Loc.ParticipantRemoveNotification.text(notification.remove.spaceName.trimmingCharacters(in: .whitespaces))
     }
 }
