@@ -428,6 +428,9 @@ internal enum Loc {
     }
   }
   internal enum AllContent {
+    internal enum Mode {
+      internal static let unlinked = Loc.tr("Localizable", "AllContent.Mode.Unlinked")
+    }
     internal enum Sort {
       internal static let dateCreated = Loc.tr("Localizable", "AllContent.Sort.DateCreated")
       internal static let dateUpdated = Loc.tr("Localizable", "AllContent.Sort.DateUpdated")

@@ -308,6 +308,13 @@ public class SearchHelper {
         }
     }
     
+    public static func onlyUnlinked() -> [DataviewFilter] {
+        .builder {
+            SearchHelper.emptyLinks()
+            SearchHelper.emptyBacklinks()
+        }
+    }
+    
     // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {
@@ -316,6 +323,22 @@ public class SearchHelper {
         filter.value = type.protobufValue
         filter.relationKey = BundledRelationKey.targetObjectType.rawValue
 
+        return filter
+    }
+    
+    private static func emptyLinks() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .empty
+        filter.relationKey = BundledRelationKey.links.rawValue
+        
+        return filter
+    }
+    
+    private static func emptyBacklinks() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .empty
+        filter.relationKey = BundledRelationKey.backlinks.rawValue
+        
         return filter
     }
 }

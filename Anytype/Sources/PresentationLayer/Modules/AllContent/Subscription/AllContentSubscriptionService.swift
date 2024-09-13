@@ -7,6 +7,7 @@ protocol AllContentSubscriptionServiceProtocol: AnyObject {
         spaceId: String,
         sorts: [DataviewSort],
         supportedLayouts: [DetailsLayout],
+        onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async
@@ -33,6 +34,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
         spaceId: String,
         sorts: [DataviewSort],
         supportedLayouts: [DetailsLayout],
+        onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async {
@@ -41,6 +43,9 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
             SearchHelper.spaceId(spaceId)
             SearchHelper.notHiddenFilters()
             SearchHelper.layoutFilter(supportedLayouts)
+            if onlyUnlinked {
+                SearchHelper.onlyUnlinked()
+            }
             if let limitedObjectsIds {
                 SearchHelper.objectsIds(limitedObjectsIds)
             }

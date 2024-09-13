@@ -1209,3 +1209,4 @@ Please provide specific details of your needs here.";
 // MARK: - All Content
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";
