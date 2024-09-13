@@ -29,7 +29,7 @@ struct AllContentView: View {
     private var navigationBar: some View {
         HStack(alignment: .center, spacing: 0) {
             Spacer()
-            AnytypeText(Loc.allContent, style: .uxTitle1Semibold)
+            modesMenu
             Spacer()
         }
         .overlay(alignment: .leading) {
@@ -37,6 +37,38 @@ struct AllContentView: View {
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
+    }
+    
+    private var modesMenu: some View {
+        Menu {
+            ForEach(AllContentMode.allCases, id: \.self) { mode in
+                Button {
+                    model.onModeChanged(mode)
+                } label: {
+                    HStack(spacing: 0) {
+                        AnytypeText(
+                            mode.title,
+                            style: .uxTitle2Medium
+                        )
+                        .foregroundColor(.Button.button)
+                        
+                        Spacer()
+                        
+                        if model.state.mode == mode {
+                            Image(asset: .X24.tick)
+                                .foregroundColor(.Text.primary)
+                        }
+                    }
+                }
+            }
+        } label: {
+            HStack(spacing: 6) {
+                AnytypeText(model.state.mode.title, style: .uxTitle1Semibold)
+                    .foregroundColor(.Text.primary)
+                Image(asset: .X18.Disclosure.down)
+                    .foregroundColor(.Text.primary)
+            }
+        }
     }
     
     private var sortsMenu: some View {
