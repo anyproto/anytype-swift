@@ -4,8 +4,8 @@ struct AllContentView: View {
     
     @StateObject private var model: AllContentViewModel
     
-    init(spaceId: String) {
-        _model = StateObject(wrappedValue: AllContentViewModel(spaceId: spaceId))
+    init(spaceId: String, output: (any AllContentModuleOutput)?) {
+        _model = StateObject(wrappedValue: AllContentViewModel(spaceId: spaceId, output: output))
     }
     
     var body: some View {
@@ -101,11 +101,8 @@ struct AllContentView: View {
     
     private var content: some View {
         PlainList {
-            ForEach(model.rows, id: \.id) { row in
-                SearchObjectRowView(
-                    viewModel: row,
-                    selectionIndicatorViewModel: nil
-                )
+            ForEach(model.rows, id: \.id) { model in
+                WidgetObjectListRowView(model: model)
             }
             AnytypeNavigationSpacer(minHeight: 130)
         }
@@ -136,5 +133,5 @@ struct AllContentView: View {
 }
 
 #Preview {
-    AllContentView(spaceId: "")
+    AllContentView(spaceId: "", output: nil)
 }

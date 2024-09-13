@@ -4,15 +4,18 @@ struct AllContentCoordinatorView: View {
     
     @StateObject private var model: AllContentCoordinatorViewModel
     
-    init(spaceId: String) {
-        _model = StateObject(wrappedValue: AllContentCoordinatorViewModel(spaceId: spaceId))
+    init(spaceId: String, output: (any WidgetObjectListCommonModuleOutput)?) {
+        _model = StateObject(wrappedValue: AllContentCoordinatorViewModel(spaceId: spaceId, output: output))
     }
     
     var body: some View {
-        AllContentView(spaceId: model.spaceId)
+        AllContentView(
+            spaceId: model.spaceId,
+            output: model
+        )
     }
 }
 
 #Preview {
-    AllContentCoordinatorView(spaceId: "")
+    AllContentCoordinatorView(spaceId: "", output: nil)
 }

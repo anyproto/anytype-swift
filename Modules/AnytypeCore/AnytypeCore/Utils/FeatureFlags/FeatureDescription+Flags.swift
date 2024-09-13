@@ -47,7 +47,7 @@ public extension FeatureDescription {
         title: "All content",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     // MARK: - Debug

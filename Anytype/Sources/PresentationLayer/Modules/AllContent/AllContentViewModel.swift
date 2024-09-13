@@ -2,9 +2,14 @@ import Foundation
 import Services
 
 @MainActor
+protocol AllContentModuleOutput: AnyObject {
+    func onObjectSelected(screenData: EditorScreenData)
+}
+
+@MainActor
 final class AllContentViewModel: ObservableObject {
 
-    @Published var rows: [SearchObjectRowView.Model] = []
+    @Published var rows: [WidgetObjectListRowModel] = []
     @Published var state = AllContentState()
     @Published var searchText = ""
     
@@ -14,9 +19,11 @@ final class AllContentViewModel: ObservableObject {
     private var searchService: any SearchServiceProtocol
     
     private let spaceId: String
+    private weak var output: (any AllContentModuleOutput)?
     
-    init(spaceId: String) {
+    init(spaceId: String, output: (any AllContentModuleOutput)?) {
         self.spaceId = spaceId
+        self.output = output
     }
     
     func restartSubscription() async {
@@ -76,14 +83,19 @@ final class AllContentViewModel: ObservableObject {
     }
     
     private func updateRows(with details: [ObjectDetails]) {
-        rows = details.map {
-            SearchObjectRowView.Model(
-                id: $0.id, 
-                icon: $0.objectIconImage,
-                title: $0.title,
-                subtitle: $0.objectType.name,
-                style: .default,
-                isChecked: false
+        rows = details.map { details in
+            WidgetObjectListRowModel(
+                objectId: details.id,
+                icon: details.objectIconImage,
+                title: details.title,
+                description: details.subtitle,
+                subtitle: details.objectType.name,
+                isChecked: false,
+                menu: [],
+                onTap: { [weak self] in
+                    self?.output?.onObjectSelected(screenData: details.editorScreenData())
+                },
+                onCheckboxTap: nil
             )
         }
     }
