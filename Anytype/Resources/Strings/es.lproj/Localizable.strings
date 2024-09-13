@@ -146,6 +146,8 @@
 "Relations" = "Relaciones";
 "History" = "Historial";
 "Objects" = "Objetos";
+"Bookmarks" = "Bookmarks";
+"Files" = "Archivos";
 "Lists" = "Listas";
 "Pinned" = "Anclado";
 "Delete" = "Eliminar";
@@ -979,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Tu solicitud de acceso al espacio **%@** se ha aprobado con derechos de **%@**. El espacio estará pronto disponible en tu dispositivo.";
 "ParticipantRequestDeclineNotification.Text" = "Tu solicitud de acceso al espacio **%@** se ha rechazado.";
 "RequestToLeaveNotification.Text" = "**%@** quiere abandonar el espacio **%@**.";
-"ParticipantRemoveNotification.Text" = "Te han eliminado de ese espacio o el propietario ha eliminado ese espacio.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** solicita acceder al espacio **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Ir al espacio";
 "RequestToJoinNotification.ViewRequest" = "Ver solicitud";
@@ -1203,3 +1205,8 @@ En concreto,
 // MARK: - Messages
 "Message.Action.AddReaction" = "Añadir reacción";
 "Message.Input.EmptyPlaceholder" = "Escribe un mensaje...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

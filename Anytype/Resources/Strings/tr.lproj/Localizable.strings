@@ -146,6 +146,8 @@
 "Relations" = "İlişkiler";
 "History" = "Geçmiş";
 "Objects" = "Nesneler";
+"Bookmarks" = "Yer işaretleri";
+"Files" = "Dosyalar";
 "Lists" = "Listeler";
 "Pinned" = "Sabitlendi";
 "Delete" = "Sil";
@@ -980,7 +982,7 @@
 "ParticipantRequestApprovedNotification.Text" = "**%@** alanına katılma isteğiniz **%@** erişim hakları ile onaylandı. Alan yakında cihazınızda kullanılabilir olacaktır.";
 "ParticipantRequestDeclineNotification.Text" = "**%@** alanına katılma isteğiniz reddedildi.";
 "RequestToLeaveNotification.Text" = "**%@**, **%@** alanından ayrılmak istiyor.";
-"ParticipantRemoveNotification.Text" = "Alandan çıkarıldınız veya alan, sahibi tarafından silindi.";
+"ParticipantRemoveNotification.Text" = "**%@** alanından çıkarıldınız veya alan sahibi tarafından silindi.";
 "RequestToJoinNotification.Text" = "**%@**, **%@** alanına katılmak istiyor.";
 "RequestToJoinNotification.GoToSpace" = "Alana git";
 "RequestToJoinNotification.ViewRequest" = "İsteği görüntüle";
@@ -1205,3 +1207,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tepki Ekle";
 "Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

@@ -146,6 +146,8 @@
 "Relations" = "Relasi";
 "History" = "History";
 "Objects" = "Objek";
+"Bookmarks" = "Bookmarks";
+"Files" = "Berkas";
 "Lists" = "Grup";
 "Pinned" = "Tersemat";
 "Delete" = "Hapus";
@@ -979,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Permintaanmu bergabung ke ruang **%@** telah disetujui dengan hak akses **%@**. Ruang ini akan tersedia di akunmu sebentar lagi.";
 "ParticipantRequestDeclineNotification.Text" = "Permintaanmu bergabung ke ruang **%@** telah ditolak.";
 "RequestToLeaveNotification.Text" = "**%@** ingin meninggalkan ruang **%@**.";
-"ParticipantRemoveNotification.Text" = "Kamu telah dikeluarkan dari ruang ini, atau ruang tersebut telah dihapus oleh pemiliknya.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** meminta bergabung ke ruang **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Kunjungi Ruang";
 "RequestToJoinNotification.ViewRequest" = "Lihat permintaan";
@@ -1203,3 +1205,8 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tambahkan Reaksi";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

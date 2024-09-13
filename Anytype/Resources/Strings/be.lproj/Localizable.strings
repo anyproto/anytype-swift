@@ -146,6 +146,8 @@
 "Relations" = "Уласцівасці";
 "History" = "Гісторыя";
 "Objects" = "Аб'екты";
+"Bookmarks" = "Закладкі";
+"Files" = "Файлы";
 "Lists" = "Спісы";
 "Pinned" = "Замацавана";
 "Delete" = "Выдаліць";
@@ -204,7 +206,7 @@
 "Favorites" = "Абранае";
 "Recent" = "Нядаўняе";
 "Bin" = "Сметніца";
-"All content" = "All content";
+"All content" = "Увесь кантэнт";
 
 // Settings
 "Wallpaper" = "Шпалеры";
@@ -686,8 +688,8 @@
 "Cancel deletion" = "Скасаваць выдаленне";
 "Logout and clear data" = "Выйсці і ачысціць даныя";
 "New" = "Новы";
-"Blurred icon" = "Blurred\n icon";
-"My First Space" = "My First Space";
+"Blurred icon" = "Размыты\n значок";
+"My First Space" = "Мая першая прастора";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
@@ -980,7 +982,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Ваш запыт на далучэнне да прасторы **%@** быў ухвалены з правамі доступу **%@**. Прастора хутка будзе даступная на вашай прыладзе.";
 "ParticipantRequestDeclineNotification.Text" = "Ваш запыт на далучэнне да прасторы **%@** быў адхілены.";
 "RequestToLeaveNotification.Text" = "**%@** хоча пакінуць прастору **%@**.";
-"ParticipantRemoveNotification.Text" = "Вы былі выдалены з прасторы, або прастора была выдалена ўладальнікам.";
+"ParticipantRemoveNotification.Text" = "Вас выдалілі з Прасторы **%@**, або Прастора была выдалена ўладальнікам.";
 "RequestToJoinNotification.Text" = "**%@** запытаў(-ла) доступ да прасторы **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Перайсці ў Прастору";
 "RequestToJoinNotification.ViewRequest" = "Паглядзець запыт";
@@ -1204,3 +1206,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "Дадаць рэакцыю";
 "Message.Input.EmptyPlaceholder" = "Напісаць паведамленне...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";
