@@ -19,7 +19,6 @@ struct NotificationCoordinatorView: View {
             .onDisappear {
                 model.onDisappear()
             }
-            .anytypeShareView(item: $model.exportSpaceUrl)
             .anytypeSheet(item: $model.spaceRequestAlert) {
                 SpaceRequestAlert(data: $0) { reason in
                     model.onMembershipUpgrateTap(reason: reason)

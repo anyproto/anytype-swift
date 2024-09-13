@@ -1081,7 +1081,9 @@ internal enum Loc {
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall")
   }
   internal enum ParticipantRemoveNotification {
-    internal static let text = Loc.tr("Localizable", "ParticipantRemoveNotification.Text")
+    internal static func text(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "ParticipantRemoveNotification.Text", String(describing: p1))
+    }
   }
   internal enum ParticipantRequestApprovedNotification {
     internal static func text(_ p1: Any, _ p2: Any) -> String {
