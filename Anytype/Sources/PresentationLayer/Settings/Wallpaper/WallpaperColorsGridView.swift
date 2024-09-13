@@ -4,6 +4,7 @@ import SwiftUI
 struct WallpaperColorsGridView: View {
     
     let spaceIcon: Icon?
+    let currentWallpaper: SpaceWallpaperType
     let onCoverSelect: (SpaceWallpaperType) -> ()
     
     private let columns: [GridItem] = {
@@ -43,6 +44,7 @@ struct WallpaperColorsGridView: View {
     
     private func colorView(_ color: CoverColor) -> some View {
         DashboardWallpaper(wallpaper: .color(color), spaceIcon: spaceIcon)
+            .coverGridSelection(show: currentWallpaper == .color(color))
             .сoverGridAppearance()
             .onTapGesture {
                 onCoverSelect(.color(color))
@@ -51,6 +53,7 @@ struct WallpaperColorsGridView: View {
     
     private func gradientView(_ gradient: CoverGradient) -> some View {
         DashboardWallpaper(wallpaper: .gradient(gradient), spaceIcon: spaceIcon)
+            .coverGridSelection(show: currentWallpaper == .gradient(gradient))
             .сoverGridAppearance()
             .onTapGesture {
                 onCoverSelect(.gradient(gradient))
@@ -63,6 +66,7 @@ struct WallpaperColorsGridView: View {
                 GeometryReader { geo in
                     DashboardWallpaper(wallpaper: .blurredIcon, spaceIcon: spaceIcon)
                         .frame(width: geo.size.width)
+                        .coverGridSelection(show: currentWallpaper == .blurredIcon)
                         .сoverGridAppearance()
                         .onTapGesture {
                             onCoverSelect(.blurredIcon)
@@ -85,12 +89,21 @@ struct WallpaperColorsGridView: View {
 private extension View {
     func сoverGridAppearance() -> some View {
         self
-            .cornerRadius(4)
+            .cornerRadius(12)
             .clipped()
             .frame(height: 208)
             .padding(.top, 16)
     }
     
+    func coverGridSelection(show: Bool) -> some View {
+        Group {
+            if show {
+                self.border(12, color: .System.amber80, lineWidth: 2)
+            } else {
+                self
+            }
+        }
+    }
 }
 
 struct WallpaperColorsGridView_Previews: PreviewProvider {
@@ -98,7 +111,11 @@ struct WallpaperColorsGridView_Previews: PreviewProvider {
         MockView {
             WorkspacesStorageMock.shared.spaceView = SpaceView.mock(id: "1337")
         } content: {
-            WallpaperColorsGridView(spaceIcon: .object(.space(.gradient(.random))), onCoverSelect: { _ in })
+            WallpaperColorsGridView(
+                spaceIcon: .object(.space(.gradient(.random))),
+                currentWallpaper: .blurredIcon,
+                onCoverSelect: { _ in }
+            )
         }
     }
 }
