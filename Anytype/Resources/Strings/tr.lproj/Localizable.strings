@@ -8,7 +8,7 @@
 "TextStyle.Title.Title" = "Başlık";
 "TextStyle.Title.Subtitle" = "Büyük bölüm başlığı";
 
-"TextStyle.Heading.Title" = "Başlık";
+"TextStyle.Heading.Title" = "Başlık ";
 "TextStyle.Heading.Subtitle" = "Orta başlık";
 
 "TextStyle.Subheading.Title" = "Alt başlık";
@@ -50,7 +50,7 @@
 "BlockText.ContentType.Numbered.Placeholder" = "Numaralı liste ögesi";
 "BlockText.ContentType.Quote.Placeholder" = "Vurgulu metin";
 "BlockText.ContentType.Header.Placeholder" = "Başlık";
-"BlockText.ContentType.Header2.Placeholder" = "Başlık";
+"BlockText.ContentType.Header2.Placeholder" = "Başlık ";
 "BlockText.ContentType.Header3.Placeholder" = "Alt başlık";
 
 // MARK: - Block Link
@@ -1209,6 +1209,6 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
 
 // MARK: - All Content
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.DateUpdated" = "Güncellenme tarihi";
+"AllContent.Sort.DateCreated" = "Oluşturulma tarihi";
+"AllContent.Mode.Unlinked" = "Sadece bağlantısız";
