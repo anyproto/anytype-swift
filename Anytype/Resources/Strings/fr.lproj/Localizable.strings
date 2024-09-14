@@ -981,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Votre demande de rejoindre l'espace **%@** a été approuvée avec les droits d'accès **%@**. L'espace sera bientôt disponible sur votre appareil.";
 "ParticipantRequestDeclineNotification.Text" = "Votre demande d'adhésion à l'espace **%@** a été refusée.";
 "RequestToLeaveNotification.Text" = "**%@** veut quitter l'espace **%@**.";
-"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
+"ParticipantRemoveNotification.Text" = "Vous avez été retiré de l'espace **%@**, ou l'espace a été supprimé par son propriétaire.";
 "RequestToJoinNotification.Text" = "**%@** a demandé à rejoindre l'espace **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Aller à l'espace";
 "RequestToJoinNotification.ViewRequest" = "Afficher la demande";
@@ -1208,6 +1208,6 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Message.Input.EmptyPlaceholder" = "Ecrire un message...";
 
 // MARK: - All Content
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.DateUpdated" = "Date de mise à jour";
+"AllContent.Sort.DateCreated" = "Date de création";
+"AllContent.Mode.Unlinked" = "Uniquement dissocié";
