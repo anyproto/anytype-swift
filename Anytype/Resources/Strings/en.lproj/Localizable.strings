@@ -825,6 +825,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Recently edited";
 "Widgets.Library.RecentlyOpened.Name" = "Recently opened";
 "Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "Anytype is ready to update";
 "Widgets.Source.Library" = "Default sets";
 "Widgets.Source.Objects" = "Your objects";
@@ -1205,6 +1206,7 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - All Content
 "AllContent.Sort.DateUpdated" = "Date updated";
