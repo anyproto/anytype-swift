@@ -163,7 +163,7 @@
 "Unpin" = "Адмацаваць";
 "Pin on top" = "Замацаваць зверху";
 "File block subtitle" = "Захаваць файл у першапачатковым стане";
-"Picture block subtitle" = "Загрузіць і ўзбагаціць старонку відарысам";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Запампаваць прайграванае відэа";
 "Bookmark block subtitle" = "Захаваць вашу ўлюблёную спасылку з кароткім зместам";
 "Code block subtitle" = "Захапіць кавалак кода";
@@ -646,6 +646,7 @@
 "Audio" = "Аўдыя";
 "Video" = "Відэа";
 "Picture" = "Відарыс";
+"Image" = "Відарыс";
 "File" = "Файл";
 "No related options here" = "Тут няма фільтраў. Вы можаце дадаць некалькі";
 "Empty" = "Пуста";
