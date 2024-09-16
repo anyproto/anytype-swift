@@ -146,6 +146,8 @@
 "Relations" = "關聯";
 "History" = "歷史記錄";
 "Objects" = "物件";
+"Bookmarks" = "Bookmarks";
+"Files" = "檔案";
 "Lists" = "列表";
 "Pinned" = "已釘選";
 "Delete" = "刪除";
@@ -983,7 +985,7 @@
 "ParticipantRequestApprovedNotification.Text" = "您請求加入的 **%@** 空間已獲得批准，並具有 **%@** 存取權限。 該空間很快就可以在您的裝置上使用。";
 "ParticipantRequestDeclineNotification.Text" = "您請求加入的 **%@** 空間已被拒絕。";
 "RequestToLeaveNotification.Text" = "**%@** 想要離開 **%@** 空間。";
-"ParticipantRemoveNotification.Text" = "您已從該空間中移除，或該空間已被擁有者刪除。";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** 請求加入 **%@** 空間。";
 "RequestToJoinNotification.GoToSpace" = "前往空間";
 "RequestToJoinNotification.ViewRequest" = "查看請求";
@@ -1207,3 +1209,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

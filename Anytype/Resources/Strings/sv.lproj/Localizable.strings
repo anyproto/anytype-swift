@@ -146,6 +146,8 @@
 "Relations" = "Relations";
 "History" = "Historik";
 "Objects" = "Objekt";
+"Bookmarks" = "Bookmarks";
+"Files" = "Filer";
 "Lists" = "Listor";
 "Pinned" = "Pinned";
 "Delete" = "Radera";
@@ -979,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
 "RequestToJoinNotification.GoToSpace" = "Go to Space";
 "RequestToJoinNotification.ViewRequest" = "View request";
@@ -1203,3 +1205,8 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

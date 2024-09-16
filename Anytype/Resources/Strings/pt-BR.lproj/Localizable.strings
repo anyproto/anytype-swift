@@ -105,7 +105,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Número de telefone";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "Pesquisar ou criar uma relação";
 
 // Origin Relation
 
@@ -120,8 +120,8 @@
 
 // MARK: - Import Type Relation
 
-"Relation.ImportType.Notion" = "Notion";
-"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Notion" = "noção";
+"Relation.ImportType.Markdown" = "Marcação";
 "Relation.ImportType.Html" = "HTML";
 "Relation.ImportType.Text" = "TXT";
 "Relation.ImportType.Protobuf" = "Any-Block";
@@ -146,10 +146,12 @@
 "Relations" = "Relações";
 "History" = "Histórico";
 "Objects" = "Objetos";
+"Bookmarks" = "Marca página";
+"Files" = "Arquivos";
 "Lists" = "Groups";
 "Pinned" = "Fixado";
 "Delete" = "Excluir";
-"Export" = "Export";
+"Export" = "Exportar";
 "Duplicate" = "Duplicar";
 "Copy" = "Copiar";
 "Preview" = "Pré-visualizar";
@@ -168,7 +170,7 @@
 "Align right" = "Alinhar à direita";
 "Align left" = "Alinhar à esquerda";
 "Align center" = "Alinhar ao centro";
-"Align justify" = "Align justify";
+"Align justify" = "Aprovar";
 "Black" = "Preto";
 "Amber" = "Âmbar";
 "Red" = "Vermelho";
@@ -198,13 +200,13 @@
 "Share" = "Compartilhar";
 "Okay" = "OK";
 "Join" = "Junte-se";
-"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Agreement Disclamer" = "Ao continuar, você concorda com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)";
 
 // Home
 "Favorites" = "Favoritos";
 "Recent" = "Recente";
 "Bin" = "Lixeira";
-"All content" = "All content";
+"All content" = "Todos os conteúdos";
 
 // Settings
 "Wallpaper" = "Plano de fundo";
@@ -214,11 +216,11 @@
 "Restore" = "Restaurar";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Key" = "Chave";
+"Keychain.Key.Copy.Toast.title" = "Chave copiada";
+"Keychain.Key.description" = "Você precisará dela para entrar. Guarde-a em um local seguro. Se você perdê-la, você não poderá mais acessar sua conta.";
+"Keychain.Show and copy key" = "Mostrar e copiar a chave";
+"Keychain.Have you backed up your key?" = "Você salvou a sua chave?";
 "Keychain.Error.String to Data conversion error" = "Erro de conversão de String para Dados";
 "Keychain.Error.Data to String conversion error" = "Erro de conversão de Dados para String";
 "Keychain.Error.Unknown Keychain Error" = "Erro de Chave de Acesso Desconhecido";
@@ -228,55 +230,55 @@
 "Create" = "Criar";
 "Scan QR code" = "Ler código QR";
 "Auth.CameraPermissionTitle" = "Conceda acesso, por favor";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
-"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
+"Restore key from keychain" = "Restaurar chave do chaveiro";
+"Auth.LogIn" = "Eu tenho uma chave";
+"Auth.Button.Join" = "Novo Cofre";
+"Auth.Welcome.Subtitle" = "Crie e colabore em espaços que você possua. Criptografado, “fora de rede” e [open](%@).";
 "Auth.Next" = "Avançar";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "Erro na recuperação de conta, tente novamente";
+"Vault recover error no internet" = "Erro na recuperação de conta, provavelmente não há conexão de “internet”";
 
 // Auth Errors
 "Error creating wallet" = "Erro na criação da carteira";
-"Error select vault" = "Error select vault";
-"Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Error select vault" = "Erro ao selecionar cofre";
+"Error wallet recover vault" = "Erro ao recuperar conta da carteira";
+"Wallet.Recovery.Error.description" = "Chave Inválida";
 
 "Search for language" = "Pesquisar idioma";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Title" = "Esta é a sua chave";
+"Auth.JoinFlow.Key.Description" = "Ele lhe dá total posse do seu cofre.\nele não pode ser recuperado.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Exibir minha chave";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Avançar";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Pular";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copiar para área de transferência";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Ler mais";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Você pode encontrar a frase de recuperação mais tarde nas configurações do Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Qual é a chave?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Ele é representado por uma frase de recuperação — 12 palavras aleatórias a partir do qual o seu cofre é magicamente gerado neste dispositivo.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Quem conhece a combinação dessas palavras — é dono da conta. Agora, você é a única pessoa no mundo que pode acessá-la.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Todos os recursos computacionais na Terra não são suficientes para invadir. Se você os perde, ele não pode ser recuperado. Então, armazene-o em algum lugar seguro!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Como salvar minha chave?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "A maneira mais fácil de armazenar sua chave é salvá-la em seu gerenciador de senhas.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "A forma mais segura é escrevê-la no papel e mantê-la fora do dispositivo, num lugar seguro e seguro.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "Digite seu nome";
+"Auth.JoinFlow.Soul.Description" = "Somente visto por pessoas com quem você compartilha algo. Não há registro central com esses nomes.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sem título";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Title" = "Este é o seu cofre";
+"Auth.JoinFlow.Vault.Description" = "Tudo está criptografado. É armazenado localmente — tudo funciona sem ‘internet’. Apenas você tem a chave.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usar chave de acesso";
 "Auth.LoginFlow.Or" = "OU";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Textfield.Placeholder" = "Digite sua chave";
 "Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Entrando no vazio";
 
@@ -288,11 +290,11 @@
 "Background picture" = "Imagem de fundo";
 "Layout" = "Leiaute";
 "Arrangement of objects on a canvas" = "Posicionamento de objetos num canvas";
-"ObjectSettings.History.Description" = "All versions of object";
+"ObjectSettings.History.Description" = "Todas as versões do objeto";
 
 // Version history
-"VersionHistory.Title" = "Version History";
-"VersionHistory.Toast.message" = "Version %@ was restored";
+"VersionHistory.Title" = "Histórico de versões";
+"VersionHistory.Toast.message" = "A versão %@ foi restaurada";
 
 "Search" = "Pesquisar";
 "There is no emoji named" = "Não há nenhum emoji chamado";
@@ -344,11 +346,11 @@
 "There is no object named" = "Não há nenhum objeto chamado %@";
 "There is no type named" = "Não há nenhum tipo chamado %@";
 "Create a new one or search for something else" = "Crie uma nova ou procure por outra coisa";
-"Search.Links.Show.title" = "Show related objects";
-"Search.Links.Header.title" = "Related to: %@";
-"Search.Links.Swipe.title" = "Related to";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
-"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
+"Search.Links.Show.title" = "Exibir objetos relacionados";
+"Search.Links.Header.title" = "Relacionado a: %@";
+"Search.Links.Swipe.title" = "Relacionado a";
+"GlobalSearch.EmptyState.subtitle" = "Criar objeto ou procurar outra coisa";
+"GlobalSearch.EmptyFilteredState.title" = "Nenhum objeto relacionado encontrado";
 "GlobalSearch.Swipe.Tip.title" = "Related objects";
 "GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
 
@@ -980,7 +982,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
 "RequestToJoinNotification.GoToSpace" = "Go to Space";
 "RequestToJoinNotification.ViewRequest" = "View request";
@@ -1204,3 +1206,8 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

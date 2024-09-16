@@ -146,6 +146,8 @@
 "Relations" = "Relazioni";
 "History" = "History";
 "Objects" = "Oggetti";
+"Bookmarks" = "Segnalibri";
+"Files" = "File";
 "Lists" = "Liste";
 "Pinned" = "Fissato";
 "Delete" = "Elimina";
@@ -204,7 +206,7 @@
 "Favorites" = "Preferiti";
 "Recent" = "Recenti";
 "Bin" = "Cestino";
-"All content" = "All content";
+"All content" = "Tutti i contenuti";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -685,8 +687,8 @@
 "Cancel deletion" = "Annulla eliminazione";
 "Logout and clear data" = "Esci e cancella i dati";
 "New" = "Nuovo";
-"Blurred icon" = "Blurred\n icon";
-"My First Space" = "My First Space";
+"Blurred icon" = "Icona\n sfocata";
+"My First Space" = "Il Mio Primo Spazio";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
@@ -979,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "La tua richiesta di unirti allo spazio **%@** è stata approvata con diritti di accesso **%@**. Lo spazio sarà disponibile nel tuo account a breve.";
 "ParticipantRequestDeclineNotification.Text" = "La tua richiesta di unirti allo spazio **%@** è stata rifiutata.";
 "RequestToLeaveNotification.Text" = "**%@** vuole lasciare lo spazio **%@**.";
-"ParticipantRemoveNotification.Text" = "Sei stato rimosso dallo spazio, oppure lo spazio è stato eliminato dal proprietario.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** ha richiesto di unirsi allo spazio **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Vai allo Spazio";
 "RequestToJoinNotification.ViewRequest" = "Visualizza richiesta";
@@ -1203,3 +1205,8 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Aggiungi una Reazione";
 "Message.Input.EmptyPlaceholder" = "Scrivi un messaggio...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

@@ -146,6 +146,8 @@
 "Relations" = "Relacje";
 "History" = "Historia";
 "Objects" = "Obiekty";
+"Bookmarks" = "Bookmarks";
+"Files" = "Pliki";
 "Lists" = "Listy";
 "Pinned" = "Przypięte";
 "Delete" = "Usuń";
@@ -979,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Twoja prośba o dołączenie do przestrzeni **%@** została zatwierdzona z **%@** prawami dostępu. Miejsce będzie wkrótce dostępne na Twoim urządzeniu.";
 "ParticipantRequestDeclineNotification.Text" = "Twoja prośba o dołączenie do przestrzeni **%@** została odrzucona.";
 "RequestToLeaveNotification.Text" = "**%@** chce opuścić przestrzeń **%@**.";
-"ParticipantRemoveNotification.Text" = "Zostałeś usunięty z pokoju lub pokój został usunięty przez właściciela.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** poprosił o dołączenie do przestrzeni **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Idź w kosmos";
 "RequestToJoinNotification.ViewRequest" = "Wyświetl zapytanie";
@@ -1203,3 +1205,8 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";

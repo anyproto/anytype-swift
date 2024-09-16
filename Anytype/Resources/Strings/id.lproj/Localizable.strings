@@ -146,6 +146,8 @@
 "Relations" = "Relasi";
 "History" = "History";
 "Objects" = "Objek";
+"Bookmarks" = "Markah";
+"Files" = "Berkas";
 "Lists" = "Grup";
 "Pinned" = "Tersemat";
 "Delete" = "Hapus";
@@ -204,7 +206,7 @@
 "Favorites" = "Favorit";
 "Recent" = "Baru-Baru Ini";
 "Bin" = "Bak Sampah";
-"All content" = "All content";
+"All content" = "Semua konten";
 
 // Settings
 "Wallpaper" = "Latar belakang";
@@ -685,8 +687,8 @@
 "Cancel deletion" = "Batalkan penghapusan";
 "Logout and clear data" = "Keluar dan bersihkan data";
 "New" = "Baru";
-"Blurred icon" = "Blurred\n icon";
-"My First Space" = "My First Space";
+"Blurred icon" = "Ikon\n buram";
+"My First Space" = "Ruang Pertamaku";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -979,7 +981,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Permintaanmu bergabung ke ruang **%@** telah disetujui dengan hak akses **%@**. Ruang ini akan tersedia di akunmu sebentar lagi.";
 "ParticipantRequestDeclineNotification.Text" = "Permintaanmu bergabung ke ruang **%@** telah ditolak.";
 "RequestToLeaveNotification.Text" = "**%@** ingin meninggalkan ruang **%@**.";
-"ParticipantRemoveNotification.Text" = "Kamu telah dikeluarkan dari ruang ini, atau ruang tersebut telah dihapus oleh pemiliknya.";
+"ParticipantRemoveNotification.Text" = "Kamu telah dikeluarkan dari ruang **%@**, atau ruang tersebut telah dihapus oleh pemiliknya.";
 "RequestToJoinNotification.Text" = "**%@** meminta bergabung ke ruang **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Kunjungi Ruang";
 "RequestToJoinNotification.ViewRequest" = "Lihat permintaan";
@@ -1203,3 +1205,8 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tambahkan Reaksi";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Tanggal diperbarui";
+"AllContent.Sort.DateCreated" = "Tanggal dibuat";
+"AllContent.Mode.Unlinked" = "Only unlinked";

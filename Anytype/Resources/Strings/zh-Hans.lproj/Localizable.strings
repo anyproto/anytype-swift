@@ -146,6 +146,8 @@
 "Relations" = "关联";
 "History" = "历史记录";
 "Objects" = "对象";
+"Bookmarks" = "Bookmarks";
+"Files" = "文件";
 "Lists" = "分组";
 "Pinned" = "固定";
 "Delete" = "删除";
@@ -980,7 +982,7 @@
 "ParticipantRequestApprovedNotification.Text" = "您加入 **%@** 空间的请求已获批准并获得了 **%@** 访问权限，该空间很快就会在您的设备中显示。";
 "ParticipantRequestDeclineNotification.Text" = "您加入**%@** 空间的请求已被拒绝。";
 "RequestToLeaveNotification.Text" = "**%@** 想要离开 **%@** 空间。";
-"ParticipantRemoveNotification.Text" = "您从空间中被移出，或空间已被所有者删除。";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** 请求加入 **%@** 空间。";
 "RequestToJoinNotification.GoToSpace" = "转到空间";
 "RequestToJoinNotification.ViewRequest" = "查看请求";
@@ -1205,3 +1207,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
 "Message.Input.EmptyPlaceholder" = "写一段话…";
+
+// MARK: - All Content
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Mode.Unlinked" = "Only unlinked";
