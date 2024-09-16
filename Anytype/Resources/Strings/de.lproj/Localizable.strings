@@ -163,7 +163,7 @@
 "Unpin" = "Loslösen";
 "Pin on top" = "Oben anheften";
 "File block subtitle" = "Datei im Originalzustand speichern";
-"Picture block subtitle" = "Lade ein Bild hoch und bereichere die Seite";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Video hochladen";
 "Bookmark block subtitle" = "Speichere deinen Link mit der Zusammenfassung";
 "Code block subtitle" = "Code-Snippet erfassen";
@@ -646,6 +646,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Bild";
+"Image" = "Bild";
 "File" = "Datei";
 "No related options here" = "Keine verwandten Optionen hier. Sie können einige hinzufügen";
 "Empty" = "Leer";
@@ -1209,6 +1210,6 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Eine Nachricht schreiben...";
 
 // MARK: - All Content
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.DateUpdated" = "Aktualisierungsdatum";
+"AllContent.Sort.DateCreated" = "Erstellungsdatum";
+"AllContent.Mode.Unlinked" = "Nur unverlinkte";

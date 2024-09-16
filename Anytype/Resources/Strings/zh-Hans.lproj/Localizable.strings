@@ -163,7 +163,7 @@
 "Unpin" = "取消固定";
 "Pin on top" = "置顶";
 "File block subtitle" = "以原始状态存储文件";
-"Picture block subtitle" = "上传图片，丰富页面内容";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "上传可播放的视频";
 "Bookmark block subtitle" = "剪藏您最喜欢的链接和摘要";
 "Code block subtitle" = "捕获代码片段";
@@ -647,6 +647,7 @@
 "Audio" = "音频";
 "Video" = "视频";
 "Picture" = "图像";
+"Image" = "图片";
 "File" = "文件";
 "No related options here" = "这里没有相关选项。您可以添加一些";
 "Empty" = "空的";

@@ -163,7 +163,7 @@
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Зберігати файл у початковому стані";
-"Picture block subtitle" = "Завантажити та наповнити сторінку зображенням";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Завантажити відтворюване відео";
 "Bookmark block subtitle" = "Зберегти ваше улюблене посилання з коротким описом";
 "Code block subtitle" = "Записати фрагмент коду";
@@ -646,6 +646,7 @@
 "Audio" = "Аудіо";
 "Video" = "Відео";
 "Picture" = "Зображення";
+"Image" = "Image";
 "File" = "Файл";
 "No related options here" = "Тут немає відповідних варіантів. Ви можете додати деякі";
 "Empty" = "Пусто";

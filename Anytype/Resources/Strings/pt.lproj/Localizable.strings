@@ -6,13 +6,13 @@
 "TextStyle.Text.Subtitle" = "Comece a escrever com um texto simples";
 
 "TextStyle.Title.Title" = "Título";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Subtitle" = "Título de secção grande.";
 
 "TextStyle.Heading.Title" = "Título";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Subtitle" = "Cabeçalho médio";
 
 "TextStyle.Subheading.Title" = "Subtítulo";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Subtitle" = "Cabeçalho pequeno";
 
 "TextStyle.Highlighted.Title" = "Realçado";
 "TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
@@ -21,7 +21,7 @@
 "TextStyle.Callout.Subtitle" = "Bordered text with icon";
 
 "TextStyle.Checkbox.Title" = "Checkbox";
-"TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
+"TextStyle.Checkbox.Subtitle" = "Criar e rastrear tarefas com lista de tarefas a fazer";
 
 "TextStyle.Bulleted.Title" = "Bulleted";
 "TextStyle.Bulleted.Subtitle" = "Simple list";
@@ -90,7 +90,7 @@
 "Relation.ObjectType.Header.title" = "Object type:";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "A opção será removida permanentemente do seu espaço.";
 "Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Objeto";
@@ -163,7 +163,7 @@
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Armazenar ficheiro no estado original";
-"Picture block subtitle" = "Carregar e enriquecer a página com uma imagem";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Carregar vídeo reproduzível";
 "Bookmark block subtitle" = "Save your favorite link with summary";
 "Code block subtitle" = "Capture code snippet";
@@ -646,6 +646,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Picture";
+"Image" = "Image";
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
