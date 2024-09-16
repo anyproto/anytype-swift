@@ -163,7 +163,7 @@
 "Unpin" = "Togli";
 "Pin on top" = "Fissa in alto";
 "File block subtitle" = "Salva file nello stato originale";
-"Picture block subtitle" = "Carica e arricchisci la pagina con immagine";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Carica un video riproducibile";
 "Bookmark block subtitle" = "Salva il tuo link preferito con il riepilogo";
 "Code block subtitle" = "Cattura snippet di codice";
@@ -646,6 +646,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Immagine";
+"Image" = "Immagine";
 "File" = "File";
 "No related options here" = "Nessuna opzione correlata qui. Puoi aggiungerne alcune";
 "Empty" = "Vuoto";
