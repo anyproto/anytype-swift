@@ -2564,6 +2564,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func chatGetMessagesByIds(
+        _ request: Anytype_Rpc.Chat.GetMessagesByIds.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.GetMessagesByIds.Request, Anytype_Rpc.Chat.GetMessagesByIds.Response> {
+        return Invocation(messageName: "ChatGetMessagesByIds", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatGetMessagesByIds(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.GetMessagesByIds.Response(serializedData: responseData)
+        }
+    }
+
     public static func chatSubscribeLastMessages(
         _ request: Anytype_Rpc.Chat.SubscribeLastMessages.Request = .init()
     ) -> Invocation<Anytype_Rpc.Chat.SubscribeLastMessages.Request, Anytype_Rpc.Chat.SubscribeLastMessages.Response> {

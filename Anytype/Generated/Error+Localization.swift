@@ -2968,6 +2968,30 @@ extension Anytype_Rpc.Chat.GetMessages.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.GetMessagesByIds.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.GetMessagesByIds.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

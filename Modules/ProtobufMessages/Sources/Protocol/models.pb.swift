@@ -5828,6 +5828,8 @@ public struct Anytype_Model_ChatMessage {
 
   public var createdAt: Int64 = 0
 
+  public var modifiedAt: Int64 = 0
+
   /// Identifier for the message being replied to
   public var replyToMessageID: String = String()
 
@@ -12077,6 +12079,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     2: .same(proto: "orderId"),
     3: .same(proto: "creator"),
     4: .same(proto: "createdAt"),
+    9: .same(proto: "modifiedAt"),
     5: .same(proto: "replyToMessageId"),
     6: .same(proto: "message"),
     7: .same(proto: "attachments"),
@@ -12097,6 +12100,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 6: try { try decoder.decodeSingularMessageField(value: &self._message) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
       case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
+      case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
       default: break
       }
     }
@@ -12131,6 +12135,9 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try { if let v = self._reactions {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
     } }()
+    if self.modifiedAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.modifiedAt, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -12139,6 +12146,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.orderID != rhs.orderID {return false}
     if lhs.creator != rhs.creator {return false}
     if lhs.createdAt != rhs.createdAt {return false}
+    if lhs.modifiedAt != rhs.modifiedAt {return false}
     if lhs.replyToMessageID != rhs.replyToMessageID {return false}
     if lhs._message != rhs._message {return false}
     if lhs.attachments != rhs.attachments {return false}
