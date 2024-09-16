@@ -164,7 +164,7 @@
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Uložiť súbor v pôvodnom stave";
-"Picture block subtitle" = "Nahrať obrázok na obohatenie obsahu stránky";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Nahrať prehrateľné video";
 "Bookmark block subtitle" = "Uložiť obľúbený odkaz so zhrnutím";
 "Code block subtitle" = "Zachytiť úryvok kódu";
@@ -647,6 +647,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Picture";
+"Image" = "Image";
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
