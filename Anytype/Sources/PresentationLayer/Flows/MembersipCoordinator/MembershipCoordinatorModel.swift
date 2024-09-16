@@ -45,7 +45,7 @@ final class MembershipCoordinatorModel: ObservableObject {
         Task { await loadTiers(noCache: noCache) }
     }
     
-    private func loadTiers(noCache: Bool) async {
+    private func loadTiers(noCache: Bool = false) async {
         do {
             tiers = try await membershipService.getTiers(noCache: noCache)
             showTiersLoadingError = false

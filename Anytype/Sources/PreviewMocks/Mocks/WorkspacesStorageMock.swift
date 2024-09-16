@@ -9,8 +9,8 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
     
     var spaceView: SpaceView?
     func spaceView(spaceId: String) -> SpaceView? {
-        print(spaceView)
-        print(spaceView?.objectIconImage)
+        print(spaceView as Any)
+        print(spaceView?.objectIconImage as Any)
         return spaceView
     }
     

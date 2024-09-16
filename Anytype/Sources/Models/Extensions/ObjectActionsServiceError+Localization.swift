@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-extension ObjectActionsServiceError: LocalizedError {
+extension ObjectActionsServiceError: @retroactive LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .nothingToUndo:

@@ -4,7 +4,7 @@
 import Foundation
 import ProtobufMessages
 
-extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -43,7 +43,7 @@ extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: Loca
     }
 }
 
-extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -73,7 +73,7 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Account.Create.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.Create.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -124,7 +124,7 @@ extension Anytype_Rpc.Account.Create.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Account.Delete.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.Delete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -154,7 +154,7 @@ extension Anytype_Rpc.Account.Delete.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -181,7 +181,7 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -211,7 +211,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -247,7 +247,7 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: Localized
     }
 }
 
-extension Anytype_Rpc.Account.Move.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.Move.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -289,7 +289,7 @@ extension Anytype_Rpc.Account.Move.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Account.Recover.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.Recover.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -316,7 +316,7 @@ extension Anytype_Rpc.Account.Recover.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -343,7 +343,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: LocalizedE
     }
 }
 
-extension Anytype_Rpc.Account.RevertDeletion.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.RevertDeletion.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -373,7 +373,7 @@ extension Anytype_Rpc.Account.RevertDeletion.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Account.Select.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.Select.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -436,7 +436,7 @@ extension Anytype_Rpc.Account.Select.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Account.Stop.Response.Error: LocalizedError {
+extension Anytype_Rpc.Account.Stop.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -469,7 +469,7 @@ extension Anytype_Rpc.Account.Stop.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.App.GetVersion.Response.Error: LocalizedError {
+extension Anytype_Rpc.App.GetVersion.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -493,7 +493,7 @@ extension Anytype_Rpc.App.GetVersion.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.App.SetDeviceState.Response.Error: LocalizedError {
+extension Anytype_Rpc.App.SetDeviceState.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -517,7 +517,7 @@ extension Anytype_Rpc.App.SetDeviceState.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.App.Shutdown.Response.Error: LocalizedError {
+extension Anytype_Rpc.App.Shutdown.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -541,7 +541,7 @@ extension Anytype_Rpc.App.Shutdown.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Copy.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Copy.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -565,7 +565,7 @@ extension Anytype_Rpc.Block.Copy.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Create.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Create.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -589,7 +589,7 @@ extension Anytype_Rpc.Block.Create.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.CreateWidget.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.CreateWidget.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -613,7 +613,7 @@ extension Anytype_Rpc.Block.CreateWidget.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Cut.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Cut.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -637,7 +637,7 @@ extension Anytype_Rpc.Block.Cut.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Download.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Download.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -661,7 +661,7 @@ extension Anytype_Rpc.Block.Download.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Export.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Export.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -685,7 +685,7 @@ extension Anytype_Rpc.Block.Export.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -709,7 +709,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Block.ListDelete.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListDelete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -733,7 +733,7 @@ extension Anytype_Rpc.Block.ListDelete.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.ListDuplicate.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListDuplicate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -757,7 +757,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -781,7 +781,7 @@ extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error: LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -805,7 +805,7 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.ListSetAlign.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListSetAlign.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -829,7 +829,7 @@ extension Anytype_Rpc.Block.ListSetAlign.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -853,7 +853,7 @@ extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Block.ListSetFields.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListSetFields.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -877,7 +877,7 @@ extension Anytype_Rpc.Block.ListSetFields.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -901,7 +901,7 @@ extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Block.ListTurnInto.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.ListTurnInto.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -925,7 +925,7 @@ extension Anytype_Rpc.Block.ListTurnInto.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Merge.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Merge.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -949,7 +949,7 @@ extension Anytype_Rpc.Block.Merge.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Paste.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Paste.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -973,7 +973,7 @@ extension Anytype_Rpc.Block.Paste.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Preview.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Preview.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -997,7 +997,7 @@ extension Anytype_Rpc.Block.Preview.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Replace.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Replace.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1021,7 +1021,7 @@ extension Anytype_Rpc.Block.Replace.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.SetCarriage.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.SetCarriage.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1045,7 +1045,7 @@ extension Anytype_Rpc.Block.SetCarriage.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.SetFields.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.SetFields.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1069,7 +1069,7 @@ extension Anytype_Rpc.Block.SetFields.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Split.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Split.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1093,7 +1093,7 @@ extension Anytype_Rpc.Block.Split.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Upload.Response.Error: LocalizedError {
+extension Anytype_Rpc.Block.Upload.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1117,7 +1117,7 @@ extension Anytype_Rpc.Block.Upload.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1141,7 +1141,7 @@ extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error: LocalizedErro
     }
 }
 
-extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1165,7 +1165,7 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1189,7 +1189,7 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: LocalizedErro
     }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1213,7 +1213,7 @@ extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: Loc
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1237,7 +1237,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1261,7 +1261,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: LocalizedError
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1285,7 +1285,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: LocalizedErro
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1309,7 +1309,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1333,7 +1333,7 @@ extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: LocalizedE
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1357,7 +1357,7 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1381,7 +1381,7 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: Localized
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1405,7 +1405,7 @@ extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1429,7 +1429,7 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: LocalizedErr
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1453,7 +1453,7 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: Local
     }
 }
 
-extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1477,7 +1477,7 @@ extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1501,7 +1501,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1525,7 +1525,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1549,7 +1549,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1573,7 +1573,7 @@ extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1597,7 +1597,7 @@ extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1621,7 +1621,7 @@ extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1645,7 +1645,7 @@ extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error: LocalizedErro
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1669,7 +1669,7 @@ extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1693,7 +1693,7 @@ extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1717,7 +1717,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1741,7 +1741,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: Localize
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1765,7 +1765,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: Localiz
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1789,7 +1789,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: LocalizedE
     }
 }
 
-extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1813,7 +1813,7 @@ extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1837,7 +1837,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1861,7 +1861,7 @@ extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockFile.SetName.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockFile.SetName.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1885,7 +1885,7 @@ extension Anytype_Rpc.BlockFile.SetName.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1909,7 +1909,7 @@ extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: LocalizedError
     }
 }
 
-extension Anytype_Rpc.BlockImage.SetName.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockImage.SetName.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1933,7 +1933,7 @@ extension Anytype_Rpc.BlockImage.SetName.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockImage.SetWidth.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockImage.SetWidth.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1957,7 +1957,7 @@ extension Anytype_Rpc.BlockImage.SetWidth.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -1981,7 +1981,7 @@ extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockLatex.SetText.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockLatex.SetText.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2005,7 +2005,7 @@ extension Anytype_Rpc.BlockLatex.SetText.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2029,7 +2029,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2053,7 +2053,7 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error: LocalizedError
     }
 }
 
-extension Anytype_Rpc.BlockRelation.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockRelation.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2077,7 +2077,7 @@ extension Anytype_Rpc.BlockRelation.Add.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockRelation.SetKey.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockRelation.SetKey.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2101,7 +2101,7 @@ extension Anytype_Rpc.BlockRelation.SetKey.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2125,7 +2125,7 @@ extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2149,7 +2149,7 @@ extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2173,7 +2173,7 @@ extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2197,7 +2197,7 @@ extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2221,7 +2221,7 @@ extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.Create.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.Create.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2245,7 +2245,7 @@ extension Anytype_Rpc.BlockTable.Create.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.Expand.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.Expand.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2269,7 +2269,7 @@ extension Anytype_Rpc.BlockTable.Expand.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowCreate.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.RowCreate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2293,7 +2293,7 @@ extension Anytype_Rpc.BlockTable.RowCreate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowDelete.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.RowDelete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2317,7 +2317,7 @@ extension Anytype_Rpc.BlockTable.RowDelete.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2341,7 +2341,7 @@ extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowListClean.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.RowListClean.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2365,7 +2365,7 @@ extension Anytype_Rpc.BlockTable.RowListClean.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowListFill.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.RowListFill.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2389,7 +2389,7 @@ extension Anytype_Rpc.BlockTable.RowListFill.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2413,7 +2413,7 @@ extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockTable.Sort.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockTable.Sort.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2437,7 +2437,7 @@ extension Anytype_Rpc.BlockTable.Sort.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.ListClearContent.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.ListClearContent.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2461,7 +2461,7 @@ extension Anytype_Rpc.BlockText.ListClearContent.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2485,7 +2485,7 @@ extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.ListSetColor.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.ListSetColor.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2509,7 +2509,7 @@ extension Anytype_Rpc.BlockText.ListSetColor.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.ListSetMark.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.ListSetMark.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2533,7 +2533,7 @@ extension Anytype_Rpc.BlockText.ListSetMark.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2557,7 +2557,7 @@ extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.SetChecked.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.SetChecked.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2581,7 +2581,7 @@ extension Anytype_Rpc.BlockText.SetChecked.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.SetColor.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.SetColor.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2605,7 +2605,7 @@ extension Anytype_Rpc.BlockText.SetColor.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.SetIcon.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.SetIcon.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2629,7 +2629,7 @@ extension Anytype_Rpc.BlockText.SetIcon.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2653,7 +2653,7 @@ extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.SetStyle.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.SetStyle.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2677,7 +2677,7 @@ extension Anytype_Rpc.BlockText.SetStyle.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockText.SetText.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockText.SetText.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2701,7 +2701,7 @@ extension Anytype_Rpc.BlockText.SetText.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockVideo.SetName.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockVideo.SetName.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2725,7 +2725,7 @@ extension Anytype_Rpc.BlockVideo.SetName.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2749,7 +2749,7 @@ extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2773,7 +2773,7 @@ extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2797,7 +2797,7 @@ extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2821,7 +2821,7 @@ extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error: LocalizedError {
+extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2845,7 +2845,7 @@ extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: LocalizedError {
+extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2872,7 +2872,7 @@ extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2896,7 +2896,7 @@ extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2920,7 +2920,7 @@ extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2944,7 +2944,7 @@ extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.Ping.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.Ping.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2968,7 +2968,7 @@ extension Anytype_Rpc.Debug.Ping.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.RunProfiler.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.RunProfiler.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -2992,7 +2992,7 @@ extension Anytype_Rpc.Debug.RunProfiler.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.SpaceSummary.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.SpaceSummary.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3016,7 +3016,7 @@ extension Anytype_Rpc.Debug.SpaceSummary.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3040,7 +3040,7 @@ extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.Stat.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.Stat.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3064,7 +3064,7 @@ extension Anytype_Rpc.Debug.Stat.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.Subscriptions.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.Subscriptions.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3088,7 +3088,7 @@ extension Anytype_Rpc.Debug.Subscriptions.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.Tree.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.Tree.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3112,7 +3112,7 @@ extension Anytype_Rpc.Debug.Tree.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.TreeHeads.Response.Error: LocalizedError {
+extension Anytype_Rpc.Debug.TreeHeads.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3136,7 +3136,7 @@ extension Anytype_Rpc.Debug.TreeHeads.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Device.List.Response.Error: LocalizedError {
+extension Anytype_Rpc.Device.List.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3160,7 +3160,7 @@ extension Anytype_Rpc.Device.List.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: LocalizedError {
+extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3187,7 +3187,7 @@ extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Device.SetName.Response.Error: LocalizedError {
+extension Anytype_Rpc.Device.SetName.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3211,7 +3211,7 @@ extension Anytype_Rpc.Device.SetName.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.Download.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.Download.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3235,7 +3235,7 @@ extension Anytype_Rpc.File.Download.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.Drop.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.Drop.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3259,7 +3259,7 @@ extension Anytype_Rpc.File.Drop.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.ListOffload.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.ListOffload.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3286,7 +3286,7 @@ extension Anytype_Rpc.File.ListOffload.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.NodeUsage.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.NodeUsage.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3310,7 +3310,7 @@ extension Anytype_Rpc.File.NodeUsage.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.Offload.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.Offload.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3337,7 +3337,7 @@ extension Anytype_Rpc.File.Offload.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.Reconcile.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.Reconcile.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3361,7 +3361,7 @@ extension Anytype_Rpc.File.Reconcile.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.SpaceOffload.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.SpaceOffload.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3388,7 +3388,7 @@ extension Anytype_Rpc.File.SpaceOffload.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.SpaceUsage.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.SpaceUsage.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3412,7 +3412,7 @@ extension Anytype_Rpc.File.SpaceUsage.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.Upload.Response.Error: LocalizedError {
+extension Anytype_Rpc.File.Upload.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3436,7 +3436,7 @@ extension Anytype_Rpc.File.Upload.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: LocalizedError {
+extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3466,7 +3466,7 @@ extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: LocalizedError {
+extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3490,7 +3490,7 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.GenericErrorResponse.Error: LocalizedError {
+extension Anytype_Rpc.GenericErrorResponse.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3514,7 +3514,7 @@ extension Anytype_Rpc.GenericErrorResponse.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.History.DiffVersions.Response.Error: LocalizedError {
+extension Anytype_Rpc.History.DiffVersions.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3538,7 +3538,7 @@ extension Anytype_Rpc.History.DiffVersions.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.History.GetVersions.Response.Error: LocalizedError {
+extension Anytype_Rpc.History.GetVersions.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3562,7 +3562,7 @@ extension Anytype_Rpc.History.GetVersions.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.History.SetVersion.Response.Error: LocalizedError {
+extension Anytype_Rpc.History.SetVersion.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3586,7 +3586,7 @@ extension Anytype_Rpc.History.SetVersion.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.History.ShowVersion.Response.Error: LocalizedError {
+extension Anytype_Rpc.History.ShowVersion.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3610,7 +3610,7 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.LinkPreview.Response.Error: LocalizedError {
+extension Anytype_Rpc.LinkPreview.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3634,7 +3634,7 @@ extension Anytype_Rpc.LinkPreview.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Log.Send.Response.Error: LocalizedError {
+extension Anytype_Rpc.Log.Send.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3658,7 +3658,7 @@ extension Anytype_Rpc.Log.Send.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Membership.Finalize.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.Finalize.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3703,7 +3703,7 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3739,7 +3739,7 @@ extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: LocalizedError
     }
 }
 
-extension Anytype_Rpc.Membership.GetStatus.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.GetStatus.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3781,7 +3781,7 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Membership.GetTiers.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.GetTiers.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3817,7 +3817,7 @@ extension Anytype_Rpc.Membership.GetTiers.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3868,7 +3868,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: LocalizedE
     }
 }
 
-extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3901,7 +3901,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: Loca
     }
 }
 
-extension Anytype_Rpc.Membership.IsNameValid.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3958,7 +3958,7 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4012,7 +4012,7 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: Localize
     }
 }
 
-extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4054,7 +4054,7 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: Localized
     }
 }
 
-extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: LocalizedError {
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4105,7 +4105,7 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Metrics.SetParameters.Response.Error: LocalizedError {
+extension Anytype_Rpc.Metrics.SetParameters.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4129,7 +4129,7 @@ extension Anytype_Rpc.Metrics.SetParameters.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: LocalizedError {
+extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4156,7 +4156,7 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.NameService.ResolveName.Response.Error: LocalizedError {
+extension Anytype_Rpc.NameService.ResolveName.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4183,7 +4183,7 @@ extension Anytype_Rpc.NameService.ResolveName.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: LocalizedError {
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4210,7 +4210,7 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: LocalizedError {
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4243,7 +4243,7 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: LocalizedError
     }
 }
 
-extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: LocalizedError {
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4267,7 +4267,7 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: Localize
     }
 }
 
-extension Anytype_Rpc.Navigation.ListObjects.Response.Error: LocalizedError {
+extension Anytype_Rpc.Navigation.ListObjects.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4291,7 +4291,7 @@ extension Anytype_Rpc.Navigation.ListObjects.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Notification.List.Response.Error: LocalizedError {
+extension Anytype_Rpc.Notification.List.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4318,7 +4318,7 @@ extension Anytype_Rpc.Notification.List.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Notification.Reply.Response.Error: LocalizedError {
+extension Anytype_Rpc.Notification.Reply.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4345,7 +4345,7 @@ extension Anytype_Rpc.Notification.Reply.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Notification.Test.Response.Error: LocalizedError {
+extension Anytype_Rpc.Notification.Test.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4372,7 +4372,7 @@ extension Anytype_Rpc.Notification.Test.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4396,7 +4396,7 @@ extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4420,7 +4420,7 @@ extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Close.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Close.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4444,7 +4444,7 @@ extension Anytype_Rpc.Object.Close.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Create.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Create.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4468,7 +4468,7 @@ extension Anytype_Rpc.Object.Create.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.CreateBookmark.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.CreateBookmark.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4492,7 +4492,7 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4516,7 +4516,7 @@ extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.CreateObjectType.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.CreateObjectType.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4540,7 +4540,7 @@ extension Anytype_Rpc.Object.CreateObjectType.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.CreateRelation.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.CreateRelation.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4564,7 +4564,7 @@ extension Anytype_Rpc.Object.CreateRelation.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4588,7 +4588,7 @@ extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: LocalizedError
     }
 }
 
-extension Anytype_Rpc.Object.CreateSet.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.CreateSet.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4615,7 +4615,7 @@ extension Anytype_Rpc.Object.CreateSet.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Duplicate.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Duplicate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4639,7 +4639,7 @@ extension Anytype_Rpc.Object.Duplicate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Graph.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Graph.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4663,7 +4663,7 @@ extension Anytype_Rpc.Object.Graph.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4687,7 +4687,7 @@ extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4726,7 +4726,7 @@ extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: Localiz
     }
 }
 
-extension Anytype_Rpc.Object.Import.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Import.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4768,7 +4768,7 @@ extension Anytype_Rpc.Object.Import.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ImportExperience.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ImportExperience.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4795,7 +4795,7 @@ extension Anytype_Rpc.Object.ImportExperience.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ImportList.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ImportList.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4822,7 +4822,7 @@ extension Anytype_Rpc.Object.ImportList.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ImportUseCase.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ImportUseCase.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4846,7 +4846,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ListDelete.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ListDelete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4870,7 +4870,7 @@ extension Anytype_Rpc.Object.ListDelete.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ListDuplicate.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ListDuplicate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4894,7 +4894,7 @@ extension Anytype_Rpc.Object.ListDuplicate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ListExport.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ListExport.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4918,7 +4918,7 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4942,7 +4942,7 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Object.ListSetDetails.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ListSetDetails.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4966,7 +4966,7 @@ extension Anytype_Rpc.Object.ListSetDetails.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -4990,7 +4990,7 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5014,7 +5014,7 @@ extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5038,7 +5038,7 @@ extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Open.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Open.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5071,7 +5071,7 @@ extension Anytype_Rpc.Object.Open.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5095,7 +5095,7 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Redo.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Redo.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5122,7 +5122,7 @@ extension Anytype_Rpc.Object.Redo.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Search.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Search.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5146,7 +5146,7 @@ extension Anytype_Rpc.Object.Search.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5170,7 +5170,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5194,7 +5194,7 @@ extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5218,7 +5218,7 @@ extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5242,7 +5242,7 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SetDetails.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SetDetails.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5266,7 +5266,7 @@ extension Anytype_Rpc.Object.SetDetails.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5290,7 +5290,7 @@ extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SetIsArchived.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5314,7 +5314,7 @@ extension Anytype_Rpc.Object.SetIsArchived.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5338,7 +5338,7 @@ extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SetLayout.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SetLayout.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5362,7 +5362,7 @@ extension Anytype_Rpc.Object.SetLayout.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SetObjectType.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SetObjectType.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5386,7 +5386,7 @@ extension Anytype_Rpc.Object.SetObjectType.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SetSource.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SetSource.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5410,7 +5410,7 @@ extension Anytype_Rpc.Object.SetSource.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ShareByLink.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ShareByLink.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5434,7 +5434,7 @@ extension Anytype_Rpc.Object.ShareByLink.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Show.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Show.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5467,7 +5467,7 @@ extension Anytype_Rpc.Object.Show.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SubscribeIds.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.SubscribeIds.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5491,7 +5491,7 @@ extension Anytype_Rpc.Object.SubscribeIds.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ToBookmark.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ToBookmark.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5515,7 +5515,7 @@ extension Anytype_Rpc.Object.ToBookmark.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ToCollection.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ToCollection.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5539,7 +5539,7 @@ extension Anytype_Rpc.Object.ToCollection.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ToSet.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.ToSet.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5563,7 +5563,7 @@ extension Anytype_Rpc.Object.ToSet.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Undo.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.Undo.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5590,7 +5590,7 @@ extension Anytype_Rpc.Object.Undo.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: LocalizedError {
+extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5614,7 +5614,7 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: LocalizedErro
     }
 }
 
-extension Anytype_Rpc.ObjectCollection.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectCollection.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5638,7 +5638,7 @@ extension Anytype_Rpc.ObjectCollection.Add.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.ObjectCollection.Remove.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectCollection.Remove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5662,7 +5662,7 @@ extension Anytype_Rpc.ObjectCollection.Remove.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.ObjectCollection.Sort.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectCollection.Sort.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5686,7 +5686,7 @@ extension Anytype_Rpc.ObjectCollection.Sort.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectRelation.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5710,7 +5710,7 @@ extension Anytype_Rpc.ObjectRelation.Add.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5734,7 +5734,7 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.Delete.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectRelation.Delete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5758,7 +5758,7 @@ extension Anytype_Rpc.ObjectRelation.Delete.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5782,7 +5782,7 @@ extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: LocalizedErro
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5806,7 +5806,7 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: LocalizedErr
     }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5833,7 +5833,7 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: LocalizedError {
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5860,7 +5860,7 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Process.Cancel.Response.Error: LocalizedError {
+extension Anytype_Rpc.Process.Cancel.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5884,7 +5884,7 @@ extension Anytype_Rpc.Process.Cancel.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: LocalizedError {
+extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5911,7 +5911,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Relation.Options.Response.Error: LocalizedError {
+extension Anytype_Rpc.Relation.Options.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5935,7 +5935,7 @@ extension Anytype_Rpc.Relation.Options.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.Delete.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -5974,7 +5974,7 @@ extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.InviteGenerate.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.InviteGenerate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6013,7 +6013,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6040,7 +6040,7 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.InviteRevoke.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.InviteRevoke.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6079,7 +6079,7 @@ extension Anytype_Rpc.Space.InviteRevoke.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.InviteView.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.InviteView.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6112,7 +6112,7 @@ extension Anytype_Rpc.Space.InviteView.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.Join.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.Join.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6160,7 +6160,7 @@ extension Anytype_Rpc.Space.Join.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.JoinCancel.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.JoinCancel.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6202,7 +6202,7 @@ extension Anytype_Rpc.Space.JoinCancel.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.LeaveApprove.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.LeaveApprove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6244,7 +6244,7 @@ extension Anytype_Rpc.Space.LeaveApprove.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.MakeShareable.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.MakeShareable.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6280,7 +6280,7 @@ extension Anytype_Rpc.Space.MakeShareable.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6325,7 +6325,7 @@ extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: Localiz
     }
 }
 
-extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6367,7 +6367,7 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.RequestApprove.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.RequestApprove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6412,7 +6412,7 @@ extension Anytype_Rpc.Space.RequestApprove.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.RequestDecline.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.RequestDecline.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6454,7 +6454,7 @@ extension Anytype_Rpc.Space.RequestDecline.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.StopSharing.Response.Error: LocalizedError {
+extension Anytype_Rpc.Space.StopSharing.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6490,7 +6490,7 @@ extension Anytype_Rpc.Space.StopSharing.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Template.Clone.Response.Error: LocalizedError {
+extension Anytype_Rpc.Template.Clone.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6514,7 +6514,7 @@ extension Anytype_Rpc.Template.Clone.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Template.CreateFromObject.Response.Error: LocalizedError {
+extension Anytype_Rpc.Template.CreateFromObject.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6538,7 +6538,7 @@ extension Anytype_Rpc.Template.CreateFromObject.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Template.ExportAll.Response.Error: LocalizedError {
+extension Anytype_Rpc.Template.ExportAll.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6562,7 +6562,7 @@ extension Anytype_Rpc.Template.ExportAll.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Unsplash.Download.Response.Error: LocalizedError {
+extension Anytype_Rpc.Unsplash.Download.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6589,7 +6589,7 @@ extension Anytype_Rpc.Unsplash.Download.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Unsplash.Search.Response.Error: LocalizedError {
+extension Anytype_Rpc.Unsplash.Search.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6616,7 +6616,7 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Wallet.CloseSession.Response.Error: LocalizedError {
+extension Anytype_Rpc.Wallet.CloseSession.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6640,7 +6640,7 @@ extension Anytype_Rpc.Wallet.CloseSession.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Wallet.Convert.Response.Error: LocalizedError {
+extension Anytype_Rpc.Wallet.Convert.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6664,7 +6664,7 @@ extension Anytype_Rpc.Wallet.Convert.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Wallet.Create.Response.Error: LocalizedError {
+extension Anytype_Rpc.Wallet.Create.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6691,7 +6691,7 @@ extension Anytype_Rpc.Wallet.Create.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Wallet.CreateSession.Response.Error: LocalizedError {
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6718,7 +6718,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Wallet.Recover.Response.Error: LocalizedError {
+extension Anytype_Rpc.Wallet.Recover.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6745,7 +6745,7 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.Create.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.Create.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6769,7 +6769,7 @@ extension Anytype_Rpc.Workspace.Create.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.Export.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.Export.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6793,7 +6793,7 @@ extension Anytype_Rpc.Workspace.Export.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.GetAll.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.GetAll.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6817,7 +6817,7 @@ extension Anytype_Rpc.Workspace.GetAll.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6841,7 +6841,7 @@ extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.Object.Add.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.Object.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6865,7 +6865,7 @@ extension Anytype_Rpc.Workspace.Object.Add.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6889,7 +6889,7 @@ extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6913,7 +6913,7 @@ extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: LocalizedError
     }
 }
 
-extension Anytype_Rpc.Workspace.Open.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.Open.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6937,7 +6937,7 @@ extension Anytype_Rpc.Workspace.Open.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.Select.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.Select.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -6961,7 +6961,7 @@ extension Anytype_Rpc.Workspace.Select.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Workspace.SetInfo.Response.Error: LocalizedError {
+extension Anytype_Rpc.Workspace.SetInfo.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
