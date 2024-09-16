@@ -31,7 +31,7 @@ enum SlashAction {
             )
         case let .media(media):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, subtitle: media.subtitle)
+                SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, titleSynonyms: media.titleSynonyms, subtitle: media.subtitle)
             )
         case let .style(style):
             return .titleSubtitleDisplayData(

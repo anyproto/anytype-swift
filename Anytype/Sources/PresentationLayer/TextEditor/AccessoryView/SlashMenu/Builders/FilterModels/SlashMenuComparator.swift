@@ -25,6 +25,10 @@ struct SlashMenuComparator {
                 result: .titleSubstring
             ),
             SlashMenuComparator(
+                predicate: { search in data.titleSynonyms?.contains { $0.contains(search) } ?? false },
+                result: .titleSynonymsSubstring
+            ),
+            SlashMenuComparator(
                 predicate: { subtitle == $0 },
                 result: .fullSubtitle
             ),
