@@ -2,7 +2,8 @@ import ProtobufMessages
 import Foundation
 
 
-extension Anytype_Event.Space.SyncError: LocalizedError {
+extension Anytype_Event.Space.SyncError: @retroactive Error {}
+extension Anytype_Event.Space.SyncError: @retroactive LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .null:

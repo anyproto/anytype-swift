@@ -1,7 +1,7 @@
 import Foundation
 import SecureService
 
-extension KeychainError: LocalizedError {
+extension KeychainError: @retroactive LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .stringItem2DataConversionError:

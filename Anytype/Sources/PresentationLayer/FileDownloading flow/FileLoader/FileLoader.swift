@@ -55,4 +55,4 @@ extension FileLoader: URLSessionDelegate {
     }
 }
 
-extension URLSessionTask: Cancellable {}
+extension URLSessionTask: @retroactive Cancellable {}

@@ -2,7 +2,7 @@ import Services
 import Foundation
 
 
-extension MembershipServiceError: LocalizedError {
+extension MembershipServiceError: @retroactive LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .tierNotFound:
