@@ -14,6 +14,7 @@ struct HighlightedBlockRestrictions: BlockRestrictions {
         .text(.header2),
         .text(.header3),
         .text(.quote),
+        .text(.callout),
         .text(.code),
         .text(.checkbox),
         .text(.bulleted),
