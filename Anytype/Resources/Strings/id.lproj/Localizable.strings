@@ -163,7 +163,7 @@
 "Unpin" = "Lepas sematan";
 "Pin on top" = "Sematkan di atas";
 "File block subtitle" = "Simpan berkas sebagaimana aslinya";
-"Picture block subtitle" = "Unggah dan perkaya halaman dengan gambar";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Unggah video yang dapat diputar";
 "Bookmark block subtitle" = "Simpan tautan favoritmu beserta ringkasan";
 "Code block subtitle" = "Catat potongan kode";
@@ -646,6 +646,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Gambar";
+"Image" = "Gambar";
 "File" = "Berkas";
 "No related options here" = "Tidak ada pilihan hubungan disini. Kamu dapat menambahkan beberapa";
 "Empty" = "Kosong";
