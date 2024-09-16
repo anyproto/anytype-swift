@@ -125,7 +125,7 @@ private struct MessageInternalView: View {
         Button {
             model.onTapAddReaction()
         } label: {
-            Text(Loc.Message.Action.addReaction)
+            Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
         }
     }
 }
