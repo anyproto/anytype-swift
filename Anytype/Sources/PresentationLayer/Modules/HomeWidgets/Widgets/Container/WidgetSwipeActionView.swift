@@ -21,7 +21,7 @@ struct WidgetSwipeActionView<Content: View>: View {
     
     @State private var dragOffsetX: CGFloat = 0
     @State private var dragState: DragState = .cancel
-    @State private var initialStartOffset: CGFloat? = 0
+    @State private var initialStartOffset: CGFloat? = nil
     @GestureState private var dragGestureActive = false
     
     private var percent: CGFloat {
@@ -83,7 +83,7 @@ struct WidgetSwipeActionView<Content: View>: View {
                 .offset(x: -contentOffset)
         }
         .gesture(
-            DragGesture(minimumDistance: 1, coordinateSpace: .local)
+            DragGesture(minimumDistance: 30, coordinateSpace: .local)
                 .updating($dragGestureActive) { value, state, transaction in
                     state = true
                 }
