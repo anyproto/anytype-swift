@@ -55,3 +55,25 @@ extension View {
         environment(\.appInterfaceStyle, AppInterfaceStyle(window: window))
     }
 }
+
+
+private struct OverrideDefaultInterfaceStyleModifier: ViewModifier {
+    
+    let style: UIUserInterfaceStyle?
+    
+    @Environment(\.appInterfaceStyle)
+    private var appInterfaceStyle
+    
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                appInterfaceStyle.overrideDefaultStyle(style)
+            }
+    }
+}
+
+extension View {
+    func overrideDefaultInterfaceStyle(_ style: UIUserInterfaceStyle?) -> some View {
+        self.modifier(OverrideDefaultInterfaceStyleModifier(style: style))
+    }
+}
