@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import SwiftUI
+import AnytypeCore
 
 @MainActor
 final class MessageViewModel: ObservableObject {
@@ -16,7 +17,7 @@ final class MessageViewModel: ObservableObject {
     @Injected(\.objectIdsSubscriptionService)
     private var objectIdsSubscriptionService: any ObjectIdsSubscriptionServiceProtocol
     
-    @Published var message: String = ""
+    @Published var message = AttributedString("")
     @Published var author: String = ""
     @Published var authorIcon: Icon?
     @Published var date: String = ""
@@ -46,7 +47,7 @@ final class MessageViewModel: ObservableObject {
         let chatMessage = data.message
         let authorParticipant = data.participant
         
-        message = chatMessage.message.text
+        message = makeMessage(content: chatMessage.message)
         author = authorParticipant?.title ?? ""
         authorIcon = authorParticipant?.icon.map { .object($0) }
         date = chatMessage.createdAtDate.formatted(date: .omitted, time: .shortened)
@@ -84,5 +85,50 @@ final class MessageViewModel: ObservableObject {
         await objectIdsSubscriptionService.startSubscription(objectIds: data.message.attachments.map(\.target)) { [weak self] linkedDetails in
             self?.linkedObjects = linkedDetails
         }
+    }
+    
+    private func makeMessage(content: ChatMessageContent) -> AttributedString {
+        var message = AttributedString(content.text)
+        
+        message.font = AnytypeFontBuilder.font(anytypeFont: .bodyRegular)
+        for mark in content.marks.reversed() {
+            let nsRange = NSRange(mark.range)
+            guard let range = Range(nsRange, in: message) else {
+                anytypeAssertionFailure("Out of range", info: ["range": nsRange.description, "textLenght": content.text.count.description])
+                continue
+            }
+            
+            switch mark.type {
+            case .strikethrough:
+                message[range].strikethroughStyle = .single
+            case .keyboard:
+                message[range].font = AnytypeFontBuilder.font(anytypeFont: .codeBlock)
+            case .italic:
+                message[range].font = message[range].font?.italic()
+            case .bold:
+                message[range].font = message[range].font?.bold()
+            case .underscored:
+                message[range].underlineStyle = .single
+            case .link:
+                message[range].link = URL(string: mark.param)
+            case .textColor:
+                message[range].foregroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Dark.color(from: $0) }
+            case .backgroundColor:
+                message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.VeryLight.color(from: $0) }
+            case .mention:
+                // TODO: Implement
+                break
+            case .emoji:
+                message.replaceSubrange(range, with: AttributedString(mark.param))
+            case .object:
+                // TODO: Implement
+                break
+            case .UNRECOGNIZED(let int):
+                anytypeAssertionFailure("Undefined text attribute", info: ["value": int.description, "param": mark.param])
+                break
+            }
+        }
+        
+        return message
     }
 }

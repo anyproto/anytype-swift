@@ -20,6 +20,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.discussionInputConverter)
+    private var discussionInputConverter: any DiscussionInputConverterProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
@@ -32,7 +34,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
     @Published var messagesScrollUpdate: DiscussionCollectionDiffApply = .auto
-    @Published var message: AttributedString = ""
+    @Published var message = NSAttributedString()
     @Published var canEdit = false
     @Published var title = ""
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
@@ -112,7 +114,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     func onTapSendMessage() {
         Task {
             var chatMessage = ChatMessage()
-            chatMessage.message.text = String(message.characters)
+            chatMessage.message = discussionInputConverter.convert(message: message)
             chatMessage.attachments = linkedObjects.map { details in
                 var attachment = ChatMessageAttachment()
                 attachment.target = details.id
@@ -121,7 +123,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             }
             try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
             scrollToLastForNextUpdate = true
-            message = AttributedString()
+            message = NSAttributedString()
             linkedObjects = []
         }
     }

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DiscusionInput: View {
     
-    @Binding var text: AttributedString
+    @Binding var text: NSAttributedString
     
     @Binding var editing: Bool
     let hasAdditionalData: Bool
@@ -20,7 +20,7 @@ struct DiscusionInput: View {
             .frame(height: 56)
             ZStack(alignment: .topLeading) {
                 DiscussionTextView(text: $text, editing: $editing, minHeight: 56, maxHeight: 212)
-                if text.isEmpty {
+                if text.string.isEmpty {
                     Text(Loc.Message.Input.emptyPlaceholder)
                         .anytypeStyle(.bodyRegular)
                         .foregroundColor(.Text.tertiary)
@@ -31,7 +31,7 @@ struct DiscusionInput: View {
                 }
             }
             
-            if hasAdditionalData || !text.isEmpty {
+            if hasAdditionalData || !text.string.isEmpty {
                 Button {
                     onTapSend()
                 } label: {
@@ -47,5 +47,5 @@ struct DiscusionInput: View {
 }
 
 #Preview {
-    DiscusionInput(text: .constant(AttributedString()), editing: .constant(false), hasAdditionalData: true, onTapAddObject: {}, onTapSend: {})
+    DiscusionInput(text: .constant(NSAttributedString()), editing: .constant(false), hasAdditionalData: true, onTapAddObject: {}, onTapSend: {})
 }
