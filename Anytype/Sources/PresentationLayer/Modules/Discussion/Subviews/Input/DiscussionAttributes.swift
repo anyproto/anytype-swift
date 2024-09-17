@@ -9,19 +9,6 @@ extension NSAttributedString.Key {
     static let discussionUnderscored = NSAttributedString.Key("discussionUnderscored")
 }
 
-struct MessageAttribute: CodableAttributedStringKey {
-    typealias Value = Bool
-    static var name: String = "discussionBold"
-}
-
-extension AttributeScopes {
-    struct AnytypeAttributes: AttributeScope {
-        let discussionBold: MessageAttribute
-        let swiftUI: SwiftUIAttributes
-    }
-    var anytype: AnytypeAttributes.Type { AnytypeAttributes.self }
-}
-
 extension MarkupType {
     var discussionAttributedKeyWithoutValue: NSAttributedString.Key? {
         switch self {
