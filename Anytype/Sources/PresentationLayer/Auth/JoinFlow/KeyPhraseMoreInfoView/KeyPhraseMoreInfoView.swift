@@ -23,7 +23,6 @@ struct KeyPhraseMoreInfoView: View {
         }
         .padding(.horizontal, 24)
         .background(Color.Background.secondary)
-        .preferredColorScheme(.dark)
     }
     
     private var optionsRows: some View {

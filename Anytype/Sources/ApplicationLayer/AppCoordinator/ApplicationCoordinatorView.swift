@@ -6,6 +6,7 @@ struct ApplicationCoordinatorView: View {
     
     @StateObject private var model = ApplicationCoordinatorViewModel()
     @Environment(\.dismissAllPresented) private var dismissAllPresented
+    @Environment(\.appInterfaceStyle) private var appInterfaceStyle
     
     var body: some View {
         ZStack {
@@ -32,17 +33,21 @@ struct ApplicationCoordinatorView: View {
         switch model.applicationState {
         case .initial:
             InitialCoordinatorView()
+                .onAppear { appInterfaceStyle.overrideDefaultStyle(.dark) }
         case .auth:
             model.authView()
-                .preferredColorScheme(.dark)
+                .onAppear { appInterfaceStyle.overrideDefaultStyle(.dark) }
         case .login:
             LaunchView {
                 DebugMenuView()
             }
+            .onAppear { appInterfaceStyle.overrideDefaultStyle(.dark) }
         case .home:
             SpaceHubCoordinatorView()
+                .onAppear { appInterfaceStyle.overrideDefaultStyle(nil) }
         case .delete:
             model.deleteAccount()
+                .onAppear { appInterfaceStyle.overrideDefaultStyle(.dark) }
         }
     }
 }

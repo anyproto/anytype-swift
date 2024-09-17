@@ -34,7 +34,6 @@ struct InitialCoordinatorView: View {
         } message: {
             Text(verbatim: Loc.Initial.UnstableMiddle.message)
         }
-        .preferredColorScheme(.dark)
         .snackbar(toastBarData: $model.toastBarData)
         .anytypeShareView(item: $model.middlewareShareFile)
         .anytypeShareView(item: $model.localStoreURL)

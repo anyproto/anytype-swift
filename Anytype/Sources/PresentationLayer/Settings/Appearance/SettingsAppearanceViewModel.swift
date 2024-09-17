@@ -7,21 +7,15 @@ final class SettingsAppearanceViewModel: ObservableObject {
     // MARK: - Private
     
     private var appInterfaceStyle: AppInterfaceStyle?
-    private var userDefaults: any UserDefaultsStorageProtocol
     
     // MARK: - Public
     
-    init() {
-        let userDefaults = Container.shared.userDefaultsStorage()
-        self.userDefaults = userDefaults
-        currentStyle = userDefaults.userInterfaceStyle
-    }
-    
-    @Published var currentStyle: UIUserInterfaceStyle {
+    @Published var currentStyle: UIUserInterfaceStyle? {
         didSet {
             UISelectionFeedbackGenerator().selectionChanged()
-            userDefaults.userInterfaceStyle = currentStyle
-            appInterfaceStyle?(currentStyle)
+            if let currentStyle {
+                appInterfaceStyle?.setDefaultStyle(currentStyle)
+            }
         }
     }
     
@@ -37,5 +31,6 @@ final class SettingsAppearanceViewModel: ObservableObject {
     
     func setAppInterfaceStyle(_ style: AppInterfaceStyle) {
         self.appInterfaceStyle = style
+        self.currentStyle = style.defaultStyle
     }
 }
