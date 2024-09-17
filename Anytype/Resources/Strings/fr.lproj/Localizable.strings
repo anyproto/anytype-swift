@@ -163,7 +163,7 @@
 "Unpin" = "Désépingler";
 "Pin on top" = "Épingler en haut";
 "File block subtitle" = "Stocker le fichier dans l'état original";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Télécharger et enrichir la page avec une image";
 "Video block subtitle" = "Charger une vidéo";
 "Bookmark block subtitle" = "Enregistrez votre lien favori avec un résumé";
 "Code block subtitle" = "Capturer un extrait de code";
