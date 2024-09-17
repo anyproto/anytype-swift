@@ -146,7 +146,7 @@
 "Relations" = "Свойства";
 "History" = "История";
 "Objects" = "Объекты";
-"Bookmarks" = "Bookmarks";
+"Bookmarks" = "Закладки";
 "Files" = "Files";
 "Lists" = "Списки";
 "Pinned" = "Закреплённые";
@@ -163,7 +163,7 @@
 "Unpin" = "Открепить";
 "Pin on top" = "Закрепить сверху";
 "File block subtitle" = "Сохранить файл в исходном состоянии";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Загрузите и дополните страницу изображением";
 "Video block subtitle" = "Загрузить воспроизводимое видео";
 "Bookmark block subtitle" = "Сохраните вашу любимую ссылку с кратким описанием";
 "Code block subtitle" = "Записать фрагмент кода";
@@ -982,7 +982,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Ваш запрос на присоединение к **%@** пространству был одобрен с **%@** правами доступа. Пространство будет доступно на вашем устройстве в ближайшее время.";
 "ParticipantRequestDeclineNotification.Text" = "Ваш запрос присоединиться к пространству **%@** был отклонен.";
 "RequestToLeaveNotification.Text" = "**%@** хочет покинуть пространство **%@**.";
-"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
+"ParticipantRemoveNotification.Text" = "Вы были удалены из пространства  '%@', или оно было удалено владельцем.";
 "RequestToJoinNotification.Text" = "**%@** сделал запрос на присоединение к пространству **%@**";
 "RequestToJoinNotification.GoToSpace" = "Перейти в пространство";
 "RequestToJoinNotification.ViewRequest" = "Посмотреть запрос";
@@ -1211,6 +1211,6 @@
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
 
 // MARK: - All Content
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.DateUpdated" = "Дата обновления";
+"AllContent.Sort.DateCreated" = "Дата создания";
+"AllContent.Mode.Unlinked" = "Только несвязанные";
