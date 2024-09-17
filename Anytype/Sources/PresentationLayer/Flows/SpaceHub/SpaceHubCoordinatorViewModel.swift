@@ -387,6 +387,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     }
 
     func onProfileSelected() {
+        UISelectionFeedbackGenerator().selectionChanged()
         showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
     }
 
