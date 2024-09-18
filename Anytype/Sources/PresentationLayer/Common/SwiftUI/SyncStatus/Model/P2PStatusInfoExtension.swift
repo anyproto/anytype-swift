@@ -19,7 +19,7 @@ extension P2PStatusInfo {
         switch status {
         case .notConnected, .UNRECOGNIZED:
             Loc.SyncStatus.P2P.notConnected
-        case .notPossible:
+        case .notPossible, .restricted:
             Loc.SyncStatus.P2P.restricted
         case .connected:
             Loc.devicesConnected(Int(devicesCounter))
@@ -31,7 +31,7 @@ extension P2PStatusInfo {
 extension P2PStatusInfo: NetworkIconProvider {
     var iconData: NetworkIconData {
         switch self.status {
-        case .notPossible:
+        case .notPossible, .restricted:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncP2p,
                 color: .System.red
@@ -53,7 +53,7 @@ extension P2PStatusInfo: NetworkIconProvider {
         switch status {
         case .notConnected:
             .animation(start: .Shape.secondary, end: .Shape.secondary.opacity(0.5))
-        case .notPossible, .UNRECOGNIZED:
+        case .notPossible, .UNRECOGNIZED, .restricted:
             .static(.Light.red)
         case .connected:
             .static(.Light.green)
@@ -64,7 +64,7 @@ extension P2PStatusInfo: NetworkIconProvider {
         switch status {
         case .notConnected, .connected, .UNRECOGNIZED:
             return false
-        case .notPossible:
+        case .notPossible, .restricted:
             return true
         }
     }
