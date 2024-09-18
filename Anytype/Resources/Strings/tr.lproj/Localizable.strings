@@ -163,7 +163,7 @@
 "Unpin" = "Sabitlemeyi kaldır";
 "Pin on top" = "Başa sabitle";
 "File block subtitle" = "Dosyayı orijinal halinde sakla";
-"Picture block subtitle" = "Resim yükle ve sayfayı zenginleştir";
+"Image block subtitle" = "Sayfaya görsel yükleyerek zenginleştirin";
 "Video block subtitle" = "Oynatılabilir video yükle";
 "Bookmark block subtitle" = "Favori bağlantınızı özetiyle kaydedin";
 "Code block subtitle" = "Kod kesitini yakala";
@@ -646,6 +646,7 @@
 "Audio" = "Ses";
 "Video" = "Video";
 "Picture" = "Resim";
+"Image" = "Görsel";
 "File" = "Dosya";
 "No related options here" = "Burada ilgili seçenek yok. Kendin ekleyebilirsin";
 "Empty" = "Boş";

@@ -163,7 +163,7 @@
 "Unpin" = "Unpin";
 "Pin on top" = "상단에 고정";
 "File block subtitle" = "파일을 원본 상태로 저장";
-"Picture block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "재생 가능한 비디오 업로드";
 "Bookmark block subtitle" = "즐겨찾는 링크를 요약과 함께 저장";
 "Code block subtitle" = "코드 스니펫 캡처";
@@ -646,6 +646,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Picture";
+"Image" = "Image";
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";

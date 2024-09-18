@@ -163,7 +163,7 @@
 "Unpin" = "Désépingler";
 "Pin on top" = "Épingler en haut";
 "File block subtitle" = "Stocker le fichier dans l'état original";
-"Picture block subtitle" = "Envoyer et enrichir la page avec une image";
+"Image block subtitle" = "Télécharger et enrichir la page avec une image";
 "Video block subtitle" = "Charger une vidéo";
 "Bookmark block subtitle" = "Enregistrez votre lien favori avec un résumé";
 "Code block subtitle" = "Capturer un extrait de code";
@@ -646,6 +646,7 @@
 "Audio" = "Audio";
 "Video" = "Vidéo";
 "Picture" = "Image";
+"Image" = "Image";
 "File" = "Fichier";
 "No related options here" = "Pas d'options associées ici. Vous pouvez en ajouter";
 "Empty" = "Vide";

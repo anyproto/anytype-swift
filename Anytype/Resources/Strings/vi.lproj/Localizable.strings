@@ -163,7 +163,7 @@
 "Unpin" = "Gỡ ghim";
 "Pin on top" = "Ghim lên trên cùng";
 "File block subtitle" = "Lưu tập tin ở trạng thái gốc";
-"Picture block subtitle" = "Tải lên và làm trang sống động bằng ảnh";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Tải lên video chạy được";
 "Bookmark block subtitle" = "Lưu các link bạn ưa thích kèm tóm tắt";
 "Code block subtitle" = "Chép lại một đoạn code";
@@ -647,6 +647,7 @@
 "Audio" = "Âm thanh";
 "Video" = "Phim";
 "Picture" = "Hình ảnh";
+"Image" = "Ảnh";
 "File" = "Tập tin";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Trống";

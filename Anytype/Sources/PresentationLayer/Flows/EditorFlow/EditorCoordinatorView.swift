@@ -41,7 +41,7 @@ struct EditorCoordinatorView: View {
         case let .discussion(data):
             DiscussionCoordinatorView(data: data)
         case let .allContent(spaceId):
-            AllContentCoordinatorView(spaceId: spaceId)
+            AllContentCoordinatorView(spaceId: spaceId, output: model)
         }
     }
 }

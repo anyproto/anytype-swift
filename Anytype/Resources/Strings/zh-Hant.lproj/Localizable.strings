@@ -163,7 +163,7 @@
 "Unpin" = "取消釘選";
 "Pin on top" = "置頂";
 "File block subtitle" = "以原始狀態儲存檔案";
-"Picture block subtitle" = "上傳圖像以豐富頁面";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "上傳可播放的影片";
 "Bookmark block subtitle" = "儲存您的最愛連結(包含摘要)";
 "Code block subtitle" = "擷取程式碼片段";
@@ -647,6 +647,7 @@
 "Audio" = "音訊";
 "Video" = "影片";
 "Picture" = "圖片";
+"Image" = "圖像";
 "File" = "檔案";
 "No related options here" = "尚無關聯選項。您可以新增一些";
 "Empty" = "空的";

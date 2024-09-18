@@ -163,7 +163,7 @@
 "Unpin" = "Maak los";
 "Pin on top" = "Zet vast bovenaan";
 "File block subtitle" = "Sla bestand op in oorspronkelijke staat";
-"Picture block subtitle" = "Upload en verrijk de pagina met afbeelding";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload afspeelbare video";
 "Bookmark block subtitle" = "Sla je favoriete link op met samenvatting";
 "Code block subtitle" = "Leg code fragment vast";
@@ -646,6 +646,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Afbeelding";
+"Image" = "Afbeelding";
 "File" = "Bestand";
 "No related options here" = "Geen gerelateerde opties hier. Je kunt er enkele toevoegen";
 "Empty" = "Leeg";

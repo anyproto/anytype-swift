@@ -163,7 +163,7 @@
 "Unpin" = "ପିନ କରନ୍ତୁ ନାହିଁ";
 "Pin on top" = "ଶୀର୍ଷରେ ପିନ୍";
 "File block subtitle" = "ଫାଇଲକୁ ମୂଳ ଅବସ୍ଥାରେ ଗଚ୍ଛିତ କରନ୍ତୁ";
-"Picture block subtitle" = "ପ୍ରତିଛବି ସହିତ ପୃଷ୍ଠା ଅପଲୋଡ୍ ଏବଂ ସମୃଦ୍ଧ କରନ୍ତୁ";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "ଖେଳାଯିବାକୁ ଥିବା ଭିଡିଓ ଅପଲୋଡ୍ କରନ୍ତୁ";
 "Bookmark block subtitle" = "ସାରାଂଶ ସହିତ ଆପଣଙ୍କର ପ୍ରିୟ ଲିଙ୍କ୍ ସଞ୍ଚୟ କରନ୍ତୁ";
 "Code block subtitle" = "କୋଡ୍ ସ୍ନିପେଟ୍ କ୍ୟାପଚର୍ କରନ୍ତୁ";
@@ -648,6 +648,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Picture";
+"Image" = "Image";
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";

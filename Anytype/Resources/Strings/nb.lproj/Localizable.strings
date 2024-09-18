@@ -163,7 +163,7 @@
 "Unpin" = "Løsne";
 "Pin on top" = "Fest på toppen";
 "File block subtitle" = "Lagre fil i original tilstand";
-"Picture block subtitle" = "Last opp og berik siden med bilde";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Last opp spillbar video";
 "Bookmark block subtitle" = "Lagre din favorittlenke med sammendrag";
 "Code block subtitle" = "Formatere kodeutdrag";
@@ -646,6 +646,7 @@
 "Audio" = "Lyd";
 "Video" = "Video";
 "Picture" = "Bilde";
+"Image" = "Image";
 "File" = "Fil";
 "No related options here" = "Ingen relaterte valg her. Du kan legge til noen";
 "Empty" = "Tom";

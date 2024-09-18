@@ -160,6 +160,8 @@ internal enum Loc {
   internal static let history = Loc.tr("Localizable", "History")
   internal static let home = Loc.tr("Localizable", "Home")
   internal static let icon = Loc.tr("Localizable", "Icon")
+  internal static let image = Loc.tr("Localizable", "Image")
+  internal static let imageBlockSubtitle = Loc.tr("Localizable", "Image block subtitle")
   internal static let inThisObject = Loc.tr("Localizable", "In this object")
   internal static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version")
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync")
@@ -255,7 +257,6 @@ internal enum Loc {
   }
   internal static let personalization = Loc.tr("Localizable", "Personalization")
   internal static let picture = Loc.tr("Localizable", "Picture")
-  internal static let pictureBlockSubtitle = Loc.tr("Localizable", "Picture block subtitle")
   internal static let pinOnTop = Loc.tr("Localizable", "Pin on top")
   internal static let pink = Loc.tr("Localizable", "Pink")
   internal static let pinkBackground = Loc.tr("Localizable", "Pink background")

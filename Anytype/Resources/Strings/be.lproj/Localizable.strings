@@ -163,7 +163,7 @@
 "Unpin" = "Адмацаваць";
 "Pin on top" = "Замацаваць зверху";
 "File block subtitle" = "Захаваць файл у першапачатковым стане";
-"Picture block subtitle" = "Загрузіць і ўзбагаціць старонку відарысам";
+"Image block subtitle" = "Загрузіць і ўзбагаціць старонку відарысам";
 "Video block subtitle" = "Запампаваць прайграванае відэа";
 "Bookmark block subtitle" = "Захаваць вашу ўлюблёную спасылку з кароткім зместам";
 "Code block subtitle" = "Захапіць кавалак кода";
@@ -646,6 +646,7 @@
 "Audio" = "Аўдыя";
 "Video" = "Відэа";
 "Picture" = "Відарыс";
+"Image" = "Відарыс";
 "File" = "Файл";
 "No related options here" = "Тут няма фільтраў. Вы можаце дадаць некалькі";
 "Empty" = "Пуста";
@@ -1208,6 +1209,6 @@
 "Message.Input.EmptyPlaceholder" = "Напісаць паведамленне...";
 
 // MARK: - All Content
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.DateUpdated" = "Дата змянення";
+"AllContent.Sort.DateCreated" = "Дата стварэння";
+"AllContent.Mode.Unlinked" = "Толькі адвязаныя";

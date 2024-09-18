@@ -163,7 +163,7 @@
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
-"Picture block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload playable video";
 "Bookmark block subtitle" = "Save your favorite link with summary";
 "Code block subtitle" = "Capture code snippet";
@@ -646,6 +646,7 @@
 "Audio" = "Ääni";
 "Video" = "Video";
 "Picture" = "Kuva";
+"Image" = "Image";
 "File" = "Tiedosto";
 "No related options here" = "Ei yhteenkuuluvia vaihtoehtoja täällä. Voit lisätä muutaman";
 "Empty" = "Tyhjä";
