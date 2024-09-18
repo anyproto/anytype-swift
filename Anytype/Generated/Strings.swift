@@ -429,12 +429,26 @@ internal enum Loc {
     }
   }
   internal enum AllContent {
-    internal enum Mode {
-      internal static let unlinked = Loc.tr("Localizable", "AllContent.Mode.Unlinked")
+    internal enum Settings {
+      internal static let unlinked = Loc.tr("Localizable", "AllContent.Settings.Unlinked")
+      internal enum Sort {
+        internal static let title = Loc.tr("Localizable", "AllContent.Settings.Sort.Title")
+      }
+      internal enum ViewOprions {
+        internal static let title = Loc.tr("Localizable", "AllContent.Settings.ViewOprions.Title")
+      }
     }
     internal enum Sort {
       internal static let dateCreated = Loc.tr("Localizable", "AllContent.Sort.DateCreated")
       internal static let dateUpdated = Loc.tr("Localizable", "AllContent.Sort.DateUpdated")
+      internal enum Date {
+        internal static let asc = Loc.tr("Localizable", "AllContent.Sort.Date.Asc")
+        internal static let desc = Loc.tr("Localizable", "AllContent.Sort.Date.Desc")
+      }
+      internal enum Name {
+        internal static let asc = Loc.tr("Localizable", "AllContent.Sort.Name.Asc")
+        internal static let desc = Loc.tr("Localizable", "AllContent.Sort.Name.Desc")
+      }
     }
   }
   internal enum Auth {

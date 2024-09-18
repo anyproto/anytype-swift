@@ -9,7 +9,7 @@ enum AllContentMode: CaseIterable {
         case .allContent:
             Loc.allContent
         case .unlinked:
-            Loc.AllContent.Mode.unlinked
+            Loc.AllContent.Settings.unlinked
         }
     }
 }
