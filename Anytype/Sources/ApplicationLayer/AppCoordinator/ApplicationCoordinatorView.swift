@@ -32,17 +32,21 @@ struct ApplicationCoordinatorView: View {
         switch model.applicationState {
         case .initial:
             InitialCoordinatorView()
+                .overrideDefaultInterfaceStyle(.dark)
         case .auth:
             model.authView()
-                .preferredColorScheme(.dark)
+                .overrideDefaultInterfaceStyle(.dark)
         case .login:
             LaunchView {
                 DebugMenuView()
             }
+            .overrideDefaultInterfaceStyle(.dark)
         case .home:
             SpaceHubCoordinatorView()
+                .overrideDefaultInterfaceStyle(nil)
         case .delete:
-            model.deleteAccount()
+            model.deleteAccount()?
+                .overrideDefaultInterfaceStyle(nil)
         }
     }
 }

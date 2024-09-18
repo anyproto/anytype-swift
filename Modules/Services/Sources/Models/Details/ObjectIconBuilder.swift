@@ -54,6 +54,8 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
             return nil
         case .space, .spaceView:
             return spaceIcon(iconImage: relations.iconImage, iconOptionValue: relations.iconOptionValue, objectName: relations.objectName)
+        case .chat, .chatDerived:
+            return nil
         }
     }
     

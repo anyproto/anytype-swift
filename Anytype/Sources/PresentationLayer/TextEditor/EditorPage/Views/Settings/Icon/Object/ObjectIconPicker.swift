@@ -44,6 +44,11 @@ struct ObjectIconPicker: View {
                     .onAppear {
                         anytypeAssertionFailure("Not supported layout")
                     }
+            case .chat, .chatDerived:
+                EmptyView()
+                    .onAppear {
+                        anytypeAssertionFailure("Not supported layout")
+                    }
             }
         }
     }

@@ -73,7 +73,9 @@ struct WallpaperColorsGridView: View {
                         }
                         .overlay(alignment: .center) {
                             VStack(alignment: .center, spacing: 9) {
-                                Image(asset: .X24.blur).frame(width: 24, height: 24)
+                                Image(asset: .X24.blur)
+                                    .frame(width: 24, height: 24)
+                                    .foregroundStyle(Color.Text.primary)
                                 AnytypeText(Loc.blurredIcon, style: .caption2Regular)
                                     .multilineTextAlignment(.center)
                             }

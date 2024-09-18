@@ -210,6 +210,8 @@ final class MiddlewareEventConverter {
                 .chatUpdate,
                 .chatUpdateReactions:
             return nil
+        case .chatAdd, .chatUpdate, .chatUpdateReactions, .chatDelete:
+            return nil
         }
     }
     

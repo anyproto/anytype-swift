@@ -24,17 +24,19 @@ struct SpaceHubView: View {
     }
     
     var content: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 0) {
             navBar
             
             if let spaces = model.spaces {
-                ScrollView {
-                    ForEach(spaces) {
-                        spaceCard($0)
+                VStack(spacing: 8) {
+                    ScrollView {
+                        ForEach(spaces) {
+                            spaceCard($0)
+                        }
+                        plusButton
                     }
-                    plusButton
+                    .scrollIndicators(.never)
                 }
-                .scrollIndicators(.never)
             }
             
             Spacer()
@@ -66,7 +68,7 @@ struct SpaceHubView: View {
             Spacer()
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.vertical, 12)
         .overlay(alignment: .leading) {
             Button(
                 action: {
@@ -129,6 +131,7 @@ struct SpaceHubView: View {
                 AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
                     .lineLimit(1)
                     .opacity(0.6)
+                Spacer.fixedHeight(2)
             }
             Spacer()
         }

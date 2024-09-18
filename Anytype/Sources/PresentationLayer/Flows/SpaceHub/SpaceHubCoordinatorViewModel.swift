@@ -161,22 +161,19 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     private func push(data: EditorScreenData) async throws {
-        guard let objectId = data.objectId else {
-            navigationPath.push(data)
-            return
+        if let objectId = data.objectId { // validate in case of object
+            let document = documentsProvider.document(objectId: objectId, mode: .preview)
+            try await document.open()
+            guard let details = document.details else { return }
+            guard details.isSupportedForEdit else {
+                toastBarData = ToastBarData(
+                    text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none
+                )
+                return
+            }
         }
         
-        let document = documentsProvider.document(objectId: objectId, mode: .preview)
-        try await document.open()
-        guard let details = document.details else { return }
-        guard details.isSupportedForEdit else {
-            toastBarData = ToastBarData(
-                text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none
-            )
-            return
-        }
-        
-        let spaceId = document.spaceId
+        let spaceId = data.spaceId
         if currentSpaceId != spaceId {
             // Check if space is deleted
             guard workspaceStorage.spaceView(spaceId: spaceId).isNotNil else { return }
@@ -387,6 +384,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     }
 
     func onProfileSelected() {
+        UISelectionFeedbackGenerator().selectionChanged()
         showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
     }
 

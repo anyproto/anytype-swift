@@ -13,6 +13,7 @@ struct DashboardWallpaper: View {
                 case .blurredIcon:
                     IconView(icon: spaceIcon)
                         .scaledToFill()
+                        .scaleEffect(1.2)
                         .blur(radius: 32)
                         .clipped()
                         .opacity(colorScheme == .dark ? 0.5 : 0.3)
