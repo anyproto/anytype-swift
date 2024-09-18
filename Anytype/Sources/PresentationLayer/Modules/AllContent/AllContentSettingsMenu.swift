@@ -4,8 +4,8 @@ import Services
 struct AllContentSettingsMenu: View {
     
     let state: AllContentState
-    let onSortRelationChanged: (AllContentSort.Relation) -> Void
-    let onSortTypeChanged: (DataviewSort.TypeEnum) -> Void
+    let sortRelationChanged: (AllContentSort.Relation) -> Void
+    let sortTypeChanged: (DataviewSort.TypeEnum) -> Void
     
     var body: some View {
         Menu {
@@ -24,14 +24,14 @@ struct AllContentSettingsMenu: View {
             Section {
                 ForEach(AllContentSort.Relation.allCases, id: \.self) { sortRelation in
                     sortRow(title: sortRelation.title, selected: state.sort.relation == sortRelation) {
-                        onSortRelationChanged(sortRelation)
+                        sortRelationChanged(sortRelation)
                     }
                 }
             }
             Section {
                 ForEach(state.sort.relation.availableSortTypes, id: \.self) { type in
                     sortRow(title: state.sort.relation.titleFor(sortType: type), selected: state.sort.type == type) {
-                        onSortTypeChanged(type)
+                        sortTypeChanged(type)
                     }
                 }
             }

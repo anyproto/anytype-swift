@@ -43,11 +43,11 @@ struct AllContentView: View {
     private var settingsMenu: some View {
         AllContentSettingsMenu(
             state: model.state,
-            onSortRelationChanged: { relation in
-                model.onSortRelationChanged(relation)
+            sortRelationChanged: { relation in
+                model.sortRelationChanged(relation)
             },
-            onSortTypeChanged: { type in
-                model.onSortTypeChanged(type)
+            sortTypeChanged: { type in
+                model.sortTypeChanged(type)
             }
         )
     }
@@ -69,7 +69,7 @@ struct AllContentView: View {
                 ForEach(AllContentType.allCases, id: \.self) { type in
                     Button {
                         UISelectionFeedbackGenerator().selectionChanged()
-                        model.onTypeChanged(type)
+                        model.typeChanged(type)
                     } label: {
                         AnytypeText(
                             type.title,

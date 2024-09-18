@@ -55,20 +55,20 @@ final class AllContentViewModel: ObservableObject {
         }
     }
     
-    func onModeChanged(_ mode: AllContentMode) {
+    func modeChanged(_ mode: AllContentMode) {
         state.mode = mode
     }
     
-    func onTypeChanged(_ type: AllContentType) {
+    func typeChanged(_ type: AllContentType) {
         state.type = type
     }
     
-    func onSortRelationChanged(_ sortRelation: AllContentSort.Relation) {
+    func sortRelationChanged(_ sortRelation: AllContentSort.Relation) {
         guard state.sort.relation != sortRelation else { return }
         state.sort = AllContentSort(relation: sortRelation)
     }
     
-    func onSortTypeChanged(_ sortType: DataviewSort.TypeEnum) {
+    func sortTypeChanged(_ sortType: DataviewSort.TypeEnum) {
         guard state.sort.type != sortType else { return }
         state.sort.type = sortType
     }
