@@ -1,7 +1,6 @@
 import Services
 import SwiftUI
 
-
 extension P2PStatusInfo {
     static func `default`(spaceId: String) -> P2PStatusInfo {
         var info = P2PStatusInfo()
@@ -14,11 +13,13 @@ extension P2PStatusInfo {
 // Texts
 extension P2PStatusInfo {
     var networkTitle: String { Loc.p2PConnection }
-    
+
     var networkSubtitle: String {
         switch status {
-        case .notConnected, .notPossible, .UNRECOGNIZED:
+        case .notConnected:
             Loc.SyncStatus.P2P.notConnected
+        case .notPossible, .UNRECOGNIZED:
+            Loc.SyncStatus.P2P.notPossible
         case .connected:
             Loc.devicesConnected(Int(devicesCounter))
         case .restricted:
@@ -48,7 +49,7 @@ extension P2PStatusInfo: NetworkIconProvider {
             )
         }
     }
-    
+
     var background: NetworkIconBackground {
         switch status {
         case .notConnected, .notPossible, .UNRECOGNIZED:
@@ -59,7 +60,7 @@ extension P2PStatusInfo: NetworkIconProvider {
             .static(.Light.red)
         }
     }
-    
+
     var haveTapIndicatior: Bool {
         switch status {
         case .notConnected, .connected, .notPossible, .UNRECOGNIZED:

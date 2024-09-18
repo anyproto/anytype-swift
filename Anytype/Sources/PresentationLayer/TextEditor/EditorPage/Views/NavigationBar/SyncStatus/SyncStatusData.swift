@@ -23,7 +23,7 @@ struct SyncStatusData {
         case .error:
             return .image(makeIcon(color: .System.red))
         case .networkNeedsUpdate:
-            return .image(makeIcon(color: .Light.yellow))
+            return .image(makeIcon(color: .System.yellow))
         case .syncing:
             return .animation(
                 makeIcon(color: .System.green, diameter: 8),
