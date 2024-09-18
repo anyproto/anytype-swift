@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import OrderedCollections
 
 @MainActor
 protocol AllContentModuleOutput: AnyObject {
@@ -9,7 +10,8 @@ protocol AllContentModuleOutput: AnyObject {
 @MainActor
 final class AllContentViewModel: ObservableObject {
 
-    @Published var rows: [WidgetObjectListRowModel] = []
+    private var details = [ObjectDetails]()
+    @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
     @Published var state = AllContentState()
     @Published var searchText = ""
     
@@ -17,6 +19,8 @@ final class AllContentViewModel: ObservableObject {
     private var allContentSubscriptionService: any AllContentSubscriptionServiceProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    
+    private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
     private let spaceId: String
     private weak var output: (any AllContentModuleOutput)?
@@ -34,7 +38,8 @@ final class AllContentViewModel: ObservableObject {
             onlyUnlinked: state.mode == .unlinked,
             limitedObjectsIds: state.limitedObjectsIds,
             update: { [weak self] details in
-                self?.updateRows(with: details)
+                self?.details = details
+                self?.updateRows()
             }
         )
     }
@@ -88,21 +93,51 @@ final class AllContentViewModel: ObservableObject {
         }
     }
     
-    private func updateRows(with details: [ObjectDetails]) {
-        rows = details.map { details in
-            WidgetObjectListRowModel(
-                objectId: details.id,
-                icon: details.objectIconImage,
-                title: details.title,
-                description: details.subtitle,
-                subtitle: details.objectType.name,
-                isChecked: false,
-                menu: [],
-                onTap: { [weak self] in
-                    self?.output?.onObjectSelected(screenData: details.editorScreenData())
-                },
-                onCheckboxTap: nil
+    private func updateRows() {
+        if state.sort.relation.canGroupByDate {
+            let toDate = Date()
+            let dict = OrderedDictionary(
+                grouping: details,
+                by: { dateFormatter.localizedString(for: sortValue(for: $0) ?? toDate, relativeTo: toDate) }
             )
+            sections = dict.map { (key, details) in
+                listSectionData(title: key, details: details)
+            }
+        } else {
+            sections = [listSectionData(title: nil, details: details)]
+        }
+    }
+    
+    private func listSectionData(title: String?, details: [ObjectDetails]) -> ListSectionData<String?, WidgetObjectListRowModel> {
+        ListSectionData(
+            id: title ?? UUID().uuidString,
+            data: title,
+            rows: details.map { details in
+                WidgetObjectListRowModel(
+                    objectId: details.id,
+                    icon: details.objectIconImage,
+                    title: details.title,
+                    description: details.subtitle,
+                    subtitle: details.objectType.name,
+                    isChecked: false,
+                    menu: [],
+                    onTap: { [weak self] in
+                        self?.output?.onObjectSelected(screenData: details.editorScreenData())
+                    },
+                    onCheckboxTap: nil
+                )
+            }
+        )
+    }
+    
+    private func sortValue(for details: ObjectDetails) -> Date? {
+        switch state.sort.relation {
+        case .dateUpdated:
+            return details.lastModifiedDate
+        case .dateCreated:
+            return details.createdDate
+        case .name:
+            return nil
         }
     }
 }
