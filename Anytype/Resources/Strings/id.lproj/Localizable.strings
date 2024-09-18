@@ -1196,7 +1196,8 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.networkError" = "Tidak ada akses ke ruang";
 "SyncStatus.Error.UNRECOGNIZED" = "Galat tak dikenali";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Koneksi tidak memungkinkan";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1208,6 +1209,12 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Tanggal diperbarui";
 "AllContent.Sort.DateCreated" = "Tanggal dibuat";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked" = "Only unlinked";

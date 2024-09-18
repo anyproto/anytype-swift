@@ -1198,7 +1198,8 @@
 "SyncStatus.Error.networkError" = "没有访问空间的权限";
 "SyncStatus.Error.UNRECOGNIZED" = "未知的错误";
 "SyncStatus.P2P.Restricted" = "受限制。点击打开设备设置。";
-"SyncStatus.P2P.NotConnected" = "连接不可用";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1210,6 +1211,12 @@
 "Message.Input.EmptyPlaceholder" = "写一段话…";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked" = "Only unlinked";

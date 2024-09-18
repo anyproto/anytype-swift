@@ -1197,7 +1197,8 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "SyncStatus.Error.UNRECOGNIZED" = "Erreur inconnue
 ";
 "SyncStatus.P2P.Restricted" = "Limité. Appuyez pour ouvrir les paramètres de l'appareil.";
-"SyncStatus.P2P.NotConnected" = "Connexion impossible";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1209,6 +1210,12 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Message.Input.EmptyPlaceholder" = "Ecrire un message...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Date de mise à jour";
 "AllContent.Sort.DateCreated" = "Date de création";
-"AllContent.Mode.Unlinked" = "Uniquement dissocié";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked" = "Only unlinked";

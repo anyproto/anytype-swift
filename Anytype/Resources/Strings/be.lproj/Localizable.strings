@@ -1197,7 +1197,8 @@
 "SyncStatus.Error.networkError" = "Няма доступу да прасторы";
 "SyncStatus.Error.UNRECOGNIZED" = "Невядомая памылка";
 "SyncStatus.P2P.Restricted" = "Абмежаваны. Націсніце, каб адкрыць налады прылады.";
-"SyncStatus.P2P.NotConnected" = "Падключэнне немагчыма";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1209,6 +1210,12 @@
 "Message.Input.EmptyPlaceholder" = "Напісаць паведамленне...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Дата змянення";
 "AllContent.Sort.DateCreated" = "Дата стварэння";
-"AllContent.Mode.Unlinked" = "Толькі адвязаныя";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked" = "Only unlinked";

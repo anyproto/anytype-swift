@@ -1198,7 +1198,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "SyncStatus.Error.networkError" = "Alana erişim yok";
 "SyncStatus.Error.UNRECOGNIZED" = "Tanınmayan hata";
 "SyncStatus.P2P.Restricted" = "Kısıtlanmış. Cihaz ayarlarını açmak için dokunun.";
-"SyncStatus.P2P.NotConnected" = "Bağlantı mümkün değil";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1210,6 +1211,12 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Güncellenme tarihi";
 "AllContent.Sort.DateCreated" = "Oluşturulma tarihi";
-"AllContent.Mode.Unlinked" = "Sadece bağlantısız";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked" = "Only unlinked";
