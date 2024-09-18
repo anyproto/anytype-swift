@@ -53,6 +53,12 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case fileObject // = 533
   case notificationObject // = 535
   case devicesObject // = 536
+
+  /// Container for any-store based chats
+  case chatObject // = 537
+
+  /// Any-store based object for chat
+  case chatDerivedObject // = 544
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -86,6 +92,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 534: self = .participant
     case 535: self = .notificationObject
     case 536: self = .devicesObject
+    case 537: self = .chatObject
+    case 544: self = .chatDerivedObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -117,6 +125,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .participant: return 534
     case .notificationObject: return 535
     case .devicesObject: return 536
+    case .chatObject: return 537
+    case .chatDerivedObject: return 544
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -153,6 +163,8 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .fileObject,
     .notificationObject,
     .devicesObject,
+    .chatObject,
+    .chatDerivedObject,
   ]
 }
 
@@ -1129,6 +1141,14 @@ public struct Anytype_Model_Block {
     set {_uniqueStorage()._content = .widget(newValue)}
   }
 
+  public var chat: Anytype_Model_Block.Content.Chat {
+    get {
+      if case .chat(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.Chat()
+    }
+    set {_uniqueStorage()._content = .chat(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_Content: Equatable {
@@ -1149,6 +1169,7 @@ public struct Anytype_Model_Block {
     case tableColumn(Anytype_Model_Block.Content.TableColumn)
     case tableRow(Anytype_Model_Block.Content.TableRow)
     case widget(Anytype_Model_Block.Content.Widget)
+    case chat(Anytype_Model_Block.Content.Chat)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Block.OneOf_Content, rhs: Anytype_Model_Block.OneOf_Content) -> Bool {
@@ -1222,6 +1243,10 @@ public struct Anytype_Model_Block {
       }()
       case (.widget, .widget): return {
         guard case .widget(let l) = lhs, case .widget(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.chat, .chat): return {
+        guard case .chat(let l) = lhs, case .chat(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -3004,6 +3029,16 @@ public struct Anytype_Model_Block {
       public init() {}
     }
 
+    public struct Chat {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
     public init() {}
   }
 
@@ -3890,6 +3925,8 @@ public struct Anytype_Model_ObjectType {
     case spaceView // = 18
     case participant // = 19
     case pdf // = 20
+    case chat // = 21
+    case chatDerived // = 22
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -3919,6 +3956,8 @@ public struct Anytype_Model_ObjectType {
       case 18: self = .spaceView
       case 19: self = .participant
       case 20: self = .pdf
+      case 21: self = .chat
+      case 22: self = .chatDerived
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -3946,6 +3985,8 @@ public struct Anytype_Model_ObjectType {
       case .spaceView: return 18
       case .participant: return 19
       case .pdf: return 20
+      case .chat: return 21
+      case .chatDerived: return 22
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -3981,6 +4022,8 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .spaceView,
     .participant,
     .pdf,
+    .chat,
+    .chatDerived,
   ]
 }
 
@@ -5769,6 +5812,169 @@ public struct Anytype_Model_DeviceInfo {
   public init() {}
 }
 
+public struct Anytype_Model_ChatMessage {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Unique message identifier
+  public var id: String = String()
+
+  /// Used for subscriptions
+  public var orderID: String = String()
+
+  /// Identifier for the message creator
+  public var creator: String = String()
+
+  public var createdAt: Int64 = 0
+
+  public var modifiedAt: Int64 = 0
+
+  /// Identifier for the message being replied to
+  public var replyToMessageID: String = String()
+
+  /// Message content
+  public var message: Anytype_Model_ChatMessage.MessageContent {
+    get {return _message ?? Anytype_Model_ChatMessage.MessageContent()}
+    set {_message = newValue}
+  }
+  /// Returns true if `message` has been explicitly set.
+  public var hasMessage: Bool {return self._message != nil}
+  /// Clears the value of `message`. Subsequent reads from it will return its default value.
+  public mutating func clearMessage() {self._message = nil}
+
+  /// Attachments slice
+  public var attachments: [Anytype_Model_ChatMessage.Attachment] = []
+
+  /// Reactions to the message
+  public var reactions: Anytype_Model_ChatMessage.Reactions {
+    get {return _reactions ?? Anytype_Model_ChatMessage.Reactions()}
+    set {_reactions = newValue}
+  }
+  /// Returns true if `reactions` has been explicitly set.
+  public var hasReactions: Bool {return self._reactions != nil}
+  /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
+  public mutating func clearReactions() {self._reactions = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public struct MessageContent {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// The text content of the message part
+    public var text: String = String()
+
+    /// The style/type of the message part
+    public var style: Anytype_Model_Block.Content.Text.Style = .paragraph
+
+    /// List of marks applied to the text
+    public var marks: [Anytype_Model_Block.Content.Text.Mark] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct Attachment {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Identifier for the attachment object
+    public var target: String = String()
+
+    /// Type of attachment
+    public var type: Anytype_Model_ChatMessage.Attachment.AttachmentType = .file
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public enum AttachmentType: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+
+      /// File attachment
+      case file // = 0
+
+      /// Image attachment
+      case image // = 1
+
+      /// Link attachment
+      case link // = 2
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .file
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .file
+        case 1: self = .image
+        case 2: self = .link
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .file: return 0
+        case .image: return 1
+        case .link: return 2
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    public init() {}
+  }
+
+  public struct Reactions {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Map of emoji to list of user IDs
+    public var reactions: Dictionary<String,Anytype_Model_ChatMessage.Reactions.IdentityList> = [:]
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct IdentityList {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      /// List of user IDs
+      public var ids: [String] = []
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public init() {}
+  }
+
+  public init() {}
+
+  fileprivate var _message: Anytype_Model_ChatMessage.MessageContent? = nil
+  fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_ChatMessage.Attachment.AttachmentType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_ChatMessage.Attachment.AttachmentType] = [
+    .file,
+    .image,
+    .link,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
@@ -5848,6 +6054,7 @@ extension Anytype_Model_Block.Content.TableColumn: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.TableRow: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Widget: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Widget.Layout: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Chat: @unchecked Sendable {}
 extension Anytype_Model_BlockMetaOnly: @unchecked Sendable {}
 extension Anytype_Model_Range: @unchecked Sendable {}
 extension Anytype_Model_Account: @unchecked Sendable {}
@@ -5921,6 +6128,12 @@ extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
 extension Anytype_Model_Detail: @unchecked Sendable {}
 extension Anytype_Model_DeviceInfo: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.MessageContent: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.Attachment: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.Attachment.AttachmentType: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.Reactions: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.Reactions.IdentityList: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -5954,6 +6167,8 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     534: .same(proto: "Participant"),
     535: .same(proto: "NotificationObject"),
     536: .same(proto: "DevicesObject"),
+    537: .same(proto: "ChatObject"),
+    544: .same(proto: "ChatDerivedObject"),
   ]
 }
 
@@ -6322,6 +6537,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     27: .same(proto: "tableColumn"),
     28: .same(proto: "tableRow"),
     29: .same(proto: "widget"),
+    30: .same(proto: "chat"),
   ]
 
   fileprivate class _StorageClass {
@@ -6601,6 +6817,19 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
             _storage._content = .widget(v)
           }
         }()
+        case 30: try {
+          var v: Anytype_Model_Block.Content.Chat?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .chat(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .chat(v)
+          }
+        }()
         default: break
         }
       }
@@ -6702,6 +6931,10 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       case .widget?: try {
         guard case .widget(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 29)
+      }()
+      case .chat?: try {
+        guard case .chat(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 30)
       }()
       case nil: break
       }
@@ -8583,6 +8816,25 @@ extension Anytype_Model_Block.Content.Widget.Layout: SwiftProtobuf._ProtoNamePro
   ]
 }
 
+extension Anytype_Model_Block.Content.Chat: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Chat"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Chat, rhs: Anytype_Model_Block.Content.Chat) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".BlockMetaOnly"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -9379,6 +9631,8 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     18: .same(proto: "spaceView"),
     19: .same(proto: "participant"),
     20: .same(proto: "pdf"),
+    21: .same(proto: "chat"),
+    22: .same(proto: "chatDerived"),
   ]
 }
 
@@ -11845,6 +12099,244 @@ extension Anytype_Model_DeviceInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.addDate != rhs.addDate {return false}
     if lhs.archived != rhs.archived {return false}
     if lhs.isConnected != rhs.isConnected {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ChatMessage"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "orderId"),
+    3: .same(proto: "creator"),
+    4: .same(proto: "createdAt"),
+    9: .same(proto: "modifiedAt"),
+    5: .same(proto: "replyToMessageId"),
+    6: .same(proto: "message"),
+    7: .same(proto: "attachments"),
+    8: .same(proto: "reactions"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.orderID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.creator) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.createdAt) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.replyToMessageID) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
+      case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.orderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.orderID, fieldNumber: 2)
+    }
+    if !self.creator.isEmpty {
+      try visitor.visitSingularStringField(value: self.creator, fieldNumber: 3)
+    }
+    if self.createdAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.createdAt, fieldNumber: 4)
+    }
+    if !self.replyToMessageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.replyToMessageID, fieldNumber: 5)
+    }
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    if !self.attachments.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.attachments, fieldNumber: 7)
+    }
+    try { if let v = self._reactions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    if self.modifiedAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.modifiedAt, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage, rhs: Anytype_Model_ChatMessage) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.orderID != rhs.orderID {return false}
+    if lhs.creator != rhs.creator {return false}
+    if lhs.createdAt != rhs.createdAt {return false}
+    if lhs.modifiedAt != rhs.modifiedAt {return false}
+    if lhs.replyToMessageID != rhs.replyToMessageID {return false}
+    if lhs._message != rhs._message {return false}
+    if lhs.attachments != rhs.attachments {return false}
+    if lhs._reactions != rhs._reactions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage.MessageContent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".MessageContent"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "text"),
+    2: .same(proto: "style"),
+    3: .same(proto: "marks"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.text) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.marks) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.text.isEmpty {
+      try visitor.visitSingularStringField(value: self.text, fieldNumber: 1)
+    }
+    if self.style != .paragraph {
+      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 2)
+    }
+    if !self.marks.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.marks, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage.MessageContent, rhs: Anytype_Model_ChatMessage.MessageContent) -> Bool {
+    if lhs.text != rhs.text {return false}
+    if lhs.style != rhs.style {return false}
+    if lhs.marks != rhs.marks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage.Attachment: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".Attachment"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "target"),
+    2: .same(proto: "type"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.target) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.target.isEmpty {
+      try visitor.visitSingularStringField(value: self.target, fieldNumber: 1)
+    }
+    if self.type != .file {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage.Attachment, rhs: Anytype_Model_ChatMessage.Attachment) -> Bool {
+    if lhs.target != rhs.target {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage.Attachment.AttachmentType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "FILE"),
+    1: .same(proto: "IMAGE"),
+    2: .same(proto: "LINK"),
+  ]
+}
+
+extension Anytype_Model_ChatMessage.Reactions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".Reactions"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "reactions"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Anytype_Model_ChatMessage.Reactions.IdentityList>.self, value: &self.reactions) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.reactions.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Anytype_Model_ChatMessage.Reactions.IdentityList>.self, value: self.reactions, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage.Reactions, rhs: Anytype_Model_ChatMessage.Reactions) -> Bool {
+    if lhs.reactions != rhs.reactions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage.Reactions.IdentityList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatMessage.Reactions.protoMessageName + ".IdentityList"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage.Reactions.IdentityList, rhs: Anytype_Model_ChatMessage.Reactions.IdentityList) -> Bool {
+    if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

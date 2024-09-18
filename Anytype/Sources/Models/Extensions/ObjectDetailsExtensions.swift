@@ -47,6 +47,8 @@ extension BundledRelationsValueProvider {
             return .page
         case .set, .collection:
             return .set
+        case .chat, .chatDerived:
+            return .page
         }
     }
     

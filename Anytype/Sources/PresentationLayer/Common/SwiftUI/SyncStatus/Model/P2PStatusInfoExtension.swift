@@ -1,7 +1,6 @@
 import Services
 import SwiftUI
 
-
 extension P2PStatusInfo {
     static func `default`(spaceId: String) -> P2PStatusInfo {
         var info = P2PStatusInfo()
@@ -14,15 +13,17 @@ extension P2PStatusInfo {
 // Texts
 extension P2PStatusInfo {
     var networkTitle: String { Loc.p2PConnection }
-    
+
     var networkSubtitle: String {
         switch status {
-        case .notConnected, .UNRECOGNIZED:
+        case .notConnected:
             Loc.SyncStatus.P2P.notConnected
-        case .notPossible:
-            Loc.SyncStatus.P2P.restricted
+        case .notPossible, .UNRECOGNIZED:
+            Loc.SyncStatus.P2P.notPossible
         case .connected:
             Loc.devicesConnected(Int(devicesCounter))
+        case .restricted:
+            Loc.SyncStatus.P2P.restricted
         }
     }
 }
@@ -31,12 +32,7 @@ extension P2PStatusInfo {
 extension P2PStatusInfo: NetworkIconProvider {
     var iconData: NetworkIconData {
         switch self.status {
-        case .notPossible:
-            NetworkIconData(
-                icon: ImageAsset.SyncStatus.syncP2p,
-                color: .System.red
-            )
-        case .notConnected, .UNRECOGNIZED:
+        case .notConnected, .notPossible, .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncP2p,
                 color: .Button.active
@@ -46,25 +42,30 @@ extension P2PStatusInfo: NetworkIconProvider {
                 icon: ImageAsset.SyncStatus.syncP2p,
                 color: .Dark.green
             )
+        case .restricted:
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncP2p,
+                color: .System.red
+            )
         }
     }
-    
+
     var background: NetworkIconBackground {
         switch status {
-        case .notConnected:
+        case .notConnected, .notPossible, .UNRECOGNIZED:
             .animation(start: .Shape.secondary, end: .Shape.secondary.opacity(0.5))
-        case .notPossible, .UNRECOGNIZED:
-            .static(.Light.red)
         case .connected:
             .static(.Light.green)
+        case .restricted:
+            .static(.Light.red)
         }
     }
-    
+
     var haveTapIndicatior: Bool {
         switch status {
-        case .notConnected, .connected, .UNRECOGNIZED:
+        case .notConnected, .connected, .notPossible, .UNRECOGNIZED:
             return false
-        case .notPossible:
+        case .restricted:
             return true
         }
     }
