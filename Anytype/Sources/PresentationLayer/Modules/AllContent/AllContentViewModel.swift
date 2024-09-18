@@ -63,13 +63,14 @@ final class AllContentViewModel: ObservableObject {
         state.type = type
     }
     
-    func onSortChanged(_ sortRelation: AllContentSort.Relation) {
-        if state.sort.relation == sortRelation {
-            let type: DataviewSort.TypeEnum = state.sort.type == .asc ? .desc : .asc
-            state.sort = AllContentSort(relation: sortRelation, type: type)
-        } else {
-            state.sort = AllContentSort(relation: sortRelation)
-        }
+    func onSortRelationChanged(_ sortRelation: AllContentSort.Relation) {
+        guard state.sort.relation != sortRelation else { return }
+        state.sort = AllContentSort(relation: sortRelation)
+    }
+    
+    func onSortTypeChanged(_ sortType: DataviewSort.TypeEnum) {
+        guard state.sort.type != sortType else { return }
+        state.sort.type = sortType
     }
     
     func onDisappear() {
