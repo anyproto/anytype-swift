@@ -567,6 +567,46 @@ extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.AddMessage.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.AddMessage.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.DeleteMessage.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.DeleteMessage.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.EditMessageContent.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.EditMessageContent.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.GetMessages.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.GetMessages.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.GetMessagesByIds.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.ToggleMessageReaction.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.ToggleMessageReaction.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.Unsubscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.Unsubscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Debug.AccountSelectTrace.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -833,6 +873,11 @@ extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Object.BookmarkFetch.Response: ResultWithError {}
 extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Object.ChatAdd.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ChatAdd.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

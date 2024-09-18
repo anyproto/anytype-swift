@@ -514,6 +514,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectChatAdd(
+        _ request: Anytype_Rpc.Object.ChatAdd.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ChatAdd.Request, Anytype_Rpc.Object.ChatAdd.Response> {
+        return Invocation(messageName: "ObjectChatAdd", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectChatAdd(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ChatAdd.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectCreateSet(
         _ request: Anytype_Rpc.Object.CreateSet.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.CreateSet.Request, Anytype_Rpc.Object.CreateSet.Response> {
@@ -2501,6 +2511,86 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDeviceNetworkStateSet(requestData) ?? Data()
             return try Anytype_Rpc.Device.NetworkState.Set.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatAddMessage(
+        _ request: Anytype_Rpc.Chat.AddMessage.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.AddMessage.Request, Anytype_Rpc.Chat.AddMessage.Response> {
+        return Invocation(messageName: "ChatAddMessage", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatAddMessage(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.AddMessage.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatEditMessageContent(
+        _ request: Anytype_Rpc.Chat.EditMessageContent.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.EditMessageContent.Request, Anytype_Rpc.Chat.EditMessageContent.Response> {
+        return Invocation(messageName: "ChatEditMessageContent", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatEditMessageContent(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.EditMessageContent.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatToggleMessageReaction(
+        _ request: Anytype_Rpc.Chat.ToggleMessageReaction.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.ToggleMessageReaction.Request, Anytype_Rpc.Chat.ToggleMessageReaction.Response> {
+        return Invocation(messageName: "ChatToggleMessageReaction", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatToggleMessageReaction(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.ToggleMessageReaction.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatDeleteMessage(
+        _ request: Anytype_Rpc.Chat.DeleteMessage.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.DeleteMessage.Request, Anytype_Rpc.Chat.DeleteMessage.Response> {
+        return Invocation(messageName: "ChatDeleteMessage", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatDeleteMessage(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.DeleteMessage.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatGetMessages(
+        _ request: Anytype_Rpc.Chat.GetMessages.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.GetMessages.Request, Anytype_Rpc.Chat.GetMessages.Response> {
+        return Invocation(messageName: "ChatGetMessages", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatGetMessages(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.GetMessages.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatGetMessagesByIds(
+        _ request: Anytype_Rpc.Chat.GetMessagesByIds.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.GetMessagesByIds.Request, Anytype_Rpc.Chat.GetMessagesByIds.Response> {
+        return Invocation(messageName: "ChatGetMessagesByIds", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatGetMessagesByIds(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.GetMessagesByIds.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatSubscribeLastMessages(
+        _ request: Anytype_Rpc.Chat.SubscribeLastMessages.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.SubscribeLastMessages.Request, Anytype_Rpc.Chat.SubscribeLastMessages.Response> {
+        return Invocation(messageName: "ChatSubscribeLastMessages", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatSubscribeLastMessages(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.SubscribeLastMessages.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatUnsubscribe(
+        _ request: Anytype_Rpc.Chat.Unsubscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.Unsubscribe.Request, Anytype_Rpc.Chat.Unsubscribe.Response> {
+        return Invocation(messageName: "ChatUnsubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatUnsubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.Unsubscribe.Response(serializedData: responseData)
         }
     }
 
