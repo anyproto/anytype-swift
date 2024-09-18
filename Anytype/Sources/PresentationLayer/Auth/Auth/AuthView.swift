@@ -38,7 +38,6 @@ struct AuthView: View {
         }
         .background(TransparentBackground())
         .fitIPadToReadableContentGuide()
-        .preferredColorScheme(.dark)
         .safariSheet(url: $safariUrl, preferredColorScheme: .dark)
     }
     
