@@ -57,7 +57,9 @@ private struct HomeWidgetsInternalView: View {
                                 output: model.output
                             )
                         }
-                        BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
+                        if !FeatureFlags.allContent {
+                            BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
+                        }
                         editButtons
                     }
                     AnytypeNavigationSpacer()
