@@ -73,6 +73,10 @@ final class AllContentViewModel: ObservableObject {
         state.sort.type = sortType
     }
     
+    func binTapped() {
+        output?.onObjectSelected(screenData: .bin(spaceId: spaceId))
+    }
+    
     func onDisappear() {
         stopSubscription()
     }
