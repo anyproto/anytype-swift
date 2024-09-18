@@ -48,6 +48,9 @@ struct AllContentView: View {
             },
             sortTypeChanged: { type in
                 model.sortTypeChanged(type)
+            },
+            binTapped: {
+                model.binTapped()
             }
         )
     }

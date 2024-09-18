@@ -6,6 +6,7 @@ struct AllContentSettingsMenu: View {
     let state: AllContentState
     let sortRelationChanged: (AllContentSort.Relation) -> Void
     let sortTypeChanged: (DataviewSort.TypeEnum) -> Void
+    let binTapped: () -> Void
     
     var body: some View {
         Menu {
@@ -73,7 +74,7 @@ struct AllContentSettingsMenu: View {
     
     private var bin: some View {
         Button(role: .destructive) {
-            // TODO
+            binTapped()
         } label: {
             AnytypeText(
                 Loc.bin,
