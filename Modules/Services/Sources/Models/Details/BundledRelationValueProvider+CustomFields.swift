@@ -48,7 +48,7 @@ extension BundledRelationsValueProvider {
 
         if layoutValue == .note {
             title = snippet
-        } else if DetailsLayout.fileLayouts.contains(layoutValue) {
+        } else if DetailsLayout.fileAndMediaLayouts.contains(layoutValue) {
             title = FileDetails.formattedFileName(name, fileExt: fileExt)
         } else {
             title = name

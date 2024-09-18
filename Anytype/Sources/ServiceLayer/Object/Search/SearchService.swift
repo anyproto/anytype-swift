@@ -26,7 +26,7 @@ final class SearchService: SearchServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.layoutFilter(DetailsLayout.fileLayouts)
+            SearchHelper.layoutFilter(DetailsLayout.fileAndMediaLayouts)
             SearchHelper.excludedIdsFilter(excludedFileIds)
             SearchHelper.spaceId(spaceId)
         }

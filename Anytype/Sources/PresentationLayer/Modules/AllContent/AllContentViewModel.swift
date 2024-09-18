@@ -28,14 +28,15 @@ final class AllContentViewModel: ObservableObject {
     
     func restartSubscription() async {
         await allContentSubscriptionService.startSubscription(
-            spaceId: spaceId, 
-            sorts: [state.sort.asDataviewSort()],
-            supportedLayouts: state.type.supportedLayouts, 
+            spaceId: spaceId,
+            type: state.type,
+            sort: state.sort,
             onlyUnlinked: state.mode == .unlinked,
-            limitedObjectsIds: state.limitedObjectsIds
-        ) { [weak self] details in
-            self?.updateRows(with: details)
-        }
+            limitedObjectsIds: state.limitedObjectsIds,
+            update: { [weak self] details in
+                self?.updateRows(with: details)
+            }
+        )
     }
     
     func search() async {
