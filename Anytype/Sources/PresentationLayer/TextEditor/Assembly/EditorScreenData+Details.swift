@@ -74,10 +74,24 @@ extension EditorScreenData {
         }
     }
     
-    var spaceId: String? {
+    var spaceId: String {
         switch self {
-        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .discussion, .allContent:
-            return nil
+        case .favorites(_, let spaceId):
+            return spaceId
+        case .recentEdit(let spaceId):
+            return spaceId
+        case .recentOpen(let spaceId):
+            return spaceId
+        case .sets(let spaceId):
+            return spaceId
+        case .collections(let spaceId):
+            return spaceId
+        case .bin(let spaceId):
+            return spaceId
+        case .allContent(let spaceId):
+            return spaceId
+        case .discussion(let object):
+            return object.spaceId
         case .page(let object):
             return object.spaceId
         case .set(let object):
