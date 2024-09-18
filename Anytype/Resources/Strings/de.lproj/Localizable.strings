@@ -1198,7 +1198,8 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unerkannter Fehler";
 "SyncStatus.P2P.Restricted" = "Eingeschränkt. Zum Öffnen der Geräteeinstellungen tippen.";
-"SyncStatus.P2P.NotConnected" = "Verbindung nicht möglich";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1210,6 +1211,12 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Eine Nachricht schreiben...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Aktualisierungsdatum";
 "AllContent.Sort.DateCreated" = "Erstellungsdatum";
-"AllContent.Mode.Unlinked" = "Nur unverlinkte";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked" = "Only unlinked";
