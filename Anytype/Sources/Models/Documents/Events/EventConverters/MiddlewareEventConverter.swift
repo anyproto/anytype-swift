@@ -206,6 +206,8 @@ final class MiddlewareEventConverter {
                 .p2PStatusUpdate, // Implemented in `P2PStatusStorage`
                 .membershipUpdate: // Implemented in `MembershipStatusStorage`
             return nil
+        case .chatAdd, .chatUpdate, .chatUpdateReactions, .chatDelete:
+            return nil
         }
     }
     

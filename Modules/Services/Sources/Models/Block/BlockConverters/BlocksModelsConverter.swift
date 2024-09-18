@@ -23,6 +23,8 @@ public enum BlocksModelsConverter: Sendable {
         case .widget(let data): return .widget(data)
         case .icon, .latex:
             return .unsupported
+        case .chat:
+            return .unsupported
         }
     }
 
