@@ -9,7 +9,7 @@ struct DiscussionTextView: UIViewRepresentable {
         static let codeFont = UIKitFontBuilder.uiKitFont(font: AnytypeFont.codeBlock)
     }
     
-    @Binding var text: AttributedString
+    @Binding var text: NSAttributedString
     @Binding var editing: Bool
     let minHeight: CGFloat
     let maxHeight: CGFloat
@@ -60,10 +60,8 @@ struct DiscussionTextView: UIViewRepresentable {
             }
         }
         
-        // TODO: Make covertation between AttributedString and NSAttributedString
-        let textWithoutStyle = String(text.characters)
-        if textView.text != textWithoutStyle {
-            textView.text = textWithoutStyle
+        if textView.attributedText != text {
+            textView.attributedText = text
         }
     }
    
@@ -74,7 +72,7 @@ struct DiscussionTextView: UIViewRepresentable {
 
 #Preview {
     DiscussionTextView(
-        text: .constant(AttributedString()),
+        text: .constant(NSAttributedString()),
         editing: .constant(false),
         minHeight: 54,
         maxHeight: 212

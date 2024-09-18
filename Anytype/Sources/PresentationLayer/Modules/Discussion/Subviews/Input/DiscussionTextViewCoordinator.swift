@@ -5,7 +5,7 @@ import Services
 
 final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate {
     
-    @Binding private var text: AttributedString
+    @Binding private var text: NSAttributedString
     @Binding private var editing: Bool
     @Binding private var height: CGFloat
     
@@ -15,7 +15,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate {
     private let codeFont: UIFont
     
     init(
-        text: Binding<AttributedString>,
+        text: Binding<NSAttributedString>,
         editing: Binding<Bool>,
         height: Binding<CGFloat>,
         maxHeight: CGFloat,
@@ -62,7 +62,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate {
             height = newHeight
         }
         
-        text = AttributedString(textView.attributedText)
+        text = textView.attributedText
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -171,6 +171,8 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate {
                 focusRange: range,
                 removeAttribute: !containsNoStyle
             )
+            
+            self?.text = textView.attributedText
         }
     }
 }

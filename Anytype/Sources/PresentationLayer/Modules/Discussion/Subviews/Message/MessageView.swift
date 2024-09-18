@@ -58,7 +58,6 @@ private struct MessageInternalView: View {
                     .lineLimit(1)
             
                 Text(model.date)
-                    .anytypeStyle(.caption1Regular)
                     .foregroundColor(.Text.secondary)
                     .lineLimit(1)
                     .offset(x: contentSize.width - headerSize.width)
@@ -67,7 +66,7 @@ private struct MessageInternalView: View {
                 headerSize = $0
             }
 
-            if model.message.isNotEmpty {
+            if !model.message.isEmpty {
                 Text(model.message)
                     .anytypeStyle(.bodyRegular)
                     .foregroundColor(.Text.primary)
