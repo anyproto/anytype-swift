@@ -95,10 +95,10 @@ final class AllContentViewModel: ObservableObject {
     
     private func updateRows() {
         if state.sort.relation.canGroupByDate {
-            let toDate = Date()
+            let today = Date()
             let dict = OrderedDictionary(
                 grouping: details,
-                by: { dateFormatter.localizedString(for: sortValue(for: $0) ?? toDate, relativeTo: toDate) }
+                by: { dateFormatter.localizedString(for: sortValue(for: $0) ?? today, relativeTo: today) }
             )
             sections = dict.map { (key, details) in
                 listSectionData(title: key, details: details)
