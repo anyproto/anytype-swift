@@ -36,7 +36,7 @@
 "TextStyle.Italic.Title" = "Kursiv";
 "TextStyle.Strikethrough.Title" = "Genomstruken";
 "TextStyle.Underline.Title" = "Underline";
-"TextStyle.Code.Title" = "Code";
+"TextStyle.Code.Title" = "Kod";
 "TextStyle.Link.Title" = "Länk";
 
 // MARK: - Block Text
@@ -109,7 +109,7 @@
 
 // Origin Relation
 
-"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.Clipboard" = "Urklipp";
 "Relation.Origin.DragAndDrop" = "Drag'n'Drop";
 "Relation.Origin.Import" = "Imported object";
 "Relation.Origin.WebClipper" = "Web clipper";
@@ -142,12 +142,13 @@
 "Other" = "Other";
 "Media" = "Media";
 "Alignment" = "Alignment";
-"Actions" = "Actions";
-"Relations" = "Relations";
+"Actions" = "Åtgärder";
+"Relations" = "Relationer";
 "History" = "Historik";
 "Objects" = "Objekt";
-"Bookmarks" = "Bookmarks";
+"Bookmarks" = "Bokmärken";
 "Files" = "Filer";
+"Media" = "Media";
 "Lists" = "Listor";
 "Pinned" = "Pinned";
 "Delete" = "Radera";
@@ -219,7 +220,7 @@
 "Keychain.Key" = "Key";
 "Keychain.Key.Copy.Toast.title" = "Key copied";
 "Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Show and copy key" = "Visa och kopiera nyckel";
 "Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
@@ -231,8 +232,8 @@
 "Scan QR code" = "Skanna QR-kod";
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
+"Auth.LogIn" = "Jag har en nyckel";
+"Auth.Button.Join" = "Nytt valv";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Next" = "Nästa";
 
@@ -243,7 +244,7 @@
 "Error creating wallet" = "Error creating wallet";
 "Error select vault" = "Error select vault";
 "Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Wallet.Recovery.Error.description" = "Ogiltig nyckel";
 
 "Search for language" = "Sök efter språk";
 
@@ -251,9 +252,9 @@
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Visa min nyckel";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Nästa";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Hoppa över";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopiera till urklipp";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Läs mer";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
@@ -286,7 +287,7 @@
 
 "Icon" = "Ikon";
 "Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
+"Cover" = "Omslag";
 "Background picture" = "Bakgrundsbild";
 "Layout" = "Layout";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
@@ -366,7 +367,7 @@
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "Ångra";
 
 
 // MARK: - Templates
@@ -505,7 +506,7 @@
 "Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Visa fler objekt";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Kolumnfärg";
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Dölj kolumn";
 
 // MARK: - Sets: empty view
@@ -565,7 +566,7 @@
 "AreYouSure" = "Är du säker?";
 "Nothing found" = "Nothing found";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"Create type" = "Skapa typ";
 
 
 "Limit object types" = "Begränsa objekttyper";
@@ -585,7 +586,7 @@
 "Personalization" = "Personalization";
 "Choose default object type" = "Choose default object type";
 "About" = "Om";
-"Appearance" = "Appearance";
+"Appearance" = "Utseende";
 "Change wallpaper" = "Change wallpaper";
 "Application icon" = "Application icon";
 "Mode" = "Mode";
@@ -593,7 +594,7 @@
 "Create object from clipboard" = "Skapa objekt från urklipp";
 "Access to key from keychain" = "Access to key from keychain";
 "Back up your key" = "Back up your key";
-"Vault" = "Vault";
+"Vault" = "Valv";
 "Access" = "Access";
 "Back up key" = "Back up key";
 "Removing cache" = "Removing cache";
@@ -637,8 +638,8 @@
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Ändra typ";
-"Show types" = "Show types";
-"Hide types" = "Hide types";
+"Show types" = "Visa typer";
+"Hide types" = "Dölj typer";
 "SlashMenu.LinkTo.Description" = "Create link to another object";
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
@@ -670,9 +671,9 @@
 "No date" = "No date";
 "Clear" = "Rensa";
 "Create option with" = "Create option ‘%@’";
-"Enter URL" = "Enter URL";
+"Enter URL" = "Ange URL";
 "Enter email" = "Enter email";
-"Enter phone number" = "Enter phone number";
+"Enter phone number" = "Ange telefonnummer";
 "Enter number" = "Ange nummer";
 "Enter text" = "Ange text";
 "Ok" = "Ok";
@@ -684,7 +685,7 @@
 "This object doesn't exist" = "Detta objekt existerar inte";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete vault" = "Delete vault";
+"Delete vault" = "Radera valv";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logga ut och rensa data";
 "New" = "New";
@@ -764,12 +765,12 @@
 "RelationAction.OpenLink" = "Open link";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
+"SetViewTypesPicker.Title" = "Redigera vy";
+"SetViewTypesPicker.New.Title" = "Ny vy";
 "SetViewTypesPicker.Section.Types.Title" = "Visa som";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "Radera vy";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Ny vy";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
@@ -853,7 +854,7 @@
 
 // MARK: - Cache
 "ClearCache.Success" = "Cache sucessfully cleared";
-"ClearCache.Error" = "Error, try again later";
+"ClearCache.Error" = "Fel, försök igen senare";
 
 // MARK: - Settings
 "Settings.Title" = "Inställningar";
@@ -927,7 +928,7 @@
 "MoreInfo" = "More info";
 
 "SpaceShare.Title" = "Sharing";
-"SpaceShare.Members" = "Members";
+"SpaceShare.Members" = "Medlemmar";
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Viewer";
 "SpaceShare.Permissions.Writer" = "Editor";
@@ -942,7 +943,7 @@
 "SpaceShare.LeaveRequest" = "Leave request";
 "SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Approve";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Title" = "Radera länk";
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
@@ -1054,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Older";
 
 // MARK: - Server
@@ -1209,7 +1210,7 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.Sort.Title" = "Sortera efter";
 "AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
