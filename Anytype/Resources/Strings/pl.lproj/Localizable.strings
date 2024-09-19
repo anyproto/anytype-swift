@@ -148,6 +148,7 @@
 "Objects" = "Obiekty";
 "Bookmarks" = "Bookmarks";
 "Files" = "Pliki";
+"Media" = "Multimedia";
 "Lists" = "Listy";
 "Pinned" = "Przypięte";
 "Delete" = "Usuń";
@@ -1054,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ostatnie 7 dni";
-"RelativeFormatter.days30" = "Poprzednie 30 dni";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Starsze";
 
 // MARK: - Server

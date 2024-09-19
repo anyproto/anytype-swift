@@ -148,6 +148,7 @@
 "Objects" = "Các đối tượng";
 "Bookmarks" = "Bookmarks";
 "Files" = "Tập tin";
+"Media" = "Đa phương tiện";
 "Lists" = "Các danh sách";
 "Pinned" = "Đã ghim";
 "Delete" = "Xoá";
@@ -1055,7 +1056,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Trong 7 ngày trước";
-"RelativeFormatter.days30" = "Trong 30 ngày trước";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Cũ hơn";
 
 // MARK: - Server

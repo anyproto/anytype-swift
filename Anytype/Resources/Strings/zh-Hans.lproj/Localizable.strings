@@ -148,6 +148,7 @@
 "Objects" = "对象";
 "Bookmarks" = "Bookmarks";
 "Files" = "文件";
+"Media" = "媒体";
 "Lists" = "分组";
 "Pinned" = "固定";
 "Delete" = "删除";
@@ -1055,7 +1056,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7天前";
-"RelativeFormatter.days30" = "30天前";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "较早的";
 
 // MARK: - Server

@@ -148,6 +148,7 @@
 "Objects" = "Objek";
 "Bookmarks" = "Markah";
 "Files" = "Berkas";
+"Media" = "Media";
 "Lists" = "Grup";
 "Pinned" = "Tersemat";
 "Delete" = "Hapus";
@@ -1054,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";
-"RelativeFormatter.days30" = "30 hari terakhir";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Lebih lama";
 
 // MARK: - Server

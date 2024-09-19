@@ -149,6 +149,7 @@
 "Objects" = "Objekty";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
+"Media" = "Médiá";
 "Lists" = "Lists";
 "Pinned" = "Pinned";
 "Delete" = "Vymazať";
@@ -1055,7 +1056,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Older";
 
 // MARK: - Server

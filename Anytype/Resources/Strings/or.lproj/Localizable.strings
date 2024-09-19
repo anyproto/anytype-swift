@@ -148,6 +148,7 @@
 "Objects" = "ଅବଜେକ୍ଟ";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
+"Media" = "ମିଡ଼ିଆ";
 "Lists" = "ତାଲିକା";
 "Pinned" = "ପିନ୍ କରାଯାଇଛି";
 "Delete" = "ବିଲୋପ କରନ୍ତୁ";
@@ -1056,7 +1057,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Older";
 
 // MARK: - Server
