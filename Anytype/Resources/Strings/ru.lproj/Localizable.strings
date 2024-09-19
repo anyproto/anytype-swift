@@ -148,6 +148,7 @@
 "Objects" = "Объекты";
 "Bookmarks" = "Закладки";
 "Files" = "Files";
+"Media" = "Медиа-файлы";
 "Lists" = "Списки";
 "Pinned" = "Закреплённые";
 "Delete" = "Удалить";
@@ -1054,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
-"RelativeFormatter.days30" = "За последние 30 дней";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Раньше";
 
 // MARK: - Server
