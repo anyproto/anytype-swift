@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-extension AuthServiceError: @retroactive LocalizedError {
+extension AuthServiceError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .createWalletError: return Loc.errorCreatingWallet

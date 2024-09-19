@@ -1,7 +1,7 @@
 import Services
 import Foundation
 
-extension AnyNameExtension: @retroactive CustomStringConvertible  {
+extension AnyNameExtension: CustomStringConvertible  {
     public var description: String {
         switch self {
         case .anyName:

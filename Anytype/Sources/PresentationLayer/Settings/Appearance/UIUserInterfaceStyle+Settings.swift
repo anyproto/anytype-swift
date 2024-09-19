@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-extension UIUserInterfaceStyle: @retroactive Identifiable {
+extension UIUserInterfaceStyle: Identifiable {
     public var id: Int { rawValue }
 
     static var allCases: [UIUserInterfaceStyle] { [.light, .dark, .unspecified,] }
