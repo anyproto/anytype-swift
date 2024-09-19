@@ -57,8 +57,14 @@ struct AllContentView: View {
     
     private var content: some View {
         PlainList {
-            ForEach(model.rows, id: \.id) { model in
-                WidgetObjectListRowView(model: model)
+            ForEach(model.sections) { section in
+                if let title = section.data, title.isNotEmpty {
+                    ListSectionHeaderView(title: title)
+                        .padding(.horizontal, 20)
+                }
+                ForEach(section.rows, id: \.id) { row in
+                    WidgetObjectListRowView(model: row)
+                }
             }
             AnytypeNavigationSpacer(minHeight: 130)
         }
