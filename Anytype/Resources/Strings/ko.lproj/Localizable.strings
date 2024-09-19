@@ -148,6 +148,7 @@
 "Objects" = "오브젝트";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
+"Media" = "미디어";
 "Lists" = "목록";
 "Pinned" = "Pinned";
 "Delete" = "삭제";
@@ -1054,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Older";
 
 // MARK: - Server
