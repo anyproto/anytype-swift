@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-extension WalletRecoveryError: @retroactive LocalizedError {
+extension WalletRecoveryError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .badInput: return Loc.Wallet.Recovery.Error.description

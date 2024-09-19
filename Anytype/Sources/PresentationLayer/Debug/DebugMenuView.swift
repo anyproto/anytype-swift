@@ -248,7 +248,7 @@ struct DebugMenuView: View {
     }
 }
 
-extension URL: @retroactive Identifiable {
+extension URL: Identifiable {
     public var id: String { absoluteString }
 }
 
