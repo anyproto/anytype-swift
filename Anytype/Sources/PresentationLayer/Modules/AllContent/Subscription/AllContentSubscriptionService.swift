@@ -50,6 +50,11 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
         }
         
         let sort = sort.asDataviewSort()
+        let keys: [BundledRelationKey] = .builder {
+            BundledRelationKey.createdDate
+            BundledRelationKey.lastModifiedDate
+            BundledRelationKey.objectListKeys
+        }
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
@@ -57,7 +62,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
                 filters: filters,
                 limit: Constants.limit,
                 offset: 0,
-                keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
+                keys: keys.map { $0.rawValue }
             )
         )
         

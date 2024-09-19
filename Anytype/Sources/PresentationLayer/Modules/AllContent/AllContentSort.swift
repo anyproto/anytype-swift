@@ -63,6 +63,15 @@ struct AllContentSort: Equatable, Hashable {
             }
         }
         
+        var canGroupByDate: Bool {
+            switch self {
+            case .dateUpdated, .dateCreated:
+                return true
+            case .name:
+                return false
+            }
+        }
+        
         func titleFor(sortType: DataviewSort.TypeEnum) -> String {
             switch self {
             case .dateUpdated, .dateCreated:
