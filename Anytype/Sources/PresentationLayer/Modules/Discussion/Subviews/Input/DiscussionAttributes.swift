@@ -7,6 +7,7 @@ extension NSAttributedString.Key {
     static let discussionKeyboard = NSAttributedString.Key("discussionKeyboard")
     static let discussionStrikethrough = NSAttributedString.Key("discussionStrikethrough")
     static let discussionUnderscored = NSAttributedString.Key("discussionUnderscored")
+    static let discussionMention = NSAttributedString.Key("discussionMention")
 }
 
 extension MarkupType {
@@ -22,6 +23,8 @@ extension MarkupType {
             return .discussionStrikethrough
         case .underscored:
             return .discussionUnderscored
+        case .mention:
+            return .discussionMention
         default:
             return nil
         }

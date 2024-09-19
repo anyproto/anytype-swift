@@ -3,8 +3,8 @@ import SwiftUI
 struct DiscusionInput: View {
     
     @Binding var text: NSAttributedString
-    
     @Binding var editing: Bool
+    @Binding var mention: DiscussionTextMention
     let hasAdditionalData: Bool
     let onTapAddObject: () -> Void
     let onTapSend: () -> Void
@@ -19,7 +19,7 @@ struct DiscusionInput: View {
             }
             .frame(height: 56)
             ZStack(alignment: .topLeading) {
-                DiscussionTextView(text: $text, editing: $editing, minHeight: 56, maxHeight: 212)
+                DiscussionTextView(text: $text, editing: $editing, mention: $mention, minHeight: 56, maxHeight: 212)
                 if text.string.isEmpty {
                     Text(Loc.Message.Input.emptyPlaceholder)
                         .anytypeStyle(.bodyRegular)
@@ -47,5 +47,5 @@ struct DiscusionInput: View {
 }
 
 #Preview {
-    DiscusionInput(text: .constant(NSAttributedString()), editing: .constant(false), hasAdditionalData: true, onTapAddObject: {}, onTapSend: {})
+    DiscusionInput(text: .constant(NSAttributedString()), editing: .constant(false), mention: .constant(.finish), hasAdditionalData: true, onTapAddObject: {}, onTapSend: {})
 }

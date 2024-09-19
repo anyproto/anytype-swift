@@ -3,14 +3,16 @@ import SwiftUI
 
 struct DiscussionTextView: UIViewRepresentable {
     
-    enum Constants {
+    private enum Constants {
         static let style = AnytypeFont.bodyRegular
         static let font = UIKitFontBuilder.uiKitFont(font: Constants.style)
-        static let codeFont = UIKitFontBuilder.uiKitFont(font: AnytypeFont.codeBlock)
+        static let codeStyle = AnytypeFont.codeBlock
+        static let codeFont = UIKitFontBuilder.uiKitFont(font: codeStyle)
     }
     
     @Binding var text: NSAttributedString
     @Binding var editing: Bool
+    @Binding var mention: DiscussionTextMention
     let minHeight: CGFloat
     let maxHeight: CGFloat
     
@@ -20,17 +22,23 @@ struct DiscussionTextView: UIViewRepresentable {
         DiscussionTextViewCoordinator(
             text: $text,
             editing: $editing,
+            mention: $mention,
             height: $height,
             maxHeight: maxHeight,
-            font: Constants.font,
-            codeFont: Constants.codeFont
+            font: Constants.style,
+            codeFont: Constants.codeStyle
         )
     }
     
     func makeUIView(context: Context) -> UITextView {
-        let textView = UITextView(usingTextLayoutManager: true)
+        let textView = AnytypeUITextView(usingTextLayoutManager: true)
         textView.delegate = context.coordinator
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 0, bottom: 10, right: 0)
+        textView.notEditableAttributes = [.discussionMention]
+        
+        if let textContentManager = textView.textLayoutManager?.textContentManager {
+            textContentManager.delegate = context.coordinator
+        }
         
         // Text style
         let paragraph = NSMutableParagraphStyle()
@@ -74,6 +82,7 @@ struct DiscussionTextView: UIViewRepresentable {
     DiscussionTextView(
         text: .constant(NSAttributedString()),
         editing: .constant(false),
+        mention: .constant(.finish),
         minHeight: 54,
         maxHeight: 212
     )

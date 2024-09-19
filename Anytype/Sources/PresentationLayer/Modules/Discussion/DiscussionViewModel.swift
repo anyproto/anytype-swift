@@ -22,6 +22,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.discussionInputConverter)
     private var discussionInputConverter: any DiscussionInputConverterProtocol
+    @Injected(\.mentionObjectsService)
+    private var mentionObjectsService: any MentionObjectsServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
@@ -41,6 +43,9 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var objectIcon: Icon?
     @Published var inputFocused = false
     @Published var dataLoaded = false
+    @Published var mentionSearchState = DiscussionTextMention.finish
+    @Published var mentionObjects: [MentionObject] = []
+    
     var showTitleData: Bool { mesageBlocks.isNotEmpty }
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     
@@ -152,6 +157,26 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func didTapIcon() {
         output?.onIconSelected()
+    }
+    
+    func updateMentionState() async throws {
+        switch mentionSearchState {
+        case let .search(searchText, _):
+            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [])
+        case .finish:
+            mentionObjects = []
+        }
+    }
+    
+    func didSelectMention(_ mention: MentionObject) {
+        guard case let .search(_, mentionRange) = mentionSearchState else { return }
+        let newMessage = NSMutableAttributedString(attributedString: message)
+        let mentionString = NSAttributedString(string: mention.name, attributes: [
+            .discussionMention: mention
+        ])
+        
+        newMessage.replaceCharacters(in: mentionRange, with: mentionString)
+        message = newMessage
     }
     
     // MARK: - Private

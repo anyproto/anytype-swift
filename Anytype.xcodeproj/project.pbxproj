@@ -621,6 +621,10 @@
 		2A845D752B0D027300AFD252 /* WidgetSwipeActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A845D742B0D027300AFD252 /* WidgetSwipeActionView.swift */; };
 		2A85B0422AA637F100988ABD /* ApplicationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */; };
 		2A85B0432AA637F100988ABD /* ApplicationCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85B0412AA637F100988ABD /* ApplicationCoordinatorViewModel.swift */; };
+		2A85BA0F2C9B1F040093B337 /* AnytypeUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85BA0E2C9B1F000093B337 /* AnytypeUITextView.swift */; };
+		2A85BA112C9C110B0093B337 /* DiscussionTextMention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85BA102C9C110A0093B337 /* DiscussionTextMention.swift */; };
+		2A85BA132C9C15DF0093B337 /* DiscussionMentionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85BA122C9C15D90093B337 /* DiscussionMentionList.swift */; };
+		2A85BA152C9C200E0093B337 /* DiscussionActionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85BA142C9C200E0093B337 /* DiscussionActionLayout.swift */; };
 		2A883C452C81BA680037095B /* ChatMessagesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A883C442C81BA590037095B /* ChatMessagesStorage.swift */; };
 		2A883C472C81DA0B0037095B /* DiscussionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A883C462C81DA0B0037095B /* DiscussionCollectionView.swift */; };
 		2A890EF52B7CE28D006ECA8C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A890EF32B7CE18B006ECA8C /* Strings.swift */; };
@@ -2495,6 +2499,10 @@
 		2A845D742B0D027300AFD252 /* WidgetSwipeActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSwipeActionView.swift; sourceTree = "<group>"; };
 		2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorView.swift; sourceTree = "<group>"; };
 		2A85B0412AA637F100988ABD /* ApplicationCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2A85BA0E2C9B1F000093B337 /* AnytypeUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeUITextView.swift; sourceTree = "<group>"; };
+		2A85BA102C9C110A0093B337 /* DiscussionTextMention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionTextMention.swift; sourceTree = "<group>"; };
+		2A85BA122C9C15D90093B337 /* DiscussionMentionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionMentionList.swift; sourceTree = "<group>"; };
+		2A85BA142C9C200E0093B337 /* DiscussionActionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionActionLayout.swift; sourceTree = "<group>"; };
 		2A883C442C81BA590037095B /* ChatMessagesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesStorage.swift; sourceTree = "<group>"; };
 		2A883C462C81DA0B0037095B /* DiscussionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionCollectionView.swift; sourceTree = "<group>"; };
 		2A890EF32B7CE18B006ECA8C /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -5878,6 +5886,7 @@
 		2A4191E42C36924E00117FB8 /* Input */ = {
 			isa = PBXGroup;
 			children = (
+				2A85BA102C9C110A0093B337 /* DiscussionTextMention.swift */,
 				2A9027282C99CCB10077FCCC /* DiscussionInputConverter.swift */,
 				2A4191E52C36926B00117FB8 /* DiscussionTextView.swift */,
 				2A4191E72C36929400117FB8 /* DiscusionInput.swift */,
@@ -6571,6 +6580,8 @@
 		2A8317772C46B88200C2D369 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				2A85BA142C9C200E0093B337 /* DiscussionActionLayout.swift */,
+				2A85BA122C9C15D90093B337 /* DiscussionMentionList.swift */,
 				2AFFB4362C932A9400A606CB /* DiscussionEmptyState */,
 				2A883C462C81DA0B0037095B /* DiscussionCollectionView.swift */,
 				2A64E24B2C579D2200DB56C4 /* LinkObject */,
@@ -6601,6 +6612,14 @@
 				2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */,
 			);
 			path = TableOfContents;
+			sourceTree = "<group>";
+		};
+		2A85BA0D2C9B1EE20093B337 /* AnytypeUITextView */ = {
+			isa = PBXGroup;
+			children = (
+				2A85BA0E2C9B1F000093B337 /* AnytypeUITextView.swift */,
+			);
+			path = AnytypeUITextView;
 			sourceTree = "<group>";
 		};
 		2A883C432C81BA500037095B /* Services */ = {
@@ -9015,6 +9034,7 @@
 		3D486C132631726400A9B625 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				2A85BA0D2C9B1EE20093B337 /* AnytypeUITextView */,
 				2A66937F2A71057D007747DD /* ObjectIcon */,
 				2AF2C6B728BD102E00F8612B /* ActivityIndicator */,
 				12E05EED2796A97F0037B667 /* AnytypePopup */,
@@ -11539,6 +11559,7 @@
 				3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* KeyboardActionHandler.swift in Sources */,
 				2ED9F4432A8F94D400BE0A6B /* SetViewSettings.swift in Sources */,
+				2A85BA132C9C15DF0093B337 /* DiscussionMentionList.swift in Sources */,
 				1244794127DC735A00581174 /* LegacySearchView+ListModel.swift in Sources */,
 				2EFFE5CF2BAB4597006DBE6D /* RelationListEmptyState.swift in Sources */,
 				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
@@ -11608,6 +11629,7 @@
 				2EAFEE5E2BEA751100DB190C /* GlobalSearchDataBuilder.swift in Sources */,
 				2A0C4CCF2C4EA0D4000F7387 /* MessageReactionPickerView.swift in Sources */,
 				2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */,
+				2A85BA152C9C200E0093B337 /* DiscussionActionLayout.swift in Sources */,
 				2AE942C6294713F8005BAD1F /* KeyboardEvent.swift in Sources */,
 				2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */,
 				2A6693732A7104EA007747DD /* BasicIconImageGuideline.swift in Sources */,
@@ -12671,6 +12693,7 @@
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,
 				C92DCD97272998D800A03D91 /* BaseDocument+Extensions.swift in Sources */,
 				2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */,
+				2A85BA0F2C9B1F040093B337 /* AnytypeUITextView.swift in Sources */,
 				2EC7FBA12A60238400491F99 /* BlockRestrictions+MarkupType.swift in Sources */,
 				1244793F27DC633700581174 /* LegacySearchViewModel.swift in Sources */,
 				2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */,
@@ -13074,6 +13097,7 @@
 				12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */,
 				3DB881362B9A7002009B294F /* MembershipOwnerInfoSheetView.swift in Sources */,
 				869B8DBA2AA7680400636B49 /* AnytypeInlinePicker.swift in Sources */,
+				2A85BA112C9C110B0093B337 /* DiscussionTextMention.swift in Sources */,
 				2A50251B2BC028EB00A141B8 /* TodoIconView.swift in Sources */,
 				3D30418127EC878000FFE0EB /* SetRelation.swift in Sources */,
 				530F503626F0ECD100F76D03 /* AudioBlockContentConfiguration.swift in Sources */,
