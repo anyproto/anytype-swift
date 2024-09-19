@@ -148,6 +148,7 @@
 "Objects" = "物件";
 "Bookmarks" = "Bookmarks";
 "Files" = "檔案";
+"Media" = "媒體";
 "Lists" = "列表";
 "Pinned" = "已釘選";
 "Delete" = "刪除";
@@ -1058,7 +1059,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "過去 7 天";
-"RelativeFormatter.days30" = "過去 30 天";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "較舊的";
 
 // MARK: - Server
