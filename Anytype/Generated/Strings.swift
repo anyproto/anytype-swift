@@ -1280,7 +1280,7 @@ internal enum Loc {
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail")
   }
   internal enum RelativeFormatter {
-    internal static let days30 = Loc.tr("Localizable", "RelativeFormatter.days30")
+    internal static let days14 = Loc.tr("Localizable", "RelativeFormatter.days14")
     internal static let days7 = Loc.tr("Localizable", "RelativeFormatter.days7")
     internal static let older = Loc.tr("Localizable", "RelativeFormatter.older")
   }
