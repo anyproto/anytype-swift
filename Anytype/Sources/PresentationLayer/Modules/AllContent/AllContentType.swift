@@ -3,9 +3,9 @@ import AnytypeCore
 
 enum AllContentType: CaseIterable {
     case objects
-    case files
     case media
     case bookmarks
+    case files
     
     var title: String {
         switch self {
