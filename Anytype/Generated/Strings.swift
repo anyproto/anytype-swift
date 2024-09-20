@@ -430,12 +430,13 @@ internal enum Loc {
   }
   internal enum AllContent {
     internal enum Settings {
-      internal static let unlinked = Loc.tr("Localizable", "AllContent.Settings.Unlinked")
+      internal static let viewBin = Loc.tr("Localizable", "AllContent.Settings.ViewBin")
       internal enum Sort {
         internal static let title = Loc.tr("Localizable", "AllContent.Settings.Sort.Title")
       }
-      internal enum ViewOprions {
-        internal static let title = Loc.tr("Localizable", "AllContent.Settings.ViewOprions.Title")
+      internal enum Unlinked {
+        internal static let description = Loc.tr("Localizable", "AllContent.Settings.Unlinked.Description")
+        internal static let title = Loc.tr("Localizable", "AllContent.Settings.Unlinked.Title")
       }
     }
     internal enum Sort {

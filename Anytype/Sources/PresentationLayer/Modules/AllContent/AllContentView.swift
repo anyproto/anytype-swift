@@ -43,6 +43,9 @@ struct AllContentView: View {
     private var settingsMenu: some View {
         AllContentSettingsMenu(
             state: model.state,
+            modeChanged: { mode in
+                model.modeChanged(mode)
+            },
             sortRelationChanged: { relation in
                 model.sortRelationChanged(relation)
             },
@@ -57,6 +60,9 @@ struct AllContentView: View {
     
     private var content: some View {
         PlainList {
+            if model.state.mode == .unlinked {
+                onlyUnlinkedBanner
+            }
             ForEach(model.sections) { section in
                 if let title = section.data, title.isNotEmpty {
                     ListSectionHeaderView(title: title)
@@ -91,6 +97,16 @@ struct AllContentView: View {
             .frame(height: 40)
             .padding(.horizontal, 20)
         }
+    }
+    
+    private var onlyUnlinkedBanner: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(14)
+            AnytypeText(Loc.AllContent.Settings.Unlinked.description, style: .caption1Regular)
+                .foregroundColor(.Text.secondary)
+            Spacer.fixedHeight(model.state.sort.relation.canGroupByDate ? 0 : 14)
+        }
+        .padding(.horizontal, 20)
     }
 }
 

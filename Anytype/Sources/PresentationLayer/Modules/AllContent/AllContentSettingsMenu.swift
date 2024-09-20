@@ -4,14 +4,15 @@ import Services
 struct AllContentSettingsMenu: View {
     
     let state: AllContentState
+    let modeChanged: (AllContentMode) -> Void
     let sortRelationChanged: (AllContentSort.Relation) -> Void
     let sortTypeChanged: (DataviewSort.TypeEnum) -> Void
     let binTapped: () -> Void
     
     var body: some View {
         Menu {
+            mode
             sortByMenu
-            viewOptions
             bin
         } label: {
             IconView(icon: .asset(.X24.more))
@@ -20,18 +21,28 @@ struct AllContentSettingsMenu: View {
         .menuOrder(.fixed)
     }
     
+    private var mode: some View {
+        Section {
+            ForEach(AllContentMode.allCases, id: \.self) { mode in
+                row(title: mode.title, selected: state.mode == mode) {
+                    modeChanged(mode)
+                }
+            }
+        }
+    }
+    
     private var sortByMenu: some View {
         Menu {
             Section {
                 ForEach(AllContentSort.Relation.allCases, id: \.self) { sortRelation in
-                    sortRow(title: sortRelation.title, selected: state.sort.relation == sortRelation) {
+                    row(title: sortRelation.title, selected: state.sort.relation == sortRelation) {
                         sortRelationChanged(sortRelation)
                     }
                 }
             }
             Section {
                 ForEach(state.sort.relation.availableSortTypes, id: \.self) { type in
-                    sortRow(title: state.sort.relation.titleFor(sortType: type), selected: state.sort.type == type) {
+                    row(title: state.sort.relation.titleFor(sortType: type), selected: state.sort.type == type) {
                         sortTypeChanged(type)
                     }
                 }
@@ -43,7 +54,7 @@ struct AllContentSettingsMenu: View {
         .menuActionDisableDismissBehavior()
     }
     
-    private func sortRow(title: String, selected: Bool, onTap: @escaping () -> Void) -> some View {
+    private func row(title: String, selected: Bool, onTap: @escaping () -> Void) -> some View {
         Button {
             onTap()
         } label: {
@@ -60,24 +71,12 @@ struct AllContentSettingsMenu: View {
         }
     }
     
-    private var viewOptions: some View {
-        Button {
-            // TODO
-        } label: {
-            AnytypeText(
-                Loc.AllContent.Settings.ViewOprions.title,
-                style: .uxTitle2Medium
-            )
-            .foregroundColor(.Button.button)
-        }
-    }
-    
     private var bin: some View {
-        Button(role: .destructive) {
+        Button {
             binTapped()
         } label: {
             AnytypeText(
-                Loc.bin,
+                Loc.AllContent.Settings.viewBin,
                 style: .uxTitle2Medium
             )
         }
