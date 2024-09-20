@@ -6,12 +6,15 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
+    @State private var size = CGSizeZero
+    
     init(sceneId: String) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId))
     }
     
     var body: some View {
         content
+            .readSize { size = $0 }
             .onAppear {
                 model.onAppear()
             }
@@ -138,6 +141,7 @@ struct SpaceHubView: View {
         .padding(16)
         .background(
             DashboardWallpaper(
+                mode: .parallax(containerHeight: size.height),
                 wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
                 spaceIcon: space.spaceView.iconImage
             )
