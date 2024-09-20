@@ -37,6 +37,7 @@ struct SpaceHubView: View {
                             spaceCard($0)
                         }
                         plusButton
+                        Spacer.fixedHeight(40)
                     }
                     .scrollIndicators(.never)
                 }
