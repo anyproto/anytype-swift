@@ -1055,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
-"RelativeFormatter.days14" = "Previous 14 days";
+"RelativeFormatter.days14" = "За последние 14 дней";
 "RelativeFormatter.older" = "Раньше";
 
 // MARK: - Server
@@ -1200,8 +1200,8 @@
 "SyncStatus.Error.networkError" = "Нет доступа к пространству";
 "SyncStatus.Error.UNRECOGNIZED" = "Не опознанная ошибка.";
 "SyncStatus.P2P.Restricted" = "Есть ограничения. Проверьте настройки устройства.";
-"SyncStatus.P2P.NotConnected" = "Not connected";
-"SyncStatus.P2P.NotPossible" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "Не подключено";
+"SyncStatus.P2P.NotPossible" = "Соединение невозможно";
 
 
 // MARK: - Debug
@@ -1213,12 +1213,13 @@
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
-"AllContent.Settings.ViewOprions.Title" = "View Options";
+"AllContent.Settings.Sort.Title" = "Сортировать по";
 "AllContent.Sort.DateUpdated" = "Дата обновления";
 "AllContent.Sort.DateCreated" = "Дата создания";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
-"AllContent.Sort.Date.Desc" = "Newest first";
-"AllContent.Sort.Name.Asc" = "A -> Z";
-"AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked" = "Only unlinked";
+"AllContent.Sort.Date.Asc" = "Сначала старые";
+"AllContent.Sort.Date.Desc" = "Сначала новые";
+"AllContent.Sort.Name.Asc" = "А -> Я";
+"AllContent.Sort.Name.Desc" = "Я -> А";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";

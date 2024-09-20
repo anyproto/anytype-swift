@@ -1211,11 +1211,12 @@ Please provide specific details of your needs here.";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort By";
-"AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Tanggal diperbarui";
 "AllContent.Sort.DateCreated" = "Tanggal dibuat";
 "AllContent.Sort.Date.Asc" = "Oldiest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A -> Z";
 "AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked" = "Only unlinked";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";

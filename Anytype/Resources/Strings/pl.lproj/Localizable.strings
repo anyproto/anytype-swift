@@ -1211,11 +1211,12 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort By";
-"AllContent.Settings.ViewOprions.Title" = "View Options";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
 "AllContent.Sort.Date.Asc" = "Oldiest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A -> Z";
 "AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked" = "Only unlinked";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";

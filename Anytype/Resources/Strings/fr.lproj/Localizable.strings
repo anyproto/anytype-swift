@@ -1055,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 jours précédents";
-"RelativeFormatter.days14" = "Previous 14 days";
+"RelativeFormatter.days14" = "14 jours précédents";
 "RelativeFormatter.older" = "Plus ancien";
 
 // MARK: - Server
@@ -1212,11 +1212,12 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Trier par";
-"AllContent.Settings.ViewOprions.Title" = "Options d'affichage";
 "AllContent.Sort.DateUpdated" = "Date de mise à jour";
 "AllContent.Sort.DateCreated" = "Date de création";
 "AllContent.Sort.Date.Asc" = "Le plus ancien en premier";
 "AllContent.Sort.Date.Desc" = "Les plus récents en premier";
 "AllContent.Sort.Name.Asc" = "A -> Z";
 "AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked" = "Uniquement dissocié";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";
