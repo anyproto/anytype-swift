@@ -1213,11 +1213,12 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sıralama ölçütü";
-"AllContent.Settings.ViewOprions.Title" = "Seçenekleri Görüntüle";
 "AllContent.Sort.DateUpdated" = "Güncellenme tarihi";
 "AllContent.Sort.DateCreated" = "Oluşturulma tarihi";
 "AllContent.Sort.Date.Asc" = "Önce en eski";
 "AllContent.Sort.Date.Desc" = "Önce en yeni";
 "AllContent.Sort.Name.Asc" = "A -> Z";
 "AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked" = "Sadece bağlantısız";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";
