@@ -164,7 +164,7 @@
 "Unpin" = "Lepas sematan";
 "Pin on top" = "Sematkan di atas";
 "File block subtitle" = "Simpan berkas sebagaimana aslinya";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Unggah gambar untuk memperkaya halaman ini";
 "Video block subtitle" = "Unggah video yang dapat diputar";
 "Bookmark block subtitle" = "Simpan tautan favoritmu beserta ringkasan";
 "Code block subtitle" = "Catat potongan kode";
@@ -1055,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 hari terakhir";
-"RelativeFormatter.days14" = "Previous 14 days";
+"RelativeFormatter.days14" = "14 hari terakhir";
 "RelativeFormatter.older" = "Lebih lama";
 
 // MARK: - Server
@@ -1197,7 +1197,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.networkError" = "Tidak ada akses ke ruang";
 "SyncStatus.Error.UNRECOGNIZED" = "Galat tak dikenali";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotConnected" = "Tidak terhubung";
 "SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
@@ -1210,13 +1210,13 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.Sort.Title" = "Urut Berdasarkan";
 "AllContent.Sort.DateUpdated" = "Tanggal diperbarui";
 "AllContent.Sort.DateCreated" = "Tanggal dibuat";
 "AllContent.Sort.Date.Asc" = "Oldiest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A -> Z";
 "AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked.Title" = "Only unlinked";
-"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Settings.Unlinked.Title" = "Hanya objek nirtaut";
+"AllContent.Settings.Unlinked.Description" = "Objek yang tidak memiliki tautan langsung atau tautan balik ke objek lain di grafik.";
+"AllContent.Settings.ViewBin" = "Lihat Bak Sampah";
