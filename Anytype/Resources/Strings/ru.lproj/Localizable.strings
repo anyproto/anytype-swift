@@ -1220,6 +1220,6 @@
 "AllContent.Sort.Date.Desc" = "Сначала новые";
 "AllContent.Sort.Name.Asc" = "А -> Я";
 "AllContent.Sort.Name.Desc" = "Я -> А";
-"AllContent.Settings.Unlinked.Title" = "Only unlinked";
-"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Settings.Unlinked.Title" = "Только несвязанные";
+"AllContent.Settings.Unlinked.Description" = "Непривязанные объекты, не имеющие прямой связи или обратной связи с другими объектами на графике.";
+"AllContent.Settings.ViewBin" = "Просмотр корзины";
