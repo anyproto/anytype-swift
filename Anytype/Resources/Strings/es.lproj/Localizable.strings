@@ -146,7 +146,7 @@
 "Relations" = "Relaciones";
 "History" = "Historial";
 "Objects" = "Objetos";
-"Bookmarks" = "Bookmarks";
+"Bookmarks" = "Marcadores";
 "Files" = "Archivos";
 "Media" = "Medios";
 "Lists" = "Listas";
@@ -164,7 +164,7 @@
 "Unpin" = "Desanclar";
 "Pin on top" = "Anclar al principio";
 "File block subtitle" = "Almacenar el archivo en su estado original";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Cargar imágenes para ilustrar la página";
 "Video block subtitle" = "Cargar un vídeo reproducible";
 "Bookmark block subtitle" = "Guardar un enlace favorito con resumen";
 "Code block subtitle" = "Capturar un fragmento de código";
@@ -207,7 +207,7 @@
 "Favorites" = "Favoritos";
 "Recent" = "Recientes";
 "Bin" = "Papelera";
-"All content" = "All content";
+"All content" = "Todo el contenido";
 
 // Settings
 "Wallpaper" = "Fondo de pantalla";
@@ -295,7 +295,7 @@
 
 // Version history
 "VersionHistory.Title" = "Historial de versiones";
-"VersionHistory.Toast.message" = "Version %@ was restored";
+"VersionHistory.Toast.message" = "Versión %@ restaurada";
 
 "Search" = "Buscar";
 "There is no emoji named" = "No hay ningún emoji llamado";
@@ -578,7 +578,7 @@
 "Select all" = "Seleccionar todo";
 "Unselect all" = "Deseleccionar todo";
 "Deselect all" = "Deseleccionar todo";
-"Deselect" = "Deselect";
+"Deselect" = "Deseleccionar";
 "Shared" = "Compartido";
 "Sets" = "Conjuntos";
 "Collections" = "Colecciones";
@@ -689,8 +689,8 @@
 "Cancel deletion" = "Cancelar la eliminación";
 "Logout and clear data" = "Cerrar sesión y eliminar datos";
 "New" = "Nuevo";
-"Blurred icon" = "Blurred\n icon";
-"My First Space" = "My First Space";
+"Blurred icon" = "Icono\n borroso";
+"My First Space" = "Mi Primer Espacio";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -983,7 +983,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Tu solicitud de acceso al espacio **%@** se ha aprobado con derechos de **%@**. El espacio estará pronto disponible en tu dispositivo.";
 "ParticipantRequestDeclineNotification.Text" = "Tu solicitud de acceso al espacio **%@** se ha rechazado.";
 "RequestToLeaveNotification.Text" = "**%@** quiere abandonar el espacio **%@**.";
-"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
+"ParticipantRemoveNotification.Text" = "Te han eliminado del espacio **%@**, o el propietario ha eliminado ese espacio.";
 "RequestToJoinNotification.Text" = "**%@** solicita acceder al espacio **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Ir al espacio";
 "RequestToJoinNotification.ViewRequest" = "Ver solicitud";
@@ -1055,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 días";
-"RelativeFormatter.days14" = "Previous 14 days";
+"RelativeFormatter.days14" = "Últimos 14 días";
 "RelativeFormatter.older" = "Más antiguo";
 
 // MARK: - Server
@@ -1065,9 +1065,9 @@
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Solo local";
 "Server.LocalOnly.Alert.title" = "¿Seguro?";
-"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
-"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
+"Server.LocalOnly.Alert.message" = "El modo solo local es experimental y no ofrece ventajas de seguridad. Úsalo bajo tu propia responsabilidad, ya que podrías perder datos.";
+"Server.LocalOnly.Alert.Action.agree" = "Sí, acepto los riesgos";
+"Server.LocalOnly.Alert.Action.disagree" = "No, no quiero usarlo";
 
 // MARK: - Gallery
 "Gallery.Author" = "Realizada por @%@";
@@ -1191,14 +1191,14 @@ En concreto,
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "El respaldo de datos está deshabilitado.";
 "SyncStatus.Info.AnytypeNetwork" = "Cifrado de extremo a extremo";
-"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Info.NetworkNeedsUpdate" = "La sincronización puede ser lenta. Actualiza tu aplicación.";
 "SyncStatus.Error.storageLimitExceed" = "Límite de almacenamiento alcanzado";
 "SyncStatus.Error.incompatibleVersion" = "Versión incompatible";
 "SyncStatus.Error.networkError" = "Sin acceso al espacio";
 "SyncStatus.Error.UNRECOGNIZED" = "Error desconocido";
-"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Not connected";
-"SyncStatus.P2P.NotPossible" = "Connection not possible";
+"SyncStatus.P2P.Restricted" = "Restringido. Pulsa para abrir los ajustes del dispositivo.";
+"SyncStatus.P2P.NotConnected" = "No conectado.";
+"SyncStatus.P2P.NotPossible" = "No es posible conectar.";
 
 
 // MARK: - Debug
@@ -1210,13 +1210,13 @@ En concreto,
 "Message.Input.EmptyPlaceholder" = "Escribe un mensaje...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
-"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Settings.Sort.Title" = "Ordenar por";
+"AllContent.Sort.DateUpdated" = "Fecha de modificación";
+"AllContent.Sort.DateCreated" = "Fecha de creación";
+"AllContent.Sort.Date.Asc" = "Antiguos primero";
+"AllContent.Sort.Date.Desc" = "Recientes primero";
 "AllContent.Sort.Name.Asc" = "A -> Z";
 "AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked.Title" = "Only unlinked";
-"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Settings.Unlinked.Title" = "Solo desconectados";
+"AllContent.Settings.Unlinked.Description" = "Objetos desconectados que no tienen un enlace a o desde otro objeto del gráfico.";
+"AllContent.Settings.ViewBin" = "Ver papelera";
