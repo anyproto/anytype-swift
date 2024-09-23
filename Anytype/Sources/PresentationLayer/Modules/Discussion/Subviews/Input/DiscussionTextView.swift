@@ -4,10 +4,10 @@ import SwiftUI
 struct DiscussionTextView: UIViewRepresentable {
     
     private enum Constants {
-        static let style = AnytypeFont.bodyRegular
-        static let font = UIKitFontBuilder.uiKitFont(font: Constants.style)
-        static let codeStyle = AnytypeFont.codeBlock
-        static let codeFont = UIKitFontBuilder.uiKitFont(font: codeStyle)
+        static let anytypeFont = AnytypeFont.bodyRegular
+        static let font = UIKitFontBuilder.uiKitFont(font: Constants.anytypeFont)
+        static let anytypeCodeFont = AnytypeFont.codeBlock
+        static let codeFont = UIKitFontBuilder.uiKitFont(font: anytypeCodeFont)
     }
     
     @Binding var text: NSAttributedString
@@ -25,8 +25,8 @@ struct DiscussionTextView: UIViewRepresentable {
             mention: $mention,
             height: $height,
             maxHeight: maxHeight,
-            font: Constants.style,
-            codeFont: Constants.codeStyle
+            anytypeFont: Constants.anytypeFont,
+            anytypeCodeFont: Constants.anytypeCodeFont
         )
     }
     
@@ -42,11 +42,11 @@ struct DiscussionTextView: UIViewRepresentable {
         
         // Text style
         let paragraph = NSMutableParagraphStyle()
-        paragraph.lineHeightMultiple = Constants.style.lineHeightMultiple
+        paragraph.lineHeightMultiple = Constants.anytypeFont.lineHeightMultiple
         textView.typingAttributes = [
             .font: Constants.font,
             .paragraphStyle: paragraph,
-            .kern: Constants.style.config.kern
+            .kern: Constants.anytypeFont.config.kern
         ]
         textView.textColor = .Text.primary
         

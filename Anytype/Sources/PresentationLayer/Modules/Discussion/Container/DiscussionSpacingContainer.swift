@@ -6,8 +6,6 @@ struct DiscussionSpacingContainer<Content: View>: View {
     let content: Content
     @Environment(\.anytypeNavigationPanelSize) var navigationSize
     
-//    @State private var guideBottomPadding: CGFloat = 0
-    
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
@@ -16,7 +14,6 @@ struct DiscussionSpacingContainer<Content: View>: View {
         GeometryReader { readerWithAllArea in
             GeometryReader { readerWithoutKeyboardArea in
                 content
-//                    .alignmentGuide(.discussionAccessor) { $0[.top] + 200 }
                     .safeAreaInset(edge: .bottom, spacing: 0) {
                         Color.clear.frame(
                             height: bottomOffset(

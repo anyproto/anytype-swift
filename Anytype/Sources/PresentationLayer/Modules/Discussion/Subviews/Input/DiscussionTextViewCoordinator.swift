@@ -17,8 +17,8 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
     
     private let maxHeight: CGFloat
     private let markdownListener: any MarkdownListener
-    private let font: AnytypeFont
-    private let codeFont: AnytypeFont
+    private let anytypeFont: AnytypeFont
+    private let anytypeCodeFont: AnytypeFont
     
     // MARK: - State
     private var mode: Mode = .text
@@ -30,16 +30,16 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         mention: Binding<DiscussionTextMention>,
         height: Binding<CGFloat>,
         maxHeight: CGFloat,
-        font: AnytypeFont, // TODO: rename to fontStyle
-        codeFont: AnytypeFont
+        anytypeFont: AnytypeFont,
+        anytypeCodeFont: AnytypeFont
     ) {
         self._text = text
         self._editing = editing
         self._mention = mention
         self._height = height
         self.maxHeight = maxHeight
-        self.font = font
-        self.codeFont = codeFont
+        self.anytypeFont = anytypeFont
+        self.anytypeCodeFont = anytypeCodeFont
         self.markdownListener = MarkdownListenerImpl(internalListeners: [InlineMarkdownListener()])
         
         super.init()
@@ -149,7 +149,6 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
             } else {
                 mutableText.addAttributes([attributedKey: true], range: range)
             }
-//            let updatedText = updateStyles(text: mutableText)
             textView.textStorage.setAttributedString(mutableText)
             textView.selectedRange = focusRange
             return false
@@ -169,62 +168,6 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         return true
     }
     
-//    func updateStyles(text: NSAttributedString) -> NSAttributedString {
-//        let newText = text.mutable
-//        text.enumerateAttributes(in: NSRange(location: 0, length: text.length)) { attrs, range, _ in
-//            
-//            var newFont = UIKitFontBuilder.uiKitFont(font: font)
-//            
-//            if attrs[.discussionBold] != nil {
-//                newFont = newFont.bold
-//            }
-//            
-//            if attrs[.discussionItalic] != nil {
-//                newFont = newFont.italic
-//            }
-//            
-//            if attrs[.discussionKeyboard] != nil {
-//                newFont = UIKitFontBuilder.uiKitFont(font: codeFont)
-//            }
-//            
-//            if attrs[.discussionStrikethrough] != nil {
-//                newText.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: range)
-//            } else {
-//                newText.removeAttribute(.strikethroughStyle, range: range)
-//            }
-//            
-//            var underlineStyle: NSUnderlineStyle? = nil
-//            
-//            if attrs[.discussionUnderscored] != nil {
-//                underlineStyle = .single
-//            }
-//            
-//            if attrs[.discussionMention] != nil {
-//                newText.addAttribute(.anytypeNotEditable, value: true, range: range)
-//                underlineStyle = .single
-//            } else {
-//                newText.addAttribute(.anytypeNotEditable, value: false, range: range)
-//            }
-//            
-//            if let underlineStyle {
-//                newText.addAttribute(.underlineStyle, value: underlineStyle, range: range)
-//                newText.addAttribute(.underlineColor, value: UIColor.Text.primary, range: range)
-//            } else {
-//                newText.removeAttribute(.underlineStyle, range: range)
-//            }
-//            
-//            newText.addAttribute(.font, value: newFont, range: range)
-//        }
-//        
-//        let paragraph = NSMutableParagraphStyle()
-//        paragraph.lineHeightMultiple = font.lineHeightMultiple
-//        
-//        newText.addAttribute(.kern, value: font.config.kern, range: NSRange(location: 0, length: newText.length))
-//        newText.addAttribute(.paragraphStyle, value: paragraph, range: NSRange(location: 0, length: newText.length))
-//        
-//        return newText
-//    }
-    
     func textView(_ textView: UITextView, editMenuForTextIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
         guard range.length > 0 else { return nil }
     
@@ -241,7 +184,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         let newText = originalText.mutable
         originalText.enumerateAttributes(in: NSRange(location: 0, length: originalText.length)) { attrs, range, _ in
             
-            var newFont = UIKitFontBuilder.uiKitFont(font: font)
+            var newFont = UIKitFontBuilder.uiKitFont(font: anytypeFont)
             
             if attrs[.discussionBold] != nil {
                 newFont = newFont.bold
@@ -252,7 +195,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
             }
             
             if attrs[.discussionKeyboard] != nil {
-                newFont = UIKitFontBuilder.uiKitFont(font: codeFont)
+                newFont = UIKitFontBuilder.uiKitFont(font: anytypeCodeFont)
             }
             
             if attrs[.discussionStrikethrough] != nil {
@@ -282,9 +225,9 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         }
         
         let paragraph = NSMutableParagraphStyle()
-        paragraph.lineHeightMultiple = font.lineHeightMultiple
+        paragraph.lineHeightMultiple = anytypeFont.lineHeightMultiple
         
-        newText.addAttribute(.kern, value: font.config.kern, range: NSRange(location: 0, length: newText.length))
+        newText.addAttribute(.kern, value: anytypeFont.config.kern, range: NSRange(location: 0, length: newText.length))
         newText.addAttribute(.paragraphStyle, value: paragraph, range: NSRange(location: 0, length: newText.length))
         
         return NSTextParagraph(attributedString: newText)
