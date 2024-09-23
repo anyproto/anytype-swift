@@ -24,6 +24,7 @@ struct AllContentWidgetView: View {
             homeState: $homeState,
             allowMenuContent: false,
             allowContent: false,
+            allowContextMenuItems: false,
             headerAction: {
                 model.onTapWidget()
             },
