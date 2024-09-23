@@ -45,6 +45,33 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         super.init()
     }
     
+    func updateTextIfNeeded(textView: UITextView, string: NSAttributedString) {
+        guard textView.attributedText != string else { return }
+        
+        let oldSelectedRange = textView.selectedRange
+        let oldAttributedString = textView.attributedText
+        let oldTextBeforeCarret = textView.textBeforeCaret
+        
+        textView.attributedText = string
+        
+        if editing {
+            // Save carret position
+            if textView.textBeforeCaret != oldTextBeforeCarret {
+                let diffLocation = string.length - (oldAttributedString?.length ?? 0)
+                textView.selectedRange = NSRange(
+                    location: oldSelectedRange.location + diffLocation,
+                    length: 0
+                )
+            } else {
+                textView.selectedRange = oldSelectedRange
+            }
+        }
+        
+        mode = .text
+        mention = .finish
+        updateHeight(textView: textView)
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if !editing {
             editing = true
@@ -59,20 +86,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
     
     func textViewDidChange(_ textView: UITextView) {
         
-        let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: .infinity))
-        var newHeight: CGFloat
-        
-        if size.height > maxHeight {
-            textView.isScrollEnabled = true
-            newHeight = maxHeight
-        } else {
-            textView.isScrollEnabled = false
-            newHeight = size.height
-        }
-        
-        if newHeight != height {
-            height = newHeight
-        }
+        updateHeight(textView: textView)
         
         if let textBeforeCaret = textView.textBeforeCaret,
            let caretPosition = textView.caretPosition {
@@ -148,12 +162,9 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         case .linkToObject(let string):
             // TODO: Implement it
             print("linkToObject doesn't implemented")
-        case .mention(let mentionObject):
-            // TODO: Implement it
-            print("mention doesn't implemented")
-        case .emoji(let emoji):
-            // TODO: Implement it
-            print("emoji doesn't implemented")
+        case .mention, .emoji:
+            // Doesn't support in markdownListener
+            break
         }
         return true
     }
@@ -257,10 +268,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
             }
             
             if attrs[.discussionMention] != nil {
-//                newText.addAttribute(.anytypeNotEditable, value: true, range: range)
                 underlineStyle = .single
-            } else {
-//                newText.addAttribute(.anytypeNotEditable, value: false, range: range)
             }
             
             if let underlineStyle {
@@ -316,5 +324,22 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         }
 
         return textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending
+    }
+    
+    private func updateHeight(textView: UITextView) {
+        let size = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: .infinity))
+        var newHeight: CGFloat
+        
+        if size.height > maxHeight {
+            textView.isScrollEnabled = true
+            newHeight = maxHeight
+        } else {
+            textView.isScrollEnabled = false
+            newHeight = size.height
+        }
+        
+        if newHeight != height {
+            height = newHeight
+        }
     }
 }

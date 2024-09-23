@@ -68,8 +68,8 @@ struct DiscussionTextView: UIViewRepresentable {
             }
         }
         
-        if textView.attributedText != text {
-            textView.attributedText = text
+        Task { @MainActor in
+            context.coordinator.updateTextIfNeeded(textView: textView, string: text)
         }
     }
    
