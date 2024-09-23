@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-extension CreateAccountServiceError: LocalizedError {
+extension CreateAccountServiceError: @retroactive LocalizedError {
     
     public var errorDescription: String? {
         switch self {

@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-extension AccountDeleteError: LocalizedError {
+extension AccountDeleteError: @retroactive LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .unableToConnect: return Loc.Error.unableToConnect
