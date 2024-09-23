@@ -6,6 +6,12 @@ import UIKit
 // - Some of the text may not be editable
 final class AnytypeUITextView: UITextView {
     
+    private enum ValidateDirection {
+        case `default`
+        case left
+        case right
+    }
+    
     var notEditableAttributes = [NSAttributedString.Key]()
     
     override func closestPosition(to point: CGPoint) -> UITextPosition? {
@@ -59,31 +65,25 @@ final class AnytypeUITextView: UITextView {
     
     // MARK: - Private
     
-    enum ValidateDirection {
-        case `default`
-        case left
-        case right
-    }
-    
     private func validatePosition(newPosition: UITextPosition, direction: ValidateDirection) -> UITextPosition? {
         
-        let beingNew = self.offset(from: beginningOfDocument, to: newPosition)
+        let newOffset = self.offset(from: beginningOfDocument, to: newPosition)
         let textRange = NSRange(location: 0, length: self.textStorage.length)
         
-        guard textRange.contains(beingNew) else { return newPosition }
+        guard textRange.contains(newOffset) else { return newPosition }
         
         var effectiveRange = NSRange(location: 0, length: 0)
         
         for attribute in notEditableAttributes {
             
-            let value = self.textStorage.attribute(attribute, at: beingNew, longestEffectiveRange: &effectiveRange, in: textRange)
+            let value = self.textStorage.attribute(attribute, at: newOffset, longestEffectiveRange: &effectiveRange, in: textRange)
             
             if value != nil, effectiveRange != textRange {
                 let isUpper: Bool
                 
                 switch direction {
                 case .default:
-                    isUpper = abs(effectiveRange.upperBound - beingNew) < abs(beingNew - effectiveRange.location)
+                    isUpper = abs(effectiveRange.upperBound - newOffset) < abs(newOffset - effectiveRange.location)
                 case .left:
                     isUpper = false
                 case .right:
