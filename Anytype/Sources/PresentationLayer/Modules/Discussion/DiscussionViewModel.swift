@@ -162,7 +162,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     func updateMentionState() async throws {
         switch mentionSearchState {
         case let .search(searchText, _):
-            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [])
+            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, limitLayout: [.participant])
         case .finish:
             mentionObjects = []
         }

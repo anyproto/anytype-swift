@@ -116,8 +116,7 @@ final class MessageViewModel: ObservableObject {
             case .backgroundColor:
                 message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.VeryLight.color(from: $0) }
             case .mention:
-                // TODO: Implement
-                break
+                message[range].underlineStyle = .single
             case .emoji:
                 message.replaceSubrange(range, with: AttributedString(mark.param))
             case .object:

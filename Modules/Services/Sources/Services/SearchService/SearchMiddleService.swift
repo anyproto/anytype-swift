@@ -11,7 +11,7 @@ public extension SearchMiddleServiceProtocol {
         sorts: [DataviewSort] = [],
         fullText: String = "",
         keys: [String] = [],
-        limit: Int = 0
+        limit: Int = 100
     ) async throws -> [ObjectDetails] {
         try await search(data: SearchRequest(filters: filters, sorts: sorts, fullText: fullText, keys: keys, limit: limit))
     }

@@ -5,6 +5,11 @@ import Services
 // The same as EditorSearchCell for UIKit
 struct DiscussionMentionList: View {
     
+    private enum Constants {
+        static let itemHeight: CGFloat = 56
+        static let maxVisibleItems: CGFloat = 3.5
+    }
+    
     let mentions: [MentionObject]
     let didSelect: (_ object: MentionObject) -> Void
     
@@ -31,7 +36,7 @@ struct DiscussionMentionList: View {
                         
                         Spacer()
                     }
-                    .frame(height: 56)
+                    .frame(height: Constants.itemHeight)
                     .overlay(alignment: .bottom) {
                         AnytypeDivider()
                     }
@@ -44,7 +49,7 @@ struct DiscussionMentionList: View {
             }
         }
         .background(Color.Background.primary)
-        .frame(maxHeight: 56 * 3.5)
+        .frame(maxHeight: Constants.itemHeight * min(CGFloat(mentions.count), Constants.maxVisibleItems))
         .overlay(alignment: .top) {
             AnytypeDivider()
         }
