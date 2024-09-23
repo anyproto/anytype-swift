@@ -60,7 +60,6 @@ final class HomeWidgetsViewModel: ObservableObject {
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
-
         }
     }
     
