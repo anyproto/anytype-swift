@@ -164,7 +164,7 @@
 "Unpin" = "Desafixar";
 "Pin on top" = "Fixar no topo";
 "File block subtitle" = "Armazenar arquivo no estado original";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Enviar e enriquecer a página com imagem";
 "Video block subtitle" = "Enviar vídeo";
 "Bookmark block subtitle" = "Salvar link favorito com resumo";
 "Code block subtitle" = "Capturar pedaço de código";
@@ -1056,7 +1056,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
-"RelativeFormatter.days14" = "Previous 14 days";
+"RelativeFormatter.days14" = "Últimos 14 dias";
 "RelativeFormatter.older" = "Mais antigo";
 
 // MARK: - Server
@@ -1198,8 +1198,8 @@ forneça detalhes específicos das suas necessidades aqui.";
 "SyncStatus.Error.networkError" = "Sem acesso ao espaço";
 "SyncStatus.Error.UNRECOGNIZED" = "Erro não reconhecido";
 "SyncStatus.P2P.Restricted" = "Restrito. Toque para abrir as configurações do dispositivo.";
-"SyncStatus.P2P.NotConnected" = "Not connected";
-"SyncStatus.P2P.NotPossible" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "Não conectado";
+"SyncStatus.P2P.NotPossible" = "Não é possível fazer conexão";
 
 
 // MARK: - Debug
@@ -1211,13 +1211,13 @@ forneça detalhes específicos das suas necessidades aqui.";
 "Message.Input.EmptyPlaceholder" = "Escreva uma mensagem...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.Sort.Title" = "Classificar por";
 "AllContent.Sort.DateUpdated" = "Atualização de data";
 "AllContent.Sort.DateCreated" = "Data Criada";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
-"AllContent.Sort.Date.Desc" = "Newest first";
-"AllContent.Sort.Name.Asc" = "A -> Z";
-"AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked.Title" = "Only unlinked";
-"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Sort.Date.Asc" = "Mais antigos primeiro";
+"AllContent.Sort.Date.Desc" = "Mais recente primeiro";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
+"AllContent.Settings.Unlinked.Title" = "Apenas desvinculados";
+"AllContent.Settings.Unlinked.Description" = "Objetos não vinculados que não tenham um link direto ou backlink com outros objetos no gráfico.";
+"AllContent.Settings.ViewBin" = "Visualizar lixeira";
