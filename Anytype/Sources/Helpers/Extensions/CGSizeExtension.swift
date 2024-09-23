@@ -1,6 +1,6 @@
 import CoreGraphics
 
-extension CGSize: Comparable {
+extension CGSize: @retroactive Comparable {
     
     public static func < (lhs: CGSize, rhs: CGSize) -> Bool {
         lhs.width < rhs.width && lhs.height < rhs.height
