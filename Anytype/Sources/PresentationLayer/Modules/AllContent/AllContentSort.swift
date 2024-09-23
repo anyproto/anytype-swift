@@ -2,7 +2,7 @@ import Services
 
 struct AllContentSort: Equatable, Hashable {
     let relation: Relation
-    let type: DataviewSort.TypeEnum
+    var type: DataviewSort.TypeEnum
     
     init(relation: Relation, type: DataviewSort.TypeEnum? = nil) {
         self.relation = relation
@@ -51,6 +51,33 @@ struct AllContentSort: Equatable, Hashable {
                 return .desc
             case .name:
                 return .asc
+            }
+        }
+        
+        var availableSortTypes: [DataviewSort.TypeEnum] {
+            switch self {
+            case .dateUpdated, .dateCreated:
+                return DataviewSort.TypeEnum.allAvailableCases.reversed()
+            case .name:
+                return DataviewSort.TypeEnum.allAvailableCases
+            }
+        }
+        
+        var canGroupByDate: Bool {
+            switch self {
+            case .dateUpdated, .dateCreated:
+                return true
+            case .name:
+                return false
+            }
+        }
+        
+        func titleFor(sortType: DataviewSort.TypeEnum) -> String {
+            switch self {
+            case .dateUpdated, .dateCreated:
+                return sortType == .asc ? Loc.AllContent.Sort.Date.asc : Loc.AllContent.Sort.Date.desc
+            case .name:
+                return sortType == .asc ? Loc.AllContent.Sort.Name.asc : Loc.AllContent.Sort.Name.desc
             }
         }
     }

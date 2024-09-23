@@ -945,6 +945,7 @@
 		2E0C65C12B97A2F300D33F5F /* RelationsListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65C02B97A2F300D33F5F /* RelationsListCoordinatorViewModel.swift */; };
 		2E0C65C32B97A2FB00D33F5F /* RelationsListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65C22B97A2FB00D33F5F /* RelationsListCoordinatorView.swift */; };
 		2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */; };
+		2E0D9C082C99C96A00F02918 /* AllContentSettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D9C072C99C96800F02918 /* AllContentSettingsMenu.swift */; };
 		2E0DAF1B28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF1A28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift */; };
 		2E0DAF2128A26F1600F43320 /* DataviewViewSize+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */; };
 		2E0E007F2A680D8600F1D95B /* PhraseTextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */; };
@@ -2838,6 +2839,7 @@
 		2E0C65C02B97A2F300D33F5F /* RelationsListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2E0C65C22B97A2FB00D33F5F /* RelationsListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListCoordinatorView.swift; sourceTree = "<group>"; };
 		2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroupOrder+Update.swift"; sourceTree = "<group>"; };
+		2E0D9C072C99C96800F02918 /* AllContentSettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentSettingsMenu.swift; sourceTree = "<group>"; };
 		2E0DAF1A28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPrefilledFieldsBuilder.swift; sourceTree = "<group>"; };
 		2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewViewSize+Value.swift"; sourceTree = "<group>"; };
 		2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextValidator.swift; sourceTree = "<group>"; };
@@ -7833,6 +7835,7 @@
 		2E33F5762C909CB900CDC082 /* AllContent */ = {
 			isa = PBXGroup;
 			children = (
+				2E0D9C072C99C96800F02918 /* AllContentSettingsMenu.swift */,
 				2E33F5842C91EFFC00CDC082 /* Subscription */,
 				2E33F5772C909D2E00CDC082 /* Coordinator */,
 				2E33F57C2C909E3F00CDC082 /* AllContentView.swift */,
@@ -12209,6 +12212,7 @@
 				2ADD66732A6ECA0100266F57 /* CoreGraphics+Hash.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				2A39F3CD29ED9A7E005DE8F5 /* LayoutAlignment+Analytics.swift in Sources */,
+				2E0D9C082C99C96A00F02918 /* AllContentSettingsMenu.swift in Sources */,
 				2E8825772C5A5B7E00FD59D3 /* VersionHistoryCoordinatorViewModel.swift in Sources */,
 				3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */,
 				53FB4E812731CCD200BF3F0E /* MarkupAccessoryView.swift in Sources */,
@@ -13494,7 +13498,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -13541,7 +13545,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -13702,7 +13706,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -13772,7 +13776,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13815,7 +13819,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13859,7 +13863,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13904,7 +13908,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13949,7 +13953,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13994,7 +13998,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 58;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

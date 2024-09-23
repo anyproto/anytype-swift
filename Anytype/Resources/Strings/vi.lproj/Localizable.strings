@@ -148,6 +148,7 @@
 "Objects" = "Các đối tượng";
 "Bookmarks" = "Bookmarks";
 "Files" = "Tập tin";
+"Media" = "Đa phương tiện";
 "Lists" = "Các danh sách";
 "Pinned" = "Đã ghim";
 "Delete" = "Xoá";
@@ -1055,7 +1056,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Trong 7 ngày trước";
-"RelativeFormatter.days30" = "Trong 30 ngày trước";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Cũ hơn";
 
 // MARK: - Server
@@ -1197,7 +1198,8 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.networkError" = "Không có quyền truy cập không gian";
 "SyncStatus.Error.UNRECOGNIZED" = "Lỗi không xác định";
 "SyncStatus.P2P.Restricted" = "Bị giới hạn. Chạm để kiểm tra cài đặt thiết bị.";
-"SyncStatus.P2P.NotConnected" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1209,6 +1211,13 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";

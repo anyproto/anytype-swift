@@ -34,6 +34,10 @@ public extension FeatureFlags {
         value(for: .allContent)
     }
 
+    static var swipeToSearch: Bool {
+        value(for: .swipeToSearch)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -95,6 +99,7 @@ public extension FeatureFlags {
         .discussions,
         .versionHistory,
         .allContent,
+        .swipeToSearch,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

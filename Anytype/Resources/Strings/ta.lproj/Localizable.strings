@@ -148,6 +148,7 @@
 "Objects" = "Objects";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
+"Media" = "Media";
 "Lists" = "பட்டியல்கள்";
 "Pinned" = "Pinned";
 "Delete" = "அழி";
@@ -1054,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "Older";
 
 // MARK: - Server
@@ -1196,7 +1197,8 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1208,6 +1210,13 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";

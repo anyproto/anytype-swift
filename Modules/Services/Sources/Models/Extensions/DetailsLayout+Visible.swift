@@ -2,9 +2,9 @@ import AnytypeCore
 
 public extension DetailsLayout {
     static let visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts + chatLayouts
-    static let supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileLayouts + setLayouts
+    static let supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileAndMediaLayouts + setLayouts
     static let supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
-    static let visibleLayoutsWithFiles = visibleLayouts + fileLayouts
+    static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
 }
 
 
@@ -27,12 +27,17 @@ public extension DetailsLayout {
     
     static let pageLayouts: [DetailsLayout] = editorLayouts + [.bookmark]
     
+    static let fileAndMediaLayouts: [DetailsLayout] = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
+    
     static let fileLayouts: [DetailsLayout] = [
         .file,
+        .pdf
+    ]
+    
+    static let mediaLayouts: [DetailsLayout] = [
         .image,
         .audio,
         .video,
-        .pdf
     ]
     
     static let setLayouts: [DetailsLayout] = [
@@ -51,13 +56,13 @@ public extension DetailsLayout {
         .space
     ]
     
-    static let fileAndSystemLayouts: [DetailsLayout] = fileLayouts + systemLayouts
+    static let fileMediaSystemLayouts: [DetailsLayout] = fileAndMediaLayouts + systemLayouts
     static let layoutsWithoutTemplate: [DetailsLayout] = [
         .set,
         .collection,
         .bookmark,
         .participant
-    ] + fileAndSystemLayouts
+    ] + fileMediaSystemLayouts
     
     
     var isTemplatesAvailable: Bool {

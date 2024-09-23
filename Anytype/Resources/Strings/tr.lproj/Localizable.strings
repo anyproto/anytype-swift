@@ -148,6 +148,7 @@
 "Objects" = "Nesneler";
 "Bookmarks" = "Yer işaretleri";
 "Files" = "Dosyalar";
+"Media" = "Medya";
 "Lists" = "Listeler";
 "Pinned" = "Sabitlendi";
 "Delete" = "Sil";
@@ -1056,7 +1057,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Son 7 gün";
-"RelativeFormatter.days30" = "Son 30 gün";
+"RelativeFormatter.days14" = "Önceki 14 gün";
 "RelativeFormatter.older" = "Daha eski";
 
 // MARK: - Server
@@ -1198,7 +1199,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "SyncStatus.Error.networkError" = "Alana erişim yok";
 "SyncStatus.Error.UNRECOGNIZED" = "Tanınmayan hata";
 "SyncStatus.P2P.Restricted" = "Kısıtlanmış. Cihaz ayarlarını açmak için dokunun.";
-"SyncStatus.P2P.NotConnected" = "Bağlantı mümkün değil";
+"SyncStatus.P2P.NotConnected" = "Bağlı değil";
+"SyncStatus.P2P.NotPossible" = "Bağlantı mümkün değil";
 
 
 // MARK: - Debug
@@ -1210,6 +1212,13 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sıralama ölçütü";
 "AllContent.Sort.DateUpdated" = "Güncellenme tarihi";
 "AllContent.Sort.DateCreated" = "Oluşturulma tarihi";
-"AllContent.Mode.Unlinked" = "Sadece bağlantısız";
+"AllContent.Sort.Date.Asc" = "Önce en eski";
+"AllContent.Sort.Date.Desc" = "Önce en yeni";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked.Title" = "Sadece bağlantısız";
+"AllContent.Settings.Unlinked.Description" = "Grafikteki diğer nesnelerle doğrudan bağlantısı veya geri bağlantısı olmayan bağlantısız nesneler.";
+"AllContent.Settings.ViewBin" = "Geri Dönüşüm Kutusunu Görüntüle";

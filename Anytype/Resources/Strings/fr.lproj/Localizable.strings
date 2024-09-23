@@ -148,6 +148,7 @@
 "Objects" = "Objets";
 "Bookmarks" = "Signets";
 "Files" = "Fichiers";
+"Media" = "Média";
 "Lists" = "Groupes";
 "Pinned" = "Épinglé";
 "Delete" = "Supprimer";
@@ -1054,7 +1055,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7 jours précédents";
-"RelativeFormatter.days30" = "30 jours précédents";
+"RelativeFormatter.days14" = "14 jours précédents";
 "RelativeFormatter.older" = "Plus ancien";
 
 // MARK: - Server
@@ -1197,7 +1198,8 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "SyncStatus.Error.UNRECOGNIZED" = "Erreur inconnue
 ";
 "SyncStatus.P2P.Restricted" = "Limité. Appuyez pour ouvrir les paramètres de l'appareil.";
-"SyncStatus.P2P.NotConnected" = "Connexion impossible";
+"SyncStatus.P2P.NotConnected" = "Non connecté";
+"SyncStatus.P2P.NotPossible" = "Connexion impossible";
 
 
 // MARK: - Debug
@@ -1209,6 +1211,13 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Message.Input.EmptyPlaceholder" = "Ecrire un message...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Trier par";
 "AllContent.Sort.DateUpdated" = "Date de mise à jour";
 "AllContent.Sort.DateCreated" = "Date de création";
-"AllContent.Mode.Unlinked" = "Uniquement dissocié";
+"AllContent.Sort.Date.Asc" = "Le plus ancien en premier";
+"AllContent.Sort.Date.Desc" = "Les plus récents en premier";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked.Title" = "Uniquement non liés";
+"AllContent.Settings.Unlinked.Description" = "Objets non liés qui n'ont pas de lien direct ou de lien en retour avec d'autres objets dans le graphique.";
+"AllContent.Settings.ViewBin" = "Voir la corbeille";

@@ -429,12 +429,27 @@ internal enum Loc {
     }
   }
   internal enum AllContent {
-    internal enum Mode {
-      internal static let unlinked = Loc.tr("Localizable", "AllContent.Mode.Unlinked")
+    internal enum Settings {
+      internal static let viewBin = Loc.tr("Localizable", "AllContent.Settings.ViewBin")
+      internal enum Sort {
+        internal static let title = Loc.tr("Localizable", "AllContent.Settings.Sort.Title")
+      }
+      internal enum Unlinked {
+        internal static let description = Loc.tr("Localizable", "AllContent.Settings.Unlinked.Description")
+        internal static let title = Loc.tr("Localizable", "AllContent.Settings.Unlinked.Title")
+      }
     }
     internal enum Sort {
       internal static let dateCreated = Loc.tr("Localizable", "AllContent.Sort.DateCreated")
       internal static let dateUpdated = Loc.tr("Localizable", "AllContent.Sort.DateUpdated")
+      internal enum Date {
+        internal static let asc = Loc.tr("Localizable", "AllContent.Sort.Date.Asc")
+        internal static let desc = Loc.tr("Localizable", "AllContent.Sort.Date.Desc")
+      }
+      internal enum Name {
+        internal static let asc = Loc.tr("Localizable", "AllContent.Sort.Name.Asc")
+        internal static let desc = Loc.tr("Localizable", "AllContent.Sort.Name.Desc")
+      }
     }
   }
   internal enum Auth {
@@ -1269,7 +1284,7 @@ internal enum Loc {
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail")
   }
   internal enum RelativeFormatter {
-    internal static let days30 = Loc.tr("Localizable", "RelativeFormatter.days30")
+    internal static let days14 = Loc.tr("Localizable", "RelativeFormatter.days14")
     internal static let days7 = Loc.tr("Localizable", "RelativeFormatter.days7")
     internal static let older = Loc.tr("Localizable", "RelativeFormatter.older")
   }
@@ -1759,6 +1774,7 @@ internal enum Loc {
     }
     internal enum P2P {
       internal static let notConnected = Loc.tr("Localizable", "SyncStatus.P2P.NotConnected")
+      internal static let notPossible = Loc.tr("Localizable", "SyncStatus.P2P.NotPossible")
       internal static let restricted = Loc.tr("Localizable", "SyncStatus.P2P.Restricted")
     }
   }

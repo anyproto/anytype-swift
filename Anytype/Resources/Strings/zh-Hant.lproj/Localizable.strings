@@ -148,6 +148,7 @@
 "Objects" = "物件";
 "Bookmarks" = "Bookmarks";
 "Files" = "檔案";
+"Media" = "媒體";
 "Lists" = "列表";
 "Pinned" = "已釘選";
 "Delete" = "刪除";
@@ -1058,7 +1059,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "過去 7 天";
-"RelativeFormatter.days30" = "過去 30 天";
+"RelativeFormatter.days14" = "Previous 14 days";
 "RelativeFormatter.older" = "較舊的";
 
 // MARK: - Server
@@ -1200,7 +1201,8 @@
 "SyncStatus.Error.networkError" = "無法進入這個空間";
 "SyncStatus.Error.UNRECOGNIZED" = "無法識別的錯誤";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1212,6 +1214,13 @@
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sort By";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Mode.Unlinked" = "Only unlinked";
+"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";

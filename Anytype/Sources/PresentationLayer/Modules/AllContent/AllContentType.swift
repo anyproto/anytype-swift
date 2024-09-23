@@ -1,9 +1,11 @@
 import Services
+import AnytypeCore
 
 enum AllContentType: CaseIterable {
     case objects
-    case files
+    case media
     case bookmarks
+    case files
     
     var title: String {
         switch self {
@@ -11,19 +13,25 @@ enum AllContentType: CaseIterable {
             Loc.objects
         case .files:
             Loc.files
+        case .media:
+            Loc.media
         case .bookmarks:
             Loc.bookmarks
         }
     }
     
     var supportedLayouts: [DetailsLayout] {
+        var layouts = [DetailsLayout]()
         switch self {
         case .objects:
-            return DetailsLayout.visibleLayouts
+            layouts = DetailsLayout.visibleLayouts
         case .files:
-            return DetailsLayout.fileLayouts
+            layouts = DetailsLayout.fileLayouts
+        case .media:
+            layouts = DetailsLayout.mediaLayouts
         case .bookmarks:
-            return [.bookmark]
+            layouts = [.bookmark]
         }
+        return layouts - [.participant]
     }
 }

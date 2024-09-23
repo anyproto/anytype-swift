@@ -148,6 +148,7 @@
 "Objects" = "Objekte";
 "Bookmarks" = "Lesezeichen";
 "Files" = "Dateien";
+"Media" = "Medien";
 "Lists" = "Gruppen";
 "Pinned" = "Angeheftet";
 "Delete" = "Löschen";
@@ -163,7 +164,7 @@
 "Unpin" = "Loslösen";
 "Pin on top" = "Oben anheften";
 "File block subtitle" = "Datei im Originalzustand speichern";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Lade ein Bild hoch und bereichere die Seite";
 "Video block subtitle" = "Video hochladen";
 "Bookmark block subtitle" = "Speichere deinen Link mit der Zusammenfassung";
 "Code block subtitle" = "Code-Snippet erfassen";
@@ -1056,7 +1057,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Letzte 7 Tage";
-"RelativeFormatter.days30" = "Letzte 30 Tage";
+"RelativeFormatter.days14" = "Letzte 14 Tage";
 "RelativeFormatter.older" = "Älter";
 
 // MARK: - Server
@@ -1198,7 +1199,8 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unerkannter Fehler";
 "SyncStatus.P2P.Restricted" = "Eingeschränkt. Zum Öffnen der Geräteeinstellungen tippen.";
-"SyncStatus.P2P.NotConnected" = "Verbindung nicht möglich";
+"SyncStatus.P2P.NotConnected" = "Nicht verbunden";
+"SyncStatus.P2P.NotPossible" = "Verbindung nicht möglich";
 
 
 // MARK: - Debug
@@ -1210,6 +1212,13 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Eine Nachricht schreiben...";
 
 // MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sortieren nach";
 "AllContent.Sort.DateUpdated" = "Aktualisierungsdatum";
 "AllContent.Sort.DateCreated" = "Erstellungsdatum";
-"AllContent.Mode.Unlinked" = "Nur unverlinkte";
+"AllContent.Sort.Date.Asc" = "Älteste zuerst";
+"AllContent.Sort.Date.Desc" = "Neueste zuerst";
+"AllContent.Sort.Name.Asc" = "A -> Z";
+"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Settings.Unlinked.Title" = "Nur unverlinkte";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "Papierkorb ansehen";
