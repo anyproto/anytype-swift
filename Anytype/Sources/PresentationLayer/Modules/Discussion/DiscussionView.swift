@@ -3,6 +3,7 @@ import SwiftUI
 struct DiscussionView: View {
     
     @StateObject private var model: DiscussionViewModel
+    @State private var actionState: CGFloat = 0
     
     init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
         self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, chatId: chatId, output: output))
@@ -18,6 +19,13 @@ struct DiscussionView: View {
                             inputPanel
                         }
                     }
+            }
+            .discussionActionOverlay(state: $actionState) {
+                if model.mentionObjects.isNotEmpty {
+                    DiscussionMentionList(mentions: model.mentionObjects) {
+                        model.didSelectMention($0)
+                    }
+                }
             }
         }
         .task {
@@ -42,7 +50,12 @@ struct DiscussionView: View {
             MessageLinkInputViewContainer(objects: model.linkedObjects) {
                 model.onTapRemoveLinkedObject(details: $0)
             }
-            DiscusionInput(text: $model.message, editing: $model.inputFocused, hasAdditionalData: model.linkedObjects.isNotEmpty) {
+            DiscusionInput(
+                text: $model.message,
+                editing: $model.inputFocused,
+                mention: $model.mentionSearchState,
+                hasAdditionalData: model.linkedObjects.isNotEmpty
+            ) {
                 model.onTapAddObjectToMessage()
             } onTapSend: {
                 model.onTapSendMessage()
@@ -50,6 +63,10 @@ struct DiscussionView: View {
         }
         .overlay(alignment: .top) {
             AnytypeDivider()
+        }
+        .discussionActionStateTopProvider(state: $actionState)
+        .task(id: model.mentionSearchState) {
+            try? await model.updateMentionState()
         }
     }
     
