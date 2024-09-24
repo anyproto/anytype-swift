@@ -1032,6 +1032,10 @@
 "SpaceShare.Tip.Steps.2" = "Paylaşım bölümünü açın";
 "SpaceShare.Tip.Steps.3" = "Bir davet bağlantısı oluşturun ve paylaşın";
 
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Uyarı";
@@ -1058,7 +1062,6 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Son 7 gün";
 "RelativeFormatter.days14" = "Önceki 14 gün";
-"RelativeFormatter.older" = "Daha eski";
 
 // MARK: - Server
 "Server.Network" = "Ağ";
@@ -1212,13 +1215,13 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sıralama ölçütü";
+"AllContent.Settings.Sort.Title" = "Şuna göre sırala";
 "AllContent.Sort.DateUpdated" = "Güncellenme tarihi";
 "AllContent.Sort.DateCreated" = "Oluşturulma tarihi";
 "AllContent.Sort.Date.Asc" = "Önce en eski";
 "AllContent.Sort.Date.Desc" = "Önce en yeni";
-"AllContent.Sort.Name.Asc" = "A -> Z";
-"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Sadece bağlantısız";
 "AllContent.Settings.Unlinked.Description" = "Grafikteki diğer nesnelerle doğrudan bağlantısı veya geri bağlantısı olmayan bağlantısız nesneler.";
 "AllContent.Settings.ViewBin" = "Geri Dönüşüm Kutusunu Görüntüle";

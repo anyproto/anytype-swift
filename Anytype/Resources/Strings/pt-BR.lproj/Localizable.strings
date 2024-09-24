@@ -1032,6 +1032,10 @@
 "SpaceShare.Tip.Steps.2" = "Abrir seção Compartilhar";
 "SpaceShare.Tip.Steps.3" = "Gerar um link de convite e compartilhá-lo";
 
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Aviso";
@@ -1057,7 +1061,6 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 dias";
 "RelativeFormatter.days14" = "Últimos 14 dias";
-"RelativeFormatter.older" = "Mais antigo";
 
 // MARK: - Server
 "Server.Network" = "Rede";
@@ -1211,7 +1214,7 @@ forneça detalhes específicos das suas necessidades aqui.";
 "Message.Input.EmptyPlaceholder" = "Escreva uma mensagem...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Classificar por";
+"AllContent.Settings.Sort.Title" = "Ordenar por";
 "AllContent.Sort.DateUpdated" = "Atualização de data";
 "AllContent.Sort.DateCreated" = "Data Criada";
 "AllContent.Sort.Date.Asc" = "Mais antigos primeiro";

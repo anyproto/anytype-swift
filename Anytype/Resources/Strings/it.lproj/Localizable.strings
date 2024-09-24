@@ -1031,6 +1031,10 @@
 "SpaceShare.Tip.Steps.2" = "Apri sezione Condividi";
 "SpaceShare.Tip.Steps.3" = "Genera un link di invito e condividilo";
 
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Attenzione";
@@ -1056,7 +1060,6 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ultimi 7 giorni";
 "RelativeFormatter.days14" = "Ultimi 14 giorni";
-"RelativeFormatter.older" = "Meno recenti";
 
 // MARK: - Server
 "Server.Network" = "Rete";
@@ -1210,13 +1213,13 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Message.Input.EmptyPlaceholder" = "Scrivi un messaggio...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Ordina per";
+"AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Data di aggiornamento";
 "AllContent.Sort.DateCreated" = "Data di creazione";
 "AllContent.Sort.Date.Asc" = "Prima i più vecchi";
 "AllContent.Sort.Date.Desc" = "Prima i più recenti";
-"AllContent.Sort.Name.Asc" = "A -> Z";
-"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Solo non collegati";
 "AllContent.Settings.Unlinked.Description" = "Oggetti non collegati che non hanno un collegamento diretto o un backlink con altri oggetti nel grafo.";
 "AllContent.Settings.ViewBin" = "Visualizza Cestino";

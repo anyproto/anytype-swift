@@ -1031,6 +1031,10 @@
 "SpaceShare.Tip.Steps.2" = "Откройте раздел «Доступ»";
 "SpaceShare.Tip.Steps.3" = "Создайте ссылку для приглашения и поделитесь ею";
 
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Внимание";
@@ -1056,7 +1060,6 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "За последние 7 дней";
 "RelativeFormatter.days14" = "За последние 14 дней";
-"RelativeFormatter.older" = "Раньше";
 
 // MARK: - Server
 "Server.Network" = "Сеть";
@@ -1218,8 +1221,8 @@
 "AllContent.Sort.DateCreated" = "Дата создания";
 "AllContent.Sort.Date.Asc" = "Сначала старые";
 "AllContent.Sort.Date.Desc" = "Сначала новые";
-"AllContent.Sort.Name.Asc" = "А -> Я";
-"AllContent.Sort.Name.Desc" = "Я -> А";
+"AllContent.Sort.Name.Asc" = "А → Я";
+"AllContent.Sort.Name.Desc" = "Я → А";
 "AllContent.Settings.Unlinked.Title" = "Только несвязанные";
 "AllContent.Settings.Unlinked.Description" = "Непривязанные объекты, не имеющие прямой связи или обратной связи с другими объектами на графике.";
 "AllContent.Settings.ViewBin" = "Просмотр корзины";
