@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
@@ -33,6 +34,7 @@ struct SpaceHubView: View {
             if let spaces = model.spaces {
                 VStack(spacing: 8) {
                     ScrollView {
+                        Spacer.fixedHeight(4)
                         ForEach(spaces) {
                             spaceCard($0)
                         }
@@ -135,14 +137,14 @@ struct SpaceHubView: View {
                 AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
                     .lineLimit(1)
                     .opacity(0.6)
-                Spacer.fixedHeight(2)
+                Spacer.fixedHeight(1)
             }
             Spacer()
         }
         .padding(16)
         .background(
             DashboardWallpaper(
-                mode: .parallax(containerHeight: size.height),
+                mode: FeatureFlags.spaceHubParallax ? .parallax(containerHeight: size.height) : .default,
                 wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
                 spaceIcon: space.spaceView.iconImage
             )
