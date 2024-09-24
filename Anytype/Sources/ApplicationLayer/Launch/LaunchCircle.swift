@@ -3,11 +3,15 @@ import SwiftUI
 
 struct LaunchCircle: View {
     
-    @State private var side: CGFloat = 16
+    private enum Constants {
+        static let maxSide: CGFloat = 128
+        static let middleSide: CGFloat = 48
+        static let minSide: CGFloat = 16
+        static let duration: CGFloat = 1.6
+        static let initialDuration: CGFloat = Constants.duration + Constants.duration
+    }
     
-    private let minSideOpacity: CGFloat = 16
-    private let maxSideOpacity: CGFloat = 47
-    private let duration: CGFloat = 1.6
+    @State private var side: CGFloat = Constants.minSide
     
     var body: some View {
         Circle()
@@ -21,17 +25,19 @@ struct LaunchCircle: View {
             )
             .frame(width: side, height: side)
             .onAppear {
-                withAnimation(.easeInOut(duration: duration + duration)) {
-                    side = 128
+                withAnimation(.easeInOut(duration: Constants.initialDuration)) {
+                    side = Constants.maxSide
                 }
                 // TODO: Migrate to completion from iOS 17
-                withAnimation(.easeInOut(duration: duration).repeatForever().delay(duration)) {
-                    side = 48
+                withAnimation(.easeInOut(duration: Constants.duration).repeatForever().delay(Constants.initialDuration)) {
+                    side = Constants.middleSide
                 }
             }
     }
     
     private var opacity: CGFloat {
+        let maxSideOpacity = Constants.maxSide - 1
+        let minSideOpacity = Constants.minSide
         let opacity = (maxSideOpacity - side) / (maxSideOpacity - minSideOpacity)
         return max(min(opacity, 1), 0)
     }
