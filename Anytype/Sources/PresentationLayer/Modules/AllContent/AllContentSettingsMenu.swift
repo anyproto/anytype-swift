@@ -2,71 +2,70 @@ import SwiftUI
 import Services
 
 struct AllContentSettingsMenu: View {
-    
-    let state: AllContentState
-    let modeChanged: (AllContentMode) -> Void
-    let sortRelationChanged: (AllContentSort.Relation) -> Void
-    let sortTypeChanged: (DataviewSort.TypeEnum) -> Void
+    @Binding var state: AllContentState
     let binTapped: () -> Void
+    
+    @State private var relation: AllContentSort.Relation
+    
+    init(state: Binding<AllContentState>, binTapped: @escaping () -> Void) {
+        self._state = state
+        self.binTapped = binTapped
+        self.relation = state.wrappedValue.sort.relation
+    }
     
     var body: some View {
         Menu {
             mode
+            Divider()
             sortByMenu
+            Divider()
             bin
         } label: {
             IconView(icon: .asset(.X24.more))
                 .frame(width: 24, height: 24)
         }
         .menuOrder(.fixed)
+        .onChange(of: relation) { newValue in
+            state.sort = AllContentSort(relation: newValue)
+        }
     }
     
     private var mode: some View {
-        Section {
+        Picker("", selection: $state.mode) {
             ForEach(AllContentMode.allCases, id: \.self) { mode in
-                row(title: mode.title, selected: state.mode == mode) {
-                    modeChanged(mode)
-                }
+                AnytypeText(mode.title, style: .uxTitle2Medium)
+                    .foregroundColor(.Button.button)
             }
         }
     }
     
     private var sortByMenu: some View {
         Menu {
-            Section {
-                ForEach(AllContentSort.Relation.allCases, id: \.self) { sortRelation in
-                    row(title: sortRelation.title, selected: state.sort.relation == sortRelation) {
-                        sortRelationChanged(sortRelation)
-                    }
-                }
-            }
-            Section {
-                ForEach(state.sort.relation.availableSortTypes, id: \.self) { type in
-                    row(title: state.sort.relation.titleFor(sortType: type), selected: state.sort.type == type) {
-                        sortTypeChanged(type)
-                    }
-                }
-            }
+            sortRelation
+            Divider()
+            sortType
         } label: {
-            Label(Loc.AllContent.Settings.Sort.title, systemImage: "arrow.up.arrow.down")
+            AnytypeText(Loc.AllContent.Settings.Sort.title, style: .uxTitle2Medium)
+                .foregroundColor(.Button.button)
             Text(state.sort.relation.title)
         }
         .menuActionDisableDismissBehavior()
     }
     
-    private func row(title: String, selected: Bool, onTap: @escaping () -> Void) -> some View {
-        Button {
-            onTap()
-        } label: {
-            AnytypeText(
-                title,
-                style: .uxTitle2Medium
-            )
-            .foregroundColor(.Button.button)
-            
-            if selected {
-                Image(asset: .X24.tick)
-                    .foregroundColor(.Text.primary)
+    private var sortRelation: some View {
+        Picker("", selection: $relation) {
+            ForEach(AllContentSort.Relation.allCases, id: \.self) { sortRelation in
+                AnytypeText(sortRelation.title, style: .uxTitle2Medium)
+                    .foregroundColor(.Button.button)
+            }
+        }
+    }
+    
+    private var sortType: some View {
+        Picker("", selection: $state.sort.type) {
+            ForEach(state.sort.relation.availableSortTypes, id: \.self) { type in
+                AnytypeText(state.sort.relation.titleFor(sortType: type), style: .uxTitle2Medium)
+                    .foregroundColor(.Button.button)
             }
         }
     }

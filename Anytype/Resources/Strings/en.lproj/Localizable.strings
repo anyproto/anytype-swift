@@ -1060,7 +1060,6 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days14" = "Previous 14 days";
-"RelativeFormatter.older" = "Older";
 
 // MARK: - Server
 "Server.Network" = "Network";
@@ -1214,13 +1213,13 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
 "AllContent.Sort.Date.Asc" = "Oldiest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
-"AllContent.Sort.Name.Asc" = "A -> Z";
-"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";

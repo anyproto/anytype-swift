@@ -1283,7 +1283,6 @@ internal enum Loc {
   internal enum RelativeFormatter {
     internal static let days14 = Loc.tr("Localizable", "RelativeFormatter.days14")
     internal static let days7 = Loc.tr("Localizable", "RelativeFormatter.days7")
-    internal static let older = Loc.tr("Localizable", "RelativeFormatter.older")
   }
   internal enum RequestToJoinNotification {
     internal static let goToSpace = Loc.tr("Localizable", "RequestToJoinNotification.GoToSpace")

@@ -1,6 +1,6 @@
 import Services
 
-enum AllContentMode: CaseIterable {
+enum AllContentMode: String, CaseIterable {
     case allContent
     case unlinked
     
