@@ -42,16 +42,7 @@ struct AllContentView: View {
     
     private var settingsMenu: some View {
         AllContentSettingsMenu(
-            state: model.state,
-            modeChanged: { mode in
-                model.modeChanged(mode)
-            },
-            sortRelationChanged: { relation in
-                model.sortRelationChanged(relation)
-            },
-            sortTypeChanged: { type in
-                model.sortTypeChanged(type)
-            },
+            state: $model.state,
             binTapped: {
                 model.binTapped()
             }

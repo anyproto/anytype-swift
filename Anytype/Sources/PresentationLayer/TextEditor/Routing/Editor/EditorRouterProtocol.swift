@@ -22,7 +22,7 @@ protocol EditorRouterProtocol:
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
     func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void)
     
-    func showFilePicker(model: Picker.ViewModel)
+    func showFilePicker(model: AnytypePicker.ViewModel)
     func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void)
     
     func saveFile(fileURL: URL, type: FileContentType)

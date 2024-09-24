@@ -65,22 +65,8 @@ final class AllContentViewModel: ObservableObject {
         }
     }
     
-    func modeChanged(_ mode: AllContentMode) {
-        state.mode = mode
-    }
-    
     func typeChanged(_ type: AllContentType) {
         state.type = type
-    }
-    
-    func sortRelationChanged(_ sortRelation: AllContentSort.Relation) {
-        guard state.sort.relation != sortRelation else { return }
-        state.sort = AllContentSort(relation: sortRelation)
-    }
-    
-    func sortTypeChanged(_ sortType: DataviewSort.TypeEnum) {
-        guard state.sort.type != sortType else { return }
-        state.sort.type = sortType
     }
     
     func binTapped() {
