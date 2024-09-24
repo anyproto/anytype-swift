@@ -70,12 +70,16 @@ struct AllContentView: View {
                 }
                 ForEach(section.rows, id: \.id) { row in
                     WidgetObjectListRowView(model: row)
+                        .onAppear {
+                            model.onAppearLastRow(row.id)
+                        }
                 }
             }
             AnytypeNavigationSpacer(minHeight: 130)
         }
         .scrollIndicators(.never)
         .scrollDismissesKeyboard(.immediately)
+        .id(model.state.scrollId + model.searchText)
     }
     
     private var types: some View {

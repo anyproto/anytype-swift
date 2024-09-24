@@ -1056,7 +1056,6 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days14" = "Previous 14 days";
-"RelativeFormatter.older" = "Older";
 
 // MARK: - Server
 "Server.Network" = "Network";

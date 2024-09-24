@@ -4,6 +4,8 @@ struct AllContentSort: Equatable, Hashable {
     let relation: Relation
     var type: DataviewSort.TypeEnum
     
+    var id: String { relation.rawValue + "\(type.rawValue)" }
+    
     init(relation: Relation, type: DataviewSort.TypeEnum? = nil) {
         self.relation = relation
         self.type = type ?? relation.defaultSortType
@@ -16,7 +18,7 @@ struct AllContentSort: Equatable, Hashable {
         )
     }
     
-    enum Relation: CaseIterable {
+    enum Relation: String, CaseIterable {
         case dateUpdated
         case dateCreated
         case name
