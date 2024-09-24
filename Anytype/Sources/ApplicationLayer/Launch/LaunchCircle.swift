@@ -36,7 +36,7 @@ struct LaunchCircle: View {
     }
     
     private var opacity: CGFloat {
-        let maxSideOpacity = Constants.maxSide - 1
+        let maxSideOpacity = Constants.middleSide - 1
         let minSideOpacity = Constants.minSide
         let opacity = (maxSideOpacity - side) / (maxSideOpacity - minSideOpacity)
         return max(min(opacity, 1), 0)
