@@ -1032,6 +1032,10 @@
 "SpaceShare.Tip.Steps.2" = "打开分享栏";
 "SpaceShare.Tip.Steps.3" = "生成一个邀请链接并分享它";
 
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "警告";
@@ -1057,7 +1061,6 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7天前";
 "RelativeFormatter.days14" = "Previous 14 days";
-"RelativeFormatter.older" = "较早的";
 
 // MARK: - Server
 "Server.Network" = "网络";
@@ -1212,13 +1215,13 @@
 "Message.Input.EmptyPlaceholder" = "写一段话…";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.Sort.Title" = "排序方式";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
 "AllContent.Sort.Date.Asc" = "Oldiest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
-"AllContent.Sort.Name.Asc" = "A -> Z";
-"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";
