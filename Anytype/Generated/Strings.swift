@@ -1717,6 +1717,12 @@ internal enum Loc {
       internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess")
     }
   }
+  internal enum SpaceSwitcher {
+    internal enum Tip {
+      internal static let text = Loc.tr("Localizable", "SpaceSwitcher.Tip.Text")
+      internal static let title = Loc.tr("Localizable", "SpaceSwitcher.Tip.Title")
+    }
+  }
   internal enum Spaces {
     internal static let title = Loc.tr("Localizable", "Spaces.Title")
     internal enum Accessibility {

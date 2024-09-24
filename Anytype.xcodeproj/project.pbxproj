@@ -1367,6 +1367,7 @@
 		3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D569270C9E3400614E29 /* URLInputViewController.swift */; };
 		3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56D270C9E4D00614E29 /* EditorMainItemModelsHolder.swift */; };
 		3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */; };
+		3D94312B2CA2B9C1001C0649 /* SpaceSwitcherTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94312A2CA2B9A4001C0649 /* SpaceSwitcherTip.swift */; };
 		3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */; };
 		3D9EEC382BFE4B06006F24AD /* AccountDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */; };
 		3DA116FC2C357A3400D071CE /* SyncStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA116FB2C357A3400D071CE /* SyncStatusStorage.swift */; };
@@ -3252,6 +3253,7 @@
 		3D93D569270C9E3400614E29 /* URLInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
 		3D93D56D270C9E4D00614E29 /* EditorMainItemModelsHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorMainItemModelsHolder.swift; sourceTree = "<group>"; };
 		3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageViewInput.swift; sourceTree = "<group>"; };
+		3D94312A2CA2B9A4001C0649 /* SpaceSwitcherTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSwitcherTip.swift; sourceTree = "<group>"; };
 		3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdown.swift; sourceTree = "<group>"; };
 		3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataExtension.swift; sourceTree = "<group>"; };
 		3DA116FB2C357A3400D071CE /* SyncStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusStorage.swift; sourceTree = "<group>"; };
@@ -7421,10 +7423,11 @@
 		2AF205B52ABD874C0027F3EA /* HomeNavigationContainer */ = {
 			isa = PBXGroup;
 			children = (
+				2AF205B62ABD8E660027F3EA /* Panel */,
 				2ADD14EE2AE2B9A50060BC33 /* HomeCreateObjectTip.swift */,
 				2ADF00922ACF0040000D01F8 /* HomePath.swift */,
-				2AF205B62ABD8E660027F3EA /* Panel */,
 				2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */,
+				3D94312A2CA2B9A4001C0649 /* SpaceSwitcherTip.swift */,
 			);
 			path = HomeNavigationContainer;
 			sourceTree = "<group>";
@@ -12372,6 +12375,7 @@
 				3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */,
 				2AEAA48729F6A3D6009ACA00 /* ColorsExample.swift in Sources */,
 				C9E9F5E427FC7E7F008163D9 /* InsetConstraints.swift in Sources */,
+				3D94312B2CA2B9C1001C0649 /* SpaceSwitcherTip.swift in Sources */,
 				C9892C3D284E22E2006E3BE3 /* SpreadsheetLayout.swift in Sources */,
 				2E975EF0287C23DA004DE574 /* SetSortsListViewModel.swift in Sources */,
 				2A82AB382B9754CB00AA8E18 /* ServicesDI.swift in Sources */,
