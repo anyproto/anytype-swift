@@ -381,21 +381,9 @@ internal extension ImageAsset {
       static let light = ImageAsset.bundle(name: "SettingsOld/Theme/light")
       static let system = ImageAsset.bundle(name: "SettingsOld/Theme/system")
     }
-    static let accountAndData = ImageAsset.bundle(name: "SettingsOld/account_and_data")
-    static let setWallpaper = ImageAsset.bundle(name: "SettingsOld/set_wallpaper")
-  }
-  enum SharingTip {
-    static let step1 = ImageAsset.bundle(name: "SharingTip/step1")
-    static let step2 = ImageAsset.bundle(name: "SharingTip/step2")
-    static let step3 = ImageAsset.bundle(name: "SharingTip/step3")
   }
   enum Format {
     static let unknown = ImageAsset.bundle(name: "format/unknown")
-  }
-  enum SpaceShareTip {
-    static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
-    static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
-    static let step3 = ImageAsset.bundle(name: "SpaceShareTip/step3")
   }
   enum StyleBottomSheet {
     static let bullet = ImageAsset.bundle(name: "StyleBottomSheet/bullet")
@@ -430,6 +418,16 @@ internal extension ImageAsset {
       static let unchecked = ImageAsset.bundle(name: "TextEditor/Text/unchecked")
     }
     static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
+  }
+  enum SharingTip {
+    static let step1 = ImageAsset.bundle(name: "SharingTip/step1")
+    static let step2 = ImageAsset.bundle(name: "SharingTip/step2")
+    static let step3 = ImageAsset.bundle(name: "SharingTip/step3")
+  }
+  enum SpaceShareTip {
+    static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
+    static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
+    static let step3 = ImageAsset.bundle(name: "SpaceShareTip/step3")
   }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
