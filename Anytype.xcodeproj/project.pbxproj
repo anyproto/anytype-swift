@@ -704,6 +704,7 @@
 		2AAF4A5F2C57A21C003BBB81 /* MessageLinkObjectViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF4A5E2C57A21C003BBB81 /* MessageLinkObjectViewStyle.swift */; };
 		2AB22A1F2A9F33B3000E1AA6 /* AnytypeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB22A1E2A9F33B3000E1AA6 /* AnytypeRow.swift */; };
 		2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */; };
+		2AB377932C943FF30056ECC5 /* LaunchCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB377922C943FE60056ECC5 /* LaunchCircle.swift */; };
 		2AB508162AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB508152AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift */; };
 		2AB5083B2AE9395600E1C986 /* SpaceCreateModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB5083A2AE9395600E1C986 /* SpaceCreateModuleOutput.swift */; };
 		2AB511AC29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AB29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift */; };
@@ -2558,6 +2559,7 @@
 		2AAF4A5E2C57A21C003BBB81 /* MessageLinkObjectViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLinkObjectViewStyle.swift; sourceTree = "<group>"; };
 		2AB22A1E2A9F33B3000E1AA6 /* AnytypeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeRow.swift; sourceTree = "<group>"; };
 		2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnytypeURLTests.swift; path = AnyTypeTests/AnytypeURL/AnytypeURLTests.swift; sourceTree = SOURCE_ROOT; };
+		2AB377922C943FE60056ECC5 /* LaunchCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchCircle.swift; sourceTree = "<group>"; };
 		2AB508152AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ByteCountFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		2AB508272AE922DD00E1C986 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2AB508282AE922E400E1C986 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -7333,6 +7335,7 @@
 		2AE4EDB42834CF4F00B61ABE /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				2AB377922C943FE60056ECC5 /* LaunchCircle.swift */,
 				2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */,
 			);
 			path = Launch;
@@ -12787,6 +12790,7 @@
 				2A947B372A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				125683F227DF808E003A8251 /* LegacySearchViewModel+SelectionMode.swift in Sources */,
+				2AB377932C943FF30056ECC5 /* LaunchCircle.swift in Sources */,
 				C9CD66AC27EB3BDE001F1860 /* UnsplashItemsViewModel.swift in Sources */,
 				3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */,
 				2A5BC4C92A791AED004FAABF /* ViewProvidersConfigurator.swift in Sources */,

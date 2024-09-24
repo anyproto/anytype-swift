@@ -159,6 +159,11 @@ extension Color {
       internal static let white = Color(asset: Asset.Gradients.white)
     }
     
+    // MARK: - Launch
+    enum Launch {
+      internal static let circle = Color(asset: Asset.Launch.circle)
+    }
+    
     // MARK: - ModalScreen
     enum ModalScreen {
       internal static let background = Color(asset: Asset.ModalScreen.background)
