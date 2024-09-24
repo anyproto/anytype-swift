@@ -40,8 +40,8 @@ extension UIKitPickerViewController {
     }
 }
 
-// MARK: - Picker
-class Picker: UIViewController {
+// MARK: - AnytypePicker
+class AnytypePicker: UIViewController {
     var viewModel: ViewModel
     var barTintColor: UIColor?
     
@@ -56,7 +56,7 @@ class Picker: UIViewController {
 }
 
 // MARK: Appearance
-extension Picker {
+extension AnytypePicker {
     private func applyAppearanceForNavigationBar() {
         // Save color to reset it back later
         self.barTintColor = UINavigationBar.appearance().tintColor
@@ -68,7 +68,7 @@ extension Picker {
 }
 
 // MARK: Controller
-private extension Picker {
+private extension AnytypePicker {
     func createPickerController() -> UIViewController {
         let picker = UIKitPickerViewController(forOpeningContentTypes: self.viewModel.types, asCopy: true)
         picker.allowsMultipleSelection = false
@@ -78,7 +78,7 @@ private extension Picker {
 }
 
 // MARK: View Lifecycle
-extension Picker {
+extension AnytypePicker {
     override func viewDidLoad() {
         super.viewDidLoad()
         applyAppearanceForNavigationBar()
@@ -97,7 +97,7 @@ extension Picker {
 }
 
 // MARK: - ViewModel
-extension Picker {
+extension AnytypePicker {
     final class ViewModel: BaseFilePickerViewModel {
         private(set) var types: [UTType] = [
             .item
@@ -110,7 +110,7 @@ extension Picker {
 }
 
 // MARK: - UIDocumentPickerDelegate
-extension Picker: UIDocumentPickerDelegate {
+extension AnytypePicker: UIDocumentPickerDelegate {
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         controller.dismiss(animated: true, completion: nil)
     }
