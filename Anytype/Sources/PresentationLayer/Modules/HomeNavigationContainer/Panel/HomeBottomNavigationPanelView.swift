@@ -45,6 +45,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 HomeTipView()
             }
         }
+        .overlay {
+            if #available(iOS 17.0, *) {
+                SpaceSwitcherTipView()
+            }
+        }
         .padding(.vertical, 10)
         .if(FeatureFlags.homeTestSwipeGeature) { view in
             view.gesture(
@@ -73,6 +78,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.3)
                     .onEnded { _ in
+                        if #available(iOS 17.0, *) {
+                            SpaceSwitcherTip.openedSpaceSwitcher = true
+                        }
                         model.onTapProfile()
                     }
             )
