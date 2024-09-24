@@ -26,10 +26,6 @@ struct SpaceWidgetView: View {
                 }
             }
             Spacer()
-            if model.sharedSpace {
-                IconView(icon: .asset(.X24.sharing))
-                    .frame(width: 24, height: 24)
-            }
         }
         .padding(.horizontal, 16)
         .frame(height: 68)
