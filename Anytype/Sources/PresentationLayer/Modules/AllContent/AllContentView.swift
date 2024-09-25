@@ -24,6 +24,9 @@ struct AllContentView: View {
         .onDisappear() {
             model.onDisappear()
         }
+        .onChange(of: model.state.sort) { newValue in
+            model.storeSort()
+        }
     }
     
     private var navigationBar: some View {

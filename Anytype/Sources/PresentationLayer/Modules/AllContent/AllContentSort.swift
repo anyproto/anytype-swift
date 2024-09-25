@@ -1,8 +1,8 @@
 import Services
 
-struct AllContentSort: Equatable, Hashable {
+struct AllContentSort: Equatable, Hashable, Codable {
     let relation: Relation
-    var type: DataviewSort.TypeEnum
+    let type: DataviewSort.TypeEnum
     
     var id: String { relation.rawValue + "\(type.rawValue)" }
     
@@ -18,7 +18,7 @@ struct AllContentSort: Equatable, Hashable {
         )
     }
     
-    enum Relation: String, CaseIterable {
+    enum Relation: String, CaseIterable, Codable {
         case dateUpdated
         case dateCreated
         case name
@@ -84,3 +84,5 @@ struct AllContentSort: Equatable, Hashable {
         }
     }
 }
+
+extension DataviewSort.TypeEnum: Codable {}

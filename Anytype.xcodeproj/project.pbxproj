@@ -1117,6 +1117,7 @@
 		2EAA140C2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA140B2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift */; };
 		2EAFEE5C2BEA655D00DB190C /* SearchWithMetaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAFEE5B2BEA655D00DB190C /* SearchWithMetaService.swift */; };
 		2EAFEE5E2BEA751100DB190C /* GlobalSearchDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAFEE5D2BEA751100DB190C /* GlobalSearchDataBuilder.swift */; };
+		2EB719792CA4264700C16ACD /* AllContentSavedStatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB719782CA4263E00C16ACD /* AllContentSavedStatesService.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */; };
 		2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */; };
@@ -3004,6 +3005,7 @@
 		2EAA140B2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelationsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2EAFEE5B2BEA655D00DB190C /* SearchWithMetaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWithMetaService.swift; sourceTree = "<group>"; };
 		2EAFEE5D2BEA751100DB190C /* GlobalSearchDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchDataBuilder.swift; sourceTree = "<group>"; };
+		2EB719782CA4263E00C16ACD /* AllContentSavedStatesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentSavedStatesService.swift; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesConfiguration.swift; sourceTree = "<group>"; };
 		2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypeView.swift; sourceTree = "<group>"; };
@@ -7751,6 +7753,7 @@
 		2E33F5762C909CB900CDC082 /* AllContent */ = {
 			isa = PBXGroup;
 			children = (
+				2EB719772CA4261E00C16ACD /* AllContentSavedStates */,
 				2E0D9C072C99C96800F02918 /* AllContentSettingsMenu.swift */,
 				2E33F5842C91EFFC00CDC082 /* Subscription */,
 				2E33F5772C909D2E00CDC082 /* Coordinator */,
@@ -8153,6 +8156,14 @@
 				2EAFEE5B2BEA655D00DB190C /* SearchWithMetaService.swift */,
 			);
 			path = SearchWithMeta;
+			sourceTree = "<group>";
+		};
+		2EB719772CA4261E00C16ACD /* AllContentSavedStates */ = {
+			isa = PBXGroup;
+			children = (
+				2EB719782CA4263E00C16ACD /* AllContentSavedStatesService.swift */,
+			);
+			path = AllContentSavedStates;
 			sourceTree = "<group>";
 		};
 		2EC669222A167513001F71BC /* Transition */ = {
@@ -11815,6 +11826,7 @@
 				2E88257A2C5A61A200FD59D3 /* ObjectVersionView.swift in Sources */,
 				3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */,
 				2A2B332E2A7BB0AC004BD906 /* SpaceRowView.swift in Sources */,
+				2EB719792CA4264700C16ACD /* AllContentSavedStatesService.swift in Sources */,
 				2E975EEC287C23DA004DE574 /* SetRelationsDetailsLocalSearchInteractor.swift in Sources */,
 				2A590ECD2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift in Sources */,
 				2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */,
