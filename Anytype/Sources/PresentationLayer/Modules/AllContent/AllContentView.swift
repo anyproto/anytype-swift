@@ -15,6 +15,9 @@ struct AllContentView: View {
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
             content
         }
+        .task {
+            await model.startParticipantTask()
+        }
         .task(id: model.state) {
             await model.restartSubscription()
         }
@@ -66,6 +69,13 @@ struct AllContentView: View {
                     WidgetObjectListRowView(model: row)
                         .onAppear {
                             model.onAppearLastRow(row.id)
+                        }
+                        .if(row.canArchive) {
+                            $0.swipeActions {
+                                Button(Loc.toBin, role: .destructive) {
+                                    model.onDelete(objectId: row.objectId)
+                                }
+                            }
                         }
                 }
             }

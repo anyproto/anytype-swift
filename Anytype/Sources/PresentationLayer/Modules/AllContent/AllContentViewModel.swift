@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import OrderedCollections
+import UIKit
 
 @MainActor
 protocol AllContentModuleOutput: AnyObject {
@@ -16,6 +17,7 @@ final class AllContentViewModel: ObservableObject {
     @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
     @Published var state = AllContentState()
     @Published var searchText = ""
+    @Published private var participantCanEdit = false
     
     @Injected(\.allContentSubscriptionService)
     private var allContentSubscriptionService: any AllContentSubscriptionServiceProtocol
@@ -23,6 +25,11 @@ final class AllContentViewModel: ObservableObject {
     private var searchService: any SearchServiceProtocol
     @Injected(\.allContentSavedStatesService)
     private var allContentSavedStatesService: any AllContentSavedStatesServiceProtocol
+    
+    @Injected(\.objectActionsService)
+    private var objectActionService: any ObjectActionsServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
@@ -33,6 +40,13 @@ final class AllContentViewModel: ObservableObject {
         self.spaceId = spaceId
         self.output = output
         self.restoreSort()
+    }
+    
+    func startParticipantTask() async {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+            participantCanEdit = participant.canEdit
+            updateRows()
+        }
     }
     
     func restartSubscription() async {
@@ -86,6 +100,16 @@ final class AllContentViewModel: ObservableObject {
         state.updateLimit()
     }
     
+    func onDelete(objectId: String) {
+        setArchive(objectId: objectId)
+    }
+    
+    private func setArchive(objectId: String) {
+        AnytypeAnalytics.instance().logMoveToBin(true)
+        Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
     private func stopSubscription() {
         Task {
             await allContentSubscriptionService.stopSubscription()
@@ -119,6 +143,7 @@ final class AllContentViewModel: ObservableObject {
                     description: details.subtitle,
                     subtitle: details.objectType.name,
                     isChecked: false,
+                    canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
                     menu: [],
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: details.editorScreenData())
