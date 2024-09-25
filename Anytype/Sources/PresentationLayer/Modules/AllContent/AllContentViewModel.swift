@@ -21,6 +21,8 @@ final class AllContentViewModel: ObservableObject {
     private var allContentSubscriptionService: any AllContentSubscriptionServiceProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @Injected(\.allContentSavedStatesService)
+    private var allContentSavedStatesService: any AllContentSavedStatesServiceProtocol
     
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
@@ -30,6 +32,7 @@ final class AllContentViewModel: ObservableObject {
     init(spaceId: String, output: (any AllContentModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
+        self.restoreSort()
     }
     
     func restartSubscription() async {
@@ -135,5 +138,16 @@ final class AllContentViewModel: ObservableObject {
         case .name:
             return nil
         }
+    }
+    
+    // MARK: - Save states
+    
+    func storeSort() {
+        allContentSavedStatesService.storeSort(state.sort, spaceId: spaceId)
+    }
+    
+    private func restoreSort() {
+        guard let sort = allContentSavedStatesService.restoreSort(for: spaceId) else { return }
+        state.sort = sort
     }
 }
