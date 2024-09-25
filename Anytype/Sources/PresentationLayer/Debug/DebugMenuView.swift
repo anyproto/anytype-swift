@@ -64,7 +64,7 @@ struct DebugMenuView: View {
                 Menu {
                     designSystem
                 } label: {
-                    StandardButton("Design sysyem 💅", style: .borderlessLarge) {}
+                    StandardButton("Design system 💅", style: .borderlessLarge) {}
                 }
             }
         }
