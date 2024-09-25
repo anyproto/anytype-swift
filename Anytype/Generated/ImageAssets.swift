@@ -424,6 +424,12 @@ internal extension ImageAsset {
     static let step2 = ImageAsset.bundle(name: "SharingTip/step2")
     static let step3 = ImageAsset.bundle(name: "SharingTip/step3")
   }
+  enum SpaceHubTip {
+    static let backgroundsDark = ImageAsset.bundle(name: "SpaceHubTip/backgrounds_dark")
+    static let backgroundsLight = ImageAsset.bundle(name: "SpaceHubTip/backgrounds_light")
+    static let vaultImmersive = ImageAsset.bundle(name: "SpaceHubTip/vault_immersive")
+    static let vaultMove = ImageAsset.bundle(name: "SpaceHubTip/vault_move")
+  }
   enum SpaceShareTip {
     static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
     static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
