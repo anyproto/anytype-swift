@@ -3,12 +3,12 @@ import AnytypeCore
 
 struct GradientIconsExamples: View {
     
-    private let gradients = IconGradientStorage().allGradients()
+    private let allColors = IconColorStorage.allColors
     
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: "Gradient Icons")
+            TitleView(title: "Space Icons")
             content
         }
         .background(Color.Background.primary)
@@ -24,19 +24,17 @@ struct GradientIconsExamples: View {
             }
             ScrollView() {
                 VStack {
-                    ForEach(0..<gradients.count, id: \.self) { index in
-                        if let gradientId = GradientId(index + 1) {
-                            AnytypeText("Gradient \(gradientId.rawValue)", style: .bodyRegular)
-                                .foregroundColor(.Text.primary)
-                            HStack(spacing: 0) {
-                                Spacer()
-                                IconView(icon: .object(.space(.gradient(gradientId))))
-                                    .frame(width: 96, height: 96)
-                                Spacer()
-                            }
-                            .padding(.bottom, 12)
-                            .newDivider()
+                    ForEach(0..<allColors.count, id: \.self) { index in
+                        AnytypeText("Color \(index + 1)", style: .bodyRegular)
+                            .foregroundColor(.Text.primary)
+                        HStack(spacing: 0) {
+                            Spacer()
+                            IconView(icon: .object(.space(.name(name: "Design system", iconOption: index + 1))))
+                                .frame(width: 96, height: 96)
+                            Spacer()
                         }
+                        .padding(.bottom, 12)
+                        .newDivider()
                     }
                 }
             }

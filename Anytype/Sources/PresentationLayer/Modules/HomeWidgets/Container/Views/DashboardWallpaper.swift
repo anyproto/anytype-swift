@@ -80,6 +80,6 @@ struct DashboardWallpaper: View {
 
 struct DashboardWallpaper_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardWallpaper(wallpaper: .default, spaceIcon: .object(.space(.gradient(.random))))
+        DashboardWallpaper(wallpaper: .default, spaceIcon: .object(.space(.mock)))
     }
 }

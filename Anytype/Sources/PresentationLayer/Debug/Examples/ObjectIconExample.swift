@@ -38,10 +38,9 @@ struct ObjectIconExample: View {
                         demoBlock { IconView(icon: .object(.todo(false, nil))) }
                         AnytypeText("Space gradient", style: .subheading)
                             .foregroundColor(.Text.primary)
-                        demoBlock { IconView(icon: .object(.space(.gradient(GradientId(2)!)))) }
                         AnytypeText("Space char", style: .subheading)
                             .foregroundColor(.Text.primary)
-                        demoBlock { IconView(icon: .object(.space(.name("A")))) }
+                        demoBlock { IconView(icon: .object(.space(.name(name: "A", iconOption: 1)))) }
                     }
                     
                     Group {

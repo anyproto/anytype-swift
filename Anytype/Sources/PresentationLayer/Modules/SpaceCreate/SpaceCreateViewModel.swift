@@ -20,8 +20,8 @@ final class SpaceCreateViewModel: ObservableObject {
     // MARK: - State
     
     @Published var spaceName: String = ""
-    let spaceGradient: GradientId = .random
-    var spaceIcon: Icon { .object(.space(.gradient(spaceGradient))) }
+    let spaceIconOption = IconColorStorage.randomOption
+    var spaceIcon: Icon { .object(.space(.name(name: spaceName, iconOption: spaceIconOption))) }
     @Published var spaceAccessType: SpaceAccessType = .private
     @Published var createLoadingState: Bool = false
     @Published var dismiss: Bool = false
@@ -39,7 +39,7 @@ final class SpaceCreateViewModel: ObservableObject {
             defer {
                 createLoadingState = false
             }
-            let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessType: spaceAccessType, useCase: .empty)
+            let spaceId = try await workspaceService.createSpace(name: spaceName, iconOption: spaceIconOption, accessType: spaceAccessType, useCase: .empty)
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
