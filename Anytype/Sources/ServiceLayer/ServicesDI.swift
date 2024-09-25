@@ -312,7 +312,7 @@ extension Container {
         self { AllContentSubscriptionService() }
     }
     
-    var allContentSavedStatesService: Factory<any AllContentSavedStatesServiceProtocol> {
-        self { AllContentSavedStatesService() }.shared
+    var allContentStateStorageService: Factory<any AllContentStateStorageServiceProtocol> {
+        self { AllContentStateStorageService() }.shared
     }
 }

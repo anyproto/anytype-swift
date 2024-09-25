@@ -23,8 +23,8 @@ final class AllContentViewModel: ObservableObject {
     private var allContentSubscriptionService: any AllContentSubscriptionServiceProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    @Injected(\.allContentSavedStatesService)
-    private var allContentSavedStatesService: any AllContentSavedStatesServiceProtocol
+    @Injected(\.allContentStateStorageService)
+    private var allContentStateStorageService: any AllContentStateStorageServiceProtocol
     
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
@@ -168,11 +168,11 @@ final class AllContentViewModel: ObservableObject {
     // MARK: - Save states
     
     func storeSort() {
-        allContentSavedStatesService.storeSort(state.sort, spaceId: spaceId)
+        allContentStateStorageService.storeSort(state.sort, spaceId: spaceId)
     }
     
     private func restoreSort() {
-        guard let sort = allContentSavedStatesService.restoreSort(for: spaceId) else { return }
+        guard let sort = allContentStateStorageService.restoreSort(for: spaceId) else { return }
         state.sort = sort
     }
 }
