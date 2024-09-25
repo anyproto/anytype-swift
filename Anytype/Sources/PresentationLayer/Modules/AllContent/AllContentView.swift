@@ -99,9 +99,10 @@ struct AllContentView: View {
             Spacer.fixedHeight(14)
             AnytypeText(Loc.AllContent.Settings.Unlinked.description, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
-            Spacer.fixedHeight(model.state.sort.relation.canGroupByDate ? 0 : 14)
+            Spacer.fixedHeight(14)
         }
-        .padding(.horizontal, 20)
+        .divider(spacing: 0, alignment: .leading)
+        .padding(.horizontal, 16)
     }
 }
 
