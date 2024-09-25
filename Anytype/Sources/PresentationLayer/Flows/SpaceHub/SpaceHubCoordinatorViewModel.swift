@@ -181,6 +181,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
            
             currentSpaceId = spaceId
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+            currentSpaceId = spaceId
             
             if let spaceInfo {
                 navigationPath = HomePath(initalPath: [SpaceHubNavigationItem(), spaceInfo, data])
