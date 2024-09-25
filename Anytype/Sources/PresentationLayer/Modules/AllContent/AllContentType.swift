@@ -2,15 +2,18 @@ import Services
 import AnytypeCore
 
 enum AllContentType: String, CaseIterable {
-    case objects
+    case pages
+    case lists
     case media
     case bookmarks
     case files
     
     var title: String {
         switch self {
-        case .objects:
-            Loc.objects
+        case .pages:
+            Loc.pages
+        case .lists:
+            Loc.lists
         case .files:
             Loc.files
         case .media:
@@ -23,8 +26,10 @@ enum AllContentType: String, CaseIterable {
     var supportedLayouts: [DetailsLayout] {
         var layouts = [DetailsLayout]()
         switch self {
-        case .objects:
-            layouts = DetailsLayout.visibleLayouts
+        case .pages:
+            layouts = DetailsLayout.pageLayouts
+        case .lists:
+            layouts = DetailsLayout.setLayouts
         case .files:
             layouts = DetailsLayout.fileLayouts
         case .media:

@@ -235,6 +235,7 @@ internal enum Loc {
   internal static let otherRelations = Loc.tr("Localizable", "Other relations")
   internal static let p2PConnecting = Loc.tr("Localizable", "P2P Connecting")
   internal static let p2PConnection = Loc.tr("Localizable", "P2P Connection")
+  internal static let pages = Loc.tr("Localizable", "Pages")
   internal static func paidBy(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Paid by", String(describing: p1))
   }
