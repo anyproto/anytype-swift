@@ -8,7 +8,7 @@ final class SpaceHubTipViewModel: ObservableObject {
     init() {}
     
     func onAppear() {
-        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .vault)
+        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .vault, step: 1)
     }
     
     func tapClose() {
@@ -20,5 +20,9 @@ final class SpaceHubTipViewModel: ObservableObject {
         if #available(iOS 17.0, *) {
             SpaceHubTip().invalidate(reason: .tipClosed)
         }
+    }
+    
+    func onStepChanged(step: Int) {
+        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .vault, step: step)
     }
 }

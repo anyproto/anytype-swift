@@ -819,6 +819,16 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logOnboardingTooltip(tooltip: OnboardingTooltip, step: Int) {
+        logEvent(
+            "OnboardingTooltip",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.id: tooltip.rawValue,
+                AnalyticsEventsPropertiesKey.step: "\(step)"
+            ]
+        )
+    }
+    
     func logClickOnboardingTooltip(tooltip: OnboardingTooltip, type: ClickOnboardingTooltipType) {
         logEvent(
             "ClickOnboardingTooltip",
