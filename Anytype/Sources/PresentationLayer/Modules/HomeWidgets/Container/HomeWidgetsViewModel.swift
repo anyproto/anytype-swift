@@ -50,6 +50,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func startWidgetObjectTask() async {
         for await _ in widgetObject.syncPublisher.values {
+            dataLoaded = true
+            
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
             
@@ -58,7 +60,6 @@ final class HomeWidgetsViewModel: ObservableObject {
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
-            dataLoaded = true
         }
     }
     

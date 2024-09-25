@@ -9,6 +9,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     @Binding var homeState: HomeWidgetsState
     let allowMenuContent: Bool
     let allowContent: Bool
+    let allowContextMenuItems: Bool
     let menu: () -> MenuContent
     let content: Content
     let headerAction: (() -> Void)
@@ -24,6 +25,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         homeState: Binding<HomeWidgetsState>,
         allowMenuContent: Bool = false,
         allowContent: Bool = true,
+        allowContextMenuItems: Bool = true,
         headerAction: @escaping (() -> Void),
         removeAction: (() -> Void)? = nil,
         @ViewBuilder menu: @escaping () -> MenuContent = { EmptyView() },
@@ -36,6 +38,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         self._homeState = homeState
         self.allowMenuContent = allowMenuContent
         self.allowContent = allowContent
+        self.allowContextMenuItems = allowContextMenuItems
         self.headerAction = headerAction
         self.removeAction = removeAction
         self.menu = menu
@@ -69,7 +72,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         }
         .animation(.default, value: homeState)
         .setZeroOpacity(isDragging())
-        .if(homeState.isReadWrite) {
+        .if(homeState.isReadWrite && allowContextMenuItems) {
             $0.contextMenu {
                 contextMenuItems
             }

@@ -85,6 +85,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var loginStateService: any LoginStateServiceProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
+    private var preveouslyOpenedSpaceId: String?
     
     init() {
         startSubscriptions()
@@ -199,9 +200,25 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             if let info {
                 let newPath = HomePath(initalPath: [SpaceHubNavigationItem(), info])
                 navigationPath = newPath
+                if #available(iOS 17.0, *) {
+                    updateSpaceSwitchTip(spaceId: info.accountSpaceId)
+                }
             } else {
                 navigationPath.popToRoot()
             }
+        }
+    }
+    
+    @available(iOS 17.0, *)
+    private func updateSpaceSwitchTip(spaceId: String) {
+        guard preveouslyOpenedSpaceId != nil else {
+            preveouslyOpenedSpaceId = spaceId
+            return
+        }
+        
+        if preveouslyOpenedSpaceId != spaceId {
+            preveouslyOpenedSpaceId = spaceId
+            SpaceSwitcherTip.numberOfSpaceSwitches += 1
         }
     }
     

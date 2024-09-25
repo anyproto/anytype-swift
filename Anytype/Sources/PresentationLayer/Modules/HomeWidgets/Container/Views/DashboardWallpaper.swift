@@ -56,6 +56,7 @@ struct DashboardWallpaper: View {
                         .blur(radius: 32)
                         .clipped()
                         .opacity(iconOpacity)
+                        .overlay(colorOverlay)
                 case .color(let color):
                     Color(hex: color.data.hex).opacity(0.3)
                 case .gradient(let gradient):
@@ -65,6 +66,9 @@ struct DashboardWallpaper: View {
             .ignoresSafeArea()
     }
     
+    private var colorOverlay: some View {
+        colorScheme == .dark ? Color.white.opacity(0.02) : Color.black.opacity(0.02)
+    }
     
     private func parallaxOffset(containerHeight: CGFloat) -> CGFloat {
         let offsetFromCenter = containerHeight / 2 - viewLocation.y

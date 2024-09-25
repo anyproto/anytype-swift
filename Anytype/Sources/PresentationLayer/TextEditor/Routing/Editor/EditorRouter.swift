@@ -97,8 +97,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showURLInputViewController(url: url, completion: completion)
     }
     
-    func showFilePicker(model: Picker.ViewModel) {
-        let vc = Picker(model)
+    func showFilePicker(model: AnytypePicker.ViewModel) {
+        let vc = AnytypePicker(model)
         navigationContext.present(vc)
     }
     

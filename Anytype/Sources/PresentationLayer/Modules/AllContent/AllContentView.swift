@@ -42,16 +42,7 @@ struct AllContentView: View {
     
     private var settingsMenu: some View {
         AllContentSettingsMenu(
-            state: model.state,
-            modeChanged: { mode in
-                model.modeChanged(mode)
-            },
-            sortRelationChanged: { relation in
-                model.sortRelationChanged(relation)
-            },
-            sortTypeChanged: { type in
-                model.sortTypeChanged(type)
-            },
+            state: $model.state,
             binTapped: {
                 model.binTapped()
             }
@@ -70,12 +61,16 @@ struct AllContentView: View {
                 }
                 ForEach(section.rows, id: \.id) { row in
                     WidgetObjectListRowView(model: row)
+                        .onAppear {
+                            model.onAppearLastRow(row.id)
+                        }
                 }
             }
             AnytypeNavigationSpacer(minHeight: 130)
         }
         .scrollIndicators(.never)
         .scrollDismissesKeyboard(.immediately)
+        .id(model.state.scrollId + model.searchText)
     }
     
     private var types: some View {

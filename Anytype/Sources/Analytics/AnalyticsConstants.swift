@@ -217,6 +217,7 @@ enum OnboardingTooltip: String {
     case selectType = "SelectType"
     case sharingExtension = "SharingExtension"
     case swipeInWidgets = "ObjectCreationWidget"
+    case spaceSwitcher = "SpaceSwitcher"
     case space = "space"
     case vault = "vault"
 }

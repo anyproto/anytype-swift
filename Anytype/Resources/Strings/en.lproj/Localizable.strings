@@ -1042,6 +1042,10 @@
 "SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
 "SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
 
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" =  "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Warning";
@@ -1067,7 +1071,6 @@
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Previous 7 days";
 "RelativeFormatter.days14" = "Previous 14 days";
-"RelativeFormatter.older" = "Older";
 
 // MARK: - Server
 "Server.Network" = "Network";
@@ -1221,13 +1224,13 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
+"AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
 "AllContent.Sort.Date.Asc" = "Oldiest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
-"AllContent.Sort.Name.Asc" = "A -> Z";
-"AllContent.Sort.Name.Desc" = "Z -> A";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";
