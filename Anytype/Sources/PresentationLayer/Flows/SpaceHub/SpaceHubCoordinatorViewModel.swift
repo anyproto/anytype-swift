@@ -96,7 +96,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func onPathChange() {
-        userDefaults.lastOpenedScreen = navigationPath.lastPathElement as? EditorScreenData
+        if let editorData = navigationPath.lastPathElement as? EditorScreenData {
+            userDefaults.lastOpenedScreen = .editor(editorData)
+        } else if let spaceInfo = navigationPath.lastPathElement as? AccountInfo {
+            userDefaults.lastOpenedScreen = .widgets(spaceId: spaceInfo.accountSpaceId)
+        }
         
         if navigationPath.count == 1 {
             Task { try await activeSpaceManager.setActiveSpace(spaceId: nil) }
@@ -111,8 +115,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     func setupInitialScreen() async {
         guard !loginStateService.isFirstLaunchAfterRegistration else { return }
-        if let lastOpenedScreen = userDefaults.lastOpenedScreen {
-            openObject(screenData: lastOpenedScreen)
+        
+        switch userDefaults.lastOpenedScreen {
+        case .editor(let editorData):
+            openObject(screenData: editorData)
+        case .widgets(let spaceId):
+            try? await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+        case .none:
+            return
         }
     }
     
