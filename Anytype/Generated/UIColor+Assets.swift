@@ -159,6 +159,11 @@ extension UIColor {
       internal static let white = UIColor(asset: Asset.Gradients.white)
     }
     
+    // MARK: - Launch
+    enum Launch {
+      internal static let circle = UIColor(asset: Asset.Launch.circle)
+    }
+    
     // MARK: - ModalScreen
     enum ModalScreen {
       internal static let background = UIColor(asset: Asset.ModalScreen.background)

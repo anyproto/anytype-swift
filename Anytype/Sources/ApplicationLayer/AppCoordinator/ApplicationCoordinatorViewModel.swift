@@ -106,7 +106,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     private func handleApplicationState(_ applicationState: ApplicationState) async {
         await dismissAllPresented?(animated: false)
-        self.applicationState = applicationState
+        withAnimation(self.applicationState == .login ? .default : .none) {
+            self.applicationState = applicationState
+        }
+        
         switch applicationState {
         case .initial:
             break

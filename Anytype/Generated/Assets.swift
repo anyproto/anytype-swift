@@ -150,6 +150,9 @@ internal enum Asset {
     static let orange = ColorAsset(name: "Gradients/orange")
     static let white = ColorAsset(name: "Gradients/white")
   }
+  internal enum Launch {
+    static let circle = ColorAsset(name: "Launch/circle")
+  }
   internal enum ModalScreen {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")

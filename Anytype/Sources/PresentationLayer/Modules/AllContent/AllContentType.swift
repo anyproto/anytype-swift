@@ -1,7 +1,7 @@
 import Services
 import AnytypeCore
 
-enum AllContentType: CaseIterable {
+enum AllContentType: String, CaseIterable {
     case objects
     case media
     case bookmarks

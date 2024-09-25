@@ -9,17 +9,14 @@ protocol AllContentSubscriptionServiceProtocol: AnyObject {
         sort: AllContentSort,
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
-        update: @escaping ([ObjectDetails]) -> Void
+        limit: Int,
+        update: @escaping ([ObjectDetails], Int) -> Void
     ) async
     func stopSubscription() async
 }
 
 @MainActor
 final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol {
-    
-    private enum Constants {
-        static let limit = 100
-    }
     
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
@@ -36,7 +33,8 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
         sort: AllContentSort,
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
-        update: @escaping ([ObjectDetails]) -> Void
+        limit: Int,
+        update: @escaping ([ObjectDetails], Int) -> Void
     ) async {
         
         let filters: [DataviewFilter] = .builder {
@@ -60,14 +58,14 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
                 identifier: subscriptionId,
                 sorts: [sort],
                 filters: filters,
-                limit: Constants.limit,
+                limit: limit,
                 offset: 0,
                 keys: keys.map { $0.rawValue }
             )
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items)
+            update(data.items, data.prevCount)
         }
     }
     

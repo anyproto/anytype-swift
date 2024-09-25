@@ -164,7 +164,7 @@
 "Unpin" = "Togli";
 "Pin on top" = "Fissa in alto";
 "File block subtitle" = "Salva file nello stato originale";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "Carica e arricchisci la pagina con immagine";
 "Video block subtitle" = "Carica un video riproducibile";
 "Bookmark block subtitle" = "Salva il tuo link preferito con il riepilogo";
 "Code block subtitle" = "Cattura snippet di codice";
@@ -983,7 +983,7 @@
 "ParticipantRequestApprovedNotification.Text" = "La tua richiesta di unirti allo spazio **%@** è stata approvata con diritti di accesso **%@**. Lo spazio sarà disponibile nel tuo account a breve.";
 "ParticipantRequestDeclineNotification.Text" = "La tua richiesta di unirti allo spazio **%@** è stata rifiutata.";
 "RequestToLeaveNotification.Text" = "**%@** vuole lasciare lo spazio **%@**.";
-"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
+"ParticipantRemoveNotification.Text" = "Sei stato rimosso dallo spazio **%@**, oppure lo spazio è stato eliminato dal proprietario.";
 "RequestToJoinNotification.Text" = "**%@** ha richiesto di unirsi allo spazio **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Vai allo Spazio";
 "RequestToJoinNotification.ViewRequest" = "Visualizza richiesta";
@@ -1031,6 +1031,10 @@
 "SpaceShare.Tip.Steps.2" = "Apri sezione Condividi";
 "SpaceShare.Tip.Steps.3" = "Genera un link di invito e condividilo";
 
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Attenzione";
@@ -1055,8 +1059,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ultimi 7 giorni";
-"RelativeFormatter.days14" = "Previous 14 days";
-"RelativeFormatter.older" = "Meno recenti";
+"RelativeFormatter.days14" = "Ultimi 14 giorni";
 
 // MARK: - Server
 "Server.Network" = "Rete";
@@ -1197,8 +1200,8 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "SyncStatus.Error.networkError" = "Nessun accesso allo spazio";
 "SyncStatus.Error.UNRECOGNIZED" = "Errore sconosciuto";
 "SyncStatus.P2P.Restricted" = "Limitato. Toccare per aprire le impostazioni del dispositivo.";
-"SyncStatus.P2P.NotConnected" = "Not connected";
-"SyncStatus.P2P.NotPossible" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "Non connesso";
+"SyncStatus.P2P.NotPossible" = "Connessione non possibile";
 
 
 // MARK: - Debug
@@ -1210,13 +1213,13 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Message.Input.EmptyPlaceholder" = "Scrivi un messaggio...";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort By";
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
-"AllContent.Sort.Date.Desc" = "Newest first";
-"AllContent.Sort.Name.Asc" = "A -> Z";
-"AllContent.Sort.Name.Desc" = "Z -> A";
-"AllContent.Settings.Unlinked.Title" = "Only unlinked";
-"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Settings.Sort.Title" = "Sort by";
+"AllContent.Sort.DateUpdated" = "Data di aggiornamento";
+"AllContent.Sort.DateCreated" = "Data di creazione";
+"AllContent.Sort.Date.Asc" = "Prima i più vecchi";
+"AllContent.Sort.Date.Desc" = "Prima i più recenti";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
+"AllContent.Settings.Unlinked.Title" = "Solo non collegati";
+"AllContent.Settings.Unlinked.Description" = "Oggetti non collegati che non hanno un collegamento diretto o un backlink con altri oggetti nel grafo.";
+"AllContent.Settings.ViewBin" = "Visualizza Cestino";

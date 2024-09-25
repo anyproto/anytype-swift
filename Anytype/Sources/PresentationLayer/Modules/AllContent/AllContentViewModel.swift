@@ -11,6 +11,8 @@ protocol AllContentModuleOutput: AnyObject {
 final class AllContentViewModel: ObservableObject {
 
     private var details = [ObjectDetails]()
+    private var objectsToLoad = 0
+    
     @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
     @Published var state = AllContentState()
     @Published var searchText = ""
@@ -37,8 +39,10 @@ final class AllContentViewModel: ObservableObject {
             sort: state.sort,
             onlyUnlinked: state.mode == .unlinked,
             limitedObjectsIds: state.limitedObjectsIds,
-            update: { [weak self] details in
+            limit: state.limit,
+            update: { [weak self] details, objectsToLoad in
                 self?.details = details
+                self?.objectsToLoad = objectsToLoad
                 self?.updateRows()
             }
         )
@@ -61,22 +65,8 @@ final class AllContentViewModel: ObservableObject {
         }
     }
     
-    func modeChanged(_ mode: AllContentMode) {
-        state.mode = mode
-    }
-    
     func typeChanged(_ type: AllContentType) {
         state.type = type
-    }
-    
-    func sortRelationChanged(_ sortRelation: AllContentSort.Relation) {
-        guard state.sort.relation != sortRelation else { return }
-        state.sort = AllContentSort(relation: sortRelation)
-    }
-    
-    func sortTypeChanged(_ sortType: DataviewSort.TypeEnum) {
-        guard state.sort.type != sortType else { return }
-        state.sort.type = sortType
     }
     
     func binTapped() {
@@ -85,6 +75,12 @@ final class AllContentViewModel: ObservableObject {
     
     func onDisappear() {
         stopSubscription()
+    }
+    
+    func onAppearLastRow(_ id: String) {
+        guard objectsToLoad > 0, details.last?.id == id else { return }
+        objectsToLoad = 0
+        state.updateLimit()
     }
     
     private func stopSubscription() {

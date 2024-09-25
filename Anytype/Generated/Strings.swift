@@ -1286,7 +1286,6 @@ internal enum Loc {
   internal enum RelativeFormatter {
     internal static let days14 = Loc.tr("Localizable", "RelativeFormatter.days14")
     internal static let days7 = Loc.tr("Localizable", "RelativeFormatter.days7")
-    internal static let older = Loc.tr("Localizable", "RelativeFormatter.older")
   }
   internal enum RequestToJoinNotification {
     internal static let goToSpace = Loc.tr("Localizable", "RequestToJoinNotification.GoToSpace")
@@ -1718,6 +1717,12 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.ViewRequest.Title", String(describing: p1), String(describing: p2))
       }
       internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess")
+    }
+  }
+  internal enum SpaceSwitcher {
+    internal enum Tip {
+      internal static let text = Loc.tr("Localizable", "SpaceSwitcher.Tip.Text")
+      internal static let title = Loc.tr("Localizable", "SpaceSwitcher.Tip.Title")
     }
   }
   internal enum Spaces {

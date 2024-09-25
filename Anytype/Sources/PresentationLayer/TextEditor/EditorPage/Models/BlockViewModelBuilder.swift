@@ -374,7 +374,7 @@ final class BlockViewModelBuilder {
     }
     
     private func showFilePicker(blockId: String, types: [UTType] = [.item]) {
-        let model = Picker.ViewModel(types: types)
+        let model = AnytypePicker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
             self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId)
         }.store(in: &subscriptions)
