@@ -22,4 +22,13 @@ final class AppIconManager {
             completion?(error != nil)
         }
     }
+    
+    // Delete after release 10
+    func migrateIcons() {
+        guard UIApplication.shared.alternateIconName.isNotNil else { return }
+        
+        if AppIcon.allCases.first(where: { $0.iconName == UIApplication.shared.alternateIconName }).isNil {
+            UIApplication.shared.setAlternateIconName(nil)
+        }
+    }
 }
