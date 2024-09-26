@@ -3,11 +3,12 @@ import AnytypeCore
 
 enum DashboardWallpaperMode {
     case `default`
+    case spaceHub
     case parallax(containerHeight: CGFloat)
     
     var containerHeight: CGFloat? {
         switch self {
-        case .default:
+        case .default, .spaceHub:
             return nil
         case .parallax(let height):
             return height
@@ -35,7 +36,7 @@ struct DashboardWallpaper: View {
         switch mode {
         case .default:
             0.3
-        case .parallax:
+        case .parallax, .spaceHub:
             colorScheme == .dark ? 0.5 : 0.3
         }
     }
