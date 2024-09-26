@@ -7,7 +7,7 @@ enum AllContentMode: String, CaseIterable {
     var title: String {
         switch self {
         case .allContent:
-            Loc.allContent
+            Loc.allObjects
         case .unlinked:
             Loc.AllContent.Settings.Unlinked.title
         }

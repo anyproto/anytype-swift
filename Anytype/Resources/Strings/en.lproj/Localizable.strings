@@ -146,6 +146,8 @@
 "Relations" = "Relations";
 "History" = "History";
 "Objects" = "Objects";
+"Pages" = "Pages";
+"Lists" = "Lists";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
 "Media" = "Media";
@@ -209,7 +211,7 @@
 "Favorites" = "Favorites";
 "Recent" = "Recent";
 "Bin" = "Bin";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Wallpaper";
