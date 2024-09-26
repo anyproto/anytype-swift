@@ -47,7 +47,6 @@ struct SpaceHubTipView: View {
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 24)
-        .animation(.default, value: tabIndex)
     }
     
     var titleText: String {

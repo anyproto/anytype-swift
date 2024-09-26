@@ -38,7 +38,7 @@ struct SettingsAppearanceView: View {
             AnytypeText(Loc.mode, style: .caption1Medium)
                 .foregroundColor(.Text.secondary)
                 .frame(alignment: .center)
-            HStack() {
+            HStack {
                 ForEach(UIUserInterfaceStyle.allCases) { style in
                     Button {
                         model.currentStyle = style
@@ -79,16 +79,12 @@ struct SettingsAppearanceView: View {
         VStack(alignment: .center) {
             AnytypeText(Loc.applicationIcon, style: .caption1Medium)
                 .foregroundColor(.Text.secondary).padding(.bottom, 6)
-            ScrollView(.horizontal) {
-                HStack(spacing: 16) {
-                    Spacer.fixedWidth(20)
-                    ForEach(AppIcon.allCases, id: \.self) { icon in
-                        appIcon(icon)
-                    }
-                    Spacer.fixedWidth(20)
+            HStack {
+                ForEach(AppIcon.allCases, id: \.self) { icon in
+                    appIcon(icon)
                 }
-                .padding(.top, 16)
             }
+            .padding(.top, 16)
         }
         .padding(.vertical, 14)
         .divider()
