@@ -24,6 +24,9 @@ struct SpaceHubTipView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
+        .onChange(of: tabIndex) {
+            model.onStepChanged(step: $0)
+        }
     }
     
     var content: some View {
