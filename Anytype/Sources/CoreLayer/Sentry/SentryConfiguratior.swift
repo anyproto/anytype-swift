@@ -15,7 +15,6 @@ final class SentryConfigurator: AppConfiguratorProtocol {
         
         SentrySDK.start { options in
             options.dsn = dsn
-            options.tracesSampleRate = 1.0
             options.enableCaptureFailedRequests = false
             options.enableMetricKit = true
             options.swiftAsyncStacktraces = true
@@ -24,6 +23,11 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             #if DEBUG
             options.attachViewHierarchy = true
             options.enableTimeToFullDisplayTracing = true
+            options.tracesSampleRate = 1.0
+            options.sampleRate = 1.0
+            #else
+            options.tracesSampleRate = 0.5
+            options.sampleRate = 0.5
             #endif
             
             options.environment = env
