@@ -85,6 +85,7 @@ internal enum Loc {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1))
   }
   internal static let copy = Loc.tr("Localizable", "Copy")
+  internal static let copySpaceInfo = Loc.tr("Localizable", "Copy space info")
   internal static let cover = Loc.tr("Localizable", "Cover")
   internal static let create = Loc.tr("Localizable", "Create")
   internal static let createANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Create a new one or search for something else")
