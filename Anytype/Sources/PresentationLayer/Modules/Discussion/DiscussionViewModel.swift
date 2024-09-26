@@ -83,7 +83,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func subscribeOnPermissions() async {
         for await permissions in document.permissionsPublisher.values {
-            canEdit = permissions.canEditMessages
+            canEdit = false//permissions.canEditMessages
         }
     }
     

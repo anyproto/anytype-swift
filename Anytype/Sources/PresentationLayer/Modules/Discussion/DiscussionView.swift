@@ -15,9 +15,7 @@ struct DiscussionView: View {
             DiscussionSpacingContainer {
                 mainView
                     .safeAreaInset(edge: .bottom, spacing: 0) {
-                        if model.canEdit {
-                            inputPanel
-                        }
+                        bottomPanel
                     }
             }
             .discussionActionOverlay(state: $actionState) {
@@ -45,6 +43,19 @@ struct DiscussionView: View {
         }
     }
     
+    private var bottomPanel: some View {
+        Group {
+            if model.canEdit {
+                inputPanel
+            } else {
+                DiscussionReadOnlyBottomView()
+            }
+        }
+        .overlay(alignment: .top) {
+            AnytypeDivider()
+        }
+    }
+    
     private var inputPanel: some View {
         VStack(spacing: 0) {
             MessageLinkInputViewContainer(objects: model.linkedObjects) {
@@ -60,9 +71,6 @@ struct DiscussionView: View {
             } onTapSend: {
                 model.onTapSendMessage()
             }
-        }
-        .overlay(alignment: .top) {
-            AnytypeDivider()
         }
         .discussionActionStateTopProvider(state: $actionState)
         .task(id: model.mentionSearchState) {
@@ -88,6 +96,7 @@ struct DiscussionView: View {
             } onDone: {
                 model.inputFocused = true
             }
+            .allowsHitTesting(model.canEdit)
         } else {
             DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
                 MessageView(data: $0, output: model)

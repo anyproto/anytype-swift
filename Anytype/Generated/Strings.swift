@@ -678,6 +678,9 @@ internal enum Loc {
     internal static let description = Loc.tr("Localizable", "DeletionAlert.description")
     internal static let title = Loc.tr("Localizable", "DeletionAlert.title")
   }
+  internal enum Discussion {
+    internal static let readOnly = Loc.tr("Localizable", "Discussion.ReadOnly")
+  }
   internal enum EditSet {
     internal enum Popup {
       internal enum Filter {
