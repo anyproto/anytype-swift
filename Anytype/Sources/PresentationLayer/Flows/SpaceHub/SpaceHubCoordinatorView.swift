@@ -19,7 +19,7 @@ struct SpaceHubCoordinatorView: View {
             
             .if(FeatureFlags.swipeToSearch) {
                 $0.simultaneousGesture(
-                    DragGesture(minimumDistance: 30, coordinateSpace: .global)
+                    DragGesture(minimumDistance: 0, coordinateSpace: .global)
                         .onChanged {
                             if $0.startLocation.y < 150 && $0.translation.height > 60 {
                                 model.onSearchSelected()
