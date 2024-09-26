@@ -100,6 +100,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             userDefaults.lastOpenedScreen = .editor(editorData)
         } else if let spaceInfo = navigationPath.lastPathElement as? AccountInfo {
             userDefaults.lastOpenedScreen = .widgets(spaceId: spaceInfo.accountSpaceId)
+        } else {
+            userDefaults.lastOpenedScreen = nil
         }
         
         if navigationPath.count == 1 {
