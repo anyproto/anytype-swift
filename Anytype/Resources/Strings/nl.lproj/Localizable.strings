@@ -146,6 +146,8 @@
 "Relations" = "Relaties";
 "History" = "Geschiedenis";
 "Objects" = "Objecten";
+"Pages" = "Pages";
+"Lists" = "Lijsten";
 "Bookmarks" = "Bookmarks";
 "Files" = "Bestanden";
 "Media" = "Media";
@@ -209,7 +211,7 @@
 "Favorites" = "Favorieten";
 "Recent" = "Recent";
 "Bin" = "Prullenbak";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Achtergrond";
@@ -1229,7 +1231,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "AllContent.Settings.Sort.Title" = "Sorteer op";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
