@@ -146,6 +146,8 @@
 "Relations" = "Відносини";
 "History" = "History";
 "Objects" = "Об'єкти";
+"Pages" = "Pages";
+"Lists" = "Groups";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
 "Media" = "Медіа";
@@ -209,7 +211,7 @@
 "Favorites" = "Обрані";
 "Recent" = "Нещодавні";
 "Bin" = "Кошик";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Шпалери";
@@ -1228,7 +1230,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
