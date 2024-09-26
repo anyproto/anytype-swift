@@ -144,7 +144,7 @@ struct SpaceHubView: View {
         .padding(16)
         .background(
             DashboardWallpaper(
-                mode: FeatureFlags.spaceHubParallax ? .parallax(containerHeight: size.height) : .default,
+                mode: FeatureFlags.spaceHubParallax ? .parallax(containerHeight: size.height) : .spaceHub,
                 wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
                 spaceIcon: space.spaceView.iconImage
             )
