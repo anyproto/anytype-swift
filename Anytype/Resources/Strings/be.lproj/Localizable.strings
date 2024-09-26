@@ -146,6 +146,8 @@
 "Relations" = "Уласцівасці";
 "History" = "Гісторыя";
 "Objects" = "Аб'екты";
+"Pages" = "Pages";
+"Lists" = "Спісы";
 "Bookmarks" = "Закладкі";
 "Files" = "Файлы";
 "Media" = "Медыя";
@@ -209,7 +211,7 @@
 "Favorites" = "Абранае";
 "Recent" = "Нядаўняе";
 "Bin" = "Сметніца";
-"All content" = "Увесь кантэнт";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Шпалеры";
@@ -1228,7 +1230,7 @@
 "AllContent.Settings.Sort.Title" = "Сартаваць па";
 "AllContent.Sort.DateUpdated" = "Дата змянення";
 "AllContent.Sort.DateCreated" = "Дата стварэння";
-"AllContent.Sort.Date.Asc" = "Спачатку старыя";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Спачатку новыя";
 "AllContent.Sort.Name.Asc" = "А → Я";
 "AllContent.Sort.Name.Desc" = "Я → А";
