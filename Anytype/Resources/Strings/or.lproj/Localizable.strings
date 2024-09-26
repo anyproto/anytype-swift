@@ -146,6 +146,8 @@
 "Relations" = "ସମ୍ପର୍କ";
 "History" = "History";
 "Objects" = "ଅବଜେକ୍ଟ";
+"Pages" = "Pages";
+"Lists" = "ତାଲିକା";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
 "Media" = "ମିଡ଼ିଆ";
@@ -209,7 +211,7 @@
 "Favorites" = "ପସନ୍ଦ";
 "Recent" = "ଏବେକାର";
 "Bin" = "ବିନ";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "ୱାଲପେପର୍‌";
@@ -1229,7 +1231,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

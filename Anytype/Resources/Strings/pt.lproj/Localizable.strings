@@ -146,6 +146,8 @@
 "Relations" = "Relações";
 "History" = "History";
 "Objects" = "Objetos";
+"Pages" = "Pages";
+"Lists" = "Lists";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
 "Media" = "Media";
@@ -209,7 +211,7 @@
 "Favorites" = "Favoritos";
 "Recent" = "Recentes";
 "Bin" = "Lixo";
-"All content" = "Todos os conteúdos";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Papel de parede";
@@ -1227,7 +1229,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
