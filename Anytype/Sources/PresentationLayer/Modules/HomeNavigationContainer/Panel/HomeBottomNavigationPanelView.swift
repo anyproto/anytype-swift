@@ -85,12 +85,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
             )
         
-        Button {
-            model.onTapSearch()
-        } label: {
-            Image(asset: .X32.Island.search)
-        }
-        
         if model.canCreateObject {
             Image(asset: .X32.Island.add)
                 .onTapGesture {
@@ -102,6 +96,12 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                             model.onPlusButtonLongtap()
                         }
                 )
+        }
+        
+        Button {
+            model.onTapSearch()
+        } label: {
+            Image(asset: .X32.Island.search)
         }
     }
     
