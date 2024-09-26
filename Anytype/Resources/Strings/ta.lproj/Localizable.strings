@@ -146,6 +146,8 @@
 "Relations" = "Relations";
 "History" = "History";
 "Objects" = "Objects";
+"Pages" = "Pages";
+"Lists" = "பட்டியல்கள்";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
 "Media" = "Media";
@@ -209,7 +211,7 @@
 "Favorites" = "Favorites";
 "Recent" = "Recent";
 "Bin" = "Bin";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -1227,7 +1229,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
