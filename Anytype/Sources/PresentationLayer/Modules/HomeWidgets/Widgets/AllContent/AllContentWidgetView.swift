@@ -17,7 +17,7 @@ struct AllContentWidgetView: View {
     
     var body: some View {
         LinkWidgetViewContainer(
-            title: Loc.allContent,
+            title: Loc.allObjects,
             icon: .Widget.allContent,
             isExpanded: .constant(false),
             dragId: nil,

@@ -1,15 +1,15 @@
 import AnytypeCore
 
-protocol AllContentSavedStatesServiceProtocol: AnyObject {
+protocol AllContentStateStorageServiceProtocol: AnyObject {
     func storeSort(_ sort: AllContentSort, spaceId: String)
     func restoreSort(for spaceId: String) -> AllContentSort?
     func clear()
 }
 
-final class AllContentSavedStatesService: AllContentSavedStatesServiceProtocol {
+final class AllContentStateStorageService: AllContentStateStorageServiceProtocol {
         
     // [SpaceId : AllContentSort]
-    @UserDefault("UserData.AllContentSavedStates", defaultValue: [:])
+    @UserDefault("UserData.AllContentStateStorage", defaultValue: [:])
     private var spacesSorts: [String: AllContentSort]
     
     // MARK: - AllContentSavedStatesServiceProtocol

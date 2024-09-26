@@ -1116,7 +1116,7 @@
 		2EAA140C2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA140B2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift */; };
 		2EAFEE5C2BEA655D00DB190C /* SearchWithMetaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAFEE5B2BEA655D00DB190C /* SearchWithMetaService.swift */; };
 		2EAFEE5E2BEA751100DB190C /* GlobalSearchDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAFEE5D2BEA751100DB190C /* GlobalSearchDataBuilder.swift */; };
-		2EB719792CA4264700C16ACD /* AllContentSavedStatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB719782CA4263E00C16ACD /* AllContentSavedStatesService.swift */; };
+		2EB719792CA4264700C16ACD /* AllContentStateStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB719782CA4263E00C16ACD /* AllContentStateStorageService.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */; };
 		2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */; };
@@ -1368,12 +1368,12 @@
 		3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D569270C9E3400614E29 /* URLInputViewController.swift */; };
 		3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56D270C9E4D00614E29 /* EditorMainItemModelsHolder.swift */; };
 		3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */; };
+		3D94312B2CA2B9C1001C0649 /* SpaceSwitcherTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94312A2CA2B9A4001C0649 /* SpaceSwitcherTip.swift */; };
 		3D9A9E052CA18FC7003780DD /* SpaceHubTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A9E002CA18FC7003780DD /* SpaceHubTipView.swift */; };
 		3D9A9E062CA18FC7003780DD /* SpaceHubTipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A9E012CA18FC7003780DD /* SpaceHubTipViewModel.swift */; };
 		3D9A9E072CA18FC7003780DD /* HomeCreateObjectTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A9E032CA18FC7003780DD /* HomeCreateObjectTip.swift */; };
 		3D9A9E082CA18FC7003780DD /* SpaceHubTipHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A9DFE2CA18FC7003780DD /* SpaceHubTipHandler.swift */; };
 		3D9A9E092CA18FC7003780DD /* SpaceHubTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9A9DFF2CA18FC7003780DD /* SpaceHubTip.swift */; };
-		3D94312B2CA2B9C1001C0649 /* SpaceSwitcherTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94312A2CA2B9A4001C0649 /* SpaceSwitcherTip.swift */; };
 		3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */; };
 		3D9EEC382BFE4B06006F24AD /* AccountDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */; };
 		3DA116FC2C357A3400D071CE /* SyncStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA116FB2C357A3400D071CE /* SyncStatusStorage.swift */; };
@@ -3008,7 +3008,7 @@
 		2EAA140B2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelationsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2EAFEE5B2BEA655D00DB190C /* SearchWithMetaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWithMetaService.swift; sourceTree = "<group>"; };
 		2EAFEE5D2BEA751100DB190C /* GlobalSearchDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchDataBuilder.swift; sourceTree = "<group>"; };
-		2EB719782CA4263E00C16ACD /* AllContentSavedStatesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentSavedStatesService.swift; sourceTree = "<group>"; };
+		2EB719782CA4263E00C16ACD /* AllContentStateStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentStateStorageService.swift; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesConfiguration.swift; sourceTree = "<group>"; };
 		2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypeView.swift; sourceTree = "<group>"; };
@@ -3260,12 +3260,12 @@
 		3D93D569270C9E3400614E29 /* URLInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInputViewController.swift; sourceTree = "<group>"; };
 		3D93D56D270C9E4D00614E29 /* EditorMainItemModelsHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorMainItemModelsHolder.swift; sourceTree = "<group>"; };
 		3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageViewInput.swift; sourceTree = "<group>"; };
+		3D94312A2CA2B9A4001C0649 /* SpaceSwitcherTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSwitcherTip.swift; sourceTree = "<group>"; };
 		3D9A9DFE2CA18FC7003780DD /* SpaceHubTipHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubTipHandler.swift; sourceTree = "<group>"; };
 		3D9A9DFF2CA18FC7003780DD /* SpaceHubTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubTip.swift; sourceTree = "<group>"; };
 		3D9A9E002CA18FC7003780DD /* SpaceHubTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubTipView.swift; sourceTree = "<group>"; };
 		3D9A9E012CA18FC7003780DD /* SpaceHubTipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubTipViewModel.swift; sourceTree = "<group>"; };
 		3D9A9E032CA18FC7003780DD /* HomeCreateObjectTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreateObjectTip.swift; sourceTree = "<group>"; };
-		3D94312A2CA2B9A4001C0649 /* SpaceSwitcherTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSwitcherTip.swift; sourceTree = "<group>"; };
 		3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdown.swift; sourceTree = "<group>"; };
 		3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataExtension.swift; sourceTree = "<group>"; };
 		3DA116FB2C357A3400D071CE /* SyncStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusStorage.swift; sourceTree = "<group>"; };
@@ -7438,7 +7438,6 @@
 			children = (
 				3D9A9E042CA18FC7003780DD /* TIps */,
 				2AF205B62ABD8E660027F3EA /* Panel */,
-				2ADD14EE2AE2B9A50060BC33 /* HomeCreateObjectTip.swift */,
 				2ADF00922ACF0040000D01F8 /* HomePath.swift */,
 				2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */,
 				3D94312A2CA2B9A4001C0649 /* SpaceSwitcherTip.swift */,
@@ -7762,7 +7761,7 @@
 		2E33F5762C909CB900CDC082 /* AllContent */ = {
 			isa = PBXGroup;
 			children = (
-				2EB719772CA4261E00C16ACD /* AllContentSavedStates */,
+				2EB719772CA4261E00C16ACD /* AllContentStateStorage */,
 				2E0D9C072C99C96800F02918 /* AllContentSettingsMenu.swift */,
 				2E33F5842C91EFFC00CDC082 /* Subscription */,
 				2E33F5772C909D2E00CDC082 /* Coordinator */,
@@ -8167,12 +8166,12 @@
 			path = SearchWithMeta;
 			sourceTree = "<group>";
 		};
-		2EB719772CA4261E00C16ACD /* AllContentSavedStates */ = {
+		2EB719772CA4261E00C16ACD /* AllContentStateStorage */ = {
 			isa = PBXGroup;
 			children = (
-				2EB719782CA4263E00C16ACD /* AllContentSavedStatesService.swift */,
+				2EB719782CA4263E00C16ACD /* AllContentStateStorageService.swift */,
 			);
-			path = AllContentSavedStates;
+			path = AllContentStateStorage;
 			sourceTree = "<group>";
 		};
 		2EC669222A167513001F71BC /* Transition */ = {
@@ -11855,7 +11854,7 @@
 				2E88257A2C5A61A200FD59D3 /* ObjectVersionView.swift in Sources */,
 				3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */,
 				2A2B332E2A7BB0AC004BD906 /* SpaceRowView.swift in Sources */,
-				2EB719792CA4264700C16ACD /* AllContentSavedStatesService.swift in Sources */,
+				2EB719792CA4264700C16ACD /* AllContentStateStorageService.swift in Sources */,
 				2E975EEC287C23DA004DE574 /* SetRelationsDetailsLocalSearchInteractor.swift in Sources */,
 				2A590ECD2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift in Sources */,
 				2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */,

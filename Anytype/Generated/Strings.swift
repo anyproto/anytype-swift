@@ -29,7 +29,7 @@ internal enum Loc {
   internal static let alignLeft = Loc.tr("Localizable", "Align left")
   internal static let alignRight = Loc.tr("Localizable", "Align right")
   internal static let alignment = Loc.tr("Localizable", "Alignment")
-  internal static let allContent = Loc.tr("Localizable", "All content")
+  internal static let allObjects = Loc.tr("Localizable", "All objects")
   internal static let amber = Loc.tr("Localizable", "Amber")
   internal static let amberBackground = Loc.tr("Localizable", "Amber background")
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library")
@@ -235,6 +235,7 @@ internal enum Loc {
   internal static let otherRelations = Loc.tr("Localizable", "Other relations")
   internal static let p2PConnecting = Loc.tr("Localizable", "P2P Connecting")
   internal static let p2PConnection = Loc.tr("Localizable", "P2P Connection")
+  internal static let pages = Loc.tr("Localizable", "Pages")
   internal static func paidBy(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Paid by", String(describing: p1))
   }
