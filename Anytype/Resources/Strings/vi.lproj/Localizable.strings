@@ -146,6 +146,8 @@
 "Relations" = "Các liên hệ";
 "History" = "Lịch sử";
 "Objects" = "Các đối tượng";
+"Pages" = "Pages";
+"Lists" = "Các danh sách";
 "Bookmarks" = "Bookmarks";
 "Files" = "Tập tin";
 "Media" = "Đa phương tiện";
@@ -210,7 +212,7 @@
 "Favorites" = "Ưa thích";
 "Recent" = "Gần đây";
 "Bin" = "Thùng rác";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Hình nền";
@@ -1228,7 +1230,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Sort.Title" = "Sắp xếp theo";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
