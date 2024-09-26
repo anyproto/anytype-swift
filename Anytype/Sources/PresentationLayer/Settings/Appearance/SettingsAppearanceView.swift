@@ -100,21 +100,25 @@ struct SettingsAppearanceView: View {
             Button {
                 model.updateIcon(icon)
             } label: {
-                Image(asset: icon.previewAsset)
-                    .cornerRadius(8)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 14)
-                            .stroke(Color.Shape.tertiary, lineWidth: 1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(
-                                model.currentIcon == icon ? Color.System.amber25 : .clear,
-                                lineWidth: 2
-                            )
-                            .frame(width: 66, height: 66)
-                    )
+                VStack(spacing: 0) {
+                    Image(asset: icon.previewAsset)
+                        .cornerRadius(8)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(Color.Shape.tertiary, lineWidth: 1)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(
+                                    model.currentIcon == icon ? Color.System.amber25 : .clear,
+                                    lineWidth: 2
+                                )
+                                .frame(width: 66, height: 66)
+                        )
+                    Spacer.fixedHeight(10)
+                }
+                
             }
         }
         .frame(maxWidth: .infinity)
