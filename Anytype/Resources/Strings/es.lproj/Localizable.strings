@@ -146,6 +146,8 @@
 "Relations" = "Relaciones";
 "History" = "Historial";
 "Objects" = "Objetos";
+"Pages" = "Pages";
+"Lists" = "Listas";
 "Bookmarks" = "Marcadores";
 "Files" = "Archivos";
 "Media" = "Medios";
@@ -209,7 +211,7 @@
 "Favorites" = "Favoritos";
 "Recent" = "Recientes";
 "Bin" = "Papelera";
-"All content" = "Todo el contenido";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Fondo de pantalla";
@@ -1227,7 +1229,7 @@ En concreto,
 "AllContent.Settings.Sort.Title" = "Ordenar por";
 "AllContent.Sort.DateUpdated" = "Fecha de modificación";
 "AllContent.Sort.DateCreated" = "Fecha de creación";
-"AllContent.Sort.Date.Asc" = "Antiguos primero";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Recientes primero";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
