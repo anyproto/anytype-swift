@@ -53,7 +53,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
                 .audio, .video, .pdf, .date:
             return nil
         case .space, .spaceView:
-            return spaceIcon(iconImage: relations.iconImage, iconOptionValue: relations.iconOptionValue, objectName: relations.objectName)
+            return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName)
         case .chat, .chatDerived:
             return nil
         }
@@ -75,16 +75,12 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         return iconImage.isNotEmpty ? .bookmark(iconImage) : nil
     }
     
-    private func spaceIcon(iconImage: String, iconOptionValue: GradientId?, objectName: String) -> ObjectIcon? {
+    private func spaceIcon(iconImage: String, iconOption: Int?, objectName: String) -> ObjectIcon? {
         if iconImage.isNotEmpty {
             return .space(.imageId(iconImage))
         }
         
-        if let iconOptionValue {
-            return .space(.gradient(iconOptionValue))
-        }
-        
-        return .space(.name(objectName))
+        return .space(.name(name: objectName, iconOption: iconOption ?? 0))
     }
     
     private func fileIcon(fileMimeType: String, name: String) -> ObjectIcon {

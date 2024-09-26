@@ -25,8 +25,7 @@ public extension ObjectIcon {
 
 public extension ObjectIcon {
     enum Space: Hashable, Sendable {
-        case name(String)
-        case gradient(GradientId)
+        case name(name: String, iconOption: Int)
         case imageId(_ imageId: String)
     }
 }

@@ -114,7 +114,7 @@ struct WallpaperColorsGridView_Previews: PreviewProvider {
             WorkspacesStorageMock.shared.spaceView = SpaceView.mock(id: "1337")
         } content: {
             WallpaperColorsGridView(
-                spaceIcon: .object(.space(.gradient(.random))),
+                spaceIcon: .object(.space(.mock)),
                 currentWallpaper: .blurredIcon,
                 onCoverSelect: { _ in }
             )

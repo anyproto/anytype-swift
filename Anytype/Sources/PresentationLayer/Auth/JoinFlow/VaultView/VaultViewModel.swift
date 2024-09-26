@@ -48,6 +48,7 @@ final class VaultViewModel: ObservableObject {
                 state.mnemonic = try await authService.createWallet()
                 let account = try await authService.createAccount(
                     name: state.soul,
+                    iconOption: IconColorStorage.randomOption,
                     imagePath: ""
                 )
                 try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
