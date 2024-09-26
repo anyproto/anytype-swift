@@ -146,6 +146,8 @@
 "Relations" = "Свойства";
 "History" = "История";
 "Objects" = "Объекты";
+"Pages" = "Pages";
+"Lists" = "Списки";
 "Bookmarks" = "Закладки";
 "Files" = "Files";
 "Media" = "Медиа-файлы";
@@ -209,7 +211,7 @@
 "Favorites" = "Избранное";
 "Recent" = "Недавние";
 "Bin" = "Корзина";
-"All content" = "Весь контент";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Обои";
@@ -1230,7 +1232,7 @@
 "AllContent.Settings.Sort.Title" = "Сортировать по";
 "AllContent.Sort.DateUpdated" = "Дата обновления";
 "AllContent.Sort.DateCreated" = "Дата создания";
-"AllContent.Sort.Date.Asc" = "Сначала старые";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Сначала новые";
 "AllContent.Sort.Name.Asc" = "А → Я";
 "AllContent.Sort.Name.Desc" = "Я → А";
