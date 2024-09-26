@@ -146,6 +146,8 @@
 "Relations" = "İlişkiler";
 "History" = "Geçmiş";
 "Objects" = "Nesneler";
+"Pages" = "Pages";
+"Lists" = "Listeler";
 "Bookmarks" = "Yer işaretleri";
 "Files" = "Dosyalar";
 "Media" = "Medya";
@@ -209,7 +211,7 @@
 "Favorites" = "Favoriler";
 "Recent" = "En son";
 "Bin" = "Çöp kutusu";
-"All content" = "Tüm içerik";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Duvar kağıdı";
@@ -1229,7 +1231,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "AllContent.Settings.Sort.Title" = "Şuna göre sırala";
 "AllContent.Sort.DateUpdated" = "Güncellenme tarihi";
 "AllContent.Sort.DateCreated" = "Oluşturulma tarihi";
-"AllContent.Sort.Date.Asc" = "Önce en eski";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Önce en yeni";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
