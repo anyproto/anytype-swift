@@ -695,6 +695,7 @@
 "New" = "Nouveau";
 "Blurred icon" = "Icône\n floue";
 "My First Space" = "Mon premier espace";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
