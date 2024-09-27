@@ -695,6 +695,7 @@
 "New" = "Новый";
 "Blurred icon" = "Размытая\n иконка";
 "My First Space" = "Моё первое пространство";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";

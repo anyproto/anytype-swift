@@ -146,7 +146,7 @@
 "Relations" = "Relationer";
 "History" = "Historik";
 "Objects" = "Objekt";
-"Pages" = "Pages";
+"Pages" = "Sidor";
 "Lists" = "Listor";
 "Bookmarks" = "Bokmärken";
 "Files" = "Filer";
@@ -211,7 +211,7 @@
 "Favorites" = "Favoriter";
 "Recent" = "Recent";
 "Bin" = "Papperskorg";
-"All objects" = "All objects";
+"All objects" = "Alla objekt";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -695,6 +695,7 @@
 "New" = "New";
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

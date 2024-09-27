@@ -695,6 +695,7 @@
 "New" = "Baru";
 "Blurred icon" = "Ikon\n buram";
 "My First Space" = "Ruang Pertamaku";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

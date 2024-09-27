@@ -695,6 +695,7 @@
 "New" = "New";
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Tem certeza que deseja excluir o seu cofre?";
