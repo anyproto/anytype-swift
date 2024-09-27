@@ -695,6 +695,7 @@
 "New" = "Nuovo";
 "Blurred icon" = "Icona\n sfocata";
 "My First Space" = "Il Mio Primo Spazio";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
