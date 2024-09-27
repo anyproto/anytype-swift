@@ -218,8 +218,8 @@ enum OnboardingTooltip: String {
     case sharingExtension = "SharingExtension"
     case swipeInWidgets = "ObjectCreationWidget"
     case spaceSwitcher = "SpaceSwitcher"
-    case space = "space"
-    case vault = "vault"
+    case space = "Space"
+    case vault = "Vault"
 }
 
 enum ClickDeleteSpaceRoute: String {
