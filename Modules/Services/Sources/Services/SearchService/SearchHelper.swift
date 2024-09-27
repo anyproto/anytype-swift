@@ -21,26 +21,17 @@ public class SearchHelper {
     
     public static func isArchivedFilter(isArchived: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = isArchived.protobufValue
+        filter.condition = isArchived ? .equal : .notEqual
+        filter.value = true
         filter.relationKey = BundledRelationKey.isArchived.rawValue
-        
-        return filter
-    }
-    
-    public static func isFavoriteFilter(isFavorite: Bool) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = isFavorite.protobufValue
-        filter.relationKey = BundledRelationKey.isFavorite.rawValue
         
         return filter
     }
     
     public static func isDeletedFilter(isDeleted: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = isDeleted.protobufValue
+        filter.condition = isDeleted ? .equal : .notEqual
+        filter.value = true
         filter.relationKey = BundledRelationKey.isDeleted.rawValue
         
         return filter
@@ -48,8 +39,8 @@ public class SearchHelper {
     
     public static func isHidden(_ isHidden: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = isHidden.protobufValue
+        filter.condition = isHidden ? .equal : .notEqual
+        filter.value = true
         filter.relationKey = BundledRelationKey.isHidden.rawValue
         
         return filter
@@ -289,8 +280,8 @@ public class SearchHelper {
     
     public static func isHiddenDiscovery(_ isHidden: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = isHidden.protobufValue
+        filter.condition = isHidden ? .equal : .notEqual
+        filter.value = true
         
         filter.relationKey = BundledRelationKey.isHiddenDiscovery.rawValue
         
