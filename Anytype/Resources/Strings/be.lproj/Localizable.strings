@@ -696,6 +696,7 @@
 "New" = "Новы";
 "Blurred icon" = "Размыты\n значок";
 "My First Space" = "Мая першая прастора";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
