@@ -6127,30 +6127,6 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.Relation.ListWithValue.Response.Error: @retroactive LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if localizeError.isNotEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return String(localized: "Relation.ListWithValue.badInput", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Relation.ListWithValue.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.Relation.Options.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

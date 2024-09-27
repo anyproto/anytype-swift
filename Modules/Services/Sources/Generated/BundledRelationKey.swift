@@ -371,6 +371,12 @@ public enum BundledRelationKey: String, Sendable {
     /// Object sync error
     case syncError = "syncError"
 
+    /// Object has a chat
+    case hasChat = "hasChat"
+
+    /// Chat id
+    case chatId = "chatId"
+
     /// Objects that are mentioned in blocks of this object
     case mentions = "mentions"
 }

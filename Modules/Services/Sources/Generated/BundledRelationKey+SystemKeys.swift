@@ -92,5 +92,7 @@ public extension BundledRelationKey {
         .scope,
         .lastUsedDate,
         .mentions,
+        .chatId,
+        .hasChat,
     ]
 }
