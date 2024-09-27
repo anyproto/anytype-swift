@@ -31448,7 +31448,7 @@ extension Anytype_Rpc.Relation.Options.Response.Error.Code: CaseIterable {
 
 extension Anytype_Rpc.Relation.ListWithValue.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Relation.ListWithValue.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Relation.ListWithValue.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
