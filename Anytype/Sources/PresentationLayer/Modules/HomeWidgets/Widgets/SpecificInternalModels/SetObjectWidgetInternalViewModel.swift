@@ -32,14 +32,12 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private var setDocument: (any SetDocumentProtocol)?
     private var activeViewId: String?
     private var canEditBlocks = true
-    private var dataviewState: WidgetDataviewState? { didSet { updateHeader() } }
-    private var rowDetails: [SetContentViewItemConfiguration]? { didSet { updateRows() } }
     
     var dragId: String? { widgetBlockId }
     
     @Published var name: String = ""
     @Published var headerItems: [ViewWidgetTabsItemModel]?
-    @Published var rows: SetObjectViewWidgetRows = .list(rows: [], id: "")
+    @Published var rows: SetObjectViewWidgetRows = .list(rows: nil, id: "")
     @Published var allowCreateObject = true
     @Published var showUnsupportedBanner = false
     
@@ -77,11 +75,9 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         }
     }
     
-    func onAppear() {
+    func onAppear() async {
         guard let setDocument else { return }
-        Task {
-            await updateSetDocument(objectId: setDocument.objectId)
-        }
+        await updateSetDocument(objectId: setDocument.objectId)
     }
     
     // MARK: - Actions
@@ -114,8 +110,8 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     // MARK: - Private for view updates
     
-    private func updateRows() {
-        withAnimation {
+    private func updateRows(rowDetails: [SetContentViewItemConfiguration]?) {
+        withAnimation(rows.rowsIsNil ? nil : .default) {
             showUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
          
             switch style {
@@ -138,7 +134,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         }
     }
     
-    private func updateHeader() {
+    private func updateHeader(dataviewState: WidgetDataviewState?) {
         withAnimation(headerItems.isNil ? nil : .default) {
             headerItems = dataviewState?.dataview.map { dataView in
                 ViewWidgetTabsItemModel(
@@ -191,13 +187,14 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     private func updateDataviewState() {
         guard let setDocument, setDocument.dataView.views.count > 1 else {
-            dataviewState = nil
+            updateHeader(dataviewState: nil)
             return
         }
-        dataviewState = WidgetDataviewState(
+        let dataviewState = WidgetDataviewState(
             dataview: setDocument.dataView.views,
             activeViewId: setDocument.activeView.id
         )
+        updateHeader(dataviewState: dataviewState)
     }
     
     private func sortedRowDetails(_ details: [ObjectDetails]?) -> [ObjectDetails]? {
@@ -218,8 +215,8 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         setDocument = documentsProvider.setDocument(objectId: objectId, mode: .preview)
         try? await setDocument?.open()
         
-        rowDetails = nil
-        dataviewState = nil
+        updateRows(rowDetails: nil)
+        updateHeader(dataviewState: nil)
         
         await updateModelState()
     }
@@ -247,7 +244,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private func updateRowDetails(details: [ObjectDetails]) {
         guard let setDocument else { return }
         let sortedDetails = sortedRowDetails(details) ?? details
-        rowDetails = setContentViewDataBuilder.itemData(
+        let rowDetails = setContentViewDataBuilder.itemData(
             sortedDetails,
             dataView: setDocument.dataView,
             activeView: setDocument.activeView,
@@ -259,5 +256,6 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                 self?.output?.onObjectSelected(screenData: $0.editorScreenData())
             }
         )
+        updateRows(rowDetails: rowDetails)
     }
 }

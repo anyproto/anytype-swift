@@ -196,6 +196,9 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private func triggerSync(updates: [DocumentUpdate]) {
         
+        // Notify only when document is set to prevent invalid initial state
+        guard isOpened else { return }
+        
         var docUpdates = updates.flatMap { update -> [BaseDocumentUpdate] in
             switch update {
             case .general:
@@ -239,8 +242,9 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     private func setupView(_ model: ObjectViewModel) {
         viewModelSetter.objectViewUpdate(model)
-        isOpened = true
+        // Start subscription before document is marked as opened
         setupSubscriptions()
+        isOpened = true
         triggerSync(updates: [.general])
     }
 
