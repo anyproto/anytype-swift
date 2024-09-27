@@ -138,6 +138,8 @@ public protocol BundledRelationsValueProvider {
     var syncStatus: Int? { get }
     var syncDate: Date? { get }
     var syncError: Int? { get }
+    var hasChat: Bool { get }
+    var chatId: ObjectId { get }
     var mentions: [ObjectId] { get }
 } 
 
@@ -636,6 +638,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Object sync error
     var syncError: Int? {
         return value(for: BundledRelationKey.syncError.rawValue)
+    }
+    /// Object has a chat
+    var hasChat: Bool {
+        return value(for: BundledRelationKey.hasChat.rawValue)
+    }
+    /// Chat id
+    var chatId: ObjectId {
+        return value(for: BundledRelationKey.chatId.rawValue)
     }
     /// Objects that are mentioned in blocks of this object
     var mentions: [ObjectId] {
