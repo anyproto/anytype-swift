@@ -35,7 +35,7 @@ final class AuthService: AuthServiceProtocol {
         try await authMiddleService.createWallet(rootPath: rootPath)
     }
 
-    func createAccount(name: String, imagePath: String) async throws -> AccountData {
+    func createAccount(name: String, iconOption: Int, imagePath: String) async throws -> AccountData {
         let start = CFAbsoluteTimeGetCurrent()
         
         await loginStateService.setupStateBeforeLoginOrAuth()
@@ -43,7 +43,7 @@ final class AuthService: AuthServiceProtocol {
         let account = try await authMiddleService.createAccount(
             name: name,
             imagePath: imagePath,
-            gradient: GradientId.random,
+            iconOption: iconOption,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )

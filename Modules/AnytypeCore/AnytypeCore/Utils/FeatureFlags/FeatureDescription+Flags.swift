@@ -52,9 +52,9 @@ public extension FeatureDescription {
     
     static let swipeToSearch = FeatureDescription(
         title: "Swipe to search",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "7?"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "7"),
         defaultValue: false,
-        debugValue: true
+        debugValue: false
     )
     
     static let spaceHubParallax = FeatureDescription(

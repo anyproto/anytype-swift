@@ -29,7 +29,7 @@ internal enum Loc {
   internal static let alignLeft = Loc.tr("Localizable", "Align left")
   internal static let alignRight = Loc.tr("Localizable", "Align right")
   internal static let alignment = Loc.tr("Localizable", "Alignment")
-  internal static let allContent = Loc.tr("Localizable", "All content")
+  internal static let allObjects = Loc.tr("Localizable", "All objects")
   internal static let amber = Loc.tr("Localizable", "Amber")
   internal static let amberBackground = Loc.tr("Localizable", "Amber background")
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library")
@@ -173,6 +173,7 @@ internal enum Loc {
   internal static let justEMail = Loc.tr("Localizable", "Just e-mail")
   internal static let layout = Loc.tr("Localizable", "Layout")
   internal static let learnMore = Loc.tr("Localizable", "Learn more")
+  internal static let letsGo = Loc.tr("Localizable", "Lets Go")
   internal static let limitObjectTypes = Loc.tr("Localizable", "Limit object types")
   internal static let linkTo = Loc.tr("Localizable", "Link to")
   internal static func linksCount(_ p1: Int) -> String {
@@ -197,6 +198,7 @@ internal enum Loc {
   internal static let moveTo = Loc.tr("Localizable", "Move to")
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin")
   internal static let myFirstSpace = Loc.tr("Localizable", "My First Space")
+  internal static let mySpaces = Loc.tr("Localizable", "My spaces")
   internal static let myself = Loc.tr("Localizable", "Myself")
   internal static let name = Loc.tr("Localizable", "Name")
   internal static let new = Loc.tr("Localizable", "New")
@@ -233,6 +235,7 @@ internal enum Loc {
   internal static let otherRelations = Loc.tr("Localizable", "Other relations")
   internal static let p2PConnecting = Loc.tr("Localizable", "P2P Connecting")
   internal static let p2PConnection = Loc.tr("Localizable", "P2P Connection")
+  internal static let pages = Loc.tr("Localizable", "Pages")
   internal static func paidBy(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Paid by", String(describing: p1))
   }
@@ -1583,6 +1586,16 @@ internal enum Loc {
   }
   internal enum SpaceCreate {
     internal static let title = Loc.tr("Localizable", "SpaceCreate.Title")
+  }
+  internal enum SpaceHub {
+    internal enum Tip {
+      internal static let text1 = Loc.tr("Localizable", "SpaceHub.Tip.Text1")
+      internal static let text2 = Loc.tr("Localizable", "SpaceHub.Tip.Text2")
+      internal static let text3 = Loc.tr("Localizable", "SpaceHub.Tip.Text3")
+      internal static let title1 = Loc.tr("Localizable", "SpaceHub.Tip.Title1")
+      internal static let title2 = Loc.tr("Localizable", "SpaceHub.Tip.Title2")
+      internal static let title3 = Loc.tr("Localizable", "SpaceHub.Tip.Title3")
+    }
   }
   internal enum SpaceManager {
     internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest")

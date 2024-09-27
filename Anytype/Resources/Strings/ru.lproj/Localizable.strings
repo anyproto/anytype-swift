@@ -146,6 +146,8 @@
 "Relations" = "Свойства";
 "History" = "История";
 "Objects" = "Объекты";
+"Pages" = "Pages";
+"Lists" = "Списки";
 "Bookmarks" = "Закладки";
 "Files" = "Files";
 "Media" = "Медиа-файлы";
@@ -202,12 +204,14 @@
 "Okay" = "Окей";
 "Join" = "Присоединись";
 "Agreement Disclamer" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@)";
+"Lets Go" = "Давайте начнём";
+"My spaces" = "Мои пространства";
 
 // Home
 "Favorites" = "Избранное";
 "Recent" = "Недавние";
 "Bin" = "Корзина";
-"All content" = "Весь контент";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Обои";
@@ -1031,9 +1035,18 @@
 "SpaceShare.Tip.Steps.2" = "Откройте раздел «Доступ»";
 "SpaceShare.Tip.Steps.3" = "Создайте ссылку для приглашения и поделитесь ею";
 
+// MARK: - Space Hub Tip
+"SpaceHub.Tip.Title3" = "Динамические обои";
+"SpaceHub.Tip.Title2" = "Просто и гибко";
+"SpaceHub.Tip.Title1" = "Добро пожаловать в Хранилище";
+
+"SpaceHub.Tip.Text3" = "По умолчанию мы размываем иконку вашего пространства в фоновом режиме. При необходимости вы можете изменить ее в настройках пространства.";
+"SpaceHub.Tip.Text2" = "Теперь вы можете легко изменять порядок ваших пространств, перетаскивая их и перемещаясь по ним легче.";
+"SpaceHub.Tip.Text1" = "Хранилище является новым домом для всех ваших пространств. Создавайте, присоединяйтесь  или делитесь пространствами – все безопасно хранится здесь.";
+
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"SpaceSwitcher.Tip.Title" = "Быстрое переключение между пространствами ";
+"SpaceSwitcher.Tip.Text" = "Зажать кнопку \"Назад\" для переключения пространства";
 
 // MARK: - Initial
 
@@ -1219,7 +1232,7 @@
 "AllContent.Settings.Sort.Title" = "Сортировать по";
 "AllContent.Sort.DateUpdated" = "Дата обновления";
 "AllContent.Sort.DateCreated" = "Дата создания";
-"AllContent.Sort.Date.Asc" = "Сначала старые";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Сначала новые";
 "AllContent.Sort.Name.Asc" = "А → Я";
 "AllContent.Sort.Name.Desc" = "Я → А";

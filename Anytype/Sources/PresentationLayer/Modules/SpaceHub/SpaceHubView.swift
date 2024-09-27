@@ -70,7 +70,7 @@ struct SpaceHubView: View {
     private var navBar: some View {
         HStack(alignment: .center, spacing: 0) {
             Spacer()
-            AnytypeText("My spaces", style: .uxTitle1Semibold)
+            AnytypeText(Loc.mySpaces, style: .uxTitle1Semibold)
             Spacer()
         }
         .padding(.horizontal, 16)
@@ -133,7 +133,7 @@ struct SpaceHubView: View {
             IconView(icon: space.spaceView.objectIconImage)
                 .frame(width: 64, height: 64)
             VStack(alignment: .leading, spacing: 6) {
-                AnytypeText(space.spaceView.name, style: .bodySemibold).lineLimit(1)
+                AnytypeText(space.spaceView.name.withPlaceholder, style: .bodySemibold).lineLimit(1)
                 AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
                     .lineLimit(1)
                     .opacity(0.6)
@@ -144,7 +144,7 @@ struct SpaceHubView: View {
         .padding(16)
         .background(
             DashboardWallpaper(
-                mode: FeatureFlags.spaceHubParallax ? .parallax(containerHeight: size.height) : .default,
+                mode: FeatureFlags.spaceHubParallax ? .parallax(containerHeight: size.height) : .spaceHub,
                 wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
                 spaceIcon: space.spaceView.iconImage
             )

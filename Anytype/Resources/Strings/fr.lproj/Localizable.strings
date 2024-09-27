@@ -146,6 +146,8 @@
 "Relations" = "Relations";
 "History" = "History";
 "Objects" = "Objets";
+"Pages" = "Pages";
+"Lists" = "Groupes";
 "Bookmarks" = "Signets";
 "Files" = "Fichiers";
 "Media" = "Média";
@@ -202,12 +204,14 @@
 "Okay" = "D'accord";
 "Join" = "Rejoindre";
 "Agreement Disclamer" = "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)";
+"Lets Go" = "C’est parti ";
+"My spaces" = "Mes espaces";
 
 // Home
 "Favorites" = "Favoris";
 "Recent" = "Récent";
 "Bin" = "Corbeille";
-"All content" = "Tout le contenu";
+"All objects" = "Tous les objets";
 
 // Settings
 "Wallpaper" = "Fond d'écran";
@@ -1031,9 +1035,18 @@
 "SpaceShare.Tip.Steps.2" = "Ouvrez la section Partage";
 "SpaceShare.Tip.Steps.3" = "Générez un lien d’invitation et partagez-le";
 
+// MARK: - Space Hub Tip
+"SpaceHub.Tip.Title3" = "Arrière-plans dynamiques ";
+"SpaceHub.Tip.Title2" = "Simple & Flexible";
+"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+
+"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
+"SpaceHub.Tip.Text2" = "Vous pouvez maintenant facilement réorganiser vos espaces en utilisant glisser-déposer et les naviguer plus facilement.";
+"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"SpaceSwitcher.Tip.Title" = "Changer d'espaces plus rapidement";
+"SpaceSwitcher.Tip.Text" = "Appui long sur le bouton retour pour changer d'espace";
 
 // MARK: - Initial
 
@@ -1217,7 +1230,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date de mise à jour";
 "AllContent.Sort.DateCreated" = "Date de création";
-"AllContent.Sort.Date.Asc" = "Le plus ancien en premier";
+"AllContent.Sort.Date.Asc" = "Du plus ancien au plus récent";
 "AllContent.Sort.Date.Desc" = "Les plus récents en premier";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

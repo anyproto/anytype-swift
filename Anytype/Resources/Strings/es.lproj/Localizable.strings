@@ -146,6 +146,8 @@
 "Relations" = "Relaciones";
 "History" = "Historial";
 "Objects" = "Objetos";
+"Pages" = "Pages";
+"Lists" = "Listas";
 "Bookmarks" = "Marcadores";
 "Files" = "Archivos";
 "Media" = "Medios";
@@ -202,12 +204,14 @@
 "Okay" = "Aceptar";
 "Join" = "Unirte";
 "Agreement Disclamer" = "Al continuar, aceptas nuestros [términos de uso](%@) y nuestra [política de privacidad](%@).";
+"Lets Go" = "Let’s Go";
+"My spaces" = "Mis espacios";
 
 // Home
 "Favorites" = "Favoritos";
 "Recent" = "Recientes";
 "Bin" = "Papelera";
-"All content" = "Todo el contenido";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Fondo de pantalla";
@@ -1031,6 +1035,15 @@
 "SpaceShare.Tip.Steps.2" = "Abre la sección Compartir.";
 "SpaceShare.Tip.Steps.3" = "Genera un enlace de invitación y compártelo.";
 
+// MARK: - Space Hub Tip
+"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
+"SpaceHub.Tip.Title2" = "Simple & Flexible";
+"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+
+"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
+"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
+"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+
 // MARK: - Space switcher tip
 "SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
 "SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
@@ -1216,7 +1229,7 @@ En concreto,
 "AllContent.Settings.Sort.Title" = "Ordenar por";
 "AllContent.Sort.DateUpdated" = "Fecha de modificación";
 "AllContent.Sort.DateCreated" = "Fecha de creación";
-"AllContent.Sort.Date.Asc" = "Antiguos primero";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Recientes primero";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

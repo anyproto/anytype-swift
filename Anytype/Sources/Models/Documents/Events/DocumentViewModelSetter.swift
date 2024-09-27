@@ -41,7 +41,9 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
             ObjectDetails(id: $0.id, values: $0.details.fields)
         }
         
-        buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer)
+        let rootDetails = parsedDetails.first { $0.id == data.rootID }
+        
+        buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer, layout: rootDetails?.layoutValue)
         
         parsedDetails.forEach { detailsStorage.add(details: $0) }
         
@@ -55,13 +57,16 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     
     // MARK: - Private
     
-    private func buildBlocksTree(information: [BlockInformation], rootId: String, container: any InfoContainerProtocol) {
+    private func buildBlocksTree(information: [BlockInformation], rootId: String, container: any InfoContainerProtocol, layout: DetailsLayout?) {
         
         information.forEach { container.add($0) }
         let roots = information.filter { $0.id == rootId }
 
         guard roots.count != 0 else {
-            anytypeAssertionFailure("Unknown situation. We can't have zero roots.")
+            anytypeAssertionFailure(
+                "Unknown situation. We can't have zero roots.",
+                info: ["layout": layout?.rawValue.description ?? "Unknown"]
+            )
             return
         }
 

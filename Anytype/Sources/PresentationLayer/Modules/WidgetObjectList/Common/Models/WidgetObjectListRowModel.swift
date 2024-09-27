@@ -7,6 +7,7 @@ struct WidgetObjectListRowModel: Identifiable {
     let description: String?
     let subtitle: String?
     let isChecked: Bool
+    let canArchive: Bool
     let menu: [WidgetObjectListMenuItemModel]
     let onTap: () -> Void
     let onCheckboxTap: (() -> Void)?

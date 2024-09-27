@@ -166,6 +166,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
                         description: details.subtitle,
                         subtitle: internalModel.subtitle(for: details),
                         isChecked: selectedRowIds.contains(details.id),
+                        canArchive: details.permissions(participant: participant).canArchive,
                         menu: menuBuilder.buildMenuItems(
                             details: details,
                             allowOptions: internalModel.availableMenuItems,

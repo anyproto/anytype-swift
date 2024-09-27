@@ -1176,6 +1176,11 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Relation.ListWithValue.Response: ResultWithError {}
+extension Anytype_Rpc.Relation.ListWithValue.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Relation.Options.Response: ResultWithError {}
 extension Anytype_Rpc.Relation.Options.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

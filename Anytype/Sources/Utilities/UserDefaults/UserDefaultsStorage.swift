@@ -3,6 +3,20 @@ import Services
 import Combine
 import SwiftUI
 
+enum LastOpenedScreen: Codable {
+    case editor(EditorScreenData)
+    case widgets(spaceId: String)
+    
+    var spaceId: String {
+        switch self {
+        case .editor(let data):
+            data.spaceId
+        case .widgets(let spaceId):
+            spaceId
+        }
+    }
+}
+
 protocol UserDefaultsStorageProtocol {
     var showUnstableMiddlewareError: Bool { get set }
     var usersId: String { get set }
@@ -13,7 +27,7 @@ protocol UserDefaultsStorageProtocol {
     var rowsPerPageInSet: Int { get set }
     var rowsPerPageInGroupedSet: Int { get set }
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
-    var lastOpenedScreen: EditorScreenData? { get set }
+    var lastOpenedScreen: LastOpenedScreen? { get set }
     
     func saveSpacesOrder(accountId: String, spaces: [String])
     func getSpacesOrder(accountId: String) -> [String]
@@ -52,8 +66,8 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
     var rowsPerPageInGroupedSet: Int
     
-    @UserDefault("UserData.LastOpenedScreen", defaultValue: nil)
-    var lastOpenedScreen: EditorScreenData?
+    @UserDefault("UserData.LastOpenedScreen.NewKey", defaultValue: nil)
+    var lastOpenedScreen: LastOpenedScreen?
     
     
     // MARK: - UserInterfaceStyle

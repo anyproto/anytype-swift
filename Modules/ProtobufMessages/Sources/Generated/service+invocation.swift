@@ -964,6 +964,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func relationListWithValue(
+        _ request: Anytype_Rpc.Relation.ListWithValue.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Relation.ListWithValue.Request, Anytype_Rpc.Relation.ListWithValue.Response> {
+        return Invocation(messageName: "RelationListWithValue", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceRelationListWithValue(requestData) ?? Data()
+            return try Anytype_Rpc.Relation.ListWithValue.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectRelationAdd(
         _ request: Anytype_Rpc.ObjectRelation.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.ObjectRelation.Add.Request, Anytype_Rpc.ObjectRelation.Add.Response> {

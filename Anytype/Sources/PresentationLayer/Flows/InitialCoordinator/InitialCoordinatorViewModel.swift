@@ -28,6 +28,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     func onAppear() {
         checkCrash()
+        AppIconManager.shared.migrateIcons()
     }
     
     func contunueWithoutLogout() {

@@ -26,7 +26,7 @@ struct FileStorageInfoBlock: View {
 struct FileStorageInfoBlock_Previews: PreviewProvider {
     static var previews: some View {
         FileStorageInfoBlock(
-            iconImage: .object(.space(.gradient(.random))),
+            iconImage: .object(.space(.mock)),
             title: "Anton’s space",
             description: "212 MB of 1 GB used",
             isWarning: false

@@ -146,6 +146,8 @@
 "Relations" = "关联";
 "History" = "历史记录";
 "Objects" = "对象";
+"Pages" = "Pages";
+"Lists" = "分组";
 "Bookmarks" = "Bookmarks";
 "Files" = "文件";
 "Media" = "媒体";
@@ -202,12 +204,14 @@
 "Okay" = "好的";
 "Join" = "加入";
 "Agreement Disclamer" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
+"Lets Go" = "Let’s Go";
+"My spaces" = "我的空间";
 
 // Home
 "Favorites" = "收藏夹";
 "Recent" = "最近";
 "Bin" = "废纸篓";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "壁纸";
@@ -1032,6 +1036,15 @@
 "SpaceShare.Tip.Steps.2" = "打开分享栏";
 "SpaceShare.Tip.Steps.3" = "生成一个邀请链接并分享它";
 
+// MARK: - Space Hub Tip
+"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
+"SpaceHub.Tip.Title2" = "Simple & Flexible";
+"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+
+"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
+"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
+"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+
 // MARK: - Space switcher tip
 "SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
 "SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
@@ -1218,7 +1231,7 @@
 "AllContent.Settings.Sort.Title" = "排序方式";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

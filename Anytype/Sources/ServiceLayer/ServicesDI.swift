@@ -319,4 +319,8 @@ extension Container {
     var allContentSubscriptionService: Factory<any AllContentSubscriptionServiceProtocol> {
         self { AllContentSubscriptionService() }
     }
+    
+    var allContentStateStorageService: Factory<any AllContentStateStorageServiceProtocol> {
+        self { AllContentStateStorageService() }.shared
+    }
 }

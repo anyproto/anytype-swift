@@ -38,7 +38,7 @@ struct SettingsAppearanceView: View {
             AnytypeText(Loc.mode, style: .caption1Medium)
                 .foregroundColor(.Text.secondary)
                 .frame(alignment: .center)
-            HStack() {
+            HStack {
                 ForEach(UIUserInterfaceStyle.allCases) { style in
                     Button {
                         model.currentStyle = style
@@ -79,16 +79,12 @@ struct SettingsAppearanceView: View {
         VStack(alignment: .center) {
             AnytypeText(Loc.applicationIcon, style: .caption1Medium)
                 .foregroundColor(.Text.secondary).padding(.bottom, 6)
-            ScrollView(.horizontal) {
-                HStack(spacing: 16) {
-                    Spacer.fixedWidth(20)
-                    ForEach(AppIcon.allCases, id: \.self) { icon in
-                        appIcon(icon)
-                    }
-                    Spacer.fixedWidth(20)
+            HStack {
+                ForEach(AppIcon.allCases, id: \.self) { icon in
+                    appIcon(icon)
                 }
-                .padding(.top, 16)
             }
+            .padding(.top, 16)
         }
         .padding(.vertical, 14)
         .divider()
@@ -100,21 +96,25 @@ struct SettingsAppearanceView: View {
             Button {
                 model.updateIcon(icon)
             } label: {
-                Image(asset: icon.previewAsset)
-                    .cornerRadius(8)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 14)
-                            .stroke(Color.Shape.tertiary, lineWidth: 1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(
-                                model.currentIcon == icon ? Color.System.amber25 : .clear,
-                                lineWidth: 2
-                            )
-                            .frame(width: 66, height: 66)
-                    )
+                VStack(spacing: 0) {
+                    Image(asset: icon.previewAsset)
+                        .cornerRadius(8)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(Color.Shape.tertiary, lineWidth: 1)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(
+                                    model.currentIcon == icon ? Color.System.amber25 : .clear,
+                                    lineWidth: 2
+                                )
+                                .frame(width: 66, height: 66)
+                        )
+                    Spacer.fixedHeight(10)
+                }
+                
             }
         }
         .frame(maxWidth: .infinity)

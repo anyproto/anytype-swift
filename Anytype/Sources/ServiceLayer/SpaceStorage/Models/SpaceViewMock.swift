@@ -1,3 +1,5 @@
+import Services
+
 extension SpaceView {
     static func mock(id: Int) -> SpaceView {
         mock(id: "\(id)")
@@ -7,7 +9,7 @@ extension SpaceView {
         SpaceView(
             id: id,
             name: "Name \(id)",
-            objectIconImage: .object(.space(.gradient(.random))),
+            objectIconImage: .object(.space(.mock)),
             targetSpaceId: "Target\(id)",
             createdDate: .yesterday,
             accountStatus: .ok,
@@ -17,5 +19,11 @@ extension SpaceView {
             writersLimit: nil,
             sharedSpacesLimit: nil
         )
+    }
+}
+
+public extension ObjectIcon.Space {
+    static var mock: ObjectIcon.Space {
+        .name(name: Loc.Object.Title.placeholder, iconOption: 1)
     }
 }

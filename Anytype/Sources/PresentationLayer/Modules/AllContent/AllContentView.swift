@@ -15,6 +15,9 @@ struct AllContentView: View {
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
             content
         }
+        .task {
+            await model.startParticipantTask()
+        }
         .task(id: model.state) {
             await model.restartSubscription()
         }
@@ -23,6 +26,9 @@ struct AllContentView: View {
         }
         .onDisappear() {
             model.onDisappear()
+        }
+        .onChange(of: model.state.sort) { newValue in
+            model.storeSort()
         }
     }
     
@@ -64,6 +70,13 @@ struct AllContentView: View {
                         .onAppear {
                             model.onAppearLastRow(row.id)
                         }
+                        .if(row.canArchive) {
+                            $0.swipeActions {
+                                Button(Loc.toBin, role: .destructive) {
+                                    model.onDelete(objectId: row.objectId)
+                                }
+                            }
+                        }
                 }
             }
             AnytypeNavigationSpacer(minHeight: 130)
@@ -99,9 +112,10 @@ struct AllContentView: View {
             Spacer.fixedHeight(14)
             AnytypeText(Loc.AllContent.Settings.Unlinked.description, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
-            Spacer.fixedHeight(model.state.sort.relation.canGroupByDate ? 0 : 14)
+            Spacer.fixedHeight(14)
         }
-        .padding(.horizontal, 20)
+        .divider(spacing: 0, alignment: .leading)
+        .padding(.horizontal, 16)
     }
 }
 
