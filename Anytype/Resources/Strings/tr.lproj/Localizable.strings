@@ -1089,7 +1089,7 @@
 "Server.LocalOnly.Alert.Action.disagree" = "Hayır bunu kullanma";
 
 // MARK: - Gallery
-"Gallery.Author" = "%@ tarafından yapıldı";
+"Gallery.Author" = "%@ tarafından oluşturuldu ";
 "Gallery.Install" = "Kur";
 "Gallery.InstallToNew" = "Yeni alana kurun";
 "Gallery.Notification.Success" = "Deneyim \"%@\" alanına başarıyla yüklendi. Şimdi açıp kullanabilirsiniz.";
