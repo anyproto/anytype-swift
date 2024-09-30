@@ -33,7 +33,7 @@ final class SearchService: SearchServiceProtocol {
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
     
-    func searchImages() async throws -> [ObjectDetails] {
+    func searchImages(spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.id,
             type: .desc
@@ -43,8 +43,7 @@ final class SearchService: SearchServiceProtocol {
             SearchHelper.notHiddenFilters()
             SearchHelper.layoutFilter([DetailsLayout.image])
         }
-        
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: "", limit: SearchDefaults.objectsLimit)
+        return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: "", limit: SearchDefaults.objectsLimit)
     }
     
     func search(text: String, limitObjectIds: [String]) async throws -> [ObjectDetails] {
