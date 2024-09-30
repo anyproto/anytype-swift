@@ -610,16 +610,26 @@ extension AnytypeAnalytics {
         logEvent("SettingsWallpaperSet")
     }
     
-    func logScreenSearch() {
-        logEvent("ScreenSearch")
+    func logScreenSearch(spaceId: String, type: ScreenSearchType) {
+        logEvent(
+            "ScreenSearch",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ])
     }
     
     func logSearchResult(spaceId: String) {
         logEvent("SearchResult", spaceId: spaceId)
     }
     
-    func logSearchBacklink(spaceId: String) {
-        logEvent("SearchBacklink", spaceId: spaceId)
+    func logSearchBacklink(spaceId: String, type: ScreenSearchType) {
+        logEvent(
+            "SearchBacklink",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ])
     }
     
     func logSearchInput(spaceId: String) {
