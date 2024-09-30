@@ -46,7 +46,7 @@ final class SearchService: SearchServiceProtocol {
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: "", limit: SearchDefaults.objectsLimit)
     }
     
-    func search(text: String, limitObjectIds: [String]) async throws -> [ObjectDetails] {
+    func search(text: String, spaceId: String, limitObjectIds: [String]) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
@@ -56,7 +56,7 @@ final class SearchService: SearchServiceProtocol {
             SearchHelper.notHiddenFilters(includeHiddenDiscovery: false)
         }
                 
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+        return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
     }
     
     func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails] {

@@ -158,7 +158,7 @@ final class GlobalSearchViewModel: ObservableObject {
             }
         case .filtered(let data):
             Task {
-                let details = try await searchService.search(text: "", limitObjectIds: [data.id]).first
+                let details = try await searchService.search(text: "", spaceId: moduleData.spaceId, limitObjectIds: [data.id]).first
                 guard let details else { return }
                 state = GlobalSearchState(
                     searchText: restoredState.searchText,
