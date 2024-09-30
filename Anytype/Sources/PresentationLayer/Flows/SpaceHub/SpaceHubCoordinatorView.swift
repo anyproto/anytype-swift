@@ -17,16 +17,7 @@ struct SpaceHubCoordinatorView: View {
             }
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
             
-            .if(FeatureFlags.swipeToSearch) {
-                $0.simultaneousGesture(
-                    DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                        .onChanged {
-                            if $0.startLocation.y < 150 && $0.translation.height > 60 {
-                                model.onSearchSelected()
-                            }
-                        }
-                )
-            }
+            .if(FeatureFlags.swipeToSearch) { addSwipeToSearchGesture(view: $0) }
         
             .task { await model.startHandleWorkspaceInfo() }
             .task { await model.setup() }
@@ -116,6 +107,23 @@ struct SpaceHubCoordinatorView: View {
         }
         .animation(.easeInOut, value: model.spaceInfo)
         .environment(\.pageNavigation, model.pageNavigation)
+    }
+    
+    func addSwipeToSearchGesture(view: some View) -> some View {
+        Group {
+            if #available(iOS 18.0, *) {
+                view.simultaneousGesture(
+                    DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                        .onChanged {
+                            if $0.startLocation.y < 150 && $0.translation.height > 60 {
+                                model.onSearchSelected()
+                            }
+                        }
+                )
+            } else {
+                view
+            }
+        }
     }
 }
 
