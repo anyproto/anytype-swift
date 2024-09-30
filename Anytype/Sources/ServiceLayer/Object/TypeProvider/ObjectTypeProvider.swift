@@ -123,7 +123,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func startSubscription() async {
-        // Start first subscription in current async context
+        // Start first subscription in current async context for guarantee data state before return
         let spaceIds = await workspacessStorage.allWorkspaces.map { $0.targetSpaceId }
         await updateSubscriptions(spaceIds: spaceIds)
         

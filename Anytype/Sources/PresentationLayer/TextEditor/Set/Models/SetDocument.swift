@@ -233,7 +233,7 @@ final class SetDocument: SetDocumentProtocol {
         }
         .store(in: &subscriptions)
         
-        relationDetailsStorage.relationsDetailsPublisher.sink { [weak self] _ in
+        relationDetailsStorage.relationsDetailsPublisher(spaceId: document.spaceId).sink { [weak self] _ in
             self?.updateDataViewRelations()
             self?.triggerSync()
         }

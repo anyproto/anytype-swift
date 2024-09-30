@@ -14,23 +14,28 @@ private struct RelationDetailsKey: Hashable {
 
 final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
-    static let subscriptionId = "SubscriptionId.Relation"
+    private enum Constants {
+        static let subscriptionIdPrefix = "SubscriptionId.Relation-"
+    }
+    
+    // MARK: - DI
     
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.relationSubscriptionDataBuilder)
     private var subscriptionDataBuilder: any RelationSubscriptionDataBuilderProtocol
-    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
-    }()
+    @Injected(\.workspaceStorage)
+    private var workspacessStorage: any WorkspacesStorageProtocol
     
-    private var details = [RelationDetails]()
+    // MARK: - Private properties
+    
+    private var relations = SynchronizedDictionary<String, [RelationDetails]>()
     private var searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
-
-    private var relationsDetailsSubject = CurrentValueSubject<[RelationDetails], Never>([])
-    var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> {
-        relationsDetailsSubject.eraseToAnyPublisher()
-    }
+    private var subscriptionStorages = SynchronizedDictionary<String, any SubscriptionStorageProtocol>()
+    private var spacesSubscription: AnyCancellable?
+    
+    @Published var sync: () = ()
+    var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
     
     // MARK: - RelationDetailsStorageProtocol
     
@@ -40,12 +45,12 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     func relationsDetails(for ids: [ObjectId], spaceId: String) -> [RelationDetails] {
         return ids.compactMap { id in
-            return details.first { $0.id == id && $0.spaceId == spaceId }
+            return relationsDetails(spaceId: spaceId).first { $0.id == id && $0.spaceId == spaceId }
         }
     }
     
     func relationsDetails(spaceId: String) -> [RelationDetails] {
-        return details.filter { $0.spaceId == spaceId }
+        return relations[spaceId] ?? []
     }
     
     func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails {
@@ -63,41 +68,44 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     func startSubscription() async {
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionDataBuilder.build()) { [weak self] data in
-            self?.updateaData(data: data)
-        }
+        // Start first subscription in current async context for guarantee data state before return
+        let spaceIds = await workspacessStorage.allWorkspaces.map { $0.targetSpaceId }
+        await updateSubscriptions(spaceIds: spaceIds)
+        
+        spacesSubscription = await workspacessStorage.allWorkspsacesPublisher
+            .map { $0.map { $0.targetSpaceId } }
+            .removeDuplicates()
+            .sink { [weak self] spaceIds in
+                Task {
+                    await self?.updateSubscriptions(spaceIds: spaceIds)
+                }
+            }
     }
     
     func stopSubscription() async {
-        try? await subscriptionStorage.stopSubscription()
-        details.removeAll()
+        spacesSubscription?.cancel()
+        spacesSubscription = nil
+        for subscriptionStorage in subscriptionStorages.values {
+            try? await subscriptionStorage.stopSubscription()
+        }
+        subscriptionStorages.removeAll()
+        relations.removeAll()
         updateSearchCache()
-        relationsDetailsSubject.send(details)
+        sync = ()
     }
     
     // MARK: - Private
     
-    private func updateaData(data: SubscriptionStorageState) {
-        let oldDetails = details
-        details = data.items.map { RelationDetails(objectDetails: $0) }
+    private func updateaData(data: SubscriptionStorageState, spaceId: String) {
+        relations[spaceId] = data.items.map { RelationDetails(objectDetails: $0) }
         updateSearchCache()
-        relationsDetailsSubject.send(details)
-
-        let diff = details.difference(from: oldDetails)
-        let keys = diff.insertions.map(\.element.key) + diff.removals.map(\.element.key)
-        if keys.isNotEmpty {
-            sendLocalEvents(relationKeys: keys)
-        }
-    }
-    
-    private func sendLocalEvents(relationKeys: [String]) {
-        RelationEventsBunch(events: [.relationChanged(relationKeys: relationKeys)])
-            .send()
+        sync = ()
     }
     
     private func updateSearchCache() {
         searchDetailsByKey.removeAll()
-        details.forEach {
+        let values = relations.values.flatMap { $0 }
+        values.forEach {
             let key = RelationDetailsKey(key: $0.key, spaceId: $0.spaceId)
             if searchDetailsByKey[key] != nil {
                 anytypeAssertionFailure("Dublicate relation found", info: ["key": $0.key, "id": $0.id, "spaceId": $0.spaceId])
@@ -121,5 +129,18 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
             isDeleted: true,
             spaceId: ""
         )
+    }
+    
+    private func updateSubscriptions(spaceIds: [String]) async {
+        for spaceId in spaceIds {
+            if subscriptionStorages[spaceId].isNil {
+                let subId = Constants.subscriptionIdPrefix + spaceId
+                let subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
+                subscriptionStorages[spaceId] = subscriptionStorage
+                try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionDataBuilder.build(spaceId: spaceId, subId: subId)) { [weak self] data in
+                    self?.updateaData(data: data, spaceId: spaceId)
+                }
+            }
+        }
     }
 }

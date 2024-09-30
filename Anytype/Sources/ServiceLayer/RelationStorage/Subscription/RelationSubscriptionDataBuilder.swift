@@ -3,12 +3,9 @@ import Services
 
 final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol {
     
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
-    
     // MARK: - RelationSubscriptionDataBuilderProtocol
     
-    func build() -> SubscriptionData {
+    func build(spaceId: String, subId: String) -> SubscriptionData {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -34,12 +31,14 @@ final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProt
         
         return .search(
             SubscriptionData.Search(
-                identifier: RelationDetailsStorage.subscriptionId,
+                identifier: subId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: 0,
                 offset: 0,
-                keys: keys
+                keys: keys,
+                noDepSubscription: true
             )
         )
     }

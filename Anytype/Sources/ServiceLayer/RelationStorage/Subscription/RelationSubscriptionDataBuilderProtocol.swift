@@ -2,5 +2,5 @@ import Foundation
 import Services
 
 protocol RelationSubscriptionDataBuilderProtocol: AnyObject {
-    func build() -> SubscriptionData
+    func build(spaceId: String, subId: String) -> SubscriptionData
 }
