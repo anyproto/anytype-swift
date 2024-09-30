@@ -96,6 +96,6 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     private func updateLinksSubscriptions() async {
         guard let linkedObjectDetails else { return }
-        await _ = subscriptionManager.startOrUpdateSubscription(objectIds: linkedObjectDetails.links)
+        await _ = subscriptionManager.startOrUpdateSubscription(spaceId: widgetObject.spaceId, objectIds: linkedObjectDetails.links)
     }
 }

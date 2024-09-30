@@ -4,7 +4,7 @@ import Combine
 
 protocol TreeSubscriptionManagerProtocol: AnyObject {
     var detailsPublisher: AnyPublisher<[ObjectDetails], Never> { get }
-    func startOrUpdateSubscription(objectIds: [String]) async -> Bool
+    func startOrUpdateSubscription(spaceId: String, objectIds: [String]) async -> Bool
     func stopAllSubscriptions() async
 }
 
@@ -31,7 +31,7 @@ actor TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
     // MARK: - TreeSubscriptionDataBuilderProtocol
     
-    func startOrUpdateSubscription(objectIds newObjectIds: [String]) async -> Bool {
+    func startOrUpdateSubscription(spaceId: String, objectIds newObjectIds: [String]) async -> Bool {
         let newObjectIdsSet = Set(newObjectIds)
         let objectIdsSet = Set(objectIds)
         guard objectIdsSet != newObjectIdsSet || !subscriptionStarted else { return false }
@@ -45,7 +45,7 @@ actor TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
             return true
         }
         
-        let subscriptionData = subscriptionDataBuilder.build(objectIds: objectIds)
+        let subscriptionData = subscriptionDataBuilder.build(spaceId: spaceId, objectIds: objectIds)
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData)
         return true
     }
