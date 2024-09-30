@@ -312,3 +312,8 @@ enum ClickUpgradePlanTooltipRoute: String {
 enum ChangeObjectTypeRoute: String {
     case featuredRelations = "FeaturedRelations"
 }
+
+enum ScreenSearchType: String {
+    case empty = "Empty"
+    case saved = "Saved"
+}
