@@ -20,19 +20,17 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     // MARK: - DI
     
     @Injected(\.objectTypeSubscriptionDataBuilder)
-    private var subscriptionBuilder: any ObjectTypeSubscriptionDataBuilderProtocol
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacessStorage: any WorkspacesStorageProtocol
+    private var subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol
     private var userDefaults: any UserDefaultsStorageProtocol
+    
+    private lazy var multispaceSubscriptionHelper = MultispaceSubscriptionHelper<ObjectType>(
+        subIdPrefix: Constants.subscriptionIdPrefix,
+        subscriptionBuilder: subscriptionBuilder
+    )
     
     // MARK: - Private variables
         
-    private var objectTypes = SynchronizedDictionary<String, [ObjectType]>()
     private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
-    private var subscriptionStorages = SynchronizedDictionary<String, any SubscriptionStorageProtocol>()
-    private var spacesSubscription: AnyCancellable?
     
     @Published private var defaultObjectTypes: [String: String] {
         didSet {
@@ -99,7 +97,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func objectTypes(spaceId: String) -> [ObjectType] {
-        return objectTypes[spaceId] ?? []
+        return multispaceSubscriptionHelper.data[spaceId] ?? []
     }
     
     func deletedObjectType(id: String) -> ObjectType {
@@ -123,28 +121,14 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func startSubscription() async {
-        // Start first subscription in current async context for guarantee data state before return
-        let spaceIds = await workspacessStorage.allWorkspaces.map { $0.targetSpaceId }
-        await updateSubscriptions(spaceIds: spaceIds)
-        
-        spacesSubscription = await workspacessStorage.allWorkspsacesPublisher
-            .map { $0.map { $0.targetSpaceId } }
-            .removeDuplicates()
-            .sink { [weak self] spaceIds in
-                Task {
-                    await self?.updateSubscriptions(spaceIds: spaceIds)
-                }
-            }
+        await multispaceSubscriptionHelper.startSubscription { [weak self] in
+            self?.updateAllCache()
+            self?.sync = ()
+        }
     }
     
     func stopSubscription() async {
-        spacesSubscription?.cancel()
-        spacesSubscription = nil
-        for subscriptionStorage in subscriptionStorages.values {
-            try? await subscriptionStorage.stopSubscription()
-        }
-        subscriptionStorages.removeAll()
-        objectTypes.removeAll()
+        await multispaceSubscriptionHelper.stopSubscription()
         updateAllCache()
     }
     
@@ -156,7 +140,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     private func updateSearchCache() {
         searchTypesById.removeAll()
-        let types = objectTypes.values.flatMap { $0 }
+        let types = multispaceSubscriptionHelper.data.values.flatMap { $0 }
         types.forEach {
             if searchTypesById[$0.id] != nil {
                 anytypeAssertionFailure("Dublicate object type found", info: ["id": $0.id])
@@ -175,24 +159,5 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             throw ObjectTypeError.objectTypeNotFound
         }
         return type
-    }
-    
-    private func updateStorage(data: SubscriptionStorageState, spaceId: String) {
-        objectTypes[spaceId] = data.items.map { ObjectType(details: $0) }
-        updateAllCache()
-        sync = ()
-    }
-    
-    private func updateSubscriptions(spaceIds: [String]) async {
-        for spaceId in spaceIds {
-            if subscriptionStorages[spaceId].isNil {
-                let subId = Constants.subscriptionIdPrefix + spaceId
-                let subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
-                subscriptionStorages[spaceId] = subscriptionStorage
-                try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionBuilder.build(spaceId: spaceId, subId: subId)) { [weak self] data in
-                    self?.updateStorage(data: data, spaceId: spaceId)
-                }
-            }
-        }
     }
 }

@@ -45,21 +45,37 @@ public struct RelationDetails: Hashable, Sendable {
     }
 }
 
-public extension RelationDetails {
+extension RelationDetails: DetailsModel {
     
-    init(objectDetails: ObjectDetails) {
-        self.id = objectDetails.id
-        self.key = objectDetails.relationKey
-        self.name = objectDetails.name
-        self.format = objectDetails.relationFormatValue
-        self.isHidden = objectDetails.isHidden
-        self.isReadOnly = objectDetails.isReadonly
-        self.isReadOnlyValue = objectDetails.relationReadonlyValue
-        self.objectTypes = objectDetails.relationFormatObjectTypes
-        self.maxCount = objectDetails.relationMaxCount ?? 0
-        self.sourceObject = objectDetails.sourceObject
-        self.isDeleted = objectDetails.isDeleted
-        self.spaceId = objectDetails.spaceId
+    public init(details: ObjectDetails) {
+        self.id = details.id
+        self.key = details.relationKey
+        self.name = details.name
+        self.format = details.relationFormatValue
+        self.isHidden = details.isHidden
+        self.isReadOnly = details.isReadonly
+        self.isReadOnlyValue = details.relationReadonlyValue
+        self.objectTypes = details.relationFormatObjectTypes
+        self.maxCount = details.relationMaxCount ?? 0
+        self.sourceObject = details.sourceObject
+        self.isDeleted = details.isDeleted
+        self.spaceId = details.spaceId
+    }
+    
+    public static var subscriptionKeys: [BundledRelationKey] {
+        return [
+            BundledRelationKey.id,
+            BundledRelationKey.relationKey,
+            BundledRelationKey.name,
+            BundledRelationKey.relationFormat,
+            BundledRelationKey.relationReadonlyValue,
+            BundledRelationKey.relationFormatObjectTypes,
+            BundledRelationKey.isHidden,
+            BundledRelationKey.isReadonly,
+            BundledRelationKey.relationMaxCount,
+            BundledRelationKey.sourceObject,
+            BundledRelationKey.spaceId
+        ]
     }
     
     var asCreateMiddleware: Google_Protobuf_Struct {

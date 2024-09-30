@@ -108,7 +108,7 @@ extension Container {
         self { TreeSubscriptionDataBuilder() }
     }
     
-    var objectTypeSubscriptionDataBuilder: Factory<any ObjectTypeSubscriptionDataBuilderProtocol> {
+    var objectTypeSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
         self { ObjectTypeSubscriptionDataBuilder() }
     }
     
@@ -160,7 +160,7 @@ extension Container {
         self { RelationDetailsStorage() }.singleton
     }
     
-    var relationSubscriptionDataBuilder: Factory<any RelationSubscriptionDataBuilderProtocol> {
+    var relationSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
         self { RelationSubscriptionDataBuilder() }
     }
     

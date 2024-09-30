@@ -1,13 +1,9 @@
 import Foundation
 import Services
 
-protocol ObjectTypeSubscriptionDataBuilderProtocol: AnyObject {
-    func build(spaceId: String, subId: String) -> SubscriptionData
-}
-
-final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilderProtocol {
+final class ObjectTypeSubscriptionDataBuilder: MultispaceSubscriptionDataBuilderProtocol {
     
-    // MARK: - ObjectTypeSubscriptionDataBuilderProtocol
+    // MARK: - MultispaceSubscriptionDataBuilderProtocol
     
     func build(spaceId: String, subId: String) -> SubscriptionData {
         let sort = SearchHelper.sort(
