@@ -80,7 +80,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
             return .space(.imageId(iconImage))
         }
         
-        return .space(.name(name: objectName, iconOption: iconOption ?? 0))
+        return .space(.name(name: objectName, iconOption: iconOption ?? 1))
     }
     
     private func fileIcon(fileMimeType: String, name: String) -> ObjectIcon {

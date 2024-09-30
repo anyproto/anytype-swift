@@ -146,6 +146,8 @@
 "Relations" = "Relações";
 "History" = "Histórico";
 "Objects" = "Objetos";
+"Pages" = "Pages";
+"Lists" = "Groups";
 "Bookmarks" = "Marca página";
 "Files" = "Arquivos";
 "Media" = "Mídias";
@@ -209,7 +211,7 @@
 "Favorites" = "Favoritos";
 "Recent" = "Recente";
 "Bin" = "Lixeira";
-"All content" = "Todos os conteúdos";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Plano de fundo";
@@ -693,6 +695,7 @@
 "New" = "Novo";
 "Blurred icon" = "Ícone\n Desfocado";
 "My First Space" = "Meu Primeiro Espaço";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Tem certeza de que deseja excluir seu cofre?";
@@ -1228,7 +1231,7 @@ forneça detalhes específicos das suas necessidades aqui.";
 "AllContent.Settings.Sort.Title" = "Ordenar por";
 "AllContent.Sort.DateUpdated" = "Atualização de data";
 "AllContent.Sort.DateCreated" = "Data Criada";
-"AllContent.Sort.Date.Asc" = "Mais antigos primeiro";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Mais recente primeiro";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

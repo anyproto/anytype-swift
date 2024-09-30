@@ -147,6 +147,8 @@
 "Relations" = "Prepojenia";
 "History" = "History";
 "Objects" = "Objekty";
+"Pages" = "Pages";
+"Lists" = "Lists";
 "Bookmarks" = "Bookmarks";
 "Files" = "Files";
 "Media" = "Médiá";
@@ -210,7 +212,7 @@
 "Favorites" = "Favorites";
 "Recent" = "Recent";
 "Bin" = "Bin";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -694,6 +696,7 @@
 "New" = "New";
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -1228,7 +1231,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

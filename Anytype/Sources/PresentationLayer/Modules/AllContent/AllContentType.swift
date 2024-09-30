@@ -27,7 +27,7 @@ enum AllContentType: String, CaseIterable {
         var layouts = [DetailsLayout]()
         switch self {
         case .pages:
-            layouts = DetailsLayout.pageLayouts
+            layouts = DetailsLayout.editorLayouts
         case .lists:
             layouts = DetailsLayout.setLayouts
         case .files:

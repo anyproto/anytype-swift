@@ -146,6 +146,8 @@
 "Relations" = "關聯";
 "History" = "歷史記錄";
 "Objects" = "物件";
+"Pages" = "Pages";
+"Lists" = "列表";
 "Bookmarks" = "Bookmarks";
 "Files" = "檔案";
 "Media" = "媒體";
@@ -209,7 +211,7 @@
 "Favorites" = "我的最愛";
 "Recent" = "最近";
 "Bin" = "垃圾桶";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "桌布";
@@ -694,6 +696,7 @@
 "New" = "新增";
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您確定要刪除您的帳戶嗎？";
@@ -1231,7 +1234,7 @@
 "AllContent.Settings.Sort.Title" = "排序方式";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

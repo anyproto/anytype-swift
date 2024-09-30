@@ -146,6 +146,8 @@
 "Relations" = "Verknüpfungen";
 "History" = "Verlauf";
 "Objects" = "Objekte";
+"Pages" = "Seiten";
+"Lists" = "Gruppen";
 "Bookmarks" = "Lesezeichen";
 "Files" = "Dateien";
 "Media" = "Medien";
@@ -164,7 +166,7 @@
 "Unpin" = "Loslösen";
 "Pin on top" = "Oben anheften";
 "File block subtitle" = "Datei im Originalzustand speichern";
-"Image block subtitle" = "Lade ein Bild hoch und bereichere die Seite";
+"Image block subtitle" = "Ein Bild hochladen und die Seite damit bereichern";
 "Video block subtitle" = "Video hochladen";
 "Bookmark block subtitle" = "Speichere deinen Link mit der Zusammenfassung";
 "Code block subtitle" = "Code-Snippet erfassen";
@@ -202,14 +204,14 @@
 "Okay" = "Okay";
 "Join" = "Beitreten";
 "Agreement Disclamer" = "Wenn Sie fortfahren, stimmen Sie den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@) zu";
-"Lets Go" = "Let’s Go";
+"Lets Go" = "Los geht’s";
 "My spaces" = "Meine Spaces";
 
 // Home
 "Favorites" = "Favoriten";
 "Recent" = "Kürzlich";
 "Bin" = "Papierkorb";
-"All content" = "Gesamter Inhalt";
+"All objects" = "Alle Objekte";
 
 // Settings
 "Wallpaper" = "Hintergrundbild";
@@ -693,6 +695,7 @@
 "New" = "Neu";
 "Blurred icon" = "Unscharfes\n Symbol";
 "My First Space" = "Mein erster Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
@@ -1036,9 +1039,9 @@
 "SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+"SpaceHub.Tip.Title3" = "Dynamische Hintergründe";
+"SpaceHub.Tip.Title2" = "Einfach & flexibel";
+"SpaceHub.Tip.Title1" = "Willkommen im Tresor";
 
 "SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
 "SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";

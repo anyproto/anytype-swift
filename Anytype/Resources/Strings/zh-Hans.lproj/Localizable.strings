@@ -146,6 +146,8 @@
 "Relations" = "关联";
 "History" = "历史记录";
 "Objects" = "对象";
+"Pages" = "Pages";
+"Lists" = "分组";
 "Bookmarks" = "Bookmarks";
 "Files" = "文件";
 "Media" = "媒体";
@@ -209,7 +211,7 @@
 "Favorites" = "收藏夹";
 "Recent" = "最近";
 "Bin" = "废纸篓";
-"All content" = "All content";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "壁纸";
@@ -694,6 +696,7 @@
 "New" = "新建";
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -1229,7 +1232,7 @@
 "AllContent.Settings.Sort.Title" = "排序方式";
 "AllContent.Sort.DateUpdated" = "Date updated";
 "AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

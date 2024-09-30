@@ -29,10 +29,6 @@ final class GlobalSearchViewModel: ObservableObject {
         self.restoreState()
     }
     
-    func onAppear() {
-        AnytypeAnalytics.instance().logScreenSearch()
-    }
-    
     func search() async {
         do {
             if needDelay() {
@@ -96,7 +92,7 @@ final class GlobalSearchViewModel: ObservableObject {
         )
         storeState()
         modeChanged = true
-        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId)
+        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId, type: .empty)
     }
     
     func clear() {
@@ -150,10 +146,16 @@ final class GlobalSearchViewModel: ObservableObject {
     
     private func restoreState() {
         let restoredState = globalSearchSavedStatesService.restoreState(for: moduleData.spaceId)
-        guard let restoredState else { return }
+        guard let restoredState else {
+            AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .empty)
+            return
+        }
         switch restoredState.mode {
         case .default:
             state = restoredState
+            if restoredState.searchText.isNotEmpty {
+                AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
+            }
         case .filtered(let data):
             Task {
                 let details = try await searchService.search(text: "", limitObjectIds: [data.id]).first
@@ -166,6 +168,7 @@ final class GlobalSearchViewModel: ObservableObject {
                         limitObjectIds: details.backlinks + details.links
                     ))
                 )
+                AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId, type: .saved)
             }
         }
     }

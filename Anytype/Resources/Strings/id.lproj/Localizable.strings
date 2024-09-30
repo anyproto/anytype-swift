@@ -146,6 +146,8 @@
 "Relations" = "Relasi";
 "History" = "History";
 "Objects" = "Objek";
+"Pages" = "Pages";
+"Lists" = "Grup";
 "Bookmarks" = "Markah";
 "Files" = "Berkas";
 "Media" = "Media";
@@ -209,7 +211,7 @@
 "Favorites" = "Favorit";
 "Recent" = "Baru-Baru Ini";
 "Bin" = "Bak Sampah";
-"All content" = "Semua konten";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Latar belakang";
@@ -693,6 +695,7 @@
 "New" = "Baru";
 "Blurred icon" = "Ikon\n buram";
 "My First Space" = "Ruang Pertamaku";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -1227,7 +1230,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Tanggal diperbarui";
 "AllContent.Sort.DateCreated" = "Tanggal dibuat";
-"AllContent.Sort.Date.Asc" = "Oldiest first";
+"AllContent.Sort.Date.Asc" = "Oldest first";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";

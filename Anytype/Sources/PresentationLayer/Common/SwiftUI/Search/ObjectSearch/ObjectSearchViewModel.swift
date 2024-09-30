@@ -18,7 +18,7 @@ final class ObjectSearchViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenSearch()
+        AnytypeAnalytics.instance().logScreenSearch(spaceId: data.spaceId, type: .empty)
     }
     
     func onSelect(searchData: ObjectSearchData) {
