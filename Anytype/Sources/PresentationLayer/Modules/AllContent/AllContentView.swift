@@ -34,7 +34,7 @@ struct AllContentView: View {
             model.onChangeSort()
         }
         .onChange(of: model.state.mode) { newValue in
-            AnytypeAnalytics.instance().logChangeLibraryTypeLink(type: newValue.analyticsValue)
+            model.onChangeMode()
         }
     }
     

@@ -119,6 +119,10 @@ final class AllContentViewModel: ObservableObject {
         )
     }
     
+    func onChangeMode() {
+        AnytypeAnalytics.instance().logChangeLibraryTypeLink(type: state.mode.analyticsValue)
+    }
+    
     private func setArchive(objectId: String) {
         AnytypeAnalytics.instance().logMoveToBin(true)
         Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
