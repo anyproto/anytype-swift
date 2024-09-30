@@ -91,6 +91,7 @@ final class SettingsViewModel: ObservableObject {
         
         await subscriptionService.startSubscription(
             subId: subAccountId,
+            spaceId: accountManager.account.info.techSpaceId,
             objectId: accountManager.account.info.profileObjectID
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)

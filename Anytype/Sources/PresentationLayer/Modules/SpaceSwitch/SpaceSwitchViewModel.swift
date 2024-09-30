@@ -73,6 +73,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     private func startProfileSubscriptions() async {
         await subscriptionService.startSubscription(
             subId: profileSubId,
+            spaceId: accountManager.account.info.techSpaceId,
             objectId: accountManager.account.info.profileObjectID
         ) { [weak self] details in
             self?.updateProfile(profile: details)
