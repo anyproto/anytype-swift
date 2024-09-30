@@ -27,6 +27,7 @@ struct JoinFlowView: View {
             view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {})
         }
         .fitIPadToReadableContentGuide()
+        .navigationBarHidden(true)
     }
     
     private func content(height: CGFloat) -> some View {
@@ -44,7 +45,6 @@ struct JoinFlowView: View {
             
             Spacer.fixedHeight(14)
         }
-        .navigationBarHidden(true)
         .background(TransparentBackground())
         .padding(.horizontal, 16)
     }
