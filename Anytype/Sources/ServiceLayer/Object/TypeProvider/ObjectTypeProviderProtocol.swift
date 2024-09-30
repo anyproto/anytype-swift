@@ -4,7 +4,6 @@ import Combine
 
 protocol ObjectTypeProviderProtocol: AnyObject {
 
-    var objectTypes: [ObjectType] { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
     
     func setDefaultObjectType(type: ObjectType, spaceId: String, route: AnalyticsDefaultObjectTypeChangeRoute)

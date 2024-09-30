@@ -108,6 +108,10 @@ extension Container {
         self { TreeSubscriptionDataBuilder() }
     }
     
+    var objectTypeSubscriptionDataBuilder: Factory<any ObjectTypeSubscriptionDataBuilderProtocol> {
+        self { ObjectTypeSubscriptionDataBuilder() }
+    }
+    
     var treeSubscriptionManager: Factory<any TreeSubscriptionManagerProtocol> {
         self { TreeSubscriptionManager() }
     }
