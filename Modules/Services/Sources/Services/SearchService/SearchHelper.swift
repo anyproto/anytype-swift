@@ -127,23 +127,6 @@ public class SearchHelper {
         return filter
     }
     
-    public static func sharedObjectsFilters() -> [DataviewFilter] {
-        var spaceFilter = DataviewFilter()
-        spaceFilter.condition = .notEmpty
-        spaceFilter.value = nil
-        spaceFilter.relationKey = BundledRelationKey.spaceId.rawValue
-   
-        var highlightedFilter = DataviewFilter()
-        highlightedFilter.condition = .equal
-        highlightedFilter.value = true
-        highlightedFilter.relationKey = BundledRelationKey.isHighlighted.rawValue
-        
-        return [
-            spaceFilter,
-            highlightedFilter
-        ]
-    }
-    
     public static func excludedIdsFilter(_ ids: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
