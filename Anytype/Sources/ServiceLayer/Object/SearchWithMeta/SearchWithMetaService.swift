@@ -41,8 +41,8 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol {
             type: .desc
         )
         
-        let filters = SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: layouts)
+        let filters = SearchFiltersBuilder.build(isArchived: false, layouts: layouts)
         
-        return try await searchWithMetaMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
+        return try await searchWithMetaMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
 }

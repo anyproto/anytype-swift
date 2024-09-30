@@ -174,24 +174,13 @@ public class SearchHelper {
         return filter
     }
 
-    public static func templatesFilters(type: String, spaceId spaceIdValue: String) -> [DataviewFilter] {
+    public static func templatesFilters(type: String) -> [DataviewFilter] {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
             templateScheme(include: true),
-            templateTypeFilter(type: type),
-            spaceId(spaceIdValue)
+            templateTypeFilter(type: type)
         ]
-    }
-    
-    public static func spaceId(_ spaceId: String) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = spaceId.protobufValue
-        
-        filter.relationKey = BundledRelationKey.spaceId.rawValue
-        
-        return filter
     }
     
     public static func objectsIds(_ objectsIds: [String]) -> DataviewFilter {
@@ -210,16 +199,6 @@ public class SearchHelper {
         filter.value = identityId.protobufValue
         
         filter.relationKey = BundledRelationKey.identityProfileLink.rawValue
-        
-        return filter
-    }
-    
-    public static func spaceIds(_ spaceIds: [String]) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .in
-        filter.value = spaceIds.protobufValue
-        
-        filter.relationKey = BundledRelationKey.spaceId.rawValue
         
         return filter
     }

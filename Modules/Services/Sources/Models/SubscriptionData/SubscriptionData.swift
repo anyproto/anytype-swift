@@ -7,6 +7,7 @@ extension SubscriptionData {
 
     public struct Search: Equatable, Sendable {
         public let identifier: String
+        public let spaceId: String
         public let sorts: [DataviewSort]
         public let filters: [DataviewFilter]
         public let limit: Int
@@ -21,6 +22,7 @@ extension SubscriptionData {
 
         public init(
             identifier: String,
+            spaceId: String,
             sorts: [DataviewSort] = [],
             filters: [DataviewFilter],
             limit: Int,
@@ -34,6 +36,7 @@ extension SubscriptionData {
             collectionId: String? = nil
         ) {
             self.identifier = identifier
+            self.spaceId = spaceId
             self.sorts = sorts
             self.filters = filters
             self.limit = limit
@@ -51,17 +54,20 @@ extension SubscriptionData {
     public struct Object: Equatable, Sendable {
 
         public let identifier: String
+        public let spaceId: String
         public let objectIds: [String]
         public let keys: [String]
         public let ignoreWorkspace: String?
 
         public init(
             identifier: String,
+            spaceId: String,
             objectIds: [String],
             keys: [String],
             ignoreWorkspace: String? = nil
         ) {
             self.identifier = identifier
+            self.spaceId = spaceId
             self.objectIds = objectIds
             self.keys = keys
             self.ignoreWorkspace = ignoreWorkspace

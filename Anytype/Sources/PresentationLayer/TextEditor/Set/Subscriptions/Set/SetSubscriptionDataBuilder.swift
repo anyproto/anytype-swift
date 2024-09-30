@@ -25,17 +25,12 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         
         let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
         
-        let defaultFilters = [
-            SearchHelper.spaceId(data.spaceId)
-        ]
-        
-        let filters = data.filters + defaultFilters
-        
         return .search(
             SubscriptionData.Search(
                 identifier: data.identifier,
+                spaceId: data.spaceId,
                 sorts: data.sorts,
-                filters: filters,
+                filters: data.filters,
                 limit: numberOfRowsPerPageInSubscriptions,
                 offset: offset,
                 keys: keys,

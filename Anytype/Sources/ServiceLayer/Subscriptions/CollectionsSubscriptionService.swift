@@ -44,13 +44,13 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.spaceId(spaceId)
             SearchHelper.layoutFilter([DetailsLayout.collection])
         }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,

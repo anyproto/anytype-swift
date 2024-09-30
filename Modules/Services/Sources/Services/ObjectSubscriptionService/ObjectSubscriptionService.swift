@@ -11,6 +11,7 @@ final class ObjectSubscriptionService: ObjectSubscriptionServiceProtocol {
     public func objectSubscribe(data: SubscriptionData.Object) async throws -> ObjectSubscriptionResponse {
         let result = try await ClientCommands.objectSubscribeIds(.with {
             $0.subID = data.identifier
+            $0.spaceID = data.spaceId
             $0.ids = data.objectIds
             $0.keys = data.keys
             $0.ignoreWorkspace = data.ignoreWorkspace ?? ""
@@ -27,6 +28,7 @@ final class ObjectSubscriptionService: ObjectSubscriptionServiceProtocol {
     public func objectSearchSubscribe(data: SubscriptionData.Search) async throws -> ObjectSubscriptionResponse {
         let result = try await ClientCommands.objectSearchSubscribe(.with {
             $0.subID = data.identifier
+            $0.spaceID = data.spaceId
             $0.filters = data.filters
             $0.sorts = data.sorts.map { $0.fixIncludeTime() }
             $0.limit = Int64(data.limit)
