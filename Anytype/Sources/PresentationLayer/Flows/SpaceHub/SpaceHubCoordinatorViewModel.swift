@@ -31,8 +31,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         return workspaceStorage.workspaceInfo(spaceId: currentSpaceId)
     }
     
-    var fallbackSpaceId: String {
-        userDefaults.lastOpenedScreen?.spaceId ?? accountManager.account.info.accountSpaceId
+    var fallbackSpaceId: String? {
+        userDefaults.lastOpenedScreen?.spaceId ?? participantSpacesStorage.activeParticipantSpaces.first?.id
     }
     
     @Published var pathChanging: Bool = false
@@ -83,6 +83,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.loginStateService)
     private var loginStateService: any LoginStateServiceProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
     private var preveouslyOpenedSpaceId: String?
@@ -252,7 +254,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            sharingSpaceId = fallbackSpaceId.identifiable
+            sharingSpaceId = fallbackSpaceId?.identifiable
         case .spaceSelection:
             showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
         case let .galleryImport(type, source):
@@ -274,8 +276,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
 
     // MARK: - Object creation
     private func createAndShowNewObject(
-            typeId: String,
-            route: AnalyticsEventsRouteKind
+        typeId: String,
+        route: AnalyticsEventsRouteKind
     ) {
         do {
             let type = try typeProvider.objectType(id: typeId)
@@ -287,9 +289,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     private func createAndShowNewObject(
-            type: ObjectType,
-            route: AnalyticsEventsRouteKind
+        type: ObjectType,
+        route: AnalyticsEventsRouteKind
     ) {
+        guard let fallbackSpaceId else { return }
+        
         Task {
             let details = try await objectActionsService.createObject(
                 name: "",
@@ -306,9 +310,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             openObject(screenData: details.editorScreenData())
         }
     }
-
-
-     private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
+    
+    
+    private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
+        guard let fallbackSpaceId else { return }
+        
         Task {
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: fallbackSpaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
