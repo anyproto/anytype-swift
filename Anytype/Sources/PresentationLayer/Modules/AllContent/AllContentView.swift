@@ -147,7 +147,7 @@ struct AllContentView: View {
             AnytypeText(subtitle, style: .uxCalloutRegular)
                 .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
-            AnytypeNavigationSpacer(minHeight: 130)
+            Spacer.fixedHeight(80)
             Spacer()
         }
         .padding(.horizontal, 16)
