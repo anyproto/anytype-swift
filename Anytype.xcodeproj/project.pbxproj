@@ -716,7 +716,7 @@
 		2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */; };
 		2ABAAE322BC9608500603DDA /* BlockText+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAAE312BC9608500603DDA /* BlockText+Style.swift */; };
 		2ABAF2C1293DED8C003C4730 /* CreateObjectModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2C0293DED8C003C4730 /* CreateObjectModuleAssembly.swift */; };
-		2ABBAEC82BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEC72BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift */; };
+		2ABBAEC82BF4CF1F00EBA8FA /* ObjectIconCornerRadiusModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEC72BF4CF1F00EBA8FA /* ObjectIconCornerRadiusModifier.swift */; };
 		2ABBAECB2BF4EB6900EBA8FA /* WidgetObjectListBinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAECA2BF4EB6900EBA8FA /* WidgetObjectListBinView.swift */; };
 		2ABBAECF2BF4ED7200EBA8FA /* WidgetObjectListFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAECE2BF4ED7200EBA8FA /* WidgetObjectListFavoritesView.swift */; };
 		2ABBAED22BF4EDF500EBA8FA /* WidgetObjectListRecentEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAED12BF4EDF500EBA8FA /* WidgetObjectListRecentEditView.swift */; };
@@ -935,6 +935,8 @@
 		2E101CB92B98EFB500D03821 /* TextRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E101CB82B98EFB500D03821 /* TextRelationEditingViewModel.swift */; };
 		2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */; };
 		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
+		2E195C702CAC387500709FB6 /* EmptyObjectIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E195C6F2CAC386A00709FB6 /* EmptyObjectIconView.swift */; };
+		2E195C732CAC40D800709FB6 /* ObjectIconBackgroundColorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E195C722CAC40C300709FB6 /* ObjectIconBackgroundColorModifier.swift */; };
 		2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */; };
 		2E1AA8002BCFFC9B0089B136 /* VaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA7FF2BCFFC9B0089B136 /* VaultView.swift */; };
 		2E1AA8022BCFFCA50089B136 /* VaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8012BCFFCA50089B136 /* VaultViewModel.swift */; };
@@ -2588,7 +2590,7 @@
 		2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockObjectsSearchInteractor.swift; sourceTree = "<group>"; };
 		2ABAAE312BC9608500603DDA /* BlockText+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockText+Style.swift"; sourceTree = "<group>"; };
 		2ABAF2C0293DED8C003C4730 /* CreateObjectModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectModuleAssembly.swift; sourceTree = "<group>"; };
-		2ABBAEC72BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceIconCornerRadiusModifier.swift; sourceTree = "<group>"; };
+		2ABBAEC72BF4CF1F00EBA8FA /* ObjectIconCornerRadiusModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconCornerRadiusModifier.swift; sourceTree = "<group>"; };
 		2ABBAECA2BF4EB6900EBA8FA /* WidgetObjectListBinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListBinView.swift; sourceTree = "<group>"; };
 		2ABBAECE2BF4ED7200EBA8FA /* WidgetObjectListFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFavoritesView.swift; sourceTree = "<group>"; };
 		2ABBAED12BF4EDF500EBA8FA /* WidgetObjectListRecentEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRecentEditView.swift; sourceTree = "<group>"; };
@@ -2818,6 +2820,8 @@
 		2E101CB82B98EFB500D03821 /* TextRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingViewModel.swift; sourceTree = "<group>"; };
 		2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsViewModel.swift; sourceTree = "<group>"; };
 		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
+		2E195C6F2CAC386A00709FB6 /* EmptyObjectIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyObjectIconView.swift; sourceTree = "<group>"; };
+		2E195C722CAC40C300709FB6 /* ObjectIconBackgroundColorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconBackgroundColorModifier.swift; sourceTree = "<group>"; };
 		2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsData.swift; sourceTree = "<group>"; };
 		2E1AA7FF2BCFFC9B0089B136 /* VaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultView.swift; sourceTree = "<group>"; };
 		2E1AA8012BCFFCA50089B136 /* VaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultViewModel.swift; sourceTree = "<group>"; };
@@ -6051,7 +6055,9 @@
 		2A5025192BC028C400A141B8 /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				2ABBAEC62BF4CF0900EBA8FA /* SpaceIconView */,
+				2E195C712CAC3AA000709FB6 /* Modifiers */,
+				2E195C6F2CAC386A00709FB6 /* EmptyObjectIconView.swift */,
+				2A5025132BC01E8400A141B8 /* SpaceIconView.swift */,
 				2A5025082BBFF2D400A141B8 /* ProfileIconView.swift */,
 				2A5025112BC01C6400A141B8 /* EmojiIconView.swift */,
 				2A5025172BC026BC00A141B8 /* BookmarkIconView.swift */,
@@ -6864,15 +6870,6 @@
 			path = CodeLanguage;
 			sourceTree = "<group>";
 		};
-		2ABBAEC62BF4CF0900EBA8FA /* SpaceIconView */ = {
-			isa = PBXGroup;
-			children = (
-				2A5025132BC01E8400A141B8 /* SpaceIconView.swift */,
-				2ABBAEC72BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift */,
-			);
-			path = SpaceIconView;
-			sourceTree = "<group>";
-		};
 		2ABBAEC92BF4EB5900EBA8FA /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -7619,6 +7616,15 @@
 				2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		2E195C712CAC3AA000709FB6 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				2E195C722CAC40C300709FB6 /* ObjectIconBackgroundColorModifier.swift */,
+				2ABBAEC72BF4CF1F00EBA8FA /* ObjectIconCornerRadiusModifier.swift */,
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 		2E1AA7FE2BCFFC7E0089B136 /* VaultView */ = {
@@ -11468,6 +11474,7 @@
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				2A6693792A7104EA007747DD /* ObjectIconImageUsecase+Font.swift in Sources */,
+				2E195C702CAC387500709FB6 /* EmptyObjectIconView.swift in Sources */,
 				2AD48D522B7F57B80077C53B /* SpaceJoinView.swift in Sources */,
 				3D052AED2BF7881900F611F6 /* FileLimitsStorageMock.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
@@ -12665,7 +12672,7 @@
 				53FF7C5026F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift in Sources */,
 				2A2872312B4D8B8E007B3D59 /* GalleryInstallationPreviewView.swift in Sources */,
 				2ADA60EB2A681A7E0044164D /* IconViewUIKit.swift in Sources */,
-				2ABBAEC82BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift in Sources */,
+				2ABBAEC82BF4CF1F00EBA8FA /* ObjectIconCornerRadiusModifier.swift in Sources */,
 				3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */,
 				2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */,
 				2E2D23E22BE8F11F005AC828 /* SetSortTypesListView.swift in Sources */,
@@ -12695,6 +12702,7 @@
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
 				2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */,
 				3D24913427BD271900821595 /* LocalEvent.swift in Sources */,
+				2E195C732CAC40D800709FB6 /* ObjectIconBackgroundColorModifier.swift in Sources */,
 				127240D72846249600C6F8E2 /* LegacySearchViewState.swift in Sources */,
 				2A298E3D2BC83FC100F1194C /* UniversalLinkParser.swift in Sources */,
 				2E6527632B5EBD9300F27126 /* SelectRelationListView.swift in Sources */,

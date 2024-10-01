@@ -4,7 +4,7 @@ import Services
 
 struct MessageLinkObjectView: View {
 
-    let icon: Icon?
+    let icon: Icon
     let title: String
     let description: String
     let style: MessageLinkObjectViewStyle
@@ -12,10 +12,9 @@ struct MessageLinkObjectView: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            if let icon {
-                IconView(icon: icon)
-                    .frame(width: 48, height: 48)
-            }
+            IconView(icon: icon)
+                .frame(width: 48, height: 48)
+            
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .anytypeStyle(.previewTitle2Medium)

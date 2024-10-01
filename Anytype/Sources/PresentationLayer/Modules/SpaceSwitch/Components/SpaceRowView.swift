@@ -4,7 +4,7 @@ import SwiftUI
 struct SpaceRowModel: Identifiable {
     let id: String
     let title: String
-    let icon: Icon?
+    let icon: Icon
     let isSelected: Bool
     let shared: Bool
     let onTap: () -> Void

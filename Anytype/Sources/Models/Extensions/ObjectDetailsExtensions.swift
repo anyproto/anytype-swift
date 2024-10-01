@@ -27,12 +27,8 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    var objectIconImage: Icon? {
-        return objectIcon.map { .object($0) }
-    }
-    
-    var objectIconImageWithPlaceholder: Icon {
-        return objectIconImage ?? .object(.placeholder(title))
+    var objectIconImage: Icon {
+        return objectIcon.map { .object($0) } ?? .object(.empty(isList: isList))
     }
     
     var objectType: ObjectType {

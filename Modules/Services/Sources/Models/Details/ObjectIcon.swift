@@ -10,6 +10,7 @@ public enum ObjectIcon: Hashable, Sendable {
     case placeholder(_ name: String)
     case file(mimeType: String, name: String)
     case deleted
+    case empty(isList: Bool)
 }
 
 // MARK: - ProfileIcon

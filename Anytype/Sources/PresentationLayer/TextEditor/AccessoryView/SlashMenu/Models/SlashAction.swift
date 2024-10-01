@@ -54,7 +54,7 @@ enum SlashAction {
             case .objectType(let objectType):
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: objectType.objectIconImageWithPlaceholder,
+                        iconData: objectType.objectIconImage,
                         title: objectType.name,
                         subtitle: objectType.description
                     )

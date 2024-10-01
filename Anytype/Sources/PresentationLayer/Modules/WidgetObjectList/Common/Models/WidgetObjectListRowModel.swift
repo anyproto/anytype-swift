@@ -2,7 +2,7 @@ import Foundation
 
 struct WidgetObjectListRowModel: Identifiable {
     let objectId: String
-    let icon: Icon?
+    let icon: Icon
     let title: String
     let description: String?
     let subtitle: String?
