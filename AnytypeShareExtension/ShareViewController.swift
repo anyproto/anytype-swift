@@ -46,20 +46,17 @@ class ShareViewController: SLComposeServiceViewController {
     
     private func openMainApp() {
         guard let url = deepLinkParser.createUrl(deepLink: .showSharingExtension, scheme: .buildSpecific) else { return }
-        _ = openURL(url)
+        openURL(url)
     }
     
-    // Courtesy: https://stackoverflow.com/a/44499222/13363449 👇🏾
-    // Function must be named exactly like this so a selector can be found by the compiler!
-    // Anyway - it's another selector in another instance that would be "performed" instead.
-    @objc private func openURL(_ url: URL) -> Bool {
+    private func openURL(_ url: URL) {
         var responder: UIResponder? = self
         while responder != nil {
             if let application = responder as? UIApplication {
-                return application.perform(#selector(openURL(_:)), with: url) != nil
+                application.open(url)
+                return
             }
             responder = responder?.next
         }
-        return false
     }
 }
