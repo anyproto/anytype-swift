@@ -155,13 +155,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         case .textColor, .backgroundColor:
             // Doesn't support
             break
-        case .link(let uRL):
-            // TODO: Implement it
-            print("link doesn't implemented")
-        case .linkToObject(let string):
-            // TODO: Implement it
-            print("linkToObject doesn't implemented")
-        case .mention, .emoji:
+        case .mention, .emoji, .link, .linkToObject:
             // Doesn't support in markdownListener
             break
         }
@@ -171,7 +165,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
     func textView(_ textView: UITextView, editMenuForTextIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
         guard range.length > 0 else { return nil }
     
-        let discussionMenuKeys = NSAttributedString.Key.discussionMenuKeys
+        let discussionMenuKeys = NSAttributedString.Key.discussionToggleMenuKeys
         let menuItems = discussionMenuKeys.compactMap { makeMenuAction(textView, editMenuForTextIn: range, attributed: $0) }
         return UIMenu(children: menuItems + suggestedActions)
     }
@@ -234,10 +228,10 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
     }
     
     private func makeMenuAction(_ textView: UITextView, editMenuForTextIn range: NSRange, attributed: NSAttributedString.Key) -> UIMenuElement? {
-        guard let info = attributed.discussionMenuItemInfo() else { return nil }
+        guard let info = attributed.discussionToggleMenuItemInfo() else { return nil }
         
         let containsNoStyle = textView.attributedText.containsNilAttribute(attributed, in: range)
-        return UIAction(title: containsNoStyle ? info.markText : info.unmarkText) { [weak self] _ in
+        return UIAction(image: UIImage(asset: info.icon)) { [weak self] _ in
             _ = self?.addStyle(
                 textView: textView,
                 type: info.markupType,
