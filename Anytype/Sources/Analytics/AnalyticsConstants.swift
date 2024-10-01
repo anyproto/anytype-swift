@@ -40,6 +40,7 @@ enum AnalyticsEventsPropertiesKey {
     static let context = "context"
     static let color = "color"
     static let name = "name"
+    static let sort = "sort"
     
     static let middleTime = "middleTime"
     static let permissions = "permissions"
@@ -316,4 +317,8 @@ enum ChangeObjectTypeRoute: String {
 enum ScreenSearchType: String {
     case empty = "Empty"
     case saved = "Saved"
+}
+
+enum SearchInputRoute: String {
+    case library = "Library"
 }

@@ -24,11 +24,17 @@ struct AllContentView: View {
         .task(id: model.searchText) {
             await model.search()
         }
+        .onAppear() {
+            model.onAppear()
+        }
         .onDisappear() {
             model.onDisappear()
         }
         .onChange(of: model.state.sort) { newValue in
-            model.storeSort()
+            model.onChangeSort()
+        }
+        .onChange(of: model.state.mode) { newValue in
+            model.onChangeMode()
         }
     }
     

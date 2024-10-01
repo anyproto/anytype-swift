@@ -39,4 +39,19 @@ enum AllContentType: String, CaseIterable {
         }
         return layouts - [.participant]
     }
+    
+    var analyticsValue: String {
+        switch self {
+        case .pages:
+            "Pages"
+        case .lists:
+            "Lists"
+        case .files:
+            "Files"
+        case .media:
+            "Media"
+        case .bookmarks:
+            "Bookmarks"
+        }
+    }
 }

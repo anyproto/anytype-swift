@@ -17,5 +17,8 @@ struct WidgetObjectListBinView: View {
     
     var body: some View {
         WidgetObjectListView(model: model)
+            .onAppear {
+                AnytypeAnalytics.instance().logScreenBin()
+            }
     }
 }

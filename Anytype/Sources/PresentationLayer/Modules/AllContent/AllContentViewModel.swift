@@ -42,6 +42,10 @@ final class AllContentViewModel: ObservableObject {
         self.restoreSort()
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenLibrary()
+    }
+    
     func startParticipantTask() async {
         for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
             participantCanEdit = participant.canEdit
@@ -80,10 +84,13 @@ final class AllContentViewModel: ObservableObject {
         } catch {
             state.limitedObjectsIds = nil
         }
+        
+        AnytypeAnalytics.instance().logSearchInput(spaceId: spaceId, route: .library)
     }
     
     func typeChanged(_ type: AllContentType) {
         state.type = type
+        AnytypeAnalytics.instance().logChangeLibraryType(type: type.analyticsValue)
     }
     
     func binTapped() {
@@ -102,6 +109,18 @@ final class AllContentViewModel: ObservableObject {
     
     func onDelete(objectId: String) {
         setArchive(objectId: objectId)
+    }
+    
+    func onChangeSort() {
+        storeSort()
+        AnytypeAnalytics.instance().logChangeLibrarySort(
+            type: state.sort.relation.analyticsValue,
+            sort: state.sort.type.analyticValue
+        )
+    }
+    
+    func onChangeMode() {
+        AnytypeAnalytics.instance().logChangeLibraryTypeLink(type: state.mode.analyticsValue)
     }
     
     private func setArchive(objectId: String) {
@@ -147,6 +166,7 @@ final class AllContentViewModel: ObservableObject {
                     menu: [],
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: details.editorScreenData())
+                        AnytypeAnalytics.instance().logLibraryResult()
                     },
                     onCheckboxTap: nil
                 )
@@ -167,7 +187,7 @@ final class AllContentViewModel: ObservableObject {
     
     // MARK: - Save states
     
-    func storeSort() {
+    private func storeSort() {
         allContentStateStorageService.storeSort(state.sort, spaceId: spaceId)
     }
     
