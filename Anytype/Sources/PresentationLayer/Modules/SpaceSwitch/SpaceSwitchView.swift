@@ -11,7 +11,6 @@ struct SpaceSwitchView: View {
     @StateObject private var model: SpaceSwitchViewModel
     @Environment(\.dismiss) private var dismiss
     
-    @State private var headerSize: CGSize = .zero
     @State private var size: CGSize = .zero
     
     init(data: SpaceSwitchModuleData, output: (any SpaceSwitchModuleOutput)?) {
@@ -43,12 +42,8 @@ struct SpaceSwitchView: View {
     private var contentContainer: some View {
         ZStack(alignment: .top) {
             ScrollViewReader { reader in
-                VerticalScrollViewWithOverlayHeader {
-                    Color.clear
-                        .frame(height: headerSize.height)
-                        .background(Color.ModalScreen.backgroundWithBlur)
-                        .background(.ultraThinMaterial)
-                } content: {
+                ScrollView {
+                    Spacer.fixedHeight(20)
                     content
                 }
                 .scrollIndicators(.never)
@@ -56,10 +51,7 @@ struct SpaceSwitchView: View {
                     reader.scrollTo(rowId)
                 }
             }
-            header
-                .readSize { size in
-                    headerSize = size
-                }
+            Spacer.fixedHeight(0)
         }
         .background(Color.ModalScreen.backgroundWithBlur)
         .background(.ultraThinMaterial)
@@ -81,7 +73,7 @@ struct SpaceSwitchView: View {
         }
         .anytypeSheet(item: $model.spaceViewStopSharing) { space in
             StopSharingAlert(spaceId: space.targetSpaceId)
-         }
+        }
     }
     
     private var content: some View {
@@ -90,33 +82,11 @@ struct SpaceSwitchView: View {
                 SpaceRowView(model: row)
                     .id(row.id)
             }
-            if model.createSpaceAvailable {
-                SpacePlusRow() {
-                    model.onAddSpaceTap()
-                }
+            SpacePlusRow() {
+                model.onAddSpaceTap()
             }
         }
-        .padding([.top], headerSize.height + 6)
-    }
-
-    private var header: some View {
-        HStack(spacing: 0) {
-            IconView(icon: model.profileIcon)
-                .frame(width: 32, height: 32)
-            Spacer.fixedWidth(12)
-            AnytypeText(model.profileName, style: .heading)
-                .foregroundColor(.Text.white)
-                .lineLimit(1)
-            Spacer()
-            Image(asset: .NavigationBase.settings)
-                .foregroundColor(.Button.white)
-        }
-        .frame(height: 68)
-        .fixTappableArea()
-        .onTapGesture {
-            model.onProfileTap()
-        }
-        .padding(.horizontal, Constants.minExternalSpacing)
+        .padding([.top], 6)
     }
     
     private func calculateCountItems(itemSize: CGFloat, spacing: CGFloat, freeWidth: CGFloat) -> Int {
