@@ -2,14 +2,13 @@ import Foundation
 import Services
 
 struct DiscussionMenuItemInfo {
-    let markText: String
-    let unmarkText: String
+    let icon: ImageAsset
     let markupType: MarkupType
 }
 
 extension NSAttributedString.Key {
     
-    static let discussionMenuKeys: [NSAttributedString.Key] = [
+    static let discussionToggleMenuKeys: [NSAttributedString.Key] = [
         .discussionBold,
         .discussionItalic,
         .discussionKeyboard,
@@ -17,19 +16,18 @@ extension NSAttributedString.Key {
         .discussionUnderscored
     ]
     
-    // TODO: Temporary text - replace to filnal text or icons
-    func discussionMenuItemInfo() -> DiscussionMenuItemInfo? {
+    func discussionToggleMenuItemInfo() -> DiscussionMenuItemInfo? {
         switch self {
         case .discussionBold:
-            return DiscussionMenuItemInfo(markText: "Bold", unmarkText: "R Bold", markupType: .bold)
+            return DiscussionMenuItemInfo(icon: .TextStyles.bold, markupType: .bold)
         case .discussionItalic:
-            return DiscussionMenuItemInfo(markText: "Italic", unmarkText: "R Italic", markupType: .italic)
+            return DiscussionMenuItemInfo(icon: .TextStyles.italic, markupType: .italic)
         case .discussionKeyboard:
-            return DiscussionMenuItemInfo(markText: "Keyboard", unmarkText: "R Keyboard", markupType: .keyboard)
+            return DiscussionMenuItemInfo(icon: .TextStyles.code, markupType: .keyboard)
         case .discussionStrikethrough:
-            return DiscussionMenuItemInfo(markText: "Strikethrough", unmarkText: "R Strikethrough", markupType: .strikethrough)
+            return DiscussionMenuItemInfo(icon: .TextStyles.strikethrough, markupType: .strikethrough)
         case .discussionUnderscored:
-            return DiscussionMenuItemInfo(markText: "Underscored", unmarkText: "R Underscored", markupType: .underscored)
+            return DiscussionMenuItemInfo(icon: .TextStyles.underline, markupType: .underscored)
         default:
             return nil
         }
