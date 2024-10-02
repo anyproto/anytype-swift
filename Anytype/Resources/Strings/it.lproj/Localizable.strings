@@ -1237,3 +1237,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "AllContent.Settings.Unlinked.Title" = "Solo non collegati";
 "AllContent.Settings.Unlinked.Description" = "Oggetti non collegati che non hanno un collegamento diretto o un backlink con altri oggetti nel grafo.";
 "AllContent.Settings.ViewBin" = "Visualizza Cestino";
+"AllContent.Empty.State.title" = "It’s empty here.";
+"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";

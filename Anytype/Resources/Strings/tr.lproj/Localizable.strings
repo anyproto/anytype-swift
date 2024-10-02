@@ -1239,3 +1239,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "AllContent.Settings.Unlinked.Title" = "Sadece bağlantısız";
 "AllContent.Settings.Unlinked.Description" = "Grafikteki diğer nesnelerle doğrudan bağlantısı veya geri bağlantısı olmayan bağlantısız nesneler.";
 "AllContent.Settings.ViewBin" = "Geri Dönüşüm Kutusunu Görüntüle";
+"AllContent.Empty.State.title" = "Burası boş.";
+"AllContent.Empty.State.subtitle" = "Başlamak için ilk nesnelerinizi oluşturun.";
+"AllContent.Search.Empty.State.title" = "Hiçbir sonuç bulunamadı.";
+"AllContent.Search.Empty.State.subtitle" = "Farklı anahtar kelimelerle aramayı deneyin.";

@@ -1239,3 +1239,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Unlinked.Title" = "Nur unverlinkte";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "Papierkorb ansehen";
+"AllContent.Empty.State.title" = "Hier ist es leer.";
+"AllContent.Empty.State.subtitle" = "Erstelle deine ersten Objekte, um loszulegen.";
+"AllContent.Search.Empty.State.title" = "Keine Ergebnisse gefunden.";
+"AllContent.Search.Empty.State.subtitle" = "Versuche mit anderen Schlüsselwörtern zu suchen.";
