@@ -179,6 +179,37 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         message = newMessage
     }
     
+    func onTapLinkTo(range: NSRange) {
+        let currentLinkToURL = message.attribute(.discussionLinkToURL, at: range.location, effectiveRange: nil) as? URL
+        let currentLinkToObject = message.attribute(.discussionLinkToObject, at: range.location, effectiveRange: nil) as? String
+        let data = LinkToObjectSearchModuleData(
+            spaceId: spaceId,
+            currentLinkUrl: currentLinkToURL,
+            currentLinkString: currentLinkToObject,
+            setLinkToObject: { [weak self] in
+                guard let self else { return }
+                let newMessage = NSMutableAttributedString(attributedString: message)
+                newMessage.addAttribute(.discussionLinkToObject, value: $0, range: range)
+                message = newMessage
+            },
+            setLinkToUrl: { [weak self] in
+                guard let self else { return }
+                let newMessage = NSMutableAttributedString(attributedString: message)
+                newMessage.addAttribute(.discussionLinkToURL, value: $0, range: range)
+                message = newMessage
+            },
+            removeLink: { [weak self] in
+                guard let self else { return }
+                let newMessage = NSMutableAttributedString(attributedString: message)
+                newMessage.removeAttribute(.discussionLinkToURL, range: range)
+                newMessage.removeAttribute(.discussionLinkToObject, range: range)
+                message = newMessage
+            },
+            willShowNextScreen: nil
+        )
+        output?.didSelectLinkToObject(data: data)
+    }
+    
     // MARK: - Private
     
     private func updateMessages() {

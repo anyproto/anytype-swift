@@ -7,4 +7,5 @@ protocol DiscussionModuleOutput: AnyObject {
     func onSyncStatusSelected()
     func onSettingsSelected()
     func onIconSelected()
+    func didSelectLinkToObject(data: LinkToObjectSearchModuleData)
 }

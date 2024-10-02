@@ -15,6 +15,7 @@ struct DiscussionTextView: UIViewRepresentable {
     @Binding var mention: DiscussionTextMention
     let minHeight: CGFloat
     let maxHeight: CGFloat
+    let linkTo: (_ range: NSRange) -> Void
     
     @State private var height: CGFloat = 0
     
@@ -54,6 +55,8 @@ struct DiscussionTextView: UIViewRepresentable {
     }
     
     func updateUIView(_ textView: UITextView, context: Context) {
+        context.coordinator.linkTo = linkTo
+        
         if editing {
             if !textView.isFirstResponder {
                 Task { @MainActor in // Async for fix "AttributeGraph: cycle detected through attribute"
@@ -84,6 +87,7 @@ struct DiscussionTextView: UIViewRepresentable {
         editing: .constant(false),
         mention: .constant(.finish),
         minHeight: 54,
-        maxHeight: 212
+        maxHeight: 212,
+        linkTo: { _ in }
     )
 }

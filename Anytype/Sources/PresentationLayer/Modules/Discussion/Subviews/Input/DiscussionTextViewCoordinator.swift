@@ -20,6 +20,8 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
     private let anytypeFont: AnytypeFont
     private let anytypeCodeFont: AnytypeFont
     
+    var linkTo: ((_ range: NSRange) -> Void)?
+    
     // MARK: - State
     private var mode: Mode = .text
     private var triggerSymbolPosition: UITextPosition?
@@ -167,7 +169,12 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
     
         let discussionMenuKeys = NSAttributedString.Key.discussionToggleMenuKeys
         let menuItems = discussionMenuKeys.compactMap { makeMenuAction(textView, editMenuForTextIn: range, attributed: $0) }
-        return UIMenu(children: menuItems + suggestedActions)
+        
+        let linkToAction = UIAction(image: UIImage(asset: .TextStyles.embed)) { [linkTo] _ in
+            linkTo?(range)
+        }
+        
+        return UIMenu(children: menuItems + [linkToAction] + suggestedActions)
     }
     
     // MARK: -
@@ -205,6 +212,14 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
             }
             
             if attrs[.discussionMention] != nil {
+                underlineStyle = .single
+            }
+            
+            if attrs[.discussionLinkToURL] != nil {
+                underlineStyle = .single
+            }
+            
+            if attrs[.discussionLinkToObject] != nil {
                 underlineStyle = .single
             }
             
