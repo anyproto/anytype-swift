@@ -16,8 +16,7 @@ struct EmptyObjectIconView: View {
                     .if(reader.size.width > 20) {
                         $0.frame(
                             width: reader.size.width * imageMultiplier,
-                            height: reader.size.height * imageMultiplier,
-                            alignment: .center
+                            height: reader.size.height * imageMultiplier
                         )
                     }
             }
