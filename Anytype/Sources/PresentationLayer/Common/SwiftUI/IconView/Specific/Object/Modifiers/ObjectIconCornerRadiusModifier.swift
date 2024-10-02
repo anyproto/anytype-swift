@@ -12,7 +12,7 @@ private struct ObjectIconCornerRadiusModifier: ViewModifier {
     
     private func cornerRadius(size: CGSize) -> CGFloat {
         guard size.width > 0 else { return 0 }
-        return max(size.width / 12, 3)
+        return max(size.width / 8, 3)
     }
 }
 
