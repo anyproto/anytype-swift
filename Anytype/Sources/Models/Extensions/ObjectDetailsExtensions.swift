@@ -96,15 +96,12 @@ extension BundledRelationsValueProvider {
         if isList {
             return .list
         }
-        
         if layoutValue == .bookmark {
             return .bookmark
         }
-        
         if isDiscussion {
             return .discussion
         }
-        
         return .page
     }
 }
