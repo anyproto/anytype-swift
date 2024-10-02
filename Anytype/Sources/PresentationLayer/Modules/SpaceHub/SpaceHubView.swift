@@ -167,7 +167,7 @@ struct SpaceHubView: View {
                 Label(Loc.copySpaceInfo, systemImage: "info.windshield")
             }
             
-            Button {
+            Button(role: .destructive) {
                 model.deleteSpace(spaceId: spaceView.targetSpaceId)
             } label: {
                 Label(Loc.delete, systemImage: "figure.australian.football")
