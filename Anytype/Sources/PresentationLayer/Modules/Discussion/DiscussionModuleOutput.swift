@@ -8,4 +8,5 @@ protocol DiscussionModuleOutput: AnyObject {
     func onSettingsSelected()
     func onIconSelected()
     func didSelectLinkToObject(data: LinkToObjectSearchModuleData)
+    func onObjectSelected(screenData: EditorScreenData)
 }

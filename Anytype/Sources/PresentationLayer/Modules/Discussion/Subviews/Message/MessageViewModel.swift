@@ -79,6 +79,10 @@ final class MessageViewModel: ObservableObject {
         }
     }
     
+    func onTapObject(details: ObjectDetails) {
+        output?.didSelectObject(details: details)
+    }
+    
     // MARK: - Private
     
     private func updateSubscription() async {

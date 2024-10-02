@@ -16,6 +16,8 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
     
+    var pageNavigation: PageNavigation?
+    
     init(data: EditorDiscussionObject) {
         self.objectId = data.objectId
         self.spaceId = data.spaceId
@@ -53,5 +55,9 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     
     func onIconSelected() {
         objectIconPickerData = ObjectIconPickerData(document: document)
+    }
+    
+    func onObjectSelected(screenData: EditorScreenData) {
+        pageNavigation?.push(screenData)
     }
 }
