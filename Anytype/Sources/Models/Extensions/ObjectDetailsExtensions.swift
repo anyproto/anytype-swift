@@ -28,7 +28,7 @@ extension BundledRelationsValueProvider {
     }
     
     var objectIconImage: Icon {
-        return objectIcon.map { .object($0) } ?? .object(.empty(isList: isList))
+        return objectIcon.map { .object($0) } ?? .object(.empty(emptyIconType))
     }
     
     var objectType: ObjectType {
@@ -86,5 +86,25 @@ extension BundledRelationsValueProvider {
     
     var filteredSetOf: [String] {
         setOf.filter { $0.isNotEmpty }
+    }
+    
+    private var isDiscussion: Bool {
+        return layoutValue == .chat || layoutValue == .chatDerived
+    }
+    
+    private var emptyIconType: ObjectIcon.EmptyType {
+        if isList {
+            return .list
+        }
+        
+        if layoutValue == .bookmark {
+            return .bookmark
+        }
+        
+        if isDiscussion {
+            return .discussion
+        }
+        
+        return .page
     }
 }

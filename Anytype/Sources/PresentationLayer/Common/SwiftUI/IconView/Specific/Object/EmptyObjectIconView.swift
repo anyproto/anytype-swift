@@ -4,14 +4,14 @@ import Services
 
 struct EmptyObjectIconView: View {
     
-    private let imageMultiplier: CGFloat = 0.625
+    let emptyType: ObjectIcon.EmptyType
     
-    let isList: Bool
+    private let imageMultiplier: CGFloat = 0.625
     
     var body: some View {
         GeometryReader { reader in
             ZStack {
-                Image(asset: isList ? .emptyListObject : .emptyObject)
+                Image(asset: imageAsset())
                     .resizable()
                     .if(reader.size.width > 20) {
                         $0.frame(
@@ -24,6 +24,19 @@ struct EmptyObjectIconView: View {
             .frame(width: reader.size.width, height: reader.size.height)
             .objectIconBackgroundColorModifier()
             .objectIconCornerRadius()
+        }
+    }
+    
+    private func imageAsset() -> ImageAsset {
+        switch emptyType {
+        case .page:
+            return .EmptyIcon.page
+        case .list:
+            return .EmptyIcon.list
+        case .bookmark:
+            return .EmptyIcon.bookmark
+        case .discussion:
+            return .EmptyIcon.discussion
         }
     }
 }

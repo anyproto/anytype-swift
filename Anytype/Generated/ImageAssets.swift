@@ -27,11 +27,15 @@ internal extension ImageAsset {
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   static let backArrow = ImageAsset.bundle(name: "backArrow")
-  static let emptyListObject = ImageAsset.bundle(name: "emptyListObject")
-  static let emptyObject = ImageAsset.bundle(name: "emptyObject")
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  enum EmptyIcon {
+    static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
+    static let discussion = ImageAsset.bundle(name: "EmptyIcon/discussion")
+    static let list = ImageAsset.bundle(name: "EmptyIcon/list")
+    static let page = ImageAsset.bundle(name: "EmptyIcon/page")
+  }
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     static let audio = ImageAsset.bundle(name: "FileTypes/Audio")
