@@ -1237,3 +1237,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Unlinked.Title" = "Hanya objek nirtaut";
 "AllContent.Settings.Unlinked.Description" = "Objek yang tidak memiliki tautan langsung atau tautan balik ke objek lain di grafik.";
 "AllContent.Settings.ViewBin" = "Lihat Bak Sampah";
+"AllContent.Empty.State.title" = "It’s empty here.";
+"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
