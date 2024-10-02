@@ -5,6 +5,7 @@ import Services
 struct MessageLinkInputViewContainer: View {
 
     let objects: [ObjectDetails]
+    let onTapObject: (ObjectDetails) -> Void
     let onTapRemove: (ObjectDetails) -> Void
     
     @State private var sizeWidth: CGFloat = 0
@@ -18,9 +19,12 @@ struct MessageLinkInputViewContainer: View {
     private var content: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 12) {
-                ForEach(objects, id: \.id) {
-                    MessageLinkObjectView(details: $0, style: .input, onTapRemove: onTapRemove)
+                ForEach(objects, id: \.id) { details in
+                    MessageLinkObjectView(details: details, style: .input, onTapRemove: onTapRemove)
                         .frame(width: itemWidth)
+                        .onTapGesture {
+                            onTapObject(details)
+                        }
                 }
             }
             .padding(.vertical, 12)
@@ -58,6 +62,7 @@ struct MessageLinkInputViewContainer: View {
                 BundledRelationKey.iconEmoji.rawValue: "🦔"
             ])
         ],
+        onTapObject: { _ in },
         onTapRemove: { _ in }
     )
     .border(Color.black)
