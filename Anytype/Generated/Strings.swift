@@ -433,6 +433,20 @@ internal enum Loc {
     }
   }
   internal enum AllContent {
+    internal enum Empty {
+      internal enum State {
+        internal static let subtitle = Loc.tr("Localizable", "AllContent.Empty.State.subtitle")
+        internal static let title = Loc.tr("Localizable", "AllContent.Empty.State.title")
+      }
+    }
+    internal enum Search {
+      internal enum Empty {
+        internal enum State {
+          internal static let subtitle = Loc.tr("Localizable", "AllContent.Search.Empty.State.subtitle")
+          internal static let title = Loc.tr("Localizable", "AllContent.Search.Empty.State.title")
+        }
+      }
+    }
     internal enum Settings {
       internal static let viewBin = Loc.tr("Localizable", "AllContent.Settings.ViewBin")
       internal enum Sort {
