@@ -1240,3 +1240,7 @@
 "AllContent.Settings.Unlinked.Title" = "Только несвязанные";
 "AllContent.Settings.Unlinked.Description" = "Непривязанные объекты, не имеющие прямой связи или обратной связи с другими объектами на графике.";
 "AllContent.Settings.ViewBin" = "Просмотр корзины";
+"AllContent.Empty.State.title" = "Здесь пусто.";
+"AllContent.Empty.State.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
+"AllContent.Search.Empty.State.title" = "Результаты не найдены.";
+"AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
