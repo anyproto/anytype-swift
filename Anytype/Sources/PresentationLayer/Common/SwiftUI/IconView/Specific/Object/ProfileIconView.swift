@@ -15,7 +15,7 @@ struct ProfileIconView: View {
                 ImageCharIconView(text: name.withPlaceholder)
             }
         }
-        .background(Color.Shape.tertiary)
+        .background(Color.Shape.secondary)
         .clipShape(Circle())
     }
 }
