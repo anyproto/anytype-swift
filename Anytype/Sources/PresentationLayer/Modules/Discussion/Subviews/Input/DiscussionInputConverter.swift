@@ -17,8 +17,11 @@ final class DiscussionInputConverter: DiscussionInputConverterProtocol {
         chatMessage.marks.append(contentsOf: convertBoolStyle(message: message, attribute: .discussionKeyboard, middlewareStyle: .keyboard))
         chatMessage.marks.append(contentsOf: convertBoolStyle(message: message, attribute: .discussionStrikethrough, middlewareStyle: .strikethrough))
         chatMessage.marks.append(contentsOf: convertBoolStyle(message: message, attribute: .discussionUnderscored, middlewareStyle: .underscored))
-        chatMessage.marks.append(contentsOf: convertMentionStyle(message: message))
         
+        chatMessage.marks.append(contentsOf: convertAttribute(message: message, attribute: .discussionMention, type: .mention, convert: { (value: MentionObject) in value.id }))
+        chatMessage.marks.append(contentsOf: convertAttribute(message: message, attribute: .discussionLinkToURL, type: .link, convert: { (value: URL) in value.absoluteString }))
+        chatMessage.marks.append(contentsOf: convertAttribute(message: message, attribute: .discussionLinkToObject, type: .object, convert: { (value: String) in value }))
+                
         return chatMessage
     }
     
@@ -42,18 +45,21 @@ final class DiscussionInputConverter: DiscussionInputConverterProtocol {
         return marks
     }
     
-    private func convertMentionStyle(
-        message: NSAttributedString
+    private func convertAttribute<T>(
+        message: NSAttributedString,
+        attribute: NSAttributedString.Key,
+        type: BlockContentTextMarkType,
+        convert: (T) -> String
     ) -> [BlockContentTextMark] {
         
         var marks = [BlockContentTextMark]()
         
-        message.enumerateAttribute(.discussionMention, in: NSRange(location: 0, length: message.length), options: []) { value, range, res in
-            guard let value = value as? MentionObject else { return }
+        message.enumerateAttribute(attribute, in: NSRange(location: 0, length: message.length), options: []) { value, range, res in
+            guard let value = value as? T else { return }
             var mark = BlockContentTextMark()
             mark.range = range.asMiddleware
-            mark.type = .mention
-            mark.param = value.id
+            mark.type = type
+            mark.param = convert(value)
             
             marks.append(mark)
         }

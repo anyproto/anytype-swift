@@ -70,6 +70,8 @@ struct DiscussionView: View {
                 model.onTapAddObjectToMessage()
             } onTapSend: {
                 model.onTapSendMessage()
+            } onTapLinkTo: { range in
+                model.onTapLinkTo(range: range)
             }
         }
         .discussionActionStateTopProvider(state: $actionState)

@@ -110,7 +110,9 @@ final class MessageViewModel: ObservableObject {
             case .underscored:
                 message[range].underlineStyle = .single
             case .link:
-                message[range].link = URL(string: mark.param)
+                message[range].underlineStyle = .single
+            case .object:
+                message[range].underlineStyle = .single
             case .textColor:
                 message[range].foregroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Dark.color(from: $0) }
             case .backgroundColor:
@@ -119,9 +121,6 @@ final class MessageViewModel: ObservableObject {
                 message[range].underlineStyle = .single
             case .emoji:
                 message.replaceSubrange(range, with: AttributedString(mark.param))
-            case .object:
-                // TODO: Implement
-                break
             case .UNRECOGNIZED(let int):
                 anytypeAssertionFailure("Undefined text attribute", info: ["value": int.description, "param": mark.param])
                 break

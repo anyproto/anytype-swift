@@ -25,6 +25,9 @@ struct DiscussionCoordinatorView: View {
             .sheet(item: $model.objectIconPickerData) {
                 ObjectIconPicker(data: $0)
             }
+            .sheet(item: $model.linkToObjectData) {
+                LinkToObjectSearchView(data: $0, showEditorScreen: { _ in })
+            }
     }
     
     @ViewBuilder
