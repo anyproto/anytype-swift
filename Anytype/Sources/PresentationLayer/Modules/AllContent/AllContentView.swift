@@ -61,7 +61,18 @@ struct AllContentView: View {
         )
     }
     
+    @ViewBuilder
     private var content: some View {
+        if model.firstOpen {
+            Spacer()
+        } else if model.sections.isEmpty {
+            emptyState
+        } else {
+            list
+        }
+    }
+    
+    private var list: some View {
         PlainList {
             if model.state.mode == .unlinked {
                 onlyUnlinkedBanner
@@ -121,6 +132,24 @@ struct AllContentView: View {
             Spacer.fixedHeight(14)
         }
         .divider(spacing: 0, alignment: .leading)
+        .padding(.horizontal, 16)
+    }
+    
+    private var emptyState: some View {
+        let emptySearchText = model.searchText.isEmpty
+        let title = emptySearchText ? Loc.AllContent.Empty.State.title : Loc.AllContent.Search.Empty.State.title
+        let subtitle = emptySearchText ? Loc.AllContent.Empty.State.subtitle : Loc.AllContent.Search.Empty.State.subtitle
+        return VStack(spacing: 0) {
+            Spacer()
+            AnytypeText(title, style: .uxCalloutMedium)
+                .foregroundColor(.Text.primary)
+                .multilineTextAlignment(.center)
+            AnytypeText(subtitle, style: .uxCalloutRegular)
+                .foregroundColor(.Text.secondary)
+                .multilineTextAlignment(.center)
+            Spacer.fixedHeight(80)
+            Spacer()
+        }
         .padding(.horizontal, 16)
     }
 }

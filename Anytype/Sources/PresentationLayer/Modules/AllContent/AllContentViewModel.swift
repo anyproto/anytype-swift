@@ -13,6 +13,7 @@ final class AllContentViewModel: ObservableObject {
 
     private var details = [ObjectDetails]()
     private var objectsToLoad = 0
+    var firstOpen = true
     
     @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
     @Published var state = AllContentState()
@@ -62,6 +63,7 @@ final class AllContentViewModel: ObservableObject {
             limitedObjectsIds: state.limitedObjectsIds,
             limit: state.limit,
             update: { [weak self] details, objectsToLoad in
+                self?.updateFirstOpenIfNeeded()
                 self?.details = details
                 self?.objectsToLoad = objectsToLoad
                 self?.updateRows()
@@ -183,6 +185,11 @@ final class AllContentViewModel: ObservableObject {
         case .name:
             return nil
         }
+    }
+    
+    private func updateFirstOpenIfNeeded() {
+        guard firstOpen else { return }
+        firstOpen = false
     }
     
     // MARK: - Save states
