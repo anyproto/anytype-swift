@@ -37,5 +37,6 @@ public extension ObjectIcon {
         case list
         case bookmark
         case discussion
+        case objectType
     }
 }

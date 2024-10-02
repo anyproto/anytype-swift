@@ -34,11 +34,15 @@ struct NewRelationRestrictionsSectionView: View {
     
     private func objectTypeView(model: ObjectTypeModel) -> some View {
         HStack(spacing: 5) {
-            if let emoji = model.emoji {
-                IconView(icon: .object(.emoji(emoji)))
-                    .frame(width: 20, height: 20)
-                
+            Group {
+                if let emoji = model.emoji {
+                    IconView(icon: .object(.emoji(emoji)))
+                } else {
+                    IconView(icon: .object(.empty(.objectType)))
+                }
             }
+            .frame(width: 20, height: 20)
+            
             AnytypeText(model.title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
                 .lineLimit(1)

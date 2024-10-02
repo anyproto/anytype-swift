@@ -115,10 +115,14 @@ struct ObjectTypeSearchView: View {
                     viewModel.didSelectType(typeData.type, section: section)
                 } label: {
                     HStack(spacing: 8) {
-                        if let emoji = typeData.type.iconEmoji {
-                            IconView(icon: .object(.emoji(emoji)))
-                                .frame(width: 18, height: 18)
+                        Group {
+                            if let emoji = typeData.type.iconEmoji {
+                                IconView(icon: .object(.emoji(emoji)))
+                            } else {
+                                IconView(icon: .object(.empty(.objectType)))
+                            }
                         }
+                        .frame(width: 18, height: 18)
                         
                         AnytypeText(typeData.type.name, style: .uxTitle2Medium)
                             .foregroundColor(.Text.primary)

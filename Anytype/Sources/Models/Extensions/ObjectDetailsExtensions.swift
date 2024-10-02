@@ -93,15 +93,18 @@ extension BundledRelationsValueProvider {
     }
     
     private var emptyIconType: ObjectIcon.EmptyType {
-        if isList {
+        switch layoutValue {
+        case .basic, .profile, .participant, .todo, .note, .space, .file, .image, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
+            return .page
+        case .set, .collection:
             return .list
-        }
-        if layoutValue == .bookmark {
+        case .bookmark:
             return .bookmark
-        }
-        if isDiscussion {
+        case .chat, .chatDerived:
             return .discussion
+        case .objectType:
+            return .objectType
         }
-        return .page
     }
 }

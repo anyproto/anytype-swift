@@ -36,6 +36,8 @@ struct EmptyObjectIconView: View {
             return .EmptyIcon.bookmark
         case .discussion:
             return .EmptyIcon.discussion
+        case .objectType:
+            return .EmptyIcon.objectType
         }
     }
 }
