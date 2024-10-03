@@ -1238,7 +1238,7 @@
 "AllContent.Settings.Unlinked.Title" = "Толькі адвязаныя";
 "AllContent.Settings.Unlinked.Description" = "Незвязаныя аб'екты, якія не маюць прамой або зваротнай сувязі з іншымі аб'ектамі ў графе.";
 "AllContent.Settings.ViewBin" = "Прагляд сметніцы";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
-"AllContent.Search.Empty.State.title" = "No results found.";
-"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+"AllContent.Empty.State.title" = "Тут пуста.";
+"AllContent.Empty.State.subtitle" = "Стварыце свае першыя аб'екты, каб пачаць працу.";
+"AllContent.Search.Empty.State.title" = "Вынікаў не знойдзена.";
+"AllContent.Search.Empty.State.subtitle" = "Паспрабуйце шукаць па розных ключавых словах.";
