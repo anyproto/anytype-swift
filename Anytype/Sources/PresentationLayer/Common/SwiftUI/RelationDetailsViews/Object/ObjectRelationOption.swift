@@ -3,7 +3,7 @@ import Services
 
 struct ObjectRelationOption: Equatable, Identifiable {
     let id: String
-    let icon: Icon?
+    let icon: Icon
     let title: String
     let type: String
     let isArchived: Bool

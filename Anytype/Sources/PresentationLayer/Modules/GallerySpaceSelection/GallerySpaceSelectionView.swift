@@ -33,7 +33,7 @@ struct GallerySpaceSelectionView: View {
             HStack(spacing: 12) {
                 ZStack {
                     Color.Background.highlightedMedium
-                        .spaceIconCornerRadius()
+                        .objectIconCornerRadius()
                         .border(4, color: Color.Shape.secondary)
                     IconView(icon: .asset(.X24.plus))
                         .frame(width: 24, height: 24)
