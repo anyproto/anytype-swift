@@ -4,7 +4,7 @@ import Logger
 
 struct DebugMenuView: View {
     
-    @StateObject private var model: DebugMenuViewModel
+    @StateObject private var model = DebugMenuViewModel()
     
     @State private var showLogs = false
     @State private var showTypography = false
@@ -14,10 +14,6 @@ struct DebugMenuView: View {
     @State private var showColors = false
     @State private var showObjectIcons = false
     @State private var showMembershipDebug = false
-    
-    init(spaceId: String? = nil) {
-        _model = StateObject(wrappedValue: DebugMenuViewModel(spaceId: spaceId))
-    }
     
     var body: some View {
         VStack {
@@ -126,12 +122,6 @@ struct DebugMenuView: View {
             StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getGoroutinesData()
-            }
-            if let spaceId = model.spaceId {
-                AsyncStandardButton("Space debug 🪐", style: .secondaryLarge) {
-                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    try await model.onSpaceDebug(spaceId: spaceId)
-                }
             }
             StandardButton(model.debugRunProfilerData.text, style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()

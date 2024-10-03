@@ -22,14 +22,13 @@ struct LoginView: View {
                 ToolbarItem(placement: .principal) {
                     Text(Loc.Auth.LoginFlow.Enter.title)
                         .onTapGesture(count: 5) {
-                            model.exportStackGoroutines()
+                            model.showDebugMenu.toggle()
                         }
                 }
             }
             .sheet(isPresented: $model.showQrCodeView) {
                 QRCodeScannerView(qrCode: self.$model.entropy, error: self.$model.errorText)
             }
-            .exportStackGoroutinesSheet(isPresented: $model.showExportStackGoroutines)
             .alert(Loc.Auth.cameraPermissionTitle, isPresented: $model.openSettingsURL, actions: {
                 Button(Loc.Alert.CameraPermissions.settings, role: .cancel, action: { model.onSettingsTap() })
                 Button(Loc.cancel, action: {})
@@ -48,6 +47,10 @@ struct LoginView: View {
             }
             .fitIPadToReadableContentGuide()
             .onChange(of: model.dismiss) { _ in dismiss() }
+        
+            .sheet(isPresented: $model.showDebugMenu) {
+                PublicDebugMenuView()
+            }
     }
     
     private var content: some View {
