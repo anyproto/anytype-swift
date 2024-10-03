@@ -11,10 +11,10 @@ struct SpaceIconView: View {
         case let .name(name, iconOption):
             ImageCharIconView(text: name.withPlaceholder)
                 .background(IconColorStorage.iconColor(iconOption: iconOption).gradient)
-                .spaceIconCornerRadius()
+                .objectIconCornerRadius()
         case .imageId(let imageId):
             ImageIdIconView(imageId: imageId)
-                .spaceIconCornerRadius()
+                .objectIconCornerRadius()
         }
     }
 }

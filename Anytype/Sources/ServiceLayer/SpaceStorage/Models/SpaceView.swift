@@ -4,7 +4,7 @@ import Services
 struct SpaceView: Identifiable, Equatable {
     let id: String
     let name: String
-    let objectIconImage: Icon?
+    let objectIconImage: Icon
     let targetSpaceId: String
     let createdDate: Date?
     let accountStatus: SpaceStatus?

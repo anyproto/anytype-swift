@@ -29,7 +29,7 @@ struct ObjectIconImageGuidelineSet {
                 return todoImageGuideline
             case .placeholder:
                 return placeholderImageGuideline
-            case .deleted, .file:
+            case .deleted, .file, .empty:
                 return staticImageGuideline
             }
         case .asset:

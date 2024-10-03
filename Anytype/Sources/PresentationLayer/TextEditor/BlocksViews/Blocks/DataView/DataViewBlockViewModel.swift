@@ -76,7 +76,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
                 title: nil,
                 placeholder: placeholder,
                 subtitle: subtitle,
-                iconImage: nil,
+                iconImage: .object(.empty(.page)),
                 badgeTitle: Loc.Content.DataView.InlineSet.noSource
             )
         }
