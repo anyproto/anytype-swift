@@ -12,10 +12,10 @@ struct WidgetObjectListRowView: View {
             if editMode?.wrappedValue == .active {
                 checkboxView
             }
-            if let icon = model.icon {
-                IconView(icon: icon)
-                    .frame(width: 48, height: 48)
-            }
+            
+            IconView(icon: model.icon)
+                .frame(width: 48, height: 48)
+            
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.title, style: .previewTitle2Medium)
                     .foregroundColor(.Text.primary)

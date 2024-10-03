@@ -10,10 +10,9 @@ struct ListWidgetCompactRow: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            if let icon = model.icon {
-                IconView(icon: icon)
-                    .frame(width: 18, height: 18)
-            }
+            IconView(icon: model.icon)
+                .frame(width: 18, height: 18)
+            
             AnytypeText(model.title, style: .previewTitle2Medium)
                 .foregroundColor(.Text.primary)
                 .lineLimit(1)
