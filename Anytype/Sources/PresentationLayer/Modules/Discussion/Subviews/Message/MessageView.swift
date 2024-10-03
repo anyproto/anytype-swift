@@ -74,7 +74,9 @@ private struct MessageInternalView: View {
             
             if model.linkedObjects.isNotEmpty {
                 Spacer.fixedHeight(8)
-                MessageLinkViewContainer(objects: model.linkedObjects, isYour: model.isYourMessage)
+                MessageLinkViewContainer(objects: model.linkedObjects, isYour: model.isYourMessage) {
+                    model.onTapObject(details: $0)
+                }
             }
             
             if model.reactions.isNotEmpty {

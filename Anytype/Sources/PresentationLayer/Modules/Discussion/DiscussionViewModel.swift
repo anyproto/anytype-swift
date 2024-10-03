@@ -179,6 +179,11 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         message = newMessage
     }
     
+    func didSelectObject(details: ObjectDetails) {
+        let screenData = details.editorScreenData()
+        output?.onObjectSelected(screenData: screenData)
+    }
+    
     func onTapLinkTo(range: NSRange) {
         let currentLinkToURL = message.attribute(.discussionLinkToURL, at: range.location, effectiveRange: nil) as? URL
         let currentLinkToObject = message.attribute(.discussionLinkToObject, at: range.location, effectiveRange: nil) as? String

@@ -59,6 +59,8 @@ struct DiscussionView: View {
     private var inputPanel: some View {
         VStack(spacing: 0) {
             MessageLinkInputViewContainer(objects: model.linkedObjects) {
+                model.didSelectObject(details: $0)
+            } onTapRemove: {
                 model.onTapRemoveLinkedObject(details: $0)
             }
             DiscusionInput(

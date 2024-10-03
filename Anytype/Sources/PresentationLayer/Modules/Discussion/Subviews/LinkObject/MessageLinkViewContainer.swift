@@ -6,11 +6,15 @@ struct MessageLinkViewContainer: View {
 
     let objects: [ObjectDetails]
     let isYour: Bool
+    let onTapObject: (ObjectDetails) -> Void
     
     var body: some View {
         VStack(spacing: 8) {
-            ForEach(objects, id: \.id) {
-                MessageLinkObjectView(details: $0, style: isYour ? .listMy : .listOther)
+            ForEach(objects, id: \.id) { details in
+                MessageLinkObjectView(details: details, style: isYour ? .listMy : .listOther)
+                    .onTapGesture {
+                        onTapObject(details)
+                    }
             }
         }
     }
