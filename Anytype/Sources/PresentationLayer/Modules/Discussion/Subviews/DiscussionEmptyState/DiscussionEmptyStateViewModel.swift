@@ -32,7 +32,7 @@ final class DiscussionEmptyStateViewModel: ObservableObject {
                 description = details.description
             }
             dataLoaded = true
-            icon = details.objectIconImageWithPlaceholder
+            icon = details.objectIconImage
         }
     }
     

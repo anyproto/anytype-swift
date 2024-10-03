@@ -18,10 +18,8 @@ struct DiscussionMentionList: View {
             VStack(spacing: 0) {
                 ForEach(mentions) { mention in
                     HStack(spacing: 12) {
-                        if let icon = mention.details.objectIconImage {
-                            IconView(icon: icon)
-                                .frame(width: 40, height: 40)
-                        }
+                        IconView(icon: mention.objectIcon)
+                            .frame(width: 40, height: 40)
                         
                         VStack(alignment: .leading) {
                             Text(mention.details.title)
