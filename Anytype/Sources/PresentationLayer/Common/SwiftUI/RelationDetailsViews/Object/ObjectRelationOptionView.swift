@@ -19,8 +19,8 @@ struct ObjectRelationOptionView: View {
             Group {
                 Image(asset: .ghost).resizable().frame(width: 28, height: 28)
             }.frame(width: 48, height: 48)
-        } else if let icon = option.icon {
-            IconView(icon: icon)
+        } else {
+            IconView(icon: option.icon)
                 .frame(width: 48, height: 48)
                 .allowsHitTesting(false)
         }
@@ -49,7 +49,7 @@ struct ObjectRelationOptionView: View {
     ObjectRelationOptionView(
         option: ObjectRelationOption(
             id: "",
-            icon: nil,
+            icon: .object(.empty(.page)),
             title: "File",
             type: "File",
             isArchived: false,

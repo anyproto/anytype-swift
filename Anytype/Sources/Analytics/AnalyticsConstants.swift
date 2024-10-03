@@ -40,6 +40,7 @@ enum AnalyticsEventsPropertiesKey {
     static let context = "context"
     static let color = "color"
     static let name = "name"
+    static let sort = "sort"
     
     static let middleTime = "middleTime"
     static let permissions = "permissions"
@@ -221,8 +222,8 @@ enum OnboardingTooltip: String {
     case sharingExtension = "SharingExtension"
     case swipeInWidgets = "ObjectCreationWidget"
     case spaceSwitcher = "SpaceSwitcher"
-    case space = "space"
-    case vault = "vault"
+    case space = "Space"
+    case vault = "Vault"
 }
 
 enum ClickDeleteSpaceRoute: String {
@@ -314,4 +315,13 @@ enum ClickUpgradePlanTooltipRoute: String {
 
 enum ChangeObjectTypeRoute: String {
     case featuredRelations = "FeaturedRelations"
+}
+
+enum ScreenSearchType: String {
+    case empty = "Empty"
+    case saved = "Saved"
+}
+
+enum SearchInputRoute: String {
+    case library = "Library"
 }

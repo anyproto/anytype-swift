@@ -12,4 +12,13 @@ enum AllContentMode: String, CaseIterable {
             Loc.AllContent.Settings.Unlinked.title
         }
     }
+    
+    var analyticsValue: String {
+        switch self {
+        case .allContent:
+            "All"
+        case .unlinked:
+            "Unlinked"
+        }
+    }
 }

@@ -695,6 +695,7 @@
 "New" = "Novo";
 "Blurred icon" = "Ícone\n Desfocado";
 "My First Space" = "Meu Primeiro Espaço";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Tem certeza de que deseja excluir seu cofre?";
@@ -1237,3 +1238,7 @@ forneça detalhes específicos das suas necessidades aqui.";
 "AllContent.Settings.Unlinked.Title" = "Apenas desvinculados";
 "AllContent.Settings.Unlinked.Description" = "Objetos não vinculados que não tenham um link direto ou backlink com outros objetos no gráfico.";
 "AllContent.Settings.ViewBin" = "Visualizar lixeira";
+"AllContent.Empty.State.title" = "It’s empty here.";
+"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";

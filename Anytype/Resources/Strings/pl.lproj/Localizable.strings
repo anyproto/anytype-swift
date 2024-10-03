@@ -695,6 +695,7 @@
 "New" = "Nowy";
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";
@@ -1236,3 +1237,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Empty.State.title" = "It’s empty here.";
+"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";

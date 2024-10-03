@@ -610,20 +610,36 @@ extension AnytypeAnalytics {
         logEvent("SettingsWallpaperSet")
     }
     
-    func logScreenSearch() {
-        logEvent("ScreenSearch")
+    func logScreenSearch(spaceId: String, type: ScreenSearchType) {
+        logEvent(
+            "ScreenSearch",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ])
     }
     
     func logSearchResult(spaceId: String) {
         logEvent("SearchResult", spaceId: spaceId)
     }
     
-    func logSearchBacklink(spaceId: String) {
-        logEvent("SearchBacklink", spaceId: spaceId)
+    func logSearchBacklink(spaceId: String, type: ScreenSearchType) {
+        logEvent(
+            "SearchBacklink",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ])
     }
     
-    func logSearchInput(spaceId: String) {
-        logEvent("SearchInput", spaceId: spaceId)
+    func logSearchInput(spaceId: String, route: SearchInputRoute? = nil) {
+        logEvent(
+            "SearchInput",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
+        )
     }
     
     func logLockPage(_ isLocked: Bool) {
@@ -1153,5 +1169,41 @@ extension AnytypeAnalytics {
     
     func logScreenWidget() {
         logEvent("ScreenWidget")
+    }
+    
+    func logScreenBin() {
+        logEvent("ScreenBin")
+    }
+    
+    func logScreenLibrary() {
+        logEvent("ScreenLibrary")
+    }
+    
+    func logChangeLibraryType(type: String) {
+        logEvent(
+            "ChangeLibraryType",
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type]
+        )
+    }
+    
+    func logChangeLibraryTypeLink(type: String) {
+        logEvent(
+            "ChangeLibraryTypeLink",
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type]
+        )
+    }
+    
+    func logChangeLibrarySort(type: String, sort: String) {
+        logEvent(
+            "ChangeLibrarySort",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.sort: sort
+            ]
+        )
+    }
+    
+    func logLibraryResult() {
+        logEvent("LibraryResult")
     }
 }

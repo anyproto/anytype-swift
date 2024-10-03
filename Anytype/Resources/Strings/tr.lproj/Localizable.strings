@@ -146,7 +146,7 @@
 "Relations" = "İlişkiler";
 "History" = "Geçmiş";
 "Objects" = "Nesneler";
-"Pages" = "Pages";
+"Pages" = "Sayfalar";
 "Lists" = "Listeler";
 "Bookmarks" = "Yer işaretleri";
 "Files" = "Dosyalar";
@@ -204,14 +204,14 @@
 "Okay" = "Tamam";
 "Join" = "Katıl";
 "Agreement Disclamer" = "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz";
-"Lets Go" = "Let’s Go";
+"Lets Go" = "Haydi Başlayalım";
 "My spaces" = "Alanlarım";
 
 // Home
 "Favorites" = "Favoriler";
 "Recent" = "En son";
 "Bin" = "Çöp kutusu";
-"All objects" = "All objects";
+"All objects" = "Tüm nesneler";
 
 // Settings
 "Wallpaper" = "Duvar kağıdı";
@@ -695,6 +695,7 @@
 "New" = "Yeni";
 "Blurred icon" = "Bulanık\n simge";
 "My First Space" = "Benim İlk Alanım";
+"Copy space info" = "Alan bilgisini kopyala";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
@@ -1037,13 +1038,13 @@
 "SpaceShare.Tip.Steps.3" = "Bir davet bağlantısı oluşturun ve paylaşın";
 
 // MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+"SpaceHub.Tip.Title3" = "Dinamik Arkaplanlar";
+"SpaceHub.Tip.Title2" = "Basit & Esnek";
+"SpaceHub.Tip.Title1" = "Kasaya Hoşgeldiniz";
 
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
-"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+"SpaceHub.Tip.Text3" = "Alanınızın simgesini arka plan şeklinde varsayılan olarak bulanıklaştırırız. Gerekirse bunu alan ayarlarından değiştirebilirsiniz.";
+"SpaceHub.Tip.Text2" = "Artık sürükle ve bırak özelliğini kullanarak Alanlarınızı kolayca yeniden sıralayabilir ve daha kolay gezinebilirsiniz.";
+"SpaceHub.Tip.Text1" = "Kasalar tüm Alanlarınız için yeni yuvadır. Alanlar oluşturun, katılın veya paylaşın - her şey burada güvenli bir şekilde saklanır.";
 
 // MARK: - Space switcher tip
 "SpaceSwitcher.Tip.Title" = "Alanları daha hızlı değiştirin";
@@ -1088,7 +1089,7 @@
 "Server.LocalOnly.Alert.Action.disagree" = "Hayır bunu kullanma";
 
 // MARK: - Gallery
-"Gallery.Author" = "%@ tarafından yapıldı";
+"Gallery.Author" = "%@ tarafından oluşturuldu ";
 "Gallery.Install" = "Kur";
 "Gallery.InstallToNew" = "Yeni alana kurun";
 "Gallery.Notification.Success" = "Deneyim \"%@\" alanına başarıyla yüklendi. Şimdi açıp kullanabilirsiniz.";
@@ -1231,10 +1232,14 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "AllContent.Settings.Sort.Title" = "Şuna göre sırala";
 "AllContent.Sort.DateUpdated" = "Güncellenme tarihi";
 "AllContent.Sort.DateCreated" = "Oluşturulma tarihi";
-"AllContent.Sort.Date.Asc" = "Oldest first";
+"AllContent.Sort.Date.Asc" = "Önce en eski";
 "AllContent.Sort.Date.Desc" = "Önce en yeni";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Sadece bağlantısız";
 "AllContent.Settings.Unlinked.Description" = "Grafikteki diğer nesnelerle doğrudan bağlantısı veya geri bağlantısı olmayan bağlantısız nesneler.";
 "AllContent.Settings.ViewBin" = "Geri Dönüşüm Kutusunu Görüntüle";
+"AllContent.Empty.State.title" = "Burası boş.";
+"AllContent.Empty.State.subtitle" = "Başlamak için ilk nesnelerinizi oluşturun.";
+"AllContent.Search.Empty.State.title" = "Hiçbir sonuç bulunamadı.";
+"AllContent.Search.Empty.State.subtitle" = "Farklı anahtar kelimelerle aramayı deneyin.";

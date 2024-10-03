@@ -113,6 +113,11 @@ struct SpaceHubView: View {
             spaceCardLabel(space)
         }
         .disabled(space.spaceView.isLoading)
+        .contextMenu {
+            if space.spaceView.isLoading {
+                debugMenuItems(spaceView: space.spaceView)
+            }
+        }
         .onDrag {
             draggedSpace = space
             return NSItemProvider()
@@ -152,6 +157,22 @@ struct SpaceHubView: View {
         .cornerRadius(20, style: .continuous)
         .padding(.horizontal, 8)
         .if(space.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
+    }
+    
+    private func debugMenuItems(spaceView: SpaceView) -> some View {
+        Group {
+            Button {
+                model.copySpaceInfo(spaceView: spaceView)
+            } label: {
+                Label(Loc.copySpaceInfo, systemImage: "info.windshield")
+            }
+            
+            Button(role: .destructive) {
+                model.deleteSpace(spaceId: spaceView.targetSpaceId)
+            } label: {
+                Label(Loc.delete, systemImage: "figure.australian.football")
+            }
+        }
     }
 }
 

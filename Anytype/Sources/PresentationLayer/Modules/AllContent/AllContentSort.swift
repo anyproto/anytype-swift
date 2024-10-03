@@ -74,6 +74,17 @@ struct AllContentSort: Equatable, Hashable, Codable {
             }
         }
         
+        var analyticsValue: String {
+            switch self {
+            case .dateUpdated:
+                "Updated"
+            case .dateCreated:
+                "Created"
+            case .name:
+                "Name"
+            }
+        }
+        
         func titleFor(sortType: DataviewSort.TypeEnum) -> String {
             switch self {
             case .dateUpdated, .dateCreated:

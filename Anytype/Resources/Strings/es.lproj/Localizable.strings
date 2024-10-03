@@ -146,7 +146,7 @@
 "Relations" = "Relaciones";
 "History" = "Historial";
 "Objects" = "Objetos";
-"Pages" = "Pages";
+"Pages" = "Páginas";
 "Lists" = "Listas";
 "Bookmarks" = "Marcadores";
 "Files" = "Archivos";
@@ -204,14 +204,14 @@
 "Okay" = "Aceptar";
 "Join" = "Unirte";
 "Agreement Disclamer" = "Al continuar, aceptas nuestros [términos de uso](%@) y nuestra [política de privacidad](%@).";
-"Lets Go" = "Let’s Go";
+"Lets Go" = "Adelante";
 "My spaces" = "Mis espacios";
 
 // Home
 "Favorites" = "Favoritos";
 "Recent" = "Recientes";
 "Bin" = "Papelera";
-"All objects" = "All objects";
+"All objects" = "Todos los objetos";
 
 // Settings
 "Wallpaper" = "Fondo de pantalla";
@@ -695,6 +695,7 @@
 "New" = "Nuevo";
 "Blurred icon" = "Icono\n borroso";
 "My First Space" = "Mi Primer Espacio";
+"Copy space info" = "Copiar información del espacio";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -1036,17 +1037,17 @@
 "SpaceShare.Tip.Steps.3" = "Genera un enlace de invitación y compártelo.";
 
 // MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+"SpaceHub.Tip.Title3" = "Fondos dinámicos";
+"SpaceHub.Tip.Title2" = "Simple y flexible";
+"SpaceHub.Tip.Title1" = "Esta es tu arca";
 
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
-"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+"SpaceHub.Tip.Text3" = "Por defecto, usamos el icono de tu espacio difuminado como fondo. Si quieres, puedes cambiarlo en los ajustes de espacio.";
+"SpaceHub.Tip.Text2" = "Ahora puedes arrastrar y colocar para reordenar tus espacios y navegar por ellos con más facilidad.";
+"SpaceHub.Tip.Text1" = "Tu arca es donde se guardan y protegen todos tus espacios: que crees, los que compartas y los que alguien comparta contigo.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"SpaceSwitcher.Tip.Title" = "Cambia de espacio más rápido";
+"SpaceSwitcher.Tip.Text" = "Mantén pulsado el botón de retroceso para pasar a otro espacio.";
 
 // MARK: - Initial
 
@@ -1229,10 +1230,14 @@ En concreto,
 "AllContent.Settings.Sort.Title" = "Ordenar por";
 "AllContent.Sort.DateUpdated" = "Fecha de modificación";
 "AllContent.Sort.DateCreated" = "Fecha de creación";
-"AllContent.Sort.Date.Asc" = "Oldest first";
+"AllContent.Sort.Date.Asc" = "Antiguos primero";
 "AllContent.Sort.Date.Desc" = "Recientes primero";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Solo desconectados";
 "AllContent.Settings.Unlinked.Description" = "Objetos desconectados que no tienen un enlace a o desde otro objeto del gráfico.";
 "AllContent.Settings.ViewBin" = "Ver papelera";
+"AllContent.Empty.State.title" = "Aquí no hay nada.";
+"AllContent.Empty.State.subtitle" = "Crea tus primeros objetos para empezar.";
+"AllContent.Search.Empty.State.title" = "No se encuentran resultados.";
+"AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";

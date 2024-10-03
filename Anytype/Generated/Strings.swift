@@ -85,6 +85,7 @@ internal enum Loc {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1))
   }
   internal static let copy = Loc.tr("Localizable", "Copy")
+  internal static let copySpaceInfo = Loc.tr("Localizable", "Copy space info")
   internal static let cover = Loc.tr("Localizable", "Cover")
   internal static let create = Loc.tr("Localizable", "Create")
   internal static let createANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Create a new one or search for something else")
@@ -432,6 +433,20 @@ internal enum Loc {
     }
   }
   internal enum AllContent {
+    internal enum Empty {
+      internal enum State {
+        internal static let subtitle = Loc.tr("Localizable", "AllContent.Empty.State.subtitle")
+        internal static let title = Loc.tr("Localizable", "AllContent.Empty.State.title")
+      }
+    }
+    internal enum Search {
+      internal enum Empty {
+        internal enum State {
+          internal static let subtitle = Loc.tr("Localizable", "AllContent.Search.Empty.State.subtitle")
+          internal static let title = Loc.tr("Localizable", "AllContent.Search.Empty.State.title")
+        }
+      }
+    }
     internal enum Settings {
       internal static let viewBin = Loc.tr("Localizable", "AllContent.Settings.ViewBin")
       internal enum Sort {

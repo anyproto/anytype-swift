@@ -16,17 +16,6 @@ struct SpaceHubCoordinatorView: View {
                 model.dismissAllPresented = dismissAllPresented
             }
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
-            
-            .if(FeatureFlags.swipeToSearch) {
-                $0.simultaneousGesture(
-                    DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                        .onChanged {
-                            if $0.startLocation.y < 150 && $0.translation.height > 60 {
-                                model.onSearchSelected()
-                            }
-                        }
-                )
-            }
         
             .task { await model.startHandleWorkspaceInfo() }
             .task { await model.setup() }

@@ -24,6 +24,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     
     private var subscriptions = [AnyCancellable]()
     
@@ -50,6 +52,16 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     func spaceCreateWillDismiss() {
         showSpaceCreate = false
 
+    }
+    
+    func deleteSpace(spaceId: String) {
+        Task {
+            try await workspaceService.deleteSpace(spaceId: spaceId)
+        }
+    }
+    
+    func copySpaceInfo(spaceView: SpaceView) {
+        UIPasteboard.general.string = String(describing: spaceView)
     }
     
     // MARK: - Private

@@ -34,10 +34,6 @@ public extension FeatureFlags {
         value(for: .allContent)
     }
 
-    static var swipeToSearch: Bool {
-        value(for: .swipeToSearch)
-    }
-
     static var spaceHubParallax: Bool {
         value(for: .spaceHubParallax)
     }
@@ -103,7 +99,6 @@ public extension FeatureFlags {
         .discussions,
         .versionHistory,
         .allContent,
-        .swipeToSearch,
         .spaceHubParallax,
         .rainbowViews,
         .showAlertOnAssert,

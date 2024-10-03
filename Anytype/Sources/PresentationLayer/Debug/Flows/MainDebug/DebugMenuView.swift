@@ -23,7 +23,7 @@ struct DebugMenuView: View {
         VStack {
             DragIndicator()
             VStack {
-                AnytypeText("Debug menu 👻", style: .title)
+                AnytypeText("Internal debug menu 👻", style: .title)
                     .foregroundColor(.Text.primary)
                 AnytypeText("Environment: \(BuildTypeProvider.buidType.rawValue)", style: .caption1Medium)
                     .foregroundColor(.Text.tertiary)

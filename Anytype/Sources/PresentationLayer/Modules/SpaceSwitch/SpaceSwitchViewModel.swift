@@ -23,26 +23,18 @@ final class SpaceSwitchViewModel: ObservableObject {
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     private weak var output: (any SpaceSwitchModuleOutput)?
     
     // MARK: - State
     
-    private let profileSubId = "Profile-\(UUID().uuidString)"
     private var spaces: [ParticipantSpaceViewData]?
     private var subscriptions = [AnyCancellable]()
     
     @Published var rows = [SpaceRowModel]()
     @Published var dismiss: Bool = false
-    @Published var profileName: String = ""
-    @Published var profileIcon: Icon?
     @Published var scrollToRowId: String? = nil
-    @Published var createSpaceAvailable: Bool = false
     @Published var spaceViewForDelete: SpaceView?
     @Published var spaceViewForLeave: SpaceView?
     @Published var spaceViewStopSharing: SpaceView?
@@ -50,10 +42,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     init(data: SpaceSwitchModuleData, output: (any SpaceSwitchModuleOutput)?) {
         self.data = data
         self.output = output
-        Task {
-            await startProfileSubscriptions()
-            startSpacesSubscriptions()
-        }
+        startSpacesSubscriptions()
     }
     
     func onAppear() {
@@ -64,20 +53,7 @@ final class SpaceSwitchViewModel: ObservableObject {
         output?.onCreateSpaceSelected()
     }
     
-    func onProfileTap() {
-        output?.onSettingsSelected()
-    }
-    
     // MARK: - Private
-    
-    private func startProfileSubscriptions() async {
-        await subscriptionService.startSubscription(
-            subId: profileSubId,
-            objectId: accountManager.account.info.profileObjectID
-        ) { [weak self] details in
-            self?.updateProfile(profile: details)
-        }
-    }
     
     private func startSpacesSubscriptions() {
         
@@ -131,11 +107,6 @@ final class SpaceSwitchViewModel: ObservableObject {
         if scrollToRowId.isNil, let selectedRow = rows.first(where: { $0.isSelected }) {
             scrollToRowId = selectedRow.id
         }
-    }
-    
-    private func updateProfile(profile: ObjectDetails) {
-        profileName = profile.title
-        profileIcon = profile.objectIconImage
     }
     
     private func onTapWorkspace(workspace: SpaceView) {

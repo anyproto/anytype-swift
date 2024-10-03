@@ -26,6 +26,8 @@ struct ObjectIconView: View {
             FileIconView(mimeType: mimeType, name: name)
         case .deleted:
             Image(asset: .ghost)
+        case .empty(let emptyType):
+            EmptyObjectIconView(emptyType: emptyType)
         case .none:
             EmptyView()
         }

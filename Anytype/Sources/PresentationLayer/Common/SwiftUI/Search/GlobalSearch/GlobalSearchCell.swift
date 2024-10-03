@@ -23,16 +23,13 @@ struct GlobalSearchCell: View {
         }
     }
     
-    @ViewBuilder
     private var icon: some View {
-        if let iconImage = data.iconImage {
-            VStack {
-                Spacer.fixedHeight(8)
-                IconView(icon: iconImage)
-                    .frame(width: 48, height: 48)
-                    .allowsHitTesting(false)
-                Spacer.fixedHeight(8)
-            }
+        VStack {
+            Spacer.fixedHeight(8)
+            IconView(icon: data.iconImage)
+                .frame(width: 48, height: 48)
+                .allowsHitTesting(false)
+            Spacer.fixedHeight(8)
         }
     }
     
