@@ -7,7 +7,7 @@ struct PlaceholderIconView: View {
     
     var body: some View {
         ImageCharIconView(text: text)
-            .background(Color.Shape.transperentTertiary)
+            .background(Color.Background.highlightedMedium)
             .objectIconCornerRadius()
     }
 }

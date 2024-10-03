@@ -7,7 +7,7 @@ private struct ObjectIconBackgroundColorModifier: ViewModifier {
         GeometryReader { reader in
             content
                 .if(reader.size.width > 20) {
-                    $0.background(Color.Shape.transperentTertiary)
+                    $0.background(Color.Background.highlightedMedium)
                 }
         }
     }
