@@ -9214,6 +9214,24 @@
 			path = StoreKitService;
 			sourceTree = "<group>";
 		};
+		3D6976F02CAE9E41003F5A91 /* MainDebug */ = {
+			isa = PBXGroup;
+			children = (
+				3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */,
+				2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */,
+				2A8299DD2C2D6EDC001FDB1A /* DebugMenuInputSettings.swift */,
+			);
+			path = MainDebug;
+			sourceTree = "<group>";
+		};
+		3D6976F12CAE9E41003F5A91 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				3D6976F02CAE9E41003F5A91 /* MainDebug */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
 		3D6E9A37270DD0D6001B0A07 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -10661,13 +10679,11 @@
 		C91AFEEB270B4C9C005F9386 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
+				3D6976F12CAE9E41003F5A91 /* Flows */,
 				3DA9D4842C4837C100705FF9 /* ExportStackGoroutines */,
 				3D283A532BF23C1F00BA90A9 /* Views */,
 				3D283A522BF23BC900BA90A9 /* Examples */,
 				0A996BAD23EDBC09000FDC9C /* FeatureFlags */,
-				3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */,
-				2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */,
-				2A8299DD2C2D6EDC001FDB1A /* DebugMenuInputSettings.swift */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
