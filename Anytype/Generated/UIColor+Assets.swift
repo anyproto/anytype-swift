@@ -71,6 +71,7 @@ extension UIColor {
         internal static let selected = UIColor(asset: Asset.Additional.Indicator.selected)
         internal static let unselected = UIColor(asset: Asset.Additional.Indicator.unselected)
       }
+      internal static let messageInputShadow = UIColor(asset: Asset.Additional.messageInputShadow)
       internal static let separator = UIColor(asset: Asset.Additional.separator)
       internal static let space = UIColor(asset: Asset.Additional.space)
     }

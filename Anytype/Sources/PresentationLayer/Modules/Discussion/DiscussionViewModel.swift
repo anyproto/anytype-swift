@@ -1,6 +1,8 @@
 import Foundation
 import Services
 import SwiftUI
+import PhotosUI
+import AnytypeCore
 
 @MainActor
 final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
@@ -14,16 +16,16 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.chatService)
-    private var chatService: any ChatServiceProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.discussionInputConverter)
-    private var discussionInputConverter: any DiscussionInputConverterProtocol
     @Injected(\.mentionObjectsService)
     private var mentionObjectsService: any MentionObjectsServiceProtocol
+    @Injected(\.discussionChatActionService)
+    private var discussionChatActionService: any DiscussionChatActionServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileActionsService: any FileActionsServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
@@ -33,7 +35,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     private let document: any BaseDocumentProtocol
     
-    @Published var linkedObjects: [ObjectDetails] = []
+    @Published var linkedObjects: [DiscussionLinkedObject] = []
     @Published var mesageBlocks: [MessageViewData] = []
     @Published var messagesScrollUpdate: DiscussionCollectionDiffApply = .auto
     @Published var message = NSAttributedString()
@@ -45,6 +47,9 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var dataLoaded = false
     @Published var mentionSearchState = DiscussionTextMention.finish
     @Published var mentionObjects: [MentionObject] = []
+    @Published var showPhotosPicker = false
+    @Published var photosItems: [PhotosPickerItem] = []
+    @Published var attachmentsDownloading: Bool = false
     
     var showTitleData: Bool { mesageBlocks.isNotEmpty }
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
@@ -65,13 +70,17 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         let data = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: spaceId,
-            excludedObjectIds: linkedObjects.map(\.id),
+            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
             excludedLayouts: [],
             onSelect: { [weak self] details in
-                self?.linkedObjects.append(details)
+                self?.linkedObjects.append(.uploadedObject(details))
             }
         )
         output?.onLinkObjectSelected(data: data)
+    }
+    
+    func onTapAddMediaToMessage() {
+        showPhotosPicker = true
     }
     
     func subscribeOnParticipants() async {
@@ -118,25 +127,24 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func onTapSendMessage() {
         Task {
-            var chatMessage = ChatMessage()
-            chatMessage.message = discussionInputConverter.convert(message: message)
-            chatMessage.attachments = linkedObjects.map { details in
-                var attachment = ChatMessageAttachment()
-                attachment.target = details.id
-                attachment.type = .link
-                return attachment
-            }
-            try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+            try await discussionChatActionService.createMessage(
+                chatId: chatId,
+                spaceId: spaceId,
+                message: message,
+                linkedObjects: linkedObjects
+            )
             scrollToLastForNextUpdate = true
             message = NSAttributedString()
             linkedObjects = []
+            photosItems = []
         }
     }
     
-    func onTapRemoveLinkedObject(details: ObjectDetails) {
+    func onTapRemoveLinkedObject(linkedObject: DiscussionLinkedObject) {
         withAnimation {
-            linkedObjects.removeAll { $0.id == details.id }
+            linkedObjects.removeAll { $0.id == linkedObject.id }
         }
+        photosItems.removeAll { $0.hashValue == linkedObject.id }
     }
     
     func didSelectAddReaction(messageId: String) {
@@ -179,6 +187,12 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         message = newMessage
     }
     
+    func didSelectObject(linkedObject: DiscussionLinkedObject) {
+        guard let details = linkedObject.uploadedObject else { return }
+        let screenData = details.editorScreenData()
+        output?.onObjectSelected(screenData: screenData)
+    }
+    
     func didSelectObject(details: ObjectDetails) {
         let screenData = details.editorScreenData()
         output?.onObjectSelected(screenData: screenData)
@@ -213,6 +227,45 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             willShowNextScreen: nil
         )
         output?.didSelectLinkToObject(data: data)
+    }
+    
+    func updatePickerItems() async {
+        attachmentsDownloading = true
+        defer { attachmentsDownloading = false }
+        
+        let newItemsIds = Set(photosItems.map(\.hashValue))
+        let linkedIds = Set(linkedObjects.compactMap(\.localFile?.photosPickerItemHash))
+        let removeIds = linkedIds.subtracting(newItemsIds)
+        let addIds = newItemsIds.subtracting(linkedIds)
+        
+        // Remove old
+        linkedObjects.removeAll { removeIds.contains($0.id) }
+        // Add new in loading state
+        let newItems = photosItems.filter { addIds.contains($0.hashValue) }
+        
+        let newLinkedObjects = newItems.map {
+            DiscussionLinkedObject.localFile(
+                DiscussionLocalFile(data: nil, photosPickerItemHash: $0.hashValue)
+            )
+        }
+        linkedObjects.append(contentsOf: newLinkedObjects)
+        
+        for photosItem in newItems {
+            do {
+                let data = try await fileActionsService.createFileData(photoItem: photosItem)
+                let linkeObject = DiscussionLinkedObject.localFile(
+                    DiscussionLocalFile(data: data, photosPickerItemHash: photosItem.hashValue)
+                )
+                if let index = linkedObjects.firstIndex(where: { $0.id == photosItem.hashValue }) {
+                    linkedObjects[index] = linkeObject
+                } else {
+                    linkedObjects.append(linkeObject)
+                    anytypeAssertionFailure("Linked object should be added in loading state")
+                }
+            } catch {
+                linkedObjects.removeAll { $0.id == photosItem.hashValue }
+            }
+        }
     }
     
     // MARK: - Private

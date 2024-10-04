@@ -323,4 +323,8 @@ extension Container {
     var allContentStateStorageService: Factory<any AllContentStateStorageServiceProtocol> {
         self { AllContentStateStorageService() }.shared
     }
+    
+    var discussionChatActionService: Factory<any DiscussionChatActionServiceProtocol> {
+        self { DiscussionChatActionService() }
+    }
 }

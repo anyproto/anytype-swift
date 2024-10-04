@@ -1,4 +1,5 @@
 import SwiftUI
+import PhotosUI
 
 struct DiscussionView: View {
     
@@ -41,6 +42,10 @@ struct DiscussionView: View {
         .throwingTask {
             try await model.subscribeOnMessages()
         }
+        .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
+        .task(id: model.photosItems.hashValue) {
+            await model.updatePickerItems()
+        }
     }
     
     private var bottomPanel: some View {
@@ -59,17 +64,20 @@ struct DiscussionView: View {
     private var inputPanel: some View {
         VStack(spacing: 0) {
             MessageLinkInputViewContainer(objects: model.linkedObjects) {
-                model.didSelectObject(details: $0)
+                model.didSelectObject(linkedObject: $0)
             } onTapRemove: {
-                model.onTapRemoveLinkedObject(details: $0)
+                model.onTapRemoveLinkedObject(linkedObject: $0)
             }
             DiscusionInput(
                 text: $model.message,
                 editing: $model.inputFocused,
                 mention: $model.mentionSearchState,
-                hasAdditionalData: model.linkedObjects.isNotEmpty
+                hasAdditionalData: model.linkedObjects.isNotEmpty,
+                additionalDataLoading: model.attachmentsDownloading
             ) {
                 model.onTapAddObjectToMessage()
+            } onTapAddMedia: {
+                model.onTapAddMediaToMessage()
             } onTapSend: {
                 model.onTapSendMessage()
             } onTapLinkTo: { range in

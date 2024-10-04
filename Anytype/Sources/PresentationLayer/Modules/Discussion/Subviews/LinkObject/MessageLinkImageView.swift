@@ -11,7 +11,7 @@ struct MessageLinkImageView: View {
         ImageIdIconView(imageId: imageId)
             .frame(width: 72, height: 72)
             .cornerRadius(12, style: .continuous)
-            .shadow(color: .black.opacity(0.05), radius: 4)
+            .messageLinkShadow()
             .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }

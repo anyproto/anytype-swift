@@ -6,14 +6,25 @@ struct DiscusionInput: View {
     @Binding var editing: Bool
     @Binding var mention: DiscussionTextMention
     let hasAdditionalData: Bool
+    let additionalDataLoading: Bool
     let onTapAddObject: () -> Void
+    let onTapAddMedia: () -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
-            Button {
-                onTapAddObject()
+            Menu {
+                Button {
+                    onTapAddMedia()
+                } label: {
+                    Text(Loc.media)
+                }
+                Button {
+                    onTapAddObject()
+                } label: {
+                    Text(Loc.objects)
+                }
             } label: {
                 Image(asset: .X32.plus)
                     .foregroundColor(Color.Button.active)
@@ -33,20 +44,24 @@ struct DiscusionInput: View {
             }
             
             if hasAdditionalData || !text.string.isEmpty {
-                Button {
-                    onTapSend()
-                } label: {
-                    Image(asset: .X32.sendMessage)
-                        .foregroundColor(Color.Button.button)
+                Group {
+                    if additionalDataLoading {
+                        DotsView()
+                            .frame(width: 32, height: 6)
+                    } else {
+                        Button {
+                            onTapSend()
+                        } label: {
+                            Image(asset: .X32.sendMessage)
+                                .foregroundColor(Color.Button.button)
+                        }
+                    }
                 }
-                .frame(height: 56)
+                .frame(width: 56, height: 56)
             }
+                
         }
         .padding(.horizontal, 8)
         .background(Color.Background.primary)
     }
-}
-
-#Preview {
-    DiscusionInput(text: .constant(NSAttributedString()), editing: .constant(false), mention: .constant(.finish), hasAdditionalData: true, onTapAddObject: {}, onTapSend: {}, onTapLinkTo: { _ in })
 }

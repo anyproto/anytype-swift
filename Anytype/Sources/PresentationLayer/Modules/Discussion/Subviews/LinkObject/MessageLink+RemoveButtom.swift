@@ -14,4 +14,8 @@ extension View {
             }
         }
     }
+    
+    func messageLinkShadow() -> some View {
+        shadow(color: .Additional.messageInputShadow, radius: 4)
+    }
 }
