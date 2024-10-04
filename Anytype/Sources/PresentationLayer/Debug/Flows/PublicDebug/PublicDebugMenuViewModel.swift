@@ -12,7 +12,6 @@ final class PublicDebugMenuViewModel: ObservableObject {
     @Published var showZipPicker = false
     
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
-    @UserDefault("DebugRunProfiler", defaultValue: .empty) private var debugRunProfilerDataStore: DebugRunProfilerState
     
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
@@ -25,8 +24,9 @@ final class PublicDebugMenuViewModel: ObservableObject {
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     
+    
     init() {
-        debugRunProfilerData = debugRunProfilerDataStore
+        debugService.debugRunProfilerData.assign(to: &$debugRunProfilerData)
     }
     
     func getLocalStoreData() {
@@ -72,20 +72,7 @@ final class PublicDebugMenuViewModel: ObservableObject {
     }
     
     func onDebugRunProfiler() {
-        debugRunProfilerData = .inProgress
-        debugRunProfilerDataStore = .inProgress
-        
-        Task.detached { [self] in
-            let path = try await debugService.debugRunProfiler()
-            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("debugRunProfiler.zip")
-            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
-            
-            
-            Task { @MainActor in
-                debugRunProfilerData = .done(url: zipFile)
-                debugRunProfilerDataStore = .done(url: zipFile)
-            }
-        }
+        debugService.startDebugRunProfiler()
     }
     
     func shareUrlContent(url: URL) {

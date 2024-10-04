@@ -35,6 +35,9 @@ struct PublicDebugMenuView: View {
                 model.onSelectUnzipFile(url: url)
             }
         }
+        .sheet(item: $model.shareUrlFile) { url in
+            ActivityViewController(activityItems: [url], applicationActivities: nil)
+        }
     }
     
     private var actions: some View {
