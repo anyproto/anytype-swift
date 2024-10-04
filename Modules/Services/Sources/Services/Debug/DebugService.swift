@@ -1,16 +1,27 @@
 import Foundation
 import ProtobufMessages
 import AnytypeCore
+import Combine
+
+
+public enum DebugRunProfilerState: Codable {
+    case empty
+    case inProgress
+    case done(url: URL)
+}
 
 public protocol DebugServiceProtocol: AnyObject, Sendable {
     func exportLocalStore() async throws -> String
     func exportStackGoroutines() async throws -> String
     func exportSpaceDebug(spaceId: String) async throws -> String
-    func debugRunProfiler() async throws -> String
     func debugStat() async throws -> URL
+    
+    @MainActor
+    var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
+    func startDebugRunProfiler()
 }
 
-final class DebugService: DebugServiceProtocol {
+final class DebugService: ObservableObject, DebugServiceProtocol {
     // MARK: - DebugServiceProtocol
     
     public func exportLocalStore() async throws -> String {
@@ -40,17 +51,37 @@ final class DebugService: DebugServiceProtocol {
         return try result.jsonString()
     }
     
-    public func debugRunProfiler() async throws -> String {
-        return try await ClientCommands.debugRunProfiler(.with {
-            $0.durationInSeconds = 60
-        }).invoke().path
-    }
-    
     public func debugStat() async throws -> URL {
         let jsonContent = try await ClientCommands.debugStat().invoke().jsonStat
         let jsonFile = FileManager.default.createTempDirectory().appendingPathComponent("debugStat.json")
         try jsonContent.write(to: jsonFile, atomically: true, encoding: .utf8)
         
         return jsonFile
+    }
+    
+    // MARK: - Profiling
+    
+    @MainActor
+    @Published private var _debugRunProfilerData = DebugRunProfilerState.empty
+    var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { $_debugRunProfilerData.eraseToAnyPublisher() }
+    
+    func startDebugRunProfiler() {
+        Task {
+            Task { @MainActor in
+                _debugRunProfilerData = .inProgress
+            }
+            
+            let path = try await ClientCommands.debugRunProfiler(.with {
+                $0.durationInSeconds = 1
+            }).invoke().path
+
+            Task { @MainActor in
+                if let url = URL(string: path) {
+                    _debugRunProfilerData = .done(url: url)
+                } else {
+                    _debugRunProfilerData = .empty
+                }
+            }
+        }
     }
 }
