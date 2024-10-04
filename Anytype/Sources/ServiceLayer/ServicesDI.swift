@@ -272,8 +272,8 @@ extension Container {
         self { MentionObjectsService() }.shared
     }
     
-    var appVersionService: Factory<any AppVersionServiceProtocol> {
-        self { AppVersionService() }.singleton
+    var appVersionUpdateService: Factory<any AppVersionUpdateServiceProtocol> {
+        self { AppVersionUpdateService() }.singleton
     }
     
     var middlewareEventsListener: Factory<any MiddlewareEventsListenerProtocol> {
@@ -314,5 +314,13 @@ extension Container {
     
     var allContentStateStorageService: Factory<any AllContentStateStorageServiceProtocol> {
         self { AllContentStateStorageService() }.shared
+    }
+    
+    var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
+        self { AppVersionTracker() }.singleton
+    }
+    
+    var userWarningAlertsHandler: Factory<any UserWarningAlertsHandlerProtocol> {
+        self { UserWarningAlertsHandler() }.shared
     }
 }

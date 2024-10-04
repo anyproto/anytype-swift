@@ -30,10 +30,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Published var toastBarData: ToastBarData = .empty
     
     // MARK: - Initializers
-    
-    func onAppear() {
-        runAtFirstLaunch()
-    }
 
     func authView() -> AnyView {
         if let authCoordinator {
@@ -81,12 +77,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    
-    private func runAtFirstLaunch() {
-        if userDefaults.installedAtDate.isNil {
-            userDefaults.installedAtDate = Date()
-        }
-    }
     
     // MARK: - Subscription handler
 

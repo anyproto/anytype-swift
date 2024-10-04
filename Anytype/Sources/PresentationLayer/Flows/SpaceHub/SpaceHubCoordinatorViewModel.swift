@@ -11,6 +11,7 @@ struct SpaceHubNavigationItem: Hashable { }
 final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
+    @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
     @Published var showSpaceSwitchData: SpaceSwitchModuleData?
@@ -83,6 +84,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.loginStateService)
     private var loginStateService: any LoginStateServiceProtocol
+    @Injected(\.userWarningAlertsHandler)
+    private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
     private var preveouslyOpenedSpaceId: String?
@@ -113,6 +116,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     func setup() async {
         await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
         await setupInitialScreen()
+        await handleVersionAlerts()
     }
     
     func setupInitialScreen() async {
@@ -142,6 +146,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         for await info in activeSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
         }
+    }
+    
+    func handleVersionAlerts() async {
+        userWarningAlert = await userWarningAlertsHandler.nextUserWarningAlert()
     }
     
     // MARK: - Private
