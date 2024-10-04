@@ -123,7 +123,7 @@ struct SpaceHubTipView: View {
                 ]
             ),
             startPoint: .top,
-            endPoint: UnitPoint(x: 0.5, y: 0.93)
+            endPoint: UnitPoint(x: 0.5, y: 0.87)
         )
     }
         
