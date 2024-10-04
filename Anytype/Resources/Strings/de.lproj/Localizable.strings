@@ -1237,7 +1237,7 @@ Please provide specific details of your needs here.";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Nur unverlinkte";
-"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.Unlinked.Description" = "";
 "AllContent.Settings.ViewBin" = "Papierkorb ansehen";
 "AllContent.Empty.State.title" = "Hier ist es leer.";
 "AllContent.Empty.State.subtitle" = "Erstelle deine ersten Objekte, um loszulegen.";
