@@ -101,6 +101,15 @@ struct DebugMenuView: View {
                     model.shareUrlContent(url: url)
                 }
             }
+            
+            Toggle(isOn: Binding(
+                get: { model.shouldRunDebugProfilerOnNextStartup } ,
+                set: { model.shouldRunDebugProfilerOnNextStartup = $0 }
+            )) {
+                AnytypeText("Run Debug Profiler On Next Startup", style: .bodyRegular)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+            }.padding()
         }
     }
     

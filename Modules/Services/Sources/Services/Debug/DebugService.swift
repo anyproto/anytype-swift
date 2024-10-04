@@ -17,12 +17,15 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
     func debugStat() async throws -> URL
     
     @MainActor
+    var shouldRunDebugProfilerOnNextStartup: Bool { get set }
+    @MainActor
     var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
     func startDebugRunProfiler()
 }
 
 final class DebugService: ObservableObject, DebugServiceProtocol {
-    // MARK: - DebugServiceProtocol
+    @MainActor @UserDefault("ShouldRunDebugProfilerOnNextStartup", defaultValue: false)
+    var shouldRunDebugProfilerOnNextStartup: Bool
     
     public func exportLocalStore() async throws -> String {
         let tempDirString = FileManager.default.createTempDirectory().path
@@ -72,7 +75,7 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
             }
             
             let path = try await ClientCommands.debugRunProfiler(.with {
-                $0.durationInSeconds = 1
+                $0.durationInSeconds = 60
             }).invoke().path
 
             Task { @MainActor in
