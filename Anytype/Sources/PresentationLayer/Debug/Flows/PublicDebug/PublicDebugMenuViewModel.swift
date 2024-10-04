@@ -24,6 +24,13 @@ final class PublicDebugMenuViewModel: ObservableObject {
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     
+    var shouldRunDebugProfilerOnNextStartup: Bool {
+        get {
+            debugService.shouldRunDebugProfilerOnNextStartup
+        } set {
+            debugService.shouldRunDebugProfilerOnNextStartup = newValue
+        }
+    }
     
     init() {
         debugService.debugRunProfilerData.assign(to: &$debugRunProfilerData)

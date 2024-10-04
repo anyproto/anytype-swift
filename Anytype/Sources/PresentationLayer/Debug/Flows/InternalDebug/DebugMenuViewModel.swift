@@ -31,6 +31,14 @@ final class DebugMenuViewModel: ObservableObject {
     @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
     
+    var shouldRunDebugProfilerOnNextStartup: Bool {
+        get {
+            debugService.shouldRunDebugProfilerOnNextStartup
+        } set {
+            debugService.shouldRunDebugProfilerOnNextStartup = newValue
+        }
+    }
+    
     init() {
         updateFlags()
         debugService.debugRunProfilerData.assign(to: &$debugRunProfilerData)
