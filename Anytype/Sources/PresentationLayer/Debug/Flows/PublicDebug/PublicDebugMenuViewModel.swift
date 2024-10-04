@@ -4,35 +4,15 @@ import AnytypeCore
 import Services
 import ZIPFoundation
 
-enum DebugRunProfilerState: Codable {
-    case empty
-    case inProgress
-    case done(url: URL)
-    
-    var text: String {
-        switch self {
-        case .empty, .done:
-            "Run debug profiler 🤓"
-        case .inProgress:
-            "Profiling in progress ..."
-        }
-    }
-}
 
 @MainActor
-final class DebugMenuViewModel: ObservableObject {
+final class PublicDebugMenuViewModel: ObservableObject {
     
-    @Published private(set) var isRemovingRecoveryPhraseInProgress = false
     @Published var shareUrlFile: URL?
     @Published var showZipPicker = false
-    @Published private(set) var flags = [FeatureFlagSection]()
     
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
     @UserDefault("DebugRunProfiler", defaultValue: .empty) private var debugRunProfilerDataStore: DebugRunProfilerState
-    
-    @Injected(\.userDefaultsStorage)
-    var userDefaults: any UserDefaultsStorageProtocol
-    let spaceId: String?
     
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
@@ -44,26 +24,9 @@ final class DebugMenuViewModel: ObservableObject {
     private var authService: any AuthServiceProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
-    @Injected(\.seedService)
-    private var seedService: any SeedServiceProtocol
     
-    init(spaceId: String?) {
-        self.spaceId = spaceId
-        updateFlags()
+    init() {
         debugRunProfilerData = debugRunProfilerDataStore
-    }
-    
-    func removeRecoveryPhraseFromDevice() {
-        isRemovingRecoveryPhraseInProgress = true
-        Task {
-            do {
-                try await authService.logout(removeData: false)
-                try seedService.removeSeed()
-                applicationStateService.state = .auth
-            } catch {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-            }
-        }
     }
     
     func getLocalStoreData() {
@@ -76,8 +39,8 @@ final class DebugMenuViewModel: ObservableObject {
         }
     }
     
-    func getGoroutinesData() {
-        Task { shareUrlFile = try await debugService.exportStackGoroutinesZip() }
+    func getGoroutinesData() async throws {
+        shareUrlFile = try await debugService.exportStackGoroutinesZip()
     }
     
     func zipWorkingDirectory() {
@@ -108,13 +71,6 @@ final class DebugMenuViewModel: ObservableObject {
         }
     }
     
-    func onSpaceDebug(spaceId: String) async throws {
-        let jsonDebug = try await debugService.exportSpaceDebug(spaceId: spaceId)
-        let jsonFile = FileManager.default.createTempDirectory().appendingPathComponent("spaceInfo.json")
-        try jsonDebug.write(to: jsonFile, atomically: true, encoding: .utf8)
-        shareUrlFile = jsonFile
-    }
-    
     func onDebugRunProfiler() {
         debugRunProfilerData = .inProgress
         debugRunProfilerDataStore = .inProgress
@@ -138,29 +94,5 @@ final class DebugMenuViewModel: ObservableObject {
     
     func debugStat() async throws {
         shareUrlFile = try await debugService.debugStat()
-    }
-    
-    // MARK: - Private
-    
-    private func updateFlags() {
-       let allFlags = FeatureFlags.features.sorted { $0.title < $1.title }
-            .map { flag in
-                FeatureFlagViewModel(
-                    description: flag,
-                    value: FeatureFlags.value(for: flag),
-                    onChange: { [weak self] in
-                        FeatureFlags.update(key: flag, value: $0)
-                        self?.updateFlags()
-                    }
-                )
-            }
-        
-        let productionRows = allFlags.filter { $0.description.type != .debug }
-        let debugRows = allFlags.filter { $0.description.type == .debug }
-        
-        flags = [
-                FeatureFlagSection(title: "Features", rows: productionRows),
-                FeatureFlagSection(title: "Debug", rows: debugRows),
-            ]
     }
 }
