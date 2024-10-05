@@ -631,7 +631,7 @@
 "P2P Connecting" = "P2P-Verbindungsaufbau...";
 "P2P Connection" = "P2P-Verbindung";
 "Anytype Network" = "Anytype-Netzwerk";
-"Self Host" = "Self Host";
+"Self Host" = "Selbst hosten";
 "Local Only" = "Nur lokal";
 "Synced" = "Synchronisiert";
 "No connection" = "Keine Verbindung";
@@ -695,7 +695,7 @@
 "New" = "Neu";
 "Blurred icon" = "Unscharfes\n Symbol";
 "My First Space" = "Mein erster Space";
-"Copy space info" = "Copy space info";
+"Copy space info" = "Spaceinformationen kopieren";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
@@ -825,7 +825,7 @@
 "Widgets.Layout.Link.Description" = "Kompakte Widget-Ansicht";
 "Widgets.Layout.Tree.Description" = "Widget mit einer hierarchischen Struktur";
 "Widgets.Layout.List.Description" = "Widget mit einer Listenansicht";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.View.Description" = "Widget mit einem Set oder Sammlungslayout";
 "Widgets.Layout.CompactList.Description" = "Widget mit einer kompakten Listenansicht";
 "Widgets.Empty.Title" = "Hier gibt es keine Objekte";
 "Widgets.Empty.CreateObject" = "Objekt erstellen";
@@ -833,7 +833,7 @@
 "Widgets.Library.RecentlyOpened.Name" = "Zuletzt geöffnet";
 "Widgets.Library.RecentlyOpened.Description" = "Auf diesem Gerät";
 "Widgets.AppUpdate" = "Anytype ist bereit zur Aktualisierung";
-"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Library" = "Standardsets";
 "Widgets.Source.Objects" = "Deine Objekte";
 
 // MARK: - About
@@ -979,19 +979,19 @@
 "SpaceShare.QR.Button" = "QR-Code anzeigen";
 "SpaceShare.HowToShare.Title" = "Wie teilt man einen Space?";
 "SpaceShare.HowToShare.Step1" = "Bitte gib den Link zu der Person an, mit der du zusammenarbeiten möchtest.";
-"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step2" = "Durch Klick auf den Link fragt eine Person den Zugang zu dem Space an. ";
 "SpaceShare.HowToShare.Step3" = "Nach der Genehmigung der Anfrage kannst du die Zugriffsrechte für diese Person festlegen.";
 "SpaceShare.Manage" = "Verwalten";
 "SpaceShare.AlreadyJoin.Title" = "Du bist bereits Mitglied dieses Spaces.";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Öffne Space";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
-"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
+"PermissionChangeNotification.Text" = "Deine Zugriffsrechte wurden zu **%@** geändert im Space **%@**";
+"ParticipantRequestApprovedNotification.Text" = "Deine Anfrage dem Space **%@** beizutreten wurde mit den Zugriffsrechten **%@** akzeptiert. Der Space wird in Kürze auf deinem Gerät verfügbar sein.";
+"ParticipantRequestDeclineNotification.Text" = "Deine Anfrage dem Space **%@** beizutreten wurde abgelehnt. ";
+"RequestToLeaveNotification.Text" = "**%@** möchte den Space **%@** verlassen.";
+"ParticipantRemoveNotification.Text" = "Du wurdesg auf dem Space **%@** entfernt, oder der Space wurde von dessen Besitzer gelöscht.";
+"RequestToJoinNotification.Text" = "**%@** fragt Zugang zum Space  **%@** an.";
 "RequestToJoinNotification.GoToSpace" = "Zu Space wechseln";
 "RequestToJoinNotification.ViewRequest" = "Anfrage ansehen";
 
@@ -1034,22 +1034,22 @@
 
 // MARK: - Space Share Tip
 "SpaceShare.Tip.Title" = "Collaborate on spaces";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.1" = "Tippe auf das Widget des Spaces um auf die Einstellungen zuzugreifen. ";
 "SpaceShare.Tip.Steps.2" = "Teilen-Bereich öffnen";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Steps.3" = "Einladungslink erstellen und teilen";
 
 // MARK: - Space Hub Tip
 "SpaceHub.Tip.Title3" = "Dynamische Hintergründe";
 "SpaceHub.Tip.Title2" = "Einfach & flexibel";
 "SpaceHub.Tip.Title1" = "Willkommen im Tresor";
 
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
-"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+"SpaceHub.Tip.Text3" = "Standardmäßig wir das Icon deines Spaces verschwommen dargestellt um es als Hintergrundbild zu nutzen. Wenn notwendig, kann das in den Space Einstellungen geändert werden.";
+"SpaceHub.Tip.Text2" = "Spaces können nun einfach per Drag-and-Drop neu angeordnet werden und einfacher navigieren.";
+"SpaceHub.Tip.Text1" = "Der Tresor ist das neue Zuhause aller deiner Spaces. Erstelle Spaces, trete ihnen bei oder teile sie - alles wird hier sicher gespeichert.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"SpaceSwitcher.Tip.Title" = "Wechsle schneller zwischen Spaces";
+"SpaceSwitcher.Tip.Text" = "Lange auf dem Zurück-Button tippen, um den Space zu wechseln. ";
 
 // MARK: - Initial
 
@@ -1132,27 +1132,26 @@
 "Membership.Ad.Title" = "Mitgliedschaft";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";
 
-"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Details" = "Abonnementdetails";
 "Membership.Legal.Privacy" = "Datenschutzrichtlinie";
 "Membership.Legal.Terms" = "Allgemeine Geschäftsbedingungen";
 "Membership.Legal.WouldYouLike" = "Möchten Sie Anytype für Geschäftliches, Bildung, usw.?";
 "Membership.Legal.LetUsKnow" = "Lass es uns hier wissen.";
-"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.AlreadyPurchasedTier" = "Stufe bereits gekauft?";
 "Membership.Legal.RestorePurchases" = "Käufe wiederherstellen";
 
-"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
-- Extra remote storage
-- More space editors
-- Additional shared spaces
-Specifically,
-Please provide specific details of your needs here.";
+"Membership.Email.Body" = "Hallo Anytype Team! Ich möchte mein aktuelles Abonnement erweitern um (bitte eine Option wählen):
+- Extra Remotespeicher
+- weitere Space Bearbeiter
+- zusätzliche geteilte Spaces
+Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 
 "Membership.Upgrade.Title" = "Hochstufen der Mitgliedschaft";
-"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Text" = "Kontaktiere und bezüglich mehr Speicherplatz oder mehr geteilten Spaces. Das Anytype Team wird sich mit Informationen und den auf dich zugeschnittenen Konditionen melden. ";
 "Membership.Upgrade.Button" = "Anytype-Team kontaktieren";
 
-"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
+"Membership.Upgrade.MoreSpaces" = "Upgraden um weitere Spaces hinzuzufügen";
+"Membership.Upgrade.MoreMembers" = "Upgrade um weitere Mitglieder hinzuzufügen. ";
 "Membership.Upgrade.NoMoreMembers" = "Du kannst keine weiteren Mitglieder hinzufügen";
 "Membership.Upgrade.NoMoreEditors" = "Du kannst keine weiteren Editoren hinzufügen";
 
@@ -1160,7 +1159,7 @@ Please provide specific details of your needs here.";
 "Membership.Banner.Title1" = "Gemeinsam die Vision erbauen";
 "Membership.Banner.Subtitle1" = "Als geschätztes Mitglied zählt deine Stimme! Nimm an exklusiven Veranstaltungen teil, gestalte strategische Entscheidungen und beeinflusse unseren Entwicklungsplan.";
 "Membership.Banner.Title2" = "Mitgliedsvorteile freischalten";
-"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Subtitle2" = "Mitglieder profitieren von größerem Backupspeicherplatz, Synchronisierungslimits, Einladungen von mehreren Gästen zu geteilten Spaces und einer einzigartigen Benennung im Anytype Netzwerk.";
 "Membership.Banner.Title3" = "Digitale Unabhängigkeit unterstützen";
 "Membership.Banner.Subtitle3" = "Mit deinem Beitrag unterstützt du unser unabhängiges Team und befürwortest unsere Vision︎ eines nutzergeführten, sicheren und gemeinschaftlichen digitalen Netzwerks.";
 "Membership.Banner.Title4" = "In Konnektivität investieren";
@@ -1194,13 +1193,13 @@ Please provide specific details of your needs here.";
 "Membership.Feature.UniqueName" = "Eindeutiger Netzwerkname (%@+ Zeichen)";
 "Membership.Feature.StorageGB" = "%@ GB Speicherplatz für Datensicherung und Synchronisation im Anytype-Netzwerk";
 "Membership.Feature.Invites" = "%@ Einladungen";
-"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
-"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
-"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
-"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+"Membership.Feature.SpaceWriters" = "%@ Bearbeiter pro geteiltem Space";
+"Membership.Feature.UnlimitedViewers" = "Unbegrenzte Betrachteranzahl für geteilte Spaces";
+"Membership.Feature.Viewers" = "%@ Betrachter für geteilte Spaces";
+"Membership.Feature.SharedSpaces" = "Bis zu %@ geteilte Spaces";
 
-"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+"MembershipServiceError.tierNotFound" = "Informationen zur Stufe nicht gefunden, App neustarten und erneut versuchen";
+"MembershipServiceError.invalidBillingIdFormat" = "Internes Problem mit dem Rechnungsformat, wir arbeiten daran. Versuche es später noch einmal oder kontaktiere den Support.";
 
 
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
