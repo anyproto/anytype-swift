@@ -216,7 +216,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             guard currentSpaceId != info?.accountSpaceId else { return }
             currentSpaceId = info?.accountSpaceId
             
-            await dismissAllPresented?()
+            if userWarningAlert.isNil {
+                await dismissAllPresented?()
+            }
             
             if let info {
                 let newPath = HomePath(initalPath: [SpaceHubNavigationItem(), info])
