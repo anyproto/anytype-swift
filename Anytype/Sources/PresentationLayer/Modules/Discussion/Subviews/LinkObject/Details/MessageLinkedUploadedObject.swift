@@ -16,6 +16,8 @@ struct MessageLinkedUploadedObject: View {
             .onTapGesture {
                 onTapObject()
             }
+        case .video:
+            
         default:
             MessageLinkObjectView(details: details, style: .input, onTapRemove: { _ in
                 onTapRemove()
