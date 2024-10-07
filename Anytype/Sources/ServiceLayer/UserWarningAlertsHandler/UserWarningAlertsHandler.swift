@@ -12,8 +12,6 @@ final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
     
     @Injected(\.appVersionTracker)
     private var appVersionTracker: any AppVersionTrackerProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
     
     // [UserWarningAlert : Date]
     @UserDefault("UserData.ShownUserWarningAlerts", defaultValue: [:])
@@ -25,7 +23,7 @@ final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
     }()
     
     func nextUserWarningAlert() async -> UserWarningAlert? {
-        let todayDate = dateFormatter.calendar.startOfDay(for: Date())
+        let todayDate = Date()
         var prevAlertShownDate: Date? = nil
         
         for alert in activeUserWarningAlerts {
