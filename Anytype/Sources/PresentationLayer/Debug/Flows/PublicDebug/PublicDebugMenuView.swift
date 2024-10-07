@@ -78,6 +78,15 @@ struct PublicDebugMenuView: View {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     model.unzipWorkingDirectory()
                 }
+                
+                Toggle(isOn: Binding(
+                    get: { model.shouldRunDebugProfilerOnNextStartup } ,
+                    set: { model.shouldRunDebugProfilerOnNextStartup = $0 }
+                )) {
+                    AnytypeText("Run Debug Profiler On Next Startup", style: .bodyRegular)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                }.padding()
             } label: {
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText("Advanced stuff 🤓", style: .subheading)

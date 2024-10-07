@@ -20,6 +20,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.debugService)
+    private var debugService: any DebugServiceProtocol
     
     private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?
@@ -30,6 +32,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Published var toastBarData: ToastBarData = .empty
     
     // MARK: - Initializers
+    
+    func onAppear() {
+        runDebugProfilerIfNeeded()
+    }
 
     func authView() -> AnyView {
         if let authCoordinator {
@@ -77,6 +83,13 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
     
     // MARK: - Private
+    
+    private func runDebugProfilerIfNeeded() {
+        if debugService.shouldRunDebugProfilerOnNextStartup {
+            debugService.startDebugRunProfiler()
+            debugService.shouldRunDebugProfilerOnNextStartup = false
+        }
+    }
     
     // MARK: - Subscription handler
 

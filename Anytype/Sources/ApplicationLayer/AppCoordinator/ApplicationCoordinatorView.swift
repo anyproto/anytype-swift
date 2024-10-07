@@ -12,6 +12,7 @@ struct ApplicationCoordinatorView: View {
             applicationView
         }
         .onAppear {
+            model.onAppear()
             model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
         }
         .task {
