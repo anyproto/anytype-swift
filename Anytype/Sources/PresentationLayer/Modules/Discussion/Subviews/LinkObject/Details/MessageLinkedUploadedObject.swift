@@ -16,6 +16,13 @@ struct MessageLinkedUploadedObject: View {
             .onTapGesture {
                 onTapObject()
             }
+        case .video:
+            if let url = ContentUrlBuilder.fileUrl(fileId: details.id) {
+                MessageLinkLocalVideoView(url: url, onTapRemove: onTapRemove)
+                    .onTapGesture {
+                        onTapObject()
+                    }
+            }
         default:
             MessageLinkObjectView(details: details, style: .input, onTapRemove: { _ in
                 onTapRemove()

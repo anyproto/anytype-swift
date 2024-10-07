@@ -265,6 +265,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 }
             } catch {
                 linkedObjects.removeAll { $0.id == photosItem.hashValue }
+                photosItems.removeAll { $0 == photosItem }
             }
         }
     }

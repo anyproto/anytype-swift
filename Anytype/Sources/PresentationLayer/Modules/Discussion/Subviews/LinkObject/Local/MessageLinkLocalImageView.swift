@@ -3,12 +3,14 @@ import SwiftUI
 struct MessageLinkLocalImageView: View {
     
     let contentsOfFile: String
+    let onTapRemove: () -> Void
     
     // Prevent image creation for each view update
     @State private var image: UIImage?
     
-    init(contentsOfFile: String) {
+    init(contentsOfFile: String, onTapRemove: @escaping () -> Void) {
         self.contentsOfFile = contentsOfFile
+        self.onTapRemove = onTapRemove
         self._image = State(initialValue: UIImage(contentsOfFile: contentsOfFile))
     }
     
@@ -17,11 +19,13 @@ struct MessageLinkLocalImageView: View {
             if let image {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
             }
         }
         .onChange(of: contentsOfFile) { newValue in
             image = UIImage(contentsOfFile: contentsOfFile)
         }
+        .frame(width: 72, height: 72)
+        .messageLinkStyle()
+        .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }
