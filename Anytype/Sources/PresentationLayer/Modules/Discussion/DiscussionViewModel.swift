@@ -3,6 +3,7 @@ import Services
 import SwiftUI
 import PhotosUI
 import AnytypeCore
+import Collections
 
 @MainActor
 final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
@@ -130,7 +131,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             try await discussionChatActionService.createMessage(
                 chatId: chatId,
                 spaceId: spaceId,
-                message: message,
+                message: message.sendable(),
                 linkedObjects: linkedObjects
             )
             scrollToLastForNextUpdate = true

@@ -1,11 +1,12 @@
 import Services
 import UIKit
+import AnytypeCore
 
 protocol DiscussionChatActionServiceProtocol: AnyObject {
     func createMessage(
         chatId: String,
         spaceId: String,
-        message: NSAttributedString,
+        message: SafeSendable<NSAttributedString>,
         linkedObjects: [DiscussionLinkedObject]
     ) async throws
 }
@@ -22,12 +23,12 @@ final class DiscussionChatActionService: DiscussionChatActionServiceProtocol {
     func createMessage(
         chatId: String,
         spaceId: String,
-        message: NSAttributedString,
+        message: SafeSendable<NSAttributedString>,
         linkedObjects: [DiscussionLinkedObject]
     ) async throws {
         
         var chatMessage = ChatMessage()
-        chatMessage.message = discussionInputConverter.convert(message: message)
+        chatMessage.message = discussionInputConverter.convert(message: message.value)
         
         for linkedObject in linkedObjects {
             switch linkedObject {
