@@ -125,6 +125,7 @@ extension UIColor.Additional {
     static let collectionInfo = ColorCollectionInfo(
         name: "Additional",
         colors: [
+            ColorInfo(name: "messageInputShadow", color: UIColor.Additional.messageInputShadow), 
             ColorInfo(name: "separator", color: UIColor.Additional.separator), 
             ColorInfo(name: "space", color: UIColor.Additional.space)
         ]

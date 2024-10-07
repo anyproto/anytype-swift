@@ -19,7 +19,7 @@ extension MessageLinkObjectViewStyle {
         case .input:
             MessageLinkObjectViewStyleConfig(
                 borderColor: .Shape.tertiary,
-                shadowColor: .black.opacity(0.05)
+                shadowColor: .Additional.messageInputShadow
             )
         case .listMy:
             MessageLinkObjectViewStyleConfig(
