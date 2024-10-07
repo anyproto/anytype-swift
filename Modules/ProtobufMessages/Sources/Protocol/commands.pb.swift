@@ -7403,8 +7403,6 @@ public struct Anytype_Rpc {
 
         public var source: [String] = []
 
-        public var ignoreWorkspace: String = String()
-
         /// disable dependent subscription
         public var noDepSubscription: Bool = false
 
@@ -7629,8 +7627,6 @@ public struct Anytype_Rpc {
         /// sorts
         /// (required)  needed keys in details for return, for object fields mw will return (and subscribe) objects as dependent
         public var keys: [String] = []
-
-        public var ignoreWorkspace: String = String()
 
         /// disable dependent subscription
         public var noDepSubscription: Bool = false
@@ -44783,7 +44779,6 @@ extension Anytype_Rpc.Object.SearchSubscribe.Request: SwiftProtobuf.Message, Swi
     8: .same(proto: "afterId"),
     9: .same(proto: "beforeId"),
     10: .same(proto: "source"),
-    12: .same(proto: "ignoreWorkspace"),
     13: .same(proto: "noDepSubscription"),
     14: .same(proto: "collectionId"),
   ]
@@ -44803,7 +44798,6 @@ extension Anytype_Rpc.Object.SearchSubscribe.Request: SwiftProtobuf.Message, Swi
       case 8: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.beforeID) }()
       case 10: try { try decoder.decodeRepeatedStringField(value: &self.source) }()
-      case 12: try { try decoder.decodeSingularStringField(value: &self.ignoreWorkspace) }()
       case 13: try { try decoder.decodeSingularBoolField(value: &self.noDepSubscription) }()
       case 14: try { try decoder.decodeSingularStringField(value: &self.collectionID) }()
       case 15: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
@@ -44840,9 +44834,6 @@ extension Anytype_Rpc.Object.SearchSubscribe.Request: SwiftProtobuf.Message, Swi
     if !self.source.isEmpty {
       try visitor.visitRepeatedStringField(value: self.source, fieldNumber: 10)
     }
-    if !self.ignoreWorkspace.isEmpty {
-      try visitor.visitSingularStringField(value: self.ignoreWorkspace, fieldNumber: 12)
-    }
     if self.noDepSubscription != false {
       try visitor.visitSingularBoolField(value: self.noDepSubscription, fieldNumber: 13)
     }
@@ -44866,7 +44857,6 @@ extension Anytype_Rpc.Object.SearchSubscribe.Request: SwiftProtobuf.Message, Swi
     if lhs.afterID != rhs.afterID {return false}
     if lhs.beforeID != rhs.beforeID {return false}
     if lhs.source != rhs.source {return false}
-    if lhs.ignoreWorkspace != rhs.ignoreWorkspace {return false}
     if lhs.noDepSubscription != rhs.noDepSubscription {return false}
     if lhs.collectionID != rhs.collectionID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -45181,7 +45171,6 @@ extension Anytype_Rpc.Object.SubscribeIds.Request: SwiftProtobuf.Message, SwiftP
     1: .same(proto: "subId"),
     2: .same(proto: "ids"),
     3: .same(proto: "keys"),
-    11: .same(proto: "ignoreWorkspace"),
     12: .same(proto: "noDepSubscription"),
   ]
 
@@ -45194,7 +45183,6 @@ extension Anytype_Rpc.Object.SubscribeIds.Request: SwiftProtobuf.Message, SwiftP
       case 1: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
       case 3: try { try decoder.decodeRepeatedStringField(value: &self.keys) }()
-      case 11: try { try decoder.decodeSingularStringField(value: &self.ignoreWorkspace) }()
       case 12: try { try decoder.decodeSingularBoolField(value: &self.noDepSubscription) }()
       case 13: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       default: break
@@ -45212,9 +45200,6 @@ extension Anytype_Rpc.Object.SubscribeIds.Request: SwiftProtobuf.Message, SwiftP
     if !self.keys.isEmpty {
       try visitor.visitRepeatedStringField(value: self.keys, fieldNumber: 3)
     }
-    if !self.ignoreWorkspace.isEmpty {
-      try visitor.visitSingularStringField(value: self.ignoreWorkspace, fieldNumber: 11)
-    }
     if self.noDepSubscription != false {
       try visitor.visitSingularBoolField(value: self.noDepSubscription, fieldNumber: 12)
     }
@@ -45229,7 +45214,6 @@ extension Anytype_Rpc.Object.SubscribeIds.Request: SwiftProtobuf.Message, SwiftP
     if lhs.subID != rhs.subID {return false}
     if lhs.ids != rhs.ids {return false}
     if lhs.keys != rhs.keys {return false}
-    if lhs.ignoreWorkspace != rhs.ignoreWorkspace {return false}
     if lhs.noDepSubscription != rhs.noDepSubscription {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
