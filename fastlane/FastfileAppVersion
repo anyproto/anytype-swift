@@ -54,8 +54,8 @@ platform :ios do
       xcodeproj:  ENV["APP_PROJECT"],
       skip_info_plist: true
     )
-
-    increment_version_number_in_xcodeproj(
+    
+    increment_version_number(
       bump_type: options[:bump_type],
       xcodeproj:  ENV["APP_PROJECT"]
     )
