@@ -25,8 +25,14 @@ struct MessageLinkInputViewContainer: View {
                         } onTapRemove: {
                             onTapRemove(object)
                         }
-                    case .localFile(let localFile):
-                        MessageLinkedLocalFile(localFile: localFile) {
+                    case .localPhotosFile(let localFile):
+                        MessageLinkedLocalPhotosFile(localFile: localFile) {
+                            onTapObject(object)
+                        } onTapRemove: {
+                            onTapRemove(object)
+                        }
+                    case .localBinaryFile(let data):
+                        MessageLinkedLocalFile(fileData: data) {
                             onTapObject(object)
                         } onTapRemove: {
                             onTapRemove(object)

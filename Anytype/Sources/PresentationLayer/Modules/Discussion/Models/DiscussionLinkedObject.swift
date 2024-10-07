@@ -1,21 +1,24 @@
 import Foundation
 import Services
 
-struct DiscussionLocalFile {
+struct DiscussionLocalPhotosFile {
     let data: FileData?
     let photosPickerItemHash: Int
 }
 
 enum DiscussionLinkedObject: Identifiable {
     case uploadedObject(ObjectDetails)
-    case localFile(DiscussionLocalFile)
+    case localPhotosFile(DiscussionLocalPhotosFile)
+    case localBinaryFile(FileData)
     
     var id: Int {
         switch self {
         case .uploadedObject(let object):
             return object.id.hashValue
-        case .localFile(let file):
+        case .localPhotosFile(let file):
             return file.photosPickerItemHash
+        case .localBinaryFile(let file):
+            return file.path.hashValue
         }
     }
     
@@ -23,16 +26,16 @@ enum DiscussionLinkedObject: Identifiable {
         switch self {
         case .uploadedObject(let object):
             return object
-        case .localFile:
+        case .localPhotosFile, .localBinaryFile:
             return nil
         }
     }
     
-    var localFile: DiscussionLocalFile? {
+    var localPhotosFile: DiscussionLocalPhotosFile? {
         switch self {
-        case .uploadedObject:
+        case .uploadedObject, .localBinaryFile:
             return nil
-        case .localFile(let file):
+        case .localPhotosFile(let file):
             return file
         }
     }

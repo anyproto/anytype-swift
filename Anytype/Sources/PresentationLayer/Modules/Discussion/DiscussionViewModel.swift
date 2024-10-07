@@ -48,8 +48,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var dataLoaded = false
     @Published var mentionSearchState = DiscussionTextMention.finish
     @Published var mentionObjects: [MentionObject] = []
-    @Published var showPhotosPicker = false
-    @Published var photosItems: [PhotosPickerItem] = []
+    @Published var photosItemsTask = UUID()
     @Published var attachmentsDownloading: Bool = false
     
     var showTitleData: Bool { mesageBlocks.isNotEmpty }
@@ -58,6 +57,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
     private var scrollToLastForNextUpdate = false
+    private var photosItems: [PhotosPickerItem] = []
     
     init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
         self.spaceId = spaceId
@@ -81,7 +81,11 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     }
     
     func onTapAddMediaToMessage() {
-        showPhotosPicker = true
+        let data = DiscussionPhotosPickerData(selectedItems: photosItems) { [weak self] result in
+            self?.photosItems = result
+            self?.photosItemsTask = UUID()
+        }
+        output?.onPhotosPickerSelected(data: data)
     }
     
     func onTapAddFilesToMessage() {
@@ -242,7 +246,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         defer { attachmentsDownloading = false }
         
         let newItemsIds = Set(photosItems.map(\.hashValue))
-        let linkedIds = Set(linkedObjects.compactMap(\.localFile?.photosPickerItemHash))
+        let linkedIds = Set(linkedObjects.compactMap(\.localPhotosFile?.photosPickerItemHash))
         let removeIds = linkedIds.subtracting(newItemsIds)
         let addIds = newItemsIds.subtracting(linkedIds)
         
@@ -252,8 +256,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         let newItems = photosItems.filter { addIds.contains($0.hashValue) }
         
         let newLinkedObjects = newItems.map {
-            DiscussionLinkedObject.localFile(
-                DiscussionLocalFile(data: nil, photosPickerItemHash: $0.hashValue)
+            DiscussionLinkedObject.localPhotosFile(
+                DiscussionLocalPhotosFile(data: nil, photosPickerItemHash: $0.hashValue)
             )
         }
         linkedObjects.append(contentsOf: newLinkedObjects)
@@ -261,8 +265,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         for photosItem in newItems {
             do {
                 let data = try await fileActionsService.createFileData(photoItem: photosItem)
-                let linkeObject = DiscussionLinkedObject.localFile(
-                    DiscussionLocalFile(data: data, photosPickerItemHash: photosItem.hashValue)
+                let linkeObject = DiscussionLinkedObject.localPhotosFile(
+                    DiscussionLocalPhotosFile(data: data, photosPickerItemHash: photosItem.hashValue)
                 )
                 if let index = linkedObjects.firstIndex(where: { $0.id == photosItem.hashValue }) {
                     linkedObjects[index] = linkeObject
@@ -332,7 +336,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 if !gotAccess { return }
                 
                 if let fileData = try? fileActionsService.createFileData(fileUrl: file) {
-                    linkedObjects.append(.localFile(DiscussionLocalFile(data: fileData, photosPickerItemHash: file.hashValue)))
+                    linkedObjects.append(.localBinaryFile(fileData))
                 }
                 
                 file.stopAccessingSecurityScopedResource()

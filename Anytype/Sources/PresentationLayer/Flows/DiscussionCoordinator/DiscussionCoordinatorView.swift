@@ -32,12 +32,16 @@ struct DiscussionCoordinatorView: View {
             .sheet(item: $model.linkToObjectData) {
                 LinkToObjectSearchView(data: $0, showEditorScreen: { _ in })
             }
+            .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
             .fileImporter(
                 isPresented: $model.showFilesPicker,
                 allowedContentTypes: [.data],
                 allowsMultipleSelection: true
             ) { result in
                 model.fileImporterFinished(result: result)
+            }
+            .onChange(of: model.photosItems) { _ in
+                model.photosPickerFinished()
             }
     }
     
