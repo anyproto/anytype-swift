@@ -144,8 +144,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     func onTapRemoveLinkedObject(linkedObject: DiscussionLinkedObject) {
         withAnimation {
             linkedObjects.removeAll { $0.id == linkedObject.id }
+            photosItems.removeAll { $0.hashValue == linkedObject.id }
         }
-        photosItems.removeAll { $0.hashValue == linkedObject.id }
     }
     
     func didSelectAddReaction(messageId: String) {

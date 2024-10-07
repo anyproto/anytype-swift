@@ -22,12 +22,9 @@ struct MessageLinkedLocalFile: View {
         if let fileData = localFile.data {
             switch fileData.discussionViewType {
             case .image:
-                if let image = UIImage(contentsOfFile: fileData.path) {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 72, height: 72)
-                }
+                MessageLinkLocalImageView(contentsOfFile: fileData.path)
+                    .frame(width: 72, height: 72)
+                    .id(fileData.path)
             case .file:
                 // TODO: Implement
                 Text("file")
