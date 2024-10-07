@@ -14,23 +14,26 @@ private struct RelationDetailsKey: Hashable {
 
 final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
-    static let subscriptionId = "SubscriptionId.Relation"
-    
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    @Injected(\.relationSubscriptionDataBuilder)
-    private var subscriptionDataBuilder: any RelationSubscriptionDataBuilderProtocol
-    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
-    }()
-    
-    private var details = [RelationDetails]()
-    private var searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
-
-    private var relationsDetailsSubject = CurrentValueSubject<[RelationDetails], Never>([])
-    var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> {
-        relationsDetailsSubject.eraseToAnyPublisher()
+    private enum Constants {
+        static let subscriptionIdPrefix = "SubscriptionId.Relation-"
     }
+    
+    // MARK: - DI
+    
+    @Injected(\.relationSubscriptionDataBuilder)
+    private var subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol
+    
+    private lazy var multispaceSubscriptionHelper = MultispaceSubscriptionHelper<RelationDetails>(
+        subIdPrefix: Constants.subscriptionIdPrefix,
+        subscriptionBuilder: subscriptionDataBuilder
+    )
+    
+    // MARK: - Private properties
+    
+    private var searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
+    
+    @Published var sync: () = ()
+    var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
     
     // MARK: - RelationDetailsStorageProtocol
     
@@ -40,12 +43,12 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     func relationsDetails(for ids: [ObjectId], spaceId: String) -> [RelationDetails] {
         return ids.compactMap { id in
-            return details.first { $0.id == id && $0.spaceId == spaceId }
+            return relationsDetails(spaceId: spaceId).first { $0.id == id && $0.spaceId == spaceId }
         }
     }
     
     func relationsDetails(spaceId: String) -> [RelationDetails] {
-        return details.filter { $0.spaceId == spaceId }
+        return multispaceSubscriptionHelper.data[spaceId] ?? []
     }
     
     func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails {
@@ -63,41 +66,24 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     func startSubscription() async {
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionDataBuilder.build()) { [weak self] data in
-            self?.updateaData(data: data)
+        await multispaceSubscriptionHelper.startSubscription { [weak self] in
+            self?.updateSearchCache()
+            self?.sync = ()
         }
     }
     
     func stopSubscription() async {
-        try? await subscriptionStorage.stopSubscription()
-        details.removeAll()
+        await multispaceSubscriptionHelper.stopSubscription()
         updateSearchCache()
-        relationsDetailsSubject.send(details)
+        sync = ()
     }
     
     // MARK: - Private
     
-    private func updateaData(data: SubscriptionStorageState) {
-        let oldDetails = details
-        details = data.items.map { RelationDetails(objectDetails: $0) }
-        updateSearchCache()
-        relationsDetailsSubject.send(details)
-
-        let diff = details.difference(from: oldDetails)
-        let keys = diff.insertions.map(\.element.key) + diff.removals.map(\.element.key)
-        if keys.isNotEmpty {
-            sendLocalEvents(relationKeys: keys)
-        }
-    }
-    
-    private func sendLocalEvents(relationKeys: [String]) {
-        RelationEventsBunch(events: [.relationChanged(relationKeys: relationKeys)])
-            .send()
-    }
-    
     private func updateSearchCache() {
         searchDetailsByKey.removeAll()
-        details.forEach {
+        let values = multispaceSubscriptionHelper.data.values.flatMap { $0 }
+        values.forEach {
             let key = RelationDetailsKey(key: $0.key, spaceId: $0.spaceId)
             if searchDetailsByKey[key] != nil {
                 anytypeAssertionFailure("Dublicate relation found", info: ["key": $0.key, "id": $0.id, "spaceId": $0.spaceId])

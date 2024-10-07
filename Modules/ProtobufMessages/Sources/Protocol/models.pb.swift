@@ -2879,6 +2879,10 @@ public struct Anytype_Model_Block {
         case codepen // = 16
         case bilibili // = 17
         case excalidraw // = 18
+        case kroki // = 19
+        case graphviz // = 20
+        case sketchfab // = 21
+        case image // = 22
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -2906,6 +2910,10 @@ public struct Anytype_Model_Block {
           case 16: self = .codepen
           case 17: self = .bilibili
           case 18: self = .excalidraw
+          case 19: self = .kroki
+          case 20: self = .graphviz
+          case 21: self = .sketchfab
+          case 22: self = .image
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -2931,6 +2939,10 @@ public struct Anytype_Model_Block {
           case .codepen: return 16
           case .bilibili: return 17
           case .excalidraw: return 18
+          case .kroki: return 19
+          case .graphviz: return 20
+          case .sketchfab: return 21
+          case .image: return 22
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -3354,6 +3366,10 @@ extension Anytype_Model_Block.Content.Latex.Processor: CaseIterable {
     .codepen,
     .bilibili,
     .excalidraw,
+    .kroki,
+    .graphviz,
+    .sketchfab,
+    .image,
   ]
 }
 
@@ -8669,6 +8685,10 @@ extension Anytype_Model_Block.Content.Latex.Processor: SwiftProtobuf._ProtoNameP
     16: .same(proto: "Codepen"),
     17: .same(proto: "Bilibili"),
     18: .same(proto: "Excalidraw"),
+    19: .same(proto: "Kroki"),
+    20: .same(proto: "Graphviz"),
+    21: .same(proto: "Sketchfab"),
+    22: .same(proto: "Image"),
   ]
 }
 

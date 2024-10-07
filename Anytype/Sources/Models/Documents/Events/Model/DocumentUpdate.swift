@@ -10,6 +10,7 @@ enum DocumentUpdate: Hashable {
     case restrictions
     case close
     case syncStatus
+    case relationDetails
 }
 
 extension DocumentUpdate {

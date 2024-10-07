@@ -40,7 +40,7 @@ final class GlobalSearchViewModel: ObservableObject {
             case .default:
                 result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId)
             case .filtered(let data):
-                result = try await searchWithMetaService.search(text: state.searchText, limitObjectIds: data.limitObjectIds)
+                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, limitObjectIds: data.limitObjectIds)
             }
             
             updateInitialStateIfNeeded()
@@ -158,7 +158,7 @@ final class GlobalSearchViewModel: ObservableObject {
             }
         case .filtered(let data):
             Task {
-                let details = try await searchService.search(text: "", limitObjectIds: [data.id]).first
+                let details = try await searchService.search(text: "", spaceId: moduleData.spaceId, limitObjectIds: [data.id]).first
                 guard let details else { return }
                 state = GlobalSearchState(
                     searchText: restoredState.searchText,

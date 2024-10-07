@@ -19,7 +19,6 @@ actor EventsListener: EventsListenerProtocol {
     private let middlewareConverter: MiddlewareEventConverter
     private let localConverter: LocalEventConverter
     private let mentionMarkupEventProvider: MentionMarkupEventProvider
-    private let relationEventConverter: RelationEventConverter
     
     private var subscriptions = [AnyCancellable]()
     
@@ -54,7 +53,6 @@ actor EventsListener: EventsListenerProtocol {
             infoContainer: infoContainer,
             detailsStorage: detailsStorage
         )
-        self.relationEventConverter = RelationEventConverter(relationLinksStorage: relationLinksStorage)
     }
     
     // MARK: - EventsListenerProtocol
@@ -84,7 +82,6 @@ actor EventsListener: EventsListenerProtocol {
     
     private func startListeningInternal() {
         subscribeMiddlewareEvents()
-        subscribeRelationEvents()
     }
     
     private func stopListeningInternal() {
@@ -103,22 +100,6 @@ actor EventsListener: EventsListenerProtocol {
         }.store(in: &subscriptions)
     }
     
-    private func subscribeRelationEvents() {
-        let subscription = NotificationCenter.Publisher(
-            center: .default,
-            name: .relationEvent,
-            object: nil
-        )
-            .compactMap { $0.object as? RelationEventsBunch }
-            .receiveOnMain()
-            .sink { [weak self] eventsBunch in
-                Task { [weak self] in
-                    await self?.handleRelation(eventsBunch: eventsBunch)
-                }
-            }
-        subscriptions.append(subscription)
-    }
-    
     private func handle(events: EventsBunch) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
@@ -132,11 +113,6 @@ actor EventsListener: EventsListenerProtocol {
     
         let updates = middlewareUpdates + markupUpdates + localUpdates + builderUpdates
         receiveUpdates(updates.filteredUpdates)
-    }
-    
-    private func handleRelation(eventsBunch: RelationEventsBunch) {
-        let updates = eventsBunch.events.compactMap { relationEventConverter.convert($0) }
-        receiveUpdates(updates)
     }
     
     private func receiveUpdates(_ updates: [DocumentUpdate]) {
