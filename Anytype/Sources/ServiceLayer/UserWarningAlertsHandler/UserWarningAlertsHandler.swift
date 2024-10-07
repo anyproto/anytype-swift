@@ -7,7 +7,7 @@ protocol UserWarningAlertsHandlerProtocol {
 
 final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
     
-    private let activeUserWarningAlerts: [UserWarningAlert] = [.reindexing]
+    private let activeUserWarningAlerts = UserWarningAlert.allCases
     private let minIntervalInDays = 3
     
     @Injected(\.appVersionTracker)
@@ -38,8 +38,8 @@ final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
                     date1: prevAlertShownDate,
                     date2: todayDate
                 )
-                let firstVersionLaunch = await firstVersionLaunch(for: alert)
-                if minIntervalInDaysHasPassed, firstVersionLaunch {
+                let reachedVersion = await appVersionTracker.reachedVersion(alert.version)
+                if minIntervalInDaysHasPassed, reachedVersion {
                     storeToShownAlert(alert, date: todayDate)
                     return alert
                 }

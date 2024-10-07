@@ -4,6 +4,7 @@ import AnytypeCore
 protocol AppVersionTrackerProtocol: AnyObject {
     func trackLaunch()
     func firstVersionLaunch(_ version: String, ignoreForNewUser: Bool) async -> Bool
+    func reachedVersion(_ version: String) async -> Bool
     func currentVersion() async -> String?
 }
 
@@ -52,6 +53,14 @@ actor AppVersionTracker: AppVersionTrackerProtocol {
         } else {
             return false
         }
+    }
+    
+    func reachedVersion(_ version: String) async -> Bool {
+        guard let currentLaunchedAppVersion, version.isNotEmpty else {
+            return false
+        }
+        let result = currentLaunchedAppVersion.versionCompare(version)
+        return result == .orderedDescending || result == .orderedSame
     }
     
     func currentVersion() async -> String? {
