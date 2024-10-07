@@ -11,7 +11,7 @@ extension FileData {
     var discussionViewType: DiscussionViewType {
         if type.conforms(to: .image) {
             return .image
-        } else if type.conforms(to: .video) {
+        } else if type.conforms(to: .video) || type.conforms(to: .movie) {
             return .video
         } else {
             return .file

@@ -29,10 +29,12 @@ struct MessageLinkedLocalFile: View {
                         .frame(width: 72, height: 72)
                 }
             case .file:
-                Color.green
+                // TODO: Implement
+                Text("file")
                     .frame(width: 72, height: 72)
             case .video:
-                Color.orange
+                // TODO: Implement
+                Text("video")
                     .frame(width: 72, height: 72)
             }
         } else {
