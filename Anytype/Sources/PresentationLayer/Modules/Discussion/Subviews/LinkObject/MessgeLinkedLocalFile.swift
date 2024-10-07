@@ -30,9 +30,9 @@ struct MessageLinkedLocalFile: View {
                 Text("file")
                     .frame(width: 72, height: 72)
             case .video:
-                // TODO: Implement
-                Text("video")
+                MessageLinkLocalVideoView(url: URL(fileURLWithPath: fileData.path))
                     .frame(width: 72, height: 72)
+                    .id(fileData.path)
             }
         } else {
             ZStack {
