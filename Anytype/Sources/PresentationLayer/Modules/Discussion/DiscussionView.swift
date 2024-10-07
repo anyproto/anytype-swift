@@ -43,7 +43,7 @@ struct DiscussionView: View {
             try await model.subscribeOnMessages()
         }
         .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
-        .task(id: model.photosItems.hashValue) {
+        .task(id: model.showPhotosPicker) {
             await model.updatePickerItems()
         }
     }

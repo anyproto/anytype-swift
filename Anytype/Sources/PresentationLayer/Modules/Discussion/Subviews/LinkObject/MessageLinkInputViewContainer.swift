@@ -32,7 +32,6 @@ struct MessageLinkInputViewContainer: View {
                             onTapRemove(object)
                         }
                     }
-                    
                 }
             }
             .padding(.vertical, 12)

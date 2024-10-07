@@ -21,6 +21,7 @@
 		2A20B9192AFBC26C001D0014 /* AnytypeRelativeDateTimeFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A20B9182AFBC26C001D0014 /* AnytypeRelativeDateTimeFormatterTests.swift */; };
 		2A298E402BC91E6A00F1194C /* UniversalLinkParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E3F2BC91E6A00F1194C /* UniversalLinkParserTests.swift */; };
 		2A30B2082BB44A0C00206806 /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 2A30B2072BB44A0C00206806 /* QRCode */; };
+		2A3973BE2CB41A3100095FCF /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A41A6782B84E57B00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A6772B84E57B00EAE6E6 /* DeepLinks */; };
 		2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A6792B84E59B00EAE6E6 /* DeepLinks */; };
 		2A41A68D2B84EBBC00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */; };
@@ -123,6 +124,7 @@
 				2A6ED16D285B44DB00AAA21C /* ProtobufMessages in Embed Frameworks */,
 				2A6ED16A285B44DB00AAA21C /* Services in Embed Frameworks */,
 				2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */,
+				2A3973BE2CB41A3100095FCF /* SharedContentManager in Embed Frameworks */,
 				86E69DD72A938CE8009F2221 /* SecureService in Embed Frameworks */,
 				2A6ED167285B44DB00AAA21C /* AnytypeCore in Embed Frameworks */,
 			);

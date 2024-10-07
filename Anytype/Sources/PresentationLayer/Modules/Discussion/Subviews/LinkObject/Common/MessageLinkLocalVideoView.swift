@@ -6,12 +6,14 @@ import SwiftUI
 struct MessageLinkLocalVideoView: View {
     
     let url: URL
+    let onTapRemove: () -> Void
     
     // Prevent image creation for each view update
     @State private var image: UIImage?
     
-    init(url: URL) {
+    init(url: URL, onTapRemove: @escaping () -> Void) {
         self.url = url
+        self.onTapRemove = onTapRemove
         self._image = State(initialValue: UIImage(videoPreview: url))
     }
     
@@ -29,6 +31,9 @@ struct MessageLinkLocalVideoView: View {
         .onChange(of: url) { newValue in
             image = UIImage(videoPreview: url)
         }
+        .frame(width: 72, height: 72)
+        .messageLinkStyle()
+        .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }
 
