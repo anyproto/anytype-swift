@@ -3,7 +3,7 @@ enum UserWarningAlert: Identifiable, Codable {
     
     var version: String {
         switch self {
-            case .reindexing: "0.34.0"
+            case .reindexing: "0.33.0"
         }
     }
     
