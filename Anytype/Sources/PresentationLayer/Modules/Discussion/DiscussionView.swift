@@ -78,6 +78,8 @@ struct DiscussionView: View {
                 model.onTapAddObjectToMessage()
             } onTapAddMedia: {
                 model.onTapAddMediaToMessage()
+            } onTapAddFiles: {
+                model.onTapAddFilesToMessage()
             } onTapSend: {
                 model.onTapSendMessage()
             } onTapLinkTo: { range in

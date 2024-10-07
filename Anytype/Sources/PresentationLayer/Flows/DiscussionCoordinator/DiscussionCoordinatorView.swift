@@ -32,6 +32,13 @@ struct DiscussionCoordinatorView: View {
             .sheet(item: $model.linkToObjectData) {
                 LinkToObjectSearchView(data: $0, showEditorScreen: { _ in })
             }
+            .fileImporter(
+                isPresented: $model.showFilesPicker,
+                allowedContentTypes: [.data],
+                allowsMultipleSelection: true
+            ) { result in
+                model.fileImporterFinished(result: result)
+            }
     }
     
     @ViewBuilder

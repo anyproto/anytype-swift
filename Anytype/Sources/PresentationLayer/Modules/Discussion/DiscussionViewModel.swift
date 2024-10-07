@@ -84,6 +84,11 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         showPhotosPicker = true
     }
     
+    func onTapAddFilesToMessage() {
+        let data = DiscussionFilesPickerData()
+        output?.onFilePickerSelected(data: data)
+    }
+    
     func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants

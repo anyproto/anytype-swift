@@ -15,6 +15,8 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     @Published var showSyncStatusInfo = false
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
+    @Published var showFilesPicker = false
+    private var filesPickerData: DiscussionFilesPickerData?
     
     var pageNavigation: PageNavigation?
     
@@ -59,5 +61,14 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     
     func onObjectSelected(screenData: EditorScreenData) {
         pageNavigation?.push(screenData)
+    }
+    
+    func onFilePickerSelected(data: DiscussionFilesPickerData) {
+        showFilesPicker = true
+        filesPickerData = data
+    }
+    
+    func fileImporterFinished(result: Result<[URL], any Error>) {
+        
     }
 }
