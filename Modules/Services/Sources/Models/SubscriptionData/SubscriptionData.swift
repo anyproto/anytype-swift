@@ -16,7 +16,6 @@ extension SubscriptionData {
         public let afterID: String?
         public let beforeID: String?
         public let source: [String]?
-        public let ignoreWorkspace: String?
         public let noDepSubscription: Bool
         public let collectionId: String?
 
@@ -31,7 +30,6 @@ extension SubscriptionData {
             afterID: String? = nil,
             beforeID: String? = nil,
             source: [String]? = nil,
-            ignoreWorkspace: String? = nil,
             noDepSubscription: Bool = false,
             collectionId: String? = nil
         ) {
@@ -45,7 +43,6 @@ extension SubscriptionData {
             self.afterID = afterID
             self.beforeID = beforeID
             self.source = source
-            self.ignoreWorkspace = ignoreWorkspace
             self.noDepSubscription = noDepSubscription
             self.collectionId = collectionId
         }

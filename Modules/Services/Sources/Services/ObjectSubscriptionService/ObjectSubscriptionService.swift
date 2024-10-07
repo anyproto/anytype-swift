@@ -14,7 +14,6 @@ final class ObjectSubscriptionService: ObjectSubscriptionServiceProtocol {
             $0.spaceID = data.spaceId
             $0.ids = data.objectIds
             $0.keys = data.keys
-            $0.ignoreWorkspace = data.ignoreWorkspace ?? ""
         }).invoke()
         return ObjectSubscriptionResponse(
             records: result.records.asDetais,
@@ -37,7 +36,6 @@ final class ObjectSubscriptionService: ObjectSubscriptionServiceProtocol {
             $0.afterID = data.afterID ?? ""
             $0.beforeID = data.beforeID ?? ""
             $0.source = data.source ?? []
-            $0.ignoreWorkspace = data.ignoreWorkspace ?? ""
             $0.noDepSubscription = data.noDepSubscription
             $0.collectionID = data.collectionId ?? ""
         }).invoke()
