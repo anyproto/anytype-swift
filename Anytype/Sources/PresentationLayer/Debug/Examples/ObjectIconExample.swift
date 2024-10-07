@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct ObjectIconExample: View {
     
-    private let emojiExamples: [CGFloat] = [16, 18, 40, 48, 64, 80, 96]
+    private let emojiExamples: [CGFloat] = [16, 18, 20, 40, 48, 64, 80, 96]
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
     @Injected(\.workspaceStorage)
@@ -20,6 +20,9 @@ struct ObjectIconExample: View {
                         AnytypeText("Object Icon", style: .subheading)
                             .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.basic(iconId))) }
+                        AnytypeText("Object Icon Empty (page)", style: .subheading)
+                            .foregroundColor(.Text.primary)
+                        demoBlock { IconView(icon: .object(.empty(.page))) }
                         AnytypeText("Profile Icon", style: .subheading)
                             .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.profile(.imageId(iconId)))) }

@@ -146,7 +146,7 @@
 "Relations" = "Свойства";
 "History" = "История";
 "Objects" = "Объекты";
-"Pages" = "Pages";
+"Pages" = "Страницы";
 "Lists" = "Списки";
 "Bookmarks" = "Закладки";
 "Files" = "Files";
@@ -211,7 +211,7 @@
 "Favorites" = "Избранное";
 "Recent" = "Недавние";
 "Bin" = "Корзина";
-"All objects" = "All objects";
+"All objects" = "Все объекты";
 
 // Settings
 "Wallpaper" = "Обои";
@@ -695,7 +695,7 @@
 "New" = "Новый";
 "Blurred icon" = "Размытая\n иконка";
 "My First Space" = "Моё первое пространство";
-"Copy space info" = "Copy space info";
+"Copy space info" = "Скопировать информацию о пространстве";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -1233,10 +1233,14 @@
 "AllContent.Settings.Sort.Title" = "Сортировать по";
 "AllContent.Sort.DateUpdated" = "Дата обновления";
 "AllContent.Sort.DateCreated" = "Дата создания";
-"AllContent.Sort.Date.Asc" = "Oldest first";
+"AllContent.Sort.Date.Asc" = "Сначала старые";
 "AllContent.Sort.Date.Desc" = "Сначала новые";
 "AllContent.Sort.Name.Asc" = "А → Я";
 "AllContent.Sort.Name.Desc" = "Я → А";
 "AllContent.Settings.Unlinked.Title" = "Только несвязанные";
 "AllContent.Settings.Unlinked.Description" = "Непривязанные объекты, не имеющие прямой связи или обратной связи с другими объектами на графике.";
 "AllContent.Settings.ViewBin" = "Просмотр корзины";
+"AllContent.Empty.State.title" = "Здесь пусто.";
+"AllContent.Empty.State.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
+"AllContent.Search.Empty.State.title" = "Результаты не найдены.";
+"AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";

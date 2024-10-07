@@ -146,7 +146,7 @@
 "Relations" = "Relasi";
 "History" = "History";
 "Objects" = "Objek";
-"Pages" = "Pages";
+"Pages" = "Halaman";
 "Lists" = "Grup";
 "Bookmarks" = "Markah";
 "Files" = "Berkas";
@@ -204,14 +204,14 @@
 "Okay" = "Oke";
 "Join" = "Gabung";
 "Agreement Disclamer" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
-"Lets Go" = "Let’s Go";
+"Lets Go" = "Mulai!";
 "My spaces" = "Ruangku";
 
 // Home
 "Favorites" = "Favorit";
 "Recent" = "Baru-Baru Ini";
 "Bin" = "Bak Sampah";
-"All objects" = "All objects";
+"All objects" = "Semua objek";
 
 // Settings
 "Wallpaper" = "Latar belakang";
@@ -695,7 +695,7 @@
 "New" = "Baru";
 "Blurred icon" = "Ikon\n buram";
 "My First Space" = "Ruang Pertamaku";
-"Copy space info" = "Copy space info";
+"Copy space info" = "Salin info ruang";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -1037,17 +1037,17 @@
 "SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+"SpaceHub.Tip.Title3" = "Latar Belakang Dinamis";
+"SpaceHub.Tip.Title2" = "Sederhana dan Fleksibel";
+"SpaceHub.Tip.Title1" = "Selamat datang di Brankas";
 
 "SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
 "SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+"SpaceHub.Tip.Text1" = "Brankas adalah rumah baru semua Ruangmu. Membuat, bergabung, atau berbagi Ruang—semuanya disimpan dengan aman di sini.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"SpaceSwitcher.Tip.Title" = "Pindah ruang lebih cepat";
+"SpaceSwitcher.Tip.Text" = "Tekan lama tombol kembali untuk berpindah ruang";
 
 // MARK: - Initial
 
@@ -1230,10 +1230,14 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Tanggal diperbarui";
 "AllContent.Sort.DateCreated" = "Tanggal dibuat";
-"AllContent.Sort.Date.Asc" = "Oldest first";
+"AllContent.Sort.Date.Asc" = "Terlama dahulu";
 "AllContent.Sort.Date.Desc" = "Newest first";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Hanya objek nirtaut";
 "AllContent.Settings.Unlinked.Description" = "Objek yang tidak memiliki tautan langsung atau tautan balik ke objek lain di grafik.";
 "AllContent.Settings.ViewBin" = "Lihat Bak Sampah";
+"AllContent.Empty.State.title" = "It’s empty here.";
+"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";

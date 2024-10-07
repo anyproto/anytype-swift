@@ -88,7 +88,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
             let cover = ObjectHeaderCover(coverType: .cover(documentCover), onTap: {})
 
-            let hasCoverIcon = configuration.state.iconSize == .medium && configuration.state.icon != nil
+            let hasCoverIcon = configuration.state.iconSize == .medium
             switch (hasCoverIcon, configuration.state.icon) {
             case (true, .object(let iconType)):
                 coverView.configure(

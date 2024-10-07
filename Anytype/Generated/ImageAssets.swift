@@ -30,6 +30,13 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  enum EmptyIcon {
+    static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
+    static let discussion = ImageAsset.bundle(name: "EmptyIcon/discussion")
+    static let list = ImageAsset.bundle(name: "EmptyIcon/list")
+    static let objectType = ImageAsset.bundle(name: "EmptyIcon/objectType")
+    static let page = ImageAsset.bundle(name: "EmptyIcon/page")
+  }
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     static let audio = ImageAsset.bundle(name: "FileTypes/Audio")

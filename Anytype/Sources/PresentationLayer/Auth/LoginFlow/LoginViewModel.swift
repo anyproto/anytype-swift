@@ -13,7 +13,7 @@ final class LoginViewModel: ObservableObject {
     
     @Published var showQrCodeView: Bool = false
     @Published var openSettingsURL = false
-    @Published var showExportStackGoroutines = false
+    @Published var showDebugMenu = false
     @Published var entropy: String = "" {
         didSet {
             onEntropySet()
@@ -108,10 +108,6 @@ final class LoginViewModel: ObservableObject {
         }
         selectAccountTask?.cancel()
         logout()
-    }
-    
-    func exportStackGoroutines() {
-        showExportStackGoroutines.toggle()
     }
     
     private func logout() {

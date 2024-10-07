@@ -1039,11 +1039,11 @@
 // MARK: - Space Hub Tip
 "SpaceHub.Tip.Title3" = "Arrière-plans dynamiques ";
 "SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+"SpaceHub.Tip.Title1" = "Bienvenue dans le coffre-fort";
 
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
+"SpaceHub.Tip.Text3" = "Par défaut, nous utilisons une icône floutée de votre espace en tant qu'arrière-plan. Vous pouvez changer cela dans les paramètres de l'espace.";
 "SpaceHub.Tip.Text2" = "Vous pouvez maintenant facilement réorganiser vos espaces en utilisant glisser-déposer et les naviguer plus facilement.";
-"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+"SpaceHub.Tip.Text1" = "Le coffre-fort est l'endroit rassemblant tous vos Espaces. Créer, joindre, ou partager des Espaces – tout est sauvé, ici, en sécurité.";
 
 // MARK: - Space switcher tip
 "SpaceSwitcher.Tip.Title" = "Changer d'espaces plus rapidement";
@@ -1201,9 +1201,9 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "MembershipServiceError.invalidBillingIdFormat" = "Problème interne avec le format de facturation, nous travaillons sur ceci. Réessayez plus tard ou contactez le support.";
 
 
-"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
-"Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.Desktop" = "Vous pouvez gérer l'offre à partir de l'application de bureau";
+"Membership.ManageTier.Android" = "Vous pouvez gérer l'offre à partir de l'application Android";
+"Membership.ManageTier.AppleId" = "Vous pouvez gérer l'offre à partir d'un autre compte AppleId";
 
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "La sauvegarde des données est désactivée";
@@ -1238,3 +1238,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "AllContent.Settings.Unlinked.Title" = "Uniquement non liés";
 "AllContent.Settings.Unlinked.Description" = "Objets non liés qui n'ont pas de lien direct ou de lien en retour avec d'autres objets dans le graphique.";
 "AllContent.Settings.ViewBin" = "Voir la corbeille";
+"AllContent.Empty.State.title" = "C'est vide ici.";
+"AllContent.Empty.State.subtitle" = "Créez vos premiers objets pour commencer.";
+"AllContent.Search.Empty.State.title" = "Aucun résultat trouvé.";
+"AllContent.Search.Empty.State.subtitle" = "Essayez de rechercher avec différents mots-clés.";

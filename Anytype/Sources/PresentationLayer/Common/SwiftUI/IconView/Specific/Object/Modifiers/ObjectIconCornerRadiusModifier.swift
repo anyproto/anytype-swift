@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-private struct SpaceIconCornerRadiusModifier: ViewModifier {
+private struct ObjectIconCornerRadiusModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         GeometryReader { reader in
@@ -12,13 +12,13 @@ private struct SpaceIconCornerRadiusModifier: ViewModifier {
     
     private func cornerRadius(size: CGSize) -> CGFloat {
         guard size.width > 0 else { return 0 }
-        return max(size.width / 12, 3)
+        return max(size.width / 8, 3)
     }
 }
 
 extension View {
-    func spaceIconCornerRadius() -> some View {
-        modifier(SpaceIconCornerRadiusModifier())
+    func objectIconCornerRadius() -> some View {
+        modifier(ObjectIconCornerRadiusModifier())
     }
 }
 

@@ -31,7 +31,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
     @Published var membership: MembershipStatus = .empty
-    @Published var exportStackGoroutines = false
+    @Published var showDebugMenu = false
     
     init(output: some SettingsModuleOutput) {
         self.output = output
@@ -78,10 +78,6 @@ final class SettingsViewModel: ObservableObject {
     
     func onMembershipTap() {
         output?.onMembershipSelected()
-    }
-    
-    func onExportStackGoroutinesTap() {
-        exportStackGoroutines = true
     }
     
     // MARK: - Private
