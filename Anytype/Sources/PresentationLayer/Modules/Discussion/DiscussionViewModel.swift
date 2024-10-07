@@ -85,7 +85,9 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     }
     
     func onTapAddFilesToMessage() {
-        let data = DiscussionFilesPickerData()
+        let data = DiscussionFilesPickerData(handler: { [weak self] result in
+            self?.handleFilePicker(result: result)
+        })
         output?.onFilePickerSelected(data: data)
     }
     
@@ -319,6 +321,24 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             messagesScrollUpdate = .scrollToLast
         } else {
             messagesScrollUpdate = .auto
+        }
+    }
+    
+    private func handleFilePicker(result: Result<[URL], any Error>) {
+        switch result {
+        case .success(let files):
+            files.forEach { file in
+                let gotAccess = file.startAccessingSecurityScopedResource()
+                if !gotAccess { return }
+                
+                if let fileData = try? fileActionsService.createFileData(fileUrl: file) {
+                    linkedObjects.append(.localFile(DiscussionLocalFile(data: fileData, photosPickerItemHash: file.hashValue)))
+                }
+                
+                file.stopAccessingSecurityScopedResource()
+            }
+        case .failure(let error):
+            break
         }
     }
 }

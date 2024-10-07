@@ -22,9 +22,7 @@ struct MessageLinkedLocalFile: View {
                 MessageLinkLocalImageView(contentsOfFile: fileData.path, onTapRemove: onTapRemove)
                     .id(fileData.path)
             case .file:
-                // TODO: Implement
-                Text("file")
-                    .frame(width: 72, height: 72)
+                MessageLinkLocalBinaryFileView(path: fileData.path, type: fileData.type, onTapRemove: onTapRemove)
             case .video:
                 MessageLinkLocalVideoView(url: URL(fileURLWithPath: fileData.path), onTapRemove: onTapRemove)
                     .id(fileData.path)

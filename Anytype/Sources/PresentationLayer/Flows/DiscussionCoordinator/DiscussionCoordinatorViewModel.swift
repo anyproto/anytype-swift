@@ -69,6 +69,6 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     }
     
     func fileImporterFinished(result: Result<[URL], any Error>) {
-        
+        filesPickerData?.handler(result)
     }
 }
