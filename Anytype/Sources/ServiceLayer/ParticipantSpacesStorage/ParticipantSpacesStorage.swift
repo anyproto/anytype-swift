@@ -88,7 +88,8 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
         
         await subscriptionService.startSubscription(
             subId: subId,
-            objectId: accountManager.account.info.profileObjectID
+            objectId: accountManager.account.info.profileObjectID,
+            additionalKeys: [.sharedSpacesLimit]
         ) { [weak self] details in
             self?.sharedSpacesLimit = details.sharedSpacesLimit
         }
