@@ -97,6 +97,21 @@ final class FileActionsService: FileActionsServiceProtocol {
         }
     }
     
+    func createFileData(fileUrl: URL) throws -> FileData {
+        do {
+            let newPath = tempDirectoryPath().appendingPathComponent(UUID().uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: newPath, withIntermediateDirectories: false)
+            
+            let newFilePath = newPath.appendingPathComponent(fileUrl.lastPathComponent, isDirectory: false)
+            try FileManager.default.copyItem(at: fileUrl, to: newFilePath)
+            
+            return FileData(path: newFilePath.relativePath, type: getUTType(for: newFilePath) ?? .data, isTemporary: true)
+        } catch {
+            anytypeAssertionFailure(error.localizedDescription)
+            throw error
+        }
+    }
+    
     func uploadDataAt(data: FileData, contextID: String, blockID: String) async throws {
         defer {
             if data.isTemporary {
@@ -150,4 +165,16 @@ final class FileActionsService: FileActionsServiceProtocol {
             try? fileManager.removeItem(at: path)
         }
     }
+    
+    private func getUTType(for fileURL: URL) -> UTType? {
+        do {
+            let resourceValues = try fileURL.resourceValues(forKeys: [.typeIdentifierKey])
+            if let typeIdentifier = resourceValues.typeIdentifier {
+                return UTType(typeIdentifier)
+            }
+        } catch {}
+        
+        return nil
+    }
+
 }

@@ -9,12 +9,18 @@ struct DiscusionInput: View {
     let additionalDataLoading: Bool
     let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
+    let onTapAddFiles: () -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
             Menu {
+                Button {
+                    onTapAddFiles()
+                } label: {
+                    Text(Loc.files)
+                }
                 Button {
                     onTapAddMedia()
                 } label: {

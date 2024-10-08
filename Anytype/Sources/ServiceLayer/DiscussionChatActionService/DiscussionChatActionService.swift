@@ -37,18 +37,26 @@ final class DiscussionChatActionService: DiscussionChatActionServiceProtocol {
                 attachment.target = objectDetails.id
                 attachment.type = .link
                 chatMessage.attachments.append(attachment)
-            case .localFile(let discussionLocalFile):
+            case .localPhotosFile(let discussionLocalFile):
                 guard let data = discussionLocalFile.data else { continue }
-                do {
-                    let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
-                    var attachment = ChatMessageAttachment()
-                    attachment.target = fileDetails.id
-                    attachment.type = .link
+                if let attachment = try? await uploadFile(spaceId: spaceId, data: data) {
                     chatMessage.attachments.append(attachment)
-                } catch {}
+                }
+            case .localBinaryFile(let data):
+                if let attachment = try? await uploadFile(spaceId: spaceId, data: data) {
+                    chatMessage.attachments.append(attachment)
+                }
             }
         }
         
         try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+    }
+    
+    private func uploadFile(spaceId: String, data: FileData) async throws -> ChatMessageAttachment {
+        let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+        var attachment = ChatMessageAttachment()
+        attachment.target = fileDetails.id
+        attachment.type = .link
+        return attachment
     }
 }

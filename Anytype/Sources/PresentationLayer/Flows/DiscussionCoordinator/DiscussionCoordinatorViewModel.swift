@@ -1,4 +1,6 @@
 import Foundation
+import PhotosUI
+import SwiftUI
 
 @MainActor
 final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOutput {
@@ -15,6 +17,12 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     @Published var showSyncStatusInfo = false
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
+    @Published var showFilesPicker = false
+    @Published var showPhotosPicker = false
+    @Published var photosItems: [PhotosPickerItem] = []
+    
+    private var filesPickerData: DiscussionFilesPickerData?
+    private var photosPickerData: DiscussionPhotosPickerData?
     
     var pageNavigation: PageNavigation?
     
@@ -59,5 +67,25 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     
     func onObjectSelected(screenData: EditorScreenData) {
         pageNavigation?.push(screenData)
+    }
+    
+    func onPhotosPickerSelected(data: DiscussionPhotosPickerData) {
+        photosItems = data.selectedItems
+        photosPickerData = data
+        showPhotosPicker = true
+    }
+    
+    func onFilePickerSelected(data: DiscussionFilesPickerData) {
+        showFilesPicker = true
+        filesPickerData = data
+    }
+    
+    func photosPickerFinished() {
+        guard photosItems != photosPickerData?.selectedItems else { return }
+        photosPickerData?.handler(photosItems)
+    }
+    
+    func fileImporterFinished(result: Result<[URL], any Error>) {
+        filesPickerData?.handler(result)
     }
 }

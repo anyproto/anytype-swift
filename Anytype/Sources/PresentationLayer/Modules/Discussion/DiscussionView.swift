@@ -42,8 +42,7 @@ struct DiscussionView: View {
         .throwingTask {
             try await model.subscribeOnMessages()
         }
-        .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
-        .task(id: model.showPhotosPicker) {
+        .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
         }
     }
@@ -78,6 +77,8 @@ struct DiscussionView: View {
                 model.onTapAddObjectToMessage()
             } onTapAddMedia: {
                 model.onTapAddMediaToMessage()
+            } onTapAddFiles: {
+                model.onTapAddFilesToMessage()
             } onTapSend: {
                 model.onTapSendMessage()
             } onTapLinkTo: { range in
