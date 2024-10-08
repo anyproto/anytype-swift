@@ -1,15 +1,15 @@
 import Foundation
 import AnytypeCore
 
-protocol AppVersionServiceProtocol: AnyObject {
+protocol AppVersionUpdateServiceProtocol: AnyObject {
     func prepareData()
     func newVersionIsAvailable() async throws -> Bool
 }
 
-actor AppVersionService: AppVersionServiceProtocol {
-    
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
+actor AppVersionUpdateService: AppVersionUpdateServiceProtocol {
+
+    @Injected(\.appVersionTracker)
+    private var appVersionTracker: any AppVersionTrackerProtocol
     
     private var vesionChecked = false
     private var needsUpdate = false
@@ -35,7 +35,7 @@ actor AppVersionService: AppVersionServiceProtocol {
     private func updateData() async throws {
         vesionChecked = true
         
-        guard let appVersion = currentVersion() else { return }
+        guard let appVersion = await appVersionTracker.currentVersion() else { return }
         
         guard let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(AppId.production)") else { return }
         
@@ -47,13 +47,5 @@ actor AppVersionService: AppVersionServiceProtocol {
         guard let newAppVersion = result.results.first?.version else { return }
         
         needsUpdate = appVersion.versionCompare(newAppVersion) == .orderedAscending
-    }
-    
-    private func currentVersion() -> String? {
-        if userDefaults.currentVersionOverride.isNotEmpty {
-            return userDefaults.currentVersionOverride
-        }
-        
-        return MetadataProvider.appVersion
     }
 }

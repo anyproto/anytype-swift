@@ -34,7 +34,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Initializers
     
     func onAppear() {
-        runAtFirstLaunch()
         runDebugProfilerIfNeeded()
     }
 
@@ -84,12 +83,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    
-    private func runAtFirstLaunch() {
-        if userDefaults.installedAtDate.isNil {
-            userDefaults.installedAtDate = Date()
-        }
-    }
     
     private func runDebugProfilerIfNeeded() {
         if debugService.shouldRunDebugProfilerOnNextStartup {
