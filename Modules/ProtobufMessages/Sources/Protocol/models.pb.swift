@@ -3949,6 +3949,7 @@ public struct Anytype_Model_ObjectType {
     case pdf // = 20
     case chat // = 21
     case chatDerived // = 22
+    case tag // = 23
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -3980,6 +3981,7 @@ public struct Anytype_Model_ObjectType {
       case 20: self = .pdf
       case 21: self = .chat
       case 22: self = .chatDerived
+      case 23: self = .tag
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -4009,6 +4011,7 @@ public struct Anytype_Model_ObjectType {
       case .pdf: return 20
       case .chat: return 21
       case .chatDerived: return 22
+      case .tag: return 23
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -4046,6 +4049,7 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .pdf,
     .chat,
     .chatDerived,
+    .tag,
   ]
 }
 
@@ -9644,6 +9648,7 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     20: .same(proto: "pdf"),
     21: .same(proto: "chat"),
     22: .same(proto: "chatDerived"),
+    23: .same(proto: "tag"),
   ]
 }
 

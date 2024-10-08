@@ -4,8 +4,8 @@ import SwiftUI
 @MainActor
 final class HomeUpdateSubmoduleViewModel: ObservableObject {
     
-    @Injected(\.appVersionService)
-    private var appVersionService: any AppVersionServiceProtocol
+    @Injected(\.appVersionUpdateService)
+    private var appVersionUpdateService: any AppVersionUpdateServiceProtocol
     
     @Published var showUpdateAlert: Bool = false
     @Published var openUrl: URL?
@@ -13,7 +13,7 @@ final class HomeUpdateSubmoduleViewModel: ObservableObject {
     init() {
         Task {
             do {
-                let result = try await appVersionService.newVersionIsAvailable()
+                let result = try await appVersionUpdateService.newVersionIsAvailable()
                 showUpdateAlert = result
             } catch {
                 showUpdateAlert = false

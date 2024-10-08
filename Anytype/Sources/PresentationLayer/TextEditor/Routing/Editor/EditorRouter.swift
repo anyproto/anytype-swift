@@ -271,21 +271,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     // MARK: - Settings
     func showSettings() {
-        let module = ObjectSettingsCoordinatorView(
-            objectId: document.objectId,
-            output: self
-        )
-        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
-        navigationContext.present(popup)
+        showSettings(output: self)
     }
     
-    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
-        let module = ObjectSettingsCoordinatorView(
-            objectId: document.objectId,
-            output: output
-        )
-        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
-        navigationContext.present(popup)
+    func showSettings(output settingsOutput: any ObjectSettingsCoordinatorOutput) {
+        output?.showObectSettings(output: settingsOutput)
     }
     
     func showIconPicker(document: some BaseDocumentProtocol) {

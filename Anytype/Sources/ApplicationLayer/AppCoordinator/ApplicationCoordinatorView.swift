@@ -24,6 +24,9 @@ struct ApplicationCoordinatorView: View {
         .task {
             await model.startFileHandler()
         }
+        .onChange(of: dismissAllPresented) {
+            model.setDismissAllPresented(dismissAllPresented: $0)
+        }
         .snackbar(toastBarData: $model.toastBarData)
     }
     

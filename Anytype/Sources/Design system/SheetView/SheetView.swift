@@ -3,10 +3,16 @@ import SwiftUI
 struct SheetView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
     
+    private let dismissOnBackgroundView: Bool
     private var content: Content
     private let cancelAction: (() -> Void)?
     
-    init(content: () -> Content, cancelAction: (() -> Void)?) {
+    init(
+        dismissOnBackgroundView: Bool,
+        content: () -> Content,
+        cancelAction: (() -> Void)?
+    ) {
+        self.dismissOnBackgroundView = dismissOnBackgroundView
         self.content = content()
         self.cancelAction = cancelAction
     }
@@ -16,6 +22,7 @@ struct SheetView<Content: View>: View {
             Color.clear
                 .fixTappableArea()
                 .onTapGesture {
+                    guard dismissOnBackgroundView else { return }
                     dismiss()
                     cancelAction?()
                 }

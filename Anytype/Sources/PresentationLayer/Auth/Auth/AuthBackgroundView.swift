@@ -4,8 +4,6 @@ struct AuthBackgroundView<Content>: View where Content: View {
     
     let url: URL?
     let content: () -> Content
-    
-    @State private var showContent = true
 
     var body: some View {
         GeometryReader { geo in
@@ -33,22 +31,17 @@ struct AuthBackgroundView<Content>: View where Content: View {
             playerView(width: width, height: height)
             Spacer.fixedHeight(bottomOffset)
         }
-        .fullScreenCover(isPresented: $showContent) {
+        .overlay {
             navigationView
-        }
-        .transaction { transaction in
-            transaction.disablesAnimations = true
+                
         }
     }
     
     private var navigationView: some View {
-        NavigationView {
+        NavigationStack {
             content()
         }
-        .background(TransparentBackground())
-        .transaction { transaction in
-            transaction.disablesAnimations = false
-        }
+        .disablePresentationBackground()
     }
     
     @ViewBuilder

@@ -39,7 +39,7 @@ extension BundledRelationsValueProvider {
     var editorViewType: EditorViewType {
         switch layoutValue {
         case .basic, .profile, .participant, .todo, .note, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag:
             return .page
         case .set, .collection:
             return .set
@@ -105,6 +105,8 @@ extension BundledRelationsValueProvider {
             return .discussion
         case .objectType:
             return .objectType
+        case .tag:
+            return .tag
         }
     }
 }

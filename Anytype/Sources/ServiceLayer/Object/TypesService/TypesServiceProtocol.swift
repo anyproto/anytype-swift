@@ -12,8 +12,9 @@ protocol TypesServiceProtocol {
         text: String,
         includePins: Bool,
         includeLists: Bool,
-        includeBookmark: Bool,
+        includeBookmarks: Bool,
         includeFiles: Bool,
+        includeTemplates: Bool,
         incudeNotForCreation: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails]

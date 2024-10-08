@@ -11,8 +11,10 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
     @Injected(\.deviceSceneStateListener)
     private var deviceSceneStateListener: any DeviceSceneStateListenerProtocol
-    @Injected(\.appVersionService)
-    private var appVersionService: any AppVersionServiceProtocol
+    @Injected(\.appVersionTracker)
+    private var appVersionTracker: any AppVersionTrackerProtocol
+    @Injected(\.appVersionUpdateService)
+    private var appVersionUpdateService: any AppVersionUpdateServiceProtocol
     
     func configure() {
         // Global listeners
@@ -20,6 +22,7 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
         accountEventHandler.startSubscription()
         fileErrorEventHandler.startSubscription()
         deviceSceneStateListener.start()
-        appVersionService.prepareData()
+        appVersionTracker.trackLaunch()
+        appVersionUpdateService.prepareData()
     }
 }

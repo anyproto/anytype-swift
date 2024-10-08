@@ -11,6 +11,7 @@ struct SpaceHubNavigationItem: Hashable { }
 final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
+    @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
     @Published var showSpaceSwitchData: SpaceSwitchModuleData?
@@ -85,6 +86,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var loginStateService: any LoginStateServiceProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @Injected(\.userWarningAlertsHandler)
+    private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
     private var preveouslyOpenedSpaceId: String?
@@ -115,6 +118,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     func setup() async {
         await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
         await setupInitialScreen()
+        await handleVersionAlerts()
     }
     
     func setupInitialScreen() async {
@@ -144,6 +148,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         for await info in activeSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
         }
+    }
+    
+    func handleVersionAlerts() async {
+        userWarningAlert = await userWarningAlertsHandler.nextUserWarningAlert()
     }
     
     // MARK: - Private
@@ -210,7 +218,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             guard currentSpaceId != info?.accountSpaceId else { return }
             currentSpaceId = info?.accountSpaceId
             
-            await dismissAllPresented?()
+            if userWarningAlert.isNil {
+                await dismissAllPresented?()
+            }
             
             if let info {
                 let newPath = HomePath(initalPath: [SpaceHubNavigationItem(), info])

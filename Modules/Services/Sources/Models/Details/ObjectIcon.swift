@@ -38,5 +38,6 @@ public extension ObjectIcon {
         case bookmark
         case discussion
         case objectType
+        case tag
     }
 }

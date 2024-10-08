@@ -267,11 +267,6 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: ResponseErro
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.BlockDataview.SetSource.Response: ResultWithError {}
 extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

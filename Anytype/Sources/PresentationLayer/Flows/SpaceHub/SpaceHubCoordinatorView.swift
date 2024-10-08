@@ -75,6 +75,9 @@ struct SpaceHubCoordinatorView: View {
                     model.onManageSpacesSelected()
                 })
             }
+            .anytypeSheet(item: $model.userWarningAlert, dismissOnBackgroundView: false) {
+                UserWarningAlertCoordinatorView(alert: $0)
+            }
     }
     
     private var content: some View {  

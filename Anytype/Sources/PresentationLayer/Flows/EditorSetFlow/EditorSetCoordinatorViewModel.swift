@@ -42,6 +42,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var syncStatusSpaceId: StringIdentifiable?
+    @Published var presentSettings = false
     
     init(data: EditorSetObject, showHeader: Bool) {
         self.data = data
@@ -130,12 +131,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showSettings() {
-        let module = ObjectSettingsCoordinatorView(
-            objectId: data.objectId,
-            output: self
-        )
-        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
-        navigationContext.present(popup)
+        presentSettings = true
     }
     
     func showCoverPicker(document: some BaseDocumentProtocol) {

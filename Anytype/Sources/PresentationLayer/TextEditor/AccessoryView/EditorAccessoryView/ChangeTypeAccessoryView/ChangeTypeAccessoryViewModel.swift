@@ -71,8 +71,9 @@ final class ChangeTypeAccessoryViewModel {
                 text: "",
                 includePins: true,
                 includeLists: true,
-                includeBookmark: true, 
+                includeBookmarks: true,
                 includeFiles: false,
+                includeTemplates: false,
                 incudeNotForCreation: false,
                 spaceId: document.spaceId
             ).map { type in
