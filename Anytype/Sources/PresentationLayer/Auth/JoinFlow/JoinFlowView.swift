@@ -45,7 +45,7 @@ struct JoinFlowView: View {
             
             Spacer.fixedHeight(14)
         }
-        .background(TransparentBackground())
+        .disablePresentationBackground()
         .padding(.horizontal, 16)
     }
     

@@ -13,7 +13,7 @@ struct LoginView: View {
         content
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
-            .background(TransparentBackground())
+            .disablePresentationBackground()
             .padding(.horizontal, 16)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
