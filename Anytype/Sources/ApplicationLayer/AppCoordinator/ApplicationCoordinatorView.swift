@@ -37,10 +37,8 @@ struct ApplicationCoordinatorView: View {
             model.authView()
                 .overrideDefaultInterfaceStyle(.dark)
         case .login:
-            LaunchView {
-                DebugMenuView()
-            }
-            .overrideDefaultInterfaceStyle(.dark)
+            LaunchView()
+                .overrideDefaultInterfaceStyle(.dark)
         case .home:
             SpaceHubCoordinatorView()
                 .overrideDefaultInterfaceStyle(nil)

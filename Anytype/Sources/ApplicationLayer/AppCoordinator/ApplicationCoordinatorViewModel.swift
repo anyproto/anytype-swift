@@ -20,6 +20,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.debugService)
+    private var debugService: any DebugServiceProtocol
     
     private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?
@@ -33,6 +35,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     func onAppear() {
         runAtFirstLaunch()
+        runDebugProfilerIfNeeded()
     }
 
     func authView() -> AnyView {
@@ -85,6 +88,13 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private func runAtFirstLaunch() {
         if userDefaults.installedAtDate.isNil {
             userDefaults.installedAtDate = Date()
+        }
+    }
+    
+    private func runDebugProfilerIfNeeded() {
+        if debugService.shouldRunDebugProfilerOnNextStartup {
+            debugService.startDebugRunProfiler()
+            debugService.shouldRunDebugProfilerOnNextStartup = false
         }
     }
     

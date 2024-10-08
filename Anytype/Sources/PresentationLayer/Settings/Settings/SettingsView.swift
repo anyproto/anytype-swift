@@ -14,7 +14,7 @@ struct SettingsView: View {
             DragIndicator()
             TitleView(title: Loc.Settings.title)
                 .onTapGesture(count: 5) {
-                    model.onExportStackGoroutinesTap()
+                    model.showDebugMenu.toggle()
                 }
             
             ScrollView(showsIndicators: false) {
@@ -79,7 +79,9 @@ struct SettingsView: View {
         .onAppear {
             model.onAppear()
         }
-        .exportStackGoroutinesSheet(isPresented: $model.exportStackGoroutines)
+        .sheet(isPresented: $model.showDebugMenu) {
+            PublicDebugMenuView()
+        }
     }
 }
 

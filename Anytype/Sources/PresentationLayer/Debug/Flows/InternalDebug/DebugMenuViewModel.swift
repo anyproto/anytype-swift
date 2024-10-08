@@ -4,20 +4,6 @@ import AnytypeCore
 import Services
 import ZIPFoundation
 
-enum DebugRunProfilerState: Codable {
-    case empty
-    case inProgress
-    case done(url: URL)
-    
-    var text: String {
-        switch self {
-        case .empty, .done:
-            "Run debug profiler 🤓"
-        case .inProgress:
-            "Profiling in progress ..."
-        }
-    }
-}
 
 @MainActor
 final class DebugMenuViewModel: ObservableObject {
@@ -28,11 +14,9 @@ final class DebugMenuViewModel: ObservableObject {
     @Published private(set) var flags = [FeatureFlagSection]()
     
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
-    @UserDefault("DebugRunProfiler", defaultValue: .empty) private var debugRunProfilerDataStore: DebugRunProfilerState
     
     @Injected(\.userDefaultsStorage)
     var userDefaults: any UserDefaultsStorageProtocol
-    let spaceId: String?
     
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
@@ -47,10 +31,17 @@ final class DebugMenuViewModel: ObservableObject {
     @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
     
-    init(spaceId: String?) {
-        self.spaceId = spaceId
+    var shouldRunDebugProfilerOnNextStartup: Bool {
+        get {
+            debugService.shouldRunDebugProfilerOnNextStartup
+        } set {
+            debugService.shouldRunDebugProfilerOnNextStartup = newValue
+        }
+    }
+    
+    init() {
         updateFlags()
-        debugRunProfilerData = debugRunProfilerDataStore
+        debugService.debugRunProfilerData.assign(to: &$debugRunProfilerData)
     }
     
     func removeRecoveryPhraseFromDevice() {
@@ -108,28 +99,8 @@ final class DebugMenuViewModel: ObservableObject {
         }
     }
     
-    func onSpaceDebug(spaceId: String) async throws {
-        let jsonDebug = try await debugService.exportSpaceDebug(spaceId: spaceId)
-        let jsonFile = FileManager.default.createTempDirectory().appendingPathComponent("spaceInfo.json")
-        try jsonDebug.write(to: jsonFile, atomically: true, encoding: .utf8)
-        shareUrlFile = jsonFile
-    }
-    
     func onDebugRunProfiler() {
-        debugRunProfilerData = .inProgress
-        debugRunProfilerDataStore = .inProgress
-        
-        Task.detached { [self] in
-            let path = try await debugService.debugRunProfiler()
-            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("debugRunProfiler.zip")
-            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
-            
-            
-            Task { @MainActor in
-                debugRunProfilerData = .done(url: zipFile)
-                debugRunProfilerDataStore = .done(url: zipFile)
-            }
-        }
+        debugService.startDebugRunProfiler()
     }
     
     func shareUrlContent(url: URL) {

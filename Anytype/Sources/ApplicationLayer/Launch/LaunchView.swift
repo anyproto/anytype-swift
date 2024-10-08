@@ -1,26 +1,27 @@
 import Foundation
 import SwiftUI
 
-struct LaunchView<DebugView: View>: View {
+struct LaunchView: View {
     
-    @State private var showDebugMenu = false
-    @State private var exportStackGoroutines = false
-    let onDebugMenuAction:() -> DebugView
+    @State private var showPrivateDebugMenu = false
+    @State private var showPublicDebugMenu = false
 
     var body: some View {
         ZStack {
             Color.black
                 .onTapGesture(count: 10) {
-                    showDebugMenu.toggle()
+                    showPrivateDebugMenu.toggle()
                 }
             LaunchCircle()
                 .onTapGesture(count: 5) {
-                    exportStackGoroutines.toggle()
+                    showPublicDebugMenu.toggle()
                 }
-                .sheet(isPresented: $showDebugMenu) {
-                    onDebugMenuAction()
+                .sheet(isPresented: $showPrivateDebugMenu) {
+                    DebugMenuView()
                 }
-                .exportStackGoroutinesSheet(isPresented: $exportStackGoroutines)
+                .sheet(isPresented: $showPublicDebugMenu) {
+                    PublicDebugMenuView()
+                }
         }
         .ignoresSafeArea()
     }
