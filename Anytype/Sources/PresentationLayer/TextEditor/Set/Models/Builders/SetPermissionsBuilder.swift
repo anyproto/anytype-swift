@@ -44,7 +44,15 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             return false
         }
         
-        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
+        guard let queryObject = try? ObjectTypeProvider.shared.objectType(id: setOfId) else {
+            return false
+        }
+        
+        if queryObject.uniqueKey == ObjectTypeUniqueKey.template {
+            return false
+        }
+        
+        guard let layout = queryObject.recommendedLayout else {
             return false
         }
         
