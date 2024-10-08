@@ -36,6 +36,7 @@ internal extension ImageAsset {
     static let list = ImageAsset.bundle(name: "EmptyIcon/list")
     static let objectType = ImageAsset.bundle(name: "EmptyIcon/objectType")
     static let page = ImageAsset.bundle(name: "EmptyIcon/page")
+    static let tag = ImageAsset.bundle(name: "EmptyIcon/tag")
   }
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")

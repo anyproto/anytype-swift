@@ -1744,16 +1744,6 @@ public struct ClientCommands {
         }
     }
 
-    public static func blockDataviewRelationListAvailable(
-        _ request: Anytype_Rpc.BlockDataview.Relation.ListAvailable.Request = .init()
-    ) -> Invocation<Anytype_Rpc.BlockDataview.Relation.ListAvailable.Request, Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response> {
-        return Invocation(messageName: "BlockDataviewRelationListAvailable", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceBlockDataviewRelationListAvailable(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response(serializedData: responseData)
-        }
-    }
-
     public static func blockDataviewGroupOrderUpdate(
         _ request: Anytype_Rpc.BlockDataview.GroupOrder.Update.Request = .init()
     ) -> Invocation<Anytype_Rpc.BlockDataview.GroupOrder.Update.Request, Anytype_Rpc.BlockDataview.GroupOrder.Update.Response> {

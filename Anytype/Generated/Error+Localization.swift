@@ -1429,30 +1429,6 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: @retroactive
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: @retroactive LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if localizeError.isNotEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return String(localized: "BlockDataview.Relation.ListAvailable.badInput", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "BlockDataview.Relation.ListAvailable.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
