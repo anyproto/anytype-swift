@@ -72,7 +72,7 @@ final class SearchService: SearchServiceProtocol {
                 SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
             } else {
                 SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
-                SearchHelper.typeFilter(typeIds: typeIds)
+                SearchHelper.typeFilter(typeIds)
             }
         }
                 

@@ -64,7 +64,7 @@ public class SearchHelper {
         return filter
     }
     
-    public static func typeFilter(typeIds: [String]) -> DataviewFilter {
+    public static func typeFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
@@ -88,6 +88,15 @@ public class SearchHelper {
         filter.value = layouts.map(\.rawValue).protobufValue
         filter.relationKey = BundledRelationKey.layout.rawValue
         
+        return filter
+    }
+    
+    public static func uniqueKeyFilter(key: String, include: Bool) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = include ? .equal : .notEqual
+        filter.relationKey = BundledRelationKey.uniqueKey.rawValue
+        filter.value = key.protobufValue
+
         return filter
     }
     
