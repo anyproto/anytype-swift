@@ -250,6 +250,12 @@
 		3D0D65932C789543001F9781 /* CustomSpaceOrderBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomSpaceOrderBuilderTests.swift; path = AnyTypeTests/Services/CustomSpaceOrderBuilderTests.swift; sourceTree = SOURCE_ROOT; };
 		3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoContainerMock.swift; path = AnyTypeTests/Markdown/Mocks/InfoContainerMock.swift; sourceTree = SOURCE_ROOT; };
 		3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockActionServiceMock.swift; sourceTree = SOURCE_ROOT; };
+		3D372A2C2CB56E1400762DA9 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3D372A2D2CB56E1A00762DA9 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3D372A2E2CB56E1F00762DA9 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = be; path = be.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		3D372A322CB56EB600762DA9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3D372A332CB56EB900762DA9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3D372A342CB56EBD00762DA9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		3D3B350D2BCE872E008456F8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockListServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockListServiceMock.swift; sourceTree = SOURCE_ROOT; };
 		3D568FB4266A287400DC7881 /* SystemColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SystemColors.xcassets; sourceTree = "<group>"; };
@@ -812,6 +818,8 @@
 				nl,
 				pl,
 				"zh-Hant",
+				be,
+				tr,
 			);
 			mainGroup = 0303ECF222D8EDAA005C552B;
 			packageReferences = (
@@ -1036,6 +1044,8 @@
 				2AC434932B7A00FA006166BF /* nl */,
 				2E9421FE2C19DFCB00AD05C2 /* pl */,
 				2E9422032C19E15600AD05C2 /* zh-Hant */,
+				3D372A2D2CB56E1A00762DA9 /* be */,
+				3D372A332CB56EB900762DA9 /* tr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1057,6 +1067,8 @@
 				2AC434922B7A00EE006166BF /* nl */,
 				2E9421FD2C19DFC600AD05C2 /* pl */,
 				2E9422022C19E15000AD05C2 /* zh-Hant */,
+				3D372A2C2CB56E1400762DA9 /* be */,
+				3D372A322CB56EB600762DA9 /* tr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1099,6 +1111,8 @@
 				2AC434942B7A0100006166BF /* nl */,
 				2E9421FF2C19DFCF00AD05C2 /* pl */,
 				2E9422042C19E15A00AD05C2 /* zh-Hant */,
+				3D372A2E2CB56E1F00762DA9 /* be */,
+				3D372A342CB56EBD00762DA9 /* tr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
