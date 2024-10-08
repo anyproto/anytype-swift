@@ -333,7 +333,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         case .success(let files):
             files.forEach { file in
                 let gotAccess = file.startAccessingSecurityScopedResource()
-                if !gotAccess { return }
+                guard gotAccess else { return }
                 
                 if let fileData = try? fileActionsService.createFileData(fileUrl: file) {
                     linkedObjects.append(.localBinaryFile(fileData))
@@ -341,7 +341,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 
                 file.stopAccessingSecurityScopedResource()
             }
-        case .failure(let error):
+        case .failure:
             break
         }
     }
