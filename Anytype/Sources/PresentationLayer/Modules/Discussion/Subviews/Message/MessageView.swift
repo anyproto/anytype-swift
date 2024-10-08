@@ -72,10 +72,17 @@ private struct MessageInternalView: View {
                     .foregroundColor(.Text.primary)
             }
             
-            if model.linkedObjects.isNotEmpty {
+            if let objects = model.linkedObjects {
                 Spacer.fixedHeight(8)
-                MessageLinkViewContainer(objects: model.linkedObjects, isYour: model.isYourMessage) {
-                    model.onTapObject(details: $0)
+                switch objects {
+                case .list(let items):
+                    MessageLinkViewContainer(objects: items, isYour: model.isYourMessage) {
+                        model.onTapObject(details: $0)
+                    }
+                case .grid(let items):
+                    MessageGridLinkContainer(objects: items) {
+                        model.onTapObject(details: $0)
+                    }
                 }
             }
             
