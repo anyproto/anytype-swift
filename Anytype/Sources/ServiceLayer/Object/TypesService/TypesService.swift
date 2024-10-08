@@ -41,8 +41,9 @@ final class TypesService: TypesServiceProtocol {
         text: String,
         includePins: Bool,
         includeLists: Bool,
-        includeBookmark: Bool,
+        includeBookmarks: Bool,
         includeFiles: Bool,
+        includeTemplates: Bool,
         incudeNotForCreation: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
@@ -60,7 +61,7 @@ final class TypesService: TypesServiceProtocol {
             layouts.removeAll(where: { $0 == .collection })
         }
         
-        if !includeBookmark {
+        if !includeBookmarks {
             layouts.removeAll(where: { $0 == .bookmark })
         }
         
@@ -71,6 +72,9 @@ final class TypesService: TypesServiceProtocol {
             SearchHelper.excludedIdsFilter(excludedTypeIds)
             if !incudeNotForCreation {
                 SearchHelper.excludeObjectRestriction(.createObjectOfThisType)
+            }
+            if !includeTemplates {
+                SearchHelper.uniqueKeyFilter(key: ObjectTypeUniqueKey.template.value, include: false)
             }
         }
         
