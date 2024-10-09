@@ -86,6 +86,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         Task {
             await subscriptionService.startSubscription(
                 subId: subId,
+                spaceId: info.techSpaceId,
                 objectId: info.profileObjectID
             ) { [weak self] details in
                 self?.handleProfileDetails(details: details)

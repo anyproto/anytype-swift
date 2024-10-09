@@ -116,6 +116,10 @@ extension Container {
         self { TreeSubscriptionDataBuilder() }
     }
     
+    var objectTypeSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+        self { ObjectTypeSubscriptionDataBuilder() }
+    }
+    
     var treeSubscriptionManager: Factory<any TreeSubscriptionManagerProtocol> {
         self { TreeSubscriptionManager() }
     }
@@ -164,7 +168,7 @@ extension Container {
         self { RelationDetailsStorage() }.singleton
     }
     
-    var relationSubscriptionDataBuilder: Factory<any RelationSubscriptionDataBuilderProtocol> {
+    var relationSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
         self { RelationSubscriptionDataBuilder() }
     }
     
@@ -280,8 +284,8 @@ extension Container {
         self { MentionObjectsService() }.shared
     }
     
-    var appVersionService: Factory<any AppVersionServiceProtocol> {
-        self { AppVersionService() }.singleton
+    var appVersionUpdateService: Factory<any AppVersionUpdateServiceProtocol> {
+        self { AppVersionUpdateService() }.singleton
     }
     
     var middlewareEventsListener: Factory<any MiddlewareEventsListenerProtocol> {
@@ -326,5 +330,13 @@ extension Container {
     
     var discussionChatActionService: Factory<any DiscussionChatActionServiceProtocol> {
         self { DiscussionChatActionService() }
+    }
+    
+    var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
+        self { AppVersionTracker() }.singleton
+    }
+    
+    var userWarningAlertsHandler: Factory<any UserWarningAlertsHandlerProtocol> {
+        self { UserWarningAlertsHandler() }.shared
     }
 }

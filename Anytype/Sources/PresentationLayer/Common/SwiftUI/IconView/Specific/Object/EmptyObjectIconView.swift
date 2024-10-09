@@ -38,6 +38,8 @@ struct EmptyObjectIconView: View {
             return .EmptyIcon.discussion
         case .objectType:
             return .EmptyIcon.objectType
+        case .tag:
+            return .EmptyIcon.tag
         }
     }
 }

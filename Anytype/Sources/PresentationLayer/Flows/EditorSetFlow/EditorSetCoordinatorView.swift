@@ -42,6 +42,12 @@ struct EditorSetCoordinatorView: View {
             .anytypeSheet(item: $model.syncStatusSpaceId) {
                 SyncStatusInfoView(spaceId: $0.value)
             }
+            .anytypeSheet(isPresented: $model.presentSettings) {
+                ObjectSettingsCoordinatorView(
+                    objectId: model.data.objectId,
+                    output: model
+                )
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

@@ -67,9 +67,10 @@ struct SlashMenuItemsBuilder {
             text: "", 
             includePins: true,
             includeLists: true,
-            includeBookmark: false,
+            includeBookmarks: false,
             includeFiles: false,
             includeChat: false,
+            includeTemplates: false,
             incudeNotForCreation: false,
             spaceId: spaceId
         ) else {

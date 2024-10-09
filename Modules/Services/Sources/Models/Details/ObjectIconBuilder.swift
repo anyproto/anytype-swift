@@ -50,12 +50,10 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .bookmark:
             return bookmarkIcon(iconImage: relations.iconImage)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date, .chatDerived:
+                .audio, .video, .pdf, .date, .tag, .chatDerived:
             return nil
         case .space, .spaceView:
             return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName)
-        case .chat, .chatDerived:
-            return nil
         }
     }
     

@@ -298,7 +298,7 @@ extension EditorPageViewModel {
         router.showSettings()
     }
     
-    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
+    func showSettings(output: any ObjectSettingsCoordinatorOutput) {
         router.showSettings(output: output)
     }
     

@@ -39,12 +39,7 @@ struct ObjectIconPicker: View {
                 )
             case nil:
                 EmptyView()
-            case .todo, .note, .bookmark, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .audio, .video, .pdf, .date, .space, .spaceView, .chatDerived:
-                EmptyView()
-                    .onAppear {
-                        anytypeAssertionFailure("Not supported layout")
-                    }
-            case .chat, .chatDerived:
+            case .todo, .note, .bookmark, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .audio, .video, .pdf, .date, .space, .spaceView, .tag, .chatDerived, .chat:
                 EmptyView()
                     .onAppear {
                         anytypeAssertionFailure("Not supported layout")

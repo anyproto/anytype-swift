@@ -1158,6 +1158,11 @@ internal enum Loc {
     internal static let pageTitle = Loc.tr("Localizable", "RedactedText.pageTitle")
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType")
   }
+  internal enum ReindexingWarningAlert {
+    internal static let button = Loc.tr("Localizable", "ReindexingWarningAlert.Button")
+    internal static let description = Loc.tr("Localizable", "ReindexingWarningAlert.Description")
+    internal static let title = Loc.tr("Localizable", "ReindexingWarningAlert.Title")
+  }
   internal enum Relation {
     internal static func addedToLibrary(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1))

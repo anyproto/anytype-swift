@@ -59,6 +59,9 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 
   /// Any-store based object for chat
   case chatDerivedObject // = 544
+
+  /// Container for account data in tech space
+  case accountObject // = 545
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -94,6 +97,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 536: self = .devicesObject
     case 537: self = .chatObject
     case 544: self = .chatDerivedObject
+    case 545: self = .accountObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -127,6 +131,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .devicesObject: return 536
     case .chatObject: return 537
     case .chatDerivedObject: return 544
+    case .accountObject: return 545
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -165,6 +170,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .devicesObject,
     .chatObject,
     .chatDerivedObject,
+    .accountObject,
   ]
 }
 
@@ -3943,6 +3949,7 @@ public struct Anytype_Model_ObjectType {
     case pdf // = 20
     case chat // = 21
     case chatDerived // = 22
+    case tag // = 23
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -3974,6 +3981,7 @@ public struct Anytype_Model_ObjectType {
       case 20: self = .pdf
       case 21: self = .chat
       case 22: self = .chatDerived
+      case 23: self = .tag
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -4003,6 +4011,7 @@ public struct Anytype_Model_ObjectType {
       case .pdf: return 20
       case .chat: return 21
       case .chatDerived: return 22
+      case .tag: return 23
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -4040,6 +4049,7 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .pdf,
     .chat,
     .chatDerived,
+    .tag,
   ]
 }
 
@@ -6185,6 +6195,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     536: .same(proto: "DevicesObject"),
     537: .same(proto: "ChatObject"),
     544: .same(proto: "ChatDerivedObject"),
+    545: .same(proto: "AccountObject"),
   ]
 }
 
@@ -9637,6 +9648,7 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     20: .same(proto: "pdf"),
     21: .same(proto: "chat"),
     22: .same(proto: "chatDerived"),
+    23: .same(proto: "tag"),
   ]
 }
 

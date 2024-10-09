@@ -26,6 +26,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var relationsSearchData: RelationsSearchData?
     @Published var openUrlData: URL?
     @Published var syncStatusSpaceId: StringIdentifiable?
+    @Published var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
     
     init(
         data: EditorPageObject,
@@ -114,6 +115,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showSyncStatusInfo(spaceId: String) {
         syncStatusSpaceId = spaceId.identifiable
+    }
+    
+    func showObectSettings(output: any ObjectSettingsCoordinatorOutput) {
+        settingsOutput = ObjectSettingsCoordinatorOutputIdentifiable(value: output)
     }
     
     // MARK: - Private

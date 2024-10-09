@@ -46,8 +46,7 @@ public extension FeatureDescription {
     static let allContent = FeatureDescription(
         title: "All content",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let spaceHubParallax = FeatureDescription(

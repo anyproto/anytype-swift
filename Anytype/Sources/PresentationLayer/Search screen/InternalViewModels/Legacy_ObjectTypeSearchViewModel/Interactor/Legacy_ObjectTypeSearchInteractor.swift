@@ -38,9 +38,10 @@ extension Legacy_ObjectTypeSearchInteractor {
             text: text, 
             includePins: true,
             includeLists: showSetAndCollection,
-            includeBookmark: showBookmark, 
+            includeBookmarks: showBookmark,
             includeFiles: showFiles,
             includeChat: false,
+            includeTemplates: false,
             incudeNotForCreation: false,
             spaceId: spaceId
         )

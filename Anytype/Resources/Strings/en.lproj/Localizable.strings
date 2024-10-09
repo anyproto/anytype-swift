@@ -205,13 +205,13 @@
 "Join" = "Join";
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Lets Go" = "Let’s Go";
-"My spaces" = "My spaces";
+"My spaces" = "My Spaces";
 
 // Home
 "Favorites" = "Favorites";
 "Recent" = "Recent";
 "Bin" = "Bin";
-"All objects" = "All objects";
+"All objects" = "All Objects";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -1246,3 +1246,8 @@ Please provide specific details of your needs here.";
 
 // MARK: - Discussions
 "Discussion.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";

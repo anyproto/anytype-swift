@@ -6,7 +6,8 @@ struct ObjectIconExample: View {
     private let emojiExamples: [CGFloat] = [16, 18, 20, 40, 48, 64, 80, 96]
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @State private var iconId: String = ""
     
     var body: some View {
@@ -58,7 +59,8 @@ struct ObjectIconExample: View {
             }
         }
         .task {
-            let files = try? await searchService.searchImages()
+            guard let spaceId = workspaceStorage.activeWorkspaces.first?.targetSpaceId else { return }
+            let files = try? await searchService.searchImages(spaceId: spaceId)
             iconId = files?.first?.iconImage ?? ""
         }
     }

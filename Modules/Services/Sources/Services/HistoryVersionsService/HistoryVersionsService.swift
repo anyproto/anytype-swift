@@ -21,6 +21,7 @@ final class HistoryVersionsService: HistoryVersionsServiceProtocol {
             $0.objectID = objectId
             $0.limit = Constants.limit
             $0.lastVersionID = lastVersionId
+            $0.notIncludeVersion = true
         }).invoke()
         return response.versions
     }

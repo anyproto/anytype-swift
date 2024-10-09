@@ -45,7 +45,6 @@ actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters(includeHiddenDiscovery: false)
-            SearchHelper.spaceId(spaceId)
             SearchHelper.layoutFilter([.participant])
             SearchHelper.participantStatusFilter(.active, .joining, .removing)
         }
@@ -53,6 +52,7 @@ actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: 0,

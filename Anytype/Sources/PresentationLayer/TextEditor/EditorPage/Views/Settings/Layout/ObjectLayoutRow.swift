@@ -75,7 +75,7 @@ private extension DetailsLayout {
             return .Layout.task
         case .note:
             return .Layout.note
-        case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .chat, .chatDerived:
+        case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
             return .noImage
         case .chat, .chatDerived:
             return .noImage
@@ -96,7 +96,7 @@ private extension DetailsLayout {
             return Loc.set
         case .collection:
             return Loc.collection
-        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .chat, .chatDerived:
+        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
             return ""
         case .chat, .chatDerived:
             return ""
@@ -115,7 +115,7 @@ private extension DetailsLayout {
             return Loc.designedToCaptureThoughtsQuickly
         case .set, .collection:
             return Loc.collectionOfObjects
-        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .chat, .chatDerived:
+        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
             return ""
         case .chat, .chatDerived:
             return ""

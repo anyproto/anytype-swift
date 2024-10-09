@@ -64,7 +64,7 @@ public class SearchHelper {
         return filter
     }
     
-    public static func typeFilter(typeIds: [String]) -> DataviewFilter {
+    public static func typeFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
@@ -88,6 +88,15 @@ public class SearchHelper {
         filter.value = layouts.map(\.rawValue).protobufValue
         filter.relationKey = BundledRelationKey.layout.rawValue
         
+        return filter
+    }
+    
+    public static func uniqueKeyFilter(key: String, include: Bool) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = include ? .equal : .notEqual
+        filter.relationKey = BundledRelationKey.uniqueKey.rawValue
+        filter.value = key.protobufValue
+
         return filter
     }
     
@@ -127,23 +136,6 @@ public class SearchHelper {
         return filter
     }
     
-    public static func sharedObjectsFilters() -> [DataviewFilter] {
-        var spaceFilter = DataviewFilter()
-        spaceFilter.condition = .notEmpty
-        spaceFilter.value = nil
-        spaceFilter.relationKey = BundledRelationKey.spaceId.rawValue
-   
-        var highlightedFilter = DataviewFilter()
-        highlightedFilter.condition = .equal
-        highlightedFilter.value = true
-        highlightedFilter.relationKey = BundledRelationKey.isHighlighted.rawValue
-        
-        return [
-            spaceFilter,
-            highlightedFilter
-        ]
-    }
-    
     public static func excludedIdsFilter(_ ids: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
@@ -174,24 +166,13 @@ public class SearchHelper {
         return filter
     }
 
-    public static func templatesFilters(type: String, spaceId spaceIdValue: String) -> [DataviewFilter] {
+    public static func templatesFilters(type: String) -> [DataviewFilter] {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
             templateScheme(include: true),
-            templateTypeFilter(type: type),
-            spaceId(spaceIdValue)
+            templateTypeFilter(type: type)
         ]
-    }
-    
-    public static func spaceId(_ spaceId: String) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = spaceId.protobufValue
-        
-        filter.relationKey = BundledRelationKey.spaceId.rawValue
-        
-        return filter
     }
     
     public static func objectsIds(_ objectsIds: [String]) -> DataviewFilter {
@@ -210,16 +191,6 @@ public class SearchHelper {
         filter.value = identityId.protobufValue
         
         filter.relationKey = BundledRelationKey.identityProfileLink.rawValue
-        
-        return filter
-    }
-    
-    public static func spaceIds(_ spaceIds: [String]) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .in
-        filter.value = spaceIds.protobufValue
-        
-        filter.relationKey = BundledRelationKey.spaceId.rawValue
         
         return filter
     }
