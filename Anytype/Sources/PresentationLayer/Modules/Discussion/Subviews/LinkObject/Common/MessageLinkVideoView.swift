@@ -8,10 +8,11 @@ struct MessageLinkVideoView: View {
     
     // Prevent image creation for each view update
     @State private var image: UIImage?
+    @StateObject private var model = MessageLinkVideoViewModel()
     
     init(url: URL?) {
         self.url = url
-        self._image = State(initialValue: UIImage(videoPreview: url))
+        self._image = State(initialValue: nil)
     }
     
     var body: some View {
@@ -25,30 +26,25 @@ struct MessageLinkVideoView: View {
             Image(asset: .X32.video)
                 .foregroundStyle(Color.white)
         }
-        .onChange(of: url) { newValue in
-            image = UIImage(videoPreview: url)
+        .task(id: url) {
+            guard let url else { return }
+            image = await model.preview(for: url)
         }
+    }
+}
+
+private final class MessageLinkVideoViewModel: ObservableObject {
+    
+    @Injected(\.videoPreviewStorage)
+    private var videoPreviewStorage: any VideoPreviewStorageProtocol
+    
+    func preview(for url: URL) async -> UIImage? {
+        await videoPreviewStorage.preview(url: url)
     }
 }
 
 extension MessageLinkVideoView {
     init(details: MessageAttachmentDetails) {
         self = MessageLinkVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id))
-    }
-}
-
-fileprivate extension UIImage {
-    
-    convenience init?(videoPreview path: URL?) {
-        guard let path else { return nil }
-        do {
-            let asset = AVURLAsset(url: path, options: nil)
-            let imgGenerator = AVAssetImageGenerator(asset: asset)
-            imgGenerator.appliesPreferredTrackTransform = true
-            let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
-            self.init(cgImage: cgImage)
-        } catch {
-            return nil
-        }
     }
 }
