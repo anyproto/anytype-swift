@@ -44,13 +44,13 @@ final class ChatsSubscriptionService: ChatsSubscriptionServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.spaceId(spaceId)
             SearchHelper.layoutFilter([DetailsLayout.chat])
         }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,

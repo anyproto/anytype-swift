@@ -6,6 +6,7 @@ import AnytypeCore
 @MainActor
 protocol ObjectIdsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
+        spaceId: String,
         objectIds: [String],
         update: @escaping ([ObjectDetails]) -> Void
     ) async
@@ -26,6 +27,7 @@ final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
     nonisolated init() {}
     
     func startSubscription(
+        spaceId: String,
         objectIds: [String],
         update: @escaping ([ObjectDetails]) -> Void
     ) async {
@@ -33,6 +35,7 @@ final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
         let searchData: SubscriptionData = .objects(
             SubscriptionData.Object(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 objectIds: objectIds,
                 keys: (BundledRelationKey.objectListKeys).uniqued().map { $0.rawValue }
             )

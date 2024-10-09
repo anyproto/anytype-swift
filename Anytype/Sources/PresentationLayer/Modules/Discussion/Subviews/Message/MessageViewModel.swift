@@ -86,7 +86,7 @@ final class MessageViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateSubscription() async {
-        await objectIdsSubscriptionService.startSubscription(objectIds: data.message.attachments.map(\.target)) { [weak self] linkedDetails in
+        await objectIdsSubscriptionService.startSubscription(spaceId: data.spaceId, objectIds: data.message.attachments.map(\.target)) { [weak self] linkedDetails in
             self?.linkedObjects = linkedDetails
         }
     }

@@ -17,11 +17,11 @@ final class MentionObjectsService: MentionObjectsServiceProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayoutsWithFiles)
+            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
         }
         
-        let details = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+        let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
         
         return details.map { MentionObject(details: $0) }
     }
@@ -33,10 +33,10 @@ final class MentionObjectsService: MentionObjectsServiceProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: limitLayout)
+            SearchFiltersBuilder.build(isArchived: false, layouts: limitLayout)
         }
         
-        let details = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+        let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
         
         return details.map { MentionObject(details: $0) }
     }

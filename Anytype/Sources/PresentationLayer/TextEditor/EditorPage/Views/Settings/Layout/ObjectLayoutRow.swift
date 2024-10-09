@@ -77,8 +77,6 @@ private extension DetailsLayout {
             return .Layout.note
         case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
             return .noImage
-        case .chat, .chatDerived:
-            return .noImage
         }
     }
     
@@ -98,8 +96,6 @@ private extension DetailsLayout {
             return Loc.collection
         case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
             return ""
-        case .chat, .chatDerived:
-            return ""
         }
     }
     
@@ -116,8 +112,6 @@ private extension DetailsLayout {
         case .set, .collection:
             return Loc.collectionOfObjects
         case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
-            return ""
-        case .chat, .chatDerived:
             return ""
         }
     }
