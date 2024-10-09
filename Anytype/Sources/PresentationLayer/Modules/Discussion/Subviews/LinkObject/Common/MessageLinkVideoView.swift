@@ -1,19 +1,16 @@
 import SwiftUI
 import AVKit
+import Services
 
-import SwiftUI
-
-struct MessageLinkLocalVideoView: View {
+struct MessageLinkVideoView: View {
     
-    let url: URL
-    let onTapRemove: () -> Void
+    let url: URL?
     
     // Prevent image creation for each view update
     @State private var image: UIImage?
     
-    init(url: URL, onTapRemove: @escaping () -> Void) {
+    init(url: URL?) {
         self.url = url
-        self.onTapRemove = onTapRemove
         self._image = State(initialValue: UIImage(videoPreview: url))
     }
     
@@ -31,16 +28,19 @@ struct MessageLinkLocalVideoView: View {
         .onChange(of: url) { newValue in
             image = UIImage(videoPreview: url)
         }
-        .frame(width: 72, height: 72)
-        .messageLinkStyle()
-        .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }
 
+extension MessageLinkVideoView {
+    init(details: ObjectDetails) {
+        self = MessageLinkVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id))
+    }
+}
 
 fileprivate extension UIImage {
     
-    convenience init?(videoPreview path: URL) {
+    convenience init?(videoPreview path: URL?) {
+        guard let path else { return nil }
         do {
             let asset = AVURLAsset(url: path, options: nil)
             let imgGenerator = AVAssetImageGenerator(asset: asset)

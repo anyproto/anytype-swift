@@ -20,12 +20,21 @@ struct MessageGridLinkContainer: View {
             ForEach(objects, id:\.self) { rowObjects in
                 GridRow {
                     ForEach(rowObjects, id:\.id) { object in
-                            Color.red
-                            .frame(width: rowItemSize(rowItems: rowObjects.count), height: rowItemSize(rowItems: rowObjects.count))
+                        Group {
+                            switch object.layoutValue {
+                            case .video:
+                                MessageLinkVideoView(details: object)
+                            default: // image and other types (for bugs)
+                                ImageIdIconView(imageId: object.id)
+                            }
+                        }
+                        .frame(width: rowItemSize(rowItems: rowObjects.count), height: rowItemSize(rowItems: rowObjects.count))
+                        .cornerRadius(4)
                     }
                 }
             }
         }
+        .cornerRadius(20)
     }
     
     private func rowItemSize(rowItems: Int) -> CGFloat? {
