@@ -205,13 +205,13 @@
 "Join" = "Unisciti";
 "Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Lets Go" = "Iniziamo!";
-"My spaces" = "I miei spazi";
+"My spaces" = "My Spaces";
 
 // Home
 "Favorites" = "Preferiti";
 "Recent" = "Recenti";
 "Bin" = "Cestino";
-"All objects" = "Tutti gli oggetti";
+"All objects" = "All Objects";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -1241,3 +1241,8 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";
