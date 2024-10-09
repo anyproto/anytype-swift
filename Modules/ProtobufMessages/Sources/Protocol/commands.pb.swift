@@ -28063,6 +28063,11 @@ public struct Anytype_Rpc {
 
         public var subscribeToNewsletter: Bool = false
 
+        public var insiderTipsAndTutorials: Bool = false
+
+        /// if we are coming from the onboarding list
+        public var isOnboardingList: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -74900,6 +74905,8 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Request: SwiftProtobuf.Mes
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "email"),
     2: .same(proto: "subscribeToNewsletter"),
+    3: .same(proto: "insiderTipsAndTutorials"),
+    4: .same(proto: "isOnboardingList"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -74910,6 +74917,8 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Request: SwiftProtobuf.Mes
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.email) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.subscribeToNewsletter) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.insiderTipsAndTutorials) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isOnboardingList) }()
       default: break
       }
     }
@@ -74922,12 +74931,20 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Request: SwiftProtobuf.Mes
     if self.subscribeToNewsletter != false {
       try visitor.visitSingularBoolField(value: self.subscribeToNewsletter, fieldNumber: 2)
     }
+    if self.insiderTipsAndTutorials != false {
+      try visitor.visitSingularBoolField(value: self.insiderTipsAndTutorials, fieldNumber: 3)
+    }
+    if self.isOnboardingList != false {
+      try visitor.visitSingularBoolField(value: self.isOnboardingList, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail.Request, rhs: Anytype_Rpc.Membership.GetVerificationEmail.Request) -> Bool {
     if lhs.email != rhs.email {return false}
     if lhs.subscribeToNewsletter != rhs.subscribeToNewsletter {return false}
+    if lhs.insiderTipsAndTutorials != rhs.insiderTipsAndTutorials {return false}
+    if lhs.isOnboardingList != rhs.isOnboardingList {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

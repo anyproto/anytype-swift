@@ -69,7 +69,7 @@ final class SearchService: SearchServiceProtocol {
             if typeIds.isEmpty {
                 SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayouts)
             } else {
-                SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
+                SearchFiltersBuilder.build(isArchived: false)
                 SearchHelper.typeFilter(typeIds)
             }
         }
