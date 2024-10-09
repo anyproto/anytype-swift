@@ -1941,7 +1941,7 @@
 		};
 		2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hyperoslo/Cache.git";
+			repositoryURL = "https://github.com/hyperoslo/Cache";
 			requirement = {
 				kind = exactVersion;
 				version = 7.4.0;

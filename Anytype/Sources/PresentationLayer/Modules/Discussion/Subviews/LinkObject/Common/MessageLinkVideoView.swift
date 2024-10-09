@@ -16,19 +16,22 @@ struct MessageLinkVideoView: View {
     }
     
     var body: some View {
-        ZStack {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+        GeometryReader { reader in
+            ZStack {
+                if let image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                }
+                Color.black.opacity(0.2)
+                Image(asset: .X32.video)
+                    .foregroundStyle(Color.white)
             }
-            Color.black.opacity(0.2)
-            Image(asset: .X32.video)
-                .foregroundStyle(Color.white)
-        }
-        .task(id: url) {
-            guard let url else { return }
-            image = await model.preview(for: url)
+            .frame(width: reader.size.width, height: reader.size.height)
+            .task(id: [url?.hashValue ?? 0, reader.size.width.hashValue].hashValue) {
+                guard let url, reader.size != .zero else { return }
+                image = await model.preview(for: url, size: reader.size)
+            }
         }
     }
 }
@@ -38,8 +41,8 @@ private final class MessageLinkVideoViewModel: ObservableObject {
     @Injected(\.videoPreviewStorage)
     private var videoPreviewStorage: any VideoPreviewStorageProtocol
     
-    func preview(for url: URL) async -> UIImage? {
-        await videoPreviewStorage.preview(url: url)
+    func preview(for url: URL, size: CGSize) async -> UIImage? {
+        try? await videoPreviewStorage.preview(url: url, size: size)
     }
 }
 

@@ -4,12 +4,19 @@ import UIKit
 import AVKit
 
 protocol VideoPreviewStorageProtocol {
-    func preview(url: URL) async -> UIImage?
+    func preview(url: URL, size: CGSize) async throws -> UIImage
 }
 
-actor VideoPreviewStorage: VideoPreviewStorageProtocol {
+final class VideoPreviewStorage: VideoPreviewStorageProtocol {
     
-    private let storage: Storage<URL, UIImage>?
+    private struct StorageKey: Hashable {
+        let url: URL
+        let size: CGSize
+    }
+    
+    private let storage: Storage<StorageKey, UIImage>?
+    
+    private let operationsQueue = DispatchQueue(label: "VideoPreviewQueue")
     
     init() {
         let diskConfig = DiskConfig(name: "VideoPreviewCache", maxSize: 30 * 1024 * 1024) // 30 Mb
@@ -23,29 +30,55 @@ actor VideoPreviewStorage: VideoPreviewStorageProtocol {
         )
     }
     
-    func preview(url: URL) async -> UIImage? {
-        if let image = try? storage?.object(forKey: url) {
-            return image
+    func preview(url: URL, size: CGSize) async throws -> UIImage {
+        return try await withCheckedThrowingContinuation { continuation in
+            loadPreviewInQueue(url: url, size: size) { result in
+                switch result {
+                case .success(let success):
+                    continuation.resume(returning: success)
+                case .failure(let failure):
+                    continuation.resume(throwing: failure)
+                }
+            }
         }
+    }
+
+    private func loadPreviewInQueue(url: URL, size: CGSize, completion: @escaping (Result<UIImage, any Error>) -> Void) {
         
-        let task: Task<UIImage?, Never> = Task {
-            guard let image = UIImage(videoPreview: url) else { return nil }
-            try? storage?.setObject(image, forKey: url)
-            return image
+        let key = StorageKey(url: url, size: size)
+        
+        operationsQueue.async { [weak self] in
+            
+            guard let self else {
+                completion(.failure(CommonError.undefined))
+                return
+            }
+            
+            if let image = try? storage?.object(forKey: key) {
+                completion(.success(image))
+                return
+            }
+            
+            guard let image = UIImage(videoPreview: url, size: size) else {
+                completion(.failure(CommonError.undefined))
+                return
+            }
+            
+            try? storage?.setObject(image, forKey: key)
+            completion(.success(image))
         }
-        
-        return await task.value
     }
 }
 
 fileprivate extension UIImage {
     
-    convenience init?(videoPreview path: URL?) {
+    convenience init?(videoPreview path: URL?, size: CGSize) {
         guard let path else { return nil }
         do {
             let asset = AVURLAsset(url: path, options: nil)
             let imgGenerator = AVAssetImageGenerator(asset: asset)
             imgGenerator.appliesPreferredTrackTransform = true
+            imgGenerator.maximumSize = size
             let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
             self.init(cgImage: cgImage)
         } catch {
