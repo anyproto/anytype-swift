@@ -205,7 +205,7 @@
 "Join" = "Beitreten";
 "Agreement Disclamer" = "Wenn Sie fortfahren, stimmen Sie den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@) zu";
 "Lets Go" = "Los geht’s";
-"My spaces" = "Meine Spaces";
+"My spaces" = "My Spaces";
 
 // Home
 "Favorites" = "Favoriten";
@@ -1242,3 +1242,8 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "AllContent.Empty.State.subtitle" = "Erstelle deine ersten Objekte, um loszulegen.";
 "AllContent.Search.Empty.State.title" = "Keine Ergebnisse gefunden.";
 "AllContent.Search.Empty.State.subtitle" = "Versuche mit anderen Schlüsselwörtern zu suchen.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "Wir haben eine neue Suchbibliothek für schnellere und genauere Ergebnisse implementiert.\nDie Neuindexierung kann ein paar Minuten dauern.";
+"ReindexingWarningAlert.Button" = "Verstanden!";
