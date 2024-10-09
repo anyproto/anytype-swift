@@ -24,6 +24,7 @@ final class SearchMiddleService: SearchMiddleServiceProtocol {
     
     public func search(data: SearchRequest) async throws -> [ObjectDetails] {
         let response = try await ClientCommands.objectSearch(.with {
+            $0.spaceID = data.spaceId
             $0.filters = data.filters
             $0.sorts = data.sorts.map { $0.fixIncludeTime() }
             $0.fullText = data.fullText
