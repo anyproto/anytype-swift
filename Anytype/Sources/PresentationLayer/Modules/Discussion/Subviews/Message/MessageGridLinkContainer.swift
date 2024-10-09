@@ -16,9 +16,9 @@ struct MessageGridLinkContainer: View {
     }
     
     var body: some View {
-        Grid(horizontalSpacing: Constants.spacing, verticalSpacing: Constants.spacing) {
+        VStack(spacing: Constants.spacing) {
             ForEach(objects, id:\.self) { rowObjects in
-                GridRow {
+                HStack(spacing: Constants.spacing) {
                     ForEach(rowObjects, id:\.id) { object in
                         Group {
                             switch object.layoutValue {
