@@ -23,12 +23,9 @@ struct MessageGridLinkContainer: View {
                         Group {
                             switch object.layoutValue {
                             case .video:
-//                                MessageLinkVideoView(details: object)
-                                Color.red
+                                MessageLinkVideoView(details: object)
                             default: // image and other types (for bugs)
                                 ImageIdIconView(imageId: object.id)
-                                    .id(object.id)
-//                                Color.red
                             }
                         }
                         .frame(width: rowItemSize(rowItems: rowObjects.count), height: rowItemSize(rowItems: rowObjects.count))

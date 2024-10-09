@@ -41,16 +41,16 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             anytypeAssertionFailure("Subscription started")
             return
         }
+    
+        let messages = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
+        await loadAttachments(messages: messages)
+        subscriptionStarted = true
+        allMessages = messages.sorted(by: { $0.orderID < $1.orderID })
         
         EventBunchSubscribtion.default.addHandler { [weak self] events in
             guard events.contextId == self?.chatObjectId else { return }
             await self?.handle(events: events)
         }.store(in: &subscriptions)
-        
-        let messages = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
-        await loadAttachments(messages: messages)
-        subscriptionStarted = true
-        allMessages = messages.sorted(by: { $0.orderID < $1.orderID })
     }
     
     func loadNextPage() async throws {
@@ -59,6 +59,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             return
         }
         let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: last.orderID, limit: Constants.pageSize)
+        guard messages.isNotEmpty else { return }
         await loadAttachments(messages: messages)
         self.allMessages = (allMessages + messages).sorted(by: { $0.orderID < $1.orderID }).uniqued()
     }
@@ -80,7 +81,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
-                allMessages = ((allMessages ?? []) + [data.message]).sorted(by: { $0.orderID < $1.orderID }).uniqued()
+                let newAllMessage = ((allMessages ?? []) + [data.message]).sorted(by: { $0.orderID < $1.orderID }).uniqued()
+                await loadAttachments(messages: [data.message])
+                allMessages = newAllMessage
             case let .chatDelete(data):
                 allMessages?.removeAll { $0.id == data.id }
             case let .chatUpdate(data):
@@ -98,10 +101,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     private func loadAttachments(messages: [ChatMessage]) async {
-        let loadedAttachmentsIds = attachmentsDetails.map(\.id)
-        let attachmentsInMessage = messages.flatMap { $0.attachments.map(\.target) }
+        let loadedAttachmentsIds = Set(attachmentsDetails.map(\.id))
+        let attachmentsInMessage = Set(messages.flatMap { $0.attachments.map(\.target) })
         let newAttachmentsIds = attachmentsInMessage.filter { !loadedAttachmentsIds.contains($0) }
-        if let newAttachmentsDetails = try? await seachService.searchObjects(objectIds: newAttachmentsIds) {
+        if let newAttachmentsDetails = try? await seachService.searchObjects(objectIds: Array(newAttachmentsIds)) {
             let newAttachments = newAttachmentsDetails.map { MessageAttachmentDetails(details: $0) }
             attachmentsDetails.append(contentsOf: newAttachments)
         }

@@ -32,7 +32,7 @@ struct MessageLinkVideoView: View {
 }
 
 extension MessageLinkVideoView {
-    init(details: ObjectDetails) {
+    init(details: MessageAttachmentDetails) {
         self = MessageLinkVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id))
     }
 }

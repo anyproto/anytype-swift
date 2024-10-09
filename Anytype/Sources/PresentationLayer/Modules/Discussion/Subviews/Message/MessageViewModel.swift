@@ -66,7 +66,16 @@ final class MessageViewModel: ObservableObject {
         isYourMessage = chatMessage.creator == yourProfileIdentity
         reactions = data.reactions
         
-        linkedObjectsDetails = data.attachmentsDetails
+        var attachmentsDetails = data.attachmentsDetails
+        
+        // Add empty objects
+        for attachment in data.message.attachments {
+            if !attachmentsDetails.contains(where: { $0.id == attachment.target }) {
+                attachmentsDetails.append(MessageAttachmentDetails(details: ObjectDetails(id: attachment.target)))
+            }
+        }
+        
+        linkedObjectsDetails = attachmentsDetails.sorted { $0.id > $1.id }
         updateAttachments()
     }
     
@@ -100,7 +109,7 @@ final class MessageViewModel: ObservableObject {
     
     private func updateSubscription() async {
         await objectIdsSubscriptionService.startSubscription(objectIds: data.message.attachments.map(\.target)) { [weak self] linkedDetails in
-            let linkedDetails = linkedDetails.map { MessageAttachmentDetails(details: $0) }
+            let linkedDetails = linkedDetails.map { MessageAttachmentDetails(details: $0) }.sorted { $0.id > $1.id }
             if self?.linkedObjectsDetails != linkedDetails {
                 self?.linkedObjectsDetails = linkedDetails
                 self?.updateAttachments()
@@ -116,7 +125,6 @@ final class MessageViewModel: ObservableObject {
             return
         }
         
-//        let containsNotOnlyMediaFiles = chatMessage.attachments.contains { $0.type != .image }
         let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.layoutValue != .image && $0.layoutValue != .video }
         
         if containsNotOnlyMediaFiles {
