@@ -205,13 +205,13 @@
 "Join" = "Join";
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Lets Go" = "Let’s Go";
-"My spaces" = "My spaces";
+"My spaces" = "My Spaces";
 
 // Home
 "Favorites" = "पसंदीदा";
 "Recent" = "हाल ही का";
 "Bin" = "Bin";
-"All objects" = "All objects";
+"All objects" = "All Objects";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -1241,3 +1241,8 @@ Please provide specific details of your needs here.";
 "AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";

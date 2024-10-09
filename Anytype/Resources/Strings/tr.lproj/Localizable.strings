@@ -205,13 +205,13 @@
 "Join" = "Katıl";
 "Agreement Disclamer" = "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz";
 "Lets Go" = "Haydi Başlayalım";
-"My spaces" = "Alanlarım";
+"My spaces" = "Benim Alanlarım";
 
 // Home
 "Favorites" = "Favoriler";
 "Recent" = "En son";
 "Bin" = "Çöp kutusu";
-"All objects" = "Tüm nesneler";
+"All objects" = "Tüm Nesneler";
 
 // Settings
 "Wallpaper" = "Duvar kağıdı";
@@ -1243,3 +1243,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "AllContent.Empty.State.subtitle" = "Başlamak için ilk nesnelerinizi oluşturun.";
 "AllContent.Search.Empty.State.title" = "Hiçbir sonuç bulunamadı.";
 "AllContent.Search.Empty.State.subtitle" = "Farklı anahtar kelimelerle aramayı deneyin.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";
+"ReindexingWarningAlert.Description" = "Daha hızlı ve daha doğru sonuçlar için yeni bir arama kütüphanesi uyguladık.\nYeniden indeksleme birkaç dakika sürebilir.";
+"ReindexingWarningAlert.Button" = "Anladım!";
