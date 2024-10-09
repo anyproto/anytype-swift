@@ -205,13 +205,13 @@
 "Join" = "Unirte";
 "Agreement Disclamer" = "Al continuar, aceptas nuestros [términos de uso](%@) y nuestra [política de privacidad](%@).";
 "Lets Go" = "Adelante";
-"My spaces" = "Mis espacios";
+"My spaces" = "My Spaces";
 
 // Home
 "Favorites" = "Favoritos";
 "Recent" = "Recientes";
 "Bin" = "Papelera";
-"All objects" = "Todos los objetos";
+"All objects" = "All Objects";
 
 // Settings
 "Wallpaper" = "Fondo de pantalla";
@@ -1241,3 +1241,8 @@ En concreto,
 "AllContent.Empty.State.subtitle" = "Crea tus primeros objetos para empezar.";
 "AllContent.Search.Empty.State.title" = "No se encuentran resultados.";
 "AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";
