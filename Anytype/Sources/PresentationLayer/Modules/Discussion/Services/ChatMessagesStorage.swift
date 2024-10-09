@@ -22,13 +22,15 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     @Injected(\.searchService)
     private var seachService: any SearchServiceProtocol
     private let chatObjectId: String
+    private let spaceId: String
     
     private var subscriptionStarted = false
     private var subscriptions: [AnyCancellable] = []
     private var attachmentsDetails: [MessageAttachmentDetails] = []
     @Published private var allMessages: [ChatMessage]? = nil
         
-    init(chatObjectId: String) {
+    init(spaceId: String, chatObjectId: String) {
+        self.spaceId = spaceId
         self.chatObjectId = chatObjectId
     }
     
@@ -104,7 +106,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let loadedAttachmentsIds = Set(attachmentsDetails.map(\.id))
         let attachmentsInMessage = Set(messages.flatMap { $0.attachments.map(\.target) })
         let newAttachmentsIds = attachmentsInMessage.filter { !loadedAttachmentsIds.contains($0) }
-        if let newAttachmentsDetails = try? await seachService.searchObjects(objectIds: Array(newAttachmentsIds)) {
+        if let newAttachmentsDetails = try? await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds)) {
             let newAttachments = newAttachmentsDetails.map { MessageAttachmentDetails(details: $0) }
             attachmentsDetails.append(contentsOf: newAttachments)
         }
@@ -112,7 +114,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
 }
 
 extension Container {
-    var chatMessageStorage: ParameterFactory<String, any ChatMessagesStorageProtocol> {
-        self { ChatMessagesStorage(chatObjectId: $0) }
+    var chatMessageStorage: ParameterFactory<(String, String), any ChatMessagesStorageProtocol> {
+        self { ChatMessagesStorage(spaceId: $0, chatObjectId: $1) }
     }
 }

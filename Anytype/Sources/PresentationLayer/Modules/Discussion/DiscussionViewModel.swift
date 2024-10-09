@@ -29,7 +29,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private var fileActionsService: any FileActionsServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
-    private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
+    private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage((spaceId, chatId))
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     
     // MARK: - State
