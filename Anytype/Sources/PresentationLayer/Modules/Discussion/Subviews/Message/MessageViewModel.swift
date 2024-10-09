@@ -9,8 +9,8 @@ struct MessageLinkObject {
     
 }
 enum MessageLinkedObjectsLayout {
-    case list([ObjectDetails])
-    case grid([[ObjectDetails]])
+    case list([MessageAttachmentDetails])
+    case grid([[MessageAttachmentDetails]])
 }
 
 @MainActor
@@ -38,7 +38,7 @@ final class MessageViewModel: ObservableObject {
     @Published var linkedObjects: MessageLinkedObjectsLayout?
     
     private let yourProfileIdentity: String?
-    private var linkedObjectsDetails: [ObjectDetails] = []
+    private var linkedObjectsDetails: [MessageAttachmentDetails] = []
     
     init(data: MessageViewData, output: (any MessageModuleOutput)?) {
         self.data = data
@@ -66,12 +66,7 @@ final class MessageViewModel: ObservableObject {
         isYourMessage = chatMessage.creator == yourProfileIdentity
         reactions = data.reactions
         
-        linkedObjectsDetails = chatMessage.attachments.map { ObjectDetails(
-            id: $0.target,
-            values: [
-                BundledRelationKey.layout.rawValue: DetailsLayout.image.rawValue.protobufValue
-            ]
-        ) }
+        linkedObjectsDetails = data.attachmentsDetails
         updateAttachments()
     }
     
@@ -97,7 +92,7 @@ final class MessageViewModel: ObservableObject {
         }
     }
     
-    func onTapObject(details: ObjectDetails) {
+    func onTapObject(details: MessageAttachmentDetails) {
         output?.didSelectObject(details: details)
     }
     
@@ -105,8 +100,11 @@ final class MessageViewModel: ObservableObject {
     
     private func updateSubscription() async {
         await objectIdsSubscriptionService.startSubscription(objectIds: data.message.attachments.map(\.target)) { [weak self] linkedDetails in
-            self?.linkedObjectsDetails = linkedDetails
-            self?.updateAttachments()
+            let linkedDetails = linkedDetails.map { MessageAttachmentDetails(details: $0) }
+            if self?.linkedObjectsDetails != linkedDetails {
+                self?.linkedObjectsDetails = linkedDetails
+                self?.updateAttachments()
+            }
         }
     }
     

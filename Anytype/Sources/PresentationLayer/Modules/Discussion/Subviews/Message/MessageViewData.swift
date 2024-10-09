@@ -8,6 +8,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let message: ChatMessage
     let participant: Participant?
     let reactions: [MessageReactionModel]
+    let attachmentsDetails: [MessageAttachmentDetails]
     
     var id: String {
         message.id

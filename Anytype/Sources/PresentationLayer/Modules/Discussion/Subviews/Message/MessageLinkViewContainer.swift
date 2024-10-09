@@ -4,9 +4,9 @@ import Services
 
 struct MessageLinkViewContainer: View {
 
-    let objects: [ObjectDetails]
+    let objects: [MessageAttachmentDetails]
     let isYour: Bool
-    let onTapObject: (ObjectDetails) -> Void
+    let onTapObject: (MessageAttachmentDetails) -> Void
     
     var body: some View {
         VStack(spacing: 8) {

@@ -37,7 +37,7 @@ struct MessageLinkObjectView: View {
 }
 
 extension MessageLinkObjectView {
-    init(details: ObjectDetails, style: MessageLinkObjectViewStyle, onTapRemove: ((ObjectDetails) -> Void)? = nil) {
+    init(details: MessageAttachmentDetails, style: MessageLinkObjectViewStyle, onTapRemove: ((MessageAttachmentDetails) -> Void)? = nil) {
         self = MessageLinkObjectView(
             icon: details.objectIconImage,
             title: details.title,

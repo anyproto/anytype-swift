@@ -8,6 +8,7 @@ protocol ChatMessagesStorageProtocol: AnyObject {
     func startSubscription() async throws
     func loadNextPage() async throws
     var messagesPublisher: AnyPublisher<[ChatMessage], Never> { get async }
+    func attachments(message: ChatMessage) async -> [MessageAttachmentDetails]
 }
 
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
@@ -18,10 +19,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
+    @Injected(\.searchService)
+    private var seachService: any SearchServiceProtocol
     private let chatObjectId: String
     
     private var subscriptionStarted = false
     private var subscriptions: [AnyCancellable] = []
+    private var attachmentsDetails: [MessageAttachmentDetails] = []
     @Published private var allMessages: [ChatMessage]? = nil
         
     init(chatObjectId: String) {
@@ -44,6 +48,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }.store(in: &subscriptions)
         
         let messages = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
+        await loadAttachments(messages: messages)
         subscriptionStarted = true
         allMessages = messages.sorted(by: { $0.orderID < $1.orderID })
     }
@@ -54,7 +59,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             return
         }
         let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: last.orderID, limit: Constants.pageSize)
+        await loadAttachments(messages: messages)
         self.allMessages = (allMessages + messages).sorted(by: { $0.orderID < $1.orderID }).uniqued()
+    }
+    
+    func attachments(message: ChatMessage) async -> [MessageAttachmentDetails] {
+        let ids = message.attachments.map(\.target)
+        return attachmentsDetails.filter { ids.contains($0.id) }
     }
     
     deinit {
@@ -83,6 +94,16 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             default:
                 break
             }
+        }
+    }
+    
+    private func loadAttachments(messages: [ChatMessage]) async {
+        let loadedAttachmentsIds = attachmentsDetails.map(\.id)
+        let attachmentsInMessage = messages.flatMap { $0.attachments.map(\.target) }
+        let newAttachmentsIds = attachmentsInMessage.filter { !loadedAttachmentsIds.contains($0) }
+        if let newAttachmentsDetails = try? await seachService.searchObjects(objectIds: newAttachmentsIds) {
+            let newAttachments = newAttachmentsDetails.map { MessageAttachmentDetails(details: $0) }
+            attachmentsDetails.append(contentsOf: newAttachments)
         }
     }
 }

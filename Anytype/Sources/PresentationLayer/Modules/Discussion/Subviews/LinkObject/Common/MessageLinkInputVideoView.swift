@@ -20,7 +20,7 @@ struct MessageLinkInputVideoView: View {
 }
 
 extension MessageLinkInputVideoView {
-    init(details: ObjectDetails, onTapRemove: @escaping () -> Void) {
+    init(details: MessageAttachmentDetails, onTapRemove: @escaping () -> Void) {
         self = MessageLinkInputVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id), onTapRemove: onTapRemove)
     }
 }

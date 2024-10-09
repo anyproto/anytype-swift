@@ -4,8 +4,8 @@ import Services
 
 struct MessageGridLinkContainer: View {
 
-    let objects: [[ObjectDetails]]
-    let onTapObject: (ObjectDetails) -> Void
+    let objects: [[MessageAttachmentDetails]]
+    let onTapObject: (MessageAttachmentDetails) -> Void
     
     private enum Constants {
         static let spacing: CGFloat = 4
@@ -23,9 +23,12 @@ struct MessageGridLinkContainer: View {
                         Group {
                             switch object.layoutValue {
                             case .video:
-                                MessageLinkVideoView(details: object)
+//                                MessageLinkVideoView(details: object)
+                                Color.red
                             default: // image and other types (for bugs)
                                 ImageIdIconView(imageId: object.id)
+                                    .id(object.id)
+//                                Color.red
                             }
                         }
                         .frame(width: rowItemSize(rowItems: rowObjects.count), height: rowItemSize(rowItems: rowObjects.count))

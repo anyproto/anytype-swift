@@ -3,7 +3,7 @@ import Services
 
 struct MessageLinkedUploadedObject: View {
     
-    let details: ObjectDetails
+    let details: MessageAttachmentDetails
     let onTapObject: () -> Void
     let onTapRemove: () -> Void
     
