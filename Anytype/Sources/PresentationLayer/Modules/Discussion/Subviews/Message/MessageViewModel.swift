@@ -37,7 +37,6 @@ final class MessageViewModel: ObservableObject {
     @Published var reactions: [MessageReactionModel] = []
     @Published var linkedObjects: MessageLinkedObjectsLayout?
     
-    @Published var chatMessage: ChatMessage?
     private let yourProfileIdentity: String?
     private var linkedObjectsDetails: [ObjectDetails] = []
     
@@ -67,7 +66,12 @@ final class MessageViewModel: ObservableObject {
         isYourMessage = chatMessage.creator == yourProfileIdentity
         reactions = data.reactions
         
-        linkedObjectsDetails = chatMessage.attachments.map { ObjectDetails(id: $0.target) }
+        linkedObjectsDetails = chatMessage.attachments.map { ObjectDetails(
+            id: $0.target,
+            values: [
+                BundledRelationKey.layout.rawValue: DetailsLayout.image.rawValue.protobufValue
+            ]
+        ) }
         updateAttachments()
     }
     
@@ -107,14 +111,15 @@ final class MessageViewModel: ObservableObject {
     }
     
     private func updateAttachments() {
-        guard let chatMessage else { return }
+        let chatMessage = data.message
         
         guard chatMessage.attachments.isNotEmpty else {
             linkedObjects = nil
             return
         }
         
-        let containsNotOnlyMediaFiles = chatMessage.attachments.contains { $0.type != .image }
+//        let containsNotOnlyMediaFiles = chatMessage.attachments.contains { $0.type != .image }
+        let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.layoutValue != .image && $0.layoutValue != .video }
         
         if containsNotOnlyMediaFiles {
             linkedObjects = .list(linkedObjectsDetails)
