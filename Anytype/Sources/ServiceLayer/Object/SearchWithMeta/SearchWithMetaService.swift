@@ -4,7 +4,7 @@ import AnytypeCore
 
 protocol SearchWithMetaServiceProtocol: AnyObject {
     func search(text: String, spaceId: String) async throws -> [SearchResultWithMeta]
-    func search(text: String, limitObjectIds: [String]) async throws -> [SearchResultWithMeta]
+    func search(text: String, spaceId: String, limitObjectIds: [String]) async throws -> [SearchResultWithMeta]
 }
 
 final class SearchWithMetaService: SearchWithMetaServiceProtocol {
@@ -22,7 +22,7 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol {
         )
     }
     
-    func search(text: String, limitObjectIds: [String]) async throws -> [SearchResultWithMeta] {
+    func search(text: String, spaceId: String, limitObjectIds: [String]) async throws -> [SearchResultWithMeta] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
@@ -31,8 +31,7 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol {
             SearchHelper.includeIdsFilter(limitObjectIds)
             SearchHelper.notHiddenFilters(includeHiddenDiscovery: false)
         }
-                
-        return try await searchWithMetaMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+        return try await searchWithMetaMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
     }
     
     private func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], spaceId: String) async throws -> [SearchResultWithMeta] {
@@ -41,8 +40,8 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol {
             type: .desc
         )
         
-        let filters = SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: layouts)
+        let filters = SearchFiltersBuilder.build(isArchived: false, layouts: layouts)
         
-        return try await searchWithMetaMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
+        return try await searchWithMetaMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
 }

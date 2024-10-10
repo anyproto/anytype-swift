@@ -16,8 +16,7 @@ extension SpaceView {
             localStatus: .ok,
             spaceAccessType: .private,
             readersLimit: nil,
-            writersLimit: nil,
-            sharedSpacesLimit: nil
+            writersLimit: nil
         )
     }
 }

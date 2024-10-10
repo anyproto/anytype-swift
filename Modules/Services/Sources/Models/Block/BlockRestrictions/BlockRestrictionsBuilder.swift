@@ -27,7 +27,7 @@ public struct BlockRestrictionsBuilder: Sendable {
             return PageBlockRestrictions()
         case .bookmark:
             return BookmarkBlockRestrictions()
-        case .smartblock, .layout, .featuredRelations, .dataView, .table, .tableRow, .tableColumn, .widget:
+        case .smartblock, .layout, .featuredRelations, .dataView, .table, .tableRow, .tableColumn, .widget, .chat:
             return DummyRestrictions()
         case .relation:
             return RelationBlockRestrictions()

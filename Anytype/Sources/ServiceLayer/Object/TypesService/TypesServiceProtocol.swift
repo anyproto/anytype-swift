@@ -14,6 +14,7 @@ protocol TypesServiceProtocol {
         includeLists: Bool,
         includeBookmarks: Bool,
         includeFiles: Bool,
+        includeChat: Bool,
         includeTemplates: Bool,
         incudeNotForCreation: Bool,
         spaceId: String

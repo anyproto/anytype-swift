@@ -1,13 +1,16 @@
 import Foundation
 import Services
 
-struct MessageViewData: Identifiable {
+struct MessageViewData: Identifiable, Equatable, Hashable {
+    let spaceId: String
     let objectId: String
-    let blockId: String
-    // TODO: Temporary
-    let relativeIndex: Int
+    let chatId: String
+    let message: ChatMessage
+    let participant: Participant?
+    let reactions: [MessageReactionModel]
+    let attachmentsDetails: [MessageAttachmentDetails]
     
     var id: String {
-        objectId + blockId
+        message.id
     }
 }

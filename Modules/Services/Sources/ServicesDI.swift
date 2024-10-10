@@ -127,4 +127,8 @@ public extension Container {
     var historyVersionsService: Factory<HistoryVersionsServiceProtocol> {
         self { HistoryVersionsService() }.shared
     }
+    
+    var chatService: Factory<ChatServiceProtocol> {
+        self { ChatService() }.shared
+    }
 }

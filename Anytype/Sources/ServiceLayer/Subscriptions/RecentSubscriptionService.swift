@@ -46,7 +46,6 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.spaceId(spaceId)
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
             SearchHelper.templateScheme(include: false)
             makeDateFilter(type: type, spaceId: spaceId)
@@ -62,6 +61,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,

@@ -696,6 +696,9 @@ internal enum Loc {
     internal static let description = Loc.tr("Localizable", "DeletionAlert.description")
     internal static let title = Loc.tr("Localizable", "DeletionAlert.title")
   }
+  internal enum Discussion {
+    internal static let readOnly = Loc.tr("Localizable", "Discussion.ReadOnly")
+  }
   internal enum EditSet {
     internal enum Popup {
       internal enum Filter {
@@ -1095,6 +1098,9 @@ internal enum Loc {
   internal enum Message {
     internal enum Action {
       internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction")
+    }
+    internal enum ChatTitle {
+      internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder")
     }
     internal enum Input {
       internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder")
@@ -2001,6 +2007,9 @@ internal enum Loc {
       }
     }
     internal enum Library {
+      internal enum Chat {
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.Chat.Name")
+      }
       internal enum RecentlyEdited {
         internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyEdited.Name")
       }

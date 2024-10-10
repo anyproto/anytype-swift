@@ -155,6 +155,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
                 includeLists: true,
                 includeBookmarks: true,
                 includeFiles: false,
+                includeChat: false,
                 includeTemplates: false,
                 incudeNotForCreation: false,
                 spaceId: setDocument.spaceId

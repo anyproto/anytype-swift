@@ -1,7 +1,21 @@
 import Foundation
 
-struct MessageReactionModel {
+struct MessageReactionModel: Equatable, Hashable {
     var emoji: String
-    var count: Int
+    var content: MessageReactionModelContent
     var selected: Bool
+}
+
+enum MessageReactionModelContent: Equatable, Hashable {
+    case count(Int)
+    case icon(Icon)
+    
+    var sortWeight: Int {
+        switch self {
+        case .count(let count):
+            return count
+        case .icon:
+            return 1
+        }
+    }
 }

@@ -2,6 +2,7 @@ import SwiftUI
 import Services
 import AnytypeCore
 
+@MainActor
 final class LinkToObjectSearchViewModel: ObservableObject {
     enum SearchKind {
         case web(URL)
