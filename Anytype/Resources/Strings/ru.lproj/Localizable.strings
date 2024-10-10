@@ -1244,3 +1244,8 @@
 "AllContent.Empty.State.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
 "AllContent.Search.Empty.State.title" = "Результаты не найдены.";
 "AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
+"ReindexingWarningAlert.Description" = "Мы внедрили новую библиотеку поиска для более быстрых и точных результатов.\nПереиндексация может занять несколько минут.";
+"ReindexingWarningAlert.Button" = "Я понял!";
