@@ -10,10 +10,8 @@ final class TipsConfiguration: AppConfiguratorProtocol {
     func configure() {
         if #available(iOS 17.0, *) {
             do {
-                if FeatureFlags.userWarningAlerts {
-                    if let alert = userWarningAlertsHandler.getNextUserWarningAlert() {
-                        Tips.hideAllTipsForTesting()
-                    }
+                if FeatureFlags.userWarningAlerts, userWarningAlertsHandler.getNextUserWarningAlert().isNotNil {
+                    Tips.hideAllTipsForTesting()
                 }
                 
                 if FeatureFlags.resetTips {

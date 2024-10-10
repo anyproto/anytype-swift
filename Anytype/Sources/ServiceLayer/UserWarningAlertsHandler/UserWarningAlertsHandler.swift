@@ -3,7 +3,7 @@ import AnytypeCore
 
 protocol UserWarningAlertsHandlerProtocol {
     func getNextUserWarningAlert() -> UserWarningAlert?
-    func getNextUserWarningAlertAndStoreIfNeeded() -> UserWarningAlert?
+    func getNextUserWarningAlertAndStore() -> UserWarningAlert?
 }
 
 final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
@@ -23,7 +23,7 @@ final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
         return dateFormatter
     }()
     
-    func getNextUserWarningAlertAndStoreIfNeeded() -> UserWarningAlert? {
+    func getNextUserWarningAlertAndStore() -> UserWarningAlert? {
         let alert = getNextUserWarningAlert()
         if let alert {
             let todayDate = Date()
