@@ -6,8 +6,6 @@ struct SpaceHubTip: Tip {
     
     @Parameter
     static var didShowSpaceHub: Bool = false
-    @Parameter
-    static var didShowUserWarningAlert: Bool = false
     
     var title: Text {
         Text(Loc.unknown)
@@ -18,10 +16,6 @@ struct SpaceHubTip: Tip {
     }
     
     var rules: [Rule] {
-        [
-            #Rule(Self.$didShowSpaceHub) { $0 == true },
-            // avoiding clash with UserWarningAlert
-            #Rule(Self.$didShowUserWarningAlert) { $0 == true }
-        ]
+        [ #Rule(Self.$didShowSpaceHub) { $0 == true } ]
     }
 }

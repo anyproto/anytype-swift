@@ -3,10 +3,19 @@ import TipKit
 import AnytypeCore
 
 final class TipsConfiguration: AppConfiguratorProtocol {
+    
+    @Injected(\.userWarningAlertsHandler)
+    private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
         
     func configure() {
         if #available(iOS 17.0, *) {
             do {
+                if FeatureFlags.userWarningAlerts {
+                    if let alert = userWarningAlertsHandler.getNextUserWarningAlert() {
+                        Tips.hideAllTipsForTesting()
+                    }
+                }
+                
                 if FeatureFlags.resetTips {
                     try Tips.resetDatastore()
                 }

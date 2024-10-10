@@ -2,7 +2,8 @@ import Foundation
 import AnytypeCore
 
 protocol UserWarningAlertsHandlerProtocol {
-    func nextUserWarningAlert() async -> UserWarningAlert?
+    func getNextUserWarningAlert() -> UserWarningAlert?
+    func getNextUserWarningAlertAndStoreIfNeeded() -> UserWarningAlert?
 }
 
 final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
@@ -22,7 +23,16 @@ final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
         return dateFormatter
     }()
     
-    func nextUserWarningAlert() async -> UserWarningAlert? {
+    func getNextUserWarningAlertAndStoreIfNeeded() -> UserWarningAlert? {
+        let alert = getNextUserWarningAlert()
+        if let alert {
+            let todayDate = Date()
+            storeToShownAlert(alert, date: todayDate)
+        }
+        return alert
+    }
+    
+    func getNextUserWarningAlert() -> UserWarningAlert? {
         let todayDate = Date()
         var prevAlertShownDate: Date? = nil
         
@@ -36,14 +46,12 @@ final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
                     date1: prevAlertShownDate,
                     date2: todayDate
                 )
-                let reachedVersion = await appVersionTracker.reachedVersion(alert.version)
+                let reachedVersion = appVersionTracker.reachedVersion(alert.version)
                 if minIntervalInDaysHasPassed, reachedVersion {
-                    storeToShownAlert(alert, date: todayDate)
                     return alert
                 }
             } else {
-                if await firstVersionLaunch(for: alert) {
-                    storeToShownAlert(alert, date: todayDate)
+                if firstVersionLaunch(for: alert) {
                     return alert
                 }
             }
@@ -52,8 +60,8 @@ final class UserWarningAlertsHandler: UserWarningAlertsHandlerProtocol {
         return nil
     }
     
-    private func firstVersionLaunch(for alert: UserWarningAlert) async -> Bool {
-        await appVersionTracker.firstVersionLaunch(
+    private func firstVersionLaunch(for alert: UserWarningAlert) -> Bool {
+        appVersionTracker.firstVersionLaunch(
             alert.version,
             ignoreForNewUser: alert.ignoreForNewUser
         )
