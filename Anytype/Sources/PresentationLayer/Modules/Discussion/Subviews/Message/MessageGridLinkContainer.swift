@@ -30,6 +30,9 @@ struct MessageGridLinkContainer: View {
                         }
                         .frame(width: rowItemSize(rowItems: rowObjects.count), height: rowItemSize(rowItems: rowObjects.count))
                         .cornerRadius(4)
+                        .onTapGesture {
+                            onTapObject(object)
+                        }
                     }
                 }
             }
