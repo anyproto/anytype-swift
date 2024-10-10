@@ -1,3 +1,12 @@
+struct UserWarningAlertData: Identifiable, Hashable, Equatable {
+    let alert: UserWarningAlert
+    
+    @EquatableNoop
+    var onDismiss: () -> Void
+    
+    var id: Int { hashValue }
+}
+
 enum UserWarningAlert: Identifiable, Codable, CaseIterable {
     case reindexing
     

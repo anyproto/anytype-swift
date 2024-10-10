@@ -11,7 +11,7 @@ struct SpaceHubNavigationItem: Hashable { }
 final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
-    @Published var userWarningAlert: UserWarningAlert?
+    @Published var userWarningAlertData: UserWarningAlertData?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
     @Published var showSpaceSwitchData: SpaceSwitchModuleData?
@@ -151,7 +151,17 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func handleVersionAlerts() async {
-        userWarningAlert = await userWarningAlertsHandler.nextUserWarningAlert()
+        if FeatureFlags.userWarningAlerts,
+            let alert = await userWarningAlertsHandler.nextUserWarningAlert() {
+            userWarningAlertData = UserWarningAlertData(
+                alert: alert,
+                onDismiss: { [weak self] in
+                    self?.allowShowTipsOnStart()
+                }
+            )
+        } else {
+            allowShowTipsOnStart()
+        }
     }
     
     // MARK: - Private
@@ -171,6 +181,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         TypeSearchForNewObjectCoordinatorView(spaceId: spaceId) { [weak self] details in
             guard let self else { return }
             openObject(screenData: details.editorScreenData())
+        }
+    }
+    
+    private func allowShowTipsOnStart() {
+        if #available(iOS 17.0, *) {
+            SpaceHubTip.didShowUserWarningAlert = true
+            SpaceShareTip.didShowUserWarningAlert = true
         }
     }
     
@@ -218,7 +235,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             guard currentSpaceId != info?.accountSpaceId else { return }
             currentSpaceId = info?.accountSpaceId
             
-            if userWarningAlert.isNil {
+            if userWarningAlertData.isNil {
                 await dismissAllPresented?()
             }
             

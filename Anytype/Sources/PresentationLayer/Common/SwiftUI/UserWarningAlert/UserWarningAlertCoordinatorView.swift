@@ -3,12 +3,12 @@ import SwiftUI
 
 struct UserWarningAlertCoordinatorView: View {
     
-    let alert: UserWarningAlert
+    let data: UserWarningAlertData
     
     var body: some View {
-        switch alert {
+        switch data.alert {
         case .reindexing:
-            ReindexingAlertView()
+            ReindexingAlertView(onDismiss: data.onDismiss)
         }
     }
 }

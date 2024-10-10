@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ReindexingAlertView: View {
     @Environment(\.dismiss) private var dismiss
+    let onDismiss: () -> Void
     
     var body: some View {
         BottomAlertView(
@@ -12,11 +13,12 @@ struct ReindexingAlertView: View {
         ) {
             BottomAlertButton(text: Loc.ReindexingWarningAlert.button, style: .primary) {
                 dismiss()
+                onDismiss()
             }
         }
     }
 }
 
 #Preview {
-    ReindexingAlertView()
+    ReindexingAlertView(onDismiss: {})
 }
