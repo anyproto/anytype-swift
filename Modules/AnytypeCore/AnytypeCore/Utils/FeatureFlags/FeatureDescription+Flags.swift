@@ -56,6 +56,12 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let userWarningAlerts = FeatureDescription(
+        title: "User warning alerts",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

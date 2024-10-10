@@ -5,6 +5,8 @@ import TipKit
 struct SpaceShareTip: Tip {
     @Parameter
     static var didOpenPrivateSpace: Bool = false
+    @Parameter
+    static var didShowUserWarningAlert: Bool = false
     
     var title: Text {
         Text(verbatim: Loc.unknown)
@@ -15,6 +17,10 @@ struct SpaceShareTip: Tip {
     }
     
     var rules: [Rule] {
-        [ #Rule(Self.$didOpenPrivateSpace) { $0 == true } ]
+        [
+            #Rule(Self.$didOpenPrivateSpace) { $0 == true },
+            // avoiding clash with UserWarningAlert
+            #Rule(Self.$didShowUserWarningAlert) { $0 == true }
+        ]
     }
 }
