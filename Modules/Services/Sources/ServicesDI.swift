@@ -1,6 +1,4 @@
 import Foundation
-import UIKit
-import Cache
 // Automatically export Factory when import Servies
 @_exported import Factory
 
