@@ -69,7 +69,7 @@ platform :ios do
     end
 
     if is_ci
-      message = "Version: **#{version}(#{build_number})**. Comment: **#{tf_comment}** :gem::gem::gem:"
+      message = "Anytype Dev Version: **#{version}(#{build_number})**. Comment: **#{tf_comment}** :gem::gem::gem:"
       sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
       
       reset_git_repo(skip_clean: true)
