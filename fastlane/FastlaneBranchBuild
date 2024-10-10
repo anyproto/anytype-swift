@@ -32,40 +32,44 @@ platform :ios do
 
     commit = last_git_commit
     short_hash = commit[:abbreviated_commit_hash]
-
-    tf_comment = options[:tf_comment] || ENV["GITHUB_REF_NAME"]
     
-    # add_badge(
-    #   shield: "#{short_hash}-#{version}(#{build_number})-blue",
-    #   no_badge: true
-    # )
+    options_tf_comment = options[:tf_comment] 
+    tf_comment = options_tf_comment.nil? || options_tf_comment.empty? ? ENV["GITHUB_REF_NAME"] : options_tf_comment
+    
+    add_badge(
+      shield: "#{short_hash}-#{version}(#{build_number})-blue",
+      no_badge: true
+    )
 
-    # set_amplitude_api_key_to_info_plist
+    set_amplitude_api_key_to_info_plist
 
-    # build_app(
-    #   scheme: ENV["APP_TARGET"], 
-    #   configuration: ENV["APP_CONF_DEVELOP"],
-    #   include_symbols: true,
-    #   use_system_scm: true,
-    #   archive_path: "./build/archive",
-    #   output_directory: "./build/result",
-    #   output_name: "Anytype.ipa",
-    #   xcargs: ENV['BUILD_OPTIONS'],
-    #   cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
-    # )
-
-    # if is_ci
-    #   upload_to_testflight(skip_waiting_for_build_processing: true)
-    # else
-    #   upload_to_testflight(
-    #     skip_waiting_for_build_processing: true,
-    #     ipa: "./build/result/Anytype.ipa"
-    #   )
-    # end
-    # echo "MY_VARIABLE=Hello from the script!" >> $GITHUB_ENV
+    build_app(
+      scheme: ENV["APP_TARGET"], 
+      configuration: ENV["APP_CONF_DEVELOP"],
+      include_symbols: true,
+      use_system_scm: true,
+      archive_path: "./build/archive",
+      output_directory: "./build/result",
+      output_name: "Anytype.ipa",
+      xcargs: ENV['BUILD_OPTIONS'],
+      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+    )
 
     if is_ci
-      message = "Version: **#{version}(#{build_number})**. Comment: **#{tf_comment}, #{ENV["GITHUB_REF_NAME"]}** :gem::gem::gem:"
+      upload_to_testflight(
+        skip_waiting_for_build_processing: true,
+        changelog: tf_comment
+        )
+    else
+      upload_to_testflight(
+        skip_waiting_for_build_processing: true,
+        ipa: "./build/result/Anytype.ipa",
+        changelog: tf_comment
+      )
+    end
+
+    if is_ci
+      message = "Version: **#{version}(#{build_number})**. Comment: **#{tf_comment}** :gem::gem::gem:"
       sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
       
       reset_git_repo(skip_clean: true)
