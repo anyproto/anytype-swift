@@ -205,13 +205,13 @@
 "Join" = "Rejoindre";
 "Agreement Disclamer" = "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)";
 "Lets Go" = "C’est parti ";
-"My spaces" = "My Spaces";
+"My spaces" = "Mes espaces";
 
 // Home
 "Favorites" = "Favoris";
 "Recent" = "Récent";
 "Bin" = "Corbeille";
-"All objects" = "All Objects";
+"All objects" = "Tous les objets";
 
 // Settings
 "Wallpaper" = "Fond d'écran";
