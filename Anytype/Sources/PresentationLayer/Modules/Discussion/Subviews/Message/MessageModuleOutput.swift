@@ -4,5 +4,5 @@ import Services
 @MainActor
 protocol MessageModuleOutput: AnyObject {
     func didSelectAddReaction(messageId: String)
-    func didSelectObject(details: ObjectDetails)
+    func didSelectObject(details: MessageAttachmentDetails)
 }

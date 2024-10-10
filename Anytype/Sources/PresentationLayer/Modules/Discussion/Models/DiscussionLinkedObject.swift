@@ -7,7 +7,7 @@ struct DiscussionLocalPhotosFile {
 }
 
 enum DiscussionLinkedObject: Identifiable {
-    case uploadedObject(ObjectDetails)
+    case uploadedObject(MessageAttachmentDetails)
     case localPhotosFile(DiscussionLocalPhotosFile)
     case localBinaryFile(FileData)
     
@@ -22,7 +22,7 @@ enum DiscussionLinkedObject: Identifiable {
         }
     }
     
-    var uploadedObject: ObjectDetails? {
+    var uploadedObject: MessageAttachmentDetails? {
         switch self {
         case .uploadedObject(let object):
             return object

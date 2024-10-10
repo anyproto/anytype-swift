@@ -8,6 +8,7 @@ protocol ChatMessagesStorageProtocol: AnyObject {
     func startSubscription() async throws
     func loadNextPage() async throws
     var messagesPublisher: AnyPublisher<[ChatMessage], Never> { get async }
+    func attachments(message: ChatMessage) async -> [MessageAttachmentDetails]
 }
 
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
@@ -18,13 +19,18 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
+    @Injected(\.searchService)
+    private var seachService: any SearchServiceProtocol
     private let chatObjectId: String
+    private let spaceId: String
     
     private var subscriptionStarted = false
     private var subscriptions: [AnyCancellable] = []
+    private var attachmentsDetails: [MessageAttachmentDetails] = []
     @Published private var allMessages: [ChatMessage]? = nil
         
-    init(chatObjectId: String) {
+    init(spaceId: String, chatObjectId: String) {
+        self.spaceId = spaceId
         self.chatObjectId = chatObjectId
     }
     
@@ -37,15 +43,16 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             anytypeAssertionFailure("Subscription started")
             return
         }
+    
+        let messages = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
+        await loadAttachments(messages: messages)
+        subscriptionStarted = true
+        allMessages = messages.sorted(by: { $0.orderID < $1.orderID })
         
         EventBunchSubscribtion.default.addHandler { [weak self] events in
             guard events.contextId == self?.chatObjectId else { return }
             await self?.handle(events: events)
         }.store(in: &subscriptions)
-        
-        let messages = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
-        subscriptionStarted = true
-        allMessages = messages.sorted(by: { $0.orderID < $1.orderID })
     }
     
     func loadNextPage() async throws {
@@ -54,7 +61,14 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             return
         }
         let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: last.orderID, limit: Constants.pageSize)
+        guard messages.isNotEmpty else { return }
+        await loadAttachments(messages: messages)
         self.allMessages = (allMessages + messages).sorted(by: { $0.orderID < $1.orderID }).uniqued()
+    }
+    
+    func attachments(message: ChatMessage) async -> [MessageAttachmentDetails] {
+        let ids = message.attachments.map(\.target)
+        return attachmentsDetails.filter { ids.contains($0.id) }
     }
     
     deinit {
@@ -69,7 +83,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
-                allMessages = ((allMessages ?? []) + [data.message]).sorted(by: { $0.orderID < $1.orderID }).uniqued()
+                let newAllMessage = ((allMessages ?? []) + [data.message]).sorted(by: { $0.orderID < $1.orderID }).uniqued()
+                await loadAttachments(messages: [data.message])
+                allMessages = newAllMessage
             case let .chatDelete(data):
                 allMessages?.removeAll { $0.id == data.id }
             case let .chatUpdate(data):
@@ -85,10 +101,20 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             }
         }
     }
+    
+    private func loadAttachments(messages: [ChatMessage]) async {
+        let loadedAttachmentsIds = Set(attachmentsDetails.map(\.id))
+        let attachmentsInMessage = Set(messages.flatMap { $0.attachments.map(\.target) })
+        let newAttachmentsIds = attachmentsInMessage.filter { !loadedAttachmentsIds.contains($0) }
+        if let newAttachmentsDetails = try? await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds)) {
+            let newAttachments = newAttachmentsDetails.map { MessageAttachmentDetails(details: $0) }
+            attachmentsDetails.append(contentsOf: newAttachments)
+        }
+    }
 }
 
 extension Container {
-    var chatMessageStorage: ParameterFactory<String, any ChatMessagesStorageProtocol> {
-        self { ChatMessagesStorage(chatObjectId: $0) }
+    var chatMessageStorage: ParameterFactory<(String, String), any ChatMessagesStorageProtocol> {
+        self { ChatMessagesStorage(spaceId: $0, chatObjectId: $1) }
     }
 }

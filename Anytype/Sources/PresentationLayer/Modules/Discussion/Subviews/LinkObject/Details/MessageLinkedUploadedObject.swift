@@ -3,7 +3,7 @@ import Services
 
 struct MessageLinkedUploadedObject: View {
     
-    let details: ObjectDetails
+    let details: MessageAttachmentDetails
     let onTapObject: () -> Void
     let onTapRemove: () -> Void
     
@@ -17,12 +17,10 @@ struct MessageLinkedUploadedObject: View {
                 onTapObject()
             }
         case .video:
-            if let url = ContentUrlBuilder.fileUrl(fileId: details.id) {
-                MessageLinkLocalVideoView(url: url, onTapRemove: onTapRemove)
-                    .onTapGesture {
-                        onTapObject()
-                    }
-            }
+            MessageLinkInputVideoView(details: details, onTapRemove: onTapRemove)
+                .onTapGesture {
+                    onTapObject()
+                }
         default:
             MessageLinkObjectView(details: details, style: .input, onTapRemove: { _ in
                 onTapRemove()

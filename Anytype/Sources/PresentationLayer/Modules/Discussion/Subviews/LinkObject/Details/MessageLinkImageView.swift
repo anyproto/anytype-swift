@@ -16,7 +16,7 @@ struct MessageLinkImageView: View {
 }
 
 extension MessageLinkImageView {
-    init(details: ObjectDetails, onTapRemove: ((ObjectDetails) -> Void)? = nil) {
+    init(details: MessageAttachmentDetails, onTapRemove: ((MessageAttachmentDetails) -> Void)? = nil) {
         self = MessageLinkImageView(
             imageId: details.id,
             onTapRemove: onTapRemove.map { c in { c(details) } }

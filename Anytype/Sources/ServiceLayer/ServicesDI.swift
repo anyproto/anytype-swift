@@ -339,4 +339,9 @@ extension Container {
     var userWarningAlertsHandler: Factory<any UserWarningAlertsHandlerProtocol> {
         self { UserWarningAlertsHandler() }.shared
     }
+    
+    
+    var videoPreviewStorage: Factory<any VideoPreviewStorageProtocol> {
+        self { VideoPreviewStorage() }.singleton
+    }
 }

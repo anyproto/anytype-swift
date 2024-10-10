@@ -3,6 +3,16 @@ import Services
 import SwiftUI
 import AnytypeCore
 
+struct MessageLinkObject {
+    let details: ObjectDetails
+    let type: ChatMessageAttachmentType
+    
+}
+enum MessageLinkedObjectsLayout {
+    case list([MessageAttachmentDetails])
+    case grid([[MessageAttachmentDetails]])
+}
+
 @MainActor
 final class MessageViewModel: ObservableObject {
     
@@ -16,6 +26,8 @@ final class MessageViewModel: ObservableObject {
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(data.spaceId)
     @Injected(\.objectIdsSubscriptionService)
     private var objectIdsSubscriptionService: any ObjectIdsSubscriptionServiceProtocol
+    @Injected(\.messageAttachmentsGridLayoutBuilder)
+    private var gridLayoutBuilder: any MessageAttachmentsGridLayoutBuilderProtocol
     
     @Published var message = AttributedString("")
     @Published var author: String = ""
@@ -23,10 +35,10 @@ final class MessageViewModel: ObservableObject {
     @Published var date: String = ""
     @Published var isYourMessage: Bool = false
     @Published var reactions: [MessageReactionModel] = []
-    @Published var linkedObjects: [ObjectDetails] = []
+    @Published var linkedObjects: MessageLinkedObjectsLayout?
     
-    @Published var chatMessage: ChatMessage?
     private let yourProfileIdentity: String?
+    private var linkedObjectsDetails: [MessageAttachmentDetails] = []
     
     init(data: MessageViewData, output: (any MessageModuleOutput)?) {
         self.data = data
@@ -54,7 +66,17 @@ final class MessageViewModel: ObservableObject {
         isYourMessage = chatMessage.creator == yourProfileIdentity
         reactions = data.reactions
         
-        linkedObjects = chatMessage.attachments.map { ObjectDetails(id: $0.target) }
+        var attachmentsDetails = data.attachmentsDetails
+        
+        // Add empty objects
+        for attachment in data.message.attachments {
+            if !attachmentsDetails.contains(where: { $0.id == attachment.target }) {
+                attachmentsDetails.append(MessageAttachmentDetails(details: ObjectDetails(id: attachment.target)))
+            }
+        }
+        
+        linkedObjectsDetails = attachmentsDetails.sorted { $0.id > $1.id }
+        updateAttachments()
     }
     
     func update(data: MessageViewData) {
@@ -79,7 +101,7 @@ final class MessageViewModel: ObservableObject {
         }
     }
     
-    func onTapObject(details: ObjectDetails) {
+    func onTapObject(details: MessageAttachmentDetails) {
         output?.didSelectObject(details: details)
     }
     
@@ -87,7 +109,36 @@ final class MessageViewModel: ObservableObject {
     
     private func updateSubscription() async {
         await objectIdsSubscriptionService.startSubscription(spaceId: data.spaceId, objectIds: data.message.attachments.map(\.target)) { [weak self] linkedDetails in
-            self?.linkedObjects = linkedDetails
+            let linkedDetails = linkedDetails.map { MessageAttachmentDetails(details: $0) }.sorted { $0.id > $1.id }
+            if self?.linkedObjectsDetails != linkedDetails {
+                self?.linkedObjectsDetails = linkedDetails
+                self?.updateAttachments()
+            }
+        }
+    }
+    
+    private func updateAttachments() {
+        let chatMessage = data.message
+        
+        guard chatMessage.attachments.isNotEmpty else {
+            linkedObjects = nil
+            return
+        }
+        
+        let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.layoutValue != .image && $0.layoutValue != .video }
+        
+        if containsNotOnlyMediaFiles {
+            linkedObjects = .list(linkedObjectsDetails)
+        } else {
+            let gridItems = gridLayoutBuilder.makeGridRows(countItems: linkedObjectsDetails.count)
+            var prevIndex = 0
+            let items = gridItems.map { itemsCount in
+                let nextIndex = prevIndex + itemsCount
+                let items = linkedObjectsDetails[prevIndex..<nextIndex]
+                prevIndex = nextIndex
+                return Array(items)
+            }
+            linkedObjects = .grid(items)
         }
     }
     

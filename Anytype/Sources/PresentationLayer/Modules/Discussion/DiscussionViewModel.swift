@@ -29,7 +29,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private var fileActionsService: any FileActionsServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
-    private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
+    private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage((spaceId, chatId))
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     
     // MARK: - State
@@ -74,7 +74,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
             excludedLayouts: [],
             onSelect: { [weak self] details in
-                self?.linkedObjects.append(.uploadedObject(details))
+                self?.linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
             }
         )
         output?.onLinkObjectSelected(data: data)
@@ -98,7 +98,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants
-            updateMessages()
+            await updateMessages()
         }
     }
     
@@ -132,7 +132,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         for await messages in await chatStorage.messagesPublisher.values {
             self.messages = messages
             self.dataLoaded = true
-            updateMessages()
+            await updateMessages()
             scrollToLastForNextUpdate = false
         }
     }
@@ -201,12 +201,12 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func didSelectObject(linkedObject: DiscussionLinkedObject) {
         guard let details = linkedObject.uploadedObject else { return }
-        let screenData = details.editorScreenData()
+        let screenData = details.editorScreenData
         output?.onObjectSelected(screenData: screenData)
     }
     
-    func didSelectObject(details: ObjectDetails) {
-        let screenData = details.editorScreenData()
+    func didSelectObject(details: MessageAttachmentDetails) {
+        let screenData = details.editorScreenData
         output?.onObjectSelected(screenData: screenData)
     }
     
@@ -283,11 +283,11 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     // MARK: - Private
     
-    private func updateMessages() {
+    private func updateMessages() async {
         
         let yourProfileIdentity = accountParticipantsStorage.participants.first?.identity
         
-        let newMessageBlocks = messages.compactMap { message -> MessageViewData in
+        let newMessageBlocks = await messages.asyncMap { message -> MessageViewData in
             
             let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
                 
@@ -314,7 +314,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 chatId: chatId,
                 message: message,
                 participant: participants.first { $0.identity == message.creator },
-                reactions: reactions
+                reactions: reactions,
+                attachmentsDetails: await chatStorage.attachments(message: message)
             )
         }
         
