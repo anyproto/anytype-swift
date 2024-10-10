@@ -81,9 +81,11 @@ platform :ios do
     )
 
     push_to_git_remote(no_verify: true)
+  
+    appInfo = options[:release] ? "Release" : "Dev"
 
     if current_branch == "develop" || current_branch == "release"
-      appInfo = options[:release] ? "Release" : "Dev"
+      
       add_linear_comment(
         from_tag: old_tag_name,
         to_tag: tag_name,
@@ -93,6 +95,9 @@ platform :ios do
     
     set_api_key
     upload_to_testflight(skip_waiting_for_build_processing: true)
+
+    message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"
+    sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
 
     upload_dsyms_to_sentry
 

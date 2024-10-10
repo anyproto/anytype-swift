@@ -1,4 +1,5 @@
 import "./SetEnv"
+import "./Tools"
 import "./UploadBuild"
 import "./FastfileDeploy"
 import "./FastfileProfiles"
