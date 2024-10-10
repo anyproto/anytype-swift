@@ -4,22 +4,24 @@ platform :ios do
 
   lane :branch_build do |options| 
 
-    ensure_git_status_clean(
-      show_uncommitted_changes: true,
-      show_diff: true
-    )
+    if is_ci
+      ensure_git_status_clean(
+        show_uncommitted_changes: true,
+        show_diff: true
+      )
+    end
 
     xcodeproj = ENV["APP_PROJECT"]
    
-    if ENV["CI"] == "true"
+    if is_ci
       setup_ci
+      match(readonly: true)
+      set_api_key
     end
-    match(readonly: true)
-    set_api_key
 
     version = "0.0.1"
 
-    if ENV["CI"] == "true"
+    if is_ci
       build_number = latest_testflight_build_number(version: "0.0.1") + 1
     else
       build_number = "0"
@@ -30,36 +32,44 @@ platform :ios do
 
     commit = last_git_commit
     short_hash = commit[:abbreviated_commit_hash]
+
+    tf_comment = options[:tf_comment] || ENV["GITHUB_REF_NAME"]
     
-    add_badge(
-      shield: "#{short_hash}-#{version}(#{build_number})-blue",
-      no_badge: true
-    )
+    # add_badge(
+    #   shield: "#{short_hash}-#{version}(#{build_number})-blue",
+    #   no_badge: true
+    # )
 
-    set_amplitude_api_key_to_info_plist
+    # set_amplitude_api_key_to_info_plist
 
-    build_app(
-      scheme: ENV["APP_TARGET"], 
-      configuration: ENV["APP_CONF_DEVELOP"],
-      include_symbols: true,
-      use_system_scm: true,
-      archive_path: "./build/archive",
-      output_directory: "./build/result",
-      output_name: "Anytype.ipa",
-      xcargs: ENV['BUILD_OPTIONS'],
-      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
-    )
+    # build_app(
+    #   scheme: ENV["APP_TARGET"], 
+    #   configuration: ENV["APP_CONF_DEVELOP"],
+    #   include_symbols: true,
+    #   use_system_scm: true,
+    #   archive_path: "./build/archive",
+    #   output_directory: "./build/result",
+    #   output_name: "Anytype.ipa",
+    #   xcargs: ENV['BUILD_OPTIONS'],
+    #   cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+    # )
 
-    if ENV["CI"] == "true"
-      upload_to_testflight(skip_waiting_for_build_processing: true)
-    else
-      upload_to_testflight(
-        skip_waiting_for_build_processing: true,
-        ipa: "./build/result/Anytype.ipa"
-      )
+    # if is_ci
+    #   upload_to_testflight(skip_waiting_for_build_processing: true)
+    # else
+    #   upload_to_testflight(
+    #     skip_waiting_for_build_processing: true,
+    #     ipa: "./build/result/Anytype.ipa"
+    #   )
+    # end
+    # echo "MY_VARIABLE=Hello from the script!" >> $GITHUB_ENV
+
+    if is_ci
+      message = "Version: **#{version}(#{build_number})**. Comment: **#{tf_comment}, #{ENV["GITHUB_REF_NAME"]}** :gem::gem::gem:"
+      sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
+      
+      reset_git_repo(skip_clean: true)
     end
-
-    reset_git_repo(skip_clean: true)
 
   end
 
