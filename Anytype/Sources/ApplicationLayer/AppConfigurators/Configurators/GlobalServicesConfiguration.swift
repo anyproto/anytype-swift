@@ -11,8 +11,6 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
     @Injected(\.deviceSceneStateListener)
     private var deviceSceneStateListener: any DeviceSceneStateListenerProtocol
-    @Injected(\.appVersionTracker)
-    private var appVersionTracker: any AppVersionTrackerProtocol
     @Injected(\.appVersionUpdateService)
     private var appVersionUpdateService: any AppVersionUpdateServiceProtocol
     
@@ -22,7 +20,6 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
         accountEventHandler.startSubscription()
         fileErrorEventHandler.startSubscription()
         deviceSceneStateListener.start()
-        appVersionTracker.trackLaunch()
         appVersionUpdateService.prepareData()
     }
 }

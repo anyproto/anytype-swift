@@ -38,6 +38,10 @@ public extension FeatureFlags {
         value(for: .spaceHubParallax)
     }
 
+    static var userWarningAlerts: Bool {
+        value(for: .userWarningAlerts)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -100,6 +104,7 @@ public extension FeatureFlags {
         .versionHistory,
         .allContent,
         .spaceHubParallax,
+        .userWarningAlerts,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
