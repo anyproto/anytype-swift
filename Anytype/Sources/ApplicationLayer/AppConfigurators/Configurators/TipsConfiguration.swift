@@ -11,7 +11,8 @@ final class TipsConfiguration: AppConfiguratorProtocol {
         if #available(iOS 17.0, *) {
             do {
                 if FeatureFlags.userWarningAlerts, userWarningAlertsHandler.getNextUserWarningAlert().isNotNil {
-                    Tips.hideAllTipsForTesting()
+                    // skip Tips for this launch
+                    return
                 }
                 
                 if FeatureFlags.resetTips {
