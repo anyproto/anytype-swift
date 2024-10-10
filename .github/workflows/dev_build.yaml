@@ -67,3 +67,6 @@ jobs:
           AMPLITUDE_API_KEY: ${{ secrets.AMPLITUDE_API_KEY }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
+      
+      - name: Summary
+        run: echo "${{ env.FASTLANE_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
