@@ -149,7 +149,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func handleVersionAlerts() async {
-        userWarningAlert = await userWarningAlertsHandler.nextUserWarningAlert()
+        if FeatureFlags.userWarningAlerts {
+            userWarningAlert = userWarningAlertsHandler.getNextUserWarningAlertAndStore()
+        }
     }
     
     // MARK: - Private
