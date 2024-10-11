@@ -11,7 +11,7 @@ final class TipsConfiguration: AppConfiguratorProtocol {
         if #available(iOS 17.0, *) {
             do {
                 if FeatureFlags.userWarningAlerts, userWarningAlertsHandler.getNextUserWarningAlert().isNotNil {
-                    // skip Tips for this launch
+                    // Do not show tips during launch when displaying warning alert. We don't want to overwhelm users.
                     return
                 }
                 
