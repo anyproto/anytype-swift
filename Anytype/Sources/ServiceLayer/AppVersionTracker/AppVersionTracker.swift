@@ -3,30 +3,28 @@ import AnytypeCore
 
 protocol AppVersionTrackerProtocol: AnyObject {
     func trackLaunch()
-    func firstVersionLaunch(_ version: String, ignoreForNewUser: Bool) async -> Bool
-    func reachedVersion(_ version: String) async -> Bool
-    func currentVersion() async -> String?
+    func firstVersionLaunch(_ version: String, ignoreForNewUser: Bool) -> Bool
+    func reachedVersion(_ version: String) -> Bool
+    func currentVersion() -> String?
 }
 
-actor AppVersionTracker: AppVersionTrackerProtocol {
+final class AppVersionTracker: AppVersionTrackerProtocol {
     
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
     
     @UserDefault("UserData.prevLaunchedAppVersion", defaultValue: nil)
-    var prevLaunchedAppVersion: String?
+    private var prevLaunchedAppVersion: String?
     @UserDefault("UserData.currentLaunchedAppVersion", defaultValue: nil)
-    var currentLaunchedAppVersion: String?
+    private var currentLaunchedAppVersion: String?
+    @UserDefault("UserData.isFirstAppLaunch", defaultValue: false)
+    private var isFirstAppLaunch: Bool
     
-    private var isFirstAppLaunch = false
-    
-    nonisolated func trackLaunch() {
-        Task {
-            await storeData()
-        }
+    func trackLaunch() {
+        storeData()
     }
     
-    func firstVersionLaunch(_ version: String, ignoreForNewUser: Bool) async -> Bool {
+    func firstVersionLaunch(_ version: String, ignoreForNewUser: Bool) -> Bool {
         guard let currentLaunchedAppVersion, version.isNotEmpty else {
             return false
         }
@@ -55,7 +53,7 @@ actor AppVersionTracker: AppVersionTrackerProtocol {
         }
     }
     
-    func reachedVersion(_ version: String) async -> Bool {
+    func reachedVersion(_ version: String) -> Bool {
         guard let currentLaunchedAppVersion, version.isNotEmpty else {
             return false
         }
@@ -63,7 +61,7 @@ actor AppVersionTracker: AppVersionTrackerProtocol {
         return result == .orderedDescending || result == .orderedSame
     }
     
-    func currentVersion() async -> String? {
+    func currentVersion() -> String? {
         if userDefaults.currentVersionOverride.isNotEmpty {
             return userDefaults.currentVersionOverride
         }
@@ -71,13 +69,14 @@ actor AppVersionTracker: AppVersionTrackerProtocol {
         return MetadataProvider.appVersion
     }
     
-    private func storeData() async {
-        if userDefaults.installedAtDate.isNil {
-            isFirstAppLaunch = true
+    private func storeData() {
+        let installedAtDateIsNil = userDefaults.installedAtDate.isNil
+        if installedAtDateIsNil {
             userDefaults.installedAtDate = Date()
         }
         
+        isFirstAppLaunch = installedAtDateIsNil
         prevLaunchedAppVersion = currentLaunchedAppVersion
-        currentLaunchedAppVersion = await currentVersion()
+        currentLaunchedAppVersion = currentVersion()
     }
 }
