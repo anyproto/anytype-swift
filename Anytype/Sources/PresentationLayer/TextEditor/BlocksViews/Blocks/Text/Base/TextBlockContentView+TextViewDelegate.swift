@@ -50,8 +50,8 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.handleKeyboardAction(action, textView.textView)
     }
     
-    func showPage(blockId: String) {
-        actions?.showPage(blockId)
+    func showObject(objectId: String) {
+        actions?.showObject(objectId)
     }
     
     func openURL(_ url: URL) {

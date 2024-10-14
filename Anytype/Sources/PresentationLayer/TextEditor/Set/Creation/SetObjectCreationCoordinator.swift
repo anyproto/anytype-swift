@@ -59,7 +59,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     private func showCreateObject(details: ObjectDetails, titleInputType: CreateObjectTitleInputType) {
         let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id, titleInputType: titleInputType) { [weak self] in
             self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: details.editorScreenData())
+            self?.showObject(data: details.editorScreenData())
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
@@ -87,7 +87,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         navigationContext.present(moduleViewController)
     }
     
-    private func showPage(data: EditorScreenData) {
+    private func showObject(data: EditorScreenData) {
         output?.showEditorScreen(data: data)
     }
 }
