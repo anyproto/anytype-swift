@@ -199,7 +199,14 @@ final class BlockViewModelBuilder {
                         self?.showFilePicker(blockId: blockId)
                     },
                     onFileOpen: { [weak router] fileContext in
-                        router?.openImage(fileContext)
+                        switch fileContext.file.file.contentType {
+                        case .video, .image:
+                            router?.openImage(fileContext)
+                        case .audio, .file:
+                            router?.showPage(objectId: fileContext.file.file.metadata.targetObjectId)
+                        case .none:
+                            return
+                        }
                     }
                 )
             case .image:
