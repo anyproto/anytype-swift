@@ -37,7 +37,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     @Published var pathChanging: Bool = false
-    @Published var navigationPath = HomePath(initalPath: [SpaceHubNavigationItem()])
+    @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
     var pageNavigation: PageNavigation {
         PageNavigation(
             push: { [weak self] data in
@@ -221,7 +221,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             if let spaceInfo {
                 var initialPath: [AnyHashable] = [SpaceHubNavigationItem(), spaceInfo]
                 if let data { initialPath.append(data) }
-                navigationPath = HomePath(initalPath: initialPath)
+                navigationPath = HomePath(initialPath: initialPath)
             }
         } else {
             data.flatMap { navigationPath.push($0) }
@@ -238,7 +238,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             }
             
             if let info {
-                let newPath = HomePath(initalPath: [SpaceHubNavigationItem(), info])
+                let newPath = HomePath(initialPath: [SpaceHubNavigationItem(), info])
                 navigationPath = newPath
                 if #available(iOS 17.0, *) {
                     updateSpaceSwitchTip(spaceId: info.accountSpaceId)
