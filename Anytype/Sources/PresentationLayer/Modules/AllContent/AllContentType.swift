@@ -29,7 +29,7 @@ enum AllContentType: String, CaseIterable {
         case .pages:
             layouts = DetailsLayout.editorLayouts
         case .lists:
-            layouts = DetailsLayout.setLayouts
+            layouts = DetailsLayout.listLayouts
         case .files:
             layouts = DetailsLayout.fileLayouts
         case .media:
