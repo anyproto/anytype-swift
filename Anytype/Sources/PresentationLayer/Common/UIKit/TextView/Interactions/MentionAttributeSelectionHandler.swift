@@ -2,10 +2,10 @@ import UIKit
 
 struct MentionAttributeSelectionHandler {
     
-    private let showPage: (String) -> Void
+    private let showObject: (String) -> Void
     
-    init(showPage: @escaping (String) -> Void) {
-        self.showPage = showPage
+    init(showObject: @escaping (String) -> Void) {
+        self.showObject = showObject
     }
 }
 
@@ -31,7 +31,7 @@ extension MentionAttributeSelectionHandler: TextViewAttributeSelectionHandler {
             return
         }
         
-        guard let pageId: String = textView.attributedText.value(
+        guard let objectId: String = textView.attributedText.value(
                 for: attribute,
                 range: NSRange(location: characterIndex, length: 1)
         ) else {
@@ -39,6 +39,6 @@ extension MentionAttributeSelectionHandler: TextViewAttributeSelectionHandler {
             textView.becomeFirstResponder()
             return
         }
-        showPage(pageId)
+        showObject(objectId)
     }
 }

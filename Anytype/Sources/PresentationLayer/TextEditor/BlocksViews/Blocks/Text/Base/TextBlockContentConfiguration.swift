@@ -10,7 +10,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let copy: (NSRange) -> Void
         let cut: (NSRange) -> Void
         let createEmptyBlock: () -> Void
-        let showPage: (String) -> Void
+        let showObject: (String) -> Void
         let openURL: (URL) -> Void
         
         let handleKeyboardAction: (CustomTextView.KeyboardAction, UITextView) -> Void
@@ -123,7 +123,7 @@ extension TextBlockContentConfiguration {
             copy: { _ in },
             cut: { _ in },
             createEmptyBlock: { },
-            showPage: { _ in },
+            showObject: { _ in },
             openURL: { _ in },
             handleKeyboardAction: { _, _ in },
             becomeFirstResponder: { },
