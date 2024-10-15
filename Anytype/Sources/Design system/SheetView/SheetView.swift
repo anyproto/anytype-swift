@@ -40,6 +40,7 @@ struct SheetView<Content: View>: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(max(0, spacerHeight))
             content
+                .fixedSize(horizontal: false, vertical: true)
                 .background(Color.Background.secondary)
                 .cornerRadius(16, style: .continuous)
                 .shadow(radius: 20)
