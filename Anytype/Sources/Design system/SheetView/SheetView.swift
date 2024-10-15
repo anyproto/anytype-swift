@@ -39,15 +39,11 @@ struct SheetView<Content: View>: View {
     private var contentView: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(max(0, spacerHeight))
-            VStack(spacing: 0) {
-                DragIndicator()
-                Spacer.fixedHeight(12)
-                content
-            }
-            .background(Color.Background.secondary)
-            .cornerRadius(16, style: .continuous)
-            .shadow(radius: 20)
-            .padding(.horizontal, 8)
+            content
+                .background(Color.Background.secondary)
+                .cornerRadius(16, style: .continuous)
+                .shadow(radius: 20)
+                .padding(.horizontal, 8)
         }
         .gesture(
             DragGesture()
