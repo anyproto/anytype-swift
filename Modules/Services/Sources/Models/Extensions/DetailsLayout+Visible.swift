@@ -68,7 +68,7 @@ public extension DetailsLayout {
         DetailsLayout.pageLayouts.contains(self)
     }
     
-    static let layoutsWithIcon: [DetailsLayout] = [.basic, .profile, .set, .collection, .file, .image]
+    static let layoutsWithIcon: [DetailsLayout] = [.basic, .profile, .set, .collection, .file, .image, .pdf, .audio, .video]
     static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
     static let layoutsWithChangeLayout: [DetailsLayout] = [.basic, .profile, .file, .image, .bookmark, .todo, .note]
 }
