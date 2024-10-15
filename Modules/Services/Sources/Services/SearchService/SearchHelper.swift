@@ -185,12 +185,12 @@ public class SearchHelper {
         return filter
     }
     
-    public static func identityProfileLink(_ identityId: String) -> DataviewFilter {
+    public static func identity(_ identityId: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = identityId.protobufValue
         
-        filter.relationKey = BundledRelationKey.identityProfileLink.rawValue
+        filter.relationKey = BundledRelationKey.identity.rawValue
         
         return filter
     }

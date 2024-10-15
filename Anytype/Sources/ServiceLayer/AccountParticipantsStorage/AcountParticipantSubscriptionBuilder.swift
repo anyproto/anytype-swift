@@ -3,16 +3,17 @@ import Services
 
 final class AcountParticipantSubscriptionBuilder: MultispaceSubscriptionDataBuilderProtocol {
     
-    private let profileObjectId: String
     
-    init(profileObjectId: String) {
-        self.profileObjectId = profileObjectId
+    private let accountId: String
+    
+    init(accountId: String) {
+        self.accountId = accountId
     }
     
     func build(spaceId: String, subId: String) -> SubscriptionData {
         
         let filters: [DataviewFilter] = .builder {
-            SearchHelper.identityProfileLink(profileObjectId)
+            SearchHelper.identity(accountId)
             SearchHelper.layoutFilter([.participant])
         }
         
