@@ -1,15 +1,14 @@
 import AnytypeCore
 
 public extension DetailsLayout {
+    // TODO: Rename
     static let visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts
-    static let supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileAndMediaLayouts + setLayouts
-    static let supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
-}
+    
+    static let supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
 
 
-// For editor
-public extension DetailsLayout {
+
     static let editorLayouts: [DetailsLayout] = [
         .note,
         .basic,
@@ -29,21 +28,11 @@ public extension DetailsLayout {
     
     static let fileAndMediaLayouts: [DetailsLayout] = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
     
-    static let fileLayouts: [DetailsLayout] = [
-        .file,
-        .pdf
-    ]
+    static let fileLayouts: [DetailsLayout] = [ .file, .pdf ]
     
-    static let mediaLayouts: [DetailsLayout] = [
-        .image,
-        .audio,
-        .video,
-    ]
+    static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
     
-    static let setLayouts: [DetailsLayout] = [
-        .collection,
-        .set
-    ]
+    static let setLayouts: [DetailsLayout] = [ .collection, .set ]
     
     static let systemLayouts: [DetailsLayout] = [
         .objectType,
@@ -54,21 +43,16 @@ public extension DetailsLayout {
         .space
     ]
     
-    static let fileMediaSystemLayouts: [DetailsLayout] = fileAndMediaLayouts + systemLayouts
-    static let layoutsWithoutTemplate: [DetailsLayout] = [
-        .set,
-        .collection,
-        .bookmark,
-        .participant
-    ] + fileMediaSystemLayouts
-    
-    
+    static let layoutsWithIcon: [DetailsLayout] = setLayouts + [.basic, .profile, .file, .image, .pdf, .audio, .video]
+    static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
+}
+
+// MARK: - Templates
+public extension DetailsLayout {
     var isTemplatesAvailable: Bool {
         !DetailsLayout.layoutsWithoutTemplate.contains(self) &&
         DetailsLayout.pageLayouts.contains(self)
     }
-    
-    static let layoutsWithIcon: [DetailsLayout] = [.basic, .profile, .set, .collection, .file, .image, .pdf, .audio, .video]
-    static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-    static let layoutsWithChangeLayout: [DetailsLayout] = [.basic, .profile, .file, .image, .bookmark, .todo, .note]
+
+    private static let layoutsWithoutTemplate: [DetailsLayout] = setLayouts  + fileAndMediaLayouts + systemLayouts + [ .bookmark, .participant ]
 }

@@ -61,7 +61,7 @@ extension BundledRelationsValueProvider {
     }
     
     var isSupportedForEdit: Bool {
-        return DetailsLayout.supportedForEditLayouts.contains(layoutValue)
+        return DetailsLayout.visibleLayoutsWithFiles.contains(layoutValue)
     }
     
     var isVisibleLayout: Bool {
