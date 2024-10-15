@@ -56,6 +56,12 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let dateAsAnObject = FeatureDescription(
+        title: "Date as an object",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

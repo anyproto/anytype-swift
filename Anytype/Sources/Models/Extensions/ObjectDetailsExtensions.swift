@@ -95,7 +95,7 @@ extension BundledRelationsValueProvider {
     private var emptyIconType: ObjectIcon.EmptyType {
         switch layoutValue {
         case .basic, .profile, .participant, .todo, .note, .space, .file, .image, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView:
             return .page
         case .set, .collection:
             return .list
@@ -107,6 +107,8 @@ extension BundledRelationsValueProvider {
             return .objectType
         case .tag:
             return .tag
+        case .date:
+            return .date
         }
     }
 }
