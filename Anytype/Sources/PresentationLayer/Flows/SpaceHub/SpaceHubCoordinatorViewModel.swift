@@ -126,9 +126,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
-            openObject(screenData: editorData)
+            try? await push(data: editorData)
         case .widgets(let spaceId):
-            try? await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+            try? await openSpace(spaceId: spaceId)
         case .none:
             return
         }
@@ -199,6 +199,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
         
         let spaceId = data.spaceId
+        try await openSpace(spaceId: spaceId, data: data)
+    }
+    
+    private func openSpace(spaceId: String, data: EditorScreenData? = nil) async throws {
         if currentSpaceId != spaceId {
             // Check if space is deleted
             guard workspaceStorage.spaceView(spaceId: spaceId).isNotNil else { return }
@@ -208,10 +212,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             currentSpaceId = spaceId
             
             if let spaceInfo {
-                navigationPath = HomePath(initalPath: [SpaceHubNavigationItem(), spaceInfo, data])
+                var initialPath: [AnyHashable] = [SpaceHubNavigationItem(), spaceInfo]
+                if let data { initialPath.append(data) }
+                navigationPath = HomePath(initalPath: initialPath)
             }
         } else {
-            navigationPath.push(data)
+            data.flatMap { navigationPath.push($0) }
         }
     }
     
