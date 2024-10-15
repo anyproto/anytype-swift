@@ -7,8 +7,6 @@ public extension DetailsLayout {
     
     static let supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
 
-
-
     static let editorLayouts: [DetailsLayout] = [
         .note,
         .basic,
@@ -34,15 +32,6 @@ public extension DetailsLayout {
     
     static let setLayouts: [DetailsLayout] = [ .collection, .set ]
     
-    static let systemLayouts: [DetailsLayout] = [
-        .objectType,
-        .relation,
-        .relationOption,
-        .relationOptionsList,
-        .dashboard,
-        .space
-    ]
-    
     static let layoutsWithIcon: [DetailsLayout] = setLayouts + [.basic, .profile, .file, .image, .pdf, .audio, .video]
     static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
 }
@@ -50,9 +39,8 @@ public extension DetailsLayout {
 // MARK: - Templates
 public extension DetailsLayout {
     var isTemplatesAvailable: Bool {
-        !DetailsLayout.layoutsWithoutTemplate.contains(self) &&
-        DetailsLayout.pageLayouts.contains(self)
+        DetailsLayout.layoutsWithTemplate.contains(self)
     }
-
-    private static let layoutsWithoutTemplate: [DetailsLayout] = setLayouts  + fileAndMediaLayouts + systemLayouts + [ .bookmark, .participant ]
+    
+    private static let layoutsWithTemplate: [DetailsLayout] = editorLayouts - [.participant]
 }
