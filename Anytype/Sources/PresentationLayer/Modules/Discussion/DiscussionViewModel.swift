@@ -320,7 +320,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 reactions: reactions,
                 attachmentsDetails: await chatStorage.attachments(message: message),
                 reply: replyMessage,
-                replyAttachments: replyAttachments
+                replyAttachments: replyAttachments,
+                replyAuthor: participants.first { $0.identity == replyMessage?.creator }
             )
         }
         
