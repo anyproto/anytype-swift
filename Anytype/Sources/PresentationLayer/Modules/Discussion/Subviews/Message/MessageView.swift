@@ -65,7 +65,8 @@ private struct MessageInternalView: View {
             .readSize {
                 headerSize = $0
             }
-
+            
+            
             if !model.message.isEmpty {
                 Text(model.message)
                     .anytypeStyle(.bodyRegular)

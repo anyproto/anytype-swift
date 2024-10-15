@@ -308,6 +308,9 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 )
             }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
             
+            let replyMessage = await chatStorage.reply(message: message)
+            let replyAttachments = await replyMessage.asyncMap { await chatStorage.attachments(message: $0) } ?? []
+            
             return MessageViewData(
                 spaceId: spaceId,
                 objectId: objectId,
@@ -315,7 +318,9 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 message: message,
                 participant: participants.first { $0.identity == message.creator },
                 reactions: reactions,
-                attachmentsDetails: await chatStorage.attachments(message: message)
+                attachmentsDetails: await chatStorage.attachments(message: message),
+                reply: replyMessage,
+                replyAttachments: replyAttachments
             )
         }
         
