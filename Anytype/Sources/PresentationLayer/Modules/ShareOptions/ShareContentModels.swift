@@ -34,9 +34,9 @@ enum ShareSaveAsType {
     var supportedLayouts: [DetailsLayout] {
         switch self {
         case .object, .container:
-            return DetailsLayout.editorLayouts + [.collection] - [.participant]
+            return DetailsLayout.editorLayouts + [.collection]
         case .block:
-            return DetailsLayout.editorLayouts - [.participant]
+            return DetailsLayout.editorLayouts
         }
     }
 }

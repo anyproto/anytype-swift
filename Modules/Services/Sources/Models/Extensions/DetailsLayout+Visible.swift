@@ -1,46 +1,27 @@
 import AnytypeCore
 
 public extension DetailsLayout {
-    // TODO: Rename
-    static let visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts
-    static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
-    
-    static let supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
 
-    static let editorLayouts: [DetailsLayout] = [
-        .note,
-        .basic,
-        .profile,
-        .todo,
-        .participant
-    ]
-    
-    static let editorChangeLayouts: [DetailsLayout] = [
-        .note,
-        .basic,
-        .profile,
-        .todo
-    ]
-    
-    static let pageLayouts: [DetailsLayout] = editorLayouts + [.bookmark]
-    
-    static let fileAndMediaLayouts: [DetailsLayout] = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
+    static let editorLayouts: [DetailsLayout] = [ .note, .basic, .profile, .todo ]
     
     static let fileLayouts: [DetailsLayout] = [ .file, .pdf ]
-    
     static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
+    static let fileAndMediaLayouts = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
     
-    static let setLayouts: [DetailsLayout] = [ .collection, .set ]
+    static let setLayouts: [DetailsLayout] = [ .collection, .set ] // TODO: Rename
     
-    static let layoutsWithIcon: [DetailsLayout] = setLayouts + [.basic, .profile, .file, .image, .pdf, .audio, .video]
+    static let layoutsWithIcon: [DetailsLayout] = setLayouts + fileAndMediaLayouts + [.basic, .profile]
     static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-}
-
-// MARK: - Templates
-public extension DetailsLayout {
+    
+    static let visibleLayouts: [DetailsLayout] = setLayouts + editorLayouts + [.bookmark] + [.participant] // TODO: Rename
+    static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
+    
+    static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
+    
+    
+    // MARK: - Templates
     var isTemplatesAvailable: Bool {
-        DetailsLayout.layoutsWithTemplate.contains(self)
+        DetailsLayout.editorLayouts.contains(self)
     }
     
-    private static let layoutsWithTemplate: [DetailsLayout] = editorLayouts - [.participant]
 }
