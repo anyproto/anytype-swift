@@ -36,6 +36,7 @@ final class MessageViewModel: ObservableObject {
     @Published var isYourMessage: Bool = false
     @Published var reactions: [MessageReactionModel] = []
     @Published var linkedObjects: MessageLinkedObjectsLayout?
+    @Published var reply: MessageReplyModel?
     
     private let yourProfileIdentity: String?
     private var linkedObjectsDetails: [MessageAttachmentDetails] = []
@@ -65,6 +66,19 @@ final class MessageViewModel: ObservableObject {
         date = chatMessage.createdAtDate.formatted(date: .omitted, time: .shortened)
         isYourMessage = chatMessage.creator == yourProfileIdentity
         reactions = data.reactions
+        
+        if let replyChat = data.reply {
+            let replyAttachment = data.replyAttachments.first
+            let message = replyChat.message.text.isNotEmpty
+                ? makeMessage(content: replyChat.message)
+                : AttributedString(replyAttachment?.title ?? "")
+            reply = MessageReplyModel(
+                author: data.replyAuthor?.title ?? "",
+                description: message,
+                icon: replyAttachment?.objectIconImage,
+                isYour: isYourMessage
+            )
+        }
         
         var attachmentsDetails = data.attachmentsDetails
         

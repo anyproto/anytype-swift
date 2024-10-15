@@ -65,7 +65,12 @@ private struct MessageInternalView: View {
             .readSize {
                 headerSize = $0
             }
-
+            
+            if let reply = model.reply {
+                MessageReplyView(model: reply)
+                    .padding(.vertical, 4)
+            }
+            
             if !model.message.isEmpty {
                 Text(model.message)
                     .anytypeStyle(.bodyRegular)
