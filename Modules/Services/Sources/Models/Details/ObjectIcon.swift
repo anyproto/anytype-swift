@@ -39,5 +39,6 @@ public extension ObjectIcon {
         case discussion
         case objectType
         case tag
+        case date
     }
 }
