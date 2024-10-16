@@ -246,8 +246,6 @@ public enum BundledRelationKey: String, Sendable {
 
     case fileExt = "fileExt"
 
-    case scope = "scope"
-
     /// Important relations that always appear at the top of the object
     case featuredRelations = "featuredRelations"
 
