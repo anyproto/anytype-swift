@@ -62,6 +62,11 @@ struct DiscussionView: View {
     
     private var inputPanel: some View {
         VStack(spacing: 0) {
+            if let replyToMessage = model.replyToMessage {
+                DiscussionInputReplyView(model: replyToMessage) {
+                    model.onTapDeleteReply()
+                }
+            }
             MessageLinkInputViewContainer(objects: model.linkedObjects) {
                 model.didSelectObject(linkedObject: $0)
             } onTapRemove: {

@@ -60,7 +60,7 @@ final class MessageViewModel: ObservableObject {
         let chatMessage = data.message
         let authorParticipant = data.participant
         
-        message = makeMessage(content: chatMessage.message)
+        message = MessageTextBuilder.makeMessage(content: chatMessage.message)
         author = authorParticipant?.title ?? ""
         authorIcon = authorParticipant?.icon.map { .object($0) }
         date = chatMessage.createdAtDate.formatted(date: .omitted, time: .shortened)
@@ -70,7 +70,7 @@ final class MessageViewModel: ObservableObject {
         if let replyChat = data.reply {
             let replyAttachment = data.replyAttachments.first
             let message = replyChat.message.text.isNotEmpty
-                ? makeMessage(content: replyChat.message)
+                ? MessageTextBuilder.makeMessage(content: replyChat.message)
                 : AttributedString(replyAttachment?.title ?? "")
             reply = MessageReplyModel(
                 author: data.replyAuthor?.title ?? "",
@@ -119,6 +119,10 @@ final class MessageViewModel: ObservableObject {
         output?.didSelectObject(details: details)
     }
     
+    func onTapReply() {
+        output?.didSelectReply(message: data)
+    }
+    
     // MARK: - Private
     
     private func updateSubscription() async {
@@ -154,48 +158,5 @@ final class MessageViewModel: ObservableObject {
             }
             linkedObjects = .grid(items)
         }
-    }
-    
-    private func makeMessage(content: ChatMessageContent) -> AttributedString {
-        var message = AttributedString(content.text)
-        
-        message.font = AnytypeFontBuilder.font(anytypeFont: .bodyRegular)
-        for mark in content.marks.reversed() {
-            let nsRange = NSRange(mark.range)
-            guard let range = Range(nsRange, in: message) else {
-                anytypeAssertionFailure("Out of range", info: ["range": nsRange.description, "textLenght": content.text.count.description])
-                continue
-            }
-            
-            switch mark.type {
-            case .strikethrough:
-                message[range].strikethroughStyle = .single
-            case .keyboard:
-                message[range].font = AnytypeFontBuilder.font(anytypeFont: .codeBlock)
-            case .italic:
-                message[range].font = message[range].font?.italic()
-            case .bold:
-                message[range].font = message[range].font?.bold()
-            case .underscored:
-                message[range].underlineStyle = .single
-            case .link:
-                message[range].underlineStyle = .single
-            case .object:
-                message[range].underlineStyle = .single
-            case .textColor:
-                message[range].foregroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Dark.color(from: $0) }
-            case .backgroundColor:
-                message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.VeryLight.color(from: $0) }
-            case .mention:
-                message[range].underlineStyle = .single
-            case .emoji:
-                message.replaceSubrange(range, with: AttributedString(mark.param))
-            case .UNRECOGNIZED(let int):
-                anytypeAssertionFailure("Undefined text attribute", info: ["value": int.description, "param": mark.param])
-                break
-            }
-        }
-        
-        return message
     }
 }

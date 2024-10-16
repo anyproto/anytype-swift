@@ -140,5 +140,13 @@ private struct MessageInternalView: View {
         } label: {
             Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
         }
+        
+        Divider()
+        
+        Button {
+            model.onTapReply()
+        } label: {
+            Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
+        }
     }
 }
