@@ -82,14 +82,12 @@ platform :ios do
 
     push_to_git_remote(no_verify: true)
 
-    if current_branch == "develop" || current_branch == "release"
-      appInfo = options[:release] ? "Release" : "Dev"
-      add_linear_comment(
-        from_tag: old_tag_name,
-        to_tag: tag_name,
-        comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
-      )
-    end
+    appInfo = options[:release] ? "Release" : "Dev"
+    add_linear_comment(
+      from_tag: old_tag_name,
+      to_tag: tag_name,
+      comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
+    )
     
     set_api_key
     upload_to_testflight(skip_waiting_for_build_processing: true)
