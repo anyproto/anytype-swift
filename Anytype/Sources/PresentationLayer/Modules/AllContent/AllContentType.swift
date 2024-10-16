@@ -24,20 +24,18 @@ enum AllContentType: String, CaseIterable {
     }
     
     var supportedLayouts: [DetailsLayout] {
-        var layouts = [DetailsLayout]()
         switch self {
         case .pages:
-            layouts = DetailsLayout.editorLayouts
+            DetailsLayout.editorLayouts
         case .lists:
-            layouts = DetailsLayout.listLayouts
+            DetailsLayout.listLayouts
         case .files:
-            layouts = DetailsLayout.fileLayouts
+            DetailsLayout.fileLayouts
         case .media:
-            layouts = DetailsLayout.mediaLayouts
+            DetailsLayout.mediaLayouts
         case .bookmarks:
-            layouts = [.bookmark]
+            [.bookmark]
         }
-        return layouts - [.participant]
     }
     
     var analyticsValue: String {
