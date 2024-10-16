@@ -37,7 +37,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     @Published var pathChanging: Bool = false
-    @Published var navigationPath = HomePath(initalPath: [SpaceHubNavigationItem()])
+    @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
     var pageNavigation: PageNavigation {
         PageNavigation(
             push: { [weak self] data in
@@ -119,6 +119,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
         await setupInitialScreen()
         await handleVersionAlerts()
+        
+        await startSubscriptions()
+    }
+    
+    private func startSubscriptions() async {
+        async let subscription1: () = startHandleWorkspaceInfo()
+        async let subscription2: () = startHandleAppActions()
+        (_,_) = await (subscription1, subscription2)
     }
     
     func setupInitialScreen() async {
@@ -126,15 +134,15 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
-            openObject(screenData: editorData)
+            try? await push(data: editorData)
         case .widgets(let spaceId):
-            try? await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+            try? await openSpace(spaceId: spaceId)
         case .none:
             return
         }
     }
     
-    func startHandleAppActions() async {
+    private func startHandleAppActions() async {
         for await action in appActionsStorage.$action.values {
             if let action {
                 try? await handleAppAction(action: action)
@@ -199,6 +207,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
         
         let spaceId = data.spaceId
+        try await openSpace(spaceId: spaceId, data: data)
+    }
+    
+    private func openSpace(spaceId: String, data: EditorScreenData? = nil) async throws {
         if currentSpaceId != spaceId {
             // Check if space is deleted
             guard workspaceStorage.spaceView(spaceId: spaceId).isNotNil else { return }
@@ -208,10 +220,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             currentSpaceId = spaceId
             
             if let spaceInfo {
-                navigationPath = HomePath(initalPath: [SpaceHubNavigationItem(), spaceInfo, data])
+                var initialPath: [AnyHashable] = [SpaceHubNavigationItem(), spaceInfo]
+                if let data { initialPath.append(data) }
+                navigationPath = HomePath(initialPath: initialPath)
             }
         } else {
-            navigationPath.push(data)
+            data.flatMap { navigationPath.push($0) }
         }
     }
     
@@ -225,7 +239,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             }
             
             if let info {
-                let newPath = HomePath(initalPath: [SpaceHubNavigationItem(), info])
+                let newPath = HomePath(initialPath: [SpaceHubNavigationItem(), info])
                 navigationPath = newPath
                 if #available(iOS 17.0, *) {
                     updateSpaceSwitchTip(spaceId: info.accountSpaceId)
