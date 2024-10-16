@@ -120,8 +120,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         await setupInitialScreen()
         await handleVersionAlerts()
         
-        startHandleWorkspaceInfo()
-        startHandleAppActions()
+        await startSubscriptions()
+    }
+    
+    private func startSubscriptions() async {
+        async let subscription1: () = startHandleWorkspaceInfo()
+        async let subscription2: () = startHandleAppActions()
+        (_,_) = await (subscription1, subscription2)
     }
     
     func setupInitialScreen() async {
@@ -137,23 +142,19 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
-    private func startHandleAppActions() {
-        Task {
-            for await action in appActionsStorage.$action.values {
-                if let action {
-                    try? await handleAppAction(action: action)
-                    appActionsStorage.action = nil
-                }
+    private func startHandleAppActions() async {
+        for await action in appActionsStorage.$action.values {
+            if let action {
+                try? await handleAppAction(action: action)
+                appActionsStorage.action = nil
             }
         }
     }
     
-    func startHandleWorkspaceInfo() {
+    func startHandleWorkspaceInfo() async {
         activeSpaceManager.startSubscription()
-        Task {
-            for await info in activeSpaceManager.workspaceInfoPublisher.values {
-                switchSpace(info: info)
-            }
+        for await info in activeSpaceManager.workspaceInfoPublisher.values {
+            switchSpace(info: info)
         }
     }
     
