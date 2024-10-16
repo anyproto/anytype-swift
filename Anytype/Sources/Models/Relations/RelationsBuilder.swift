@@ -20,7 +20,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     
     private let dateFormatter = DateFormatter.relationDateFormatter
     
-    private let numberFormatter = NumberFormatter.default
+    private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     
     // MARK: - Internal functions
     

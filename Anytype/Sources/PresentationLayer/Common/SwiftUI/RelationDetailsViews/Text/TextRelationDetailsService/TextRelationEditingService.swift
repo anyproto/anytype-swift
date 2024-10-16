@@ -10,7 +10,7 @@ final class TextRelationEditingService: TextRelationEditingServiceProtocol {
     @Injected(\.relationsService)
     private var service: any RelationsServiceProtocol
     
-    private let numberFormatter = NumberFormatter.default
+    private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     
     // MARK: - TextRelationDetailsServiceProtocol
     

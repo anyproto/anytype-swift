@@ -14,7 +14,7 @@ final class RelationFilterBuilder {
         return dateFormatter
     }()
     
-    private let numberFormatter = NumberFormatter.default
+    private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     
     func relation(
         detailsStorage: ObjectDetailsStorage,

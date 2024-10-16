@@ -33,7 +33,7 @@ final class SetFiltersTextViewModel: ObservableObject {
         switch filter.conditionType {
         case .number:
             if let doubleValue = filter.filter.value.safeDoubleValue {
-                return NumberFormatter.default.string(from: NSNumber(floatLiteral: doubleValue)) ?? ""
+                return NumberFormatter.decimalWithNoSeparator.string(from: NSNumber(floatLiteral: doubleValue)) ?? ""
             } else {
                 return ""
             }
