@@ -18,20 +18,9 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     
     // MARK: - Private variables
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.doesRelativeDateFormatting = true
-        return dateFormatter
-    }()
+    private let dateFormatter = DateFormatter.relationDateFormatter
     
-    private let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = ""
-        return formatter
-    }()
+    private let numberFormatter = NumberFormatter.default
     
     // MARK: - Internal functions
     
