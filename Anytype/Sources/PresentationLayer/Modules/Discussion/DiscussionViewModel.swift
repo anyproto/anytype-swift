@@ -50,6 +50,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var mentionObjects: [MentionObject] = []
     @Published var photosItemsTask = UUID()
     @Published var attachmentsDownloading: Bool = false
+    @Published var replyToMessage: DiscussionInputReplyModel?
     
     var showTitleData: Bool { mesageBlocks.isNotEmpty }
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
@@ -143,12 +144,14 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 chatId: chatId,
                 spaceId: spaceId,
                 message: message.sendable(),
-                linkedObjects: linkedObjects
+                linkedObjects: linkedObjects,
+                replyToMessageId: replyToMessage?.id
             )
             scrollToLastForNextUpdate = true
             message = NSAttributedString()
             linkedObjects = []
             photosItems = []
+            replyToMessage = nil
         }
     }
     
@@ -157,10 +160,6 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             linkedObjects.removeAll { $0.id == linkedObject.id }
             photosItems.removeAll { $0.hashValue == linkedObject.id }
         }
-    }
-    
-    func didSelectAddReaction(messageId: String) {
-        output?.didSelectAddReaction(messageId: messageId)
     }
     
     func scrollToBottom() async {
@@ -205,11 +204,6 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         output?.onObjectSelected(screenData: screenData)
     }
     
-    func didSelectObject(details: MessageAttachmentDetails) {
-        let screenData = details.editorScreenData
-        output?.onObjectSelected(screenData: screenData)
-    }
-    
     func onTapLinkTo(range: NSRange) {
         let currentLinkToURL = message.attribute(.discussionLinkToURL, at: range.location, effectiveRange: nil) as? URL
         let currentLinkToObject = message.attribute(.discussionLinkToObject, at: range.location, effectiveRange: nil) as? String
@@ -239,6 +233,12 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             willShowNextScreen: nil
         )
         output?.didSelectLinkToObject(data: data)
+    }
+    
+    func onTapDeleteReply() {
+        withAnimation {
+            replyToMessage = nil
+        }
     }
     
     func updatePickerItems() async {
@@ -278,6 +278,28 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 linkedObjects.removeAll { $0.id == photosItem.hashValue }
                 photosItems.removeAll { $0 == photosItem }
             }
+        }
+    }
+    
+    // MARK: - MessageModuleOutput
+    
+    func didSelectAddReaction(messageId: String) {
+        output?.didSelectAddReaction(messageId: messageId)
+    }
+    
+    func didSelectObject(details: MessageAttachmentDetails) {
+        let screenData = details.editorScreenData
+        output?.onObjectSelected(screenData: screenData)
+    }
+    
+    func didSelectReply(message: MessageViewData) {
+        withAnimation {
+            replyToMessage = DiscussionInputReplyModel(
+                id: message.message.id,
+                title: Loc.Discussion.replyTo(message.participant?.title ?? ""),
+                description: MessageTextBuilder.makeMessage(content: message.message.message, font: .caption1Regular),
+                icon: message.attachmentsDetails.first?.objectIconImage
+            )
         }
     }
     

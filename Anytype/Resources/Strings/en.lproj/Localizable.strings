@@ -1225,6 +1225,7 @@ Please provide specific details of your needs here.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
@@ -1246,6 +1247,7 @@ Please provide specific details of your needs here.";
 
 // MARK: - Discussions
 "Discussion.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Discussion.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

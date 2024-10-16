@@ -7,7 +7,8 @@ protocol DiscussionChatActionServiceProtocol: AnyObject {
         chatId: String,
         spaceId: String,
         message: SafeSendable<NSAttributedString>,
-        linkedObjects: [DiscussionLinkedObject]
+        linkedObjects: [DiscussionLinkedObject],
+        replyToMessageId: String?
     ) async throws
 }
 
@@ -24,11 +25,13 @@ final class DiscussionChatActionService: DiscussionChatActionServiceProtocol {
         chatId: String,
         spaceId: String,
         message: SafeSendable<NSAttributedString>,
-        linkedObjects: [DiscussionLinkedObject]
+        linkedObjects: [DiscussionLinkedObject],
+        replyToMessageId: String?
     ) async throws {
         
         var chatMessage = ChatMessage()
         chatMessage.message = discussionInputConverter.convert(message: message.value)
+        chatMessage.replyToMessageID = replyToMessageId ?? ""
         
         for linkedObject in linkedObjects {
             switch linkedObject {

@@ -698,6 +698,9 @@ internal enum Loc {
   }
   internal enum Discussion {
     internal static let readOnly = Loc.tr("Localizable", "Discussion.ReadOnly")
+    internal static func replyTo(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Discussion.ReplyTo", String(describing: p1))
+    }
   }
   internal enum EditSet {
     internal enum Popup {
@@ -1098,6 +1101,7 @@ internal enum Loc {
   internal enum Message {
     internal enum Action {
       internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction")
+      internal static let reply = Loc.tr("Localizable", "Message.Action.Reply")
     }
     internal enum ChatTitle {
       internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder")
