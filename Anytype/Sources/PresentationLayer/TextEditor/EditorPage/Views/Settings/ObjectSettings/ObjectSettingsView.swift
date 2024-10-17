@@ -19,6 +19,9 @@ struct ObjectSettingsView: View {
     
     private var settings: some View {
         VStack(spacing: 0) {
+            DragIndicator()
+            Spacer.fixedHeight(Constants.dragIndicatorSpacing)
+
             settingsList
 
             ObjectActionsView(objectId: viewModel.objectId, output: viewModel)
@@ -58,5 +61,6 @@ struct ObjectSettingsView: View {
     private enum Constants {
         static let edgeInset: CGFloat = 16
         static let dividerSpacing: CGFloat = 12
+        static let dragIndicatorSpacing: CGFloat = 12
     }
 }
