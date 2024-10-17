@@ -7,6 +7,7 @@ import ProtobufMessages
 protocol ChatMessagesStorageProtocol: AnyObject {
     func startSubscription() async throws
     func loadNextPage() async throws
+    func loadPagesTo(messageId: String) async throws
     var messagesPublisher: AnyPublisher<[ChatMessage], Never> { get async }
     func attachments(message: ChatMessage) async -> [MessageAttachmentDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
@@ -70,6 +71,30 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         self.allMessages = (allMessages + messages).sorted(by: { $0.orderID < $1.orderID }).uniqued()
     }
     
+    func loadPagesTo(messageId: String) async throws {
+        guard let allMessages else {
+            anytypeAssertionFailure("Subscription to meesages sould be started")
+            return
+        }
+        guard !allMessages.contains(where: { $0.id == messageId }) else { return }
+        
+        var lastMessage = allMessages.first
+        var allLoadedMessages = [ChatMessage]()
+        while let message = lastMessage {
+            let loadedMessages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: message.orderID, limit: 2)
+            let sortedMessages = loadedMessages.sorted(by: { $0.orderID < $1.orderID })
+            allLoadedMessages.append(contentsOf: sortedMessages)
+            
+            if sortedMessages.contains(where: { $0.id == messageId }) {
+                break
+            }
+            lastMessage = sortedMessages.first
+        }
+        await loadAttachments(messages: allLoadedMessages)
+        await loadReplies(messages: allLoadedMessages)
+        self.allMessages = (allMessages + allLoadedMessages).sorted(by: { $0.orderID < $1.orderID }).uniqued()
+    }
+    
     func attachments(message: ChatMessage) async -> [MessageAttachmentDetails] {
         let ids = message.attachments.map(\.target)
         return attachmentsDetails.filter { ids.contains($0.id) }
@@ -128,6 +153,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let loadedIds = Set(messages.map(\.id) + replies.map(\.id) + (allMessages ?? []).map(\.id))
         let repliesIds = Set(messages.map(\.replyToMessageID))
         let notLoadedIds = repliesIds.subtracting(loadedIds)
+        guard notLoadedIds.isNotEmpty else { return }
         do {
             let newReplies = try await chatService.getMessagesByIds(chatObjectId: chatObjectId, messageIds: Array(notLoadedIds))
             replies.append(contentsOf: newReplies)
