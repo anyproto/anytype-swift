@@ -10,19 +10,16 @@ final class SpreadsheetViewDataSource {
     var allModels = [[EditorItem]]()
     private lazy var dataSource: DataSource = makeCollectionViewDataSource()
     private let collectionView: EditorCollectionView
-
+    private let templateCell = EditorViewListCell()
+    
     init(collectionView: EditorCollectionView) {
         self.collectionView = collectionView
     }
 
-    func dequeueCell(at indexPath: IndexPath) -> UICollectionViewCell {
+    func templateCell(at indexPath: IndexPath) -> UICollectionViewCell {
         let item = allModels[indexPath.section][indexPath.row]
-
-        return collectionView.dequeueConfiguredReusableCell(
-            using: createCellRegistration(),
-            for: indexPath,
-            item: item.contentConfigurationProvider
-        )
+        setupCell(cell: templateCell, indexPath: indexPath, item: item.contentConfigurationProvider, template: true)
+        return templateCell
     }
 
     func contentConfigurationProvider(
@@ -70,7 +67,7 @@ final class SpreadsheetViewDataSource {
         guard let indexPath = dataSource.indexPath(for: item),
               let cell = collectionView.cellForItem(at: indexPath) as? EditorViewListCell else { return }
 
-        setupCell(cell: cell, indexPath: indexPath, item: item.contentConfigurationProvider)
+        setupCell(cell: cell, indexPath: indexPath, item: item.contentConfigurationProvider, template: false)
     }
 
     func dataSourceItem(for blockId: String) -> EditorItem? {
@@ -96,7 +93,7 @@ final class SpreadsheetViewDataSource {
 
     private func createCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, any ContentConfigurationProvider> {
         .init { [weak self] cell, indexPath, item in
-            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
+            self?.setupCell(cell: cell, indexPath: indexPath, item: item, template: false)
         }
     }
 
@@ -109,7 +106,8 @@ final class SpreadsheetViewDataSource {
     private func setupCell(
         cell: EditorViewListCell,
         indexPath: IndexPath,
-        item: some ContentConfigurationProvider
+        item: some ContentConfigurationProvider,
+        template: Bool
     ) {
         cell.contentConfiguration = item.makeSpreadsheetConfiguration()
         cell.contentView.isUserInteractionEnabled = true
@@ -119,7 +117,7 @@ final class SpreadsheetViewDataSource {
             cell.fillSubviewsWithRandomColors(recursively: false)
         }
 
-        if let dynamicHeightView = cell.contentView as? any DynamicHeightView {
+        if !template, let dynamicHeightView = cell.contentView as? any DynamicHeightView {
             dynamicHeightView.heightDidChanged = { [weak self] in
                 (self?.collectionView.collectionViewLayout as? SpreadsheetLayout)?.setNeedsLayout(indexPath: indexPath)
             }
