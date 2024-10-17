@@ -10,8 +10,8 @@ struct HomePath: Equatable {
         didSet { didChangePath(newPath: path, oldPath: oldValue) }
     }
     
-    init(initalPath: [AnyHashable] = []) {
-        path = initalPath
+    init(initialPath: [AnyHashable] = []) {
+        path = initialPath
     }
     
     var count: Int {

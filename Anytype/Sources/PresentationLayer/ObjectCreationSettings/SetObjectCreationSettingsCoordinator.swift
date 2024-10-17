@@ -4,13 +4,7 @@ import SwiftUI
 import AnytypeCore
 
 @MainActor
-protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
-    func showSetObjectCreationSettings(
-        setDocument: some SetDocumentProtocol,
-        viewId: String,
-        onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
-    )
-    
+protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject, SetObjectCreationSettingsOutput {
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: (() -> Void)?,
@@ -30,39 +24,9 @@ final class SetObjectCreationSettingsCoordinator:
     private var toastPresenter: any ToastPresenterProtocol
     
     private var useAsTemplateAction: ((String) -> Void)?
-    private var onTemplateSelection: ((ObjectCreationSetting) -> Void)?
-    
     private var editorModuleInput: (any EditorPageModuleInput)?
     
     nonisolated init() {}
-    
-    func showSetObjectCreationSettings(
-        setDocument: some SetDocumentProtocol,
-        viewId: String,
-        onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
-    ) {
-        self.onTemplateSelection = onTemplateSelection
-        
-        let view = SetObjectCreationSettingsView(
-            setDocument: setDocument,
-            viewId: viewId,
-            output: self
-        )
-
-        let viewModel = AnytypePopupViewModel(
-            contentView: view,
-            popupLayout: .constantHeight(
-                height: SetObjectCreationSettingsView.height,
-                floatingPanelStyle: true,
-                needBottomInset: false)
-        )
-        let popup = AnytypePopup(
-            viewModel: viewModel,
-            floatingPanelStyle: true,
-            configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true, skipThroughGestures: false)
-        )
-        navigationContext.present(popup)
-    }
     
     func showTemplateEditing(
         setting: ObjectCreationSetting,
@@ -141,26 +105,21 @@ final class SetObjectCreationSettingsCoordinator:
     
     // MARK: - SetObjectCreationSettingsOutput
     
-    func onTemplateSelection(setting: ObjectCreationSetting) {
-        navigationContext.dismissTopPresented(animated: true) { [weak self] in
-            self?.onTemplateSelection?(setting)
-        }
-    }
-    
     func onObjectTypesSearchAction(setDocument: some SetDocumentProtocol, completion: @escaping (ObjectType) -> Void) {
         showTypesSearch(setDocument: setDocument, onSelect: completion)
     }
     
     func templateEditingHandler(
         setting: ObjectCreationSetting,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
+        onSetAsDefaultTempalte: @escaping (String) -> Void,
+        onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     ) {
         showTemplateEditing(
             setting: setting,
             onTemplateSelection: { [weak self] in
                 self?.navigationContext.dismissAllPresented(animated: true) {
                     onSetAsDefaultTempalte(setting.templateId)
-                    self?.onTemplateSelection?(setting)
+                    onTemplateSelection?(setting)
                 }
             },
             onSetAsDefaultTempalte: { [weak self] templateId in

@@ -15,6 +15,15 @@ extension Text {
     }
 }
 
+extension TextField {
+    func anytypeFontStyle(_ style: AnytypeFont) -> some View {
+        self
+            .font(AnytypeFontBuilder.font(anytypeFont: style))
+            .kerning(style.config.kern)
+            .anytypeLineHeightStyle(style)
+    }
+}
+
 extension View {
     func anytypeLineHeightStyle(_ style: AnytypeFont) -> some View {
         self.environment(\._lineHeightMultiple, style.lineHeightMultiple)

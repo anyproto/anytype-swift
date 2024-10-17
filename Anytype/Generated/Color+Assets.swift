@@ -71,6 +71,7 @@ extension Color {
         internal static let selected = Color(asset: Asset.Additional.Indicator.selected)
         internal static let unselected = Color(asset: Asset.Additional.Indicator.unselected)
       }
+      internal static let messageInputShadow = Color(asset: Asset.Additional.messageInputShadow)
       internal static let separator = Color(asset: Asset.Additional.separator)
       internal static let space = Color(asset: Asset.Additional.space)
     }

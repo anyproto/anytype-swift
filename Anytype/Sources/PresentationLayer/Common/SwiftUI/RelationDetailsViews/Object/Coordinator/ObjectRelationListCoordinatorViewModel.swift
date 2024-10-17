@@ -29,9 +29,7 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
     }
     
     func obtainLimitedObjectTypes(with typesIds: [String]) -> [ObjectType] {
-        typesIds.compactMap { [weak self] id in
-            self?.objectTypeProvider.objectTypes.first { $0.id == id }
-        }
+        typesIds.compactMap { try? objectTypeProvider.objectType(id: $0) }
     }
 
     // MARK: - ObjectRelationListModuleOutput

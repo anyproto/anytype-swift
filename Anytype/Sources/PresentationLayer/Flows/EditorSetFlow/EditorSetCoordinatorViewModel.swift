@@ -15,14 +15,15 @@ final class EditorSetCoordinatorViewModel:
     EditorSetModuleOutput,
     SetObjectCreationCoordinatorOutput,
     ObjectSettingsCoordinatorOutput,
-    RelationValueCoordinatorOutput
+    RelationValueCoordinatorOutput,
+    SetObjectCreationSettingsOutput
 {
     let data: EditorSetObject
     let showHeader: Bool
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
-    private var setObjectCreationSettingsCoordinator: any SetObjectCreationSettingsCoordinatorProtocol
+    private var legacySetObjectCreationSettingsCoordinator: any SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
     
@@ -32,6 +33,7 @@ final class EditorSetCoordinatorViewModel:
     private var navigationContext: any NavigationContextProtocol
     
     var pageNavigation: PageNavigation?
+    var dismissAllPresented: DismissAllPresented?
     @Published var dismiss = false
     
     @Published var setViewPickerData: SetViewData?
@@ -42,6 +44,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var syncStatusSpaceId: StringIdentifiable?
+    @Published var setObjectCreationData: SetObjectCreationData?
     @Published var presentSettings = false
     
     init(data: EditorSetObject, showHeader: Bool) {
@@ -162,10 +165,14 @@ final class EditorSetCoordinatorViewModel:
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
-        setObjectCreationSettingsCoordinator.showSetObjectCreationSettings(
+        setObjectCreationData = SetObjectCreationData(
             setDocument: document,
             viewId: viewId,
-            onTemplateSelection: onTemplateSelection
+            onTemplateSelection: { [weak self] setting in
+                self?.syncDismissAllPresented {
+                    onTemplateSelection(setting)
+                }                
+            }
         )
     }
     
@@ -203,6 +210,29 @@ final class EditorSetCoordinatorViewModel:
     
     func versionRestored(_ text: String) {
         toastBarData = ToastBarData(text: Loc.VersionHistory.Toast.message(text), showSnackBar: true, messageType: .none)
+    }
+    
+    // MARK: - SetObjectCreationSettingsOutput
+    
+    func onObjectTypesSearchAction(setDocument: some SetDocumentProtocol, completion: @escaping (ObjectType) -> Void) {
+        legacySetObjectCreationSettingsCoordinator.onObjectTypesSearchAction(setDocument: setDocument, completion: completion)
+    }
+    
+    func templateEditingHandler(
+        setting: ObjectCreationSetting,
+        onSetAsDefaultTempalte: @escaping (String) -> Void,
+        onTemplateSelection: ((ObjectCreationSetting) -> Void)?
+    ) {
+        legacySetObjectCreationSettingsCoordinator.templateEditingHandler(setting: setting, onSetAsDefaultTempalte: onSetAsDefaultTempalte, onTemplateSelection: onTemplateSelection)
+    }
+    
+    // MARK: - Private
+    
+    func syncDismissAllPresented(completion: @escaping () -> Void) {
+        Task { @MainActor in
+            await dismissAllPresented?()
+            completion()
+        }
     }
 }
 

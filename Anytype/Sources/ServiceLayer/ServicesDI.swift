@@ -24,6 +24,10 @@ extension Container {
         self { SingleObjectSubscriptionService() }
     }
     
+    var objectIdsSubscriptionService: Factory<any ObjectIdsSubscriptionServiceProtocol> {
+        self { ObjectIdsSubscriptionService() }
+    }
+    
     var loginStateService: Factory<any LoginStateServiceProtocol> {
         self { LoginStateService() }.singleton
     }
@@ -100,12 +104,20 @@ extension Container {
         self { CollectionsSubscriptionService() }
     }
     
+    var chatsSubscriptionService: Factory<any ChatsSubscriptionServiceProtocol> {
+        self { ChatsSubscriptionService() }
+    }
+    
     var binSubscriptionService: Factory<any BinSubscriptionServiceProtocol> {
         self { BinSubscriptionService() }
     }
     
     var treeSubscriptionDataBuilder: Factory<any TreeSubscriptionDataBuilderProtocol> {
         self { TreeSubscriptionDataBuilder() }
+    }
+    
+    var objectTypeSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+        self { ObjectTypeSubscriptionDataBuilder() }
     }
     
     var treeSubscriptionManager: Factory<any TreeSubscriptionManagerProtocol> {
@@ -156,7 +168,7 @@ extension Container {
         self { RelationDetailsStorage() }.singleton
     }
     
-    var relationSubscriptionDataBuilder: Factory<any RelationSubscriptionDataBuilderProtocol> {
+    var relationSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
         self { RelationSubscriptionDataBuilder() }
     }
     
@@ -316,11 +328,20 @@ extension Container {
         self { AllContentStateStorageService() }.shared
     }
     
+    var discussionChatActionService: Factory<any DiscussionChatActionServiceProtocol> {
+        self { DiscussionChatActionService() }
+    }
+    
     var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
-        self { AppVersionTracker() }.singleton
+        self { AppVersionTracker() }.shared
     }
     
     var userWarningAlertsHandler: Factory<any UserWarningAlertsHandlerProtocol> {
         self { UserWarningAlertsHandler() }.shared
+    }
+    
+    
+    var videoPreviewStorage: Factory<any VideoPreviewStorageProtocol> {
+        self { VideoPreviewStorage() }.singleton
     }
 }

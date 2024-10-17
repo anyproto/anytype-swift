@@ -56,18 +56,25 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     @Injected(\.serverConfigurationStorage)
     private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     private var subscriptions: [AnyCancellable] = []
+    private let subId = "ParticipantSpacesStorage-\(UUID().uuidString)"
+    
+    private var sharedSpacesLimit: Int?
     
     // MARK: - State
-    
+
     @Published private(set) var allParticipantSpaces: [ParticipantSpaceViewData] = []
     var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> { $allParticipantSpaces.eraseToAnyPublisher() }
     
     nonisolated init() {}
     
     var spaceSharingInfo: SpaceSharingInfo? {
-        guard let sharedSpacesLimit = workspaceStorage.allWorkspaces.first(where: { $0.spaceAccessType == .personal })?.sharedSpacesLimit else { return nil }
+        guard let sharedSpacesLimit else { return nil }
         let sharedSpacesCount = allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count
         return SpaceSharingInfo(sharedSpacesLimit: sharedSpacesLimit, sharedSpacesCount: sharedSpacesCount)
     }
@@ -78,10 +85,20 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
                 self?.updateData(spaces: spaces, participants: participants)
             }
             .store(in: &subscriptions)
+        
+        await subscriptionService.startSubscription(
+            subId: subId,
+            spaceId: accountManager.account.info.techSpaceId,
+            objectId: accountManager.account.info.profileObjectID,
+            additionalKeys: [.sharedSpacesLimit]
+        ) { [weak self] details in
+            self?.sharedSpacesLimit = details.sharedSpacesLimit
+        }
     }
     
     func stopSubscription() async {
         subscriptions.removeAll()
+        await subscriptionService.stopSubscription(subId: subId)
     }
     
     // MARK: - Private

@@ -9,6 +9,7 @@ final class SingleObjectSubscriptionServiceMock: SingleObjectSubscriptionService
     
     func startSubscription(
         subId: String,
+        spaceId: String,
         objectId: String,
         additionalKeys: [BundledRelationKey],
         dataHandler: @escaping (ObjectDetails) -> Void

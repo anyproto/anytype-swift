@@ -4,10 +4,9 @@ import Services
 
 struct MessageLinkInputViewContainer: View {
 
-    let objects: [ObjectDetails]
-    let onTapRemove: (ObjectDetails) -> Void
-    
-    @State private var sizeWidth: CGFloat = 0
+    let objects: [DiscussionLinkedObject]
+    let onTapObject: (DiscussionLinkedObject) -> Void
+    let onTapRemove: (DiscussionLinkedObject) -> Void
     
     var body: some View {
         if objects.isNotEmpty {
@@ -18,9 +17,27 @@ struct MessageLinkInputViewContainer: View {
     private var content: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 12) {
-                ForEach(objects, id: \.id) {
-                    MessageLinkObjectView(details: $0, style: .input, onTapRemove: onTapRemove)
-                        .frame(width: itemWidth)
+                ForEach(objects) { object in
+                    switch object {
+                    case .uploadedObject(let details):
+                        MessageLinkedUploadedObject(details: details) {
+                            onTapObject(object)
+                        } onTapRemove: {
+                            onTapRemove(object)
+                        }
+                    case .localPhotosFile(let localFile):
+                        MessageLinkedLocalPhotosFile(localFile: localFile) {
+                            onTapObject(object)
+                        } onTapRemove: {
+                            onTapRemove(object)
+                        }
+                    case .localBinaryFile(let data):
+                        MessageLinkedLocalFile(fileData: data) {
+                            onTapObject(object)
+                        } onTapRemove: {
+                            onTapRemove(object)
+                        }
+                    }
                 }
             }
             .padding(.vertical, 12)
@@ -28,37 +45,5 @@ struct MessageLinkInputViewContainer: View {
         }
         .scrollIndicators(.hidden)
         .background(Color.Background.primary)
-        .readSize { size in
-            sizeWidth = size.width
-        }
     }
-    
-    private var itemWidth: CGFloat {
-        let width = sizeWidth - (objects.count > 1 ? 64 : 32)
-        return max(width, 0)
-    }
-}
-
-#Preview {
-    MessageLinkInputViewContainer(
-        objects: [
-            ObjectDetails(id: "1", values: [
-                BundledRelationKey.name.rawValue: "Title 1 123 123 123 123 123 123 123 123 12312 312 313 12312  3123 3",
-                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
-                BundledRelationKey.iconEmoji.rawValue: "🦬"
-            ]),
-            ObjectDetails(id: "2", values: [
-                BundledRelationKey.name.rawValue: "Title 1",
-                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
-                BundledRelationKey.iconEmoji.rawValue: "🫏"
-            ]),
-            ObjectDetails(id: "3", values: [
-                BundledRelationKey.name.rawValue: "Title 1",
-                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
-                BundledRelationKey.iconEmoji.rawValue: "🦔"
-            ])
-        ],
-        onTapRemove: { _ in }
-    )
-    .border(Color.black)
 }

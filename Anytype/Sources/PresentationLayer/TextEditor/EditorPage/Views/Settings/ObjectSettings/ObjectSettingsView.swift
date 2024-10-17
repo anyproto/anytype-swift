@@ -19,6 +19,8 @@ struct ObjectSettingsView: View {
     
     private var settings: some View {
         VStack(spacing: 0) {
+            DragIndicator()
+            
             settingsList
 
             ObjectActionsView(objectId: viewModel.objectId, output: viewModel)

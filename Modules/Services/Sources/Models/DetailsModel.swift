@@ -1,6 +1,6 @@
 import Foundation
 
 public protocol DetailsModel {
-    init(details: ObjectDetails)
+    init(details: ObjectDetails) throws
     static var subscriptionKeys: [BundledRelationKey] { get }
 }

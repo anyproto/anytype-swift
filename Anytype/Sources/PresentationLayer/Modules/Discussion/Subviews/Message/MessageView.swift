@@ -7,12 +7,13 @@ struct MessageView: View {
     
     var body: some View {
         MessageInternalView(data: data, output: output)
-            .id(data.id)
+            .id(data.message.id)
     }
 }
 
 private struct MessageInternalView: View {
         
+    private let data: MessageViewData
     @StateObject private var model: MessageViewModel
     
     @State private var contentSize: CGSize = .zero
@@ -22,6 +23,7 @@ private struct MessageInternalView: View {
         data: MessageViewData,
         output: (any MessageModuleOutput)? = nil
     ) {
+        self.data = data
         self._model = StateObject(wrappedValue: MessageViewModel(data: data, output: output))
     }
     
@@ -32,8 +34,14 @@ private struct MessageInternalView: View {
             trailingView
         }
         .padding(.horizontal, 8)
-        .task {
-            await model.subscribeOnBlock()
+        .onChange(of: data) {
+            model.update(data: $0)
+        }
+        .onAppear {
+            model.onAppear()
+        }
+        .onDisappear {
+            model.onDisappear()
         }
     }
     
@@ -50,7 +58,6 @@ private struct MessageInternalView: View {
                     .lineLimit(1)
             
                 Text(model.date)
-                    .anytypeStyle(.caption1Regular)
                     .foregroundColor(.Text.secondary)
                     .lineLimit(1)
                     .offset(x: contentSize.width - headerSize.width)
@@ -58,20 +65,36 @@ private struct MessageInternalView: View {
             .readSize {
                 headerSize = $0
             }
-
-            Text(model.message)
-                .anytypeStyle(.bodyRegular)
-                .foregroundColor(.Text.primary)
             
-            if model.linkedObjects.isNotEmpty {
+            if let reply = model.reply {
+                MessageReplyView(model: reply)
+                    .padding(.vertical, 4)
+            }
+            
+            if !model.message.isEmpty {
+                Text(model.message)
+                    .anytypeStyle(.bodyRegular)
+                    .foregroundColor(.Text.primary)
+            }
+            
+            if let objects = model.linkedObjects {
                 Spacer.fixedHeight(8)
-                MessageLinkViewContainer(objects: model.linkedObjects, isYour: model.isYourMessage)
+                switch objects {
+                case .list(let items):
+                    MessageLinkViewContainer(objects: items, isYour: model.isYourMessage) {
+                        model.onTapObject(details: $0)
+                    }
+                case .grid(let items):
+                    MessageGridLinkContainer(objects: items) {
+                        model.onTapObject(details: $0)
+                    }
+                }
             }
             
             if model.reactions.isNotEmpty {
                 Spacer.fixedHeight(8)
                 MessageReactionList(rows: model.reactions) { reaction in
-                    model.onTapReaction(reaction)
+                    try await model.onTapReaction(reaction)
                 } onTapAdd: {
                     model.onTapAddReaction()
                 }
@@ -115,7 +138,15 @@ private struct MessageInternalView: View {
         Button {
             model.onTapAddReaction()
         } label: {
-            Text(Loc.Message.Action.addReaction)
+            Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+        }
+        
+        Divider()
+        
+        Button {
+            model.onTapReply()
+        } label: {
+            Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
         }
     }
 }

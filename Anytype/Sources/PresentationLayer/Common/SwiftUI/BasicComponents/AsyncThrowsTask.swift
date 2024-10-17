@@ -44,4 +44,11 @@ extension View {
     func throwingTask<T: Equatable>(id: T, _ action: @escaping @Sendable () async throws -> Void) -> some View {
         modifier(AsyncThrowsIdTaskModifier(id: id, action: action))
     }
+    
+    func task<Item: Equatable>(item: Item?, _ action: @escaping @Sendable (Item) async -> Void) -> some View {
+        self.task(id: item) {
+            guard let item else { return }
+            await action(item)
+        }
+    }
 }

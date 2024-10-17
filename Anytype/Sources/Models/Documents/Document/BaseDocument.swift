@@ -201,7 +201,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
         var docUpdates = updates.flatMap { update -> [BaseDocumentUpdate] in
             switch update {
-            case .general:
+            case .general, .relationDetails:
                 return [.general]
             case .block(let blockId):
                 return [.block(blockId: blockId)]
@@ -266,7 +266,7 @@ final class BaseDocument: BaseDocumentProtocol {
                 guard let self else { return }
                 let contains = details.contains { self.relationLinksStorage.contains(relationKeys: [$0.key]) }
                 if contains {
-                    triggerSync(updates: [.relationLinks])
+                    triggerSync(updates: [.relationDetails])
                 }
             }
             .store(in: &subscriptions)
