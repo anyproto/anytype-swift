@@ -333,7 +333,7 @@ extension Container {
     }
     
     var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
-        self { AppVersionTracker() }.singleton
+        self { AppVersionTracker() }.shared
     }
     
     var userWarningAlertsHandler: Factory<any UserWarningAlertsHandlerProtocol> {

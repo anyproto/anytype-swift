@@ -94,7 +94,6 @@ public protocol BundledRelationsValueProvider {
     var setOf: [ObjectId] { get }
     var isArchived: Bool { get }
     var fileExt: String { get }
-    var scope: String { get }
     var featuredRelations: [ObjectId] { get }
     var phone: String? { get }
     var smartblockTypes: [Int] { get }
@@ -469,9 +468,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var fileExt: String {
         return value(for: BundledRelationKey.fileExt.rawValue)
-    }
-    var scope: String {
-        return value(for: BundledRelationKey.scope.rawValue)
     }
     /// Important relations that always appear at the top of the object
     var featuredRelations: [ObjectId] {

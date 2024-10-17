@@ -98,6 +98,7 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     
     func stopSubscription() async {
         subscriptions.removeAll()
+        await subscriptionService.stopSubscription(subId: subId)
     }
     
     // MARK: - Private
