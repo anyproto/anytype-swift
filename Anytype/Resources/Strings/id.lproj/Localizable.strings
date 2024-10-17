@@ -205,13 +205,13 @@
 "Join" = "Gabung";
 "Agreement Disclamer" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Lets Go" = "Mulai!";
-"My spaces" = "My Spaces";
+"My spaces" = "Ruangku";
 
 // Home
 "Favorites" = "Favorit";
 "Recent" = "Baru-Baru Ini";
 "Bin" = "Bak Sampah";
-"All objects" = "All Objects";
+"All objects" = "Semua Objek";
 
 // Settings
 "Wallpaper" = "Latar belakang";
@@ -1237,12 +1237,12 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Unlinked.Title" = "Hanya objek nirtaut";
 "AllContent.Settings.Unlinked.Description" = "Objek yang tidak memiliki tautan langsung atau tautan balik ke objek lain di grafik.";
 "AllContent.Settings.ViewBin" = "Lihat Bak Sampah";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Empty.State.title" = "Di sini kosong.";
+"AllContent.Empty.State.subtitle" = "Buat objek pertamamu untuk memulai.";
 "AllContent.Search.Empty.State.title" = "No results found.";
-"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+"AllContent.Search.Empty.State.subtitle" = "Coba cari dengan kata kunci yang lain.";
 
 // MARK: - Reindexing warning alert
-"ReindexingWarningAlert.Title" = "Upgrading your search experience";
-"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
+"ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
+"ReindexingWarningAlert.Description" = "Kami menerapkan pustaka penelusuran baru untuk pencarian yang lebih cepat dan akurat.\nPengindeksan ulang membutuhkan waktu beberapa menit.";
+"ReindexingWarningAlert.Button" = "Mantap!";

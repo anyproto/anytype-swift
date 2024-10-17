@@ -65,8 +65,8 @@ private extension CustomTextView {
             numberOfTapsRequired: 2,
             tapHandler: LinkAttributeSelectionHandler()
         )
-        let mentionSelectionHandler = MentionAttributeSelectionHandler { [weak self] pageId in
-            self?.delegate?.showPage(blockId: pageId)
+        let mentionSelectionHandler = MentionAttributeSelectionHandler { [weak self] objectId in
+            self?.delegate?.showObject(objectId: objectId)
         }
         let mentionSelection = TextViewAttributeSelectionInteraction(
             textView: textView,

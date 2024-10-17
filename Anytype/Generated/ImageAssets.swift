@@ -32,6 +32,7 @@ internal extension ImageAsset {
   static let noImage = ImageAsset.bundle(name: "no_image")
   enum EmptyIcon {
     static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
+    static let date = ImageAsset.bundle(name: "EmptyIcon/date")
     static let discussion = ImageAsset.bundle(name: "EmptyIcon/discussion")
     static let list = ImageAsset.bundle(name: "EmptyIcon/list")
     static let objectType = ImageAsset.bundle(name: "EmptyIcon/objectType")

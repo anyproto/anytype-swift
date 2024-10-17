@@ -1,76 +1,27 @@
 import AnytypeCore
 
 public extension DetailsLayout {
-    static let visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts + chatLayouts
-    static let supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileAndMediaLayouts + setLayouts
-    static let supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
+
+    static let editorLayouts: [DetailsLayout] = [ .note, .basic, .profile, .todo ]
+    static let listLayouts: [DetailsLayout] = [ .collection, .set ]
+    
+    static let fileLayouts: [DetailsLayout] = [ .file, .pdf ]
+    static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
+    static let fileAndMediaLayouts = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
+    
+    static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile]
+    static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
+    
+    static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark] + [.participant] + dateLayout + chatLayout
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
-}
-
-
-// For editor
-public extension DetailsLayout {
-    static let editorLayouts: [DetailsLayout] = [
-        .note,
-        .basic,
-        .profile,
-        .todo,
-        .participant
-    ]
     
-    static let editorChangeLayouts: [DetailsLayout] = [
-        .note,
-        .basic,
-        .profile,
-        .todo
-    ]
+    static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
     
-    static let pageLayouts: [DetailsLayout] = editorLayouts + [.bookmark]
-    
-    static let fileAndMediaLayouts: [DetailsLayout] = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
-    
-    static let fileLayouts: [DetailsLayout] = [
-        .file,
-        .pdf
-    ]
-    
-    static let mediaLayouts: [DetailsLayout] = [
-        .image,
-        .audio,
-        .video,
-    ]
-    
-    static let setLayouts: [DetailsLayout] = [
-        .collection,
-        .set
-    ]
-    
-    static let chatLayouts: [DetailsLayout] = FeatureFlags.discussions ? [.chat] : []
-    
-    static let systemLayouts: [DetailsLayout] = [
-        .objectType,
-        .relation,
-        .relationOption,
-        .relationOptionsList,
-        .dashboard,
-        .space
-    ]
-    
-    static let fileMediaSystemLayouts: [DetailsLayout] = fileAndMediaLayouts + systemLayouts
-    static let layoutsWithoutTemplate: [DetailsLayout] = [
-        .set,
-        .collection,
-        .bookmark,
-        .participant
-    ] + fileMediaSystemLayouts
-    
+    private static let dateLayout: [DetailsLayout] = FeatureFlags.dateAsAnObject ? [.date] : []
+    private static let chatLayout: [DetailsLayout] = FeatureFlags.discussions ? [.chat] : []
     
     var isTemplatesAvailable: Bool {
-        !DetailsLayout.layoutsWithoutTemplate.contains(self) &&
-        DetailsLayout.pageLayouts.contains(self)
+        DetailsLayout.editorLayouts.contains(self)
     }
     
-    static let layoutsWithIcon: [DetailsLayout] = [.basic, .profile, .set, .collection, .file, .image]
-    static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-    static let layoutsWithChangeLayout: [DetailsLayout] = [.basic, .profile, .file, .image, .bookmark, .todo, .note]
 }

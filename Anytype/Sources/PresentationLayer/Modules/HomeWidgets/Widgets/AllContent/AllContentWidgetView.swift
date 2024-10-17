@@ -16,20 +16,26 @@ struct AllContentWidgetView: View {
     }
     
     var body: some View {
-        LinkWidgetViewContainer(
-            title: Loc.allObjects,
-            icon: .Widget.allContent,
-            isExpanded: .constant(false),
-            dragId: nil,
-            homeState: $homeState,
-            allowMenuContent: false,
-            allowContent: false,
-            allowContextMenuItems: false,
-            headerAction: {
-                model.onTapWidget()
-            },
-            removeAction: nil,
-            content: { EmptyView() }
-        )
+        HStack(spacing: 0) {
+            Image(asset: .Widget.allContent)
+                .foregroundColor(.Text.primary)
+                .frame(width: 20, height: 20)
+            
+            Spacer.fixedWidth(8)
+            
+            AnytypeText(Loc.allObjects, style: .previewTitle2Medium)
+                .foregroundColor(.Text.primary)
+                .lineLimit(1)
+            
+            Spacer()
+        }
+        .padding(.all, 16)
+        .background(Color.Widget.card)
+        .cornerRadius(16, style: .continuous)
+        .fixTappableArea()
+        .onTapGesture {
+            model.onTapWidget()
+        }
+        .allowsHitTesting(!homeState.isEditWidgets)
     }
 }

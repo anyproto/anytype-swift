@@ -40,6 +40,8 @@ struct EmptyObjectIconView: View {
             return .EmptyIcon.objectType
         case .tag:
             return .EmptyIcon.tag
+        case .date:
+            return .EmptyIcon.date
         }
     }
 }

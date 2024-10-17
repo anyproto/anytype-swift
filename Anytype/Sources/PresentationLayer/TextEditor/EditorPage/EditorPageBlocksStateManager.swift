@@ -490,7 +490,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logOpenAsObject()
-            router.showPage(objectId: bookmark.targetObjectID)
+            router.showObject(objectId: bookmark.targetObjectID)
         case .openSource:
             anytypeAssert(
                 elements.count == 1,
@@ -498,7 +498,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
             guard case let .dataView(data) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logOpenAsSource()
-            router.showPage(objectId: data.targetObjectID)
+            router.showObject(objectId: data.targetObjectID)
         case .style:
             let elements = elements.map { $0.info }
             editingState = .selecting(blocks: elements.map { $0.id}, allSelected: editingState.allSelected)
