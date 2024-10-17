@@ -5,14 +5,8 @@ import UIKit
 final class RelationsSectionBuilder {
 
     // MARK: - Private variables
-
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.doesRelativeDateFormatting = true
-        return dateFormatter
-    }()
+    
+    private let dateFormatter = DateFormatter.relationDateFormatter
 
     // MARK: - Internal functions
 

@@ -9,13 +9,6 @@ final class SetFiltersTextViewModel: ObservableObject {
     
     private var keyboardListenerHelper: KeyboardEventsListnerHelper?
     
-    private static let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = ""
-        return formatter
-    }()
-    
     init(filter: SetFilter, onApplyText: @escaping (String) -> Void) {
         self.input = Self.initialValue(from: filter)
         self.keyboardType = Self.keybordType(for: filter)
@@ -40,7 +33,7 @@ final class SetFiltersTextViewModel: ObservableObject {
         switch filter.conditionType {
         case .number:
             if let doubleValue = filter.filter.value.safeDoubleValue {
-                return numberFormatter.string(from: NSNumber(floatLiteral: doubleValue)) ?? ""
+                return NumberFormatter.decimalWithNoSeparator.string(from: NSNumber(floatLiteral: doubleValue)) ?? ""
             } else {
                 return ""
             }
