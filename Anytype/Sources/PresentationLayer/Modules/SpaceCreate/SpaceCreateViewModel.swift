@@ -39,7 +39,7 @@ final class SpaceCreateViewModel: ObservableObject {
             defer {
                 createLoadingState = false
             }
-            let spaceId = try await workspaceService.createSpace(name: spaceName, iconOption: spaceIconOption, accessType: spaceAccessType, useCase: .empty)
+            let spaceId = try await workspaceService.createSpace(name: spaceName, iconOption: spaceIconOption, accessType: spaceAccessType, useCase: .getStarted)
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
