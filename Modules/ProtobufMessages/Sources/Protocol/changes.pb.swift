@@ -20,6 +20,58 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+public enum Anytype_ModifyOp: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case set // = 0
+  case unset // = 1
+  case inc // = 2
+  case addToSet // = 3
+  case pull // = 4
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .set
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .set
+    case 1: self = .unset
+    case 2: self = .inc
+    case 3: self = .addToSet
+    case 4: self = .pull
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .set: return 0
+    case .unset: return 1
+    case .inc: return 2
+    case .addToSet: return 3
+    case .pull: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_ModifyOp: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_ModifyOp] = [
+    .set,
+    .unset,
+    .inc,
+    .addToSet,
+    .pull,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// the element of change tree used to store and internal apply smartBlock history
 public struct Anytype_Change {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -817,7 +869,151 @@ public struct Anytype_Change {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+public struct Anytype_StoreChange {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var changeSet: [Anytype_StoreChangeContent] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_StoreChangeContent {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var change: Anytype_StoreChangeContent.OneOf_Change? = nil
+
+  public var create: Anytype_DocumentCreate {
+    get {
+      if case .create(let v)? = change {return v}
+      return Anytype_DocumentCreate()
+    }
+    set {change = .create(newValue)}
+  }
+
+  public var modify: Anytype_DocumentModify {
+    get {
+      if case .modify(let v)? = change {return v}
+      return Anytype_DocumentModify()
+    }
+    set {change = .modify(newValue)}
+  }
+
+  public var delete: Anytype_DocumentDelete {
+    get {
+      if case .delete(let v)? = change {return v}
+      return Anytype_DocumentDelete()
+    }
+    set {change = .delete(newValue)}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum OneOf_Change: Equatable {
+    case create(Anytype_DocumentCreate)
+    case modify(Anytype_DocumentModify)
+    case delete(Anytype_DocumentDelete)
+
+  #if !swift(>=4.1)
+    public static func ==(lhs: Anytype_StoreChangeContent.OneOf_Change, rhs: Anytype_StoreChangeContent.OneOf_Change) -> Bool {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch (lhs, rhs) {
+      case (.create, .create): return {
+        guard case .create(let l) = lhs, case .create(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.modify, .modify): return {
+        guard case .modify(let l) = lhs, case .modify(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.delete, .delete): return {
+        guard case .delete(let l) = lhs, case .delete(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      default: return false
+      }
+    }
+  #endif
+  }
+
+  public init() {}
+}
+
+public struct Anytype_DocumentCreate {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var collection: String = String()
+
+  public var documentID: String = String()
+
+  /// json
+  public var value: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_DocumentModify {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var collection: String = String()
+
+  public var documentID: String = String()
+
+  public var keys: [Anytype_KeyModify] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_KeyModify {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// key path; example: [user, email]
+  public var keyPath: [String] = []
+
+  /// modify op: set, unset, inc, etc.
+  public var modifyOp: Anytype_ModifyOp = .set
+
+  /// json value; example: '"new@email.com"'
+  public var modifyValue: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Anytype_DocumentDelete {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var collection: String = String()
+
+  public var documentID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
+extension Anytype_ModifyOp: @unchecked Sendable {}
 extension Anytype_Change: @unchecked Sendable {}
 extension Anytype_Change.Snapshot: @unchecked Sendable {}
 extension Anytype_Change.FileKeys: @unchecked Sendable {}
@@ -847,11 +1043,28 @@ extension Anytype_Change.NotificationCreate: @unchecked Sendable {}
 extension Anytype_Change.NotificationUpdate: @unchecked Sendable {}
 extension Anytype_Change.DeviceAdd: @unchecked Sendable {}
 extension Anytype_Change.DeviceUpdate: @unchecked Sendable {}
+extension Anytype_StoreChange: @unchecked Sendable {}
+extension Anytype_StoreChangeContent: @unchecked Sendable {}
+extension Anytype_StoreChangeContent.OneOf_Change: @unchecked Sendable {}
+extension Anytype_DocumentCreate: @unchecked Sendable {}
+extension Anytype_DocumentModify: @unchecked Sendable {}
+extension Anytype_KeyModify: @unchecked Sendable {}
+extension Anytype_DocumentDelete: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "anytype"
+
+extension Anytype_ModifyOp: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Set"),
+    1: .same(proto: "Unset"),
+    2: .same(proto: "Inc"),
+    3: .same(proto: "AddToSet"),
+    4: .same(proto: "Pull"),
+  ]
+}
 
 extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Change"
@@ -876,15 +1089,7 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     var _timestamp: Int64 = 0
     var _version: UInt32 = 0
 
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
+    static let defaultInstance = _StorageClass()
 
     private init() {}
 
@@ -2362,6 +2567,296 @@ extension Anytype_Change.DeviceUpdate: SwiftProtobuf.Message, SwiftProtobuf._Mes
   public static func ==(lhs: Anytype_Change.DeviceUpdate, rhs: Anytype_Change.DeviceUpdate) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.name != rhs.name {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_StoreChange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".StoreChange"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "changeSet"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.changeSet) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.changeSet.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.changeSet, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_StoreChange, rhs: Anytype_StoreChange) -> Bool {
+    if lhs.changeSet != rhs.changeSet {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_StoreChangeContent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".StoreChangeContent"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "create"),
+    2: .same(proto: "modify"),
+    3: .same(proto: "delete"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try {
+        var v: Anytype_DocumentCreate?
+        var hadOneofValue = false
+        if let current = self.change {
+          hadOneofValue = true
+          if case .create(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.change = .create(v)
+        }
+      }()
+      case 2: try {
+        var v: Anytype_DocumentModify?
+        var hadOneofValue = false
+        if let current = self.change {
+          hadOneofValue = true
+          if case .modify(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.change = .modify(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_DocumentDelete?
+        var hadOneofValue = false
+        if let current = self.change {
+          hadOneofValue = true
+          if case .delete(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.change = .delete(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.change {
+    case .create?: try {
+      guard case .create(let v)? = self.change else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .modify?: try {
+      guard case .modify(let v)? = self.change else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .delete?: try {
+      guard case .delete(let v)? = self.change else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_StoreChangeContent, rhs: Anytype_StoreChangeContent) -> Bool {
+    if lhs.change != rhs.change {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_DocumentCreate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DocumentCreate"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "collection"),
+    2: .same(proto: "documentId"),
+    3: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.collection) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.documentID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.collection.isEmpty {
+      try visitor.visitSingularStringField(value: self.collection, fieldNumber: 1)
+    }
+    if !self.documentID.isEmpty {
+      try visitor.visitSingularStringField(value: self.documentID, fieldNumber: 2)
+    }
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_DocumentCreate, rhs: Anytype_DocumentCreate) -> Bool {
+    if lhs.collection != rhs.collection {return false}
+    if lhs.documentID != rhs.documentID {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_DocumentModify: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DocumentModify"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "collection"),
+    2: .same(proto: "documentId"),
+    4: .same(proto: "keys"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.collection) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.documentID) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.keys) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.collection.isEmpty {
+      try visitor.visitSingularStringField(value: self.collection, fieldNumber: 1)
+    }
+    if !self.documentID.isEmpty {
+      try visitor.visitSingularStringField(value: self.documentID, fieldNumber: 2)
+    }
+    if !self.keys.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.keys, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_DocumentModify, rhs: Anytype_DocumentModify) -> Bool {
+    if lhs.collection != rhs.collection {return false}
+    if lhs.documentID != rhs.documentID {return false}
+    if lhs.keys != rhs.keys {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_KeyModify: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".KeyModify"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "keyPath"),
+    3: .same(proto: "modifyOp"),
+    4: .same(proto: "modifyValue"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.keyPath) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.modifyOp) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.modifyValue) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.keyPath.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.keyPath, fieldNumber: 1)
+    }
+    if self.modifyOp != .set {
+      try visitor.visitSingularEnumField(value: self.modifyOp, fieldNumber: 3)
+    }
+    if !self.modifyValue.isEmpty {
+      try visitor.visitSingularStringField(value: self.modifyValue, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_KeyModify, rhs: Anytype_KeyModify) -> Bool {
+    if lhs.keyPath != rhs.keyPath {return false}
+    if lhs.modifyOp != rhs.modifyOp {return false}
+    if lhs.modifyValue != rhs.modifyValue {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_DocumentDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DocumentDelete"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "collection"),
+    2: .same(proto: "documentId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.collection) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.documentID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.collection.isEmpty {
+      try visitor.visitSingularStringField(value: self.collection, fieldNumber: 1)
+    }
+    if !self.documentID.isEmpty {
+      try visitor.visitSingularStringField(value: self.documentID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_DocumentDelete, rhs: Anytype_DocumentDelete) -> Bool {
+    if lhs.collection != rhs.collection {return false}
+    if lhs.documentID != rhs.documentID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -7,6 +7,9 @@ extension NSAttributedString.Key {
     static let discussionKeyboard = NSAttributedString.Key("discussionKeyboard")
     static let discussionStrikethrough = NSAttributedString.Key("discussionStrikethrough")
     static let discussionUnderscored = NSAttributedString.Key("discussionUnderscored")
+    static let discussionMention = NSAttributedString.Key("discussionMention")
+    static let discussionLinkToObject = NSAttributedString.Key("discussionLinkToObject")
+    static let discussionLinkToURL = NSAttributedString.Key("discussionLinkToURL")
 }
 
 extension MarkupType {

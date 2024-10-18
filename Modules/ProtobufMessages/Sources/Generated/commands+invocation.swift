@@ -916,6 +916,16 @@ extension Anytype_Rpc.Object.CreateSet.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.Duplicate.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Duplicate.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

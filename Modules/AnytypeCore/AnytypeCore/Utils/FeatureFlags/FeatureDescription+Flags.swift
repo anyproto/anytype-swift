@@ -34,7 +34,7 @@ public extension FeatureDescription {
         title: "Discussions - IOS-3060",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     static let versionHistory = FeatureDescription(
@@ -59,6 +59,12 @@ public extension FeatureDescription {
     static let dateAsAnObject = FeatureDescription(
         title: "Date as an object",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
+        defaultValue: true
+    )
+    
+    static let userWarningAlerts = FeatureDescription(
+        title: "User warning alerts",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
         defaultValue: true
     )
     

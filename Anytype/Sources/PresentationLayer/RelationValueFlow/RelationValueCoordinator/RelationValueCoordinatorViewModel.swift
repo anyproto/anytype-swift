@@ -210,9 +210,7 @@ final class RelationValueCoordinatorViewModel:
     }
     
     private func obtainLimitedObjectTypes(with typesIds: [String]) -> [ObjectType] {
-        typesIds.compactMap { [weak self] id in
-            self?.objectTypeProvider.objectTypes.first { $0.id == id }
-        }
+        typesIds.compactMap { try? objectTypeProvider.objectType(id: $0) }
     }
 
     

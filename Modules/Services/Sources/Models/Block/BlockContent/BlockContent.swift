@@ -16,6 +16,7 @@ public enum BlockContent: Hashable, Sendable {
     case tableColumn
     case tableRow(BlockTableRow)
     case widget(BlockWidget)
+    case chat(BlockChat)
     case unsupported
     
     public var type: BlockContentType {
@@ -54,6 +55,8 @@ public enum BlockContent: Hashable, Sendable {
             return .tableRow
         case let .widget(widget):
             return .widget(widget.layout)
+        case .chat:
+            return .chat
         case .unsupported:
             return .text(.text)
         }

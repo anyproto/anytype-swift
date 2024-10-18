@@ -514,16 +514,6 @@ public struct ClientCommands {
         }
     }
 
-    public static func objectChatAdd(
-        _ request: Anytype_Rpc.Object.ChatAdd.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Object.ChatAdd.Request, Anytype_Rpc.Object.ChatAdd.Response> {
-        return Invocation(messageName: "ObjectChatAdd", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceObjectChatAdd(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ChatAdd.Response(serializedData: responseData)
-        }
-    }
-
     public static func objectCreateSet(
         _ request: Anytype_Rpc.Object.CreateSet.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.CreateSet.Request, Anytype_Rpc.Object.CreateSet.Response> {
@@ -571,6 +561,26 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSearchSubscribe(requestData) ?? Data()
             return try Anytype_Rpc.Object.SearchSubscribe.Response(serializedData: responseData)
+        }
+    }
+
+    public static func objectCrossSpaceSearchSubscribe(
+        _ request: Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Request, Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response> {
+        return Invocation(messageName: "ObjectCrossSpaceSearchSubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectCrossSpaceSearchSubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response(serializedData: responseData)
+        }
+    }
+
+    public static func objectCrossSpaceSearchUnsubscribe(
+        _ request: Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Request, Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response> {
+        return Invocation(messageName: "ObjectCrossSpaceSearchUnsubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectCrossSpaceSearchUnsubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response(serializedData: responseData)
         }
     }
 
@@ -2591,6 +2601,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatUnsubscribe(requestData) ?? Data()
             return try Anytype_Rpc.Chat.Unsubscribe.Response(serializedData: responseData)
+        }
+    }
+
+    public static func objectChatAdd(
+        _ request: Anytype_Rpc.Object.ChatAdd.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ChatAdd.Request, Anytype_Rpc.Object.ChatAdd.Response> {
+        return Invocation(messageName: "ObjectChatAdd", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectChatAdd(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ChatAdd.Response(serializedData: responseData)
         }
     }
 

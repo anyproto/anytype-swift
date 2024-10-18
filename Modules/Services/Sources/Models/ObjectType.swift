@@ -55,7 +55,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     }
 }
 
-extension ObjectType {
+extension ObjectType: DetailsModel {
     
     public init(details: ObjectDetails) {
         self.init(
@@ -76,9 +76,6 @@ extension ObjectType {
             recommendedLayout: details.recommendedLayoutValue
         )
     }
-}
-
-extension ObjectType {
     
     public static var subscriptionKeys: [BundledRelationKey] {
         return [
@@ -122,5 +119,9 @@ extension ObjectType {
     
     public var isImageLayout: Bool {
         recommendedLayout == .image
+    }
+    
+    public var isChatType: Bool {
+        uniqueKey == .chat
     }
 }

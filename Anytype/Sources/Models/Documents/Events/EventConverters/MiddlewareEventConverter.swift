@@ -204,7 +204,11 @@ final class MiddlewareEventConverter {
                 .importFinish,
                 .spaceSyncStatusUpdate, // Implemented in `SyncStatusStorage`
                 .p2PStatusUpdate, // Implemented in `P2PStatusStorage`
-                .membershipUpdate: // Implemented in `MembershipStatusStorage`
+                .membershipUpdate, // Implemented in `MembershipStatusStorage`
+                .chatAdd,
+                .chatDelete,
+                .chatUpdate,
+                .chatUpdateReactions:
             return nil
         case .chatAdd, .chatUpdate, .chatUpdateReactions, .chatDelete:
             return nil

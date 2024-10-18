@@ -27,26 +27,17 @@ struct MessageLinkObjectView: View {
             Spacer()
         }
         .padding(12)
-        .frame(height: 72)
+        .frame(width: 216, height: 72)
         .background(Color.Background.secondary)
         .cornerRadius(12, style: .continuous)
         .outerBorder(12, color: style.config.borderColor, lineWidth: 1)
         .shadow(color: style.config.shadowColor, radius: 4)
-        .ifLet(onTapRemove) { view, onTapRemove in
-            view.overlay(alignment: .topTrailing) {
-                Button {
-                    onTapRemove()
-                } label: {
-                    IconView(asset: .X18.clear)
-                }
-                .padding([.top, .trailing], -6)
-            }
-        }
+        .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }
 
 extension MessageLinkObjectView {
-    init(details: ObjectDetails, style: MessageLinkObjectViewStyle, onTapRemove: ((ObjectDetails) -> Void)? = nil) {
+    init(details: MessageAttachmentDetails, style: MessageLinkObjectViewStyle, onTapRemove: ((MessageAttachmentDetails) -> Void)? = nil) {
         self = MessageLinkObjectView(
             icon: details.objectIconImage,
             title: details.title,

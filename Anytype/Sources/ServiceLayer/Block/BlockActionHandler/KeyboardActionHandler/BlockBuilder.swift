@@ -31,7 +31,7 @@ struct BlockBuilder {
             return .relation(.init(key: key))
         case .tableOfContents:
             return .tableOfContents
-        case .layout, .smartblock, .featuredRelations, .dataView, .widget:
+        case .layout, .smartblock, .featuredRelations, .dataView, .widget, .chat:
             anytypeAssertionFailure("Unsupported type", info: ["type": "\(type)"])
             return nil
         case .table:

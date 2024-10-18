@@ -10,7 +10,7 @@ protocol RelationDetailsStorageProtocol: AnyObject {
     func relationsDetails(spaceId: String) -> [RelationDetails]
     func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails
     func relationsDetails(for key: String, spaceId: String) throws -> RelationDetails
-    var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> { get }
+    var syncPublisher: AnyPublisher<Void, Never> { get }
     
     func startSubscription() async
     func stopSubscription() async
@@ -22,8 +22,9 @@ extension RelationDetailsStorageProtocol {
     }
     
     func relationsDetailsPublisher(spaceId: String) -> AnyPublisher<[RelationDetails], Never> {
-        relationsDetailsPublisher
-            .map { $0.filter { $0.spaceId == spaceId } }
+        syncPublisher
+            .compactMap { [weak self] _ in self?.relationsDetails(spaceId: spaceId) }
+            .removeDuplicates()
             .eraseToAnyPublisher()
     }
 }

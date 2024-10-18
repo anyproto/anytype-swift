@@ -12,11 +12,11 @@ struct ObjectCreationSetting {
 
 @MainActor
 protocol SetObjectCreationSettingsOutput: AnyObject {
-    func onTemplateSelection(setting: ObjectCreationSetting)
     func onObjectTypesSearchAction(setDocument: some SetDocumentProtocol, completion: @escaping (ObjectType) -> Void)
     func templateEditingHandler(
         setting: ObjectCreationSetting,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
+        onSetAsDefaultTempalte: @escaping (String) -> Void,
+        onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     )
 }
 
@@ -42,7 +42,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     private var documentsProvider: any DocumentsProviderProtocol
     
     private let interactor: any SetObjectCreationSettingsInteractorProtocol
-    private let setDocument: any SetDocumentProtocol
+    private let data: SetObjectCreationData
     
     private weak var output: (any SetObjectCreationSettingsOutput)?
     
@@ -50,15 +50,14 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     
     init(
         interactor: some SetObjectCreationSettingsInteractorProtocol,
-        setDocument: some SetDocumentProtocol,
+        data: SetObjectCreationData,
         output: (any SetObjectCreationSettingsOutput)?
     ) {
         self.interactor = interactor
-        self.setDocument = setDocument
+        self.data = data
         self.output = output
         
         updateTemplatesList()
-        
         setupSubscriptions()
     }
     
@@ -71,7 +70,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             )
             AnytypeAnalytics.instance().logChangeDefaultTemplate(
                 objectType: templateModel.isBundled ? .object(typeId: templateModel.id) : .custom,
-                route: setDocument.isCollection() ? .collection : .set
+                route: data.setDocument.isCollection() ? .collection : .set
             )
         case .blank:
             onTemplateSelect(
@@ -80,7 +79,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             )
             AnytypeAnalytics.instance().logChangeDefaultTemplate(
                 objectType: nil,
-                route: setDocument.isCollection() ? .collection : .set
+                route: data.setDocument.isCollection() ? .collection : .set
             )
         case .addTemplate:
             onAddTemplateTap()
@@ -89,10 +88,10 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     
     func onTemplateSelect(objectTypeId: String, templateId: String) {
         setTemplateAsDefault(templateId: templateId)
-        output?.onTemplateSelection(
-            setting: ObjectCreationSetting(
+        data.onTemplateSelection(
+            ObjectCreationSetting(
                 objectTypeId: objectTypeId,
-                spaceId: setDocument.spaceId,
+                spaceId: data.setDocument.spaceId,
                 templateId: templateId
             )
         )
@@ -100,7 +99,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     
     func onAddTemplateTap() {
         let objectTypeId = interactor.objectTypeId
-        let spaceId = setDocument.spaceId
+        let spaceId = data.setDocument.spaceId
         Task { [weak self] in
             guard let self else { return }
             do {
@@ -110,7 +109,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                     setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId),
                     onSetAsDefaultTempalte: { [weak self] templateId in
                         self?.setTemplateAsDefault(templateId: templateId)
-                    }
+                    },
+                    onTemplateSelection: data.onTemplateSelection
                 )
                 let objectDetails = await retrieveObjectDetails(objectId: interactor.objectTypeId)
                 let title = objectDetails?.title.trimmed(numberOfCharacters: 16) ?? ""
@@ -148,7 +148,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 try await interactor.setDefaultObjectType(objectTypeId: objectType.id)
                 AnytypeAnalytics.instance().logDefaultObjectTypeChange(
                     objectType.analyticsType,
-                    route: setDocument.isCollection() ? .collection : .set
+                    route: data.setDocument.isCollection() ? .collection : .set
                 )
             }
         }
@@ -205,7 +205,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             isSelected: false,
             onTap: { [weak self] in
                 guard let self else { return }
-                output?.onObjectTypesSearchAction(setDocument: setDocument) { [weak self] objectType in
+                output?.onObjectTypesSearchAction(setDocument: data.setDocument) { [weak self] objectType in
                     self?.setObjectType(objectType)
                 }
             }
@@ -219,7 +219,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         templateViewModel: TemplatePreviewModel
     ) {
         let objectTypeId = interactor.objectTypeId
-        let spaceId = setDocument.spaceId
+        let spaceId = data.setDocument.spaceId
         Task {
             do {
                 switch option {
@@ -234,7 +234,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                         setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateViewModel.id),
                         onSetAsDefaultTempalte: { [weak self] templateId in
                             self?.setTemplateAsDefault(templateId: templateId)
-                        }
+                        },
+                        onTemplateSelection: data.onTemplateSelection
                     )
                 }
                 
@@ -255,11 +256,11 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         
         switch option {
         case .editTemplate:
-            AnytypeAnalytics.instance().logTemplateEditing(objectType: objectType, route: setDocument.isCollection() ? .collection : .set)
+            AnytypeAnalytics.instance().logTemplateEditing(objectType: objectType, route: data.setDocument.isCollection() ? .collection : .set)
         case .delete:
             AnytypeAnalytics.instance().logMoveToBin(true)
         case .duplicate:
-            AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: setDocument.isCollection() ? .collection : .set)
+            AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: data.setDocument.isCollection() ? .collection : .set)
         }
     }
     

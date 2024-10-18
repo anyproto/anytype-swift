@@ -19,7 +19,7 @@ final class ObjectRelationListInteractor: ObjectRelationListInteractorProtocol {
     }
     
     func searchOptions(text: String, limitObjectIds: [String]) async throws -> [ObjectRelationOption] {
-        try await searchService.search(text: text, limitObjectIds: limitObjectIds)
+        try await searchService.search(text: text, spaceId: spaceId, limitObjectIds: limitObjectIds)
             .map { ObjectRelationOption(objectDetails: $0) }
     }
     

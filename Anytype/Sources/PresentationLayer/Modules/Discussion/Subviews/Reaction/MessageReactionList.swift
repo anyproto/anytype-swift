@@ -5,13 +5,13 @@ import WrappingHStack
 struct MessageReactionList: View {
 
     let rows: [MessageReactionModel]
-    let onTapRow: (MessageReactionModel) -> Void
+    let onTapRow: (MessageReactionModel) async throws -> Void
     let onTapAdd: () -> Void
     
     var body: some View {
         WrappingHStack(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 8, fitContentWidth: true) {
             ForEach(rows.indices, id: \.self) { index in
-                MessageReactionView(model: rows[index], onTap: { onTapRow(rows[index]) })
+                MessageReactionView(model: rows[index], onTap: { try await onTapRow(rows[index]) })
             }
             if rows.isNotEmpty {
                 MessageReactionAddView(onTap: onTapAdd)
@@ -23,9 +23,9 @@ struct MessageReactionList: View {
 #Preview {
     MessageReactionList(
         rows: [
-            MessageReactionModel(emoji: "😍", count: 2, selected: false),
-            MessageReactionModel(emoji: "😗", count: 50, selected: true),
-            MessageReactionModel(emoji: "😎", count: 150, selected: false)
+            MessageReactionModel(emoji: "😍", content: .count(2), selected: false),
+            MessageReactionModel(emoji: "😗", content: .count(100), selected: true),
+            MessageReactionModel(emoji: "😎", content: .icon(.asset(.X18.delete)), selected: false)
         ],
         onTapRow: { _ in },
         onTapAdd: {}

@@ -17,6 +17,10 @@ struct AuthBackgroundView<Content>: View where Content: View {
                 bottomOffset: bottomOffset
             )
         }
+        .background(Color.Background.primary)
+        .overlay {
+            navigationView
+        }
         .ignoresSafeArea(.all)
     }
     
@@ -30,10 +34,6 @@ struct AuthBackgroundView<Content>: View where Content: View {
             Spacer.fixedHeight(topOffset)
             playerView(width: width, height: height)
             Spacer.fixedHeight(bottomOffset)
-        }
-        .overlay {
-            navigationView
-                
         }
     }
     

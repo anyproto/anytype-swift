@@ -18,3 +18,14 @@ public extension Sequence {
         return values
     }
 }
+
+public extension Optional {
+    func asyncMap<T>(_ transform: (Wrapped) async throws -> T) async rethrows -> T? {
+        switch self {
+        case .none:
+            return nil
+        case .some(let wrapped):
+            return try await transform(wrapped)
+        }
+    }
+}

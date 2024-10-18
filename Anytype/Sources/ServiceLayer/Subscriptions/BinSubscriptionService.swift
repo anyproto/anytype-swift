@@ -42,12 +42,12 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters(isArchive: true)
-            SearchHelper.spaceId(spaceId)
         }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,

@@ -30,10 +30,11 @@ actor TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
             relation: BundledRelationKey.addedDate,
             type: .desc
         )
-        let filters = SearchHelper.templatesFilters(type: objectType, spaceId: spaceId)
+        let filters = SearchHelper.templatesFilters(type: objectType)
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: 100,
