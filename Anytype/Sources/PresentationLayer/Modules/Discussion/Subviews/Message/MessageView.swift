@@ -69,6 +69,9 @@ private struct MessageInternalView: View {
             if let reply = model.reply {
                 MessageReplyView(model: reply)
                     .padding(.vertical, 4)
+                    .onTapGesture {
+                        model.onTapReplyMessage()
+                    }
             }
             
             if !model.message.isEmpty {
@@ -144,7 +147,7 @@ private struct MessageInternalView: View {
         Divider()
         
         Button {
-            model.onTapReply()
+            model.onTapReplyTo()
         } label: {
             Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
         }

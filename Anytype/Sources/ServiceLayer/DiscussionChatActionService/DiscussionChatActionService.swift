@@ -9,7 +9,7 @@ protocol DiscussionChatActionServiceProtocol: AnyObject {
         message: SafeSendable<NSAttributedString>,
         linkedObjects: [DiscussionLinkedObject],
         replyToMessageId: String?
-    ) async throws
+    ) async throws -> String
 }
 
 final class DiscussionChatActionService: DiscussionChatActionServiceProtocol {
@@ -27,7 +27,7 @@ final class DiscussionChatActionService: DiscussionChatActionServiceProtocol {
         message: SafeSendable<NSAttributedString>,
         linkedObjects: [DiscussionLinkedObject],
         replyToMessageId: String?
-    ) async throws {
+    ) async throws -> String {
         
         var chatMessage = ChatMessage()
         chatMessage.message = discussionInputConverter.convert(message: message.value)
@@ -52,7 +52,7 @@ final class DiscussionChatActionService: DiscussionChatActionServiceProtocol {
             }
         }
         
-        try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+        return try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
     }
     
     private func uploadFile(spaceId: String, data: FileData) async throws -> ChatMessageAttachment {

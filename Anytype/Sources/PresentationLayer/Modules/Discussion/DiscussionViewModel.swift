@@ -38,7 +38,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     @Published var linkedObjects: [DiscussionLinkedObject] = []
     @Published var mesageBlocks: [MessageViewData] = []
-    @Published var messagesScrollUpdate: DiscussionCollectionDiffApply = .auto
+    @Published var collectionViewScrollProxy = DiscussionCollectionScrollProxy()
     @Published var message = NSAttributedString()
     @Published var canEdit = false
     @Published var title = ""
@@ -57,7 +57,6 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
-    private var scrollToLastForNextUpdate = false
     private var photosItems: [PhotosPickerItem] = []
     
     init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
@@ -134,20 +133,19 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             self.messages = messages
             self.dataLoaded = true
             await updateMessages()
-            scrollToLastForNextUpdate = false
         }
     }
     
     func onTapSendMessage() {
         Task {
-            try await discussionChatActionService.createMessage(
+            let messageId = try await discussionChatActionService.createMessage(
                 chatId: chatId,
                 spaceId: spaceId,
                 message: message.sendable(),
                 linkedObjects: linkedObjects,
                 replyToMessageId: replyToMessage?.id
             )
-            scrollToLastForNextUpdate = true
+            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom)
             message = NSAttributedString()
             linkedObjects = []
             photosItems = []
@@ -292,7 +290,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         output?.onObjectSelected(screenData: screenData)
     }
     
-    func didSelectReply(message: MessageViewData) {
+    func didSelectReplyTo(message: MessageViewData) {
         withAnimation {
             replyToMessage = DiscussionInputReplyModel(
                 id: message.message.id,
@@ -300,6 +298,14 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
                 description: MessageTextBuilder.makeMessage(content: message.message.message, font: .caption1Regular),
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
+        }
+    }
+    
+    func didSelectReplyMessage(message: MessageViewData) {
+        guard let reply = message.reply else { return }
+        Task {
+            try await chatStorage.loadPagesTo(messageId: reply.id)
+            collectionViewScrollProxy.scrollTo(itemId: reply.id)
         }
     }
     
@@ -349,12 +355,6 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         
         guard newMessageBlocks != mesageBlocks else { return }
         mesageBlocks = newMessageBlocks
-        
-        if scrollToLastForNextUpdate {
-            messagesScrollUpdate = .scrollToLast
-        } else {
-            messagesScrollUpdate = .auto
-        }
     }
     
     private func handleFilePicker(result: Result<[URL], any Error>) {

@@ -119,8 +119,12 @@ final class MessageViewModel: ObservableObject {
         output?.didSelectObject(details: details)
     }
     
-    func onTapReply() {
-        output?.didSelectReply(message: data)
+    func onTapReplyTo() {
+        output?.didSelectReplyTo(message: data)
+    }
+    
+    func onTapReplyMessage() {
+        output?.didSelectReplyMessage(message: data)
     }
     
     // MARK: - Private

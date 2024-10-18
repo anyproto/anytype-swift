@@ -2,19 +2,14 @@ import Foundation
 import SwiftUI
 import Combine
 
-enum DiscussionCollectionDiffApply {
-    case scrollToLast
-    case auto
-}
-
-struct DiscussionCollectionView<Item: Hashable, DataView: View>: UIViewRepresentable {
+struct DiscussionCollectionView<Item: Hashable & Identifiable, DataView: View>: UIViewRepresentable where Item.ID == String {
 
     enum OneSection {
         case one
     }
     
     let items: [Item]
-    let diffApply: DiscussionCollectionDiffApply
+    let scrollProxy: DiscussionCollectionScrollProxy
     let itemBuilder: (Item) -> DataView
     let scrollToBottom: () async -> Void
     
@@ -57,10 +52,36 @@ struct DiscussionCollectionView<Item: Hashable, DataView: View>: UIViewRepresent
     
     func updateUIView(_ collectionView: UICollectionView, context: Context) {
         context.coordinator.scrollToBottom = scrollToBottom
+        context.coordinator.updateState(collectionView: collectionView, items: items, section: .one, scrollProxy: scrollProxy)
+    }
+    
+    func makeCoordinator() -> DiscussionCollectionViewCoordinator<OneSection, Item> {
+        DiscussionCollectionViewCoordinator<OneSection, Item>()
+    }
+}
+
+final class DiscussionCollectionViewCoordinator<Section: Hashable, Item: Hashable & Identifiable>: NSObject, UICollectionViewDelegate where Item.ID == String {
+    
+    private let distanceForLoadNextPage: CGFloat = 50
+    private var canCallScrollToBottom = false
+    private var scrollUpdateTask: AnyCancellable?
+    
+    var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    var currentSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+    var scrollToBottom: (() async -> Void)?
+    var decelerating = false
+    var lastScrollProxy: DiscussionCollectionScrollProxy?
+    
+    // MARK: Update
+    
+    func updateState(collectionView: UICollectionView, items: [Item], section: Section, scrollProxy: DiscussionCollectionScrollProxy) {
         
         let itemsForSnapshot: [Item] = items.reversed()
         
-        guard context.coordinator.currentSnapshot.items != itemsForSnapshot else { return }
+        guard currentSnapshot.items != itemsForSnapshot else {
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: false)
+            return
+        }
         
         var snapshot = NSDiffableDataSourceSectionSnapshot<Item>()
         snapshot.append(itemsForSnapshot)
@@ -69,10 +90,10 @@ struct DiscussionCollectionView<Item: Hashable, DataView: View>: UIViewRepresent
         var oldVisibleCellAttributes: UICollectionViewLayoutAttributes?
         var visibleNewItemIndex: Int?
         
-        for visibleItem in context.coordinator.currentSnapshot.visibleItems {
+        for visibleItem in currentSnapshot.visibleItems {
             if let newIndex = snapshot.index(of: visibleItem) {
                 visibleNewItemIndex = newIndex
-                if let oldIndex = context.coordinator.currentSnapshot.index(of: visibleItem) {
+                if let oldIndex = currentSnapshot.index(of: visibleItem) {
                     oldVisibleCellAttributes = collectionView.layoutAttributesForItem(at: IndexPath(row: oldIndex, section: 0))
                 }
                 break
@@ -82,12 +103,14 @@ struct DiscussionCollectionView<Item: Hashable, DataView: View>: UIViewRepresent
         let oldContentSize = collectionView.contentSize
         let oldContentOffset = collectionView.contentOffset
         
-        context.coordinator.currentSnapshot = snapshot
+        currentSnapshot = snapshot
         
         CATransaction.begin()
         
-        context.coordinator.dataSource?.apply(snapshot, to: .one, animatingDifferences: false) {
-            guard !context.coordinator.decelerating, // If is not scroll animation
+        dataSource?.apply(snapshot, to: section, animatingDifferences: false) { [weak self] in
+            guard let self else { return }
+            
+            guard !decelerating, // If is not scroll animation
                 collectionView.contentSize.height != oldContentSize.height, // If the height has changed
                 oldContentSize.height != 0, // If is not first update
                 let oldVisibleCellAttributes, // If the old state contains a visible cell that will be used to calculate the difference
@@ -110,27 +133,11 @@ struct DiscussionCollectionView<Item: Hashable, DataView: View>: UIViewRepresent
             // Apply the update only after set the correct offset
             CATransaction.commit()
             
-            if oldContentOffset.y == 0 || diffApply == .scrollToLast {
-                collectionView.setContentOffset(CGPoint.zero, animated: true)
-            }
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: oldContentOffset.y == 0)
         }
     }
     
-    func makeCoordinator() -> DiscussionCollectionViewCoordinator<OneSection, Item> {
-        DiscussionCollectionViewCoordinator<OneSection, Item>()
-    }
-}
-
-final class DiscussionCollectionViewCoordinator<Section: Hashable, Item: Hashable>: NSObject, UICollectionViewDelegate {
-    
-    private let distanceForLoadNextPage: CGFloat = 50
-    private var canCallScrollToBottom = false
-    private var scrollUpdateTask: AnyCancellable?
-    
-    var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
-    var currentSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-    var scrollToBottom: (() async -> Void)?
-    var decelerating = false
+    // MARK: - UICollectionViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
@@ -153,5 +160,41 @@ final class DiscussionCollectionViewCoordinator<Section: Hashable, Item: Hashabl
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         decelerating = false
+    }
+    
+    // MARK: - Private
+    
+    private func appyScrollProxy(collectionView: UICollectionView, scrollProxy: DiscussionCollectionScrollProxy, fallbackScrollToTop: Bool) {
+        guard lastScrollProxy != scrollProxy else {
+            if fallbackScrollToTop {
+                scrollToTop(collectionView: collectionView)
+            }
+            return
+        }
+        
+        switch scrollProxy.scrollOperation {
+        case .scrollTo(let itemId, let position):
+            if scrollTo(collectionView: collectionView, itemId: itemId, position: position.collectionViewPosition) {
+                lastScrollProxy = scrollProxy
+            }
+        case .none:
+            if fallbackScrollToTop {
+                scrollToTop(collectionView: collectionView)
+            }
+            lastScrollProxy = scrollProxy
+        }
+    }
+    
+    private func scrollTo(collectionView: UICollectionView, itemId: String, position: UICollectionView.ScrollPosition) -> Bool {
+        if let item = currentSnapshot.items.first(where: { $0.id == itemId }),
+           let index = currentSnapshot.index(of: item) {
+            collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: true)
+            return true
+        }
+        return false
+    }
+    
+    private func scrollToTop(collectionView: UICollectionView) {
+        collectionView.setContentOffset(CGPoint.zero, animated: true)
     }
 }

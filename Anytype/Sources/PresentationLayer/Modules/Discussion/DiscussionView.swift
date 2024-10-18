@@ -116,7 +116,7 @@ struct DiscussionView: View {
             }
             .allowsHitTesting(model.canEdit)
         } else {
-            DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
+            DiscussionCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy) {
                 MessageView(data: $0, output: model)
             } scrollToBottom: {
                 await model.scrollToBottom()
