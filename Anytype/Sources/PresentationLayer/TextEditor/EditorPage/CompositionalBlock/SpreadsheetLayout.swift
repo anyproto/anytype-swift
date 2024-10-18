@@ -86,7 +86,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                     continue
                 }
 
-                let cell = dataSource.dequeueCell(at: indexPath)
+                let cell = dataSource.templateCell(at: indexPath)
                 
                 let maxSize = CGSize(
                     width: columnWidth,
