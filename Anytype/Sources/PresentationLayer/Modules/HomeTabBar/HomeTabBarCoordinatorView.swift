@@ -5,44 +5,39 @@ import AnytypeCore
 
 struct HomeTabBarCoordinatorView: View {
 
-    private enum TabState {
-        case home
-        case chat
+    @StateObject private var model: HomeTabBarCoordinatorViewModel
+    
+    init(spaceInfo: AccountInfo) {
+        self._model = StateObject(wrappedValue: HomeTabBarCoordinatorViewModel(spaceInfo: spaceInfo))
     }
     
-    let spaceInfo: AccountInfo
-    
-    @State private var tab: TabState = .chat
-    
     var body: some View {
-        if FeatureFlags.homeSpaceLevelChat {
-            tabBarBody
-        } else {
-            widgetsOnlyBody
+        ZStack {
+            if FeatureFlags.homeSpaceLevelChat {
+                tabBarBody
+            } else {
+                widgetsOnlyBody
+            }
+        }
+        .task {
+            await model.startSubscription()
         }
     }
     
     var widgetsOnlyBody: some View {
-        HomeWidgetsCoordinatorView(spaceInfo: spaceInfo)
+        HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
     }
     
     var tabBarBody: some View {
         ZStack {
-            HomeWidgetsCoordinatorView(spaceInfo: spaceInfo)
-                .opacity(tab == .home ? 1 : 0)
+            HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
+                .opacity(model.tab == .widgets ? 1 : 0)
             
-            HomeChatCoordinatorView(spaceInfo: spaceInfo)
-                .opacity(tab == .chat ? 1 : 0)
+            HomeChatCoordinatorView(spaceInfo: model.spaceInfo)
+                .opacity(model.tab == .chat ? 1 : 0)
         }
         .safeAreaInset(edge: .top) {
-            HStack {
-                Button("Home") {
-                    tab = .home
-                }
-                Button("Chat") {
-                    tab = .chat
-                }
-            }
+            HomeTabBarView(name: model.spaceName, icon: model.spaceIcon, state: $model.tab)
         }
     }
 }

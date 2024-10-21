@@ -12,6 +12,9 @@ struct HomeChatCoordinatorView: View {
     }
     
     var body: some View {
-        Text("Chat Coordinator")
+        ZStack {
+            Color.gray
+            Text("Chat Coordinator")
+        }
     }
 }
