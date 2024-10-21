@@ -28,7 +28,7 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
     @Injected(\.objectsCommonSubscriptionDataBuilder)
     private var subscriptionBuilder: any ObjectsCommonSubscriptionDataBuilderProtocol
     
-    private var subsctipyionStorages: [String: any SubscriptionStorageProtocol] = [:]
+    private var subscriptionStoragess: [String: any SubscriptionStorageProtocol] = [:]
     
     // MARK: - SingleObjectSubscriptionServiceProtocol
     
@@ -41,28 +41,28 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
     ) async {
         let subData = subscriptionBuilder.build(subId: subId, spaceId: spaceId, objectIds: [objectId], additionalKeys: additionalKeys)
     
-        if subsctipyionStorages[subId].isNotNil {
+        if subscriptionStoragess[subId].isNotNil {
             anytypeAssertionFailure("Subscription already started", info: ["sub id": subId])
         }
         
-        let subscriptionStorage = subsctipyionStorages[subId] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
+        let subscriptionStorage = subscriptionStoragess[subId] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: subData) { data in
             guard let item = data.items.first else { return }
             dataHandler(item)
         }
         
-        subsctipyionStorages[subId] = subscriptionStorage
+        subscriptionStoragess[subId] = subscriptionStorage
     }
     
     func stopSubscription(subId: String) async {
         
-        guard let subsctipyionStorage = subsctipyionStorages[subId] else {
+        guard let subscriptionStorages = subscriptionStoragess[subId] else {
             anytypeAssertionFailure("Subscription is not started", info: ["sub id": subId])
             return
         }
         
-        subsctipyionStorages[subId] = nil
-        try? await subsctipyionStorage.stopSubscription()
+        subscriptionStoragess[subId] = nil
+        try? await subscriptionStorages.stopSubscription()
     }
 }
