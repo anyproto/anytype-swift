@@ -4,12 +4,6 @@ import UIKit
 
 final class RelationsSectionBuilder {
 
-    // MARK: - Private variables
-    
-    private let dateFormatter = DateFormatter.relationDateFormatter
-
-    // MARK: - Internal functions
-
     func buildSections(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
         let featuredRelations = parsedRelations.featuredRelations
         let otherRelations = parsedRelations.otherRelations
