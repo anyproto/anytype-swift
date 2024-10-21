@@ -6,21 +6,24 @@ import SwiftProtobuf
 public enum WorkspaceSetDetails: Sendable {
     case name(String)
     case iconObjectId(String)
+    case iconOption(Int)
 }
 
 extension WorkspaceSetDetails {
     
     var key: String {
         switch self {
-        case .name: return BundledRelationKey.name.rawValue
-        case .iconObjectId: return BundledRelationKey.iconImage.rawValue
+        case .name: BundledRelationKey.name.rawValue
+        case .iconObjectId: BundledRelationKey.iconImage.rawValue
+        case .iconOption: BundledRelationKey.iconOption.rawValue
         }
     }
     
     var value: Google_Protobuf_Value {
         switch self {
-        case .name(let string): return string.protobufValue
-        case .iconObjectId(let objectId): return objectId.protobufValue
+        case .name(let string): string.protobufValue
+        case .iconObjectId(let objectId): objectId.protobufValue
+        case .iconOption(let iconOption): iconOption.protobufValue
         }
     }
 }
