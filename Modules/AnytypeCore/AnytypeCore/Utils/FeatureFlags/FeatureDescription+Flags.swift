@@ -31,8 +31,8 @@ public extension FeatureDescription {
     )
     
     static let discussions = FeatureDescription(
-        title: "Discussions - IOS-3060",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        title: "Chat Object",
+        type: .feature(author: "m@anytype.io", releaseVersion: "9"),
         defaultValue: false,
         debugValue: true
     )
@@ -66,6 +66,13 @@ public extension FeatureDescription {
         title: "User warning alerts",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
         defaultValue: true
+    )
+    
+    static let homeSpaceLevelChat = FeatureDescription(
+        title: "Space-Level Chat",
+        type: .feature(author: "m@anytype.io", releaseVersion: "9"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug
