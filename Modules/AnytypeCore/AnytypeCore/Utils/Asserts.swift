@@ -7,13 +7,14 @@ enum AssertionError: Error {
 
 public func anytypeAssertionFailure(
     _ message: String,
+    domain: String? = nil,
     info: [String: String] = [:],
     tags: [String: String] = [:],
     file: StaticString = #file,
     function: String = #function,
     line: UInt = #line
 ) {
-    logNonFatal(message, info: info, tags: tags, file: file, function: function, line: line)
+    logNonFatal(message, domain: domain, info: info, tags: tags, file: file, function: function, line: line)
     #if ENTERPRISE
         if FeatureFlags.showAlertOnAssert {
             Task { @MainActor in showAssertionAlert(message) }
@@ -74,11 +75,12 @@ private func showAssertionAlert(_ message: String) {
 
 private func logNonFatal(
     _ message: String,
+    domain: String? = nil,
     info: [String: String] = [:],
     tags: [String: String] = [:],
     file: StaticString = #file,
     function: String = #function,
     line: UInt = #line
 ) {
-    AssertionLogger.shared.log(message, info: info, tags: tags, file: "\(file)", function: function, line: line)
+    AssertionLogger.shared.log(message, domain: domain, info: info, tags: tags, file: "\(file)", function: function, line: line)
 }
