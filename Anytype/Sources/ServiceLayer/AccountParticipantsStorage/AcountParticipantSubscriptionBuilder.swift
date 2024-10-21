@@ -1,16 +1,10 @@
 import Foundation
 import Services
 
+
 final class AcountParticipantSubscriptionBuilder: MultispaceSubscriptionDataBuilderProtocol {
     
-    
-    private let accountId: String
-    
-    init(accountId: String) {
-        self.accountId = accountId
-    }
-    
-    func build(spaceId: String, subId: String) -> SubscriptionData {
+    func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.identity(accountId)
