@@ -223,7 +223,7 @@
 // Keychain screen
 "Keychain.Key" = "Kunci";
 "Keychain.Key.Copy.Toast.title" = "Kunci disalin";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Key.description" = "Anda membutuhkannya untuk masuk. Simplanlah dalam tempat yang aman. Jika hilang, kamu tidak akan bisa mengakses brankasmu.";
 "Keychain.Show and copy key" = "Tampilkan dan salin kunci";
 "Keychain.Have you backed up your key?" = "Sudahkah kamu mencadangkan kuncimu?";
 "Keychain.Error.String to Data conversion error" = "Galat konversi String ke Data";
@@ -235,14 +235,15 @@
 "Create" = "Buat";
 "Scan QR code" = "Pindai kode QR";
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
+"Restore key from keychain" = "Pulihkan frasa dari rantai kunci";
+"Auth.LogIn" = "Saya punya Kunci";
 "Auth.Button.Join" = "Brankas Baru";
-"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
+"Auth.Welcome.Subtitle" = "Buat dan berkolaborasi dalam ruang milikmu. Terenkripsi, offline, dan [terbuka](%@).";
 "Auth.Next" = "Lanjut";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "Pemulihan brankas gagal, coba lagi";
+"Vault recover error no internet" = "Pemulihan brankas gagal, kemungkinan tidak ada koneksi internet
+";
 
 // Auth Errors
 "Error creating wallet" = "Galat membuat wallet";
