@@ -2314,6 +2314,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func debugAnystoreObjectChanges(
+        _ request: Anytype_Rpc.Debug.AnystoreObjectChanges.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.AnystoreObjectChanges.Request, Anytype_Rpc.Debug.AnystoreObjectChanges.Response> {
+        return Invocation(messageName: "DebugAnystoreObjectChanges", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugAnystoreObjectChanges(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.AnystoreObjectChanges.Response(serializedData: responseData)
+        }
+    }
+
     public static func metricsSetParameters(
         _ request: Anytype_Rpc.Metrics.SetParameters.Request = .init()
     ) -> Invocation<Anytype_Rpc.Metrics.SetParameters.Request, Anytype_Rpc.Metrics.SetParameters.Response> {
