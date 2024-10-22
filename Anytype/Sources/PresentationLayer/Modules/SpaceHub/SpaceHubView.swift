@@ -38,7 +38,9 @@ struct SpaceHubView: View {
                         ForEach(spaces) {
                             spaceCard($0)
                         }
-                        plusButton
+                        if model.createSpaceAvailable {
+                            plusButton
+                        }
                         Spacer.fixedHeight(40)
                     }
                     .scrollIndicators(.never)

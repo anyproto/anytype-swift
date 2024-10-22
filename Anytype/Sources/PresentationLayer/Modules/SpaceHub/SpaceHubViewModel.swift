@@ -10,6 +10,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     @Published var showSpaceCreate = false
     @Published var showSettings = false
+    @Published var createSpaceAvailable = false
     
     let sceneId: String
     
@@ -26,6 +27,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: any WorkspacesStorageProtocol
     
     private var subscriptions = [AnyCancellable]()
     
@@ -72,6 +75,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
                 guard let self else { return }
                 
                 self.spaces = spaces
+                
+                createSpaceAvailable = workspacesStorage.canCreateNewSpace()
             }
             .store(in: &subscriptions)
         
