@@ -33,10 +33,9 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     
     // MARK: - DI
     
-    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     private lazy var multispaceSubscriptionHelper = MultispaceSubscriptionHelper<Participant>(
         subIdPrefix: Constants.subscriptionIdPrefix,
-        subscriptionBuilder: AcountParticipantSubscriptionBuilder(accountId: accountManager.account.id)
+        subscriptionBuilder: AcountParticipantSubscriptionBuilder()
     )
     
     // MARK: - State

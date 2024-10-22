@@ -4,7 +4,7 @@ import Combine
 import Services
 
 protocol MultispaceSubscriptionDataBuilderProtocol: AnyObject {
-    func build(spaceId: String, subId: String) -> SubscriptionData
+    func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData
 }
 
 final class MultispaceSubscriptionHelper<Value: DetailsModel> {
@@ -18,6 +18,8 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel> {
     private var workspacessStorage: any WorkspacesStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     // MARK: - State
     
@@ -63,7 +65,9 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel> {
                 let subId = subIdPrefix + spaceId
                 let subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
                 subscriptionStorages[spaceId] = subscriptionStorage
-                try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionBuilder.build(spaceId: spaceId, subId: subId)) { [weak self] data in
+                try? await subscriptionStorage.startOrUpdateSubscription(
+                    data: subscriptionBuilder.build(accountId: accountManager.account.id, spaceId: spaceId, subId: subId)
+                ) { [weak self] data in
                     self?.updateStorage(subscriptionState: data, spaceId: spaceId, update: update)
                 }
             }

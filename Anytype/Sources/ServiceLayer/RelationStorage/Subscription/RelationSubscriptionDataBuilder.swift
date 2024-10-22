@@ -2,10 +2,9 @@ import Foundation
 import Services
 
 final class RelationSubscriptionDataBuilder: MultispaceSubscriptionDataBuilderProtocol {
-    
     // MARK: - MultispaceSubscriptionDataBuilderProtocol
     
-    func build(spaceId: String, subId: String) -> SubscriptionData {
+    func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc

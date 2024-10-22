@@ -39,7 +39,15 @@ final class SpaceCreateViewModel: ObservableObject {
             defer {
                 createLoadingState = false
             }
-            let spaceId = try await workspaceService.createSpace(name: spaceName, iconOption: spaceIconOption, accessType: spaceAccessType, useCase: .empty)
+            let spaceId = try await workspaceService.createSpace(name: spaceName, iconOption: spaceIconOption, accessType: spaceAccessType, useCase: .getStarted)
+            
+            // Hack: remove after middleware fix
+            // https://linear.app/anytype/issue/IOS-3588/new-space-auto-renames-to-onboarding-22-without-name
+            try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [
+                .name(spaceName),
+                .iconOption(spaceIconOption)
+            ])
+            
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
