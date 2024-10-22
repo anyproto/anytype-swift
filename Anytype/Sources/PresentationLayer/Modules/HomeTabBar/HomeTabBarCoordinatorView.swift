@@ -24,11 +24,11 @@ struct HomeTabBarCoordinatorView: View {
         }
     }
     
-    var widgetsOnlyBody: some View {
+    private var widgetsOnlyBody: some View {
         HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
     }
     
-    var tabBarBody: some View {
+    private var tabBarBody: some View {
         ZStack {
             HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
                 .opacity(model.tab == .widgets ? 1 : 0)
