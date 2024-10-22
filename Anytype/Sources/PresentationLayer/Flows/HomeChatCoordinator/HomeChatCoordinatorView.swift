@@ -4,17 +4,21 @@ import Services
 
 struct HomeChatCoordinatorView: View {
     
-    @StateObject private var model: HomeWidgetsCoordinatorViewModel
+    @StateObject private var model: HomeChatCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     
     init(spaceInfo: AccountInfo) {
-        self._model = StateObject(wrappedValue: HomeWidgetsCoordinatorViewModel(spaceInfo: spaceInfo))
+        self._model = StateObject(wrappedValue: HomeChatCoordinatorViewModel(spaceInfo: spaceInfo))
     }
     
     var body: some View {
         ZStack {
-            Color.gray
-            Text("Chat Coordinator")
+            if let discussionData = model.discussionData {
+                DiscussionCoordinatorView(data: discussionData)
+            }
+        }
+        .task {
+            await model.startSubscription()
         }
     }
 }
