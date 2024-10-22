@@ -13,6 +13,8 @@ struct ChatInput: View {
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     
+    @Environment(\.chatColorTheme) private var colors
+    
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
             Menu {

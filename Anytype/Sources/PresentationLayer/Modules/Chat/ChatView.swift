@@ -5,6 +5,8 @@ struct ChatView: View {
     
     @StateObject private var model: ChatViewModel
     @State private var actionState: CGFloat = 0
+    @Environment(\.chatSettings) private var settings
+    @Environment(\.chatColorTheme) private var colors
     
     init(objectId: String, spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self._model = StateObject(wrappedValue: ChatViewModel(objectId: objectId, spaceId: spaceId, chatId: chatId, output: output))
@@ -12,7 +14,9 @@ struct ChatView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            headerView
+            if settings.showHeader {
+                headerView
+            }
             ChatSpacingContainer {
                 mainView
                     .safeAreaInset(edge: .bottom, spacing: 0) {
@@ -27,6 +31,7 @@ struct ChatView: View {
                 }
             }
         }
+        .background(colors.listBackground)
         .task {
             await model.subscribeOnPermissions()
         }
