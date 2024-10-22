@@ -46,6 +46,10 @@ public extension FeatureFlags {
         value(for: .userWarningAlerts)
     }
 
+    static var homeSpaceLevelChat: Bool {
+        value(for: .homeSpaceLevelChat)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -110,6 +114,7 @@ public extension FeatureFlags {
         .spaceHubParallax,
         .dateAsAnObject,
         .userWarningAlerts,
+        .homeSpaceLevelChat,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
