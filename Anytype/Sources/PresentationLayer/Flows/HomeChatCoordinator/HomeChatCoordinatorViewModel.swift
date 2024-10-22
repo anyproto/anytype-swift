@@ -17,7 +17,7 @@ final class HomeChatCoordinatorViewModel: ObservableObject {
     let spaceInfo: AccountInfo
     var pageNavigation: PageNavigation?
     
-    @Published var discussionData: EditorDiscussionObject?
+    @Published var chatData: EditorChatObject?
     
     init(spaceInfo: AccountInfo) {
         self.spaceInfo = spaceInfo
@@ -26,14 +26,14 @@ final class HomeChatCoordinatorViewModel: ObservableObject {
     func startSubscription() async {
         // Production code. Waiting middleware.
 //        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceInfo.accountSpaceId).values {
-//            discussionData = EditorDiscussionObject(objectId: spaceView.chatId, spaceId: spaceInfo.accountSpaceId)
+//            chatData = EditorChatObject(objectId: spaceView.chatId, spaceId: spaceInfo.accountSpaceId)
 //        }
         // Temporary code for work in dev brach.
         do {
             let request = SearchRequest(spaceId: spaceInfo.accountSpaceId, filters: [], sorts: [], fullText: "CHAT HOME OBJECT", keys: [], limit: 1)
             let result = try await searchMiddleService.search(data: request)
             if let chatObject = result.first, chatObject.name == "CHAT HOME OBJECT" {
-                discussionData = EditorDiscussionObject(objectId: chatObject.id, spaceId: chatObject.spaceId)
+                chatData = EditorChatObject(objectId: chatObject.id, spaceId: chatObject.spaceId)
             } else {
                 let chatObject =  try await objectActionService.createObject(
                     name: "CHAT HOME OBJECT",
@@ -45,7 +45,7 @@ final class HomeChatCoordinatorViewModel: ObservableObject {
                     origin: .none,
                     templateId: nil
                 )
-                discussionData = EditorDiscussionObject(objectId: chatObject.id, spaceId: chatObject.spaceId)
+                chatData = EditorChatObject(objectId: chatObject.id, spaceId: chatObject.spaceId)
             }
         } catch {}
     }

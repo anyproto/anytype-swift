@@ -30,7 +30,7 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let discussions = FeatureDescription(
+    static let chats = FeatureDescription(
         title: "Chat Object",
         type: .feature(author: "m@anytype.io", releaseVersion: "9"),
         defaultValue: false,

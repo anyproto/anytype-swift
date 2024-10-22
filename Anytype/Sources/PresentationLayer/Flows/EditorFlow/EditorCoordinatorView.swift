@@ -38,8 +38,8 @@ struct EditorCoordinatorView: View {
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case let .set(data):
             EditorSetCoordinatorView(data: data, showHeader: true)
-        case let .discussion(data):
-            DiscussionCoordinatorView(data: data)
+        case let .chat(data):
+            ChatCoordinatorView(data: data)
         case let .allContent(spaceId):
             AllContentCoordinatorView(spaceId: spaceId, output: model)
         }

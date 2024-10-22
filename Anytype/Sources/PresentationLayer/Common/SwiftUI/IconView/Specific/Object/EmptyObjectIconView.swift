@@ -34,8 +34,8 @@ struct EmptyObjectIconView: View {
             return .EmptyIcon.list
         case .bookmark:
             return .EmptyIcon.bookmark
-        case .discussion:
-            return .EmptyIcon.discussion
+        case .chat:
+            return .EmptyIcon.chat
         case .objectType:
             return .EmptyIcon.objectType
         case .tag:

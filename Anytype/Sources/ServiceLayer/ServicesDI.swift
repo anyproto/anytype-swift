@@ -328,8 +328,8 @@ extension Container {
         self { AllContentStateStorageService() }.shared
     }
     
-    var discussionChatActionService: Factory<any DiscussionChatActionServiceProtocol> {
-        self { DiscussionChatActionService() }
+    var chatActionService: Factory<any ChatActionServiceProtocol> {
+        self { ChatActionService() }
     }
     
     var appVersionTracker: Factory<any AppVersionTrackerProtocol> {

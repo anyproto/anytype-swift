@@ -614,6 +614,12 @@ internal enum Loc {
       }
     }
   }
+  internal enum Chat {
+    internal static let readOnly = Loc.tr("Localizable", "Chat.ReadOnly")
+    internal static func replyTo(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1))
+    }
+  }
   internal enum ClearCache {
     internal static let error = Loc.tr("Localizable", "ClearCache.Error")
     internal static let success = Loc.tr("Localizable", "ClearCache.Success")
@@ -695,12 +701,6 @@ internal enum Loc {
   internal enum DeletionAlert {
     internal static let description = Loc.tr("Localizable", "DeletionAlert.description")
     internal static let title = Loc.tr("Localizable", "DeletionAlert.title")
-  }
-  internal enum Discussion {
-    internal static let readOnly = Loc.tr("Localizable", "Discussion.ReadOnly")
-    internal static func replyTo(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "Discussion.ReplyTo", String(describing: p1))
-    }
   }
   internal enum EditSet {
     internal enum Popup {

@@ -13,8 +13,8 @@ struct HomeChatCoordinatorView: View {
     
     var body: some View {
         ZStack {
-            if let discussionData = model.discussionData {
-                DiscussionCoordinatorView(data: discussionData)
+            if let chatData = model.chatData {
+                ChatCoordinatorView(data: chatData)
             }
         }
         .task {

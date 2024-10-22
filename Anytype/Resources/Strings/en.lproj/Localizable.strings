@@ -1245,9 +1245,9 @@ Please provide specific details of your needs here.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
-// MARK: - Discussions
-"Discussion.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
-"Discussion.ReplyTo" = "Reply to %@";
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

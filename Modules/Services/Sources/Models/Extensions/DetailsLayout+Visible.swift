@@ -18,7 +18,7 @@ public extension DetailsLayout {
     static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
     
     private static let dateLayout: [DetailsLayout] = FeatureFlags.dateAsAnObject ? [.date] : []
-    private static let chatLayout: [DetailsLayout] = FeatureFlags.discussions ? [.chat] : []
+    private static let chatLayout: [DetailsLayout] = FeatureFlags.chats ? [.chat] : []
     
     var isTemplatesAvailable: Bool {
         DetailsLayout.editorLayouts.contains(self)

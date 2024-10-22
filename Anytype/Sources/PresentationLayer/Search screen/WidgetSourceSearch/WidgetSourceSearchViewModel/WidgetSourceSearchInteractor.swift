@@ -22,7 +22,7 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     private let spaceId: String
-    private let anytypeLibrary = FeatureFlags.discussions
+    private let anytypeLibrary = FeatureFlags.chats
                                     ? AnytypeWidgetId.allCases.map { $0.librarySource }
                                     : AnytypeWidgetId.allCases.filter { $0 != .chat }.map { $0.librarySource }
     

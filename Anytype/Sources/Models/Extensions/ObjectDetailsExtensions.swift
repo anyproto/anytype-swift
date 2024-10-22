@@ -44,7 +44,7 @@ extension BundledRelationsValueProvider {
         case .set, .collection:
             return .set
         case .chat, .chatDerived:
-            return .discussion
+            return .chat
         }
     }
     
@@ -88,7 +88,7 @@ extension BundledRelationsValueProvider {
         setOf.filter { $0.isNotEmpty }
     }
     
-    private var isDiscussion: Bool {
+    private var isChat: Bool {
         return layoutValue == .chat || layoutValue == .chatDerived
     }
     
@@ -102,7 +102,7 @@ extension BundledRelationsValueProvider {
         case .bookmark:
             return .bookmark
         case .chat, .chatDerived:
-            return .discussion
+            return .chat
         case .objectType:
             return .objectType
         case .tag:

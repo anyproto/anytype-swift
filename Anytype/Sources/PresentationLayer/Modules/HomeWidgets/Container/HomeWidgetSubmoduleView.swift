@@ -54,13 +54,13 @@ struct HomeWidgetSubmoduleView: View {
         case (.collections, .compactList):
             CollectionsCompactListWidgetSubmoduleView(data: widgetData)
         case (.chat, .list):
-            if FeatureFlags.discussions {
+            if FeatureFlags.chats {
                 ChatsListWidgetSubmoduleView(data: widgetData)
             } else {
                 EmptyView()
             }
         case (.chat, .compactList):
-            if FeatureFlags.discussions {
+            if FeatureFlags.chats {
                 ChatsCompactListWidgetSubmoduleView(data: widgetData)
             } else {
                 EmptyView()
