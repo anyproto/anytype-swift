@@ -614,6 +614,12 @@ internal enum Loc {
       }
     }
   }
+  internal enum Chat {
+    internal static let readOnly = Loc.tr("Localizable", "Chat.ReadOnly")
+    internal static func replyTo(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1))
+    }
+  }
   internal enum ClearCache {
     internal static let error = Loc.tr("Localizable", "ClearCache.Error")
     internal static let success = Loc.tr("Localizable", "ClearCache.Success")
@@ -1095,6 +1101,10 @@ internal enum Loc {
   internal enum Message {
     internal enum Action {
       internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction")
+      internal static let reply = Loc.tr("Localizable", "Message.Action.Reply")
+    }
+    internal enum ChatTitle {
+      internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder")
     }
     internal enum Input {
       internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder")
@@ -2001,6 +2011,9 @@ internal enum Loc {
       }
     }
     internal enum Library {
+      internal enum Chat {
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.Chat.Name")
+      }
       internal enum RecentlyEdited {
         internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyEdited.Name")
       }

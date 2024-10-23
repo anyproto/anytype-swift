@@ -18,6 +18,8 @@ extension EditorScreenData {
                 activeViewId: activeViewId,
                 mode: mode
             ))
+        case .chat:
+            self = .chat(EditorChatObject(objectId: details.id, spaceId: details.spaceId))
         }
     }
 }
@@ -65,7 +67,7 @@ extension EditorScreenData {
    
     var objectId: String? {
         switch self {
-        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .discussion, .allContent:
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .chat, .allContent, .chats:
             return nil
         case .page(let object):
             return object.objectId
@@ -88,9 +90,11 @@ extension EditorScreenData {
             return spaceId
         case .bin(let spaceId):
             return spaceId
+        case .chats(let spaceId):
+            return spaceId
         case .allContent(let spaceId):
             return spaceId
-        case .discussion(let object):
+        case .chat(let object):
             return object.spaceId
         case .page(let object):
             return object.spaceId

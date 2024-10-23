@@ -36,7 +36,7 @@ public extension ObjectIcon {
         case page
         case list
         case bookmark
-        case discussion
+        case chat
         case objectType
         case tag
         case date

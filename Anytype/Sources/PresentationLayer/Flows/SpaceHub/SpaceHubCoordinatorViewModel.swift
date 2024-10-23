@@ -20,10 +20,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var spaceJoinData: SpaceJoinModuleData?
     @Published var membershipNameFinalizationData: MembershipTier?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
-    @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
-    @Published var showChangeTypeData: WidgetTypeChangeData?
-    @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
-    @Published var showSpaceSettingsData: AccountInfo?
     @Published var toastBarData = ToastBarData.empty
     
     @Published var currentSpaceId: String?
@@ -68,8 +64,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
-    @Injected(\.legacySetObjectCreationCoordinator)
-    private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.workspaceStorage)
@@ -346,85 +340,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
             openObject(screenData: details.editorScreenData())
         }
-    }
-}
-
-extension SpaceHubCoordinatorViewModel: HomeWidgetsModuleOutput {
-    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        guard let spaceInfo else { return }
-        
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .end,
-            context: context
-        )
-    }
-        
-    func onObjectSelected(screenData: EditorScreenData) {
-        openObject(screenData: screenData)
-    }
-    
-    func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
-        guard let spaceInfo else { return }
-        
-        showChangeSourceData = WidgetChangeSourceSearchModuleModel(
-            widgetObjectId: spaceInfo.widgetsId,
-            spaceId: spaceInfo.accountSpaceId,
-            widgetId: widgetId,
-            context: context
-        )
-    }
-
-    func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
-        guard let spaceInfo else { return }
-        
-        showChangeTypeData = WidgetTypeChangeData(
-            widgetObjectId: spaceInfo.widgetsId,
-            widgetId: widgetId,
-            context: context,
-            onFinish: { [weak self] in
-                self?.showChangeTypeData = nil
-            }
-        )
-    }
-    
-    func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        guard let spaceInfo else { return }
-        
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .below(widgetId: widgetId),
-            context: context
-        )
-    }
-    
-    func onSpaceSelected() {
-        showSpaceSettingsData = spaceInfo
-    }
-    
-    func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
-    }
-    
-    func onFinishChangeSource(screenData: EditorScreenData?) {
-        showChangeSourceData = nil
-        if let screenData {
-            openObject(screenData: screenData)
-        }
-    }
-    
-    func onFinishCreateSource(screenData: EditorScreenData?) {
-        if let screenData {
-            openObject(screenData: screenData)
-        }
-    }
-}
-
-extension SpaceHubCoordinatorViewModel: SetObjectCreationCoordinatorOutput {   
-    func showEditorScreen(data: EditorScreenData) {
-        pushSync(data: data)
     }
 }
 

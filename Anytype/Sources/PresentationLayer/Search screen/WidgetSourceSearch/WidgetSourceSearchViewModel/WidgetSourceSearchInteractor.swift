@@ -22,7 +22,9 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     private let spaceId: String
-    private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }
+    private let anytypeLibrary = FeatureFlags.chats
+                                    ? AnytypeWidgetId.allCases.map { $0.librarySource }
+                                    : AnytypeWidgetId.allCases.filter { $0 != .chat }.map { $0.librarySource }
     
     init(spaceId: String) {
         self.spaceId = spaceId
@@ -91,6 +93,13 @@ private extension AnytypeWidgetId {
                 name: Loc.Widgets.Library.RecentlyOpened.name,
                 description: Loc.Widgets.Library.RecentlyOpened.description,
                 icon: .object(.emoji(Emoji("📅")!))
+            )
+        case .chat:
+            return WidgetAnytypeLibrarySource(
+                type: .chat,
+                name: Loc.Widgets.Library.Chat.name,
+                description: nil,
+                icon: .object(.emoji(Emoji("💬")!))
             )
         }
     }

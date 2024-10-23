@@ -52,22 +52,6 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.typeSearchForObjectCreationSpaceId) {
                 model.typeSearchForObjectCreationModule(spaceId: $0.value)
             }
-            .sheet(item: $model.showChangeSourceData) {
-                WidgetChangeSourceSearchView(data: $0) {
-                    model.onFinishChangeSource(screenData: $0)
-                }
-            }
-            .sheet(item: $model.showChangeTypeData) {
-                WidgetTypeChangeView(data: $0)
-            }
-            .sheet(item: $model.showCreateWidgetData) {
-                CreateWidgetCoordinatorView(data: $0) {
-                    model.onFinishCreateSource(screenData: $0)
-                }
-            }
-            .sheet(item: $model.showSpaceSettingsData) {
-                SpaceSettingsCoordinatorView(workspaceInfo: $0)
-            }
             .anytypeSheet(item: $model.spaceJoinData) {
                 SpaceJoinView(data: $0, onManageSpaces: {
                     model.onManageSpacesSelected()
@@ -87,7 +71,7 @@ struct SpaceHubCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: AccountInfo.self) { info in
-                            HomeWidgetsView(info: info, output: model)
+                            HomeTabBarCoordinatorView(spaceInfo: info)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)

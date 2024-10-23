@@ -5,7 +5,7 @@ import AnytypeCore
 public typealias ParticipantPermissions = Anytype_Model_ParticipantPermissions
 public typealias ParticipantStatus = Anytype_Model_ParticipantStatus
 
-public struct Participant: Identifiable, Equatable, Sendable, DetailsModel {
+public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsModel {
     
     public let id: String
     public let localName: String

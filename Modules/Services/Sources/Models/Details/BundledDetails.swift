@@ -10,6 +10,7 @@ public enum BundledDetails {
     case coverId(String)
     case coverType(CoverType)
     case done(Bool)
+    case description(String)
 }
 
 extension BundledDetails {
@@ -22,6 +23,7 @@ extension BundledDetails {
         case .coverId: return BundledRelationKey.coverId.rawValue
         case .coverType: return BundledRelationKey.coverType.rawValue
         case .done: return BundledRelationKey.done.rawValue
+        case .description: return BundledRelationKey.description.rawValue
         }
     }
     
@@ -33,6 +35,7 @@ extension BundledDetails {
         case .coverId(let string): return string.protobufValue
         case .coverType(let coverType): return coverType.rawValue.protobufValue
         case .done(let bool): return bool.protobufValue
+        case .description(let string): return string.protobufValue
         }
     }
     

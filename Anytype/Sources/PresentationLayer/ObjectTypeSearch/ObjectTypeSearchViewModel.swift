@@ -71,6 +71,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 includeLists: false,
                 includeBookmarks: true,
                 includeFiles: settings.showFiles,
+                includeChat: settings.showChat,
                 includeTemplates: settings.showTemplates,
                 incudeNotForCreation: settings.incudeNotForCreation,
                 spaceId: spaceId

@@ -120,4 +120,8 @@ extension ObjectType: DetailsModel {
     public var isImageLayout: Bool {
         recommendedLayout == .image
     }
+    
+    public var isChatType: Bool {
+        uniqueKey == .chat
+    }
 }

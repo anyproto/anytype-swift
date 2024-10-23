@@ -73,6 +73,7 @@ final class ChangeTypeAccessoryViewModel {
                 includeLists: true,
                 includeBookmarks: true,
                 includeFiles: false,
+                includeChat: false,
                 includeTemplates: false,
                 incudeNotForCreation: false,
                 spaceId: document.spaceId

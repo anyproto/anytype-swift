@@ -1,17 +1,31 @@
 import Foundation
+import Services
 
+struct MessageReactionPickerData: Identifiable, Hashable {
+    let chatObjectId: String
+    let messageId: String
+    
+    var id: Int { hashValue }
+}
+
+@MainActor
 final class MessageReactionPickerViewModel: ObservableObject {
     
-    private let messageId: String
+    @Injected(\.chatService)
+    private var chatService: any ChatServiceProtocol
+    
+    private let data: MessageReactionPickerData
     
     @Published var dismiss = false
     
-    init(messageId: String) {
-        self.messageId = messageId
+    init(data: MessageReactionPickerData) {
+        self.data = data
     }
     
     func onTapEmoji(_ emoji: EmojiData) {
-        // TODO: Handle
-        dismiss.toggle()
+        Task {
+            try await chatService.toggleMessageReaction(chatObjectId: data.chatObjectId, messageId: data.messageId, emoji: emoji.emoji)
+            dismiss.toggle()
+        }
     }
 }

@@ -28,7 +28,7 @@ extension WidgetSource {
             switch library {
             case .favorite, .recent, .recentOpen:
                 return [.compactList, .list, .tree]
-            case .sets, .collections:
+            case .sets, .collections, .chat:
                 return [.compactList, .list]
             }
         }
@@ -42,6 +42,8 @@ extension ObjectDetails {
            return [.tree, .link]
         case .set:
             return [.view, .compactList, .list, .link]
+        case .chat:
+            return []
         }
     }
 }

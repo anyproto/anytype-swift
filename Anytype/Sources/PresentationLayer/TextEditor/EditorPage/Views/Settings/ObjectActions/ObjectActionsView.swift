@@ -41,12 +41,6 @@ struct ObjectActionsView: View {
                         }
                     }
                 }
-                // Just for MVP
-                if FeatureFlags.discussions {
-                    ObjectActionRow(title: "Discussion", icon: .X32.dashboard) {
-                        viewModel.onTapDiscussion()
-                    }
-                }
             }.padding(.horizontal, 16)
         }
         .snackbar(toastBarData: $viewModel.toastData)

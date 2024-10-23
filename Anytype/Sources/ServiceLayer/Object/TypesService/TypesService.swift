@@ -43,6 +43,7 @@ final class TypesService: TypesServiceProtocol {
         includeLists: Bool,
         includeBookmarks: Bool,
         includeFiles: Bool,
+        includeChat: Bool,
         includeTemplates: Bool,
         incudeNotForCreation: Bool,
         spaceId: String
@@ -63,6 +64,10 @@ final class TypesService: TypesServiceProtocol {
         
         if !includeBookmarks {
             layouts.removeAll(where: { $0 == .bookmark })
+        }
+        
+        if !includeChat {
+            layouts.removeAll(where: { $0 == .chat })
         }
         
         let filters: [DataviewFilter] = .builder {
