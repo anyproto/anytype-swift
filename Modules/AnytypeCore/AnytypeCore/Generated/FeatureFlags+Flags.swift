@@ -38,12 +38,12 @@ public extension FeatureFlags {
         value(for: .spaceHubParallax)
     }
 
-    static var dateAsAnObject: Bool {
-        value(for: .dateAsAnObject)
-    }
-
     static var userWarningAlerts: Bool {
         value(for: .userWarningAlerts)
+    }
+
+    static var dateAsAnObject: Bool {
+        value(for: .dateAsAnObject)
     }
 
     static var homeSpaceLevelChat: Bool {
@@ -112,8 +112,8 @@ public extension FeatureFlags {
         .versionHistory,
         .allContent,
         .spaceHubParallax,
-        .dateAsAnObject,
         .userWarningAlerts,
+        .dateAsAnObject,
         .homeSpaceLevelChat,
         .rainbowViews,
         .showAlertOnAssert,

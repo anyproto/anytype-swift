@@ -814,7 +814,7 @@
 "Widgets.Actions.AddWidget" = "Добавить виджет";
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
 "Widgets.Actions.AddBelow" = "Добавить ниже";
-"Widgets.Actions.NewObject" = "Новый объект";
+"Widgets.Actions.NewObject" = "Создать новый объект";
 "Widgets.Actions.SeeAllObjects" = "Показать все объекты";
 "Widgets.Layout.Screen.Title" = "Тип виджета";
 "Widgets.Layout.Link.Title" = "Ссылка";
