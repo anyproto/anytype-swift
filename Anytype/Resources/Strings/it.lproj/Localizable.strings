@@ -205,13 +205,13 @@
 "Join" = "Unisciti";
 "Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Lets Go" = "Iniziamo!";
-"My spaces" = "I miei spazi";
+"My spaces" = "I miei Spazi";
 
 // Home
 "Favorites" = "Preferiti";
 "Recent" = "Recenti";
 "Bin" = "Cestino";
-"All objects" = "Tutti gli oggetti";
+"All objects" = "Tutti gli Oggetti";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -1237,7 +1237,12 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "AllContent.Settings.Unlinked.Title" = "Solo non collegati";
 "AllContent.Settings.Unlinked.Description" = "Oggetti non collegati che non hanno un collegamento diretto o un backlink con altri oggetti nel grafo.";
 "AllContent.Settings.ViewBin" = "Visualizza Cestino";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
-"AllContent.Search.Empty.State.title" = "No results found.";
-"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+"AllContent.Empty.State.title" = "È vuoto qui.";
+"AllContent.Empty.State.subtitle" = "Crea i tuoi primi oggetti per iniziare.";
+"AllContent.Search.Empty.State.title" = "Nessun risultato trovato.";
+"AllContent.Search.Empty.State.subtitle" = "Prova a cercare con parole chiave diverse.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
+"ReindexingWarningAlert.Description" = "Abbiamo implementato una nuova libreria di ricerca per risultati più rapidi e precisi.\nLa reindicizzazione potrebbe richiedere alcuni minuti.";
+"ReindexingWarningAlert.Button" = "Ho capito!";

@@ -35,7 +35,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         super.init()
     }
 
-    func showPage(objectId: String) {
+    func showObject(objectId: String) {
         guard let details = document.detailsStorage.get(id: objectId) else {
             anytypeAssertionFailure("Details not found")
             return

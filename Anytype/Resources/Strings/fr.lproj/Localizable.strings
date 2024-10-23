@@ -1242,3 +1242,8 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "AllContent.Empty.State.subtitle" = "Créez vos premiers objets pour commencer.";
 "AllContent.Search.Empty.State.title" = "Aucun résultat trouvé.";
 "AllContent.Search.Empty.State.subtitle" = "Essayez de rechercher avec différents mots-clés.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";
+"ReindexingWarningAlert.Description" = "Nous avons implémenté une nouvelle bibliothèque de recherche pour des résultats plus rapides et plus précis.\nLa réindexation peut prendre quelques minutes.";
+"ReindexingWarningAlert.Button" = "J’ai compris !";

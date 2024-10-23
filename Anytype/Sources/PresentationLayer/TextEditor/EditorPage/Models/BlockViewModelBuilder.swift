@@ -130,8 +130,8 @@ final class BlockViewModelBuilder {
                     document: document,
                     info: info,
                     focusSubject: subjectsHolder.focusSubject(for: info.id),
-                    showPage: { [weak self] objectId in
-                        self?.router.showPage(objectId: objectId)
+                    showObject: { [weak self] objectId in
+                        self?.router.showObject(objectId: objectId)
                     },
                     openURL: { [weak output] url in
                         output?.openUrl(url)
@@ -199,7 +199,14 @@ final class BlockViewModelBuilder {
                         self?.showFilePicker(blockId: blockId)
                     },
                     onFileOpen: { [weak router] fileContext in
-                        router?.openImage(fileContext)
+                        switch fileContext.file.file.contentType {
+                        case .video, .image:
+                            router?.openImage(fileContext)
+                        case .audio, .file:
+                            router?.showObject(objectId: fileContext.file.file.metadata.targetObjectId)
+                        case .none:
+                            return
+                        }
                     }
                 )
             case .image:

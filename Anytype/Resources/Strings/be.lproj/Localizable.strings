@@ -238,7 +238,7 @@
 "Restore key from keychain" = "Аднавіць ключ з звязкі ключоў";
 "Auth.LogIn" = "У мяне ёсць ключ";
 "Auth.Button.Join" = "Новае Сховішча";
-"Auth.Welcome.Subtitle" = "Стварайце і супрацоўнічайце ва ўласных Прасторах. Зашыфравана, па-за сеткай і адкрыта(%@).";
+"Auth.Welcome.Subtitle" = "Стварайце і супрацоўнічайце ва ўласных Прасторах. Зашыфравана, па-за сеткай і [адкрыта](%@).";
 "Auth.Next" = "Далей";
 
 "Vault recover error" = "Памылка аднаўлення сховішча, паўтарыце спробу";
@@ -1242,3 +1242,8 @@
 "AllContent.Empty.State.subtitle" = "Стварыце свае першыя аб'екты, каб пачаць працу.";
 "AllContent.Search.Empty.State.title" = "Вынікаў не знойдзена.";
 "AllContent.Search.Empty.State.subtitle" = "Паспрабуйце шукаць па розных ключавых словах.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";

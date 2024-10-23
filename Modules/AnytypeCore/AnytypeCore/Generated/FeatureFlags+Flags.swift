@@ -42,6 +42,10 @@ public extension FeatureFlags {
         value(for: .userWarningAlerts)
     }
 
+    static var dateAsAnObject: Bool {
+        value(for: .dateAsAnObject)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -105,6 +109,7 @@ public extension FeatureFlags {
         .allContent,
         .spaceHubParallax,
         .userWarningAlerts,
+        .dateAsAnObject,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

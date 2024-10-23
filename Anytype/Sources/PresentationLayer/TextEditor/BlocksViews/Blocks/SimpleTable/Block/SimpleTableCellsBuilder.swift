@@ -119,8 +119,8 @@ final class SimpleTableCellsBuilder {
             accessoryViewStateManager: accessoryStateManager,
             markupChanger: blockMarkupChanger,
             responderScrollViewHelper: responderScrollViewHelper,
-            showPage: { [weak self] objectId in
-                self?.router.showPage(objectId: objectId)
+            showObject: { [weak self] objectId in
+                self?.router.showObject(objectId: objectId)
             },
             openURL: { [weak moduleOutput] url in
                 moduleOutput?.openUrl(url)

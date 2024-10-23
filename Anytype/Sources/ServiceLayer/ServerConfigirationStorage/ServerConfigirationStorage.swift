@@ -23,7 +23,7 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     private var serverConfig: NetworkServerConfig
     
     private enum Constants {
-        static var configStorageFolde = "Servers"
+        static var configStorageFolder = "Servers"
         static var pathExtension = "yml"
     }
     
@@ -32,7 +32,7 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     
     init() {
         let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let storagePath = docDir?.appendingPathComponent(Constants.configStorageFolde)
+        let storagePath = docDir?.appendingPathComponent(Constants.configStorageFolder)
         if storagePath.isNil {
             anytypeAssertionFailure("Storage path is empty")
         }

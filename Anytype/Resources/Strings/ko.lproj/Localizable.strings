@@ -35,7 +35,7 @@
 "TextStyle.Bold.Title" = "굵게";
 "TextStyle.Italic.Title" = "기울임";
 "TextStyle.Strikethrough.Title" = "취소선";
-"TextStyle.Underline.Title" = "Underline";
+"TextStyle.Underline.Title" = "밑줄";
 "TextStyle.Code.Title" = "코드";
 "TextStyle.Link.Title" = "링크";
 
@@ -149,7 +149,7 @@
 "Pages" = "Pages";
 "Lists" = "목록";
 "Bookmarks" = "Bookmarks";
-"Files" = "Files";
+"Files" = "파일";
 "Media" = "미디어";
 "Lists" = "목록";
 "Pinned" = "Pinned";
@@ -201,17 +201,17 @@
 "Anytype Library" = "Anytype 라이브러리";
 "Copied" = "Copied";
 "Share" = "Share";
-"Okay" = "Okay";
+"Okay" = "확인";
 "Join" = "Join";
 "Agreement Disclamer" = "계속 진행하면 [이용 약관](%@) 및 [개인정보 처리방침](%@)에 동의하는 것입니다";
 "Lets Go" = "Let’s Go";
-"My spaces" = "My spaces";
+"My spaces" = "My Spaces";
 
 // Home
 "Favorites" = "즐겨찾기";
 "Recent" = "최근";
 "Bin" = "휴지통";
-"All objects" = "All objects";
+"All objects" = "All Objects";
 
 // Settings
 "Wallpaper" = "배경화면";
@@ -651,7 +651,7 @@
 "Audio" = "Audio";
 "Video" = "Video";
 "Picture" = "Picture";
-"Image" = "Image";
+"Image" = "이미지";
 "File" = "File";
 "No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
@@ -980,7 +980,7 @@
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 "SpaceShare.Manage" = "관리";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.Title" = "당신은 이미 이 스페이스의 구성원입니다";
 "SpaceShare.AlreadyJoin.OpenSpace" = "스페이스 열기";
 
 // MARK: - Permission notification
@@ -1241,3 +1241,8 @@ Please provide specific details of your needs here.";
 "AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";
