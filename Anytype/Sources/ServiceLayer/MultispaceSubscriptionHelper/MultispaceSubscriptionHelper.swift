@@ -36,8 +36,7 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel> {
     func startSubscription(update: @escaping () -> Void) async {
         // Start first subscription in current async context for guarantee data state before return
         let spaceIds = await workspacessStorage.allWorkspaces.map { $0.targetSpaceId }
-        await updateSubscriptions(spaceIds: spaceIds, update: nil)
-        update()
+        await updateSubscriptions(spaceIds: spaceIds, update: update)
         
         spacesSubscription = await workspacessStorage.allWorkspsacesPublisher
             .map { $0.map { $0.targetSpaceId } }
@@ -59,7 +58,7 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel> {
         data.removeAll()
     }
     
-    private func updateSubscriptions(spaceIds: [String], update: (() -> Void)?) async {
+    private func updateSubscriptions(spaceIds: [String], update: @escaping (() -> Void)) async {
         for spaceId in spaceIds {
             if subscriptionStorages[spaceId].isNil {
                 let subId = subIdPrefix + spaceId
@@ -74,8 +73,8 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel> {
         }
     }
     
-    private func updateStorage(subscriptionState: SubscriptionStorageState, spaceId: String, update: (() -> Void)?) {
+    private func updateStorage(subscriptionState: SubscriptionStorageState, spaceId: String, update: (() -> Void)) {
         data[spaceId] = subscriptionState.items.compactMap { try? Value(details: $0) }
-        update?()
+        update()
     }
 }
