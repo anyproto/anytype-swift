@@ -94,7 +94,6 @@ public protocol BundledRelationsValueProvider {
     var setOf: [ObjectId] { get }
     var isArchived: Bool { get }
     var fileExt: String { get }
-    var scope: String { get }
     var featuredRelations: [ObjectId] { get }
     var phone: String? { get }
     var smartblockTypes: [Int] { get }
@@ -138,6 +137,8 @@ public protocol BundledRelationsValueProvider {
     var syncStatus: Int? { get }
     var syncDate: Date? { get }
     var syncError: Int? { get }
+    var hasChat: Bool { get }
+    var chatId: ObjectId { get }
     var mentions: [ObjectId] { get }
 } 
 
@@ -468,9 +469,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var fileExt: String {
         return value(for: BundledRelationKey.fileExt.rawValue)
     }
-    var scope: String {
-        return value(for: BundledRelationKey.scope.rawValue)
-    }
     /// Important relations that always appear at the top of the object
     var featuredRelations: [ObjectId] {
         return value(for: BundledRelationKey.featuredRelations.rawValue)
@@ -636,6 +634,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Object sync error
     var syncError: Int? {
         return value(for: BundledRelationKey.syncError.rawValue)
+    }
+    /// Object has a chat
+    var hasChat: Bool {
+        return value(for: BundledRelationKey.hasChat.rawValue)
+    }
+    /// Chat id
+    var chatId: ObjectId {
+        return value(for: BundledRelationKey.chatId.rawValue)
     }
     /// Objects that are mentioned in blocks of this object
     var mentions: [ObjectId] {

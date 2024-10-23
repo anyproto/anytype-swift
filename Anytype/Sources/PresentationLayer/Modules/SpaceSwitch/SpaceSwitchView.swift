@@ -82,8 +82,10 @@ struct SpaceSwitchView: View {
                 SpaceRowView(model: row)
                     .id(row.id)
             }
-            SpacePlusRow() {
-                model.onAddSpaceTap()
+            if model.createSpaceAvailable {
+                SpacePlusRow() {
+                    model.onAddSpaceTap()
+                }
             }
         }
         .padding([.top], 6)

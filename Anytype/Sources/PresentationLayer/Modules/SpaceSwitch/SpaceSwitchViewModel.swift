@@ -38,6 +38,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var spaceViewForDelete: SpaceView?
     @Published var spaceViewForLeave: SpaceView?
     @Published var spaceViewStopSharing: SpaceView?
+    @Published var createSpaceAvailable = false
     
     init(data: SpaceSwitchModuleData, output: (any SpaceSwitchModuleOutput)?) {
         self.data = data
@@ -107,6 +108,8 @@ final class SpaceSwitchViewModel: ObservableObject {
         if scrollToRowId.isNil, let selectedRow = rows.first(where: { $0.isSelected }) {
             scrollToRowId = selectedRow.id
         }
+        
+        createSpaceAvailable = workspacesStorage.canCreateNewSpace()
     }
     
     private func onTapWorkspace(workspace: SpaceView) {

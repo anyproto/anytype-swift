@@ -7,13 +7,14 @@ public protocol SearchMiddleServiceProtocol: AnyObject, Sendable {
 
 public extension SearchMiddleServiceProtocol {
     func search(
+        spaceId: String,
         filters: [DataviewFilter] = [],
         sorts: [DataviewSort] = [],
         fullText: String = "",
         keys: [String] = [],
         limit: Int = 0
     ) async throws -> [ObjectDetails] {
-        try await search(data: SearchRequest(filters: filters, sorts: sorts, fullText: fullText, keys: keys, limit: limit))
+        try await search(data: SearchRequest(spaceId: spaceId, filters: filters, sorts: sorts, fullText: fullText, keys: keys, limit: limit))
     }
 }
 
@@ -23,6 +24,7 @@ final class SearchMiddleService: SearchMiddleServiceProtocol {
     
     public func search(data: SearchRequest) async throws -> [ObjectDetails] {
         let response = try await ClientCommands.objectSearch(.with {
+            $0.spaceID = data.spaceId
             $0.filters = data.filters
             $0.sorts = data.sorts.map { $0.fixIncludeTime() }
             $0.fullText = data.fullText

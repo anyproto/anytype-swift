@@ -3,7 +3,7 @@ import Services
 
 protocol TreeSubscriptionDataBuilderProtocol {
     var subscriptionId: String { get }
-    func build(objectIds: [String]) -> SubscriptionData
+    func build(spaceId: String, objectIds: [String]) -> SubscriptionData
 }
 
 final class TreeSubscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol {
@@ -12,7 +12,7 @@ final class TreeSubscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol {
     
     // MARK: - TreeSubscriptionDataBuilderProtocol
     
-    func build(objectIds: [String]) -> SubscriptionData {
+    func build(spaceId: String, objectIds: [String]) -> SubscriptionData {
         let keys: [BundledRelationKey] = .builder {
             BundledRelationKey.objectListKeys
             BundledRelationKey.links
@@ -21,6 +21,7 @@ final class TreeSubscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol {
         return .objects(
             SubscriptionData.Object(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 objectIds: objectIds,
                 keys: keys.map { $0.rawValue }
             )

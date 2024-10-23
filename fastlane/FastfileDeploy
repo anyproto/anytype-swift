@@ -83,8 +83,6 @@ platform :ios do
     push_to_git_remote(no_verify: true)
   
     appInfo = options[:release] ? "Release" : "Dev"
-
-    appInfo = options[:release] ? "Release" : "Dev"
     add_linear_comment(
       from_tag: old_tag_name,
       to_tag: tag_name,

@@ -16,6 +16,8 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func workspaceInfo(spaceId: String) -> AccountInfo?
     // TODO: Kostyl. Waiting when middleware to add method for receive account info without set active space
     func addWorkspaceInfo(spaceId: String, info: AccountInfo)
+    
+    func canCreateNewSpace() -> Bool
 }
 
 extension WorkspacesStorageProtocol {
@@ -48,6 +50,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
     }()
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
     
@@ -61,7 +65,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     nonisolated init() {}
     
     func startSubscription() async {
-        let data = subscriptionBuilder.build()
+        let data = subscriptionBuilder.build(techSpaceId: accountManager.account.info.techSpaceId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
             let spaces = data.items.map { SpaceView(details: $0) }
@@ -91,5 +95,9 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func addWorkspaceInfo(spaceId: String, info: AccountInfo) {
         workspacesInfo[spaceId] = info
+    }
+    
+    func canCreateNewSpace() -> Bool {
+        return activeWorkspaces.count < 50
     }
 }

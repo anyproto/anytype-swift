@@ -26,8 +26,7 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
                 localStatus: .spaceActive,
                 spaceAccessType: .shared,
                 readersLimit: nil,
-                writersLimit: nil,
-                sharedSpacesLimit: nil
+                writersLimit: nil
             )
         ]
     }
@@ -42,4 +41,5 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
     func move(space: SpaceView, after: SpaceView) { fatalError()}
     func workspaceInfo(spaceId: String) -> AccountInfo? { return nil }
     func addWorkspaceInfo(spaceId: String, info: AccountInfo) {}
+    func canCreateNewSpace() -> Bool { true }
 }

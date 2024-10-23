@@ -38,7 +38,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
     ) async {
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: type.supportedLayouts)
+            SearchFiltersBuilder.build(isArchived: false, layouts: type.supportedLayouts)
             if onlyUnlinked {
                 SearchHelper.onlyUnlinked()
             }
@@ -56,6 +56,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: limit,

@@ -48,16 +48,19 @@ final class LoginStateService: LoginStateServiceProtocol {
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
+        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
         
         await startSubscriptions()
     }
     
     func setupStateAfterAuth() {
         isFirstLaunchAfterAuthorization = true
+        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
     }
     
     func setupStateAfterRegistration(account: AccountData) async {
         isFirstLaunchAfterRegistration = true
+        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = true }
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
     }

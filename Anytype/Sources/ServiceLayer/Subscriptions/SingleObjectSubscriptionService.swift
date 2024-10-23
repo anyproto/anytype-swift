@@ -5,6 +5,7 @@ import AnytypeCore
 protocol SingleObjectSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         subId: String,
+        spaceId: String,
         objectId: String,
         additionalKeys: [BundledRelationKey],
         dataHandler: @escaping (ObjectDetails) -> Void
@@ -13,8 +14,8 @@ protocol SingleObjectSubscriptionServiceProtocol: AnyObject {
 }
 
 extension SingleObjectSubscriptionServiceProtocol {
-    func startSubscription(subId: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void) async {
-        await self.startSubscription(subId: subId, objectId: objectId, additionalKeys: [], dataHandler: dataHandler)
+    func startSubscription(subId: String, spaceId: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void) async {
+        await self.startSubscription(subId: subId, spaceId: spaceId, objectId: objectId, additionalKeys: [], dataHandler: dataHandler)
     }
 }
 
@@ -33,11 +34,12 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
     
     func startSubscription(
         subId: String,
+        spaceId: String,
         objectId: String,
         additionalKeys: [BundledRelationKey],
         dataHandler: @escaping (ObjectDetails) -> Void
     ) async {
-        let subData = subscriptionBuilder.build(subId: subId, objectIds: [objectId], additionalKeys: additionalKeys)
+        let subData = subscriptionBuilder.build(subId: subId, spaceId: spaceId, objectIds: [objectId], additionalKeys: additionalKeys)
     
         if subscriptionStorages[subId].isNotNil {
             anytypeAssertionFailure("Subscription already started", info: ["sub id": subId])

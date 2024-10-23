@@ -59,6 +59,9 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 
   /// Any-store based object for chat
   case chatDerivedObject // = 544
+
+  /// Container for account data in tech space
+  case accountObject // = 545
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -94,6 +97,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 536: self = .devicesObject
     case 537: self = .chatObject
     case 544: self = .chatDerivedObject
+    case 545: self = .accountObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -127,6 +131,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .devicesObject: return 536
     case .chatObject: return 537
     case .chatDerivedObject: return 544
+    case .accountObject: return 545
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -165,6 +170,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .devicesObject,
     .chatObject,
     .chatDerivedObject,
+    .accountObject,
   ]
 }
 
@@ -6189,6 +6195,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     536: .same(proto: "DevicesObject"),
     537: .same(proto: "ChatObject"),
     544: .same(proto: "ChatDerivedObject"),
+    545: .same(proto: "AccountObject"),
   ]
 }
 
