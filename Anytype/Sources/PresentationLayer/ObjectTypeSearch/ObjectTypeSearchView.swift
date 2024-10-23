@@ -170,7 +170,11 @@ struct ObjectTypeSearchView: View {
                 }
             }
         }
-        if !data.isDefault && data.type.canCreateObjectOfThisType {
+        
+        let isNotListLayout = data.type.recommendedLayout.flatMap { !DetailsLayout.setLayouts.contains($0) } ?? false
+        let canSetAsDefault = !data.isDefault && data.type.canCreateObjectOfThisType && isNotListLayout
+        
+        if  canSetAsDefault {
             Button(Loc.setAsDefault) {
                 viewModel.setDefaultType(data.type)
             }
