@@ -63,11 +63,8 @@ struct EmojiGridView: View {
     private func makeEmojiGrid(groups: [EmojiGroup]) -> some View {
         ScrollView(showsIndicators: false) {
             makeGridView(groups: groups)
-        }.gesture(
-            DragGesture().onChanged { _ in
-                UIApplication.shared.hideKeyboard()
-            }
-        )
+        }
+        .scrollDismissesKeyboard(.immediately)
         .padding(.horizontal, 16)
     }
     
