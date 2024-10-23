@@ -16,6 +16,8 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func workspaceInfo(spaceId: String) -> AccountInfo?
     // TODO: Kostyl. Waiting when middleware to add method for receive account info without set active space
     func addWorkspaceInfo(spaceId: String, info: AccountInfo)
+    
+    func canCreateNewSpace() -> Bool
 }
 
 extension WorkspacesStorageProtocol {
@@ -93,5 +95,9 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func addWorkspaceInfo(spaceId: String, info: AccountInfo) {
         workspacesInfo[spaceId] = info
+    }
+    
+    func canCreateNewSpace() -> Bool {
+        return activeWorkspaces.count < 50
     }
 }
