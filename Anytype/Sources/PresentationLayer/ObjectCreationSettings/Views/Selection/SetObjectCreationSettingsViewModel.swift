@@ -103,7 +103,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         Task { [weak self] in
             guard let self else { return }
             do {
-                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId)
+                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId, spaceId: spaceId)
                 AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId), spaceId: spaceId)
                 output?.templateEditingHandler(
                     setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId),
