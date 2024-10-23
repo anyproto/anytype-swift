@@ -21,6 +21,7 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
             let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
             section.interGroupSpacing = 12
             section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 0)
+            section.decorationItems = [] // Delete section background
             return section
         }
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -42,6 +43,7 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
         let dataSource = UICollectionViewDiffableDataSource<OneSection, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueConfiguredReusableCell(using: itemRegistration, for: indexPath, item: item)
             cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
             return cell
         }
         

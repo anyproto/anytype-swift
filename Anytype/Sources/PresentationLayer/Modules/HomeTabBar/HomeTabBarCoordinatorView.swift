@@ -30,6 +30,8 @@ struct HomeTabBarCoordinatorView: View {
     
     private var tabBarBody: some View {
         ZStack {
+            HomeWallpaperView(spaceInfo: model.spaceInfo)
+            
             HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
                 .opacity(model.tab == .widgets ? 1 : 0)
             
