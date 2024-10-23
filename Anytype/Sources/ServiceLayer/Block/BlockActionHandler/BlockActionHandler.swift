@@ -150,7 +150,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             let isBookmarkType = targetDetails.layoutValue == .bookmark
             AnytypeAnalytics.instance().logCreateLink(spaceId: targetDetails.spaceId)
             try await service.add(
-                info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
+                info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id, spaceId: targetDetails.spaceId),
                 targetBlockId: blockId,
                 position: .replace
             )

@@ -74,13 +74,13 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     func onCreateObjectTap() {
         guard let linkedObjectDetails else { return }
         Task {
-            let document = documentsProvider.document(objectId: linkedObjectDetails.id, mode: .preview)
+            let document = documentsProvider.document(objectId: linkedObjectDetails.id, spaceId: linkedObjectDetails.spaceId, mode: .preview)
             try await document.open()
             guard let lastBlockId = document.children.last?.id else { return }
                   
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
-            let info = BlockInformation.emptyLink(targetId: details.id)
+            let info = BlockInformation.emptyLink(targetId: details.id, spaceId: details.spaceId)
             let _ = try await self.blockService.add(
                 contextId: linkedObjectDetails.id,
                 targetId: lastBlockId,

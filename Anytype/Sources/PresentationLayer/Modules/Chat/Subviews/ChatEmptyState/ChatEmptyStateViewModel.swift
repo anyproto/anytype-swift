@@ -19,8 +19,8 @@ final class ChatEmptyStateViewModel: ObservableObject {
 
     private var dataLoaded = false
     
-    init(objectId: String, onIconSelected: @escaping () -> Void, onDone: @escaping () -> Void) {
-        self.document = openDocumentProvider.document(objectId: objectId)
+    init(objectId: String, spaceId: String, onIconSelected: @escaping () -> Void, onDone: @escaping () -> Void) {
+        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
         self.onIconSelected = onIconSelected
         self.onDone = onDone
     }

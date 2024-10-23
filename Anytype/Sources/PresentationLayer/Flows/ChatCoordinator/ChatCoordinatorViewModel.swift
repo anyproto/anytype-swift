@@ -29,7 +29,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     init(data: EditorChatObject) {
         self.objectId = data.objectId
         self.spaceId = data.spaceId
-        self.document = openDocumentProvider.document(objectId: objectId)
+        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
     }
     
     func startHandleDetails() async {

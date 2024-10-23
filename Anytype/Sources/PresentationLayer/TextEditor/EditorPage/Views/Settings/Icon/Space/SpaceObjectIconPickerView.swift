@@ -5,8 +5,8 @@ struct SpaceObjectIconPickerView: View {
     
     @StateObject private var model: SpaceObjectIconPickerViewModel
     
-    init(spaceViewId: String) {
-        self._model = StateObject(wrappedValue: SpaceObjectIconPickerViewModel(spaceViewId: spaceViewId))
+    init(spaceViewId: String, spaceId: String) {
+        self._model = StateObject(wrappedValue: SpaceObjectIconPickerViewModel(spaceViewId: spaceViewId, spaceId: spaceId))
     }
     
     var body: some View {

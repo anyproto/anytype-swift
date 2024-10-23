@@ -10,6 +10,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     let informationProvider: BlockModelInfomationProvider
     let handler: any BlockActionHandlerProtocol
     let documentId: String
+    let spaceId: String
     let showFilePicker: (String) -> ()
     let onFileOpen: (FilePreviewContext) -> ()
     
@@ -22,15 +23,17 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         informationProvider: BlockModelInfomationProvider,
         handler: some BlockActionHandlerProtocol,
         documentId: String,
+        spaceId: String,
         showFilePicker: @escaping (String) -> (),
         onFileOpen: @escaping (FilePreviewContext) -> ()
     ) {
         self.informationProvider = informationProvider
         self.handler = handler
         self.documentId = documentId
+        self.spaceId = spaceId
         self.showFilePicker = showFilePicker
         self.onFileOpen = onFileOpen
-        self.document = documentService.document(objectId: documentId)
+        self.document = documentService.document(objectId: documentId, spaceId: spaceId)
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
@@ -74,7 +77,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         case .done:
-            return BlockFileConfiguration(data: fileData.mediaData(documentId: documentId)).cellBlockConfiguration(
+            return BlockFileConfiguration(data: fileData.mediaData(documentId: documentId, spaceId: spaceId)).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),
                 styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )

@@ -13,6 +13,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     
     var info: BlockInformation { blockInformationProvider.info }
     let documentId: String
+    let spaceId: String
     let blockInformationProvider: BlockModelInfomationProvider
     let handler: any BlockActionHandlerProtocol
     
@@ -33,12 +34,14 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     
     init?(
         documentId: String,
+        spaceId: String,
         blockInformationProvider: BlockModelInfomationProvider,
         handler: some BlockActionHandlerProtocol,
         showIconPicker: @escaping (String) -> (),
         onImageOpen: Action<FilePreviewContext>?
     ) {
         self.documentId = documentId
+        self.spaceId = spaceId
         self.blockInformationProvider = blockInformationProvider
         self.handler = handler
         self.showIconPicker = showIconPicker
@@ -95,7 +98,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     
     private func didTapOpenImage(_ sender: UIImageView) {
         guard let fileData else { return }
-        let document = documentService.document(objectId: documentId)
+        let document = documentService.document(objectId: documentId, spaceId: spaceId)
         guard let fileDetails = document.targetFileDetails(targetObjectId: fileData.metadata.targetObjectId) else {
             anytypeAssertionFailure("File details not found")
             return

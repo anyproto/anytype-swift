@@ -32,7 +32,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     }
     
     init(homeObjectId: String, spaceId: String) {
-        self.homeDocument = documentService.document(objectId: homeObjectId)
+        self.homeDocument = documentService.document(objectId: homeObjectId, spaceId: spaceId)
         self.editorScreenData = .favorites(homeObjectId: homeObjectId, spaceId: spaceId)
     }
     

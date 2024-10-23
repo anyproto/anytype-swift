@@ -12,6 +12,7 @@ final class ObjectSettingsCoordinatorViewModel:
 {
     
     let objectId: String
+    let spaceId: String
     private weak var output: (any ObjectSettingsCoordinatorOutput)?
     
     @Published var coverPickerData: ObjectCoverPickerData?
@@ -22,8 +23,9 @@ final class ObjectSettingsCoordinatorViewModel:
     @Published var versionHistoryData: VersionHistoryData?
     @Published var dismiss = false
     
-    init(objectId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
+    init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.output = output
     }
     

@@ -3,6 +3,7 @@ import Services
 
 struct CodeLanguageListData: Identifiable, Hashable {
     let documentId: String
+    let spaceId: String
     let blockId: String
     
     var id: Int { hashValue }
@@ -18,7 +19,7 @@ final class CodeLanguageListViewModel: ObservableObject {
     
     private let data: CodeLanguageListData
     private lazy var document: any BaseDocumentProtocol = {
-        documentsProvider.document(objectId: data.documentId)
+        documentsProvider.document(objectId: data.documentId, spaceId: data.spaceId)
     }()
     private var selectedLanguage: CodeLanguage?
     

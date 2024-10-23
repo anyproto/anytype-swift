@@ -11,8 +11,8 @@ struct ChatEmptyStateView: View {
     @StateObject private var model: ChatEmptyStateViewModel
     @FocusState private var focusedField: Field?
     
-    init(objectId: String, onIconSelected: @escaping () -> Void, onDone: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: ChatEmptyStateViewModel(objectId: objectId, onIconSelected: onIconSelected, onDone: onDone))
+    init(objectId: String, spaceId: String, onIconSelected: @escaping () -> Void, onDone: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: ChatEmptyStateViewModel(objectId: objectId, spaceId: spaceId, onIconSelected: onIconSelected, onDone: onDone))
     }
     
     var body: some View {

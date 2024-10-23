@@ -5,8 +5,8 @@ struct ObjectLayoutPicker: View {
     
     @StateObject private var viewModel: ObjectLayoutPickerViewModel
     
-    init(objectId: String) {
-        self._viewModel = StateObject(wrappedValue: ObjectLayoutPickerViewModel(objectId: objectId))
+    init(objectId: String, spaceId: String) {
+        self._viewModel = StateObject(wrappedValue: ObjectLayoutPickerViewModel(objectId: objectId, spaceId: spaceId))
     }
     
     var body: some View {

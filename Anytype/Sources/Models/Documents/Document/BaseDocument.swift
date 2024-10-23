@@ -13,6 +13,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - Local state
     let objectId: String
+    let spaceId: String
     let mode: DocumentMode
     
     @Atomic
@@ -64,6 +65,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
     init(
         objectId: String,
+        spaceId: String,
         mode: DocumentMode,
         objectLifecycleService: some ObjectLifecycleServiceProtocol,
         relationDetailsStorage: some RelationDetailsStorageProtocol,
@@ -77,6 +79,7 @@ final class BaseDocument: BaseDocumentProtocol {
         detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.mode = mode
         self.eventsListener = eventsListener
         self.viewModelSetter = viewModelSetter
@@ -100,10 +103,6 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     // MARK: - BaseDocumentProtocol
-    
-    var spaceId: String {
-        details?.spaceId ?? ""
-    }
     
     @MainActor
     func open() async throws {

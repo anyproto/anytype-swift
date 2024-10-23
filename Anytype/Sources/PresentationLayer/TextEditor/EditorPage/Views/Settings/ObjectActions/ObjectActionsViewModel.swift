@@ -9,10 +9,11 @@ import DeepLinks
 final class ObjectActionsViewModel: ObservableObject {
 
     private let objectId: String
+    private let spaceId: String
     private weak var output: (any ObjectActionsOutput)?
     
     private lazy var document: any BaseDocumentProtocol = {
-        openDocumentsProvider.document(objectId: objectId)
+        openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
     
     @Injected(\.objectActionsService)
@@ -36,8 +37,9 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var toastData = ToastBarData.empty
     @Published var dismiss = false
     
-    init(objectId: String, output: (any ObjectActionsOutput)?) {
+    init(objectId: String, spaceId: String, output: (any ObjectActionsOutput)?) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.output = output
     }
     
@@ -93,9 +95,9 @@ final class ObjectActionsViewModel: ObservableObject {
 
     func linkItselfAction() {
         guard let currentObjectId = document.details?.id else { return }
-
+        let spaceId = document.spaceId
         let onObjectSelection: (String) -> Void = { [weak self] objectId in
-            self?.onObjectSelection(objectId: objectId, currentObjectId: currentObjectId)
+            self?.onObjectSelection(objectId: objectId, spaceId: spaceId, currentObjectId: currentObjectId)
         }
 
         output?.onLinkItselfAction(onSelect: onObjectSelection)
@@ -140,7 +142,7 @@ final class ObjectActionsViewModel: ObservableObject {
             anytypeAssertionFailure("Default layout not found")
             return
         }
-        let widgetObject = documentsProvider.document(objectId: info.widgetsId, mode: .preview)
+        let widgetObject = documentsProvider.document(objectId: info.widgetsId, spaceId: spaceId, mode: .preview)
         try await widgetObject.open()
         guard let first = widgetObject.children.first else {
             anytypeAssertionFailure("First children not found")
@@ -172,9 +174,9 @@ final class ObjectActionsViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func onObjectSelection(objectId: String, currentObjectId: String) {
+    private func onObjectSelection(objectId: String, spaceId: String, currentObjectId: String) {
         Task { @MainActor in
-            let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
+            let targetDocument = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
             try? await targetDocument.open()
             guard let id = targetDocument.children.last?.id,
                   let details = targetDocument.details else { return }
@@ -187,7 +189,7 @@ final class ObjectActionsViewModel: ObservableObject {
                 output?.onLinkItselfToObjectHandler(data: details.editorScreenData())
                 AnytypeAnalytics.instance().logLinkToObject(type: .collection, spaceId: details.spaceId)
             } else {
-                let info = BlockInformation.emptyLink(targetId: currentObjectId)
+                let info = BlockInformation.emptyLink(targetId: currentObjectId, spaceId: spaceId)
                 AnytypeAnalytics.instance().logCreateBlock(type: info.content.type, spaceId: details.spaceId)
                 let _ = try await blockService.add(
                     contextId: objectId,

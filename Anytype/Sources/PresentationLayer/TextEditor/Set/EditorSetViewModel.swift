@@ -180,6 +180,7 @@ final class EditorSetViewModel: ObservableObject {
     init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
+            spaceId: data.spaceId,
             mode: data.mode,
             inlineParameters: data.inline
         )

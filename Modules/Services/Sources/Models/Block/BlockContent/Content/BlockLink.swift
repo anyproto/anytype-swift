@@ -56,17 +56,23 @@ public extension BlockLink {
 
 public struct BlockLink: Hashable, Equatable, Sendable {
     public var targetBlockID: String
+    public var spaceId: String
     public var appearance: Appearance
     
-    public init(targetBlockID: String,
-                appearance: Appearance) {
+    public init(
+        targetBlockID: String,
+        spaceId: String,
+        appearance: Appearance
+    ) {
         self.targetBlockID = targetBlockID
+        self.spaceId = spaceId
         self.appearance = appearance
     }
     
-    public static func empty(targetBlockID: String = "") -> BlockLink {
+    public static func empty(targetBlockID: String = "", spaceId: String = "") -> BlockLink {
         BlockLink(
             targetBlockID: targetBlockID,
+            spaceId: spaceId,
             appearance: .init(iconSize: .medium, cardStyle: .card, description: .content, relations: [.name])
         )
     }

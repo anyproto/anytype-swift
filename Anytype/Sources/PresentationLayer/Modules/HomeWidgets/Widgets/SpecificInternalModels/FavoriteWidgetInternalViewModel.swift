@@ -40,7 +40,7 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
         self.output = data.output
         
         let documentService = Container.shared.documentService.resolve()
-        self.document = documentService.document(objectId: homeObjectId)
+        self.document = documentService.document(objectId: homeObjectId, spaceId: spaceId)
     }
     
     // MARK: - WidgetInternalViewModelProtocol

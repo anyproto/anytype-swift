@@ -11,9 +11,10 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     private var documentService: any OpenedDocumentsProviderProtocol
     
     private lazy var document: any BaseDocumentProtocol = {
-        documentService.document(objectId: widgetObjectId)
+        documentService.document(objectId: widgetObjectId, spaceId: widgetSpaceId)
     }()
     private let widgetObjectId: String
+    private let widgetSpaceId: String
     private let widgetId: String
     private let context: AnalyticsWidgetContext
     private let onFinish: (_ openObject: EditorScreenData?) -> Void
@@ -21,10 +22,12 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     init(
         widgetObjectId: String,
         widgetId: String,
+        widgetSpaceId: String,
         context: AnalyticsWidgetContext,
         onFinish: @escaping (_ openObject: EditorScreenData?) -> Void
     ) {
         self.widgetObjectId = widgetObjectId
+        self.widgetSpaceId = widgetSpaceId
         self.widgetId = widgetId
         self.context = context
         self.onFinish = onFinish

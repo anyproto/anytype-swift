@@ -49,7 +49,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         )
         await saveNewBlock(spaceId: spaceId, addToObject: noteObject, content: content, logAnalytics: false)
         if let linkToObject {
-            try await linkTo(object: linkToObject, newObjectId: noteObject.id, blockInformation: BlockInformation.emptyLink(targetId: noteObject.id))
+            try await linkTo(object: linkToObject, newObjectId: noteObject.id, blockInformation: BlockInformation.emptyLink(targetId: noteObject.id, spaceId: noteObject.spaceId))
         }
         AnytypeAnalytics.instance().logCreateObject(objectType: noteObject.objectType.analyticsType, spaceId: noteObject.spaceId, route: .sharingExtension)
     }
@@ -64,13 +64,13 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                 switch contentItem {
                 case let .text(text):
                     newObjectId = try await createNoteObject(text: text, spaceId: spaceId).id
-                    blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
+                    blockInformation = BlockInformation.emptyLink(targetId: newObjectId, spaceId: spaceId)
                 case let .url(url):
                     newObjectId = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId).id
                     blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
                     newObjectId = try await createFileObject(url: url, spaceId: spaceId).id
-                    blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
+                    blockInformation = BlockInformation.emptyLink(targetId: newObjectId, spaceId: spaceId)
                 }
                 
                 if let linkToObject {

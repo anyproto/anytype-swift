@@ -9,6 +9,7 @@ public extension Anytype_Model_Block.Content.Link {
         return .link(
             BlockLink(
                 targetBlockID: targetBlockID,
+                spaceId: "",
                 appearance: .init(
                     iconSize: iconSize.asModel,
                     cardStyle: cardStyle.asModel,

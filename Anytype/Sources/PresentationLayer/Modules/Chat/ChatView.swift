@@ -114,7 +114,7 @@ struct ChatView: View {
     @ViewBuilder
     private var mainView: some View {
         if model.showEmptyState {
-            ChatEmptyStateView(objectId: model.objectId) {
+            ChatEmptyStateView(objectId: model.objectId, spaceId: model.spaceId) {
                 model.didTapIcon()
             } onDone: {
                 model.inputFocused = true

@@ -66,6 +66,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
         showChangeTypeData = WidgetTypeChangeData(
             widgetObjectId: spaceInfo.widgetsId,
+            widgetSpaceId: spaceInfo.accountSpaceId,
             widgetId: widgetId,
             context: context,
             onFinish: { [weak self] in

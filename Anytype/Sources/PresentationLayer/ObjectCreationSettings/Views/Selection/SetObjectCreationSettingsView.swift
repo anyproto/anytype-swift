@@ -110,7 +110,7 @@ struct SetObjectCreationSettingsView: View {
 #Preview {
     SetObjectCreationSettingsView(
         data: SetObjectCreationData(
-            setDocument: Container.shared.documentsProvider().setDocument(objectId: ""),
+            setDocument: Container.shared.documentsProvider().setDocument(objectId: "", spaceId: ""),
             viewId: "viewId",
             onTemplateSelection: { _ in }
         ),
