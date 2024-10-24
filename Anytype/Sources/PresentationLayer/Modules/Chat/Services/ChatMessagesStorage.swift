@@ -5,7 +5,7 @@ import AnytypeCore
 import ProtobufMessages
 
 protocol ChatMessagesStorageProtocol: AnyObject {
-    func startSubscription() async throws
+    func startSubscriptionIfNeeded() async throws
     func loadNextPage() async throws
     func loadPagesTo(messageId: String) async throws
     var messagesPublisher: AnyPublisher<[ChatMessage], Never> { get async }
@@ -41,9 +41,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         $allMessages.compactMap { $0 }.eraseToAnyPublisher()
     }
     
-    func startSubscription() async throws {
+    func startSubscriptionIfNeeded() async throws {
         guard !subscriptionStarted else {
-            anytypeAssertionFailure("Subscription started")
             return
         }
     

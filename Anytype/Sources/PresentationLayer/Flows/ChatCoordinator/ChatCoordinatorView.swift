@@ -50,7 +50,9 @@ struct ChatCoordinatorView: View {
         if let chatId = model.chatId {
             ChatView(objectId: model.objectId, spaceId: model.spaceId, chatId: chatId, output: model)
         } else {
-            AnytypeDivider()
+            DotsView()
+                .frame(width: 100, height: 15)
+                .homeBottomPanelHidden(true)
         }
     }
 }

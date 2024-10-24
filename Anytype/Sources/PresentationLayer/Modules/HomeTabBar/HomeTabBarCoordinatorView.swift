@@ -7,8 +7,6 @@ struct HomeTabBarCoordinatorView: View {
 
     @StateObject private var model: HomeTabBarCoordinatorViewModel
     
-    @State private var widgetsBottomPanelHidden = false
-    @State private var chatBottomPanelHidden = false
     
     init(spaceInfo: AccountInfo) {
         self._model = StateObject(wrappedValue: HomeTabBarCoordinatorViewModel(spaceInfo: spaceInfo))
@@ -39,11 +37,13 @@ struct HomeTabBarCoordinatorView: View {
             HomeWallpaperView(spaceInfo: model.spaceInfo)
             
             HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
-                .setHomeBottomPanelHiddenHandler($widgetsBottomPanelHidden)
+                .anytypeNavigationItemData(HomeTabState.widgets)
+                .homeBottomPanelState($model.bottomPanelState)
                 .opacity(model.tab == .widgets ? 1 : 0)
             
             HomeChatCoordinatorView(spaceInfo: model.spaceInfo)
-                .setHomeBottomPanelHiddenHandler($chatBottomPanelHidden)
+                .anytypeNavigationItemData(HomeTabState.chat)
+                .homeBottomPanelState($model.bottomPanelState)
                 .opacity(model.tab == .chat ? 1 : 0)
         }
         .safeAreaInset(edge: .top) {
@@ -53,11 +53,6 @@ struct HomeTabBarCoordinatorView: View {
     }
     
     private var bottomPanelHidden: Bool {
-        switch model.tab {
-        case .widgets:
-            return widgetsBottomPanelHidden
-        case .chat:
-            return chatBottomPanelHidden
-        }
+        model.bottomPanelState.hidden(for: model.tab) ?? true
     }
 }

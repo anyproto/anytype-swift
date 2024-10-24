@@ -3,7 +3,7 @@ import SwiftUI
 
 struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
     
-    @State private var bottomPanelHidden = false
+    @State private var bottomPanelState = HomeBottomPanelState()
     
     private var content: Content
     private var bottomPanel: BottomContent
@@ -21,20 +21,23 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
             content
                 .anytypeNavigationPanelSize(bottomSize)
             
-            if !bottomPanelHidden {
-                bottomPanel
-                    .readSize {
-                        bottomSize = $0
-                    }
-                    .transition(.opacity)
-                    .anytypeIgnoreBottomSafeArea()
+            bottomPanel
+                .readSize {
+                    bottomSize = $0
+                }
+                .anytypeIgnoreBottomSafeArea()
+                .opacity(bottomPanelHidden ? 0 : 1)
+                .animation(.default, value: path.count)
+        }
+        .homeBottomPanelState($bottomPanelState)
+    }
+    
+    private var bottomPanelHidden: Bool {
+        for item in path.path.reversed() {
+            if let state = bottomPanelState.hidden(for: item) {
+                return state
             }
         }
-        .onChange(of: path.count) { newValue in
-            withAnimation {
-                bottomPanelHidden = false
-            }
-        }
-        .setHomeBottomPanelHiddenHandler($bottomPanelHidden)
+        return false
     }
 }

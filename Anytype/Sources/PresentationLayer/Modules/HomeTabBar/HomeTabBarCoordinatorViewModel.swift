@@ -12,6 +12,7 @@ final class HomeTabBarCoordinatorViewModel: ObservableObject {
     @Published var spaceName: String = ""
     @Published var spaceIcon: Icon? = nil
     @Published var tab: HomeTabState = .chat
+    @Published var bottomPanelState = HomeBottomPanelState()
     
     init(spaceInfo: AccountInfo) {
         self.spaceInfo = spaceInfo

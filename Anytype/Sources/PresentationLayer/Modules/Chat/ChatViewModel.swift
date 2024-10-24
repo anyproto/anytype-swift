@@ -128,7 +128,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     }
     
     func subscribeOnMessages() async throws {
-        try await chatStorage.startSubscription()
+        try await chatStorage.startSubscriptionIfNeeded()
         for await messages in await chatStorage.messagesPublisher.values {
             self.messages = messages
             self.dataLoaded = true

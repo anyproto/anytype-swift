@@ -37,7 +37,10 @@ struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
             if let vc = currentViewControllers[safe: index], vc.rootView.data.hashValue == pathItem.hashValue {
                 viewControllers.append(vc)
             } else {
-                let view = builder.build(pathItem.base)
+                let view = builder
+                    .build(pathItem.base)
+                    .anytypeNavigationItemData(pathItem)
+                    .eraseToAnyView()
                 let vc = UIHostingController(rootView: AnytypeNavigationViewBridge(content: view, data: pathItem))
                 viewControllers.append(vc)
             }

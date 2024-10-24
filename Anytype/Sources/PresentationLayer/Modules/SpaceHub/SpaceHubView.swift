@@ -25,6 +25,7 @@ struct SpaceHubView: View {
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
             }
+            .homeBottomPanelHidden(true)
     }
     
     var content: some View {
