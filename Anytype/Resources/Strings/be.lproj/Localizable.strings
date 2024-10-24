@@ -833,6 +833,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Нядаўна адрэдагаваны";
 "Widgets.Library.RecentlyOpened.Name" = "Нядаўна адкрытыя";
 "Widgets.Library.RecentlyOpened.Description" = "На гэтай прыладзе";
+"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "Anytype гатовы да абнаўлення";
 "Widgets.Source.Library" = "Прадвызначаныя наборы";
 "Widgets.Source.Objects" = "Вашы аб'екты";
@@ -1225,7 +1226,9 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Дадаць рэакцыю";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Напісаць паведамленне...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Сартаваць па";
@@ -1242,6 +1245,10 @@
 "AllContent.Empty.State.subtitle" = "Стварыце свае першыя аб'екты, каб пачаць працу.";
 "AllContent.Search.Empty.State.title" = "Вынікаў не знойдзена.";
 "AllContent.Search.Empty.State.subtitle" = "Паспрабуйце шукаць па розных ключавых словах.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
