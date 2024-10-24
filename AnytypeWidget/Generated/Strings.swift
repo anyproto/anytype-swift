@@ -12,8 +12,8 @@ import Foundation
 internal enum Loc {
   internal enum WidgetExtension {
     internal enum LockScreen {
-      internal static let description = Loc.tr("LocalizableWidget", "WidgetExtension.LockScreen.Description")
-      internal static let title = Loc.tr("LocalizableWidget", "WidgetExtension.LockScreen.Title")
+      internal static let description = Loc.tr("LocalizableWidget", "WidgetExtension.LockScreen.Description", fallback: "Create a new object on the fly")
+      internal static let title = Loc.tr("LocalizableWidget", "WidgetExtension.LockScreen.Title", fallback: "New object")
     }
   }
 }
@@ -23,7 +23,7 @@ internal enum Loc {
 // MARK: - Implementation Details
 
 extension Loc {
-  private static func tr(_ table: String, _ key: String, _ args: any CVarArg..., fallback value: String? = nil) -> String {
+  private static func tr(_ table: String, _ key: String, _ args: any CVarArg..., fallback value: String) -> String {
     let format = BundleToken.bundle.localizedString(forKey: key, value: value, table: table)
     return String(format: format, locale: Locale.current, arguments: args)
   }
