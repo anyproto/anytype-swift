@@ -100,6 +100,7 @@ internal enum Loc {
   }
   internal static let createType = Loc.tr("Localizable", "Create type")
   internal static let current = Loc.tr("Localizable", "Current")
+  internal static let dates = Loc.tr("Localizable", "Dates")
   internal static func daysToDeletionVault(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Days to deletion vault", p1)
   }

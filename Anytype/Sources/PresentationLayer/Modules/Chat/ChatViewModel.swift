@@ -179,7 +179,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     func updateMentionState() async throws {
         switch mentionSearchState {
         case let .search(searchText, _):
-            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, limitLayout: [.participant])
+            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [], limitLayout: [.participant])
         case .finish:
             mentionObjects = []
         }

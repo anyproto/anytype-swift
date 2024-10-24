@@ -6,8 +6,7 @@ import AnytypeCore
 import Combine
 
 final class MentionsViewModel {
-    @Published private(set) var mentions = ([MentionDisplayData](), "")
-    @Published private(set) var newObjectName = ""
+    @Published private(set) var mentions = [MentionDisplayData]()
     let dismissSubject = PassthroughSubject<Void, Never>()
     
     var onSelect: RoutingAction<MentionObject>?
@@ -18,7 +17,7 @@ final class MentionsViewModel {
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     private var searchTask: Task<(), any Error>?
-    private var searchString = ""
+    var searchString = ""
     
     init(document: some BaseDocumentProtocol) {
         self.document = document
@@ -29,13 +28,34 @@ final class MentionsViewModel {
         searchTask?.cancel()
         searchTask = Task { @MainActor [weak self] in
             guard let self else { return }
-            let mentions = try await mentionService.searchMentions(
+            
+            var updatedMentions: [MentionDisplayData] = []
+
+            let dateMentions = FeatureFlags.dateAsAnObject ? try await mentionService.searchMentions(
                 spaceId: document.spaceId,
                 text: filterString,
-                excludedObjectIds: [document.objectId]
+                excludedObjectIds: [document.objectId],
+                limitLayout: [.date]
+            ) : []
+            
+            if dateMentions.isNotEmpty {
+                updatedMentions.append(.header(title: Loc.dates))
+                updatedMentions.append(contentsOf: dateMentions.map { .mention($0) })
+            }
+            
+            let objectsMentions = try await mentionService.searchMentions(
+                spaceId: document.spaceId,
+                text: filterString,
+                excludedObjectIds: [document.objectId],
+                limitLayout: DetailsLayout.visibleLayoutsWithFiles - [.date]
             )
             
-            self.mentions = (mentions.map { .mention($0) }, filterString)
+            if objectsMentions.isNotEmpty {
+                updatedMentions.append(.header(title: Loc.objects))
+                updatedMentions.append(contentsOf: objectsMentions.map { .mention($0) })
+            }
+            
+            mentions = updatedMentions
         }
     }
     
