@@ -117,7 +117,6 @@ final class MentionsViewController: UITableViewController {
         static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20)
         static let headerSeparatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         static let cellHeight: CGFloat = 56
-        static let headerHeight: CGFloat = 36
         static let createNewObjectImagePadding: CGFloat = 12
     }
     
