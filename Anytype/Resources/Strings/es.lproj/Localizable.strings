@@ -211,7 +211,7 @@
 "Favorites" = "Favoritos";
 "Recent" = "Recientes";
 "Bin" = "Papelera";
-"All objects" = "All Objects";
+"All objects" = "Todos los objetos";
 
 // Settings
 "Wallpaper" = "Fondo de pantalla";
@@ -832,6 +832,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Editado recientemente";
 "Widgets.Library.RecentlyOpened.Name" = "Abierto recientemente";
 "Widgets.Library.RecentlyOpened.Description" = "En este dispositivo";
+"Widgets.Library.Chat.Name" = "Conversaciones";
 "Widgets.AppUpdate" = "Anytype tiene una actualización";
 "Widgets.Source.Library" = "Conjuntos por defecto";
 "Widgets.Source.Objects" = "tus objetos";
@@ -1224,7 +1225,9 @@ En concreto,
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Añadir reacción";
+"Message.Action.Reply" = "Responder";
 "Message.Input.EmptyPlaceholder" = "Escribe un mensaje...";
+"Message.ChatTitle.Placeholder" = "Chat sin título";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Ordenar por";
@@ -1242,7 +1245,11 @@ En concreto,
 "AllContent.Search.Empty.State.title" = "No se encuentran resultados.";
 "AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";
 
+// MARK: - Chats
+"Chat.ReadOnly" = "Solo pueden enviar mensajes los editores. Solicita acceso a la persona que ha creado esto.";
+"Chat.ReplyTo" = "Responder a %@";
+
 // MARK: - Reindexing warning alert
-"ReindexingWarningAlert.Title" = "Upgrading your search experience";
-"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
+"ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
+"ReindexingWarningAlert.Description" = "Hemos cambiado a un nuevo software de búsqueda para obtener resultados más rápidos y precisos.\nPuede llevar unos minutos crear el nuevo índice.";
+"ReindexingWarningAlert.Button" = "¡Entendido!";
