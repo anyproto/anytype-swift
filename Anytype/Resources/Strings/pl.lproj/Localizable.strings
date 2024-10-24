@@ -144,7 +144,13 @@
 "Alignment" = "Położenie";
 "Actions" = "Akcje";
 "Relations" = "Relacje";
+"History" = "Historia";
 "Objects" = "Obiekty";
+"Pages" = "Pages";
+"Lists" = "Listy";
+"Bookmarks" = "Bookmarks";
+"Files" = "Pliki";
+"Media" = "Multimedia";
 "Lists" = "Listy";
 "Pinned" = "Przypięte";
 "Delete" = "Usuń";
@@ -160,7 +166,7 @@
 "Unpin" = "Odepnij";
 "Pin on top" = "Przypnij na górze";
 "File block subtitle" = "Zachowaj plik w oryginalnym formacie";
-"Picture block subtitle" = "Prześlij i wzbogacaj stronę obrazkiem";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Prześlij odtwarzalne wideo";
 "Bookmark block subtitle" = "Zapisz swój ulubiony link z podsumowaniem";
 "Code block subtitle" = "Przechwyć fragment kodu";
@@ -198,11 +204,14 @@
 "Okay" = "Ok";
 "Join" = "Dołącz";
 "Agreement Disclamer" = "Kontynuując, zgadzasz się na [Warunki użytkowania](%@) i [Politykę prywatności](%@)";
+"Lets Go" = "Let’s Go";
+"My spaces" = "My spaces";
 
 // Home
 "Favorites" = "Ulubione";
 "Recent" = "Ostatnie";
 "Bin" = "Kosz";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "Tło";
@@ -286,6 +295,11 @@
 "Background picture" = "Zdjęcie w tle";
 "Layout" = "Układ";
 "Arrangement of objects on a canvas" = "Układ obiektów na płótnie";
+"ObjectSettings.History.Description" = "All versions of object";
+
+// Version history
+"VersionHistory.Title" = "Version History";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Szukaj";
 "There is no emoji named" = "Nie ma emoji o nazwie";
@@ -504,7 +518,7 @@
 "Set.View.Empty.Subtitle" = "Dodawanie zapytania wyszukiwania w celu agregowania obiektów o jednakowych typach i relacjach w trybie na żywo";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Kwerenda wybierająca";
@@ -568,6 +582,7 @@
 "Select all" = "Zaznacz wszystko";
 "Unselect all" = "Odznacz wszystko";
 "Deselect all" = "Odznacz wszystko";
+"Deselect" = "Deselect";
 "Shared" = "Udostępnione";
 "Sets" = "Zbiory";
 "Collections" = "Kolekcje";
@@ -608,19 +623,18 @@
 "Unfavorite" = "Usuń z ulubionych";
 "Unsplash" = "Unsplash";
 "Go back" = "Wróć";
-"SyncStatus.LocalOnly.Title" = "Tylko lokalnie";
-"SyncStatus.LocalOnly.Description" = "Tylko lokalnie";
-"SyncStatus.Synced.Anytype.Description" = "Kopia zapasowa w sieci Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Kopia zapasowa w Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Kopia zapasowa w sieci hostowanej samodzielnie";
 "Downloading or uploading data to some node" = "Pobieranie lub przesyłanie danych do jakiegoś węzła";
 "Node is not connected" = "Węzeł nie jest połączony";
 "Initializing sync" = "Inicjowanie synchronizacji";
 "Incompatible version" = "Niekompatybilna wersja";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Zsynchronizowano";
-"Syncing..." = "Synchronizowanie...";
 "No connection" = "Brak połączenia";
-"Preparing..." = "Przygotowywanie…";
 "Deleted" = "Usunięto";
 "Download" = "Pobierz";
 "Open object" = "Otwórz obiekt";
@@ -637,6 +651,7 @@
 "Audio" = "Audio";
 "Video" = "Wideo";
 "Picture" = "Zdjęcie";
+"Image" = "Obraz";
 "File" = "Plik";
 "No related options here" = "Nie ma tutaj żadnych powiązanych opcji. Możesz dodać kilka";
 "Empty" = "Pusty";
@@ -678,6 +693,9 @@
 "Cancel deletion" = "Anuluj usuwanie";
 "Logout and clear data" = "Wyloguj i wyczyść dane";
 "New" = "Nowy";
+"Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";
@@ -804,17 +822,19 @@
 "Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Lista umów";
 "Widgets.Layout.View.Title" = "Zobacz";
-"Widgets.Layout.Link.Description" = "Wersja ompact obiektu";
-"Widgets.Layout.Tree.Description" = "Hierarchiczna struktura obiektów";
-"Widgets.Layout.List.Description" = "Widget z widokiem listy ustawionego obiektu";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget z widokiem listy ustawionego obiektu";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Ostatnio edytowane";
 "Widgets.Library.RecentlyOpened.Name" = "Niedawno otwarte";
 "Widgets.Library.RecentlyOpened.Description" = "Na tym urządzeniu";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "Wersja aplikacji: %@";
@@ -968,7 +988,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Twoja prośba o dołączenie do przestrzeni **%@** została zatwierdzona z **%@** prawami dostępu. Miejsce będzie wkrótce dostępne na Twoim urządzeniu.";
 "ParticipantRequestDeclineNotification.Text" = "Twoja prośba o dołączenie do przestrzeni **%@** została odrzucona.";
 "RequestToLeaveNotification.Text" = "**%@** chce opuścić przestrzeń **%@**.";
-"ParticipantRemoveNotification.Text" = "Zostałeś usunięty z pokoju lub pokój został usunięty przez właściciela.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** poprosił o dołączenie do przestrzeni **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Idź w kosmos";
 "RequestToJoinNotification.ViewRequest" = "Wyświetl zapytanie";
@@ -1016,6 +1036,19 @@
 "SpaceShare.Tip.Steps.2" = "Otwórz sekcję udostępniania";
 "SpaceShare.Tip.Steps.3" = "Wygeneruj link zaproszenia i udostępnij go";
 
+// MARK: - Space Hub Tip
+"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
+"SpaceHub.Tip.Title2" = "Simple & Flexible";
+"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+
+"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
+"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
+"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Ostrzeżenie";
@@ -1040,8 +1073,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ostatnie 7 dni";
-"RelativeFormatter.days30" = "Poprzednie 30 dni";
-"RelativeFormatter.older" = "Starsze";
+"RelativeFormatter.days14" = "Previous 14 days";
 
 // MARK: - Server
 "Server.Network" = "Sieć";
@@ -1049,6 +1081,10 @@
 "Server.AddButton" = "Dodaj sieć hostowaną";
 "Server.Anytype" = "Dowolny typ";
 "Server.LocalOnly" = "Tylko lokalnie";
+"Server.LocalOnly.Alert.title" = "Jesteś pewny?";
+"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
+"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
+"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
 
 // MARK: - Gallery
 "Gallery.Author" = "Wykonane przez @%@";
@@ -1162,7 +1198,6 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.Feature.SharedSpaces" = "Do %@ współdzielonych obszarów";
 
 "MembershipServiceError.tierNotFound" = "Nie znaleziono danych poziomu, zrestartuj aplikację i spróbuj ponownie";
-"MembershipServiceError.forcefullyFailedValidation" = "TRYB AWARII JEST WŁĄCZONY 🫵🐭. Wyłącz w ustawieniach debugowania";
 "MembershipServiceError.invalidBillingIdFormat" = "Wewnętrzny problem z formatem rozliczeniowym, pracujemy nad tym. Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.";
 
 
@@ -1170,6 +1205,39 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Niekompatybilna wersja";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
+
+
 // MARK: - Debug
 "Debug.MimeTypes" = "Typy mimów - %@";
 "Debug.Info" = "Informacje debugowania";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";
+
+// MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sortuj wg";
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Sort.Date.Asc" = "Oldest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Empty.State.title" = "It’s empty here.";
+"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";

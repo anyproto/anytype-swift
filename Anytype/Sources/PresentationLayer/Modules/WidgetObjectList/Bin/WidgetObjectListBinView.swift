@@ -6,9 +6,10 @@ struct WidgetObjectListBinView: View {
     
     @StateObject private var model: WidgetObjectListViewModel
     
-    init(output: (any WidgetObjectListCommonModuleOutput)?) {
+    init(spaceId: String, output: (any WidgetObjectListCommonModuleOutput)?) {
         self._model = StateObject(wrappedValue: WidgetObjectListViewModel(
-            internalModel: WidgetObjectListBinViewModel(),
+            spaceId: spaceId,
+            internalModel: WidgetObjectListBinViewModel(spaceId: spaceId),
             menuBuilder: WidgetObjectListMenuBuilder(),
             output: output
         ))
@@ -16,5 +17,8 @@ struct WidgetObjectListBinView: View {
     
     var body: some View {
         WidgetObjectListView(model: model)
+            .onAppear {
+                AnytypeAnalytics.instance().logScreenBin()
+            }
     }
 }

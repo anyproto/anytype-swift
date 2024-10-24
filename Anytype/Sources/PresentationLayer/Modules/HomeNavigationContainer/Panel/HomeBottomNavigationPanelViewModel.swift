@@ -46,6 +46,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onTapBackward() {
+        AnytypeAnalytics.instance().logHistoryBack()
         output?.onBackwardSelected()
     }
     
@@ -69,6 +70,10 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onPickTypeForNewObjectSelected()
     }
     
+    func onSpaceHubTap() {
+        output?.onSpaceHubSelected()
+    }
+    
     func onAppear() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             canCreateObject = canEdit
@@ -81,6 +86,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         Task {
             await subscriptionService.startSubscription(
                 subId: subId,
+                spaceId: info.techSpaceId,
                 objectId: info.profileObjectID
             ) { [weak self] details in
                 self?.handleProfileDetails(details: details)

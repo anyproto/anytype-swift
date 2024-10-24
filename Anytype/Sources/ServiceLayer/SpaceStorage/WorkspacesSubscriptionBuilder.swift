@@ -4,7 +4,7 @@ import AnytypeCore
 
 protocol WorkspacesSubscriptionBuilderProtocol: AnyObject {
     var subscriptionId: String { get }
-    func build() -> SubscriptionData
+    func build(techSpaceId: String) -> SubscriptionData
 }
 
 final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol {
@@ -19,9 +19,9 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
         Constants.spacesSubId
     }
     
-    func build() -> SubscriptionData {
+    func build(techSpaceId: String) -> SubscriptionData {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
+            relation: BundledRelationKey.createdDate,
             type: .desc
         )
         
@@ -33,6 +33,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
         return .search(
             SubscriptionData.Search(
                 identifier: Constants.spacesSubId,
+                spaceId: techSpaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: 0,

@@ -42,7 +42,7 @@ struct EditableView<Content: View & ContextualMenuItemsProvider>: View {
             .resizable()
             .frame(width: Constaints.dotImageSize, height: Constaints.dotImageSize)
             .foregroundColor(Color.Button.active)
-            .background(Color.Background.highlightedOfSelected)
+            .background(Color.Background.highlightedMedium)
             .background(.ultraThinMaterial)
             .cornerRadius(Constaints.dotImageSize / 2)
     }

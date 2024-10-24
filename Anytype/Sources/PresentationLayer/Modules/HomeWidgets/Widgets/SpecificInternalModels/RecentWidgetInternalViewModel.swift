@@ -10,6 +10,7 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     private let type: RecentWidgetType
     private let widgetBlockId: String
     private let widgetObject: any BaseDocumentProtocol
+    private let spaceId: String
     
     @Injected(\.recentSubscriptionService)
     private var recentSubscriptionService: any RecentSubscriptionServiceProtocol
@@ -30,6 +31,7 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
         self.type = type
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
+        self.spaceId = data.workspaceInfo.accountSpaceId
         self.name = type.title
     }
     
@@ -50,7 +52,7 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     func startHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
-        return type.editorScreenData
+        return type.editorScreenData(spaceId: spaceId)
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
@@ -61,6 +63,7 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
         await recentSubscriptionService.startSubscription(
+            spaceId: spaceId,
             type: type,
             objectLimit: widgetInfo.fixedLimit,
             update: { [weak self] details in

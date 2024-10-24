@@ -39,8 +39,4 @@ final class EditorBlockCollectionController: EditorCollectionReloadable {
     func blockDidFinishEditing() {
         viewInput?.blockDidFinishEditing()
     }
-    
-    func didSelectTextRangeSelection(blockId: String, textView: UITextView) {
-        viewInput?.didSelectTextRangeSelection(blockId: blockId, textView: textView)
-    }
 }

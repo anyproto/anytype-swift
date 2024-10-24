@@ -19,7 +19,7 @@ struct SearchBar: View {
         }
         .padding(8)
         .padding(.horizontal, 25)
-        .background(Color.Background.highlightedOfSelected)
+        .background(Color.Background.highlightedMedium)
         .cornerRadius(10)
         .overlay(overlay)
         .padding(.horizontal, 16)

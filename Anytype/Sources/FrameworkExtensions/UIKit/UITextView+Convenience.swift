@@ -1,15 +1,5 @@
-
 import Services
 import UIKit
-
-struct TextViewSelectionPosition: OptionSet {
-    var rawValue: UInt8
-
-    static let none = TextViewSelectionPosition([])
-    static let start = TextViewSelectionPosition(rawValue: 0x01)
-    static let middle = TextViewSelectionPosition(rawValue: 0x02)
-    static let end = TextViewSelectionPosition(rawValue: 0x04)
-}
 
 extension UITextView {
     var isCarretInTheBeginingOfDocument: Bool {
@@ -24,22 +14,6 @@ extension UITextView {
         guard isFirstResponder else { return nil }
         let offset = selectedRange.location + selectedRange.length
         return position(from: beginningOfDocument, offset: offset)
-    }
-
-    var textViewSelectionPosition: TextViewSelectionPosition {
-        guard selectedRange.length > 0 else { return .none }
-
-        var position = TextViewSelectionPosition.middle
-
-        if selectedRange.location == 0 {
-            position.insert(.start)
-        }
-
-        if selectedRange.contains(text.count - 1) {
-            position.insert(.end)
-        }
-
-        return position
     }
     
     /// Append plain string to attributed string after caret.

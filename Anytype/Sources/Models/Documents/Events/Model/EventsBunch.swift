@@ -4,7 +4,7 @@ import Foundation
 
 struct EventsBunch {
     let contextId: String
-    let middlewareEvents: [Anytype_Event.Message]
+    let middlewareEvents: [MiddlewareEventMessage]
     let localEvents: [LocalEvent]
 
     func send() async {
@@ -14,7 +14,7 @@ struct EventsBunch {
 
 extension EventsBunch {
 
-    init(contextId: String, middlewareEvents: [Anytype_Event.Message]) {
+    init(contextId: String, middlewareEvents: [MiddlewareEventMessage]) {
         self.contextId = contextId
         self.middlewareEvents = middlewareEvents
         self.localEvents = []

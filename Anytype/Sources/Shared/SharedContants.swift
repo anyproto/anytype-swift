@@ -1,7 +1,7 @@
 import Foundation
 
 enum AppLinks {
-    static let storeLink = URL(string: "https://apps.apple.com/us/app/anytype-private-notes/id6449487029")
+    static let storeLink = URL(string: "itms-apps://itunes.apple.com/app/id6449487029")
     static let storeHost = "apps.apple.com"
 }
 

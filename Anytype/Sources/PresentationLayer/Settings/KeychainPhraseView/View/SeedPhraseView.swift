@@ -20,7 +20,7 @@ struct SeedPhraseView: View {
             }
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
-            .background(Color.Shape.transperent)
+            .background(Color.Shape.transperentSecondary)
             .cornerRadius(4)
         }
     }

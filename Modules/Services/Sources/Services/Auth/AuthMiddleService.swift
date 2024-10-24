@@ -8,7 +8,7 @@ public protocol AuthMiddleServiceProtocol: AnyObject, Sendable {
     func createAccount(
         name: String,
         imagePath: String,
-        gradient: GradientId,
+        iconOption: Int,
         networkMode: Anytype_Rpc.Account.NetworkMode,
         configPath: String?
     ) async throws -> AccountData
@@ -43,7 +43,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
     public func createAccount(
         name: String,
         imagePath: String,
-        gradient: GradientId,
+        iconOption: Int,
         networkMode: Anytype_Rpc.Account.NetworkMode,
         configPath: String?
     ) async throws -> AccountData {
@@ -51,7 +51,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
             let response = try await ClientCommands.accountCreate(.with {
                 $0.name = name
                 $0.avatar = .avatarLocalPath(imagePath)
-                $0.icon = Int64(gradient.rawValue)
+                $0.icon = Int64(iconOption)
                 $0.disableLocalNetworkSync = true
                 $0.networkMode = networkMode
                 $0.networkCustomConfigFilePath = configPath ?? ""

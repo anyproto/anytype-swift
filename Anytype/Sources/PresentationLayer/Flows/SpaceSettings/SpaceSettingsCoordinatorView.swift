@@ -1,17 +1,22 @@
 import Foundation
 import SwiftUI
+import Services
 
 struct SpaceSettingsCoordinatorView: View {
     
-    @StateObject private var model = SpaceSettingsCoordinatorViewModel()
+    @StateObject private var model: SpaceSettingsCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
     
+    init(workspaceInfo: AccountInfo) {
+        self._model = StateObject(wrappedValue: SpaceSettingsCoordinatorViewModel(workspaceInfo: workspaceInfo))
+    }
+    
     var body: some View {
-        SpaceSettingsView(output: model)
+        SpaceSettingsView(workspaceInfo: model.workspaceInfo, output: model)
         .sheet(isPresented: $model.showRemoteStorage) {
-            RemoteStorageView(output: model)
+            RemoteStorageView(spaceId: model.accountSpaceId, output: model)
                 .sheet(isPresented: $model.showFiles) {
-                    WidgetObjectListFilesView()
+                    WidgetObjectListFilesView(spaceId: model.accountSpaceId)
                 }
         }
         .sheet(isPresented: $model.showPersonalization) {
@@ -29,11 +34,11 @@ struct SpaceSettingsCoordinatorView: View {
                     }
                 }
         }
-        .sheet(isPresented: $model.showSpaceShare) {
-            SpaceShareCoordinatorView()
+        .sheet(item: $model.showSpaceShareData) {
+            SpaceShareCoordinatorView(workspaceInfo: $0)
         }
-        .sheet(isPresented: $model.showSpaceMembers) {
-            SpaceMembersView()
+        .sheet(item: $model.showSpaceMembersDataSpaceId) {
+            SpaceMembersView(spaceId: $0.value)
         }
         .sheet(item: $model.showIconPickerSpaceViewId) {
             SpaceObjectIconPickerView(spaceViewId: $0.value)

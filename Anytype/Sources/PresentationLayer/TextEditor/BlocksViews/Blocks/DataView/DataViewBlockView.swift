@@ -54,12 +54,7 @@ final class DataViewBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: DataViewBlockConfiguration) {
-        if let iconImage = configuration.content.iconImage {
-            iconView.icon = iconImage
-            iconView.isHidden = false
-        } else {
-            iconView.isHidden = true
-        }
+        iconView.icon = configuration.content.iconImage
         
         if let title = configuration.content.title, title.isNotEmpty {
             titleLabel.setText(title)

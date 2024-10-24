@@ -5,7 +5,6 @@ struct WidgetChangeSourceSearchModuleModel: Identifiable, Hashable {
     let spaceId: String
     let widgetId: String
     let context: AnalyticsWidgetContext
-    @EquatableNoop var onFinish: () -> Void
     
     var id: Int { hashValue }
 }

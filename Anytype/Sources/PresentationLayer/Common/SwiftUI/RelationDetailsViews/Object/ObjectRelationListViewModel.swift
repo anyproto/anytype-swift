@@ -34,10 +34,6 @@ final class ObjectRelationListViewModel: ObservableObject {
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     
-    func onAppear() {
-        searchTextChanged()
-    }
-    
     func onClear() {
         Task {
             try await relationSelectedOptionsModel.onClear()
@@ -52,7 +48,7 @@ final class ObjectRelationListViewModel: ObservableObject {
         Task {
             let newOptionId =  try await objectActionsService.duplicate(objectId: option.id)
             try await relationSelectedOptionsModel.optionSelected(newOptionId)
-            try await searchTextChangedAsync(searchText)
+            await searchTextChanged()
         }
     }
     
@@ -110,28 +106,24 @@ final class ObjectRelationListViewModel: ObservableObject {
         return items
     }
     
-    func searchTextChanged(_ text: String = "") {
-        Task {
-            try await searchTextChangedAsync(text)
-        }
-    }
-    
-    private func searchTextChangedAsync(_ text: String = "") async throws {
-        let selectedOptions = try await interactor.searchOptions(text: text, limitObjectIds: selectedOptionsIds)
-        let rawOptions = try await interactor.searchOptions(text: text, excludeObjectIds: selectedOptionsIds)
-        
-        let selectedReorder = selectedOptions
-            .reordered(
-                by: selectedOptionsIds
-            ) { $0.id }
-        
-        options = selectedReorder + rawOptions
-        
-        if !configuration.isEditable {
-            options = options.filter { selectedOptionsIds.contains($0.id) }
-        }
-        
-        setEmptyIfNeeded()
+    func searchTextChanged() async {
+        do {
+            let selectedOptions = try await interactor.searchOptions(text: searchText, limitObjectIds: selectedOptionsIds)
+            let rawOptions = try await interactor.searchOptions(text: searchText, excludeObjectIds: selectedOptionsIds)
+            
+            let selectedReorder = selectedOptions
+                .reordered(
+                    by: selectedOptionsIds
+                ) { $0.id }
+            
+            options = selectedReorder + rawOptions
+            
+            if !configuration.isEditable {
+                options = options.filter { selectedOptionsIds.contains($0.id) }
+            }
+            
+            setEmptyIfNeeded()
+        } catch {}
     }
     
     private func removeRelationOption(_ option: ObjectRelationOption) {

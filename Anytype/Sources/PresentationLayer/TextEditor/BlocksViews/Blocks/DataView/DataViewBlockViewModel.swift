@@ -63,7 +63,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
         let subtitle = isCollection ? Loc.Content.DataView.InlineCollection.subtitle : Loc.Content.DataView.InlineSet.subtitle
         let placeholder = isCollection ? Loc.Content.DataView.InlineCollection.untitled : Loc.Content.DataView.InlineSet.untitled
         if let objectDetails = targetDetails {
-            let setOfIsNotEmpty = objectDetails.setOf.first { $0.isNotEmpty } != nil
+            let setOfIsNotEmpty = objectDetails.filteredSetOf.isNotEmpty
             content = DataViewBlockContent(
                 title: objectDetails.title,
                 placeholder: placeholder,
@@ -76,7 +76,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
                 title: nil,
                 placeholder: placeholder,
                 subtitle: subtitle,
-                iconImage: nil,
+                iconImage: .object(.empty(.page)),
                 badgeTitle: Loc.Content.DataView.InlineSet.noSource
             )
         }

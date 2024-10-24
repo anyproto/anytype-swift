@@ -107,7 +107,7 @@ final class SlashMenuActionHandler {
         if objectType.isListType {
             return .set(EditorSetObject(objectId: objectId, spaceId: objectType.spaceId))
         } else {
-            return .page(EditorPageObject(objectId: objectId, spaceId: objectType.spaceId, isOpenedForPreview: false))
+            return .page(EditorPageObject(objectId: objectId, spaceId: objectType.spaceId))
         }
     }
     

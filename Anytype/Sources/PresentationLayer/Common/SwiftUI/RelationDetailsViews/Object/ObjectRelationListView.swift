@@ -23,13 +23,10 @@ struct ObjectRelationListView: View {
             onCreate: { _ in },
             onClear: {
                 viewModel.onClear()
-            },
-            onSearchTextChange: { text in
-                viewModel.searchTextChanged(text)
             }
         )
-        .onAppear {
-            viewModel.onAppear()
+        .task(id: viewModel.searchText) {
+            await viewModel.searchTextChanged()
         }
     }
     
@@ -51,12 +48,14 @@ struct ObjectRelationListView: View {
     @ViewBuilder
     private var header: some View {
         if viewModel.configuration.isEditable, let items = viewModel.objectRelationTypeItems() {
-            WrappingHStack(items, spacing: .constant(5), lineSpacing: 0) { item in
-                AnytypeText(
-                    item.name,
-                    style: item.isSelected ? .caption1Medium : .caption1Regular
-                )
-                .foregroundColor(.Text.secondary)
+            WrappingHStack(alignment: .leading, horizontalSpacing: 6, verticalSpacing: 0) {
+                ForEach(items.indices, id: \.self) { index in
+                    AnytypeText(
+                        items[index].name,
+                        style: items[index].isSelected ? .caption1Medium : .caption1Regular
+                    )
+                    .foregroundColor(.Text.secondary)
+                }
             }
             .padding(.top, 26)
             .padding(.bottom, 8)

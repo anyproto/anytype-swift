@@ -586,16 +586,16 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logScreenAuthRegistration() {
-        logEvent("ScreenAuthRegistration")
+    func logMainAuthScreenShow() {
+        logEvent("ScreenIndex")
     }
     
-    func logMainAuthScreenShow() {
-        AnytypeAnalytics.instance().logEvent("ScreenIndex")
+    func logStartCreateAccount() {
+        logEvent("StartCreateAccount")
     }
     
     func logLoginScreenShow() {
-        AnytypeAnalytics.instance().logEvent("ScreenLogin")
+        logEvent("ScreenLogin")
     }
     
     func logScreenSettingsPersonal() {
@@ -610,20 +610,36 @@ extension AnytypeAnalytics {
         logEvent("SettingsWallpaperSet")
     }
     
-    func logScreenSearch() {
-        logEvent("ScreenSearch")
+    func logScreenSearch(spaceId: String, type: ScreenSearchType) {
+        logEvent(
+            "ScreenSearch",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ])
     }
     
     func logSearchResult(spaceId: String) {
         logEvent("SearchResult", spaceId: spaceId)
     }
     
-    func logSearchBacklink(spaceId: String) {
-        logEvent("SearchBacklink", spaceId: spaceId)
+    func logSearchBacklink(spaceId: String, type: ScreenSearchType) {
+        logEvent(
+            "SearchBacklink",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ])
     }
     
-    func logSearchInput(spaceId: String) {
-        logEvent("SearchInput", spaceId: spaceId)
+    func logSearchInput(spaceId: String, route: SearchInputRoute? = nil) {
+        logEvent(
+            "SearchInput",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
+        )
     }
     
     func logLockPage(_ isLocked: Bool) {
@@ -816,6 +832,16 @@ extension AnytypeAnalytics {
         logEvent(
             "OnboardingTooltip",
             withEventProperties: [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
+        )
+    }
+    
+    func logOnboardingTooltip(tooltip: OnboardingTooltip, step: Int) {
+        logEvent(
+            "OnboardingTooltip",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.id: tooltip.rawValue,
+                AnalyticsEventsPropertiesKey.step: "\(step)"
+            ]
         )
     }
     
@@ -1119,5 +1145,65 @@ extension AnytypeAnalytics {
     
     func logKeyboardBarHideKeyboardMenu() {
         logEvent("KeyboardBarHideKeyboardMenu")
+    }
+    
+    func logScreenHistory() {
+        logEvent("ScreenHistory")
+    }
+    
+    func logScreenHistoryVersion() {
+        logEvent("ScreenHistoryVersion")
+    }
+    
+    func logRestoreFromHistory() {
+        logEvent("RestoreFromHistory")
+    }
+    
+    func logScreenVault(type: String) {
+        logEvent("ScreenVault", withEventProperties: [AnalyticsEventsPropertiesKey.type:  type])
+    }
+    
+    func logHistoryBack() {
+        logEvent("HistoryBack")
+    }
+    
+    func logScreenWidget() {
+        logEvent("ScreenWidget")
+    }
+    
+    func logScreenBin() {
+        logEvent("ScreenBin")
+    }
+    
+    func logScreenLibrary() {
+        logEvent("ScreenLibrary")
+    }
+    
+    func logChangeLibraryType(type: String) {
+        logEvent(
+            "ChangeLibraryType",
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type]
+        )
+    }
+    
+    func logChangeLibraryTypeLink(type: String) {
+        logEvent(
+            "ChangeLibraryTypeLink",
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type]
+        )
+    }
+    
+    func logChangeLibrarySort(type: String, sort: String) {
+        logEvent(
+            "ChangeLibrarySort",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.sort: sort
+            ]
+        )
+    }
+    
+    func logLibraryResult() {
+        logEvent("LibraryResult")
     }
 }

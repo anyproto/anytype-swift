@@ -84,7 +84,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         }
         
         if setDocument.isTypeSet() {
-            if let firstSetOf = setDocument.details?.setOf.first {
+            if let firstSetOf = setDocument.details?.filteredSetOf.first {
                 self.objectTypeId = firstSetOf
             } else {
                 self.objectTypeId = defaultObjectTypeID
@@ -153,8 +153,9 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
                 text: "", 
                 includePins: true,
                 includeLists: true,
-                includeBookmark: true, 
+                includeBookmarks: true,
                 includeFiles: false,
+                includeTemplates: false,
                 incudeNotForCreation: false,
                 spaceId: setDocument.spaceId
             ).map { ObjectType(details: $0) }

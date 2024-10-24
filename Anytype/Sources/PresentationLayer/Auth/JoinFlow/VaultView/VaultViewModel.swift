@@ -17,6 +17,8 @@ final class VaultViewModel: ObservableObject {
     private var seedService: any SeedServiceProtocol
     @Injected(\.usecaseService)
     private var usecaseService: any UsecaseServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     
     init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         self.state = state
@@ -24,7 +26,7 @@ final class VaultViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenOnboarding(step: .void)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .vault)
     }
     
     func onNextAction() {
@@ -39,15 +41,18 @@ final class VaultViewModel: ObservableObject {
     
     private func createAccount() {
         Task {
+            AnytypeAnalytics.instance().logStartCreateAccount()
             startLoading()
             
             do {
                 state.mnemonic = try await authService.createWallet()
                 let account = try await authService.createAccount(
                     name: state.soul,
+                    iconOption: IconColorStorage.randomOption,
                     imagePath: ""
                 )
                 try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
+                try? await workspaceService.workspaceSetDetails(spaceId: account.info.accountSpaceId, details: [.name(Loc.myFirstSpace)])
                 try? seedService.saveSeed(state.mnemonic)
                 
                 onSuccess()

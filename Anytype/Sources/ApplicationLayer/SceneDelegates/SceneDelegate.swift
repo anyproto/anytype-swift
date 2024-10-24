@@ -10,10 +10,6 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
     @Injected(\.quickActionShortcutBuilder)
     private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
     
-    func sceneWillResignActive(_ scene: UIScene) {
-        UIApplication.shared.shortcutItems = quickActionShortcutBuilder.buildShortcutItems()
-    }
-    
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         completionHandler(handleQuickAction(shortcutItem))
     }

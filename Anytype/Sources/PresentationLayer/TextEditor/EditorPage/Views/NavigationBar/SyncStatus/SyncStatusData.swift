@@ -23,7 +23,7 @@ struct SyncStatusData {
         case .error:
             return .image(makeIcon(color: .System.red))
         case .networkNeedsUpdate:
-            return .image(makeIcon(color: .Light.yellow))
+            return .image(makeIcon(color: .System.yellow))
         case .syncing:
             return .animation(
                 makeIcon(color: .System.green, diameter: 8),
@@ -36,7 +36,7 @@ struct SyncStatusData {
         }
     }
     
-    private func makeIcon(color: UIColor, diameter: Double = 10) -> UIImage {
+    private func makeIcon(color: UIColor, diameter: Double = 8) -> UIImage {
         ImageBuilder(
             ImageGuideline(
                 size: CGSize(width: diameter, height: diameter),

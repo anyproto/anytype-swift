@@ -6,6 +6,7 @@ import AnytypeCore
 @MainActor
 protocol RecentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
+        spaceId: String,
         type: RecentWidgetType,
         objectLimit: Int?,
         update: @escaping ([ObjectDetails]) -> Void
@@ -22,8 +23,8 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
@@ -35,6 +36,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private let subscriptionId = "Recent-\(UUID().uuidString)"
     
     func startSubscription(
+        spaceId: String,
         type: RecentWidgetType,
         objectLimit: Int?,
         update: @escaping ([ObjectDetails]) -> Void
@@ -44,10 +46,9 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
             SearchHelper.templateScheme(include: false)
-            makeDateFilter(type: type)
+            makeDateFilter(type: type, spaceId: spaceId)
         }
         
         let keys: [BundledRelationKey] = .builder {
@@ -60,6 +61,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,
@@ -94,10 +96,10 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         }
     }
     
-    private func makeDateFilter(type: RecentWidgetType) -> DataviewFilter? {
+    private func makeDateFilter(type: RecentWidgetType, spaceId: String) -> DataviewFilter? {
         switch type {
         case .recentEdit:
-            guard let spaceView = activeWorkspaceStorage.spaceView(),
+            guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId),
                   let createdDate = spaceView.createdDate else { return nil }
             return SearchHelper.lastModifiedDateFrom(createdDate.addingTimeInterval(3))
         case .recentOpen:

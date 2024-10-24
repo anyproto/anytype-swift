@@ -7,7 +7,7 @@ import SwiftUI
 
 enum WidgetObjectListData {
     case list([ListSectionData<String?, WidgetObjectListRowModel>])
-    case error(NewSearchError)
+    case error(LegacySearchError)
 }
 
 @MainActor
@@ -15,14 +15,13 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     // MARK: - DI
     
+    private let spaceId: String
     private let internalModel: any WidgetObjectListInternalViewModelProtocol
     private let menuBuilder: any WidgetObjectListMenuBuilderProtocol
     private weak var output: (any WidgetObjectListCommonModuleOutput)?
     
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     
@@ -57,11 +56,13 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     @Published var options = [SelectionOptionsItemViewModel]()
     
     init(
+        spaceId: String,
         internalModel: some WidgetObjectListInternalViewModelProtocol,
         menuBuilder: some WidgetObjectListMenuBuilderProtocol,
         output: (any WidgetObjectListCommonModuleOutput)?,
         isSheet: Bool = false
     ) {
+        self.spaceId = spaceId
         self.internalModel = internalModel
         self.menuBuilder = menuBuilder
         self.output = output
@@ -85,7 +86,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func startParticipantTask() async {
-        for await participant in accountParticipantStorage.participantPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId).values {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
             self.participant = participant
             canEdit = participant.canEdit
             editMode = canEdit ? internalModel.editMode : .normal(allowDnd: false)
@@ -165,6 +166,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
                         description: details.subtitle,
                         subtitle: internalModel.subtitle(for: details),
                         isChecked: selectedRowIds.contains(details.id),
+                        canArchive: details.permissions(participant: participant).canArchive,
                         menu: menuBuilder.buildMenuItems(
                             details: details,
                             allowOptions: internalModel.availableMenuItems,

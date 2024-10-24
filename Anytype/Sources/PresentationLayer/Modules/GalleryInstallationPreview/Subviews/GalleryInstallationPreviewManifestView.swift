@@ -45,13 +45,16 @@ struct GalleryInstallationPreviewManifestView: View {
                     AnytypeText(manifest.description, style: .bodyRegular)
                         .foregroundColor(.Text.primary)
                     Spacer.fixedHeight(20)
-                    WrappingHStack(manifest.categories, spacing: .constant(8), lineSpacing: 8) { category in
-                        AnytypeText(category, style: .caption1Medium)
-                            .foregroundColor(.Text.secondary)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 1)
-                            .background(Color.Shape.tertiary)
-                            .cornerRadius(4, style: .continuous)
+                    WrappingHStack(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 8) {
+                        ForEach(manifest.categories.indices, id: \.self) { index in
+                            AnytypeText(manifest.categories[index], style: .caption1Medium)
+                                .foregroundColor(.Text.secondary)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 1)
+                                .background(Color.Shape.tertiary)
+                                .cornerRadius(4, style: .continuous)
+
+                        }
                     }
                     Spacer.fixedHeight(16)
                     AnytypeText(manifest.author, style: .caption1Regular)

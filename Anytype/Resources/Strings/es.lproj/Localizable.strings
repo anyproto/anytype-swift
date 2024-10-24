@@ -85,7 +85,7 @@
 "Relation.View.Edit.title" = "Editar opción";
 "Relation.Create.Textfield.placeholder" = "Introducir nombre…";
 "Relation.Edit.Button.title" = "Aplicar";
-"Relation.Date.Locked.Alert.title" = "La relación “%@” está bloqueada";
+"Relation.Date.Locked.Alert.title" = "La relación “%@” está protegida";
 "Relation.ObjectTypes.Header.title" = "Tipos de objeto";
 "Relation.ObjectType.Header.title" = "Tipo de objeto";
 
@@ -144,7 +144,13 @@
 "Alignment" = "Alineación";
 "Actions" = "Acciones";
 "Relations" = "Relaciones";
+"History" = "Historial";
 "Objects" = "Objetos";
+"Pages" = "Páginas";
+"Lists" = "Listas";
+"Bookmarks" = "Marcadores";
+"Files" = "Archivos";
+"Media" = "Medios";
 "Lists" = "Listas";
 "Pinned" = "Anclado";
 "Delete" = "Eliminar";
@@ -160,7 +166,7 @@
 "Unpin" = "Desanclar";
 "Pin on top" = "Anclar al principio";
 "File block subtitle" = "Almacenar el archivo en su estado original";
-"Picture block subtitle" = "Cargar imágenes para ilustrar la página";
+"Image block subtitle" = "Cargar imágenes para ilustrar la página";
 "Video block subtitle" = "Cargar un vídeo reproducible";
 "Bookmark block subtitle" = "Guardar un enlace favorito con resumen";
 "Code block subtitle" = "Capturar un fragmento de código";
@@ -198,11 +204,14 @@
 "Okay" = "Aceptar";
 "Join" = "Unirte";
 "Agreement Disclamer" = "Al continuar, aceptas nuestros [términos de uso](%@) y nuestra [política de privacidad](%@).";
+"Lets Go" = "Adelante";
+"My spaces" = "Mis espacios";
 
 // Home
 "Favorites" = "Favoritos";
 "Recent" = "Recientes";
 "Bin" = "Papelera";
+"All objects" = "Todos los objetos";
 
 // Settings
 "Wallpaper" = "Fondo de pantalla";
@@ -286,6 +295,11 @@
 "Background picture" = "Imagen de fondo";
 "Layout" = "Diseño";
 "Arrangement of objects on a canvas" = "Disposición de objetos en un lienzo";
+"ObjectSettings.History.Description" = "Todas las versiones del objeto";
+
+// Version history
+"VersionHistory.Title" = "Historial de versiones";
+"VersionHistory.Toast.message" = "Versión %@ restaurada";
 
 "Search" = "Buscar";
 "There is no emoji named" = "No hay ningún emoji llamado";
@@ -504,7 +518,7 @@
 "Set.View.Empty.Subtitle" = "Añade una consulta de búsqueda para agregar objetos con un tipo o relación en común";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "Esta vista no es compatible con la versión móvil";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Seleccionar consulta";
@@ -568,6 +582,7 @@
 "Select all" = "Seleccionar todo";
 "Unselect all" = "Deseleccionar todo";
 "Deselect all" = "Deseleccionar todo";
+"Deselect" = "Deseleccionar";
 "Shared" = "Compartido";
 "Sets" = "Conjuntos";
 "Collections" = "Colecciones";
@@ -602,25 +617,24 @@
 "Action-focused layout with a checkbox" = "Diseño con casillas para verificar acciones";
 "Standard layout for canvas blocks" = "Diseño estándar para bloques en el lienzo";
 "List of related objects" = "Lista de objetos relacionados";
-"Lock" = "Bloquear";
-"Unlock" = "Desbloquear";
+"Lock" = "Proteger";
+"Unlock" = "Desproteger";
 "Favorite" = "Favorito";
 "Unfavorite" = "Quitar de Favoritos";
 "Unsplash" = "Unsplash";
 "Go back" = "Volver";
-"SyncStatus.LocalOnly.Title" = "Solo local";
-"SyncStatus.LocalOnly.Description" = "Solo local";
-"SyncStatus.Synced.Anytype.Description" = "Respaldado en la red de Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Respaldado en Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Respaldado en red autoalojada";
 "Downloading or uploading data to some node" = "Descargando o cargando datos a algún nodo";
 "Node is not connected" = "El nodo no está conectado";
 "Initializing sync" = "Inicializando sincronización";
 "Incompatible version" = "Versión incompatible";
+"Connecting" = "Conectando…";
+"P2P Connecting" = "Conectando P2P";
+"P2P Connection" = "Conexión P2P";
+"Anytype Network" = "Red de Anytype";
+"Self Host" = "Autoalojado";
+"Local Only" = "Solo local";
 "Synced" = "Sincronizado";
-"Syncing..." = "Sincronizando…";
 "No connection" = "No hay conexión";
-"Preparing..." = "Preparando…";
 "Deleted" = "Eliminado";
 "Download" = "Descargar";
 "Open object" = "Abrir objeto";
@@ -637,6 +651,7 @@
 "Audio" = "Audio";
 "Video" = "Vídeo";
 "Picture" = "Imagen";
+"Image" = "Imagen";
 "File" = "Archivo";
 "No related options here" = "No hay opciones relacionadas. Puedes añadir alguna.";
 "Empty" = "Vacío";
@@ -678,6 +693,9 @@
 "Cancel deletion" = "Cancelar la eliminación";
 "Logout and clear data" = "Cerrar sesión y eliminar datos";
 "New" = "Nuevo";
+"Blurred icon" = "Icono\n borroso";
+"My First Space" = "Mi Primer Espacio";
+"Copy space info" = "Copiar información del espacio";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -793,28 +811,30 @@
 "Widgets.Actions.ChangeWidgetType" = "Cambiar tipo de widget";
 "Widgets.Actions.RemoveWidget" = "Eliminar widget";
 "Widgets.Actions.EditWidgets" = "Editar widgets";
-"Widgets.Actions.AddWidget" = "Add Widget";
+"Widgets.Actions.AddWidget" = "Añadir widget";
 "Widgets.Actions.EmptyBin" = "Vaciar papelera";
 "Widgets.Actions.AddBelow" = "Añadir debajo";
 "Widgets.Actions.NewObject" = "Nuevo objeto";
-"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Actions.SeeAllObjects" = "Ver todos los objetos";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Enlace";
 "Widgets.Layout.Tree.Title" = "Árbol";
 "Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Lista compacta";
 "Widgets.Layout.View.Title" = "Vista";
-"Widgets.Layout.Link.Description" = "Versión compacta del objeto";
-"Widgets.Layout.Tree.Description" = "Estructura jerárquica de objetos";
-"Widgets.Layout.List.Description" = "Widget con lista de objetos del conjunto";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget con lista de objetos del conjunto";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Layout.Link.Description" = "Vista de widget compacto";
+"Widgets.Layout.Tree.Description" = "Widget con estructura jerárquica";
+"Widgets.Layout.List.Description" = "Widget con vista de lista";
+"Widgets.Layout.View.Description" = "Widget con diseño de conjunto o colección";
+"Widgets.Layout.CompactList.Description" = "Widget con vista de lista compacta";
+"Widgets.Empty.Title" = "Aquí no hay objetos";
+"Widgets.Empty.CreateObject" = "Crear objeto";
 "Widgets.Library.RecentlyEdited.Name" = "Editado recientemente";
 "Widgets.Library.RecentlyOpened.Name" = "Abierto recientemente";
 "Widgets.Library.RecentlyOpened.Description" = "En este dispositivo";
-"Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.AppUpdate" = "Anytype tiene una actualización";
+"Widgets.Source.Library" = "Conjuntos por defecto";
+"Widgets.Source.Objects" = "tus objetos";
 
 // MARK: - About
 "About.AppVersion" = "Versión de la aplicación: %@";
@@ -968,7 +988,7 @@
 "ParticipantRequestApprovedNotification.Text" = "Tu solicitud de acceso al espacio **%@** se ha aprobado con derechos de **%@**. El espacio estará pronto disponible en tu dispositivo.";
 "ParticipantRequestDeclineNotification.Text" = "Tu solicitud de acceso al espacio **%@** se ha rechazado.";
 "RequestToLeaveNotification.Text" = "**%@** quiere abandonar el espacio **%@**.";
-"ParticipantRemoveNotification.Text" = "Te han eliminado de ese espacio o el propietario ha eliminado ese espacio.";
+"ParticipantRemoveNotification.Text" = "Te han eliminado del espacio **%@**, o el propietario ha eliminado ese espacio.";
 "RequestToJoinNotification.Text" = "**%@** solicita acceder al espacio **%@**.";
 "RequestToJoinNotification.GoToSpace" = "Ir al espacio";
 "RequestToJoinNotification.ViewRequest" = "Ver solicitud";
@@ -1016,6 +1036,19 @@
 "SpaceShare.Tip.Steps.2" = "Abre la sección Compartir.";
 "SpaceShare.Tip.Steps.3" = "Genera un enlace de invitación y compártelo.";
 
+// MARK: - Space Hub Tip
+"SpaceHub.Tip.Title3" = "Fondos dinámicos";
+"SpaceHub.Tip.Title2" = "Simple y flexible";
+"SpaceHub.Tip.Title1" = "Esta es tu arca";
+
+"SpaceHub.Tip.Text3" = "Por defecto, usamos el icono de tu espacio difuminado como fondo. Si quieres, puedes cambiarlo en los ajustes de espacio.";
+"SpaceHub.Tip.Text2" = "Ahora puedes arrastrar y colocar para reordenar tus espacios y navegar por ellos con más facilidad.";
+"SpaceHub.Tip.Text1" = "Tu arca es donde se guardan y protegen todos tus espacios: que crees, los que compartas y los que alguien comparta contigo.";
+
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Cambia de espacio más rápido";
+"SpaceSwitcher.Tip.Text" = "Mantén pulsado el botón de retroceso para pasar a otro espacio.";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Advertencia";
@@ -1040,8 +1073,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 días";
-"RelativeFormatter.days30" = "Últimos 30 días";
-"RelativeFormatter.older" = "Más antiguo";
+"RelativeFormatter.days14" = "Últimos 14 días";
 
 // MARK: - Server
 "Server.Network" = "Red";
@@ -1049,6 +1081,10 @@
 "Server.AddButton" = "Añadir red autoalojada";
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Solo local";
+"Server.LocalOnly.Alert.title" = "¿Seguro?";
+"Server.LocalOnly.Alert.message" = "El modo solo local es experimental y no ofrece ventajas de seguridad. Úsalo bajo tu propia responsabilidad, ya que podrías perder datos.";
+"Server.LocalOnly.Alert.Action.agree" = "Sí, acepto los riesgos";
+"Server.LocalOnly.Alert.Action.disagree" = "No, no quiero usarlo";
 
 // MARK: - Gallery
 "Gallery.Author" = "Realizada por @%@";
@@ -1162,14 +1198,46 @@ En concreto,
 "Membership.Feature.SharedSpaces" = "Hasta %@ espacios compartidos";
 
 "MembershipServiceError.tierNotFound" = "No sse encuentran los datos del nivel, reinicia la aplicación e inténtalo de nuevo";
-"MembershipServiceError.forcefullyFailedValidation" = "MODO DE FALLOS ACTIVADO 🫵🐭. Desactívalo en los ajustes de depuración";
 "MembershipServiceError.invalidBillingIdFormat" = "Hubo un problema interno con el formato de facturación y lo estamos resolviendo. Inténtelo de nuevo más tarde o ponte en contacto con el soporte técnico.";
 
 
-"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
-"Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.Desktop" = "Puedes gestionar el nivel en la versión de escritorio";
+"Membership.ManageTier.Android" = "Puedes gestionar el nivel en la versión de Android";
+"Membership.ManageTier.AppleId" = "Puedes gestionar el nivel en otra cuenta de AppleId";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "El respaldo de datos está deshabilitado.";
+"SyncStatus.Info.AnytypeNetwork" = "Cifrado de extremo a extremo";
+"SyncStatus.Info.NetworkNeedsUpdate" = "La sincronización puede ser lenta. Actualiza tu aplicación.";
+"SyncStatus.Error.storageLimitExceed" = "Límite de almacenamiento alcanzado";
+"SyncStatus.Error.incompatibleVersion" = "Versión incompatible";
+"SyncStatus.Error.networkError" = "Sin acceso al espacio";
+"SyncStatus.Error.UNRECOGNIZED" = "Error desconocido";
+"SyncStatus.P2P.Restricted" = "Restringido. Pulsa para abrir los ajustes del dispositivo.";
+"SyncStatus.P2P.NotConnected" = "No conectado.";
+"SyncStatus.P2P.NotPossible" = "No es posible conectar.";
+
 
 // MARK: - Debug
-"Debug.MimeTypes" = "TIpos de dato - %@";
+"Debug.MimeTypes" = "Tipos de dato - %@";
 "Debug.Info" = "Información de depuración";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Añadir reacción";
+"Message.Input.EmptyPlaceholder" = "Escribe un mensaje...";
+
+// MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Ordenar por";
+"AllContent.Sort.DateUpdated" = "Fecha de modificación";
+"AllContent.Sort.DateCreated" = "Fecha de creación";
+"AllContent.Sort.Date.Asc" = "Antiguos primero";
+"AllContent.Sort.Date.Desc" = "Recientes primero";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
+"AllContent.Settings.Unlinked.Title" = "Solo desconectados";
+"AllContent.Settings.Unlinked.Description" = "Objetos desconectados que no tienen un enlace a o desde otro objeto del gráfico.";
+"AllContent.Settings.ViewBin" = "Ver papelera";
+"AllContent.Empty.State.title" = "Aquí no hay nada.";
+"AllContent.Empty.State.subtitle" = "Crea tus primeros objetos para empezar.";
+"AllContent.Search.Empty.State.title" = "No se encuentran resultados.";
+"AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";

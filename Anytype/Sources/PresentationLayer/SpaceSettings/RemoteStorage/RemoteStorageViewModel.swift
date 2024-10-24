@@ -8,19 +8,18 @@ import AnytypeCore
 final class RemoteStorageViewModel: ObservableObject {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
-    @Injected(\.documentsProvider)
-    private var documentProvider: any DocumentsProviderProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
     
+    private let spaceId: String
     private weak var output: (any RemoteStorageModuleOutput)?
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
@@ -36,7 +35,8 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var segmentInfo = RemoteStorageSegmentInfo()
     
-    init(output: (any RemoteStorageModuleOutput)?) {
+    init(spaceId: String, output: (any RemoteStorageModuleOutput)?) {
+        self.spaceId = spaceId
         self.output = output
         setupPlaceholderState()
         Task {
@@ -90,11 +90,9 @@ final class RemoteStorageViewModel: ObservableObject {
         let percentToShowGetMoreButton = 0.7
         showGetMoreSpaceButton = percentUsage >= percentToShowGetMoreButton
         
-        let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
-        
         var segmentInfo = RemoteStorageSegmentInfo()
         
-        if let spaceView = activeWorkspaceStorage.spaceView() {
+        if let spaceView = workspaceStorage.spaceView(spaceId: spaceId) {
             let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceId })?.bytesUsage ?? 0
             segmentInfo.currentUsage = Double(spaceBytesUsage) / Double(bytesLimit)
             segmentInfo.currentLegend = Loc.FileStorage.LimitLegend.current(spaceView.title, byteCountFormatter.string(fromByteCount: spaceBytesUsage))

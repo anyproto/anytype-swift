@@ -10,11 +10,12 @@ final class SettingsAppearanceViewModel: ObservableObject {
     
     // MARK: - Public
     
-    @Published var currentStyle = UserDefaultsConfig.userInterfaceStyle {
+    @Published var currentStyle: UIUserInterfaceStyle? {
         didSet {
             UISelectionFeedbackGenerator().selectionChanged()
-            UserDefaultsConfig.userInterfaceStyle = currentStyle
-            appInterfaceStyle?(currentStyle)
+            if let currentStyle {
+                appInterfaceStyle?.setDefaultStyle(currentStyle)
+            }
         }
     }
     
@@ -30,5 +31,6 @@ final class SettingsAppearanceViewModel: ObservableObject {
     
     func setAppInterfaceStyle(_ style: AppInterfaceStyle) {
         self.appInterfaceStyle = style
+        self.currentStyle = style.defaultStyle
     }
 }

@@ -23,7 +23,7 @@ struct SetSubscriptionData: Hashable {
         objectOrderIds: [String]
     ) {
         self.identifier = identifier
-        self.source = document.details?.setOf
+        self.source = document.details?.filteredSetOf
         
         let view = document.activeView
         

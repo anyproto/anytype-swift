@@ -10,6 +10,7 @@ public enum ObjectIcon: Hashable, Sendable {
     case placeholder(_ name: String)
     case file(mimeType: String, name: String)
     case deleted
+    case empty(EmptyType)
 }
 
 // MARK: - ProfileIcon
@@ -25,8 +26,18 @@ public extension ObjectIcon {
 
 public extension ObjectIcon {
     enum Space: Hashable, Sendable {
-        case name(String)
-        case gradient(GradientId)
+        case name(name: String, iconOption: Int)
         case imageId(_ imageId: String)
+    }
+}
+
+public extension ObjectIcon {
+    enum EmptyType: Hashable, Sendable {
+        case page
+        case list
+        case bookmark
+        case discussion
+        case objectType
+        case tag
     }
 }

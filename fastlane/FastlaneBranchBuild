@@ -4,21 +4,24 @@ platform :ios do
 
   lane :branch_build do |options| 
 
-    ensure_git_status_clean(
-      show_uncommitted_changes: true
-    )
+    if is_ci
+      ensure_git_status_clean(
+        show_uncommitted_changes: true,
+        show_diff: true
+      )
+    end
 
     xcodeproj = ENV["APP_PROJECT"]
    
-    if ENV["CI"] == "true"
+    if is_ci
       setup_ci
+      match(readonly: true)
+      set_api_key
     end
-    match(readonly: true)
-    set_api_key
 
     version = "0.0.1"
 
-    if ENV["CI"] == "true"
+    if is_ci
       build_number = latest_testflight_build_number(version: "0.0.1") + 1
     else
       build_number = "0"
@@ -29,6 +32,9 @@ platform :ios do
 
     commit = last_git_commit
     short_hash = commit[:abbreviated_commit_hash]
+    
+    options_tf_comment = options[:tf_comment] 
+    tf_comment = options_tf_comment.nil? || options_tf_comment.empty? ? ENV["GITHUB_REF_NAME"] : options_tf_comment
     
     add_badge(
       shield: "#{short_hash}-#{version}(#{build_number})-blue",
@@ -49,16 +55,25 @@ platform :ios do
       cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
     )
 
-    if ENV["CI"] == "true"
-      upload_to_testflight(skip_waiting_for_build_processing: true)
+    if is_ci
+      upload_to_testflight(
+        skip_waiting_for_build_processing: true,
+        changelog: tf_comment
+        )
     else
       upload_to_testflight(
         skip_waiting_for_build_processing: true,
-        ipa: "./build/result/Anytype.ipa"
+        ipa: "./build/result/Anytype.ipa",
+        changelog: tf_comment
       )
     end
 
-    reset_git_repo(skip_clean: true)
+    if is_ci
+      message = "Anytype Dev Version: **#{version}(#{build_number})**. Comment: **#{tf_comment}** :gem::gem::gem:"
+      sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
+      
+      reset_git_repo(skip_clean: true)
+    end
 
   end
 

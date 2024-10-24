@@ -27,26 +27,24 @@ struct GallerySpaceSelectionView: View {
     
     @ViewBuilder
     private var plus: some View {
-        if model.canCreateNewSpace {
-            Button {
-                model.onTapNewSpace()
-            } label: {
-                HStack(spacing: 12) {
-                    ZStack {
-                        Color.Background.highlightedOfSelected
-                            .spaceIconCornerRadius()
-                            .border(4, color: Color.Shape.secondary)
-                        IconView(icon: .asset(.X24.plus))
-                            .frame(width: 24, height: 24)
-                    }
-                    .frame(width: 48, height: 48)
-                    AnytypeText(Loc.Gallery.installToNew, style: .uxTitle2Regular)
-                        .foregroundColor(.Text.primary)
-                        .lineLimit(1)
-                    Spacer()
+        Button {
+            model.onTapNewSpace()
+        } label: {
+            HStack(spacing: 12) {
+                ZStack {
+                    Color.Background.highlightedMedium
+                        .objectIconCornerRadius()
+                        .border(4, color: Color.Shape.secondary)
+                    IconView(icon: .asset(.X24.plus))
+                        .frame(width: 24, height: 24)
                 }
-                .frame(height: 64)
+                .frame(width: 48, height: 48)
+                AnytypeText(Loc.Gallery.installToNew, style: .uxTitle2Regular)
+                    .foregroundColor(.Text.primary)
+                    .lineLimit(1)
+                Spacer()
             }
+            .frame(height: 64)
         }
     }
     

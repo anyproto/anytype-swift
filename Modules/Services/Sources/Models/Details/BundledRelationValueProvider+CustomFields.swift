@@ -48,7 +48,7 @@ extension BundledRelationsValueProvider {
 
         if layoutValue == .note {
             title = snippet
-        } else if DetailsLayout.fileLayouts.contains(layoutValue) {
+        } else if DetailsLayout.fileAndMediaLayouts.contains(layoutValue) {
             title = FileDetails.formattedFileName(name, fileExt: fileExt)
         } else {
             title = name
@@ -73,10 +73,6 @@ extension BundledRelationsValueProvider {
     
     public var spaceAccessTypeValue: SpaceAccessType? {
         return spaceAccessType.flatMap { SpaceAccessType(rawValue: $0) }
-    }
-    
-    public var iconOptionValue: GradientId? {
-        return iconOption.flatMap { GradientId($0) }
     }
     
     public var uniqueKeyValue: ObjectTypeUniqueKey {

@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct ApplicationCoordinatorView: View {
     
@@ -23,6 +24,9 @@ struct ApplicationCoordinatorView: View {
         .task {
             await model.startFileHandler()
         }
+        .onChange(of: dismissAllPresented) {
+            model.setDismissAllPresented(dismissAllPresented: $0)
+        }
         .snackbar(toastBarData: $model.toastBarData)
     }
     
@@ -31,17 +35,19 @@ struct ApplicationCoordinatorView: View {
         switch model.applicationState {
         case .initial:
             InitialCoordinatorView()
+                .overrideDefaultInterfaceStyle(.dark)
         case .auth:
             model.authView()
-                .preferredColorScheme(.dark)
+                .overrideDefaultInterfaceStyle(.dark)
         case .login:
-            LaunchView {
-                DebugMenuView()
-            }
+            LaunchView()
+                .overrideDefaultInterfaceStyle(.dark)
         case .home:
-            HomeCoordinatorView()
+            SpaceHubCoordinatorView()
+                .overrideDefaultInterfaceStyle(nil)
         case .delete:
-            model.deleteAccount()
+            model.deleteAccount()?
+                .overrideDefaultInterfaceStyle(nil)
         }
     }
 }

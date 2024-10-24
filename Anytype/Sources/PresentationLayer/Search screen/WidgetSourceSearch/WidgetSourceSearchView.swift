@@ -4,12 +4,12 @@ import SwiftUI
 struct WidgetSourceSearchView: View {
     
     let data: WidgetSourceSearchModuleModel
-    let onSelect: (_ source: WidgetSource) -> Void
+    let onSelect: (_ source: WidgetSource, _ openObject: EditorScreenData?) -> Void
     
     var body: some View {
-        // TODO: Migrate from NewSearchView
-        NewSearchView(
-             viewModel: NewSearchViewModel(
+        // TODO: Migrate from LegacySearchView
+        LegacySearchView(
+             viewModel: LegacySearchViewModel(
                  title: Loc.Widgets.sourceSearch,
                  searchPlaceholder: Loc.search,
                  style: .default,

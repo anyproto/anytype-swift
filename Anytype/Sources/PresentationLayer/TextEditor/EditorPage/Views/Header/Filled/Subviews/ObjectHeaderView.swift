@@ -9,7 +9,7 @@ final class ObjectHeaderView: UIView {
     // MARK: - Private variables
 
     private let iconView = ObjectHeaderIconView()
-    private let coverView = ObjectHeaderCoverView()
+    private let coverView = ObjectHeaderCoverUIKitView()
 
     private var onIconTap: (() -> Void)?
     private var onCoverTap: (() -> Void)?
@@ -144,16 +144,7 @@ extension ObjectHeaderView: ConfigurableView {
         _ objectHeaderCover: ObjectHeaderCover,
         sizeConfiguration: HeaderViewSizeConfiguration
     ) {
-        coverView.configure(
-            model: ObjectHeaderCoverView.Model(
-                objectCover: objectHeaderCover.coverType,
-                size: CGSize(
-                    width: sizeConfiguration.width,
-                    height: sizeConfiguration.coverHeight
-                ),
-                fitImage: false
-            )
-        )
+        coverView.setIcon(objectCover: objectHeaderCover.coverType, fitImage: false)
 
         onCoverTap = objectHeaderCover.onTap
     }

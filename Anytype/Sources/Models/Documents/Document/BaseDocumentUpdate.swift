@@ -11,4 +11,5 @@ enum BaseDocumentUpdate: Hashable {
     // Local State
     case relations
     case permissions
+    case syncStatus
 }

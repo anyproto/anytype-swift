@@ -19,7 +19,8 @@ struct SetGalleryViewCell: View {
             VStack(alignment: .leading, spacing: 0) {
                 TitleWithIconView(
                     icon: configuration.icon,
-                    showIcon: configuration.showIcon,
+                    showIcon: configuration.showIcon, 
+                    canEditIcon: configuration.canEditIcon,
                     title: configuration.title,
                     style: .gallery
                 )
@@ -45,23 +46,14 @@ struct SetGalleryViewCell: View {
     @ViewBuilder
     private var coverContent: some View {
         if configuration.hasCover, let coverType = configuration.coverType {
-            SwiftUIObjectHeaderCoverView(
-                objectCover: coverType,
-                size: CGSize(
-                    width: width,
-                    height: configuration.isSmallCardSize ?
-                    Constants.smallItemHeight :
-                        Constants.largeItemHeight
-                ),
-                fitImage: configuration.coverFit
-            )
+            ObjectHeaderCoverView(objectCover: coverType, fitImage: configuration.coverFit)
             .frame(
                 height: configuration.isSmallCardSize ?
                 Constants.smallItemHeight :
                     Constants.largeItemHeight
             )
             .frame(maxWidth: .infinity)
-            .background(Color.Shape.transperent)
+            .background(Color.Shape.transperentSecondary)
         }
     }
     

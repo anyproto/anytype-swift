@@ -4,7 +4,7 @@ import Services
 struct SpaceView: Identifiable, Equatable {
     let id: String
     let name: String
-    let objectIconImage: Icon?
+    let objectIconImage: Icon
     let targetSpaceId: String
     let createdDate: Date?
     let accountStatus: SpaceStatus?
@@ -12,7 +12,6 @@ struct SpaceView: Identifiable, Equatable {
     let spaceAccessType: SpaceAccessType?
     let readersLimit: Int?
     let writersLimit: Int?
-    let sharedSpacesLimit: Int?
 }
 
 extension SpaceView: DetailsModel {
@@ -27,7 +26,6 @@ extension SpaceView: DetailsModel {
         self.spaceAccessType = details.spaceAccessTypeValue
         self.readersLimit = details.readersLimit
         self.writersLimit = details.writersLimit
-        self.sharedSpacesLimit = details.sharedSpacesLimit
     }
     
     static var subscriptionKeys: [BundledRelationKey] = .builder {
@@ -57,6 +55,10 @@ extension SpaceView {
     
     var isActive: Bool {
         localStatus == .ok && accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+    }
+    
+    var isLoading: Bool {
+        localStatus == .loading && accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {

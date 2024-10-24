@@ -91,7 +91,8 @@ extension Color {
     // MARK: - Background
     enum Background {
       internal static let black = Color(asset: Asset.Background.black)
-      internal static let highlightedOfSelected = Color(asset: Asset.Background.highlightedOfSelected)
+      internal static let highlightedLight = Color(asset: Asset.Background.highlightedLight)
+      internal static let highlightedMedium = Color(asset: Asset.Background.highlightedMedium)
       internal static let material = Color(asset: Asset.Background.material)
       internal static let primary = Color(asset: Asset.Background.primary)
       internal static let secondary = Color(asset: Asset.Background.secondary)
@@ -158,6 +159,11 @@ extension Color {
       internal static let white = Color(asset: Asset.Gradients.white)
     }
     
+    // MARK: - Launch
+    enum Launch {
+      internal static let circle = Color(asset: Asset.Launch.circle)
+    }
+    
     // MARK: - ModalScreen
     enum ModalScreen {
       internal static let background = Color(asset: Asset.ModalScreen.background)
@@ -181,7 +187,9 @@ extension Color {
       internal static let primary = Color(asset: Asset.Shape.primary)
       internal static let secondary = Color(asset: Asset.Shape.secondary)
       internal static let tertiary = Color(asset: Asset.Shape.tertiary)
-      internal static let transperent = Color(asset: Asset.Shape.transperent)
+      internal static let transperentPrimary = Color(asset: Asset.Shape.transperentPrimary)
+      internal static let transperentSecondary = Color(asset: Asset.Shape.transperentSecondary)
+      internal static let transperentTertiary = Color(asset: Asset.Shape.transperentTertiary)
     }
     
     // MARK: - Text

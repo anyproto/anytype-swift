@@ -2,6 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>Items syncing</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Sincronizando %#@item@...</string>
+      <key>item</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Item %ld</string>
+        <key>other</key>
+        <string>%ld itens</string>
+      </dict>
+    </dict>
+    <key>Devices connected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@device@ conectado</string>
+      <key>device</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>Dispositivo %ld</string>
+        <key>other</key>
+        <string>Dispositivo %ld</string>
+      </dict>
+    </dict>
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -77,15 +109,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d backlink</string>
+        <string>Retrolink %d</string>
         <key>other</key>
-        <string>%d backlinks</string>
+        <string>Retrolinks %d</string>
       </dict>
     </dict>
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Esta conta será excluída %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>amanhã</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>em %d dias</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -157,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>You’ve reached the limit of %d space that can be shared</string>
+        <string>Você atingiu o limite de espaço %d que pode ser compartilhado</string>
         <key>other</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Você atingiu o limite de espaço %d que pode ser compartilhado</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -221,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d members</string>
+        <string>%d membros</string>
         <key>one</key>
-        <string>%d member</string>
+        <string>%d membro</string>
       </dict>
     </dict>
     <key>SpaceShare.RequestsCount</key>
@@ -237,15 +269,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d requests</string>
+        <string>%d solicitações</string>
         <key>one</key>
-        <string>%d request</string>
+        <string>%d solicitação</string>
       </dict>
     </dict>
     <key>Per Month</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@month@</string>
+      <string>Por  %#@mês@</string>
       <key>month</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -253,15 +285,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>month</string>
+        <string>mês</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d meses</string>
       </dict>
     </dict>
     <key>Per Week</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@week@</string>
+      <string>Por %#@week@</string>
       <key>week</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -269,15 +301,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>week</string>
+        <string>semana</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d semanas</string>
       </dict>
     </dict>
     <key>Per Year</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@year@</string>
+      <string>por  %#@ano@</string>
       <key>year</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -285,15 +317,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>ano</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d anos</string>
       </dict>
     </dict>
     <key>Per Day</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@day@</string>
+      <string>Por %#@day@</string>
       <key>day</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -301,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>Dia</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d Dias</string>
       </dict>
     </dict>
   </dict>

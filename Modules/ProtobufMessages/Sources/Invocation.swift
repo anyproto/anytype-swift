@@ -27,7 +27,7 @@ public struct Invocation<Request, Response> where Request: Message,
             // Ignore some specific errors
             throw error
         } catch {
-            InvocationSettings.handler?.assertationHandler(message: error.localizedDescription, info: [:], file: file, function: function, line: line)
+            InvocationSettings.handler?.assertationHandler(message: error.localizedDescription, domain: "Middle.\(messageName)", info: [:], file: file, function: function, line: line)
             throw error
         }
     }

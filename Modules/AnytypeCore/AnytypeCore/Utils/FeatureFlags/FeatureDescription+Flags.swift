@@ -24,46 +24,10 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let membership = FeatureDescription(
-        title: "Membership 💸",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
-        defaultValue: true
-    )
-    
     static let hideCoCreator = FeatureDescription(
         title: "Hide CoCreator tier",
         type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
         defaultValue: false
-    )
-    
-    static let scrollToBlockFromSearch = FeatureDescription(
-        title: "Scroll to block from Global search - IOS-2845",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
-        defaultValue: true
-    )
-    
-    static let galleryWidget = FeatureDescription(
-        title: "Gallery Widget - IOS-2964",
-        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
-    static let widgetCreateWithoutType = FeatureDescription(
-        title: "Create widget without type - IOS-3049",
-        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
-    static let updateAlert = FeatureDescription(
-        title: "Update Alert - IOS-3054",
-        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
-    static let addFilesToGlobalSearch = FeatureDescription(
-        title: "Add files to global search - IOS-3081",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "6"),
-        defaultValue: true
     )
     
     static let discussions = FeatureDescription(
@@ -71,6 +35,31 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let versionHistory = FeatureDescription(
+        title: "Version History - IOS-3058",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
+        defaultValue: true
+    )
+    
+    static let allContent = FeatureDescription(
+        title: "All content",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
+        defaultValue: true
+    )
+    
+    static let spaceHubParallax = FeatureDescription(
+        title: "Parallax on Space hub screen",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let userWarningAlerts = FeatureDescription(
+        title: "User warning alerts",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
+        defaultValue: true
     )
     
     // MARK: - Debug
@@ -152,6 +141,13 @@ public extension FeatureDescription {
     
     static let showGlobalSearchScore = FeatureDescription(
         title: "Show global search score",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let versionHistoryPaginationTest = FeatureDescription(
+        title: "Version history pagination test - 15",
         type: .debug,
         defaultValue: false,
         debugValue: false

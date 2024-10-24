@@ -19,15 +19,14 @@ struct GlobalSearchDataSection: Identifiable, Hashable {
 }
 
 struct GlobalSearchData: Identifiable, Hashable {
-    let iconImage: Icon?
-    let title: String
+    let id: String
+    let iconImage: Icon
+    let title: AttributedString
     let highlights: [HighlightsData]
     let objectTypeName: String
     let relatedLinks: [String]
     let editorScreenData: EditorScreenData
     let score: String
-    
-    var id: Int { hashValue }
 }
 
 enum HighlightsData: Identifiable, Hashable {

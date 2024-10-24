@@ -7,8 +7,8 @@ struct SpaceCreateView: View {
     @StateObject private var model: SpaceCreateViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(output: (any SpaceCreateModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceCreateViewModel(output: output))
+    init(sceneId: String, output: (any SpaceCreateModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceCreateViewModel(sceneId: sceneId, output: output))
     }
     
     var body: some View {

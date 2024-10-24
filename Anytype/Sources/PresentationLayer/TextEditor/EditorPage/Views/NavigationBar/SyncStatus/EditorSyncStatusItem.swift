@@ -14,7 +14,11 @@ final class EditorSyncStatusItem: UIView {
         )
     }()
     
+    private let backgroundView = UIView()
+    
     private var statusData: SyncStatusData?
+    private var itemState: EditorBarItemState?
+    
     private let onTap: () -> ()
     
     private let height: CGFloat = 28
@@ -26,7 +30,12 @@ final class EditorSyncStatusItem: UIView {
         self.updateButtonState()
     }
     
-    init(statusData: SyncStatusData? = nil, onTap: @escaping () -> ()) {
+    func changeItemState(_ itemState: EditorBarItemState) {
+        self.itemState = itemState
+        self.updateBackgroundColor()
+    }
+    
+    init(statusData: SyncStatusData? = nil, itemState: EditorBarItemState? = nil, onTap: @escaping () -> ()) {
         self.statusData = statusData
         self.onTap = onTap
         super.init(frame: .zero)
@@ -41,6 +50,7 @@ final class EditorSyncStatusItem: UIView {
     
     private func setup() {
         updateButtonState()
+        updateBackgroundColor()
         
         layoutUsing.anchors {
             $0.height.equal(to: height)
@@ -48,9 +58,21 @@ final class EditorSyncStatusItem: UIView {
             $0.centerY.equal(to: centerYAnchor)
         }
         
+        backgroundView.layer.cornerRadius = 7
+        
+        addSubview(backgroundView) { $0.pinToSuperview() }
         addSubview(button) { $0.pinToSuperview() }
     }
     
+    private func updateBackgroundColor() {
+        guard let haveBackground = itemState?.haveBackground else {
+            backgroundView.backgroundColor = .clear
+            return
+        }
+        
+        backgroundView.backgroundColor = haveBackground ? .black.withAlphaComponent(0.15) : .clear
+    }
+
     private func updateButtonState() {
         isHidden = statusData?.isHidden ?? true
         button.layer.removeAllAnimations()
@@ -66,7 +88,7 @@ final class EditorSyncStatusItem: UIView {
     }
     
     private func animateImageChange(_ newImage: UIImage, completion: @escaping () -> () = {}) {
-        UIView.transition(with: button, duration: 0.3, options: [.transitionCrossDissolve], animations: {
+        UIView.transition(with: button, duration: 0.3, options: [.transitionCrossDissolve, .allowUserInteraction], animations: {
             self.button.setImage(newImage, for: .normal)
         }, completion: { _ in completion() })
     }
@@ -78,7 +100,7 @@ final class EditorSyncStatusItem: UIView {
             
             button.layer.removeAllAnimations()
             animateImageChange(animationStart) {
-                UIView.transition(with: self.button, duration: 1.5, options: [.transitionCrossDissolve, .autoreverse, .repeat]) {
+                UIView.transition(with: self.button, duration: 1.5, options: [.transitionCrossDissolve, .autoreverse, .repeat, .allowUserInteraction]) {
                     self.button.setImage(animationEnd, for: .normal)
                 }
             }

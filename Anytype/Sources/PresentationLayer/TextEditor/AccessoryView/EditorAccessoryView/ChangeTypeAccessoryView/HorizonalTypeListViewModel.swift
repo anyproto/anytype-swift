@@ -7,7 +7,7 @@ import AnytypeCore
 struct HorizontalListItem: Identifiable, Hashable {
     let id: String
     let title: String
-    let icon: Icon?
+    let icon: Icon
 
     @EquatableNoop var action: () -> Void
 }

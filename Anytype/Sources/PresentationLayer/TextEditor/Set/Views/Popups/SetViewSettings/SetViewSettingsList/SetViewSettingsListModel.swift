@@ -93,7 +93,7 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     func duplicateView() {
-        let source = setDocument.details?.setOf ?? []
+        let source = setDocument.details?.filteredSetOf ?? []
         Task { [weak self] in
             guard let self else { return }
             try await dataviewService.createView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: view, source: source)

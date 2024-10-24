@@ -97,7 +97,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 
     }
 
-    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+    func didUpdateSelectedIndexPathsResetIfNeeded(_ indexPaths: [IndexPath], allSelected: Bool) {
         guard case .selecting = editingState else { return }
 
         UISelectionFeedbackGenerator().selectionChanged()
@@ -106,6 +106,10 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
             resetToEditingMode()
             return
         }
+        didUpdateSelectedIndexPaths(indexPaths, allSelected: allSelected)
+    }
+    
+    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath], allSelected: Bool) {
         selectedBlocksIndexPaths = indexPaths
 
         updateMenuItems(for: selectedBlocksIndexPaths)
@@ -250,7 +254,7 @@ extension SimpleTableStateManager {
             return
         }
 
-        editingState = .selecting(blocks: [info.id])
+        editingState = .selecting(blocks: [info.id], allSelected: false)
         selectedIndexPathsSubject.send([selectedIndexPath])
         selectedBlocksIndexPaths = [selectedIndexPath]
 
@@ -265,7 +269,7 @@ extension SimpleTableStateManager {
             return
         }
 
-        editingState = .selecting(blocks: [firstInfo.id])
+        editingState = .selecting(blocks: [firstInfo.id], allSelected: editingState.allSelected)
 
         router.showStyleMenu(
             informations: [firstInfo],

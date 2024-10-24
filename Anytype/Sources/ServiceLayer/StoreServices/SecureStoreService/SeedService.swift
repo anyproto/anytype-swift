@@ -14,6 +14,7 @@ final class SeedService: SeedServiceProtocol {
     }
     
     func saveSeed(_ seed: String) throws {
+        let seed = seed.trimmingCharacters(in: .whitespacesAndNewlines)
         try keychainStore.storeItem(item: seed, queryable: query())
     }
     

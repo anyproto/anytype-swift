@@ -171,7 +171,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func setFields(_ fields: FieldsConvertibleProtocol, blockId: String) {
+    func setFields(_ fields: any FieldsConvertibleProtocol, blockId: String) {
         assertionFailure()
     }
 

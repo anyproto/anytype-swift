@@ -14,6 +14,8 @@ struct SpaceJoinView: View {
         VStack(spacing: 0) {
             ScreenStateView(state: model.state, error: model.errorMessage) {
                 content
+            } loading: {
+                invite(placeholder: true)
             }
         }
         .multilineTextAlignment(.center)
@@ -39,7 +41,7 @@ struct SpaceJoinView: View {
         case .requestSent:
             requestSent
         case .invite:
-            invite
+            invite(placeholder: false)
         case .alreadyJoined:
             alreadyJoined
         case .inviteNotFound:
@@ -58,7 +60,7 @@ struct SpaceJoinView: View {
         }
     }
     
-    private var invite: some View {
+    private func invite(placeholder: Bool) -> some View {
         VStack(spacing: 0) {
             DragIndicator()
             ButtomAlertHeaderImageView(icon: .BottomAlert.mail, style: .color(.blue))
@@ -68,9 +70,15 @@ struct SpaceJoinView: View {
             Spacer.fixedHeight(16)
             AnytypeText(model.message, style: .bodyRegular, enableMarkdown: true)
                 .foregroundColor(.Text.primary)
+                .if(placeholder) {
+                    $0.redacted(reason: .placeholder)
+                }
             Spacer.fixedHeight(16)
-            AsyncStandardButton(text: Loc.SpaceShare.Join.button, style: .primaryLarge) {
+            AsyncStandardButton(Loc.SpaceShare.Join.button, style: .primaryLarge) {
                 try await model.onJoin()
+            }
+            .if(placeholder) {
+                $0.redacted(reason: .placeholder)
             }
             Spacer.fixedHeight(20)
             AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
@@ -121,11 +129,11 @@ struct SpaceJoinView: View {
 }
 
 #Preview("Default") {
-    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""), onManageSpaces: {})
+    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: "", sceneId: ""), onManageSpaces: {})
 }
 
 #Preview("Sheet") {
     Color.black.anytypeSheet(isPresented: .constant(true)) {
-        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""), onManageSpaces: {})
+        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: "", sceneId: ""), onManageSpaces: {})
     }
 }

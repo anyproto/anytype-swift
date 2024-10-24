@@ -4,9 +4,9 @@ import SwiftUI
 
 final class TagsSearchViewModel {
     
-    let selectionMode: NewSearchViewModel.SelectionMode
+    let selectionMode: LegacySearchViewModel.SelectionMode
     
-    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
+    private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never> ()
     private var tags: [Relation.Tag.Option] = []
     private var selectedTagIds: [String] = []
     
@@ -14,7 +14,7 @@ final class TagsSearchViewModel {
     private let onSelect: (_ ids: [String]) -> Void
     
     init(
-        selectionMode: NewSearchViewModel.SelectionMode,
+        selectionMode: LegacySearchViewModel.SelectionMode,
         interactor: TagsSearchInteractor,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
@@ -33,7 +33,7 @@ final class TagsSearchViewModel {
 
 extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
+    var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let resultTags = try await interactor.search(text: text)
@@ -52,7 +52,7 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
         onSelect(ids)
     }
     
-    func createButtonModel(searchText: String) -> NewSearchViewModel.CreateButtonModel {
+    func createButtonModel(searchText: String) -> LegacySearchViewModel.CreateButtonModel {
         return interactor.isCreateButtonAvailable(searchText: searchText, tags: tags)
             ? .enabled(title:  Loc.createOptionWith(searchText))
             : .disabled
@@ -68,7 +68,7 @@ private extension TagsSearchViewModel {
     }
     
     func makeSections(tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [ListSectionConfiguration] {
-        NewSearchSectionsBuilder.makeSections(tags) {
+        LegacySearchSectionsBuilder.makeSections(tags) {
             $0.asRowConfigurations(with: selectedTagIds)
         }
     }

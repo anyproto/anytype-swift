@@ -32,16 +32,23 @@ final class AnytypeRelativeDateTimeFormatterTests: XCTestCase {
         XCTAssertEqual("Previous 7 days", result)
     }
     
-    func test30DaysAgo() throws {
-        let date = Calendar.current.date(byAdding: .day, value: -30, to: Date())!
+    func test14DaysAgo() throws {
+        let date = Calendar.current.date(byAdding: .day, value: -14, to: Date())!
         let result = formatter.localizedString(for: date, relativeTo: Date())
-        XCTAssertEqual("Previous 30 days", result)
+        XCTAssertEqual("Previous 14 days", result)
     }
     
-    func testOldDate() throws {
-        let date = Calendar.current.date(byAdding: .day, value: -31, to: Date())!
+    func testMonth() throws {
+        let someDate = Date(timeIntervalSince1970: 748439750.379512)
+        let someDatePlus31days = Date(timeIntervalSince1970: 745761350.379514)
+        let result = formatter.localizedString(for: someDatePlus31days, relativeTo: someDate)
+        XCTAssertEqual("August", result)
+    }
+    
+    func testMonthAndYear() throws {
+        let date = Date(timeIntervalSince1970: 10)
         let result = formatter.localizedString(for: date, relativeTo: Date())
-        XCTAssertEqual("Older", result)
+        XCTAssertEqual("January 1970", result)
     }
     
     func testFutureDate() throws {

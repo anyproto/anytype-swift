@@ -18,7 +18,7 @@ struct InitialCoordinatorView: View {
             model.onAppear()
         }
         .alert(Loc.Initial.UnstableMiddle.title, isPresented: $model.showWarningAlert) {
-            if UserDefaultsConfig.usersId.isNotEmpty {
+            if model.userDefaults.usersId.isNotEmpty {
                 Button(Loc.Initial.UnstableMiddle.logout) {
                     model.contunueWithLogout()
                 }
@@ -34,7 +34,6 @@ struct InitialCoordinatorView: View {
         } message: {
             Text(verbatim: Loc.Initial.UnstableMiddle.message)
         }
-        .preferredColorScheme(.dark)
         .snackbar(toastBarData: $model.toastBarData)
         .anytypeShareView(item: $model.middlewareShareFile)
         .anytypeShareView(item: $model.localStoreURL)

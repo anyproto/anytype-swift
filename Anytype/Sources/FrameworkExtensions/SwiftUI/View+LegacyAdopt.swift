@@ -28,4 +28,12 @@ extension View {
             return self
         }
     }
+    
+    func menuActionDisableDismissBehavior() -> some View {
+        if #available(iOS 16.4, *) {
+            return self.menuActionDismissBehavior(.disabled)
+        } else {
+            return self
+        }
+    }
 }

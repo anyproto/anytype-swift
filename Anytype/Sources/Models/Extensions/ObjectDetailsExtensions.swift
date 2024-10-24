@@ -27,12 +27,8 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    var objectIconImage: Icon? {
-        return objectIcon.map { .object($0) }
-    }
-    
-    var objectIconImageWithPlaceholder: Icon {
-        return objectIconImage ?? .object(.placeholder(title))
+    var objectIconImage: Icon {
+        return objectIcon.map { .object($0) } ?? .object(.empty(emptyIconType))
     }
     
     var objectType: ObjectType {
@@ -43,10 +39,12 @@ extension BundledRelationsValueProvider {
     var editorViewType: EditorViewType {
         switch layoutValue {
         case .basic, .profile, .participant, .todo, .note, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag:
             return .page
         case .set, .collection:
             return .set
+        case .chat, .chatDerived:
+            return .page
         }
     }
     
@@ -84,5 +82,31 @@ extension BundledRelationsValueProvider {
     
     var isTemplateType: Bool {
         objectType.isTemplateType
+    }
+    
+    var filteredSetOf: [String] {
+        setOf.filter { $0.isNotEmpty }
+    }
+    
+    private var isDiscussion: Bool {
+        return layoutValue == .chat || layoutValue == .chatDerived
+    }
+    
+    private var emptyIconType: ObjectIcon.EmptyType {
+        switch layoutValue {
+        case .basic, .profile, .participant, .todo, .note, .space, .file, .image, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
+            return .page
+        case .set, .collection:
+            return .list
+        case .bookmark:
+            return .bookmark
+        case .chat, .chatDerived:
+            return .discussion
+        case .objectType:
+            return .objectType
+        case .tag:
+            return .tag
+        }
     }
 }

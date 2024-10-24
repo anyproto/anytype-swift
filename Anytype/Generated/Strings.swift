@@ -29,9 +29,11 @@ internal enum Loc {
   internal static let alignLeft = Loc.tr("Localizable", "Align left")
   internal static let alignRight = Loc.tr("Localizable", "Align right")
   internal static let alignment = Loc.tr("Localizable", "Alignment")
+  internal static let allObjects = Loc.tr("Localizable", "All objects")
   internal static let amber = Loc.tr("Localizable", "Amber")
   internal static let amberBackground = Loc.tr("Localizable", "Amber background")
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library")
+  internal static let anytypeNetwork = Loc.tr("Localizable", "Anytype Network")
   internal static let appearance = Loc.tr("Localizable", "Appearance")
   internal static let applicationIcon = Loc.tr("Localizable", "Application icon")
   internal static func areYouSureYouWantToDelete(_ p1: Int) -> String {
@@ -53,8 +55,10 @@ internal enum Loc {
   internal static let black = Loc.tr("Localizable", "Black")
   internal static let blue = Loc.tr("Localizable", "Blue")
   internal static let blueBackground = Loc.tr("Localizable", "Blue background")
+  internal static let blurredIcon = Loc.tr("Localizable", "Blurred icon")
   internal static let bookmark = Loc.tr("Localizable", "Bookmark")
   internal static let bookmarkBlockSubtitle = Loc.tr("Localizable", "Bookmark block subtitle")
+  internal static let bookmarks = Loc.tr("Localizable", "Bookmarks")
   internal static let callout = Loc.tr("Localizable", "Callout")
   internal static let cancel = Loc.tr("Localizable", "Cancel")
   internal static let cancelDeletion = Loc.tr("Localizable", "Cancel deletion")
@@ -75,11 +79,13 @@ internal enum Loc {
   internal static let color = Loc.tr("Localizable", "Color")
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family")
   internal static let confirm = Loc.tr("Localizable", "Confirm")
+  internal static let connecting = Loc.tr("Localizable", "Connecting")
   internal static let copied = Loc.tr("Localizable", "Copied")
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1))
   }
   internal static let copy = Loc.tr("Localizable", "Copy")
+  internal static let copySpaceInfo = Loc.tr("Localizable", "Copy space info")
   internal static let cover = Loc.tr("Localizable", "Cover")
   internal static let create = Loc.tr("Localizable", "Create")
   internal static let createANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Create a new one or search for something else")
@@ -104,8 +110,12 @@ internal enum Loc {
   internal static let deleted = Loc.tr("Localizable", "Deleted")
   internal static let deletionError = Loc.tr("Localizable", "Deletion error")
   internal static let description = Loc.tr("Localizable", "Description")
+  internal static let deselect = Loc.tr("Localizable", "Deselect")
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all")
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly")
+  internal static func devicesConnected(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Devices connected", p1)
+  }
   internal static let done = Loc.tr("Localizable", "Done")
   internal static let download = Loc.tr("Localizable", "Download")
   internal static let downloadingOrUploadingDataToSomeNode = Loc.tr("Localizable", "Downloading or uploading data to some node")
@@ -135,6 +145,7 @@ internal enum Loc {
   internal static let featuredRelations = Loc.tr("Localizable", "Featured relations")
   internal static let file = Loc.tr("Localizable", "File")
   internal static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle")
+  internal static let files = Loc.tr("Localizable", "Files")
   internal static let filter = Loc.tr("Localizable", "Filter")
   internal static let forever = Loc.tr("Localizable", "Forever")
   internal static let foreverFree = Loc.tr("Localizable", "Forever free")
@@ -147,16 +158,23 @@ internal enum Loc {
   internal static let greyBackground = Loc.tr("Localizable", "Grey background")
   internal static let hideTypes = Loc.tr("Localizable", "Hide types")
   internal static let highlight = Loc.tr("Localizable", "Highlight")
+  internal static let history = Loc.tr("Localizable", "History")
   internal static let home = Loc.tr("Localizable", "Home")
   internal static let icon = Loc.tr("Localizable", "Icon")
+  internal static let image = Loc.tr("Localizable", "Image")
+  internal static let imageBlockSubtitle = Loc.tr("Localizable", "Image block subtitle")
   internal static let inThisObject = Loc.tr("Localizable", "In this object")
   internal static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version")
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync")
   internal static let intoObject = Loc.tr("Localizable", "Into object")
+  internal static func itemsSyncing(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Items syncing", p1)
+  }
   internal static let join = Loc.tr("Localizable", "Join")
   internal static let justEMail = Loc.tr("Localizable", "Just e-mail")
   internal static let layout = Loc.tr("Localizable", "Layout")
   internal static let learnMore = Loc.tr("Localizable", "Learn more")
+  internal static let letsGo = Loc.tr("Localizable", "Lets Go")
   internal static let limitObjectTypes = Loc.tr("Localizable", "Limit object types")
   internal static let linkTo = Loc.tr("Localizable", "Link to")
   internal static func linksCount(_ p1: Int) -> String {
@@ -165,6 +183,7 @@ internal enum Loc {
   internal static let listOfRelatedObjects = Loc.tr("Localizable", "List of related objects")
   internal static let lists = Loc.tr("Localizable", "Lists")
   internal static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait")
+  internal static let localOnly = Loc.tr("Localizable", "Local Only")
   internal static let lock = Loc.tr("Localizable", "Lock")
   internal static let logOut = Loc.tr("Localizable", "Log out")
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data")
@@ -179,6 +198,8 @@ internal enum Loc {
   internal static let move = Loc.tr("Localizable", "Move")
   internal static let moveTo = Loc.tr("Localizable", "Move to")
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin")
+  internal static let myFirstSpace = Loc.tr("Localizable", "My First Space")
+  internal static let mySpaces = Loc.tr("Localizable", "My spaces")
   internal static let myself = Loc.tr("Localizable", "Myself")
   internal static let name = Loc.tr("Localizable", "Name")
   internal static let new = Loc.tr("Localizable", "New")
@@ -213,6 +234,9 @@ internal enum Loc {
   }
   internal static let other = Loc.tr("Localizable", "Other")
   internal static let otherRelations = Loc.tr("Localizable", "Other relations")
+  internal static let p2PConnecting = Loc.tr("Localizable", "P2P Connecting")
+  internal static let p2PConnection = Loc.tr("Localizable", "P2P Connection")
+  internal static let pages = Loc.tr("Localizable", "Pages")
   internal static func paidBy(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Paid by", String(describing: p1))
   }
@@ -237,12 +261,10 @@ internal enum Loc {
   }
   internal static let personalization = Loc.tr("Localizable", "Personalization")
   internal static let picture = Loc.tr("Localizable", "Picture")
-  internal static let pictureBlockSubtitle = Loc.tr("Localizable", "Picture block subtitle")
   internal static let pinOnTop = Loc.tr("Localizable", "Pin on top")
   internal static let pink = Loc.tr("Localizable", "Pink")
   internal static let pinkBackground = Loc.tr("Localizable", "Pink background")
   internal static let pinned = Loc.tr("Localizable", "Pinned")
-  internal static let preparing = Loc.tr("Localizable", "Preparing...")
   internal static let preview = Loc.tr("Localizable", "Preview")
   internal static let previewLayout = Loc.tr("Localizable", "Preview layout")
   internal static let profile = Loc.tr("Localizable", "Profile")
@@ -280,6 +302,7 @@ internal enum Loc {
   internal static func selectedBlocks(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Selected blocks", p1)
   }
+  internal static let selfHost = Loc.tr("Localizable", "Self Host")
   internal static let `set` = Loc.tr("Localizable", "Set")
   internal static let setAsDefault = Loc.tr("Localizable", "Set as default")
   internal static let sets = Loc.tr("Localizable", "Sets")
@@ -297,7 +320,6 @@ internal enum Loc {
   internal static let style = Loc.tr("Localizable", "Style")
   internal static let submit = Loc.tr("Localizable", "Submit")
   internal static let synced = Loc.tr("Localizable", "Synced")
-  internal static let syncing = Loc.tr("Localizable", "Syncing...")
   internal static let task = Loc.tr("Localizable", "Task")
   internal static let teal = Loc.tr("Localizable", "Teal")
   internal static let tealBackground = Loc.tr("Localizable", "Teal background")
@@ -408,6 +430,44 @@ internal enum Loc {
     internal enum CameraPermissions {
       internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings")
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings")
+    }
+  }
+  internal enum AllContent {
+    internal enum Empty {
+      internal enum State {
+        internal static let subtitle = Loc.tr("Localizable", "AllContent.Empty.State.subtitle")
+        internal static let title = Loc.tr("Localizable", "AllContent.Empty.State.title")
+      }
+    }
+    internal enum Search {
+      internal enum Empty {
+        internal enum State {
+          internal static let subtitle = Loc.tr("Localizable", "AllContent.Search.Empty.State.subtitle")
+          internal static let title = Loc.tr("Localizable", "AllContent.Search.Empty.State.title")
+        }
+      }
+    }
+    internal enum Settings {
+      internal static let viewBin = Loc.tr("Localizable", "AllContent.Settings.ViewBin")
+      internal enum Sort {
+        internal static let title = Loc.tr("Localizable", "AllContent.Settings.Sort.Title")
+      }
+      internal enum Unlinked {
+        internal static let description = Loc.tr("Localizable", "AllContent.Settings.Unlinked.Description")
+        internal static let title = Loc.tr("Localizable", "AllContent.Settings.Unlinked.Title")
+      }
+    }
+    internal enum Sort {
+      internal static let dateCreated = Loc.tr("Localizable", "AllContent.Sort.DateCreated")
+      internal static let dateUpdated = Loc.tr("Localizable", "AllContent.Sort.DateUpdated")
+      internal enum Date {
+        internal static let asc = Loc.tr("Localizable", "AllContent.Sort.Date.Asc")
+        internal static let desc = Loc.tr("Localizable", "AllContent.Sort.Date.Desc")
+      }
+      internal enum Name {
+        internal static let asc = Loc.tr("Localizable", "AllContent.Sort.Name.Asc")
+        internal static let desc = Loc.tr("Localizable", "AllContent.Sort.Name.Desc")
+      }
     }
   }
   internal enum Auth {
@@ -1024,7 +1084,6 @@ internal enum Loc {
     }
   }
   internal enum MembershipServiceError {
-    internal static let forcefullyFailedValidation = Loc.tr("Localizable", "MembershipServiceError.forcefullyFailedValidation")
     internal static let invalidBillingIdFormat = Loc.tr("Localizable", "MembershipServiceError.invalidBillingIdFormat")
     internal static let tierNotFound = Loc.tr("Localizable", "MembershipServiceError.tierNotFound")
   }
@@ -1033,12 +1092,25 @@ internal enum Loc {
       internal static let placeholder = Loc.tr("Localizable", "Mention.Subtitle.Placeholder")
     }
   }
+  internal enum Message {
+    internal enum Action {
+      internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction")
+    }
+    internal enum Input {
+      internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder")
+    }
+  }
   internal enum Object {
     internal enum Deleted {
       internal static let placeholder = Loc.tr("Localizable", "Object.Deleted.Placeholder")
     }
     internal enum Title {
       internal static let placeholder = Loc.tr("Localizable", "Object.Title.Placeholder")
+    }
+  }
+  internal enum ObjectSettings {
+    internal enum History {
+      internal static let description = Loc.tr("Localizable", "ObjectSettings.History.Description")
     }
   }
   internal enum ObjectType {
@@ -1052,7 +1124,9 @@ internal enum Loc {
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall")
   }
   internal enum ParticipantRemoveNotification {
-    internal static let text = Loc.tr("Localizable", "ParticipantRemoveNotification.Text")
+    internal static func text(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "ParticipantRemoveNotification.Text", String(describing: p1))
+    }
   }
   internal enum ParticipantRequestApprovedNotification {
     internal static func text(_ p1: Any, _ p2: Any) -> String {
@@ -1077,6 +1151,11 @@ internal enum Loc {
   internal enum RedactedText {
     internal static let pageTitle = Loc.tr("Localizable", "RedactedText.pageTitle")
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType")
+  }
+  internal enum ReindexingWarningAlert {
+    internal static let button = Loc.tr("Localizable", "ReindexingWarningAlert.Button")
+    internal static let description = Loc.tr("Localizable", "ReindexingWarningAlert.Description")
+    internal static let title = Loc.tr("Localizable", "ReindexingWarningAlert.Title")
   }
   internal enum Relation {
     internal static func addedToLibrary(_ p1: Any) -> String {
@@ -1225,9 +1304,8 @@ internal enum Loc {
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail")
   }
   internal enum RelativeFormatter {
-    internal static let days30 = Loc.tr("Localizable", "RelativeFormatter.days30")
+    internal static let days14 = Loc.tr("Localizable", "RelativeFormatter.days14")
     internal static let days7 = Loc.tr("Localizable", "RelativeFormatter.days7")
-    internal static let older = Loc.tr("Localizable", "RelativeFormatter.older")
   }
   internal enum RequestToJoinNotification {
     internal static let goToSpace = Loc.tr("Localizable", "RequestToJoinNotification.GoToSpace")
@@ -1267,6 +1345,16 @@ internal enum Loc {
     internal static let localOnly = Loc.tr("Localizable", "Server.LocalOnly")
     internal static let network = Loc.tr("Localizable", "Server.Network")
     internal static let networks = Loc.tr("Localizable", "Server.Networks")
+    internal enum LocalOnly {
+      internal enum Alert {
+        internal static let message = Loc.tr("Localizable", "Server.LocalOnly.Alert.message")
+        internal static let title = Loc.tr("Localizable", "Server.LocalOnly.Alert.title")
+        internal enum Action {
+          internal static let agree = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.agree")
+          internal static let disagree = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.disagree")
+        }
+      }
+    }
   }
   internal enum Set {
     internal enum Bookmark {
@@ -1513,6 +1601,16 @@ internal enum Loc {
   internal enum SpaceCreate {
     internal static let title = Loc.tr("Localizable", "SpaceCreate.Title")
   }
+  internal enum SpaceHub {
+    internal enum Tip {
+      internal static let text1 = Loc.tr("Localizable", "SpaceHub.Tip.Text1")
+      internal static let text2 = Loc.tr("Localizable", "SpaceHub.Tip.Text2")
+      internal static let text3 = Loc.tr("Localizable", "SpaceHub.Tip.Text3")
+      internal static let title1 = Loc.tr("Localizable", "SpaceHub.Tip.Title1")
+      internal static let title2 = Loc.tr("Localizable", "SpaceHub.Tip.Title2")
+      internal static let title3 = Loc.tr("Localizable", "SpaceHub.Tip.Title3")
+    }
+  }
   internal enum SpaceManager {
     internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest")
     internal static let doNotCancel = Loc.tr("Localizable", "SpaceManager.DoNotCancel")
@@ -1651,6 +1749,12 @@ internal enum Loc {
       internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess")
     }
   }
+  internal enum SpaceSwitcher {
+    internal enum Tip {
+      internal static let text = Loc.tr("Localizable", "SpaceSwitcher.Tip.Text")
+      internal static let title = Loc.tr("Localizable", "SpaceSwitcher.Tip.Title")
+    }
+  }
   internal enum Spaces {
     internal static let title = Loc.tr("Localizable", "Spaces.Title")
     internal enum Accessibility {
@@ -1692,20 +1796,21 @@ internal enum Loc {
     }
   }
   internal enum SyncStatus {
-    internal enum LocalOnly {
-      internal static let description = Loc.tr("Localizable", "SyncStatus.LocalOnly.Description")
-      internal static let title = Loc.tr("Localizable", "SyncStatus.LocalOnly.Title")
+    internal enum Error {
+      internal static let incompatibleVersion = Loc.tr("Localizable", "SyncStatus.Error.incompatibleVersion")
+      internal static let networkError = Loc.tr("Localizable", "SyncStatus.Error.networkError")
+      internal static let storageLimitExceed = Loc.tr("Localizable", "SyncStatus.Error.storageLimitExceed")
+      internal static let unrecognized = Loc.tr("Localizable", "SyncStatus.Error.UNRECOGNIZED")
     }
-    internal enum Synced {
-      internal enum Anytype {
-        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.Anytype.Description")
-      }
-      internal enum AnytypeStaging {
-        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.AnytypeStaging.Description")
-      }
-      internal enum SelfHosted {
-        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.SelfHosted.Description")
-      }
+    internal enum Info {
+      internal static let anytypeNetwork = Loc.tr("Localizable", "SyncStatus.Info.AnytypeNetwork")
+      internal static let localOnly = Loc.tr("Localizable", "SyncStatus.Info.localOnly")
+      internal static let networkNeedsUpdate = Loc.tr("Localizable", "SyncStatus.Info.NetworkNeedsUpdate")
+    }
+    internal enum P2P {
+      internal static let notConnected = Loc.tr("Localizable", "SyncStatus.P2P.NotConnected")
+      internal static let notPossible = Loc.tr("Localizable", "SyncStatus.P2P.NotPossible")
+      internal static let restricted = Loc.tr("Localizable", "SyncStatus.P2P.Restricted")
     }
   }
   internal enum TalbeOfContents {
@@ -1826,6 +1931,14 @@ internal enum Loc {
             internal static let text = Loc.tr("Localizable", "Vault.Select.Incompatible.Version.Error.Text")
           }
         }
+      }
+    }
+  }
+  internal enum VersionHistory {
+    internal static let title = Loc.tr("Localizable", "VersionHistory.Title")
+    internal enum Toast {
+      internal static func message(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "VersionHistory.Toast.message", String(describing: p1))
       }
     }
   }

@@ -6,24 +6,29 @@ struct KeyPhraseMoreInfoView: View {
         VStack(spacing: 20) {
             DragIndicator()
             ScrollView(.vertical, showsIndicators: false) {
-                Spacer.fixedHeight(26)
-                
-                AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.title, style: .heading)
-                    .foregroundColor(.Auth.inputText)
-                    .multilineTextAlignment(.center)
-                
-                Spacer.fixedHeight(32)
-                
-                optionsRows
-                
-                Spacer.fixedHeight(28)
-                
-                instruction
+                content
             }
         }
         .padding(.horizontal, 24)
         .background(Color.Background.secondary)
-        .preferredColorScheme(.dark)
+    }
+    
+    private var content: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(26)
+            
+            AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.title, style: .heading)
+                .foregroundColor(.Auth.inputText)
+                .multilineTextAlignment(.center)
+            
+            Spacer.fixedHeight(32)
+            
+            optionsRows
+            
+            Spacer.fixedHeight(28)
+            
+            instruction
+        }
     }
     
     private var optionsRows: some View {
@@ -48,7 +53,7 @@ struct KeyPhraseMoreInfoView: View {
     
     private var instruction: some View {
         ZStack {
-            Color.Background.highlightedOfSelected
+            Color.Background.highlightedMedium
                 .opacity(0.9)
             instructionContent
         }

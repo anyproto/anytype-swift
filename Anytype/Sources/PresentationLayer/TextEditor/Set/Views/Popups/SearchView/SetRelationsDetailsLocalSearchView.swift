@@ -10,15 +10,15 @@ struct SetRelationsDetailsLocalSearchData: Identifiable, Equatable, Hashable {
     var id: Int { hashValue }
 }
 
-// TODO: Migrate from NewSearchView
+// TODO: Migrate from LegacySearchView
 struct SetRelationsDetailsLocalSearchView: View { //
     
     let data: SetRelationsDetailsLocalSearchData
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NewSearchView(
-            viewModel: NewSearchViewModel(
+        LegacySearchView(
+            viewModel: LegacySearchViewModel(
                 searchPlaceholder: Loc.EditSet.Popup.Sort.Add.searchPlaceholder,
                 style: .default,
                 itemCreationMode: .unavailable,

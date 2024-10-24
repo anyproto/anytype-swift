@@ -7,11 +7,7 @@ import AnytypeCore
 @_exported import Factory
 
 extension Container {
-    
-    var activeWorkspaceStorage: Factory<any ActiveWorkpaceStorageProtocol> {
-        self { ActiveWorkspaceStorage() }.singleton
-    }
-    
+        
     var accountManager: Factory<any AccountManagerProtocol> {
         self { AccountManager() }.singleton
     }
@@ -112,6 +108,10 @@ extension Container {
         self { TreeSubscriptionDataBuilder() }
     }
     
+    var objectTypeSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+        self { ObjectTypeSubscriptionDataBuilder() }
+    }
+    
     var treeSubscriptionManager: Factory<any TreeSubscriptionManagerProtocol> {
         self { TreeSubscriptionManager() }
     }
@@ -160,7 +160,7 @@ extension Container {
         self { RelationDetailsStorage() }.singleton
     }
     
-    var relationSubscriptionDataBuilder: Factory<any RelationSubscriptionDataBuilderProtocol> {
+    var relationSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
         self { RelationSubscriptionDataBuilder() }
     }
     
@@ -251,10 +251,6 @@ extension Container {
     var accountParticipantsStorage: Factory<any AccountParticipantsStorageProtocol> {
         self { AccountParticipantsStorage() }.singleton
     }
-    
-    var activeSpaceParticipantStorage: Factory<any ActiveSpaceParticipantStorageProtocol> {
-        self { ActiveSpaceParticipantStorage() }.singleton
-    }
 
     var participantSpacesStorage: Factory<any ParticipantSpacesStorageProtocol> {
         self { ParticipantSpacesStorage() }.singleton
@@ -280,8 +276,8 @@ extension Container {
         self { MentionObjectsService() }.shared
     }
     
-    var appVersionService: Factory<any AppVersionServiceProtocol> {
-        self { AppVersionService() }.singleton
+    var appVersionUpdateService: Factory<any AppVersionUpdateServiceProtocol> {
+        self { AppVersionUpdateService() }.singleton
     }
     
     var middlewareEventsListener: Factory<any MiddlewareEventsListenerProtocol> {
@@ -290,5 +286,45 @@ extension Container {
     
     var syncStatusStorage: Factory< any SyncStatusStorageProtocol> {
         self { SyncStatusStorage() }.singleton
+    }
+    
+    var p2pStatusStorage: Factory< any P2PStatusStorageProtocol> {
+        self { P2PStatusStorage() }.singleton
+    }
+    
+    var participantSubscriptionProvider: Factory<any ParticipantsSubscriptionProviderProtocol> {
+        self { ParticipantsSubscriptionProvider() }.singleton
+    }
+    
+    var participantSubscription: ParameterFactory<String, any ParticipantsSubscriptionProtocol> {
+        self { Container.shared.participantSubscriptionProvider().subscription(spaceId: $0) }
+    }
+    
+    var globalSearchSavedStatesService: Factory<any GlobalSearchSavedStatesServiceProtocol> {
+        self { GlobalSearchSavedStatesService() }.shared
+    }
+    
+    var userDefaultsStorage: Factory< any UserDefaultsStorageProtocol> {
+        self { UserDefaultsStorage() }.singleton
+    }
+    
+    var spaceSetupManager: Factory<any SpaceSetupManagerProtocol> {
+        self { SpaceSetupManager() }.singleton
+    }
+    
+    var allContentSubscriptionService: Factory<any AllContentSubscriptionServiceProtocol> {
+        self { AllContentSubscriptionService() }
+    }
+    
+    var allContentStateStorageService: Factory<any AllContentStateStorageServiceProtocol> {
+        self { AllContentStateStorageService() }.shared
+    }
+    
+    var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
+        self { AppVersionTracker() }.shared
+    }
+    
+    var userWarningAlertsHandler: Factory<any UserWarningAlertsHandlerProtocol> {
+        self { UserWarningAlertsHandler() }.shared
     }
 }

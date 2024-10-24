@@ -25,6 +25,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var undoRedoObjectId: StringIdentifiable?
     @Published var relationsSearchData: RelationsSearchData?
     @Published var openUrlData: URL?
+    @Published var syncStatusSpaceId: StringIdentifiable?
+    @Published var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
     
     init(
         data: EditorPageObject,
@@ -90,6 +92,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         undoRedoObjectId = data.objectId.identifiable
     }
     
+    func versionRestored(_ text: String) {
+        toastBarData = ToastBarData(text: Loc.VersionHistory.Toast.message(text), showSnackBar: true, messageType: .none)
+    }
+    
     func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         relationsSearchData = RelationsSearchData(
             document: document,
@@ -105,6 +111,14 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showFailureToast(message: String) {
         toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
+    }
+    
+    func showSyncStatusInfo(spaceId: String) {
+        syncStatusSpaceId = spaceId.identifiable
+    }
+    
+    func showObectSettings(output: any ObjectSettingsCoordinatorOutput) {
+        settingsOutput = ObjectSettingsCoordinatorOutputIdentifiable(value: output)
     }
     
     // MARK: - Private

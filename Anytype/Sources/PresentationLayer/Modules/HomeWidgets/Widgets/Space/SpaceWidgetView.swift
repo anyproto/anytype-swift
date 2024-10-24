@@ -5,8 +5,8 @@ struct SpaceWidgetView: View {
     
     @StateObject private var model: SpaceWidgetViewModel
     
-    init(onSpaceSelected: @escaping () -> Void) {
-        _model = StateObject(wrappedValue: SpaceWidgetViewModel(onSpaceSelected: onSpaceSelected))
+    init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
+        _model = StateObject(wrappedValue: SpaceWidgetViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
     }
     
     var body: some View {
@@ -26,10 +26,6 @@ struct SpaceWidgetView: View {
                 }
             }
             Spacer()
-            if model.sharedSpace {
-                IconView(icon: .asset(.X24.sharing))
-                    .frame(width: 24, height: 24)
-            }
         }
         .padding(.horizontal, 16)
         .frame(height: 68)

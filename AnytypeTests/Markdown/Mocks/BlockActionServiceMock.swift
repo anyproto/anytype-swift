@@ -17,7 +17,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     var splitStub = false
     var splitNumberOfCalls = 0
     var splitData: SplitData?
-    func split(_ string: SafeNSAttributedString, blockId: String, mode: Anytype_Rpc.Block.Split.Request.Mode, range: NSRange, newBlockContentType: BlockText.Style) {
+    func setAndSplit(_ string: SafeNSAttributedString, blockId: String, mode: Anytype_Rpc.Block.Split.Request.Mode, range: NSRange, newBlockContentType: BlockText.Style) {
         if splitStub {
             splitNumberOfCalls += 1
             splitData = .init(

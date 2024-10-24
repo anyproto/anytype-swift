@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 @MainActor
@@ -20,19 +21,36 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     
-    init() {
+    private let initialTierId: Int?
+    
+    init(initialTierId: Int?) {
+        self.initialTierId = initialTierId
         membershipStatusStorage.statusPublisher.assign(to: &$userMembership)
-        loadTiers()
     }
     
-    func loadTiers() {
+    func onAppear() {
         Task {
-            do {
-                tiers = try await membershipService.getTiers()
-                showTiersLoadingError = false
-            } catch {
-                showTiersLoadingError = true
+            await loadTiers()
+            
+            guard let initialTierId else { return }
+            guard let initialTier = tiers.first(where: { $0.type.id == initialTierId }) else {
+                anytypeAssertionFailure("Not found initial id for Memberhsip coordinator", info: ["tierId": String(initialTierId)])
+                return
             }
+            onTierSelected(tier: initialTier)
+        }
+    }
+    
+    func loadTiers(noCache: Bool = false) {
+        Task { await loadTiers(noCache: noCache) }
+    }
+    
+    private func loadTiers(noCache: Bool = false) async {
+        do {
+            tiers = try await membershipService.getTiers(noCache: noCache)
+            showTiersLoadingError = false
+        } catch {
+            showTiersLoadingError = true
         }
     }
     
@@ -46,7 +64,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     private func showSuccessScreen(tier: MembershipTier) {
         showTier = nil
-        loadTiers()
+        loadTiers(noCache: true)
         
         Task {
             // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting

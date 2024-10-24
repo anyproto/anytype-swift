@@ -97,8 +97,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         showURLInputViewController(url: url, completion: completion)
     }
     
-    func showFilePicker(model: Picker.ViewModel) {
-        let vc = Picker(model)
+    func showFilePicker(model: AnytypePicker.ViewModel) {
+        let vc = AnytypePicker(model)
         navigationContext.present(vc)
     }
     
@@ -167,7 +167,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let excludedLayouts = DetailsLayout.fileLayouts + [.set, .collection]
+        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + [.set, .collection]
         let data = BlockObjectSearchData(
             title: Loc.moveTo,
             spaceId: document.spaceId,
@@ -271,21 +271,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     // MARK: - Settings
     func showSettings() {
-        let module = ObjectSettingsCoordinatorView(
-            objectId: document.objectId,
-            output: self
-        )
-        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
-        navigationContext.present(popup)
+        showSettings(output: self)
     }
     
-    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
-        let module = ObjectSettingsCoordinatorView(
-            objectId: document.objectId,
-            output: output
-        )
-        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
-        navigationContext.present(popup)
+    func showSettings(output settingsOutput: any ObjectSettingsCoordinatorOutput) {
+        output?.showObectSettings(output: settingsOutput)
     }
     
     func showIconPicker(document: some BaseDocumentProtocol) {
@@ -367,6 +357,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func didUndoRedo() {
         output?.didUndoRedo()
+    }
+    
+    func versionRestored(_ text: String) {
+        output?.versionRestored(text)
     }
 
     // MARK: - Private

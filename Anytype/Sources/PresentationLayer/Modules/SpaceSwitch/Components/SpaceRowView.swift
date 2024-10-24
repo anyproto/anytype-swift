@@ -4,7 +4,7 @@ import SwiftUI
 struct SpaceRowModel: Identifiable {
     let id: String
     let title: String
-    let icon: Icon?
+    let icon: Icon
     let isSelected: Bool
     let shared: Bool
     let onTap: () -> Void
@@ -36,10 +36,11 @@ struct SpaceRowView: View {
                         }
                     }
                     .if(model.isSelected) {
-                        $0.padding(Constants.lineWidth / 2)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                        $0.overlay(
+                            GeometryReader { reader in
+                                RoundedRectangle(cornerRadius: ObjectIconCornerRadiusBuilder.calculateObjectIconCornerRadius(size: reader.size), style: .continuous)
                                     .stroke(Color.Text.white, lineWidth: Constants.lineWidth)
+                            }
                         )
                     }
                     .frame(width: Self.width + additionalSize, height: Self.width + additionalSize)

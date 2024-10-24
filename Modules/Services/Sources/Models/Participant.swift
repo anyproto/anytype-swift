@@ -5,7 +5,7 @@ import AnytypeCore
 public typealias ParticipantPermissions = Anytype_Model_ParticipantPermissions
 public typealias ParticipantStatus = Anytype_Model_ParticipantStatus
 
-public struct Participant: Identifiable, Equatable, Sendable {
+public struct Participant: Identifiable, Equatable, Sendable, DetailsModel {
     
     public let id: String
     public let localName: String
@@ -36,10 +36,8 @@ public struct Participant: Identifiable, Equatable, Sendable {
         self.identityProfileLink = details.identityProfileLink
         self.spaceId = details.spaceId
     }
-}
-
-public extension Participant {
-    static var subscriptionKeys: [BundledRelationKey] {
+    
+    public static var subscriptionKeys: [BundledRelationKey] {
         .builder {
             BundledRelationKey.objectListKeys
             BundledRelationKey.participantStatus

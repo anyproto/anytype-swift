@@ -9,8 +9,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     
@@ -51,7 +49,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onChangeIconSelected(objectId: String) {
-        let document = documentService.document(objectId: objectId, forPreview: true)
+        let document = documentService.document(objectId: objectId, mode: .preview)
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     

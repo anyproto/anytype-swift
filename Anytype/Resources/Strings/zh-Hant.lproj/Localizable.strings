@@ -144,7 +144,13 @@
 "Alignment" = "對齊";
 "Actions" = "操作";
 "Relations" = "關聯";
+"History" = "歷史記錄";
 "Objects" = "物件";
+"Pages" = "Pages";
+"Lists" = "列表";
+"Bookmarks" = "Bookmarks";
+"Files" = "檔案";
+"Media" = "媒體";
 "Lists" = "列表";
 "Pinned" = "已釘選";
 "Delete" = "刪除";
@@ -160,7 +166,7 @@
 "Unpin" = "取消釘選";
 "Pin on top" = "置頂";
 "File block subtitle" = "以原始狀態儲存檔案";
-"Picture block subtitle" = "上傳圖像以豐富頁面";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "上傳可播放的影片";
 "Bookmark block subtitle" = "儲存您的最愛連結(包含摘要)";
 "Code block subtitle" = "擷取程式碼片段";
@@ -198,11 +204,14 @@
 "Okay" = "好的";
 "Join" = "加入";
 "Agreement Disclamer" = "繼續即表示同意 [使用條款](%@) 與 [隱私政策](%@)";
+"Lets Go" = "Let’s Go";
+"My spaces" = "My spaces";
 
 // Home
 "Favorites" = "我的最愛";
 "Recent" = "最近";
 "Bin" = "垃圾桶";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "桌布";
@@ -287,6 +296,11 @@
 "Background picture" = "背景圖片";
 "Layout" = "版型";
 "Arrangement of objects on a canvas" = "畫布上的物件排列";
+"ObjectSettings.History.Description" = "物件的所有版本";
+
+// Version history
+"VersionHistory.Title" = "Version History";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "搜尋";
 "There is no emoji named" = "尚無命名的 Emoji";
@@ -505,7 +519,7 @@
 "Set.View.Empty.Subtitle" = "添加搜索查詢實時顯示具有相同類型和關聯的物件";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "移動裝置上不支援檢視";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "指定查詢";
@@ -569,6 +583,7 @@
 "Select all" = "選取全部";
 "Unselect all" = "取消全選";
 "Deselect all" = "取消全選";
+"Deselect" = "Deselect";
 "Shared" = "分享";
 "Sets" = "集合";
 "Collections" = "集錦";
@@ -609,19 +624,18 @@
 "Unfavorite" = "取消收藏";
 "Unsplash" = "Unsplash 圖庫";
 "Go back" = "返回";
-"SyncStatus.LocalOnly.Title" = "僅限本機";
-"SyncStatus.LocalOnly.Description" = "僅限本機";
-"SyncStatus.Synced.Anytype.Description" = "備份到 Anytype 網路";
-"SyncStatus.Synced.AnytypeStaging.Description" = "備份到 Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "備份到您自行部署的網絡";
 "Downloading or uploading data to some node" = "向某個節點下載或上傳資料";
 "Node is not connected" = "節點未連接";
 "Initializing sync" = "初始化同步中";
 "Incompatible version" = "不相容的版本";
+"Connecting" = "連接中…";
+"P2P Connecting" = "P2P 連接中…";
+"P2P Connection" = "P2P 連接";
+"Anytype Network" = "Anytype 網絡";
+"Self Host" = "自己主持";
+"Local Only" = "僅限本地";
 "Synced" = "已同步";
-"Syncing..." = "同步中...";
 "No connection" = "沒有連線";
-"Preparing..." = "準備中...";
 "Deleted" = "已刪除";
 "Download" = "已下載";
 "Open object" = "開啟物件";
@@ -638,6 +652,7 @@
 "Audio" = "音訊";
 "Video" = "影片";
 "Picture" = "圖片";
+"Image" = "圖像";
 "File" = "檔案";
 "No related options here" = "尚無關聯選項。您可以新增一些";
 "Empty" = "空的";
@@ -679,6 +694,9 @@
 "Cancel deletion" = "取消刪除";
 "Logout and clear data" = "登出並清除資料";
 "New" = "新增";
+"Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您確定要刪除您的帳戶嗎？";
@@ -795,28 +813,30 @@
 "Widgets.Actions.ChangeWidgetType" = "變更小工具類型";
 "Widgets.Actions.RemoveWidget" = "移除小工具";
 "Widgets.Actions.EditWidgets" = "編輯小工具";
-"Widgets.Actions.AddWidget" = "Add Widget";
+"Widgets.Actions.AddWidget" = "新增小工具";
 "Widgets.Actions.EmptyBin" = "清空垃圾桶";
 "Widgets.Actions.AddBelow" = "在下方添加";
 "Widgets.Actions.NewObject" = "建立新物件";
-"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Actions.SeeAllObjects" = "檢視所有物件";
 "Widgets.Layout.Screen.Title" = "小工具類型";
 "Widgets.Layout.Link.Title" = "連結";
 "Widgets.Layout.Tree.Title" = "樹狀圖";
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "緊湊型列表";
 "Widgets.Layout.View.Title" = "檢視";
-"Widgets.Layout.Link.Description" = "緊湊型物件";
-"Widgets.Layout.Tree.Description" = "物件的階層結構";
-"Widgets.Layout.List.Description" = "具有物件集合列表視圖的小工具";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "具有物件集合列表視圖的小工具";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Layout.Link.Description" = "緊湊檢視小工具";
+"Widgets.Layout.Tree.Description" = "具有分層結構的小工具";
+"Widgets.Layout.List.Description" = "帶有列表檢視的小工具";
+"Widgets.Layout.View.Description" = "帶有集合或集錦的小工具";
+"Widgets.Layout.CompactList.Description" = "具有緊湊列表檢視的小工具";
+"Widgets.Empty.Title" = "這裡沒有物件";
+"Widgets.Empty.CreateObject" = "建立物件";
 "Widgets.Library.RecentlyEdited.Name" = "最近編輯";
 "Widgets.Library.RecentlyOpened.Name" = "最近開啟";
 "Widgets.Library.RecentlyOpened.Description" = "在此裝置上";
-"Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.AppUpdate" = "AnyType 已準備好更新";
+"Widgets.Source.Library" = "預設集合";
+"Widgets.Source.Objects" = "你的物件";
 
 // MARK: - About
 "About.AppVersion" = "應用程式版本：%@";
@@ -972,7 +992,7 @@
 "ParticipantRequestApprovedNotification.Text" = "您請求加入的 **%@** 空間已獲得批准，並具有 **%@** 存取權限。 該空間很快就可以在您的裝置上使用。";
 "ParticipantRequestDeclineNotification.Text" = "您請求加入的 **%@** 空間已被拒絕。";
 "RequestToLeaveNotification.Text" = "**%@** 想要離開 **%@** 空間。";
-"ParticipantRemoveNotification.Text" = "您已從該空間中移除，或該空間已被擁有者刪除。";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** 請求加入 **%@** 空間。";
 "RequestToJoinNotification.GoToSpace" = "前往空間";
 "RequestToJoinNotification.ViewRequest" = "查看請求";
@@ -1020,6 +1040,19 @@
 "SpaceShare.Tip.Steps.2" = "開放共享區塊";
 "SpaceShare.Tip.Steps.3" = "產生邀請連結並分享";
 
+// MARK: - Space Hub Tip
+"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
+"SpaceHub.Tip.Title2" = "Simple & Flexible";
+"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+
+"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
+"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
+"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "警告";
@@ -1044,8 +1077,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "過去 7 天";
-"RelativeFormatter.days30" = "過去 30 天";
-"RelativeFormatter.older" = "較舊的";
+"RelativeFormatter.days14" = "Previous 14 days";
 
 // MARK: - Server
 "Server.Network" = "網路";
@@ -1053,6 +1085,10 @@
 "Server.AddButton" = "添加自行部署的網路";
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "僅限本機";
+"Server.LocalOnly.Alert.title" = "您確定嗎?";
+"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
+"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
+"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
 
 // MARK: - Gallery
 "Gallery.Author" = "@%@ 製作";
@@ -1166,14 +1202,46 @@
 "Membership.Feature.SharedSpaces" = "最多 %@ 個共享空間";
 
 "MembershipServiceError.tierNotFound" = "未找到該階段數據，請重新啟動應用程式並重試";
-"MembershipServiceError.forcefullyFailedValidation" = "失效故障模式已開啟🫵🐭。 在除錯設定中可關閉";
 "MembershipServiceError.invalidBillingIdFormat" = "帳單格式存在內部問題，我們正在處理中。請稍後再試，或聯絡客服支援。";
 
 
-"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
-"Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.Desktop" = "您可以在桌面平臺上管理層級";
+"Membership.ManageTier.Android" = "您可以在安卓平臺上管理層級";
+"Membership.ManageTier.AppleId" = "您可以在另一個Apple帳戶上管理層級";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "資料備份被禁用";
+"SyncStatus.Info.AnytypeNetwork" = "已端到端加密";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Error.storageLimitExceed" = "達到儲存限制";
+"SyncStatus.Error.incompatibleVersion" = "不相容的版本";
+"SyncStatus.Error.networkError" = "無法進入這個空間";
+"SyncStatus.Error.UNRECOGNIZED" = "無法識別的錯誤";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME 類型 - %@";
 "Debug.Info" = "除錯訊息";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";
+
+// MARK: - All Content
+"AllContent.Settings.Sort.Title" = "排序方式";
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Sort.Date.Asc" = "Oldest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Empty.State.title" = "It’s empty here.";
+"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";

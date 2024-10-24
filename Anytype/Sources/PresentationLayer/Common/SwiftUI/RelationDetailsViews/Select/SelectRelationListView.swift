@@ -29,14 +29,11 @@ struct SelectRelationListView: View {
             },
             onClear: {
                 viewModel.onClear()
-            },
-            onSearchTextChange: { text in
-                viewModel.searchTextChanged(text)
             }
         )
         .disabled(!viewModel.configuration.isEditable)
-        .onAppear {
-            viewModel.onAppear()
+        .task(id: viewModel.searchText) {
+            await viewModel.searchTextChanged()
         }
     }
     

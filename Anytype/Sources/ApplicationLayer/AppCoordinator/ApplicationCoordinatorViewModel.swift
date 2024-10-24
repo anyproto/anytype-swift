@@ -18,6 +18,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var seedService: any SeedServiceProtocol
     @Injected(\.fileErrorEventHandler)
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.debugService)
+    private var debugService: any DebugServiceProtocol
     
     private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?
@@ -30,7 +34,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Initializers
     
     func onAppear() {
-        runAtFirstLaunch()
+        runDebugProfilerIfNeeded()
     }
 
     func authView() -> AnyView {
@@ -80,9 +84,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func runAtFirstLaunch() {
-        if UserDefaultsConfig.installedAtDate.isNil {
-            UserDefaultsConfig.installedAtDate = Date()
+    private func runDebugProfilerIfNeeded() {
+        if debugService.shouldRunDebugProfilerOnNextStartup {
+            debugService.startDebugRunProfiler()
+            debugService.shouldRunDebugProfilerOnNextStartup = false
         }
     }
     
@@ -95,7 +100,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         case .pendingDeletion:
             applicationStateService.state = .delete
         case .deleted:
-            if UserDefaultsConfig.usersId.isNotEmpty {
+            if userDefaults.usersId.isNotEmpty {
                 try? await authService.logout(removeData: true)
                 applicationStateService.state = .auth
             }
@@ -104,7 +109,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     private func handleApplicationState(_ applicationState: ApplicationState) async {
         await dismissAllPresented?(animated: false)
-        self.applicationState = applicationState
+        withAnimation(self.applicationState == .login ? .default : .none) {
+            self.applicationState = applicationState
+        }
+        
         switch applicationState {
         case .initial:
             break
@@ -122,7 +130,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Process
 
     private func loginProcess() async {
-        let userId = UserDefaultsConfig.usersId
+        let userId = userDefaults.usersId
         guard userId.isNotEmpty else {
             applicationStateService.state = .auth
             return

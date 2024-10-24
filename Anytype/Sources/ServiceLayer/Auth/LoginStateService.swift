@@ -8,6 +8,7 @@ protocol LoginStateServiceProtocol: AnyObject {
     func setupStateAfterAuth()
     func setupStateAfterRegistration(account: AccountData) async
     func cleanStateAfterLogout() async
+    func setupStateBeforeLoginOrAuth() async
 }
 
 final class LoginStateService: LoginStateServiceProtocol {
@@ -26,42 +27,55 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.storeKitService)
     private var storeKitService: any StoreKitServiceProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
+    @Injected(\.p2pStatusStorage)
+    private var p2pStatusStorage: any P2PStatusStorageProtocol
+    @Injected(\.networkConnectionStatusDaemon)
+    private var networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
     
     // MARK: - LoginStateServiceProtocol
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
+        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
         
         await startSubscriptions()
     }
     
     func setupStateAfterAuth() {
         isFirstLaunchAfterAuthorization = true
+        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
     }
     
     func setupStateAfterRegistration(account: AccountData) async {
         isFirstLaunchAfterRegistration = true
+        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = true }
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
     }
     
     func cleanStateAfterLogout() async {
-        UserDefaultsConfig.cleanStateAfterLogout()
+        userDefaults.cleanStateAfterLogout()
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
+        await spaceSetupManager.cleanupState()
         await stopSubscriptions()
+    }
+    
+    func setupStateBeforeLoginOrAuth() async {
+        await syncStatusStorage.startSubscription()
+        await p2pStatusStorage.startSubscription()
     }
     
     // MARK: - Private
@@ -70,14 +84,13 @@ final class LoginStateService: LoginStateServiceProtocol {
         await workspacesStorage.startSubscription()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
-        await activeWorkpaceStorage.setupActiveSpace()
         await accountParticipantsStorage.startSubscription()
-        await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
+        await networkConnectionStatusDaemon.start()
         storeKitService.startListenForTransactions()
-        syncStatusStorage.startSubscription()
         
         Task {
+            // Time-heavy operation
             await membershipStatusStorage.startSubscription()
         }
     }
@@ -86,12 +99,12 @@ final class LoginStateService: LoginStateServiceProtocol {
         await workspacesStorage.stopSubscription()
         await relationDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
-        await activeWorkpaceStorage.clearActiveSpace()
         await accountParticipantsStorage.stopSubscription()
-        await activeSpaceParticipantStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()
+        await syncStatusStorage.stopSubscriptionAndClean()
+        await p2pStatusStorage.stopSubscriptionAndClean()
+        await networkConnectionStatusDaemon.stop()
         storeKitService.stopListenForTransactions()
-        syncStatusStorage.stopSubscriptionAndClean()
     }
 }

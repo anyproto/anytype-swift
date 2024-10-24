@@ -3,10 +3,11 @@ import AnytypeCore
 
 struct ObjectIconExample: View {
     
-    private let emojiExamples: [CGFloat] = [16, 18, 40, 48, 64, 80, 96]
+    private let emojiExamples: [CGFloat] = [16, 18, 20, 40, 48, 64, 80, 96]
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @State private var iconId: String = ""
     
     var body: some View {
@@ -19,6 +20,9 @@ struct ObjectIconExample: View {
                         AnytypeText("Object Icon", style: .subheading)
                             .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.basic(iconId))) }
+                        AnytypeText("Object Icon Empty (page)", style: .subheading)
+                            .foregroundColor(.Text.primary)
+                        demoBlock { IconView(icon: .object(.empty(.page))) }
                         AnytypeText("Profile Icon", style: .subheading)
                             .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.profile(.imageId(iconId)))) }
@@ -38,10 +42,9 @@ struct ObjectIconExample: View {
                         demoBlock { IconView(icon: .object(.todo(false, nil))) }
                         AnytypeText("Space gradient", style: .subheading)
                             .foregroundColor(.Text.primary)
-                        demoBlock { IconView(icon: .object(.space(.gradient(GradientId(2)!)))) }
                         AnytypeText("Space char", style: .subheading)
                             .foregroundColor(.Text.primary)
-                        demoBlock { IconView(icon: .object(.space(.name("A")))) }
+                        demoBlock { IconView(icon: .object(.space(.name(name: "A", iconOption: 1)))) }
                     }
                     
                     Group {
@@ -56,7 +59,8 @@ struct ObjectIconExample: View {
             }
         }
         .task {
-            let files = try? await searchService.searchImages()
+            guard let spaceId = workspaceStorage.activeWorkspaces.first?.targetSpaceId else { return }
+            let files = try? await searchService.searchImages(spaceId: spaceId)
             iconId = files?.first?.iconImage ?? ""
         }
     }

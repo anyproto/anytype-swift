@@ -10,6 +10,7 @@ final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternal
     
     private let widgetBlockId: String
     private let widgetObject: any BaseDocumentProtocol
+    private let spaceId: String
     private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.collectionsSubscriptionService)
@@ -30,6 +31,7 @@ final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternal
     init(data: WidgetSubmoduleData) {
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
+        self.spaceId = data.workspaceInfo.accountSpaceId
         self.output = data.output
     }
     
@@ -50,7 +52,7 @@ final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternal
     func startHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
-        return .collections
+        return .collections(spaceId: spaceId)
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
@@ -78,7 +80,7 @@ final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternal
     // MARK: - Private func
     
     private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
-        await subscriptionService.startSubscription(objectLimit: widgetInfo.fixedLimit) { [weak self] details in
+        await subscriptionService.startSubscription(spaceId: spaceId, objectLimit: widgetInfo.fixedLimit) { [weak self] details in
             self?.details = details
         }
     }

@@ -12,10 +12,10 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
         static let searchId = "SearchId"
     }
     
-    let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
+    let selectionMode: LegacySearchViewModel.SelectionMode = .singleItem
+    var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
-    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never>()
     private var objects: [ObjectDetails] = []
     private var libraryObjects: [WidgetAnytypeLibrarySource] = []
     private let interactor: any WidgetSourceSearchInteractorProtocol
@@ -53,18 +53,18 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
         if id == Constants.newObjectId {
             Task { @MainActor in
                 let details = try await interactor.createNewObject(name: searchText)
-                internalModel.onSelect(source: .object(details))
+                internalModel.onSelect(source: .object(details), openObject: details.editorScreenData())
             }
             return
         }
         
         if let libraryObject = libraryObjects.first(where: { $0.type.rawValue == id}) {
-            internalModel.onSelect(source: .library(libraryObject.type))
+            internalModel.onSelect(source: .library(libraryObject.type), openObject: nil)
             return
         }
 
         if let object = objects.first(where: { $0.id == id}) {
-            internalModel.onSelect(source: .object(object))
+            internalModel.onSelect(source: .object(object), openObject: nil)
             return
         }
 
@@ -107,6 +107,7 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
                     viewBuilder:  {
                         SearchObjectRowView(
                             viewModel: SearchObjectRowView.Model(
+                                id: Constants.newObjectId, 
                                 icon: .asset(.X32.plus),
                                 title: Loc.Widgets.Actions.newObject,
                                 subtitle: nil,
@@ -161,6 +162,7 @@ private extension Array where Element == WidgetAnytypeLibrarySource {
 private extension SearchObjectRowView.Model {
     
     init(source: WidgetAnytypeLibrarySource) {
+        self.id = source.type.rawValue
         self.icon = source.icon
         self.title = source.name
         self.subtitle = source.description
@@ -173,6 +175,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
         let title = details.title
+        self.id = details.id
         self.icon = details.objectIconImage
         self.title = title
         self.subtitle = details.description

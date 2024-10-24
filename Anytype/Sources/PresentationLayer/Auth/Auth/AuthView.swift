@@ -36,9 +36,8 @@ struct AuthView: View {
         .onAppear {
             model.onAppear()
         }
-        .background(TransparentBackground())
+        .disablePresentationBackground()
         .fitIPadToReadableContentGuide()
-        .preferredColorScheme(.dark)
         .safariSheet(url: $safariUrl, preferredColorScheme: .dark)
     }
     

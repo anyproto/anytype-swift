@@ -10,6 +10,10 @@ final class GlobalSearchViewModel: ObservableObject {
     private var globalSearchDataBuilder: any GlobalSearchDataBuilderProtocol
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectCreationService: any DefaultObjectCreationServiceProtocol
+    @Injected(\.globalSearchSavedStatesService)
+    private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
+    @Injected(\.searchService)
+    private var searchService: any SearchServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
@@ -22,10 +26,7 @@ final class GlobalSearchViewModel: ObservableObject {
     
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
-    }
-    
-    func onAppear() {
-        AnytypeAnalytics.instance().logScreenSearch()
+        self.restoreState()
     }
     
     func search() async {
@@ -38,14 +39,14 @@ final class GlobalSearchViewModel: ObservableObject {
             switch state.mode {
             case .default:
                 result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId)
-            case .filtered(_, let limitObjectIds):
-                result = try await searchWithMetaService.search(text: state.searchText, limitObjectIds: limitObjectIds)
+            case .filtered(let data):
+                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, limitObjectIds: data.limitObjectIds)
             }
             
             updateInitialStateIfNeeded()
             
-            let objectsSearchData = result.compactMap { [weak self] result in
-                self?.globalSearchDataBuilder.buildData(with: result)
+            let objectsSearchData = result.compactMap { result in
+                globalSearchDataBuilder.buildData(with: result, spaceId: moduleData.spaceId)
             }
             
             guard objectsSearchData.isNotEmpty else {
@@ -68,6 +69,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSearchTextChanged() {
+        storeState()
         AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
     }
     
@@ -83,12 +85,14 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func showRelatedObjects(_ data: GlobalSearchData) {
+        let name = String(data.title.characters)
         state = GlobalSearchState(
             searchText: "",
-            mode: .filtered(name: data.title, limitObjectIds: data.relatedLinks)
+            mode: .filtered(FilteredData(id: data.id, name: name, limitObjectIds: data.relatedLinks))
         )
+        storeState()
         modeChanged = true
-        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId)
+        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId, type: .empty)
     }
     
     func clear() {
@@ -96,6 +100,7 @@ final class GlobalSearchViewModel: ObservableObject {
             searchText: "",
             mode: .default
         )
+        storeState()
         modeChanged = true
     }
     
@@ -120,9 +125,9 @@ final class GlobalSearchViewModel: ObservableObject {
         switch state.mode {
         case .default:
             return nil
-        case .filtered(let name, _):
+        case .filtered(let data):
             return GlobalSearchDataSection.SectionConfig(
-                title: Loc.Search.Links.Header.title(name),
+                title: Loc.Search.Links.Header.title(data.name),
                 buttonTitle: Loc.clear
             )
         }
@@ -137,5 +142,38 @@ final class GlobalSearchViewModel: ObservableObject {
         guard modeChanged || isInitial else { return true }
         modeChanged = false
         return false
+    }
+    
+    private func restoreState() {
+        let restoredState = globalSearchSavedStatesService.restoreState(for: moduleData.spaceId)
+        guard let restoredState else {
+            AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .empty)
+            return
+        }
+        switch restoredState.mode {
+        case .default:
+            state = restoredState
+            if restoredState.searchText.isNotEmpty {
+                AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
+            }
+        case .filtered(let data):
+            Task {
+                let details = try await searchService.search(text: "", spaceId: moduleData.spaceId, limitObjectIds: [data.id]).first
+                guard let details else { return }
+                state = GlobalSearchState(
+                    searchText: restoredState.searchText,
+                    mode: .filtered(FilteredData(
+                        id: details.id,
+                        name: details.title,
+                        limitObjectIds: details.backlinks + details.links
+                    ))
+                )
+                AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId, type: .saved)
+            }
+        }
+    }
+    
+    private func storeState() {
+        globalSearchSavedStatesService.storeState(state, spaceId: moduleData.spaceId)
     }
 }

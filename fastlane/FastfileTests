@@ -5,7 +5,7 @@ platform :ios do
   lane :tests do |options|
   desc "Runs all the tests"
     scan(
-      devices: ["iPhone 14"], 
+      devices: ["iPhone 16"], 
       scheme: "Anytype",
       slack_url: ENV['SLACK_URL_BUILD_TESTS'],
       skip_slack: options[:skip_notify] || false,
@@ -16,7 +16,8 @@ platform :ios do
     )
 
     ensure_git_status_clean(
-      show_uncommitted_changes: true
+      show_uncommitted_changes: true,
+      show_diff: true
     )
   end
   

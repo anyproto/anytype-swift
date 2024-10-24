@@ -6,16 +6,13 @@ struct CreateWidgetCoordinatorView: View {
     @StateObject private var model: CreateWidgetCoordinatorViewModel
     @Environment(\.presentationMode) @Binding private var presentationMode
     
-    init(data: CreateWidgetCoordinatorModel) {
-        self._model = StateObject(wrappedValue: CreateWidgetCoordinatorViewModel(data: data))
+    init(data: CreateWidgetCoordinatorModel, onOpenObject: @escaping (_ openObject: EditorScreenData?) -> Void) {
+        self._model = StateObject(wrappedValue: CreateWidgetCoordinatorViewModel(data: data, onOpenObject: onOpenObject))
     }
     
     var body: some View {
         WidgetSourceSearchView(data: model.widgetSourceSearchData) {
-            model.onSelectSource(source: $0)
-        }
-        .sheet(item: $model.showWidgetTypeData) {
-            WidgetTypeCreateObjectView(data: $0)
+            model.onSelectSource(source: $0, openObject: $1)
         }
         .onChange(of: model.dismiss) { _ in
             presentationMode.dismiss()

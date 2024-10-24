@@ -20,24 +20,26 @@ struct EditorCoordinatorView: View {
     @ViewBuilder
     private var mainView: some View {
         switch model.data {
-        case .favorites:
-            WidgetObjectListFavoritesView(output: model)
-        case .recentEdit:
-            WidgetObjectListRecentEditView(output: model)
-        case .recentOpen:
-            WidgetObjectListRecentOpenView(output: model)
-        case .sets:
-            WidgetObjectListSetsView(output: model)
-        case .collections:
-            WidgetObjectListCollectionsView(output: model)
-        case .bin:
-            WidgetObjectListBinView(output: model)
-        case .page(let data):
+        case let .favorites(homeObjectId, spaceId):
+            WidgetObjectListFavoritesView(homeObjectId: homeObjectId, spaceId: spaceId, output: model)
+        case let .recentEdit(spaceId):
+            WidgetObjectListRecentEditView(spaceId: spaceId, output: model)
+        case let .recentOpen(spaceId):
+            WidgetObjectListRecentOpenView(spaceId: spaceId, output: model)
+        case let .sets(spaceId):
+            WidgetObjectListSetsView(spaceId: spaceId, output: model)
+        case let .collections(spaceId):
+            WidgetObjectListCollectionsView(spaceId: spaceId, output: model)
+        case let .bin(spaceId):
+            WidgetObjectListBinView(spaceId: spaceId, output: model)
+        case let .page(data):
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
-        case .set(let data):
-            EditorSetCoordinatorView(data: data)
-        case .discussion:
-            DiscussionCoordinatorView()
+        case let .set(data):
+            EditorSetCoordinatorView(data: data, showHeader: true)
+        case let .discussion(data):
+            DiscussionCoordinatorView(data: data)
+        case let .allContent(spaceId):
+            AllContentCoordinatorView(spaceId: spaceId, output: model)
         }
     }
 }
