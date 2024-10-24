@@ -833,6 +833,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
 "Widgets.Library.RecentlyOpened.Description" = "在此设备上";
+"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "Anytype 准备好更新了";
 "Widgets.Source.Library" = "默认集合";
 "Widgets.Source.Objects" = "您的对象";
@@ -1226,7 +1227,9 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "写一段话…";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "排序方式";
@@ -1243,6 +1246,10 @@
 "AllContent.Empty.State.subtitle" = "创建您的第一个对象以开始操作。";
 "AllContent.Search.Empty.State.title" = "未找到结果。";
 "AllContent.Search.Empty.State.subtitle" = "尝试使用不同的关键字搜索";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
