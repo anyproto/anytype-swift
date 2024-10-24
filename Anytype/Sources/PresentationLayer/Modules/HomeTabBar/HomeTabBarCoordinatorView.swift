@@ -25,7 +25,10 @@ struct HomeTabBarCoordinatorView: View {
     }
     
     private var widgetsOnlyBody: some View {
-        HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
+        ZStack {
+            HomeWallpaperView(spaceInfo: model.spaceInfo)
+            HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
+        }
     }
     
     private var tabBarBody: some View {
