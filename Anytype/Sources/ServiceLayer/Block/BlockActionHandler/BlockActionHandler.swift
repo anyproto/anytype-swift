@@ -130,13 +130,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.delete(blockIds: blockIds)
     }
     
-    func moveToPage(blockId: String, pageId: String) {
+    func moveToPage(blockId: String, pageId: String) async throws {
         AnytypeAnalytics.instance().logMoveBlock()
-        Task {
-            try await blockService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
-        }
+        try await blockService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
     }
-    
+
+
     func createEmptyBlock(parentId: String, spaceId: String) {
         Task {
             let emptyBlock = BlockInformation.emptyText
