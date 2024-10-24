@@ -189,7 +189,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     private func push(data: EditorScreenData) async throws {
         if let objectId = data.objectId { // validate in case of object
-            let document = documentsProvider.document(objectId: objectId, mode: .preview)
+            let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
             guard let details = document.details else { return }
             guard details.isSupportedForEdit else {
@@ -281,8 +281,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
-        case .object(let objectId, _):
-            let document = documentsProvider.document(objectId: objectId, mode: .preview)
+        case .object(let objectId, let spaceId):
+            let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
             try await document.open()
             guard let editorData = document.details?.editorScreenData() else { return }
             try await push(data: editorData)

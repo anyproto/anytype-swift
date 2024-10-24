@@ -21,6 +21,7 @@ struct WidgetChangeSourceSearchView: View {
                      internalModel: WidgetSourceSearchChangeInternalViewModel(
                         widgetObjectId: data.widgetObjectId,
                         widgetId: data.widgetId,
+                        widgetSpaceId: data.spaceId,
                         context: data.context,
                         onFinish: onFinish
                     )

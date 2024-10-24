@@ -103,7 +103,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         Task { [weak self] in
             guard let self else { return }
             do {
-                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId)
+                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId, spaceId: spaceId)
                 AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId), spaceId: spaceId)
                 output?.templateEditingHandler(
                     setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId),
@@ -112,7 +112,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                     },
                     onTemplateSelection: data.onTemplateSelection
                 )
-                let objectDetails = await retrieveObjectDetails(objectId: interactor.objectTypeId)
+                let objectDetails = await retrieveObjectDetails(objectId: objectTypeId, spaceId: spaceId)
                 let title = objectDetails?.title.trimmed(numberOfCharacters: 16) ?? ""
                 toastData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(title), showSnackBar: true)
             } catch {
@@ -290,8 +290,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    private func retrieveObjectDetails(objectId: String) async -> ObjectDetails? {
-        let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
+    private func retrieveObjectDetails(objectId: String, spaceId: String) async -> ObjectDetails? {
+        let targetDocument = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
         try? await targetDocument.open()
         
         return targetDocument.details

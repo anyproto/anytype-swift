@@ -58,8 +58,10 @@ public struct BlockLink: Hashable, Equatable, Sendable {
     public var targetBlockID: String
     public var appearance: Appearance
     
-    public init(targetBlockID: String,
-                appearance: Appearance) {
+    public init(
+        targetBlockID: String,
+        appearance: Appearance
+    ) {
         self.targetBlockID = targetBlockID
         self.appearance = appearance
     }

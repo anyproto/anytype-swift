@@ -412,15 +412,15 @@ extension EditorRouter {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId, spaceId: data.spaceId) { [weak self] in
             self?.showEditorScreen(data: data)
         }
     }
     
     @MainActor
     func didCreateTemplate(templateId: String) {
-        guard let objectTypeId = document.details?.objectType.id else { return }
-        let setting = ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: document.spaceId, templateId: templateId)
+        guard let objectType = document.details?.objectType else { return }
+        let setting = ObjectCreationSetting(objectTypeId: objectType.id, spaceId: document.spaceId, templateId: templateId)
         setObjectCreationSettingsCoordinator.showTemplateEditing(
             setting: setting,
             onTemplateSelection: nil,
@@ -430,7 +430,8 @@ extension EditorRouter {
             completion: { [weak self] in
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Templates.Popup.wasAddedTo,
-                    objectId: objectTypeId,
+                    objectId: objectType.id,
+                    spaceId: objectType.spaceId,
                     tapHandler: { }
                 )
             }

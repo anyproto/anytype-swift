@@ -28,7 +28,7 @@ final class MentionsViewModel {
         searchString = filterString
         searchTask?.cancel()
         searchTask = Task { @MainActor [weak self] in
-            guard let self, document.spaceId.isNotEmpty else { return }
+            guard let self else { return }
             let mentions = try await mentionService.searchMentions(
                 spaceId: document.spaceId,
                 text: filterString,

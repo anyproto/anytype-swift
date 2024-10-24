@@ -152,10 +152,11 @@ final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
     
-    public func lastBlockId(from objectId: String) async throws -> String {
+    public func lastBlockId(from objectId: String, spaceId: String) async throws -> String {
         let objectShow = try await ClientCommands.objectShow(.with {
             $0.contextID = objectId
             $0.objectID = objectId
+            $0.spaceID = spaceId
         }).invoke()
         
 

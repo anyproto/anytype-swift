@@ -109,6 +109,7 @@ final class BlockViewModelBuilder {
         }
         
         let documentId = document.objectId
+        let spaceId = document.spaceId
         let blockInformationProvider = BlockModelInfomationProvider(document: document, info: info)
   
         switch info.content {
@@ -122,7 +123,7 @@ final class BlockViewModelBuilder {
                     handler: handler,
                     editorCollectionController: blockCollectionController,
                     showCodeSelection: { [weak self] info in
-                        self?.output?.onSelectCodeLanguage(objectId: documentId, blockId: blockId)
+                        self?.output?.onSelectCodeLanguage(objectId: documentId, spaceId: spaceId, blockId: blockId)
                     }
                 )
             default:
@@ -195,6 +196,7 @@ final class BlockViewModelBuilder {
                     informationProvider: blockInformationProvider,
                     handler: handler,
                     documentId: documentId,
+                    spaceId: spaceId,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
@@ -212,6 +214,7 @@ final class BlockViewModelBuilder {
             case .image:
                 return BlockImageViewModel(
                     documentId: documentId,
+                    spaceId: spaceId,
                     blockInformationProvider: blockInformationProvider,
                     handler: handler,
                     showIconPicker: { [weak self] blockId in
@@ -230,6 +233,7 @@ final class BlockViewModelBuilder {
             case .audio:
                 return AudioBlockViewModel(
                     documentId: documentId,
+                    spaceId: spaceId,
                     informationProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showAudioPicker: { [weak self] blockId in

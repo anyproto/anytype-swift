@@ -74,7 +74,7 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     func onCreateObjectTap() {
         guard let linkedObjectDetails else { return }
         Task {
-            let document = documentsProvider.document(objectId: linkedObjectDetails.id, mode: .preview)
+            let document = documentsProvider.document(objectId: linkedObjectDetails.id, spaceId: linkedObjectDetails.spaceId, mode: .preview)
             try await document.open()
             guard let lastBlockId = document.children.last?.id else { return }
                   

@@ -45,6 +45,7 @@ struct EditorSetCoordinatorView: View {
             .anytypeSheet(isPresented: $model.presentSettings) {
                 ObjectSettingsCoordinatorView(
                     objectId: model.data.objectId,
+                    spaceId: model.data.spaceId,
                     output: model
                 )
             }

@@ -3,7 +3,7 @@ import SwiftProtobuf
 
 public protocol TemplatesServiceProtocol: Sendable {
     func cloneTemplate(blockId: String) async throws
-    func createTemplateFromObjectType(objectTypeId: String) async throws -> String
+    func createTemplateFromObjectType(objectTypeId: String, spaceId: String) async throws -> String
     func createTemplateFromObject(objectId: String) async throws -> String
     func deleteTemplate(templateId: String) async throws
     func setTemplateAsDefaultForType(objectTypeId: String, templateId: String) async throws
@@ -17,8 +17,8 @@ final class TemplatesService: TemplatesServiceProtocol {
         }).invoke()
     }
     
-    public func createTemplateFromObjectType(objectTypeId: String) async throws -> String {
-        let objectDetails = try await objectDetails(objectId: objectTypeId)
+    public func createTemplateFromObjectType(objectTypeId: String, spaceId: String) async throws -> String {
+        let objectDetails = try await objectDetails(objectId: objectTypeId, spaceId: spaceId)
         
         let response = try await ClientCommands.objectCreate(.with {
             $0.details = .with {
@@ -64,10 +64,11 @@ final class TemplatesService: TemplatesServiceProtocol {
     
     // MARK: - Private
     
-    private func objectDetails(objectId: String) async throws -> ObjectDetails {
+    private func objectDetails(objectId: String, spaceId: String) async throws -> ObjectDetails {
         let objectShow = try await ClientCommands.objectShow(.with {
             $0.contextID = objectId
             $0.objectID = objectId
+            $0.spaceID = spaceId
         }).invoke()
         
         guard let details = objectShow.objectView.details.first(where: { $0.id == objectId })?.details,

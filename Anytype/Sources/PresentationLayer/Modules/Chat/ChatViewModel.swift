@@ -10,7 +10,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     // MARK: - DI
     
-    private let spaceId: String
+    let spaceId: String
     let objectId: String
     private let chatId: String
     private weak var output: (any ChatModuleOutput)?
@@ -64,7 +64,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         self.objectId = objectId
         self.chatId = chatId
         self.output = output
-        self.document = openDocumentProvider.document(objectId: objectId)
+        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
     }
     
     func onTapAddObjectToMessage() {
