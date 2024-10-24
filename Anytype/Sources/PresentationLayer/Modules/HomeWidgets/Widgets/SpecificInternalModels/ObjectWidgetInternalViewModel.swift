@@ -80,7 +80,7 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
                   
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
-            let info = BlockInformation.emptyLink(targetId: details.id, spaceId: details.spaceId)
+            let info = BlockInformation.emptyLink(targetId: details.id)
             let _ = try await self.blockService.add(
                 contextId: linkedObjectDetails.id,
                 targetId: lastBlockId,

@@ -283,7 +283,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
                 
-                let targetDocument = documentsProvider.document(objectId: content.targetBlockID, spaceId: content.spaceId)
+                let targetDocument = documentsProvider.document(objectId: content.targetBlockID, spaceId: document.spaceId)
                 let filteredBlocksIds = filteredMovingBlocksWith(excludedObjectId: targetDocument.objectId)
             
                 Task { @MainActor [weak self] in

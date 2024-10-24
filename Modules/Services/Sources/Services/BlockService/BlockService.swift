@@ -173,7 +173,7 @@ final class BlockService: BlockServiceProtocol {
         typeUniqueKey: ObjectTypeUniqueKey,
         templateId: String
     ) async throws -> [String] {
-        let info = BlockInformation.emptyLink(targetId: "", spaceId: "")
+        let info = BlockInformation.emptyLink(targetId: "")
         let block = BlockInformationConverter.convert(information: info)
         
         let response = try await ClientCommands.blockListConvertToObjects(.with {

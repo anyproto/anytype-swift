@@ -189,7 +189,7 @@ final class ObjectActionsViewModel: ObservableObject {
                 output?.onLinkItselfToObjectHandler(data: details.editorScreenData())
                 AnytypeAnalytics.instance().logLinkToObject(type: .collection, spaceId: details.spaceId)
             } else {
-                let info = BlockInformation.emptyLink(targetId: currentObjectId, spaceId: spaceId)
+                let info = BlockInformation.emptyLink(targetId: currentObjectId)
                 AnytypeAnalytics.instance().logCreateBlock(type: info.content.type, spaceId: details.spaceId)
                 let _ = try await blockService.add(
                     contextId: objectId,

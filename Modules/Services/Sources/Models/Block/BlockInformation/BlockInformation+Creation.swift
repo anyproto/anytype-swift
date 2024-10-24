@@ -18,11 +18,10 @@ public extension BlockInformation {
         )
     }
     
-    static func emptyLink(targetId: String, spaceId: String) -> BlockInformation {
+    static func emptyLink(targetId: String) -> BlockInformation {
         let content: BlockContent = .link(
             .init(
                 targetBlockID: targetId,
-                spaceId: spaceId,
                 appearance: .init(iconSize: .small, cardStyle: .card, description: .none, relations: [])
             )
         )
