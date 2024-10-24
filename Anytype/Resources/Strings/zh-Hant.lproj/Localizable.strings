@@ -834,6 +834,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "最近編輯";
 "Widgets.Library.RecentlyOpened.Name" = "最近開啟";
 "Widgets.Library.RecentlyOpened.Description" = "在此裝置上";
+"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "AnyType 已準備好更新";
 "Widgets.Source.Library" = "預設集合";
 "Widgets.Source.Objects" = "你的物件";
@@ -1228,7 +1229,9 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "排序方式";
@@ -1245,6 +1248,10 @@
 "AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
