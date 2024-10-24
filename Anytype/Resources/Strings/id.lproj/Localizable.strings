@@ -833,6 +833,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
 "Widgets.Library.RecentlyOpened.Name" = "Baru saja dibuka";
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
+"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "Anytype siap diperbarui";
 "Widgets.Source.Library" = "Default sets";
 "Widgets.Source.Objects" = "Objekmu";
@@ -1225,7 +1226,9 @@ Please provide specific details of your needs here.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tambahkan Reaksi";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1242,6 +1245,10 @@ Please provide specific details of your needs here.";
 "AllContent.Empty.State.subtitle" = "Buat objek pertamamu untuk memulai.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Coba cari dengan kata kunci yang lain.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
