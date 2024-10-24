@@ -19,10 +19,8 @@ final class MentionsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.obtainMentions(filterString: "")
-        
-        viewModel.$mentions.sink { [weak self] mentions, filteredString in
-            self?.display(mentions, newObjectName: filteredString)
+        viewModel.$mentions.sink { [weak self] mentions in
+            self?.display(mentions)
         }.store(in: &subsriptions)
         
         viewModel.dismissSubject.sink { [weak self] _ in
@@ -31,8 +29,6 @@ final class MentionsViewController: UITableViewController {
     }
     
     private func setup() {
-        tableView.separatorInset = Constants.separatorInsets
-        tableView.rowHeight = Constants.cellHeight
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
         tableView.tableFooterView = UIView(frame: .zero)
@@ -45,6 +41,8 @@ final class MentionsViewController: UITableViewController {
             viewModel.didSelectCreateNewMention()
         case let .mention(mention):
             viewModel.didSelectMention(mention)
+        case .header:
+            break
         }
     }
     
@@ -53,9 +51,14 @@ final class MentionsViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellReuseId, for: indexPath)
             switch displayData {
             case let .createNewObject(objectName):
+                cell.separatorInset = Constants.separatorInsets
                 cell.contentConfiguration = self?.createNewObjectContentConfiguration(objectName: objectName)
             case let .mention(mention):
+                cell.separatorInset = Constants.separatorInsets
                 cell.contentConfiguration = self?.confguration(for: mention)
+            case let .header(title):
+                cell.separatorInset = Constants.headerSeparatorInsets
+                cell.contentConfiguration = self?.header(title: title)
             }
             return cell
         }
@@ -104,11 +107,17 @@ final class MentionsViewController: UITableViewController {
         return configuration
     }
     
+    private func header(title: String) -> any UIContentConfiguration {
+        UISectionHeaderConfiguration(title: title)
+    }
+    
     // MARK: - Constants
     private enum Constants {
         static let cellReuseId = NSStringFromClass(UITableViewCell.self)
         static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20)
+        static let headerSeparatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         static let cellHeight: CGFloat = 56
+        static let headerHeight: CGFloat = 36
         static let createNewObjectImagePadding: CGFloat = 12
     }
     
@@ -121,12 +130,13 @@ final class MentionsViewController: UITableViewController {
 
 extension MentionsViewController {
     
-    private func display(_ list: [MentionDisplayData], newObjectName: String) {
-        DispatchQueue.main.async {
+    private func display(_ list: [MentionDisplayData]) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
             var snapshot = NSDiffableDataSourceSnapshot<MentionSection, MentionDisplayData>()
             snapshot.appendSections(MentionSection.allCases)
             snapshot.appendItems(list, toSection: .first)
-            snapshot.appendItems([.createNewObject(objectName: newObjectName)], toSection: .second)
+            snapshot.appendItems([.createNewObject(objectName: viewModel.searchString)], toSection: .second)
             self.dataSource.apply(snapshot, animatingDifferences: false)
         }
     }

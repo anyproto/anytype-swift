@@ -2,10 +2,7 @@ import UIKit
 
 final class SlashMenuContentConfigurationFactory {
     func dividerConfiguration(title: String) -> any UIContentConfiguration {
-        var configuration = UIListContentConfiguration.subtitleCell()
-        configuration.textProperties.font = .uxTitle2Regular
-        configuration.text = title
-        return configuration
+        UISectionHeaderConfiguration(title: title)
     }
     
     func configuration(displayData: SlashMenuItemDisplayData) -> any UIContentConfiguration {
