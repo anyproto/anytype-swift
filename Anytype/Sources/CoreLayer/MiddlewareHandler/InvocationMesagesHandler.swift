@@ -31,8 +31,8 @@ final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
         await EventsBunch(event: event).send()
     }
     
-    func assertationHandler(message: String, info: [String: String], file: StaticString, function: String, line: UInt) {
-        anytypeAssertionFailure(message, info: info, file: file, function: function, line: line)
+    func assertationHandler(message: String, domain: String, info: [String: String], file: StaticString, function: String, line: UInt) {
+        anytypeAssertionFailure(message, domain: domain, info: info, file: file, function: function, line: line)
     }
 }
 

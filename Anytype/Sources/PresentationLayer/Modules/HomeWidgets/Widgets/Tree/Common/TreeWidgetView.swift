@@ -15,6 +15,7 @@ struct TreeWidgetView: View {
         self._model = StateObject(
             wrappedValue: TreeWidgetViewModel(
                 widgetBlockId: data.widgetBlockId,
+                widgetObject: data.widgetObject,
                 internalModel: internalModel,
                 output: data.output
             )
@@ -37,6 +38,9 @@ struct TreeWidgetView: View {
                 content
             }
         )
+        .task {
+            await model.startTreeSubscription()
+        }
     }
     
     var content: some View {

@@ -41,8 +41,9 @@ final class TypesService: TypesServiceProtocol {
         text: String,
         includePins: Bool,
         includeLists: Bool,
-        includeBookmark: Bool,
+        includeBookmarks: Bool,
         includeFiles: Bool,
+        includeTemplates: Bool,
         incudeNotForCreation: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
@@ -60,21 +61,24 @@ final class TypesService: TypesServiceProtocol {
             layouts.removeAll(where: { $0 == .collection })
         }
         
-        if !includeBookmark {
+        if !includeBookmarks {
             layouts.removeAll(where: { $0 == .bookmark })
         }
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
+            SearchFiltersBuilder.build(isArchived: false)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
             SearchHelper.excludedIdsFilter(excludedTypeIds)
             if !incudeNotForCreation {
                 SearchHelper.excludeObjectRestriction(.createObjectOfThisType)
             }
+            if !includeTemplates {
+                SearchHelper.uniqueKeyFilter(key: ObjectTypeUniqueKey.template.value, include: false)
+            }
         }
         
-        let result = try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+        let result = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
 
         return result
     }
@@ -94,13 +98,13 @@ final class TypesService: TypesServiceProtocol {
         let layouts: [DetailsLayout] = [.set, .collection]
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId)
+            SearchFiltersBuilder.build(isArchived: false)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
             SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
         
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+        return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
             .map { ObjectType(details: $0) }
     }
     
@@ -113,13 +117,12 @@ final class TypesService: TypesServiceProtocol {
         )
         
         let filters = Array.builder {
-            SearchHelper.spaceId(MarketplaceId.anytypeLibrary.rawValue)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)
+        return try await searchMiddleService.search(spaceId: MarketplaceId.anytypeLibrary.rawValue, filters: filters, sorts: [sort], fullText: text)
     }
     
     func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType] {

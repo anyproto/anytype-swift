@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 import Services
+import AnytypeCore
+
 
 @MainActor
 protocol WorkspacesStorageProtocol: AnyObject {
@@ -10,6 +12,11 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func stopSubscription() async
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
+    func move(space: SpaceView, after: SpaceView)
+    func workspaceInfo(spaceId: String) -> AccountInfo?
+    // TODO: Kostyl. Waiting when middleware to add method for receive account info without set active space
+    func addWorkspaceInfo(spaceId: String, info: AccountInfo)
+    
     func canCreateNewSpace() -> Bool
 }
 
@@ -34,11 +41,6 @@ extension WorkspacesStorageProtocol {
 
 @MainActor
 final class WorkspacesStorage: WorkspacesStorageProtocol {
-    
-    private enum Constants {
-        static let maxSpaces = 10
-    }
-    
     // MARK: - DI
     
     @Injected(\.workspacesSubscriptionBuilder)
@@ -48,8 +50,14 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
     }()
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
+    
+    private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
     
     // MARK: - State
+
+    private var workspacesInfo: [String: AccountInfo] = [:]
     
     @Published private(set) var allWorkspaces: [SpaceView] = []
     var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { $allWorkspaces.eraseToAnyPublisher() }
@@ -57,10 +65,11 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     nonisolated init() {}
     
     func startSubscription() async {
-        let data = subscriptionBuilder.build()
+        let data = subscriptionBuilder.build(techSpaceId: accountManager.account.info.techSpaceId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
-            allWorkspaces = data.items.map { SpaceView(details: $0) }
+            let spaces = data.items.map { SpaceView(details: $0) }
+            allWorkspaces = customOrderBuilder.updateSpacesList(spaces: spaces)
         }
     }
     
@@ -76,7 +85,19 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         return allWorkspaces.first(where: { $0.targetSpaceId == spaceId })
     }
     
+    func move(space: SpaceView, after: SpaceView) {
+        allWorkspaces = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
+    }
+    
+    func workspaceInfo(spaceId: String) -> AccountInfo? {
+        workspacesInfo[spaceId]
+    }
+    
+    func addWorkspaceInfo(spaceId: String, info: AccountInfo) {
+        workspacesInfo[spaceId] = info
+    }
+    
     func canCreateNewSpace() -> Bool {
-        return activeWorkspaces.count < Constants.maxSpaces
+        return activeWorkspaces.count < 50
     }
 }

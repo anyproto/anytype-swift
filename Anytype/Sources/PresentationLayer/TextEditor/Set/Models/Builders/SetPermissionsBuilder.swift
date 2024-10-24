@@ -10,16 +10,20 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
     
     func build(setDocument: SetDocument, participantCanEdit: Bool) -> SetPermissions {
         
+        let isVersionMode = setDocument.mode.isVersion
         let isArchive = setDocument.details?.isArchived ?? true
         let isLocked = setDocument.document.isLocked
-        let canEdit = !isLocked && !isArchive && participantCanEdit
+        let canEdit = !isLocked && !isArchive && participantCanEdit && !isVersionMode
         
         return SetPermissions(
             canCreateObject: canEdit && canCreateObject(setDocument: setDocument, participantCanEdit: participantCanEdit),
             canEditView: canEdit,
             canTurnSetIntoCollection: canEdit && !setDocument.isCollection(),
             canChangeQuery: canEdit && !setDocument.isCollection(),
-            canEditRelationValuesInView: canEdit && canEditRelationValuesInView(setDocument: setDocument)
+            canEditRelationValuesInView: canEdit && canEditRelationValuesInView(setDocument: setDocument),
+            canEditTitle: canEdit,
+            canEditDescription: canEdit,
+            canEditSetObjectIcon: canEdit
         )
     }
     
@@ -36,11 +40,19 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         
         // Set query validation
         // Create objects in sets by type only permitted if type is Page-like
-        guard let setOfId = details.setOf.first(where: { $0.isNotEmpty }) else {
+        guard let setOfId = details.filteredSetOf.first else {
             return false
         }
         
-        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
+        guard let queryObject = try? ObjectTypeProvider.shared.objectType(id: setOfId) else {
+            return false
+        }
+        
+        if queryObject.uniqueKey == ObjectTypeUniqueKey.template {
+            return false
+        }
+        
+        guard let layout = queryObject.recommendedLayout else {
             return false
         }
         

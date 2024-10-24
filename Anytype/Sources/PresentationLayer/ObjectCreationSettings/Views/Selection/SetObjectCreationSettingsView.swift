@@ -2,21 +2,20 @@ import SwiftUI
 import Services
 
 struct SetObjectCreationSettingsView: View {
-    // Popup height. Something is wrong with keyboard appearance on UIKit view. Intistic content size couldn't be calculated in FloatingPanel :/
-    static let height: CGFloat = 480
 
     @StateObject private var model: SetObjectCreationSettingsViewModel
     
-    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetObjectCreationSettingsOutput)?) {
+    init(data: SetObjectCreationData, output: (any SetObjectCreationSettingsOutput)?) {
         _model = StateObject(wrappedValue: SetObjectCreationSettingsViewModel(
-            interactor: SetObjectCreationSettingsInteractor(setDocument: setDocument, viewId: viewId),
-            setDocument: setDocument,
+            interactor: SetObjectCreationSettingsInteractor(setDocument: data.setDocument, viewId: data.viewId),
+            data: data,
             output: output
         ))
     }
 
     var body: some View {
         VStack {
+            DragIndicator()
             navigation
             if model.canChangeObjectType {
                 objectTypeView
@@ -24,7 +23,9 @@ struct SetObjectCreationSettingsView: View {
             templatesView
             Spacer.fixedHeight(24)
         }
+        .background(Color.Background.secondary)
         .snackbar(toastBarData: $model.toastData)
+        .ignoresSafeArea(.keyboard)
     }
 
     private var navigation: some View {
@@ -108,12 +109,13 @@ struct SetObjectCreationSettingsView: View {
 
 #Preview {
     SetObjectCreationSettingsView(
-        setDocument: Container.shared.documentsProvider().setDocument(objectId: "", forPreview: false, inlineParameters: nil),
-        viewId: "viewId",
+        data: SetObjectCreationData(
+            setDocument: Container.shared.documentsProvider().setDocument(objectId: ""),
+            viewId: "viewId",
+            onTemplateSelection: { _ in }
+        ),
         output: nil
     )
-    .previewLayout(.sizeThatFits)
     .border(8, color: .Shape.primary)
     .padding()
-    .previewDisplayName("Preview with title & icon")
 }

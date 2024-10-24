@@ -27,18 +27,16 @@ extension AccountParticipantsStorageProtocol {
 @MainActor
 final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     
+    private enum Constants {
+        static let subscriptionIdPrefix = "SubscriptionId.AccountParticipant-"
+    }
+    
     // MARK: - DI
     
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-    }()
-    
-    private let subscriptionId = "AccountParticipant-\(UUID())"
-    private var subscriptions: [AnyCancellable] = []
+    private lazy var multispaceSubscriptionHelper = MultispaceSubscriptionHelper<Participant>(
+        subIdPrefix: Constants.subscriptionIdPrefix,
+        subscriptionBuilder: AcountParticipantSubscriptionBuilder()
+    )
     
     // MARK: - State
     
@@ -48,37 +46,19 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     nonisolated init() {}
     
     func startSubscription() async {
-        accountManager.accountPublisher.sink { [weak self] data in
-            Task {
-                try await self?.startOrUpdateSubscription(info: data.info)
-            }
-        }.store(in: &subscriptions)
+        await multispaceSubscriptionHelper.startSubscription { [weak self] in
+            self?.updatePartiipants()
+        }
     }
     
     func stopSubscription() async {
-        subscriptions.removeAll()
-        try? await subscriptionStorage.stopSubscription()
+        await multispaceSubscriptionHelper.stopSubscription()
+        participants.removeAll()
     }
     
     // MARK: - Private
     
-    private func startOrUpdateSubscription(info: AccountInfo) async throws {
-        let filters: [DataviewFilter] = .builder {
-            SearchHelper.identityProfileLink(info.profileObjectID)
-            SearchHelper.layoutFilter([.participant])
-        }
-        
-        let searchData: SubscriptionData = .search(
-            SubscriptionData.Search(
-                identifier: subscriptionId,
-                filters: filters,
-                limit: 0,
-                keys: Participant.subscriptionKeys.map { $0.rawValue }
-            )
-        )
-        
-        try await subscriptionStorage.startOrUpdateSubscription(data: searchData) { [weak self] data in
-            self?.participants = data.items.compactMap { try? Participant(details: $0) }
-        }
+    private func updatePartiipants() {
+        participants = multispaceSubscriptionHelper.data.values.flatMap { $0 }
     }
 }

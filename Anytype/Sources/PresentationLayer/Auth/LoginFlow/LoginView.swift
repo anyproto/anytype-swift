@@ -12,13 +12,18 @@ struct LoginView: View {
     var body: some View {
         content
             .navigationBarBackButtonHidden(true)
-            .navigationTitle(Loc.Auth.LoginFlow.Enter.title)
             .navigationBarTitleDisplayMode(.inline)
-            .background(TransparentBackground())
+            .disablePresentationBackground()
             .padding(.horizontal, 16)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     backButton
+                }
+                ToolbarItem(placement: .principal) {
+                    Text(Loc.Auth.LoginFlow.Enter.title)
+                        .onTapGesture(count: 5) {
+                            model.showDebugMenu.toggle()
+                        }
                 }
             }
             .sheet(isPresented: $model.showQrCodeView) {
@@ -42,6 +47,10 @@ struct LoginView: View {
             }
             .fitIPadToReadableContentGuide()
             .onChange(of: model.dismiss) { _ in dismiss() }
+        
+            .sheet(isPresented: $model.showDebugMenu) {
+                PublicDebugMenuView()
+            }
     }
     
     private var content: some View {
@@ -124,6 +133,8 @@ struct LoginView: View {
 
 struct LoginView_Previews : PreviewProvider {
     static var previews: some View {
-        LoginView(output: nil)
+        NavigationView {
+            LoginView(output: nil)
+        }
     }
 }

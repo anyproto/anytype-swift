@@ -93,7 +93,8 @@ internal enum Asset {
   }
   internal enum Background {
     static let black = ColorAsset(name: "Background/black")
-    static let highlightedOfSelected = ColorAsset(name: "Background/highlightedOfSelected")
+    static let highlightedLight = ColorAsset(name: "Background/highlightedLight")
+    static let highlightedMedium = ColorAsset(name: "Background/highlightedMedium")
     static let material = ColorAsset(name: "Background/material")
     static let primary = ColorAsset(name: "Background/primary")
     static let secondary = ColorAsset(name: "Background/secondary")
@@ -149,6 +150,9 @@ internal enum Asset {
     static let orange = ColorAsset(name: "Gradients/orange")
     static let white = ColorAsset(name: "Gradients/white")
   }
+  internal enum Launch {
+    static let circle = ColorAsset(name: "Launch/circle")
+  }
   internal enum ModalScreen {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")
@@ -165,7 +169,9 @@ internal enum Asset {
     static let primary = ColorAsset(name: "Shape/primary")
     static let secondary = ColorAsset(name: "Shape/secondary")
     static let tertiary = ColorAsset(name: "Shape/tertiary")
-    static let transperent = ColorAsset(name: "Shape/transperent")
+    static let transperentPrimary = ColorAsset(name: "Shape/transperentPrimary")
+    static let transperentSecondary = ColorAsset(name: "Shape/transperentSecondary")
+    static let transperentTertiary = ColorAsset(name: "Shape/transperentTertiary")
   }
   internal enum Text {
     static let labelInversion = ColorAsset(name: "Text/labelInversion")

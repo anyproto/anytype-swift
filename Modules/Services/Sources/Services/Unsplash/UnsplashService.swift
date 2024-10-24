@@ -14,7 +14,7 @@ final class UnsplashService: UnsplashServiceProtocol {
         let result = try await ClientCommands.unsplashSearch(.with {
             $0.query = query
             $0.limit = 36
-        }).invoke()
+        }).invoke(ignoreLogErrors: .unknownError)
         
         return result.pictures.compactMap(UnsplashItem.init)
     }

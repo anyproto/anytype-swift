@@ -17,8 +17,11 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
             return objectIcon
         }
         
-        if DetailsLayout.fileLayouts.contains(relations.layoutValue) {
-            return fileIcon(fileMimeType: relations.fileMimeType, name: relations.name)
+        if DetailsLayout.fileAndMediaLayouts.contains(relations.layoutValue) {
+            return fileIcon(
+                fileMimeType: relations.fileMimeType,
+                name: FileDetails.formattedFileName(relations.name, fileExt: relations.fileExt)
+            )
         }
         
         if relations.layoutValue == .todo {
@@ -47,10 +50,12 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .bookmark:
             return bookmarkIcon(iconImage: relations.iconImage)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date:
+                .audio, .video, .pdf, .date, .tag:
             return nil
         case .space, .spaceView:
-            return spaceIcon(iconImage: relations.iconImage, iconOptionValue: relations.iconOptionValue, objectName: relations.objectName)
+            return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName)
+        case .chat, .chatDerived:
+            return nil
         }
     }
     
@@ -70,16 +75,12 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         return iconImage.isNotEmpty ? .bookmark(iconImage) : nil
     }
     
-    private func spaceIcon(iconImage: String, iconOptionValue: GradientId?, objectName: String) -> ObjectIcon? {
+    private func spaceIcon(iconImage: String, iconOption: Int?, objectName: String) -> ObjectIcon? {
         if iconImage.isNotEmpty {
             return .space(.imageId(iconImage))
         }
         
-        if let iconOptionValue {
-            return .space(.gradient(iconOptionValue))
-        }
-        
-        return .space(.name(objectName))
+        return .space(.name(name: objectName, iconOption: iconOption ?? 1))
     }
     
     private func fileIcon(fileMimeType: String, name: String) -> ObjectIcon {

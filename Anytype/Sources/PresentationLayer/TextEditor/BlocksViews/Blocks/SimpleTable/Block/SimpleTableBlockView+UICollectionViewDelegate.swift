@@ -44,9 +44,7 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
                 }
             }
 
-            let indexPathsForSelectedItemsNew = collectionView.indexPathsForSelectedItems ?? []
-
-            viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItemsNew)
+            didSelectItems(collectionView: collectionView)
             spreadsheetLayout.reselectSelectedCells()
         }
     }
@@ -87,10 +85,7 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
             }
         }
 
-        if let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems {
-            viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItems)
-        }
-
+        didSelectItems(collectionView: collectionView)
         spreadsheetLayout.reselectSelectedCells()
     }
 
@@ -110,5 +105,14 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         return collectionView.isEditing
+    }
+    
+    private func didSelectItems(collectionView: UICollectionView) {
+        if let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems {
+            viewModel?.stateManager.didUpdateSelectedIndexPaths(
+                indexPathsForSelectedItems,
+                allSelected: indexPathsForSelectedItems.count == collectionView.allIndexPaths.count
+            )
+        }
     }
 }

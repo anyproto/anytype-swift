@@ -42,14 +42,14 @@ struct MockView<Content: View>: View {
         Container.shared.singleObjectSubscriptionService.onPreview {
             SingleObjectSubscriptionServiceMock.shared
         }
-        Container.shared.activeWorkspaceStorage.onPreview {
-            ActiveWorkpaceStorageMock.shared
-        }
         Container.shared.membershipStatusStorage.onPreview {
             MembershipStatusStorageMock.shared
         }
         Container.shared.fileLimitsStorage.onPreview {
             FileLimitsStorageMock.shared
+        }
+        Container.shared.syncStatusStorage.onPreview {
+            SyncStatusStorageMock.shared
         }
     }
 }

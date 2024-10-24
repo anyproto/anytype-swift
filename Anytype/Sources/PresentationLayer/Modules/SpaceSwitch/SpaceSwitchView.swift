@@ -11,11 +11,10 @@ struct SpaceSwitchView: View {
     @StateObject private var model: SpaceSwitchViewModel
     @Environment(\.dismiss) private var dismiss
     
-    @State private var headerSize: CGSize = .zero
     @State private var size: CGSize = .zero
     
-    init(output: (any SpaceSwitchModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceSwitchViewModel(output: output))
+    init(data: SpaceSwitchModuleData, output: (any SpaceSwitchModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceSwitchViewModel(data: data, output: output))
     }
     
     private var columns: [GridItem] {
@@ -43,12 +42,8 @@ struct SpaceSwitchView: View {
     private var contentContainer: some View {
         ZStack(alignment: .top) {
             ScrollViewReader { reader in
-                VerticalScrollViewWithOverlayHeader {
-                    Color.clear
-                        .frame(height: headerSize.height)
-                        .background(Color.ModalScreen.backgroundWithBlur)
-                        .background(.ultraThinMaterial)
-                } content: {
+                ScrollView {
+                    Spacer.fixedHeight(20)
                     content
                 }
                 .scrollIndicators(.never)
@@ -56,10 +51,7 @@ struct SpaceSwitchView: View {
                     reader.scrollTo(rowId)
                 }
             }
-            header
-                .readSize { size in
-                    headerSize = size
-                }
+            Spacer.fixedHeight(0)
         }
         .background(Color.ModalScreen.backgroundWithBlur)
         .background(.ultraThinMaterial)
@@ -70,6 +62,9 @@ struct SpaceSwitchView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
+        .onAppear {
+            model.onAppear()
+        }
         .anytypeSheet(item: $model.spaceViewForDelete) { space in
             SpaceDeleteAlert(spaceId: space.targetSpaceId)
         }
@@ -78,7 +73,7 @@ struct SpaceSwitchView: View {
         }
         .anytypeSheet(item: $model.spaceViewStopSharing) { space in
             StopSharingAlert(spaceId: space.targetSpaceId)
-         }
+        }
     }
     
     private var content: some View {
@@ -93,27 +88,7 @@ struct SpaceSwitchView: View {
                 }
             }
         }
-        .padding([.top], headerSize.height + 6)
-    }
-
-    private var header: some View {
-        HStack(spacing: 0) {
-            IconView(icon: model.profileIcon)
-                .frame(width: 32, height: 32)
-            Spacer.fixedWidth(12)
-            AnytypeText(model.profileName, style: .heading)
-                .foregroundColor(.Text.white)
-                .lineLimit(1)
-            Spacer()
-            Image(asset: .NavigationBase.settings)
-                .foregroundColor(.Button.white)
-        }
-        .frame(height: 68)
-        .fixTappableArea()
-        .onTapGesture {
-            model.onProfileTap()
-        }
-        .padding(.horizontal, Constants.minExternalSpacing)
+        .padding([.top], 6)
     }
     
     private func calculateCountItems(itemSize: CGFloat, spacing: CGFloat, freeWidth: CGFloat) -> Int {
@@ -129,6 +104,6 @@ struct SpaceSwitchView: View {
 
 #Preview {
     MockView {
-        SpaceSwitchView(output: nil)
+        SpaceSwitchView(data: SpaceSwitchModuleData(activeSpaceId: "", sceneId: ""), output: nil)
     }
 }

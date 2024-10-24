@@ -24,7 +24,7 @@ final class SetDocument: SetDocumentProtocol {
         document.detailsPublisher
     }
     
-    var forPreview: Bool { document.forPreview }
+    var mode: DocumentMode { document.mode }
     
     var blockDataview: BlockDataview? {
         let blockId = inlineParameters?.blockId ?? SetConstants.dataviewBlockId
@@ -131,7 +131,7 @@ final class SetDocument: SetDocumentProtocol {
     }
     
     func canStartSubscription() -> Bool {
-        (details?.setOf.isNotEmpty ?? false) || isCollection()
+        (details?.filteredSetOf.isNotEmpty ?? false) || isCollection()
     }
     
     func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails] {
@@ -146,7 +146,8 @@ final class SetDocument: SetDocumentProtocol {
     
     func objectOrderIds(for groupId: String) -> [String] {
         dataView.objectOrders.first { [weak self] objectOrder in
-            objectOrder.viewID == self?.activeView.id && objectOrder.groupID == groupId
+            let sameGroup = objectOrder.groupID.isEmpty || objectOrder.groupID == groupId
+            return objectOrder.viewID == self?.activeView.id && sameGroup
         }?.objectIds ?? []
     }
     
@@ -162,7 +163,7 @@ final class SetDocument: SetDocumentProtocol {
     func isBookmarksSet() -> Bool {
         guard let details,
               let bookmarkType = (try? objectTypeProvider.objectType(recommendedLayout: .bookmark, spaceId: document.spaceId)) else { return false }
-        return details.setOf.contains(bookmarkType.id)
+        return details.filteredSetOf.contains(bookmarkType.id)
     }
     
     func isSetByRelation() -> Bool {
@@ -183,7 +184,7 @@ final class SetDocument: SetDocumentProtocol {
             anytypeAssertionFailure("SetDocument: No details in isHeaderActive")
             return false
         }
-        return details.isCollection || isSetByRelation() || details.setOf.first(where: { $0.isNotEmpty }).isNotNil
+        return details.isCollection || isSetByRelation() || details.filteredSetOf.isNotEmpty
     }
     
     func defaultObjectTypeForActiveView() throws -> ObjectType {
@@ -204,8 +205,8 @@ final class SetDocument: SetDocumentProtocol {
     }
     
     @MainActor
-    func openForPreview() async throws {
-        try await document.openForPreview()
+    func update() async throws {
+        try await document.update()
         await setup()
     }
     
@@ -232,7 +233,7 @@ final class SetDocument: SetDocumentProtocol {
         }
         .store(in: &subscriptions)
         
-        relationDetailsStorage.relationsDetailsPublisher.sink { [weak self] _ in
+        relationDetailsStorage.relationsDetailsPublisher(spaceId: document.spaceId).sink { [weak self] _ in
             self?.updateDataViewRelations()
             self?.triggerSync()
         }

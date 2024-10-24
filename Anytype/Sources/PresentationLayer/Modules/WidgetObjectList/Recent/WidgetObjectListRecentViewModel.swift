@@ -9,6 +9,7 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     
     // MARK: - DI
     
+    private let spaceId: String
     private let type: RecentWidgetType
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
@@ -19,14 +20,15 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     // MARK: - State
     
     var title: String { type.title }
-    var editorScreenData: EditorScreenData { type.editorScreenData }
+    var editorScreenData: EditorScreenData { type.editorScreenData(spaceId: spaceId) }
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     
     private var details: [ObjectDetails] = []
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init(type: RecentWidgetType) {
+    init(spaceId: String, type: RecentWidgetType) {
+        self.spaceId = spaceId
         self.type = type
     }
     
@@ -34,7 +36,7 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     
     func onAppear() {
         Task {
-            await recentSubscriptionService.startSubscription(type: type, objectLimit: nil) { [weak self] details in
+            await recentSubscriptionService.startSubscription(spaceId: spaceId, type: type, objectLimit: nil) { [weak self] details in
                 self?.details = details
                 self?.updateRows()
             }

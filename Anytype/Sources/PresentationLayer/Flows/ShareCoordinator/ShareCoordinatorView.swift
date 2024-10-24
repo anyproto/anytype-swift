@@ -3,12 +3,16 @@ import SwiftUI
 
 struct ShareCoordinatorView: View {
     
-    @StateObject private var model = ShareCoordinatorViewModel()
+    @StateObject private var model: ShareCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
+    
+    init(spaceId: String) {
+        self._model = StateObject(wrappedValue: ShareCoordinatorViewModel(spaceId: spaceId))
+    }
     
     var body: some View {
         NavigationView {
-            ShareOptionsView(output: model)
+            ShareOptionsView(spaceId: model.spaceId, output: model)
         }
         .sheet(item: $model.showSearchObjectData) {
             ObjectSearchView(data: $0)
@@ -20,4 +24,8 @@ struct ShareCoordinatorView: View {
             dismiss()
         }
     }
+}
+
+#Preview {
+    ShareCoordinatorView(spaceId: "1337")
 }

@@ -69,7 +69,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult {
         let relationsDetails = setDocument.dataViewRelationsDetails.filter { detail in
-            guard let source = setDocument.details?.setOf else { return false }
+            guard let source = setDocument.details?.filteredSetOf else { return false }
             return source.contains(detail.id)
         }
         let objectType = objectType(for: setDocument, setting: setting)
@@ -87,7 +87,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult {
-        let objectTypeId = setDocument.details?.setOf.first ?? ""
+        let objectTypeId = setDocument.details?.filteredSetOf.first ?? ""
         let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
         return try await createObject(

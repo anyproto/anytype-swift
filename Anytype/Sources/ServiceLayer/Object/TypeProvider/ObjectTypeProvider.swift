@@ -9,42 +9,48 @@ enum ObjectTypeError: Error {
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
-    static let shared: any ObjectTypeProviderProtocol = ObjectTypeProvider(
-        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: Container.shared.accountManager.resolve())
+    private enum Constants {
+        static let subscriptionIdPrefix = "SubscriptionId.ObjectType-"
+    }
+    
+    // MARK: - Shared
+    
+    static let shared: any ObjectTypeProviderProtocol = ObjectTypeProvider()
+    
+    // MARK: - DI
+    
+    @Injected(\.objectTypeSubscriptionDataBuilder)
+    private var subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
+    
+    private lazy var multispaceSubscriptionHelper = MultispaceSubscriptionHelper<ObjectType>(
+        subIdPrefix: Constants.subscriptionIdPrefix,
+        subscriptionBuilder: subscriptionBuilder
     )
     
-    static let subscriptionId = "SubscriptionId.ObjectType"
-    
     // MARK: - Private variables
-    
-    @Published private var defaultObjectTypes: [String: String] = UserDefaultsConfig.defaultObjectTypes {
-        didSet {
-            UserDefaultsConfig.defaultObjectTypes = defaultObjectTypes
-        }
-    }
-    private let subscriptionStorage: any SubscriptionStorageProtocol
-    private let subscriptionBuilder: any ObjectTypeSubscriptionDataBuilderProtocol
-    
-    private(set) var objectTypes = [ObjectType]()
+        
     private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
     
+    @Published private var defaultObjectTypes: [String: String] {
+        didSet {
+            userDefaults.defaultObjectTypes = defaultObjectTypes
+        }
+    }
     @Published var sync: () = ()
     var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
 
-    private init(
-        subscriptionBuilder: some ObjectTypeSubscriptionDataBuilderProtocol
-    ) {
-        self.subscriptionBuilder = subscriptionBuilder
-       
-        let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
-        self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: ObjectTypeProvider.subscriptionId)
+    private init() {
+        let userDefaults = Container.shared.userDefaultsStorage()
+        self.userDefaults = userDefaults
+        defaultObjectTypes = userDefaults.defaultObjectTypes
     }
     
     // MARK: - ObjectTypeProviderProtocol
     
     func defaultObjectTypePublisher(spaceId: String) -> AnyPublisher<ObjectType, Never> {
-        return $defaultObjectTypes
-            .compactMap { [weak self] storage in try? self?.defaultObjectType(storage: storage, spaceId: spaceId) }
+        return $defaultObjectTypes.combineLatest(syncPublisher)
+            .compactMap { [weak self] storage, _ in try? self?.defaultObjectType(storage: storage, spaceId: spaceId) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
@@ -66,7 +72,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func objectType(recommendedLayout: DetailsLayout, spaceId: String) throws -> ObjectType {
-        let result = objectTypes.filter { $0.recommendedLayout == recommendedLayout && $0.spaceId == spaceId }
+        let result = objectTypes(spaceId: spaceId).filter { $0.recommendedLayout == recommendedLayout }
         if result.count > 1 {
             anytypeAssertionFailure("Multiple types contains recommendedLayout", info: ["recommendedLayout": "\(recommendedLayout.rawValue)"])
         }
@@ -78,7 +84,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func objectType(uniqueKey: ObjectTypeUniqueKey, spaceId: String) throws -> ObjectType {
-        let result = objectTypes.filter { $0.uniqueKey == uniqueKey && $0.spaceId == spaceId }
+        let result = objectTypes(spaceId: spaceId).filter { $0.uniqueKey == uniqueKey }
         if result.count > 1 {
             anytypeAssertionFailure("Multiple types contains uniqueKey", info: ["uniqueKey": "\(uniqueKey)"])
         }
@@ -91,7 +97,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func objectTypes(spaceId: String) -> [ObjectType] {
-        return objectTypes.filter { $0.spaceId == spaceId }
+        return multispaceSubscriptionHelper.data[spaceId] ?? []
     }
     
     func deletedObjectType(id: String) -> ObjectType {
@@ -115,14 +121,14 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func startSubscription() async {
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionBuilder.build()) { [weak self] data in
-            self?.updateStorage(data: data)
+        await multispaceSubscriptionHelper.startSubscription { [weak self] in
+            self?.updateAllCache()
+            self?.sync = ()
         }
     }
     
     func stopSubscription() async {
-        try? await subscriptionStorage.stopSubscription()
-        objectTypes.removeAll()
+        await multispaceSubscriptionHelper.stopSubscription()
         updateAllCache()
     }
     
@@ -134,7 +140,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     private func updateSearchCache() {
         searchTypesById.removeAll()
-        objectTypes.forEach {
+        let types = multispaceSubscriptionHelper.data.values.flatMap { $0 }
+        types.forEach {
             if searchTypesById[$0.id] != nil {
                 anytypeAssertionFailure("Dublicate object type found", info: ["id": $0.id])
             }
@@ -143,20 +150,14 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     private func findNoteType(spaceId: String) -> ObjectType? {
-        return objectTypes.first { $0.uniqueKey == .note && $0.spaceId == spaceId }
+        return objectTypes(spaceId: spaceId).first { $0.uniqueKey == .note }
     }
     
     private func defaultObjectType(storage: [String: String], spaceId: String) throws -> ObjectType {
         let typeId = storage[spaceId]
-        guard let type = objectTypes.first(where: { $0.id == typeId }) ?? findNoteType(spaceId: spaceId) else {
+        guard let type = objectTypes(spaceId: spaceId).first(where: { $0.id == typeId }) ?? findNoteType(spaceId: spaceId) else {
             throw ObjectTypeError.objectTypeNotFound
         }
         return type
-    }
-    
-    private func updateStorage(data: SubscriptionStorageState) {
-        objectTypes = data.items.map { ObjectType(details: $0) }
-        updateAllCache()
-        sync = ()
     }
 }

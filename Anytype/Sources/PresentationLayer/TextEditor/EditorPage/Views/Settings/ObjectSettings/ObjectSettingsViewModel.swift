@@ -16,6 +16,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
     func undoRedoAction(objectId: String)
     func layoutPickerAction(document: some BaseDocumentProtocol)
     func relationsAction(document: some BaseDocumentProtocol)
+    func showVersionHistory(document: some BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
     func linkToAction(document: some BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
@@ -73,6 +74,10 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     
     func onTapRelations() {
         output?.relationsAction(document: document)
+    }
+    
+    func onTapHistory() {
+        output?.showVersionHistory(document: document)
     }
     
     // MARK: - ObjectActionsOutput

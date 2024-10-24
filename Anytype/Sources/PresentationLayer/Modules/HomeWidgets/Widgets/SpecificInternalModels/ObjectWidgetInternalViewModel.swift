@@ -23,7 +23,6 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     // MARK: - State
     
-    private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = ""
@@ -38,22 +37,22 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
         self.output = data.output
     }
     
-    func startHeaderSubscription() {
-        widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
-            .receiveOnMain()
-            .sink { [weak self] details in
-                self?.name = details.title
-                self?.allowCreateObject = details.permissions(participantCanEdit: true).canEditBlocks
-                
-                self?.linkedObjectDetails = details
-                Task { await self?.updateLinksSubscriptions() }
-            }
-            .store(in: &subscriptions)
-        
-        subscriptionManager.handler = { [weak self] details in
-            // Middlware don't sort objects by passed ids
-            guard let links = self?.linkedObjectDetails?.links else { return }
-            self?.details = details.sorted { a, b in
+    func startHeaderSubscription() {}
+    
+    func startBlockSubscription() async {
+        for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
+            name = details.title
+            allowCreateObject = details.permissions(participantCanEdit: true).canEditBlocks
+            
+            linkedObjectDetails = details
+            await updateLinksSubscriptions()
+        }
+    }
+    
+    func startTreeSubscription() async {
+        for await details in subscriptionManager.detailsPublisher.values {
+            guard let links = linkedObjectDetails?.links else { continue }
+            self.details = details.sorted { a, b in
                 return links.firstIndex(of: a.id) ?? 0 < links.firstIndex(of: b.id) ?? 0
             }
         }
@@ -75,8 +74,8 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     func onCreateObjectTap() {
         guard let linkedObjectDetails else { return }
         Task {
-            let document = documentsProvider.document(objectId: linkedObjectDetails.id, forPreview: true)
-            try await document.openForPreview()
+            let document = documentsProvider.document(objectId: linkedObjectDetails.id, mode: .preview)
+            try await document.open()
             guard let lastBlockId = document.children.last?.id else { return }
                   
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
@@ -97,6 +96,6 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     private func updateLinksSubscriptions() async {
         guard let linkedObjectDetails else { return }
-        await _ = subscriptionManager.startOrUpdateSubscription(objectIds: linkedObjectDetails.links)
+        await _ = subscriptionManager.startOrUpdateSubscription(spaceId: widgetObject.spaceId, objectIds: linkedObjectDetails.links)
     }
 }

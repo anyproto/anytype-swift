@@ -24,8 +24,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var searchService: any SearchServiceProtocol
     @Injected(\.templatesSubscription)
     private var templatesSubscriptionService: any TemplatesSubscriptionServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
@@ -203,7 +203,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private func handleSyncStatus(data: DocumentSyncStatusData) {
         let data = SyncStatusData(
             status: data.syncStatus,
-            networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+            networkId: accountManager.account.info.networkId,
             isHidden: data.layout == .participant
         )
         viewInput?.update(syncStatusData: data)
@@ -223,10 +223,8 @@ extension EditorPageViewModel {
         
         Task { @MainActor in
             do {
-                if configuration.isOpenedForPreview {
-                    try await document.openForPreview()
-                } else {
-                    try await document.open()
+                try await document.open()
+                if document.mode.isHandling {
                     blocksStateManager.checkOpenedState()
                 }
             } catch ObjectOpenError.anytypeNeedsUpgrade {
@@ -300,7 +298,7 @@ extension EditorPageViewModel {
         router.showSettings()
     }
     
-    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
+    func showSettings(output: any ObjectSettingsCoordinatorOutput) {
         router.showSettings(output: output)
     }
     
@@ -310,7 +308,7 @@ extension EditorPageViewModel {
     }
     
     func showSyncStatusInfo() {
-        // TODO showSyncStatusInfo
+        output?.showSyncStatusInfo(spaceId: document.spaceId)
     }
 }
 

@@ -36,6 +36,7 @@ extension UIColor {
                 UIColor.Button.collectionInfo, 
                 UIColor.CoverGradients.collectionInfo, 
                 UIColor.Gradients.collectionInfo, 
+                UIColor.Launch.collectionInfo, 
                 UIColor.ModalScreen.collectionInfo, 
                 UIColor.Navigation.collectionInfo, 
                 UIColor.Shadow.collectionInfo, 
@@ -150,7 +151,8 @@ extension UIColor.Background {
         name: "Background",
         colors: [
             ColorInfo(name: "black", color: UIColor.Background.black), 
-            ColorInfo(name: "highlightedOfSelected", color: UIColor.Background.highlightedOfSelected), 
+            ColorInfo(name: "highlightedLight", color: UIColor.Background.highlightedLight), 
+            ColorInfo(name: "highlightedMedium", color: UIColor.Background.highlightedMedium), 
             ColorInfo(name: "material", color: UIColor.Background.material), 
             ColorInfo(name: "primary", color: UIColor.Background.primary), 
             ColorInfo(name: "secondary", color: UIColor.Background.secondary)
@@ -223,6 +225,14 @@ extension UIColor.Gradients {
         ]
     )
 }
+extension UIColor.Launch {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "Launch",
+        colors: [
+            ColorInfo(name: "circle", color: UIColor.Launch.circle)
+        ]
+    )
+}
 extension UIColor.ModalScreen {
     static let collectionInfo = ColorCollectionInfo(
         name: "ModalScreen",
@@ -257,7 +267,9 @@ extension UIColor.Shape {
             ColorInfo(name: "primary", color: UIColor.Shape.primary), 
             ColorInfo(name: "secondary", color: UIColor.Shape.secondary), 
             ColorInfo(name: "tertiary", color: UIColor.Shape.tertiary), 
-            ColorInfo(name: "transperent", color: UIColor.Shape.transperent)
+            ColorInfo(name: "transperentPrimary", color: UIColor.Shape.transperentPrimary), 
+            ColorInfo(name: "transperentSecondary", color: UIColor.Shape.transperentSecondary), 
+            ColorInfo(name: "transperentTertiary", color: UIColor.Shape.transperentTertiary)
         ]
     )
 }

@@ -72,7 +72,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             if info.childrenIds.isNotEmpty {
                 try await service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
             } else {
-                try await service.split(
+                try await service.setAndSplit(
                     NSAttributedString(string: "").sendable(),
                     blockId: info.id,
                     mode: .bottom,
@@ -85,7 +85,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
             let newBlockContentType = contentTypeForSplit(text.contentType, blockId: info.id)
 
-            try await service.split(
+            try await service.setAndSplit(
                 string.sendable(),
                 blockId: info.id,
                 mode: splitMode(info),
@@ -190,7 +190,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         } else {
             let type = text.contentType.isList ? text.contentType : .text
 
-            try await service.split(
+            try await service.setAndSplit(
                 newString,
                 blockId: info.id,
                 mode: splitMode(info),

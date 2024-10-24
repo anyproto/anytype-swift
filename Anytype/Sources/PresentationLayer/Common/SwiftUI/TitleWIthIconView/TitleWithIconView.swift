@@ -4,6 +4,7 @@ import AnytypeCore
 struct TitleWithIconView: View {
     let icon: Icon?
     let showIcon: Bool
+    let canEditIcon: Bool
     let title: String?
     let style: TitleWithIconStyle
 
@@ -22,6 +23,7 @@ struct TitleWithIconView: View {
                         height: style.iconSize.height
                     )
                     .padding(.top, 1)
+                    .disabled(!canEditIcon)
                 }
             } else {
                 title(with: title)
@@ -47,7 +49,8 @@ struct TitleWithIconView_Previews: PreviewProvider {
     static var previews: some View {
         TitleWithIconView(
             icon: .object(.emoji(Emoji("📘")!)),
-            showIcon: true,
+            showIcon: true, 
+            canEditIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - header style",
             style: .header
         )
@@ -56,6 +59,7 @@ struct TitleWithIconView_Previews: PreviewProvider {
         TitleWithIconView(
             icon: .object(.emoji(Emoji("📘")!)),
             showIcon: true,
+            canEditIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - list style",
             style: .list
         )
@@ -64,6 +68,7 @@ struct TitleWithIconView_Previews: PreviewProvider {
         TitleWithIconView(
             icon: .object(.emoji(Emoji("📘")!)),
             showIcon: true,
+            canEditIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - gallery style",
             style: .gallery
         )

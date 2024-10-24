@@ -91,7 +91,8 @@ extension UIColor {
     // MARK: - Background
     enum Background {
       internal static let black = UIColor(asset: Asset.Background.black)
-      internal static let highlightedOfSelected = UIColor(asset: Asset.Background.highlightedOfSelected)
+      internal static let highlightedLight = UIColor(asset: Asset.Background.highlightedLight)
+      internal static let highlightedMedium = UIColor(asset: Asset.Background.highlightedMedium)
       internal static let material = UIColor(asset: Asset.Background.material)
       internal static let primary = UIColor(asset: Asset.Background.primary)
       internal static let secondary = UIColor(asset: Asset.Background.secondary)
@@ -158,6 +159,11 @@ extension UIColor {
       internal static let white = UIColor(asset: Asset.Gradients.white)
     }
     
+    // MARK: - Launch
+    enum Launch {
+      internal static let circle = UIColor(asset: Asset.Launch.circle)
+    }
+    
     // MARK: - ModalScreen
     enum ModalScreen {
       internal static let background = UIColor(asset: Asset.ModalScreen.background)
@@ -181,7 +187,9 @@ extension UIColor {
       internal static let primary = UIColor(asset: Asset.Shape.primary)
       internal static let secondary = UIColor(asset: Asset.Shape.secondary)
       internal static let tertiary = UIColor(asset: Asset.Shape.tertiary)
-      internal static let transperent = UIColor(asset: Asset.Shape.transperent)
+      internal static let transperentPrimary = UIColor(asset: Asset.Shape.transperentPrimary)
+      internal static let transperentSecondary = UIColor(asset: Asset.Shape.transperentSecondary)
+      internal static let transperentTertiary = UIColor(asset: Asset.Shape.transperentTertiary)
     }
     
     // MARK: - Text

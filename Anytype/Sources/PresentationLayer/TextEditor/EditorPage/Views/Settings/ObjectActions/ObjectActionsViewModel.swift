@@ -25,8 +25,8 @@ final class ObjectActionsViewModel: ObservableObject {
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.deepLinkParser)
     private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.documentService)
@@ -127,7 +127,10 @@ final class ObjectActionsViewModel: ObservableObject {
         AnytypeAnalytics.instance().logClickAddWidget(context: .object)
         guard let details = document.details else { return }
         
-        let info = activeWorkpaceStorage.workspaceInfo
+        guard let info = workspaceStorage.workspaceInfo(spaceId: details.spaceId) else {
+            anytypeAssertionFailure("Info not found")
+            return
+        }
         
         guard info.accountSpaceId == details.spaceId else {
             anytypeAssertionFailure("Spaces are not equals")
@@ -137,8 +140,8 @@ final class ObjectActionsViewModel: ObservableObject {
             anytypeAssertionFailure("Default layout not found")
             return
         }
-        let widgetObject = documentsProvider.document(objectId: info.widgetsId, forPreview: true)
-        try await widgetObject.openForPreview()
+        let widgetObject = documentsProvider.document(objectId: info.widgetsId, mode: .preview)
+        try await widgetObject.open()
         guard let first = widgetObject.children.first else {
             anytypeAssertionFailure("First children not found")
             return
@@ -167,12 +170,23 @@ final class ObjectActionsViewModel: ObservableObject {
         output?.undoRedoAction()
     }
     
+    func onTapDiscussion() {
+        guard let details = document.details else { return }
+        output?.openPageAction(screenData: .discussion(
+            EditorDiscussionObject(
+                objectId: details.id,
+                spaceId: details.spaceId
+            )
+        ))
+        dismiss.toggle()
+    }
+    
     // MARK: - Private
     
     private func onObjectSelection(objectId: String, currentObjectId: String) {
         Task { @MainActor in
-            let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
-            try? await targetDocument.openForPreview()
+            let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
+            try? await targetDocument.open()
             guard let id = targetDocument.children.last?.id,
                   let details = targetDocument.details else { return }
             

@@ -9,6 +9,8 @@ enum DocumentUpdate: Hashable {
     case relationLinks
     case restrictions
     case close
+    case syncStatus
+    case relationDetails
 }
 
 extension DocumentUpdate {

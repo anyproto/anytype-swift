@@ -6,11 +6,19 @@ import UIKit
 
 enum EditorEditingState {
     case editing
-    case selecting(blocks: [String])
+    case selecting(blocks: [String], allSelected: Bool)
     case moving(indexPaths: [IndexPath])
     case readonly
     case simpleTablesSelection(block: String, selectedBlocks: [String], simpleTableMenuModel: SimpleTableMenuModel)
     case loading
+    
+    var allSelected: Bool {
+        if case .selecting( _, let allSelected) = self {
+            return allSelected
+        } else {
+            return false
+        }
+    }
 }
 
 /// Blocks drag & drop protocol.
@@ -29,13 +37,8 @@ protocol EditorPageMovingManagerProtocol {
 protocol EditorPageSelectionManagerProtocol {
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
-    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
-
-    // MARK: - Optional
-    func didSelectSelection(from indexPath: IndexPath)}
-
-extension EditorPageSelectionManagerProtocol {
-    func didSelectSelection(from indexPath: IndexPath) {}
+    func didUpdateSelectedIndexPathsResetIfNeeded(_ indexPaths: [IndexPath], allSelected: Bool)
+    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath], allSelected: Bool)
 }
 
 @MainActor
@@ -73,6 +76,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
 
     private let document: any BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
@@ -142,13 +147,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             didSelectEditingState(info: $0.info)
         }
     }
-
-    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+    func didUpdateSelectedIndexPathsResetIfNeeded(_ indexPaths: [IndexPath], allSelected: Bool) {
         guard indexPaths.count > 0 else {
             resetToEditingMode()
             return
         }
+        didUpdateSelectedIndexPaths(indexPaths, allSelected: allSelected)
+    }
 
+    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath], allSelected: Bool) {
         selectedBlocksIndexPaths = indexPaths
 
         blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: indexPaths.count)
@@ -159,7 +166,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         updateSelectionBarActions(selectedBlocks: blocksInformation)
 
         if case .selecting = editingState {
-            editingState = .selecting(blocks: blocksInformation.map { $0.id })
+            editingState = .selecting(blocks: blocksInformation.map { $0.id }, allSelected: allSelected)
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }
@@ -233,7 +240,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         $editingState.sink { [weak self] state in
             guard let self else { return }
             switch state {
-            case .selecting(let blocks):
+            case .selecting(let blocks, _):
                 blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: blocks.count)
             case .moving:
                 blocksSelectionOverlayViewModel?.state = .moving
@@ -275,24 +282,37 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
-                let targetDocument = documentsProvider.document(objectId: content.targetBlockID, forPreview: false)
+                
+                let targetDocument = documentsProvider.document(objectId: content.targetBlockID)
+                let filteredBlocksIds = filteredMovingBlocksWith(excludedObjectId: targetDocument.objectId)
             
                 Task { @MainActor [weak self] in
                     try? await targetDocument.open()
-                    guard let id = targetDocument.children.last?.id,
+                    guard let self, let id = targetDocument.children.last?.id,
                           let details = targetDocument.details else { return }
-                    self?.move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
-                    
-                    self?.toastPresenter.showObjectCompositeAlert(
-                        prefixText: Loc.Editor.Toast.movedTo,
-                        objectId: targetDocument.objectId,
-                        tapHandler: { [weak self] in
-                            self?.router.showEditorScreen(data: details.editorScreenData())
-                        }
-                    )
+                    if !details.isList {
+                        try await move(
+                            position: .bottom,
+                            targetId: targetDocument.objectId,
+                            dropTargetId: id,
+                            blocksIds: filteredBlocksIds,
+                            completion: { [weak self] success in
+                                guard success else { return }
+                                self?.toastPresenter.showObjectCompositeAlert(
+                                    prefixText: Loc.Editor.Toast.movedTo,
+                                    objectId: targetDocument.objectId,
+                                    tapHandler: { [weak self] in
+                                        self?.router.showEditorScreen(data: details.editorScreenData())
+                                    }
+                                )
+                            }
+                        )
+                    } else if details.isCollection {
+                        try await moveObjectsToCollection(targetDocument.objectId, details: details)
+                    }
                 }
             } else {
-                move(position: .inner, targetId: document.objectId, dropTargetId: blockId)
+                moveSync(position: .inner, targetId: document.objectId, dropTargetId: blockId, blocksIds: movingBlocksIds)
             }
         case let .position(positionIndexPath):
             let position: BlockPosition
@@ -307,31 +327,89 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 anytypeAssertionFailure("Unxpected case")
                 return
             }
-            move(position: position, targetId: document.objectId, dropTargetId: dropTargetId)
+            moveSync(position: position, targetId: document.objectId, dropTargetId: dropTargetId, blocksIds: movingBlocksIds)
         case .none:
             anytypeAssertionFailure("Unxpected case")
             return
         }
     }
     
-    private func move(position: BlockPosition, targetId: String, dropTargetId: String) {
-        guard !movingBlocksIds.contains(dropTargetId) else { return }
+    private func filteredMovingBlocksWith(excludedObjectId: String) -> [String] {
+        movingBlocksIds.filter { [weak self] movingBlockId in
+            guard let targetLinkObjectId = self?.document.targetLinkObjectIdFor(blockId: movingBlockId) else {
+                return true
+            }
+            return targetLinkObjectId != excludedObjectId
+        }
+    }
+    
+    private func moveSync(position: BlockPosition, targetId: String, dropTargetId: String, blocksIds: [String]) {
+        Task {
+            try await move(position: position, targetId: targetId, dropTargetId: dropTargetId, blocksIds: blocksIds)
+        }
+    }
+    
+    private func move(
+        position: BlockPosition,
+        targetId: String,
+        dropTargetId: String,
+        blocksIds: [String],
+        completion: ((Bool) -> Void)? = nil
+    ) async throws {
+        guard blocksIds.isNotEmpty, !blocksIds.contains(dropTargetId) else {
+            completion?(false)
+            return
+        }
 
         UISelectionFeedbackGenerator().selectionChanged()
-        AnytypeAnalytics.instance().logReorderBlock(count: movingBlocksIds.count)
+        AnytypeAnalytics.instance().logReorderBlock(count: blocksIds.count)
         
-        Task { @MainActor in
-            try await blockService.move(
-                contextId: document.objectId,
-                blockIds: movingBlocksIds,
-                targetContextID: targetId,
-                dropTargetID: dropTargetId,
-                position: position
-            )
-            
-            movingBlocksIds.removeAll()
-            editingState = .editing
+        try await blockService.move(
+            contextId: document.objectId,
+            blockIds: blocksIds,
+            targetContextID: targetId,
+            dropTargetID: dropTargetId,
+            position: position
+        )
+        
+        movingBlocksIds.removeAll()
+        editingState = .editing
+        completion?(true)
+    }
+    
+    private func moveObjectsToCollection(_ collectionId: String, details: ObjectDetails) async throws {
+        var objectBlocksIdsDict = [String: [String]]()
+        movingBlocksIds.forEach { blockId in
+            guard let targetLinkObjectId = document.targetLinkObjectIdFor(blockId: blockId),
+                  targetLinkObjectId != collectionId else { return }
+            objectBlocksIdsDict[targetLinkObjectId, default: []].append(blockId)
         }
+        
+        guard objectBlocksIdsDict.keys.count > 0 else { return }
+        
+        UISelectionFeedbackGenerator().selectionChanged()
+        let blocksIds = objectBlocksIdsDict.values.flatMap { $0 }
+        AnytypeAnalytics.instance().logReorderBlock(count: blocksIds.count)
+        
+        try await objectActionsService.addObjectsToCollection(
+            contextId: collectionId,
+            objectIds: Array(objectBlocksIdsDict.keys)
+        )
+        try await blockService.delete(
+            contextId: document.objectId,
+            blockIds: blocksIds
+        )
+        
+        movingBlocksIds.removeAll()
+        editingState = .editing
+        
+        toastPresenter.showObjectCompositeAlert(
+            prefixText: Loc.Editor.Toast.movedTo,
+            objectId: collectionId,
+            tapHandler: { [weak self] in
+                self?.router.showEditorScreen(data: details.editorScreenData())
+            }
+        )
     }
 
     private func didTapEndSelectionModeButton() {
@@ -423,7 +501,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             router.showPage(objectId: data.targetObjectID)
         case .style:
             let elements = elements.map { $0.info }
-            editingState = .selecting(blocks: elements.map { $0.id} )
+            editingState = .selecting(blocks: elements.map { $0.id}, allSelected: editingState.allSelected)
             didSelectStyleSelection(infos: elements)
 
             return
@@ -496,16 +574,9 @@ extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
 }
 
 extension EditorPageBlocksStateManager {
-    func didSelectSelection(from indexPath: IndexPath) {
-        guard let blockViewModel = modelsHolder.blockViewModel(at: indexPath.row) else { return }
-
-        editingState = .selecting(blocks: [blockViewModel.info.id])
-        selectedBlocks = [blockViewModel.info.id]
-        updateSelectionBarActions(selectedBlocks: [blockViewModel.info])
-    }
-
+    
     func didSelectEditingState(info: BlockInformation) {
-        editingState = .selecting(blocks: [info.id])
+        editingState = .selecting(blocks: [info.id], allSelected: false)
         selectedBlocks = [info.id]
         updateSelectionBarActions(selectedBlocks: [info])
     }

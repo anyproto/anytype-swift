@@ -18,6 +18,7 @@ internal extension ImageAsset {
   static let localInternet = ImageAsset.bundle(name: "local-internet")
   enum BottomAlert {
     static let error = ImageAsset.bundle(name: "BottomAlert/error")
+    static let exclamation = ImageAsset.bundle(name: "BottomAlert/exclamation")
     static let mail = ImageAsset.bundle(name: "BottomAlert/mail")
     static let question = ImageAsset.bundle(name: "BottomAlert/question")
     static let sadMail = ImageAsset.bundle(name: "BottomAlert/sadMail")
@@ -29,6 +30,14 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  enum EmptyIcon {
+    static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
+    static let discussion = ImageAsset.bundle(name: "EmptyIcon/discussion")
+    static let list = ImageAsset.bundle(name: "EmptyIcon/list")
+    static let objectType = ImageAsset.bundle(name: "EmptyIcon/objectType")
+    static let page = ImageAsset.bundle(name: "EmptyIcon/page")
+    static let tag = ImageAsset.bundle(name: "EmptyIcon/tag")
+  }
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     static let audio = ImageAsset.bundle(name: "FileTypes/Audio")
@@ -145,6 +154,7 @@ internal extension ImageAsset {
       static let up = ImageAsset.bundle(name: "x24/Arrow/Up")
     }
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
+    static let blur = ImageAsset.bundle(name: "x24/Blur")
     static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
     static let clipboard = ImageAsset.bundle(name: "x24/Clipboard")
     static let close = ImageAsset.bundle(name: "x24/Close")
@@ -171,6 +181,7 @@ internal extension ImageAsset {
     static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
     static let plus = ImageAsset.bundle(name: "x24/Plus")
     static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
+    static let reaction = ImageAsset.bundle(name: "x24/Reaction")
     static let relations = ImageAsset.bundle(name: "x24/Relations")
     static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     static let replace = ImageAsset.bundle(name: "x24/Replace")
@@ -188,6 +199,9 @@ internal extension ImageAsset {
       static let list = ImageAsset.bundle(name: "x24/View/List")
       static let table = ImageAsset.bundle(name: "x24/View/Table")
     }
+  }
+  enum X28 {
+    static let sort = ImageAsset.bundle(name: "x28/Sort")
   }
   enum X32 {
     static let actions = ImageAsset.bundle(name: "x32/Actions")
@@ -237,6 +251,12 @@ internal extension ImageAsset {
       static let `left` = ImageAsset.bundle(name: "x32/Insert/Left")
       static let `right` = ImageAsset.bundle(name: "x32/Insert/Right")
     }
+    enum Island {
+      static let vault = ImageAsset.bundle(name: "x32/Island/Vault")
+      static let add = ImageAsset.bundle(name: "x32/Island/add")
+      static let back = ImageAsset.bundle(name: "x32/Island/back")
+      static let search = ImageAsset.bundle(name: "x32/Island/search")
+    }
     static let linkTo = ImageAsset.bundle(name: "x32/Link to")
     enum Lock {
       static let lock = ImageAsset.bundle(name: "x32/Lock/Lock")
@@ -261,6 +281,7 @@ internal extension ImageAsset {
     static let replace = ImageAsset.bundle(name: "x32/Replace")
     static let restore = ImageAsset.bundle(name: "x32/Restore")
     static let search = ImageAsset.bundle(name: "x32/Search")
+    static let sendMessage = ImageAsset.bundle(name: "x32/Send Message")
     static let slashMenu = ImageAsset.bundle(name: "x32/Slash Menu")
     static let sort = ImageAsset.bundle(name: "x32/Sort")
     static let style = ImageAsset.bundle(name: "x32/Style")
@@ -368,21 +389,9 @@ internal extension ImageAsset {
       static let light = ImageAsset.bundle(name: "SettingsOld/Theme/light")
       static let system = ImageAsset.bundle(name: "SettingsOld/Theme/system")
     }
-    static let accountAndData = ImageAsset.bundle(name: "SettingsOld/account_and_data")
-    static let setWallpaper = ImageAsset.bundle(name: "SettingsOld/set_wallpaper")
-  }
-  enum SharingTip {
-    static let step1 = ImageAsset.bundle(name: "SharingTip/step1")
-    static let step2 = ImageAsset.bundle(name: "SharingTip/step2")
-    static let step3 = ImageAsset.bundle(name: "SharingTip/step3")
   }
   enum Format {
     static let unknown = ImageAsset.bundle(name: "format/unknown")
-  }
-  enum SpaceShareTip {
-    static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
-    static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
-    static let step3 = ImageAsset.bundle(name: "SpaceShareTip/step3")
   }
   enum StyleBottomSheet {
     static let bullet = ImageAsset.bundle(name: "StyleBottomSheet/bullet")
@@ -392,8 +401,13 @@ internal extension ImageAsset {
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
   enum SyncStatus {
+    static let syncAnytypenetworkConnected = ImageAsset.bundle(name: "SyncStatus/sync_anytypenetwork_connected")
+    static let syncAnytypenetworkError = ImageAsset.bundle(name: "SyncStatus/sync_anytypenetwork_error")
     static let syncInProgress = ImageAsset.bundle(name: "SyncStatus/sync_in_progress")
-    static let syncStaring = ImageAsset.bundle(name: "SyncStatus/sync_staring")
+    static let syncLocalonlyDefault = ImageAsset.bundle(name: "SyncStatus/sync_localonly_default")
+    static let syncOffline = ImageAsset.bundle(name: "SyncStatus/sync_offline")
+    static let syncP2p = ImageAsset.bundle(name: "SyncStatus/sync_p2p")
+    static let syncSelfhost = ImageAsset.bundle(name: "SyncStatus/sync_selfhost")
   }
   enum TextEditor {
     enum BlocksOption {
@@ -413,6 +427,22 @@ internal extension ImageAsset {
     }
     static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
   }
+  enum SharingTip {
+    static let step1 = ImageAsset.bundle(name: "SharingTip/step1")
+    static let step2 = ImageAsset.bundle(name: "SharingTip/step2")
+    static let step3 = ImageAsset.bundle(name: "SharingTip/step3")
+  }
+  enum SpaceHubTip {
+    static let backgroundsDark = ImageAsset.bundle(name: "SpaceHubTip/backgrounds_dark")
+    static let backgroundsLight = ImageAsset.bundle(name: "SpaceHubTip/backgrounds_light")
+    static let vaultImmersive = ImageAsset.bundle(name: "SpaceHubTip/vault_immersive")
+    static let vaultMove = ImageAsset.bundle(name: "SpaceHubTip/vault_move")
+  }
+  enum SpaceShareTip {
+    static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
+    static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
+    static let step3 = ImageAsset.bundle(name: "SpaceShareTip/step3")
+  }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
   enum Widget {
@@ -423,11 +453,12 @@ internal extension ImageAsset {
       static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
     }
     static let addTop = ImageAsset.bundle(name: "Widget/add_top")
+    static let allContent = ImageAsset.bundle(name: "Widget/allContent")
     static let bin = ImageAsset.bundle(name: "Widget/bin")
     static let settings = ImageAsset.bundle(name: "Widget/settings")
     static let tick = ImageAsset.bundle(name: "Widget/tick")
   }
-  static let splashLogoWhite = ImageAsset.bundle(name: "splash_logo_white")
+  static let launchDot = ImageAsset.bundle(name: "launch_dot")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

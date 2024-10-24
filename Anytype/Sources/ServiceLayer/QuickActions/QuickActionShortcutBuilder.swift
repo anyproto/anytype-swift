@@ -5,15 +5,13 @@ import AnytypeCore
 
 @MainActor
 protocol QuickActionShortcutBuilderProtocol {
-    func buildShortcutItems() -> [UIApplicationShortcutItem]
+    func buildShortcutItems(spaceId: String) -> [UIApplicationShortcutItem]
     func buildAction(shortcutItem: UIApplicationShortcutItem) -> QuickAction?
 }
 
 @MainActor
 final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.typesService)
     private var typesService: any TypesServiceProtocol
     @Injected(\.objectTypeProvider)
@@ -23,12 +21,11 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     
     // MARK: - QuickActionShortcutBuilderProtocol
     
-    func buildShortcutItems() -> [UIApplicationShortcutItem] {
-        let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
+    func buildShortcutItems(spaceId: String) -> [UIApplicationShortcutItem] {
         guard spaceId.isNotEmpty else { return [] } // Unauthorized user
         
         guard let types = try? typesService.getPinnedTypes(spaceId: spaceId), types.isNotEmpty else {
-            return [buildCreateDefaultObjectShortcutItem()].compactMap { $0 }
+            return [buildCreateDefaultObjectShortcutItem(spaceId: spaceId)].compactMap { $0 }
         }
         
         return types.prefix(3)
@@ -37,8 +34,8 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
             }
     }
     
-    private func buildCreateDefaultObjectShortcutItem() -> UIApplicationShortcutItem? {
-        guard let type = getDefaultObjectType() else { return nil }
+    private func buildCreateDefaultObjectShortcutItem(spaceId: String) -> UIApplicationShortcutItem? {
+        guard let type = getDefaultObjectType(spaceId: spaceId) else { return nil }
         return buildCreateObjectShortcutItem(type: type)
     }
     
@@ -71,15 +68,12 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
                     "userInfo": shortcutItem.userInfo?.description ?? ""
                 ])
             
-            // Migration fallback, legacy actions do not have type id
-            guard let type = getDefaultObjectType() else { return nil }
-            return .newObject(typeId: type.id)
+            return nil
         }
         return .newObject(typeId: typeId)
     }
     
-    private func getDefaultObjectType() -> ObjectType? {
-        let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
+    private func getDefaultObjectType(spaceId: String) -> ObjectType? {
         guard spaceId.isNotEmpty else { return nil } // Unauthorized user
         let type = try? objectTypeProvider.defaultObjectType(spaceId: spaceId)
         

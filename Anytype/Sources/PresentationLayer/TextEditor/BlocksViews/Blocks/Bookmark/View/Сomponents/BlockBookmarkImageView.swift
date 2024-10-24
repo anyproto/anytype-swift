@@ -1,7 +1,9 @@
 import UIKit
 import Combine
 
-class BlockBookmarkImageView: UIImageView {
+class BlockBookmarkImageView: UIView {
+    
+    private let iconView = IconViewUIKit()
     
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
@@ -10,7 +12,19 @@ class BlockBookmarkImageView: UIImageView {
         
         clipsToBounds = true
         layer.cornerRadius = 2
-        addDimmedOverlay(with: .black.withAlphaComponent(0.05))
+        
+        addSubview(iconView) {
+            $0.pinToSuperview()
+        }
+        
+        let dimmedOverlayView = UIView()
+        dimmedOverlayView.backgroundColor = .black.withAlphaComponent(0.05)
+        
+        addSubview(dimmedOverlayView)
+        dimmedOverlayView.layoutUsing.anchors {
+            $0.pinToSuperview()
+        }
+        
         backgroundColor = .Background.primary
         
         layoutUsing.anchors {
@@ -20,8 +34,7 @@ class BlockBookmarkImageView: UIImageView {
     
     
     func update(imageId: String) {
-        let imageGuideline = ImageGuideline(size: Constants.size, radius: .point(2))
-        wrapper.imageGuideline(imageGuideline).setImage(id: imageId)
+        iconView.icon = .object(.bookmark(imageId))
     }
     
     @available(*, unavailable)

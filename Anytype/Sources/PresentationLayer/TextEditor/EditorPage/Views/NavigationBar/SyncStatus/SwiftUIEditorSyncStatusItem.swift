@@ -3,14 +3,15 @@ import Services
 
 struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
     let statusData: SyncStatusData
-    let onTap: () -> ()
+    let itemState: EditorBarItemState
     
     func makeUIView(context: Context) -> EditorSyncStatusItem {
-        EditorSyncStatusItem(statusData: statusData, onTap: onTap)
+        EditorSyncStatusItem(statusData: statusData, itemState: itemState, onTap: {})
     }
     
     func updateUIView(_ item: EditorSyncStatusItem, context: Context) {
         item.changeStatusData(statusData)
+        item.changeItemState(itemState)
     }
 }
 
@@ -26,8 +27,8 @@ struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
     
     func mock(status: SyncStatus, networkId: String = "1337") -> SwiftUIEditorSyncStatusItem {
         SwiftUIEditorSyncStatusItem(
-            statusData: SyncStatusData(status: status, networkId: networkId, isHidden: false), 
-            onTap: { }
+            statusData: SyncStatusData(status: status, networkId: networkId, isHidden: false),
+            itemState: EditorBarItemState(haveBackground: false, opacity: 0)
         )
     }
 }

@@ -9,8 +9,7 @@ final class HomeWidgetsViewModel: ObservableObject {
 
     // MARK: - DI
     
-    private let info: AccountInfo
-    
+    let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
@@ -18,12 +17,14 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager)
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     
@@ -32,9 +33,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var widgetBlocks: [BlockWidgetInfo] = []
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
-    @Published var wallpaper: BackgroundType = .default
+    @Published var wallpaper: SpaceWallpaperType = .default
     
     var spaceId: String { info.accountSpaceId }
+    var space: SpaceView? { workspaceStorage.spaceView(spaceId: spaceId) }
     
     init(
         info: AccountInfo,
@@ -48,6 +50,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func startWidgetObjectTask() async {
         for await _ in widgetObject.syncPublisher.values {
+            dataLoaded = true
+            
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
             
@@ -56,7 +60,6 @@ final class HomeWidgetsViewModel: ObservableObject {
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
-            dataLoaded = true
         }
     }
     
@@ -67,8 +70,9 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func onAppear() {
+        AnytypeAnalytics.instance().logScreenWidget()
         if #available(iOS 17.0, *) {
-            if activeWorkspaceStorage.spaceView()?.spaceAccessType == .private {
+            if space?.spaceAccessType == .private {
                 SpaceShareTip.didOpenPrivateSpace = true
             }
         }
@@ -113,14 +117,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onCreateWidgetSelected(context: .main)
     }
     
-    func onTapDiscussion() {
-        output?.onObjectSelected(screenData: .discussion)
-    }
-    
     // MARK: - Private
     
     private func subscribeOnWallpaper() {
-        UserDefaultsConfig.wallpaperPublisher(spaceId: info.accountSpaceId)
+        userDefaults.wallpaperPublisher(spaceId: info.accountSpaceId)
             .receiveOnMain()
             .assign(to: &$wallpaper)
     }

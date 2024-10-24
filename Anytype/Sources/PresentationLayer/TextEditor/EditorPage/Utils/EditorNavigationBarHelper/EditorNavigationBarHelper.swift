@@ -12,6 +12,7 @@ final class EditorNavigationBarHelper {
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
     private let doneButton: UIButton
+    private let selectAllButton: UIButton
 
     private let settingsItem: UIEditorBarButtonItem
     private let syncStatusItem: EditorSyncStatusItem
@@ -34,6 +35,7 @@ final class EditorNavigationBarHelper {
         navigationBarView: EditorNavigationBarView,
         navigationBarBackgroundView: UIView,
         onSettingsBarButtonItemTap: @escaping () -> Void,
+        onSelectAllBarButtonItemTap: @escaping (Bool) -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void,
         onTemplatesButtonTap: @escaping () -> Void,
         onSyncStatusTap: @escaping () -> Void
@@ -43,6 +45,7 @@ final class EditorNavigationBarHelper {
         self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
         self.syncStatusItem = EditorSyncStatusItem(onTap: onSyncStatusTap)
 
+        // Done button
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = Loc.done
         buttonConfig.baseForegroundColor = .Button.accent
@@ -55,6 +58,7 @@ final class EditorNavigationBarHelper {
             ),
             for: .touchUpInside
         )
+        
         self.onTemplatesButtonTap = onTemplatesButtonTap
 
 
@@ -63,6 +67,20 @@ final class EditorNavigationBarHelper {
         self.fakeNavigationBarBackgroundView.layer.zPosition = 1
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)
+        
+        // Select all button
+        var selectAllConfig = UIButton.Configuration.plain()
+        selectAllConfig.baseForegroundColor = .Button.active
+        self.selectAllButton = UIButton(configuration: selectAllConfig)
+        self.selectAllButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    guard let allSelected = self?.currentEditorState?.allSelected else { return }
+                    onSelectAllBarButtonItemTap(!allSelected)
+                }
+            ),
+            for: .touchUpInside
+        )
     }
     
 }
@@ -146,11 +164,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             lastMode.map { navigationBarTitleView.configure(model: $0) }
             navigationBarTitleView.setIsReadonly(nil)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
-        case .selecting(let blocks):
+        case .selecting(let blocks, let allSelected):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
             navigationBarBackgroundView.alpha = 1
-            navigationBarView.leftButton = nil
+            selectAllButton.setTitle(allSelected ? Loc.deselect : Loc.selectAll, for: .normal)
+            navigationBarView.leftButton = selectAllButton
             navigationBarView.rightButton = doneButton
             let title = Loc.selectedBlocks(blocks.count)
             navigationBarTitleView.configure(model: .modeTitle(title))
@@ -172,7 +191,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
             navigationBarBackgroundView.alpha = 1
-            navigationBarView.leftButton = nil
+            navigationBarView.leftButton = selectAllButton
             navigationBarView.rightButton = doneButton
             let title = Loc.selectedBlocks(selectedBlocks.count)
             navigationBarTitleView.configure(model: .modeTitle(title))
@@ -193,6 +212,7 @@ private extension EditorNavigationBarHelper {
     func updateBarButtonItemsBackground(opacity: CGFloat) {
         let state = EditorBarItemState(haveBackground: isObjectHeaderWithCover, opacity: opacity)
         settingsItem.changeState(state)
+        syncStatusItem.changeItemState(state)
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
@@ -231,7 +251,6 @@ private extension EditorNavigationBarHelper {
         
         return nil
     }
-    
 }
 
 private extension EditorNavigationBarHelper {

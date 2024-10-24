@@ -8,6 +8,8 @@ import SwiftUI
 @MainActor
 final class NotificationCoordinatorViewModel: ObservableObject {
     
+    private let sceneId: String
+    
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
     @Injected(\.objectIconBuilder)
@@ -16,10 +18,12 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var subscription: AnyCancellable?
     private var dismissAllPresented: DismissAllPresented?
     
-    @Published var spaceIdForDeleteAlert: StringIdentifiable?
-    @Published var exportSpaceUrl: URL?
     @Published var spaceRequestAlert: SpaceRequestAlertData?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
+    
+    init(sceneId: String) {
+        self.sceneId = sceneId
+    }
     
     func onAppear() {
         Task {
@@ -62,7 +66,10 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private func handleSend(notification: Services.Notification) {
         switch notification.payload {
         case .galleryImport(let data):
-            let view = GalleryNotificationView(notification: NotificationGalleryImport(common: notification, galleryImport: data))
+            let view = GalleryNotificationView(
+                notification: NotificationGalleryImport(common: notification, galleryImport: data),
+                sceneId: sceneId
+            )
             show(view: view)
         case .participantPermissionsChange(let data):
             let view = PermissionChangeNotificationView(notification: NotificationParticipantPermissionsChange(common: notification, permissionChange: data))
@@ -78,7 +85,8 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             show(view: view)
         case .requestToJoin(let data):
             let view = RequestToJoinNotificationView(
-                notification: NotificationRequestToJoin(common: notification, requestToJoin: data),
+                notification: NotificationRequestToJoin(common: notification, requestToJoin: data), 
+                sceneId: sceneId,
                 onViewRequest: { [weak self] notification in
                     guard let self else { return }
                     
@@ -101,15 +109,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             show(view: view)
         case .participantRemove(let data):
             let view = ParticipantRemoveNotificationView(
-                notification: NotificationParticipantRemove(common: notification, remove: data),
-                onDelete: { [weak self] spaceId in
-                    await self?.dismissAllPresented?()
-                    self?.spaceIdForDeleteAlert = spaceId.identifiable
-                },
-                onExport: { [weak self] spaceUrl in
-                    await self?.dismissAllPresented?()
-                    self?.exportSpaceUrl = spaceUrl
-                }
+                notification: NotificationParticipantRemove(common: notification, remove: data)
             )
             show(view: view)
         case .import, .export, .test, .none:

@@ -18,7 +18,7 @@ final class CodeLanguageListViewModel: ObservableObject {
     
     private let data: CodeLanguageListData
     private lazy var document: any BaseDocumentProtocol = {
-        documentsProvider.document(objectId: data.documentId, forPreview: false)
+        documentsProvider.document(objectId: data.documentId)
     }()
     private var selectedLanguage: CodeLanguage?
     

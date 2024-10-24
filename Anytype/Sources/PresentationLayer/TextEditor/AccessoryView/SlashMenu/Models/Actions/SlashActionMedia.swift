@@ -2,7 +2,7 @@ import Services
 
 enum SlashActionMedia: CaseIterable {
     case file
-    case pictre
+    case image
     case video
     case audio
     case bookmark
@@ -12,8 +12,8 @@ enum SlashActionMedia: CaseIterable {
         switch self {
         case .file:
             return Loc.file
-        case .pictre:
-            return Loc.picture
+        case .image:
+            return Loc.image
         case .video:
             return Loc.video
         case .audio:
@@ -29,7 +29,7 @@ enum SlashActionMedia: CaseIterable {
         switch self {
         case .file:
             return .X40.attachment
-        case .pictre:
+        case .image:
             return .X40.picture
         case .video:
             return .X40.video
@@ -46,8 +46,8 @@ enum SlashActionMedia: CaseIterable {
         switch self {
         case .file:
             return Loc.fileBlockSubtitle
-        case .pictre:
-            return Loc.pictureBlockSubtitle
+        case .image:
+            return Loc.imageBlockSubtitle
         case .video:
             return Loc.videoBlockSubtitle
         case .audio:
@@ -63,7 +63,7 @@ enum SlashActionMedia: CaseIterable {
         switch self {
         case .file:
             return .file(FileBlockContentData(contentType: .file))
-        case .pictre:
+        case .image:
             return .file(FileBlockContentData(contentType: .image))
         case .video:
             return .file(FileBlockContentData(contentType: .video))
@@ -73,6 +73,15 @@ enum SlashActionMedia: CaseIterable {
             return .bookmark(.page)
         case .codeSnippet:
             return .text(.code)
+        }
+    }
+    
+    var titleSynonyms: [String] {
+        switch self {
+        case .image:
+            return [Loc.picture]
+        default:
+            return []
         }
     }
 }

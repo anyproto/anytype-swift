@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct DismissAllPresented {
+struct DismissAllPresented: Equatable {
     
     private weak var window: UIWindow?
     

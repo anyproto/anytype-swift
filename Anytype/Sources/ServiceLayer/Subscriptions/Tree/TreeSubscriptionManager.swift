@@ -1,29 +1,37 @@
 import Foundation
 import Services
+import Combine
 
 protocol TreeSubscriptionManagerProtocol: AnyObject {
-    var handler: ((_ child: [ObjectDetails]) -> Void)? { get set }
-    func startOrUpdateSubscription(objectIds: [String]) async -> Bool
+    var detailsPublisher: AnyPublisher<[ObjectDetails], Never> { get }
+    func startOrUpdateSubscription(spaceId: String, objectIds: [String]) async -> Bool
     func stopAllSubscriptions() async
 }
 
-final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
+actor TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
-    @Injected(\.treeSubscriptionDataBuilder)
-    private var subscriptionDataBuilder: any TreeSubscriptionDataBuilderProtocol
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionDataBuilder.subscriptionId)
-    }()
+    private let subscriptionDataBuilder: any TreeSubscriptionDataBuilderProtocol = Container.shared.treeSubscriptionDataBuilder()
+    private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
+    private let subscriptionStorage: any SubscriptionStorageProtocol
+    
     private var objectIds: [String] = []
     private var subscriptionStarted: Bool = false
-
-    var handler: ((_ child: [ObjectDetails]) -> Void)?
+    private let detailsSubject = PassthroughSubject<[ObjectDetails], Never>()
+    
+    nonisolated let detailsPublisher: AnyPublisher<[ObjectDetails], Never>
+    
+    init() {
+        subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionDataBuilder.subscriptionId)
+        detailsPublisher = subscriptionStorage.statePublisher
+            .map { $0.items }
+            .merge(with: detailsSubject)
+            .map { $0.filter(\.isNotDeletedAndSupportedForEdit) }
+            .eraseToAnyPublisher()
+    }
     
     // MARK: - TreeSubscriptionDataBuilderProtocol
-        
-    func startOrUpdateSubscription(objectIds newObjectIds: [String]) async -> Bool {
+    
+    func startOrUpdateSubscription(spaceId: String, objectIds newObjectIds: [String]) async -> Bool {
         let newObjectIdsSet = Set(newObjectIds)
         let objectIdsSet = Set(objectIds)
         guard objectIdsSet != newObjectIdsSet || !subscriptionStarted else { return false }
@@ -33,14 +41,12 @@ final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
         
         if newObjectIds.isEmpty {
             try? await subscriptionStorage.stopSubscription()
-            handler?([])
+            detailsSubject.send([])
             return true
         }
         
-        let subscriptionData = subscriptionDataBuilder.build(objectIds: objectIds)
-        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
-            self?.handleStorage(data: data)
-        }
+        let subscriptionData = subscriptionDataBuilder.build(spaceId: spaceId, objectIds: objectIds)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData)
         return true
     }
     
@@ -48,12 +54,5 @@ final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
         try? await subscriptionStorage.stopSubscription()
         objectIds.removeAll()
         subscriptionStarted = false
-    }
-    
-    // MARK: - Private
-    
-    private func handleStorage(data: SubscriptionStorageState) {
-        let result = data.items.filter(\.isNotDeletedAndSupportedForEdit)
-        handler?(result)
     }
 }

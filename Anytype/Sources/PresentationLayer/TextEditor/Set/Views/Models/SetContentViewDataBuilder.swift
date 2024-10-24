@@ -16,6 +16,7 @@ protocol SetContentViewDataBuilderProtocol: AnyObject {
         dataView: BlockDataview,
         activeView: DataviewView,
         viewRelationValueIsLocked: Bool,
+        canEditIcon: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
         onItemTap: @escaping @MainActor (ObjectDetails) -> Void
@@ -80,6 +81,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         dataView: BlockDataview,
         activeView: DataviewView,
         viewRelationValueIsLocked: Bool,
+        canEditIcon: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
         onItemTap: @escaping @MainActor (ObjectDetails) -> Void
@@ -108,7 +110,8 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 id: item.details.id,
                 title: item.details.title,
                 description: item.details.description,
-                icon: item.details.objectIconImage,
+                icon: item.details.objectIconImage, 
+                canEditIcon: canEditIcon,
                 relations: item.relations,
                 showIcon: !activeView.hideIcon,
                 isSmallCardSize: activeView.isSmallCardSize,
@@ -173,9 +176,11 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         guard activeView.type == .gallery else {
             return nil
         }
-        if activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue,
-           let documentCover = details.documentCover {
+        let showPageCover = activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue
+        if showPageCover, let documentCover = details.documentCover {
             return .cover(documentCover)
+        } else if showPageCover, details.objectType.isImageLayout {
+            return .cover(DocumentCover.imageId(details.id))
         } else {
             return relationCoverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: detailsStorage)
         }

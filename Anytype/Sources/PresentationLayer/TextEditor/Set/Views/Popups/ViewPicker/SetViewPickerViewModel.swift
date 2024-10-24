@@ -127,7 +127,7 @@ final class SetViewPickerViewModel: ObservableObject {
                 sorts: [],
                 filters: []
             )
-            let source = setDocument.details?.setOf ?? []
+            let source = setDocument.details?.filteredSetOf ?? []
             let viewId = try await dataviewService.createView(
                 objectId: setDocument.objectId,
                 blockId: setDocument.blockId,

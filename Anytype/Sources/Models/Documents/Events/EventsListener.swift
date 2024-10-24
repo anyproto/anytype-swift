@@ -4,7 +4,7 @@ import Services
 import ProtobufMessages
 import AnytypeCore
 
-final class EventsListener: EventsListenerProtocol {
+actor EventsListener: EventsListenerProtocol {
     
     // MARK: - Internal variables
     
@@ -19,7 +19,6 @@ final class EventsListener: EventsListenerProtocol {
     private let middlewareConverter: MiddlewareEventConverter
     private let localConverter: LocalEventConverter
     private let mentionMarkupEventProvider: MentionMarkupEventProvider
-    private let relationEventConverter: RelationEventConverter
     
     private var subscriptions = [AnyCancellable]()
     
@@ -54,39 +53,51 @@ final class EventsListener: EventsListenerProtocol {
             infoContainer: infoContainer,
             detailsStorage: detailsStorage
         )
-        self.relationEventConverter = RelationEventConverter(relationLinksStorage: relationLinksStorage)
     }
     
     // MARK: - EventsListenerProtocol
     
+    nonisolated
     func startListening() {
-        subscribeMiddlewareEvents()
-        subscribeRelationEvents()
+        Task {
+            await startListeningInternal()
+        }
     }
     
+    nonisolated
     func stopListening() {
+        Task {
+            await stopListeningInternal()
+        }
+    }
+    
+    nonisolated
+    func setOnUpdateReceice(_ closure: @escaping ([DocumentUpdate]) -> Void) {
+        Task {
+            await setOnUpdateReceiceInternal(closure)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func startListeningInternal() {
+        subscribeMiddlewareEvents()
+    }
+    
+    private func stopListeningInternal() {
         subscriptions = []
+    }
+    
+    
+    private func setOnUpdateReceiceInternal(_ closure: @escaping ([DocumentUpdate]) -> Void) {
+        onUpdatesReceive = closure
     }
     
     private func subscribeMiddlewareEvents() {
         EventBunchSubscribtion.default.addHandler { [weak self] events in
             guard events.contextId == self?.objectId else { return }
-            self?.handle(events: events)
+            await self?.handle(events: events)
         }.store(in: &subscriptions)
-    }
-    
-    private func subscribeRelationEvents() {
-        let subscription = NotificationCenter.Publisher(
-            center: .default,
-            name: .relationEvent,
-            object: nil
-        )
-            .compactMap { $0.object as? RelationEventsBunch }
-            .receiveOnMain()
-            .sink { [weak self] eventsBunch in
-                self?.handleRelation(eventsBunch: eventsBunch)
-            }
-        subscriptions.append(subscription)
     }
     
     private func handle(events: EventsBunch) {
@@ -102,11 +113,6 @@ final class EventsListener: EventsListenerProtocol {
     
         let updates = middlewareUpdates + markupUpdates + localUpdates + builderUpdates
         receiveUpdates(updates.filteredUpdates)
-    }
-    
-    private func handleRelation(eventsBunch: RelationEventsBunch) {
-        let updates = eventsBunch.events.compactMap { relationEventConverter.convert($0) }
-        receiveUpdates(updates)
     }
     
     private func receiveUpdates(_ updates: [DocumentUpdate]) {

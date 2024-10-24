@@ -20,23 +20,22 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: (any SpaceSettingsModuleOutput)?
     
     // MARK: - State
     
-    lazy var workspaceInfo: AccountInfo = activeWorkspaceStorage.workspaceInfo
+    let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
+    private var owner: Participant?
     
     @Published var spaceName = ""
     @Published var spaceAccessType = ""
@@ -53,7 +52,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
-    init(output: (any SpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+        self.workspaceInfo = workspaceInfo
         self.output = output
     }
     
@@ -96,8 +96,9 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func startJoiningTask() async {
-        for await participants in activeSpaceParticipantStorage.participantsPublisher.values {
+        for await participants in participantsSubscription.participantsPublisher.values {
             joiningCount = participants.filter { $0.status == .joining }.count
+            owner = participants.first { $0.isOwner }
             updateViewState()
         }
     }
@@ -172,8 +173,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
         
         if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: workspaceInfo.accountSpaceId) {
-            let owner = activeSpaceParticipantStorage.participants.first(where: { $0.isOwner })
-            anytypeAssert(owner.isNotNil, "Could not find owner for space)", info: ["SpaceView": participantSpaceView.debugDescription])
             
             if let owner {
                 let displayName = owner.globalName.isNotEmpty ? owner.globalName : owner.identity

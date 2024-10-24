@@ -16,7 +16,7 @@ final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
             let result = try await ClientCommands.objectOpen(.with {
                 $0.contextID = contextId
                 $0.objectID = contextId
-            }).invoke()
+            }).invoke(ignoreLogErrors: .objectDeleted)
             return result.objectView
         } catch let error as Anytype_Rpc.Object.Open.Response.Error {
             throw ObjectOpenError(error: error)
@@ -27,7 +27,7 @@ final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
         let result = try await ClientCommands.objectShow(.with {
             $0.contextID = contextId
             $0.objectID = contextId
-        }).invoke()
+        }).invoke(ignoreLogErrors: .objectDeleted)
         return result.objectView
     }
     

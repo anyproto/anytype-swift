@@ -13,9 +13,7 @@ extension EditorPageController: UICollectionViewDelegate {
             viewModel.didSelectBlock(at: indexPath)
             collectionView.deselectItem(at: indexPath, animated: false)
         } else {
-            collectionView.indexPathsForSelectedItems.map(
-                viewModel.blocksStateManager.didUpdateSelectedIndexPaths
-            )
+            didSelectItems(collectionView: collectionView)
         }
     }
     
@@ -23,9 +21,7 @@ extension EditorPageController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didDeselectItemAt indexPath: IndexPath
     ) {
-        collectionView.indexPathsForSelectedItems.map(
-            viewModel.blocksStateManager.didUpdateSelectedIndexPaths
-        )
+        didSelectItems(collectionView: collectionView)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -41,16 +37,7 @@ extension EditorPageController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         shouldSelectItemAt indexPath: IndexPath
     ) -> Bool {
-        guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
-        
-        switch item {
-        case let .block(block):
-            if case .text = block.content, collectionView.isEditing { return false }
-
-            return viewModel.blocksStateManager.canSelectBlock(at: indexPath)
-        case .header, .system:
-            return false
-        }
+        canSelect(indexPath: indexPath, collection: collectionView)
     }
 
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
@@ -65,5 +52,23 @@ extension EditorPageController: UICollectionViewDelegate {
             name: .editorCollectionContentOffsetChangeNotification,
             object: scrollView.contentOffset.y
         )
+    }
+    
+    func canSelect(indexPath: IndexPath, collection: UICollectionView? = nil) -> Bool {
+        let collectionView = collection ?? collectionView
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
+        
+        switch item {
+        case let .block(block):
+            if case .text = block.content, collectionView.isEditing { return false }
+            return viewModel.blocksStateManager.canSelectBlock(at: indexPath)
+        case .header, .system:
+            return false
+        }
+    }
+    
+    private func didSelectItems(collectionView: UICollectionView) {
+        guard let selectedItems = collectionView.indexPathsForSelectedItems else { return }
+        viewModel.blocksStateManager.didUpdateSelectedIndexPathsResetIfNeeded(selectedItems, allSelected: isAllSelected())
     }
 }

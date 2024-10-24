@@ -228,7 +228,7 @@ final class StyleView: UIView {
         let calloutImage = UIImage.imageWithText(
             Loc.callout,
             textColor: isCalloutEnabled ? .Text.primary : .Button.inactive,
-            backgroundColor: .Background.highlightedOfSelected,
+            backgroundColor: .Background.highlightedMedium,
             font: .uxCalloutRegular,
             size: .init(width: 63, height: 28),
             cornerRadius: 6
@@ -245,14 +245,14 @@ final class StyleView: UIView {
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(asset: .StyleBottomSheet.color))
         colorButton.layer.borderWidth = 0
         colorButton.layer.cornerRadius = smallButtonSize.height / 2
-        colorButton.setBackgroundColor(.Background.highlightedOfSelected, state: .selected)
+        colorButton.setBackgroundColor(.Background.highlightedMedium, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(asset: .X24.more))
         moreButton.layer.borderWidth = 0
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
         moreButton.tintColor = .Text.secondary
-        moreButton.setBackgroundColor(.Background.highlightedOfSelected, state: .selected)
+        moreButton.setBackgroundColor(.Background.highlightedMedium, state: .selected)
         
         moreButton.addAction(UIAction(handler: { [weak self, weak moreButton] _ in
             guard let self = self else { return }

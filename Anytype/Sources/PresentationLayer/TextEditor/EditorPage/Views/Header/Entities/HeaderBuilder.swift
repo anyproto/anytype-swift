@@ -4,7 +4,7 @@ enum HeaderBuilder {
     static func buildObjectHeader(
         details: ObjectDetails,
         usecase: ObjectIconImageUsecase,
-        presentationUsecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase,
+        presentationUsecase: ObjectHeaderEmptyUsecase,
         onIconTap: @escaping () -> Void,
         onCoverTap: @escaping () -> Void
     ) -> ObjectHeader {

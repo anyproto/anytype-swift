@@ -2,6 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>Items syncing</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string> %#@item@ wird synchronisiert ...</string>
+      <key>item</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld Element</string>
+        <key>other</key>
+        <string>%ld Elemente</string>
+      </dict>
+    </dict>
+    <key>Devices connected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@device@ verbunden</string>
+      <key>device</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld Gerät</string>
+        <key>other</key>
+        <string>%ld Geräte</string>
+      </dict>
+    </dict>
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -157,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>You’ve reached the limit of %d space that can be shared</string>
+        <string>Du hast die Grenze von %d Space, die gemeinsam genutzt werden können, erreicht</string>
         <key>other</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Du hast die Grenze von %d Space, die gemeinsam genutzt werden können, erreicht</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>

@@ -144,7 +144,13 @@
 "Alignment" = "排列";
 "Actions" = "操作";
 "Relations" = "关联";
+"History" = "历史记录";
 "Objects" = "对象";
+"Pages" = "Pages";
+"Lists" = "分组";
+"Bookmarks" = "Bookmarks";
+"Files" = "文件";
+"Media" = "媒体";
 "Lists" = "分组";
 "Pinned" = "固定";
 "Delete" = "删除";
@@ -160,7 +166,7 @@
 "Unpin" = "取消固定";
 "Pin on top" = "置顶";
 "File block subtitle" = "以原始状态存储文件";
-"Picture block subtitle" = "上传图片，丰富页面内容";
+"Image block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "上传可播放的视频";
 "Bookmark block subtitle" = "剪藏您最喜欢的链接和摘要";
 "Code block subtitle" = "捕获代码片段";
@@ -198,11 +204,14 @@
 "Okay" = "好的";
 "Join" = "加入";
 "Agreement Disclamer" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
+"Lets Go" = "Let’s Go";
+"My spaces" = "我的空间";
 
 // Home
 "Favorites" = "收藏夹";
 "Recent" = "最近";
 "Bin" = "废纸篓";
+"All objects" = "All objects";
 
 // Settings
 "Wallpaper" = "壁纸";
@@ -287,6 +296,11 @@
 "Background picture" = "背景图片";
 "Layout" = "布局";
 "Arrangement of objects on a canvas" = "画布上对象的排列";
+"ObjectSettings.History.Description" = "对象的所有历史版本";
+
+// Version history
+"VersionHistory.Title" = "版本历史";
+"VersionHistory.Toast.message" = "版本 %@ 已恢复";
 
 "Search" = "搜索";
 "There is no emoji named" = "没有 emoji 表情符号的命名";
@@ -505,7 +519,7 @@
 "Set.View.Empty.Subtitle" = "添加搜索查询以在实时模式下聚合具有相同类型和关联的对象";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "此视图不支持在移动端显示";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "选择查询";
@@ -569,6 +583,7 @@
 "Select all" = "全选";
 "Unselect all" = "取消全选";
 "Deselect all" = "取消全选";
+"Deselect" = "取消选择";
 "Shared" = "共享";
 "Sets" = "集合";
 "Collections" = "集锦";
@@ -609,19 +624,18 @@
 "Unfavorite" = "取消收藏";
 "Unsplash" = "Unsplash 图库";
 "Go back" = "回到";
-"SyncStatus.LocalOnly.Title" = "仅本地";
-"SyncStatus.LocalOnly.Description" = "仅本地";
-"SyncStatus.Synced.Anytype.Description" = "备份到 Anytype 网络";
-"SyncStatus.Synced.AnytypeStaging.Description" = "备份到 Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "备份到自托管网络";
 "Downloading or uploading data to some node" = "向某个节点下载或上传数据";
 "Node is not connected" = "节点未连接";
 "Initializing sync" = "初始化同步中";
 "Incompatible version" = "不兼容版本";
+"Connecting" = "连接中…";
+"P2P Connecting" = "P2P 连接中…";
+"P2P Connection" = "P2P 连接";
+"Anytype Network" = "Anytype 网络";
+"Self Host" = "自托管";
+"Local Only" = "仅本地";
 "Synced" = "已同步";
-"Syncing..." = "同步中...";
 "No connection" = "没有连接";
-"Preparing..." = "准备中...";
 "Deleted" = "已删除";
 "Download" = "下载";
 "Open object" = "打开对象";
@@ -638,6 +652,7 @@
 "Audio" = "音频";
 "Video" = "视频";
 "Picture" = "图像";
+"Image" = "图片";
 "File" = "文件";
 "No related options here" = "这里没有相关选项。您可以添加一些";
 "Empty" = "空的";
@@ -679,6 +694,9 @@
 "Cancel deletion" = "取消删除";
 "Logout and clear data" = "注销并清除数据";
 "New" = "新建";
+"Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -805,17 +823,19 @@
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "紧凑型列表";
 "Widgets.Layout.View.Title" = "视图";
-"Widgets.Layout.Link.Description" = "紧凑型对象";
-"Widgets.Layout.Tree.Description" = "对象的层次结构";
-"Widgets.Layout.List.Description" = "具有集合对象列表视图的小部件";
-"Widgets.Layout.View.Description" = "具有集合对象视图的小部件";
-"Widgets.Layout.CompactList.Description" = "具有集合对象列表视图的小部件";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Layout.Link.Description" = "紧凑小部件视图";
+"Widgets.Layout.Tree.Description" = "带有层次结构的小部件";
+"Widgets.Layout.List.Description" = "带有列表视图的小部件";
+"Widgets.Layout.View.Description" = "带有集合或集锦布局的小部件";
+"Widgets.Layout.CompactList.Description" = "带有紧凑列表视图的小部件";
+"Widgets.Empty.Title" = "这里没有对象";
+"Widgets.Empty.CreateObject" = "创建对象";
 "Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
 "Widgets.Library.RecentlyOpened.Description" = "在此设备上";
-"Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.AppUpdate" = "Anytype 准备好更新了";
+"Widgets.Source.Library" = "默认集合";
+"Widgets.Source.Objects" = "您的对象";
 
 // MARK: - About
 "About.AppVersion" = "App 版本: %@";
@@ -969,7 +989,7 @@
 "ParticipantRequestApprovedNotification.Text" = "您加入 **%@** 空间的请求已获批准并获得了 **%@** 访问权限，该空间很快就会在您的设备中显示。";
 "ParticipantRequestDeclineNotification.Text" = "您加入**%@** 空间的请求已被拒绝。";
 "RequestToLeaveNotification.Text" = "**%@** 想要离开 **%@** 空间。";
-"ParticipantRemoveNotification.Text" = "您从空间中被移出，或空间已被所有者删除。";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** 请求加入 **%@** 空间。";
 "RequestToJoinNotification.GoToSpace" = "转到空间";
 "RequestToJoinNotification.ViewRequest" = "查看请求";
@@ -1017,6 +1037,19 @@
 "SpaceShare.Tip.Steps.2" = "打开分享栏";
 "SpaceShare.Tip.Steps.3" = "生成一个邀请链接并分享它";
 
+// MARK: - Space Hub Tip
+"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
+"SpaceHub.Tip.Title2" = "Simple & Flexible";
+"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+
+"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
+"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
+"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+
+// MARK: - Space switcher tip
+"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
+"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "警告";
@@ -1041,8 +1074,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7天前";
-"RelativeFormatter.days30" = "30天前";
-"RelativeFormatter.older" = "较早的";
+"RelativeFormatter.days14" = "Previous 14 days";
 
 // MARK: - Server
 "Server.Network" = "网络";
@@ -1051,6 +1083,10 @@
 ";
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "仅本地";
+"Server.LocalOnly.Alert.title" = "是否确定?";
+"Server.LocalOnly.Alert.message" = "仅本地模式是实验性功能，并不提供安全保障。请自行承担使用风险，可能会导致数据丢失。";
+"Server.LocalOnly.Alert.Action.agree" = "是的，我接受风险";
+"Server.LocalOnly.Alert.Action.disagree" = "我将保持谨慎";
 
 // MARK: - Gallery
 "Gallery.Author" = "作者：@%@";
@@ -1164,14 +1200,46 @@
 "Membership.Feature.SharedSpaces" = "最多 %@ 个共享空间";
 
 "MembershipServiceError.tierNotFound" = "找不到层数据，重启应用并重试";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL 模式开启 🫵🐭关闭在调试设置";
-"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+"MembershipServiceError.invalidBillingIdFormat" = "帐单格式内部有问题，我们正在处理这个问题。请稍后再试或联系客服支持。";
 
 
-"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
-"Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.Desktop" = "您可以在桌面端上管理等级";
+"Membership.ManageTier.Android" = "您可以在 Android 平台上管理等级";
+"Membership.ManageTier.AppleId" = "您可以在另一个 Apple ID 上管理等级";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "数据备份已禁用";
+"SyncStatus.Info.AnytypeNetwork" = "端到端加密";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Error.storageLimitExceed" = "已达到储存限制";
+"SyncStatus.Error.incompatibleVersion" = "不兼容版本";
+"SyncStatus.Error.networkError" = "没有访问空间的权限";
+"SyncStatus.Error.UNRECOGNIZED" = "未知的错误";
+"SyncStatus.P2P.Restricted" = "受限制。点击打开设备设置。";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";
 "Debug.Info" = "调试信息";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "添加回应";
+"Message.Input.EmptyPlaceholder" = "写一段话…";
+
+// MARK: - All Content
+"AllContent.Settings.Sort.Title" = "排序方式";
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Sort.Date.Asc" = "Oldest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Empty.State.title" = "It’s empty here.";
+"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";

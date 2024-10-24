@@ -11,7 +11,7 @@ final class SetRelationsDetailsLocalSearchInteractor {
 
 extension SetRelationsDetailsLocalSearchInteractor {
     
-    func search(text: String) -> Result<[RelationDetails], NewSearchError> {
+    func search(text: String) -> Result<[RelationDetails], LegacySearchError> {
         guard text.isNotEmpty else {
             return .success(relationsDetails)
         }

@@ -1,16 +1,29 @@
-enum BackgroundType: Codable, Equatable {
+import SwiftUI
+
+enum ObjectBackgroundType: Codable, Equatable {
     case gradient(CoverGradient)
     case color(CoverColor)
     
-    static var allGradients: [BackgroundType] {
+    var asView: some View {
+        Group {
+            switch self {
+            case .gradient(let coverGradient):
+                coverGradient.gradientColor.asLinearGradient()
+            case .color(let coverColor):
+                coverColor.color
+            }
+        }
+    }
+    
+    static var allGradients: [ObjectBackgroundType] {
         CoverGradient.allCases.map { .gradient($0) }
     }
     
-    static var allColors: [BackgroundType] {
+    static var allColors: [ObjectBackgroundType] {
         CoverColor.allCases.map { .color($0) }
     }
     
-    static var `default`: BackgroundType {
+    static var `default`: ObjectBackgroundType {
         .gradient(.sky)
     }
 }

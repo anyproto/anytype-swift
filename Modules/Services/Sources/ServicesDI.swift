@@ -123,4 +123,8 @@ public extension Container {
     var objectIconBuilder: Factory<ObjectIconBuilderProtocol> {
         self { ObjectIconBuilder() }.shared
     }
+    
+    var historyVersionsService: Factory<HistoryVersionsServiceProtocol> {
+        self { HistoryVersionsService() }.shared
+    }
 }

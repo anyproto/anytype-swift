@@ -82,18 +82,7 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
             with: url,
             placeholder: buildPlaceholder(with: imageGuideline),
             options: buildOptions(with: imageGuideline)
-        ) { result in
-            guard
-                case .failure(let error) = result,
-                !error.isTaskCancelled,
-                !error.isImageSettingError,
-                error.errorCode != 500,
-                !error.isUrlSessionErrorCode(.timedOut),
-                !error.isInvalidResponseStatusCode(404)
-            else { return }
- 
-            anytypeAssertionFailure(error.localizedDescription)
-        }
+        )
     }
     
     func setImage(_ image: UIImage?) {
@@ -123,22 +112,3 @@ private extension DownloadableImageViewWrapper {
     }
     
 }
-
-private extension KingfisherError {
-    
-    var isImageSettingError: Bool {
-        if case .imageSettingError = self { return true }
-        return false
-    }
-    
-    func isUrlSessionErrorCode(_ code: URLError.Code) -> Bool {
-        if case .responseError(reason: .URLSessionError(let sessionError)) = self,
-            let urlError = sessionError as? URLError,
-            urlError.code == code
-        {
-            return true
-        }
-        return false
-    }
-}
-

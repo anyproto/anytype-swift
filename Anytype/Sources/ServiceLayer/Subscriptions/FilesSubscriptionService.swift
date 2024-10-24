@@ -7,6 +7,7 @@ import AnytypeCore
 protocol FilesSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         syncStatus: FileSyncStatus,
+        spaceId: String,
         objectLimit: Int?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async
@@ -20,8 +21,6 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
@@ -35,6 +34,7 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     
     func startSubscription(
         syncStatus: FileSyncStatus,
+        spaceId: String,
         objectLimit: Int?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async {
@@ -46,13 +46,13 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.fileSyncStatus(syncStatus)
         }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
                 identifier: subscriptionId,
+                spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,

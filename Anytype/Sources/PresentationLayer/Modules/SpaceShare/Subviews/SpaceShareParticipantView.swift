@@ -45,7 +45,7 @@ struct SpaceShareParticipantView: View {
             }
             Spacer()
             if let action = participant.action {
-                AsyncStandardButton(text: action.title, style: .secondarySmall, action: action.action)
+                AsyncStandardButton(action.title, style: .secondarySmall, action: action.action)
             }
             menu
         }

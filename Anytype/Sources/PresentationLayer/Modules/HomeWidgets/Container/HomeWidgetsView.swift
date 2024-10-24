@@ -23,29 +23,42 @@ private struct HomeWidgetsInternalView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            DashboardWallpaper(wallpaper: model.wallpaper)
+            GeometryReader { geo in
+                DashboardWallpaper(wallpaper: model.wallpaper, spaceIcon: model.space?.iconImage)
+                    .frame(width: geo.size.width)
+                    .clipped()
+                    .ignoresSafeArea()
+            }
             VerticalScrollViewWithOverlayHeader {
                 HomeTopShadow()
             } content: {
                 VStack(spacing: 12) {
                     if model.dataLoaded {
-                        if FeatureFlags.updateAlert {
-                            HomeUpdateSubmoduleView()
-                        }
-                        SpaceWidgetView {
+                        HomeUpdateSubmoduleView()
+                        SpaceWidgetView(spaceId: model.spaceId) {
                             model.onSpaceSelected()
+                        }
+                        if FeatureFlags.allContent {
+                            AllContentWidgetView(
+                                spaceId: model.spaceId,
+                                homeState: $model.homeState,
+                                output: model.output
+                            )
                         }
                         if #available(iOS 17.0, *) {
                             WidgetSwipeTipView()
                         }
                         ForEach(model.widgetBlocks) { widgetInfo in
-                            HomeWidgetSubmoduleView(widgetInfo: widgetInfo, widgetObject: model.widgetObject, homeState: $model.homeState, output: model.output)
+                            HomeWidgetSubmoduleView(
+                                widgetInfo: widgetInfo,
+                                widgetObject: model.widgetObject, 
+                                workspaceInfo: model.info,
+                                homeState: $model.homeState,
+                                output: model.output
+                            )
                         }
-                        BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
-                        if FeatureFlags.discussions {
-                            HomeEditButton(text: "Discussion for test", homeState: model.homeState) {
-                                model.onTapDiscussion()
-                            }
+                        if !FeatureFlags.allContent {
+                            BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
                         }
                         editButtons
                     }

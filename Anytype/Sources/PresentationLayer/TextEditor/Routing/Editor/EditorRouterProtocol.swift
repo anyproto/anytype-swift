@@ -6,6 +6,8 @@ protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext)
 }
 
+
+// LECACY: Use EditorPageModuleOutput + EditorPageCoordinatorView instead
 @MainActor
 protocol EditorRouterProtocol:
     AnyObject,
@@ -20,7 +22,7 @@ protocol EditorRouterProtocol:
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
     func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void)
     
-    func showFilePicker(model: Picker.ViewModel)
+    func showFilePicker(model: AnytypePicker.ViewModel)
     func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void)
     
     func saveFile(fileURL: URL, type: FileContentType)
@@ -38,7 +40,7 @@ protocol EditorRouterProtocol:
     )
     
     func showSettings()
-    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?)
+    func showSettings(output: any ObjectSettingsCoordinatorOutput)
     func showTextIconPicker(contextId: String, objectId: String)
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())

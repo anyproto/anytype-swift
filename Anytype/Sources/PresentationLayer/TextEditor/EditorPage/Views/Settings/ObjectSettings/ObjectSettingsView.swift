@@ -19,6 +19,8 @@ struct ObjectSettingsView: View {
     
     private var settings: some View {
         VStack(spacing: 0) {
+            DragIndicator()
+            
             settingsList
 
             ObjectActionsView(objectId: viewModel.objectId, output: viewModel)
@@ -49,6 +51,8 @@ struct ObjectSettingsView: View {
                 viewModel.onTapLayoutPicker()
             case .relations:
                 viewModel.onTapRelations()
+            case .history:
+                viewModel.onTapHistory()
             }
         }
     }

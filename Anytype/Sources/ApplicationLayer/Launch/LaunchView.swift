@@ -1,29 +1,28 @@
 import Foundation
 import SwiftUI
 
-struct LaunchView<DebugView: View>: View {
+struct LaunchView: View {
     
-    @State private var showDebugMenu = false
-    let onDebugMenuAction:() -> DebugView
-    
+    @State private var showPrivateDebugMenu = false
+    @State private var showPublicDebugMenu = false
+
     var body: some View {
         ZStack {
             Color.black
-            Image(asset: .splashLogoWhite)
                 .onTapGesture(count: 10) {
-                    showDebugMenu.toggle()
+                    showPrivateDebugMenu.toggle()
                 }
-                .sheet(isPresented: $showDebugMenu) {
-                    onDebugMenuAction()
+            LaunchCircle()
+                .onTapGesture(count: 5) {
+                    showPublicDebugMenu.toggle()
+                }
+                .sheet(isPresented: $showPrivateDebugMenu) {
+                    DebugMenuView()
+                }
+                .sheet(isPresented: $showPublicDebugMenu) {
+                    PublicDebugMenuView()
                 }
         }
         .ignoresSafeArea()
-    }
-}
-
-struct LaunchView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        LaunchView(onDebugMenuAction: { Color.red.eraseToAnyView() })
     }
 }

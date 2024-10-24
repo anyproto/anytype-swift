@@ -69,8 +69,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 text: searchText,
                 includePins: !settings.showPins,
                 includeLists: false,
-                includeBookmark: true, 
+                includeBookmarks: true,
                 includeFiles: settings.showFiles,
+                includeTemplates: settings.showTemplates,
                 incudeNotForCreation: settings.incudeNotForCreation,
                 spaceId: spaceId
             ).map { ObjectType(details: $0) }
@@ -119,15 +120,19 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func didSelectType(_ type: ObjectType, section: SectionType) {
+        AnytypeAnalytics.instance().logTypeSearchResult()
+        
         Task {
             if section == .library {
-                _ = try await workspaceService.installObject(spaceId: spaceId, objectId: type.id)
+                let newTypeDetails = try await workspaceService.installObject(spaceId: spaceId, objectId: type.id)
+                let newType = ObjectType(details: newTypeDetails)
+                
                 toastData = ToastBarData(text: Loc.ObjectType.addedToLibrary(type.name), showSnackBar: true)
+                
+                onSelect(.objectType(type: newType))
+            } else {
+                onSelect(.objectType(type: type))
             }
-            
-            AnytypeAnalytics.instance().logTypeSearchResult()
-            
-            onSelect(.objectType(type: type))
         }
     }
     

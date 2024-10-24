@@ -4,24 +4,15 @@ import SwiftUI
 struct ParticipantRemoveNotificationView: View {
     
     @StateObject private var model: ParticipantRemoveNotificationViewModel
-    @Environment(\.notificationDismiss) private var dismiss
     
-    init(notification: NotificationParticipantRemove, onDelete: @escaping (_ spaceId: String) async -> Void, onExport: @escaping (_ path: URL) async -> Void) {
-        _model = StateObject(wrappedValue: ParticipantRemoveNotificationViewModel(notification: notification, onDelete: onDelete, onExport: onExport))
+    init(notification: NotificationParticipantRemove) {
+        _model = StateObject(wrappedValue: ParticipantRemoveNotificationViewModel(notification: notification))
     }
     
     var body: some View {
         TopNotificationView(
             title: model.message,
-            buttons: [
-                TopNotificationButton(title: Loc.export, action: {
-                    try await model.onTapExport()
-                }),
-                TopNotificationButton(title: Loc.delete, action: {
-                    try await model.onTapDelete()
-                })
-            ]
+            buttons: []
         )
-        .onChange(of: model.dismiss) { _ in dismiss() }
     }
 }

@@ -32,50 +32,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     @ViewBuilder
     var buttons: some View {
         HStack(alignment: .center, spacing: 40) {
-            
-            navigationButton
-            
-            if model.canCreateObject {
-                Image(asset: .X32.addNew)
-                    .foregroundColor(.Navigation.buttonActive)
-                    .onTapGesture {
-                        model.onTapNewObject()
-                    }
-                    .simultaneousGesture(
-                        LongPressGesture(minimumDuration: 0.3)
-                            .onEnded { _ in
-                                model.onPlusButtonLongtap()
-                            }
-                    )
-            }
-            
-            if homeMode {
-                Button {
-                    model.onTapSearch()
-                } label: {
-                    Image(asset: .X32.search)
-                        .foregroundColor(.Navigation.buttonActive)
-                }
-                .transition(.scale.combined(with: .opacity))
-            } else {
-                Button {
-                    model.onTapHome()
-                } label: {
-                    Image(asset: .X32.dashboard)
-                        .foregroundColor(.Navigation.buttonActive)
-                }
-                .transition(.scale.combined(with: .opacity))
-            }
-            
-            Button {
-                model.onTapProfile()
-            } label: {
-                HStack {
-                    IconView(icon: model.profileIcon)
-                        .frame(width: 28, height: 28)
-                }
-                .frame(width: 32, height: 32)
-            }
+            navigation
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
@@ -86,6 +43,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .overlay {
             if #available(iOS 17.0, *) {
                 HomeTipView()
+            }
+        }
+        .overlay {
+            if #available(iOS 17.0, *) {
+                SpaceSwitcherTipView()
             }
         }
         .padding(.vertical, 10)
@@ -104,6 +66,42 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .animation(.default, value: homeMode)
         .task {
             await model.onAppear()
+        }
+    }
+    
+    @ViewBuilder
+    private var navigation: some View {
+        Image(asset: .X32.Island.back)
+            .onTapGesture {
+                model.onTapBackward()
+            }
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 0.3)
+                    .onEnded { _ in
+                        if #available(iOS 17.0, *) {
+                            SpaceSwitcherTip.openedSpaceSwitcher = true
+                        }
+                        model.onTapProfile()
+                    }
+            )
+        
+        if model.canCreateObject {
+            Image(asset: .X32.Island.add)
+                .onTapGesture {
+                    model.onTapNewObject()
+                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.3)
+                        .onEnded { _ in
+                            model.onPlusButtonLongtap()
+                        }
+                )
+        }
+        
+        Button {
+            model.onTapSearch()
+        } label: {
+            Image(asset: .X32.Island.search)
         }
     }
     

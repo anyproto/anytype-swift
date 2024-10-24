@@ -46,8 +46,8 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
         .task {
             await model.startTargetDetailsPublisher()
         }
-        .onAppear {
-            model.onAppear()
+        .task {
+            await model.onAppear()
         }
     }
     

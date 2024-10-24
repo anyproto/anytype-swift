@@ -8,13 +8,18 @@ import OrderedCollections
 @MainActor
 final class EditorSetViewModel: ObservableObject {
     let headerModel: ObjectHeaderViewModel
+    let showHeader: Bool
     
     @Published var titleString: String
+    @Published var descriptionString: String
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
     @Published var dismiss = false
     @Published var showUpdateAlert = false
     @Published var showCommonOpenError = false
+    
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     private var externalActiveViewId: String?
     
@@ -66,10 +71,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var showDescription: Bool {
-        guard let description = details?.description else { return false }
-
-        let isFeatured = setDocument.parsedRelations.featuredRelations.contains { $0.key == BundledRelationKey.description.rawValue }
-        return isFeatured && description.isNotEmpty
+        let isFeatured = setDocument.parsedRelations.featuredRelations
+            .contains { $0.key == BundledRelationKey.description.rawValue }
+        return isFeatured
     }
     
     var hasTargetObjectId: Bool {
@@ -92,7 +96,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private var isEmptyQuery: Bool {
-        setDocument.details?.setOf.first { $0.isNotEmpty } == nil
+        setDocument.details?.filteredSetOf.isEmpty ?? true
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -159,8 +163,8 @@ final class EditorSetViewModel: ObservableObject {
     private var textServiceHandler: any TextServiceProtocol
     @Injected(\.groupsSubscriptionsHandler)
     private var groupsSubscriptionsHandler: any GroupsSubscriptionsHandlerProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.setSubscriptionDataBuilder)
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
@@ -170,26 +174,29 @@ final class EditorSetViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: any SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
+    private var descriptionSubscription: AnyCancellable?
     private weak var output: (any EditorSetModuleOutput)?
 
-    init(data: EditorSetObject, output: (any EditorSetModuleOutput)?) {
+    init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
-            forPreview: false,
+            mode: data.mode,
             inlineParameters: data.inline
         )
         self.headerModel = ObjectHeaderViewModel(
             document: setDocument.document,
             targetObjectId: setDocument.targetObjectId,
             configuration: EditorPageViewModelConfiguration(
-                isOpenedForPreview: false, 
                 blockId: nil,
-                usecase: .editor
+                usecase: data.usecase
             ),
             output: output
         )
         self.externalActiveViewId = data.activeViewId
         self.titleString = setDocument.details?.pageCellTitle ?? ""
+        self.descriptionString = setDocument.details?.description ?? ""
+        
+        self.showHeader = showHeader
         self.output = output
         self.setup()
     }
@@ -200,7 +207,7 @@ final class EditorSetViewModel: ObservableObject {
             self?.output?.showIconPicker(document: document)
         }
         
-        syncStatusData = SyncStatusData(status: .offline, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
+        syncStatusData = SyncStatusData(status: .offline, networkId: accountManager.account.info.networkId, isHidden: false)
         
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in
@@ -301,7 +308,7 @@ final class EditorSetViewModel: ObservableObject {
         case .syncStatus(let status):
             syncStatusData = SyncStatusData(
                 status: status.syncStatus,
-                networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+                networkId: accountManager.account.info.networkId,
                 isHidden: false
             )
         }
@@ -322,6 +329,7 @@ final class EditorSetViewModel: ObservableObject {
             await clearState()
         }
         setupTitle()
+        setupDescription()
         await startSubscriptionIfNeeded()
         updateConfigurations(with: Array(recordsDict.keys))
 
@@ -333,29 +341,49 @@ final class EditorSetViewModel: ObservableObject {
             titleString = details.pageCellTitle
 
             titleSubscription = $titleString.sink { [weak self] newValue in
-                guard let self = self, !self.isUpdating else { return }
-
-                if newValue.contains(where: \.isNewline) {
-                    self.isUpdating = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // Return button tapped on keyboard. Waiting for iOS 15 support!!!
-                        self.titleString = newValue.trimmingCharacters(in: .newlines)
-                    }
-                    UIApplication.shared.hideKeyboard()
-                    return
-                }
-
-                Task { @MainActor in
-                    try? await self.textServiceHandler.setText(
-                        contextId: self.setDocument.inlineParameters?.targetObjectID ?? self.objectId,
-                        blockId: RelationKey.title.rawValue,
-                        middlewareString: .init(text: newValue, marks: .init())
-                    )
-                    
-                    self.isUpdating = false
+                self?.updateTextFieldData(newValue: newValue, blockId: CustomRelationKey.title.rawValue) {
+                    self?.descriptionString = $0
                 }
             }
         }
     }
+    
+    private func setupDescription() {
+        if let details = setDocument.details {
+            descriptionString = details.description
+
+            descriptionSubscription = $descriptionString.sink { [weak self] newValue in
+                self?.updateTextFieldData(newValue: newValue, blockId: BundledRelationKey.description.rawValue) {
+                    self?.titleString = $0
+                }
+            }
+        }
+    }
+    
+    private func updateTextFieldData(newValue: String, blockId: String, updateValue: @escaping (String) -> ()) {
+        guard !isUpdating else { return }
+
+        // Return button tapped on keyboard. Waiting for iOS 15 support
+        if newValue.contains(where: \.isNewline) {
+            isUpdating = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                updateValue(newValue.trimmingCharacters(in: .newlines))
+            }
+            UIApplication.shared.hideKeyboard()
+            return
+        }
+
+        Task { @MainActor in
+            try? await textServiceHandler.setText(
+                contextId: setDocument.inlineParameters?.targetObjectID ?? objectId,
+                blockId: blockId,
+                middlewareString: .init(text: newValue, marks: .init())
+            )
+            
+            isUpdating = false
+        }
+    }
+
     
     // MARK: - Groups Subscriptions
     
@@ -424,10 +452,10 @@ final class EditorSetViewModel: ObservableObject {
         let currentPage: Int
         let numberOfRowsPerPage: Int
         if activeView.type.hasGroups {
-            numberOfRowsPerPage = UserDefaultsConfig.rowsPerPageInGroupedSet * max(pagitationData.selectedPage, 1)
+            numberOfRowsPerPage = userDefaults.rowsPerPageInGroupedSet * max(pagitationData.selectedPage, 1)
             currentPage = 1
         } else {
-            numberOfRowsPerPage = UserDefaultsConfig.rowsPerPageInSet
+            numberOfRowsPerPage = userDefaults.rowsPerPageInSet
             currentPage = max(pagitationData.selectedPage, 1)
         }
         
@@ -477,7 +505,8 @@ final class EditorSetViewModel: ObservableObject {
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
-                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView,
+                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView, 
+                    canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
                     storage: subscription.detailsStorage,
                     spaceId: setDocument.spaceId,
                     onItemTap: { [weak self] details in
@@ -595,7 +624,7 @@ final class EditorSetViewModel: ObservableObject {
 extension EditorSetViewModel {
     
     func showSyncStatusInfo() {
-        // TODO showSyncStatusInfo
+        output?.showSyncStatusInfo(spaceId: setDocument.spaceId)
     }
 
     func showRelationValueEditingView(key: String) {
@@ -678,7 +707,7 @@ extension EditorSetViewModel {
     
     func showSetOfTypeSelection() {
         guard setDocument.setPermissions.canChangeQuery else { return }
-        output?.showQueries(document: setDocument, selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
+        output?.showQueries(document: setDocument, selectedObjectId: setDocument.details?.filteredSetOf.first) { [weak self] typeObjectId in
             guard let self else { return }
             Task { @MainActor in
                 try? await self.objectActionsService.setSource(objectId: self.objectId, source: [typeObjectId])
@@ -742,7 +771,8 @@ extension EditorSetViewModel {
 
 extension EditorSetViewModel {
     static let emptyPreview = EditorSetViewModel(
-        data: EditorSetObject(objectId: "", spaceId: ""),
+        data: EditorSetObject(objectId: "", spaceId: ""), 
+        showHeader: true,
         output: nil
     )
 }

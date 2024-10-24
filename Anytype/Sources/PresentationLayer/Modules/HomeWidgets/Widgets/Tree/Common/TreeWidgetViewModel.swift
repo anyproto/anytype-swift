@@ -17,7 +17,8 @@ final class TreeWidgetViewModel: ObservableObject {
     }
     
     // MARK: - DI
-
+    
+    private let widgetObject: any BaseDocumentProtocol
     private let internalModel: any WidgetInternalViewModelProtocol
     private weak var output: (any CommonWidgetModuleOutput)?
     
@@ -40,10 +41,12 @@ final class TreeWidgetViewModel: ObservableObject {
     
     init(
         widgetBlockId: String,
+        widgetObject: any BaseDocumentProtocol,
         internalModel: any WidgetInternalViewModelProtocol,
         output: (any CommonWidgetModuleOutput)?
     ) {
         self.dragId = widgetBlockId
+        self.widgetObject = widgetObject
         self.internalModel = internalModel
         self.output = output
         startHeaderSubscription()
@@ -58,6 +61,13 @@ final class TreeWidgetViewModel: ObservableObject {
     
     func onCreateObjectTap() {
         internalModel.onCreateObjectTap()
+    }
+    
+    func startTreeSubscription() async {
+        for await details in subscriptionManager.detailsPublisher.values {
+            childSubscriptionData = details
+            await updateLinksSubscriptionsAndTree()
+        }
     }
     
     // MARK: - Private
@@ -92,11 +102,6 @@ final class TreeWidgetViewModel: ObservableObject {
             .receiveOnMain()
             .assign(to: &$name)
         
-        subscriptionManager.handler = { [weak self] details in
-            self?.childSubscriptionData = details
-            Task { await self?.updateLinksSubscriptionsAndTree() }
-        }
-        
         internalModel.detailsPublisher
             .receiveOnMain()
             .sink { [weak self] details in
@@ -115,7 +120,7 @@ final class TreeWidgetViewModel: ObservableObject {
             .flatMap(\.links)
             .filter { !firstLevelIds.contains($0) }
         
-        let updated = await subscriptionManager.startOrUpdateSubscription(objectIds: childLinks)
+        let updated = await subscriptionManager.startOrUpdateSubscription(spaceId: widgetObject.spaceId, objectIds: childLinks)
         if !updated {
             updateTree()
         }

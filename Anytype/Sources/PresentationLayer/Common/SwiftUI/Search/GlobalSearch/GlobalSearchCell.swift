@@ -18,21 +18,18 @@ struct GlobalSearchCell: View {
         .if(data.relatedLinks.isNotEmpty) {
             $0.overlay(alignment: .trailing) {
                 relationLinksIndicator
+                    .offset(x: Constants.neededIndicatorWidth) // shift indicator to avoid white line blinking
             }
-            .offset(x: Constants.neededIndicatorWidth) // shift indicator to avoid white line blinking
         }
     }
     
-    @ViewBuilder
     private var icon: some View {
-        if let iconImage = data.iconImage {
-            VStack {
-                Spacer.fixedHeight(8)
-                IconView(icon: iconImage)
-                    .frame(width: 48, height: 48)
-                    .allowsHitTesting(false)
-                Spacer.fixedHeight(8)
-            }
+        VStack {
+            Spacer.fixedHeight(8)
+            IconView(icon: data.iconImage)
+                .frame(width: 48, height: 48)
+                .allowsHitTesting(false)
+            Spacer.fixedHeight(8)
         }
     }
     
@@ -40,8 +37,8 @@ struct GlobalSearchCell: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(8)
             
-            AnytypeText(data.title, style: .previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+            Text(data.title)
+                .anytypeStyle(.previewTitle2Medium)
                 .lineLimit(1)
             
             highlights

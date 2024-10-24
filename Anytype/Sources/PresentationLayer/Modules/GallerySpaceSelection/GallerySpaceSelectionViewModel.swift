@@ -11,12 +11,10 @@ final class GallerySpaceSelectionViewModel: ObservableObject {
     private weak var output: (any GallerySpaceSelectionModuleOutput)?
     
     @Published var spaces: [SpaceView] = []
-    @Published var canCreateNewSpace: Bool = false
     
     init(output: (any GallerySpaceSelectionModuleOutput)?) {
         self.output = output
         self.spaces = participantSpacesStorage.activeParticipantSpaces.filter(\.canEdit).map(\.spaceView)
-        self.canCreateNewSpace = workspaceStorage.canCreateNewSpace()
     }
     
     func onTapSpace(spaceView: SpaceView) {

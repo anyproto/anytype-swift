@@ -30,9 +30,10 @@ struct SetTableViewRow: View {
     
     private var icon: some View {
         Group {
-            if let icon = configuration.icon, configuration.showIcon {
-                IconView(icon: icon).frame(width: 18, height: 18)
+            if configuration.showIcon {
+                IconView(icon: configuration.icon).frame(width: 18, height: 18)
                     .padding(.trailing, 8)
+                    .disabled(!model.setDocument.setPermissions.canEditSetObjectIcon)
             }
         }
     }

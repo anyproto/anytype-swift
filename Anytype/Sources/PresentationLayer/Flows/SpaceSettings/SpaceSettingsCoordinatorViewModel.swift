@@ -7,7 +7,6 @@ import Services
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol = Container.shared.activeWorkspaceStorage.resolve()
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.documentService)
@@ -16,20 +15,18 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
-    @Published var showSpaceShare = false
-    @Published var showSpaceMembers = false
+    @Published var showSpaceShareData: AccountInfo?
+    @Published var showSpaceMembersDataSpaceId: StringIdentifiable?
     @Published var showFiles = false
     @Published var showObjectTypeSearch = false
     @Published var dismiss = false
     @Published var showIconPickerSpaceViewId: StringIdentifiable?
     
-    let accountSpaceId: String
+    let workspaceInfo: AccountInfo
+    var accountSpaceId: String { workspaceInfo.accountSpaceId }
     
-    private var subscriptions = [AnyCancellable]()
-    
-    init() {
-        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
-        startSubscriptions()
+    init(workspaceInfo: AccountInfo) {
+        self.workspaceInfo = workspaceInfo
     }
     
     // MARK: - SpaceSettingsModuleOutput
@@ -47,11 +44,11 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     }
     
     func onSpaceShareSelected() {
-        showSpaceShare.toggle()
+        showSpaceShareData = workspaceInfo
     }
     
     func onSpaceMembersSelected() {
-        showSpaceMembers.toggle()
+        showSpaceMembersDataSpaceId = workspaceInfo.accountSpaceId.identifiable
     }
     
     func onSelectDefaultObjectType(type: ObjectType) {
@@ -73,26 +70,5 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onWallpaperChangeSelected() {
         showWallpaperPicker.toggle()
-    }
-    
-    // MARK: - Private
-    
-    private func startSubscriptions() {
-        activeWorkspaceStorage.workspaceInfoPublisher
-            .receiveOnMain()
-            .sink { [weak self] info in
-                guard let self else { return }
-                if info.accountSpaceId != accountSpaceId {
-                    dismissAll()
-                }
-            }
-            .store(in: &subscriptions)
-    }
-    
-    private func dismissAll() {
-        showRemoteStorage = false
-        showPersonalization = false
-        showWallpaperPicker = false
-        dismiss.toggle()
     }
 }

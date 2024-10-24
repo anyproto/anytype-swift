@@ -23,7 +23,7 @@ final class SpaceSearchViewModel: ObservableObject {
         data.onSelect(searchData)
     }
     
-    func startParticioantTask() async {
+    func startParticipantTask() async {
         for await participantSpaces in participantSpacesStorage.activeParticipantSpacesPublisher.values {
             spaces = participantSpaces.filter(\.canEdit).map(\.spaceView)
             search(text: lastSearchText)
@@ -51,7 +51,7 @@ extension SpaceView: SearchDataProtocol {
     var typeId: String { "" }
     var shouldShowCallout: Bool { false }
     var verticalInset: CGFloat { 0 }
-    var editorScreenData: EditorScreenData { .recentOpen }
+    var editorScreenData: EditorScreenData { .recentOpen(spaceId: targetSpaceId) }
     var shouldShowDescription: Bool { false }
     var descriptionTextColor: Color { Color.Text.primary }
     var descriptionFont: AnytypeFont { .relation3Regular}

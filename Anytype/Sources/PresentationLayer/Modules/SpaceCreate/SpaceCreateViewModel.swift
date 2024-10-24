@@ -9,8 +9,10 @@ final class SpaceCreateViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private let sceneId: String
+    
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     private weak var output: (any SpaceCreateModuleOutput)?
@@ -18,13 +20,15 @@ final class SpaceCreateViewModel: ObservableObject {
     // MARK: - State
     
     @Published var spaceName: String = ""
-    let spaceGradient: GradientId = .random
-    var spaceIcon: Icon { .object(.space(.gradient(spaceGradient))) }
+    let spaceIconOption = IconColorStorage.randomOption
+    var spaceIcon: Icon { .object(.space(.name(name: spaceName, iconOption: spaceIconOption))) }
     @Published var spaceAccessType: SpaceAccessType = .private
     @Published var createLoadingState: Bool = false
     @Published var dismiss: Bool = false
     
-    init(output: (any SpaceCreateModuleOutput)?) {
+    init(sceneId: String, output: (any SpaceCreateModuleOutput)?) {
+        self.sceneId = sceneId
+        
         self.output = output
     }
     
@@ -35,8 +39,16 @@ final class SpaceCreateViewModel: ObservableObject {
             defer {
                 createLoadingState = false
             }
-            let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessType: spaceAccessType, useCase: .empty)
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+            let spaceId = try await workspaceService.createSpace(name: spaceName, iconOption: spaceIconOption, accessType: spaceAccessType, useCase: .getStarted)
+            
+            // Hack: remove after middleware fix
+            // https://linear.app/anytype/issue/IOS-3588/new-space-auto-renames-to-onboarding-22-without-name
+            try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [
+                .name(spaceName),
+                .iconOption(spaceIconOption)
+            ])
+            
+            try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
             output?.spaceCreateWillDismiss()

@@ -64,7 +64,7 @@ final class RelationsService: RelationsServiceProtocol {
             throw RelationServiceError.unableToCreateRelationFromObject
         }
               
-        return RelationDetails(objectDetails: objectDetails)
+        return RelationDetails(details: objectDetails)
     }
 
     public func addRelations(objectId: String, relationsDetails: [RelationDetails]) async throws {

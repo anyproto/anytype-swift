@@ -18,26 +18,45 @@ struct BlockObjectSearchView: View {
     let data: BlockObjectSearchData
     @Environment(\.dismiss) private var dismiss
     
+    private let interactor: BlockObjectsSearchInteractor
+    
+    init(data: BlockObjectSearchData) {
+        self.data = data
+        
+        let interactor = BlockObjectsSearchInteractor(
+            spaceId: data.spaceId,
+            excludedObjectIds: data.excludedObjectIds,
+            excludedLayouts: data.excludedLayouts
+        )
+        
+        self.interactor = interactor
+    }
+    
     var body: some View {
-        NewSearchView(
-            viewModel: NewSearchViewModel(
+        
+        
+        return LegacySearchView(
+            viewModel: LegacySearchViewModel(
                 title: data.title,
                 style: .default,
-                itemCreationMode: .unavailable,
+                itemCreationMode: .available { name in
+                    Task {
+                        let details = try await interactor.createObject(name: name)
+                        onSelect(details: [details])
+                    }
+                },
                 internalViewModel: ObjectsSearchViewModel(
                     selectionMode: .singleItem,
-                    interactor: BlockObjectsSearchInteractor(
-                        spaceId: data.spaceId,
-                        excludedObjectIds: data.excludedObjectIds,
-                        excludedLayouts: data.excludedLayouts
-                    ),
-                    onSelect: { details in
-                        guard let result = details.first else { return }
-                        dismiss()
-                        data.onSelect(result)
-                    }
+                    interactor: interactor,
+                    onSelect: { onSelect(details: $0) }
                 )
             )
         )
+    }
+    
+    private func onSelect(details: [ObjectDetails]) {
+        guard let result = details.first else { return }
+        dismiss()
+        data.onSelect(result)
     }
 }

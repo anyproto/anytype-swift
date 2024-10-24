@@ -12,9 +12,9 @@ struct RelationsSearchCoordinatorView: View {
     }
     
     var body: some View {
-        // TODO: Migrate from NewSearchView
-        NewSearchView(
-            viewModel: NewSearchViewModel(
+        // TODO: Migrate from LegacySearchView
+        LegacySearchView(
+            viewModel: LegacySearchViewModel(
                 searchPlaceholder: Loc.Relation.Search.View.placeholder,
                 style: .default,
                 itemCreationMode: .available(action: { name in

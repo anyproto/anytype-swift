@@ -19,6 +19,8 @@ final class AuthService: AuthServiceProtocol {
     private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
     @Injected(\.authMiddleService)
     private var authMiddleService: any AuthMiddleServiceProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
 
     private lazy var rootPath: String = {
         localRepoService.middlewareRepoPath
@@ -33,13 +35,15 @@ final class AuthService: AuthServiceProtocol {
         try await authMiddleService.createWallet(rootPath: rootPath)
     }
 
-    func createAccount(name: String, imagePath: String) async throws -> AccountData {
+    func createAccount(name: String, iconOption: Int, imagePath: String) async throws -> AccountData {
         let start = CFAbsoluteTimeGetCurrent()
+        
+        await loginStateService.setupStateBeforeLoginOrAuth()
         
         let account = try await authMiddleService.createAccount(
             name: name,
             imagePath: imagePath,
-            gradient: GradientId.random,
+            iconOption: iconOption,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )
@@ -53,7 +57,7 @@ final class AuthService: AuthServiceProtocol {
         AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
         await appErrorLoggerConfiguration.setUserId(analyticsId)
         
-        UserDefaultsConfig.usersId = account.id
+        userDefaults.usersId = account.id
         
         accountManager.account = account
         
@@ -71,6 +75,8 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func selectAccount(id: String) async throws -> AccountData {
+        await loginStateService.setupStateBeforeLoginOrAuth()
+        
         let account = try await authMiddleService.selectAccount(
             id: id,
             rootPath: rootPath,
@@ -95,7 +101,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     private func setupAccountData(_ account: AccountData) async {
-        UserDefaultsConfig.usersId = account.id
+        userDefaults.usersId = account.id
         accountManager.account = account
         await loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
     }

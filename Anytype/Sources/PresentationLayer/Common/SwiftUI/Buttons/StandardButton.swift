@@ -19,6 +19,7 @@ struct StandardButton: View {
     
     @State private var isPressed: Bool = false
     @Environment(\.isEnabled) private var isEnable
+    @Environment(\.redactionReasons) private var redactionReasons
     
     init(
         _ content: Content,
@@ -53,6 +54,9 @@ struct StandardButton: View {
             if !inProgress {
                 isPressed = pressing
             }
+        }
+        .if(redactionReasons == .placeholder) {
+            $0.disabled(true)
         }
     }
     

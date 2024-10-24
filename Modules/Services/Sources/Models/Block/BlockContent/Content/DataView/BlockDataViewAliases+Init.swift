@@ -32,7 +32,7 @@ extension DataviewSort {
 extension DataviewFilter {
     public init(
         id: String = String(),
-        `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and,
+        `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .no,
         relationKey: String = String(),
         relationProperty: String = String(),
         condition: Anytype_Model_Block.Content.Dataview.Filter.Condition = .none,

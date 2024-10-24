@@ -13,7 +13,8 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - Local state
     let objectId: String
-    let forPreview: Bool
+    let mode: DocumentMode
+    
     @Atomic
     private(set) var children = [BlockInformation]()
     @Atomic
@@ -22,6 +23,8 @@ final class BaseDocument: BaseDocumentProtocol {
     private(set) var parsedRelations = ParsedRelations.empty
     @Atomic
     private(set) var permissions = ObjectPermissions()
+    @Atomic
+    private(set) var syncStatus: SyncStatus?
     
     let infoContainer: any InfoContainerProtocol
     let relationLinksStorage: any RelationLinksStorageProtocol
@@ -34,10 +37,14 @@ final class BaseDocument: BaseDocumentProtocol {
     private var relationBuilder: any RelationsBuilderProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
+    @Injected(\.historyVersionsService)
+    private var historyVersionsService: any HistoryVersionsServiceProtocol
     private let relationDetailsStorage: any RelationDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
     private let viewModelSetter: any DocumentViewModelSetterProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     // MARK: - Local private state
     @Atomic
@@ -54,13 +61,10 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     private var syncSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
-    
-    private var syncStatusSubject = PassthroughSubject<SyncStatus, Never>()
-    var syncStatusPublisher: AnyPublisher<SyncStatus, Never> { syncStatusSubject.eraseToAnyPublisher() }
         
     init(
         objectId: String,
-        forPreview: Bool,
+        mode: DocumentMode,
         objectLifecycleService: some ObjectLifecycleServiceProtocol,
         relationDetailsStorage: some RelationDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
@@ -73,7 +77,7 @@ final class BaseDocument: BaseDocumentProtocol {
         detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
-        self.forPreview = forPreview
+        self.mode = mode
         self.eventsListener = eventsListener
         self.viewModelSetter = viewModelSetter
         self.objectLifecycleService = objectLifecycleService
@@ -89,7 +93,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
         Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
             try await objectLifecycleService.close(contextId: objectId)
         }
@@ -103,30 +107,33 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func open() async throws {
-        if isOpened {
-            return
+        switch mode {
+        case .handling:
+            guard !isOpened else { return }
+            let model = try await objectLifecycleService.open(contextId: objectId)
+            setupView(model)
+        case .preview:
+            try await updateDocumentPreview()
+        case .version(let versionId):
+            try await updateDocumentVersion(versionId)
         }
-        guard !forPreview else {
-            anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
-            return
-        }
-        let model = try await objectLifecycleService.open(contextId: objectId)
-        setupView(model)
     }
     
     @MainActor
-    func openForPreview() async throws {
-        guard forPreview else {
-            anytypeAssertionFailure("Document created for handling. You should use open() method.")
-            return
+    func update() async throws {
+        switch mode {
+        case .handling:
+            anytypeAssertionFailure("Document was created in `handling` mode. You can't update it")
+        case .preview:
+            try await updateDocumentPreview()
+        case .version(let versionId):
+            try await updateDocumentVersion(versionId)
         }
-        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
-        setupView(model)
     }
     
     @MainActor
     func close() async throws {
-        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
         try await objectLifecycleService.close(contextId: objectId)
         isOpened = false
     }
@@ -157,13 +164,25 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - Private methods
     
+    @MainActor
+    private func updateDocumentPreview() async throws {
+        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
+        setupView(model)
+    }
+    
+    @MainActor
+    private func updateDocumentVersion(_ versionId: String) async throws {
+        let model = try await historyVersionsService.showVersion(objectId: objectId, versionId: versionId)
+        setupView(model)
+    }
+    
     private func setup() {
-        eventsListener.onUpdatesReceive = { [weak self] updates in
+        eventsListener.setOnUpdateReceice({ [weak self] updates in
             DispatchQueue.main.async { [weak self] in
                 self?.triggerSync(updates: updates)
             }
-        }
-        if !forPreview {
+        })
+        if mode.isHandling {
             eventsListener.startListening()
         }
     }
@@ -177,9 +196,12 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private func triggerSync(updates: [DocumentUpdate]) {
         
+        // Notify only when document is set to prevent invalid initial state
+        guard isOpened else { return }
+        
         var docUpdates = updates.flatMap { update -> [BaseDocumentUpdate] in
             switch update {
-            case .general:
+            case .general, .relationDetails:
                 return [.general]
             case .block(let blockId):
                 return [.block(blockId: blockId)]
@@ -187,6 +209,8 @@ final class BaseDocument: BaseDocumentProtocol {
                 return [.details(id: id)]
             case .unhandled(let blockId):
                 return [.unhandled(blockId: blockId)]
+            case .syncStatus:
+                return [.syncStatus]
             case .relationLinks, .restrictions, .close:
                 return [] // A lot of casese for update relations
             }
@@ -218,15 +242,17 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     private func setupView(_ model: ObjectViewModel) {
         viewModelSetter.objectViewUpdate(model)
-        isOpened = true
+        // Start subscription before document is marked as opened
         setupSubscriptions()
+        isOpened = true
         triggerSync(updates: [.general])
     }
-    
+
     @MainActor
     private func setupSubscriptions() {
-        syncStatusStorage.statusPublisher(spaceId: spaceId).sink { [weak self] syncStatus in
-            self?.syncStatusSubject.send(syncStatus)
+        syncStatusStorage.statusPublisher(spaceId: spaceId).sink { [weak self] info in
+            self?.syncStatus = info.status
+            self?.triggerSync(updates: [.syncStatus])
         }.store(in: &subscriptions)
         
         accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
@@ -240,7 +266,7 @@ final class BaseDocument: BaseDocumentProtocol {
                 guard let self else { return }
                 let contains = details.contains { self.relationLinksStorage.contains(relationKeys: [$0.key]) }
                 if contains {
-                    triggerSync(updates: [.relationLinks])
+                    triggerSync(updates: [.relationDetails])
                 }
             }
             .store(in: &subscriptions)
@@ -284,7 +310,8 @@ final class BaseDocument: BaseDocumentProtocol {
         let newPermissios = ObjectPermissions(
             details: details ?? ObjectDetails(id: ""),
             isLocked: isLocked,
-            participantCanEdit: participantIsEditor,
+            participantCanEdit: participantIsEditor, 
+            isVersionMode: mode.isVersion,
             objectRestrictions: objectRestrictions.objectRestriction
         )
         

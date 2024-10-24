@@ -6,15 +6,17 @@ struct EditorSetCoordinatorView: View {
     @StateObject private var model: EditorSetCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(data: EditorSetObject) {
-        self._model = StateObject(wrappedValue: EditorSetCoordinatorViewModel(data: data))
+    init(data: EditorSetObject, showHeader: Bool) {
+        self._model = StateObject(wrappedValue: EditorSetCoordinatorViewModel(data: data, showHeader: showHeader))
     }
     
     var body: some View {
-        EditorSetView(data: model.data, output: model)
+        EditorSetView(data: model.data, showHeader: model.showHeader, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
+                model.dismissAllPresented = dismissAllPresented
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
@@ -36,6 +38,18 @@ struct EditorSetCoordinatorView: View {
             }
             .sheet(item: $model.objectIconPickerData) {
                 ObjectIconPicker(data: $0)
+            }
+            .anytypeSheet(item: $model.syncStatusSpaceId) {
+                SyncStatusInfoView(spaceId: $0.value)
+            }
+            .anytypeSheet(isPresented: $model.presentSettings) {
+                ObjectSettingsCoordinatorView(
+                    objectId: model.data.objectId,
+                    output: model
+                )
+            }
+            .anytypeSheet(item: $model.setObjectCreationData) {
+                SetObjectCreationSettingsView(data: $0, output: model)
             }
             .snackbar(toastBarData: $model.toastBarData)
     }

@@ -16,6 +16,8 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
     
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: any ToastPresenterProtocol
     
     private var editorModuleInputs = [String: any EditorPageModuleInput]()
     private var onSetAsDefaultTempalte: ((String) -> Void)?
@@ -45,8 +47,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
                 data: EditorPageObject(
                     objectId: template.id,
                     spaceId: template.spaceId,
-                    isOpenedForPreview: false,
-                    usecase: .templateEditing
+                    usecase: .embedded
                 ),
                 showHeader: false,
                 setupEditorInput: { [weak self] input, objectId in
@@ -91,5 +92,9 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     
     func didUndoRedo() {
         anytypeAssertionFailure("Undo/redo is not available")
+    }
+    
+    func versionRestored(_ text: String) {
+        toastPresenter.show(message: Loc.VersionHistory.Toast.message(text))
     }
 }
