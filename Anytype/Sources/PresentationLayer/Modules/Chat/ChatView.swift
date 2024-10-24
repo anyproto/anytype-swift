@@ -17,12 +17,10 @@ struct ChatView: View {
             if settings.showHeader {
                 headerView
             }
-            ChatSpacingContainer {
-                mainView
-                    .safeAreaInset(edge: .bottom, spacing: 0) {
-                        bottomPanel
-                    }
-            }
+            mainView
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    bottomPanel
+                }
             .chatActionOverlay(state: $actionState) {
                 if model.mentionObjects.isNotEmpty {
                     ChatMentionList(mentions: model.mentionObjects) {
@@ -50,6 +48,7 @@ struct ChatView: View {
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
         }
+        .homeBottomPanelHidden(true)
     }
     
     private var bottomPanel: some View {

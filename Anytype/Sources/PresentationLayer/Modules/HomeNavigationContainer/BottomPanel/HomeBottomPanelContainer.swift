@@ -17,23 +17,24 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
     }
     
     var body: some View {
-        content
-            .anytypeNavigationPanelSize(bottomSize)
-            .onChange(of: path.count) { newValue in
-                withAnimation {
-                    bottomPanelHidden = false
-                }
+        ZStack(alignment: .bottom) {
+            content
+                .anytypeNavigationPanelSize(bottomSize)
+            
+            if !bottomPanelHidden {
+                bottomPanel
+                    .readSize {
+                        bottomSize = $0
+                    }
+                    .transition(.opacity)
+                    .anytypeIgnoreBottomSafeArea()
             }
-            .safeAreaInset(edge: .bottom) {
-                if !bottomPanelHidden {
-                    bottomPanel
-                        .readSize {
-                            bottomSize = $0
-                        }
-                        .transition(.opacity)
-                }
+        }
+        .onChange(of: path.count) { newValue in
+            withAnimation {
+                bottomPanelHidden = false
             }
-            .setHomeBottomPanelHiddenHandler($bottomPanelHidden)
-            .ignoresSafeArea(.keyboard)
+        }
+        .setHomeBottomPanelHiddenHandler($bottomPanelHidden)
     }
 }
