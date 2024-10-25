@@ -21,8 +21,6 @@ final class MentionsViewModel {
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.objectActionsService)
     private var objectService: any ObjectActionsServiceProtocol
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private var searchTask: Task<(), any Error>?
 
@@ -88,7 +86,7 @@ final class MentionsViewModel {
     }
     
     func didSelectCreateNewMention() {
-        Task { @MainActor in
+        Task {
             guard let newBlockDetails = try? await defaultObjectService.createDefaultObject(name: searchString, shouldDeleteEmptyObject: false, spaceId: document.spaceId) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, spaceId: newBlockDetails.spaceId, route: .mention)
@@ -98,18 +96,17 @@ final class MentionsViewModel {
     }
     
     private func createDateObject(with date: Date) {
-        Task { @MainActor in
+        Task {
             let title = formatter.string(from: date)
-            let dateObjectType = try objectTypeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.date, spaceId: document.spaceId)
             let details = try? await objectService.createObject(
                 name: title,
-                typeUniqueKey: dateObjectType.uniqueKey,
+                typeUniqueKey: .date,
                 shouldDeleteEmptyObject: false,
                 shouldSelectType: false,
                 shouldSelectTemplate: false,
                 spaceId: document.spaceId,
                 origin: .none,
-                templateId: dateObjectType.defaultTemplateId
+                templateId: nil
             )
             guard let details else { return }
             
