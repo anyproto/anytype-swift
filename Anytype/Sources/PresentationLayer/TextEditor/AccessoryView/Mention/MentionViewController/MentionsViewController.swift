@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import Services
+import SwiftUI
 
 final class MentionsViewController: UITableViewController {
     let viewModel: MentionsViewModel
@@ -108,7 +109,11 @@ final class MentionsViewController: UITableViewController {
     }
     
     private func header(title: String) -> any UIContentConfiguration {
-        UISectionHeaderConfiguration(title: title)
+        UIHostingConfiguration {
+            SectionHeaderView(title: title)
+        }
+        .minSize(height: 0)
+        .margins(.vertical, 0)
     }
     
     // MARK: - Constants
