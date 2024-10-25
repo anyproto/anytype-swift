@@ -105,8 +105,8 @@ final class MentionsViewModel {
                 name: title,
                 typeUniqueKey: dateObjectType.uniqueKey,
                 shouldDeleteEmptyObject: false,
-                shouldSelectType: true,
-                shouldSelectTemplate: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: false,
                 spaceId: document.spaceId,
                 origin: .none,
                 templateId: dateObjectType.defaultTemplateId
