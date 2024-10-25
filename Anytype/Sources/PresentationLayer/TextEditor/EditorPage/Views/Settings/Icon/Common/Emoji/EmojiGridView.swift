@@ -64,7 +64,7 @@ struct EmojiGridView: View {
         ScrollView(showsIndicators: false) {
             makeGridView(groups: groups)
         }
-        .scrollDismissesKeyboard(.immediately)
+        .scrollDismissesKeyboard(.interactively)
         .padding(.horizontal, 16)
     }
     
