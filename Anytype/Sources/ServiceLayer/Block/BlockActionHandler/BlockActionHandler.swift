@@ -130,9 +130,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.delete(blockIds: blockIds)
     }
     
-    func moveToPage(blockId: String, pageId: String) async throws {
+    func moveToPage(blockIds: [String], pageId: String) async throws {
         AnytypeAnalytics.instance().logMoveBlock()
-        try await blockService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
+        try await blockService.moveToPage(objectId: document.objectId, blockIds: blockIds, pageId: pageId)
     }
 
 

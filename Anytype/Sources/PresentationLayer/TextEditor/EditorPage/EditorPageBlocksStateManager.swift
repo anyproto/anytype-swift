@@ -441,9 +441,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .moveTo:
             router.showMoveTo { [weak self] details in
                 Task {
-                    for element in elements {
-                        try await self?.actionHandler.moveToPage(blockId: element.blockId, pageId: details.id)
-                    }
+                    let blockIds = elements.map(\.blockId)
+                    try await self?.actionHandler.moveToPage(blockIds: blockIds, pageId: details.id)
 
                     self?.editingState = .editing
 

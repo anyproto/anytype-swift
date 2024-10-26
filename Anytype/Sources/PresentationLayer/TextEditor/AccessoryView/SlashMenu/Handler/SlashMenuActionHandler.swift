@@ -196,7 +196,7 @@ final class SlashMenuActionHandler {
         case .moveTo:
             router.showMoveTo { [weak self] details in
                 Task {
-                    try await self?.actionHandler.moveToPage(blockId: blockId, pageId: details.id)
+                    try await self?.actionHandler.moveToPage(blockIds: [blockId], pageId: details.id)
                 }
             }
         case .copy:
