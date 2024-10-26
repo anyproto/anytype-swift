@@ -152,7 +152,7 @@
 "Files" = "Dateien";
 "Media" = "Medien";
 "Lists" = "Gruppen";
-"Dates" = "Dates";
+"Dates" = "Daten";
 "Pinned" = "Angeheftet";
 "Delete" = "Löschen";
 "Export" = "Exportieren";
@@ -1248,7 +1248,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "AllContent.Search.Empty.State.subtitle" = "Versuche mit anderen Schlüsselwörtern zu suchen.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReadOnly" = "Nur Bearbeiter können Nachrichten versenden. Kontaktiere den Eigentümer und frage Zugriff an.";
 "Chat.ReplyTo" = "Auf %@ antworten";
 
 // MARK: - Reindexing warning alert
