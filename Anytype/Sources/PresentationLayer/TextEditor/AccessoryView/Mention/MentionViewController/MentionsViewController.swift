@@ -42,8 +42,20 @@ final class MentionsViewController: UITableViewController {
             viewModel.didSelectCreateNewMention()
         case let .mention(mention):
             viewModel.didSelectMention(mention)
+        case .selectDate:
+            viewModel.didSelectCustomDate()
         case .header:
             break
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return false }
+        switch item {
+        case .createNewObject, .mention, .selectDate:
+            return true
+        case .header:
+            return false
         }
     }
     
@@ -60,19 +72,30 @@ final class MentionsViewController: UITableViewController {
             case let .header(title):
                 cell.separatorInset = Constants.headerSeparatorInsets
                 cell.contentConfiguration = self?.header(title: title)
+            case .selectDate:
+                cell.separatorInset = Constants.separatorInsets
+                cell.contentConfiguration = self?.confguration(title: Loc.selectDate, icon: .object(.empty(.date)))
             }
             return cell
         }
     }
     
-    private func confguration(for mention: MentionObject) -> any UIContentConfiguration {
+    private func confguration(title: String, subtitle: String = "", icon: Icon) -> any UIContentConfiguration {
         EditorSearchCellConfiguration(
             cellData: EditorSearchCellData(
-                title: mention.name,
-                subtitle: mention.type?.name ?? Loc.Mention.Subtitle.placeholder,
-                icon: mention.objectIcon,
+                title: title,
+                subtitle: subtitle,
+                icon: icon,
                 expandedIcon: false
             )
+        )
+    }
+    
+    private func confguration(for mention: MentionObject) -> any UIContentConfiguration {
+        confguration(
+            title: mention.name,
+            subtitle: mention.type?.name ?? Loc.Mention.Subtitle.placeholder,
+            icon: mention.objectIcon
         )
     }
     
