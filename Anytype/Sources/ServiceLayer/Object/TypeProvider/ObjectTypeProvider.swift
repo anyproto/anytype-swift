@@ -149,13 +149,13 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         }
     }
     
-    private func findNoteType(spaceId: String) -> ObjectType? {
-        return objectTypes(spaceId: spaceId).first { $0.uniqueKey == .note }
+    private func findPageType(spaceId: String) -> ObjectType? {
+        return objectTypes(spaceId: spaceId).first { $0.uniqueKey == .page }
     }
     
     private func defaultObjectType(storage: [String: String], spaceId: String) throws -> ObjectType {
         let typeId = storage[spaceId]
-        guard let type = objectTypes(spaceId: spaceId).first(where: { $0.id == typeId }) ?? findNoteType(spaceId: spaceId) else {
+        guard let type = objectTypes(spaceId: spaceId).first(where: { $0.id == typeId }) ?? findPageType(spaceId: spaceId) else {
             throw ObjectTypeError.objectTypeNotFound
         }
         return type

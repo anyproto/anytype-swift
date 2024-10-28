@@ -362,6 +362,17 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     func versionRestored(_ text: String) {
         output?.versionRestored(text)
     }
+    
+    func showDatePicker(onDateSelection: @escaping (Date) -> Void) {
+        let view = DateCalendarView(
+            date: Date(),
+            onDateChanged: { [weak self] newDate in
+                self?.navigationContext.dismissTopPresented()
+                onDateSelection(newDate)
+            }
+        )
+        navigationContext.presentSwiftUIView(view: view, customHeight: view.height)
+    }
 
     // MARK: - Private
     

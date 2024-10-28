@@ -152,6 +152,7 @@
 "Files" = "Filer";
 "Media" = "Media";
 "Lists" = "Listor";
+"Dates" = "Datum";
 "Pinned" = "Pinned";
 "Delete" = "Radera";
 "Export" = "Export";
@@ -832,7 +833,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Recently edited";
 "Widgets.Library.RecentlyOpened.Name" = "Recently opened";
 "Widgets.Library.RecentlyOpened.Description" = "On this device";
-"Widgets.Library.Chat.Name" = "Discussions";
+"Widgets.Library.Chat.Name" = "Diskussioner";
 "Widgets.AppUpdate" = "Anytype is ready to update";
 "Widgets.Source.Library" = "Default sets";
 "Widgets.Source.Objects" = "Your objects";
@@ -1225,7 +1226,7 @@ Please provide specific details of your needs here.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
-"Message.Action.Reply" = "Reply";
+"Message.Action.Reply" = "Svara";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 

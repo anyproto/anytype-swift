@@ -9,7 +9,7 @@ struct AccessoryViewBuilder {
         router: some EditorRouterProtocol,
         document: some BaseDocumentProtocol
     ) -> (some AccessoryViewStateManager, some ChangeTypeAccessoryViewModel) {
-        let mentionsModule = MentionAssembly().controller(document: document)
+        let mentionsModule = MentionAssembly().controller(document: document, router: router)
 
         
         let mentionsView = MentionView(mentionsController: mentionsModule.0, frame: CGRect(origin: .zero, size: menuActionsViewSize))
