@@ -20,6 +20,8 @@ extension EditorScreenData {
             ))
         case .chat:
             self = .chat(EditorChatObject(objectId: details.id, spaceId: details.spaceId))
+        case .date:
+            self = .date(EditorDateObject(objectId: details.id, spaceId: details.spaceId))
         }
     }
 }
@@ -73,6 +75,8 @@ extension EditorScreenData {
             return object.objectId
         case .set(let object):
             return object.objectId
+        case .date(let object):
+            return object.objectId
         }
     }
     
@@ -99,6 +103,8 @@ extension EditorScreenData {
         case .page(let object):
             return object.spaceId
         case .set(let object):
+            return object.spaceId
+        case .date(let object):
             return object.spaceId
         }
     }
