@@ -116,6 +116,7 @@ struct RelationListContainerView<Content>: View where Content: View {
         EmptyStateView(
             title: Loc.Relation.EmptyState.title,
             subtitle: Loc.Relation.EmptyState.description,
+            style: .withImage,
             buttonData: EmptyStateView.ButtonData(
                 title: Loc.create,
                 action: { onCreate(nil) }

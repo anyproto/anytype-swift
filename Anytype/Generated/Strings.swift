@@ -434,12 +434,6 @@ internal enum Loc {
     }
   }
   internal enum AllContent {
-    internal enum Empty {
-      internal enum State {
-        internal static let subtitle = Loc.tr("Localizable", "AllContent.Empty.State.subtitle", fallback: "Create your first objects to get started.")
-        internal static let title = Loc.tr("Localizable", "AllContent.Empty.State.title", fallback: "It’s empty here.")
-      }
-    }
     internal enum Search {
       internal enum Empty {
         internal enum State {
@@ -836,6 +830,16 @@ internal enum Loc {
           internal static let title = Loc.tr("Localizable", "EditorSet.View.Not.Supported.Title", fallback: "Unsupported")
         }
       }
+    }
+  }
+  internal enum EmptyView {
+    internal enum Bin {
+      internal static let subtitle = Loc.tr("Localizable", "EmptyView.Bin.subtitle", fallback: "Looks like you’re all tidy and organized!")
+      internal static let title = Loc.tr("Localizable", "EmptyView.Bin.title", fallback: "Your trash is empty.")
+    }
+    internal enum Default {
+      internal static let subtitle = Loc.tr("Localizable", "EmptyView.Default.subtitle", fallback: "Create your first objects to get started.")
+      internal static let title = Loc.tr("Localizable", "EmptyView.Default.title", fallback: "It’s empty here.")
     }
   }
   internal enum Error {

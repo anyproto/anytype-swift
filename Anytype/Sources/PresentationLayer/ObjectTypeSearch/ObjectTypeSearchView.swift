@@ -73,6 +73,7 @@ struct ObjectTypeSearchView: View {
                 EmptyStateView(
                     title: Loc.nothingFound,
                     subtitle: Loc.noTypeFoundText(viewModel.searchText),
+                    style: .plain,
                     buttonData: EmptyStateView.ButtonData(
                         title: Loc.createType,
                         action: { viewModel.createType(name: viewModel.searchText) }

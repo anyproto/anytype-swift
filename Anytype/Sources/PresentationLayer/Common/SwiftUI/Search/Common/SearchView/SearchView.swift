@@ -73,7 +73,8 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
     private var emptyState: some View {
         EmptyStateView(
             title: Loc.thereIsNoObjectNamed(searchText),
-            subtitle: Loc.createANewOneOrSearchForSomethingElse
+            subtitle: Loc.createANewOneOrSearchForSomethingElse,
+            style: .plain
         )
     }
 }

@@ -137,20 +137,13 @@ struct AllContentView: View {
     
     private var emptyState: some View {
         let emptySearchText = model.searchText.isEmpty
-        let title = emptySearchText ? Loc.AllContent.Empty.State.title : Loc.AllContent.Search.Empty.State.title
-        let subtitle = emptySearchText ? Loc.AllContent.Empty.State.subtitle : Loc.AllContent.Search.Empty.State.subtitle
-        return VStack(spacing: 0) {
-            Spacer()
-            AnytypeText(title, style: .uxCalloutMedium)
-                .foregroundColor(.Text.primary)
-                .multilineTextAlignment(.center)
-            AnytypeText(subtitle, style: .uxCalloutRegular)
-                .foregroundColor(.Text.secondary)
-                .multilineTextAlignment(.center)
-            Spacer.fixedHeight(80)
-            Spacer()
-        }
-        .padding(.horizontal, 16)
+        let title = emptySearchText ? Loc.EmptyView.Default.title : Loc.AllContent.Search.Empty.State.title
+        let subtitle = emptySearchText ? Loc.EmptyView.Default.subtitle : Loc.AllContent.Search.Empty.State.subtitle
+        return EmptyStateView(
+            title: title,
+            subtitle: subtitle,
+            style: .plain
+        )
     }
 }
 

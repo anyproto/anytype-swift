@@ -3,19 +3,23 @@ import SwiftUI
 struct EmptyStateView: View {
     let title: String
     let subtitle: String
+    let style: Style
     let buttonData: ButtonData?
     
-    init(title: String, subtitle: String, buttonData: ButtonData? = nil) {
+    init(title: String, subtitle: String, style: Style, buttonData: ButtonData? = nil) {
         self.title = title
         self.subtitle = subtitle
+        self.style = style
         self.buttonData = buttonData
     }
     
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
-            Spacer.fixedHeight(12)
+            if style == .withImage {
+                ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
+                Spacer.fixedHeight(12)
+            }
             AnytypeText(title, style: .uxCalloutMedium)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
@@ -40,12 +44,18 @@ extension EmptyStateView {
         let title: String
         let action: () -> ()
     }
+    
+    enum Style {
+        case withImage
+        case plain
+    }
 }
 
 #Preview {
     EmptyStateView(
         title: Loc.Relation.EmptyState.title,
         subtitle: Loc.Relation.EmptyState.description,
+        style: .withImage,
         buttonData: EmptyStateView.ButtonData(
             title: Loc.create,
             action: {}
