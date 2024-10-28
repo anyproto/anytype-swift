@@ -27,7 +27,7 @@ public extension FeatureDescription {
     static let hideCoCreator = FeatureDescription(
         title: "Hide CoCreator tier",
         type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let chats = FeatureDescription(
