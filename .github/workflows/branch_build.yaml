@@ -23,7 +23,7 @@ jobs:
     steps:
       
       - name: Prepare Deps
-        run:
+        run: |
           bundle install
           brew install imagemagick
 
