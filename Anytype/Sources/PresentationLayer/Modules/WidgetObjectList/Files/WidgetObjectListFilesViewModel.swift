@@ -15,6 +15,10 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     // MARK: - State
     
     let title = Loc.FilesList.title
+    let emptyStateData = WidgetObjectListEmptyStateData(
+        title: Loc.EmptyView.Default.title,
+        subtitle: Loc.EmptyView.Default.subtitle
+    )
     let editorScreenData: EditorScreenData = .favorites(homeObjectId: "", spaceId: "") // Is not used
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .editOnly

@@ -49,8 +49,12 @@ struct WidgetObjectListView: View {
         switch model.data {
         case .list(let sections):
             dataList(sections: sections)
-        case .error(let error):
-            LegacySearchErrorView(error: error)
+        case .error(let title, let subtitle):
+            EmptyStateView(
+                title: title,
+                subtitle: subtitle,
+                style: .plain
+            )
         }
     }
     

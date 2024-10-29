@@ -7,7 +7,7 @@ import SwiftUI
 
 enum WidgetObjectListData {
     case list([ListSectionData<String?, WidgetObjectListRowModel>])
-    case error(LegacySearchError)
+    case error(title: String, subtitle: String)
 }
 
 @MainActor
@@ -185,9 +185,17 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         }
         
         if let searchText, rows.isEmpty {
-            data = .error(.noObjectError(searchText: searchText))
-        } else {
+            data = .error(
+                title: Loc.thereIsNoObjectNamed(searchText),
+                subtitle: Loc.createANewOneOrSearchForSomethingElse
+            )
+        } else if rows.first(where: { $0.rows.isNotEmpty }).isNotNil {
             data = .list(rows)
+        } else {
+            data = .error(
+                title: internalModel.emptyStateData.title,
+                subtitle: internalModel.emptyStateData.subtitle
+            )
         }
     }
     
