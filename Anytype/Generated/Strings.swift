@@ -228,6 +228,7 @@ internal enum Loc {
   internal static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
   internal static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
+  internal static let openFile = Loc.tr("Localizable", "Open file", fallback: "Open file")
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
   internal static let openSource = Loc.tr("Localizable", "Open source", fallback: "Open source")
   internal static func openTypeError(_ p1: Any) -> String {
