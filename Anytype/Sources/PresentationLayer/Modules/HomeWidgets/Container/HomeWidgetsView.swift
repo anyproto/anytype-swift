@@ -86,6 +86,7 @@ private struct HomeWidgetsInternalView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
+        .background(Color.red)
     }
     
     private var editButtons: some View {
