@@ -16,17 +16,14 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
     func exportSpaceDebug(spaceId: String) async throws -> String
     func debugStat() async throws -> URL
     
-    @MainActor
-    var shouldRunDebugProfilerOnNextStartup: Bool { get set }
-    @MainActor
-    var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
+    @MainActor var shouldRunDebugProfilerOnNextStartup: Bool { get set }
+    @MainActor func startDebugRunProfilerOnStartupIfNeeded()
+    
+    @MainActor var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { get }
     func startDebugRunProfiler()
 }
 
 final class DebugService: ObservableObject, DebugServiceProtocol {
-    @MainActor @UserDefault("ShouldRunDebugProfilerOnNextStartup", defaultValue: false)
-    var shouldRunDebugProfilerOnNextStartup: Bool
-    
     public func exportLocalStore() async throws -> String {
         let tempDirString = FileManager.default.createTempDirectory().path
         
@@ -67,6 +64,16 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     @MainActor
     @Published private var _debugRunProfilerData = DebugRunProfilerState.empty
     var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { $_debugRunProfilerData.eraseToAnyPublisher() }
+    
+    @MainActor @UserDefault("ShouldRunDebugProfilerOnNextStartup", defaultValue: false)
+    var shouldRunDebugProfilerOnNextStartup: Bool
+    
+    func startDebugRunProfilerOnStartupIfNeeded() {
+        if shouldRunDebugProfilerOnNextStartup {
+            startDebugRunProfiler()
+            shouldRunDebugProfilerOnNextStartup = false
+        }
+    }
     
     func startDebugRunProfiler() {
         Task {

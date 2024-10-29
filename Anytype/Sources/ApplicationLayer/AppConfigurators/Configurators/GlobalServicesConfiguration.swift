@@ -1,5 +1,6 @@
 import Foundation
 import AnytypeCore
+import Services
 
 final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     
@@ -13,6 +14,8 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     private var deviceSceneStateListener: any DeviceSceneStateListenerProtocol
     @Injected(\.appVersionUpdateService)
     private var appVersionUpdateService: any AppVersionUpdateServiceProtocol
+    @Injected(\.debugService)
+    private var debugService: any DebugServiceProtocol
     
     func configure() {
         // Global listeners
@@ -21,5 +24,6 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
         fileErrorEventHandler.startSubscription()
         deviceSceneStateListener.start()
         appVersionUpdateService.prepareData()
+        debugService.startDebugRunProfilerOnStartupIfNeeded()
     }
 }
