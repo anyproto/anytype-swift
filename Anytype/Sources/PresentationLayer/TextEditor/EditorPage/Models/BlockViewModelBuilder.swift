@@ -71,20 +71,47 @@ final class BlockViewModelBuilder {
     }
     
     func buildEditorItems(infos: [String]) -> [EditorItem] {
-        let blockViewModels = build(infos)
+        let viewModels = build(infos)
+        return buildEditorItems(viewModels)
+    }
+    
+    func buildEditorItems(_ viewModels: [any BlockViewModelProtocol]) -> [EditorItem] {
+        var items = viewModels.map(EditorItem.block)
         
+        let featureRelationsIndex = viewModels.firstIndex { $0.content == .featuredRelations }
+        let openFileButton = createOpenFileButtonIfNeeded()
+        let spacer = SpacerBlockViewModel(usage: .firstRowOffset)
         
-        var editorItems = blockViewModels.map (EditorItem.block)
-        
-        let featureRelationsIndex = blockViewModels.firstIndex { $0.content == .featuredRelations }
-        
-        if let featureRelationsIndex = featureRelationsIndex {
-            let spacer = SpacerBlockViewModel(usage: .firstRowOffset)
-            editorItems.insert(.system(spacer), at: featureRelationsIndex + 1)
+        if let featureRelationsIndex, let openFileButton  {
+            items.insert(openFileButton, at: featureRelationsIndex + 1)
+            items.insert(.system(spacer), at: featureRelationsIndex + 2)
+        } else if let featureRelationsIndex  {
+            items.insert(.system(spacer), at: featureRelationsIndex + 1)
+        } else if let openFileButton  {
+            items.insert(openFileButton, at: 1)
+            items.insert(.system(spacer), at: 2)
         }
         
-        return editorItems
+        return items
     }
+    
+    // temporary hack to display open button for files
+    private func createOpenFileButtonIfNeeded() -> EditorItem? {
+        guard let details = document.details else { return nil }
+        guard DetailsLayout.fileAndMediaLayouts.contains(details.layoutValue) else { return nil }
+        
+        let model = OpenFileBlockViewModel(
+            info: .file(fileDetails: FileDetails(objectDetails: details)),
+            handler: handler,
+            documentId: document.objectId,
+            spaceId: document.spaceId
+        ) { [weak router] fileContext in
+            router?.openImage(fileContext)
+        }
+        
+        return EditorItem.block(model)
+    }
+    
     
     func buildShimeringItem() -> EditorItem {
         let shimmeringViewModel = ShimmeringBlockViewModel()
@@ -111,7 +138,7 @@ final class BlockViewModelBuilder {
         let documentId = document.objectId
         let spaceId = document.spaceId
         let blockInformationProvider = BlockModelInfomationProvider(document: document, info: info)
-  
+        
         switch info.content {
         case let .text(content):
             switch content.contentType {
@@ -181,7 +208,7 @@ final class BlockViewModelBuilder {
                     document: document,
                     blockInformationProvider: blockInformationProvider,
                     actionHandler: textBlockActionHandler,
-                    cursorManager: cursorManager, 
+                    cursorManager: cursorManager,
                     collectionController: blockCollectionController
                 )
                 
@@ -253,7 +280,7 @@ final class BlockViewModelBuilder {
             
             return BlockBookmarkViewModel(
                 editorCollectionController: blockCollectionController,
-                infoProvider: blockInformationProvider, 
+                infoProvider: blockInformationProvider,
                 document: document,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
@@ -280,7 +307,7 @@ final class BlockViewModelBuilder {
                 collectionController: blockCollectionController
             ) { [weak self] relation in
                 guard let self = self else { return }
-
+                
                 if relation.key == BundledRelationKey.type.rawValue && document.permissions.canChangeType {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
@@ -296,7 +323,7 @@ final class BlockViewModelBuilder {
             let relation = document.parsedRelations.all.first {
                 $0.key == content.key
             }
-
+            
             guard let relation = relation else {
                 return nil
             }
