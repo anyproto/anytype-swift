@@ -1241,8 +1241,6 @@ En concreto,
 "AllContent.Settings.Unlinked.Title" = "Solo desconectados";
 "AllContent.Settings.Unlinked.Description" = "Objetos desconectados que no tienen un enlace a o desde otro objeto del gráfico.";
 "AllContent.Settings.ViewBin" = "Ver papelera";
-"AllContent.Empty.State.title" = "Aquí no hay nada.";
-"AllContent.Empty.State.subtitle" = "Crea tus primeros objetos para empezar.";
 "AllContent.Search.Empty.State.title" = "No se encuentran resultados.";
 "AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";
 
@@ -1254,3 +1252,9 @@ En concreto,
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
 "ReindexingWarningAlert.Description" = "Hemos cambiado a un nuevo software de búsqueda para obtener resultados más rápidos y precisos.\nPuede llevar unos minutos crear el nuevo índice.";
 "ReindexingWarningAlert.Button" = "¡Entendido!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Aquí no hay nada.";
+"EmptyView.Default.subtitle" = "Crea tus primeros objetos para empezar.";
+"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
