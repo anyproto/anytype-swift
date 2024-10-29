@@ -21,8 +21,11 @@ jobs:
     timeout-minutes: 40
 
     steps:
-      - name: Prepare deps
-        uses: ./.github/actions/prepare-deps
+      
+      - name: Prepare Deps
+        run:
+          bundle install
+          brew install imagemagick
 
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1.6.0
