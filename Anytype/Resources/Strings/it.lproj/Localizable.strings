@@ -1241,8 +1241,6 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "AllContent.Settings.Unlinked.Title" = "Solo non collegati";
 "AllContent.Settings.Unlinked.Description" = "Oggetti non collegati che non hanno un collegamento diretto o un backlink con altri oggetti nel grafo.";
 "AllContent.Settings.ViewBin" = "Visualizza Cestino";
-"AllContent.Empty.State.title" = "È vuoto qui.";
-"AllContent.Empty.State.subtitle" = "Crea i tuoi primi oggetti per iniziare.";
 "AllContent.Search.Empty.State.title" = "Nessun risultato trovato.";
 "AllContent.Search.Empty.State.subtitle" = "Prova a cercare con parole chiave diverse.";
 
@@ -1254,3 +1252,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
 "ReindexingWarningAlert.Description" = "Abbiamo implementato una nuova libreria di ricerca per risultati più rapidi e precisi.\nLa reindicizzazione potrebbe richiedere alcuni minuti.";
 "ReindexingWarningAlert.Button" = "Ho capito!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "È vuoto qui.";
+"EmptyView.Default.subtitle" = "Crea i tuoi primi oggetti per iniziare.";
+"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
