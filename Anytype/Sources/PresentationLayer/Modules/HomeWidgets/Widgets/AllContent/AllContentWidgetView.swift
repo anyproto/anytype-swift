@@ -30,7 +30,7 @@ struct AllContentWidgetView: View {
             Spacer()
         }
         .padding(.all, 16)
-        .background(Color.Widget.card)
+        .background(Color.Background.widget)
         .cornerRadius(16, style: .continuous)
         .fixTappableArea()
         .onTapGesture {

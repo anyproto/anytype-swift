@@ -169,7 +169,6 @@ extension Color {
     enum Widget {
       internal static let actionsBackground = Color(asset: Asset.Widget.actionsBackground)
       internal static let bottomPanel = Color(asset: Asset.Widget.bottomPanel)
-      internal static let card = Color(asset: Asset.Widget.card)
       internal static let divider = Color(asset: Asset.Widget.divider)
       internal static let inactiveTab = Color(asset: Asset.Widget.inactiveTab)
       internal static let secondary = Color(asset: Asset.Widget.secondary)

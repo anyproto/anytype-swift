@@ -155,7 +155,6 @@ internal enum Asset {
   internal enum Widget {
     static let actionsBackground = ColorAsset(name: "Widget/actionsBackground")
     static let bottomPanel = ColorAsset(name: "Widget/bottomPanel")
-    static let card = ColorAsset(name: "Widget/card")
     static let divider = ColorAsset(name: "Widget/divider")
     static let inactiveTab = ColorAsset(name: "Widget/inactiveTab")
     static let secondary = ColorAsset(name: "Widget/secondary")
