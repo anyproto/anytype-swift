@@ -24,10 +24,10 @@ final class DateViewModel: ObservableObject {
     // MARK: - State
     
     private let document: any BaseDocumentProtocol
-    private var relationDetails = [RelationDetails]()
     
     @Published var title = ""
     @Published var objects = [ObjectCellData]()
+    @Published var relationDetails = [RelationDetails]()
     @Published var selectedRelation: RelationDetails?
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     
@@ -45,7 +45,7 @@ final class DateViewModel: ObservableObject {
     func getRelationsList() async {
         // TODO: get relationsKeys from middle (it doesn't work now)
 //        let relationsKeys = try? await relationListWithValueService.relationListWithValue(objectId, spaceId: spaceId)
-        let relationsKeys = [BundledRelationKey.links]
+        let relationsKeys = [BundledRelationKey.links, BundledRelationKey.backlinks]
         relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
             guard let self else { return nil }
             return try? relationDetailsStorage.relationsDetails(for: key, spaceId: spaceId)
@@ -78,6 +78,10 @@ final class DateViewModel: ObservableObject {
     
     func onSyncStatusTap() {
         output?.onSyncStatusTap()
+    }
+    
+    func onRelationTap(_ details: RelationDetails) {
+        selectedRelation = details
     }
     
     // MARK: - Private
