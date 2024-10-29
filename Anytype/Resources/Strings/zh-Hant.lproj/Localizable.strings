@@ -1245,8 +1245,6 @@
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
@@ -1258,3 +1256,9 @@
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
 "ReindexingWarningAlert.Button" = "I got it!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "It’s empty here.";
+"EmptyView.Default.subtitle" = "Create your first objects to get started.";
+"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
