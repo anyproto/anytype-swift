@@ -4,9 +4,10 @@ import Services
 struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
     let statusData: SyncStatusData
     let itemState: EditorBarItemState
+    let onTap: () -> ()
     
     func makeUIView(context: Context) -> EditorSyncStatusItem {
-        EditorSyncStatusItem(statusData: statusData, itemState: itemState, onTap: {})
+        EditorSyncStatusItem(statusData: statusData, itemState: itemState, onTap: onTap)
     }
     
     func updateUIView(_ item: EditorSyncStatusItem, context: Context) {
@@ -28,7 +29,8 @@ struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
     func mock(status: SyncStatus, networkId: String = "1337") -> SwiftUIEditorSyncStatusItem {
         SwiftUIEditorSyncStatusItem(
             statusData: SyncStatusData(status: status, networkId: networkId, isHidden: false),
-            itemState: EditorBarItemState(haveBackground: false, opacity: 0)
+            itemState: EditorBarItemState(haveBackground: false, opacity: 0),
+            onTap: {}
         )
     }
 }

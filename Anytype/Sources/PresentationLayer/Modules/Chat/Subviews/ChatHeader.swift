@@ -13,12 +13,12 @@ struct ChatHeader: View {
         HStack(alignment: .center, spacing: 14) {
             SwiftUIEditorSyncStatusItem(
                 statusData: syncStatusData,
-                itemState: EditorBarItemState(haveBackground: false, opacity: 0)
+                itemState: EditorBarItemState(haveBackground: false, opacity: 0),
+                onTap: {
+                    onSyncStatusTap()
+                }
             )
             .frame(width: 28, height: 28)
-            .onTapGesture {
-                onSyncStatusTap()
-            }
             
             titleView
             

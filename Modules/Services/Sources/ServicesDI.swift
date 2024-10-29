@@ -131,4 +131,8 @@ public extension Container {
     var chatService: Factory<ChatServiceProtocol> {
         self { ChatService() }.shared
     }
+    
+    var relationListWithValueService: Factory<RelationListWithValueServiceProtocol> {
+        self { RelationListWithValueService() }.shared
+    }
 }

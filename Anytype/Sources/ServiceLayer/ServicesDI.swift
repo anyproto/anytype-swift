@@ -340,8 +340,11 @@ extension Container {
         self { UserWarningAlertsHandler() }.shared
     }
     
-    
     var videoPreviewStorage: Factory<any VideoPreviewStorageProtocol> {
         self { VideoPreviewStorage() }.singleton
+    }
+    
+    var dateRelatedObjectsSubscriptionService: Factory<any DateRelatedObjectsSubscriptionServiceProtocol> {
+        self { DateRelatedObjectsSubscriptionService() }.shared
     }
 }
