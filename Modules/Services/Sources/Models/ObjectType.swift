@@ -97,31 +97,17 @@ extension ObjectType: DetailsModel {
         ]
     }
     
-    public var isTemplateType: Bool {
-        uniqueKey == .template
-    }
+    public var isTemplateType: Bool { uniqueKey == .template }
     
-    public var isListType: Bool {
-        isSetType || isCollectionType
-    }
+    public var isChatType: Bool { uniqueKey == .chat }
     
-    public var isSetType: Bool {
-        recommendedLayout == .set
-    }
+    public var isListType: Bool { recommendedLayout.isList }
     
-    public var isCollectionType: Bool {
-        recommendedLayout == .collection
-    }
+    public var isSetType: Bool { recommendedLayout.isSet }
     
-    public var isNoteLayout: Bool {
-        recommendedLayout == .note
-    }
+    public var isCollectionType: Bool { recommendedLayout.isCollection }
     
-    public var isImageLayout: Bool {
-        recommendedLayout == .image
-    }
+    public var isNoteLayout: Bool { recommendedLayout.isNote }
     
-    public var isChatType: Bool {
-        uniqueKey == .chat
-    }
+    public var isImageLayout: Bool { recommendedLayout.isImage }
 }

@@ -10,7 +10,7 @@ enum HeaderBuilder {
     ) -> ObjectHeader {
         let layoutAlign = details.layoutAlignValue
         
-        if details.layoutValue == .note {
+        if details.layoutValue.isNote {
             return .empty(usecase: presentationUsecase, onTap: {})
         }
         

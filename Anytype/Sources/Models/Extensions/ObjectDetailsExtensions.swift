@@ -53,11 +53,11 @@ extension BundledRelationsValueProvider {
     }
     
     var isCollection: Bool {
-        return layoutValue == .collection
+        return layoutValue.isCollection
     }
     
     var isSet: Bool {
-        return layoutValue == .set
+        return layoutValue.isSet
     }
     
     var isSupportedForEdit: Bool {
@@ -77,7 +77,7 @@ extension BundledRelationsValueProvider {
     }
     
     var canMakeTemplate: Bool {
-        layoutValue.isTemplatesAvailable && !isTemplateType && profileOwnerIdentity.isEmpty
+        layoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty
     }
     
     var isTemplateType: Bool {

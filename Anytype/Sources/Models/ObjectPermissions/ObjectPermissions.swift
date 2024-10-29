@@ -67,7 +67,7 @@ extension ObjectPermissions {
         self.canLock = specificTypes && canApplyUneditableActions && !isTemplateType
         self.canChangeIcon = DetailsLayout.layoutsWithIcon.contains(details.layoutValue) && canEdit
         self.canChangeCover = DetailsLayout.layoutsWithCover.contains(details.layoutValue) && canEdit
-        self.canChangeLayout = DetailsLayout.editorLayouts.contains(details.layoutValue) && canEdit
+        self.canChangeLayout = details.layoutValue.isEditorLayout && canEdit
         self.canEditRelationValues = canEdit && !objectRestrictions.contains(.details)
         self.canEditRelationsList = canEdit && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplateType

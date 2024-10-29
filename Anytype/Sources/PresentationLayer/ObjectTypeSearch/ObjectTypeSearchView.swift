@@ -171,7 +171,7 @@ struct ObjectTypeSearchView: View {
             }
         }
         
-        let isNotListLayout = data.type.recommendedLayout.flatMap { !DetailsLayout.listLayouts.contains($0) } ?? false
+        let isNotListLayout = data.type.recommendedLayout.flatMap { !$0.isList } ?? false
         let canSetAsDefault = !data.isDefault && data.type.canCreateObjectOfThisType && isNotListLayout
         
         if  canSetAsDefault {
