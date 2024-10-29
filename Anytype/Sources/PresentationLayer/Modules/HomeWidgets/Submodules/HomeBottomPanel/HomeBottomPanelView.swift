@@ -37,7 +37,7 @@ struct HomeBottomPanelView: View {
                 .frame(maxWidth: .infinity)
         })
         .frame(height: 52)
-        .background(Color.Widget.bottomPanel)
+        .background(Color.Background.navigationPanel)
         .background(.ultraThinMaterial)
         .cornerRadius(14, style: .continuous)
     }

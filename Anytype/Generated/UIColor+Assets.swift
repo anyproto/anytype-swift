@@ -160,13 +160,6 @@ extension UIColor {
       internal static let backgroundWithBlur = UIColor(asset: Asset.ModalScreen.backgroundWithBlur)
     }
     
-    // MARK: - Navigation
-    enum Navigation {
-      internal static let background = UIColor(asset: Asset.Navigation.background)
-      internal static let buttonActive = UIColor(asset: Asset.Navigation.buttonActive)
-      internal static let buttonInactive = UIColor(asset: Asset.Navigation.buttonInactive)
-    }
-    
     // MARK: - Shadow
     enum Shadow {
       internal static let primary = UIColor(asset: Asset.Shadow.primary)
