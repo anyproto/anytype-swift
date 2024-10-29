@@ -101,6 +101,7 @@ extension ObjectType: DetailsModel {
     
     public var isChatType: Bool { uniqueKey == .chat }
     
+    // MARK: - Layout proxy
     public var isListType: Bool { recommendedLayout.isList }
     
     public var isSetType: Bool { recommendedLayout.isSet }

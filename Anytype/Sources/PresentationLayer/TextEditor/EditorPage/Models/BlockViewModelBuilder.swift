@@ -98,7 +98,7 @@ final class BlockViewModelBuilder {
     // temporary hack to display open button for files
     private func createOpenFileButtonIfNeeded() -> EditorItem? {
         guard let details = document.details else { return nil }
-        guard DetailsLayout.fileAndMediaLayouts.contains(details.layoutValue) else { return nil }
+        guard details.layoutValue.isFileOrMedia else { return nil }
         
         let model = OpenFileBlockViewModel(
             info: .file(fileDetails: FileDetails(objectDetails: details)),

@@ -39,7 +39,7 @@ extension BundledRelationsValueProvider {
 
         if layoutValue.isNote {
             title = snippet
-        } else if DetailsLayout.fileAndMediaLayouts.contains(layoutValue) {
+        } else if layoutValue.isFileOrMedia {
             title = FileDetails.formattedFileName(name, fileExt: fileExt)
         } else {
             title = name
