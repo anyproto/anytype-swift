@@ -144,7 +144,7 @@
 "Alignment" = "Alignement";
 "Actions" = "Actions";
 "Relations" = "Relations";
-"History" = "History";
+"History" = "Historique";
 "Objects" = "Objets";
 "Pages" = "Pages";
 "Lists" = "Groupes";
@@ -1242,8 +1242,6 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "AllContent.Settings.Unlinked.Title" = "Uniquement non liés";
 "AllContent.Settings.Unlinked.Description" = "Objets non liés qui n'ont pas de lien direct ou de lien en retour avec d'autres objets dans le graphique.";
 "AllContent.Settings.ViewBin" = "Voir la corbeille";
-"AllContent.Empty.State.title" = "C'est vide ici.";
-"AllContent.Empty.State.subtitle" = "Créez vos premiers objets pour commencer.";
 "AllContent.Search.Empty.State.title" = "Aucun résultat trouvé.";
 "AllContent.Search.Empty.State.subtitle" = "Essayez de rechercher avec différents mots-clés.";
 
@@ -1255,3 +1253,9 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";
 "ReindexingWarningAlert.Description" = "Nous avons implémenté une nouvelle bibliothèque de recherche pour des résultats plus rapides et plus précis.\nLa réindexation peut prendre quelques minutes.";
 "ReindexingWarningAlert.Button" = "J’ai compris !";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "C'est vide ici.";
+"EmptyView.Default.subtitle" = "Créez vos premiers objets pour commencer.";
+"EmptyView.Bin.title" = "Votre corbeille est vide.";
+"EmptyView.Bin.subtitle" = "On dirait que vous êtes bien rangé et organisé !";
