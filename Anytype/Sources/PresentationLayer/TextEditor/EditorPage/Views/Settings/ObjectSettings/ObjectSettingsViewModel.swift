@@ -35,17 +35,20 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     private let settingsBuilder = ObjectSettingBuilder()
     
     private lazy var document: any BaseDocumentProtocol = {
-        openDocumentsProvider.document(objectId: objectId)
+        openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
     
     let objectId: String
+    let spaceId: String
     @Published var settings: [ObjectSetting] = []
     
     init(
         objectId: String,
+        spaceId: String,
         output: some ObjectSettingsModelOutput
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.output = output
     }
 

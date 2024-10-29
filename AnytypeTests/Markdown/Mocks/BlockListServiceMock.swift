@@ -65,7 +65,7 @@ final class BlockServiceMock: BlockServiceProtocol {
         assertionFailure()
     }
     
-    func lastBlockId(from objectId: String) async throws -> String {
+    func lastBlockId(from objectId: String, spaceId: String) async throws -> String {
         ""
     }
     

@@ -16,7 +16,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     var showPlusInNavbar: Bool {
         guard let spaces else { return false }
-        return spaces.count > 6
+        return spaces.count > 6 && createSpaceAvailable
     }
     
     @Injected(\.userDefaultsStorage)

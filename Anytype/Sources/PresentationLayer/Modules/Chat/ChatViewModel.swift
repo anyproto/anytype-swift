@@ -10,7 +10,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     // MARK: - DI
     
-    private let spaceId: String
+    let spaceId: String
     let objectId: String
     private let chatId: String
     private weak var output: (any ChatModuleOutput)?
@@ -64,7 +64,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         self.objectId = objectId
         self.chatId = chatId
         self.output = output
-        self.document = openDocumentProvider.document(objectId: objectId)
+        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
     }
     
     func onTapAddObjectToMessage() {
@@ -128,7 +128,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     }
     
     func subscribeOnMessages() async throws {
-        try await chatStorage.startSubscription()
+        try await chatStorage.startSubscriptionIfNeeded()
         for await messages in await chatStorage.messagesPublisher.values {
             self.messages = messages
             self.dataLoaded = true
@@ -179,7 +179,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     func updateMentionState() async throws {
         switch mentionSearchState {
         case let .search(searchText, _):
-            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, limitLayout: [.participant])
+            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [], limitLayout: [.participant])
         case .finish:
             mentionObjects = []
         }

@@ -11,5 +11,6 @@ struct ChatReadOnlyBottomView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
+        .background(Color.Background.primary)
     }
 }

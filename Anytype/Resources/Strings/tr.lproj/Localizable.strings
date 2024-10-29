@@ -152,6 +152,7 @@
 "Files" = "Dosyalar";
 "Media" = "Medya";
 "Lists" = "Listeler";
+"Dates" = "Tarihler";
 "Pinned" = "Sabitlendi";
 "Delete" = "Sil";
 "Export" = "Dışa Aktar";
@@ -833,6 +834,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Yakın zamanda düzenlendi";
 "Widgets.Library.RecentlyOpened.Name" = "Yakın zamanda açıldı";
 "Widgets.Library.RecentlyOpened.Description" = "Bu cihazda";
+"Widgets.Library.Chat.Name" = "Tartışmalar";
 "Widgets.AppUpdate" = "Anytype güncellenmeye hazır";
 "Widgets.Source.Library" = "Varsayılan setler";
 "Widgets.Source.Objects" = "Nesneleriniz";
@@ -1226,7 +1228,9 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tepki Ekle";
+"Message.Action.Reply" = "Yanıtla";
 "Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
+"Message.ChatTitle.Placeholder" = "Başlıksız Sohbet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Şuna göre sırala";
@@ -1243,6 +1247,10 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "AllContent.Empty.State.subtitle" = "Başlamak için ilk nesnelerinizi oluşturun.";
 "AllContent.Search.Empty.State.title" = "Hiçbir sonuç bulunamadı.";
 "AllContent.Search.Empty.State.subtitle" = "Farklı anahtar kelimelerle aramayı deneyin.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Sadece editörler mesaj gönderebilir. Erişim talep etmek için lütfen alan sahibiyle iletişime geçin.";
+"Chat.ReplyTo" = "Yanıtla: %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";

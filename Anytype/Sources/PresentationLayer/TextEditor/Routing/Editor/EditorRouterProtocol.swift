@@ -71,4 +71,6 @@ protocol EditorRouterProtocol:
     
     @MainActor
     func showTemplatesPicker()
+    
+    func showDatePicker(onDateSelection: @escaping (Date) -> Void)
 }

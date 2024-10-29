@@ -5,7 +5,7 @@ import Foundation
 @MainActor
 final class DateRelationCalendarViewModel: ObservableObject {
     
-    @Published var date: Date
+    var date: Date
     @Published var dismiss = false
     
     let config: RelationModuleConfiguration
@@ -18,21 +18,12 @@ final class DateRelationCalendarViewModel: ObservableObject {
     init(date: Date?, configuration: RelationModuleConfiguration) {
         self.date = date ?? Date()
         self.config = configuration
-        
-        if date.isNil {
-            dateChanged()
-        }
     }
     
-    func dateChanged() {
-        let date = date.trimTime() ??  date
+    func dateChanged(_ newDate: Date) {
+        let date = newDate.trimTime() ??  newDate
         let value = date.timeIntervalSince1970
         updateDateRelation(with: value)
-    }
-    
-    func onQuickOptionTap(_ option: DateRelationCalendarQuickOption) {
-        date =  option.date
-        dateChanged()
     }
     
     func clear() {

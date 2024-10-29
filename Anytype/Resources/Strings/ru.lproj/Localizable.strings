@@ -152,6 +152,7 @@
 "Files" = "Files";
 "Media" = "Медиа-файлы";
 "Lists" = "Списки";
+"Dates" = "Dates";
 "Pinned" = "Закреплённые";
 "Delete" = "Удалить";
 "Export" = "Экспорт";
@@ -832,6 +833,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";
 "Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
+"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "Anytype готов к обновлению";
 "Widgets.Source.Library" = "Стандартные наборы";
 "Widgets.Source.Objects" = "Ваши объекты";
@@ -1227,7 +1229,9 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Добавить реакцию";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Сортировать по";
@@ -1244,6 +1248,10 @@
 "AllContent.Empty.State.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
 "AllContent.Search.Empty.State.title" = "Результаты не найдены.";
 "AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";

@@ -7,7 +7,7 @@ protocol SettingsModuleOutput: AnyObject {
     func onFileStorageSelected()
     func onAboutSelected()
     func onAccountDataSelected()
-    func onChangeIconSelected(objectId: String)
+    func onChangeIconSelected(objectId: String, spaceId: String)
     func onSpacesSelected()
     func onMembershipSelected()
 }

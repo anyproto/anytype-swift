@@ -152,6 +152,7 @@
 "Files" = "Arquivos";
 "Media" = "Mídias";
 "Lists" = "Groups";
+"Dates" = "Dates";
 "Pinned" = "Fixado";
 "Delete" = "Excluir";
 "Export" = "Exportar";
@@ -832,6 +833,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Editado recentemente";
 "Widgets.Library.RecentlyOpened.Name" = "Aberto recentemente";
 "Widgets.Library.RecentlyOpened.Description" = "Neste dispositivo";
+"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "Anytype está pronto para ser atualizado";
 "Widgets.Source.Library" = "Conjuntos padrão";
 "Widgets.Source.Objects" = "Seus objetos";
@@ -1225,7 +1227,9 @@ forneça detalhes específicos das suas necessidades aqui.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Adicionar reação";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Escreva uma mensagem...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Ordenar por";
@@ -1242,6 +1246,10 @@ forneça detalhes específicos das suas necessidades aqui.";
 "AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

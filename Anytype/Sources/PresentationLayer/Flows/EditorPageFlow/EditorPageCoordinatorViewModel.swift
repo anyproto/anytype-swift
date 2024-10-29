@@ -68,8 +68,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         covertPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func onSelectCodeLanguage(objectId: String, blockId: String) {
-        codeLanguageData = CodeLanguageListData(documentId: objectId, blockId: blockId)
+    func onSelectCodeLanguage(objectId: String, spaceId: String, blockId: String) {
+        codeLanguageData = CodeLanguageListData(documentId: objectId, spaceId: spaceId, blockId: blockId)
     }
     
     func showLinkToObject(data: LinkToObjectSearchModuleData) {

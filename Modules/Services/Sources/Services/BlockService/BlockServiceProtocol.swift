@@ -18,7 +18,7 @@ public protocol BlockServiceProtocol: AnyObject, Sendable {
     func setLinkAppearance(objectId: String, blockIds: [String], appearance: BlockLink.Appearance) async throws
     func changeMarkup(objectId: String, blockIds: [String], markType: MarkupType) async throws
     
-    func lastBlockId(from objectId: String) async throws -> String
+    func lastBlockId(from objectId: String, spaceId: String) async throws -> String
     
     func convertChildrenToObjects(
         contextId: String,

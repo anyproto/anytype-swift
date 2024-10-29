@@ -9,6 +9,7 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     // MARK: - Private variables
     
     private let spaceViewId: String
+    private let spaceId: String
     
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
@@ -18,15 +19,16 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     private var openDocumentProvider: any OpenedDocumentsProviderProtocol
     
     private lazy var document: any BaseDocumentProtocol = {
-        openDocumentProvider.document(objectId: spaceViewId)
+        openDocumentProvider.document(objectId: spaceViewId, spaceId: spaceId)
     }()
     
     @Published private(set) var isRemoveEnabled: Bool = false
 
     // MARK: - Initializer
     
-    init(spaceViewId: String) {
+    init(spaceViewId: String, spaceId: String) {
         self.spaceViewId = spaceViewId
+        self.spaceId = spaceId
     }
     
     func startDocumentHandler() async {

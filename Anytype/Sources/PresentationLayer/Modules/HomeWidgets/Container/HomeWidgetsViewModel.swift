@@ -40,7 +40,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     ) {
         self.info = info
         self.output = output
-        self.widgetObject = documentService.document(objectId: info.widgetsId)
+        self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
     }
     
     func startWidgetObjectTask() async {

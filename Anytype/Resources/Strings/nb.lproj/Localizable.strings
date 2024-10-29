@@ -152,6 +152,7 @@
 "Files" = "Files";
 "Media" = "Media";
 "Lists" = "Groups";
+"Dates" = "Dates";
 "Pinned" = "Festet";
 "Delete" = "Slett";
 "Export" = "Eksport";
@@ -832,6 +833,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Nylig endret";
 "Widgets.Library.RecentlyOpened.Name" = "Nylig åpnet";
 "Widgets.Library.RecentlyOpened.Description" = "På denne enheten";
+"Widgets.Library.Chat.Name" = "Discussions";
 "Widgets.AppUpdate" = "Anytype er klar for oppdatering";
 "Widgets.Source.Library" = "Standardsett";
 "Widgets.Source.Objects" = "Dine objekter";
@@ -1224,7 +1226,9 @@ Please provide specific details of your needs here.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sorter etter";
@@ -1241,6 +1245,10 @@ Please provide specific details of your needs here.";
 "AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

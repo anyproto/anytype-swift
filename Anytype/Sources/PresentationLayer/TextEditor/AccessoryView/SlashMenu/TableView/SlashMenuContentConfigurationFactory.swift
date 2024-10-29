@@ -1,11 +1,13 @@
 import UIKit
+import SwiftUI
 
 final class SlashMenuContentConfigurationFactory {
     func dividerConfiguration(title: String) -> any UIContentConfiguration {
-        var configuration = UIListContentConfiguration.subtitleCell()
-        configuration.textProperties.font = .uxTitle2Regular
-        configuration.text = title
-        return configuration
+        UIHostingConfiguration {
+            SectionHeaderView(title: title)
+        }
+        .minSize(height: 0)
+        .margins(.vertical, 0)
     }
     
     func configuration(displayData: SlashMenuItemDisplayData) -> any UIContentConfiguration {

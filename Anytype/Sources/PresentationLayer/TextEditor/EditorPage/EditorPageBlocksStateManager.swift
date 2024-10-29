@@ -283,7 +283,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
                 
-                let targetDocument = documentsProvider.document(objectId: content.targetBlockID)
+                let targetDocument = documentsProvider.document(objectId: content.targetBlockID, spaceId: document.spaceId)
                 let filteredBlocksIds = filteredMovingBlocksWith(excludedObjectId: targetDocument.objectId)
             
                 Task { @MainActor [weak self] in
@@ -301,6 +301,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                                 self?.toastPresenter.showObjectCompositeAlert(
                                     prefixText: Loc.Editor.Toast.movedTo,
                                     objectId: targetDocument.objectId,
+                                    spaceId: targetDocument.spaceId,
                                     tapHandler: { [weak self] in
                                         self?.router.showEditorScreen(data: details.editorScreenData())
                                     }
@@ -308,7 +309,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                             }
                         )
                     } else if details.isCollection {
-                        try await moveObjectsToCollection(targetDocument.objectId, details: details)
+                        try await moveObjectsToCollection(targetDocument.objectId, spaceId: targetDocument.spaceId, details: details)
                     }
                 }
             } else {
@@ -377,7 +378,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         completion?(true)
     }
     
-    private func moveObjectsToCollection(_ collectionId: String, details: ObjectDetails) async throws {
+    private func moveObjectsToCollection(_ collectionId: String, spaceId: String, details: ObjectDetails) async throws {
         var objectBlocksIdsDict = [String: [String]]()
         movingBlocksIds.forEach { blockId in
             guard let targetLinkObjectId = document.targetLinkObjectIdFor(blockId: blockId),
@@ -406,6 +407,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         toastPresenter.showObjectCompositeAlert(
             prefixText: Loc.Editor.Toast.movedTo,
             objectId: collectionId,
+            spaceId: spaceId,
             tapHandler: { [weak self] in
                 self?.router.showEditorScreen(data: details.editorScreenData())
             }
@@ -446,6 +448,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Editor.Toast.movedTo,
                     objectId: details.id,
+                    spaceId: details.spaceId,
                     tapHandler: { [weak self] in
                         self?.router.showEditorScreen(data: details.editorScreenData())
                     }

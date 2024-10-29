@@ -221,11 +221,14 @@ public struct Anytype_Model_ObjectStoreChecksums {
 
   public var areOldFilesRemoved: Bool = false
 
+  /// DEPRECATED
   public var areDeletedObjectsReindexed: Bool = false
 
   public var linksErase: Int32 = 0
 
   public var marketplaceForceReindexCounter: Int32 = 0
+
+  public var reindexDeletedObjects: Int32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -587,6 +590,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     13: .same(proto: "areDeletedObjectsReindexed"),
     14: .same(proto: "linksErase"),
     15: .same(proto: "marketplaceForceReindexCounter"),
+    16: .same(proto: "reindexDeletedObjects"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -610,6 +614,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       case 13: try { try decoder.decodeSingularBoolField(value: &self.areDeletedObjectsReindexed) }()
       case 14: try { try decoder.decodeSingularInt32Field(value: &self.linksErase) }()
       case 15: try { try decoder.decodeSingularInt32Field(value: &self.marketplaceForceReindexCounter) }()
+      case 16: try { try decoder.decodeSingularInt32Field(value: &self.reindexDeletedObjects) }()
       default: break
       }
     }
@@ -661,6 +666,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if self.marketplaceForceReindexCounter != 0 {
       try visitor.visitSingularInt32Field(value: self.marketplaceForceReindexCounter, fieldNumber: 15)
     }
+    if self.reindexDeletedObjects != 0 {
+      try visitor.visitSingularInt32Field(value: self.reindexDeletedObjects, fieldNumber: 16)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -680,6 +688,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if lhs.areDeletedObjectsReindexed != rhs.areDeletedObjectsReindexed {return false}
     if lhs.linksErase != rhs.linksErase {return false}
     if lhs.marketplaceForceReindexCounter != rhs.marketplaceForceReindexCounter {return false}
+    if lhs.reindexDeletedObjects != rhs.reindexDeletedObjects {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

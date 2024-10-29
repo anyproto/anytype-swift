@@ -13,7 +13,7 @@ final class WidgetTypeChangeViewModel: ObservableObject {
     private let data: WidgetTypeChangeData
     
     private lazy var widgetObject: any BaseDocumentProtocol = {
-        documentService.document(objectId: data.widgetObjectId)
+        documentService.document(objectId: data.widgetObjectId, spaceId: data.widgetSpaceId)
     }()
     
     @Published var rows: [WidgetTypeRowView.Model] = []

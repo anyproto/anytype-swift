@@ -2,37 +2,46 @@ import Foundation
 import Services
 
 protocol DocumentsProviderProtocol {
-    func document(objectId: String, mode: DocumentMode) -> any BaseDocumentProtocol
+    func document(
+        objectId: String,
+        spaceId: String,
+        mode: DocumentMode
+    ) -> any BaseDocumentProtocol
+    
     func setDocument(
         objectId: String,
+        spaceId: String,
         mode: DocumentMode,
         inlineParameters: EditorInlineSetObject?
     ) -> any SetDocumentProtocol
 }
 
 extension DocumentsProviderProtocol {
-    func document(objectId: String) -> any BaseDocumentProtocol {
-        document(objectId: objectId, mode: .handling)
+    func document(objectId: String, spaceId: String) -> any BaseDocumentProtocol {
+        document(objectId: objectId, spaceId: spaceId, mode: .handling)
     }
     
     func setDocument(
         objectId: String,
+        spaceId: String,
         mode: DocumentMode
     ) -> any SetDocumentProtocol {
-        setDocument(objectId: objectId, mode: mode, inlineParameters: nil)
+        setDocument(objectId: objectId, spaceId: spaceId, mode: mode, inlineParameters: nil)
     }
     
     func setDocument(
         objectId: String,
+        spaceId: String,
         inlineParameters: EditorInlineSetObject?
     ) -> any SetDocumentProtocol {
-        setDocument(objectId: objectId, mode: .handling, inlineParameters: inlineParameters)
+        setDocument(objectId: objectId, spaceId: spaceId, mode: .handling, inlineParameters: inlineParameters)
     }
     
     func setDocument(
-        objectId: String
+        objectId: String,
+        spaceId: String
     ) -> any SetDocumentProtocol {
-        setDocument(objectId: objectId, mode: .handling, inlineParameters: nil)
+        setDocument(objectId: objectId, spaceId: spaceId, mode: .handling, inlineParameters: nil)
     }
 }
 
@@ -48,16 +57,17 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
-    func document(objectId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
-        internalDocument(objectId: objectId, mode: mode)
+    func document(objectId: String, spaceId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
+        internalDocument(objectId: objectId, spaceId: spaceId, mode: mode)
     }
     
     func setDocument(
         objectId: String,
+        spaceId: String,
         mode: DocumentMode,
         inlineParameters: EditorInlineSetObject?
     ) -> any SetDocumentProtocol {
-        let document = internalDocument(objectId: objectId, mode: mode)
+        let document = internalDocument(objectId: objectId, spaceId: spaceId, mode: mode)
         
         return SetDocument(
             document: document,
@@ -71,9 +81,9 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     
     // MARK: - Private
     
-    private func internalDocument(objectId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
+    private func internalDocument(objectId: String, spaceId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
         if !mode.isHandling {
-            let document = createBaseDocument(objectId: objectId, mode: mode)
+            let document = createBaseDocument(objectId: objectId, spaceId: spaceId, mode: mode)
             return document
         }
         
@@ -81,13 +91,13 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             return value
         }
         
-        let document = createBaseDocument(objectId: objectId, mode: mode)
+        let document = createBaseDocument(objectId: objectId, spaceId: spaceId, mode: mode)
         documentCache.setObject(document, forKey: objectId as NSString)
         
         return document
     }
     
-    private func createBaseDocument(objectId: String, mode: DocumentMode) -> some BaseDocumentProtocol {
+    private func createBaseDocument(objectId: String, spaceId: String, mode: DocumentMode) -> some BaseDocumentProtocol {
         let infoContainer = InfoContainer()
         let relationLinksStorage = RelationLinksStorage()
         let restrictionsContainer = ObjectRestrictionsContainer()
@@ -107,6 +117,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
         )
         return BaseDocument(
             objectId: objectId,
+            spaceId: spaceId,
             mode: mode,
             objectLifecycleService: objectLifecycleService,
             relationDetailsStorage: relationDetailsStorage, 

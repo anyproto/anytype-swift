@@ -13,6 +13,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - Local state
     let objectId: String
+    let spaceId: String
     let mode: DocumentMode
     
     @Atomic
@@ -64,6 +65,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
     init(
         objectId: String,
+        spaceId: String,
         mode: DocumentMode,
         objectLifecycleService: some ObjectLifecycleServiceProtocol,
         relationDetailsStorage: some RelationDetailsStorageProtocol,
@@ -77,6 +79,7 @@ final class BaseDocument: BaseDocumentProtocol {
         detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.mode = mode
         self.eventsListener = eventsListener
         self.viewModelSetter = viewModelSetter
@@ -94,23 +97,19 @@ final class BaseDocument: BaseDocumentProtocol {
     
     deinit {
         guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
-        Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
-            try await objectLifecycleService.close(contextId: objectId)
+        Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId, spaceId] in
+            try await objectLifecycleService.close(contextId: objectId, spaceId: spaceId)
         }
     }
     
     // MARK: - BaseDocumentProtocol
-    
-    var spaceId: String {
-        details?.spaceId ?? ""
-    }
     
     @MainActor
     func open() async throws {
         switch mode {
         case .handling:
             guard !isOpened else { return }
-            let model = try await objectLifecycleService.open(contextId: objectId)
+            let model = try await objectLifecycleService.open(contextId: objectId, spaceId: spaceId)
             setupView(model)
         case .preview:
             try await updateDocumentPreview()
@@ -134,7 +133,7 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     func close() async throws {
         guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
-        try await objectLifecycleService.close(contextId: objectId)
+        try await objectLifecycleService.close(contextId: objectId, spaceId: spaceId)
         isOpened = false
     }
     
@@ -166,7 +165,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     private func updateDocumentPreview() async throws {
-        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
+        let model = try await objectLifecycleService.openForPreview(contextId: objectId, spaceId: spaceId)
         setupView(model)
     }
     

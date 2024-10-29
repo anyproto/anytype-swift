@@ -14,17 +14,19 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     
     private let objectId: String
+    private let spaceId: String
     
     private lazy var document: any BaseDocumentProtocol = {
-        openDocumentsProvider.document(objectId: objectId)
+        openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
     
     @Published var selectedLayout: DetailsLayout = .basic
     
     // MARK: - Initializer
     
-    init(objectId: String) {
+    init(objectId: String, spaceId: String) {
         self.objectId = objectId
+        self.spaceId = spaceId
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {

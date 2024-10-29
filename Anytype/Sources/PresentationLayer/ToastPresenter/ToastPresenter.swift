@@ -13,9 +13,15 @@ protocol ToastPresenterProtocol: AnyObject {
         _ firstObjectName: String,
         middleAction: String,
         secondObjectId: String,
+        spaceId: String,
         tapHandler: @escaping () -> Void
     )
-    func showObjectCompositeAlert(prefixText: String, objectId: String, tapHandler: @escaping () -> Void)
+    func showObjectCompositeAlert(
+        prefixText: String,
+        objectId: String,
+        spaceId: String,
+        tapHandler: @escaping () -> Void
+    )
 }
 
 final class ToastPresenter: ToastPresenterProtocol {
@@ -63,6 +69,7 @@ final class ToastPresenter: ToastPresenterProtocol {
         _ firstObjectName: String,
         middleAction: String,
         secondObjectId: String,
+        spaceId: String,
         tapHandler: @escaping () -> Void
     ) {
         let objectAttributedString = NSMutableAttributedString(
@@ -75,14 +82,21 @@ final class ToastPresenter: ToastPresenterProtocol {
         showObjectCompositeAlert(
             p1: objectAttributedString,
             objectId: secondObjectId,
+            spaceId: spaceId,
             tapHandler: tapHandler
         )
     }
     
-    func showObjectCompositeAlert(prefixText: String, objectId: String, tapHandler: @escaping () -> Void) {
+    func showObjectCompositeAlert(
+        prefixText: String,
+        objectId: String,
+        spaceId: String,
+        tapHandler: @escaping () -> Void
+    ) {
         showObjectCompositeAlert(
             p1: .init(string: prefixText, attributes: ToastView.defaultAttributes),
             objectId: objectId,
+            spaceId: spaceId,
             tapHandler: tapHandler
         )
     }
@@ -90,10 +104,11 @@ final class ToastPresenter: ToastPresenterProtocol {
     private func showObjectCompositeAlert(
         p1: NSAttributedString,
         objectId: String,
+        spaceId: String,
         tapHandler: @escaping () -> Void
     ) {
         Task { @MainActor in
-            guard let details = await retrieveObjectDetails(objectId: objectId) else {
+            guard let details = await retrieveObjectDetails(objectId: objectId, spaceId: spaceId) else {
                 return
             }
             
@@ -126,8 +141,8 @@ final class ToastPresenter: ToastPresenterProtocol {
         )
     }
     
-    private func retrieveObjectDetails(objectId: String) async -> ObjectDetails? {
-        let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
+    private func retrieveObjectDetails(objectId: String, spaceId: String) async -> ObjectDetails? {
+        let targetDocument = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
         try? await targetDocument.open()
         
         return targetDocument.details
