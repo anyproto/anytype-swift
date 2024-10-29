@@ -43,6 +43,8 @@ struct EditorCoordinatorView: View {
                 .environment(\.chatColorTheme, .editor)
         case let .allContent(spaceId):
             AllContentCoordinatorView(spaceId: spaceId, output: model)
+        case let .date(data):
+            DateCoordinatorView(data: data)
         }
     }
 }
