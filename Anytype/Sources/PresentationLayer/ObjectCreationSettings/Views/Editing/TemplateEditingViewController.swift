@@ -72,7 +72,7 @@ final class TemplateEditingViewController: UIViewController {
         
         settingsButton.setImage(UIImage(asset: .X24.more), for: .normal)
         settingsButton.addTarget(self, action: #selector(didTapSettingButton), for: .touchUpInside)
-        settingsButton.tintColor = .Button.active
+        settingsButton.tintColor = .Control.active
     }
     
     private func setupLayout() {

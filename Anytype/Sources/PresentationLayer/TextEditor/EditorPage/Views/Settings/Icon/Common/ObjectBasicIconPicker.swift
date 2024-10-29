@@ -96,7 +96,7 @@ struct ObjectBasicIconPicker: View {
             
         } label: {
             AnytypeText(tab.title, style: .uxBodyRegular)
-                .foregroundColor(selectedTab == tab ? Color.Button.button : Color.Button.active)
+                .foregroundColor(selectedTab == tab ? Color.Control.button : Color.Control.active)
         }
         .frame(maxWidth: .infinity)
     }
@@ -108,7 +108,7 @@ struct ObjectBasicIconPicker: View {
             }
         } label: {
             AnytypeText(Loc.random, style: .uxBodyRegular)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
         }
         .frame(maxWidth: .infinity)
     }

@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 struct ColorInfo: Hashable {
     let name: String
@@ -18,14 +19,19 @@ struct ColorAssetInfo: Hashable {
 {% macro colorsBlock assets prefix %}
     {% for asset in assets %}
     {% if asset.type == "color" %}
-        ColorInfo(name: "{{asset.name}}", color: {{prefix}}.{{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}){{ ", " if not forloop.last }}
+        ColorInfo(name: "{{asset.name}}", color: {{prefix}}.{{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}})
+    {% elif asset.items %}
+        {% set assetName %}{{prefix}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}{% endset %}
+        {% call colorsBlock asset.items assetName %}
     {% endif %}
     {% endfor %}
 {% endmacro %}
 {% macro catalogsBlock assets prefix %}
     {% for asset in assets %}
     {% if asset.isNamespaced == "true" %}
-        {{prefix}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}.collectionInfo{{ ", " if not forloop.last }}
+        {{prefix}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}.collectionInfo
+    {% elif asset.items %}
+        {% call catalogsBlock asset.items prefix %}
     {% endif %}
     {% endfor %}
 {% endmacro %}
@@ -36,13 +42,15 @@ struct ColorAssetInfo: Hashable {
 extension {{assetName}} {
     static let collectionInfo = ColorCollectionInfo(
         name: "{{asset.name}}",
-        colors: [
+        colors: .builder {
             {% filter indent:4," ",true %}
             {% call colorsBlock asset.items assetName %}
             {% endfilter %}
-        ]
+        }
     )
 }
+    {% elif asset.items %}
+        {% call colorExtensionBlock asset.items prefix %}
     {% endif %}
     {% endfor %}
 {% endmacro %}
@@ -51,11 +59,11 @@ extension UIColor {
         {% for catalog in catalogs %}
         ColorAssetInfo(
             name: "{{catalog.name}}",
-            collections: [
+            collections: .builder {
             {% filter indent:8," ",true %}
             {% call catalogsBlock catalog.assets "UIColor" %}
             {% endfilter %}
-            ]
+            }
         ){{ ", " if not forloop.last }}
         {% endfor %}
     ]

@@ -38,7 +38,7 @@ struct SetHeaderSettingsView: View {
             model.onSettingsTap()
         }) {
             Image(asset: .X24.customizeView)
-                .foregroundColor(model.isActiveHeader ? .Button.active : .Button.inactive)
+                .foregroundColor(model.isActiveHeader ? .Control.active : .Control.inactive)
         }
         .disabled(!model.isActiveHeader)
     }

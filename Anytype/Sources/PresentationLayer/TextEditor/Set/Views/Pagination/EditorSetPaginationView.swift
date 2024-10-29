@@ -44,7 +44,7 @@ struct EditorSetPaginationView: View {
                 "\(counter)",
                 style: .bodyRegular
             )
-                .foregroundColor(paginationData.selectedPage == counter ? .Button.button : .Button.inactive)
+                .foregroundColor(paginationData.selectedPage == counter ? .Control.button : .Control.inactive)
                 .frame(width: 24, height: 24)
         }
     }
@@ -54,7 +54,7 @@ struct EditorSetPaginationView: View {
             if paginationData.canGoBackward {
                 Button(action: { model.goBackwardRow() }) {
                     Image(asset: .X18.Disclosure.left)
-                        .foregroundColor(.Button.active)
+                        .foregroundColor(.Control.active)
                 }
             } else {
                 EmptyView()
@@ -67,7 +67,7 @@ struct EditorSetPaginationView: View {
             if paginationData.canGoForward {
                 Button(action: { model.goForwardRow() }) {
                     Image(asset: .X18.Disclosure.right)
-                        .foregroundColor(.Button.active)
+                        .foregroundColor(.Control.active)
                 }
             } else {
                 EmptyView()

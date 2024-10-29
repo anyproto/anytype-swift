@@ -37,7 +37,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
         .background(progressView)
-        .background(Color.Navigation.background)
+        .background(Color.Background.navigationPanel)
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .overlay {
@@ -115,14 +115,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
         } label: {
             Image(asset: .X32.Arrow.left)
-                .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
+                .foregroundColor(.Control.navPanelIcon)
         }
         .transition(.identity)
-        .disabled(navigationButtonDisabled)
-    }
-    
-    private var navigationButtonDisabled: Bool {
-        homeMode && !homePath.hasForwardPath()
     }
     
     private var homeMode: Bool {

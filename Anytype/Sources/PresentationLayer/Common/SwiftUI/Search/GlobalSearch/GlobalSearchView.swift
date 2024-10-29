@@ -96,7 +96,7 @@ struct GlobalSearchView: View {
                         }
                         model.showRelatedObjects(data)
                     }
-                    .tint(Color.Button.active)
+                    .tint(Color.Control.active)
                 }
             }
     }

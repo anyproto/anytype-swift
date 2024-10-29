@@ -7,7 +7,7 @@ struct NewRelationFormatSectionView: View {
     var body: some View {
         HStack(spacing: 5) {
             Image(asset: model.icon)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
             AnytypeText(model.title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
                 .lineLimit(1)

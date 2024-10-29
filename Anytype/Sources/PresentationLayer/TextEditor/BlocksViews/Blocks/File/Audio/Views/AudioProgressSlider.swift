@@ -25,8 +25,8 @@ final class AudioProgressSlider: UISlider {
 
     func setupView() {
         let circleImage = UIImage(systemName: "circle.fill")?.scaled(to: AudioProgressSlider.thumbSize)
-            .withTintColor(.Button.button, renderingMode: .alwaysOriginal)
-        minimumTrackTintColor = .Button.button
+            .withTintColor(.Control.button, renderingMode: .alwaysOriginal)
+        minimumTrackTintColor = .Control.button
         setThumbImage(circleImage, for: .normal)
         setThumbImage(circleImage, for: .highlighted)
     }

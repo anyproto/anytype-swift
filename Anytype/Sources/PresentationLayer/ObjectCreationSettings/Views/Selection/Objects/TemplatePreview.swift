@@ -54,7 +54,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                 }
             case .addTemplate:
                 Image(asset: .X32.plus)
-                    .tint(.Button.active)
+                    .tint(.Control.active)
             }
         }
         .frame(width: 120, height: 224)

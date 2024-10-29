@@ -58,6 +58,6 @@ struct HomeTabBarView: View {
 
             Spacer.fixedWidth(26)
         }
-        .background(Color.Widget.card)
+        .background(Color.Background.widget)
     }
 }

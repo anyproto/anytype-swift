@@ -16,7 +16,7 @@ struct SyncStatusData {
     
     var icon: SyncStatusIconType {
         guard isNotLocalOnly else {
-            return .image(makeIcon(color: .Button.active))
+            return .image(makeIcon(color: .Control.active))
         }
         
         switch status {
@@ -32,7 +32,7 @@ struct SyncStatusData {
         case .synced:
             return .image(makeIcon(color: .System.green))
         case .offline, .UNRECOGNIZED:
-            return .image(makeIcon(color: .Button.active))
+            return .image(makeIcon(color: .Control.active))
         }
     }
     

@@ -70,9 +70,9 @@ struct SpaceShareParticipantView: View {
                 .foregroundColor(.Text.secondary)
         case .pending(let message):
             AnytypeText(message, style: .relation3Regular)
-                .foregroundColor(.Text.labelInversion)
+                .foregroundColor(.Text.inversion)
                 .padding(.horizontal, 3)
-                .background(Color.Button.button)
+                .background(Color.Control.button)
                 .cornerRadius(3, style: .continuous)
         case .none:
             EmptyView()

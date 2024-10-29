@@ -48,7 +48,7 @@ final class EditorNavigationBarHelper {
         // Done button
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = Loc.done
-        buttonConfig.baseForegroundColor = .Button.accent
+        buttonConfig.baseForegroundColor = .Control.accent
         self.doneButton = UIButton(configuration: buttonConfig)
         self.doneButton.addAction(
             UIAction(
@@ -70,7 +70,7 @@ final class EditorNavigationBarHelper {
         
         // Select all button
         var selectAllConfig = UIButton.Configuration.plain()
-        selectAllConfig.baseForegroundColor = .Button.active
+        selectAllConfig.baseForegroundColor = .Control.active
         self.selectAllButton = UIButton(configuration: selectAllConfig)
         self.selectAllButton.addAction(
             UIAction(

@@ -29,7 +29,7 @@ struct SpaceWidgetView: View {
         }
         .padding(.horizontal, 16)
         .frame(height: 68)
-        .background(Color.Widget.card)
+        .background(Color.Background.widget)
         .cornerRadius(16, style: .continuous)
         .onTapGesture {
             model.onTapWidget()

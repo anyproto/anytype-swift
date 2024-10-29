@@ -61,7 +61,7 @@ struct WidgetObjectListRowView: View {
             Image(asset: .PageBlock.Checkbox.marked)
         } else {
             Image(asset: .PageBlock.Checkbox.empty)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
         }
     }
     

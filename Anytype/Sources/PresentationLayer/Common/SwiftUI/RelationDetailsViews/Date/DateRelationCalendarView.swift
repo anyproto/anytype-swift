@@ -54,7 +54,7 @@ struct DateRelationCalendarView: View {
             viewModel.clear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
         }
     }
 }

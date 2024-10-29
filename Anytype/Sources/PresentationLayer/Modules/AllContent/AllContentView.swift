@@ -115,7 +115,7 @@ struct AllContentView: View {
                             type.title,
                             style: .uxTitle2Medium
                         )
-                        .foregroundColor(model.state.type == type ? Color.Button.button : Color.Button.active)
+                        .foregroundColor(model.state.type == type ? Color.Control.button : Color.Control.active)
                     }
                 }
             }

@@ -50,12 +50,12 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         switch configuration.state {
         case .default:
             activityIndicator.stopAnimation()
-            label.textColor = .Button.active
-            icon.tintColor = .Button.active
+            label.textColor = .Control.active
+            icon.tintColor = .Control.active
         case .uploading:
             activityIndicator.startAnimation()
-            label.textColor = .Button.active
-            icon.tintColor = .Button.active
+            label.textColor = .Control.active
+            icon.tintColor = .Control.active
         case .error:
             activityIndicator.stopAnimation()
             label.textColor = .System.red
@@ -75,7 +75,7 @@ class BlocksFileEmptyView: UIView, BlockContentView {
     private let label: UILabel = {
         let label = UILabel()
         label.font = .bodyRegular
-        label.textColor = .Button.active
+        label.textColor = .Control.active
         return label
     }()
     
