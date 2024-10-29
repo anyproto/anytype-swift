@@ -110,7 +110,7 @@ struct ObjectCoverPicker: View {
                 tab.title,
                 style: .uxBodyRegular
             )
-            .foregroundColor(index == tab.rawValue ? Color.Button.button : Color.Button.active)
+            .foregroundColor(index == tab.rawValue ? Color.Control.button : Color.Control.active)
         }
         .frame(maxWidth: .infinity)
     }

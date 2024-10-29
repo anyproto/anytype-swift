@@ -186,14 +186,14 @@ extension UIColor {
       internal static let widget = UIColor(asset: Asset.Background.widget)
     }
     
-    // MARK: - Button
-    enum Button {
-      internal static let accent = UIColor(asset: Asset.Button.accent)
-      internal static let active = UIColor(asset: Asset.Button.active)
-      internal static let button = UIColor(asset: Asset.Button.button)
-      internal static let inactive = UIColor(asset: Asset.Button.inactive)
-      internal static let navPanelIcon = UIColor(asset: Asset.Button.navPanelIcon)
-      internal static let white = UIColor(asset: Asset.Button.white)
+    // MARK: - Control
+    enum Control {
+      internal static let accent = UIColor(asset: Asset.Control.accent)
+      internal static let active = UIColor(asset: Asset.Control.active)
+      internal static let button = UIColor(asset: Asset.Control.button)
+      internal static let inactive = UIColor(asset: Asset.Control.inactive)
+      internal static let navPanelIcon = UIColor(asset: Asset.Control.navPanelIcon)
+      internal static let white = UIColor(asset: Asset.Control.white)
     }
     
     // MARK: - Shape

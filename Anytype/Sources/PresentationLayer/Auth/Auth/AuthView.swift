@@ -77,7 +77,7 @@ struct AuthView: View {
                 model.showSettings.toggle()
             } label: {
                 Image(asset: .NavigationBase.settings)
-                    .foregroundColor(.Button.active)
+                    .foregroundColor(.Control.active)
             }
         }
         .sheet(isPresented: $model.showSettings) {

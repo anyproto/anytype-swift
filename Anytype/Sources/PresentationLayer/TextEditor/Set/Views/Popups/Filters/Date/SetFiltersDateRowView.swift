@@ -10,7 +10,7 @@ struct SetFiltersDateRowView: View {
             if configuration.isSelected {
                 valueView
                 Image(asset: .X24.tick)
-                    .foregroundColor(.Button.button)
+                    .foregroundColor(.Control.button)
             }
         }
     }

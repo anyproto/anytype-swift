@@ -47,7 +47,7 @@ extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Text.inversion,
-                    backgroundColor: .Button.button
+                    backgroundColor: .Control.button
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))
@@ -236,7 +236,7 @@ extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Text.inversion,
-                    backgroundColor: .Button.button
+                    backgroundColor: .Control.button
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))

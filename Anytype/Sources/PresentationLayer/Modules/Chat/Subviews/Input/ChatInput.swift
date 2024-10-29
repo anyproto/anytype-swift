@@ -35,7 +35,7 @@ struct ChatInput: View {
                 }
             } label: {
                 Image(asset: .X32.plus)
-                    .foregroundColor(Color.Button.active)
+                    .foregroundColor(Color.Control.active)
             }
             .frame(height: 56)
             ZStack(alignment: .topLeading) {
@@ -61,7 +61,7 @@ struct ChatInput: View {
                             onTapSend()
                         } label: {
                             Image(asset: .X32.sendMessage)
-                                .foregroundColor(Color.Button.button)
+                                .foregroundColor(Color.Control.button)
                         }
                     }
                 }

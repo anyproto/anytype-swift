@@ -40,7 +40,7 @@ struct AllContentSettingsMenu: View {
         Picker("", selection: $state.mode) {
             ForEach(AllContentMode.allCases, id: \.self) { mode in
                 AnytypeText(mode.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Button.button)
+                    .foregroundColor(.Control.button)
             }
         }
     }
@@ -52,7 +52,7 @@ struct AllContentSettingsMenu: View {
             sortTypeView
         } label: {
             AnytypeText(Loc.AllContent.Settings.Sort.title, style: .uxTitle2Medium)
-                .foregroundColor(.Button.button)
+                .foregroundColor(.Control.button)
             Text(state.sort.relation.title)
         }
         .menuActionDisableDismissBehavior()
@@ -62,7 +62,7 @@ struct AllContentSettingsMenu: View {
         Picker("", selection: $sortRelation) {
             ForEach(AllContentSort.Relation.allCases, id: \.self) { sortRelation in
                 AnytypeText(sortRelation.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Button.button)
+                    .foregroundColor(.Control.button)
             }
         }
     }
@@ -71,7 +71,7 @@ struct AllContentSettingsMenu: View {
         Picker("", selection: $sortType) {
             ForEach(state.sort.relation.availableSortTypes, id: \.self) { type in
                 AnytypeText(state.sort.relation.titleFor(sortType: type), style: .uxTitle2Medium)
-                    .foregroundColor(.Button.button)
+                    .foregroundColor(.Control.button)
             }
         }
     }

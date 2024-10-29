@@ -4,7 +4,7 @@ struct ChatReadOnlyBottomView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             IconView(asset: .X18.lock)
-                .foregroundStyle(Color.Button.active)
+                .foregroundStyle(Color.Control.active)
             Text(Loc.Chat.readOnly)
                 .anytypeStyle(.caption1Regular)
                 .foregroundStyle(Color.Text.secondary)

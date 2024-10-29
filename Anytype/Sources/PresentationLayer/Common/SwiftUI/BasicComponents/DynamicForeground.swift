@@ -17,7 +17,7 @@ private struct DynamicForegroundStyle: ShapeStyle {
 
 extension View {
     func buttonDynamicForegroundStyle() -> some View {
-        foregroundStyle(DynamicForegroundStyle(enabledColor: .Button.active, disabledColor: .Button.inactive))
+        foregroundStyle(DynamicForegroundStyle(enabledColor: .Control.active, disabledColor: .Control.inactive))
     }
     
     func dynamicForegroundStyle(color: Color, disabledColor: Color) -> some View {

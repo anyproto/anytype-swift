@@ -115,7 +115,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
         } label: {
             Image(asset: .X32.Arrow.left)
-                .foregroundColor(.Button.navPanelIcon)
+                .foregroundColor(.Control.navPanelIcon)
         }
         .transition(.identity)
     }

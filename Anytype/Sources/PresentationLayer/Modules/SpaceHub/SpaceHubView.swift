@@ -85,7 +85,7 @@ struct SpaceHubView: View {
                 },
                 label: {
                     Image(asset: .NavigationBase.settings)
-                        .foregroundStyle(Color.Button.active)
+                        .foregroundStyle(Color.Control.active)
                         .frame(width: 22, height: 22)
                         .padding(.vertical, 10)
                         .padding(.horizontal, 26)
@@ -100,7 +100,7 @@ struct SpaceHubView: View {
                     },
                     label: {
                         Image(asset: .X32.plus)
-                            .foregroundStyle(Color.Button.active)
+                            .foregroundStyle(Color.Control.active)
                             .padding(.vertical, 12)
                             .padding(.horizontal, 14)
                     }

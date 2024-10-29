@@ -44,7 +44,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
         HStack(spacing: 0) {
             if let iconAsset = item.iconAsset {
                 Image(asset: iconAsset)
-                    .foregroundColor(.Button.active)
+                    .foregroundColor(.Control.active)
                 Spacer.fixedWidth(12)
             }
 
@@ -60,7 +60,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             Spacer()
 
             if item.isSelected {
-                Image(asset: .X24.tick).foregroundColor(.Button.button)
+                Image(asset: .X24.tick).foregroundColor(.Control.button)
             }
         }
         .frame(height: 52)

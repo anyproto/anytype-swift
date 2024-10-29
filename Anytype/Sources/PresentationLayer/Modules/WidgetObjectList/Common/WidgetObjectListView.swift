@@ -87,13 +87,13 @@ struct WidgetObjectListView: View {
             switch model.editMode {
             case .normal:
                 EditButton()
-                    .foregroundColor(Color.Button.active)
+                    .foregroundColor(Color.Control.active)
             case .editOnly:
                 Button {
                     model.onSelectAll()
                 } label: {
                     AnytypeText(model.selectButtonText, style: .uxBodyRegular)
-                        .foregroundColor(.Button.active)
+                        .foregroundColor(.Control.active)
                 }
             }
         }

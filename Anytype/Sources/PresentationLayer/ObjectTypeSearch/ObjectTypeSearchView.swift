@@ -52,7 +52,7 @@ struct ObjectTypeSearchView: View {
                     viewModel.createObjectFromClipboard()
                 } label: {
                     HStack(spacing: 6) {
-                        Image(asset: .X24.clipboard).foregroundColor(.Button.active)
+                        Image(asset: .X24.clipboard).foregroundColor(.Control.active)
                         AnytypeText(Loc.createObjectFromClipboard, style: .caption1Medium)
                             .foregroundColor(.Text.secondary)
                         Spacer()

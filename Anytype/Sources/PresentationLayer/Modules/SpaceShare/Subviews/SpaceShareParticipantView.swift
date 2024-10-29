@@ -72,7 +72,7 @@ struct SpaceShareParticipantView: View {
             AnytypeText(message, style: .relation3Regular)
                 .foregroundColor(.Text.inversion)
                 .padding(.horizontal, 3)
-                .background(Color.Button.button)
+                .background(Color.Control.button)
                 .cornerRadius(3, style: .continuous)
         case .none:
             EmptyView()

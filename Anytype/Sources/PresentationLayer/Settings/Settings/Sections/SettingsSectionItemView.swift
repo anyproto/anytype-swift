@@ -64,7 +64,7 @@ struct SettingsSectionItemView: View {
                         .lineLimit(1)
                     Image(asset: .arrowForward)
                         .renderingMode(.template)
-                        .dynamicForegroundStyle(color: .Text.tertiary, disabledColor: .Button.inactive)
+                        .dynamicForegroundStyle(color: .Text.tertiary, disabledColor: .Control.inactive)
                 }
             case .button(let text):
                 AnytypeText(text, style: .caption1Medium)
@@ -72,7 +72,7 @@ struct SettingsSectionItemView: View {
                     .lineLimit(1)
                     .padding(.horizontal, 11)
                     .padding(.vertical, 5)
-                    .background(Color.Button.button)
+                    .background(Color.Control.button)
                     .cornerRadius(6, style: .continuous)
             case .none:
                 EmptyView()

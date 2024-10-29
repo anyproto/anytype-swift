@@ -169,13 +169,13 @@ internal enum Asset {
     static let secondary = ColorAsset(name: "Background/secondary")
     static let widget = ColorAsset(name: "Background/widget")
   }
-  internal enum Button {
-    static let accent = ColorAsset(name: "Button/accent")
-    static let active = ColorAsset(name: "Button/active")
-    static let button = ColorAsset(name: "Button/button")
-    static let inactive = ColorAsset(name: "Button/inactive")
-    static let navPanelIcon = ColorAsset(name: "Button/navPanelIcon")
-    static let white = ColorAsset(name: "Button/white")
+  internal enum Control {
+    static let accent = ColorAsset(name: "Control/accent")
+    static let active = ColorAsset(name: "Control/active")
+    static let button = ColorAsset(name: "Control/button")
+    static let inactive = ColorAsset(name: "Control/inactive")
+    static let navPanelIcon = ColorAsset(name: "Control/navPanelIcon")
+    static let white = ColorAsset(name: "Control/white")
   }
   internal enum Shape {
     static let primary = ColorAsset(name: "Shape/primary")

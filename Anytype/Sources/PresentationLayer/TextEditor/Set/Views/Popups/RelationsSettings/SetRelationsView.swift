@@ -34,7 +34,7 @@ struct SetRelationsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Button.active)
+                    .foregroundColor(Color.Control.active)
                     .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .principal) {
@@ -46,7 +46,7 @@ struct SetRelationsView: View {
                     withAnimation { editMode = .inactive }
                     model.showAddNewRelationView()
                 }) {
-                    Image(asset: .X32.plus).foregroundColor(.Button.active)
+                    Image(asset: .X32.plus).foregroundColor(.Control.active)
                 }
             }
         }
@@ -69,7 +69,7 @@ struct SetRelationsView: View {
     private func relationRow(_ relation: SetViewSettingsRelation) -> some View {
         HStack(spacing: 0) {
             Image(asset: relation.image)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
             Spacer.fixedWidth(10)
             AnytypeToggle(
                 title: relation.title,
