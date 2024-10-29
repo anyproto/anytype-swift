@@ -1242,8 +1242,6 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Unlinked.Title" = "Hanya objek nirtaut";
 "AllContent.Settings.Unlinked.Description" = "Objek yang tidak memiliki tautan langsung atau tautan balik ke objek lain di grafik.";
 "AllContent.Settings.ViewBin" = "Lihat Bak Sampah";
-"AllContent.Empty.State.title" = "Di sini kosong.";
-"AllContent.Empty.State.subtitle" = "Buat objek pertamamu untuk memulai.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Coba cari dengan kata kunci yang lain.";
 
@@ -1255,3 +1253,9 @@ Please provide specific details of your needs here.";
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
 "ReindexingWarningAlert.Description" = "Kami menerapkan pustaka penelusuran baru untuk pencarian yang lebih cepat dan akurat.\nPengindeksan ulang membutuhkan waktu beberapa menit.";
 "ReindexingWarningAlert.Button" = "Mantap!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Di sini kosong.";
+"EmptyView.Default.subtitle" = "Buat objek pertamamu untuk memulai.";
+"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
