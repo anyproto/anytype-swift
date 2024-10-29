@@ -1243,8 +1243,6 @@
 "AllContent.Settings.Unlinked.Title" = "仅未链接";
 "AllContent.Settings.Unlinked.Description" = "在图中没有与其他对象直接链接或反向链接的未链接对象。";
 "AllContent.Settings.ViewBin" = "查看垃圾桶";
-"AllContent.Empty.State.title" = "这里是空的";
-"AllContent.Empty.State.subtitle" = "创建您的第一个对象以开始操作。";
 "AllContent.Search.Empty.State.title" = "未找到结果。";
 "AllContent.Search.Empty.State.subtitle" = "尝试使用不同的关键字搜索";
 
@@ -1256,3 +1254,9 @@
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
 "ReindexingWarningAlert.Description" = "我们已经实施了一个新的搜索库，以获得更快、更准确的结果。\n重新索引可能需要几分钟。";
 "ReindexingWarningAlert.Button" = "我明白了！";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "这里是空的";
+"EmptyView.Default.subtitle" = "创建您的第一个对象以开始操作。";
+"EmptyView.Bin.title" = "您的回收站是空的。";
+"EmptyView.Bin.subtitle" = "看起来您已经整理得井井有条了！";

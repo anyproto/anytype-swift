@@ -1243,8 +1243,6 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "AllContent.Settings.Unlinked.Title" = "Sadece bağlantısız";
 "AllContent.Settings.Unlinked.Description" = "Grafikteki diğer nesnelerle doğrudan bağlantısı veya geri bağlantısı olmayan bağlantısız nesneler.";
 "AllContent.Settings.ViewBin" = "Geri Dönüşüm Kutusunu Görüntüle";
-"AllContent.Empty.State.title" = "Burası boş.";
-"AllContent.Empty.State.subtitle" = "Başlamak için ilk nesnelerinizi oluşturun.";
 "AllContent.Search.Empty.State.title" = "Hiçbir sonuç bulunamadı.";
 "AllContent.Search.Empty.State.subtitle" = "Farklı anahtar kelimelerle aramayı deneyin.";
 
@@ -1256,3 +1254,9 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";
 "ReindexingWarningAlert.Description" = "Daha hızlı ve daha doğru sonuçlar için yeni bir arama kütüphanesi uyguladık.\nYeniden indeksleme birkaç dakika sürebilir.";
 "ReindexingWarningAlert.Button" = "Anladım!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Burası boş.";
+"EmptyView.Default.subtitle" = "Başlamak için ilk nesnelerinizi oluşturun.";
+"EmptyView.Bin.title" = "Çöp kutunuz boş.";
+"EmptyView.Bin.subtitle" = "Düzenli ve tertipli görünüyorsunuz!";

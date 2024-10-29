@@ -1244,8 +1244,6 @@
 "AllContent.Settings.Unlinked.Title" = "Только несвязанные";
 "AllContent.Settings.Unlinked.Description" = "Непривязанные объекты, не имеющие прямой связи или обратной связи с другими объектами на графике.";
 "AllContent.Settings.ViewBin" = "Просмотр корзины";
-"AllContent.Empty.State.title" = "Здесь пусто.";
-"AllContent.Empty.State.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
 "AllContent.Search.Empty.State.title" = "Результаты не найдены.";
 "AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
 
@@ -1257,3 +1255,9 @@
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
 "ReindexingWarningAlert.Description" = "Мы внедрили новую библиотеку поиска для более быстрых и точных результатов.\nПереиндексация может занять несколько минут.";
 "ReindexingWarningAlert.Button" = "Я понял!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Здесь пусто.";
+"EmptyView.Default.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
+"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";

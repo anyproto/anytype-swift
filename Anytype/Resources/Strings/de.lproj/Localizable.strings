@@ -1242,8 +1242,6 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "AllContent.Settings.Unlinked.Title" = "Nur unverlinkte";
 "AllContent.Settings.Unlinked.Description" = "";
 "AllContent.Settings.ViewBin" = "Papierkorb ansehen";
-"AllContent.Empty.State.title" = "Hier ist es leer.";
-"AllContent.Empty.State.subtitle" = "Erstelle deine ersten Objekte, um loszulegen.";
 "AllContent.Search.Empty.State.title" = "Keine Ergebnisse gefunden.";
 "AllContent.Search.Empty.State.subtitle" = "Versuche mit anderen Schlüsselwörtern zu suchen.";
 
@@ -1255,3 +1253,9 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "Wir haben eine neue Suchbibliothek für schnellere und genauere Ergebnisse implementiert.\nDie Neuindexierung kann ein paar Minuten dauern.";
 "ReindexingWarningAlert.Button" = "Verstanden!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Hier ist es leer.";
+"EmptyView.Default.subtitle" = "Erstelle deine ersten Objekte, um loszulegen.";
+"EmptyView.Bin.title" = "Dein Papierkorb ist leer.";
+"EmptyView.Bin.subtitle" = "Sieht aus, als wärst du total ordentlich und organisiert!";
