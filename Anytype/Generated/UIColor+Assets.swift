@@ -63,6 +63,8 @@ extension UIColor {
       internal static let yellow = UIColor(asset: Asset.VeryLight.yellow)
     }
   
+    // MARK: - Custom
+    
     // MARK: - Additional
     enum Additional {
       
@@ -89,14 +91,10 @@ extension UIColor {
       internal static let text = UIColor(asset: Asset.Auth.text)
     }
     
-    // MARK: - Background
-    enum Background {
-      internal static let black = UIColor(asset: Asset.Background.black)
-      internal static let highlightedLight = UIColor(asset: Asset.Background.highlightedLight)
-      internal static let highlightedMedium = UIColor(asset: Asset.Background.highlightedMedium)
-      internal static let material = UIColor(asset: Asset.Background.material)
-      internal static let primary = UIColor(asset: Asset.Background.primary)
-      internal static let secondary = UIColor(asset: Asset.Background.secondary)
+    // MARK: - BackgroundCustom
+    enum BackgroundCustom {
+      internal static let black = UIColor(asset: Asset.BackgroundCustom.black)
+      internal static let material = UIColor(asset: Asset.BackgroundCustom.material)
     }
     
     // MARK: - BottomAlert
@@ -107,15 +105,6 @@ extension UIColor {
       internal static let greenStart = UIColor(asset: Asset.BottomAlert.greenStart)
       internal static let redEnd = UIColor(asset: Asset.BottomAlert.redEnd)
       internal static let redStart = UIColor(asset: Asset.BottomAlert.redStart)
-    }
-    
-    // MARK: - Button
-    enum Button {
-      internal static let accent = UIColor(asset: Asset.Button.accent)
-      internal static let active = UIColor(asset: Asset.Button.active)
-      internal static let button = UIColor(asset: Asset.Button.button)
-      internal static let inactive = UIColor(asset: Asset.Button.inactive)
-      internal static let white = UIColor(asset: Asset.Button.white)
     }
     
     // MARK: - CoverGradients
@@ -183,6 +172,38 @@ extension UIColor {
       internal static let primary = UIColor(asset: Asset.Shadow.primary)
     }
     
+    // MARK: - Widget
+    enum Widget {
+      internal static let actionsBackground = UIColor(asset: Asset.Widget.actionsBackground)
+      internal static let bottomPanel = UIColor(asset: Asset.Widget.bottomPanel)
+      internal static let card = UIColor(asset: Asset.Widget.card)
+      internal static let divider = UIColor(asset: Asset.Widget.divider)
+      internal static let inactiveTab = UIColor(asset: Asset.Widget.inactiveTab)
+      internal static let secondary = UIColor(asset: Asset.Widget.secondary)
+    }
+    
+    // MARK: - DesignSystem
+    
+    // MARK: - Background
+    enum Background {
+      internal static let highlightedLight = UIColor(asset: Asset.Background.highlightedLight)
+      internal static let highlightedMedium = UIColor(asset: Asset.Background.highlightedMedium)
+      internal static let navigationPanel = UIColor(asset: Asset.Background.navigationPanel)
+      internal static let primary = UIColor(asset: Asset.Background.primary)
+      internal static let secondary = UIColor(asset: Asset.Background.secondary)
+      internal static let widget = UIColor(asset: Asset.Background.widget)
+    }
+    
+    // MARK: - Button
+    enum Button {
+      internal static let accent = UIColor(asset: Asset.Button.accent)
+      internal static let active = UIColor(asset: Asset.Button.active)
+      internal static let button = UIColor(asset: Asset.Button.button)
+      internal static let inactive = UIColor(asset: Asset.Button.inactive)
+      internal static let navPanelIcon = UIColor(asset: Asset.Button.navPanelIcon)
+      internal static let white = UIColor(asset: Asset.Button.white)
+    }
+    
     // MARK: - Shape
     enum Shape {
       internal static let primary = UIColor(asset: Asset.Shape.primary)
@@ -195,20 +216,10 @@ extension UIColor {
     
     // MARK: - Text
     enum Text {
-      internal static let labelInversion = UIColor(asset: Asset.Text.labelInversion)
+      internal static let inversion = UIColor(asset: Asset.Text.inversion)
       internal static let primary = UIColor(asset: Asset.Text.primary)
       internal static let secondary = UIColor(asset: Asset.Text.secondary)
       internal static let tertiary = UIColor(asset: Asset.Text.tertiary)
       internal static let white = UIColor(asset: Asset.Text.white)
-    }
-    
-    // MARK: - Widget
-    enum Widget {
-      internal static let actionsBackground = UIColor(asset: Asset.Widget.actionsBackground)
-      internal static let bottomPanel = UIColor(asset: Asset.Widget.bottomPanel)
-      internal static let card = UIColor(asset: Asset.Widget.card)
-      internal static let divider = UIColor(asset: Asset.Widget.divider)
-      internal static let inactiveTab = UIColor(asset: Asset.Widget.inactiveTab)
-      internal static let secondary = UIColor(asset: Asset.Widget.secondary)
     }
 }

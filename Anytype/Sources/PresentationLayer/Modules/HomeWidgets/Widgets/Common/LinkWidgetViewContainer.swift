@@ -143,7 +143,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     private var removeButton: some View {
         if homeState.isEditWidgets, let removeAction {
             ZStack {
-                Color.Background.material
+                Color.BackgroundCustom.material
                     .background(.ultraThinMaterial)
                     .cornerRadius(12, style: .continuous)
                 Color.white.frame(height: 1.5)

@@ -46,7 +46,7 @@ extension StandardButtonStyle {
         case .primaryLarge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
-                    textColor: .Text.labelInversion,
+                    textColor: .Text.inversion,
                     backgroundColor: .Button.button
                 ),
                 higlighted: StandardButtonConfig.Style(
@@ -235,7 +235,7 @@ extension StandardButtonStyle {
         case .upgradeBadge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
-                    textColor: .Text.labelInversion,
+                    textColor: .Text.inversion,
                     backgroundColor: .Button.button
                 ),
                 higlighted: StandardButtonConfig.Style(
