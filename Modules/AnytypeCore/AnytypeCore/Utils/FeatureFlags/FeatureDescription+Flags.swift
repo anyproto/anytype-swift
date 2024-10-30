@@ -75,6 +75,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let typesLibrary = FeatureDescription(
+        title: "Types library in all content",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "8"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
