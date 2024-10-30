@@ -7,7 +7,8 @@ protocol DateRelatedObjectsSubscriptionServiceProtocol: AnyObject {
         objectId: String,
         spaceId: String,
         relationKey: String,
-        update: @escaping ([ObjectDetails]) -> Void
+        limit: Int,
+        update: @escaping ([ObjectDetails], Int) -> Void
     ) async
     func stopSubscription() async
 }
@@ -28,7 +29,8 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
         objectId: String,
         spaceId: String,
         relationKey: String,
-        update: @escaping ([ObjectDetails]) -> Void
+        limit: Int,
+        update: @escaping ([ObjectDetails], Int) -> Void
     ) async {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
@@ -46,14 +48,14 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
                 spaceId: spaceId,
                 sorts: [sort],
                 filters: filters,
-                limit: 0,
+                limit: limit,
                 offset: 0,
                 keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
             )
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items)
+            update(data.items, data.prevCount)
         }
     }
     

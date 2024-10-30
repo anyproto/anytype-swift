@@ -24,11 +24,11 @@ final class DateViewModel: ObservableObject {
     // MARK: - State
     
     private let document: any BaseDocumentProtocol
-    
+    private var objectsToLoad = 0
     @Published var title = ""
     @Published var objects = [ObjectCellData]()
     @Published var relationDetails = [RelationDetails]()
-    @Published var selectedRelation: RelationDetails?
+    @Published var state = DateModuleState()
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     
     init(objectId: String, spaceId: String, output: (any DateModuleOutput)?) {
@@ -50,15 +50,18 @@ final class DateViewModel: ObservableObject {
             guard let self else { return nil }
             return try? relationDetailsStorage.relationsDetails(for: key, spaceId: spaceId)
         }
-        selectedRelation = relationDetails.first
+        state.selectedRelation = relationDetails.first
     }
     
-    func restartSubscription(with relationKey: String) async {
+    func restartSubscription(with state: DateModuleState) async {
+        guard let relationKey = state.selectedRelation?.key else { return }
         await dateRelatedObjectsSubscriptionService.startSubscription(
             objectId: objectId,
             spaceId: spaceId,
             relationKey: relationKey,
-            update: { [weak self] details in
+            limit: state.limit,
+            update: { [weak self] details, objectsToLoad  in
+                self?.objectsToLoad = objectsToLoad
                 self?.updateRows(with: details)
             }
         )
@@ -76,12 +79,18 @@ final class DateViewModel: ObservableObject {
         }
     }
     
+    func onAppearLastRow(_ id: String) {
+        guard objectsToLoad > 0, objects.last?.id == id else { return }
+        objectsToLoad = 0
+        state.updateLimit()
+    }
+    
     func onSyncStatusTap() {
         output?.onSyncStatusTap()
     }
     
     func onRelationTap(_ details: RelationDetails) {
-        selectedRelation = details
+        state.selectedRelation = details
     }
     
     // MARK: - Private
@@ -89,6 +98,7 @@ final class DateViewModel: ObservableObject {
     private func updateRows(with details: [ObjectDetails]) {
         objects = details.map { details in
             ObjectCellData(
+                id: details.id,
                 icon: details.objectIconImage,
                 title: details.title,
                 type: details.objectType.name,
