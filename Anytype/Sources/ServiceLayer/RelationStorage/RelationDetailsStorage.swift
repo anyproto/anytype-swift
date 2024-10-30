@@ -23,7 +23,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     @Injected(\.relationSubscriptionDataBuilder)
     private var subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol
     
-    private lazy var multispaceSubscriptionHelper = MultispaceSubscriptionHelper<RelationDetails>(
+    private lazy var multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<RelationDetails>(
         subIdPrefix: Constants.subscriptionIdPrefix,
         subscriptionBuilder: subscriptionDataBuilder
     )
@@ -65,17 +65,19 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         return details
     }
     
-    func startSubscription() async {
-        await multispaceSubscriptionHelper.startSubscription { [weak self] in
+    func startSubscription(spaceId: String) async {
+        await multispaceSubscriptionHelper.startSubscription(spaceId: spaceId) { [weak self] in
             self?.updateSearchCache()
             self?.sync = ()
         }
     }
     
-    func stopSubscription() async {
-        await multispaceSubscriptionHelper.stopSubscription()
-        updateSearchCache()
-        sync = ()
+    func stopSubscription(cleanCache: Bool) async {
+        await multispaceSubscriptionHelper.stopSubscription(cleanCache: cleanCache)
+        if cleanCache {
+            updateSearchCache()
+            sync = ()
+        }
     }
     
     // MARK: - Private

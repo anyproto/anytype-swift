@@ -16,8 +16,8 @@ protocol ObjectTypeProviderProtocol: AnyObject {
     func objectTypes(spaceId: String) -> [ObjectType]
     func deletedObjectType(id: String) -> ObjectType
     
-    func startSubscription() async
-    func stopSubscription() async
+    func startSubscription(spaceId: String) async
+    func stopSubscription(cleanCache: Bool) async
 }
 
 extension ObjectTypeProviderProtocol {
