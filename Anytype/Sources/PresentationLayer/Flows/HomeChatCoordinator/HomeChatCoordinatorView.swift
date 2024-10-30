@@ -15,8 +15,6 @@ struct HomeChatCoordinatorView: View {
         ZStack {
             if let chatData = model.chatData {
                 ChatCoordinatorView(data: chatData)
-                    .environment(\.chatColorTheme, .home)
-                    .environment(\.chatSettings, ChatSetings(showHeader: false))
             }
         }
         .task {

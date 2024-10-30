@@ -75,6 +75,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             .onTapGesture {
                 model.onTapBackward()
             }
+            .foregroundColor(.Control.navPanelIcon)
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.3)
                     .onEnded { _ in
@@ -90,6 +91,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 .onTapGesture {
                     model.onTapNewObject()
                 }
+                .foregroundColor(.Control.navPanelIcon)
                 .simultaneousGesture(
                     LongPressGesture(minimumDuration: 0.3)
                         .onEnded { _ in
@@ -102,6 +104,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             model.onTapSearch()
         } label: {
             Image(asset: .X32.Island.search)
+                .foregroundColor(.Control.navPanelIcon)
         }
     }
     

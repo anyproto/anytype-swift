@@ -1,88 +1,61 @@
 %PDF-1.7
 
 1 0 obj
-  << /Filter /FlateDecode
-     /Type /XObject
-     /Length 2 0 R
-     /Group << /Type /Group
-               /S /Transparency
-            >>
-     /Subtype /Form
-     /Resources << >>
-     /BBox [ 0.000000 0.000000 32.000000 32.000000 ]
-  >>
-stream
-x”AŽä E÷œ"ë‘aŽ1«9@I£Y¤ZjÍý¥þN*¤Ô¢©E9ÏØþv_AsLÇÚ¤Ã’Qóö\iŽµgku“‹tm}“ï±S*,_{ØµKS]hƒákI8+?¡j,š4‹'y¥Sƒ÷Ø8O†Â”8élefœl-ý/üù>ÃW0_›«÷µ}Ð¢B!ïJñnûš¡4þ?>ƒ”XaãÉëúÂ°',Ÿ¤"§ åÑÝº| y²Â=`ÀZ¬¥ºPi—¥±Õ¬¯“ˆY0@J!Ü1>0á3œZË˜ŒÆéz+þ¦(Â}ÔGcú0Ñ22WÌº1ç‹]Ó•—RoâÞøDkNmT8áöî-0}c®š³6dc¯«]éb½¼8&dLƒ:”Fˆ/„pª\,z2Ñ:
-Öséqr~ã÷ÃÓ£8Óø‡Uc®¹Šýàô”8l4+H#Ò“øMU£š¶4°³kÅ-„-7\1'Ñjî‚œŠ¾âp ‹Y³š)»@¤c±wK* ˆÓlø¥yÜ]ƒwnÎ-Z³‘:”¥¨¹é0ÁûÃ€\ÚÕéÚŽÈ¦>bÀîâüŠÌ=7Ü•'ru‘~$q„P/jÑÄ’y(Ù‘;y÷F\Þ}ç›”ûÛŽï	½Ìù|Íi4µ
-endstream
+  << >>
 endobj
 
 2 0 obj
-  502
-endobj
-
-3 0 obj
-  << /XObject << /X1 1 0 R >>
-     /ExtGState << /E1 << /ca 0.400000 >> >>
+  << /Filter /FlateDecode
+     /Length 3 0 R
   >>
-endobj
-
-4 0 obj
-  << /Length 5 0 R >>
 stream
-/DeviceRGB CS
-/DeviceRGB cs
-q
-/E1 gs
-/X1 Do
-Q
-
+x”ÏŠÜ0Æï~Šœëµd[¶¯m¡ç¶‡>@ØÒBf¡,ôù÷S2‘™Ãz#ÿôï³çùëËÿ¿ëËoŸ—/?Ã³ïÖ·ð/pŽi_uX4j^n3Í±ö,­.4b¡Î­/”àÝ#©ÂÒ5±5À®óD]SAGÖy™cáÄ™´È½¼{ 7v†Æ&Ñ©Å+:›[ÿ	¿>…WÌ„Àt-ª^×òd–ùL(ä%nAm]žjÆÛú¨Ä
+;í«ÃvX ?QEMÂ‘GWëôY‚‘5{2¸˜‹´T'Jí´8¶šyàq²* I1¸a.¶±‚·ph-Ã™‡ë¡ø5¸(ƒÛMŸî³GÓŒ©bÛ˜s>Ù9]º+ÕC\îhnbSÛ‚)tèÂ=«‚A_˜ª¶÷†lÄªÚ™NÖÝ‹kbÌÊ I3ˆ7Ä «œ,óZŠ£yÖO¥ÿÆÍùŽßoãNãV¹Ö"ã·§Ä!£IA"I¢Ó©‘…[ˆìœ™
+¶Üð‰9HNyÁ· §Â÷<Æã^ƒÄŒp°’‚(êdì½$é Èã,x©ÉHyWzzœæˆlQZµBYŠœÒÚh: •v bEÈTm{f“†€PÎ¢ŸÈÜñAÛã€TÄ‘d”®©ÚT¢ÞcM5¶—S!*ïz•w|Pr{xâkAms¼ïöv=I
 endstream
 endobj
 
-5 0 obj
-  46
+3 0 obj
+  527
 endobj
 
-6 0 obj
+4 0 obj
   << /Annots []
      /Type /Page
      /MediaBox [ 0.000000 0.000000 32.000000 32.000000 ]
-     /Resources 3 0 R
-     /Contents 4 0 R
-     /Parent 7 0 R
+     /Resources 1 0 R
+     /Contents 2 0 R
+     /Parent 5 0 R
   >>
 endobj
 
-7 0 obj
-  << /Kids [ 6 0 R ]
+5 0 obj
+  << /Kids [ 4 0 R ]
      /Count 1
      /Type /Pages
   >>
 endobj
 
-8 0 obj
-  << /Pages 7 0 R
+6 0 obj
+  << /Pages 5 0 R
      /Type /Catalog
   >>
 endobj
 
 xref
-0 9
+0 7
 0000000000 65535 f
 0000000010 00000 n
-0000000786 00000 n
-0000000808 00000 n
-0000000904 00000 n
-0000001006 00000 n
-0000001027 00000 n
-0000001200 00000 n
-0000001274 00000 n
+0000000034 00000 n
+0000000645 00000 n
+0000000667 00000 n
+0000000840 00000 n
+0000000914 00000 n
 trailer
 << /ID [ (some) (id) ]
-   /Root 8 0 R
-   /Size 9
+   /Root 6 0 R
+   /Size 7
 >>
 startxref
-1333
+973
 %%EOF

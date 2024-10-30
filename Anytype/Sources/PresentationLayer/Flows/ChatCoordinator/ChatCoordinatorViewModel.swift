@@ -53,14 +53,6 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         linkToObjectData = data
     }
     
-    func onSettingsSelected() {
-        // TODO: open settings
-    }
-    
-    func onSyncStatusSelected() {
-        showSyncStatusInfo = true
-    }
-    
     func onIconSelected() {
         objectIconPickerData = ObjectIconPickerData(document: document)
     }

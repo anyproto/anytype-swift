@@ -19,8 +19,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var blockService: any BlockServiceProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
     @Injected(\.mentionObjectsService)
     private var mentionObjectsService: any MentionObjectsServiceProtocol
     @Injected(\.chatActionService)
@@ -41,9 +39,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
     @Published var message = NSAttributedString()
     @Published var canEdit = false
-    @Published var title = ""
-    @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
-    @Published var objectIcon: Icon?
     @Published var inputFocused = false
     @Published var dataLoaded = false
     @Published var mentionSearchState = ChatTextMention.finish
@@ -52,7 +47,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     @Published var attachmentsDownloading: Bool = false
     @Published var replyToMessage: ChatInputReplyModel?
     
-    var showTitleData: Bool { mesageBlocks.isNotEmpty }
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     
     private var messages: [ChatMessage] = []
@@ -108,19 +102,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         }
     }
     
-    func subscribeOnDetails() async {
-        for await details in document.detailsPublisher.values {
-            title = details.title
-            objectIcon = details.objectIconImage
-        }
-    }
-    
-    func subscribeOnSyncStatus() async {
-        for await status in document.syncStatusDataPublisher.values {
-            syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
-        }
-    }
-    
     func loadNextPage() {
         Task {
             try await chatStorage.loadNextPage()
@@ -162,14 +143,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     func scrollToBottom() async {
         try? await chatStorage.loadNextPage()
-    }
-    
-    func onSyncStatusTap() {
-        output?.onSyncStatusSelected()
-    }
-    
-    func onSettingsTap() {
-        output?.onSettingsSelected()
     }
     
     func didTapIcon() {

@@ -13,10 +13,30 @@ struct ChatInput: View {
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     
-    @Environment(\.chatColorTheme) private var colors
+    @Environment(\.pageNavigation) private var pageNavigation
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
+            Image(asset: .X32.Island.back)
+                .foregroundColor(.Control.navPanelIcon)
+                .frame(height: 56)
+                .onTapGesture {
+                    pageNavigation.pop()
+                }
+            
+            ZStack(alignment: .topLeading) {
+                ChatTextView(text: $text, editing: $editing, mention: $mention, minHeight: 56, maxHeight: 212, linkTo: onTapLinkTo)
+                if text.string.isEmpty {
+                    Text(Loc.Message.Input.emptyPlaceholder)
+                        .anytypeStyle(.bodyRegular)
+                        .foregroundColor(.Text.tertiary)
+                        .padding(.leading, 6)
+                        .padding(.top, 15)
+                        .allowsHitTesting(false)
+                        .lineLimit(1)
+                }
+            }
+            
             Menu {
                 Button {
                     onTapAddFiles()
@@ -34,22 +54,10 @@ struct ChatInput: View {
                     Text(Loc.objects)
                 }
             } label: {
-                Image(asset: .X32.plus)
-                    .foregroundColor(Color.Control.active)
+                Image(asset: .X32.attachment)
+                    .foregroundColor(.Control.navPanelIcon)
             }
             .frame(height: 56)
-            ZStack(alignment: .topLeading) {
-                ChatTextView(text: $text, editing: $editing, mention: $mention, minHeight: 56, maxHeight: 212, linkTo: onTapLinkTo)
-                if text.string.isEmpty {
-                    Text(Loc.Message.Input.emptyPlaceholder)
-                        .anytypeStyle(.bodyRegular)
-                        .foregroundColor(.Text.tertiary)
-                        .padding(.leading, 6)
-                        .padding(.top, 15)
-                        .allowsHitTesting(false)
-                        .lineLimit(1)
-                }
-            }
             
             if hasAdditionalData || !text.string.isEmpty {
                 Group {
@@ -65,11 +73,16 @@ struct ChatInput: View {
                         }
                     }
                 }
-                .frame(width: 56, height: 56)
+                .frame(width: 32, height: 56)
             }
                 
         }
         .padding(.horizontal, 8)
-        .background(Color.Background.primary)
+        .background(Color.Background.navigationPanel)
+        .background(.ultraThinMaterial)
+        .cornerRadius(16)
+        .border(16, color: .Shape.transperentSecondary)
+        .padding(.horizontal, 8)
+        .padding(.bottom, 8)
     }
 }
