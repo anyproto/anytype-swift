@@ -93,18 +93,14 @@ struct ChatView: View {
     
     @ViewBuilder
     private var mainView: some View {
-        if model.showEmptyState {
-            ChatEmptyStateView(objectId: model.objectId, spaceId: model.spaceId) {
-                model.didTapIcon()
-            } onDone: {
-                model.inputFocused = true
-            }
-            .allowsHitTesting(model.canEdit)
-        } else {
-            ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy) {
-                MessageView(data: $0, output: model)
-            } scrollToBottom: {
-                await model.scrollToBottom()
+        ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy) {
+            MessageView(data: $0, output: model)
+        } scrollToBottom: {
+            await model.scrollToBottom()
+        }
+        .overlay(alignment: .center) {
+            if model.showEmptyState {
+                ChatEmptyStateView()
             }
         }
     }
