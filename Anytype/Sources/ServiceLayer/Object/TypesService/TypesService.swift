@@ -58,8 +58,7 @@ final class TypesService: TypesServiceProtocol {
         var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles : DetailsLayout.visibleLayouts
         
         if !includeLists {
-            layouts.removeAll(where: { $0 == .set })
-            layouts.removeAll(where: { $0 == .collection })
+            layouts.removeAll(where: { $0.isList })
         }
         
         if !includeBookmarks {

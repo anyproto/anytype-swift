@@ -208,7 +208,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     private func findCover(at values: [String], _ details: ObjectDetails, detailsStorage: ObjectDetailsStorage) -> ObjectHeaderCoverType? {
         for value in values {
             let details = detailsStorage.get(id: value)
-            if let details = details, details.layoutValue == .image {
+            if let details = details, details.layoutValue.isImage {
                 return .cover(.imageId(details.id))
             }
         }

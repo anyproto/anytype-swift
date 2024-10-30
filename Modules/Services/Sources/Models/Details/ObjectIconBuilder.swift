@@ -17,7 +17,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
             return objectIcon
         }
         
-        if DetailsLayout.fileAndMediaLayouts.contains(relations.layoutValue) {
+        if relations.layoutValue.isFileOrMedia {
             return fileIcon(
                 fileMimeType: relations.fileMimeType,
                 name: FileDetails.formattedFileName(relations.name, fileExt: relations.fileExt)

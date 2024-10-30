@@ -173,7 +173,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             let defaultObjectType = objectTypesConfig.objectTypes.first {
                 $0.id == objectTypesConfig.objectTypeId
             }
-            let isAvailable = defaultObjectType?.recommendedLayout?.isTemplatesAvailable ?? false
+            let isAvailable = defaultObjectType?.recommendedLayout?.isEditorLayout ?? false
             if isAvailable != isTemplatesEditable {
                 isTemplatesEditable = isAvailable
                 updateTemplatesList()

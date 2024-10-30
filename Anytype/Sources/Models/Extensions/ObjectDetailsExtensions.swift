@@ -50,24 +50,8 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    var isList: Bool {
-        isSet || isCollection
-    }
-    
-    var isCollection: Bool {
-        return layoutValue == .collection
-    }
-    
-    var isSet: Bool {
-        return layoutValue == .set
-    }
-    
-    var isSupportedForEdit: Bool {
-        return DetailsLayout.visibleLayoutsWithFiles.contains(layoutValue)
-    }
-    
-    var isVisibleLayout: Bool {
-        return DetailsLayout.visibleLayouts.contains(layoutValue)
+    var filteredSetOf: [String] {
+        setOf.filter { $0.isNotEmpty }
     }
     
     var isNotDeletedAndVisibleForEdit: Bool {
@@ -78,21 +62,23 @@ extension BundledRelationsValueProvider {
         return !isDeleted && !isArchived && isSupportedForEdit && !isHiddenDiscovery
     }
     
+    var isTemplateType: Bool { objectType.isTemplateType }
+    
     var canMakeTemplate: Bool {
-        layoutValue.isTemplatesAvailable && !isTemplateType && profileOwnerIdentity.isEmpty
+        layoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty
     }
     
-    var isTemplateType: Bool {
-        objectType.isTemplateType
-    }
+    // MARK: - DetailsLayout proxy
     
-    var filteredSetOf: [String] {
-        setOf.filter { $0.isNotEmpty }
-    }
+    var isList: Bool { layoutValue.isList }
     
-    private var isChat: Bool {
-        return layoutValue == .chat || layoutValue == .chatDerived
-    }
+    var isCollection: Bool { layoutValue.isCollection }
+    
+    var isSet: Bool { layoutValue.isSet }
+    
+    var isSupportedForEdit: Bool { layoutValue.isVisibleOrFile }
+    
+    var isVisibleLayout: Bool { layoutValue.isVisible }
     
     private var emptyIconType: ObjectIcon.EmptyType {
         switch layoutValue {
