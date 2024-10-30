@@ -91,6 +91,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     private var membershipStatusSubscription: AnyCancellable?
     private var preveouslyOpenedSpaceId: String?
+    private var needSetup = true
     
     init() {
         startSubscriptions()
@@ -116,9 +117,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     // MARK: - Setup
     func setup() async {
+        guard needSetup else { return }
+        
         await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
         await setupInitialScreen()
         await handleVersionAlerts()
+        
+        needSetup = false
         
         await startSubscriptions()
     }
