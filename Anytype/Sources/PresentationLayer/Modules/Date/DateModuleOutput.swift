@@ -4,4 +4,5 @@ import Foundation
 protocol DateModuleOutput: AnyObject {
     func onSyncStatusTap()
     func onObjectTap(data: EditorScreenData)
+    func onRelationsListTap(items: [SimpleSearchListItem])
 }

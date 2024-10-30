@@ -7,6 +7,7 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     let spaceId: String
     
     @Published var showSyncStatusInfo = false
+    @Published var searchData: SimpleSearchData?
     
     var pageNavigation: PageNavigation?
     
@@ -23,5 +24,16 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     
     func onObjectTap(data: EditorScreenData) {
         pageNavigation?.push(data)
+    }
+    
+    func onRelationsListTap(items: [SimpleSearchListItem]) {
+        searchData = SimpleSearchData(items: items)
+    }
+}
+
+extension DateCoordinatorViewModel {
+    struct SimpleSearchData: Identifiable {
+        let id = UUID()
+        let items: [SimpleSearchListItem]
     }
 }

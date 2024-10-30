@@ -57,9 +57,23 @@ struct DateView: View {
             .padding(.vertical, 32)
     }
     
+    private var relationsListButton: some View {
+        Button {
+            model.onRelationsListTap()
+        } label: {
+            IconView(asset: .X24.burger)
+                .padding(8)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.Shape.primary, lineWidth: 1)
+                )
+        }
+    }
+    
     private var relations: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack {
+            LazyHStack(spacing: 8) {
+                relationsListButton
                 ForEach(model.relationDetails, id: \.self) { details in
                     relationView(details: details)
                 }
@@ -74,18 +88,16 @@ struct DateView: View {
         Button {
             model.onRelationTap(details)
         } label: {
-            HStack(spacing: 8) {
-                AnytypeText(details.name, style: .uxCalloutMedium)
-                    .foregroundColor(.Text.primary)
-            }
-            .padding(.horizontal,12)
-            .padding(.vertical, 10)
-            .background(model.selectedRelation == details ? Color.Shape.transperentSecondary : .clear)
-            .cornerRadius(10, style: .continuous)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.Shape.primary, lineWidth: 1)
-            )
+            AnytypeText(details.name, style: .uxCalloutMedium)
+                .foregroundColor(.Text.primary)
+                .padding(.horizontal,12)
+                .padding(.vertical, 10)
+                .background(model.selectedRelation == details ? Color.Shape.transperentSecondary : .clear)
+                .cornerRadius(10, style: .continuous)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.Shape.primary, lineWidth: 1)
+                )
         }
     }
     
