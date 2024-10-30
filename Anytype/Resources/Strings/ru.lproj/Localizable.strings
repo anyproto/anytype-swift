@@ -152,7 +152,7 @@
 "Files" = "Files";
 "Media" = "Медиа-файлы";
 "Lists" = "Списки";
-"Dates" = "Dates";
+"Dates" = "Даты";
 "Pinned" = "Закреплённые";
 "Delete" = "Удалить";
 "Export" = "Экспорт";
@@ -207,6 +207,7 @@
 "Agreement Disclamer" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@)";
 "Lets Go" = "Давайте начнём";
 "My spaces" = "Мои пространства";
+"Open file" = "Открыть файл";
 
 // Home
 "Favorites" = "Избранное";
@@ -833,7 +834,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";
 "Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
-"Widgets.Library.Chat.Name" = "Discussions";
+"Widgets.Library.Chat.Name" = "Обсуждения";
 "Widgets.AppUpdate" = "Anytype готов к обновлению";
 "Widgets.Source.Library" = "Стандартные наборы";
 "Widgets.Source.Objects" = "Ваши объекты";
@@ -1229,9 +1230,9 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Добавить реакцию";
-"Message.Action.Reply" = "Reply";
+"Message.Action.Reply" = "Ответить";
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
-"Message.ChatTitle.Placeholder" = "Untitled Chat";
+"Message.ChatTitle.Placeholder" = "Чат без названия";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Сортировать по";
@@ -1248,8 +1249,8 @@
 "AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
-"Chat.ReplyTo" = "Reply to %@";
+"Chat.ReadOnly" = "Только редакторы могут отправлять сообщения. Свяжитесь с владельцем для запроса доступа.";
+"Chat.ReplyTo" = "Ответить %@";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
@@ -1259,5 +1260,5 @@
 // MARK: - Empty view
 "EmptyView.Default.title" = "Здесь пусто.";
 "EmptyView.Default.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
-"EmptyView.Bin.title" = "Your trash is empty.";
-"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+"EmptyView.Bin.title" = "Ваша корзина пуста.";
+"EmptyView.Bin.subtitle" = "Похоже, у вас всё аккуратно и организовано!";
