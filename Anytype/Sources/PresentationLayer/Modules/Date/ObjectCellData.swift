@@ -1,8 +1,7 @@
-struct ObjectCellData: Identifiable, Hashable {
+struct ObjectCellData: Identifiable {
+    let id: String
     let icon: Icon
     let title: String
     let type: String
-    @EquatableNoop var onTap: () -> Void
-    
-    var id: Int { hashValue }
+    let onTap: () -> Void
 }

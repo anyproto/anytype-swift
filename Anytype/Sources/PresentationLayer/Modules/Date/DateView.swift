@@ -26,8 +26,8 @@ struct DateView: View {
         .task {
             await model.getRelationsList()
         }
-        .task(item: model.selectedRelation) { item in
-            await model.restartSubscription(with: item.key)
+        .task(item: model.state) { state in
+            await model.restartSubscription(with: state)
         }
         .onDisappear() {
             model.onDisappear()
@@ -92,7 +92,7 @@ struct DateView: View {
                 .foregroundColor(.Text.primary)
                 .padding(.horizontal,12)
                 .padding(.vertical, 10)
-                .background(model.selectedRelation == details ? Color.Shape.transperentSecondary : .clear)
+                .background(model.state.selectedRelation == details ? Color.Shape.transperentSecondary : .clear)
                 .cornerRadius(10, style: .continuous)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
@@ -105,9 +105,14 @@ struct DateView: View {
         PlainList {
             ForEach(model.objects) { data in
                 ObjectCell(data: data)
+                    .onAppear {
+                        model.onAppearLastRow(data.id)
+                    }
             }
             AnytypeNavigationSpacer(minHeight: 130)
         }
+        .scrollIndicators(.never)
+        .id(model.state.scrollId)
     }
 }
 
