@@ -16,11 +16,15 @@ enum ObjectAction: Hashable, Identifiable {
     case copyLink
 
     // When adding to case
-    static func allCasesWith(
-        details: ObjectDetails,
-        isLocked: Bool,
-        permissions: ObjectPermissions
-    ) -> [Self] {
+    static func buildActions(details: ObjectDetails, isLocked: Bool, permissions: ObjectPermissions) -> [Self] {
+        if details.recommendedLayoutValue.isFileOrMedia {
+            buildFileAndMediaActions(details: details, isLocked: isLocked, permissions: permissions)
+        } else {
+            buildDefaultActions(details: details, isLocked: isLocked, permissions: permissions)
+        }
+    }
+    
+    static private func buildDefaultActions(details: ObjectDetails, isLocked: Bool, permissions: ObjectPermissions) -> [Self] {
         .builder {
             
             if permissions.canArchive {
@@ -49,6 +53,45 @@ enum ObjectAction: Hashable, Identifiable {
             
             if permissions.canTemplateSetAsDefault {
                 ObjectAction.templateSetAsDefault
+            }
+            
+            if permissions.canLinkItself {
+                ObjectAction.linkItself
+            }
+            
+            if permissions.canShare {
+                ObjectAction.copyLink
+            }
+            
+            if permissions.canLock {
+                ObjectAction.locked(isLocked: isLocked)
+            }
+            
+            if permissions.canDelete {
+                ObjectAction.delete
+            }
+        }
+    }
+    
+    static private func buildFileAndMediaActions(details: ObjectDetails, isLocked: Bool, permissions: ObjectPermissions) -> [Self] {
+        .builder {
+            
+            if permissions.canArchive {
+                ObjectAction.archive(isArchived: details.isArchived)
+            }
+            
+            // TODO: Copy file (clipboard)
+            
+            // TODO: Download
+
+            // TODO: To Collection
+            
+            if permissions.canFavorite {
+                ObjectAction.favorite(isFavorite: details.isFavorite)
+            }
+            
+            if permissions.canCreateWidget {
+                ObjectAction.createWidget
             }
             
             if permissions.canLinkItself {

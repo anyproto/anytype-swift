@@ -39,6 +39,11 @@ public extension DetailsLayout {
 }
 
 public extension Optional where Wrapped == DetailsLayout {
+    var isFileOrMedia: Bool {
+        guard let self else { return false }
+        return self.isFileOrMedia
+    }
+    
     var isEditorLayout: Bool {
         guard let self else { return false }
         return self.isEditorLayout

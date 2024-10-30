@@ -50,7 +50,7 @@ final class ObjectActionsViewModel: ObservableObject {
                 return
             }
 
-            objectActions = ObjectAction.allCasesWith(
+            objectActions = ObjectAction.buildActions(
                 details: details,
                 isLocked: document.isLocked,
                 permissions: document.permissions
