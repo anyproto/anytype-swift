@@ -228,6 +228,7 @@ internal extension ImageAsset {
       static let `right` = ImageAsset.bundle(name: "x32/Arrow/Right")
       static let up = ImageAsset.bundle(name: "x32/Arrow/Up")
     }
+    static let attachment = ImageAsset.bundle(name: "x32/Attachment")
     static let audo = ImageAsset.bundle(name: "x32/Audo")
     static let bookmark = ImageAsset.bundle(name: "x32/Bookmark")
     static let chat = ImageAsset.bundle(name: "x32/Chat")

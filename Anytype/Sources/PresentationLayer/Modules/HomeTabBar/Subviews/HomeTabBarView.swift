@@ -5,6 +5,7 @@ struct HomeTabBarView: View {
 
     let icon: Icon?
     @Binding var state: HomeTabState
+    @Environment(\.keyboardDismiss) private var keyboardDismiss
     
     var body: some View {
         HStack(spacing: 0) {
@@ -33,6 +34,7 @@ struct HomeTabBarView: View {
             .onTapGesture {
                 withAnimation {
                     state = buttonState
+                    keyboardDismiss()
                 }
             }
     }

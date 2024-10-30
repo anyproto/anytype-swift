@@ -5,8 +5,6 @@ struct ChatView: View {
     
     @StateObject private var model: ChatViewModel
     @State private var actionState: CGFloat = 0
-    @Environment(\.chatSettings) private var settings
-    @Environment(\.chatColorTheme) private var colors
     
     init(objectId: String, spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self._model = StateObject(wrappedValue: ChatViewModel(objectId: objectId, spaceId: spaceId, chatId: chatId, output: output))
@@ -14,9 +12,6 @@ struct ChatView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            if settings.showHeader {
-                headerView
-            }
             mainView
                 .safeAreaInset(edge: .bottom, spacing: 0) {
                     bottomPanel
@@ -29,15 +24,8 @@ struct ChatView: View {
                 }
             }
         }
-        .background(colors.listBackground)
         .task {
             await model.subscribeOnPermissions()
-        }
-        .task {
-            await model.subscribeOnDetails()
-        }
-        .task {
-            await model.subscribeOnSyncStatus()
         }
         .task {
             await model.subscribeOnParticipants()
@@ -58,9 +46,6 @@ struct ChatView: View {
             } else {
                 ChatReadOnlyBottomView()
             }
-        }
-        .overlay(alignment: .top) {
-            AnytypeDivider()
         }
     }
     
@@ -94,36 +79,28 @@ struct ChatView: View {
                 model.onTapLinkTo(range: range)
             }
         }
+        .background(Color.Background.navigationPanel)
+        .background(.ultraThinMaterial)
+        .cornerRadius(16)
+        .border(16, color: .Shape.transperentSecondary)
+        .padding(.horizontal, 8)
+        .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
         .task(id: model.mentionSearchState) {
             try? await model.updateMentionState()
         }
     }
     
-    private var headerView: some View {
-        ChatHeader(
-            syncStatusData: model.syncStatusData,
-            icon: model.showTitleData ? model.objectIcon : nil,
-            title: model.showTitleData ? model.title : "",
-            onSyncStatusTap: { model.onSyncStatusTap() },
-            onSettingsTap: { model.onSettingsTap() }
-        )
-    }
-    
     @ViewBuilder
     private var mainView: some View {
-        if model.showEmptyState {
-            ChatEmptyStateView(objectId: model.objectId, spaceId: model.spaceId) {
-                model.didTapIcon()
-            } onDone: {
-                model.inputFocused = true
-            }
-            .allowsHitTesting(model.canEdit)
-        } else {
-            ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy) {
-                MessageView(data: $0, output: model)
-            } scrollToBottom: {
-                await model.scrollToBottom()
+        ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy) {
+            MessageView(data: $0, output: model)
+        } scrollToBottom: {
+            await model.scrollToBottom()
+        }
+        .overlay(alignment: .center) {
+            if model.showEmptyState {
+                ChatEmptyStateView()
             }
         }
     }

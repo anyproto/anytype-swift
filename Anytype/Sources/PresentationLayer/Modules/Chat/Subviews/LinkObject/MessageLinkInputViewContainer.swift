@@ -40,10 +40,9 @@ struct MessageLinkInputViewContainer: View {
                     }
                 }
             }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 16)
+            .padding(.top, 12)
+            .padding(.horizontal, 12)
         }
         .scrollIndicators(.hidden)
-        .background(Color.Background.primary)
     }
 }

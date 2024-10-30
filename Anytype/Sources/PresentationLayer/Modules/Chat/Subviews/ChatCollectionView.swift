@@ -30,6 +30,7 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
         collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
         collectionView.delegate = context.coordinator
         collectionView.scrollsToTop = false
+        collectionView.keyboardDismissMode = .onDrag
         
         let itemRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> {
             (cell, indexPath, item) in
