@@ -25,16 +25,15 @@ struct ChatInput: View {
                 }
             
             ZStack(alignment: .topLeading) {
-                ChatTextView(text: $text, editing: $editing, mention: $mention, minHeight: 56, maxHeight: 212, linkTo: onTapLinkTo)
                 if text.string.isEmpty {
                     Text(Loc.Message.Input.emptyPlaceholder)
                         .anytypeStyle(.bodyRegular)
                         .foregroundColor(.Text.tertiary)
-                        .padding(.leading, 6)
                         .padding(.top, 15)
                         .allowsHitTesting(false)
                         .lineLimit(1)
                 }
+                ChatTextView(text: $text, editing: $editing, mention: $mention, minHeight: 56, maxHeight: 212, linkTo: onTapLinkTo)
             }
             
             Menu {
@@ -78,11 +77,5 @@ struct ChatInput: View {
                 
         }
         .padding(.horizontal, 8)
-        .background(Color.Background.navigationPanel)
-        .background(.ultraThinMaterial)
-        .cornerRadius(16)
-        .border(16, color: .Shape.transperentSecondary)
-        .padding(.horizontal, 8)
-        .padding(.bottom, 8)
     }
 }

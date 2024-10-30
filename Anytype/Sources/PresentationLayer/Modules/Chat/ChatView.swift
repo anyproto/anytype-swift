@@ -79,6 +79,12 @@ struct ChatView: View {
                 model.onTapLinkTo(range: range)
             }
         }
+        .background(Color.Background.navigationPanel)
+        .background(.ultraThinMaterial)
+        .cornerRadius(16)
+        .border(16, color: .Shape.transperentSecondary)
+        .padding(.horizontal, 8)
+        .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
         .task(id: model.mentionSearchState) {
             try? await model.updateMentionState()
