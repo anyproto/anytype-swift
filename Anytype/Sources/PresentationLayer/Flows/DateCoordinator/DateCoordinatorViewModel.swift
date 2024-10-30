@@ -26,7 +26,7 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
         pageNavigation?.push(data)
     }
     
-    func onRelationsListTap(items: [SimpleSearchListItem]) {
+    func onSearchListTap(items: [SimpleSearchListItem]) {
         searchData = SimpleSearchData(items: items)
     }
 }

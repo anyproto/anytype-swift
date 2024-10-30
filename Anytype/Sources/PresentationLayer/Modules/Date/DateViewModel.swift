@@ -100,7 +100,7 @@ final class DateViewModel: ObservableObject {
                 self?.state.selectedRelation = details
             }
         }
-        output?.onRelationsListTap(items: items)
+        output?.onSearchListTap(items: items)
     }
     
     // MARK: - Private
