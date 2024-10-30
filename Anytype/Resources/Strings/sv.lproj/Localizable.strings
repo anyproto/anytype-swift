@@ -207,12 +207,13 @@
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
+"Open file" = "Open file";
 
 // Home
 "Favorites" = "Favoriter";
 "Recent" = "Recent";
 "Bin" = "Papperskorg";
-"All objects" = "All Objects";
+"All objects" = "Alla objekt";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -222,7 +223,7 @@
 "Restore" = "Återställ";
 
 // Keychain screen
-"Keychain.Key" = "Key";
+"Keychain.Key" = "Nyckel";
 "Keychain.Key.Copy.Toast.title" = "Key copied";
 "Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
 "Keychain.Show and copy key" = "Visa och kopiera nyckel";
