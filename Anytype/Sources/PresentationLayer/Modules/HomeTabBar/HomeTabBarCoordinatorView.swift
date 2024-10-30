@@ -46,8 +46,8 @@ struct HomeTabBarCoordinatorView: View {
                 .homeBottomPanelState($model.bottomPanelState)
                 .opacity(model.tab == .chat ? 1 : 0)
         }
-        .safeAreaInset(edge: .top) {
-            HomeTabBarView(name: model.spaceName, icon: model.spaceIcon, state: $model.tab)
+        .safeAreaInset(edge: .top, spacing: 0) {
+            HomeTabBarView(icon: model.spaceIcon, state: $model.tab)
         }
         .homeBottomPanelHidden(bottomPanelHidden)
     }

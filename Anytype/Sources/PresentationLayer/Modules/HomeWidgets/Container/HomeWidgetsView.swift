@@ -24,7 +24,9 @@ private struct HomeWidgetsInternalView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VerticalScrollViewWithOverlayHeader {
-                HomeTopShadow()
+                if !FeatureFlags.homeSpaceLevelChat {
+                    HomeTopShadow()
+                }
             } content: {
                 VStack(spacing: 12) {
                     if model.dataLoaded {

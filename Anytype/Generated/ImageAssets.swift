@@ -229,6 +229,7 @@ internal extension ImageAsset {
     }
     static let audo = ImageAsset.bundle(name: "x32/Audo")
     static let bookmark = ImageAsset.bundle(name: "x32/Bookmark")
+    static let chat = ImageAsset.bundle(name: "x32/Chat")
     static let clear = ImageAsset.bundle(name: "x32/Clear")
     static let color = ImageAsset.bundle(name: "x32/Color")
     static let copy = ImageAsset.bundle(name: "x32/Copy")
@@ -299,6 +300,7 @@ internal extension ImageAsset {
       static let view = ImageAsset.bundle(name: "x32/View/View")
     }
     static let view = ImageAsset.bundle(name: "x32/View")
+    static let widgets = ImageAsset.bundle(name: "x32/Widgets")
   }
   enum X40 {
     static let actions = ImageAsset.bundle(name: "x40/Actions")

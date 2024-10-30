@@ -3,61 +3,37 @@ import SwiftUI
 
 struct HomeTabBarView: View {
 
-    let name: String
     let icon: Icon?
     @Binding var state: HomeTabState
     
     var body: some View {
         HStack(spacing: 0) {
-
-            Spacer.fixedWidth(31)
-
-            Group {
-                IconView(icon: icon)
-                    .frame(width: 48, height: 48)
-                    .padding(.vertical, 31)
-
-                Spacer.fixedWidth(26)
-
-                Text(verbatim: name)
-                    .anytypeStyle(.previewTitle2Medium)
-                    .foregroundStyle(Color.Text.primary)
-                    .lineLimit(2)
-
-                Spacer.fixedWidth(10)
-            }
-            .fixTappableArea()
+            
+            makeButton(asset: .X32.widgets, buttonState: .widgets)
             
             Spacer()
-
-            VStack(spacing: 10) {
-                Image(asset: .X32.sendMessage)
-                    .frame(width: 36, height: 36)
-                    .onTapGesture {
-                        withAnimation {
-                            state = .chat
-                        }
-                    }
-
-                Image(asset: .X32.audo)
-                    .frame(width: 36, height: 36)
-
-            }
-            Spacer.fixedWidth(10)
-            VStack(spacing: 10) {
-                Image(asset: .X32.actions2)
-                    .frame(width: 36, height: 36)
-                    .onTapGesture {
-                        withAnimation {
-                            state = .widgets
-                        }
-                    }
-                Image(asset: .X32.actions)
-                    .frame(width: 36, height: 36)
-            }
-
-            Spacer.fixedWidth(26)
+            
+            IconView(icon: icon)
+                .frame(width: 40, height: 40)
+                .shadow(color: .black.opacity(0.25), radius: 20, y: 4)
+            
+            Spacer()
+            
+            makeButton(asset: .X32.chat, buttonState: .chat)
         }
-        .background(Color.Background.widget)
+        .padding(.horizontal, 20)
+        .frame(height: 64)
+    }
+    
+    private func makeButton(asset: ImageAsset, buttonState: HomeTabState) -> some View {
+        Image(asset: asset)
+            .foregroundStyle(
+                state == buttonState ? Color.Control.button : Color.Control.navPanelIcon
+            )
+            .onTapGesture {
+                withAnimation {
+                    state = buttonState
+                }
+            }
     }
 }
