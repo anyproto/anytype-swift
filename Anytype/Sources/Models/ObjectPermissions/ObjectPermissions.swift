@@ -38,12 +38,10 @@ extension ObjectPermissions {
         let isArchive = details.isArchived
         let isTemplateType = details.isTemplateType
         
-        let canEdit = !isLocked && !isArchive && participantCanEdit && !isVersionMode
+        let canEdit = !isLocked && !isArchive && participantCanEdit && !isVersionMode && !details.layoutValue.isFileOrMedia
         let canApplyUneditableActions = participantCanEdit && !isArchive
         
-        let specificTypes = details.layoutValue != .set
-                            && details.layoutValue != .collection
-                            && details.layoutValue != .participant
+        let specificTypes = !details.layoutValue.isList && !details.layoutValue.isParticipant
         
         self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplateType
         self.canDelete = isArchive && participantCanEdit

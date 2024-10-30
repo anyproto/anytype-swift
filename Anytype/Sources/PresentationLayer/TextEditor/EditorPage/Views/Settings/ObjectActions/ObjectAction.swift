@@ -16,23 +16,18 @@ enum ObjectAction: Hashable, Identifiable {
     case copyLink
 
     // When adding to case
-    static func allCasesWith(
-        details: ObjectDetails,
-        isLocked: Bool,
-        permissions: ObjectPermissions
-    ) -> [Self] {
+    static func buildActions(details: ObjectDetails, isLocked: Bool, permissions: ObjectPermissions) -> [Self] {
         .builder {
-            
             if permissions.canArchive {
                 ObjectAction.archive(isArchived: details.isArchived)
             }
             
-            if permissions.canCreateWidget {
-                ObjectAction.createWidget
-            }
-            
             if permissions.canFavorite {
                 ObjectAction.favorite(isFavorite: details.isFavorite)
+            }
+            
+            if permissions.canCreateWidget {
+                ObjectAction.createWidget
             }
             
             if permissions.canDuplicate {
