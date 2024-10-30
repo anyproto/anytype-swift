@@ -21,6 +21,10 @@ struct DateCoordinatorView: View {
         .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
             SyncStatusInfoView(spaceId: model.spaceId)
         }
+        .sheet(item: $model.searchData) { data in
+            SimpleSearchListView(items: data.items)
+                .mediumPresentationDetents()
+        }
     }
 }
 

@@ -93,6 +93,16 @@ final class DateViewModel: ObservableObject {
         state.selectedRelation = details
     }
     
+    func onRelationsListTap() {
+        guard relationDetails.isNotEmpty else { return }
+        let items = relationDetails.map { details in
+            SimpleSearchListItem(icon: nil, title: details.name) { [weak self] in
+                self?.state.selectedRelation = details
+            }
+        }
+        output?.onSearchListTap(items: items)
+    }
+    
     // MARK: - Private
     
     private func updateRows(with details: [ObjectDetails]) {
