@@ -82,8 +82,6 @@ final class LoginStateService: LoginStateServiceProtocol {
     
     private func startSubscriptions() async {
         await workspacesStorage.startSubscription()
-//        await relationDetailsStorage.startSubscription()
-//        await objectTypeProvider.startSubscription()
         await accountParticipantsStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
