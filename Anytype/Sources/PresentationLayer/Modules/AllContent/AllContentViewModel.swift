@@ -10,7 +10,7 @@ protocol AllContentModuleOutput: AnyObject {
 
 @MainActor
 final class AllContentViewModel: ObservableObject {
-
+    
     private var details = [ObjectDetails]()
     private var objectsToLoad = 0
     var firstOpen = true
@@ -138,17 +138,23 @@ final class AllContentViewModel: ObservableObject {
     }
     
     private func updateRows() {
-        if state.sort.relation.canGroupByDate {
-            let today = Date()
-            let dict = OrderedDictionary(
-                grouping: details,
-                by: { dateFormatter.localizedString(for: sortValue(for: $0) ?? today, relativeTo: today) }
-            )
+        guard state.sort.relation.canGroupByDate else  {
+            sections = [listSectionData(title: nil, details: details)]
+            return
+        }
+        
+        let today = Date()
+        let dict = OrderedDictionary(
+            grouping: details,
+            by: { dateFormatter.localizedString(for: sortValue(for: $0) ?? today, relativeTo: today) }
+        )
+        
+        if dict.count == 1 {
+            sections = [listSectionData(title: nil, details: details)]
+        } else {
             sections = dict.map { (key, details) in
                 listSectionData(title: key, details: details)
             }
-        } else {
-            sections = [listSectionData(title: nil, details: details)]
         }
     }
     

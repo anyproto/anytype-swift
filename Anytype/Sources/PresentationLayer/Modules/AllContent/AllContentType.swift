@@ -7,6 +7,7 @@ enum AllContentType: String, CaseIterable {
     case media
     case bookmarks
     case files
+    case types
     
     var title: String {
         switch self {
@@ -20,6 +21,8 @@ enum AllContentType: String, CaseIterable {
             Loc.media
         case .bookmarks:
             Loc.bookmarks
+        case .types:
+            Loc.types
         }
     }
     
@@ -35,6 +38,8 @@ enum AllContentType: String, CaseIterable {
             DetailsLayout.mediaLayouts
         case .bookmarks:
             [.bookmark]
+        case .types:
+            [.objectType]
         }
     }
     
@@ -50,6 +55,8 @@ enum AllContentType: String, CaseIterable {
             "Media"
         case .bookmarks:
             "Bookmarks"
+        case .types:
+            "Types"
         }
     }
 }
