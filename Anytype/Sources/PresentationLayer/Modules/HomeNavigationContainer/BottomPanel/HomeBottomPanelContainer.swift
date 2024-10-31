@@ -33,10 +33,8 @@ struct HomeBottomPanelContainer<Content: View, BottomContent: View>: View {
     }
     
     private var bottomPanelHidden: Bool {
-        for item in path.path.reversed() {
-            if let state = bottomPanelState.hidden(for: item) {
-                return state
-            }
+        if let item = path.path.last {
+            return bottomPanelState.hidden(for: item) ?? false
         }
         return false
     }
