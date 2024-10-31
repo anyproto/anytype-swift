@@ -52,11 +52,11 @@ final class EditorSearchCell: UIView, UIContentView {
     private func apply(configuration: EditorSearchCellConfiguration) {
         icon.icon = configuration.cellData.icon
         icon.isHidden = configuration.cellData.icon.isNil
-        title.setText(configuration.cellData.title, style: .uxTitle2Regular)
+        title.setText(configuration.cellData.title, style: .uxTitle2Medium)
         
         if configuration.cellData.subtitle.isNotEmpty {
             subtitle.isHidden = false
-            subtitle.setText(configuration.cellData.subtitle, style: .caption1Regular)
+            subtitle.setText(configuration.cellData.subtitle, style: .relation2Regular)
         } else {
             subtitle.isHidden = true
         }
