@@ -9,10 +9,16 @@ import SwiftUI
 //         .anytypeIgnoreBottomSafeArea() // <--- Works
 // }
 private struct IgnoreBottomSafeAreaModifier: ViewModifier {
+    
+    @State private var contentSize: CGSize = .zero
+    
     func body(content: Content) -> some View {
         GeometryReader { reader in
             content
-                .position(x: reader.size.width * 0.5, y: reader.size.height - reader.safeAreaInsets.bottom)
+                .readSize { newSize in
+                    contentSize = newSize
+                }
+                .position(x: reader.size.width * 0.5, y: reader.size.height - contentSize.height * 0.5 - reader.safeAreaInsets.bottom)
         }
         .ignoresSafeArea(.keyboard)
     }
