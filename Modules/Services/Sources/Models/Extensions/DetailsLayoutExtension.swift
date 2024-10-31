@@ -32,6 +32,7 @@ public extension DetailsLayout {
     
     var isNote: Bool { self == .note }
     var isImage: Bool { self == .image }
+    var isParticipant: Bool { self == .participant }
     
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }
@@ -39,6 +40,11 @@ public extension DetailsLayout {
 }
 
 public extension Optional where Wrapped == DetailsLayout {
+    var isFileOrMedia: Bool {
+        guard let self else { return false }
+        return self.isFileOrMedia
+    }
+    
     var isEditorLayout: Bool {
         guard let self else { return false }
         return self.isEditorLayout
