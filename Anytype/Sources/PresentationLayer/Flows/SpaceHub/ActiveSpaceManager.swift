@@ -32,6 +32,11 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
     private var activeSpaceId: String?
     lazy var workspaceInfoSubject = CurrentValueSubject<AccountInfo?, Never>(nil)
     
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    
     nonisolated init() {}
     
     var workspaceInfo: AccountInfo? {
@@ -48,11 +53,16 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
         guard let spaceId else {
             workspaceInfoSubject.send(nil)
             activeSpaceId = nil
+            await objectTypeProvider.stopSubscription(cleanCache: false)
+            await relationDetailsStorage.stopSubscription(cleanCache: false)
             return
         }
         
         let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
         workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
+        await objectTypeProvider.startSubscription(spaceId: spaceId)
+        await relationDetailsStorage.startSubscription(spaceId: spaceId)
+        
         logSwitchSpace(spaceId: spaceId)
         
         workspaceInfoSubject.send(info)

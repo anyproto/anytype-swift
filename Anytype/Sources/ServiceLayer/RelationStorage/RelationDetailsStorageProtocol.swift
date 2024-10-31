@@ -12,8 +12,8 @@ protocol RelationDetailsStorageProtocol: AnyObject {
     func relationsDetails(for key: String, spaceId: String) throws -> RelationDetails
     var syncPublisher: AnyPublisher<Void, Never> { get }
     
-    func startSubscription() async
-    func stopSubscription() async
+    func startSubscription(spaceId: String) async
+    func stopSubscription(cleanCache: Bool) async
 }
 
 extension RelationDetailsStorageProtocol {

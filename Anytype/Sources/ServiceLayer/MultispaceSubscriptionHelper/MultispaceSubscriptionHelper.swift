@@ -35,11 +35,13 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel> {
     
     func startSubscription(update: @escaping () -> Void) async {
         // Start first subscription in current async context for guarantee data state before return
-        let spaceIds = await workspacessStorage.allWorkspaces.map { $0.targetSpaceId }
+        let spaceIds = await workspacessStorage.allWorkspaces
+            .filter { $0.isActive || $0.isLoading }
+            .map { $0.targetSpaceId }
         await updateSubscriptions(spaceIds: spaceIds, update: update)
         
         spacesSubscription = await workspacessStorage.allWorkspsacesPublisher
-            .map { $0.map { $0.targetSpaceId } }
+            .map { $0.filter { $0.isActive || $0.isLoading }.map { $0.targetSpaceId } }
             .removeDuplicates()
             .sink { [weak self] spaceIds in
                 Task {
