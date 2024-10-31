@@ -46,7 +46,7 @@ extension BundledRelationsValueProvider {
         case .chat, .chatDerived:
             return .chat
         case .date:
-            return .date
+            return FeatureFlags.dateAsAnObject ? .date : .page
         }
     }
     
