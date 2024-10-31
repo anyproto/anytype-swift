@@ -92,14 +92,9 @@ final class MentionsViewController: UITableViewController {
     }
     
     private func confguration(for mention: MentionObject) -> any UIContentConfiguration {
-        let subtitle = if let type = mention.type {
-            !type.isDateType ? type.name : ""
-        } else {
-            Loc.Mention.Subtitle.placeholder
-        }
-        return confguration(
+        confguration(
             title: mention.name,
-            subtitle: subtitle,
+            subtitle: viewModel.subtitle(for: mention),
             icon: mention.objectIcon
         )
     }

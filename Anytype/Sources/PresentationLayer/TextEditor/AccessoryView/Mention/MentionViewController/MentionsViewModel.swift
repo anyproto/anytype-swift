@@ -70,6 +70,14 @@ final class MentionsViewModel {
         }
     }
     
+    func subtitle(for mention: MentionObject) -> String {
+        return if let type = mention.type {
+            !type.isDateType ? type.name : ""
+        } else {
+            Loc.Mention.Subtitle.placeholder
+        }
+    }
+    
     func setFilterString(_ string: String) {
         obtainMentions(filterString: string)
     }
