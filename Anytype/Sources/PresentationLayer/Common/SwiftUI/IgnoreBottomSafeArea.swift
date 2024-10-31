@@ -18,7 +18,7 @@ private struct IgnoreBottomSafeAreaModifier: ViewModifier {
                 .readSize { newSize in
                     contentSize = newSize
                 }
-                .position(x: reader.size.width * 0.5, y: reader.size.height - contentSize.height * 0.5 - reader.safeAreaInsets.bottom)
+                .position(x: reader.size.width * 0.5, y: reader.size.height - contentSize.height * 0.5)
         }
         .ignoresSafeArea(.keyboard)
     }
