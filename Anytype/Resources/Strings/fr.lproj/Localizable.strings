@@ -577,6 +577,7 @@
 
 "Limit object types" = "Limiter les types d'objet";
 "Type" = "Type";
+"Types" = "Types";
 "No name" = "Sans nom";
 "New relation" = "Nouvelle relation";
 "Non-existent object" = "Objet inexistant";
@@ -1249,6 +1250,8 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 // MARK: - Chats
 "Chat.ReadOnly" = "Seuls les éditeurs peuvent envoyer des messages. Contactez le propriétaire pour demander l'accès.";
 "Chat.ReplyTo" = "Réponse à %@";
+"Chat.Empty.Title" = "Aucun message pour l'instant...";
+"Chat.Empty.Description" = "Écrivez une première pour démarrer une conversation";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";

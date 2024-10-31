@@ -578,6 +578,7 @@
 
 "Limit object types" = "限制物件類型";
 "Type" = "類型";
+"Types" = "類型";
 "No name" = "無名稱";
 "New relation" = "新增關聯";
 "Non-existent object" = "不存在的物件";
@@ -1252,6 +1253,8 @@
 // MARK: - Chats
 "Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
 "Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Title" = "No messages here yet...";
+"Chat.Empty.Description" = "Write a first one to start a conversation";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

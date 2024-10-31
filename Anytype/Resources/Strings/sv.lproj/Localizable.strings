@@ -577,6 +577,7 @@
 
 "Limit object types" = "Begränsa objekttyper";
 "Type" = "Typ";
+"Types" = "Types";
 "No name" = "No name";
 "New relation" = "Ny relation";
 "Non-existent object" = "Non-existent object";
@@ -1248,6 +1249,8 @@ Please provide specific details of your needs here.";
 // MARK: - Chats
 "Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
 "Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Title" = "Inga meddelanden här än...";
+"Chat.Empty.Description" = "Write a first one to start a conversation";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

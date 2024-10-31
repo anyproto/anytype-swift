@@ -207,7 +207,7 @@
 "Agreement Disclamer" = "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz";
 "Lets Go" = "Haydi Başlayalım";
 "My spaces" = "Benim Alanlarım";
-"Open file" = "Open file";
+"Open file" = "Dosya aç";
 
 // Home
 "Favorites" = "Favoriler";
@@ -577,6 +577,7 @@
 
 "Limit object types" = "Nesne türlerini sınırla";
 "Type" = "Tür";
+"Types" = "Türler";
 "No name" = "İsim yok";
 "New relation" = "Yeni ilişki";
 "Non-existent object" = "Var olmayan nesne";
@@ -1250,6 +1251,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Chats
 "Chat.ReadOnly" = "Sadece editörler mesaj gönderebilir. Erişim talep etmek için lütfen alan sahibiyle iletişime geçin.";
 "Chat.ReplyTo" = "Yanıtla: %@";
+"Chat.Empty.Title" = "Burada henüz mesaj yok...";
+"Chat.Empty.Description" = "Bir konuşma başlatmak için ilk mesajı siz yazın";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";

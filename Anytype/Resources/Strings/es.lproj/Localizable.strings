@@ -577,6 +577,7 @@
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo:";
+"Types" = "Tipos";
 "No name" = "Sin nombre";
 "New relation" = "Nueva relación";
 "Non-existent object" = "Objeto inexistente";
@@ -1248,6 +1249,8 @@ En concreto,
 // MARK: - Chats
 "Chat.ReadOnly" = "Solo pueden enviar mensajes los editores. Solicita acceso a la persona que ha creado esto.";
 "Chat.ReplyTo" = "Responder a %@";
+"Chat.Empty.Title" = "No messages here yet...";
+"Chat.Empty.Description" = "Write a first one to start a conversation";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
