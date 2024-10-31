@@ -339,6 +339,7 @@ internal enum Loc {
   internal static let tomorrow = Loc.tr("Localizable", "Tomorrow", fallback: "Tomorrow")
   internal static let tryToFindANewOneOrUploadYourImage = Loc.tr("Localizable", "Try to find a new one or upload your image", fallback: "Try to find a new one or upload your image")
   internal static let type = Loc.tr("Localizable", "Type", fallback: "Type")
+  internal static let types = Loc.tr("Localizable", "Types", fallback: "Types")
   internal static let undo = Loc.tr("Localizable", "Undo", fallback: "Undo")
   internal static let undoTyping = Loc.tr("Localizable", "Undo typing", fallback: "Undo typing")
   internal static let undoRedo = Loc.tr("Localizable", "Undo/Redo", fallback: "Undo/Redo")

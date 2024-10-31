@@ -22,7 +22,7 @@ enum AllContentType: String, CaseIterable {
         case .bookmarks:
             Loc.bookmarks
         case .types:
-            "Types"
+            Loc.types
         }
     }
     
