@@ -104,10 +104,6 @@ extension Container {
         self { CollectionsSubscriptionService() }
     }
     
-    var chatsSubscriptionService: Factory<any ChatsSubscriptionServiceProtocol> {
-        self { ChatsSubscriptionService() }
-    }
-    
     var binSubscriptionService: Factory<any BinSubscriptionServiceProtocol> {
         self { BinSubscriptionService() }
     }

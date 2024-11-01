@@ -3947,6 +3947,8 @@ public struct Anytype_Model_ObjectType {
     case spaceView // = 18
     case participant // = 19
     case pdf // = 20
+
+    /// deprecated
     case chat // = 21
     case chatDerived // = 22
     case tag // = 23

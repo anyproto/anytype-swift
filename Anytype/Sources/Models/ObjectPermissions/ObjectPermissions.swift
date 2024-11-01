@@ -70,7 +70,7 @@ extension ObjectPermissions {
         self.canEditRelationsList = canEdit && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplateType
         self.canApplyTemplates = canEdit && !isTemplateType
-        self.canEditMessages = canEdit && details.objectType.isChatType
+        self.canEditMessages = canEdit
         
         if isLocked || isVersionMode {
             self.editBlocks = .readonly(.locked)

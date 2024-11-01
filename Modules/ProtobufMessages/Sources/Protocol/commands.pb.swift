@@ -4328,6 +4328,9 @@ public struct Anytype_Rpc {
         /// use case
         public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .none
 
+        /// create space-level chat; temporary solution, should be removed after chats released for all users
+        public var withChat: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -4421,6 +4424,9 @@ public struct Anytype_Rpc {
         // methods supported on all messages.
 
         public var spaceID: String = String()
+
+        /// create space-level chat if not exists; temporary solution, should be removed after chats released for all users
+        public var withChat: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -40544,6 +40550,7 @@ extension Anytype_Rpc.Workspace.Create.Request: SwiftProtobuf.Message, SwiftProt
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "details"),
     2: .same(proto: "useCase"),
+    3: .same(proto: "withChat"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -40554,6 +40561,7 @@ extension Anytype_Rpc.Workspace.Create.Request: SwiftProtobuf.Message, SwiftProt
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.useCase) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.withChat) }()
       default: break
       }
     }
@@ -40570,12 +40578,16 @@ extension Anytype_Rpc.Workspace.Create.Request: SwiftProtobuf.Message, SwiftProt
     if self.useCase != .none {
       try visitor.visitSingularEnumField(value: self.useCase, fieldNumber: 2)
     }
+    if self.withChat != false {
+      try visitor.visitSingularBoolField(value: self.withChat, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Create.Request, rhs: Anytype_Rpc.Workspace.Create.Request) -> Bool {
     if lhs._details != rhs._details {return false}
     if lhs.useCase != rhs.useCase {return false}
+    if lhs.withChat != rhs.withChat {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -40692,6 +40704,7 @@ extension Anytype_Rpc.Workspace.Open.Request: SwiftProtobuf.Message, SwiftProtob
   public static let protoMessageName: String = Anytype_Rpc.Workspace.Open.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
+    2: .same(proto: "withChat"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -40701,6 +40714,7 @@ extension Anytype_Rpc.Workspace.Open.Request: SwiftProtobuf.Message, SwiftProtob
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.withChat) }()
       default: break
       }
     }
@@ -40710,11 +40724,15 @@ extension Anytype_Rpc.Workspace.Open.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
+    if self.withChat != false {
+      try visitor.visitSingularBoolField(value: self.withChat, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Open.Request, rhs: Anytype_Rpc.Workspace.Open.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.withChat != rhs.withChat {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

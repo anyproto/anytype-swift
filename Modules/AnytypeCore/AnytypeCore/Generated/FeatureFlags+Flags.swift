@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var chats: Bool {
-        value(for: .chats)
-    }
-
     static var versionHistory: Bool {
         value(for: .versionHistory)
     }
@@ -108,7 +104,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .chats,
         .versionHistory,
         .allContent,
         .spaceHubParallax,
