@@ -58,7 +58,7 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
             return
         }
         
-        let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
+        let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: FeatureFlags.homeSpaceLevelChat)
         workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
         await objectTypeProvider.startSubscription(spaceId: spaceId)
         await relationDetailsStorage.startSubscription(spaceId: spaceId)

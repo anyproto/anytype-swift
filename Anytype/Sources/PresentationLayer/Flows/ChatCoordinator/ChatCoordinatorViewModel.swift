@@ -2,18 +2,20 @@ import Foundation
 import PhotosUI
 import SwiftUI
 
+
+struct ChatCoordinatorData: Hashable, Codable {
+    let chatId: String
+    let spaceId: String
+}
+
 @MainActor
 final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
-    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
-    
-    private let document: any BaseDocumentProtocol
-    let objectId: String
+    let chatId: String
     let spaceId: String
     
     @Published var objectToMessageSearchData: BlockObjectSearchData?
     @Published var showEmojiData: MessageReactionPickerData?
-    @Published var chatId: String?
     @Published var showSyncStatusInfo = false
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
@@ -26,18 +28,9 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     var pageNavigation: PageNavigation?
     
-    init(data: EditorChatObject) {
-        self.objectId = data.objectId
+    init(data: ChatCoordinatorData) {
+        self.chatId = data.chatId
         self.spaceId = data.spaceId
-        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
-    }
-    
-    func startHandleDetails() async {
-        for await details in document.detailsPublisher.values {
-            if chatId.isNil {
-                chatId = details.chatId
-            }
-        }
     }
     
     func onLinkObjectSelected(data: BlockObjectSearchData) {
@@ -45,16 +38,11 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     }
     
     func didSelectAddReaction(messageId: String) {
-        guard let chatId else { return }
         showEmojiData = MessageReactionPickerData(chatObjectId: chatId, messageId: messageId)
     }
     
     func didSelectLinkToObject(data: LinkToObjectSearchModuleData) {
         linkToObjectData = data
-    }
-    
-    func onIconSelected() {
-        objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
     func onObjectSelected(screenData: EditorScreenData) {

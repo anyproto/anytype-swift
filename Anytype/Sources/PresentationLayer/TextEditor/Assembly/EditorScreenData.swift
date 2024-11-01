@@ -10,7 +10,6 @@ enum EditorScreenData: Hashable, Codable {
     case bin(spaceId: String)
     case page(EditorPageObject)
     case set(EditorSetObject)
-    case chat(EditorChatObject)
     case date(EditorDateObject)
     case allContent(spaceId: String)
 }
@@ -62,11 +61,6 @@ struct EditorSetObject: Hashable, Codable {
     }
 }
 
-struct EditorChatObject: Hashable, Codable {
-    let objectId: String
-    let spaceId: String
-}
-
 struct EditorDateObject: Hashable, Codable {
     let objectId: String
     let spaceId: String
@@ -80,6 +74,5 @@ struct EditorInlineSetObject: Hashable, Codable {
 enum EditorViewType {
     case page
     case set
-    case chat
     case date
 }

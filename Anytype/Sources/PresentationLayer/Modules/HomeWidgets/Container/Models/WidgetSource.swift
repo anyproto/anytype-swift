@@ -42,7 +42,7 @@ extension ObjectDetails {
            return [.tree, .link]
         case .set:
             return [.view, .compactList, .list, .link]
-        case .chat, .date:
+        case .date:
             return []
         }
     }
