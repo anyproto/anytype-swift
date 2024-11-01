@@ -94,7 +94,7 @@ final class MentionsViewController: UITableViewController {
     private func confguration(for mention: MentionObject) -> any UIContentConfiguration {
         confguration(
             title: mention.name,
-            subtitle: mention.type?.name ?? Loc.Mention.Subtitle.placeholder,
+            subtitle: viewModel.subtitle(for: mention),
             icon: mention.objectIcon
         )
     }
@@ -105,20 +105,12 @@ final class MentionsViewController: UITableViewController {
         if objectName.isEmpty {
             configuration.text = Loc.createNewObject
         } else {
-            let mutableAttributedString = NSMutableAttributedString(
-                string: Loc.createObject,
-                attributes: [.font: UIFont.uxTitle2Regular, .foregroundColor: UIColor.Text.primary]
-            )
-            let nameAttributedString = NSAttributedString(
-                string: objectName,
+            let string = Loc.createObject + " \"\(objectName)\""
+            let attributedText = NSAttributedString(
+                string: string,
                 attributes: [.font: UIFont.uxTitle2Medium, .foregroundColor: UIColor.Text.primary]
             )
-
-            mutableAttributedString.append(.init(string: " \""))
-            mutableAttributedString.append(nameAttributedString)
-            mutableAttributedString.append(.init(string: "\""))
-
-            configuration.attributedText = mutableAttributedString
+            configuration.attributedText = attributedText
         }
 
         configuration.textProperties.font = .uxTitle2Regular

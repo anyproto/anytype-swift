@@ -90,7 +90,7 @@ internal enum Loc {
   internal static let create = Loc.tr("Localizable", "Create", fallback: "Create")
   internal static let createANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Create a new one or search for something else", fallback: "Create a new one or search for something else")
   internal static let createNewObject = Loc.tr("Localizable", "Create new object", fallback: "Create new object")
-  internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
+  internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create Object")
   internal static let createObjectFromClipboard = Loc.tr("Localizable", "Create object from clipboard", fallback: "Create object from clipboard")
   internal static func createOptionWith(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create option with", String(describing: p1), fallback: "Create option ‘%@’")
