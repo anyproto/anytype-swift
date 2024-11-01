@@ -61,7 +61,7 @@ public enum Anytype_ModifyOp: SwiftProtobuf.Enum {
 
 extension Anytype_ModifyOp: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_ModifyOp] = [
+  public static var allCases: [Anytype_ModifyOp] = [
     .set,
     .unset,
     .inc,
@@ -1089,15 +1089,7 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     var _timestamp: Int64 = 0
     var _version: UInt32 = 0
 
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
+    static let defaultInstance = _StorageClass()
 
     private init() {}
 
