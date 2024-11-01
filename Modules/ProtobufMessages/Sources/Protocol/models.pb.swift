@@ -3563,6 +3563,9 @@ public struct Anytype_Model_Account {
     /// marketplace workspace id
     public var marketplaceWorkspaceID: String = String()
 
+    /// workspace object id. used for space-level chat
+    public var workspaceObjectID: String = String()
+
     public var deviceID: String = String()
 
     public var accountSpaceID: String = String()
@@ -9146,6 +9149,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     3: .same(proto: "archiveObjectId"),
     4: .same(proto: "profileObjectId"),
     11: .same(proto: "marketplaceWorkspaceId"),
+    15: .same(proto: "workspaceObjectId"),
     8: .same(proto: "deviceId"),
     9: .same(proto: "accountSpaceId"),
     10: .same(proto: "widgetsId"),
@@ -9173,6 +9177,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 11: try { try decoder.decodeSingularStringField(value: &self.marketplaceWorkspaceID) }()
       case 13: try { try decoder.decodeSingularStringField(value: &self.spaceViewID) }()
       case 14: try { try decoder.decodeSingularStringField(value: &self.techSpaceID) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self.workspaceObjectID) }()
       case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
       case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
       case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
@@ -9211,6 +9216,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.techSpaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.techSpaceID, fieldNumber: 14)
     }
+    if !self.workspaceObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.workspaceObjectID, fieldNumber: 15)
+    }
     if !self.gatewayURL.isEmpty {
       try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
     }
@@ -9234,6 +9242,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.archiveObjectID != rhs.archiveObjectID {return false}
     if lhs.profileObjectID != rhs.profileObjectID {return false}
     if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {return false}
+    if lhs.workspaceObjectID != rhs.workspaceObjectID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.accountSpaceID != rhs.accountSpaceID {return false}
     if lhs.widgetsID != rhs.widgetsID {return false}
