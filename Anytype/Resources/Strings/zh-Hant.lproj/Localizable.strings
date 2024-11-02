@@ -148,11 +148,11 @@
 "Objects" = "物件";
 "Pages" = "Pages";
 "Lists" = "列表";
-"Bookmarks" = "Bookmarks";
+"Bookmarks" = "書籤";
 "Files" = "檔案";
 "Media" = "媒體";
 "Lists" = "列表";
-"Dates" = "Dates";
+"Dates" = "日期";
 "Pinned" = "已釘選";
 "Delete" = "刪除";
 "Export" = "匯出";
@@ -192,7 +192,7 @@
 "Green background" = "綠色背景";
 "Create new object" = "建立新物件";
 "Cancel" = "取消";
-"Paste or type URL" = "貼上或輸入 URL";
+"Paste or type URL" = "貼上或輸入網址";
 "No items match filter" = "没有符合篩選的項目";
 "Unsupported block" = "不支援的區塊";
 "Unsupported" = "不支援";
@@ -207,13 +207,13 @@
 "Agreement Disclamer" = "繼續即表示同意 [使用條款](%@) 與 [隱私政策](%@)";
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
-"Open file" = "Open file";
+"Open file" = "開啟檔案";
 
 // Home
 "Favorites" = "我的最愛";
-"Recent" = "最近";
+"Recent" = "最近存取";
 "Bin" = "垃圾桶";
-"All objects" = "All Objects";
+"All objects" = "所有物件";
 
 // Settings
 "Wallpaper" = "桌布";
@@ -296,7 +296,7 @@
 "Emoji or image for object" = "物件的 Emoji 或圖像";
 "Cover" = "封面";
 "Background picture" = "背景圖片";
-"Layout" = "版型";
+"Layout" = "排版";
 "Arrangement of objects on a canvas" = "畫布上的物件排列";
 "ObjectSettings.History.Description" = "物件的所有版本";
 
@@ -324,7 +324,7 @@
 "Profile" = "設定檔";
 "Task" = "任務";
 "Note" = "筆記";
-"Choose layout type" = "選擇佈局類型";
+"Choose layout type" = "選擇排版類型";
 
 "Undo typing" = "撤銷輸入";
 "Undo" = "撤銷";
@@ -586,7 +586,7 @@
 "Select all" = "選取全部";
 "Unselect all" = "取消全選";
 "Deselect all" = "取消全選";
-"Deselect" = "Deselect";
+"Deselect" = "取消選擇";
 "Shared" = "分享";
 "Sets" = "集合";
 "Collections" = "集錦";
@@ -670,7 +670,7 @@
 "Highlight" = "螢光筆";
 "Create object" = "建立物件";
 "Web pages" = "網頁";
-"Preview layout" = "預覽版型";
+"Preview layout" = "預覽排版";
 "Everywhere" = "任何位置";
 "Exact day" = "確切日期";
 "Tomorrow" = "明天";
@@ -1222,7 +1222,7 @@
 "SyncStatus.Error.networkError" = "無法進入這個空間";
 "SyncStatus.Error.UNRECOGNIZED" = "無法識別的錯誤";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotConnected" = "未連線";
 "SyncStatus.P2P.NotPossible" = "Connection not possible";
 
 
@@ -1246,7 +1246,7 @@
 "AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllContent.Settings.ViewBin" = "View Bin";
+"AllContent.Settings.ViewBin" = "查看垃圾桶";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
@@ -1259,7 +1259,7 @@
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
+"ReindexingWarningAlert.Button" = "我知道了！";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
