@@ -191,6 +191,7 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Luo uusi objekti";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Peruuta";
 "Paste or type URL" = "Sijoita tai kirjoita URL";
 "No items match filter" = "Yksikään kohde ei vastaa filtteröintiä";
