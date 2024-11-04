@@ -191,6 +191,7 @@
 "Blue background" = "藍色背景";
 "Green background" = "綠色背景";
 "Create new object" = "建立新物件";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "取消";
 "Paste or type URL" = "貼上或輸入網址";
 "No items match filter" = "没有符合篩選的項目";
