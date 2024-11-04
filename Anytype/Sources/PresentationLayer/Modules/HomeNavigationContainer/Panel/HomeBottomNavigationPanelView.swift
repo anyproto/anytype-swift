@@ -81,7 +81,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         if #available(iOS 17.0, *) {
                             SpaceSwitcherTip.openedSpaceSwitcher = true
                         }
-                        model.onTapProfile()
+                        model.onTapHome()
                     }
             )
         
