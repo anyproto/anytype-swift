@@ -191,6 +191,7 @@
 "Blue background" = "Mavi arkaplan";
 "Green background" = "Yeşil arkaplan";
 "Create new object" = "Yeni nesne oluştur";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "İptal";
 "Paste or type URL" = "Bir URL yazın ya da yapıştırın";
 "No items match filter" = "Filtreyle eşleşen öge yok";

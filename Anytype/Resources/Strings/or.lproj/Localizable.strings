@@ -191,6 +191,7 @@
 "Blue background" = "ନୀଳ ପୃଷ୍ଠଭୂମି";
 "Green background" = "ସବୁଜ ପୃଷ୍ଠଭୂମି";
 "Create new object" = "ନୂଆ ଅବଜେକ୍ଟ ତିଆରି କରନ୍ତୁ";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "ବାତିଲ କରନ୍ତୁ ";
 "Paste or type URL" = "ୟୁଆରେଲ ଟାଇପ କିମ୍ବା ପେଷ୍ଟ କରନ୍ତୁ";
 "No items match filter" = "କୌଣସି ଆଇଟମ୍ ଫିଲ୍ଟର ସହ ମେଳ ଖାଉନାହିଁ";
