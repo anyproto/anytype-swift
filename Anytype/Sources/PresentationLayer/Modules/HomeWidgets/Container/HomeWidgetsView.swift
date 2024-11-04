@@ -57,7 +57,7 @@ private struct HomeWidgetsInternalView: View {
                                 output: model.output
                             )
                         }
-                        if !FeatureFlags.allContent {
+                        if model.showBin {
                             BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
                         }
                         editButtons
@@ -79,6 +79,9 @@ private struct HomeWidgetsInternalView: View {
         }
         .task {
             await model.startParticipantTask()
+        }
+        .task {
+            await model.startBinSubscription()
         }
         .onAppear {
             model.onAppear()

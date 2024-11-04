@@ -25,6 +25,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.binSubscriptionService)
+    private var binSubscriptionService: any BinSubscriptionServiceProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     
@@ -34,6 +36,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: SpaceWallpaperType = .default
+    @Published var showBin = false
     
     var spaceId: String { info.accountSpaceId }
     var space: SpaceView? { workspaceStorage.spaceView(spaceId: spaceId) }
@@ -66,6 +69,13 @@ final class HomeWidgetsViewModel: ObservableObject {
     func startParticipantTask() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             homeState = canEdit ? .readwrite : .readonly
+        }
+    }
+    
+    func startBinSubscription() async {
+        guard FeatureFlags.showBinWidgetIfNotEmpty else { return }
+        await binSubscriptionService.startSubscription(spaceId: spaceId, objectLimit: nil) { [weak self] details in
+            self?.showBin = details.isNotEmpty
         }
     }
     
