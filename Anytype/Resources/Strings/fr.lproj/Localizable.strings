@@ -191,6 +191,7 @@
 "Blue background" = "Fond bleu";
 "Green background" = "Fond vert";
 "Create new object" = "Créer un nouvel objet";
+"Create new object with name" = "Créer un nouvel objet \"%@\"";
 "Cancel" = "Annuler";
 "Paste or type URL" = "Coller ou saisir l'URL";
 "No items match filter" = "Aucun élément ne correspond au filtre";
