@@ -191,6 +191,7 @@
 "Blue background" = "Синий фон";
 "Green background" = "Зелёный фон";
 "Create new object" = "Создать новый объект";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Отмена";
 "Paste or type URL" = "Вставить или ввести URL-адрес";
 "No items match filter" = "Нет элементов, соответствующих фильтру";
