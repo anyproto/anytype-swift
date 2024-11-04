@@ -191,6 +191,7 @@
 "Blue background" = "星蓝色背景";
 "Green background" = "浮萍绿背景";
 "Create new object" = "创建新对象";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "取消";
 "Paste or type URL" = "粘贴或输入URL网址";
 "No items match filter" = "没有与筛选匹配的项目";
