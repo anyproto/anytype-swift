@@ -191,6 +191,7 @@
 "Blue background" = "Blauwe achtergrond";
 "Green background" = "Groene achtergrond";
 "Create new object" = "Maak nieuw object aan";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Annuleer";
 "Paste or type URL" = "Plak of type URL";
 "No items match filter" = "Geen items die met filter overeenkomen";
