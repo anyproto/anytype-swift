@@ -192,6 +192,7 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Create new object";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Cancel";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
