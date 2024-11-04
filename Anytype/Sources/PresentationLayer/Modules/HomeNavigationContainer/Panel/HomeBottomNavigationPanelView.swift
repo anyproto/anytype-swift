@@ -47,7 +47,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         }
         .overlay {
             if #available(iOS 17.0, *) {
-                SpaceSwitcherTipView()
+                ReturnToWidgetsTipView()
             }
         }
         .padding(.vertical, 10)
@@ -73,13 +73,16 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     private var navigation: some View {
         Image(asset: .X32.Island.back)
             .onTapGesture {
+                if #available(iOS 17.0, *) {
+                    ReturnToWidgetsTip.numberOfBackTaps += 1
+                }
                 model.onTapBackward()
             }
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.3)
                     .onEnded { _ in
                         if #available(iOS 17.0, *) {
-                            SpaceSwitcherTip.openedSpaceSwitcher = true
+                            ReturnToWidgetsTip.usedLongpress = true
                         }
                         model.onTapHome()
                     }
