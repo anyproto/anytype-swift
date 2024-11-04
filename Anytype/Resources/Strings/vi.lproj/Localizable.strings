@@ -192,6 +192,7 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Tạo đối tượng mới";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Huỷ";
 "Paste or type URL" = "Dán hoặc nhập URL";
 "No items match filter" = "Không có gì thoả bộ lọc";
