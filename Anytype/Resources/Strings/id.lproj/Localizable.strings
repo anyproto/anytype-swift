@@ -191,6 +191,7 @@
 "Blue background" = "Latar belakang biru";
 "Green background" = "Latar belakang hijau";
 "Create new object" = "Buat objek baru";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Batal";
 "Paste or type URL" = "Tempel atau ketik URL";
 "No items match filter" = "Tidak ada kecocokan";
