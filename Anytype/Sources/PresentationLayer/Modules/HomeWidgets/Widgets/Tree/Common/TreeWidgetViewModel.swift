@@ -191,6 +191,8 @@ private extension ObjectDetails {
             return .icon(asset: .X18.setOrCollection)
         case .chat, .date:
             return .icon(asset: .X18.objectWithoutIcon)
+        case .type:
+            return .icon(asset: .EmptyIcon.objectType) // TODO update
         }
     }
 }
