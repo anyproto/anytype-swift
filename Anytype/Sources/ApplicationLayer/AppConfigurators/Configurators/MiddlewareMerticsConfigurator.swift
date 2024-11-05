@@ -13,7 +13,7 @@ final class MiddlewareMerticsConfigurator: AppConfiguratorProtocol {
         let metricsEnv = CoreEnvironment.isDebug ? "-dev" : ""
         let version = appVersion + "(\(buildNumber))" + metricsEnv
         Task {
-            try await metricsService.metricsSetParameters(platform: "iOS", version: version)
+            try await metricsService.setInitialParameters(platform: "iOS", version: version)
         }
     }
 }
