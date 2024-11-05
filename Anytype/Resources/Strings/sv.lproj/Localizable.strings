@@ -191,6 +191,7 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Skapa nytt objekt";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Avbryt";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
@@ -1243,7 +1244,7 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";
-"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.title" = "Inga resultat hittades.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
 // MARK: - Chats

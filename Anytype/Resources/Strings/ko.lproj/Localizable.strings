@@ -191,6 +191,7 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Create new object";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "취소";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "필터와 일치하는 항목 없음";
@@ -667,7 +668,7 @@
 "View" = "보기";
 "Home" = "Home";
 "Highlight" = "Highlight";
-"Create object" = "Create object";
+"Create object" = "Create Object";
 "Web pages" = "Web pages";
 "Preview layout" = "Preview layout";
 "Everywhere" = "Everywhere";

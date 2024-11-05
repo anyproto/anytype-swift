@@ -191,6 +191,7 @@
 "Blue background" = "Niebieskie tło";
 "Green background" = "Zielone tło";
 "Create new object" = "Utwórz nowy obiekt";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Anuluj";
 "Paste or type URL" = "Wklej lub wpisz adres URL";
 "No items match filter" = "Brak elementów pasujących do filtru";
@@ -667,7 +668,7 @@
 "View" = "Zobacz";
 "Home" = "Strona główna";
 "Highlight" = "Podświetlenie";
-"Create object" = "Utwórz obiekt";
+"Create object" = "Create Object";
 "Web pages" = "Strony internetowe";
 "Preview layout" = "Układ podglądu";
 "Everywhere" = "Wszędzie";

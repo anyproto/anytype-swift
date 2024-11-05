@@ -45,20 +45,17 @@ private struct MessageInternalView: View {
         }
     }
     
-    private var messageBackgorundColor: Color {
-        return model.isYourMessage ? Color.VeryLight.green : Color.VeryLight.grey
-    }
-    
     private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 10) {
                 Text(model.author)
                     .anytypeStyle(.previewTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundColor(textColor)
                     .lineLimit(1)
             
                 Text(model.date)
-                    .foregroundColor(.Text.secondary)
+                    .anytypeStyle(.caption1Regular)
+                    .foregroundColor(timeColor)
                     .lineLimit(1)
                     .offset(x: contentSize.width - headerSize.width)
             }
@@ -76,8 +73,8 @@ private struct MessageInternalView: View {
             
             if !model.message.isEmpty {
                 Text(model.message)
-                    .anytypeStyle(.bodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .anytypeStyle(.previewTitle1Regular)
+                    .foregroundColor(textColor)
             }
             
             if let objects = model.linkedObjects {
@@ -151,5 +148,17 @@ private struct MessageInternalView: View {
         } label: {
             Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
         }
+    }
+    
+    private var messageBackgorundColor: Color {
+        return model.isYourMessage ? .Control.navPanelIcon : .Background.navigationPanel
+    }
+    
+    private var textColor: Color {
+        return model.isYourMessage ? .Text.white : .Text.primary
+    }
+    
+    private var timeColor: Color {
+        return model.isYourMessage ? .Text.white : .Text.secondary
     }
 }

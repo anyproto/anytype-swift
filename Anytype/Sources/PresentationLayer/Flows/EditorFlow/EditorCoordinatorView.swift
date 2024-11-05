@@ -40,6 +40,8 @@ struct EditorCoordinatorView: View {
             AllContentCoordinatorView(spaceId: spaceId, output: model)
         case let .date(data):
             DateCoordinatorView(data: data)
+        case let .type(data):
+            ObjectTypeCoordinator(data: data)
         }
     }
 }

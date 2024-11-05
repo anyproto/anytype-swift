@@ -191,6 +191,7 @@
 "Blue background" = "Синє тло";
 "Green background" = "Зелене тло";
 "Create new object" = "Створити об'єкт";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Скасувати";
 "Paste or type URL" = "Вставити або ввести URL-адресу";
 "No items match filter" = "Немає збігів із цим фільтром";
@@ -667,7 +668,7 @@
 "View" = "Подання";
 "Home" = "Головна";
 "Highlight" = "Виділити";
-"Create object" = "Створити об'єкт";
+"Create object" = "Create Object";
 "Web pages" = "Вебсторінки";
 "Preview layout" = "Попередній перегляд макета";
 "Everywhere" = "Всюди";

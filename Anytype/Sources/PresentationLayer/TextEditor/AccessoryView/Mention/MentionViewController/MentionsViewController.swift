@@ -105,7 +105,7 @@ final class MentionsViewController: UITableViewController {
         if objectName.isEmpty {
             configuration.text = Loc.createNewObject
         } else {
-            let string = Loc.createObject + " \"\(objectName)\""
+            let string = Loc.createNewObjectWithName(objectName)
             let attributedText = NSAttributedString(
                 string: string,
                 attributes: [.font: UIFont.uxTitle2Medium, .foregroundColor: UIColor.Text.primary]

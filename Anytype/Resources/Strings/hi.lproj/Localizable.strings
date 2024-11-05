@@ -191,6 +191,7 @@
 "Blue background" = "नीला बैकग्राउंड";
 "Green background" = "हरा बैकग्राउंड";
 "Create new object" = "नई वस्तु बनाएं";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "रद्द करें";
 "Paste or type URL" = "यूआरएल पेस्ट करें या टाइप करें";
 "No items match filter" = " कोई वस्तु फ़िल्टर से मेल नहीं खाती";
@@ -667,7 +668,7 @@
 "View" = "View";
 "Home" = "Home";
 "Highlight" = "Highlight";
-"Create object" = "Create object";
+"Create object" = "Create Object";
 "Web pages" = "Web pages";
 "Preview layout" = "Preview layout";
 "Everywhere" = "Everywhere";

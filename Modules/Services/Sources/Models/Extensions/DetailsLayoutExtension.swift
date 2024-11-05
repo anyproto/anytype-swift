@@ -9,7 +9,7 @@ public extension DetailsLayout {
     static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
     static let fileAndMediaLayouts = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
     
-    static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark] + [.participant] + dateLayout
+    static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant, .objectType] + dateLayout
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
     
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]

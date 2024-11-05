@@ -191,6 +191,7 @@
 "Blue background" = "Blå bakgrunn";
 "Green background" = "Grønn bakgrunn";
 "Create new object" = "Opprett nytt objekt";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Avbryt";
 "Paste or type URL" = "Lim inn eller skriv URL";
 "No items match filter" = "Ingen elementer samsvarer med filteret";

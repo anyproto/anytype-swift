@@ -191,6 +191,7 @@
 "Blue background" = "Sfondo blu";
 "Green background" = "Sfondo verde";
 "Create new object" = "Crea un nuovo oggetto";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Annulla";
 "Paste or type URL" = "Incolla o digita URL";
 "No items match filter" = "Nessun elemento corrisponde al filtro";
@@ -667,7 +668,7 @@
 "View" = "Vista";
 "Home" = "Home";
 "Highlight" = "Evidenzia";
-"Create object" = "Crea oggetto";
+"Create object" = "Crea Oggetto";
 "Web pages" = "Pagine Web";
 "Preview layout" = "Anteprima di layout";
 "Everywhere" = "Ovunque";
