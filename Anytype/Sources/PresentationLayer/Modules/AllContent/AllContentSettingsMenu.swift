@@ -1,6 +1,5 @@
 import SwiftUI
 import Services
-import AnytypeCore
 
 struct AllContentSettingsMenu: View {
     @Binding var state: AllContentState
@@ -21,10 +20,8 @@ struct AllContentSettingsMenu: View {
             mode
             Divider()
             sortByMenu
-            if !FeatureFlags.showBinWidgetIfNotEmpty {
-                Divider()
-                bin
-            }
+            Divider()
+            bin
         } label: {
             IconView(icon: .asset(.X24.more))
                 .frame(width: 24, height: 24)
