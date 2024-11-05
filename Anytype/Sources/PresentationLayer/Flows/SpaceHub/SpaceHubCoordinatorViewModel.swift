@@ -123,11 +123,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         await handleVersionAlerts()
         
         needSetup = false
-        
-        await startSubscriptions()
     }
     
-    private func startSubscriptions() async {
+    func startSubscriptions() async {
         async let subscription1: () = startHandleWorkspaceInfo()
         async let subscription2: () = startHandleAppActions()
         (_,_) = await (subscription1, subscription2)
