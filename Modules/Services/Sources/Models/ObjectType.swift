@@ -99,8 +99,6 @@ extension ObjectType: DetailsModel {
     
     public var isTemplateType: Bool { uniqueKey == .template }
     
-    public var isChatType: Bool { uniqueKey == .chat }
-    
     public var isDateType: Bool { uniqueKey == .date }
     
     // MARK: - Layout proxy

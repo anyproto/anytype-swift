@@ -11,7 +11,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     // MARK: - DI
     
     let spaceId: String
-    let objectId: String
     private let chatId: String
     private weak var output: (any ChatModuleOutput)?
     
@@ -32,8 +31,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     // MARK: - State
     
-    private let document: any BaseDocumentProtocol
-    
     @Published var linkedObjects: [ChatLinkedObject] = []
     @Published var mesageBlocks: [MessageViewData] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
@@ -53,12 +50,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var participants: [Participant] = []
     private var photosItems: [PhotosPickerItem] = []
     
-    init(objectId: String, spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
+    init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
-        self.objectId = objectId
         self.chatId = chatId
         self.output = output
-        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
     }
     
     func onTapAddObjectToMessage() {
@@ -97,8 +92,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     }
     
     func subscribeOnPermissions() async {
-        for await permissions in document.permissionsPublisher.values {
-            canEdit = permissions.canEditMessages
+        for await canEditMessages in accountParticipantsStorage.canEditPublisher(spaceId: spaceId).values {
+            canEdit = canEditMessages
         }
     }
     
@@ -143,10 +138,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     func scrollToBottom() async {
         try? await chatStorage.loadNextPage()
-    }
-    
-    func didTapIcon() {
-        output?.onIconSelected()
     }
     
     func updateMentionState() async throws {
@@ -314,7 +305,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             
             return MessageViewData(
                 spaceId: spaceId,
-                objectId: objectId,
                 chatId: chatId,
                 message: message,
                 participant: participants.first { $0.identity == message.creator },

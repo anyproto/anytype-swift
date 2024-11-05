@@ -25,8 +25,6 @@ extension AnytypeWidgetId {
             return .sets
         case .collections:
             return .collections
-        case .chat:
-            return .chat
         }
     }
 }

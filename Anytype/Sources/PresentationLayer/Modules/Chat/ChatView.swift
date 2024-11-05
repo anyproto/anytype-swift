@@ -6,8 +6,8 @@ struct ChatView: View {
     @StateObject private var model: ChatViewModel
     @State private var actionState: CGFloat = 0
     
-    init(objectId: String, spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
-        self._model = StateObject(wrappedValue: ChatViewModel(objectId: objectId, spaceId: spaceId, chatId: chatId, output: output))
+    init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
+        self._model = StateObject(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
     }
     
     var body: some View {
@@ -104,8 +104,4 @@ struct ChatView: View {
             }
         }
     }
-}
-
-#Preview {
-    ChatView(objectId: "", spaceId: "", chatId: "", output: nil)
 }

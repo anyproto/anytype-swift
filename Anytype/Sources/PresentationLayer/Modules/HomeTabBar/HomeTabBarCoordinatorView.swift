@@ -14,8 +14,8 @@ struct HomeTabBarCoordinatorView: View {
     
     var body: some View {
         ZStack {
-            if FeatureFlags.homeSpaceLevelChat {
-                tabBarBody
+            if FeatureFlags.homeSpaceLevelChat, let chatData = model.chatData {
+                tabBarBody(chatData: chatData)
             } else {
                 widgetsOnlyBody
             }
@@ -32,7 +32,7 @@ struct HomeTabBarCoordinatorView: View {
         }
     }
     
-    private var tabBarBody: some View {
+    private func tabBarBody(chatData: ChatCoordinatorData) -> some View {
         ZStack {
             HomeWallpaperView(spaceInfo: model.spaceInfo)
             
@@ -41,7 +41,7 @@ struct HomeTabBarCoordinatorView: View {
                 .homeBottomPanelState($model.bottomPanelState)
                 .opacity(model.tab == .widgets ? 1 : 0)
             
-            HomeChatCoordinatorView(spaceInfo: model.spaceInfo)
+            ChatCoordinatorView(data: chatData)
                 .anytypeNavigationItemData(HomeTabState.chat)
                 .homeBottomPanelState($model.bottomPanelState)
                 .opacity(model.tab == .chat ? 1 : 0)

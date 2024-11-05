@@ -30,13 +30,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let chats = FeatureDescription(
-        title: "Chat Object",
-        type: .feature(author: "m@anytype.io", releaseVersion: "9"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
     static let versionHistory = FeatureDescription(
         title: "Version History - IOS-3058",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),

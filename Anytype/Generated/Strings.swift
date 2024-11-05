@@ -2025,9 +2025,6 @@ internal enum Loc {
       }
     }
     internal enum Library {
-      internal enum Chat {
-        internal static let name = Loc.tr("Localizable", "Widgets.Library.Chat.Name", fallback: "Discussions")
-      }
       internal enum RecentlyEdited {
         internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyEdited.Name", fallback: "Recently edited")
       }

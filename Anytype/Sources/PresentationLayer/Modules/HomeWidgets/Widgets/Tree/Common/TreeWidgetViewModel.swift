@@ -189,7 +189,7 @@ private extension ObjectDetails {
             return links.isEmpty || !canBeExpanded ? .icon(asset: .X18.objectWithoutIcon) : .arrow(expanded: isExpanded)
         case .set:
             return .icon(asset: .X18.setOrCollection)
-        case .chat, .date:
+        case .date:
             return .icon(asset: .X18.objectWithoutIcon)
         case .type:
             return .icon(asset: .EmptyIcon.objectType) // TODO update

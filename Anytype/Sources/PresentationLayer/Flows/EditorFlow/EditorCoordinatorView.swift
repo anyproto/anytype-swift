@@ -32,14 +32,10 @@ struct EditorCoordinatorView: View {
             WidgetObjectListCollectionsView(spaceId: spaceId, output: model)
         case let .bin(spaceId):
             WidgetObjectListBinView(spaceId: spaceId, output: model)
-        case let .chats(spaceId):
-            WidgetObjectListChatsView(spaceId: spaceId, output: model)
         case let .page(data):
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case let .set(data):
             EditorSetCoordinatorView(data: data, showHeader: true)
-        case let .chat(data):
-            ChatCoordinatorView(data: data)
         case let .allContent(spaceId):
             AllContentCoordinatorView(spaceId: spaceId, output: model)
         case let .date(data):

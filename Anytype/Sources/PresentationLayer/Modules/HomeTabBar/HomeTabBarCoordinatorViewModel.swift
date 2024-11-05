@@ -12,6 +12,7 @@ final class HomeTabBarCoordinatorViewModel: ObservableObject {
     @Published var spaceIcon: Icon? = nil
     @Published var tab: HomeTabState = .chat
     @Published var bottomPanelState = HomeBottomPanelState()
+    @Published var chatData: ChatCoordinatorData?
     
     init(spaceInfo: AccountInfo) {
         self.spaceInfo = spaceInfo
@@ -20,6 +21,9 @@ final class HomeTabBarCoordinatorViewModel: ObservableObject {
     func startSubscription() async {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceInfo.accountSpaceId).values {
             spaceIcon = spaceView.objectIconImage
+            if let chatId = spaceView.chatId, chatId.isNotEmpty {
+                chatData = ChatCoordinatorData(chatId: chatId, spaceId: spaceInfo.accountSpaceId)
+            }
         }
     }
 }
