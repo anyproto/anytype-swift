@@ -29,7 +29,7 @@ struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
     func mock(status: SyncStatus, networkId: String = "1337") -> SwiftUIEditorSyncStatusItem {
         SwiftUIEditorSyncStatusItem(
             statusData: SyncStatusData(status: status, networkId: networkId, isHidden: false),
-            itemState: EditorBarItemState(haveBackground: false, opacity: 0),
+            itemState: .initial,
             onTap: {}
         )
     }
