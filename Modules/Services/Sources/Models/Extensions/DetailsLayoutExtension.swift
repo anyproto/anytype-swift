@@ -9,9 +9,10 @@ public extension DetailsLayout {
     static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
     static let fileAndMediaLayouts = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
     
-    static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant, .objectType] + dateLayout
+    static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant] + dateLayout
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
     
+    private static let supportedForOpening: [DetailsLayout] = visibleLayouts + [.objectType]
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
@@ -26,6 +27,7 @@ public extension DetailsLayout {
     var isEditorLayout: Bool { DetailsLayout.editorLayouts.contains(self) }
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
     var isSupportedForCreationInSets: Bool { Self.supportedForCreationInSets.contains(self) }
+    var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
     var haveIcon: Bool { Self.layoutsWithIcon.contains(self) }
     var haveCover: Bool { Self.layoutsWithCover.contains(self) }
     

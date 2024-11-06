@@ -98,13 +98,11 @@ final class TypesService: TypesServiceProtocol {
             relation: BundledRelationKey.lastUsedDate,
             type: .desc
         )
-                
-        let layouts: [DetailsLayout] = [.set, .collection]
         
         let filters: [DataviewFilter] = .builder {
             SearchFiltersBuilder.build(isArchived: false)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(layouts)
+            SearchHelper.recomendedLayoutFilter(DetailsLayout.listLayouts)
             SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
         
