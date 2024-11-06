@@ -191,7 +191,7 @@
 "Blue background" = "Blauer Hintergrund";
 "Green background" = "Grüner Hintergrund";
 "Create new object" = "Neues Objekt erstellen";
-"Create new object with name" = "Create new object \"%@\"";
+"Create new object with name" = "Neues Objekt „%@“ erstellen";
 "Cancel" = "Abbrechen";
 "Paste or type URL" = "URL einfügen oder eingeben";
 "No items match filter" = "Keine Gegenstände konnten mit diesem Filter gefunden werden";
@@ -325,6 +325,8 @@
 "Task" = "Aufgabe";
 "Note" = "Notiz";
 "Choose layout type" = "Wähle einen Ansichtstyp";
+
+"Templates" = "Vorlagen";
 
 "Undo typing" = "Eingabe widerrufen";
 "Undo" = "Rückgängig";
