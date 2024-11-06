@@ -11,18 +11,36 @@ struct ObjectTypeView: View {
         content
             .animation(.default, value: model.templates)
             .task { await model.setupSubscriptions() }
+        
+            .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
+                SyncStatusInfoView(spaceId: model.data.spaceId)
+            }
     }
     
     private var content: some View {
         VStack {
-            Rectangle().frame(height: 48).foregroundStyle(Color.Text.secondary) // Navbar placeholder
-            VStack(spacing: 0) {
-                Spacer.fixedHeight(32)
-                header
-                templates
-                Spacer()
-            }.padding(.horizontal, 20)
+            navbar
+            Spacer.fixedHeight(32)
+            header.padding(.horizontal, 20)
+            templates
+            // TBD: List of objects
+            Spacer()
         }
+    }
+    
+    private var navbar: some View {
+        HStack(alignment: .center, spacing: 14) {
+            SwiftUIEditorSyncStatusItem(
+                statusData: model.syncStatusData,
+                itemState: .initial,
+                onTap: { model.onSyncStatusTap() }
+            )
+            .frame(width: 28, height: 28)
+            
+            Spacer()
+        }
+        .padding(.horizontal, 12)
+        .frame(height: 48)
     }
     
     private var header: some View {
