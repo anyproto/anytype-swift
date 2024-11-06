@@ -9,7 +9,10 @@ final class EditorSyncStatusItem: UIView {
             configuration: configuration,
             primaryAction: UIAction(
                 title: "",
-                handler: { [weak self] _ in self?.onTap() }
+                handler: { [weak self] _ in
+                    UISelectionFeedbackGenerator().selectionChanged()
+                    self?.onTap()
+                }
             )
         )
     }()
