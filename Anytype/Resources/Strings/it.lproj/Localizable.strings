@@ -152,7 +152,7 @@
 "Files" = "File";
 "Media" = "Multimedia";
 "Lists" = "Liste";
-"Dates" = "Dates";
+"Dates" = "Date";
 "Pinned" = "Fissato";
 "Delete" = "Elimina";
 "Export" = "Esporta";
@@ -191,7 +191,7 @@
 "Blue background" = "Sfondo blu";
 "Green background" = "Sfondo verde";
 "Create new object" = "Crea un nuovo oggetto";
-"Create new object with name" = "Create new object \"%@\"";
+"Create new object with name" = "Crea un nuovo oggetto \"%@\"";
 "Cancel" = "Annulla";
 "Paste or type URL" = "Incolla o digita URL";
 "No items match filter" = "Nessun elemento corrisponde al filtro";
@@ -208,7 +208,7 @@
 "Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Lets Go" = "Iniziamo!";
 "My spaces" = "I miei Spazi";
-"Open file" = "Open file";
+"Open file" = "Apri file";
 
 // Home
 "Favorites" = "Preferiti";
@@ -325,6 +325,8 @@
 "Task" = "Attività";
 "Note" = "Nota";
 "Choose layout type" = "Scegli il tipo di layout";
+
+"Templates" = "Modelli";
 
 "Undo typing" = "Annulla la digitazione";
 "Undo" = "Annulla";
@@ -1228,9 +1230,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Aggiungi una Reazione";
-"Message.Action.Reply" = "Reply";
+"Message.Action.Reply" = "Rispondi";
 "Message.Input.EmptyPlaceholder" = "Scrivi un messaggio...";
-"Message.ChatTitle.Placeholder" = "Untitled Chat";
+"Message.ChatTitle.Placeholder" = "Chat senza titolo";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1247,10 +1249,10 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "AllContent.Search.Empty.State.subtitle" = "Prova a cercare con parole chiave diverse.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
-"Chat.ReplyTo" = "Reply to %@";
-"Chat.Empty.Title" = "No messages here yet...";
-"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.ReadOnly" = "Solo gli editor possono inviare messaggi. Contatta il proprietario per richiedere l'accesso.";
+"Chat.ReplyTo" = "Rispondi a %@";
+"Chat.Empty.Title" = "Ancora nessun messaggio qui...";
+"Chat.Empty.Description" = "Scrivi un primo messaggio per iniziare una conversazione";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
@@ -1260,5 +1262,5 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 // MARK: - Empty view
 "EmptyView.Default.title" = "È vuoto qui.";
 "EmptyView.Default.subtitle" = "Crea i tuoi primi oggetti per iniziare.";
-"EmptyView.Bin.title" = "Your trash is empty.";
-"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+"EmptyView.Bin.title" = "Il tuo cestino è vuoto.";
+"EmptyView.Bin.subtitle" = "Sembra che tu sia tutto in ordine e organizzato!";
