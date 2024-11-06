@@ -2194,6 +2194,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func processSubscribe(
+        _ request: Anytype_Rpc.Process.Subscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Process.Subscribe.Request, Anytype_Rpc.Process.Subscribe.Response> {
+        return Invocation(messageName: "ProcessSubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceProcessSubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Process.Subscribe.Response(serializedData: responseData)
+        }
+    }
+
+    public static func processUnsubscribe(
+        _ request: Anytype_Rpc.Process.Unsubscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Process.Unsubscribe.Request, Anytype_Rpc.Process.Unsubscribe.Response> {
+        return Invocation(messageName: "ProcessUnsubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceProcessUnsubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Process.Unsubscribe.Response(serializedData: responseData)
+        }
+    }
+
     public static func logSend(
         _ request: Anytype_Rpc.Log.Send.Request = .init()
     ) -> Invocation<Anytype_Rpc.Log.Send.Request, Anytype_Rpc.Log.Send.Response> {
