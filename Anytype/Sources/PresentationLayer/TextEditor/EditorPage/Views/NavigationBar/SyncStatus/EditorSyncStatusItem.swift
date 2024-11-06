@@ -28,7 +28,7 @@ final class EditorSyncStatusItem: UIView {
     private let width: CGFloat = 28
     private var intristicSize: CGSize = .zero
     
-    func changeStatusData(_ statusData: SyncStatusData) {
+    func changeStatusData(_ statusData: SyncStatusData?) {
         self.statusData = statusData
         self.updateButtonState()
     }

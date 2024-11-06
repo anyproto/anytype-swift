@@ -2,7 +2,7 @@ import SwiftUI
 import Services
 
 struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
-    let statusData: SyncStatusData
+    let statusData: SyncStatusData?
     let itemState: EditorBarItemState
     let onTap: () -> ()
     
