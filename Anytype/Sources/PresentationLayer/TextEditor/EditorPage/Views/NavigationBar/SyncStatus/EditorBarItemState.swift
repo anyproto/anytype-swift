@@ -21,5 +21,5 @@ struct EditorBarItemState: Equatable {
         return .Control.active
     }
     
-    static var initial = EditorBarItemState(haveBackground: false, opacity: 0)
+    static let initial = EditorBarItemState(haveBackground: false, opacity: 0)
 }

@@ -6,12 +6,18 @@ import Services
 final class ObjectTypeViewModel: ObservableObject {
     @Published var title = ""
     @Published var templates = [TemplatePreviewViewModel]()
+    @Published var syncStatusData: SyncStatusData?
     
-    private let data: EditorTypeObject
+    @Published var showSyncStatusInfo = false
+    
+    let data: EditorTypeObject
+    
     private let document: any BaseDocumentProtocol
     
     @Injected(\.templatesSubscription)
     private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     init(data: EditorTypeObject) {
         self.data = data
@@ -21,11 +27,17 @@ final class ObjectTypeViewModel: ObservableObject {
     func setupSubscriptions() async {
         async let detailsSubscription: () = subscribeOnDetails()
         async let templatesSubscription: () = subscribeOnTemplates()
-        (_, _) = await (detailsSubscription, templatesSubscription)
+        async let syncStatusSubscription: () = subscribeOnSyncStatus()
+        
+        (_, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription)
     }
     
     func onTemplateTap(model: TemplatePreviewModel) {
         // TBD;
+    }
+    
+    func onSyncStatusTap() {
+        showSyncStatusInfo.toggle()
     }
     
     // MARK: - Private
@@ -42,6 +54,13 @@ final class ObjectTypeViewModel: ObservableObject {
         }
     }
     
+    func subscribeOnSyncStatus() async {
+        for await status in document.syncStatusDataPublisher.values {
+            syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
+        }
+    }
+    
+    // Adding ephemeral Blank template
     private func updateTemplates(detailsList: [ObjectDetails]) {
         let middlewareTemplates = detailsList.map { TemplatePreviewModel(objectDetails: $0, isDefault: false) } // TBD: isDefault
         var templates = [TemplatePreviewModel]()

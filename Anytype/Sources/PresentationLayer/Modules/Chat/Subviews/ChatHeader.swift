@@ -13,7 +13,7 @@ struct ChatHeader: View {
         HStack(alignment: .center, spacing: 14) {
             SwiftUIEditorSyncStatusItem(
                 statusData: syncStatusData,
-                itemState: EditorBarItemState(haveBackground: false, opacity: 0),
+                itemState: .initial,
                 onTap: {
                     onSyncStatusTap()
                 }

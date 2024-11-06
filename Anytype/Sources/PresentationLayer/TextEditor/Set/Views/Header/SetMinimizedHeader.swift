@@ -61,7 +61,6 @@ struct SetMinimizedHeader: View {
                 opacity: opacity
             ),
             onTap: {
-                UISelectionFeedbackGenerator().selectionChanged()
                 model.showSyncStatusInfo()
             }
         )
