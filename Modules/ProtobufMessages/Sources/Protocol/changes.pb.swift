@@ -78,24 +78,6 @@ public struct Anytype_Change {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// ids of previous changes
-  public var previousIds: [String] {
-    get {return _storage._previousIds}
-    set {_uniqueStorage()._previousIds = newValue}
-  }
-
-  /// id of the last snapshot
-  public var lastSnapshotID: String {
-    get {return _storage._lastSnapshotID}
-    set {_uniqueStorage()._lastSnapshotID = newValue}
-  }
-
-  /// ids of the last changes with details/relations content
-  public var previousMetaIds: [String] {
-    get {return _storage._previousMetaIds}
-    set {_uniqueStorage()._previousMetaIds = newValue}
-  }
-
   /// set of actions to apply
   public var content: [Anytype_Change.Content] {
     get {return _storage._content}
@@ -869,6 +851,28 @@ public struct Anytype_Change {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+public struct Anytype_ChangeNoSnapshot {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// set of actions to apply
+  public var content: [Anytype_Change.Content] = []
+
+  /// file keys related to changes content
+  public var fileKeys: [Anytype_Change.FileKeys] = []
+
+  /// creation timestamp
+  public var timestamp: Int64 = 0
+
+  /// version of business logic
+  public var version: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Anytype_StoreChange {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1043,6 +1047,7 @@ extension Anytype_Change.NotificationCreate: @unchecked Sendable {}
 extension Anytype_Change.NotificationUpdate: @unchecked Sendable {}
 extension Anytype_Change.DeviceAdd: @unchecked Sendable {}
 extension Anytype_Change.DeviceUpdate: @unchecked Sendable {}
+extension Anytype_ChangeNoSnapshot: @unchecked Sendable {}
 extension Anytype_StoreChange: @unchecked Sendable {}
 extension Anytype_StoreChangeContent: @unchecked Sendable {}
 extension Anytype_StoreChangeContent.OneOf_Change: @unchecked Sendable {}
@@ -1069,9 +1074,6 @@ extension Anytype_ModifyOp: SwiftProtobuf._ProtoNameProviding {
 extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Change"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "previous_ids"),
-    2: .standard(proto: "last_snapshot_id"),
-    5: .standard(proto: "previous_meta_ids"),
     3: .same(proto: "content"),
     4: .same(proto: "snapshot"),
     6: .same(proto: "fileKeys"),
@@ -1080,9 +1082,6 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   ]
 
   fileprivate class _StorageClass {
-    var _previousIds: [String] = []
-    var _lastSnapshotID: String = String()
-    var _previousMetaIds: [String] = []
     var _content: [Anytype_Change.Content] = []
     var _snapshot: Anytype_Change.Snapshot? = nil
     var _fileKeys: [Anytype_Change.FileKeys] = []
@@ -1094,9 +1093,6 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     private init() {}
 
     init(copying source: _StorageClass) {
-      _previousIds = source._previousIds
-      _lastSnapshotID = source._lastSnapshotID
-      _previousMetaIds = source._previousMetaIds
       _content = source._content
       _snapshot = source._snapshot
       _fileKeys = source._fileKeys
@@ -1120,11 +1116,8 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1: try { try decoder.decodeRepeatedStringField(value: &_storage._previousIds) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._lastSnapshotID) }()
         case 3: try { try decoder.decodeRepeatedMessageField(value: &_storage._content) }()
         case 4: try { try decoder.decodeSingularMessageField(value: &_storage._snapshot) }()
-        case 5: try { try decoder.decodeRepeatedStringField(value: &_storage._previousMetaIds) }()
         case 6: try { try decoder.decodeRepeatedMessageField(value: &_storage._fileKeys) }()
         case 7: try { try decoder.decodeSingularInt64Field(value: &_storage._timestamp) }()
         case 8: try { try decoder.decodeSingularUInt32Field(value: &_storage._version) }()
@@ -1140,21 +1133,12 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       // allocates stack space for every if/case branch local when no optimizations
       // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
       // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._previousIds.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._previousIds, fieldNumber: 1)
-      }
-      if !_storage._lastSnapshotID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._lastSnapshotID, fieldNumber: 2)
-      }
       if !_storage._content.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._content, fieldNumber: 3)
       }
       try { if let v = _storage._snapshot {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
       } }()
-      if !_storage._previousMetaIds.isEmpty {
-        try visitor.visitRepeatedStringField(value: _storage._previousMetaIds, fieldNumber: 5)
-      }
       if !_storage._fileKeys.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._fileKeys, fieldNumber: 6)
       }
@@ -1173,9 +1157,6 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._previousIds != rhs_storage._previousIds {return false}
-        if _storage._lastSnapshotID != rhs_storage._lastSnapshotID {return false}
-        if _storage._previousMetaIds != rhs_storage._previousMetaIds {return false}
         if _storage._content != rhs_storage._content {return false}
         if _storage._snapshot != rhs_storage._snapshot {return false}
         if _storage._fileKeys != rhs_storage._fileKeys {return false}
@@ -2567,6 +2548,56 @@ extension Anytype_Change.DeviceUpdate: SwiftProtobuf.Message, SwiftProtobuf._Mes
   public static func ==(lhs: Anytype_Change.DeviceUpdate, rhs: Anytype_Change.DeviceUpdate) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.name != rhs.name {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_ChangeNoSnapshot: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ChangeNoSnapshot"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    3: .same(proto: "content"),
+    6: .same(proto: "fileKeys"),
+    7: .same(proto: "timestamp"),
+    8: .same(proto: "version"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.content) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.fileKeys) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.timestamp) }()
+      case 8: try { try decoder.decodeSingularUInt32Field(value: &self.version) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.content.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.content, fieldNumber: 3)
+    }
+    if !self.fileKeys.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.fileKeys, fieldNumber: 6)
+    }
+    if self.timestamp != 0 {
+      try visitor.visitSingularInt64Field(value: self.timestamp, fieldNumber: 7)
+    }
+    if self.version != 0 {
+      try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 8)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_ChangeNoSnapshot, rhs: Anytype_ChangeNoSnapshot) -> Bool {
+    if lhs.content != rhs.content {return false}
+    if lhs.fileKeys != rhs.fileKeys {return false}
+    if lhs.timestamp != rhs.timestamp {return false}
+    if lhs.version != rhs.version {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
