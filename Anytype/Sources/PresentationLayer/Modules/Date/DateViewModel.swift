@@ -77,7 +77,7 @@ final class DateViewModel: ObservableObject {
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
             title = details.title
-            state.currentDate = details.dateValue(for: BundledRelationKey.timestamp.rawValue) // change to details.timestamp when middle fix it
+            state.currentDate = details.timestamp
         }
     }
     
