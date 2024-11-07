@@ -5145,7 +5145,7 @@ public struct Anytype_Event {
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
+  public static var allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
     .none,
     .add,
     .move,
@@ -5156,7 +5156,7 @@ extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
+  public static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
     .unknown,
     .offline,
     .syncing,
@@ -5169,7 +5169,7 @@ extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
 
 extension Anytype_Event.Space.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Space.Status] = [
+  public static var allCases: [Anytype_Event.Space.Status] = [
     .synced,
     .syncing,
     .error,
@@ -5180,7 +5180,7 @@ extension Anytype_Event.Space.Status: CaseIterable {
 
 extension Anytype_Event.Space.Network: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Space.Network] = [
+  public static var allCases: [Anytype_Event.Space.Network] = [
     .anytype,
     .selfHost,
     .localOnly,
@@ -5189,7 +5189,7 @@ extension Anytype_Event.Space.Network: CaseIterable {
 
 extension Anytype_Event.Space.SyncError: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Space.SyncError] = [
+  public static var allCases: [Anytype_Event.Space.SyncError] = [
     .null,
     .storageLimitExceed,
     .incompatibleVersion,
@@ -5199,7 +5199,7 @@ extension Anytype_Event.Space.SyncError: CaseIterable {
 
 extension Anytype_Event.P2PStatus.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.P2PStatus.Status] = [
+  public static var allCases: [Anytype_Event.P2PStatus.Status] = [
     .notConnected,
     .notPossible,
     .connected,
@@ -5239,8 +5239,6 @@ public struct Anytype_Model {
 
     public var id: String = String()
 
-    public var type: Anytype_Model.Process.TypeEnum = .dropFiles
-
     public var state: Anytype_Model.Process.State = .none
 
     public var progress: Anytype_Model.Process.Progress {
@@ -5252,46 +5250,102 @@ public struct Anytype_Model {
     /// Clears the value of `progress`. Subsequent reads from it will return its default value.
     public mutating func clearProgress() {self._progress = nil}
 
+    public var spaceID: String = String()
+
+    public var message: Anytype_Model.Process.OneOf_Message? = nil
+
+    public var dropFiles: Anytype_Model.Process.DropFiles {
+      get {
+        if case .dropFiles(let v)? = message {return v}
+        return Anytype_Model.Process.DropFiles()
+      }
+      set {message = .dropFiles(newValue)}
+    }
+
+    public var `import`: Anytype_Model.Process.Import {
+      get {
+        if case .import(let v)? = message {return v}
+        return Anytype_Model.Process.Import()
+      }
+      set {message = .import(newValue)}
+    }
+
+    public var export: Anytype_Model.Process.Export {
+      get {
+        if case .export(let v)? = message {return v}
+        return Anytype_Model.Process.Export()
+      }
+      set {message = .export(newValue)}
+    }
+
+    public var saveFile: Anytype_Model.Process.SaveFile {
+      get {
+        if case .saveFile(let v)? = message {return v}
+        return Anytype_Model.Process.SaveFile()
+      }
+      set {message = .saveFile(newValue)}
+    }
+
+    public var migration: Anytype_Model.Process.Migration {
+      get {
+        if case .migration(let v)? = message {return v}
+        return Anytype_Model.Process.Migration()
+      }
+      set {message = .migration(newValue)}
+    }
+
+    public var recoverAccount: Anytype_Model.Process.RecoverAccount {
+      get {
+        if case .recoverAccount(let v)? = message {return v}
+        return Anytype_Model.Process.RecoverAccount()
+      }
+      set {message = .recoverAccount(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public enum TypeEnum: SwiftProtobuf.Enum {
-      public typealias RawValue = Int
-      case dropFiles // = 0
-      case `import` // = 1
-      case export // = 2
-      case saveFile // = 3
-      case recoverAccount // = 4
-      case migration // = 5
-      case UNRECOGNIZED(Int)
+    public enum OneOf_Message: Equatable {
+      case dropFiles(Anytype_Model.Process.DropFiles)
+      case `import`(Anytype_Model.Process.Import)
+      case export(Anytype_Model.Process.Export)
+      case saveFile(Anytype_Model.Process.SaveFile)
+      case migration(Anytype_Model.Process.Migration)
+      case recoverAccount(Anytype_Model.Process.RecoverAccount)
 
-      public init() {
-        self = .dropFiles
-      }
-
-      public init?(rawValue: Int) {
-        switch rawValue {
-        case 0: self = .dropFiles
-        case 1: self = .import
-        case 2: self = .export
-        case 3: self = .saveFile
-        case 4: self = .recoverAccount
-        case 5: self = .migration
-        default: self = .UNRECOGNIZED(rawValue)
+    #if !swift(>=4.1)
+      public static func ==(lhs: Anytype_Model.Process.OneOf_Message, rhs: Anytype_Model.Process.OneOf_Message) -> Bool {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch (lhs, rhs) {
+        case (.dropFiles, .dropFiles): return {
+          guard case .dropFiles(let l) = lhs, case .dropFiles(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.import, .import): return {
+          guard case .import(let l) = lhs, case .import(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.export, .export): return {
+          guard case .export(let l) = lhs, case .export(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.saveFile, .saveFile): return {
+          guard case .saveFile(let l) = lhs, case .saveFile(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.migration, .migration): return {
+          guard case .migration(let l) = lhs, case .migration(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.recoverAccount, .recoverAccount): return {
+          guard case .recoverAccount(let l) = lhs, case .recoverAccount(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        default: return false
         }
       }
-
-      public var rawValue: Int {
-        switch self {
-        case .dropFiles: return 0
-        case .import: return 1
-        case .export: return 2
-        case .saveFile: return 3
-        case .recoverAccount: return 4
-        case .migration: return 5
-        case .UNRECOGNIZED(let i): return i
-        }
-      }
-
+    #endif
     }
 
     public enum State: SwiftProtobuf.Enum {
@@ -5331,6 +5385,66 @@ public struct Anytype_Model {
 
     }
 
+    public struct DropFiles {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct Import {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct Export {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct SaveFile {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct RecoverAccount {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct Migration {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
     public struct Progress {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -5357,21 +5471,9 @@ public struct Anytype_Model {
 
 #if swift(>=4.2)
 
-extension Anytype_Model.Process.TypeEnum: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.TypeEnum] = [
-    .dropFiles,
-    .import,
-    .export,
-    .saveFile,
-    .recoverAccount,
-    .migration,
-  ]
-}
-
 extension Anytype_Model.Process.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.State] = [
+  public static var allCases: [Anytype_Model.Process.State] = [
     .none,
     .running,
     .done,
@@ -5595,8 +5697,14 @@ extension Anytype_Event.Import.Finish: @unchecked Sendable {}
 extension Anytype_ResponseEvent: @unchecked Sendable {}
 extension Anytype_Model: @unchecked Sendable {}
 extension Anytype_Model.Process: @unchecked Sendable {}
-extension Anytype_Model.Process.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model.Process.OneOf_Message: @unchecked Sendable {}
 extension Anytype_Model.Process.State: @unchecked Sendable {}
+extension Anytype_Model.Process.DropFiles: @unchecked Sendable {}
+extension Anytype_Model.Process.Import: @unchecked Sendable {}
+extension Anytype_Model.Process.Export: @unchecked Sendable {}
+extension Anytype_Model.Process.SaveFile: @unchecked Sendable {}
+extension Anytype_Model.Process.RecoverAccount: @unchecked Sendable {}
+extension Anytype_Model.Process.Migration: @unchecked Sendable {}
 extension Anytype_Model.Process.Progress: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
@@ -11827,15 +11935,7 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     var _viewID: String = String()
     var _view: Anytype_Model_Block.Content.Dataview.View? = nil
 
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
+    static let defaultInstance = _StorageClass()
 
     private init() {}
 
@@ -14691,9 +14791,15 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   public static let protoMessageName: String = Anytype_Model.protoMessageName + ".Process"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "type"),
     3: .same(proto: "state"),
     4: .same(proto: "progress"),
+    5: .same(proto: "spaceId"),
+    6: .same(proto: "dropFiles"),
+    7: .same(proto: "import"),
+    8: .same(proto: "export"),
+    9: .same(proto: "saveFile"),
+    10: .same(proto: "migration"),
+    11: .same(proto: "recoverAccount"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -14703,9 +14809,87 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.state) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._progress) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 6: try {
+        var v: Anytype_Model.Process.DropFiles?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .dropFiles(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .dropFiles(v)
+        }
+      }()
+      case 7: try {
+        var v: Anytype_Model.Process.Import?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .import(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .import(v)
+        }
+      }()
+      case 8: try {
+        var v: Anytype_Model.Process.Export?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .export(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .export(v)
+        }
+      }()
+      case 9: try {
+        var v: Anytype_Model.Process.SaveFile?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .saveFile(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .saveFile(v)
+        }
+      }()
+      case 10: try {
+        var v: Anytype_Model.Process.Migration?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .migration(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .migration(v)
+        }
+      }()
+      case 11: try {
+        var v: Anytype_Model.Process.RecoverAccount?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .recoverAccount(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .recoverAccount(v)
+        }
+      }()
       default: break
       }
     }
@@ -14719,37 +14903,54 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    if self.type != .dropFiles {
-      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
-    }
     if self.state != .none {
       try visitor.visitSingularEnumField(value: self.state, fieldNumber: 3)
     }
     try { if let v = self._progress {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
     } }()
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 5)
+    }
+    switch self.message {
+    case .dropFiles?: try {
+      guard case .dropFiles(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    }()
+    case .import?: try {
+      guard case .import(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    }()
+    case .export?: try {
+      guard case .export(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    }()
+    case .saveFile?: try {
+      guard case .saveFile(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    }()
+    case .migration?: try {
+      guard case .migration(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    }()
+    case .recoverAccount?: try {
+      guard case .recoverAccount(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+    }()
+    case nil: break
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model.Process, rhs: Anytype_Model.Process) -> Bool {
     if lhs.id != rhs.id {return false}
-    if lhs.type != rhs.type {return false}
     if lhs.state != rhs.state {return false}
     if lhs._progress != rhs._progress {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.message != rhs.message {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension Anytype_Model.Process.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "DropFiles"),
-    1: .same(proto: "Import"),
-    2: .same(proto: "Export"),
-    3: .same(proto: "SaveFile"),
-    4: .same(proto: "RecoverAccount"),
-    5: .same(proto: "Migration"),
-  ]
 }
 
 extension Anytype_Model.Process.State: SwiftProtobuf._ProtoNameProviding {
@@ -14760,6 +14961,120 @@ extension Anytype_Model.Process.State: SwiftProtobuf._ProtoNameProviding {
     3: .same(proto: "Canceled"),
     4: .same(proto: "Error"),
   ]
+}
+
+extension Anytype_Model.Process.DropFiles: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".DropFiles"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model.Process.DropFiles, rhs: Anytype_Model.Process.DropFiles) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model.Process.Import: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".Import"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model.Process.Import, rhs: Anytype_Model.Process.Import) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model.Process.Export: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".Export"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model.Process.Export, rhs: Anytype_Model.Process.Export) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model.Process.SaveFile: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".SaveFile"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model.Process.SaveFile, rhs: Anytype_Model.Process.SaveFile) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model.Process.RecoverAccount: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".RecoverAccount"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model.Process.RecoverAccount, rhs: Anytype_Model.Process.RecoverAccount) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model.Process.Migration: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".Migration"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model.Process.Migration, rhs: Anytype_Model.Process.Migration) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }
 
 extension Anytype_Model.Process.Progress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
