@@ -4,9 +4,8 @@ import Services
 @MainActor
 protocol DateRelatedObjectsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
-        objectId: String,
         spaceId: String,
-        relationKey: String,
+        filter: DataviewFilter,
         limit: Int,
         update: @escaping ([ObjectDetails], Int) -> Void
     ) async
@@ -26,9 +25,8 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
     nonisolated init() {}
     
     func startSubscription(
-        objectId: String,
         spaceId: String,
-        relationKey: String,
+        filter: DataviewFilter,
         limit: Int,
         update: @escaping ([ObjectDetails], Int) -> Void
     ) async {
@@ -39,7 +37,7 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
         
         let filters: [DataviewFilter] = .builder {
             SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles)
-            relationFilter(key: relationKey, value: objectId)
+            filter
         }
         
         let searchData: SubscriptionData = .search(
@@ -61,14 +59,5 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
     
     func stopSubscription() async {
         try? await subscriptionStorage.stopSubscription()
-    }
-    
-    private func relationFilter(key: String, value: String) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .in
-        filter.value = value.protobufValue
-        filter.relationKey = key
-        
-        return filter
     }
 }
