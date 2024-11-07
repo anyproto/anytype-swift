@@ -197,7 +197,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
             guard let details = document.details else { return }
-            guard details.isSupportedForEdit else {
+            guard details.isSupportedForOpening else {
                 toastBarData = ToastBarData(
                     text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none
                 )

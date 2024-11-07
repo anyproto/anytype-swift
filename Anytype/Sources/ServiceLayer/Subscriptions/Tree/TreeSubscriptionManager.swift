@@ -25,7 +25,7 @@ actor TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
         detailsPublisher = subscriptionStorage.statePublisher
             .map { $0.items }
             .merge(with: detailsSubject)
-            .map { $0.filter(\.isNotDeletedAndSupportedForEdit) }
+            .map { $0.filter(\.isNotDeletedAndSupportedForOpening) }
             .eraseToAnyPublisher()
     }
     
