@@ -140,6 +140,7 @@ public protocol BundledRelationsValueProvider {
     var hasChat: Bool { get }
     var chatId: ObjectId { get }
     var mentions: [ObjectId] { get }
+    var timestamp: Date? { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -646,5 +647,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Objects that are mentioned in blocks of this object
     var mentions: [ObjectId] {
         return value(for: BundledRelationKey.mentions.rawValue)
+    }
+    /// Unix time representation of date object
+    var timestamp: Date? {
+        return value(for: BundledRelationKey.timestamp.rawValue)
     }
 }

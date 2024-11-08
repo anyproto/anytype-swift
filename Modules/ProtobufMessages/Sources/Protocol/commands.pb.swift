@@ -13359,6 +13359,8 @@ public struct Anytype_Rpc {
 
         public var origin: Anytype_Model_ObjectOrigin = .none
 
+        public var imageKind: Anytype_Model_ImageKind = .basic
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -14700,6 +14702,8 @@ public struct Anytype_Rpc {
         public var pictureID: String = String()
 
         public var spaceID: String = String()
+
+        public var imageKind: Anytype_Model_ImageKind = .basic
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -21108,6 +21112,8 @@ public struct Anytype_Rpc {
         public var localPath: String = String()
 
         public var fileType: Anytype_Model_Block.Content.File.TypeEnum = .none
+
+        public var imageKind: Anytype_Model_ImageKind = .basic
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -54156,6 +54162,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     5: .same(proto: "style"),
     7: .same(proto: "details"),
     8: .same(proto: "origin"),
+    9: .same(proto: "imageKind"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -54172,6 +54179,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 6: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.origin) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
       default: break
       }
     }
@@ -54206,6 +54214,9 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if self.origin != .none {
       try visitor.visitSingularEnumField(value: self.origin, fieldNumber: 8)
     }
+    if self.imageKind != .basic {
+      try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -54218,6 +54229,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.style != rhs.style {return false}
     if lhs._details != rhs._details {return false}
     if lhs.origin != rhs.origin {return false}
+    if lhs.imageKind != rhs.imageKind {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -56219,6 +56231,7 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "pictureId"),
     2: .same(proto: "spaceId"),
+    3: .same(proto: "imageKind"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -56229,6 +56242,7 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.pictureID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
       default: break
       }
     }
@@ -56241,12 +56255,16 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
     }
+    if self.imageKind != .basic {
+      try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Unsplash.Download.Request, rhs: Anytype_Rpc.Unsplash.Download.Request) -> Bool {
     if lhs.pictureID != rhs.pictureID {return false}
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.imageKind != rhs.imageKind {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -65444,6 +65462,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: SwiftProtobuf.Message, 
     4: .same(proto: "url"),
     5: .same(proto: "localPath"),
     6: .same(proto: "fileType"),
+    7: .same(proto: "imageKind"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -65458,6 +65477,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: SwiftProtobuf.Message, 
       case 4: try { try decoder.decodeSingularStringField(value: &self.url) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.localPath) }()
       case 6: try { try decoder.decodeSingularEnumField(value: &self.fileType) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
       default: break
       }
     }
@@ -65482,6 +65502,9 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: SwiftProtobuf.Message, 
     if self.fileType != .none {
       try visitor.visitSingularEnumField(value: self.fileType, fieldNumber: 6)
     }
+    if self.imageKind != .basic {
+      try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -65492,6 +65515,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: SwiftProtobuf.Message, 
     if lhs.url != rhs.url {return false}
     if lhs.localPath != rhs.localPath {return false}
     if lhs.fileType != rhs.fileType {return false}
+    if lhs.imageKind != rhs.imageKind {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
