@@ -1,15 +1,8 @@
 import Foundation
 import SwiftUI
 
-private struct HomeBottomPanelStateEnvironmentKey: EnvironmentKey {
-    static let defaultValue = Binding.constant(HomeBottomPanelState())
-}
-
 private extension EnvironmentValues {
-    var homeBottomPanelState: Binding<HomeBottomPanelState> {
-        get { self[HomeBottomPanelStateEnvironmentKey.self] }
-        set { self[HomeBottomPanelStateEnvironmentKey.self] = newValue }
-    }
+    @Entry var homeBottomPanelState = Binding.constant(HomeBottomPanelState())
 }
 
 private struct HomeBottomHiddenStateViewModifier: ViewModifier {
