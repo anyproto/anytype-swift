@@ -152,7 +152,7 @@
 "Files" = "Archivos";
 "Media" = "Medios";
 "Lists" = "Listas";
-"Dates" = "Dates";
+"Dates" = "Fechas";
 "Pinned" = "Anclado";
 "Delete" = "Eliminar";
 "Export" = "Exportar";
@@ -191,7 +191,7 @@
 "Blue background" = "Fondo azul";
 "Green background" = "Fondo verde";
 "Create new object" = "Crear un objeto";
-"Create new object with name" = "Create new object \"%@\"";
+"Create new object with name" = "Crear nuevo objeto «%@»";
 "Cancel" = "Cancelar";
 "Paste or type URL" = "Pega o escribe una URL";
 "No items match filter" = "Ningún elemento coincide con este filtro";
@@ -208,7 +208,7 @@
 "Agreement Disclamer" = "Al continuar, aceptas nuestros [términos de uso](%@) y nuestra [política de privacidad](%@).";
 "Lets Go" = "Adelante";
 "My spaces" = "Mis espacios";
-"Open file" = "Open file";
+"Open file" = "Abrir archivo";
 
 // Home
 "Favorites" = "Favoritos";
@@ -1251,8 +1251,8 @@ En concreto,
 // MARK: - Chats
 "Chat.ReadOnly" = "Solo pueden enviar mensajes los editores. Solicita acceso a la persona que ha creado esto.";
 "Chat.ReplyTo" = "Responder a %@";
-"Chat.Empty.Title" = "No messages here yet...";
-"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Empty.Title" = "Aún no hay mensajes…";
+"Chat.Empty.Description" = "Escribe el primero para iniciar una conversación.";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
@@ -1262,5 +1262,5 @@ En concreto,
 // MARK: - Empty view
 "EmptyView.Default.title" = "Aquí no hay nada.";
 "EmptyView.Default.subtitle" = "Crea tus primeros objetos para empezar.";
-"EmptyView.Bin.title" = "Your trash is empty.";
-"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+"EmptyView.Bin.title" = "Tu papelera está vacía.";
+"EmptyView.Bin.subtitle" = "¡Parece que te gusta tenerlo todo ordenado!";
