@@ -1054,8 +1054,8 @@
 "SpaceHub.Tip.Text1" = "Der Tresor ist das neue Zuhause aller deiner Spaces. Erstelle Spaces, trete ihnen bei oder teile sie - alles wird hier sicher gespeichert.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Wechsle schneller zwischen Spaces";
-"SpaceSwitcher.Tip.Text" = "Lange auf dem Zurück-Button tippen, um den Space zu wechseln. ";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
