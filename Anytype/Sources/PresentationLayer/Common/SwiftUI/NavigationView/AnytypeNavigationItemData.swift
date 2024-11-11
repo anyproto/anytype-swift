@@ -1,15 +1,8 @@
 import Foundation
 import SwiftUI
 
-struct AnytypeNavigationItemDataEnvironmentKey: EnvironmentKey {
-    static let defaultValue: AnyHashable? = nil
-}
-
 extension EnvironmentValues {
-    var anytypeNavigationItemData: AnyHashable? {
-        get { self[AnytypeNavigationItemDataEnvironmentKey.self] }
-        set { self[AnytypeNavigationItemDataEnvironmentKey.self] = newValue }
-    }
+    @Entry var anytypeNavigationItemData: AnyHashable? = nil
 }
 
 extension View {

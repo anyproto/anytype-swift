@@ -8,13 +8,6 @@ struct PageNavigation {
     let replace: (EditorScreenData) -> Void
 }
 
-struct PageNavigationEnvironmentKey: EnvironmentKey {
-    static let defaultValue: PageNavigation = PageNavigation(push: { _ in }, pop: { }, replace: { _ in })
-}
-
 extension EnvironmentValues {
-    var pageNavigation: PageNavigation {
-        get { self[PageNavigationEnvironmentKey.self] }
-        set { self[PageNavigationEnvironmentKey.self] = newValue }
-    }
+    @Entry var pageNavigation = PageNavigation(push: { _ in }, pop: { }, replace: { _ in })
 }
