@@ -90,7 +90,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
-    private var preveouslyOpenedSpaceId: String?
     private var needSetup = true
     
     init() {
@@ -124,11 +123,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         await handleVersionAlerts()
         
         needSetup = false
-        
-        await startSubscriptions()
     }
     
-    private func startSubscriptions() async {
+    func startSubscriptions() async {
         async let subscription1: () = startHandleWorkspaceInfo()
         async let subscription2: () = startHandleAppActions()
         (_,_) = await (subscription1, subscription2)
@@ -246,28 +243,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             if let info {
                 let newPath = HomePath(initialPath: [SpaceHubNavigationItem(), info])
                 navigationPath = newPath
-                if #available(iOS 17.0, *) {
-                    updateSpaceSwitchTip(spaceId: info.accountSpaceId)
-                }
             } else {
                 navigationPath.popToRoot()
             }
         }
     }
-    
-    @available(iOS 17.0, *)
-    private func updateSpaceSwitchTip(spaceId: String) {
-        guard preveouslyOpenedSpaceId != nil else {
-            preveouslyOpenedSpaceId = spaceId
-            return
-        }
-        
-        if preveouslyOpenedSpaceId != spaceId {
-            preveouslyOpenedSpaceId = spaceId
-            SpaceSwitcherTip.numberOfSpaceSwitches += 1
-        }
-    }
-    
+
     // MARK: - App Actions
     private func handleAppAction(action: AppAction) async throws {
         keyboardDismiss?()
