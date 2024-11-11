@@ -1053,8 +1053,8 @@
 "SpaceHub.Tip.Text1" = "库是您所有空间的新的主页。创建、加入或共享空间 - 一切都安全地存放在这里。";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "更快地切换空格";
-"SpaceSwitcher.Tip.Text" = "长按返回键切换空间";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
