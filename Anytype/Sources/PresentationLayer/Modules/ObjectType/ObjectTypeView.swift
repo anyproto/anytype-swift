@@ -66,8 +66,8 @@ struct ObjectTypeView: View {
                     EditableView<TemplatePreview>(
                         content: TemplatePreview(viewModel: item),
                         onTap: { model.onTemplateTap(model: item.model) },
-                        canBeEdited: false, //item.model.isEditable,
-                        isEditing: .constant(false) //$model.isEditingState
+                        canBeEdited: false,
+                        isEditing: .constant(false)
                     )
                 }
             }
