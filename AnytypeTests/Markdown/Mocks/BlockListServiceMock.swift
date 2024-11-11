@@ -101,4 +101,8 @@ final class BlockServiceMock: BlockServiceProtocol {
         assertionFailure()
         return ""
     }
+    
+    func moveToPage(objectId: String, blockIds: [String], pageId: String) async throws {
+        assertionFailure()
+    }
 }
