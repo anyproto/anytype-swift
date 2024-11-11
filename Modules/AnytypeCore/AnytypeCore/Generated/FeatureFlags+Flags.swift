@@ -42,6 +42,10 @@ public extension FeatureFlags {
         value(for: .userWarningAlerts)
     }
 
+    static var showBinWidgetIfNotEmpty: Bool {
+        value(for: .showBinWidgetIfNotEmpty)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -105,6 +109,7 @@ public extension FeatureFlags {
         .allContent,
         .spaceHubParallax,
         .userWarningAlerts,
+        .showBinWidgetIfNotEmpty,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
