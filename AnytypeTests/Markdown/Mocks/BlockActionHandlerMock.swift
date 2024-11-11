@@ -89,6 +89,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    func moveToPage(blockIds: [String], pageId: String) async throws {
+        assertionFailure()
+    }
+    
     func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) {
         assertionFailure()
     }
