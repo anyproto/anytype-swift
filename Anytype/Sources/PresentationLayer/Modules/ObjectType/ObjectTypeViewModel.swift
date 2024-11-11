@@ -13,6 +13,8 @@ final class ObjectTypeViewModel: ObservableObject {
     let data: EditorTypeObject
     
     private let document: any BaseDocumentProtocol
+    private var isTemplatesEditable = false
+    private var rawTemplates: [ObjectDetails] = []
     
     @Injected(\.templatesSubscription)
     private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
@@ -44,13 +46,20 @@ final class ObjectTypeViewModel: ObservableObject {
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
             title = details.title
+            
+            let isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
+            if isEditorLayout != isTemplatesEditable {
+                isTemplatesEditable = isEditorLayout
+                updateTemplates()
+            }
         }
     }
     
     func subscribeOnTemplates() async {
-        await templatesSubscription.startSubscription(objectType: data.objectId, spaceId: data.spaceId) { [weak self] detailsList in
+        await templatesSubscription.startSubscription(objectType: data.objectId, spaceId: data.spaceId) { [weak self] rawTemplates in
             guard let self else { return }
-            updateTemplates(detailsList: detailsList)
+            self.rawTemplates = rawTemplates
+            updateTemplates()
         }
     }
     
@@ -61,8 +70,8 @@ final class ObjectTypeViewModel: ObservableObject {
     }
     
     // Adding ephemeral Blank template
-    private func updateTemplates(detailsList: [ObjectDetails]) {
-        let middlewareTemplates = detailsList.map { TemplatePreviewModel(objectDetails: $0, decoration: nil) } // TBD: isDefault
+    private func updateTemplates() {
+        let middlewareTemplates = rawTemplates.map { TemplatePreviewModel(objectDetails: $0, decoration: nil) } // TBD: isDefault
         var templates = [TemplatePreviewModel]()
         
 //        let isBlankTemplateDefault = !middlewareTemplates.contains { $0.isDefault }
@@ -70,6 +79,10 @@ final class ObjectTypeViewModel: ObservableObject {
         
         templates += middlewareTemplates
 
+        if isTemplatesEditable {
+            templates.append(.init(mode: .addTemplate, alignment: .center))
+        }
+        
         self.templates = templates.map { model in
             TemplatePreviewViewModel(
                 model: model,
