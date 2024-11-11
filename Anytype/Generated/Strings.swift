@@ -1344,6 +1344,12 @@ internal enum Loc {
       return Loc.tr("Localizable", "RequestToLeaveNotification.Text", String(describing: p1), String(describing: p2), fallback: "**%@** wants to leave the **%@** space.")
     }
   }
+  internal enum ReturnToWidgets {
+    internal enum Tip {
+      internal static let text = Loc.tr("Localizable", "ReturnToWidgets.Tip.Text", fallback: "Long press the back button to return to widgets instead of tapping it repeatedly.")
+      internal static let title = Loc.tr("Localizable", "ReturnToWidgets.Tip.Title", fallback: "Long Press to Return to Widgets")
+    }
+  }
   internal enum Scanner {
     internal enum Error {
       internal static let scanningNotSupported = Loc.tr("Localizable", "Scanner.Error.Scanning not supported", fallback: "Scanning not supported")
@@ -1772,12 +1778,6 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.ViewRequest.Title", String(describing: p1), String(describing: p2), fallback: "%@ requested to join %@ space")
       }
       internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess", fallback: "Add as viewer")
-    }
-  }
-  internal enum SpaceSwitcher {
-    internal enum Tip {
-      internal static let text = Loc.tr("Localizable", "SpaceSwitcher.Tip.Text", fallback: "Long tap on back button to switch Space")
-      internal static let title = Loc.tr("Localizable", "SpaceSwitcher.Tip.Title", fallback: "Switch spaces quicker")
     }
   }
   internal enum Spaces {

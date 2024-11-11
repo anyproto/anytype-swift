@@ -2,19 +2,19 @@ import Foundation
 import TipKit
 
 @available(iOS 17.0, *)
-struct SpaceSwitcherTip: Tip {
+struct ReturnToWidgetsTip: Tip {
     
     @Parameter
-    static var numberOfSpaceSwitches: Int = 0
+    static var numberOfBackTaps: Int = 0
     @Parameter
-    static var openedSpaceSwitcher: Bool = false
+    static var usedLongpress: Bool = false
     
     var title: Text {
-        Text(Loc.SpaceSwitcher.Tip.title)
+        Text(Loc.ReturnToWidgets.Tip.title)
     }
     
     var message: Text? {
-        Text(Loc.SpaceSwitcher.Tip.text)
+        Text(Loc.ReturnToWidgets.Tip.text)
     }
     
     var options: [any TipOption] {
@@ -23,21 +23,21 @@ struct SpaceSwitcherTip: Tip {
     
     var rules: [Rule] {
         [
-            #Rule(Self.$openedSpaceSwitcher) {
+            #Rule(Self.$usedLongpress) {
                 $0 == false
             },
-            #Rule(Self.$numberOfSpaceSwitches) {
-                $0 >= 3
+            #Rule(Self.$numberOfBackTaps) {
+                $0 >= 8
             }
         ]
     }
 }
 
 @available(iOS 17.0, *)
-struct SpaceSwitcherTipView: View {
+struct ReturnToWidgetsTipView: View {
     
     @State private var size: CGSize = .zero
-    var tip = SpaceSwitcherTip()
+    var tip = ReturnToWidgetsTip()
     
     var body: some View {
         GeometryReader { reader in
@@ -47,7 +47,7 @@ struct SpaceSwitcherTipView: View {
                 }
                 .position(x: reader.size.width * 0.5, y: -size.height*0.5)
                 .onAppear {
-                    AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .spaceSwitcher)
+                    AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .returnToWidgets)
                 }
         }
     }
