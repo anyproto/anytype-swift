@@ -62,11 +62,11 @@ final class ObjectTypeViewModel: ObservableObject {
     
     // Adding ephemeral Blank template
     private func updateTemplates(detailsList: [ObjectDetails]) {
-        let middlewareTemplates = detailsList.map { TemplatePreviewModel(objectDetails: $0, isDefault: false) } // TBD: isDefault
+        let middlewareTemplates = detailsList.map { TemplatePreviewModel(objectDetails: $0, decoration: nil) } // TBD: isDefault
         var templates = [TemplatePreviewModel]()
         
-        let isBlankTemplateDefault = !middlewareTemplates.contains { $0.isDefault }
-        templates.append(TemplatePreviewModel(mode: .blank, alignment: .left, isDefault: isBlankTemplateDefault))
+//        let isBlankTemplateDefault = !middlewareTemplates.contains { $0.isDefault }
+        templates.append(TemplatePreviewModel(mode: .blank, alignment: .left, decoration: .defaultBadge))
         
         templates += middlewareTemplates
 
