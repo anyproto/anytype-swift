@@ -1053,8 +1053,8 @@
 "SpaceHub.Tip.Text1" = "Kasalar tüm Alanlarınız için yeni yuvadır. Alanlar oluşturun, katılın veya paylaşın - her şey burada güvenli bir şekilde saklanır.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Alanları daha hızlı değiştirin";
-"SpaceSwitcher.Tip.Text" = "Alanı değiştirmek için geri düğmesine uzun dokunun";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
