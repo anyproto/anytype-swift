@@ -1052,8 +1052,8 @@
 "SpaceHub.Tip.Text1" = "Хранилище является новым домом для всех ваших пространств. Создавайте, присоединяйтесь  или делитесь пространствами – все безопасно хранится здесь.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Быстрое переключение между пространствами ";
-"SpaceSwitcher.Tip.Text" = "Зажать кнопку \"Назад\" для переключения пространства";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 

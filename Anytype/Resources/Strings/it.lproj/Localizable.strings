@@ -1052,8 +1052,8 @@
 "SpaceHub.Tip.Text1" = "La Cassaforte è la nuova casa per tutti i tuoi Spazi. Crea, unisciti o condividi Spazi - tutto è salvato qui in modo sicuro.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Cambia spazio più velocemente";
-"SpaceSwitcher.Tip.Text" = "Premi a lungo il pulsante indietro per cambiare Spazio";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 

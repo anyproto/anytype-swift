@@ -19,7 +19,7 @@
     <key>Devices connected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@device@ connected</string>
+      <string>%#@device@ terhubung</string>
       <key>device</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -105,7 +105,7 @@
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Brankas ini akan dihapus %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -113,7 +113,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>dalam %d hari</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -169,7 +169,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Kamu sudah mencapai batas %d ruang yang bisa dibagikan</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
