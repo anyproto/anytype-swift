@@ -25,6 +25,8 @@ final class DateViewModel: ObservableObject {
     
     private let document: any BaseDocumentProtocol
     private var objectsToLoad = 0
+    private var currentDate: Date? = nil
+    
     @Published var title = ""
     @Published var objects = [ObjectCellData]()
     @Published var relationDetails = [RelationDetails]()
@@ -43,10 +45,10 @@ final class DateViewModel: ObservableObject {
     }
     
     func getRelationsList() async {
-        // TODO: get relationsKeys from middle (it doesn't work now)
-//        let relationsKeys = try? await relationListWithValueService.relationListWithValue(objectId, spaceId: spaceId)
-        let relationsKeys = [BundledRelationKey.links, BundledRelationKey.backlinks]
-        relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
+        let relationsKeys = try? await relationListWithValueService.relationListWithValue(objectId, spaceId: spaceId)
+        // Set mentions relation first
+        let reorderedRelationsKeys = relationsKeys?.reordered(by: [BundledRelationKey.mentions.rawValue], transform: { $0 }) ?? []
+        relationDetails = reorderedRelationsKeys.compactMap { [weak self] key -> RelationDetails? in
             guard let self else { return nil }
             return try? relationDetailsStorage.relationsDetails(for: key, spaceId: spaceId)
         }
@@ -54,11 +56,10 @@ final class DateViewModel: ObservableObject {
     }
     
     func restartSubscription(with state: DateModuleState) async {
-        guard let relationKey = state.selectedRelation?.key else { return }
+        guard let filter = buildFilter(from: state) else { return }
         await dateRelatedObjectsSubscriptionService.startSubscription(
-            objectId: objectId,
             spaceId: spaceId,
-            relationKey: relationKey,
+            filter: filter,
             limit: state.limit,
             update: { [weak self] details, objectsToLoad  in
                 self?.objectsToLoad = objectsToLoad
@@ -76,6 +77,7 @@ final class DateViewModel: ObservableObject {
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
             title = details.title
+            state.currentDate = details.timestamp
         }
     }
     
@@ -123,5 +125,37 @@ final class DateViewModel: ObservableObject {
         Task {
             await dateRelatedObjectsSubscriptionService.stopSubscription()
         }
+    }
+    
+    private func buildFilter(from state: DateModuleState) -> DataviewFilter? {
+        guard let relationDetails = state.selectedRelation else { return nil }
+        
+        switch relationDetails.format {
+        case .date:
+            return dateRelationFilter(key: relationDetails.key, date: state.currentDate)
+        default:
+            return objectRelationFilter(key: relationDetails.key, value: objectId)
+        }
+    }
+    
+    private func dateRelationFilter(key: String, date: Date?) -> DataviewFilter? {
+        guard let date = date else { return nil }
+        
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = date.timeIntervalSince1970.protobufValue
+        filter.format = .date
+        filter.relationKey = key
+        
+        return filter
+    }
+    
+    private func objectRelationFilter(key: String, value: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = value.protobufValue
+        filter.relationKey = key
+        
+        return filter
     }
 }

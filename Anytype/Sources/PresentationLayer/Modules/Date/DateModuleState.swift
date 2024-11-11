@@ -1,7 +1,9 @@
+import Foundation
 import Services
 
 struct DateModuleState: Equatable, Hashable {
     var selectedRelation: RelationDetails? = nil { didSet { resetLimit() } }
+    var currentDate: Date? = nil { didSet { resetLimit() } }
     var limit = Constants.limit
     
     mutating func updateLimit() {
