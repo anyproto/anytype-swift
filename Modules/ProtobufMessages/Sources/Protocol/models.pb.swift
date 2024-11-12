@@ -612,6 +612,7 @@ public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
   case basic // = 0
   case cover // = 1
   case icon // = 2
+  case automaticallyAdded // = 3
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -623,6 +624,7 @@ public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
     case 0: self = .basic
     case 1: self = .cover
     case 2: self = .icon
+    case 3: self = .automaticallyAdded
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -632,6 +634,7 @@ public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
     case .basic: return 0
     case .cover: return 1
     case .icon: return 2
+    case .automaticallyAdded: return 3
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -646,6 +649,7 @@ extension Anytype_Model_ImageKind: CaseIterable {
     .basic,
     .cover,
     .icon,
+    .automaticallyAdded,
   ]
 }
 
@@ -5240,10 +5244,16 @@ public struct Anytype_Model_Import {
     case unknownError // = 1
     case badInput // = 2
     case internalError // = 3
-    case noObjectsToImport // = 5
-    case importIsCanceled // = 6
-    case limitOfRowsOrRelationsExceeded // = 7
     case fileLoadError // = 8
+    case importIsCanceled // = 6
+    case notionNoObjectsInIntegration // = 5
+    case notionServerIsUnavailable // = 12
+    case notionRateLimitExceeded // = 13
+    case fileImportNoObjectsInZipArchive // = 14
+    case fileImportNoObjectsInDirectory // = 17
+    case htmlWrongHtmlStructure // = 10
+    case pbNotAnyblockFormat // = 11
+    case csvLimitOfRowsOrRelationsExceeded // = 7
     case insufficientPermissions // = 9
     case UNRECOGNIZED(Int)
 
@@ -5257,11 +5267,17 @@ public struct Anytype_Model_Import {
       case 1: self = .unknownError
       case 2: self = .badInput
       case 3: self = .internalError
-      case 5: self = .noObjectsToImport
+      case 5: self = .notionNoObjectsInIntegration
       case 6: self = .importIsCanceled
-      case 7: self = .limitOfRowsOrRelationsExceeded
+      case 7: self = .csvLimitOfRowsOrRelationsExceeded
       case 8: self = .fileLoadError
       case 9: self = .insufficientPermissions
+      case 10: self = .htmlWrongHtmlStructure
+      case 11: self = .pbNotAnyblockFormat
+      case 12: self = .notionServerIsUnavailable
+      case 13: self = .notionRateLimitExceeded
+      case 14: self = .fileImportNoObjectsInZipArchive
+      case 17: self = .fileImportNoObjectsInDirectory
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -5272,11 +5288,17 @@ public struct Anytype_Model_Import {
       case .unknownError: return 1
       case .badInput: return 2
       case .internalError: return 3
-      case .noObjectsToImport: return 5
+      case .notionNoObjectsInIntegration: return 5
       case .importIsCanceled: return 6
-      case .limitOfRowsOrRelationsExceeded: return 7
+      case .csvLimitOfRowsOrRelationsExceeded: return 7
       case .fileLoadError: return 8
       case .insufficientPermissions: return 9
+      case .htmlWrongHtmlStructure: return 10
+      case .pbNotAnyblockFormat: return 11
+      case .notionServerIsUnavailable: return 12
+      case .notionRateLimitExceeded: return 13
+      case .fileImportNoObjectsInZipArchive: return 14
+      case .fileImportNoObjectsInDirectory: return 17
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -5308,10 +5330,16 @@ extension Anytype_Model_Import.ErrorCode: CaseIterable {
     .unknownError,
     .badInput,
     .internalError,
-    .noObjectsToImport,
-    .importIsCanceled,
-    .limitOfRowsOrRelationsExceeded,
     .fileLoadError,
+    .importIsCanceled,
+    .notionNoObjectsInIntegration,
+    .notionServerIsUnavailable,
+    .notionRateLimitExceeded,
+    .fileImportNoObjectsInZipArchive,
+    .fileImportNoObjectsInDirectory,
+    .htmlWrongHtmlStructure,
+    .pbNotAnyblockFormat,
+    .csvLimitOfRowsOrRelationsExceeded,
     .insufficientPermissions,
   ]
 }
@@ -6286,6 +6314,7 @@ extension Anytype_Model_ImageKind: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "Basic"),
     1: .same(proto: "Cover"),
     2: .same(proto: "Icon"),
+    3: .same(proto: "AutomaticallyAdded"),
   ]
 }
 
@@ -11351,11 +11380,17 @@ extension Anytype_Model_Import.ErrorCode: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "INTERNAL_ERROR"),
-    5: .same(proto: "NO_OBJECTS_TO_IMPORT"),
+    5: .same(proto: "NOTION_NO_OBJECTS_IN_INTEGRATION"),
     6: .same(proto: "IMPORT_IS_CANCELED"),
-    7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
+    7: .same(proto: "CSV_LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
     8: .same(proto: "FILE_LOAD_ERROR"),
     9: .same(proto: "INSUFFICIENT_PERMISSIONS"),
+    10: .same(proto: "HTML_WRONG_HTML_STRUCTURE"),
+    11: .same(proto: "PB_NOT_ANYBLOCK_FORMAT"),
+    12: .same(proto: "NOTION_SERVER_IS_UNAVAILABLE"),
+    13: .same(proto: "NOTION_RATE_LIMIT_EXCEEDED"),
+    14: .same(proto: "FILE_IMPORT_NO_OBJECTS_IN_ZIP_ARCHIVE"),
+    17: .same(proto: "FILE_IMPORT_NO_OBJECTS_IN_DIRECTORY"),
   ]
 }
 
