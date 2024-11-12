@@ -1191,6 +1191,16 @@ extension Anytype_Rpc.Process.Cancel.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Process.Subscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Process.Subscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Process.Unsubscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Process.Unsubscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Relation.ListRemoveOption.Response: ResultWithError {}
 extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
