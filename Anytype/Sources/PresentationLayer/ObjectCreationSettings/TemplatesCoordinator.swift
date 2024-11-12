@@ -38,7 +38,8 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
         let data = TemplatePickerViewModelData(
             mode: .objectTemplate(objectId: document.objectId),
             typeId: document.details?.objectType.id,
-            spaceId: document.spaceId
+            spaceId: document.spaceId,
+            defaultIndex: 0
         )
         showTemplatesPicker(data: data, onSetAsDefaultTempalte: onSetAsDefaultTempalte)
     }

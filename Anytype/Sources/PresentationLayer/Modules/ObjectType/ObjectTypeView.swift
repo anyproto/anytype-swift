@@ -48,7 +48,7 @@ struct ObjectTypeView: View {
             ObjectIconView(icon: model.icon).frame(width: 32, height: 32)
             AnytypeText(model.title, style: .title)
             Spacer()
-            StandardButton("Edit", style: .secondarySmall) {
+            StandardButton(Loc.edit, style: .secondarySmall) {
                 // TBD;
             }.disabled(true)
         }

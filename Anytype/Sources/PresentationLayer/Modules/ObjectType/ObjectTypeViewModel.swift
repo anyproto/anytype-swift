@@ -39,8 +39,11 @@ final class ObjectTypeViewModel: ObservableObject {
     
     func onTemplateTap(model: TemplatePreviewModel) {
         switch model.mode {
-        case .installed, .blank:
-            showTemplatesPicker() // TODO: Preserve selected template
+        case .installed:
+            let index = templates.map { $0.model}.firstIndex(of: model) ?? 0
+            showTemplatesPicker(index: index)
+        case .blank:
+            showTemplatesPicker(index: 0)
         case .addTemplate:
             onAddTemplateTap()
         }
@@ -114,9 +117,15 @@ final class ObjectTypeViewModel: ObservableObject {
     }
     
     // MARK: - Navigation
-    private func showTemplatesPicker() {
+    private func showTemplatesPicker(index: Int) {
+        let data = TemplatePickerViewModelData(
+            mode: .typeTemplate,
+            typeId: document.objectId,
+            spaceId: document.spaceId,
+            defaultIndex: index
+        )
         templatesCoordinator.showTemplatesPicker(
-            data: TemplatePickerViewModelData(mode: .typeTemplate, typeId: document.objectId, spaceId: document.spaceId),
+            data: data,
             onSetAsDefaultTempalte: { [weak self] templateId in
                 // TBD;
             }
