@@ -1,6 +1,6 @@
 import AnytypeCore
 
-public enum ObjectIcon: Hashable, Sendable {
+public enum ObjectIcon: Hashable, Sendable, Equatable {
     case basic(_ imageId: String)
     case profile(Profile)
     case emoji(Emoji)
