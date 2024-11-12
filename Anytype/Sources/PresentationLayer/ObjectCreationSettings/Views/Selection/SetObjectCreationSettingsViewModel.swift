@@ -267,15 +267,15 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     private func updateTemplatesList() {
         var templates = [TemplatePreviewModel]()
 
-        if !userTemplates.contains(where: { $0.isDefault }) {
-            templates.append(.init(mode: .blank, alignment: .left, isDefault: true))
+        if !userTemplates.contains(where: { $0.decoration.isNotNil }) {
+            templates.append(.init(mode: .blank, alignment: .left, decoration: .border))
         } else {
-            templates.append(.init(mode: .blank, alignment: .left, isDefault: false))
+            templates.append(.init(mode: .blank, alignment: .left, decoration: nil))
         }
         
         templates.append(contentsOf: userTemplates)
         if isTemplatesEditable {
-            templates.append(.init(mode: .addTemplate, alignment: .center, isDefault: false))
+            templates.append(.init(mode: .addTemplate, alignment: .center))
         }
         
         withAnimation {
@@ -299,7 +299,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
 }
 
 extension TemplatePreviewModel {
-    init(objectDetails: ObjectDetails, isDefault: Bool) {
+    init(objectDetails: ObjectDetails, decoration: TemplateDecoration?) {
         self = .init(
             mode: .installed(.init(
                 id: objectDetails.id,
@@ -316,7 +316,7 @@ extension TemplatePreviewModel {
             )
             ),
             alignment: objectDetails.layoutAlignValue,
-            isDefault: isDefault
+            decoration: decoration
         )
     }
 }

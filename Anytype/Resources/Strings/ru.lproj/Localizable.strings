@@ -191,7 +191,7 @@
 "Blue background" = "Синий фон";
 "Green background" = "Зелёный фон";
 "Create new object" = "Создать новый объект";
-"Create new object with name" = "Create new object \"%@\"";
+"Create new object with name" = "Создать новый набор \"%@\"";
 "Cancel" = "Отмена";
 "Paste or type URL" = "Вставить или ввести URL-адрес";
 "No items match filter" = "Нет элементов, соответствующих фильтру";
@@ -325,6 +325,8 @@
 "Task" = "Задача";
 "Note" = "Заметка";
 "Choose layout type" = "Выберите тип макета";
+
+"Templates" = "Шаблоны";
 
 "Undo typing" = "Отменить ввод";
 "Undo" = "Отменить";
@@ -1050,8 +1052,8 @@
 "SpaceHub.Tip.Text1" = "Хранилище является новым домом для всех ваших пространств. Создавайте, присоединяйтесь  или делитесь пространствами – все безопасно хранится здесь.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Быстрое переключение между пространствами ";
-"SpaceSwitcher.Tip.Text" = "Зажать кнопку \"Назад\" для переключения пространства";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
@@ -1252,8 +1254,8 @@
 // MARK: - Chats
 "Chat.ReadOnly" = "Только редакторы могут отправлять сообщения. Свяжитесь с владельцем для запроса доступа.";
 "Chat.ReplyTo" = "Ответить %@";
-"Chat.Empty.Title" = "No messages here yet...";
-"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Empty.Title" = "Здесь пока нет сообщений...";
+"Chat.Empty.Description" = "Напишите первый, чтобы начать диалог";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";

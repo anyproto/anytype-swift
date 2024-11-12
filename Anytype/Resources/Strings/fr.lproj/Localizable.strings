@@ -326,6 +326,8 @@
 "Note" = "Note";
 "Choose layout type" = "Choisir la mise en page";
 
+"Templates" = "Modèles";
+
 "Undo typing" = "Annuler la saisie";
 "Undo" = "Annuler";
 "Redo" = "Rétablir";
@@ -1050,8 +1052,8 @@
 "SpaceHub.Tip.Text1" = "Le coffre-fort est l'endroit rassemblant tous vos Espaces. Créer, joindre, ou partager des Espaces – tout est sauvé, ici, en sécurité.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Changer d'espaces plus rapidement";
-"SpaceSwitcher.Tip.Text" = "Appui long sur le bouton retour pour changer d'espace";
+"ReturnToWidgets.Tip.Title" = "Appui long pour retourner aux widgets";
+"ReturnToWidgets.Tip.Text" = "Appuyez longuement sur le bouton retour pour revenir aux widgets au lieu d'appuyer dessus à plusieurs reprises.";
 
 // MARK: - Initial
 

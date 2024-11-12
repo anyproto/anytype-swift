@@ -56,13 +56,24 @@ enum TemplateType: Equatable {
     }
 }
 
+enum TemplateDecoration {
+    case border
+    case defaultBadge
+}
+
 struct TemplatePreviewModel: Identifiable, Equatable {
     let mode: TemplateType
     let alignment: LayoutAlignment
-    let isDefault: Bool
+    let decoration: TemplateDecoration?
     
     var id: String {
         mode.id
+    }
+}
+
+extension TemplatePreviewModel {
+    init(mode: TemplateType, alignment: LayoutAlignment) {
+        self.init(mode: mode, alignment: alignment, decoration: nil)
     }
 }
 

@@ -326,6 +326,8 @@
 "Note" = "Нататка";
 "Choose layout type" = "Абярыце тып макета";
 
+"Templates" = "Шаблоны";
+
 "Undo typing" = "Скасаваць увод";
 "Undo" = "Скасаваць";
 "Redo" = "Вярнуць";
@@ -1051,8 +1053,8 @@
 "SpaceHub.Tip.Text1" = "Сховішча - гэта новая хата для ўсіх вашых прастор. Стварайце прасторы, далучайцеся да іх ці дзяліцеся імі - усё будзе надзейна захавана тут.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Хутчэй пераключайцеся паміж прасторамі";
-"SpaceSwitcher.Tip.Text" = "Доўгі націск на кнопку \"Назад\" перамыкае \"Прастору\".";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 

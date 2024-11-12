@@ -1,15 +1,8 @@
 import Foundation
 import SwiftUI
 
-struct AnytypeDragState: EnvironmentKey {
-    static let defaultValue: Binding<DragState> = .constant(DragState())
-}
-
 extension EnvironmentValues {
-    var anytypeDragState: Binding<DragState> {
-        get { self[AnytypeDragState.self] }
-        set { self[AnytypeDragState.self] = newValue }
-    }
+    @Entry var anytypeDragState: Binding<DragState> = .constant(DragState())
 }
 
 struct DropDataElement<Data> {

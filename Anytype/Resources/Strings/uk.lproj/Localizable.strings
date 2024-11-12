@@ -326,6 +326,8 @@
 "Note" = "Нотатка";
 "Choose layout type" = "Вибрати тип макета";
 
+"Templates" = "Templates";
+
 "Undo typing" = "Скасувати введення";
 "Undo" = "Повернути";
 "Redo" = "Redo";
@@ -1051,8 +1053,8 @@
 "SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 

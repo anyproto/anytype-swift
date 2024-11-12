@@ -58,8 +58,8 @@ extension BundledRelationsValueProvider {
         return !isDeleted && !isArchived && isVisibleLayout && !isHiddenDiscovery
     }
     
-    var isNotDeletedAndSupportedForEdit: Bool {
-        return !isDeleted && !isArchived && isSupportedForEdit && !isHiddenDiscovery
+    var isNotDeletedAndSupportedForOpening: Bool {
+        return !isDeleted && !isArchived && isSupportedForOpening && !isHiddenDiscovery
     }
     
     var isTemplateType: Bool { objectType.isTemplateType }
@@ -76,7 +76,7 @@ extension BundledRelationsValueProvider {
     
     var isSet: Bool { layoutValue.isSet }
     
-    var isSupportedForEdit: Bool { layoutValue.isVisibleOrFile }
+    var isSupportedForOpening: Bool { layoutValue.isSupportedForOpening }
     
     var isVisibleLayout: Bool { layoutValue.isVisible }
     

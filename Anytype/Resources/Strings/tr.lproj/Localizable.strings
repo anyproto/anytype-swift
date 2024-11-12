@@ -191,7 +191,7 @@
 "Blue background" = "Mavi arkaplan";
 "Green background" = "Yeşil arkaplan";
 "Create new object" = "Yeni nesne oluştur";
-"Create new object with name" = "Create new object \"%@\"";
+"Create new object with name" = "Yeni nesne oluştur \"%@\"";
 "Cancel" = "İptal";
 "Paste or type URL" = "Bir URL yazın ya da yapıştırın";
 "No items match filter" = "Filtreyle eşleşen öge yok";
@@ -325,6 +325,8 @@
 "Task" = "Görev";
 "Note" = "Not";
 "Choose layout type" = "Düzen türü seçin";
+
+"Templates" = "Şablonlar";
 
 "Undo typing" = "Yazıyı geri al";
 "Undo" = "Geri al";
@@ -1051,8 +1053,8 @@
 "SpaceHub.Tip.Text1" = "Kasalar tüm Alanlarınız için yeni yuvadır. Alanlar oluşturun, katılın veya paylaşın - her şey burada güvenli bir şekilde saklanır.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Alanları daha hızlı değiştirin";
-"SpaceSwitcher.Tip.Text" = "Alanı değiştirmek için geri düğmesine uzun dokunun";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 

@@ -195,7 +195,9 @@ final class SlashMenuActionHandler {
             actionHandler.duplicate(blockId: blockId, spaceId: document.spaceId)
         case .moveTo:
             router.showMoveTo { [weak self] details in
-                self?.actionHandler.moveToPage(blockId: blockId, pageId: details.id)
+                Task {
+                    try await self?.actionHandler.moveToPage(blockIds: [blockId], pageId: details.id)
+                }
             }
         case .copy:
             try await pasteboardService.copy(document: document, blocksIds: [blockId], selectedTextRange: NSRange())

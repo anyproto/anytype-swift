@@ -440,19 +440,23 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
         case .moveTo:
             router.showMoveTo { [weak self] details in
-                elements.forEach {
-                    self?.actionHandler.moveToPage(blockId: $0.blockId, pageId: details.id)
-                }
-                self?.editingState = .editing
-                
-                self?.toastPresenter.showObjectCompositeAlert(
-                    prefixText: Loc.Editor.Toast.movedTo,
-                    objectId: details.id,
-                    spaceId: details.spaceId,
-                    tapHandler: { [weak self] in
-                        self?.router.showEditorScreen(data: details.editorScreenData())
+                Task {
+                    let blockIds = elements.map(\.blockId)
+                    try await self?.actionHandler.moveToPage(blockIds: blockIds, pageId: details.id)
+
+                    self?.editingState = .editing
+
+                    await MainActor.run {
+                        self?.toastPresenter.showObjectCompositeAlert(
+                            prefixText: Loc.Editor.Toast.movedTo,
+                            objectId: details.id,
+                            spaceId: details.spaceId,
+                            tapHandler: { [weak self] in
+                                self?.router.showEditorScreen(data: details.editorScreenData())
+                            }
+                        )
                     }
-                )
+                }
             }
             return
         case .move:

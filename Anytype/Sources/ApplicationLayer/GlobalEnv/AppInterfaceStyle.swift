@@ -39,15 +39,9 @@ final class AppInterfaceStyle {
     }
 }
 
-struct AppInterfaceStyleKey: EnvironmentKey {
-    static let defaultValue = AppInterfaceStyle(window: nil)
-}
 
 extension EnvironmentValues {
-    var appInterfaceStyle: AppInterfaceStyle {
-        get { self[AppInterfaceStyleKey.self] }
-        set { self[AppInterfaceStyleKey.self] = newValue }
-    }
+    @Entry var appInterfaceStyle = AppInterfaceStyle(window: nil)
 }
 
 extension View {
