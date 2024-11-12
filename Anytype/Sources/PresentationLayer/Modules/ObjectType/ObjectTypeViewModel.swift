@@ -66,16 +66,9 @@ final class ObjectTypeViewModel: ObservableObject {
             state.title = details.title
             state.icon = details.objectIcon
             
-            if defaultTemplateId != details.defaultTemplateId {
-                defaultTemplateId = details.defaultTemplateId
-                updateTemplates()
-            }
-            
-            let isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
-            if isEditorLayout != isTemplatesEditable {
-                isTemplatesEditable = isEditorLayout
-                updateTemplates()
-            }
+            defaultTemplateId = details.defaultTemplateId
+            isTemplatesEditable = details.recommendedLayoutValue?.isEditorLayout ?? false
+            buildTemplates()
         }
     }
     
@@ -83,7 +76,7 @@ final class ObjectTypeViewModel: ObservableObject {
         await templatesSubscription.startSubscription(objectType: data.objectId, spaceId: data.spaceId) { [weak self] rawTemplates in
             guard let self else { return }
             self.rawTemplates = rawTemplates
-            updateTemplates()
+            buildTemplates()
         }
     }
     
@@ -93,20 +86,22 @@ final class ObjectTypeViewModel: ObservableObject {
         }
     }
     
-    // Adding ephemeral Blank template
-    private func updateTemplates() {
-        let middlewareTemplates = rawTemplates.map {
-            let decoration: TemplateDecoration? = ($0.id == defaultTemplateId) ? .defaultBadge : nil
-            return TemplatePreviewModel(objectDetails: $0, decoration: decoration)
-        }
+    // Adding ephemeral Blank template and create new template button
+    private func buildTemplates() {
         var templates = [TemplatePreviewModel]()
         
-        let isBlankTemplateDefault = !middlewareTemplates.contains { $0.decoration != nil }
+        let isBlankTemplateDefault = !rawTemplates.contains { $0.id == defaultTemplateId }
         templates.append(TemplatePreviewModel(
             mode: .blank,
             alignment: .left,
             decoration: isBlankTemplateDefault ? .defaultBadge : nil
         ))
+        
+        let middlewareTemplates = rawTemplates.map { details in
+            let isDefault = details.id == defaultTemplateId
+            let decoration: TemplateDecoration? = isDefault ? .defaultBadge : nil
+            return TemplatePreviewModel(objectDetails: details, decoration: decoration)
+        }
         
         templates += middlewareTemplates
 
@@ -114,7 +109,7 @@ final class ObjectTypeViewModel: ObservableObject {
             templates.append(.init(mode: .addTemplate, alignment: .center))
         }
         
-        self.state.templates = templates.map { model in
+        state.templates = templates.map { model in
             TemplatePreviewViewModel(
                 model: model,
                 onOptionSelection: { [weak self] option in
