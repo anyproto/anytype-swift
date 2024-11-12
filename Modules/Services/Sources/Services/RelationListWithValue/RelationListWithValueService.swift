@@ -11,6 +11,6 @@ final class RelationListWithValueService: RelationListWithValueServiceProtocol {
             $0.spaceID = spaceId
             $0.value = value.protobufValue
         }).invoke()
-        return result.relationKeys
+        return result.list.map { $0.relationKey }
     }
 }

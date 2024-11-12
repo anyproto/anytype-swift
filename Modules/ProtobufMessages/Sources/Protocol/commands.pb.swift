@@ -12421,11 +12421,23 @@ public struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
-        public var relationKeys: [String] = []
-
-        public var counters: [Int64] = []
+        public var list: [Anytype_Rpc.Relation.ListWithValue.Response.ResponseItem] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct ResponseItem {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var relationKey: String = String()
+
+          public var counter: Int64 = 0
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
 
         public struct Error {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -13358,6 +13370,8 @@ public struct Anytype_Rpc {
         public mutating func clearDetails() {self._details = nil}
 
         public var origin: Anytype_Model_ObjectOrigin = .none
+
+        public var imageKind: Anytype_Model_ImageKind = .basic
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -14700,6 +14714,8 @@ public struct Anytype_Rpc {
         public var pictureID: String = String()
 
         public var spaceID: String = String()
+
+        public var imageKind: Anytype_Model_ImageKind = .basic
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -21108,6 +21124,8 @@ public struct Anytype_Rpc {
         public var localPath: String = String()
 
         public var fileType: Anytype_Model_Block.Content.File.TypeEnum = .none
+
+        public var imageKind: Anytype_Model_ImageKind = .basic
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -34371,6 +34389,7 @@ extension Anytype_Rpc.Relation.Options.Response.Error.Code: @unchecked Sendable 
 extension Anytype_Rpc.Relation.ListWithValue: @unchecked Sendable {}
 extension Anytype_Rpc.Relation.ListWithValue.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Relation.ListWithValue.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Relation.ListWithValue.Response.ResponseItem: @unchecked Sendable {}
 extension Anytype_Rpc.Relation.ListWithValue.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Relation.ListWithValue.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.History: @unchecked Sendable {}
@@ -52912,8 +52931,7 @@ extension Anytype_Rpc.Relation.ListWithValue.Response: SwiftProtobuf.Message, Sw
   public static let protoMessageName: String = Anytype_Rpc.Relation.ListWithValue.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "relationKeys"),
-    3: .same(proto: "counters"),
+    2: .same(proto: "list"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -52923,8 +52941,7 @@ extension Anytype_Rpc.Relation.ListWithValue.Response: SwiftProtobuf.Message, Sw
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
-      case 3: try { try decoder.decodeRepeatedInt64Field(value: &self.counters) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.list) }()
       default: break
       }
     }
@@ -52938,19 +52955,53 @@ extension Anytype_Rpc.Relation.ListWithValue.Response: SwiftProtobuf.Message, Sw
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.relationKeys.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.relationKeys, fieldNumber: 2)
-    }
-    if !self.counters.isEmpty {
-      try visitor.visitPackedInt64Field(value: self.counters, fieldNumber: 3)
+    if !self.list.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.list, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Relation.ListWithValue.Response, rhs: Anytype_Rpc.Relation.ListWithValue.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.relationKeys != rhs.relationKeys {return false}
-    if lhs.counters != rhs.counters {return false}
+    if lhs.list != rhs.list {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Relation.ListWithValue.Response.ResponseItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Relation.ListWithValue.Response.protoMessageName + ".ResponseItem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "relationKey"),
+    2: .same(proto: "counter"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.counter) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.relationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 1)
+    }
+    if self.counter != 0 {
+      try visitor.visitSingularInt64Field(value: self.counter, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Relation.ListWithValue.Response.ResponseItem, rhs: Anytype_Rpc.Relation.ListWithValue.Response.ResponseItem) -> Bool {
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.counter != rhs.counter {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -54356,6 +54407,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     5: .same(proto: "style"),
     7: .same(proto: "details"),
     8: .same(proto: "origin"),
+    9: .same(proto: "imageKind"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -54372,6 +54424,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 6: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.origin) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
       default: break
       }
     }
@@ -54406,6 +54459,9 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if self.origin != .none {
       try visitor.visitSingularEnumField(value: self.origin, fieldNumber: 8)
     }
+    if self.imageKind != .basic {
+      try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -54418,6 +54474,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.style != rhs.style {return false}
     if lhs._details != rhs._details {return false}
     if lhs.origin != rhs.origin {return false}
+    if lhs.imageKind != rhs.imageKind {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -56419,6 +56476,7 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "pictureId"),
     2: .same(proto: "spaceId"),
+    3: .same(proto: "imageKind"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -56429,6 +56487,7 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.pictureID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
       default: break
       }
     }
@@ -56441,12 +56500,16 @@ extension Anytype_Rpc.Unsplash.Download.Request: SwiftProtobuf.Message, SwiftPro
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
     }
+    if self.imageKind != .basic {
+      try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Unsplash.Download.Request, rhs: Anytype_Rpc.Unsplash.Download.Request) -> Bool {
     if lhs.pictureID != rhs.pictureID {return false}
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.imageKind != rhs.imageKind {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -65644,6 +65707,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: SwiftProtobuf.Message, 
     4: .same(proto: "url"),
     5: .same(proto: "localPath"),
     6: .same(proto: "fileType"),
+    7: .same(proto: "imageKind"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -65658,6 +65722,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: SwiftProtobuf.Message, 
       case 4: try { try decoder.decodeSingularStringField(value: &self.url) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.localPath) }()
       case 6: try { try decoder.decodeSingularEnumField(value: &self.fileType) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
       default: break
       }
     }
@@ -65682,6 +65747,9 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: SwiftProtobuf.Message, 
     if self.fileType != .none {
       try visitor.visitSingularEnumField(value: self.fileType, fieldNumber: 6)
     }
+    if self.imageKind != .basic {
+      try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -65692,6 +65760,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: SwiftProtobuf.Message, 
     if lhs.url != rhs.url {return false}
     if lhs.localPath != rhs.localPath {return false}
     if lhs.fileType != rhs.fileType {return false}
+    if lhs.imageKind != rhs.imageKind {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

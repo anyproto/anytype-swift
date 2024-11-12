@@ -5294,13 +5294,7 @@ public struct Anytype_Model {
       set {message = .migration(newValue)}
     }
 
-    public var recoverAccount: Anytype_Model.Process.RecoverAccount {
-      get {
-        if case .recoverAccount(let v)? = message {return v}
-        return Anytype_Model.Process.RecoverAccount()
-      }
-      set {message = .recoverAccount(newValue)}
-    }
+    public var error: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5310,7 +5304,6 @@ public struct Anytype_Model {
       case export(Anytype_Model.Process.Export)
       case saveFile(Anytype_Model.Process.SaveFile)
       case migration(Anytype_Model.Process.Migration)
-      case recoverAccount(Anytype_Model.Process.RecoverAccount)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Model.Process.OneOf_Message, rhs: Anytype_Model.Process.OneOf_Message) -> Bool {
@@ -5336,10 +5329,6 @@ public struct Anytype_Model {
         }()
         case (.migration, .migration): return {
           guard case .migration(let l) = lhs, case .migration(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.recoverAccount, .recoverAccount): return {
-          guard case .recoverAccount(let l) = lhs, case .recoverAccount(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -5416,16 +5405,6 @@ public struct Anytype_Model {
     }
 
     public struct SaveFile {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
-
-      public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-      public init() {}
-    }
-
-    public struct RecoverAccount {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -5703,7 +5682,6 @@ extension Anytype_Model.Process.DropFiles: @unchecked Sendable {}
 extension Anytype_Model.Process.Import: @unchecked Sendable {}
 extension Anytype_Model.Process.Export: @unchecked Sendable {}
 extension Anytype_Model.Process.SaveFile: @unchecked Sendable {}
-extension Anytype_Model.Process.RecoverAccount: @unchecked Sendable {}
 extension Anytype_Model.Process.Migration: @unchecked Sendable {}
 extension Anytype_Model.Process.Progress: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
@@ -14799,7 +14777,7 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     8: .same(proto: "export"),
     9: .same(proto: "saveFile"),
     10: .same(proto: "migration"),
-    11: .same(proto: "recoverAccount"),
+    11: .same(proto: "error"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -14877,19 +14855,7 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.message = .migration(v)
         }
       }()
-      case 11: try {
-        var v: Anytype_Model.Process.RecoverAccount?
-        var hadOneofValue = false
-        if let current = self.message {
-          hadOneofValue = true
-          if case .recoverAccount(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.message = .recoverAccount(v)
-        }
-      }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.error) }()
       default: break
       }
     }
@@ -14933,11 +14899,10 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .migration(let v)? = self.message else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
     }()
-    case .recoverAccount?: try {
-      guard case .recoverAccount(let v)? = self.message else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-    }()
     case nil: break
+    }
+    if !self.error.isEmpty {
+      try visitor.visitSingularStringField(value: self.error, fieldNumber: 11)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -14948,6 +14913,7 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     if lhs._progress != rhs._progress {return false}
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.message != rhs.message {return false}
+    if lhs.error != rhs.error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -15034,25 +15000,6 @@ extension Anytype_Model.Process.SaveFile: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   public static func ==(lhs: Anytype_Model.Process.SaveFile, rhs: Anytype_Model.Process.SaveFile) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Model.Process.RecoverAccount: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".RecoverAccount"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Model.Process.RecoverAccount, rhs: Anytype_Model.Process.RecoverAccount) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
