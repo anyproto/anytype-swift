@@ -61,7 +61,7 @@ struct ObjectTypeView: View {
                 AnytypeText("\(model.templates.count)", style: .previewTitle1Regular)
                     .foregroundColor(Color.Text.secondary)
                 Spacer()
-            }.padding(10)
+            }.padding(10).padding(.horizontal, 10)
             templatesList
         }
     }

@@ -16,6 +16,7 @@ final class ObjectTypeViewModel: ObservableObject {
     private let document: any BaseDocumentProtocol
     private var isTemplatesEditable = false
     private var rawTemplates: [ObjectDetails] = []
+    private var defaultTemplateId: String?
     
     @Injected(\.templatesSubscription)
     private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
@@ -59,6 +60,11 @@ final class ObjectTypeViewModel: ObservableObject {
             title = details.title
             icon = details.objectIcon
             
+            if defaultTemplateId != details.defaultTemplateId {
+                defaultTemplateId = details.defaultTemplateId
+                updateTemplates()
+            }
+            
             let isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
             if isEditorLayout != isTemplatesEditable {
                 isTemplatesEditable = isEditorLayout
@@ -83,11 +89,18 @@ final class ObjectTypeViewModel: ObservableObject {
     
     // Adding ephemeral Blank template
     private func updateTemplates() {
-        let middlewareTemplates = rawTemplates.map { TemplatePreviewModel(objectDetails: $0, decoration: nil) } // TBD: isDefault
+        let middlewareTemplates = rawTemplates.map {
+            let decoration: TemplateDecoration? = ($0.id == defaultTemplateId) ? .defaultBadge : nil
+            return TemplatePreviewModel(objectDetails: $0, decoration: decoration)
+        }
         var templates = [TemplatePreviewModel]()
         
-//        let isBlankTemplateDefault = !middlewareTemplates.contains { $0.isDefault }
-        templates.append(TemplatePreviewModel(mode: .blank, alignment: .left, decoration: .defaultBadge))
+        let isBlankTemplateDefault = !middlewareTemplates.contains { $0.decoration != nil }
+        templates.append(TemplatePreviewModel(
+            mode: .blank,
+            alignment: .left,
+            decoration: isBlankTemplateDefault ? .defaultBadge : nil
+        ))
         
         templates += middlewareTemplates
 
