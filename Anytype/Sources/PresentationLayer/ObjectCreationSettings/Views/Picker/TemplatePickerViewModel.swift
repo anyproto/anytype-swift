@@ -20,6 +20,7 @@ struct TemplatePickerViewModelData {
     let mode: Mode
     let typeId: String?
     let spaceId: String
+    let defaultIndex: Int
     
     var objectId: String? {
         switch mode {
@@ -43,6 +44,7 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     }
     
     private let data: TemplatePickerViewModelData
+    private var didSetupDefaultItem = false
     
     @Injected(\.objectActionsService)
     private var objectService: any ObjectActionsServiceProtocol
@@ -119,8 +121,19 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
                 spaceId: data.spaceId
             ) { [weak self] templates in
                 self?.updateItems(with: templates)
+                self?.setupDefaultItem()
             }
         }
+    }
+    
+    private func setupDefaultItem() {
+        guard !didSetupDefaultItem else { return }
+        
+        if items[safe: data.defaultIndex].isNotNil {
+            selectedTab = data.defaultIndex
+        }
+        
+        didSetupDefaultItem = true
     }
     
     private func updateItems(with templates: [ObjectDetails]) {
