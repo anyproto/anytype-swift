@@ -44,7 +44,14 @@ struct ObjectTypeView: View {
     }
     
     private var header: some View {
-        AnytypeText(model.title, style: .title)
+        HStack(alignment: .center, spacing: 8) {
+            ObjectIconView(icon: model.icon).frame(width: 32, height: 32)
+            AnytypeText(model.title, style: .title)
+            Spacer()
+            StandardButton("Edit", style: .secondarySmall) {
+                // TBD;
+            }.disabled(true)
+        }
     }
     
     private var templates: some View {

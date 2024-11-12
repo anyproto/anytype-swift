@@ -5,6 +5,7 @@ import Services
 @MainActor
 final class ObjectTypeViewModel: ObservableObject {
     @Published var title = ""
+    @Published var icon: ObjectIcon?
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var syncStatusData: SyncStatusData?
     
@@ -53,6 +54,7 @@ final class ObjectTypeViewModel: ObservableObject {
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
             title = details.title
+            icon = details.objectIcon
             
             let isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
             if isEditorLayout != isTemplatesEditable {
