@@ -1052,8 +1052,8 @@
 "SpaceHub.Tip.Text1" = "Tu arca es donde se guardan y protegen todos tus espacios: que crees, los que compartas y los que alguien comparta contigo.";
 
 // MARK: - Space switcher tip
-"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
-"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
+"ReturnToWidgets.Tip.Title" = "Pulsación larga para volver a los widgets";
+"ReturnToWidgets.Tip.Text" = "Mantén pulsado el botón de retroceso para volver a los widgets en lugar de pulsarlo varias veces.";
 
 // MARK: - Initial
 
