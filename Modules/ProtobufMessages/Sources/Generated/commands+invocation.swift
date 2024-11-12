@@ -617,6 +617,16 @@ extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Debug.ExportLog.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.ExportLog.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Debug.NetCheck.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.NetCheck.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Debug.OpenedObjects.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -756,6 +766,11 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Initial.SetParameters.Response: ResultWithError {}
+extension Anytype_Rpc.Initial.SetParameters.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.LinkPreview.Response: ResultWithError {}
 extension Anytype_Rpc.LinkPreview.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -813,11 +828,6 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: ResponseE
 
 extension Anytype_Rpc.Membership.VerifyEmailCode.Response: ResultWithError {}
 extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.Metrics.SetParameters.Response: ResultWithError {}
-extension Anytype_Rpc.Metrics.SetParameters.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -1178,6 +1188,16 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Process.Cancel.Response: ResultWithError {}
 extension Anytype_Rpc.Process.Cancel.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Process.Subscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Process.Subscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Process.Unsubscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Process.Unsubscribe.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
