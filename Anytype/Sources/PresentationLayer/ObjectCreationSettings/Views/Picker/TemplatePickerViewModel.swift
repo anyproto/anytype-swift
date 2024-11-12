@@ -11,12 +11,38 @@ protocol TemplatePickerViewModuleOutput: AnyObject {
     func onClose()
 }
 
+struct TemplatePickerViewModelData {
+    enum Mode {
+        case objectTemplate(objectId: String)
+        case typeTemplate
+    }
+    
+    let mode: Mode
+    let typeId: String?
+    let spaceId: String
+    
+    var objectId: String? {
+        switch mode {
+        case .objectTemplate(let objectId):
+            return objectId
+        case .typeTemplate:
+            return nil
+        }
+    }
+}
+
 @MainActor
 final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {    
     @Published var items = [Item]()
     @Published var selectedTab = 0
     @Published var showBlankSettings = false
-    private let document: any BaseDocumentProtocol
+    
+    var showApplyButton: Bool {
+        if case .objectTemplate = data.mode { return true }
+        return false
+    }
+    
+    private let data: TemplatePickerViewModelData
     
     @Injected(\.objectActionsService)
     private var objectService: any ObjectActionsServiceProtocol
@@ -31,19 +57,21 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     @Published var options = [SelectionOptionsItemViewModel]()
 
     init(
-        output: (any TemplatePickerViewModuleOutput)?,
-        document: some BaseDocumentProtocol
+        data: TemplatePickerViewModelData,
+        output: (any TemplatePickerViewModuleOutput)?
     ) {
+        self.data = data
         self.output = output
-        self.document = document
         self.options = buildBlankOptions()
         self.loadTemplates()
     }
 
     func onApplyButton() {
+        guard let objectId = data.objectId else { return }
+        
         let templateId = selectedTemplateId()
         Task { @MainActor in
-            try await objectService.applyTemplate(objectId: document.objectId, templateId: templateId)
+            try await objectService.applyTemplate(objectId: objectId, templateId: templateId)
             output?.onClose()
         }
     }
@@ -83,11 +111,12 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     }
     
     private func loadTemplates() {
-        guard let objectTypeId = document.details?.objectType.id else { return }
+        guard let typeId = data.typeId else { return }
+        
         Task {
             await templatesSubscriptionService.startSubscription(
-                objectType: objectTypeId,
-                spaceId: document.spaceId
+                objectType: typeId,
+                spaceId: data.spaceId
             ) { [weak self] templates in
                 self?.updateItems(with: templates)
             }

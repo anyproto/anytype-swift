@@ -20,6 +20,8 @@ final class ObjectTypeViewModel: ObservableObject {
     private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.legacyTemplatesCoordinator)
+    private var templatesCoordinator: any TemplatesCoordinatorProtocol
     
     init(data: EditorTypeObject) {
         self.data = data
@@ -35,7 +37,12 @@ final class ObjectTypeViewModel: ObservableObject {
     }
     
     func onTemplateTap(model: TemplatePreviewModel) {
-        // TBD;
+        switch model.mode {
+        case .installed, .blank:
+            showTemplatesPicker() // TODO: Preserve selected template
+        case .addTemplate:
+            onAddTemplateTap()
+        }
     }
     
     func onSyncStatusTap() {
@@ -99,4 +106,19 @@ final class ObjectTypeViewModel: ObservableObject {
     ) {
         // TBD;
     }
+    
+    private func onAddTemplateTap() {
+        // TBD;
+    }
+    
+    // MARK: - Navigation
+    private func showTemplatesPicker() {
+        templatesCoordinator.showTemplatesPicker(
+            data: TemplatePickerViewModelData(mode: .typeTemplate, typeId: document.objectId, spaceId: document.spaceId),
+            onSetAsDefaultTempalte: { [weak self] templateId in
+                // TBD;
+            }
+        )
+    }
+    
 }
