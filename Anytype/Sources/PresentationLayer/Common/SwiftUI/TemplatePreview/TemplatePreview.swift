@@ -6,12 +6,11 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
     
     var body: some View {
         content
-        .border(
-            16,
-            color: viewModel.model.isDefault ?
-            Color.System.amber50 : .Shape.primary,
-            lineWidth: viewModel.model.isDefault ? 2 : 1
-        )
+            .if(viewModel.model.decoration == .border, if: {
+                $0.border(16, color: Color.System.amber50, lineWidth: 2)
+            }, else: {
+                $0.border(16, color: .Shape.primary, lineWidth: 1)
+            })
         .cornerRadius(16, corners: .top)
         .frame(width: 120, height: 224)
     }
@@ -58,6 +57,18 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
             }
         }
         .frame(width: 120, height: 224)
+        .if(viewModel.model.decoration == .defaultBadge) {
+            $0.overlay(alignment: .bottom) {
+                VStack(spacing: 0) {
+                    AnytypeText("Default", style: .relation2Regular)
+                        .foregroundColor(.Text.secondary)
+                        .padding(.horizontal, 6)
+                        .background(Color.Shape.transperentSecondary)
+                        .cornerRadius(4, style: .continuous)
+                    Spacer.fixedHeight(8)
+                }
+            }
+        }
     }
     
     @ViewBuilder
