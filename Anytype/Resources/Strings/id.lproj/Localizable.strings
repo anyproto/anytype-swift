@@ -1053,8 +1053,8 @@
 "SpaceHub.Tip.Text1" = "Brankas adalah rumah baru semua Ruangmu. Membuat, bergabung, atau berbagi Ruang—semuanya disimpan dengan aman di sini.";
 
 // MARK: - Space switcher tip
-"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
-"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
+"ReturnToWidgets.Tip.Title" = "Tekan Lama untuk Kembali ke Gawit";
+"ReturnToWidgets.Tip.Text" = "Tekan lama tombol kembali untuk kembali ke gawit alih-alih menekannya berkali-kali.";
 
 // MARK: - Initial
 
