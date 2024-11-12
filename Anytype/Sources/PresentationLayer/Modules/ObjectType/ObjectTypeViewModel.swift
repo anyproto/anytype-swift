@@ -1,5 +1,7 @@
 import SwiftUI
 import Services
+import AnytypeCore
+
 
 struct ObjectTypeViewModelState: Equatable {
     var title = ""
@@ -30,6 +32,13 @@ final class ObjectTypeViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.legacyTemplatesCoordinator)
     private var templatesCoordinator: any TemplatesCoordinatorProtocol
+    @Injected(\.templatesService)
+    private var templateService: any TemplatesServiceProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: any NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: any ToastPresenterProtocol
+    
     
     init(data: EditorTypeObject) {
         self.data = data
@@ -112,18 +121,11 @@ final class ObjectTypeViewModel: ObservableObject {
         state.templates = templates.map { model in
             TemplatePreviewViewModel(
                 model: model,
-                onOptionSelection: { [weak self] option in
-                    self?.handleTemplateOption(option: option, templateViewModel: model)
+                onOptionSelection: { _ in
+                    anytypeAssertionFailure("Unsupported call: onOptionSelection")
                 }
             )
         }
-    }
-    
-    private func handleTemplateOption(
-        option: TemplateOptionAction,
-        templateViewModel: TemplatePreviewModel
-    ) {
-        // TBD;
     }
     
     private func onAddTemplateTap() {
@@ -141,9 +143,17 @@ final class ObjectTypeViewModel: ObservableObject {
         templatesCoordinator.showTemplatesPicker(
             data: data,
             onSetAsDefaultTempalte: { [weak self] templateId in
-                // TBD;
+                self?.setTemplateAsDefault(templateId: templateId)
             }
         )
+    }
+    
+    private func setTemplateAsDefault(templateId: String) {
+        Task { @MainActor in
+            try? await templateService.setTemplateAsDefaultForType(objectTypeId: document.objectId, templateId: templateId)
+            navigationContext.dismissTopPresented(animated: true, completion: nil)
+            toastPresenter.show(message: Loc.Templates.Popup.default)
+        }
     }
     
 }
