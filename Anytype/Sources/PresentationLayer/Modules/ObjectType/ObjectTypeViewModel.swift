@@ -1,22 +1,28 @@
 import SwiftUI
 import Services
 
+struct ObjectTypeViewModelState: Equatable {
+    var title = ""
+    var icon: ObjectIcon?
+    
+    var templates = [TemplatePreviewViewModel]()
+    var syncStatusData: SyncStatusData?
+    
+    var showSyncStatusInfo = false
+}
+
 
 @MainActor
 final class ObjectTypeViewModel: ObservableObject {
-    @Published var title = ""
-    @Published var icon: ObjectIcon?
-    @Published var templates = [TemplatePreviewViewModel]()
-    @Published var syncStatusData: SyncStatusData?
-    
-    @Published var showSyncStatusInfo = false
+    @Published var state = ObjectTypeViewModelState()
     
     let data: EditorTypeObject
     
     private let document: any BaseDocumentProtocol
+    
     private var isTemplatesEditable = false
-    private var rawTemplates: [ObjectDetails] = []
     private var defaultTemplateId: String?
+    private var rawTemplates: [ObjectDetails] = []
     
     @Injected(\.templatesSubscription)
     private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
@@ -41,7 +47,7 @@ final class ObjectTypeViewModel: ObservableObject {
     func onTemplateTap(model: TemplatePreviewModel) {
         switch model.mode {
         case .installed:
-            let index = templates.map { $0.model}.firstIndex(of: model) ?? 0
+            let index = state.templates.map { $0.model}.firstIndex(of: model) ?? 0
             showTemplatesPicker(index: index)
         case .blank:
             showTemplatesPicker(index: 0)
@@ -51,14 +57,14 @@ final class ObjectTypeViewModel: ObservableObject {
     }
     
     func onSyncStatusTap() {
-        showSyncStatusInfo.toggle()
+        state.showSyncStatusInfo.toggle()
     }
     
     // MARK: - Private
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
-            title = details.title
-            icon = details.objectIcon
+            state.title = details.title
+            state.icon = details.objectIcon
             
             if defaultTemplateId != details.defaultTemplateId {
                 defaultTemplateId = details.defaultTemplateId
@@ -83,7 +89,7 @@ final class ObjectTypeViewModel: ObservableObject {
     
     func subscribeOnSyncStatus() async {
         for await status in document.syncStatusDataPublisher.values {
-            syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
+            state.syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
         }
     }
     
@@ -108,7 +114,7 @@ final class ObjectTypeViewModel: ObservableObject {
             templates.append(.init(mode: .addTemplate, alignment: .center))
         }
         
-        self.templates = templates.map { model in
+        self.state.templates = templates.map { model in
             TemplatePreviewViewModel(
                 model: model,
                 onOptionSelection: { [weak self] option in

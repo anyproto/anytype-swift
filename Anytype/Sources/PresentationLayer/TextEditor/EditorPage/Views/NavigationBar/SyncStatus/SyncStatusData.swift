@@ -6,7 +6,7 @@ enum SyncStatusIconType {
     case animation(UIImage, UIImage)
 }
 
-struct SyncStatusData {
+struct SyncStatusData: Equatable {
     let status: SyncStatus
     let networkId: String
     let isHidden: Bool
