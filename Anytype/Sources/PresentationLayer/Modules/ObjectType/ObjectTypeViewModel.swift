@@ -18,6 +18,7 @@ struct ObjectTypeViewModelState: Equatable {
 final class ObjectTypeViewModel: ObservableObject {
     @Published var state = ObjectTypeViewModelState()
     @Published var toastBarData: ToastBarData = .empty
+    @Published var objectIconPickerData: ObjectIconPickerData?
     
     let data: EditorTypeObject
     
@@ -67,6 +68,10 @@ final class ObjectTypeViewModel: ObservableObject {
     
     func onSyncStatusTap() {
         state.showSyncStatusInfo.toggle()
+    }
+    
+    func onIconTap() {
+        objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
     // MARK: - Private

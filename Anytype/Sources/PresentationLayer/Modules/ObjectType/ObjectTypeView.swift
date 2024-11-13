@@ -15,6 +15,9 @@ struct ObjectTypeView: View {
             .anytypeSheet(isPresented: $model.state.showSyncStatusInfo) {
                 SyncStatusInfoView(spaceId: model.data.spaceId)
             }
+            .sheet(item: $model.objectIconPickerData) {
+                ObjectIconPicker(data: $0)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
     
@@ -46,7 +49,11 @@ struct ObjectTypeView: View {
     
     private var header: some View {
         HStack(alignment: .center, spacing: 8) {
-            IconView(icon: model.state.icon).frame(width: 32, height: 32)
+            Button(action: {
+                model.onIconTap()
+            }, label: {
+                IconView(icon: model.state.icon).frame(width: 32, height: 32)
+            })
             AnytypeText(model.state.title, style: .title)
             Spacer()
             StandardButton(Loc.edit, style: .secondarySmall) {

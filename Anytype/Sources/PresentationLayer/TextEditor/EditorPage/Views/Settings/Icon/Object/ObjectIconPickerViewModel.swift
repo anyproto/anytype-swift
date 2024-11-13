@@ -68,7 +68,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     private func makeIsRemoveEnabled(details: ObjectDetails) -> Bool {
         switch detailsLayout {
-        case .basic, .set, .collection:
+        case .basic, .set, .collection, .objectType:
             return true
         case .profile, .participant, .space, .spaceView, .chat:
             return details.iconImage.isNotEmpty
