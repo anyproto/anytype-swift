@@ -1,10 +1,9 @@
 import SwiftUI
 
 enum ObjectSetting: CaseIterable {
+    case relations
     case icon
     case cover
-    case layout
-    case relations
     case history
 }
 
@@ -16,8 +15,6 @@ extension ObjectSetting {
             return Loc.icon
         case .cover:
             return Loc.cover
-        case .layout:
-            return Loc.layout
         case .relations:
             return Loc.fields
         case .history:
@@ -31,8 +28,6 @@ extension ObjectSetting {
             return Loc.emojiOrImageForObject
         case .cover:
             return Loc.backgroundPicture
-        case .layout:
-            return Loc.arrangementOfObjectsOnACanvas
         case .relations:
             return Loc.listOfRelatedObjects
         case .history:
@@ -46,8 +41,6 @@ extension ObjectSetting {
             return .ObjectSettings.icon
         case .cover:
             return .ObjectSettings.cover
-        case .layout:
-            return .ObjectSettings.layout
         case .relations:
             return .ObjectSettings.relations
         case .history:

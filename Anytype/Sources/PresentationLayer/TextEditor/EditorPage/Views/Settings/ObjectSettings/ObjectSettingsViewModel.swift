@@ -63,10 +63,6 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         }
     }
     
-    func onTapLayoutPicker() {
-        output?.layoutPickerAction(document: document)
-    }
-    
     func onTapIconPicker() {
         output?.showIconPicker(document: document)
     }
