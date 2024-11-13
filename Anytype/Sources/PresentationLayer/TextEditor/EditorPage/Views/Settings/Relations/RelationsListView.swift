@@ -25,7 +25,7 @@ struct RelationsListView: View {
             }
             
             Spacer()
-            AnytypeText(Loc.relations, style: .uxTitle1Semibold)
+            AnytypeText(Loc.fields, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer()
             

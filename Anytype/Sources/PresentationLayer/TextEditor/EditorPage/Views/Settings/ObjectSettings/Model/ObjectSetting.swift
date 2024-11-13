@@ -19,7 +19,7 @@ extension ObjectSetting {
         case .layout:
             return Loc.layout
         case .relations:
-            return Loc.relations
+            return Loc.fields
         case .history:
             return Loc.history
         }

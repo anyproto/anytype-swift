@@ -70,22 +70,22 @@
 "Object.Deleted.Placeholder" = "Deleted object";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
-"Create relation" = "Create relation ‘%@’";
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
+"Relation.MyRelations" = "My fields";
+"Relation.AddedToLibrary" = "field ‘%@’ added to your library";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "From type %@";
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Create “%@”";
 "Relation.View.Create.title" = "Create option";
 "Relation.View.Edit.title" = "Edit option";
 "Relation.Create.Textfield.placeholder" = "Enter name...";
 "Relation.Edit.Button.title" = "Apply";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "Field “%@” is locked";
 "Relation.ObjectTypes.Header.title" = "Object types:";
 "Relation.ObjectType.Header.title" = "Object type:";
 
@@ -105,7 +105,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Phone number";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -143,7 +143,7 @@
 "Media" = "Media";
 "Alignment" = "Alignment";
 "Actions" = "Actions";
-"Relations" = "Relations";
+"Fields" = "Fields";
 "History" = "History";
 "Objects" = "Objects";
 "Pages" = "Pages";
@@ -297,7 +297,6 @@
 "Cover" = "Cover";
 "Background picture" = "Background picture";
 "Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
 "ObjectSettings.History.Description" = "All versions of object";
 
 // Version history
@@ -422,7 +421,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
 "EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filters";
@@ -485,8 +484,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
-"Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Sets: Filters search
@@ -505,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
@@ -520,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -570,7 +569,7 @@
 "Enter number" = "Enter number";
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
-"Select relation type" = "Select relation type";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "No data found";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "Nothing found";
@@ -582,7 +581,7 @@
 "Type" = "Type";
 "Types" = "Types";
 "No name" = "No name";
-"New relation" = "New relation";
+"New relation" = "New field";
 "Non-existent object" = "Non-existent object";
 
 "Select all" = "Select all";
@@ -617,12 +616,12 @@
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
 "In this object" = "In this object";
-"Other relations" = "Other relations";
+"Other relations" = "Other fields";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
+"List of related objects" = "Properties and related objects";
 "Lock" = "Lock";
 "Unlock" = "Unlock";
 "Favorite" = "Favorite";
