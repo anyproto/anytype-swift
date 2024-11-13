@@ -5,7 +5,7 @@ import AnytypeCore
 
 struct ObjectTypeViewModelState: Equatable {
     var title = ""
-    var icon: ObjectIcon?
+    var icon: Icon?
     
     var templates = [TemplatePreviewViewModel]()
     var syncStatusData: SyncStatusData?
@@ -18,6 +18,7 @@ struct ObjectTypeViewModelState: Equatable {
 final class ObjectTypeViewModel: ObservableObject {
     @Published var state = ObjectTypeViewModelState()
     @Published var toastBarData: ToastBarData = .empty
+    @Published var objectIconPickerData: ObjectIconPickerData?
     
     let data: EditorTypeObject
     
@@ -69,11 +70,15 @@ final class ObjectTypeViewModel: ObservableObject {
         state.showSyncStatusInfo.toggle()
     }
     
+    func onIconTap() {
+        objectIconPickerData = ObjectIconPickerData(document: document)
+    }
+    
     // MARK: - Private
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
             state.title = details.title
-            state.icon = details.objectIcon
+            state.icon = details.objectIconImage
             
             defaultTemplateId = details.defaultTemplateId
             isTemplatesEditable = details.recommendedLayoutValue?.isEditorLayout ?? false
