@@ -17,6 +17,7 @@ struct ObjectTypeViewModelState: Equatable {
 @MainActor
 final class ObjectTypeViewModel: ObservableObject {
     @Published var state = ObjectTypeViewModelState()
+    @Published var toastBarData: ToastBarData = .empty
     
     let data: EditorTypeObject
     
@@ -33,7 +34,7 @@ final class ObjectTypeViewModel: ObservableObject {
     @Injected(\.legacyTemplatesCoordinator)
     private var templatesCoordinator: any TemplatesCoordinatorProtocol
     @Injected(\.templatesService)
-    private var templateService: any TemplatesServiceProtocol
+    private var templatesService: any TemplatesServiceProtocol
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
     @Injected(\.legacyToastPresenter)
@@ -56,10 +57,9 @@ final class ObjectTypeViewModel: ObservableObject {
     func onTemplateTap(model: TemplatePreviewModel) {
         switch model.mode {
         case .installed:
-            let index = state.templates.map { $0.model}.firstIndex(of: model) ?? 0
-            showTemplatesPicker(index: index)
+            showTemplatesPicker(defaultTemplateId: model.mode.id)
         case .blank:
-            showTemplatesPicker(index: 0)
+            showTemplatesPicker(defaultTemplateId: nil)
         case .addTemplate:
             onAddTemplateTap()
         }
@@ -128,17 +128,26 @@ final class ObjectTypeViewModel: ObservableObject {
         }
     }
     
-    private func onAddTemplateTap() {
-        // TBD;
+    func onAddTemplateTap() {
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: data.objectId, spaceId: data.spaceId)
+                showTemplatesPicker(defaultTemplateId: templateId)
+                toastBarData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(state.title), showSnackBar: true)
+            } catch {
+                anytypeAssertionFailure(error.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Navigation
-    private func showTemplatesPicker(index: Int) {
+    private func showTemplatesPicker(defaultTemplateId: String?) {
         let data = TemplatePickerViewModelData(
             mode: .typeTemplate,
             typeId: document.objectId,
             spaceId: document.spaceId,
-            defaultIndex: index
+            defaultTemplateId: defaultTemplateId
         )
         templatesCoordinator.showTemplatesPicker(
             data: data,
@@ -150,7 +159,7 @@ final class ObjectTypeViewModel: ObservableObject {
     
     private func setTemplateAsDefault(templateId: String) {
         Task { @MainActor in
-            try? await templateService.setTemplateAsDefaultForType(objectTypeId: document.objectId, templateId: templateId)
+            try? await templatesService.setTemplateAsDefaultForType(objectTypeId: document.objectId, templateId: templateId)
             navigationContext.dismissTopPresented(animated: true, completion: nil)
             toastPresenter.show(message: Loc.Templates.Popup.default)
         }

@@ -15,6 +15,7 @@ struct ObjectTypeView: View {
             .anytypeSheet(isPresented: $model.state.showSyncStatusInfo) {
                 SyncStatusInfoView(spaceId: model.data.spaceId)
             }
+            .snackbar(toastBarData: $model.toastBarData)
     }
     
     private var content: some View {
