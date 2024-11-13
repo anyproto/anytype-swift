@@ -5,7 +5,7 @@ import AnytypeCore
 
 struct ObjectTypeViewModelState: Equatable {
     var title = ""
-    var icon: ObjectIcon?
+    var icon: Icon?
     
     var templates = [TemplatePreviewViewModel]()
     var syncStatusData: SyncStatusData?
@@ -73,7 +73,7 @@ final class ObjectTypeViewModel: ObservableObject {
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
             state.title = details.title
-            state.icon = details.objectIcon
+            state.icon = details.objectIconImage
             
             defaultTemplateId = details.defaultTemplateId
             isTemplatesEditable = details.recommendedLayoutValue?.isEditorLayout ?? false

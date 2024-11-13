@@ -46,7 +46,7 @@ struct ObjectTypeView: View {
     
     private var header: some View {
         HStack(alignment: .center, spacing: 8) {
-            ObjectIconView(icon: model.state.icon).frame(width: 32, height: 32)
+            IconView(icon: model.state.icon).frame(width: 32, height: 32)
             AnytypeText(model.state.title, style: .title)
             Spacer()
             StandardButton(Loc.edit, style: .secondarySmall) {
