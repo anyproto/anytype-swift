@@ -39,7 +39,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
             mode: .objectTemplate(objectId: document.objectId),
             typeId: document.details?.objectType.id,
             spaceId: document.spaceId,
-            defaultIndex: 0
+            defaultTemplateId: nil
         )
         showTemplatesPicker(data: data, onSetAsDefaultTempalte: onSetAsDefaultTempalte)
     }

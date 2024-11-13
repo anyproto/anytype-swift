@@ -20,7 +20,7 @@ struct TemplatePickerViewModelData {
     let mode: Mode
     let typeId: String?
     let spaceId: String
-    let defaultIndex: Int
+    let defaultTemplateId: String?
     
     var objectId: String? {
         switch mode {
@@ -129,8 +129,8 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     private func setupDefaultItem() {
         guard !didSetupDefaultItem else { return }
         
-        if items[safe: data.defaultIndex].isNotNil {
-            selectedTab = data.defaultIndex
+        if let defaultIndex = items.firstIndex(where: { $0.templateId == data.defaultTemplateId}) {
+            selectedTab = defaultIndex
         }
         
         didSetupDefaultItem = true
@@ -145,7 +145,8 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
                     .init(
                         id: info.offset + 1,
                         view: model.editorView,
-                        object: model.template
+                        object: model.template,
+                        templateId: model.template.id
                     )
                 )
             }
@@ -197,11 +198,21 @@ extension TemplatePickerViewModel {
                 return model.id
             }
         }
+        
+        var templateId: String? {
+            switch self {
+            case .blank:
+                nil
+            case .template(let templateModel):
+                templateModel.templateId
+            }
+        }
 
         struct TemplateModel {
             let id: Int
             let view: AnyView
             let object: ObjectDetails
+            let templateId: String
         }
     }
 }
