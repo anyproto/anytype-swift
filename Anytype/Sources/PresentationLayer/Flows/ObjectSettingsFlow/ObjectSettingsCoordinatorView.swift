@@ -19,7 +19,7 @@ struct ObjectSettingsCoordinatorView: View {
                 ObjectIconPicker(data: $0)
             }
             .sheet(item: $model.layoutPickerObjectId) {
-                ObjectLayoutPicker(objectId: $0.value, spaceId: model.spaceId)
+                ObjectLayoutPicker(mode: .object, objectId: $0.value, spaceId: model.spaceId)
             }
             .sheet(item: $model.blockObjectSearchData) {
                 BlockObjectSearchView(data: $0)
