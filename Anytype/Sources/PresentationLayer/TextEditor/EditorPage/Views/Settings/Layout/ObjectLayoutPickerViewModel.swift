@@ -3,6 +3,11 @@ import Services
 import Combine
 import SwiftUI
 
+enum ObjectLayoutPickerMode {
+    case type
+    case object
+}
+
 @MainActor
 final class ObjectLayoutPickerViewModel: ObservableObject {
 
@@ -13,6 +18,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     @Injected(\.documentService)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     
+    private let mode: ObjectLayoutPickerMode
     private let objectId: String
     private let spaceId: String
     
@@ -24,7 +30,8 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     // MARK: - Initializer
     
-    init(objectId: String, spaceId: String) {
+    init(mode: ObjectLayoutPickerMode, objectId: String, spaceId: String) {
+        self.mode = mode
         self.objectId = objectId
         self.spaceId = spaceId
     }
@@ -32,14 +39,26 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     func didSelectLayout(_ layout: DetailsLayout) {
         AnytypeAnalytics.instance().logLayoutChange(layout)
         Task { @MainActor in
-            try await detailsService.setLayout(objectId: objectId, detailsLayout: layout)
+            switch mode {
+            case .type:
+                try await detailsService.updateBundledDetails(objectId: objectId, bundledDetails: [
+                    .recommendedLayout(layout.rawValue)
+                ])
+            case .object:
+                try await detailsService.setLayout(objectId: objectId, detailsLayout: layout)
+            }
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }
     
     func startDocumentSubscription() async {
         for await details in document.detailsPublisher.values {
-            selectedLayout = details.layoutValue
+            switch mode {
+            case .type:
+                selectedLayout = details.recommendedLayoutValue ?? .basic
+            case .object:
+                selectedLayout = details.layoutValue
+            }
         }
     }
 }

@@ -18,6 +18,9 @@ struct ObjectTypeView: View {
             .sheet(item: $model.objectIconPickerData) {
                 ObjectIconPicker(data: $0)
             }
+            .sheet(item: $model.layoutPickerObjectId) {
+                ObjectLayoutPicker(mode: .type, objectId: $0.value, spaceId: model.data.spaceId)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
     
@@ -26,6 +29,9 @@ struct ObjectTypeView: View {
             navbar
             Spacer.fixedHeight(32)
             header.padding(.horizontal, 20)
+            Spacer.fixedHeight(24)
+            buttonsRow.padding(.horizontal, 20)
+            Spacer.fixedHeight(32)
             templates
             // TBD: List of objects
             Spacer()
@@ -52,13 +58,26 @@ struct ObjectTypeView: View {
             Button(action: {
                 model.onIconTap()
             }, label: {
-                IconView(icon: model.state.icon).frame(width: 32, height: 32)
+                IconView(icon: model.state.details?.objectIconImage).frame(width: 32, height: 32)
             })
-            AnytypeText(model.state.title, style: .title)
+            AnytypeText(model.state.details?.name ?? "", style: .title)
             Spacer()
-            StandardButton(Loc.edit, style: .secondarySmall) {
+        }
+    }
+    
+    private var buttonsRow: some View {
+        HStack(spacing: 12) {
+            if model.state.isEditorLayout {
+                StandardButton(Loc.layout + " " +  (model.state.details?.recommendedLayoutValue?.title ?? ""), style: .secondarySmall) {
+                    model.onLayoutTap()
+                }
+            }
+            
+            StandardButton(Loc.relations + " 228", style: .secondarySmall) {
                 // TBD;
             }.disabled(true)
+            
+            Spacer()
         }
     }
     

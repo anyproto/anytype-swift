@@ -4,13 +4,13 @@ import AnytypeCore
 
 
 struct ObjectTypeViewModelState: Equatable {
-    var title = ""
-    var icon: Icon?
+    var details: ObjectDetails?
     
     var templates = [TemplatePreviewViewModel]()
     var syncStatusData: SyncStatusData?
     
     var showSyncStatusInfo = false
+    var isEditorLayout = false
 }
 
 
@@ -19,12 +19,12 @@ final class ObjectTypeViewModel: ObservableObject {
     @Published var state = ObjectTypeViewModelState()
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
+    @Published var layoutPickerObjectId: StringIdentifiable?
     
     let data: EditorTypeObject
     
     private let document: any BaseDocumentProtocol
     
-    private var isTemplatesEditable = false
     private var defaultTemplateId: String?
     private var rawTemplates: [ObjectDetails] = []
     
@@ -74,14 +74,17 @@ final class ObjectTypeViewModel: ObservableObject {
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
+    func onLayoutTap() {
+        layoutPickerObjectId = document.objectId.identifiable
+    }
+    
     // MARK: - Private
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
-            state.title = details.title
-            state.icon = details.objectIconImage
+            state.details = details
             
             defaultTemplateId = details.defaultTemplateId
-            isTemplatesEditable = details.recommendedLayoutValue?.isEditorLayout ?? false
+            state.isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
             buildTemplates()
         }
     }
@@ -119,7 +122,7 @@ final class ObjectTypeViewModel: ObservableObject {
         
         templates += middlewareTemplates
 
-        if isTemplatesEditable {
+        if state.isEditorLayout {
             templates.append(.init(mode: .addTemplate, alignment: .center))
         }
         
@@ -139,7 +142,7 @@ final class ObjectTypeViewModel: ObservableObject {
             do {
                 let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: data.objectId, spaceId: data.spaceId)
                 showTemplatesPicker(defaultTemplateId: templateId)
-                toastBarData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(state.title), showSnackBar: true)
+                toastBarData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(state.details?.title ?? ""), showSnackBar: true)
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }

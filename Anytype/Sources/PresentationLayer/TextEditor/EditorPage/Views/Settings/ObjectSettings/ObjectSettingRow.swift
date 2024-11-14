@@ -47,8 +47,6 @@ private extension ObjectSettingRow {
     
 }
 
-struct ObjectSettingRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ObjectSettingRow(setting: .layout, isLast: false) {}
-    }
+#Preview {
+    ObjectSettingRow(setting: .cover, isLast: false) {}
 }
