@@ -10,11 +10,11 @@ enum AllContentType: String {
     case types
     
     static var allSupportedTypes: [AllContentType] {
-        var types: [AllContentType] = [.pages, .lists, .media, .bookmarks]
+        var supportedTypes: [AllContentType] = [.pages, .lists, .media, .bookmarks, .files]
         if FeatureFlags.primitives {
-            types.append(.files)
+            supportedTypes.append(.types)
         }
-        return types
+        return supportedTypes
     }
     
     var title: String {
