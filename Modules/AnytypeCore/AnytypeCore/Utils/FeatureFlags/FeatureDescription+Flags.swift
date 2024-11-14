@@ -74,6 +74,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let primitives = FeatureDescription(
+        title: "Types, relations, layouts overhaul",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "8"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
