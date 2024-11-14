@@ -94,10 +94,5 @@ extension ObjectFieldsViewModel {
             let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
             AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
         }
-    }
-    
-    func showAddNewRelationView() {
-        output?.addNewRelationAction(document: document)
-    }
-    
+    }    
 }

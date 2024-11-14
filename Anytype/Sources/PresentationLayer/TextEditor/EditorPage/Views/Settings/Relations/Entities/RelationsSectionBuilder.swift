@@ -3,8 +3,26 @@ import SwiftProtobuf
 import UIKit
 
 final class RelationsSectionBuilder {
-
+    
     func buildSections(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
+        let objectRelations = parsedRelations.otherRelations + parsedRelations.typeRelations
+        
+        var sections: [RelationsSection] = []
+        
+        if objectRelations.isNotEmpty {
+            sections.append(
+                RelationsSection(
+                    id: RelationsSection.Constants.typeRelationsSectionId,
+                    title: "",
+                    relations: objectRelations
+                )
+            )
+        }
+
+        return sections
+    }
+
+    func buildSectionsLegacy(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
         let featuredRelations = parsedRelations.featuredRelations
         let otherRelations = parsedRelations.otherRelations
         let typeRelations = parsedRelations.typeRelations

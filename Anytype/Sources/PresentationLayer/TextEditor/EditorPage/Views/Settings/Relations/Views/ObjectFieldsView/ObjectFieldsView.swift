@@ -4,7 +4,6 @@ import Services
 struct ObjectFieldsView: View {
     
     @StateObject private var viewModel: ObjectFieldsViewModel
-    @State private var editingMode = false
     
     init(document: some BaseDocumentProtocol, output: (any RelationsListModuleOutput)?) {
         _viewModel = StateObject(wrappedValue: ObjectFieldsViewModel(document: document, output: output))
@@ -19,18 +18,14 @@ struct ObjectFieldsView: View {
     }
     
     private var navigationBar: some View {
-        HStack {
-            if !viewModel.navigationBarButtonsDisabled {
-                editButton
-            }
-            
+        HStack {            
             Spacer()
             AnytypeText(Loc.relations, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer()
             
             if !viewModel.navigationBarButtonsDisabled {
-                createNewRelationButton
+                editButton
             }
         }
         .frame(height: 48)
@@ -40,23 +35,10 @@ struct ObjectFieldsView: View {
     private var editButton: some View {
         Button {
             withAnimation(.fastSpring) {
-                editingMode.toggle()
+                // TBD;
             }
         } label: {
-            AnytypeText(
-                editingMode ? Loc.done : Loc.edit,
-                style: .uxBodyRegular
-            )
-            .foregroundColor(.Text.secondary)
-        }
-    }
-    
-    private var createNewRelationButton: some View {
-        Button {
-            viewModel.showAddNewRelationView()
-        } label: {
-            Image(asset: .X32.plus)
-                .foregroundColor(.Control.active)
+            IconView(asset: .X24.settings).frame(width: 24, height: 24)
         }
     }
     
@@ -78,13 +60,20 @@ struct ObjectFieldsView: View {
     }
     
     private func sectionHeader(title: String) -> some View {
-        ListSectionHeaderView(title: title)
+        Group {
+            if title.isNotEmpty {
+                ListSectionHeaderView(title: title)
+            } else {
+                EmptyView()
+            }
+        }
     }
     
     private func row(with relation: Relation, addedToObject: Bool) -> some View {
         RelationsListRowView(
-            editingMode: $editingMode,
-            starButtonAvailable: !viewModel.navigationBarButtonsDisabled,
+            editingMode: .constant(false),
+            starButtonAvailable: false,
+            showLocks: false,
             addedToObject: addedToObject,
             relation: relation
         ) {

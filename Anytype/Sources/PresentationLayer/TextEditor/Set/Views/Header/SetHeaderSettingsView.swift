@@ -37,7 +37,7 @@ struct SetHeaderSettingsView: View {
             UISelectionFeedbackGenerator().selectionChanged()
             model.onSettingsTap()
         }) {
-            Image(asset: .X24.customizeView)
+            Image(asset: .X24.settings)
                 .foregroundColor(model.isActiveHeader ? .Control.active : .Control.inactive)
         }
         .disabled(!model.isActiveHeader)

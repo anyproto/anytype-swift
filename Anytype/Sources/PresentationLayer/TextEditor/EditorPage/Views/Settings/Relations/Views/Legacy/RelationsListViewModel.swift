@@ -36,7 +36,7 @@ final class RelationsListViewModel: ObservableObject {
         
         document.parsedRelationsPublisher
             .map { [sectionsBuilder] relations in
-                sectionsBuilder.buildSections(
+                sectionsBuilder.buildSectionsLegacy(
                     from: relations,
                     objectTypeName: document.details?.objectType.name ?? ""
                 )
