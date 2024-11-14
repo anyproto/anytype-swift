@@ -1,13 +1,21 @@
 import Services
 import AnytypeCore
 
-enum AllContentType: String, CaseIterable {
+enum AllContentType: String {
     case pages
     case lists
     case media
     case bookmarks
     case files
     case types
+    
+    static var allSupportedTypes: [AllContentType] {
+        var types: [AllContentType] = [.pages, .lists, .media, .bookmarks]
+        if FeatureFlags.primitives {
+            types.append(.files)
+        }
+        return types
+    }
     
     var title: String {
         switch self {

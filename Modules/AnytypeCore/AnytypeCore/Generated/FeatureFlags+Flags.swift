@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .showBinWidgetIfNotEmpty)
     }
 
+    static var primitives: Bool {
+        value(for: .primitives)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -115,6 +119,7 @@ public extension FeatureFlags {
         .dateAsAnObject,
         .homeSpaceLevelChat,
         .showBinWidgetIfNotEmpty,
+        .primitives,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

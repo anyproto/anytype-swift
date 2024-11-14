@@ -106,7 +106,7 @@ struct AllContentView: View {
     private var types: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
-                ForEach(AllContentType.allCases, id: \.self) { type in
+                ForEach(AllContentType.allSupportedTypes, id: \.self) { type in
                     Button {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.typeChanged(type)
