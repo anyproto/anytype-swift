@@ -702,6 +702,7 @@
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
+"Save" = "Spara";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
