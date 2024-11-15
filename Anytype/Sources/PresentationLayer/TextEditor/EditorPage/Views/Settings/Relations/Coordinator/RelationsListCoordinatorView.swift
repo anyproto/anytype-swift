@@ -1,5 +1,7 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
+
 
 struct RelationsListCoordinatorView: View {
     
@@ -10,10 +12,19 @@ struct RelationsListCoordinatorView: View {
     }
     
     var body: some View {
-        RelationsListView(
-            document: model.document,
-            output: model
-        )
+        Group {
+            if FeatureFlags.primitives {
+                ObjectFieldsView(
+                    document: model.document,
+                    output: model
+                )
+            } else {
+                RelationsListView(
+                    document: model.document,
+                    output: model
+                )
+            }
+        }
         .sheet(item: $model.relationValueData) { data in
             RelationValueCoordinatorView(data: data, output: model)
         }

@@ -85,6 +85,7 @@ struct RelationsListView: View {
         RelationsListRowView(
             editingMode: $editingMode,
             starButtonAvailable: !viewModel.navigationBarButtonsDisabled,
+            showLocks: true,
             addedToObject: addedToObject,
             relation: relation
         ) {
