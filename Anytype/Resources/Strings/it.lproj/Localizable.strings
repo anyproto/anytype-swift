@@ -702,6 +702,7 @@
 "Blurred icon" = "Icona\n sfocata";
 "My First Space" = "Il Mio Primo Spazio";
 "Copy space info" = "Copia informazioni spazio";
+"Save" = "Save";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
@@ -1052,8 +1053,8 @@
 "SpaceHub.Tip.Text1" = "La Cassaforte è la nuova casa per tutti i tuoi Spazi. Crea, unisciti o condividi Spazi - tutto è salvato qui in modo sicuro.";
 
 // MARK: - Space switcher tip
-"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
-"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
+"ReturnToWidgets.Tip.Title" = "Premere a lungo per tornare ai widget";
+"ReturnToWidgets.Tip.Text" = "Premere a lungo il pulsante indietro per tornare ai widget, invece di toccarlo ripetutamente.";
 
 // MARK: - Initial
 
