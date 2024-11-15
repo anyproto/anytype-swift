@@ -702,6 +702,7 @@
 "Blurred icon" = "Icono\n borroso";
 "My First Space" = "Mi Primer Espacio";
 "Copy space info" = "Copiar información del espacio";
+"Save" = "Save";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
