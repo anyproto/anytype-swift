@@ -15,6 +15,7 @@ final class RelationsListCoordinatorViewModel:
 {
     @Published var relationValueData: RelationValueData?
     @Published var relationsSearchData: RelationsSearchData?
+    @Published var objectTypeData: EditorTypeObject?
     @Published var toastBarData: ToastBarData = .empty
     
     let document: any BaseDocumentProtocol
@@ -72,6 +73,10 @@ final class RelationsListCoordinatorViewModel:
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
         )
+    }
+    
+    func showTypeRelationsView(typeId: String) {
+        objectTypeData = EditorTypeObject(objectId: typeId, spaceId: document.spaceId)
     }
     
     // MARK: - RelationValueCoordinatorOutput

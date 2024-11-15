@@ -1,45 +1,65 @@
 import SwiftUI
 import Services
 
-struct ObjectFieldsView: View {
+struct TypeFieldsView: View {
     
-    @StateObject private var viewModel: ObjectFieldsViewModel
+    @StateObject private var viewModel: TypeFieldsViewModel
+    
+    init(data: EditorTypeObject, output: (any RelationsListModuleOutput)?) {
+        _viewModel = StateObject(wrappedValue: TypeFieldsViewModel(data: data, output: output))
+    }
     
     init(document: some BaseDocumentProtocol, output: (any RelationsListModuleOutput)?) {
-        _viewModel = StateObject(wrappedValue: ObjectFieldsViewModel(document: document, output: output))
+        _viewModel = StateObject(wrappedValue: TypeFieldsViewModel(document: document, output: output))
     }
     
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             navigationBar
+            banner
             relationsList
         }
     }
     
     private var navigationBar: some View {
-        HStack {            
+        HStack {
+            cancelButton
+            
             Spacer()
             AnytypeText(Loc.relations, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer()
             
-            if !viewModel.navigationBarButtonsDisabled && viewModel.typeId.isNotNil {
-                editButton
-            }
+            saveButton
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
     }
     
-    private var editButton: some View {
+    private var cancelButton: some View {
         Button {
-            withAnimation(.fastSpring) {
-                viewModel.onEditTap()
-            }
+            // TBD;
         } label: {
-            IconView(asset: .X24.settings).frame(width: 24, height: 24)
-        }
+            AnytypeText(Loc.cancel, style: .uxBodyRegular)
+            .foregroundColor(.Text.secondary)
+        }.disabled(true)
+    }
+    
+    private var saveButton: some View {
+        Button {
+            // TBD;
+        } label: {
+            AnytypeText(Loc.save, style: .uxBodyRegular)
+            .foregroundColor(.Text.secondary)
+        }.disabled(true)
+    }
+    
+    private var banner: some View {
+        AnytypeText("You editing type %Type%", style: .uxBodyRegular) // TBD;
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
+            .background(Color.Shape.tertiary)
     }
     
     private var relationsList: some View {
@@ -60,20 +80,14 @@ struct ObjectFieldsView: View {
     }
     
     private func sectionHeader(title: String) -> some View {
-        Group {
-            if title.isNotEmpty {
-                ListSectionHeaderView(title: title)
-            } else {
-                EmptyView()
-            }
-        }
+        ListSectionHeaderView(title: title)
     }
     
     private func row(with relation: Relation, addedToObject: Bool) -> some View {
         RelationsListRowView(
-            editingMode: .constant(false),
-            starButtonAvailable: false,
-            showLocks: false,
+            editingMode: .constant(true),
+            starButtonAvailable: !viewModel.navigationBarButtonsDisabled,
+            showLocks: true,
             addedToObject: addedToObject,
             relation: relation
         ) {

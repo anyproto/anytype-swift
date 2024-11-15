@@ -72,9 +72,11 @@ struct EditorInlineSetObject: Hashable, Codable {
     let targetObjectID: String
 }
 
-struct EditorTypeObject: Hashable, Codable {
+struct EditorTypeObject: Hashable, Codable, Identifiable {
     let objectId: String
     let spaceId: String
+    
+    var id: String { spaceId + objectId } 
 }
 
 enum EditorViewType {
