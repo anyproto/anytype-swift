@@ -44,7 +44,7 @@ final class TypeFieldsViewModel: ObservableObject {
         
         document.parsedRelationsPublisher
             .map { [sectionsBuilder] relations in
-                sectionsBuilder.buildSectionsLegacy(
+                sectionsBuilder.buildTypeSections(
                     from: relations,
                     objectTypeName: document.details?.objectType.name ?? ""
                 )

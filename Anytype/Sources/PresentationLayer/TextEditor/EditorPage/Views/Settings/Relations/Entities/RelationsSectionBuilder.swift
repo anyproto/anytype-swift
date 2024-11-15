@@ -4,7 +4,7 @@ import UIKit
 
 final class RelationsSectionBuilder {
     
-    func buildSections(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
+    func buildObjectSections(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
         let objectRelations = parsedRelations.otherRelations + parsedRelations.typeRelations
         
         var sections: [RelationsSection] = []
@@ -15,6 +15,36 @@ final class RelationsSectionBuilder {
                     id: RelationsSection.Constants.typeRelationsSectionId,
                     title: "",
                     relations: objectRelations
+                )
+            )
+        }
+
+        return sections
+    }
+    
+    func buildTypeSections(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
+        let featuredRelations = parsedRelations.featuredRelations
+        let menuRelations = parsedRelations.otherRelations + parsedRelations.typeRelations
+        
+        var sections: [RelationsSection] = []
+
+        if featuredRelations.isNotEmpty {
+            sections.append(
+                RelationsSection(
+                    id: RelationsSection.Constants.featuredRelationsSectionId,
+                    title: Loc.header,
+                    relations: featuredRelations
+                )
+            )
+        }
+        
+
+        if menuRelations.isNotEmpty {
+            sections.append(
+                RelationsSection(
+                    id: RelationsSection.Constants.otherRelationsSectionId,
+                    title: Loc.Fields.menu,
+                    relations: menuRelations
                 )
             )
         }

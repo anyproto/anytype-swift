@@ -327,6 +327,7 @@
 "Choose layout type" = "Choose layout type";
 
 "Templates" = "Templates";
+"Header" = "Header";
 
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
@@ -1266,3 +1267,6 @@ Please provide specific details of your needs here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your trash is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

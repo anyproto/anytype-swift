@@ -40,7 +40,7 @@ final class ObjectFieldsViewModel: ObservableObject {
         
         document.parsedRelationsPublisher
             .map { [sectionsBuilder] relations in
-                sectionsBuilder.buildSections(
+                sectionsBuilder.buildObjectSections(
                     from: relations,
                     objectTypeName: document.details?.objectType.name ?? ""
                 )

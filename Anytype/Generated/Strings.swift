@@ -160,6 +160,7 @@ internal enum Loc {
   internal static let greenBackground = Loc.tr("Localizable", "Green background", fallback: "Green background")
   internal static let grey = Loc.tr("Localizable", "Grey", fallback: "Grey")
   internal static let greyBackground = Loc.tr("Localizable", "Grey background", fallback: "Grey background")
+  internal static let header = Loc.tr("Localizable", "Header", fallback: "Header")
   internal static let hideTypes = Loc.tr("Localizable", "Hide types", fallback: "Hide types")
   internal static let highlight = Loc.tr("Localizable", "Highlight", fallback: "Highlight")
   internal static let history = Loc.tr("Localizable", "History", fallback: "History")
@@ -868,6 +869,9 @@ internal enum Loc {
   }
   internal enum ErrorOccurred {
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
+  }
+  internal enum Fields {
+    internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
   }
   internal enum FileStorage {
     internal static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
