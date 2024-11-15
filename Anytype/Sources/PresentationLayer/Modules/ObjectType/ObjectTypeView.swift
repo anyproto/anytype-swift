@@ -9,14 +9,13 @@ struct ObjectTypeView: View {
     
     var body: some View {
         content
-            .animation(.default, value: model.state)
             .task { await model.setupSubscriptions() }
         
             .onChange(of: model.typeName) {
                 model.onTypeNameChange(name: $0)
             }
         
-            .anytypeSheet(isPresented: $model.state.showSyncStatusInfo) {
+            .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
                 SyncStatusInfoView(spaceId: model.data.spaceId)
             }
             .sheet(item: $model.objectIconPickerData) {
@@ -48,7 +47,7 @@ struct ObjectTypeView: View {
     private var navbar: some View {
         HStack(alignment: .center, spacing: 14) {
             SwiftUIEditorSyncStatusItem(
-                statusData: model.state.syncStatusData,
+                statusData: model.syncStatusData,
                 itemState: .initial,
                 onTap: { model.onSyncStatusTap() }
             )
@@ -65,7 +64,7 @@ struct ObjectTypeView: View {
             Button(action: {
                 model.onIconTap()
             }, label: {
-                IconView(icon: model.state.details?.objectIconImage).frame(width: 32, height: 32)
+                IconView(icon: model.details?.objectIconImage).frame(width: 32, height: 32)
             })
             TextField(Loc.BlockText.Content.placeholder, text: $model.typeName)
                 .foregroundColor(.Text.primary)
@@ -76,9 +75,9 @@ struct ObjectTypeView: View {
     
     private var buttonsRow: some View {
         HStack(spacing: 12) {
-            if model.state.isEditorLayout {
+            if model.isEditorLayout {
                 StandardButton(
-                    .textWithBadge(text: Loc.layout, badge: (model.state.details?.recommendedLayoutValue?.title ?? "")),
+                    .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
                     style: .secondarySmall
                 ) {
                     model.onLayoutTap()
@@ -86,7 +85,7 @@ struct ObjectTypeView: View {
             }
             
             StandardButton(
-                .textWithBadge(text: Loc.relations, badge: "\(model.state.relationsCount)"),
+                .textWithBadge(text: Loc.relations, badge: "\(model.relationsCount)"),
                 style: .secondarySmall
             ) {
                 model.onFieldsTap()
@@ -100,7 +99,7 @@ struct ObjectTypeView: View {
         VStack {
             HStack(spacing: 8) {
                 AnytypeText(Loc.templates, style: .subheading)
-                AnytypeText("\(model.state.templates.count)", style: .previewTitle1Regular)
+                AnytypeText("\(model.templates.count)", style: .previewTitle1Regular)
                     .foregroundColor(Color.Text.secondary)
                 Spacer()
             }.padding(10).padding(.horizontal, 10)
@@ -111,7 +110,7 @@ struct ObjectTypeView: View {
     private var templatesList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
-                ForEach(model.state.templates) { template in
+                ForEach(model.templates) { template in
                     EditableView<TemplatePreview>(
                         content: TemplatePreview(viewModel: template),
                         onTap: { model.onTemplateTap(model: template.model) },
