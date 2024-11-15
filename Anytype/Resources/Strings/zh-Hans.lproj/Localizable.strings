@@ -703,6 +703,7 @@
 "Blurred icon" = "模糊\n 图标";
 "My First Space" = "我的第一个空间";
 "Copy space info" = "复制空间信息";
+"Save" = "Save";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
