@@ -3,21 +3,18 @@ import Services
 import AnytypeCore
 
 
-struct ObjectTypeViewModelState: Equatable {
-    var details: ObjectDetails?
-    var relationsCount: Int = 0
-    
-    var templates = [TemplatePreviewViewModel]()
-    var syncStatusData: SyncStatusData?
-    
-    var showSyncStatusInfo = false
-    var isEditorLayout = false
-}
-
-
 @MainActor
 final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
-    @Published var state = ObjectTypeViewModelState()
+    @Published var details: ObjectDetails?
+    @Published var relationsCount: Int = 0
+    
+    @Published var templates = [TemplatePreviewViewModel]()
+    @Published var syncStatusData: SyncStatusData?
+    
+    @Published var showSyncStatusInfo = false
+    @Published var isEditorLayout = false
+    @Published var typeName = ""
+    
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
@@ -28,6 +25,7 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     
     private var defaultTemplateId: String?
     private var rawTemplates: [ObjectDetails] = []
+    private var didInitialSetup = false
     
     @Injected(\.templatesSubscription)
     private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
@@ -37,10 +35,15 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     private var templatesCoordinator: any TemplatesCoordinatorProtocol
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
+    @Injected(\.detailsService)
+    private var detailsService: any DetailsServiceProtocol
+    
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
     @Injected(\.legacyToastPresenter)
     private var toastPresenter: any ToastPresenterProtocol
+    
+    private var nameChangeTask: Task<(), any Error>?
     
     
     init(data: EditorTypeObject) {
@@ -69,7 +72,7 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     }
     
     func onSyncStatusTap() {
-        state.showSyncStatusInfo.toggle()
+        showSyncStatusInfo.toggle()
     }
     
     func onIconTap() {
@@ -84,13 +87,25 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
         showFields.toggle()
     }
     
+    func onTypeNameChange(name: String) {
+        nameChangeTask?.cancel()
+        nameChangeTask = Task {
+            try await Task.sleep(seconds: 0.5)
+            try await detailsService.updateBundledDetails(objectId: document.objectId, bundledDetails: [.name(name)])
+        }
+    }
+    
     // MARK: - Private
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
-            state.details = details
+            if !didInitialSetup {
+                typeName = details.objectName
+                didInitialSetup = true
+            }
             
+            self.details = details
             defaultTemplateId = details.defaultTemplateId
-            state.isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
+            isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
             buildTemplates()
         }
     }
@@ -105,13 +120,15 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     
     func subscribeOnSyncStatus() async {
         for await status in document.syncStatusDataPublisher.values {
-            state.syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
+            withAnimation {
+                syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
+            }
         }
     }
     
     func subscribeOnFields() async {
         for await relations in document.parsedRelationsPublisher.values {
-            state.relationsCount = relations.all.count
+            relationsCount = relations.all.count
         }
     }
     
@@ -134,11 +151,11 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
         
         templates += middlewareTemplates
 
-        if state.isEditorLayout {
+        if isEditorLayout {
             templates.append(.init(mode: .addTemplate, alignment: .center))
         }
         
-        state.templates = templates.map { model in
+        self.templates = templates.map { model in
             TemplatePreviewViewModel(
                 model: model,
                 onOptionSelection: { _ in
@@ -154,7 +171,7 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
             do {
                 let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: data.objectId, spaceId: data.spaceId)
                 showTemplatesPicker(defaultTemplateId: templateId)
-                toastBarData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(state.details?.title ?? ""), showSnackBar: true)
+                toastBarData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(details?.title ?? ""), showSnackBar: true)
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
