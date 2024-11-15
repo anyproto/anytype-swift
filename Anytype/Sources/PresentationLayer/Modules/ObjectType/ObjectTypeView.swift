@@ -21,6 +21,9 @@ struct ObjectTypeView: View {
             .sheet(item: $model.layoutPickerObjectId) {
                 ObjectLayoutPicker(mode: .type, objectId: $0.value, spaceId: model.data.spaceId)
             }
+            .sheet(isPresented: $model.showFields) {
+                TypeFieldsView(document: model.document, output: model)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
     
@@ -73,9 +76,9 @@ struct ObjectTypeView: View {
                 }
             }
             
-            StandardButton(Loc.relations + " 228", style: .secondarySmall) {
-                // TBD;
-            }.disabled(true)
+            StandardButton(Loc.relations + " " + "\(model.state.relationsCount)", style: .secondarySmall) {
+                model.onFieldsTap()
+            }
             
             Spacer()
         }

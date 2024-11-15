@@ -5,6 +5,7 @@ import AnytypeCore
 
 struct ObjectTypeViewModelState: Equatable {
     var details: ObjectDetails?
+    var relationsCount: Int = 0
     
     var templates = [TemplatePreviewViewModel]()
     var syncStatusData: SyncStatusData?
@@ -15,15 +16,15 @@ struct ObjectTypeViewModelState: Equatable {
 
 
 @MainActor
-final class ObjectTypeViewModel: ObservableObject {
+final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     @Published var state = ObjectTypeViewModelState()
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
+    @Published var showFields = false
     
     let data: EditorTypeObject
-    
-    private let document: any BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     
     private var defaultTemplateId: String?
     private var rawTemplates: [ObjectDetails] = []
@@ -51,8 +52,9 @@ final class ObjectTypeViewModel: ObservableObject {
         async let detailsSubscription: () = subscribeOnDetails()
         async let templatesSubscription: () = subscribeOnTemplates()
         async let syncStatusSubscription: () = subscribeOnSyncStatus()
+        async let fieldsSubscription: () = subscribeOnFields()
         
-        (_, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription)
+        (_, _, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription, fieldsSubscription)
     }
     
     func onTemplateTap(model: TemplatePreviewModel) {
@@ -78,6 +80,10 @@ final class ObjectTypeViewModel: ObservableObject {
         layoutPickerObjectId = document.objectId.identifiable
     }
     
+    func onFieldsTap() {
+        showFields.toggle()
+    }
+    
     // MARK: - Private
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
@@ -100,6 +106,12 @@ final class ObjectTypeViewModel: ObservableObject {
     func subscribeOnSyncStatus() async {
         for await status in document.syncStatusDataPublisher.values {
             state.syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
+        }
+    }
+    
+    func subscribeOnFields() async {
+        for await relations in document.parsedRelationsPublisher.values {
+            state.relationsCount = relations.all.count
         }
     }
     
@@ -173,4 +185,15 @@ final class ObjectTypeViewModel: ObservableObject {
         }
     }
     
+    // MARK: - RelationsListModuleOutput
+    func addNewRelationAction(document: some BaseDocumentProtocol) {
+        // TBD;
+    }
+    func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
+        // TBD;
+    }
+    
+    func showTypeRelationsView(typeId: String) {
+        // TBD;
+    }
 }

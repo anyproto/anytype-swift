@@ -6,12 +6,10 @@ import AnytypeCore
 import Combine
 
 @MainActor
-final class ObjectFieldsViewModel: ObservableObject {
+final class TypeFieldsViewModel: ObservableObject {
         
     @Published private(set) var navigationBarButtonsDisabled: Bool = false
     @Published var sections = [RelationsSection]()
-    
-    var typeId: String? { document.details?.objectType.id }
     
     // MARK: - Private variables
     
@@ -22,14 +20,20 @@ final class ObjectFieldsViewModel: ObservableObject {
     private var relationsService: any RelationsServiceProtocol
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
-    @Injected(\.documentsProvider)
-    private var documentsProvider: any DocumentsProviderProtocol
     
     private weak var output: (any RelationsListModuleOutput)?
     
     private var subscriptions: [AnyCancellable] = []
     
     // MARK: - Initializers
+    
+    convenience init(
+        data: EditorTypeObject,
+        output: (any RelationsListModuleOutput)?
+    ) {
+        let document = Container.shared.documentService().document(objectId: data.objectId, spaceId: data.spaceId)
+        self.init(document: document, output: output)
+    }
     
     init(
         document: some BaseDocumentProtocol,
@@ -40,7 +44,7 @@ final class ObjectFieldsViewModel: ObservableObject {
         
         document.parsedRelationsPublisher
             .map { [sectionsBuilder] relations in
-                sectionsBuilder.buildSections(
+                sectionsBuilder.buildSectionsLegacy(
                     from: relations,
                     objectTypeName: document.details?.objectType.name ?? ""
                 )
@@ -61,7 +65,7 @@ final class ObjectFieldsViewModel: ObservableObject {
 
 // MARK: - Internal functions
 
-extension ObjectFieldsViewModel {
+extension TypeFieldsViewModel {
     
     func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
         if !addedToObject {
@@ -100,8 +104,8 @@ extension ObjectFieldsViewModel {
         }
     }
     
-    func onEditTap() {
-        guard let typeId else { return }
-        output?.showTypeRelationsView(typeId: typeId)
+    func showAddNewRelationView() {
+        output?.addNewRelationAction(document: document)
     }
+    
 }

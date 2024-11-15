@@ -293,6 +293,7 @@ internal enum Loc {
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   internal static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain", fallback: "Restore from keychain")
   internal static let restoreKeyFromKeychain = Loc.tr("Localizable", "Restore key from keychain", fallback: "Restore Key from the keychain")
+  internal static let save = Loc.tr("Localizable", "Save", fallback: "Save")
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   internal static let search = Loc.tr("Localizable", "Search", fallback: "Search")
   internal static let searchForLanguage = Loc.tr("Localizable", "Search for language", fallback: "Search for language")
