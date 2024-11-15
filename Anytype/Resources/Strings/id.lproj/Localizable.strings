@@ -703,6 +703,7 @@
 "Blurred icon" = "Ikon\n buram";
 "My First Space" = "Ruang Pertamaku";
 "Copy space info" = "Salin info ruang";
+"Save" = "Save";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";

@@ -702,6 +702,7 @@
 "Blurred icon" = "Размытая\n иконка";
 "My First Space" = "Моё первое пространство";
 "Copy space info" = "Скопировать информацию о пространстве";
+"Save" = "Save";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
