@@ -702,6 +702,7 @@
 "Blurred icon" = "Bulanık\n simge";
 "My First Space" = "Benim İlk Alanım";
 "Copy space info" = "Alan bilgisini kopyala";
+"Save" = "Save";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
