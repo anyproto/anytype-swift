@@ -71,12 +71,18 @@ struct ObjectTypeView: View {
     private var buttonsRow: some View {
         HStack(spacing: 12) {
             if model.state.isEditorLayout {
-                StandardButton(Loc.layout + " " +  (model.state.details?.recommendedLayoutValue?.title ?? ""), style: .secondarySmall) {
+                StandardButton(
+                    .textWithBadge(text: Loc.layout, badge: (model.state.details?.recommendedLayoutValue?.title ?? "")),
+                    style: .secondarySmall
+                ) {
                     model.onLayoutTap()
                 }
             }
             
-            StandardButton(Loc.relations + " " + "\(model.state.relationsCount)", style: .secondarySmall) {
+            StandardButton(
+                .textWithBadge(text: Loc.relations, badge: "\(model.state.relationsCount)"),
+                style: .secondarySmall
+            ) {
                 model.onFieldsTap()
             }
             
