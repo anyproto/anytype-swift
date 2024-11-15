@@ -12,6 +12,10 @@ struct ObjectTypeView: View {
             .animation(.default, value: model.state)
             .task { await model.setupSubscriptions() }
         
+            .onChange(of: model.typeName) {
+                model.onTypeNameChange(name: $0)
+            }
+        
             .anytypeSheet(isPresented: $model.state.showSyncStatusInfo) {
                 SyncStatusInfoView(spaceId: model.data.spaceId)
             }
@@ -63,7 +67,9 @@ struct ObjectTypeView: View {
             }, label: {
                 IconView(icon: model.state.details?.objectIconImage).frame(width: 32, height: 32)
             })
-            AnytypeText(model.state.details?.name ?? "", style: .title)
+            TextField(Loc.BlockText.Content.placeholder, text: $model.typeName)
+                .foregroundColor(.Text.primary)
+                .font(AnytypeFontBuilder.font(anytypeFont: .title))
             Spacer()
         }
     }

@@ -18,6 +18,8 @@ struct ObjectTypeViewModelState: Equatable {
 @MainActor
 final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     @Published var state = ObjectTypeViewModelState()
+    @Published var typeName = ""
+    
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
@@ -28,6 +30,7 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     
     private var defaultTemplateId: String?
     private var rawTemplates: [ObjectDetails] = []
+    private var didInitialSetup = false
     
     @Injected(\.templatesSubscription)
     private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
@@ -37,10 +40,15 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     private var templatesCoordinator: any TemplatesCoordinatorProtocol
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
+    @Injected(\.detailsService)
+    private var detailsService: any DetailsServiceProtocol
+    
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
     @Injected(\.legacyToastPresenter)
     private var toastPresenter: any ToastPresenterProtocol
+    
+    private var nameChangeTask: Task<(), any Error>?
     
     
     init(data: EditorTypeObject) {
@@ -84,11 +92,23 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
         showFields.toggle()
     }
     
+    func onTypeNameChange(name: String) {
+        nameChangeTask?.cancel()
+        nameChangeTask = Task {
+            try await Task.sleep(seconds: 0.5)
+            try await detailsService.updateBundledDetails(objectId: document.objectId, bundledDetails: [.name(name)])
+        }
+    }
+    
     // MARK: - Private
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
-            state.details = details
+            if !didInitialSetup {
+                typeName = details.objectName
+                didInitialSetup = true
+            }
             
+            state.details = details
             defaultTemplateId = details.defaultTemplateId
             state.isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
             buildTemplates()
