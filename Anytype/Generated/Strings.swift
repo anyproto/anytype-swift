@@ -1144,6 +1144,7 @@ internal enum Loc {
       return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
     }
     internal static let deletedName = Loc.tr("Localizable", "ObjectType.DeletedName", fallback: "Deleted type")
+    internal static let editingType = Loc.tr("Localizable", "ObjectType.editingType", fallback: "You're editing type")
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
     internal static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
     internal static let search = Loc.tr("Localizable", "ObjectType.Search", fallback: "Search for Type")

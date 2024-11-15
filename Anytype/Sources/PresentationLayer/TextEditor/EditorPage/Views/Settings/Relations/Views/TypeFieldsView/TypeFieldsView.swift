@@ -3,14 +3,14 @@ import Services
 
 struct TypeFieldsView: View {
     
-    @StateObject private var viewModel: TypeFieldsViewModel
+    @StateObject private var model: TypeFieldsViewModel
     
     init(data: EditorTypeObject, output: (any RelationsListModuleOutput)?) {
-        _viewModel = StateObject(wrappedValue: TypeFieldsViewModel(data: data, output: output))
+        _model = StateObject(wrappedValue: TypeFieldsViewModel(data: data, output: output))
     }
     
     init(document: some BaseDocumentProtocol, output: (any RelationsListModuleOutput)?) {
-        _viewModel = StateObject(wrappedValue: TypeFieldsViewModel(document: document, output: output))
+        _model = StateObject(wrappedValue: TypeFieldsViewModel(document: document, output: output))
     }
     
     var body: some View {
@@ -24,14 +24,18 @@ struct TypeFieldsView: View {
     
     private var navigationBar: some View {
         HStack {
-            cancelButton
+            if !model.navigationBarButtonsDisabled {
+                cancelButton
+            }
             
             Spacer()
             AnytypeText(Loc.relations, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer()
             
-            saveButton
+            if !model.navigationBarButtonsDisabled {
+                saveButton
+            }
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
@@ -56,16 +60,24 @@ struct TypeFieldsView: View {
     }
     
     private var banner: some View {
-        AnytypeText("You editing type %Type%", style: .uxBodyRegular) // TBD;
-            .padding(.vertical, 8)
-            .frame(maxWidth: .infinity)
-            .background(Color.Shape.tertiary)
+        HStack(spacing: 0) {
+            Spacer()
+            AnytypeText(Loc.ObjectType.editingType, style: .previewTitle2Regular)
+            Spacer.fixedWidth(8)
+            IconView(icon: model.document.details?.objectIconImage).frame(width: 18, height: 18)
+            Spacer.fixedWidth(5)
+            AnytypeText(model.document.details?.title ?? "", style: .previewTitle2Medium)
+            Spacer()
+        }
+        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity)
+        .background(Color.Shape.tertiary)
     }
     
     private var relationsList: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(viewModel.sections) { section in
+                ForEach(model.sections) { section in
                     VStack(alignment: .leading, spacing: 0) {
                         Section(header: sectionHeader(title: section.title)) {
                             ForEach(section.relations) {
@@ -86,16 +98,16 @@ struct TypeFieldsView: View {
     private func row(with relation: Relation, addedToObject: Bool) -> some View {
         RelationsListRowView(
             editingMode: .constant(true),
-            starButtonAvailable: !viewModel.navigationBarButtonsDisabled,
-            showLocks: true,
+            starButtonAvailable: !model.navigationBarButtonsDisabled,
+            showLocks: false,
             addedToObject: addedToObject,
             relation: relation
         ) {
-            viewModel.removeRelation(relation: $0)
+            model.removeRelation(relation: $0)
         } onStarTap: {
-            viewModel.changeRelationFeaturedState(relation: $0, addedToObject: addedToObject)
+            model.changeRelationFeaturedState(relation: $0, addedToObject: addedToObject)
         } onEditTap: {
-            viewModel.handleTapOnRelation(relation: $0)
+            model.handleTapOnRelation(relation: $0)
         }
     }
     

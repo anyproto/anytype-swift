@@ -13,7 +13,7 @@ final class TypeFieldsViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    private let document: any BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
     
     @Injected(\.relationsService)
