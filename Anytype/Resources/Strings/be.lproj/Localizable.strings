@@ -703,6 +703,7 @@
 "Blurred icon" = "Размыты\n значок";
 "My First Space" = "Мая першая прастора";
 "Copy space info" = "Скапіраваць інфармацыю пра прастору";
+"Save" = "Save";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
