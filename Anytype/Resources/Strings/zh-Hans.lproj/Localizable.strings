@@ -328,6 +328,7 @@
 "Choose layout type" = "选择布局类型";
 
 "Templates" = "模板";
+"Header" = "Header";
 
 "Undo typing" = "撤消输入";
 "Undo" = "撤消";
@@ -724,6 +725,7 @@
 "ObjectType.MyTypes" = "我的类型";
 "ObjectType.AddedToLibrary" = "类型 ‘%@’ 已添加到您的文库";
 "ObjectType.DeletedName" = "删除类型";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "创建 %@";
@@ -1267,3 +1269,6 @@
 "EmptyView.Default.subtitle" = "创建您的第一个对象以开始操作。";
 "EmptyView.Bin.title" = "您的回收站是空的。";
 "EmptyView.Bin.subtitle" = "看起来您已经整理得井井有条了！";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";
