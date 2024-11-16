@@ -327,6 +327,7 @@
 "Choose layout type" = "Elige el diseño";
 
 "Templates" = "Plantillas";
+"Header" = "Header";
 
 "Undo typing" = "Deshacer escritura";
 "Undo" = "Deshacer";
@@ -723,6 +724,7 @@
 "ObjectType.MyTypes" = "Mis tipos";
 "ObjectType.AddedToLibrary" = "El tipo «%@» se ha añadido a tu biblioteca.";
 "ObjectType.DeletedName" = "Tipo eliminado";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Crear %@";
@@ -1265,3 +1267,6 @@ En concreto,
 "EmptyView.Default.subtitle" = "Crea tus primeros objetos para empezar.";
 "EmptyView.Bin.title" = "Tu papelera está vacía.";
 "EmptyView.Bin.subtitle" = "¡Parece que te gusta tenerlo todo ordenado!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";
