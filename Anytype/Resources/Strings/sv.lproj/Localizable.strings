@@ -327,6 +327,7 @@
 "Choose layout type" = "Choose layout type";
 
 "Templates" = "Mallar";
+"Header" = "Header";
 
 "Undo typing" = "Undo typing";
 "Undo" = "Ångra";
@@ -723,6 +724,7 @@
 "ObjectType.MyTypes" = "Mina typer";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Deleted type";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Skapa %@";
@@ -1265,3 +1267,6 @@ Please provide specific details of your needs here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Din papperskorg är tom.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

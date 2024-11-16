@@ -327,6 +327,7 @@
 "Choose layout type" = "Kies type lay-out";
 
 "Templates" = "Sjablonen";
+"Header" = "Header";
 
 "Undo typing" = "Typen ongedaan maken";
 "Undo" = "Ongedaan maken";
@@ -723,6 +724,7 @@
 "ObjectType.MyTypes" = "Mijn types";
 "ObjectType.AddedToLibrary" = "Type '%@' toegevoegd aan jouw bibliotheek";
 "ObjectType.DeletedName" = "Verwijderd type";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Maak %@ aan";
@@ -1267,3 +1269,6 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your trash is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

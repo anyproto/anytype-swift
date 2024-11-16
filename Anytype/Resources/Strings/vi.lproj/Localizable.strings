@@ -328,6 +328,7 @@
 "Choose layout type" = "Chọn kiểu bố cục";
 
 "Templates" = "Mẫu";
+"Header" = "Header";
 
 "Undo typing" = "Hoàn tác nhập";
 "Undo" = "Hoàn tác";
@@ -724,6 +725,7 @@
 "ObjectType.MyTypes" = "Các Loại của tôi";
 "ObjectType.AddedToLibrary" = "Loại ‘%@’ đã được thêm vào thư viện của bạn";
 "ObjectType.DeletedName" = "Loại đã xoá";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Tạo %@";
@@ -1266,3 +1268,6 @@ Please provide specific details of your needs here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your trash is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

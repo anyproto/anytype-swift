@@ -328,6 +328,7 @@
 "Choose layout type" = "Pilih jenis tata letak";
 
 "Templates" = "Templat";
+"Header" = "Header";
 
 "Undo typing" = "Urungkan mengetik";
 "Undo" = "Urungkan";
@@ -703,7 +704,7 @@
 "Blurred icon" = "Ikon\n buram";
 "My First Space" = "Ruang Pertamaku";
 "Copy space info" = "Salin info ruang";
-"Save" = "Save";
+"Save" = "Simpan";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
@@ -724,6 +725,7 @@
 "ObjectType.MyTypes" = "Tipeku";
 "ObjectType.AddedToLibrary" = "Tipe '%@' ditambahkan ke perpustakaanmu";
 "ObjectType.DeletedName" = "Tipe yang terhapus";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Membuat %@";
@@ -1266,3 +1268,6 @@ Please provide specific details of your needs here.";
 "EmptyView.Default.subtitle" = "Buat objek pertamamu untuk memulai.";
 "EmptyView.Bin.title" = "Bak sampah kosong.";
 "EmptyView.Bin.subtitle" = "Kamu orangnya rapi dan tertata, ya?";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

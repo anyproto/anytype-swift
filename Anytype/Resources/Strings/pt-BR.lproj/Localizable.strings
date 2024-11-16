@@ -327,6 +327,7 @@
 "Choose layout type" = "Escolha o tipo de layout";
 
 "Templates" = "Modelos";
+"Header" = "Header";
 
 "Undo typing" = "Desfazer digitação";
 "Undo" = "Desfazer";
@@ -723,6 +724,7 @@
 "ObjectType.MyTypes" = "Meus Tipos";
 "ObjectType.AddedToLibrary" = "Tipo \"%@\" adicionado à sua biblioteca";
 "ObjectType.DeletedName" = "Tipo apagado";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Criar %@";
@@ -1266,3 +1268,6 @@ forneça detalhes específicos das suas necessidades aqui.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your trash is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

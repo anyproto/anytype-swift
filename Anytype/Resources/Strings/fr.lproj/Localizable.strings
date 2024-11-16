@@ -327,6 +327,7 @@
 "Choose layout type" = "Choisir la mise en page";
 
 "Templates" = "Modèles";
+"Header" = "Header";
 
 "Undo typing" = "Annuler la saisie";
 "Undo" = "Annuler";
@@ -702,7 +703,7 @@
 "Blurred icon" = "Icône\n floue";
 "My First Space" = "Mon premier espace";
 "Copy space info" = "Copier les informations de l'espace";
-"Save" = "Save";
+"Save" = "Sauvegarder";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -723,6 +724,7 @@
 "ObjectType.MyTypes" = "Mes Types";
 "ObjectType.AddedToLibrary" = "Le type %@ a été ajouté à votre bibliothèque";
 "ObjectType.DeletedName" = "Type supprimé";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Créer %@";
@@ -1266,3 +1268,6 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "EmptyView.Default.subtitle" = "Créez vos premiers objets pour commencer.";
 "EmptyView.Bin.title" = "Votre corbeille est vide.";
 "EmptyView.Bin.subtitle" = "On dirait que vous êtes bien rangé et organisé !";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";
