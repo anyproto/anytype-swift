@@ -327,6 +327,7 @@
 "Choose layout type" = "Düzen türü seçin";
 
 "Templates" = "Şablonlar";
+"Header" = "Üst başlık";
 
 "Undo typing" = "Yazıyı geri al";
 "Undo" = "Geri al";
@@ -702,7 +703,7 @@
 "Blurred icon" = "Bulanık\n simge";
 "My First Space" = "Benim İlk Alanım";
 "Copy space info" = "Alan bilgisini kopyala";
-"Save" = "Save";
+"Save" = "Kaydet";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
@@ -723,6 +724,7 @@
 "ObjectType.MyTypes" = "Türlerim";
 "ObjectType.AddedToLibrary" = "'%@' türü kitaplığınıza eklendi";
 "ObjectType.DeletedName" = "Türü sil";
+"ObjectType.editingType" = "Düzenleme türünüz";
 
 // MARK: - QuickAction
 "QuickAction.create" = "%@ oluştur";
@@ -1267,3 +1269,6 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "EmptyView.Default.subtitle" = "Başlamak için ilk nesnelerinizi oluşturun.";
 "EmptyView.Bin.title" = "Çöp kutunuz boş.";
 "EmptyView.Bin.subtitle" = "Düzenli ve tertipli görünüyorsunuz!";
+
+// MARK: - Fields
+"Fields.menu" = "Alanlar menüsü";
