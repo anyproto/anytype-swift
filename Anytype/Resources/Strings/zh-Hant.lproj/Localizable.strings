@@ -328,6 +328,7 @@
 "Choose layout type" = "選擇排版類型";
 
 "Templates" = "範本";
+"Header" = "Header";
 
 "Undo typing" = "撤銷輸入";
 "Undo" = "撤銷";
@@ -725,6 +726,7 @@
 "ObjectType.MyTypes" = "我的類型";
 "ObjectType.AddedToLibrary" = "類型 \"%@\" 已添加至您的筆記庫";
 "ObjectType.DeletedName" = "已刪除類型";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "建立 \"%@\"";
@@ -1269,3 +1271,6 @@
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your trash is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";
