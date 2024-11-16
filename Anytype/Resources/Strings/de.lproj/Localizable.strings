@@ -327,6 +327,7 @@
 "Choose layout type" = "Wähle einen Ansichtstyp";
 
 "Templates" = "Vorlagen";
+"Header" = "Header";
 
 "Undo typing" = "Eingabe widerrufen";
 "Undo" = "Rückgängig";
@@ -702,7 +703,7 @@
 "Blurred icon" = "Unscharfes\n Symbol";
 "My First Space" = "Mein erster Space";
 "Copy space info" = "Spaceinformationen kopieren";
-"Save" = "Save";
+"Save" = "Speichern";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
@@ -723,6 +724,7 @@
 "ObjectType.MyTypes" = "Meine Typen";
 "ObjectType.AddedToLibrary" = "Relation \"%@\" wurde zur Bibliothek hinzugefügt";
 "ObjectType.DeletedName" = "Gelöschter Typ";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Erstelle %@";
@@ -1055,8 +1057,8 @@
 "SpaceHub.Tip.Text1" = "Der Tresor ist das neue Zuhause aller deiner Spaces. Erstelle Spaces, trete ihnen bei oder teile sie - alles wird hier sicher gespeichert.";
 
 // MARK: - Space switcher tip
-"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
-"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
+"ReturnToWidgets.Tip.Title" = "Lang drücken, um zu den Widgets zurückzukehren";
+"ReturnToWidgets.Tip.Text" = "Lange auf die Zurück-Schaltfläche drücken, um zu den Widgets zurückzukehren, anstatt sie wiederholt anzutippen.";
 
 // MARK: - Initial
 
@@ -1266,3 +1268,6 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "EmptyView.Default.subtitle" = "Erstelle deine ersten Objekte, um loszulegen.";
 "EmptyView.Bin.title" = "Dein Papierkorb ist leer.";
 "EmptyView.Bin.subtitle" = "Sieht aus, als wärst du total ordentlich und organisiert!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";
