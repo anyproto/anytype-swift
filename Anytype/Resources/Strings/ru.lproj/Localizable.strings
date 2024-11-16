@@ -327,6 +327,7 @@
 "Choose layout type" = "Выберите тип макета";
 
 "Templates" = "Шаблоны";
+"Header" = "Header";
 
 "Undo typing" = "Отменить ввод";
 "Undo" = "Отменить";
@@ -723,6 +724,7 @@
 "ObjectType.MyTypes" = "Мои типы";
 "ObjectType.AddedToLibrary" = "Свойство ‘%@’ добавлено в вашу библиотеку";
 "ObjectType.DeletedName" = "Удаленный тип";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Создать %@";
@@ -1268,3 +1270,6 @@
 "EmptyView.Default.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
 "EmptyView.Bin.title" = "Ваша корзина пуста.";
 "EmptyView.Bin.subtitle" = "Похоже, у вас всё аккуратно и организовано!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";
