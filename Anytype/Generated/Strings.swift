@@ -160,6 +160,7 @@ internal enum Loc {
   internal static let greenBackground = Loc.tr("Localizable", "Green background", fallback: "Green background")
   internal static let grey = Loc.tr("Localizable", "Grey", fallback: "Grey")
   internal static let greyBackground = Loc.tr("Localizable", "Grey background", fallback: "Grey background")
+  internal static let header = Loc.tr("Localizable", "Header", fallback: "Header")
   internal static let hideTypes = Loc.tr("Localizable", "Hide types", fallback: "Hide types")
   internal static let highlight = Loc.tr("Localizable", "Highlight", fallback: "Highlight")
   internal static let history = Loc.tr("Localizable", "History", fallback: "History")
@@ -869,6 +870,9 @@ internal enum Loc {
   internal enum ErrorOccurred {
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
   }
+  internal enum Fields {
+    internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
+  }
   internal enum FileStorage {
     internal static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
     internal static let manageFiles = Loc.tr("Localizable", "FileStorage.ManageFiles", fallback: "Manage files")
@@ -1144,6 +1148,7 @@ internal enum Loc {
       return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
     }
     internal static let deletedName = Loc.tr("Localizable", "ObjectType.DeletedName", fallback: "Deleted type")
+    internal static let editingType = Loc.tr("Localizable", "ObjectType.editingType", fallback: "You're editing type")
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
     internal static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
     internal static let search = Loc.tr("Localizable", "ObjectType.Search", fallback: "Search for Type")

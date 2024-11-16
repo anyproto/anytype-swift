@@ -13,7 +13,7 @@ final class TypeFieldsViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    private let document: any BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
     
     @Injected(\.relationsService)
@@ -44,7 +44,7 @@ final class TypeFieldsViewModel: ObservableObject {
         
         document.parsedRelationsPublisher
             .map { [sectionsBuilder] relations in
-                sectionsBuilder.buildSectionsLegacy(
+                sectionsBuilder.buildTypeSections(
                     from: relations,
                     objectTypeName: document.details?.objectType.name ?? ""
                 )
