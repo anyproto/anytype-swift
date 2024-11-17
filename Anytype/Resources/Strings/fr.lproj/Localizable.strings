@@ -327,7 +327,7 @@
 "Choose layout type" = "Choisir la mise en page";
 
 "Templates" = "Modèles";
-"Header" = "Header";
+"Header" = "En-tête";
 
 "Undo typing" = "Annuler la saisie";
 "Undo" = "Annuler";
@@ -724,7 +724,7 @@
 "ObjectType.MyTypes" = "Mes Types";
 "ObjectType.AddedToLibrary" = "Le type %@ a été ajouté à votre bibliothèque";
 "ObjectType.DeletedName" = "Type supprimé";
-"ObjectType.editingType" = "You're editing type";
+"ObjectType.editingType" = "Vous éditez le type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Créer %@";
@@ -1270,4 +1270,4 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "EmptyView.Bin.subtitle" = "On dirait que vous êtes bien rangé et organisé !";
 
 // MARK: - Fields
-"Fields.menu" = "Fields menu";
+"Fields.menu" = "Menu des champs";

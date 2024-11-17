@@ -226,7 +226,7 @@
 // Keychain screen
 "Keychain.Key" = "Kurtarma anahtarı";
 "Keychain.Key.Copy.Toast.title" = "Kurtarma anahtarı kopyalandı";
-"Keychain.Key.description" = "Bu bilgilere giriş yapmak için ihtiyacın olacak. Güvenli bir yerde tut. Eğer kaybedersen hesabına erişemeyeceksin.";
+"Keychain.Key.description" = "Kasana erişmek için bu bilgilere ihtiyacın olacak. Güvenli bir yerde tut. Eğer kaybedersen hesabına erişemezsin.";
 "Keychain.Show and copy key" = "Anahtarı göster ve kopyala";
 "Keychain.Have you backed up your key?" = "Anahtarınızı yedeklediniz mi?";
 "Keychain.Error.String to Data conversion error" = "Dizeden veriye dönüştürme hatası";
@@ -267,7 +267,7 @@
 "Auth.JoinFlow.Key.Button.Tip.Title" = "Bu anahtarı daha sonra Anytype ayarlarında bulabilirsiniz";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Anahtar nedir?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Kurtarma kelimeleriniz, bu cihazda sadece sizin için oluşturulan 12 rastgele kelimeden oluşur.";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Kurtarma anahtarınız bu cihazda sadece sizin için oluşturulan 12 rastgele kelimeden oluşur.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Bu kelimelerin kombinasyonunu bilen kişi kasanızın sahibidir. **Şu anda dünyada bunu bilen tek kişi sensin.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Dünya üzerindeki tüm hesaplama kaynakları içeri girmek için yeterli değildir. Kaybederseniz, kurtarılamaz. Bu yüzden güvenli bir yerde saklayın!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Kurtarma anahtarını nasıl kaydederim?";
