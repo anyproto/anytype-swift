@@ -20,3 +20,20 @@ extension Date {
         return date
     }
 }
+
+extension ClosedRange where Bound == Date {
+    
+    // MARK: - available date range for all platforms
+    static let anytypeDateRange: ClosedRange<Date> = {
+        let calendar = Calendar.current
+        let startComponents = DateComponents(year: 0, month: 1, day: 1)
+        let endComponents = DateComponents(year: 3000, month: 12, day: 31)
+        
+        guard let startDate = calendar.date(from: startComponents),
+              let endDate = calendar.date(from: endComponents) else {
+            return Date()...Date()
+        }
+        
+        return startDate...endDate
+    }()
+}
