@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ObjectTypeView: View {
     @StateObject private var model: ObjectTypeViewModel
+    @Environment(\.dismiss) private var dismiss
     
     init(data: EditorTypeObject) {
         _model = StateObject(wrappedValue: ObjectTypeViewModel(data: data))
@@ -9,6 +10,7 @@ struct ObjectTypeView: View {
     
     var body: some View {
         content
+            .onAppear { model.setDismissHandler(dismiss: dismiss) }
             .task { await model.setupSubscriptions() }
         
             .onChange(of: model.typeName) {
@@ -26,6 +28,11 @@ struct ObjectTypeView: View {
             }
             .sheet(isPresented: $model.showFields) {
                 TypeFieldsView(document: model.document, output: model)
+            }
+            .anytypeSheet(isPresented: $model.showDeleteConfirmation) {
+                TypeDeleteAlert {
+                    try await model.onDeleteConfirm()
+                }
             }
             .snackbar(toastBarData: $model.toastBarData)
     }
@@ -54,6 +61,16 @@ struct ObjectTypeView: View {
             .frame(width: 28, height: 28)
             
             Spacer()
+            
+            if model.canArchive {
+                Menu {
+                    Button(Loc.delete, role: .destructive) {
+                        model.onDeleteTap()
+                    }
+                } label: {
+                    IconView(asset: .X24.more).frame(width: 24, height: 24)
+                }
+            }
         }
         .padding(.horizontal, 12)
         .frame(height: 48)
