@@ -47,20 +47,14 @@ struct TypeFieldsView: View {
     }
     
     private var cancelButton: some View {
-        Button {
+        StandardButton(Loc.cancel, style: .borderlessSmall) {
             // TBD;
-        } label: {
-            AnytypeText(Loc.cancel, style: .uxBodyRegular)
-            .foregroundColor(.Text.secondary)
         }.disabled(true)
     }
     
     private var saveButton: some View {
-        Button {
+        StandardButton(Loc.save, style: .borderlessSmall) {
             // TBD;
-        } label: {
-            AnytypeText(Loc.save, style: .uxBodyRegular)
-            .foregroundColor(.Text.secondary)
         }.disabled(true)
     }
     
@@ -106,9 +100,9 @@ struct TypeFieldsView: View {
         .onDelete { indexes in
             // TBD;
         }
-        .onMove { from, to in
+//        .onMove { from, to in
             // TBD;
-        }
+//        }
     }
     
     private func relationRow(_ data: TypeFieldsRelationsData) -> some View {
