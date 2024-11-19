@@ -29,7 +29,7 @@ final class DateViewModel: ObservableObject {
     
     @Published var title = ""
     @Published var objects = [ObjectCellData]()
-    @Published var relationDetails = [RelationDetails]()
+    @Published var relationItems = [RelationItemData]()
     @Published var state = DateModuleState()
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     
@@ -48,9 +48,12 @@ final class DateViewModel: ObservableObject {
         let relationsKeys = try? await relationListWithValueService.relationListWithValue(objectId, spaceId: spaceId)
         // Set mentions relation first
         let reorderedRelationsKeys = relationsKeys?.reordered(by: [BundledRelationKey.mentions.rawValue], transform: { $0 }) ?? []
-        relationDetails = reorderedRelationsKeys.compactMap { [weak self] key -> RelationDetails? in
+        let relationDetails = reorderedRelationsKeys.compactMap { [weak self] key -> RelationDetails? in
             guard let self else { return nil }
             return try? relationDetailsStorage.relationsDetails(for: key, spaceId: spaceId)
+        }
+        relationItems = relationDetails.compactMap { [weak self] details in
+            self?.relationItemData(from: details)
         }
         state.selectedRelation = relationDetails.first
     }
@@ -96,10 +99,10 @@ final class DateViewModel: ObservableObject {
     }
     
     func onRelationsListTap() {
-        guard relationDetails.isNotEmpty else { return }
-        let items = relationDetails.map { details in
-            SimpleSearchListItem(icon: nil, title: details.name) { [weak self] in
-                self?.state.selectedRelation = details
+        guard relationItems.isNotEmpty else { return }
+        let items = relationItems.map { item in
+            SimpleSearchListItem(icon: item.icon, title: item.title) { [weak self] in
+                self?.state.selectedRelation = item.details
             }
         }
         output?.onSearchListTap(items: items)
@@ -157,5 +160,16 @@ final class DateViewModel: ObservableObject {
         filter.relationKey = key
         
         return filter
+    }
+    
+    private func relationItemData(from details: RelationDetails) -> RelationItemData {
+        let isMention = details.key == BundledRelationKey.mentions.rawValue
+        let icon: Icon? = isMention ? .asset(.X24.mention) : nil
+        let title = isMention ? Loc.Relation.Mention.title : details.name
+        return RelationItemData(
+            icon: icon,
+            title: title,
+            details: details
+        )
     }
 }

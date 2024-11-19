@@ -107,6 +107,8 @@
 
 "Relation.Search.View.Placeholder" = "Search or create a new relation";
 
+"Relation.Mention.title" = "Mentioned in";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";

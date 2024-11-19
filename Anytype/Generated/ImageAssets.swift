@@ -172,6 +172,7 @@ internal extension ImageAsset {
       static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
     }
     static let folder = ImageAsset.bundle(name: "x24/Folder")
+    static let mention = ImageAsset.bundle(name: "x24/Mention")
     static let more = ImageAsset.bundle(name: "x24/More")
     static let multiselect = ImageAsset.bundle(name: "x24/Multiselect")
     static let name = ImageAsset.bundle(name: "x24/Name")

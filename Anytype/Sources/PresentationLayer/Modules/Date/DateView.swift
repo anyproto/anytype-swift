@@ -74,8 +74,8 @@ struct DateView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 8) {
                 relationsListButton
-                ForEach(model.relationDetails, id: \.self) { details in
-                    relationView(details: details)
+                ForEach(model.relationItems) { item in
+                    relationView(item: item)
                 }
             }
             .frame(height: 40)
@@ -84,21 +84,22 @@ struct DateView: View {
         }
     }
     
-    private func relationView(details: RelationDetails) -> some View {
+    private func relationView(item: RelationItemData) -> some View {
         Button {
-            model.onRelationTap(details)
+            model.onRelationTap(item.details)
         } label: {
-            AnytypeText(details.name, style: .uxCalloutMedium)
-                .foregroundColor(.Text.primary)
-                .padding(.horizontal,12)
-                .padding(.vertical, 10)
-                .background(model.state.selectedRelation == details ? Color.Shape.transperentSecondary : .clear)
-                .cornerRadius(10, style: .continuous)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.Shape.primary, lineWidth: 1)
-                )
+            HStack(spacing: 6) {
+                IconView(icon: item.icon)
+                    .frame(width: 24, height: 24)
+                AnytypeText(item.title, style: .uxCalloutMedium)
+                    .foregroundColor(.Text.primary)
+            }
         }
+        .padding(.horizontal,12)
+        .frame(height: 40)
+        .background(model.state.selectedRelation == item.details ? Color.Shape.transperentSecondary : .clear)
+        .cornerRadius(10, style: .continuous)
+        .border(10, color: Color.Shape.primary)
     }
     
     private var list: some View {
