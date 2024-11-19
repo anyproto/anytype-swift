@@ -2287,8 +2287,6 @@ public struct Anytype_Model_Block {
 
         public var dateFormat: Anytype_Model_Block.Content.Dataview.Relation.DateFormat = .monthAbbrBeforeDay
 
-        public var formula: Anytype_Model_Block.Content.Dataview.Relation.FormulaType = .none
-
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum DateFormat: SwiftProtobuf.Enum {
@@ -2360,67 +2358,6 @@ public struct Anytype_Model_Block {
             switch self {
             case .format12: return 0
             case .format24: return 1
-            case .UNRECOGNIZED(let i): return i
-            }
-          }
-
-        }
-
-        public enum FormulaType: SwiftProtobuf.Enum {
-          public typealias RawValue = Int
-          case none // = 0
-          case count // = 1
-          case countDistinct // = 2
-          case countEmpty // = 3
-          case countNotEmpty // = 4
-          case percentEmpty // = 5
-          case percentNotEmpty // = 6
-          case mathSum // = 7
-          case mathAverage // = 8
-          case mathMedian // = 9
-          case mathMin // = 10
-          case mathMax // = 11
-          case range // = 12
-          case UNRECOGNIZED(Int)
-
-          public init() {
-            self = .none
-          }
-
-          public init?(rawValue: Int) {
-            switch rawValue {
-            case 0: self = .none
-            case 1: self = .count
-            case 2: self = .countDistinct
-            case 3: self = .countEmpty
-            case 4: self = .countNotEmpty
-            case 5: self = .percentEmpty
-            case 6: self = .percentNotEmpty
-            case 7: self = .mathSum
-            case 8: self = .mathAverage
-            case 9: self = .mathMedian
-            case 10: self = .mathMin
-            case 11: self = .mathMax
-            case 12: self = .range
-            default: self = .UNRECOGNIZED(rawValue)
-            }
-          }
-
-          public var rawValue: Int {
-            switch self {
-            case .none: return 0
-            case .count: return 1
-            case .countDistinct: return 2
-            case .countEmpty: return 3
-            case .countNotEmpty: return 4
-            case .percentEmpty: return 5
-            case .percentNotEmpty: return 6
-            case .mathSum: return 7
-            case .mathAverage: return 8
-            case .mathMedian: return 9
-            case .mathMin: return 10
-            case .mathMax: return 11
-            case .range: return 12
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -3339,25 +3276,6 @@ extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: CaseIterable
   public static var allCases: [Anytype_Model_Block.Content.Dataview.Relation.TimeFormat] = [
     .format12,
     .format24,
-  ]
-}
-
-extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Model_Block.Content.Dataview.Relation.FormulaType] = [
-    .none,
-    .count,
-    .countDistinct,
-    .countEmpty,
-    .countNotEmpty,
-    .percentEmpty,
-    .percentNotEmpty,
-    .mathSum,
-    .mathAverage,
-    .mathMedian,
-    .mathMin,
-    .mathMax,
-    .range,
   ]
 }
 
@@ -6170,7 +6088,6 @@ extension Anytype_Model_Block.Content.Dataview.View.Size: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Relation: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Sort: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: @unchecked Sendable {}
@@ -8064,7 +7981,6 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
     5: .same(proto: "dateIncludeTime"),
     6: .same(proto: "timeFormat"),
     7: .same(proto: "dateFormat"),
-    8: .same(proto: "formula"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8079,7 +7995,6 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
       case 5: try { try decoder.decodeSingularBoolField(value: &self.dateIncludeTime) }()
       case 6: try { try decoder.decodeSingularEnumField(value: &self.timeFormat) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.dateFormat) }()
-      case 8: try { try decoder.decodeSingularEnumField(value: &self.formula) }()
       default: break
       }
     }
@@ -8104,9 +8019,6 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
     if self.dateFormat != .monthAbbrBeforeDay {
       try visitor.visitSingularEnumField(value: self.dateFormat, fieldNumber: 7)
     }
-    if self.formula != .none {
-      try visitor.visitSingularEnumField(value: self.formula, fieldNumber: 8)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -8117,7 +8029,6 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
     if lhs.dateIncludeTime != rhs.dateIncludeTime {return false}
     if lhs.timeFormat != rhs.timeFormat {return false}
     if lhs.dateFormat != rhs.dateFormat {return false}
-    if lhs.formula != rhs.formula {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -8137,24 +8048,6 @@ extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: SwiftProtobu
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "Format12"),
     1: .same(proto: "Format24"),
-  ]
-}
-
-extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "None"),
-    1: .same(proto: "Count"),
-    2: .same(proto: "CountDistinct"),
-    3: .same(proto: "CountEmpty"),
-    4: .same(proto: "CountNotEmpty"),
-    5: .same(proto: "PercentEmpty"),
-    6: .same(proto: "PercentNotEmpty"),
-    7: .same(proto: "MathSum"),
-    8: .same(proto: "MathAverage"),
-    9: .same(proto: "MathMedian"),
-    10: .same(proto: "MathMin"),
-    11: .same(proto: "MathMax"),
-    12: .same(proto: "Range"),
   ]
 }
 

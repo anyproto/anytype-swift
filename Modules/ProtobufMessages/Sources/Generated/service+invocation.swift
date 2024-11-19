@@ -914,6 +914,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectDateByTimestamp(
+        _ request: Anytype_Rpc.Object.DateByTimestamp.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.DateByTimestamp.Request, Anytype_Rpc.Object.DateByTimestamp.Response> {
+        return Invocation(messageName: "ObjectDateByTimestamp", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectDateByTimestamp(requestData) ?? Data()
+            return try Anytype_Rpc.Object.DateByTimestamp.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectCollectionAdd(
         _ request: Anytype_Rpc.ObjectCollection.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.ObjectCollection.Add.Request, Anytype_Rpc.ObjectCollection.Add.Response> {

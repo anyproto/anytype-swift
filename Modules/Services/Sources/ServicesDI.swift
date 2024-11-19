@@ -135,4 +135,8 @@ public extension Container {
     var relationListWithValueService: Factory<RelationListWithValueServiceProtocol> {
         self { RelationListWithValueService() }.shared
     }
+    
+    var objectDateByTimestampService: Factory<ObjectDateByTimestampServiceProtocol> {
+        self { ObjectDateByTimestampService() }.shared
+    }
 }

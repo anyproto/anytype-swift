@@ -4930,6 +4930,30 @@ extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: @retroa
     }
 }
 
+extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.DateByTimestamp.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.DateByTimestamp.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Object.Duplicate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
