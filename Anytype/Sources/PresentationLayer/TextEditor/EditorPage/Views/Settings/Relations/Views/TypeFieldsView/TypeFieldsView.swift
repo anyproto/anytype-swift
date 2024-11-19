@@ -18,7 +18,7 @@ struct TypeFieldsView: View {
             DragIndicator()
             navigationBar
             banner
-            relationsList
+            fieldsList
         }
     }
     
@@ -74,41 +74,46 @@ struct TypeFieldsView: View {
         .background(Color.Shape.tertiary)
     }
     
-    private var relationsList: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                ForEach(model.sections) { section in
-                    VStack(alignment: .leading, spacing: 0) {
-                        Section(header: sectionHeader(title: section.title)) {
-                            ForEach(section.relations) {
-                                row(with: $0, addedToObject: section.addedToObject)
-                            }
-                        }
-                    }
+    private var fieldsList: some View {
+        PlainList {
+            relationsSection
+                .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+        }
+        .environment(\.editMode, .constant(.active))
+        
+        .listStyle(.plain)
+        .buttonStyle(BorderlessButtonStyle())
+    }
+    
+    private var relationsSection: some View {
+        ForEach(model.relations) { data in
+            Section {
+                relationRow(data)
+                    .divider()
+                    .deleteDisabled(!data.relation.canBeRemovedFromObject)
+            } header: {
+                // hacky way to enable dnd between sections: All views should be within single ForEach loop
+                if data.relationIndex == 0 {
+                    ListSectionHeaderView(title: data.sectionTitle)
                 }
             }
-            .padding(.horizontal, 20)
+        }
+        .onDelete { indexes in
+            // TBD;
+        }
+        .onMove { from, to in
+            // TBD;
         }
     }
     
-    private func sectionHeader(title: String) -> some View {
-        ListSectionHeaderView(title: title)
-    }
-    
-    private func row(with relation: Relation, addedToObject: Bool) -> some View {
-        RelationsListRowView(
-            editingMode: .constant(true),
-            starButtonAvailable: !model.navigationBarButtonsDisabled,
-            showLocks: false,
-            addedToObject: addedToObject,
-            relation: relation
-        ) {
-            model.removeRelation(relation: $0)
-        } onStarTap: {
-            model.changeRelationFeaturedState(relation: $0, addedToObject: addedToObject)
-        } onEditTap: {
-            model.handleTapOnRelation(relation: $0)
+    private func relationRow(_ data: TypeFieldsRelationsData) -> some View {
+        HStack(spacing: 0) {
+            Image(asset: data.relation.iconAsset)
+                .foregroundColor(.Control.active)
+            Spacer.fixedWidth(10)
+            AnytypeText(data.relation.name, style: .uxBodyRegular)
+            Spacer()
         }
+        .frame(height: 52)
     }
-    
 }
