@@ -12,6 +12,7 @@ final class TypeFieldsViewModel: ObservableObject {
     @Published var canEditRelationsList = false
     @Published var editMode = EditMode.inactive
     @Published var relations = [TypeFieldsRelationsData]()
+    @Published var relationsSearchData: RelationsSearchData?
     
     // MARK: - Private variables
     
@@ -63,35 +64,21 @@ final class TypeFieldsViewModel: ObservableObject {
         }
     }
     
-    
-    
-    func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
-        if !addedToObject {
-            Task { @MainActor in
-                try await relationsService.addRelations(objectId: document.objectId, relationKeys: [relation.key])
-                changeRelationFeaturedState(relation: relation)
+    func onAddRelationTap(section: TypeFieldsRelationsSection) {
+        relationsSearchData = RelationsSearchData(
+            document: document,
+            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            target: .object,
+            onRelationSelect: { [weak self] details, isNew in
+                if section == .header { self?.featureRelation(key: details.key) }
             }
-        } else {
-            changeRelationFeaturedState(relation: relation)
-        }
+        )
     }
     
-    private func changeRelationFeaturedState(relation: Relation) {
+    private func featureRelation(key: String) {
         Task {
-            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
-            if relation.isFeatured {
-                try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
-                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
-            } else {
-                try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
-                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
-            }
+            try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: key)
         }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
-    func handleTapOnRelation(relation: Relation) {
-        output?.editRelationValueAction(document: document, relationKey: relation.key)
     }
     
     func removeRelation(relation: Relation) {
@@ -101,9 +88,4 @@ final class TypeFieldsViewModel: ObservableObject {
             AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
         }
     }
-    
-    func showAddNewRelationView() {
-        output?.addNewRelationAction(document: document)
-    }
-    
 }

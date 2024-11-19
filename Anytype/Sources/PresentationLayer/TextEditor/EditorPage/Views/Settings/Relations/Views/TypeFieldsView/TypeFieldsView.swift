@@ -16,6 +16,10 @@ struct TypeFieldsView: View {
     var body: some View {
         content
             .task { await model.setupSubscriptions() }
+        
+            .sheet(item: $model.relationsSearchData) { data in
+                RelationsSearchCoordinatorView(data: data)
+            }
     }
     
     var content: some View {
@@ -91,9 +95,15 @@ struct TypeFieldsView: View {
                     .divider()
                     .deleteDisabled(!data.relation.canBeRemovedFromObject)
             } header: {
-                // hacky way to enable dnd between sections: All views should be within single ForEach loop
+                // hacky way to enable dnd between sections: All sections should be created within single ForEach loop
                 if data.relationIndex == 0 {
-                    ListSectionHeaderView(title: data.sectionTitle)
+                    ListSectionHeaderView(title: data.section.title, increasedTopPadding: false) {
+                        Button(action: {
+                            model.onAddRelationTap(section: data.section)
+                        }, label: {
+                            IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                        })
+                    }
                 }
             }
         }
