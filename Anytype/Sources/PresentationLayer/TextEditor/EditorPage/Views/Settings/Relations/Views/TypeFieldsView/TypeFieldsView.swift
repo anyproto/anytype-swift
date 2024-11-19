@@ -14,6 +14,11 @@ struct TypeFieldsView: View {
     }
     
     var body: some View {
+        content
+            .task { await model.setupSubscriptions() }
+    }
+    
+    var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
             navigationBar
@@ -24,7 +29,7 @@ struct TypeFieldsView: View {
     
     private var navigationBar: some View {
         HStack {
-            if !model.navigationBarButtonsDisabled {
+            if model.canEditRelationsList {
                 cancelButton
             }
             
@@ -33,7 +38,7 @@ struct TypeFieldsView: View {
                 .foregroundColor(.Text.primary)
             Spacer()
             
-            if !model.navigationBarButtonsDisabled {
+            if model.canEditRelationsList {
                 saveButton
             }
         }
@@ -79,7 +84,7 @@ struct TypeFieldsView: View {
             relationsSection
                 .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
         }
-        .environment(\.editMode, .constant(.active))
+        .environment(\.editMode, $model.editMode)
         
         .listStyle(.plain)
         .buttonStyle(BorderlessButtonStyle())

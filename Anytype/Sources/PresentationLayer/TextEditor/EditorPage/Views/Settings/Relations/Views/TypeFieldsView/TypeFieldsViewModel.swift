@@ -1,15 +1,16 @@
 import Foundation
 import Services
 import SwiftProtobuf
-import UIKit
 import AnytypeCore
 import Combine
+import SwiftUI
 
 
 @MainActor
 final class TypeFieldsViewModel: ObservableObject {
         
-    @Published private(set) var navigationBarButtonsDisabled: Bool = false
+    @Published var canEditRelationsList = false
+    @Published var editMode = EditMode.inactive
     @Published var relations = [TypeFieldsRelationsData]()
     
     // MARK: - Private variables
@@ -23,8 +24,6 @@ final class TypeFieldsViewModel: ObservableObject {
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     private weak var output: (any RelationsListModuleOutput)?
-    
-    private var subscriptions: [AnyCancellable] = []
     
     // MARK: - Initializers
     
@@ -42,28 +41,29 @@ final class TypeFieldsViewModel: ObservableObject {
     ) {
         self.document = document
         self.output = output
-        
-        document.parsedRelationsPublisher
-            .map { [fieldsDataBuilder] relations in
-                fieldsDataBuilder.build(parsedRelations: relations)
-            }
-            .receiveOnMain()
-            .assign(to: &$relations)
-        
-        document.permissionsPublisher
-            .receiveOnMain()
-            .sink { [weak self] permissions in
-                guard let self else { return }
-                navigationBarButtonsDisabled = !permissions.canEditRelationsList
-            }
-            .store(in: &subscriptions)
     }
     
-}
-
-// MARK: - Internal functions
-
-extension TypeFieldsViewModel {
+    func setupSubscriptions() async {
+        async let relationsSubscription: () = setupRelationsSubscription()
+        async let permissionSubscription: () = setupPermissionSubscription()
+        
+        (_, _) = await (relationsSubscription, permissionSubscription)
+    }
+    
+    private func setupRelationsSubscription() async {
+        for await parsedRelations in document.parsedRelationsPublisher.values {
+            relations = fieldsDataBuilder.build(parsedRelations: parsedRelations)
+        }
+    }
+    
+    private func setupPermissionSubscription() async {
+        for await permissions in document.permissionsPublisher.values {
+            canEditRelationsList = permissions.canEditRelationsList
+            editMode = canEditRelationsList ? .active : .inactive
+        }
+    }
+    
+    
     
     func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
         if !addedToObject {
