@@ -108,7 +108,7 @@ struct TypeFieldsView: View {
             }
         }
         .onDelete { indexes in
-            // TBD;
+            model.onDeleteRelations(indexes)
         }
 //        .onMove { from, to in
             // TBD;
