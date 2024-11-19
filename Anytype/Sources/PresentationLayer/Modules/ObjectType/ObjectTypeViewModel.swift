@@ -12,18 +12,20 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     @Published var syncStatusData: SyncStatusData?
     
     @Published var showSyncStatusInfo = false
-    @Published var isEditorLayout = false
     @Published var typeName = ""
     
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
     @Published var showFields = false
+    @Published var showDeleteConfirmation = false
     
     let data: EditorTypeObject
     let document: any BaseDocumentProtocol
+    var isEditorLayout: Bool { details?.recommendedLayoutValue?.isEditorLayout ?? false }
+    var canArchive: Bool { document.permissions.canArchive }
     
-    private var defaultTemplateId: String?
+    private var defaultTemplateId: String? { details?.defaultTemplateId }
     private var rawTemplates: [ObjectDetails] = []
     private var didInitialSetup = false
     
@@ -37,6 +39,8 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     private var templatesService: any TemplatesServiceProtocol
     @Injected(\.detailsService)
     private var detailsService: any DetailsServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
@@ -44,7 +48,7 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     private var toastPresenter: any ToastPresenterProtocol
     
     private var nameChangeTask: Task<(), any Error>?
-    
+    private var dismiss: DismissAction?
     
     init(data: EditorTypeObject) {
         self.data = data
@@ -58,6 +62,10 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
         async let fieldsSubscription: () = subscribeOnFields()
         
         (_, _, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription, fieldsSubscription)
+    }
+    
+    func setDismissHandler(dismiss: DismissAction) {
+        self.dismiss = dismiss
     }
     
     func onTemplateTap(model: TemplatePreviewModel) {
@@ -95,6 +103,16 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
         }
     }
     
+    func onDeleteTap() {
+        showDeleteConfirmation.toggle()
+    }
+    
+    func onDeleteConfirm() async throws {
+        try await objectActionsService.delete(objectIds: [document.objectId])
+        showDeleteConfirmation = false
+        dismiss?()
+    }
+    
     // MARK: - Private
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
@@ -104,8 +122,6 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
             }
             
             self.details = details
-            defaultTemplateId = details.defaultTemplateId
-            isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
             buildTemplates()
         }
     }
