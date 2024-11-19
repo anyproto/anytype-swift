@@ -33,7 +33,7 @@ struct DateCalendarView: View {
     }
     
     private var calendar: some View {
-        DatePicker("", selection: $date, displayedComponents: .date)
+        DatePicker("", selection: $date, in: ClosedRange.anytypeDateRange, displayedComponents: .date)
             .datePickerStyle(.graphical)
             .accentColor(Color.System.amber125)
             .padding(.horizontal, 16)
