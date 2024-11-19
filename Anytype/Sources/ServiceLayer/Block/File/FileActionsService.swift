@@ -85,7 +85,7 @@ final class FileActionsService: FileActionsServiceProtocol {
                 throw FileServiceError.undefiled
             }
             let newPath = tempDirectoryPath().appendingPathComponent(UUID().uuidString, isDirectory: true)
-            try FileManager.default.createDirectory(at: newPath, withIntermediateDirectories: false)
+            try FileManager.default.createDirectory(at: newPath, withIntermediateDirectories: true)
             
             let newFilePath = newPath.appendingPathComponent(data.url.lastPathComponent, isDirectory: false)
             try FileManager.default.moveItem(at: data.url, to: newFilePath)
@@ -100,7 +100,7 @@ final class FileActionsService: FileActionsServiceProtocol {
     func createFileData(fileUrl: URL) throws -> FileData {
         do {
             let newPath = tempDirectoryPath().appendingPathComponent(UUID().uuidString, isDirectory: true)
-            try FileManager.default.createDirectory(at: newPath, withIntermediateDirectories: false)
+            try FileManager.default.createDirectory(at: newPath, withIntermediateDirectories: true)
             
             let newFilePath = newPath.appendingPathComponent(fileUrl.lastPathComponent, isDirectory: false)
             try FileManager.default.copyItem(at: fileUrl, to: newFilePath)
