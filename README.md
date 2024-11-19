@@ -32,6 +32,10 @@ Configure go environment by following instructions in [`anytype-heart`](https://
 
 `make setup-middle-local` — build and setup `anytype-heart` from the local repo.
 
+## Update middleware
+
+Change version in Libraryfile or use command `make set-middle-version v=v0.37.0`.
+
 ## Contribution
 Thank you for your desire to develop Anytype together!
 

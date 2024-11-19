@@ -39,3 +39,6 @@ setup-middle-local: build-middle-local install-middle-local
 
 setup-env:
 	brew install sourcery
+
+set-middle-version:
+	echo "MIDDLE_VERSION=$(v)" > Libraryfile
