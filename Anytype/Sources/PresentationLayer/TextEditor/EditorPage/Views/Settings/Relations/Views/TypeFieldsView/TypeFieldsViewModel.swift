@@ -5,16 +5,17 @@ import UIKit
 import AnytypeCore
 import Combine
 
+
 @MainActor
 final class TypeFieldsViewModel: ObservableObject {
         
     @Published private(set) var navigationBarButtonsDisabled: Bool = false
-    @Published var sections = [RelationsSection]()
+    @Published var relations = [TypeFieldsRelationsData]()
     
     // MARK: - Private variables
     
     let document: any BaseDocumentProtocol
-    private let sectionsBuilder = RelationsSectionBuilder()
+    private let fieldsDataBuilder = TypeFieldsRelationsDataBuilder()
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
@@ -43,14 +44,11 @@ final class TypeFieldsViewModel: ObservableObject {
         self.output = output
         
         document.parsedRelationsPublisher
-            .map { [sectionsBuilder] relations in
-                sectionsBuilder.buildTypeSections(
-                    from: relations,
-                    objectTypeName: document.details?.objectType.name ?? ""
-                )
+            .map { [fieldsDataBuilder] relations in
+                fieldsDataBuilder.build(parsedRelations: relations)
             }
             .receiveOnMain()
-            .assign(to: &$sections)
+            .assign(to: &$relations)
         
         document.permissionsPublisher
             .receiveOnMain()

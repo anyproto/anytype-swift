@@ -71,6 +71,23 @@ extension Relation: RelationProtocol {
         }
     }
     
+    var iconAsset: ImageAsset {
+        switch self {
+        case .text: return RelationFormat.longText.iconAsset
+        case .tag: return RelationFormat.tag.iconAsset
+        case .status:  return RelationFormat.status.iconAsset
+        case .number:  return RelationFormat.number.iconAsset
+        case .date:  return RelationFormat.date.iconAsset
+        case .file:  return RelationFormat.file.iconAsset
+        case .object:  return RelationFormat.object.iconAsset
+        case .checkbox: return RelationFormat.checkbox.iconAsset
+        case .url:  return RelationFormat.url.iconAsset
+        case .email: return RelationFormat.email.iconAsset
+        case .phone: return RelationFormat.phone.iconAsset
+        case .unknown: return RelationFormat.unrecognized.iconAsset
+        }
+    }
+    
     var isEditable: Bool {
         switch self {
         case .text(let text): return text.isEditable
