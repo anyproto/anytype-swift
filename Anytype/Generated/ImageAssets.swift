@@ -130,10 +130,10 @@ internal extension ImageAsset {
     }
     static let help = ImageAsset.bundle(name: "x18/Help")
     static let listArrow = ImageAsset.bundle(name: "x18/List Arrow")
+    static let list = ImageAsset.bundle(name: "x18/List")
     static let lock = ImageAsset.bundle(name: "x18/Lock")
     static let objectWithoutIcon = ImageAsset.bundle(name: "x18/Object Without Icon")
     static let search = ImageAsset.bundle(name: "x18/Search")
-    static let setOrCollection = ImageAsset.bundle(name: "x18/Set Or Collection")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
     static let updateApp = ImageAsset.bundle(name: "x18/Update App")
     static let webLink = ImageAsset.bundle(name: "x18/Web link")

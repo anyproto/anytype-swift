@@ -18,7 +18,7 @@ final class EditorSetCoordinatorViewModel:
     RelationValueCoordinatorOutput,
     SetObjectCreationSettingsOutput
 {
-    let data: EditorSetObject
+    let data: EditorListObject
     let showHeader: Bool
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -47,7 +47,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var setObjectCreationData: SetObjectCreationData?
     @Published var presentSettings = false
     
-    init(data: EditorSetObject, showHeader: Bool) {
+    init(data: EditorListObject, showHeader: Bool) {
         self.data = data
         self.showHeader = showHeader
     }

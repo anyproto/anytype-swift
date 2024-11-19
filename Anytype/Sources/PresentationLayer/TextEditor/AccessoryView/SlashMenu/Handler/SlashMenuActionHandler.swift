@@ -105,7 +105,7 @@ final class SlashMenuActionHandler {
     private func editorScreenData(objectId: String, objectDetails: ObjectDetails) -> EditorScreenData {
         let objectType = ObjectType(details: objectDetails)
         if objectType.isListType {
-            return .set(EditorSetObject(objectId: objectId, spaceId: objectType.spaceId))
+            return .list(EditorListObject(objectId: objectId, spaceId: objectType.spaceId))
         } else {
             return .page(EditorPageObject(objectId: objectId, spaceId: objectType.spaceId))
         }

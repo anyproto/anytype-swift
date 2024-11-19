@@ -8,7 +8,7 @@ struct EditorSetCoordinatorView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(data: EditorSetObject, showHeader: Bool) {
+    init(data: EditorListObject, showHeader: Bool) {
         self._model = StateObject(wrappedValue: EditorSetCoordinatorViewModel(data: data, showHeader: showHeader))
     }
     

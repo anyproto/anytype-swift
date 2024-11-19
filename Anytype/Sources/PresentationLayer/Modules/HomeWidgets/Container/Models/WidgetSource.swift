@@ -40,7 +40,7 @@ extension ObjectDetails {
         switch editorViewType {
         case .page:
            return [.tree, .link]
-        case .set:
+        case .list:
             return [.view, .compactList, .list, .link]
         case .date, .type:
             return []

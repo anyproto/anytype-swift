@@ -47,8 +47,8 @@ final class ObjectVersionViewModel: ObservableObject {
     private func currentScreenData() -> EditorScreenData? {
         let mode: DocumentMode = .version(data.versionId)
         if data.isListType {
-            return .set(
-                EditorSetObject(
+            return .list(
+                EditorListObject(
                     objectId: data.objectId,
                     spaceId: data.spaceId,
                     mode: mode,

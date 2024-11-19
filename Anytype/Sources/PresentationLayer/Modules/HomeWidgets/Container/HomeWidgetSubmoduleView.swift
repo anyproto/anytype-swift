@@ -63,15 +63,15 @@ struct HomeWidgetSubmoduleView: View {
         if objectDetails.isNotDeletedAndVisibleForEdit {
             switch (widgetInfo.fixedLayout, objectDetails.editorViewType) {
             case (.link, .page),
-                (.link, .set):
+                (.link, .list):
                 LinkWidgetView(data: widgetData)
             case (.tree, .page):
                 ObjectTreeWidgetSubmoduleView(data: widgetData)
-            case (.view, .set):
+            case (.view, .list):
                 SetObjectViewWidgetSubmoduleView(data: widgetData)
-            case (.list, .set):
+            case (.list, .list):
                 SetObjectListWidgetSubmoduleView(data: widgetData)
-            case (.compactList, .set):
+            case (.compactList, .list):
                 SetObjectCompactListWidgetSubmoduleView(data: widgetData)
             default:
                 // Fallback
