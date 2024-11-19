@@ -187,8 +187,8 @@ private extension ObjectDetails {
         switch editorViewType {
         case .page:
             return links.isEmpty || !canBeExpanded ? .icon(asset: .X18.objectWithoutIcon) : .arrow(expanded: isExpanded)
-        case .set:
-            return .icon(asset: .X18.setOrCollection)
+        case .list:
+            return .icon(asset: .X18.list)
         case .date, .type:
             return .icon(asset: .X18.objectWithoutIcon)
         }

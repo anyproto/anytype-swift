@@ -34,7 +34,7 @@ struct EditorCoordinatorView: View {
             WidgetObjectListBinView(spaceId: spaceId, output: model)
         case let .page(data):
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
-        case let .set(data):
+        case let .list(data):
             EditorSetCoordinatorView(data: data, showHeader: true)
         case let .allContent(spaceId):
             AllContentCoordinatorView(spaceId: spaceId, output: model)
