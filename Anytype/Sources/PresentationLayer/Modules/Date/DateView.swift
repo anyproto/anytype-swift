@@ -13,21 +13,13 @@ struct DateView: View {
         VStack(spacing: 0) {
             navigationBar
             titleView
-            relations
-            Spacer.fixedHeight(8)
-            list
+            content
         }
-        .task {
-            await model.subscribeOnSyncStatus()
-        }
-        .task {
-            await model.subscribeOnDetails()
-        }
-        .task {
-            await model.getRelationsList()
+        .task(id: model.document.objectId) {
+            await model.documentDidChange()
         }
         .task(item: model.state) { state in
-            await model.restartSubscription(with: state)
+            await model.restartRelationSubscription(with: state)
         }
         .onDisappear() {
             model.onDisappear()
@@ -46,6 +38,12 @@ struct DateView: View {
             .frame(width: 28, height: 28)
             
             Spacer()
+            
+            Image(asset: .X24.calendar)
+                .foregroundColor(.Control.active)
+                .onTapGesture {
+                    model.onCalendarTap()
+                }
         }
         .padding(.horizontal, 12)
         .frame(height: 48)
@@ -55,6 +53,28 @@ struct DateView: View {
         AnytypeText(model.title, style: .title)
             .foregroundColor(.Text.primary)
             .padding(.vertical, 32)
+            .onTapGesture {
+                model.onCalendarTap()
+            }
+    }
+    
+    private var content: some View {
+        VStack(spacing: 8) {
+            if model.relationItems.isNotEmpty {
+                relations
+                list
+            } else {
+                emptyState
+            }
+        }
+    }
+    
+    private var emptyState: some View {
+        EmptyStateView(
+            title: Loc.EmptyView.Default.title,
+            subtitle: "",
+            style: .plain
+        )
     }
     
     private var relationsListButton: some View {
