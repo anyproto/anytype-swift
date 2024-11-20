@@ -5,22 +5,35 @@ struct ChatView: View {
     
     @StateObject private var model: ChatViewModel
     @State private var actionState: CGFloat = 0
+    @State private var keyboardSize: CGSize = .zero
+//    @State private var bottomInsetHeight: CGFloat = 0
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self._model = StateObject(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        ZStack(alignment: .bottom) {
+            
+//            KeyboardSizeReader(keyboardSize: $keyboardSize)
+//        VStack(spacing: 0) {
             mainView
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    bottomPanel
-                }
-            .chatActionOverlay(state: $actionState) {
-                if model.mentionObjects.isNotEmpty {
-                    ChatMentionList(mentions: model.mentionObjects) {
-                        model.didSelectMention($0)
-                    }
+                .ignoresSafeArea()
+//                .screenBlue(bottomHeight: bottomInsetHeight)
+            
+//            bottomPanel
+        }
+//        .safeAreaInset(edge: .bottom, content: {
+//            Color.red.frame(height: 1)
+//        })
+        .ignoresSafeArea(.keyboard)
+//        .safeAreaInset(edge: .bottom, spacing: 0) {
+//            bottomPanel
+//        }
+        .chatActionOverlay(state: $actionState) {
+            if model.mentionObjects.isNotEmpty {
+                ChatMentionList(mentions: model.mentionObjects) {
+                    model.didSelectMention($0)
                 }
             }
         }
@@ -37,16 +50,24 @@ struct ChatView: View {
             await model.updatePickerItems()
         }
         .homeBottomPanelHidden(true)
+//        .coordinateSpace(name: "ChatView")
     }
     
     private var bottomPanel: some View {
-        Group {
+        VStack(spacing: 0) {
             if model.canEdit {
                 inputPanel
             } else {
                 ChatReadOnlyBottomView()
             }
+//            Spacer.fixedHeight(keyboardSize.height)
+//                .animation(.default, value: keyboardSize)
         }
+//        .readFrame(space: .named("ChatView")) { frame in
+//            print("panel frame \(frame)")
+//        }
+//        .background(.green)
+//        .ignoresSafeArea()
     }
     
     private var inputPanel: some View {
@@ -93,11 +114,14 @@ struct ChatView: View {
     
     @ViewBuilder
     private var mainView: some View {
-        ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy) {
+        ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy, bottomPanel: bottomPanel) {
             MessageView(data: $0, output: model)
         } scrollToBottom: {
             await model.scrollToBottom()
         }
+//        bottomInteractiveInsetChanged: { height in
+//            bottomInsetHeight = height
+//        }
         .overlay(alignment: .center) {
             if model.showEmptyState {
                 ChatEmptyStateView()

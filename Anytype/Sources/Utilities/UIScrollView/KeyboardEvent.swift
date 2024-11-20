@@ -21,4 +21,18 @@ struct KeyboardEvent {
         beginFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
         endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
     }
+    
+    func animate(_ animation: @escaping () -> Void) {
+        guard let animationDuration, let animationCurve else {
+            animation()
+            return
+        }
+        let animationOptions = UIView.AnimationOptions(rawValue: animationCurve.rawValue << 16)
+        UIView.animate(
+            withDuration: animationDuration,
+            delay: 0,
+            options: animationOptions,
+            animations: animation
+        )
+    }
 }

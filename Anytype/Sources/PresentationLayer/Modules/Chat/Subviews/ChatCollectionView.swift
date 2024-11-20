@@ -1,8 +1,9 @@
 import Foundation
 import SwiftUI
 import Combine
+import UIKit
 
-struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIViewRepresentable where Item.ID == String {
+struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View, BottomPanel: View>: UIViewControllerRepresentable where Item.ID == String {
 
     enum OneSection {
         case one
@@ -10,10 +11,12 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
     
     let items: [Item]
     let scrollProxy: ChatCollectionScrollProxy
+    let bottomPanel: BottomPanel
     let itemBuilder: (Item) -> DataView
     let scrollToBottom: () async -> Void
+//    let bottomInteractiveInsetChanged: (CGFloat) -> Void
     
-    func makeUIView(context: Context) -> UICollectionView {
+    func makeUIViewController(context: Context) -> CollectionViewContainer<BottomPanel> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
             configuration.headerMode = .none
@@ -27,10 +30,20 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.allowsSelection = false
+//        collectionView.transform = CGAffineTransform(rotationAngle: .pi)
         collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
         collectionView.delegate = context.coordinator
         collectionView.scrollsToTop = false
-        collectionView.keyboardDismissMode = .onDrag
+//        collectionView.insetsLayoutMarginsFromSafeArea = false
+//        collectionView.contentInsetAdjustmentBehavior = .never
+        
+        if #available(iOS 16.4, *) {
+            collectionView.keyboardDismissMode = .interactive
+        } else {
+            collectionView.keyboardDismissMode = .onDrag
+        }
+//        collectionView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 70, right: 0)
+//        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 64, left: 0, bottom: 70, right: 0)
         
         let itemRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> {
             (cell, indexPath, item) in
@@ -50,17 +63,231 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
         
         context.coordinator.dataSource = dataSource
         
-        return collectionView
+        let bottomPanel = UIHostingController(rootView: bottomPanel)
+        bottomPanel.view.backgroundColor = .clear
+        bottomPanel.sizingOptions = [.intrinsicContentSize]
+        
+        if #available(iOS 16.4, *) {
+            bottomPanel.safeAreaRegions = SafeAreaRegions()
+        }
+        
+        let container = CollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel)
+        container.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 10, right: 0)
+        return container
     }
     
-    func updateUIView(_ collectionView: UICollectionView, context: Context) {
+    func updateUIViewController(_ container: CollectionViewContainer<BottomPanel>, context: Context) {
+        
+        container.bottomPanel.rootView = bottomPanel
+//        container.bottomInteractiveInsetChanged = bottomInteractiveInsetChanged
+        
         context.coordinator.scrollToBottom = scrollToBottom
-        context.coordinator.updateState(collectionView: collectionView, items: items, section: .one, scrollProxy: scrollProxy)
+        context.coordinator.updateState(collectionView: container.collectionView, items: items, section: .one, scrollProxy: scrollProxy)
     }
     
     func makeCoordinator() -> ChatCollectionViewCoordinator<OneSection, Item> {
         ChatCollectionViewCoordinator<OneSection, Item>()
     }
+}
+
+final class CollectionViewContainer<BottomPanel: View>: UIViewController {
+    
+    let collectionView: UICollectionView
+    let bottomPanel: UIHostingController<BottomPanel>
+    
+    private let topBlurEffectView = HomeBlurEffectUIView()
+    private let bottomBlurEffectView = HomeBlurEffectUIView()
+    private var topHeightConstraint: NSLayoutConstraint?
+    private var bottomTopConstraint: NSLayoutConstraint?
+    
+//    var bottomInteractiveInsetChanged: ((CGFloat) -> Void)?
+    
+    var contentInset: UIEdgeInsets = .zero { didSet { updateInsets() } }
+    
+    private var keyboardHeight: CGFloat = 0 { didSet { updateInsets() } }
+    private var bottomPanelHeight: CGFloat = 0 {
+        didSet {
+            updateInsets()
+            updateKeyboardOffset()
+        }
+    }
+//    private var observation: NSKeyValueObservation?
+    
+    private var keyboardListener: KeyboardEventsListnerHelper?
+    private var restoreZeroScrollViewOffset = false
+    
+    init(collectionView: UICollectionView, bottomPanel: UIHostingController<BottomPanel>) {
+        self.collectionView = collectionView
+        self.bottomPanel = bottomPanel
+        super.init(nibName: nil, bundle: nil)
+        
+        bottomBlurEffectView.direction = .bottomToTop
+//        bottomBlurEffectView.backgroundColor = .orange
+        
+        keyboardListener = KeyboardEventsListnerHelper(
+            willShowAction: { [weak self] event in
+                event.animate { [weak self] in
+                    guard let self, let endFrame = event.endFrame else { return }
+
+                    let nearZero = contentOffsetIsNearZero()
+                    
+                    let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
+                    keyboardHeight = keyboardFrameInView.height
+                    if nearZero {
+                        setZeroContentOffset()
+                    }
+                }
+               
+                
+            },
+            willHideAction: { [weak self] event in
+                event.animate { [weak self] in
+                    guard let self, let endFrame = event.endFrame else { return }
+                    let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
+                    keyboardHeight = keyboardFrameInView.height
+                }
+//                self?.keyboardHeight = event.endFrame?.height ?? 0
+//                print("willHideAction")
+//                self?.checkIfOffsetShouldBeRestored()
+            },
+            didHideAction: { [weak self] event in
+//                print("didHideAction")
+//                self?.restoreOffsetIfNeeded()
+//                guard let self, let endFrame = event.beginFrame else { return }
+//                keyboardHeight = view.convert(endFrame, from: nil).height
+//                print("keyboardHeight did hide \(keyboardHeight)")
+            }
+        )
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        super.loadView()
+        
+        view.addSubview(collectionView) {
+            $0.pinToSuperview()
+        }
+        
+        view.addSubview(topBlurEffectView) {
+            $0.pinToSuperview(excluding: [.bottom])
+        }
+        
+        view.addSubview(bottomBlurEffectView) {
+            $0.pinToSuperview(excluding: [.top])
+        }
+        
+        addChild(bottomPanel)
+        view.addSubview(bottomPanel.view) {
+            $0.pinToSuperview(excluding: [.top, .bottom])
+            $0.bottom.equal(to: view.keyboardLayoutGuide.topAnchor)
+//            $0.height.equal(to: 100)
+        }
+        bottomPanel.didMove(toParent: self)
+        
+        topHeightConstraint = topBlurEffectView.heightAnchor.constraint(equalToConstant: 0)
+        topHeightConstraint?.isActive = true
+        
+        bottomTopConstraint = bottomBlurEffectView.topAnchor.constraint(equalTo: bottomPanel.view.topAnchor, constant: 0)
+        bottomTopConstraint?.isActive = true
+        
+        
+//        observation = bottomPanel.view.observe(\.frame) { object, change in
+//            print("new value \(change.newValue)")
+//        }
+        
+//        bottomPanel.view.addObserver(self, forKeyPath: "frame", context: T##UnsafeMutableRawPointer?)
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        updateInsets()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if bottomPanelHeight != bottomPanel.view.frame.height {
+            bottomPanelHeight = bottomPanel.view.frame.height
+        }
+//        keyboardHeight = bottomPanel.view.keyboardLayoutGuide.layoutFrame.height
+    }
+    
+    private func updateInsets() {
+//        var bottomInset = contentInset.bottom + bottomPanel.view.frame.height
+//        var newInset = contentInset
+        let keyboardHeightWithoutInsets = max((keyboardHeight - view.safeAreaInsets.bottom), 0)
+        let newBottomInset = keyboardHeightWithoutInsets + bottomPanelHeight + contentInset.bottom
+        // Safe area rotated
+        let safeAreaDiff = collectionView.safeAreaInsets.top - collectionView.safeAreaInsets.bottom
+        
+        let newInsets = UIEdgeInsets(
+            top: newBottomInset - safeAreaDiff,
+            left: contentInset.left,
+            bottom: contentInset.top + safeAreaDiff,
+            right: contentInset.right
+        )
+        
+        let nearZero = contentOffsetIsNearZero()
+        
+        
+        if nearZero {
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                
+                self?.collectionView.contentInset = newInsets
+                self?.collectionView.scrollIndicatorInsets = newInsets
+                self?.setZeroContentOffset()
+            }
+        } else {
+            
+            collectionView.contentInset = newInsets
+            collectionView.scrollIndicatorInsets = newInsets
+        }
+        
+        topHeightConstraint?.constant = contentInset.top + view.safeAreaInsets.top
+        bottomTopConstraint?.constant = -contentInset.bottom
+//        bottomHeightConstraint?.constant = newBottomInset + view.safeAreaInsets.bottom
+        
+//        bottomInteractiveInsetChanged?(keyboardHeightWithoutInsets + bottomPanelHeight)
+    }
+    
+    private func updateKeyboardOffset() {
+        if #available(iOS 17.0, *) {
+            view.keyboardLayoutGuide.keyboardDismissPadding = bottomPanel.view.frame.height
+        }
+    }
+    
+    private func contentOffsetIsNearZero() -> Bool {
+        return collectionView.adjustedContentInset.top + collectionView.contentOffset.y < 20
+    }
+    
+    private func setZeroContentOffset() {
+        collectionView.contentOffset = CGPoint(x: 0, y: -collectionView.adjustedContentInset.top)
+    }
+    
+//    private func checkIfOffsetShouldBeRestored() {
+//        restoreZeroScrollViewOffset = collectionView.contentOffset.y < 5
+//    }
+//    
+//    private func restoreOffsetIfNeeded() {
+//        if restoreZeroScrollViewOffset {
+//            collectionView.contentOffset = CGPoint(x: 0, y: -collectionView.adjustedContentInset.top)
+////            collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentInset.top), animated: true)
+//            restoreZeroScrollViewOffset = false
+//        }
+//    }
+    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+        
+//        bottomPanel.view.sizeToFit()
+//    }
+    
+//    private func collectionOffsetIsNearZero() -> Bool {
+//        if
+//    }
 }
 
 final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Identifiable>: NSObject, UICollectionViewDelegate where Item.ID == String {
@@ -143,7 +370,7 @@ final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Id
     // MARK: - UICollectionViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
+        let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height + scrollView.adjustedContentInset.bottom
         if distanceForLoadNextPage > distance {
             if canCallScrollToBottom, scrollUpdateTask.isNil {
                 scrollUpdateTask = Task { [weak self] in
@@ -201,3 +428,50 @@ final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Id
         collectionView.setContentOffset(CGPoint.zero, animated: true)
     }
 }
+
+
+//extension UIHostingController {
+//
+//    convenience public init(rootView: Content, ignoreSafeArea: Bool) {
+//        self.init(rootView: rootView)
+//
+//        if ignoreSafeArea {
+//            disableSafeArea()
+//        }
+//    }
+//
+//    func disableSafeArea() {
+//        guard let viewClass = object_getClass(view) else {
+//            return
+//        }
+//
+//        let viewSubclassName = String(cString: class_getName(viewClass)).appending("_IgnoreSafeArea")
+//
+//        if let viewSubclass = NSClassFromString(viewSubclassName) {
+//            object_setClass(view, viewSubclass)
+//        } else {
+//            guard
+//                let viewClassNameUtf8 = (viewSubclassName as NSString).utf8String,
+//                let viewSubclass = objc_allocateClassPair(viewClass, viewClassNameUtf8, 0)
+//            else {
+//                return
+//            }
+//
+//            if let method = class_getInstanceMethod(UIView.self, #selector(getter: UIView.safeAreaInsets)) {
+//                let safeAreaInsets: @convention(block) (AnyObject) -> UIEdgeInsets = { _ in
+//                    return .zero
+//                }
+//
+//                class_addMethod(
+//                    viewSubclass,
+//                    #selector(getter: UIView.safeAreaInsets),
+//                    imp_implementationWithBlock(safeAreaInsets),
+//                    method_getTypeEncoding(method)
+//                )
+//            }
+//
+//            objc_registerClassPair(viewSubclass)
+//            object_setClass(view, viewSubclass)
+//        }
+//    }
+//}
