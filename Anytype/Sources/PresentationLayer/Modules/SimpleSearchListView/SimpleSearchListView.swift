@@ -33,9 +33,7 @@ struct SimpleSearchListView: View {
     
     private func searchCell(for item: SimpleSearchListItem) -> some View {
         HStack(spacing: 10) {
-            if let icon = item.icon {
-                IconView(icon: icon)
-            }
+            IconView(icon: item.icon)
             AnytypeText(item.title, style: .bodyRegular)
                 .foregroundColor(.Text.primary)
         }
