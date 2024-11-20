@@ -43,9 +43,8 @@ final class DateViewModel: ObservableObject {
     func documentDidChange() async {
         async let detailsSubscription: () = subscribeOnDetails()
         async let syncStatusSubscription: () = subscribeOnSyncStatus()
-        async let relationList: () = getRelationsList()
-        
-        (_, _, _) = await (detailsSubscription, syncStatusSubscription, relationList)
+        async let relationListUpdate: () = getRelationsList()
+        (_, _, _) = await (detailsSubscription, syncStatusSubscription, relationListUpdate)
     }
     
     func restartRelationSubscription(with state: DateModuleState) async {
