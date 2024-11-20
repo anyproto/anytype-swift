@@ -13,6 +13,7 @@ enum StandardButtonStyle {
     case primarySmall
     case secondarySmall
     case warningSmall
+    case borderlessSmall
     
     case primaryXSmall
     case secondaryXSmall

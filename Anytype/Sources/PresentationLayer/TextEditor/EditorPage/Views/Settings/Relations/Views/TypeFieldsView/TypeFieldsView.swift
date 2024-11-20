@@ -16,6 +16,10 @@ struct TypeFieldsView: View {
     var body: some View {
         content
             .task { await model.setupSubscriptions() }
+        
+            .sheet(item: $model.relationsSearchData) { data in
+                RelationsSearchCoordinatorView(data: data)
+            }
     }
     
     var content: some View {
@@ -47,20 +51,14 @@ struct TypeFieldsView: View {
     }
     
     private var cancelButton: some View {
-        Button {
+        StandardButton(Loc.cancel, style: .borderlessSmall) {
             // TBD;
-        } label: {
-            AnytypeText(Loc.cancel, style: .uxBodyRegular)
-            .foregroundColor(.Text.secondary)
         }.disabled(true)
     }
     
     private var saveButton: some View {
-        Button {
+        StandardButton(Loc.save, style: .borderlessSmall) {
             // TBD;
-        } label: {
-            AnytypeText(Loc.save, style: .uxBodyRegular)
-            .foregroundColor(.Text.secondary)
         }.disabled(true)
     }
     
@@ -97,18 +95,24 @@ struct TypeFieldsView: View {
                     .divider()
                     .deleteDisabled(!data.relation.canBeRemovedFromObject)
             } header: {
-                // hacky way to enable dnd between sections: All views should be within single ForEach loop
+                // hacky way to enable dnd between sections: All sections should be created within single ForEach loop
                 if data.relationIndex == 0 {
-                    ListSectionHeaderView(title: data.sectionTitle)
+                    ListSectionHeaderView(title: data.section.title, increasedTopPadding: false) {
+                        Button(action: {
+                            model.onAddRelationTap(section: data.section)
+                        }, label: {
+                            IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                        })
+                    }
                 }
             }
         }
         .onDelete { indexes in
             // TBD;
         }
-        .onMove { from, to in
+//        .onMove { from, to in
             // TBD;
-        }
+//        }
     }
     
     private func relationRow(_ data: TypeFieldsRelationsData) -> some View {

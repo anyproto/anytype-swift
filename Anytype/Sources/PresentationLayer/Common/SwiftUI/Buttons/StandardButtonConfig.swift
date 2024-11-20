@@ -116,7 +116,7 @@ extension StandardButtonStyle {
                 textFont: .button1Regular,
                 height: 48,
                 stretchSize: true,
-                radius: 12,
+                radius: 0,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .primaryMedium:
@@ -185,6 +185,25 @@ extension StandardButtonStyle {
                 stretchSize: false,
                 radius: 8,
                 loadingIndicatorSize: .ButtonLoadingIndicator.small
+            )
+        case .borderlessSmall:
+            return StandardButtonConfig(
+                normal: StandardButtonConfig.Style(
+                    textColor: .Text.secondary,
+                    borderColor: .clear
+                ),
+                higlighted: StandardButtonConfig.Style(
+                    textColor: .Text.tertiary
+                ),
+                disabled: StandardButtonConfig.Style(
+                    textColor: .Text.tertiary
+                ),
+                textFont: .uxBodyRegular,
+                height: 48,
+                stretchSize: false,
+                radius: 0,
+                loadingIndicatorSize: .ButtonLoadingIndicator.small,
+                horizontalPadding: 0
             )
         case .primaryXSmall:
             return StandardButtonConfig(
