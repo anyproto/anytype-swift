@@ -62,12 +62,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let showBinWidgetIfNotEmpty = FeatureDescription(
-        title: "Show Bin on home screen if it is not empty",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7.1"),
-        defaultValue: true
-    )
-    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
