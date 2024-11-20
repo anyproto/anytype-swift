@@ -46,7 +46,7 @@ struct ObjectSettingsView: View {
     }
     
     private func mainSetting(index: Int) -> some View {
-        ObjectSettingRow(setting: viewModel.settings[index], isLast: index == viewModel.settings.count - 1) {
+        ObjectSettingRow(setting: viewModel.settings[index], showDivider: index != viewModel.settings.count - 1) {
             switch viewModel.settings[index] {
             case .icon:
                 viewModel.onTapIconPicker()
