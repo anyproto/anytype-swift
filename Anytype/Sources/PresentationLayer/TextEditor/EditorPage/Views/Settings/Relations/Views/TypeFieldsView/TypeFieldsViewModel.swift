@@ -75,17 +75,17 @@ final class TypeFieldsViewModel: ObservableObject {
         )
     }
     
-    private func featureRelation(key: String) {
+    func onDeleteRelations(_ indexes: IndexSet) {
+        let keys = indexes.map { relations[$0].relation.key }
+        
         Task {
-            try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: key)
+            try await relationsService.removeRelations(objectId: document.objectId, relationKeys: keys)
         }
     }
     
-    func removeRelation(relation: Relation) {
+    private func featureRelation(key: String) {
         Task {
-            try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
-            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
+            try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: key)
         }
     }
 }
