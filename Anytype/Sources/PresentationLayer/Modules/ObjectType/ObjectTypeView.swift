@@ -38,17 +38,18 @@ struct ObjectTypeView: View {
     }
     
     private var content: some View {
-        VStack {
-            navbar
-            Spacer.fixedHeight(32)
-            header.padding(.horizontal, 20)
-            Spacer.fixedHeight(24)
-            buttonsRow.padding(.horizontal, 20)
-            Spacer.fixedHeight(32)
-            templates
-            Spacer.fixedHeight(32)
-            ObjectTypeObjectsListView()
-            Spacer()
+        ScrollView(showsIndicators: false) {
+            VStack {
+                navbar
+                Spacer.fixedHeight(32)
+                header.padding(.horizontal, 20)
+                Spacer.fixedHeight(24)
+                buttonsRow.padding(.horizontal, 20)
+                Spacer.fixedHeight(32)
+                templates
+                Spacer.fixedHeight(32)
+                ObjectTypeObjectsListView(objectTypeId: model.document.objectId, spaceId: model.document.spaceId)
+            }
         }
     }
     

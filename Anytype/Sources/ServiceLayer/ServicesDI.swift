@@ -343,4 +343,8 @@ extension Container {
     var dateRelatedObjectsSubscriptionService: Factory<any DateRelatedObjectsSubscriptionServiceProtocol> {
         self { DateRelatedObjectsSubscriptionService() }.shared
     }
+    
+    var objectsListSubscriptionService: Factory<any ObjectsListSubscriptionServiceProtocol> {
+        self { ObjectsListSubscriptionService() }
+    }
 }
