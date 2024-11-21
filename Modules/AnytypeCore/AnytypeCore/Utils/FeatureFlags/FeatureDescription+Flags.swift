@@ -68,12 +68,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let showBinWidgetIfNotEmpty = FeatureDescription(
-        title: "Show Bin on home screen if it is not empty",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7.1"),
-        defaultValue: true
-    )
-    
     static let primitives = FeatureDescription(
         title: "New Primitives",
         type: .feature(author: "vova@anytype.io", releaseVersion: "8"),
