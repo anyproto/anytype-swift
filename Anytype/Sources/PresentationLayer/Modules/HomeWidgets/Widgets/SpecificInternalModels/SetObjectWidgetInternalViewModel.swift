@@ -71,13 +71,13 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     func startTargetDetailsPublisher() async {
         for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
-            await updateSetDocument(objectId: details.id)
+            await updateSetDocument(objectId: details.id, spaceId: details.spaceId)
         }
     }
     
     func onAppear() async {
         guard let setDocument else { return }
-        await updateSetDocument(objectId: setDocument.objectId)
+        await updateSetDocument(objectId: setDocument.objectId, spaceId: setDocument.spaceId)
     }
     
     // MARK: - Actions
@@ -205,8 +205,8 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         return details?.reorderedStable(by: objectOrderIds, transform: { $0.id })
     }
     
-    private func updateSetDocument(objectId: String) async {
-        guard objectId != setDocument?.objectId, let spaceId = setDocument?.spaceId else {
+    private func updateSetDocument(objectId: String, spaceId: String) async {
+        guard objectId != setDocument?.objectId, spaceId != setDocument?.spaceId else {
             try? await setDocument?.update()
             await updateModelState()
             return
