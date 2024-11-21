@@ -38,16 +38,18 @@ struct ObjectTypeView: View {
     }
     
     private var content: some View {
-        VStack {
-            navbar
-            Spacer.fixedHeight(32)
-            header.padding(.horizontal, 20)
-            Spacer.fixedHeight(24)
-            buttonsRow.padding(.horizontal, 20)
-            Spacer.fixedHeight(32)
-            templates
-            // TBD: List of objects
-            Spacer()
+        ScrollView(showsIndicators: false) {
+            VStack {
+                navbar
+                Spacer.fixedHeight(32)
+                header.padding(.horizontal, 20)
+                Spacer.fixedHeight(24)
+                buttonsRow.padding(.horizontal, 20)
+                Spacer.fixedHeight(32)
+                templates
+                Spacer.fixedHeight(32)
+                ObjectTypeObjectsListView(objectTypeId: model.document.objectId, spaceId: model.document.spaceId)
+            }
         }
     }
     
@@ -119,6 +121,11 @@ struct ObjectTypeView: View {
                 AnytypeText("\(model.templates.count)", style: .previewTitle1Regular)
                     .foregroundColor(Color.Text.secondary)
                 Spacer()
+                Button(action: {
+                    model.onAddTemplateTap()
+                }, label: {
+                    IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                })
             }.padding(10).padding(.horizontal, 10)
             templatesList
         }
