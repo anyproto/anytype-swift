@@ -164,19 +164,12 @@ final class AllContentViewModel: ObservableObject {
             data: title,
             rows: details.map { details in
                 WidgetObjectListRowModel(
-                    objectId: details.id,
-                    icon: details.objectIconImage,
-                    title: details.title,
-                    description: details.subtitle,
-                    subtitle: details.objectType.name,
-                    isChecked: false,
+                    details: details,
                     canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
-                    menu: [],
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: details.editorScreenData())
                         AnytypeAnalytics.instance().logLibraryResult()
-                    },
-                    onCheckboxTap: nil
+                    }
                 )
             }
         )

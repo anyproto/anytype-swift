@@ -12,8 +12,8 @@ extension EditorScreenData {
                 mode: mode,
                 blockId: blockId
             ))
-        case .set:
-            self = .set(EditorSetObject(
+        case .list:
+            self = .list(EditorListObject(
                 details: details,
                 activeViewId: activeViewId,
                 mode: mode
@@ -41,7 +41,7 @@ extension EditorPageObject {
     }
 }
 
-extension EditorSetObject {
+extension EditorListObject {
     init(
         details: ObjectDetails,
         activeViewId: String? = nil,
@@ -73,7 +73,7 @@ extension EditorScreenData {
             return nil
         case .page(let object):
             return object.objectId
-        case .set(let object):
+        case .list(let object):
             return object.objectId
         case .date(let object):
             return object.objectId
@@ -100,7 +100,7 @@ extension EditorScreenData {
             return spaceId
         case .page(let object):
             return object.spaceId
-        case .set(let object):
+        case .list(let object):
             return object.spaceId
         case .date(let object):
             return object.spaceId

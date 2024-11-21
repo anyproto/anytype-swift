@@ -4,26 +4,22 @@ import AnytypeCore
 
 
 @MainActor
-final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
+final class ObjectTypeViewModel: ObservableObject {
     @Published var details: ObjectDetails?
     @Published var relationsCount: Int = 0
     
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var syncStatusData: SyncStatusData?
     
-    @Published var showSyncStatusInfo = false
     @Published var typeName = ""
     
     @Published var toastBarData: ToastBarData = .empty
-    @Published var objectIconPickerData: ObjectIconPickerData?
-    @Published var layoutPickerObjectId: StringIdentifiable?
-    @Published var showFields = false
     @Published var showDeleteConfirmation = false
     
-    let data: EditorTypeObject
     let document: any BaseDocumentProtocol
     var isEditorLayout: Bool { details?.recommendedLayoutValue?.isEditorLayout ?? false }
     var canArchive: Bool { document.permissions.canArchive }
+    weak var output: (any ObjectTypeViewModelOutput)?
     
     private var defaultTemplateId: String? { details?.defaultTemplateId }
     private var rawTemplates: [ObjectDetails] = []
@@ -33,8 +29,6 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.legacyTemplatesCoordinator)
-    private var templatesCoordinator: any TemplatesCoordinatorProtocol
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
     @Injected(\.detailsService)
@@ -42,17 +36,12 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     
-    @Injected(\.legacyNavigationContext)
-    private var navigationContext: any NavigationContextProtocol
-    @Injected(\.legacyToastPresenter)
-    private var toastPresenter: any ToastPresenterProtocol
-    
     private var nameChangeTask: Task<(), any Error>?
     private var dismiss: DismissAction?
     
-    init(data: EditorTypeObject) {
-        self.data = data
-        self.document = Container.shared.documentService().document(objectId: data.objectId, spaceId: data.spaceId)
+    init(document: any BaseDocumentProtocol, output: any ObjectTypeViewModelOutput) {
+        self.output = output
+        self.document = document
     }
     
     func setupSubscriptions() async {
@@ -71,28 +60,28 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     func onTemplateTap(model: TemplatePreviewModel) {
         switch model.mode {
         case .installed:
-            showTemplatesPicker(defaultTemplateId: model.mode.id)
+            output?.showTemplatesPicker(defaultTemplateId: model.mode.id)
         case .blank:
-            showTemplatesPicker(defaultTemplateId: nil)
+            output?.showTemplatesPicker(defaultTemplateId: nil)
         case .addTemplate:
             onAddTemplateTap()
         }
     }
     
     func onSyncStatusTap() {
-        showSyncStatusInfo.toggle()
+        output?.onSyncStatusTap()
     }
     
     func onIconTap() {
-        objectIconPickerData = ObjectIconPickerData(document: document)
+        output?.onIconTap()
     }
     
     func onLayoutTap() {
-        layoutPickerObjectId = document.objectId.identifiable
+        output?.onLayoutTap()
     }
     
     func onFieldsTap() {
-        showFields.toggle()
+        output?.onFieldsTap()
     }
     
     func onTypeNameChange(name: String) {
@@ -127,7 +116,7 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
     }
     
     func subscribeOnTemplates() async {
-        await templatesSubscription.startSubscription(objectType: data.objectId, spaceId: data.spaceId) { [weak self] rawTemplates in
+        await templatesSubscription.startSubscription(objectType: document.objectId, spaceId: document.spaceId) { [weak self] rawTemplates in
             guard let self else { return }
             self.rawTemplates = rawTemplates
             buildTemplates()
@@ -185,48 +174,12 @@ final class ObjectTypeViewModel: ObservableObject, RelationsListModuleOutput {
         Task { [weak self] in
             guard let self else { return }
             do {
-                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: data.objectId, spaceId: data.spaceId)
-                showTemplatesPicker(defaultTemplateId: templateId)
+                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: document.objectId, spaceId: document.spaceId)
+                output?.showTemplatesPicker(defaultTemplateId: templateId)
                 toastBarData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(details?.title ?? ""), showSnackBar: true)
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
         }
-    }
-    
-    // MARK: - Navigation
-    private func showTemplatesPicker(defaultTemplateId: String?) {
-        let data = TemplatePickerViewModelData(
-            mode: .typeTemplate,
-            typeId: document.objectId,
-            spaceId: document.spaceId,
-            defaultTemplateId: defaultTemplateId
-        )
-        templatesCoordinator.showTemplatesPicker(
-            data: data,
-            onSetAsDefaultTempalte: { [weak self] templateId in
-                self?.setTemplateAsDefault(templateId: templateId)
-            }
-        )
-    }
-    
-    private func setTemplateAsDefault(templateId: String) {
-        Task { @MainActor in
-            try? await templatesService.setTemplateAsDefaultForType(objectTypeId: document.objectId, templateId: templateId)
-            navigationContext.dismissTopPresented(animated: true, completion: nil)
-            toastPresenter.show(message: Loc.Templates.Popup.default)
-        }
-    }
-    
-    // MARK: - RelationsListModuleOutput
-    func addNewRelationAction(document: some BaseDocumentProtocol) {
-        // TBD;
-    }
-    func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
-        // TBD;
-    }
-    
-    func showTypeRelationsView(typeId: String) {
-        // TBD;
     }
 }

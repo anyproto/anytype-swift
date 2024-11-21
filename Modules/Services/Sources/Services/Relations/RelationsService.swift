@@ -79,9 +79,13 @@ final class RelationsService: RelationsServiceProtocol {
     }
     
     public func removeRelation(objectId: String, relationKey: String) async throws {
+        try await removeRelations(objectId: objectId, relationKeys: [relationKey])
+    }
+    
+    public func removeRelations(objectId: String, relationKeys: [String]) async throws {
         _ = try await ClientCommands.objectRelationDelete(.with {
             $0.contextID = objectId
-            $0.relationKeys = [relationKey]
+            $0.relationKeys = relationKeys
         }).invoke()
     }
     

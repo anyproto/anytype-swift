@@ -3,13 +3,18 @@ import Services
 
 struct ObjectFieldsView: View {
     
-    @StateObject private var viewModel: ObjectFieldsViewModel
+    @StateObject private var model: ObjectFieldsViewModel
     
     init(document: some BaseDocumentProtocol, output: (any RelationsListModuleOutput)?) {
-        _viewModel = StateObject(wrappedValue: ObjectFieldsViewModel(document: document, output: output))
+        _model = StateObject(wrappedValue: ObjectFieldsViewModel(document: document, output: output))
     }
     
     var body: some View {
+        content
+            .task { await model.setupSubscriptions() }
+    }
+    
+    private var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
             navigationBar
@@ -24,7 +29,7 @@ struct ObjectFieldsView: View {
                 .foregroundColor(.Text.primary)
             Spacer()
             
-            if !viewModel.navigationBarButtonsDisabled && viewModel.typeId.isNotNil {
+            if model.typeId.isNotNil {
                 editButton
             }
         }
@@ -35,7 +40,7 @@ struct ObjectFieldsView: View {
     private var editButton: some View {
         Button {
             withAnimation(.fastSpring) {
-                viewModel.onEditTap()
+                model.onEditTap()
             }
         } label: {
             IconView(asset: .X24.settings).frame(width: 24, height: 24)
@@ -45,7 +50,7 @@ struct ObjectFieldsView: View {
     private var relationsList: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(viewModel.sections) { section in
+                ForEach(model.sections) { section in
                     VStack(alignment: .leading, spacing: 0) {
                         Section(header: sectionHeader(title: section.title)) {
                             ForEach(section.relations) {
@@ -77,11 +82,11 @@ struct ObjectFieldsView: View {
             addedToObject: addedToObject,
             relation: relation
         ) {
-            viewModel.removeRelation(relation: $0)
+            model.removeRelation(relation: $0)
         } onStarTap: {
-            viewModel.changeRelationFeaturedState(relation: $0, addedToObject: addedToObject)
+            model.changeRelationFeaturedState(relation: $0, addedToObject: addedToObject)
         } onEditTap: {
-            viewModel.handleTapOnRelation(relation: $0)
+            model.handleTapOnRelation(relation: $0)
         }
     }
     

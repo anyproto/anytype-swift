@@ -4,7 +4,7 @@ import UIKit
 
 final class RelationsSectionBuilder {
     
-    func buildObjectSections(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
+    func buildObjectSections(from parsedRelations: ParsedRelations) -> [RelationsSection] {
         let objectRelations = parsedRelations.otherRelations + parsedRelations.typeRelations
         
         var sections: [RelationsSection] = []

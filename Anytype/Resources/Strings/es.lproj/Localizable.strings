@@ -327,7 +327,7 @@
 "Choose layout type" = "Elige el diseño";
 
 "Templates" = "Plantillas";
-"Header" = "Header";
+"Header" = "Título";
 
 "Undo typing" = "Deshacer escritura";
 "Undo" = "Deshacer";
@@ -703,7 +703,7 @@
 "Blurred icon" = "Icono\n borroso";
 "My First Space" = "Mi Primer Espacio";
 "Copy space info" = "Copiar información del espacio";
-"Save" = "Save";
+"Save" = "Guardar";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -724,7 +724,7 @@
 "ObjectType.MyTypes" = "Mis tipos";
 "ObjectType.AddedToLibrary" = "El tipo «%@» se ha añadido a tu biblioteca.";
 "ObjectType.DeletedName" = "Tipo eliminado";
-"ObjectType.editingType" = "You're editing type";
+"ObjectType.editingType" = "Estás editando el tipo";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Crear %@";
@@ -1269,4 +1269,4 @@ En concreto,
 "EmptyView.Bin.subtitle" = "¡Parece que te gusta tenerlo todo ordenado!";
 
 // MARK: - Fields
-"Fields.menu" = "Fields menu";
+"Fields.menu" = "Menú de campos";

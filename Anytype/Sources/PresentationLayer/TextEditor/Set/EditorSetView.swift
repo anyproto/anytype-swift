@@ -9,7 +9,7 @@ struct EditorSetView: View {
     @State private var offset = CGPoint.zero
     @Environment(\.dismiss) private var dismiss
     
-    init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
+    init(data: EditorListObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
         self._model = StateObject(wrappedValue: EditorSetViewModel(data: data, showHeader: showHeader, output: output))
     }
     

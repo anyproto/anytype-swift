@@ -1,4 +1,6 @@
 import Foundation
+import Services
+
 
 struct WidgetObjectListRowModel: Identifiable {
     let objectId: String
@@ -13,4 +15,28 @@ struct WidgetObjectListRowModel: Identifiable {
     let onCheckboxTap: (() -> Void)?
     
     var id: String { objectId }
+}
+
+extension WidgetObjectListRowModel {
+    init(
+        details: ObjectDetails,
+        canArchive: Bool,
+        isChecked: Bool = false,
+        menu: [WidgetObjectListMenuItemModel] = [],
+        onTap: @escaping () -> Void,
+        onCheckboxTap: (() -> Void)? = nil
+    ) {
+        self.init(
+            objectId: details.id,
+            icon: details.objectIconImage,
+            title: details.title,
+            description: details.subtitle,
+            subtitle: details.objectType.name,
+            isChecked: isChecked,
+            canArchive: canArchive,
+            menu: menu,
+            onTap: onTap,
+            onCheckboxTap: onCheckboxTap
+        )
+    }
 }

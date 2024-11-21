@@ -7,8 +7,6 @@ import Combine
 
 @MainActor
 final class ObjectFieldsViewModel: ObservableObject {
-        
-    @Published private(set) var navigationBarButtonsDisabled: Bool = false
     @Published var sections = [RelationsSection]()
     
     var typeId: String? { document.details?.objectType.id }
@@ -27,8 +25,6 @@ final class ObjectFieldsViewModel: ObservableObject {
     
     private weak var output: (any RelationsListModuleOutput)?
     
-    private var subscriptions: [AnyCancellable] = []
-    
     // MARK: - Initializers
     
     init(
@@ -37,31 +33,13 @@ final class ObjectFieldsViewModel: ObservableObject {
     ) {
         self.document = document
         self.output = output
-        
-        document.parsedRelationsPublisher
-            .map { [sectionsBuilder] relations in
-                sectionsBuilder.buildObjectSections(
-                    from: relations,
-                    objectTypeName: document.details?.objectType.name ?? ""
-                )
-            }
-            .receiveOnMain()
-            .assign(to: &$sections)
-        
-        document.permissionsPublisher
-            .receiveOnMain()
-            .sink { [weak self] permissions in
-                guard let self else { return }
-                navigationBarButtonsDisabled = !permissions.canEditRelationsList
-            }
-            .store(in: &subscriptions)
     }
     
-}
-
-// MARK: - Internal functions
-
-extension ObjectFieldsViewModel {
+    func setupSubscriptions() async {
+        for await relations in document.parsedRelationsPublisher.values {
+            sections = sectionsBuilder.buildObjectSections(from: relations)
+        }
+    }
     
     func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
         if !addedToObject {

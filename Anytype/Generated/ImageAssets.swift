@@ -65,6 +65,7 @@ internal extension ImageAsset {
   }
   enum ObjectSettings {
     static let cover = ImageAsset.bundle(name: "ObjectSettings/Cover")
+    static let description = ImageAsset.bundle(name: "ObjectSettings/Description")
     static let history = ImageAsset.bundle(name: "ObjectSettings/History")
     static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
     static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
@@ -130,10 +131,10 @@ internal extension ImageAsset {
     }
     static let help = ImageAsset.bundle(name: "x18/Help")
     static let listArrow = ImageAsset.bundle(name: "x18/List Arrow")
+    static let list = ImageAsset.bundle(name: "x18/List")
     static let lock = ImageAsset.bundle(name: "x18/Lock")
     static let objectWithoutIcon = ImageAsset.bundle(name: "x18/Object Without Icon")
     static let search = ImageAsset.bundle(name: "x18/Search")
-    static let setOrCollection = ImageAsset.bundle(name: "x18/Set Or Collection")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
     static let updateApp = ImageAsset.bundle(name: "x18/Update App")
     static let webLink = ImageAsset.bundle(name: "x18/Web link")

@@ -1259,7 +1259,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
 
 // MARK: - Reindexing warning alert
-"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";
 "ReindexingWarningAlert.Description" = "Wir haben eine neue Suchbibliothek für schnellere und genauere Ergebnisse implementiert.\nDie Neuindexierung kann ein paar Minuten dauern.";
 "ReindexingWarningAlert.Button" = "Verstanden!";
 

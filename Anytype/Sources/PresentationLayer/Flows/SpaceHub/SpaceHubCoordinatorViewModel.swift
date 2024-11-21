@@ -351,9 +351,9 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
     }
 
-    func onHomeSelected() {
+    func onWidgetsSelected() {
         guard !pathChanging else { return }
-        navigationPath.popToRoot()
+        navigationPath.popToFirstOpened()
     }
 
     func onForwardSelected() {

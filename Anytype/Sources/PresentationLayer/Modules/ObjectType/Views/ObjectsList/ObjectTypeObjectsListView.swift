@@ -1,0 +1,71 @@
+import SwiftUI
+
+struct ObjectTypeObjectsListView: View {
+    @StateObject private var model: ObjectTypeObjectsListViewModel
+    
+    init(objectTypeId: String, spaceId: String, output: (any ObjectTypeObjectsListViewModelOutput)?) {
+        _model = StateObject(wrappedValue: ObjectTypeObjectsListViewModel(
+            objectTypeId: objectTypeId, spaceId: spaceId, output: output
+        ))
+    }
+    
+    var body: some View {
+        content
+            .task { await model.startSubscription() }
+            .onDisappear { model.stopStopSubscription() }
+    }
+    
+    private var content: some View {
+        VStack {
+            header
+            if model.rows.count > 0 {
+                objectList
+            } else {
+                noObjects
+            }
+        }.padding(10).padding(.horizontal, 10)
+    }
+    
+    private var header: some View {
+        HStack(spacing: 0) {
+            AnytypeText(Loc.objects, style: .subheading)
+            Spacer.fixedWidth(8)
+            AnytypeText("\(model.rows.count)", style: .previewTitle1Regular)
+                .foregroundColor(Color.Text.secondary)
+            Spacer()
+            Button(action: {
+                // TBD;
+            }, label: {
+                IconView(asset: .X24.more).frame(width: 24, height: 24)
+            })
+            Spacer.fixedWidth(16)
+            Button(action: {
+                // TBD;
+            }, label: {
+                IconView(asset: .X24.plus).frame(width: 24, height: 24)
+            })
+        }
+    }
+    
+    private var noObjects: some View {
+        VStack(spacing: 2) {
+            AnytypeText(Loc.EmptyView.Default.title, style: .uxTitle2Medium)
+                .foregroundColor(.Text.secondary)
+            AnytypeText(Loc.EmptyView.Default.subtitle, style: .relation3Regular)
+                .foregroundColor(.Text.secondary)
+        }.padding(.vertical, 18)
+    }
+    
+    private var objectList: some View {
+        VStack {
+            ForEach(model.rows) { row in
+                WidgetObjectListRowView(model: row)
+            }
+            AnytypeNavigationSpacer(minHeight: 130)
+        }
+    }
+}
+
+#Preview {
+    ObjectTypeObjectsListView(objectTypeId: "", spaceId: "", output: nil)
+}

@@ -1,16 +1,18 @@
 import Foundation
 import Services
 import SwiftProtobuf
-import UIKit
 import AnytypeCore
 import Combine
+import SwiftUI
 
 
 @MainActor
 final class TypeFieldsViewModel: ObservableObject {
         
-    @Published private(set) var navigationBarButtonsDisabled: Bool = false
+    @Published var canEditRelationsList = false
+    @Published var editMode = EditMode.inactive
     @Published var relations = [TypeFieldsRelationsData]()
+    @Published var relationsSearchData: RelationsSearchData?
     
     // MARK: - Private variables
     
@@ -23,8 +25,6 @@ final class TypeFieldsViewModel: ObservableObject {
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     private weak var output: (any RelationsListModuleOutput)?
-    
-    private var subscriptions: [AnyCancellable] = []
     
     // MARK: - Initializers
     
@@ -42,68 +42,50 @@ final class TypeFieldsViewModel: ObservableObject {
     ) {
         self.document = document
         self.output = output
+    }
+    
+    func setupSubscriptions() async {
+        async let relationsSubscription: () = setupRelationsSubscription()
+        async let permissionSubscription: () = setupPermissionSubscription()
         
-        document.parsedRelationsPublisher
-            .map { [fieldsDataBuilder] relations in
-                fieldsDataBuilder.build(parsedRelations: relations)
+        (_, _) = await (relationsSubscription, permissionSubscription)
+    }
+    
+    private func setupRelationsSubscription() async {
+        for await parsedRelations in document.parsedRelationsPublisher.values {
+            relations = fieldsDataBuilder.build(parsedRelations: parsedRelations)
+        }
+    }
+    
+    private func setupPermissionSubscription() async {
+        for await permissions in document.permissionsPublisher.values {
+            canEditRelationsList = permissions.canEditRelationsList
+            editMode = canEditRelationsList ? .active : .inactive
+        }
+    }
+    
+    func onAddRelationTap(section: TypeFieldsRelationsSection) {
+        relationsSearchData = RelationsSearchData(
+            document: document,
+            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            target: .object,
+            onRelationSelect: { [weak self] details, isNew in
+                if section == .header { self?.featureRelation(key: details.key) }
             }
-            .receiveOnMain()
-            .assign(to: &$relations)
+        )
+    }
+    
+    func onDeleteRelations(_ indexes: IndexSet) {
+        let keys = indexes.map { relations[$0].relation.key }
         
-        document.permissionsPublisher
-            .receiveOnMain()
-            .sink { [weak self] permissions in
-                guard let self else { return }
-                navigationBarButtonsDisabled = !permissions.canEditRelationsList
-            }
-            .store(in: &subscriptions)
-    }
-    
-}
-
-// MARK: - Internal functions
-
-extension TypeFieldsViewModel {
-    
-    func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
-        if !addedToObject {
-            Task { @MainActor in
-                try await relationsService.addRelations(objectId: document.objectId, relationKeys: [relation.key])
-                changeRelationFeaturedState(relation: relation)
-            }
-        } else {
-            changeRelationFeaturedState(relation: relation)
-        }
-    }
-    
-    private func changeRelationFeaturedState(relation: Relation) {
         Task {
-            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
-            if relation.isFeatured {
-                try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
-                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
-            } else {
-                try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
-                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
-            }
+            try await relationsService.removeRelations(objectId: document.objectId, relationKeys: keys)
         }
-        UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func handleTapOnRelation(relation: Relation) {
-        output?.editRelationValueAction(document: document, relationKey: relation.key)
-    }
-    
-    func removeRelation(relation: Relation) {
+    private func featureRelation(key: String) {
         Task {
-            try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
-            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
+            try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: key)
         }
     }
-    
-    func showAddNewRelationView() {
-        output?.addNewRelationAction(document: document)
-    }
-    
 }

@@ -177,7 +177,7 @@ final class EditorSetViewModel: ObservableObject {
     private var descriptionSubscription: AnyCancellable?
     private weak var output: (any EditorSetModuleOutput)?
 
-    init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
+    init(data: EditorListObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
             spaceId: data.spaceId,
@@ -722,7 +722,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            output?.replaceEditorScreen(data: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId)))
+            output?.replaceEditorScreen(data: .list(EditorListObject(objectId: objectId, spaceId: setDocument.spaceId)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
@@ -772,7 +772,7 @@ extension EditorSetViewModel {
 
 extension EditorSetViewModel {
     static let emptyPreview = EditorSetViewModel(
-        data: EditorSetObject(objectId: "", spaceId: ""), 
+        data: EditorListObject(objectId: "", spaceId: ""), 
         showHeader: true,
         output: nil
     )

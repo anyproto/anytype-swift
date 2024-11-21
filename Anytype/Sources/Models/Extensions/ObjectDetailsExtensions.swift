@@ -42,7 +42,7 @@ extension BundledRelationsValueProvider {
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView, .tag, .chat, .chatDerived:
             return .page
         case .set, .collection:
-            return .set
+            return .list
         case .date:
             return FeatureFlags.dateAsAnObject ? .date : .page
         case .objectType:

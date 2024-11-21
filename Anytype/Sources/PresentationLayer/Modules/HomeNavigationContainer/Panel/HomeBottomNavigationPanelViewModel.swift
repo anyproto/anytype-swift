@@ -59,7 +59,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onTapHome() {
-        output?.onHomeSelected()
+        output?.onWidgetsSelected()
     }
     
     func onTapProfile() {
