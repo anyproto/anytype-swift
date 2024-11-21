@@ -25,21 +25,6 @@ extension ObjectSetting {
         }
     }
     
-    var description: String {
-        switch self {
-        case .icon:
-            return Loc.emojiOrImageForObject
-        case .cover:
-            return Loc.backgroundPicture
-        case .layout:
-            return Loc.arrangementOfObjectsOnACanvas
-        case .relations:
-            return Loc.listOfRelatedObjects
-        case .history:
-            return Loc.ObjectSettings.History.description
-        }
-    }
-    
     var imageAsset: ImageAsset {
         switch self {
         case .icon:

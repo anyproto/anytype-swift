@@ -65,6 +65,7 @@ internal extension ImageAsset {
   }
   enum ObjectSettings {
     static let cover = ImageAsset.bundle(name: "ObjectSettings/Cover")
+    static let description = ImageAsset.bundle(name: "ObjectSettings/Description")
     static let history = ImageAsset.bundle(name: "ObjectSettings/History")
     static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
     static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
