@@ -66,7 +66,7 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View, BottomP
         }
         
         let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel)
-        container.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 10, right: 0)
+        container.contentInset = UIEdgeInsets(top: HomeTabBarView.height, left: 0, bottom: 10, right: 0)
         return container
     }
     
