@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-final class CollectionViewContainer<BottomPanel: View>: UIViewController {
+final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
     
     let collectionView: UICollectionView
     let bottomPanel: UIHostingController<BottomPanel>
@@ -70,7 +70,15 @@ final class CollectionViewContainer<BottomPanel: View>: UIViewController {
     override func loadView() {
         super.loadView()
         
-        view.addSubview(collectionView) {
+        // The root container includes a bottom panel that changes it's position if the user dismisses the keyboard interactively.
+        // This action triggers layoutSubviews for the collection, causing a scrolling glitch.
+        // The NSLayoutConstraint for the collection should not be invalidated, making this behavior very unusual.
+        // Wrapping the collection in a container resolves this issue.
+        let collectionViewContainer = UIView()
+        collectionViewContainer.addSubview(collectionView) {
+            $0.pinToSuperview()
+        }
+        view.addSubview(collectionViewContainer) {
             $0.pinToSuperview()
         }
         

@@ -15,7 +15,7 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View, BottomP
     let itemBuilder: (Item) -> DataView
     let scrollToBottom: () async -> Void
     
-    func makeUIViewController(context: Context) -> CollectionViewContainer<BottomPanel> {
+    func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
             configuration.headerMode = .none
@@ -65,12 +65,12 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View, BottomP
             bottomPanel.safeAreaRegions = SafeAreaRegions()
         }
         
-        let container = CollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel)
+        let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel)
         container.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 10, right: 0)
         return container
     }
     
-    func updateUIViewController(_ container: CollectionViewContainer<BottomPanel>, context: Context) {
+    func updateUIViewController(_ container: ChatCollectionViewContainer<BottomPanel>, context: Context) {
         container.bottomPanel.rootView = bottomPanel
         context.coordinator.scrollToBottom = scrollToBottom
         context.coordinator.updateState(collectionView: container.collectionView, items: items, section: .one, scrollProxy: scrollProxy)
@@ -162,11 +162,12 @@ final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Id
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height + scrollView.adjustedContentInset.bottom
+        
         if distanceForLoadNextPage > distance {
             if canCallScrollToBottom, scrollUpdateTask.isNil {
+                canCallScrollToBottom = false
                 scrollUpdateTask = Task { [weak self] in
                     await self?.scrollToBottom?()
-                    self?.canCallScrollToBottom = false
                     self?.scrollUpdateTask = nil
                 }.cancellable()
             }
