@@ -39,6 +39,7 @@ struct ObjectTypeView: View {
                 ObjectTypeObjectsListView(
                     objectTypeId: model.document.objectId,
                     spaceId: model.document.spaceId,
+                    creationAvailable: model.isEditorLayout,
                     output: model.output
                 )
             }
@@ -113,11 +114,13 @@ struct ObjectTypeView: View {
                 AnytypeText("\(model.templates.count)", style: .previewTitle1Regular)
                     .foregroundColor(Color.Text.secondary)
                 Spacer()
-                Button(action: {
-                    model.onAddTemplateTap()
-                }, label: {
-                    IconView(asset: .X24.plus).frame(width: 24, height: 24)
-                })
+                if model.isEditorLayout {
+                    Button(action: {
+                        model.onAddTemplateTap()
+                    }, label: {
+                        IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                    })
+                }
             }.padding(10).padding(.horizontal, 10)
             templatesList
         }

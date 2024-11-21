@@ -37,4 +37,8 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
             await service.stopSubscription()
         }
     }
+    
+    func onCreateNewObjectTap() {
+        output?.onCreateNewObjectTap()
+    }
 }

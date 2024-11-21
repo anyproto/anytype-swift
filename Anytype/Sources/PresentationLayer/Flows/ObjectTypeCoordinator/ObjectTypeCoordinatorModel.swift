@@ -16,6 +16,7 @@ protocol ObjectTypeViewModelOutput: AnyObject, ObjectTypeObjectsListViewModelOut
 @MainActor
 protocol  ObjectTypeObjectsListViewModelOutput: AnyObject {
     func onOpenObjectTap(objectId: String)
+    func onCreateNewObjectTap()
 }
 
 @MainActor
@@ -29,6 +30,8 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectService: any ObjectActionsServiceProtocol
     
     @Injected(\.legacyTemplatesCoordinator)
     private var templatesCoordinator: any TemplatesCoordinatorProtocol
@@ -86,6 +89,25 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     // MARK: - ObjectTypeObjectsListViewModelOutput
     func onOpenObjectTap(objectId: String) {
         pageNavigation?.push(.page(EditorPageObject(objectId: objectId, spaceId: document.spaceId)))
+    }
+    
+    func onCreateNewObjectTap() {
+        Task { @MainActor in
+            
+            guard let details = document.details else { return }
+            let newDetails = try await objectService.createObject(
+                name: "",
+                typeUniqueKey: details.uniqueKeyValue,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: true,
+                spaceId: document.spaceId,
+                origin: .builtin,
+                templateId: nil
+            )
+            
+            onOpenObjectTap(objectId: newDetails.id)
+        }
     }
     
     // MARK: - RelationsListModuleOutput
