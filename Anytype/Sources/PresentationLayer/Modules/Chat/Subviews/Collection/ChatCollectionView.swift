@@ -161,7 +161,9 @@ final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Id
     // MARK: - UICollectionViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height + scrollView.adjustedContentInset.bottom
+        guard scrollView.contentSize.isNotZero else { return }
+        
+        let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
         
         if distanceForLoadNextPage > distance {
             if canCallScrollToBottom, scrollUpdateTask.isNil {

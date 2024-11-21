@@ -91,7 +91,9 @@ private struct HomeWidgetsInternalView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
-        .homeScreenBlue(handleBottomNavigatioinSpacer: true)
+        .if(FeatureFlags.homeSpaceLevelChat) {
+            $0.homeScreenBlue(handleBottomNavigatioinSpacer: true)
+        }
     }
     
     private var editButtons: some View {
