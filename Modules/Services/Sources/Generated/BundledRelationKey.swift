@@ -377,4 +377,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Objects that are mentioned in blocks of this object
     case mentions = "mentions"
+
+    /// Unix time representation of date object
+    case timestamp = "timestamp"
 }

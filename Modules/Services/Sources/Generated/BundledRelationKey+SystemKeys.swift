@@ -93,5 +93,6 @@ public extension BundledRelationKey {
         .mentions,
         .chatId,
         .hasChat,
+        .timestamp,
     ]
 }

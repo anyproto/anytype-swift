@@ -2194,6 +2194,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func processSubscribe(
+        _ request: Anytype_Rpc.Process.Subscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Process.Subscribe.Request, Anytype_Rpc.Process.Subscribe.Response> {
+        return Invocation(messageName: "ProcessSubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceProcessSubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Process.Subscribe.Response(serializedData: responseData)
+        }
+    }
+
+    public static func processUnsubscribe(
+        _ request: Anytype_Rpc.Process.Unsubscribe.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Process.Unsubscribe.Request, Anytype_Rpc.Process.Unsubscribe.Response> {
+        return Invocation(messageName: "ProcessUnsubscribe", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceProcessUnsubscribe(requestData) ?? Data()
+            return try Anytype_Rpc.Process.Unsubscribe.Response(serializedData: responseData)
+        }
+    }
+
     public static func logSend(
         _ request: Anytype_Rpc.Log.Send.Request = .init()
     ) -> Invocation<Anytype_Rpc.Log.Send.Request, Anytype_Rpc.Log.Send.Response> {
@@ -2324,13 +2344,33 @@ public struct ClientCommands {
         }
     }
 
-    public static func metricsSetParameters(
-        _ request: Anytype_Rpc.Metrics.SetParameters.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Metrics.SetParameters.Request, Anytype_Rpc.Metrics.SetParameters.Response> {
-        return Invocation(messageName: "MetricsSetParameters", request: request) { request in
+    public static func debugNetCheck(
+        _ request: Anytype_Rpc.Debug.NetCheck.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.NetCheck.Request, Anytype_Rpc.Debug.NetCheck.Response> {
+        return Invocation(messageName: "DebugNetCheck", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceMetricsSetParameters(requestData) ?? Data()
-            return try Anytype_Rpc.Metrics.SetParameters.Response(serializedData: responseData)
+            let responseData = Lib.ServiceDebugNetCheck(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.NetCheck.Response(serializedData: responseData)
+        }
+    }
+
+    public static func debugExportLog(
+        _ request: Anytype_Rpc.Debug.ExportLog.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.ExportLog.Request, Anytype_Rpc.Debug.ExportLog.Response> {
+        return Invocation(messageName: "DebugExportLog", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugExportLog(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.ExportLog.Response(serializedData: responseData)
+        }
+    }
+
+    public static func initialSetParameters(
+        _ request: Anytype_Rpc.Initial.SetParameters.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Initial.SetParameters.Request, Anytype_Rpc.Initial.SetParameters.Response> {
+        return Invocation(messageName: "InitialSetParameters", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceInitialSetParameters(requestData) ?? Data()
+            return try Anytype_Rpc.Initial.SetParameters.Response(serializedData: responseData)
         }
     }
 
