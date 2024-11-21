@@ -3,7 +3,7 @@ import Services
 
 
 @MainActor
-protocol ObjectTypeViewModelOutput: AnyObject {
+protocol ObjectTypeViewModelOutput: AnyObject, ObjectTypeObjectsListViewModelOutput {
     func onIconTap()
     func onLayoutTap()
     func onFieldsTap()
@@ -14,11 +14,18 @@ protocol ObjectTypeViewModelOutput: AnyObject {
 }
 
 @MainActor
-final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOutput, RelationsListModuleOutput {
+protocol  ObjectTypeObjectsListViewModelOutput: AnyObject {
+    func onOpenObjectTap(objectId: String)
+}
+
+@MainActor
+final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOutput, RelationsListModuleOutput, ObjectTypeObjectsListViewModelOutput {
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
     @Published var showTypeFields = false
     @Published var showSyncStatusInfo = false
+    
+    var pageNavigation: PageNavigation?
     
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
@@ -74,6 +81,11 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
             navigationContext.dismissTopPresented(animated: true, completion: nil)
             toastPresenter.show(message: Loc.Templates.Popup.default)
         }
+    }
+    
+    // MARK: - ObjectTypeObjectsListViewModelOutput
+    func onOpenObjectTap(objectId: String) {
+        pageNavigation?.push(.page(EditorPageObject(objectId: objectId, spaceId: document.spaceId)))
     }
     
     // MARK: - RelationsListModuleOutput

@@ -3,8 +3,10 @@ import SwiftUI
 struct ObjectTypeObjectsListView: View {
     @StateObject private var model: ObjectTypeObjectsListViewModel
     
-    init(objectTypeId: String, spaceId: String) {
-        _model = StateObject(wrappedValue: ObjectTypeObjectsListViewModel(objectTypeId: objectTypeId, spaceId: spaceId))
+    init(objectTypeId: String, spaceId: String, output: (any ObjectTypeObjectsListViewModelOutput)?) {
+        _model = StateObject(wrappedValue: ObjectTypeObjectsListViewModel(
+            objectTypeId: objectTypeId, spaceId: spaceId, output: output
+        ))
     }
     
     var body: some View {
@@ -65,5 +67,5 @@ struct ObjectTypeObjectsListView: View {
 }
 
 #Preview {
-    ObjectTypeObjectsListView(objectTypeId: "", spaceId: "")
+    ObjectTypeObjectsListView(objectTypeId: "", spaceId: "", output: nil)
 }

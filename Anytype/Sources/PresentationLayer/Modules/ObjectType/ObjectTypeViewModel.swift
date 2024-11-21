@@ -19,6 +19,7 @@ final class ObjectTypeViewModel: ObservableObject {
     let document: any BaseDocumentProtocol
     var isEditorLayout: Bool { details?.recommendedLayoutValue?.isEditorLayout ?? false }
     var canArchive: Bool { document.permissions.canArchive }
+    weak var output: (any ObjectTypeViewModelOutput)?
     
     private var defaultTemplateId: String? { details?.defaultTemplateId }
     private var rawTemplates: [ObjectDetails] = []
@@ -37,7 +38,6 @@ final class ObjectTypeViewModel: ObservableObject {
     
     private var nameChangeTask: Task<(), any Error>?
     private var dismiss: DismissAction?
-    private weak var output: (any ObjectTypeViewModelOutput)?
     
     init(document: any BaseDocumentProtocol, output: any ObjectTypeViewModelOutput) {
         self.output = output
