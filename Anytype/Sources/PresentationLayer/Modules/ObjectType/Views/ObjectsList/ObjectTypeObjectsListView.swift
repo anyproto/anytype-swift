@@ -40,7 +40,7 @@ struct ObjectTypeObjectsListView: View {
             })
             Spacer.fixedWidth(16)
             Button(action: {
-                // TBD;
+                model.onCreateNewObjectTap()
             }, label: {
                 IconView(asset: .X24.plus).frame(width: 24, height: 24)
             })
