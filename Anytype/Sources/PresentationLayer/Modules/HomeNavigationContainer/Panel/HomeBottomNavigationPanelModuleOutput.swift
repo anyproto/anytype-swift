@@ -5,7 +5,7 @@ protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onSearchSelected()
     func onCreateObjectSelected(screenData: EditorScreenData)
     func onProfileSelected()
-    func onHomeSelected()
+    func onWidgetsSelected()
     func onForwardSelected()
     func onBackwardSelected()
     func onPickTypeForNewObjectSelected()
