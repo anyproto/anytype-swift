@@ -24,7 +24,7 @@ final class MentionsViewModel {
     
     private var searchTask: Task<(), any Error>?
 
-    private let formatter = DateFormatter.relationDateFormatter
+    private let formatter = DateFormatter.relativeDateFormatter
     
     private let router: any EditorRouterProtocol
     
