@@ -32,6 +32,12 @@ struct HomePath: Equatable {
         path = [first]
     }
     
+    mutating func popToFirstOpened() {
+        guard let first = path[safe: 0] else { return }
+        guard let second = path[safe: 1] else { return }
+        path = [first, second]
+    }
+    
     mutating func replaceLast(_ item: AnyHashable) {
         guard path.count > 0 else {
             anytypeAssertionFailure("Path is 0")
