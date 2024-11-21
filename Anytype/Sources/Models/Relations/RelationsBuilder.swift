@@ -18,7 +18,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     
     // MARK: - Private variables
     
-    private let dateFormatter = DateFormatter.relationDateFormatter
+    private let dateFormatter = DateFormatter.relativeDateFormatter
     
     private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     

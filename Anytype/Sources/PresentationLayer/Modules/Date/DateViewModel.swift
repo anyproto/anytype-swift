@@ -8,6 +8,7 @@ final class DateViewModel: ObservableObject {
     
     private weak var output: (any DateModuleOutput)?
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let dateFormatter = DateFormatter.defaultDateFormatter
     
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
@@ -91,6 +92,26 @@ final class DateViewModel: ObservableObject {
         })
     }
     
+    func onPrevDayTap() {
+        guard let prevDay = state.currentDate?.prevDay() else { return }
+        updateDate(prevDay)
+    }
+    
+    func onNextDayTap() {
+        guard let nextDay = state.currentDate?.nextDay() else { return }
+        updateDate(nextDay)
+    }
+    
+    func hasPrevDay() -> Bool {
+        guard let prevDay = state.currentDate?.prevDay() else { return false }
+        return ClosedRange.anytypeDateRange.contains(prevDay)
+    }
+    
+    func hasNextDay() -> Bool {
+        guard let nextDay = state.currentDate?.nextDay() else { return false }
+        return ClosedRange.anytypeDateRange.contains(nextDay)
+    }
+    
     func updateDate(_ date: Date) {
         Task {
             guard let details = try? await objectDateByTimestampService.objectDateByTimestamp(
@@ -112,7 +133,9 @@ final class DateViewModel: ObservableObject {
     
     private func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
-            title = details.title
+            if let date = details.timestamp {
+                title = dateFormatter.string(from: date)
+            }
             state.currentDate = details.timestamp
         }
     }

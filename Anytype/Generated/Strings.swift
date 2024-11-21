@@ -690,6 +690,15 @@ internal enum Loc {
     internal static let kanban = Loc.tr("Localizable", "DataviewType.kanban", fallback: "Kanban")
     internal static let list = Loc.tr("Localizable", "DataviewType.list", fallback: "List")
   }
+  internal enum Date {
+    internal enum Object {
+      internal enum Empty {
+        internal enum State {
+          internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet.")
+        }
+      }
+    }
+  }
   internal enum Debug {
     internal static let info = Loc.tr("Localizable", "Debug.Info", fallback: "Debug Info")
     internal static func mimeTypes(_ p1: Any) -> String {

@@ -50,12 +50,31 @@ struct DateView: View {
     }
     
     private var titleView: some View {
-        AnytypeText(model.title, style: .title)
-            .foregroundColor(.Text.primary)
-            .padding(.vertical, 32)
-            .onTapGesture {
-                model.onCalendarTap()
-            }
+        HStack(alignment: .center) {
+            Image(asset: .X24.Arrow.left)
+                .foregroundColor(.Control.active)
+                .onTapGesture {
+                    model.onPrevDayTap()
+                }
+                .opacity(model.hasPrevDay() ? 1 : 0)
+            
+            Spacer()
+            AnytypeText(model.title, style: .title)
+                .foregroundColor(.Text.primary)
+                .padding(.vertical, 32)
+                .onTapGesture {
+                    model.onCalendarTap()
+                }
+            Spacer()
+            
+            Image(asset: .X24.Arrow.right)
+                .foregroundColor(.Control.active)
+                .onTapGesture {
+                    model.onNextDayTap()
+                }
+                .opacity(model.hasNextDay() ? 1 : 0)
+        }
+        .padding(.horizontal, 16)
     }
     
     private var content: some View {
@@ -71,7 +90,7 @@ struct DateView: View {
     
     private var emptyState: some View {
         EmptyStateView(
-            title: Loc.EmptyView.Default.title,
+            title: Loc.Date.Object.Empty.State.title,
             subtitle: "",
             style: .plain
         )
