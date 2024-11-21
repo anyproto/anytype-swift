@@ -46,10 +46,6 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
-    static var showBinWidgetIfNotEmpty: Bool {
-        value(for: .showBinWidgetIfNotEmpty)
-    }
-
     static var primitives: Bool {
         value(for: .primitives)
     }
@@ -118,7 +114,6 @@ public extension FeatureFlags {
         .userWarningAlerts,
         .dateAsAnObject,
         .homeSpaceLevelChat,
-        .showBinWidgetIfNotEmpty,
         .primitives,
         .rainbowViews,
         .showAlertOnAssert,
