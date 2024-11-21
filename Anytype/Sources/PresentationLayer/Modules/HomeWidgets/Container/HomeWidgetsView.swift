@@ -91,7 +91,7 @@ private struct HomeWidgetsInternalView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
-        .screenBlue(handleBottomNavigatioinSpacer: true)
+        .homeScreenBlue(handleBottomNavigatioinSpacer: true)
     }
     
     private var editButtons: some View {

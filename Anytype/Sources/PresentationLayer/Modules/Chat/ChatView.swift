@@ -6,30 +6,17 @@ struct ChatView: View {
     @StateObject private var model: ChatViewModel
     @State private var actionState: CGFloat = 0
     @State private var keyboardSize: CGSize = .zero
-//    @State private var bottomInsetHeight: CGFloat = 0
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self._model = StateObject(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
     }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            
-//            KeyboardSizeReader(keyboardSize: $keyboardSize)
-//        VStack(spacing: 0) {
+        ZStack {
             mainView
                 .ignoresSafeArea()
-//                .screenBlue(bottomHeight: bottomInsetHeight)
-            
-//            bottomPanel
         }
-//        .safeAreaInset(edge: .bottom, content: {
-//            Color.red.frame(height: 1)
-//        })
         .ignoresSafeArea(.keyboard)
-//        .safeAreaInset(edge: .bottom, spacing: 0) {
-//            bottomPanel
-//        }
         .chatActionOverlay(state: $actionState) {
             if model.mentionObjects.isNotEmpty {
                 ChatMentionList(mentions: model.mentionObjects) {
@@ -50,24 +37,16 @@ struct ChatView: View {
             await model.updatePickerItems()
         }
         .homeBottomPanelHidden(true)
-//        .coordinateSpace(name: "ChatView")
     }
     
     private var bottomPanel: some View {
-        VStack(spacing: 0) {
+        Group {
             if model.canEdit {
                 inputPanel
             } else {
                 ChatReadOnlyBottomView()
             }
-//            Spacer.fixedHeight(keyboardSize.height)
-//                .animation(.default, value: keyboardSize)
         }
-//        .readFrame(space: .named("ChatView")) { frame in
-//            print("panel frame \(frame)")
-//        }
-//        .background(.green)
-//        .ignoresSafeArea()
     }
     
     private var inputPanel: some View {
@@ -119,9 +98,6 @@ struct ChatView: View {
         } scrollToBottom: {
             await model.scrollToBottom()
         }
-//        bottomInteractiveInsetChanged: { height in
-//            bottomInsetHeight = height
-//        }
         .overlay(alignment: .center) {
             if model.showEmptyState {
                 ChatEmptyStateView()

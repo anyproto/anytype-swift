@@ -1,12 +1,12 @@
 import SwiftUI
 
 extension View {
-    func screenBlue(topHeight: CGFloat = 0, bottomHeight: CGFloat = 0, handleBottomNavigatioinSpacer: Bool = false) -> some View {
-        modifier(ScreenBlurModifier(topHeight: topHeight, bottomHeight: bottomHeight, handleBottomNavigatioinSpacer: handleBottomNavigatioinSpacer))
+    func homeScreenBlue(topHeight: CGFloat = 0, bottomHeight: CGFloat = 0, handleBottomNavigatioinSpacer: Bool = false) -> some View {
+        modifier(HomeScreenBlurModifier(topHeight: topHeight, bottomHeight: bottomHeight, handleBottomNavigatioinSpacer: handleBottomNavigatioinSpacer))
     }
 }
 
-private struct ScreenBlurModifier: ViewModifier {
+private struct HomeScreenBlurModifier: ViewModifier {
     
     let topHeight: CGFloat
     let bottomHeight: CGFloat
