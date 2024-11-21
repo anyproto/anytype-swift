@@ -27,8 +27,8 @@ actor ObjectsListSubscriptionService: ObjectsListSubscriptionServiceProtocol {
         update: @escaping ([ObjectDetails], Int) -> Void
     ) async {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.addedDate,
-            type: .asc
+            relation: BundledRelationKey.createdDate,
+            type: .desc
         )
         let filter = SearchHelper.typeFilter([objectTypeId])
         let keys: [BundledRelationKey] = .builder {

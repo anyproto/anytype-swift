@@ -2,8 +2,10 @@ import SwiftUI
 
 struct ObjectTypeObjectsListView: View {
     @StateObject private var model: ObjectTypeObjectsListViewModel
+    let creationAvailable: Bool
     
-    init(objectTypeId: String, spaceId: String, output: (any ObjectTypeObjectsListViewModelOutput)?) {
+    init(objectTypeId: String, spaceId: String, creationAvailable: Bool, output: (any ObjectTypeObjectsListViewModelOutput)?) {
+        self.creationAvailable = creationAvailable
         _model = StateObject(wrappedValue: ObjectTypeObjectsListViewModel(
             objectTypeId: objectTypeId, spaceId: spaceId, output: output
         ))
@@ -39,11 +41,13 @@ struct ObjectTypeObjectsListView: View {
                 IconView(asset: .X24.more).frame(width: 24, height: 24)
             })
             Spacer.fixedWidth(16)
-            Button(action: {
-                model.onCreateNewObjectTap()
-            }, label: {
-                IconView(asset: .X24.plus).frame(width: 24, height: 24)
-            })
+            if creationAvailable {
+                Button(action: {
+                    model.onCreateNewObjectTap()
+                }, label: {
+                    IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                })
+            }
         }
     }
     
@@ -67,5 +71,5 @@ struct ObjectTypeObjectsListView: View {
 }
 
 #Preview {
-    ObjectTypeObjectsListView(objectTypeId: "", spaceId: "", output: nil)
+    ObjectTypeObjectsListView(objectTypeId: "", spaceId: "", creationAvailable: true, output: nil)
 }
