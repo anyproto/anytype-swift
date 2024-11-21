@@ -36,7 +36,11 @@ struct ObjectTypeView: View {
                 Spacer.fixedHeight(32)
                 templates
                 Spacer.fixedHeight(32)
-                ObjectTypeObjectsListView(objectTypeId: model.document.objectId, spaceId: model.document.spaceId)
+                ObjectTypeObjectsListView(
+                    objectTypeId: model.document.objectId,
+                    spaceId: model.document.spaceId,
+                    output: model.output
+                )
             }
         }
     }

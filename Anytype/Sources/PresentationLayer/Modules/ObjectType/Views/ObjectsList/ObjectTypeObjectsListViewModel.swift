@@ -13,16 +13,19 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
     private let objectTypeId: String
     private let spaceId: String
     
-    init(objectTypeId: String, spaceId: String) {
+    private weak var output: (any ObjectTypeObjectsListViewModelOutput)?
+    
+    init(objectTypeId: String, spaceId: String, output: (any ObjectTypeObjectsListViewModelOutput)?) {
         self.objectTypeId = objectTypeId
         self.spaceId = spaceId
+        self.output = output
     }
     
     func startSubscription() async {
         await service.startSubscription(objectTypeId: objectTypeId, spaceId: spaceId) { details, numberOfObjectsLeft in
-            self.rows = details.map {
-                WidgetObjectListRowModel(details: $0, canArchive: false) {
-                    // TBD;
+            self.rows = details.map { details in
+                WidgetObjectListRowModel(details: details, canArchive: false) { [weak self] in
+                    self?.output?.onOpenObjectTap(objectId: details.id)
                 }
             }
             self.numberOfObjectsLeft = numberOfObjectsLeft
