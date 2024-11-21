@@ -1,0 +1,91 @@
+import SwiftUI
+import Services
+
+
+@MainActor
+protocol ObjectTypeViewModelOutput: AnyObject {
+    func onIconTap()
+    func onLayoutTap()
+    func onFieldsTap()
+    func onSyncStatusTap()
+    
+    func showTemplatesPicker(defaultTemplateId: String?)
+    func setTemplateAsDefault(templateId: String)
+}
+
+@MainActor
+final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOutput, RelationsListModuleOutput {
+    @Published var objectIconPickerData: ObjectIconPickerData?
+    @Published var layoutPickerObjectId: StringIdentifiable?
+    @Published var showTypeFields = false
+    @Published var showSyncStatusInfo = false
+    
+    @Injected(\.templatesService)
+    private var templatesService: any TemplatesServiceProtocol
+    
+    @Injected(\.legacyTemplatesCoordinator)
+    private var templatesCoordinator: any TemplatesCoordinatorProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: any NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: any ToastPresenterProtocol
+    
+    let document: any BaseDocumentProtocol
+    
+    init(data: EditorTypeObject) {
+        self.document = Container.shared.documentService().document(objectId: data.objectId, spaceId: data.spaceId)
+    }
+    
+    // MARK: - ObjectTypeViewModelOutput
+    func onIconTap() {
+        objectIconPickerData = ObjectIconPickerData(document: document)
+    }
+    
+    func onLayoutTap() {
+        layoutPickerObjectId = document.objectId.identifiable
+    }
+    
+    func onFieldsTap() {
+        showTypeFields.toggle()
+    }
+    
+    func onSyncStatusTap() {
+        showSyncStatusInfo.toggle()
+    }
+    
+    func showTemplatesPicker(defaultTemplateId: String?) {
+        let data = TemplatePickerViewModelData(
+            mode: .typeTemplate,
+            typeId: document.objectId,
+            spaceId: document.spaceId,
+            defaultTemplateId: defaultTemplateId
+        )
+        templatesCoordinator.showTemplatesPicker(
+            data: data,
+            onSetAsDefaultTempalte: { [weak self] templateId in
+                self?.setTemplateAsDefault(templateId: templateId)
+            }
+        )
+    }
+    
+    func setTemplateAsDefault(templateId: String) {
+        Task { @MainActor in
+            try? await templatesService.setTemplateAsDefaultForType(objectTypeId: document.objectId, templateId: templateId)
+            navigationContext.dismissTopPresented(animated: true, completion: nil)
+            toastPresenter.show(message: Loc.Templates.Popup.default)
+        }
+    }
+    
+    // MARK: - RelationsListModuleOutput
+    func addNewRelationAction(document: some BaseDocumentProtocol) {
+        // TBD;
+    }
+    func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
+        // TBD;
+    }
+    
+    func showTypeRelationsView(typeId: String) {
+        // TBD;
+    }
+    
+}

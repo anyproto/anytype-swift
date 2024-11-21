@@ -4,8 +4,8 @@ struct ObjectTypeView: View {
     @StateObject private var model: ObjectTypeViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: EditorTypeObject) {
-        _model = StateObject(wrappedValue: ObjectTypeViewModel(data: data))
+    init(document: any BaseDocumentProtocol, output: any ObjectTypeViewModelOutput) {
+        _model = StateObject(wrappedValue: ObjectTypeViewModel(document: document, output: output))
     }
     
     var body: some View {
@@ -17,18 +17,6 @@ struct ObjectTypeView: View {
                 model.onTypeNameChange(name: $0)
             }
         
-            .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
-                SyncStatusInfoView(spaceId: model.data.spaceId)
-            }
-            .sheet(item: $model.objectIconPickerData) {
-                ObjectIconPicker(data: $0)
-            }
-            .sheet(item: $model.layoutPickerObjectId) {
-                ObjectLayoutPicker(mode: .type, objectId: $0.value, spaceId: model.data.spaceId)
-            }
-            .sheet(isPresented: $model.showFields) {
-                TypeFieldsView(document: model.document, output: model)
-            }
             .anytypeSheet(isPresented: $model.showDeleteConfirmation) {
                 TypeDeleteAlert {
                     try await model.onDeleteConfirm()
@@ -147,8 +135,4 @@ struct ObjectTypeView: View {
             .frame(height: 232)
         }
     }
-}
-
-#Preview {
-    ObjectTypeView(data: EditorTypeObject(objectId: "", spaceId: ""))
 }
