@@ -5,7 +5,6 @@ struct ChatView: View {
     
     @StateObject private var model: ChatViewModel
     @State private var actionState: CGFloat = 0
-    @State private var keyboardSize: CGSize = .zero
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self._model = StateObject(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))

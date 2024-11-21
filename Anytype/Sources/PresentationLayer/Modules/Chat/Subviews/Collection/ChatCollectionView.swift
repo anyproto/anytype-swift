@@ -36,6 +36,8 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View, BottomP
         if #available(iOS 16.4, *) {
             collectionView.keyboardDismissMode = .interactive
         } else {
+            // Safe area regions can be disabled starting from iOS 16.4.
+            // Without disabling safe area regions on iOS 16.0, interactive behavior will not work correctly.
             collectionView.keyboardDismissMode = .onDrag
         }
         

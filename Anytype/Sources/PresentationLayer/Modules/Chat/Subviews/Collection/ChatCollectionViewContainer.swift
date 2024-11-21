@@ -120,7 +120,7 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
     private func updateInsets() {
         let keyboardHeightWithoutInsets = max((keyboardHeight - view.safeAreaInsets.bottom), 0)
         let newBottomInset = keyboardHeightWithoutInsets + bottomPanelHeight + contentInset.bottom
-        // Safe area rotated
+        // The safe area is rotated because the collection is rotated.
         let safeAreaDiff = collectionView.safeAreaInsets.top - collectionView.safeAreaInsets.bottom
         
         let newInsets = UIEdgeInsets(
