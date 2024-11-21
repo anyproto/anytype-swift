@@ -25,6 +25,13 @@ struct DateCoordinatorView: View {
             SimpleSearchListView(items: data.items)
                 .mediumPresentationDetents()
         }
+        .sheet(item: $model.calendarData) { data in
+            DateCalendarView(
+                date: data.date,
+                onDateChanged: data.onDateChanged
+            )
+            .fitPresentationDetents()
+        }
     }
 }
 
