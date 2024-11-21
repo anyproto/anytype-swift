@@ -293,12 +293,8 @@
 // Object settings
 
 "Icon" = "Icona";
-"Emoji or image for object" = "Emoji o immagine per l'oggetto";
 "Cover" = "Copertina";
-"Background picture" = "Immagine di sfondo";
 "Layout" = "Disposizione";
-"Arrangement of objects on a canvas" = "Disposizione degli oggetti su una tela";
-"ObjectSettings.History.Description" = "Tutte le versioni dell'oggetto";
 
 // Version history
 "VersionHistory.Title" = "Cronologia delle Versioni";
@@ -327,7 +323,7 @@
 "Choose layout type" = "Scegli il tipo di layout";
 
 "Templates" = "Modelli";
-"Header" = "Header";
+"Header" = "Intestazione";
 
 "Undo typing" = "Annulla la digitazione";
 "Undo" = "Annulla";
@@ -623,7 +619,6 @@
 "Designed to capture thoughts quickly" = "Progettato per catturare rapidamente i pensieri";
 "Action-focused layout with a checkbox" = "Layout focalizzato sull'azione con casella di controllo";
 "Standard layout for canvas blocks" = "Layout standard per i blocchi di canvas";
-"List of related objects" = "Elenco degli oggetti correlati";
 "Lock" = "Blocca";
 "Unlock" = "Sblocca";
 "Favorite" = "Preferito";
@@ -703,7 +698,7 @@
 "Blurred icon" = "Icona\n sfocata";
 "My First Space" = "Il Mio Primo Spazio";
 "Copy space info" = "Copia informazioni spazio";
-"Save" = "Save";
+"Save" = "Salva";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
@@ -724,7 +719,7 @@
 "ObjectType.MyTypes" = "I miei Tipi";
 "ObjectType.AddedToLibrary" = "Tipo ‘%@’ aggiunto alla tua libreria";
 "ObjectType.DeletedName" = "Tipo eliminato";
-"ObjectType.editingType" = "You're editing type";
+"ObjectType.editingType" = "Stai modificando il tipo";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Crea %@";
@@ -1269,4 +1264,4 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "EmptyView.Bin.subtitle" = "Sembra che tu sia tutto in ordine e organizzato!";
 
 // MARK: - Fields
-"Fields.menu" = "Fields menu";
+"Fields.menu" = "Menu campi";
