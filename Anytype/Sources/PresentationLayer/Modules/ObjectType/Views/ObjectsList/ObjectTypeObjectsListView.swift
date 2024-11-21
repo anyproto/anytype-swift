@@ -13,7 +13,7 @@ struct ObjectTypeObjectsListView: View {
     
     var body: some View {
         content
-            .task { await model.startSubscription() }
+            .task(id: model.sort) { await model.startSubscription() }
             .onDisappear { model.stopStopSubscription() }
     }
     
@@ -35,11 +35,14 @@ struct ObjectTypeObjectsListView: View {
             AnytypeText("\(model.rows.count)", style: .previewTitle1Regular)
                 .foregroundColor(Color.Text.secondary)
             Spacer()
-            Button(action: {
-                // TBD;
-            }, label: {
+            
+            Menu {
+                AllContentSortMenu(sort: $model.sort)
+            } label: {
                 IconView(asset: .X24.more).frame(width: 24, height: 24)
-            })
+            }
+            .menuOrder(.fixed)
+            
             Spacer.fixedWidth(16)
             if creationAvailable {
                 Button(action: {
