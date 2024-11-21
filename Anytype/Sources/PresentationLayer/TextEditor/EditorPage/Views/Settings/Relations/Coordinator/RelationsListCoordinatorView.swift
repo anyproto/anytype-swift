@@ -32,7 +32,7 @@ struct RelationsListCoordinatorView: View {
             RelationsSearchCoordinatorView(data: $0)
         }
         .sheet(item: $model.objectTypeData) {
-            TypeFieldsView(data: $0, output: model)
+            TypeFieldsView(data: $0)
         }
         .snackbar(toastBarData: $model.toastBarData)
     }
