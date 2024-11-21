@@ -57,9 +57,7 @@ private struct HomeWidgetsInternalView: View {
                                 output: model.output
                             )
                         }
-                        if model.showBin {
-                            BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
-                        }
+                        BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
                         editButtons
                     }
                     AnytypeNavigationSpacer()
@@ -79,9 +77,6 @@ private struct HomeWidgetsInternalView: View {
         }
         .task {
             await model.startParticipantTask()
-        }
-        .task {
-            await model.startBinSubscription()
         }
         .onAppear {
             model.onAppear()

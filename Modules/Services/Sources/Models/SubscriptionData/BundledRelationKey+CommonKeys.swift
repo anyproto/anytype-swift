@@ -45,6 +45,7 @@ public extension BundledRelationKey {
             BundledRelationKey.coverType
             BundledRelationKey.id
             BundledRelationKey.layoutAlign
+            BundledRelationKey.spaceId
         }.uniqued()
     }
     

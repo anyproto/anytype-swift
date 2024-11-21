@@ -3112,6 +3112,57 @@ extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: @retroactive Locali
     }
 }
 
+extension Anytype_Rpc.Debug.ExportLog.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Debug.ExportLog.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Debug.ExportLog.badInput")
+            case .noFolder:
+                return String(localized: "Debug.ExportLog.noFolder", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Debug.ExportLog.noFolder")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Debug.NetCheck.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Debug.NetCheck.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Debug.NetCheck.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3802,6 +3853,30 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error: @retroactive Localized
     }
 }
 
+extension Anytype_Rpc.Initial.SetParameters.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Initial.SetParameters.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Initial.SetParameters.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.LinkPreview.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -4291,30 +4366,6 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: @retroactive Lo
             case .canNotConnect:
                 return String(localized: "Membership.VerifyEmailCode.canNotConnect", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.VerifyEmailCode.canNotConnect")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
-extension Anytype_Rpc.Metrics.SetParameters.Response.Error: @retroactive LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if localizeError.isNotEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return String(localized: "Metrics.SetParameters.badInput", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Metrics.SetParameters.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -6142,6 +6193,54 @@ extension Anytype_Rpc.Process.Cancel.Response.Error: @retroactive LocalizedError
             case .badInput:
                 return String(localized: "Process.Cancel.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Process.Cancel.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Process.Subscribe.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Process.Subscribe.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Process.Subscribe.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Process.Unsubscribe.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Process.Unsubscribe.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Process.Unsubscribe.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
