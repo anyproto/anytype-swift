@@ -49,10 +49,13 @@ final class DateViewModel: ObservableObject {
     }
     
     func restartRelationSubscription(with state: DateModuleState) async {
-        guard let filter = buildFilter(from: state) else { return }
+        guard let filter = buildFilter(from: state),
+              let sort = buildSort(from: state) else { return }
+        
         await dateRelatedObjectsSubscriptionService.startSubscription(
             spaceId: document.spaceId,
             filter: filter,
+            sort: sort,
             limit: state.limit,
             update: { [weak self] details, objectsToLoad  in
                 self?.objectsToLoad = objectsToLoad
@@ -72,7 +75,11 @@ final class DateViewModel: ObservableObject {
     }
     
     func onRelationTap(_ details: RelationDetails) {
-        state.selectedRelation = details
+        if state.selectedRelation != details {
+            state.selectedRelation = details
+        } else {
+            state.sortType = state.sortType == .asc ? .desc : .asc
+        }
     }
     
     func onRelationsListTap() {
@@ -209,6 +216,16 @@ final class DateViewModel: ObservableObject {
         filter.relationKey = key
         
         return filter
+    }
+    
+    private func buildSort(from state: DateModuleState) -> DataviewSort? {
+        guard let relationDetails = state.selectedRelation else { return nil }
+        
+        let relationKey = relationDetails.format == .date ? relationDetails.key : BundledRelationKey.lastOpenedDate.rawValue
+        return SearchHelper.sort(
+            relationKey: relationKey,
+            type: state.sortType
+        )
     }
     
     private func relationItemData(from details: RelationDetails) -> RelationItemData {
