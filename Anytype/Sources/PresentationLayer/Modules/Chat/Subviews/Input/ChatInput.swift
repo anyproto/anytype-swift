@@ -53,25 +53,18 @@ struct ChatInput: View {
                     Text(Loc.objects)
                 }
             } label: {
-                Image(asset: .X32.attachment)
+                Image(asset: .X32.plus)
                     .foregroundColor(.Control.navPanelIcon)
             }
             .frame(height: 56)
             
             if hasAdditionalData || !text.string.isEmpty {
-                Group {
-                    if additionalDataLoading {
-                        DotsView()
-                            .frame(width: 32, height: 6)
-                    } else {
-                        Button {
-                            onTapSend()
-                        } label: {
-                            Image(asset: .X32.sendMessage)
-                                .foregroundColor(Color.Control.button)
-                        }
-                    }
+                Button {
+                    onTapSend()
+                } label: {
+                    Image(asset: additionalDataLoading ? .Chat.SendMessage.inactive : .Chat.SendMessage.active)
                 }
+                .allowsHitTesting(!additionalDataLoading)
                 .frame(width: 32, height: 56)
             }
                 
