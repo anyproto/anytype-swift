@@ -24,6 +24,7 @@ final class DateViewModel: ObservableObject {
     // MARK: - State
     
     private var objectsToLoad = 0
+    private var lastSelectedRelation: RelationDetails? = nil
     
     @Published var document: any BaseDocumentProtocol
     @Published var title = ""
@@ -34,7 +35,7 @@ final class DateViewModel: ObservableObject {
     
     init(objectId: String, spaceId: String, output: (any DateModuleOutput)?) {
         self.output = output
-        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
+        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
     }
     
     func onDisappear() {
@@ -126,7 +127,7 @@ final class DateViewModel: ObservableObject {
                 spaceId: document.spaceId
             ) else { return }
             
-            document = openDocumentProvider.document(objectId: details.id, spaceId: details.spaceId)
+            document = openDocumentProvider.document(objectId: details.id, spaceId: details.spaceId, mode: .preview)
         }
     }
     
@@ -152,19 +153,39 @@ final class DateViewModel: ObservableObject {
             document.objectId,
             spaceId: document.spaceId
         )
-        // Set mentions relation first
-        let reorderedRelationsKeys = relationsKeys?.reordered(by: [BundledRelationKey.mentions.rawValue], transform: { $0 }) ?? []
-        let relationDetails = reorderedRelationsKeys.compactMap { [weak self] key -> RelationDetails? in
-            guard let self else { return nil }
-            return try? relationDetailsStorage.relationsDetails(for: key, spaceId: document.spaceId)
-        }
+        let relationDetails = relationDetails(for: relationsKeys)
+        
         relationItems = relationDetails.compactMap { [weak self] details in
             self?.relationItemData(from: details)
         }
-        state.selectedRelation = relationDetails.first
+        
+        // Save last no nil selectedRelation to show it for another date
+        if let selectedRelation = state.selectedRelation {
+            lastSelectedRelation = selectedRelation
+        }
+        let prevSelectedRelation = relationDetails.first { $0.id == lastSelectedRelation?.id } ?? relationDetails.first
+        state.selectedRelation = prevSelectedRelation
     }
     
     // MARK: - Private
+    
+    private func relationDetails(for relationsKeys: [String]?) -> [RelationDetails] {
+        guard let relationsKeys else { return [] }
+        let relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
+            guard let self else { return nil }
+            return try? relationDetailsStorage.relationsDetails(for: key, spaceId: document.spaceId)
+        }
+        return relationDetails.filter { details in
+            if details.key == BundledRelationKey.mentions.rawValue {
+                return true
+            }
+            if details.key == BundledRelationKey.links.rawValue ||
+                details.key == BundledRelationKey.backlinks.rawValue {
+                return false
+            }
+            return !details.isHidden
+        }
+    }
     
     private func updateRows(with details: [ObjectDetails]) {
         objects = details.map { details in
