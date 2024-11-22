@@ -99,6 +99,7 @@ internal enum Loc {
   internal static func createRelation(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
   }
+  internal static let createSet = Loc.tr("Localizable", "Create Set", fallback: "Create Set")
   internal static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   internal static let current = Loc.tr("Localizable", "Current", fallback: "Current")
   internal static let dates = Loc.tr("Localizable", "Dates", fallback: "Dates")
@@ -205,6 +206,7 @@ internal enum Loc {
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   internal static let new = Loc.tr("Localizable", "New", fallback: "New")
   internal static let newRelation = Loc.tr("Localizable", "New relation", fallback: "New relation")
+  internal static let newSet = Loc.tr("Localizable", "New set", fallback: "New set")
   internal static let next = Loc.tr("Localizable", "Next", fallback: "Next")
   internal static let noConnection = Loc.tr("Localizable", "No connection", fallback: "No connection")
   internal static let noDate = Loc.tr("Localizable", "No date", fallback: "No date")
@@ -230,6 +232,7 @@ internal enum Loc {
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
   internal static let openFile = Loc.tr("Localizable", "Open file", fallback: "Open file")
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
+  internal static let openSet = Loc.tr("Localizable", "Open Set", fallback: "Open Set")
   internal static let openSource = Loc.tr("Localizable", "Open source", fallback: "Open source")
   internal static func openTypeError(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Open Type Error", String(describing: p1), fallback: "Not supported type \"%@\". You can open it via desktop.")
@@ -308,6 +311,9 @@ internal enum Loc {
   internal static let selfHost = Loc.tr("Localizable", "Self Host", fallback: "Self Host")
   internal static let `set` = Loc.tr("Localizable", "Set", fallback: "Set")
   internal static let setAsDefault = Loc.tr("Localizable", "Set as default", fallback: "Set as default")
+  internal static func setOf(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Set of", String(describing: p1), fallback: "Set of %@")
+  }
   internal static let sets = Loc.tr("Localizable", "Sets", fallback: "Sets")
   internal static let settingUpEncryptedStoragePleaseWait = Loc.tr("Localizable", "Setting up encrypted storage\nPlease wait", fallback: "Setting up encrypted storage\nPlease wait")
   internal static let settings = Loc.tr("Localizable", "Settings", fallback: "Settings")

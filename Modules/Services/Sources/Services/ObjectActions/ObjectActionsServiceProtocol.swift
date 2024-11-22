@@ -37,4 +37,6 @@ public protocol ObjectActionsServiceProtocol: Sendable {
     func redo(objectId: String) async throws
     
     func move(dashboadId: String, blockId: String, dropPositionblockId: String, position: Anytype_Model_Block.Position) async throws
+    
+    func createSet(name: String, iconEmoji: Emoji?, setOfObjectType: String, spaceId: String) async throws -> ObjectDetails
 }
