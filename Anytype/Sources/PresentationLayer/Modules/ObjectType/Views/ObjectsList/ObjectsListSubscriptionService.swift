@@ -7,6 +7,7 @@ protocol ObjectsListSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         objectTypeId: String,
         spaceId: String,
+        sort: AllContentSort,
         update: @escaping ([ObjectDetails], Int) -> Void
     ) async
     func stopSubscription() async
@@ -24,11 +25,12 @@ actor ObjectsListSubscriptionService: ObjectsListSubscriptionServiceProtocol {
     func startSubscription(
         objectTypeId: String,
         spaceId: String,
+        sort: AllContentSort,
         update: @escaping ([ObjectDetails], Int) -> Void
     ) async {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.createdDate,
-            type: .desc
+            relation: sort.relation.key,
+            type: sort.type
         )
         let filter = SearchHelper.typeFilter([objectTypeId])
         let keys: [BundledRelationKey] = .builder {

@@ -5,21 +5,19 @@ struct AllContentSettingsMenu: View {
     @Binding var state: AllContentState
     let binTapped: () -> Void
     
-    @State private var sortRelation: AllContentSort.Relation
-    @State private var sortType: DataviewSort.TypeEnum
+    @State private var sort: AllContentSort
     
     init(state: Binding<AllContentState>, binTapped: @escaping () -> Void) {
         self._state = state
         self.binTapped = binTapped
-        self.sortRelation = state.wrappedValue.sort.relation
-        self.sortType = state.wrappedValue.sort.type
+        self.sort = state.wrappedValue.sort
     }
     
     var body: some View {
         Menu {
             mode
             Divider()
-            sortByMenu
+            AllContentSortMenu(sort: $sort)
             Divider()
             bin
         } label: {
@@ -27,50 +25,13 @@ struct AllContentSettingsMenu: View {
                 .frame(width: 24, height: 24)
         }
         .menuOrder(.fixed)
-        .onChange(of: sortRelation) { newValue in
-            state.sort = AllContentSort(relation: newValue)
-            sortType = state.sort.type
-        }
-        .onChange(of: sortType) { newValue in
-            state.sort = AllContentSort(relation: state.sort.relation, type: newValue)
-        }
+        .onChange(of: sort) { state.sort = $0 }
     }
     
     private var mode: some View {
         Picker("", selection: $state.mode) {
             ForEach(AllContentMode.allCases, id: \.self) { mode in
                 AnytypeText(mode.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Control.button)
-            }
-        }
-    }
-    
-    private var sortByMenu: some View {
-        Menu {
-            sortRelationView
-            Divider()
-            sortTypeView
-        } label: {
-            AnytypeText(Loc.AllContent.Settings.Sort.title, style: .uxTitle2Medium)
-                .foregroundColor(.Control.button)
-            Text(state.sort.relation.title)
-        }
-        .menuActionDisableDismissBehavior()
-    }
-    
-    private var sortRelationView: some View {
-        Picker("", selection: $sortRelation) {
-            ForEach(AllContentSort.Relation.allCases, id: \.self) { sortRelation in
-                AnytypeText(sortRelation.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Control.button)
-            }
-        }
-    }
-    
-    private var sortTypeView: some View {
-        Picker("", selection: $sortType) {
-            ForEach(state.sort.relation.availableSortTypes, id: \.self) { type in
-                AnytypeText(state.sort.relation.titleFor(sortType: type), style: .uxTitle2Medium)
                     .foregroundColor(.Control.button)
             }
         }
