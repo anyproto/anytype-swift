@@ -6,6 +6,7 @@ import Services
 final class ObjectTypeObjectsListViewModel: ObservableObject {
     @Published var rows = [WidgetObjectListRowModel]()
     @Published var numberOfObjectsLeft = 0
+    @Published var sort = AllContentSort(relation: .dateUpdated)
     
     @Injected(\.objectsListSubscriptionService)
     private var service: any ObjectsListSubscriptionServiceProtocol
@@ -22,7 +23,7 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
     }
     
     func startSubscription() async {
-        await service.startSubscription(objectTypeId: objectTypeId, spaceId: spaceId) { details, numberOfObjectsLeft in
+        await service.startSubscription(objectTypeId: objectTypeId, spaceId: spaceId, sort: sort) { details, numberOfObjectsLeft in
             self.rows = details.map { details in
                 WidgetObjectListRowModel(details: details, canArchive: false) { [weak self] in
                     self?.output?.onOpenObjectTap(objectId: details.id)
@@ -36,5 +37,9 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
         Task {
             await service.stopSubscription()
         }
+    }
+    
+    func onCreateNewObjectTap() {
+        output?.onCreateNewObjectTap()
     }
 }

@@ -5,12 +5,12 @@ struct TypeFieldsView: View {
     
     @StateObject private var model: TypeFieldsViewModel
     
-    init(data: EditorTypeObject, output: (any RelationsListModuleOutput)?) {
-        _model = StateObject(wrappedValue: TypeFieldsViewModel(data: data, output: output))
+    init(data: EditorTypeObject) {
+        _model = StateObject(wrappedValue: TypeFieldsViewModel(data: data))
     }
     
-    init(document: some BaseDocumentProtocol, output: (any RelationsListModuleOutput)?) {
-        _model = StateObject(wrappedValue: TypeFieldsViewModel(document: document, output: output))
+    init(document: some BaseDocumentProtocol) {
+        _model = StateObject(wrappedValue: TypeFieldsViewModel(document: document))
     }
     
     var body: some View {

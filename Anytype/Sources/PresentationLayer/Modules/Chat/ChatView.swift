@@ -11,16 +11,15 @@ struct ChatView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        ZStack {
             mainView
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    bottomPanel
-                }
-            .chatActionOverlay(state: $actionState) {
-                if model.mentionObjects.isNotEmpty {
-                    ChatMentionList(mentions: model.mentionObjects) {
-                        model.didSelectMention($0)
-                    }
+                .ignoresSafeArea()
+        }
+        .ignoresSafeArea(.keyboard)
+        .chatActionOverlay(state: $actionState) {
+            if model.mentionObjects.isNotEmpty {
+                ChatMentionList(mentions: model.mentionObjects) {
+                    model.didSelectMention($0)
                 }
             }
         }
@@ -93,7 +92,7 @@ struct ChatView: View {
     
     @ViewBuilder
     private var mainView: some View {
-        ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy) {
+        ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy, bottomPanel: bottomPanel) {
             MessageView(data: $0, output: model)
         } scrollToBottom: {
             await model.scrollToBottom()

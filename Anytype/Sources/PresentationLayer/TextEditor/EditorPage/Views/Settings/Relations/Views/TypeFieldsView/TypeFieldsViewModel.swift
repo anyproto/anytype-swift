@@ -24,24 +24,15 @@ final class TypeFieldsViewModel: ObservableObject {
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
-    private weak var output: (any RelationsListModuleOutput)?
-    
     // MARK: - Initializers
     
-    convenience init(
-        data: EditorTypeObject,
-        output: (any RelationsListModuleOutput)?
-    ) {
+    convenience init(data: EditorTypeObject) {
         let document = Container.shared.documentService().document(objectId: data.objectId, spaceId: data.spaceId)
-        self.init(document: document, output: output)
+        self.init(document: document)
     }
     
-    init(
-        document: some BaseDocumentProtocol,
-        output: (any RelationsListModuleOutput)?
-    ) {
+    init(document: some BaseDocumentProtocol) {
         self.document = document
-        self.output = output
     }
     
     func setupSubscriptions() async {

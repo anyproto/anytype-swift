@@ -16,10 +16,11 @@ protocol ObjectTypeViewModelOutput: AnyObject, ObjectTypeObjectsListViewModelOut
 @MainActor
 protocol  ObjectTypeObjectsListViewModelOutput: AnyObject {
     func onOpenObjectTap(objectId: String)
+    func onCreateNewObjectTap()
 }
 
 @MainActor
-final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOutput, RelationsListModuleOutput, ObjectTypeObjectsListViewModelOutput {
+final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOutput, ObjectTypeObjectsListViewModelOutput {
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
     @Published var showTypeFields = false
@@ -29,6 +30,8 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectService: any ObjectActionsServiceProtocol
     
     @Injected(\.legacyTemplatesCoordinator)
     private var templatesCoordinator: any TemplatesCoordinatorProtocol
@@ -88,16 +91,22 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
         pageNavigation?.push(.page(EditorPageObject(objectId: objectId, spaceId: document.spaceId)))
     }
     
-    // MARK: - RelationsListModuleOutput
-    func addNewRelationAction(document: some BaseDocumentProtocol) {
-        // TBD;
+    func onCreateNewObjectTap() {
+        Task { @MainActor in
+            
+            guard let details = document.details else { return }
+            let newDetails = try await objectService.createObject(
+                name: "",
+                typeUniqueKey: details.uniqueKeyValue,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: true,
+                spaceId: document.spaceId,
+                origin: .builtin,
+                templateId: nil
+            )
+            
+            onOpenObjectTap(objectId: newDetails.id)
+        }
     }
-    func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
-        // TBD;
-    }
-    
-    func showTypeRelationsView(typeId: String) {
-        // TBD;
-    }
-    
 }

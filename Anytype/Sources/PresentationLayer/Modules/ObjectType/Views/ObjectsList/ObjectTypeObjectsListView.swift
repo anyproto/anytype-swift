@@ -2,8 +2,10 @@ import SwiftUI
 
 struct ObjectTypeObjectsListView: View {
     @StateObject private var model: ObjectTypeObjectsListViewModel
+    let creationAvailable: Bool
     
-    init(objectTypeId: String, spaceId: String, output: (any ObjectTypeObjectsListViewModelOutput)?) {
+    init(objectTypeId: String, spaceId: String, creationAvailable: Bool, output: (any ObjectTypeObjectsListViewModelOutput)?) {
+        self.creationAvailable = creationAvailable
         _model = StateObject(wrappedValue: ObjectTypeObjectsListViewModel(
             objectTypeId: objectTypeId, spaceId: spaceId, output: output
         ))
@@ -11,7 +13,7 @@ struct ObjectTypeObjectsListView: View {
     
     var body: some View {
         content
-            .task { await model.startSubscription() }
+            .task(id: model.sort) { await model.startSubscription() }
             .onDisappear { model.stopStopSubscription() }
     }
     
@@ -33,17 +35,22 @@ struct ObjectTypeObjectsListView: View {
             AnytypeText("\(model.rows.count)", style: .previewTitle1Regular)
                 .foregroundColor(Color.Text.secondary)
             Spacer()
-            Button(action: {
-                // TBD;
-            }, label: {
+            
+            Menu {
+                AllContentSortMenu(sort: $model.sort)
+            } label: {
                 IconView(asset: .X24.more).frame(width: 24, height: 24)
-            })
+            }
+            .menuOrder(.fixed)
+            
             Spacer.fixedWidth(16)
-            Button(action: {
-                // TBD;
-            }, label: {
-                IconView(asset: .X24.plus).frame(width: 24, height: 24)
-            })
+            if creationAvailable {
+                Button(action: {
+                    model.onCreateNewObjectTap()
+                }, label: {
+                    IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                })
+            }
         }
     }
     
@@ -67,5 +74,5 @@ struct ObjectTypeObjectsListView: View {
 }
 
 #Preview {
-    ObjectTypeObjectsListView(objectTypeId: "", spaceId: "", output: nil)
+    ObjectTypeObjectsListView(objectTypeId: "", spaceId: "", creationAvailable: true, output: nil)
 }

@@ -3,6 +3,8 @@ import SwiftUI
 
 struct HomeTabBarView: View {
 
+    static let height: CGFloat = 64
+    
     let icon: Icon?
     @Binding var state: HomeTabState
     @Environment(\.keyboardDismiss) private var keyboardDismiss
@@ -23,7 +25,7 @@ struct HomeTabBarView: View {
             makeButton(asset: .X32.chat, buttonState: .chat)
         }
         .padding(.horizontal, 20)
-        .frame(height: 64)
+        .frame(height: HomeTabBarView.height)
     }
     
     private func makeButton(asset: ImageAsset, buttonState: HomeTabState) -> some View {

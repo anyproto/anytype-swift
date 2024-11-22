@@ -25,6 +25,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     // MARK: - State
     private var mode: Mode = .text
     private var triggerSymbolPosition: UITextPosition?
+    private var lastApplyedEditingState: Bool?
     
     init(
         text: Binding<NSAttributedString>,
@@ -45,6 +46,20 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         self.markdownListener = MarkdownListenerImpl(internalListeners: [InlineMarkdownListener()])
         
         super.init()
+    }
+    
+    func changeEditingStateIfNeeded(textView: UITextView, editing: Bool) {
+        if editing, lastApplyedEditingState == false {
+            if !textView.isFirstResponder {
+                textView.becomeFirstResponder()
+            }
+            lastApplyedEditingState = true
+        } else if lastApplyedEditingState == true {
+            if textView.isFirstResponder {
+                textView.resignFirstResponder()
+            }
+            lastApplyedEditingState = false
+        }
     }
     
     func updateTextIfNeeded(textView: UITextView, string: NSAttributedString) {

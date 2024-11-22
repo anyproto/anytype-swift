@@ -59,21 +59,9 @@ struct ChatTextView: UIViewRepresentable {
     func updateUIView(_ textView: UITextView, context: Context) {
         context.coordinator.linkTo = linkTo
         
-        if editing {
-            if !textView.isFirstResponder {
-                Task { @MainActor in // Async for fix "AttributeGraph: cycle detected through attribute"
-                    textView.becomeFirstResponder()
-                }
-            }
-        } else {
-            if textView.isFirstResponder {
-                Task { @MainActor in // Async for fix "AttributeGraph: cycle detected through attribute"
-                    textView.resignFirstResponder()
-                }
-            }
-        }
-        
         Task { @MainActor in
+            // Async for fix "AttributeGraph: cycle detected through attribute"
+            context.coordinator.changeEditingStateIfNeeded(textView: textView, editing: editing)
             context.coordinator.updateTextIfNeeded(textView: textView, string: text)
         }
     }
