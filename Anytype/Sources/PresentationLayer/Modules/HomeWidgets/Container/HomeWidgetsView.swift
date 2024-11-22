@@ -87,7 +87,11 @@ private struct HomeWidgetsInternalView: View {
             model.dropFinish(from: from, to: to)
         }
         .if(FeatureFlags.homeSpaceLevelChat) {
-            $0.homeScreenBlue(handleBottomNavigatioinSpacer: true)
+            $0.overlay(alignment: .top) {
+                HomeBlurEffectView(direction: .topToBottom)
+                    .ignoresSafeArea()
+                    .frame(height: 1)
+            }
         }
     }
     
