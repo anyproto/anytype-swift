@@ -8,7 +8,7 @@ extension ComponentColor where T: UIColor {
         case .default: return `default`
         case .grey: return grey
         case .yellow: return yellow
-        case .orange: return amber
+        case .orange: return orange
         case .red: return red
         case .pink: return pink
         case .purple: return purple
@@ -42,7 +42,7 @@ extension ComponentColor where T == Color {
         case .default: return `default`
         case .grey: return grey
         case .yellow: return yellow
-        case .orange: return amber
+        case .orange: return orange
         case .red: return red
         case .pink: return pink
         case .purple: return purple

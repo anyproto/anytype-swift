@@ -68,7 +68,7 @@ struct StatusRelationView_Previews: PreviewProvider {
             options: [Relation.Status.Option(
                 id: "id",
                 text: "text",
-                color: Color.Dark.amber
+                color: Color.Dark.yellow
             )],
             hint: "hint",
             style: .regular(allowMultiLine: false)

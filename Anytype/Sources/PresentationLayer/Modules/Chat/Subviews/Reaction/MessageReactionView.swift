@@ -30,7 +30,7 @@ struct MessageReactionView: View {
             .dynamicTypeSize(.large)
             .frame(height: 32)
             .padding(.horizontal, 8)
-            .background(model.selected ? Color.VeryLight.amber : Color.Background.highlightedMedium)
+            .background(model.selected ? Color.VeryLight.orange : Color.Background.highlightedMedium)
             .cornerRadius(16, style: .circular)
             .border(16, color: model.selected ? Color.System.amber50 : Color.clear, lineWidth: 1)
         }

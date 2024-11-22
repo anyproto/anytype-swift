@@ -7,7 +7,7 @@ enum BlockBackgroundColor: String, CaseIterable {
     case `default`
     case gray
     case lemon
-    case amber
+    case orange
     case red
     case pink
     case purple
@@ -23,8 +23,8 @@ enum BlockBackgroundColor: String, CaseIterable {
             return ColorComponent.default
         case .lemon:
             return ColorComponent.yellow
-        case .amber:
-            return ColorComponent.amber
+        case .orange:
+            return ColorComponent.orange
         case .red:
             return ColorComponent.red
         case .pink:
@@ -51,8 +51,8 @@ enum BlockBackgroundColor: String, CaseIterable {
             return ColorComponent.default
         case .lemon:
             return ColorComponent.yellow
-        case .amber:
-            return ColorComponent.amber
+        case .orange:
+            return ColorComponent.orange
         case .red:
             return ColorComponent.red
         case .pink:
@@ -79,8 +79,8 @@ enum BlockBackgroundColor: String, CaseIterable {
             return ColorComponent.default
         case .lemon:
             return ColorComponent.yellow
-        case .amber:
-            return ColorComponent.amber
+        case .orange:
+            return ColorComponent.orange
         case .red:
             return ColorComponent.red
         case .pink:
@@ -106,7 +106,7 @@ enum BlockBackgroundColor: String, CaseIterable {
             return Loc.yellowBackground
         case .default:
             return Loc.defaultBackground
-        case .amber:
+        case .orange:
             return Loc.amberBackground
         case .red:
             return Loc.redBackground
@@ -142,7 +142,7 @@ enum BlockBackgroundColor: String, CaseIterable {
             return .default
         case .lemon:
             return .yellow
-        case .amber:
+        case .orange:
             return .orange
         case .red:
             return .red
@@ -174,7 +174,7 @@ extension MiddlewareColor {
         case .yellow:
             return .lemon
         case .orange:
-            return .amber
+            return .orange
         case .red:
             return .red
         case .pink:
