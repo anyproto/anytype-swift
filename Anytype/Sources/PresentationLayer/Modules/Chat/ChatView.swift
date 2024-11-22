@@ -55,7 +55,7 @@ struct ChatView: View {
                     model.onTapDeleteReply()
                 }
             }
-            MessageLinkInputViewContainer(objects: model.linkedObjects) {
+            MessageInputAttachmentsViewContainer(objects: model.linkedObjects) {
                 model.didSelectObject(linkedObject: $0)
             } onTapRemove: {
                 model.onTapRemoveLinkedObject(linkedObject: $0)

@@ -1,7 +1,7 @@
 import SwiftUI
 import Services
 
-struct MessageLinkInputVideoView: View {
+struct MessageInputVideoView: View {
     
     let url: URL?
     let onTapRemove: () -> Void
@@ -12,15 +12,15 @@ struct MessageLinkInputVideoView: View {
     }
     
     var body: some View {
-        MessageLinkVideoView(url: url)
+        MessageVideoView(url: url)
             .frame(width: 72, height: 72)
             .messageLinkStyle()
             .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }
 
-extension MessageLinkInputVideoView {
+extension MessageInputVideoView {
     init(details: MessageAttachmentDetails, onTapRemove: @escaping () -> Void) {
-        self = MessageLinkInputVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id), onTapRemove: onTapRemove)
+        self = MessageInputVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id), onTapRemove: onTapRemove)
     }
 }

@@ -14,7 +14,6 @@ struct MessageLinkLocalBinaryFileView: View {
             icon: .object(.file(mimeType: type.identifier, name: fileName)),
             title: fileName,
             description: Loc.file,
-            style: .input,
             onTapRemove: onTapRemove
         )
     }

@@ -17,12 +17,12 @@ struct MessageLinkedUploadedObject: View {
                 onTapObject()
             }
         case .video:
-            MessageLinkInputVideoView(details: details, onTapRemove: onTapRemove)
+            MessageInputVideoView(details: details, onTapRemove: onTapRemove)
                 .onTapGesture {
                     onTapObject()
                 }
         default:
-            MessageLinkObjectView(details: details, style: .input, onTapRemove: { _ in
+            MessageLinkObjectView(details: details, onTapRemove: { _ in
                 onTapRemove()
             })
             .onTapGesture {
