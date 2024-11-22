@@ -33,7 +33,7 @@ struct ChatInput: View {
                         .allowsHitTesting(false)
                         .lineLimit(1)
                 }
-                ChatTextView(text: $text, editing: $editing, mention: $mention, minHeight: 56, maxHeight: 212, linkTo: onTapLinkTo)
+                ChatTextView(text: $text, editing: $editing, mention: $mention, minHeight: 56, maxHeight: 156, linkTo: onTapLinkTo)
             }
             
             Menu {

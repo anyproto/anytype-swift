@@ -3,7 +3,7 @@ import SwiftUI
 struct ChatInputReplyModel {
     let id: String
     let title: String
-    let description: AttributedString
+    let description: String
     let icon: Icon?
 }
 
@@ -16,13 +16,15 @@ struct ChatInputReplyView: View {
         HStack(spacing: 8) {
             if let icon = model.icon {
                 IconView(icon: icon)
-                    .frame(width: 24, height: 24)
+                    .frame(width: 40, height: 40)
             }
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text(model.title)
                     .anytypeStyle(.caption1Medium)
-                Text(model.description)
-                    .anytypeStyle(.caption1Regular)
+                if model.description.isNotEmpty {
+                    Text(model.description)
+                        .anytypeStyle(.caption1Regular)
+                }
             }
             .foregroundStyle(Color.Text.primary)
             .lineLimit(1)
@@ -37,7 +39,8 @@ struct ChatInputReplyView: View {
             }
         }
         .padding(.horizontal, 12)
-        .frame(height: 40)
+        .padding(.vertical, 8)
+        .frame(height: 56)
         .background(Color.Background.highlightedLight)
     }
 }
