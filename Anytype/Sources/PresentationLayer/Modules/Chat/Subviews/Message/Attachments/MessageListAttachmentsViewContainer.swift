@@ -8,7 +8,7 @@ struct MessageListAttachmentsViewContainer: View {
     let onTapObject: (MessageAttachmentDetails) -> Void
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
             ForEach(objects, id: \.id) { details in
                 MessageObjectAttachmentView(details: details)
                     .onTapGesture {

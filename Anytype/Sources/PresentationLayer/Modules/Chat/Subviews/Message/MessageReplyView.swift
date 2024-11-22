@@ -15,7 +15,7 @@ struct MessageReplyView: View {
     var body: some View {
         HStack(spacing: 8) {
             Group {
-                model.isYour ? Color.Dark.green : Color.Dark.grey
+                model.isYour ? Color.Control.navPanelIcon : Color.Dark.grey
             }
             .frame(width: 4)
             
@@ -29,11 +29,11 @@ struct MessageReplyView: View {
                 Text(model.description)
                     .anytypeStyle(.caption1Regular)
             }
-            .foregroundStyle(Color.Text.primary)
+            .foregroundStyle(model.isYour ? Color.Text.white : Color.Text.primary)
             .lineLimit(1)
             Spacer(minLength: 12)
         }
-        .background(model.isYour ? Color.Light.green : Color.Light.grey)
+        .background(model.isYour ? Color.Control.navPanelIcon : Color.Light.grey)
         .frame(height: 52)
         .cornerRadius(16)
     }
