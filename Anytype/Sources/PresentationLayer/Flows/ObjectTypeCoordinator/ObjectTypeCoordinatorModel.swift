@@ -20,7 +20,7 @@ protocol  ObjectTypeObjectsListViewModelOutput: AnyObject {
 }
 
 @MainActor
-final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOutput, RelationsListModuleOutput, ObjectTypeObjectsListViewModelOutput {
+final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOutput, ObjectTypeObjectsListViewModelOutput {
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
     @Published var showTypeFields = false
@@ -109,17 +109,4 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
             onOpenObjectTap(objectId: newDetails.id)
         }
     }
-    
-    // MARK: - RelationsListModuleOutput
-    func addNewRelationAction(document: some BaseDocumentProtocol) {
-        // TBD;
-    }
-    func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
-        // TBD;
-    }
-    
-    func showTypeRelationsView(typeId: String) {
-        // TBD;
-    }
-    
 }

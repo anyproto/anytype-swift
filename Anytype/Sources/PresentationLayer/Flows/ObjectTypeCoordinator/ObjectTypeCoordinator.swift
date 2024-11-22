@@ -22,7 +22,7 @@ struct ObjectTypeCoordinator: View {
                 ObjectLayoutPicker(mode: .type, objectId: $0.value, spaceId: model.document.spaceId)
             }
             .sheet(isPresented: $model.showTypeFields) {
-                TypeFieldsView(document: model.document, output: model)
+                TypeFieldsView(document: model.document)
             }
     }
 }
