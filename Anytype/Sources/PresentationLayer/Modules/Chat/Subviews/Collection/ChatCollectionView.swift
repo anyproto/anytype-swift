@@ -1,8 +1,9 @@
 import Foundation
 import SwiftUI
 import Combine
+import UIKit
 
-struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIViewRepresentable where Item.ID == String {
+struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View, BottomPanel: View>: UIViewControllerRepresentable where Item.ID == String {
 
     enum OneSection {
         case one
@@ -10,10 +11,11 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
     
     let items: [Item]
     let scrollProxy: ChatCollectionScrollProxy
+    let bottomPanel: BottomPanel
     let itemBuilder: (Item) -> DataView
     let scrollToBottom: () async -> Void
     
-    func makeUIView(context: Context) -> UICollectionView {
+    func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
             configuration.headerMode = .none
@@ -30,7 +32,14 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
         collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
         collectionView.delegate = context.coordinator
         collectionView.scrollsToTop = false
-        collectionView.keyboardDismissMode = .onDrag
+        
+        if #available(iOS 16.4, *) {
+            collectionView.keyboardDismissMode = .interactive
+        } else {
+            // Safe area regions can be disabled starting from iOS 16.4.
+            // Without disabling safe area regions on iOS 16.0, interactive behavior will not work correctly.
+            collectionView.keyboardDismissMode = .onDrag
+        }
         
         let itemRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> {
             (cell, indexPath, item) in
@@ -50,12 +59,23 @@ struct ChatCollectionView<Item: Hashable & Identifiable, DataView: View>: UIView
         
         context.coordinator.dataSource = dataSource
         
-        return collectionView
+        let bottomPanel = UIHostingController(rootView: bottomPanel)
+        bottomPanel.view.backgroundColor = .clear
+        bottomPanel.sizingOptions = [.intrinsicContentSize]
+        
+        if #available(iOS 16.4, *) {
+            bottomPanel.safeAreaRegions = SafeAreaRegions()
+        }
+        
+        let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel)
+        container.contentInset = UIEdgeInsets(top: HomeTabBarView.height, left: 0, bottom: 10, right: 0)
+        return container
     }
     
-    func updateUIView(_ collectionView: UICollectionView, context: Context) {
+    func updateUIViewController(_ container: ChatCollectionViewContainer<BottomPanel>, context: Context) {
+        container.bottomPanel.rootView = bottomPanel
         context.coordinator.scrollToBottom = scrollToBottom
-        context.coordinator.updateState(collectionView: collectionView, items: items, section: .one, scrollProxy: scrollProxy)
+        context.coordinator.updateState(collectionView: container.collectionView, items: items, section: .one, scrollProxy: scrollProxy)
     }
     
     func makeCoordinator() -> ChatCollectionViewCoordinator<OneSection, Item> {
@@ -143,12 +163,15 @@ final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Id
     // MARK: - UICollectionViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.contentSize.isNotZero else { return }
+        
         let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
+        
         if distanceForLoadNextPage > distance {
             if canCallScrollToBottom, scrollUpdateTask.isNil {
+                canCallScrollToBottom = false
                 scrollUpdateTask = Task { [weak self] in
                     await self?.scrollToBottom?()
-                    self?.canCallScrollToBottom = false
                     self?.scrollUpdateTask = nil
                 }.cancellable()
             }
