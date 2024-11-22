@@ -2,19 +2,18 @@ import SwiftUI
 
 struct ObjectTypeObjectsListView: View {
     @StateObject private var model: ObjectTypeObjectsListViewModel
-    let creationAvailable: Bool
     
-    init(objectTypeId: String, spaceId: String, creationAvailable: Bool, output: (any ObjectTypeObjectsListViewModelOutput)?) {
-        self.creationAvailable = creationAvailable
+    init(typeDocument: any BaseDocumentProtocol, output: (any ObjectTypeObjectsListViewModelOutput)?) {
         _model = StateObject(wrappedValue: ObjectTypeObjectsListViewModel(
-            objectTypeId: objectTypeId, spaceId: spaceId, output: output
+            document: typeDocument, output: output
         ))
     }
     
     var body: some View {
         content
-            .task(id: model.sort) { await model.startSubscription() }
-            .onDisappear { model.stopStopSubscription() }
+            .task(id: model.sort) { await model.startListSubscription() }
+            .task { await model.startSetSubscription() }
+            .onDisappear { model.stopSubscriptions() }
     }
     
     private var content: some View {
@@ -37,6 +36,7 @@ struct ObjectTypeObjectsListView: View {
             Spacer()
             
             Menu {
+                Button(model.setButtonText) { Task { try await model.onSetButtonTap() } }
                 AllContentSortMenu(sort: $model.sort)
             } label: {
                 IconView(asset: .X24.more).frame(width: 24, height: 24)
@@ -44,7 +44,7 @@ struct ObjectTypeObjectsListView: View {
             .menuOrder(.fixed)
             
             Spacer.fixedWidth(16)
-            if creationAvailable {
+            if model.isEditorLayout {
                 Button(action: {
                     model.onCreateNewObjectTap()
                 }, label: {
@@ -64,15 +64,19 @@ struct ObjectTypeObjectsListView: View {
     }
     
     private var objectList: some View {
-        VStack {
+        VStack(spacing: 0) {
             ForEach(model.rows) { row in
                 WidgetObjectListRowView(model: row)
             }
+            Spacer.fixedHeight(12)
+            setButton
             AnytypeNavigationSpacer(minHeight: 130)
         }
     }
-}
-
-#Preview {
-    ObjectTypeObjectsListView(objectTypeId: "", spaceId: "", creationAvailable: true, output: nil)
+    
+    private var setButton: some View {
+        AsyncStandardButton(model.setButtonText, style: .secondaryLarge) {
+            try await model.onSetButtonTap()
+        }
+    }
 }

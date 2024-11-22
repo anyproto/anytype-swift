@@ -209,6 +209,8 @@
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
 "Open file"= "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Favorites";
@@ -699,6 +701,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "New set";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

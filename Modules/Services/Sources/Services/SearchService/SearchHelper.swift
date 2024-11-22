@@ -277,6 +277,16 @@ public class SearchHelper {
         }
     }
     
+    public static func setOfType(typeId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = typeId.protobufValue
+        
+        filter.relationKey = BundledRelationKey.setOf.rawValue
+        
+        return filter
+    }
+    
     // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {

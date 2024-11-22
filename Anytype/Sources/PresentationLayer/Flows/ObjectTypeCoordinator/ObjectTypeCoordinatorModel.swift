@@ -16,6 +16,7 @@ protocol ObjectTypeViewModelOutput: AnyObject, ObjectTypeObjectsListViewModelOut
 @MainActor
 protocol  ObjectTypeObjectsListViewModelOutput: AnyObject {
     func onOpenObjectTap(objectId: String)
+    func onOpenSetTap(objectId: String)
     func onCreateNewObjectTap()
 }
 
@@ -89,6 +90,10 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     // MARK: - ObjectTypeObjectsListViewModelOutput
     func onOpenObjectTap(objectId: String) {
         pageNavigation?.push(.page(EditorPageObject(objectId: objectId, spaceId: document.spaceId)))
+    }
+    
+    func onOpenSetTap(objectId: String) {
+        pageNavigation?.push(.list(EditorListObject(objectId: objectId, spaceId: document.spaceId)))
     }
     
     func onCreateNewObjectTap() {

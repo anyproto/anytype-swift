@@ -347,4 +347,8 @@ extension Container {
     var objectsListSubscriptionService: Factory<any ObjectsListSubscriptionServiceProtocol> {
         self { ObjectsListSubscriptionService() }
     }
+    
+    var setByTypeSubscriptionService: Factory<any SetByTypeSubscriptionServiceProtocol> {
+        self { SetByTypeSubscriptionService() }
+    }
 }
