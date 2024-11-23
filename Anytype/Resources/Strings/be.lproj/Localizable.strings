@@ -209,6 +209,8 @@
 "Lets Go" = "Паехалі";
 "My spaces" = "Мае прасторы";
 "Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Абранае";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Значок";
-"Emoji or image for object" = "Эмодзі або відарыс для аб'екта";
 "Cover" = "Вокладка";
-"Background picture" = "Фонавы відарыс";
 "Layout" = "Знешні выгляд";
-"Arrangement of objects on a canvas" = "Размяшчэнне аб'ектаў на палатне";
-"ObjectSettings.History.Description" = "Усе версіі аб'екта";
 
 // Version history
 "VersionHistory.Title" = "Гісторыя версій";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Прызначаны для хуткага запісу думак";
 "Action-focused layout with a checkbox" = "Макет, арыентаваны на дзеянні, з птушкай";
 "Standard layout for canvas blocks" = "Прадвызначаны макет для блокаў палатна";
-"List of related objects" = "Спіс звязаных аб'ектаў";
 "Lock" = "Заблакіраваць";
 "Unlock" = "Разблакіраваць";
 "Favorite" = "Абранае";
@@ -705,6 +702,8 @@
 "My First Space" = "Мая першая прастора";
 "Copy space info" = "Скапіраваць інфармацыю пра прастору";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Новы набор";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
