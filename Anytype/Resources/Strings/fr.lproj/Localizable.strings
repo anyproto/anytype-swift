@@ -209,6 +209,8 @@
 "Lets Go" = "C’est parti ";
 "My spaces" = "Mes espaces";
 "Open file" = "Ouvrir le fichier";
+"Open Set" = "Ouvrir le set";
+"Create Set" = "Créer un set";
 
 // Home
 "Favorites" = "Favoris";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Icône";
-"Emoji or image for object" = "Emoji ou image";
 "Cover" = "Couverture";
-"Background picture" = "Image d'arrière-plan";
 "Layout" = "Mise en page";
-"Arrangement of objects on a canvas" = "Arrangement d'objets sur une toile";
-"ObjectSettings.History.Description" = "Toutes les versions de l'objet";
 
 // Version history
 "VersionHistory.Title" = "Historique des versions";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Conçu pour saisir rapidement les idées";
 "Action-focused layout with a checkbox" = "Mise en page axée sur l'action avec une case à cocher";
 "Standard layout for canvas blocks" = "Disposition standard pour les toiles";
-"List of related objects" = "Liste des objets liés";
 "Lock" = "Verrouiller";
 "Unlock" = "Déverouiller";
 "Favorite" = "Favoris";
@@ -704,6 +701,8 @@
 "My First Space" = "Mon premier espace";
 "Copy space info" = "Copier les informations de l'espace";
 "Save" = "Sauvegarder";
+"Set of" = "Set de %@";
+"New set" = "Nouvel ensemble";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
