@@ -209,6 +209,8 @@
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
 "Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Favorieten";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Icoon";
-"Emoji or image for object" = "Emoji of afbeelding voor object";
 "Cover" = "Omslag";
-"Background picture" = "Achtergrondafbeelding";
 "Layout" = "Opmaak";
-"Arrangement of objects on a canvas" = "Ordening van objecten op canvas";
-"ObjectSettings.History.Description" = "All versions of object";
 
 // Version history
 "VersionHistory.Title" = "Version History";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Ontworpen om snel gedachten te bewaren";
 "Action-focused layout with a checkbox" = "Actiegerichte lay-out met een checkbox";
 "Standard layout for canvas blocks" = "Standaard layout voor canvas blokken";
-"List of related objects" = "Lijst van gerelateerde objecten";
 "Lock" = "Vergrendel";
 "Unlock" = "Ontgrendel";
 "Favorite" = "Maak favoriet";
@@ -704,6 +701,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Nieuwe set";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";

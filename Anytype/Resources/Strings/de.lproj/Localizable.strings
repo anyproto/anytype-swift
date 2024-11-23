@@ -209,6 +209,8 @@
 "Lets Go" = "Los geht’s";
 "My spaces" = "My Spaces";
 "Open file" = "Datei öffnen";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Favoriten";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Symbol";
-"Emoji or image for object" = "Emoji oder Bild für das Objekt";
 "Cover" = "Titelbild";
-"Background picture" = "Hintergrundbild";
 "Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Anordnung von Objekten auf einer Leinwand";
-"ObjectSettings.History.Description" = "Alle Versionen des Objekts";
 
 // Version history
 "VersionHistory.Title" = "Versionsverlauf";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Entwickelt um schnell Gedanken zu erfassen";
 "Action-focused layout with a checkbox" = "Aktionsfokussiertes Layout mit Checkbox";
 "Standard layout for canvas blocks" = "Standardlayout für Leinwandblöcke";
-"List of related objects" = "Liste der verwandten Objekte";
 "Lock" = "Sperren";
 "Unlock" = "Entsperren";
 "Favorite" = "Zu Favoriten hinzufügen";
@@ -704,6 +701,8 @@
 "My First Space" = "Mein erster Space";
 "Copy space info" = "Spaceinformationen kopieren";
 "Save" = "Speichern";
+"Set of" = "Set of %@";
+"New set" = "Neues Set";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";

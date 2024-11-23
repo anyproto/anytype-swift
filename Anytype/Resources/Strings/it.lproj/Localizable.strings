@@ -209,6 +209,8 @@
 "Lets Go" = "Iniziamo!";
 "My spaces" = "I miei Spazi";
 "Open file" = "Apri file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Preferiti";
@@ -699,6 +701,8 @@
 "My First Space" = "Il Mio Primo Spazio";
 "Copy space info" = "Copia informazioni spazio";
 "Save" = "Salva";
+"Set of" = "Set of %@";
+"New set" = "Nuovo insieme";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";

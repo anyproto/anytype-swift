@@ -209,6 +209,8 @@
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
 "Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Обрані";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Іконка";
-"Emoji or image for object" = "Емоджі або зображення для об'єкта";
 "Cover" = "Обкладинка";
-"Background picture" = "Зображення тла";
 "Layout" = "Макет";
-"Arrangement of objects on a canvas" = "Розташування об'єктів на полотні";
-"ObjectSettings.History.Description" = "All versions of object";
 
 // Version history
 "VersionHistory.Title" = "Version History";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Розроблено для швидкого захоплення думок";
 "Action-focused layout with a checkbox" = "Макет, орієнтований на дію, з прапорцем";
 "Standard layout for canvas blocks" = "Стандартний макет для полотна блоків";
-"List of related objects" = "Список пов'язаних об'єктів";
 "Lock" = "Заблокувати";
 "Unlock" = "Розблокувати";
 "Favorite" = "Обране";
@@ -704,6 +701,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "New set";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

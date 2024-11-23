@@ -209,6 +209,8 @@
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
 "Open file" = "開啟檔案";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "我的最愛";
@@ -294,12 +296,8 @@
 // Object settings
 
 "Icon" = "圖示";
-"Emoji or image for object" = "物件的 Emoji 或圖像";
 "Cover" = "封面";
-"Background picture" = "背景圖片";
 "Layout" = "排版";
-"Arrangement of objects on a canvas" = "畫布上的物件排列";
-"ObjectSettings.History.Description" = "物件的所有版本";
 
 // Version history
 "VersionHistory.Title" = "Version History";
@@ -624,7 +622,6 @@
 "Designed to capture thoughts quickly" = "專為快速捕捉想法而設計";
 "Action-focused layout with a checkbox" = "具有核取方塊的操作重點版型";
 "Standard layout for canvas blocks" = "畫布區塊的標準版型";
-"List of related objects" = "關聯物件列表";
 "Lock" = "鎖定";
 "Unlock" = "解除鎖定";
 "Favorite" = "收藏";
@@ -705,6 +702,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "新增集合";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您確定要刪除您的帳戶嗎？";
