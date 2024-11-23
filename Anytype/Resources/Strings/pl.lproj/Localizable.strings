@@ -209,6 +209,8 @@
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
 "Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Ulubione";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Ikona";
-"Emoji or image for object" = "Emoji lub obraz dla obiektu";
 "Cover" = "Okładka";
-"Background picture" = "Zdjęcie w tle";
 "Layout" = "Układ";
-"Arrangement of objects on a canvas" = "Układ obiektów na płótnie";
-"ObjectSettings.History.Description" = "All versions of object";
 
 // Version history
 "VersionHistory.Title" = "Version History";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Zaprojektowany z myślą o szybkim rejestrowaniu myśli";
 "Action-focused layout with a checkbox" = "Układ skoncentrowany na akcji z polem wyboru";
 "Standard layout for canvas blocks" = "Standardowy układ dla bloków płótna";
-"List of related objects" = "Lista powiązanych obiektów";
 "Lock" = "Zablokuj";
 "Unlock" = "Odblokuj";
 "Favorite" = "Dodaj do ulubionych";
@@ -704,6 +701,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Nowy zestaw";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";
