@@ -209,6 +209,8 @@
 "Lets Go" = "Mulai!";
 "My spaces" = "Ruangku";
 "Open file" = "Buka berkas";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Favorit";
@@ -294,12 +296,8 @@
 // Object settings
 
 "Icon" = "Ikon";
-"Emoji or image for object" = "Emoji atau gambar untuk objek";
 "Cover" = "Sampul";
-"Background picture" = "Gambar latar belakang";
 "Layout" = "Tata letak";
-"Arrangement of objects on a canvas" = "Susunan balok dalam kanvas";
-"ObjectSettings.History.Description" = "Semua versi objek ini";
 
 // Version history
 "VersionHistory.Title" = "Riwayat Versi";
@@ -624,7 +622,6 @@
 "Designed to capture thoughts quickly" = "Didesain untuk menangkap pemikiran dengan cepat";
 "Action-focused layout with a checkbox" = "Tata letak berfokus pada aksi dengan sebuah centang";
 "Standard layout for canvas blocks" = "Tata letak standar untuk blok kanvas";
-"List of related objects" = "Daftar dari objek yang berelasi";
 "Lock" = "Kunci";
 "Unlock" = "Buka kunci";
 "Favorite" = "Favorit";
@@ -705,6 +702,8 @@
 "My First Space" = "Ruang Pertamaku";
 "Copy space info" = "Salin info ruang";
 "Save" = "Simpan";
+"Set of" = "Set of %@";
+"New set" = "Set baru";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
