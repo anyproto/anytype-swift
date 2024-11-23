@@ -209,6 +209,8 @@
 "Lets Go" = "让我们开始！";
 "My spaces" = "我的空间";
 "Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "收藏夹";
@@ -294,12 +296,8 @@
 // Object settings
 
 "Icon" = "图标";
-"Emoji or image for object" = "对象的表情符号或图像";
 "Cover" = "封面";
-"Background picture" = "背景图片";
 "Layout" = "布局";
-"Arrangement of objects on a canvas" = "画布上对象的排列";
-"ObjectSettings.History.Description" = "对象的所有历史版本";
 
 // Version history
 "VersionHistory.Title" = "版本历史";
@@ -624,7 +622,6 @@
 "Designed to capture thoughts quickly" = "专为快速捕捉想法而设计";
 "Action-focused layout with a checkbox" = "带复选框的操作重点布局";
 "Standard layout for canvas blocks" = "画布区块的标准布局";
-"List of related objects" = "关联对象列表";
 "Lock" = "上锁";
 "Unlock" = "解锁";
 "Favorite" = "收藏夹";
@@ -705,6 +702,8 @@
 "My First Space" = "我的第一个空间";
 "Copy space info" = "复制空间信息";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "新建集合";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -1180,7 +1179,7 @@
 "Membership.EmailValidation" = "输入发送到您邮箱的代码";
 
 "Membership.NameForm.Title" = "选择您独有的名字";
-"Membership.NameForm.Subtitle" = "这是您在 Anytype 网络上独有的名字，正在确认您的会员资格。它将作为您的个人域名，且不能更改。";
+"Membership.NameForm.Subtitle" = "这是您在 Anytype 网络上的独特名称，用于确认您的会员身份。它是您的个人域名，且无法更改。";
 "Membership.NameForm.Validating" = "请耐心等待...";
 "Membership.NameForm.Validated" = "这个名称是可获得的";
 
