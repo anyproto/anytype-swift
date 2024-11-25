@@ -59,12 +59,96 @@ final class ChatCollectionViewCoordinator<
     // MARK: Update
     
     func updateState(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
-        guard let dataSource else { return }
-        for section in sections.reversed() {
-            let sectionSnapshot = dataSource.snapshot(for: section.id)
-            
-            updateState(collectionView: collectionView, sectionId: section.id, items: section.items, currentSnapshot: sectionSnapshot, scrollProxy: scrollProxy)
+        guard let dataSource, self.sections != sections else {
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: false)
+            return
         }
+        
+        let currentSnapshot = dataSource.snapshot()
+        
+//        for visibleItem in currentSnapshot.visibleItems {
+//            if let newIndex = snapshot.index(of: visibleItem) {
+//                visibleNewItemIndex = newIndex
+//                if let oldIndex = currentSnapshot.index(of: visibleItem) {
+//                    oldVisibleCellAttributes = collectionView.layoutAttributesForItem(at: IndexPath(row: oldIndex, section: 0))
+//                }
+//                break
+//            }
+//        }
+        
+//        for visibleItem in currentSnapshot.visibleItems {
+//            if let newIndex = snapshot.index(of: visibleItem) {
+//                visibleNewItemIndex = newIndex
+//                if let oldIndex = currentSnapshot.index(of: visibleItem) {
+//                    oldVisibleCellAttributes = collectionView.layoutAttributesForItem(at: IndexPath(row: oldIndex, section: 0))
+//                }
+//                break
+//            }
+//        }
+        
+//        let currentSnapshot = dataSource.snapshot()
+        var newSnapshot = NSDiffableDataSourceSnapshot<Section.ID, Item>()
+        
+        for section in sections.reversed() {
+            let newItems = section.items.reversed() as [Item]
+            
+            newSnapshot.appendSections([section.id])
+            newSnapshot.appendItems(newItems, toSection: section.id)
+            
+//            updateState(collectionView: collectionView, sectionId: section.id, items: section.items, currentSnapshot: sectionSnapshot, scrollProxy: scrollProxy)
+        }
+        
+        var oldVisibleCellAttributes: UICollectionViewLayoutAttributes?
+        var visibleItem: Item?
+        
+        for visibleIndexPath in collectionView.indexPathsForVisibleItems {
+            if let attributes = collectionView.layoutAttributesForItem(at: visibleIndexPath),
+               let item = dataSource.itemIdentifier(for: visibleIndexPath),
+//               let section = self.sections[safe: visibleIndexPath.section],
+//               let item = section.items[safe: visibleIndexPath.item],
+//               currentSnapshot.indexOfItem(item) != nil,
+               newSnapshot.indexOfItem(item) != nil {
+                visibleItem = item
+                oldVisibleCellAttributes = attributes
+                break
+            }
+        }
+        
+        let oldContentSize = collectionView.contentSize
+        let oldContentOffset = collectionView.contentOffset
+        
+        CATransaction.begin()
+        
+        dataSource.apply(newSnapshot, animatingDifferences: false) { [weak self] in
+            guard let self else { return }
+            
+            guard !decelerating, // If is not scroll animation
+                collectionView.contentSize.height != oldContentSize.height, // If the height has changed
+                oldContentSize.height != 0, // If is not first update
+                let oldVisibleCellAttributes, // If the old state contains a visible cell that will be used to calculate the difference
+                let visibleItem,
+                // If the new state contains the same cell
+                let visibleIndexPath = dataSource.indexPath(for: visibleItem),
+                let visibleCellAttributes = collectionView.layoutAttributesForItem(at: visibleIndexPath)
+            else {
+                CATransaction.commit()
+                return
+            }
+                
+            let diffY = visibleCellAttributes.frame.minY - oldVisibleCellAttributes.frame.minY
+            
+            let offsetY = oldContentOffset.y + diffY
+            if collectionView.contentOffset.y != offsetY {
+                collectionView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: false)
+            }
+            
+            // Sometimes the collection may be rendered with an incorrect offset.
+            // Apply the update only after set the correct offset
+            CATransaction.commit()
+            
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: oldContentOffset.y == 0)
+        }
+        
         self.sections = sections
     }
     
