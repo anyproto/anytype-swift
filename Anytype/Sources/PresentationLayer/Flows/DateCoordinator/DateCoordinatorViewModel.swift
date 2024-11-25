@@ -44,10 +44,4 @@ extension DateCoordinatorViewModel {
         let id = UUID()
         let items: [SimpleSearchListItem]
     }
-    
-    struct CalendarData: Identifiable {
-        let id = UUID()
-        let date: Date
-        let onDateChanged: (Date) -> Void
-    }
 }
