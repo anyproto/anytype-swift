@@ -83,12 +83,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Injected(\.userWarningAlertsHandler)
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     
-    private var membershipStatusSubscription: AnyCancellable?
     private var needSetup = true
     
-    init() {
-        startSubscriptions()
-    }
+    init() { }
     
     func onManageSpacesSelected() {
         showSpaceManager = true
@@ -120,9 +117,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func startSubscriptions() async {
-        async let subscription1: () = startHandleWorkspaceInfo()
-        async let subscription2: () = startHandleAppActions()
-        (_,_) = await (subscription1, subscription2)
+        async let workspaceInfoSub: () = startHandleWorkspaceInfo()
+        async let appActionsSub: () = startHandleAppActions()
+        async let membershipSub: () = startHandleMembershipStatus()
+        (_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub)
     }
     
     func setupInitialScreen() async {
@@ -154,6 +152,15 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
+    func startHandleMembershipStatus() async {
+        for await membership in Container.shared.membershipStatusStorage.resolve()
+            .statusPublisher.values {
+                guard membership.status == .pendingRequiresFinalization else { return }
+                
+                membershipNameFinalizationData = membership.tier
+            }
+    }
+    
     func handleVersionAlerts() async {
         if FeatureFlags.userWarningAlerts {
             userWarningAlert = userWarningAlertsHandler.getNextUserWarningAlertAndStore()
@@ -161,17 +168,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    
-    private func startSubscriptions() {
-        membershipStatusSubscription = Container.shared
-            .membershipStatusStorage.resolve()
-            .statusPublisher.receiveOnMain()
-            .sink { [weak self] membership in
-                guard membership.status == .pendingRequiresFinalization else { return }
-                
-                self?.membershipNameFinalizationData = membership.tier
-            }
-    }
 
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
         TypeSearchForNewObjectCoordinatorView(spaceId: spaceId) { [weak self] details in
