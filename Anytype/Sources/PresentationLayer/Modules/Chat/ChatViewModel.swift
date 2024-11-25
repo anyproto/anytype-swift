@@ -4,6 +4,7 @@ import SwiftUI
 import PhotosUI
 import AnytypeCore
 import Collections
+import UIKit
 
 @MainActor
 final class ChatViewModel: ObservableObject, MessageModuleOutput {
@@ -259,7 +260,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.participant?.title ?? ""),
-                description: MessageTextBuilder.makeMessage(content: message.message.message, font: .caption1Regular),
+                // Without style. Request from designers.
+                description: MessageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }

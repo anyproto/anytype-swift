@@ -59,54 +59,70 @@ private struct MessageInternalView: View {
                     .lineLimit(1)
                     .offset(x: contentSize.width - headerSize.width)
             }
+            .padding(.horizontal, 12)
+            .padding(.top, 12)
             .readSize {
                 headerSize = $0
             }
             
+                
             if let reply = model.reply {
                 MessageReplyView(model: reply)
-                    .padding(.vertical, 4)
+                    .padding(.horizontal, 4)
+                    .padding(.top, 4)
                     .onTapGesture {
                         model.onTapReplyMessage()
                     }
             }
             
             if !model.message.isEmpty {
+                if model.reply.isNotNil {
+                    Spacer.fixedHeight(4)
+                }
                 Text(model.message)
                     .anytypeStyle(.previewTitle1Regular)
                     .foregroundColor(textColor)
+                    .padding(.horizontal, 12)
             }
             
             if let objects = model.linkedObjects {
-                Spacer.fixedHeight(8)
                 switch objects {
                 case .list(let items):
-                    MessageLinkViewContainer(objects: items, isYour: model.isYourMessage) {
+                    MessageListAttachmentsViewContainer(objects: items) {
                         model.onTapObject(details: $0)
                     }
+                    .padding(.horizontal, 4)
+                    .padding(.top, 4)
                 case .grid(let items):
-                    MessageGridLinkContainer(objects: items) {
+                    MessageGridAttachmentsContainer(objects: items) {
                         model.onTapObject(details: $0)
                     }
+                    .padding(.horizontal, 4)
+                    .padding(.top, 4)
                 }
             }
             
             if model.reactions.isNotEmpty {
-                Spacer.fixedHeight(8)
                 MessageReactionList(rows: model.reactions) { reaction in
                     try await model.onTapReaction(reaction)
                 } onTapAdd: {
                     model.onTapAddReaction()
                 }
+                .padding(.horizontal, 12)
+                .padding(.top, 4)
+            }
+            
+            if model.reactions.isNotEmpty || model.linkedObjects == nil {
+                Spacer.fixedHeight(12)
+            } else {
+                Spacer.fixedHeight(4)
             }
         }
         .readSize {
             contentSize = $0
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
         .background(messageBackgorundColor)
-        .cornerRadius(24, style: .circular)
+        .cornerRadius(20, style: .circular)
         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 24, style: .circular))
         .contextMenu {
             contextMenu

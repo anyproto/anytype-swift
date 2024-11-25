@@ -7,8 +7,7 @@ struct MessageLinkObjectView: View {
     let icon: Icon
     let title: String
     let description: String
-    let style: MessageLinkObjectViewStyle
-    let onTapRemove: (() -> Void)?
+    let onTapRemove: () -> Void
     
     var body: some View {
         HStack(spacing: 12) {
@@ -30,32 +29,19 @@ struct MessageLinkObjectView: View {
         .frame(width: 216, height: 72)
         .background(Color.Background.secondary)
         .cornerRadius(12, style: .continuous)
-        .outerBorder(12, color: style.config.borderColor, lineWidth: 1)
-        .shadow(color: style.config.shadowColor, radius: 4)
+        .outerBorder(12, color: .Shape.tertiary, lineWidth: 1)
+        .shadow(color: .Additional.messageInputShadow, radius: 4)
         .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }
 
 extension MessageLinkObjectView {
-    init(details: MessageAttachmentDetails, style: MessageLinkObjectViewStyle, onTapRemove: ((MessageAttachmentDetails) -> Void)? = nil) {
+    init(details: MessageAttachmentDetails, onTapRemove: @escaping (MessageAttachmentDetails) -> Void) {
         self = MessageLinkObjectView(
             icon: details.objectIconImage,
             title: details.title,
             description: details.objectType.name,
-            style: style,
-            onTapRemove: onTapRemove.map { c in { c(details) } }
+            onTapRemove: { onTapRemove(details) }
         )
     }
-}
-
-#Preview {
-    MessageLinkObjectView(
-        icon: Icon.object(.placeholder("A")),
-        title: "Object Name",
-        description: "Object Type",
-        style: .input,
-        onTapRemove: {}
-    )
-    .padding(16)
-    .border(Color.black)
 }

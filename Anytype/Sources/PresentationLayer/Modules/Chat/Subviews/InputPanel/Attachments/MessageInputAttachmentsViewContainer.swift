@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 
-struct MessageLinkInputViewContainer: View {
+struct MessageInputAttachmentsViewContainer: View {
 
     let objects: [ChatLinkedObject]
     let onTapObject: (ChatLinkedObject) -> Void

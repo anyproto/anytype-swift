@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 
-struct MessageGridLinkContainer: View {
+struct MessageGridAttachmentsContainer: View {
 
     let objects: [[MessageAttachmentDetails]]
     let onTapObject: (MessageAttachmentDetails) -> Void
@@ -23,7 +23,7 @@ struct MessageGridLinkContainer: View {
                         Group {
                             switch object.layoutValue {
                             case .video:
-                                MessageLinkVideoView(details: object)
+                                MessageVideoView(details: object)
                             default: // image and other types (for bugs)
                                 ImageIdIconView(imageId: object.id)
                             }

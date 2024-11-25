@@ -69,9 +69,10 @@ final class MessageViewModel: ObservableObject {
         
         if let replyChat = data.reply {
             let replyAttachment = data.replyAttachments.first
+            // Without style. Request from designers.
             let message = replyChat.message.text.isNotEmpty
-                ? MessageTextBuilder.makeMessage(content: replyChat.message)
-                : AttributedString(replyAttachment?.title ?? "")
+                ? MessageTextBuilder.makeMessaeWithoutStyle(content: replyChat.message)
+                : (replyAttachment?.title ?? "")
             reply = MessageReplyModel(
                 author: data.replyAuthor?.title ?? "",
                 description: message,

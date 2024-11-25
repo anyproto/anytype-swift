@@ -2,7 +2,7 @@ import SwiftUI
 import AVKit
 import Services
 
-struct MessageLinkVideoView: View {
+struct MessageVideoView: View {
     
     let url: URL?
     
@@ -46,8 +46,8 @@ private final class MessageLinkVideoViewModel: ObservableObject {
     }
 }
 
-extension MessageLinkVideoView {
+extension MessageVideoView {
     init(details: MessageAttachmentDetails) {
-        self = MessageLinkVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id))
+        self = MessageVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id))
     }
 }
