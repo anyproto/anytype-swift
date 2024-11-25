@@ -1,34 +1,41 @@
 import SwiftUI
 
-struct DateCalendarView: View {
+struct CalendarData: Identifiable {
+    let date: Date
+    let onDateChanged: (Date) -> Void
     
-    // mostly for UIKit presentation
-    let height: CGFloat = 475
+    var id: Date { date }
+}
+
+struct CalendarView: View {
     
-    @State var date: Date
-    var embedded: Bool = false
-    var onDateChanged: (Date) -> Void
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            if !embedded {
-                DragIndicator()
-            }
-            list
-        }
-        .background(Color.Background.secondary)
-        .frame(height: height)
-        .onChange(of: date) { newDate in
-            onDateChanged(newDate)
-        }
+    init(data: CalendarData) {
+        self.date = data.date
+        self.onDateChanged = data.onDateChanged
     }
     
-    private var list: some View {
-        PlainList {
-            calendar
-            quickOptions
+    @State private var date: Date
+    private var onDateChanged: (Date) -> Void
+    
+    @State private var height: CGFloat = .zero
+    
+    var body: some View {
+        content
+            .background(Color.Background.secondary)
+            .onChange(of: date) { newDate in
+                onDateChanged(newDate)
+            }
+            .frame(height: height)
+    }
+    
+    private var content: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                calendar
+                quickOptions
+            }
+            .readSize { height = $0.height }
         }
-        .buttonStyle(BorderlessButtonStyle())
         .bounceBehaviorBasedOnSize()
     }
     
@@ -64,8 +71,10 @@ struct DateCalendarView: View {
 }
 
 #Preview {
-    DateCalendarView(
-        date: Date(),
-        onDateChanged: { _ in }
+    CalendarView(
+        data: CalendarData(
+            date: Date(),
+            onDateChanged: { _ in }
+        )
     )
 }

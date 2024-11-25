@@ -159,7 +159,7 @@ final class DateViewModel: ObservableObject {
             self?.relationItemData(from: details)
         }
         
-        // Save last no nil selectedRelation to show it for another date
+        // Save last no nil selectedRelation to preselect it for another date
         if let selectedRelation = state.selectedRelation {
             lastSelectedRelation = selectedRelation
         }

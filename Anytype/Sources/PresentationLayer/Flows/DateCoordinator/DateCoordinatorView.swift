@@ -26,12 +26,16 @@ struct DateCoordinatorView: View {
                 .mediumPresentationDetents()
         }
         .sheet(item: $model.calendarData) { data in
-            DateCalendarView(
-                date: data.date,
-                onDateChanged: data.onDateChanged
-            )
-            .fitPresentationDetents()
+            calendarView(with: data)
         }
+    }
+    
+    private func calendarView(with data: CalendarData) -> some View {
+        VStack(spacing: 0) {
+            DragIndicator()
+            CalendarView(data: data)
+        }
+        .fitPresentationDetents()
     }
 }
 

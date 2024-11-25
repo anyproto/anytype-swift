@@ -36,6 +36,7 @@ internal enum Loc {
   internal static let anytypeNetwork = Loc.tr("Localizable", "Anytype Network", fallback: "Anytype Network")
   internal static let appearance = Loc.tr("Localizable", "Appearance", fallback: "Appearance")
   internal static let applicationIcon = Loc.tr("Localizable", "Application icon", fallback: "Application icon")
+  internal static let apply = Loc.tr("Localizable", "Apply", fallback: "Apply")
   internal static func areYouSureYouWantToDelete(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Plural format key: \"Are you sure you want to delete %#@object@?\"")
   }
@@ -1219,11 +1220,6 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Relation.Delete.Alert.Title", fallback: "Are you sure?")
       }
     }
-    internal enum Edit {
-      internal enum Button {
-        internal static let title = Loc.tr("Localizable", "Relation.Edit.Button.title", fallback: "Apply")
-      }
-    }
     internal enum EmptyState {
       internal static let description = Loc.tr("Localizable", "Relation.EmptyState.description", fallback: "Nothing found. Create first option to start.")
       internal static let title = Loc.tr("Localizable", "Relation.EmptyState.title", fallback: "No options")
@@ -1403,11 +1399,6 @@ internal enum Loc {
       }
       internal enum Error {
         internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Oops - something went wrong. Please try again")
-      }
-    }
-    internal enum Button {
-      internal enum Title {
-        internal static let apply = Loc.tr("Localizable", "Set.Button.Title.Apply", fallback: "Apply")
       }
     }
     internal enum Create {
