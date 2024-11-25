@@ -29,7 +29,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     var fallbackSpaceId: String? {
-        userDefaults.lastOpenedScreen?.spaceId ?? participantSpacesStorage.activeParticipantSpaces.first?.id
+        userDefaults.lastOpenedScreen?.spaceId ?? participantSpacesStorage.activeParticipantSpaces.first?.spaceView.targetSpaceId
     }
     
     @Published var pathChanging: Bool = false
