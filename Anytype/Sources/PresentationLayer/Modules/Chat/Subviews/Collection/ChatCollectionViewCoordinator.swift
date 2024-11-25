@@ -7,23 +7,26 @@ final class ChatCollectionViewCoordinator<
     Section: Hashable & ChatCollectionSection & Identifiable,
     Item: Hashable & Identifiable,
     DataView: View,
-    SectionView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item {
+    HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item {
     
     private let distanceForLoadNextPage: CGFloat = 50
     private var canCallScrollToBottom = false
     private var scrollUpdateTask: AnyCancellable?
+    private var sections: [Section] = []
     
     var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
     var lastScrollProxy: ChatCollectionScrollProxy?
     var itemBuilder: ((Item) -> DataView)?
-    var sectionBuilder: ((Section) -> SectionView)?
+    var headerBuilder: ((Section.Header) -> HeaderView)?
     
     func setupDataSource(collectionView: UICollectionView) {
-        let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader) { view, _, indexPath in
+        let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
+        { [weak self] view, _, indexPath in
+            guard let header = self?.sections[safe: indexPath.section]?.header else { return }
             view.contentConfiguration = UIHostingConfiguration {
-                Text("123")
+                self?.headerBuilder?(header)
             }
             .margins(.all, 0)
             view.layer.zPosition = 1
@@ -62,6 +65,7 @@ final class ChatCollectionViewCoordinator<
             
             updateState(collectionView: collectionView, sectionId: section.id, items: section.items, currentSnapshot: sectionSnapshot, scrollProxy: scrollProxy)
         }
+        self.sections = sections
     }
     
     private func updateState(

@@ -7,21 +7,21 @@ struct ChatCollectionView<
     Item: Hashable & Identifiable,
     Section: Hashable & Identifiable & ChatCollectionSection,
     ItemView: View,
-    SectionView: View,
+    HeaderView: View,
     BottomPanel: View>: UIViewControllerRepresentable where Item.ID == String, Section.Item == Item {
     
     let items: [Section]
     let scrollProxy: ChatCollectionScrollProxy
     let bottomPanel: BottomPanel
     let itemBuilder: (Item) -> ItemView
-    let sectionBuilder: (Section) -> SectionView
+    let headerBuilder: (Section.Header) -> HeaderView
     let scrollToBottom: () async -> Void
     
     func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-            configuration.headerMode = .supplementary//.firstItemInSection
             configuration.showsSeparators = false
+            
             let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
             section.interGroupSpacing = 12
             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
@@ -32,7 +32,6 @@ struct ChatCollectionView<
                 elementKind: UICollectionView.elementKindSectionHeader,
                 alignment: .bottom
             )
-            header.pinToVisibleBounds = true
             
             section.boundarySupplementaryItems = [header]
             
@@ -53,15 +52,6 @@ struct ChatCollectionView<
             collectionView.keyboardDismissMode = .onDrag
         }
         
-        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> {
-            (cell, indexPath, item) in
-            
-            cell.contentConfiguration = UIHostingConfiguration {
-                itemBuilder(item)
-            }
-            .margins(.all, 0)
-        }
-        
         context.coordinator.setupDataSource(collectionView: collectionView)
         
         let bottomPanel = UIHostingController(rootView: bottomPanel)
@@ -80,11 +70,12 @@ struct ChatCollectionView<
     func updateUIViewController(_ container: ChatCollectionViewContainer<BottomPanel>, context: Context) {
         container.bottomPanel.rootView = bottomPanel
         context.coordinator.itemBuilder = itemBuilder
+        context.coordinator.headerBuilder = headerBuilder
         context.coordinator.scrollToBottom = scrollToBottom
         context.coordinator.updateState(collectionView: container.collectionView, sections: items, scrollProxy: scrollProxy)
     }
     
-    func makeCoordinator() -> ChatCollectionViewCoordinator<Section, Item, ItemView> {
-        ChatCollectionViewCoordinator<Section, Item, ItemView>()
+    func makeCoordinator() -> ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView> {
+        ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView>()
     }
 }
