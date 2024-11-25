@@ -93,6 +93,8 @@ struct ChatView: View {
     private var mainView: some View {
         ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy, bottomPanel: bottomPanel) {
             MessageView(data: $0, output: model)
+        } headerBuilder: {
+            ChatMessageHeaderView(text: $0)
         } scrollToBottom: {
             await model.scrollToBottom()
         }
