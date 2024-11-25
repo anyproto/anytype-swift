@@ -29,8 +29,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     var fallbackSpaceId: String? {
-        userDefaults.lastOpenedScreen?.spaceId ?? participantSpacesStorage.activeParticipantSpaces.first?.spaceView.targetSpaceId
+        userDefaults.lastOpenedScreen?.spaceId ?? fallbackSpaceView?.targetSpaceId
     }
+    @Published private var fallbackSpaceView: SpaceView?
     
     @Published var pathChanging: Bool = false
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
@@ -107,20 +108,22 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     // MARK: - Setup
     func setup() async {
-        guard needSetup else { return }
+        if needSetup {
+            await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
+            await setupInitialScreen()
+            await handleVersionAlerts()
+            needSetup = false
+        }
         
-        await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
-        await setupInitialScreen()
-        await handleVersionAlerts()
-        
-        needSetup = false
+        await startSubscriptions()
     }
     
     func startSubscriptions() async {
         async let workspaceInfoSub: () = startHandleWorkspaceInfo()
         async let appActionsSub: () = startHandleAppActions()
         async let membershipSub: () = startHandleMembershipStatus()
-        (_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub)
+        async let spaceInfoSub: () = startHandleSpaceInfo()
+        (_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub)
     }
     
     func setupInitialScreen() async {
@@ -145,10 +148,16 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
-    func startHandleWorkspaceInfo() async {
+    private func startHandleWorkspaceInfo() async {
         activeSpaceManager.startSubscription()
         for await info in activeSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
+        }
+    }
+    
+    private func startHandleSpaceInfo() async {
+        for await spaces in participantSpacesStorage.activeParticipantSpacesPublisher.values {
+            fallbackSpaceView = spaces.first?.spaceView
         }
     }
     

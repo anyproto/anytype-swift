@@ -18,7 +18,6 @@ struct SpaceHubCoordinatorView: View {
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
         
             .task { await model.setup() }
-            .task { await model.startSubscriptions() }
             
             .handleSpaceShareTip()
             .handleSharingTip()
