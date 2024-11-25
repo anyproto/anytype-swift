@@ -261,9 +261,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.participant?.title ?? ""),
                 // Without style. Request from designers.
-                description: NSAttributedString(MessageTextBuilder.makeMessage(
-                    content: message.message.message,
-                    font: .caption1Regular)).string,
+                description: MessageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }

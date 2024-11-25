@@ -46,4 +46,8 @@ struct MessageTextBuilder {
         
         return message
     }
+    
+    static func makeMessaeWithoutStyle(content: ChatMessageContent) -> String {
+        NSAttributedString(makeMessage(content: content)).string
+    }
 }

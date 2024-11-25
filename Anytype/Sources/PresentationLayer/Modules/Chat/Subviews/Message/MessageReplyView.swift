@@ -3,7 +3,7 @@ import SwiftUI
 
 struct MessageReplyModel {
     let author: String
-    let description: AttributedString
+    let description: String
     let icon: Icon?
     let isYour: Bool
 }
