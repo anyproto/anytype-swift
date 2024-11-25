@@ -24,7 +24,7 @@ final class ChatCollectionViewCoordinator<
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
         { [weak self] view, _, indexPath in
-            guard let header = self?.sections[safe: indexPath.section]?.header else { return }
+            guard let header = self?.sections.reversed()[safe: indexPath.section]?.header else { return }
             view.contentConfiguration = UIHostingConfiguration {
                 self?.headerBuilder?(header)
             }
@@ -271,12 +271,15 @@ final class ChatCollectionViewCoordinator<
     }
     
     private func scrollTo(collectionView: UICollectionView, itemId: String, position: UICollectionView.ScrollPosition) -> Bool {
+        guard let dataSource else { return false }
         
-//        if let item = currentSnapshot.items.first(where: { $0.id == itemId }),
-//           let index = currentSnapshot.index(of: item) {
-//            collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: true)
-//            return true
-//        }
+        let currentSnapshot = dataSource.snapshot()
+        
+        if let item = currentSnapshot.itemIdentifiers.first(where: { $0.id == itemId }),
+           let indexPath = dataSource.indexPath(for: item) {
+            collectionView.scrollToItem(at: indexPath, at: position, animated: true)
+            return true
+        }
         return false
     }
     

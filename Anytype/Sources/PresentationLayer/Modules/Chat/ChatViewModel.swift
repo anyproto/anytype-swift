@@ -318,12 +318,40 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             )
         }
         
-        let newMessageBlocks: [MessageSectionData]
-        if newMessages.count > 3 {
-            newMessageBlocks = [MessageSectionData(header: "123", id: "123", items: Array(newMessages[0..<3])), MessageSectionData(header: "456", id: "456", items: Array(newMessages[4...]))]
-        } else {
-            newMessageBlocks = [MessageSectionData(header: "123", id: "123", items: newMessages)]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        
+//        var currentDateString: String?
+        var currentSectionData: MessageSectionData?
+        var newMessageBlocks: [MessageSectionData] = []
+        
+        let calendar = Calendar.current
+        
+        for newMessage in newMessages {
+            let dateComponents = calendar.dateComponents([.year, .month, .day], from: newMessage.message.createdAtDate)
+            let date = calendar.date(from: dateComponents) ?? newMessage.message.createdAtDate
+            
+            if currentSectionData?.id == date.hashValue {
+                currentSectionData?.items.append(newMessage)
+            } else {
+                if let currentSectionData {
+                    newMessageBlocks.append(currentSectionData)
+                }
+                currentSectionData = MessageSectionData(header: dateFormatter.string(from: date), id: date.hashValue, items: [newMessage])
+            }
         }
+        
+        if let currentSectionData {
+            newMessageBlocks.append(currentSectionData)
+        }
+        
+//        let newMessageBlocks: [MessageSectionData]
+//        if newMessages.count > 3 {
+//            newMessageBlocks = [MessageSectionData(header: "123", id: "123", items: Array(newMessages[0..<3])), MessageSectionData(header: "456", id: "456", items: Array(newMessages[4...]))]
+//        } else {
+//            newMessageBlocks = [MessageSectionData(header: "123", id: "123", items: newMessages)]
+//        }
         
         guard newMessageBlocks != mesageBlocks else { return }
         mesageBlocks = newMessageBlocks
