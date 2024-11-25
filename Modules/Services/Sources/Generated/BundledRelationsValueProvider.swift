@@ -141,6 +141,7 @@ public protocol BundledRelationsValueProvider {
     var chatId: ObjectId { get }
     var mentions: [ObjectId] { get }
     var timestamp: Date? { get }
+    var recommendedFeaturedRelations: [ObjectId] { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -651,5 +652,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Unix time representation of date object
     var timestamp: Date? {
         return value(for: BundledRelationKey.timestamp.rawValue)
+    }
+    /// List of recommended featured relations
+    var recommendedFeaturedRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedFeaturedRelations.rawValue)
     }
 }
