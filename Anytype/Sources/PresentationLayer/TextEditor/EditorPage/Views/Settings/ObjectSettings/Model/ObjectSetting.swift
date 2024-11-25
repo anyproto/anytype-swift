@@ -1,8 +1,11 @@
 import SwiftUI
 
-enum ObjectSetting: CaseIterable {
+
+// Used in ObjectSettingBuilder
+enum ObjectSetting {
     case icon
     case cover
+    case description(isVisible: Bool)
     case layout
     case relations
     case history
@@ -13,15 +16,17 @@ extension ObjectSetting {
     var title: String {
         switch self {
         case .icon:
-            return Loc.icon
+            Loc.icon
         case .cover:
-            return Loc.cover
+            Loc.cover
+        case .description:
+            Loc.description
         case .layout:
-            return Loc.layout
+            Loc.layout
         case .relations:
-            return Loc.relations
+            Loc.relations
         case .history:
-            return Loc.history
+            Loc.history
         }
     }
     
@@ -31,6 +36,8 @@ extension ObjectSetting {
             return .ObjectSettings.icon
         case .cover:
             return .ObjectSettings.cover
+        case .description:
+            return .ObjectSettings.description
         case .layout:
             return .ObjectSettings.layout
         case .relations:
