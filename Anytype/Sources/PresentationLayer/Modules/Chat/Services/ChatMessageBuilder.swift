@@ -10,9 +10,17 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
-    let spaceId: String
-    let chatId: String
-    let chatStorage: any ChatMessagesStorageProtocol
+    private let spaceId: String
+    private let chatId: String
+    private let chatStorage: any ChatMessagesStorageProtocol
+    
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.doesRelativeDateFormatting = true
+        return dateFormatter
+    }()
     
     init(spaceId: String, chatId: String, chatStorage: any ChatMessagesStorageProtocol) {
         self.spaceId = spaceId
@@ -60,10 +68,6 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 replyAuthor: participants.first { $0.identity == replyMessage?.creator }
             )
         }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
         
         var currentSectionData: MessageSectionData?
         var newMessageBlocks: [MessageSectionData] = []
