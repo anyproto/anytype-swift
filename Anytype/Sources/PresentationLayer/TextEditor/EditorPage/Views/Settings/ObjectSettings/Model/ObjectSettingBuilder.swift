@@ -14,6 +14,11 @@ final class ObjectSettingBuilder {
                 ObjectSetting.cover
             }
             
+            if FeatureFlags.primitives {
+                let isFeatured = details.featuredRelations.contains { $0 == BundledRelationKey.description.rawValue }
+                ObjectSetting.description(isVisible: isFeatured)
+            }
+            
             if permissions.canChangeLayout && !FeatureFlags.primitives {
                 ObjectSetting.layout
             }
