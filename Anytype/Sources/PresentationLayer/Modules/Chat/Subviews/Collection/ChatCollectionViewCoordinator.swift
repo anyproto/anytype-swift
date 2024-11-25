@@ -3,29 +3,48 @@ import SwiftUI
 import Combine
 import UIKit
 
-final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Identifiable, DataView: View>: NSObject, UICollectionViewDelegate where Item.ID == String {
+final class ChatCollectionViewCoordinator<
+    Section: Hashable & ChatCollectionSection & Identifiable,
+    Item: Hashable & Identifiable,
+    DataView: View,
+    SectionView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item {
     
     private let distanceForLoadNextPage: CGFloat = 50
     private var canCallScrollToBottom = false
     private var scrollUpdateTask: AnyCancellable?
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
-    var currentSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+    var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
     var lastScrollProxy: ChatCollectionScrollProxy?
     var itemBuilder: ((Item) -> DataView)?
+    var sectionBuilder: ((Section) -> SectionView)?
     
     func setupDataSource(collectionView: UICollectionView) {
+        let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader) { view, _, indexPath in
+            view.contentConfiguration = UIHostingConfiguration {
+                Text("123")
+            }
+            .margins(.all, 0)
+            view.layer.zPosition = 1
+        }
+        
         let itemRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { [weak self] cell, indexPath, item in
             cell.contentConfiguration = UIHostingConfiguration {
                 self?.itemBuilder?(item)
             }
             .margins(.all, 0)
         }
-        
-        let dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
+    
+        let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueConfiguredReusableCell(using: itemRegistration, for: indexPath, item: item)
+            cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
+            return cell
+        }
+        
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView in
+            let cell = collectionView.dequeueConfiguredReusableSupplementary(using: sectionRegistration, for: indexPath)
             cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
             return cell
@@ -36,7 +55,22 @@ final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Id
     
     // MARK: Update
     
-    func updateState(collectionView: UICollectionView, items: [Item], section: Section, scrollProxy: ChatCollectionScrollProxy) {
+    func updateState(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
+        guard let dataSource else { return }
+        for section in sections.reversed() {
+            let sectionSnapshot = dataSource.snapshot(for: section.id)
+            
+            updateState(collectionView: collectionView, sectionId: section.id, items: section.items, currentSnapshot: sectionSnapshot, scrollProxy: scrollProxy)
+        }
+    }
+    
+    private func updateState(
+        collectionView: UICollectionView,
+        sectionId: Section.ID,
+        items: [Item],
+        currentSnapshot: NSDiffableDataSourceSectionSnapshot<Item>,
+        scrollProxy: ChatCollectionScrollProxy
+    ) {
         
         let itemsForSnapshot: [Item] = items.reversed()
         
@@ -65,11 +99,9 @@ final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Id
         let oldContentSize = collectionView.contentSize
         let oldContentOffset = collectionView.contentOffset
         
-        currentSnapshot = snapshot
-        
         CATransaction.begin()
         
-        dataSource?.apply(snapshot, to: section, animatingDifferences: false) { [weak self] in
+        dataSource?.apply(snapshot, to: sectionId, animatingDifferences: false) { [weak self] in
             guard let self else { return }
             
             guard !decelerating, // If is not scroll animation
@@ -151,11 +183,12 @@ final class ChatCollectionViewCoordinator<Section: Hashable, Item: Hashable & Id
     }
     
     private func scrollTo(collectionView: UICollectionView, itemId: String, position: UICollectionView.ScrollPosition) -> Bool {
-        if let item = currentSnapshot.items.first(where: { $0.id == itemId }),
-           let index = currentSnapshot.index(of: item) {
-            collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: true)
-            return true
-        }
+        
+//        if let item = currentSnapshot.items.first(where: { $0.id == itemId }),
+//           let index = currentSnapshot.index(of: item) {
+//            collectionView.scrollToItem(at: IndexPath(row: index, section: 0), at: position, animated: true)
+//            return true
+//        }
         return false
     }
     

@@ -33,7 +33,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     // MARK: - State
     
     @Published var linkedObjects: [ChatLinkedObject] = []
-    @Published var mesageBlocks: [MessageViewData] = []
+    @Published var mesageBlocks: [MessageSectionData] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
     @Published var message = NSAttributedString()
     @Published var canEdit = false
@@ -281,7 +281,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         
         let yourProfileIdentity = accountParticipantsStorage.participants.first?.identity
         
-        let newMessageBlocks = await messages.asyncMap { message -> MessageViewData in
+        let newMessages = await messages.asyncMap { message -> MessageViewData in
             
             let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
                 
@@ -316,6 +316,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 replyAttachments: replyAttachments,
                 replyAuthor: participants.first { $0.identity == replyMessage?.creator }
             )
+        }
+        
+        let newMessageBlocks: [MessageSectionData]
+        if newMessages.count > 3 {
+            newMessageBlocks = [MessageSectionData(header: "123", id: "123", items: Array(newMessages[0..<3])), MessageSectionData(header: "456", id: "456", items: Array(newMessages[4...]))]
+        } else {
+            newMessageBlocks = [MessageSectionData(header: "123", id: "123", items: newMessages)]
         }
         
         guard newMessageBlocks != mesageBlocks else { return }
