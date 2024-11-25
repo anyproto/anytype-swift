@@ -5,10 +5,10 @@ extension Color {
   
     // MARK: - Dark
     enum Dark {
-      internal static let amber = Color(asset: Asset.Dark.amber)
       internal static let blue = Color(asset: Asset.Dark.blue)
       internal static let green = Color(asset: Asset.Dark.green)
       internal static let grey = Color(asset: Asset.Dark.grey)
+      internal static let orange = Color(asset: Asset.Dark.orange)
       internal static let pink = Color(asset: Asset.Dark.pink)
       internal static let purple = Color(asset: Asset.Dark.purple)
       internal static let red = Color(asset: Asset.Dark.red)
@@ -19,10 +19,10 @@ extension Color {
     
     // MARK: - Light
     enum Light {
-      internal static let amber = Color(asset: Asset.Light.amber)
       internal static let blue = Color(asset: Asset.Light.blue)
       internal static let green = Color(asset: Asset.Light.green)
       internal static let grey = Color(asset: Asset.Light.grey)
+      internal static let orange = Color(asset: Asset.Light.orange)
       internal static let pink = Color(asset: Asset.Light.pink)
       internal static let purple = Color(asset: Asset.Light.purple)
       internal static let red = Color(asset: Asset.Light.red)
@@ -51,10 +51,10 @@ extension Color {
     
     // MARK: - VeryLight
     enum VeryLight {
-      internal static let amber = Color(asset: Asset.VeryLight.amber)
       internal static let blue = Color(asset: Asset.VeryLight.blue)
       internal static let green = Color(asset: Asset.VeryLight.green)
       internal static let grey = Color(asset: Asset.VeryLight.grey)
+      internal static let orange = Color(asset: Asset.VeryLight.orange)
       internal static let pink = Color(asset: Asset.VeryLight.pink)
       internal static let purple = Color(asset: Asset.VeryLight.purple)
       internal static let red = Color(asset: Asset.VeryLight.red)

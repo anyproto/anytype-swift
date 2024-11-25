@@ -5,7 +5,7 @@ enum BlockColor: CaseIterable {
     case black
     case gray
     case lemon
-    case amber
+    case orange
     case red
     case pink
     case purple
@@ -17,8 +17,8 @@ enum BlockColor: CaseIterable {
     var color: UIColor {
         typealias ColorComponent = UIColor.Dark
         switch self {
-        case .amber:
-            return ColorComponent.amber
+        case .orange:
+            return ColorComponent.orange
         case .black:
             return ColorComponent.`default`
         case .lemon:
@@ -49,7 +49,7 @@ enum BlockColor: CaseIterable {
             return Loc.black
         case .lemon:
             return Loc.yellow
-        case .amber:
+        case .orange:
             return Loc.amber
         case .red:
             return Loc.red
@@ -85,7 +85,7 @@ enum BlockColor: CaseIterable {
             return .default
         case .lemon:
             return .yellow
-        case .amber:
+        case .orange:
             return .orange
         case .red:
             return .red

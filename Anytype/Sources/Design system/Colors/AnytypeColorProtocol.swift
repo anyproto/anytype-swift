@@ -7,7 +7,7 @@ protocol ComponentColor {
 
     static var `default`: T { get }
     static var yellow: T { get }
-    static var amber: T { get }
+    static var orange: T { get }
     static var red: T { get }
     static var pink: T { get }
     static var purple: T { get }

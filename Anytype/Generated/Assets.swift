@@ -21,10 +21,10 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal enum Dark {
-    static let amber = ColorAsset(name: "Dark/amber")
     static let blue = ColorAsset(name: "Dark/blue")
     static let green = ColorAsset(name: "Dark/green")
     static let grey = ColorAsset(name: "Dark/grey")
+    static let orange = ColorAsset(name: "Dark/orange")
     static let pink = ColorAsset(name: "Dark/pink")
     static let purple = ColorAsset(name: "Dark/purple")
     static let red = ColorAsset(name: "Dark/red")
@@ -33,10 +33,10 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "Dark/yellow")
   }
   internal enum Light {
-    static let amber = ColorAsset(name: "Light/amber")
     static let blue = ColorAsset(name: "Light/blue")
     static let green = ColorAsset(name: "Light/green")
     static let grey = ColorAsset(name: "Light/grey")
+    static let orange = ColorAsset(name: "Light/orange")
     static let pink = ColorAsset(name: "Light/pink")
     static let purple = ColorAsset(name: "Light/purple")
     static let red = ColorAsset(name: "Light/red")
@@ -61,10 +61,10 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "System/yellow")
   }
   internal enum VeryLight {
-    static let amber = ColorAsset(name: "VeryLight/amber")
     static let blue = ColorAsset(name: "VeryLight/blue")
     static let green = ColorAsset(name: "VeryLight/green")
     static let grey = ColorAsset(name: "VeryLight/grey")
+    static let orange = ColorAsset(name: "VeryLight/orange")
     static let pink = ColorAsset(name: "VeryLight/pink")
     static let purple = ColorAsset(name: "VeryLight/purple")
     static let red = ColorAsset(name: "VeryLight/red")

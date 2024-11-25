@@ -53,10 +53,10 @@ extension UIColor.Dark {
     static let collectionInfo = ColorCollectionInfo(
         name: "Dark",
         colors: .builder {
-            ColorInfo(name: "amber", color: UIColor.Dark.amber)
             ColorInfo(name: "blue", color: UIColor.Dark.blue)
             ColorInfo(name: "green", color: UIColor.Dark.green)
             ColorInfo(name: "grey", color: UIColor.Dark.grey)
+            ColorInfo(name: "orange", color: UIColor.Dark.orange)
             ColorInfo(name: "pink", color: UIColor.Dark.pink)
             ColorInfo(name: "purple", color: UIColor.Dark.purple)
             ColorInfo(name: "red", color: UIColor.Dark.red)
@@ -70,10 +70,10 @@ extension UIColor.Light {
     static let collectionInfo = ColorCollectionInfo(
         name: "Light",
         colors: .builder {
-            ColorInfo(name: "amber", color: UIColor.Light.amber)
             ColorInfo(name: "blue", color: UIColor.Light.blue)
             ColorInfo(name: "green", color: UIColor.Light.green)
             ColorInfo(name: "grey", color: UIColor.Light.grey)
+            ColorInfo(name: "orange", color: UIColor.Light.orange)
             ColorInfo(name: "pink", color: UIColor.Light.pink)
             ColorInfo(name: "purple", color: UIColor.Light.purple)
             ColorInfo(name: "red", color: UIColor.Light.red)
@@ -108,10 +108,10 @@ extension UIColor.VeryLight {
     static let collectionInfo = ColorCollectionInfo(
         name: "VeryLight",
         colors: .builder {
-            ColorInfo(name: "amber", color: UIColor.VeryLight.amber)
             ColorInfo(name: "blue", color: UIColor.VeryLight.blue)
             ColorInfo(name: "green", color: UIColor.VeryLight.green)
             ColorInfo(name: "grey", color: UIColor.VeryLight.grey)
+            ColorInfo(name: "orange", color: UIColor.VeryLight.orange)
             ColorInfo(name: "pink", color: UIColor.VeryLight.pink)
             ColorInfo(name: "purple", color: UIColor.VeryLight.purple)
             ColorInfo(name: "red", color: UIColor.VeryLight.red)
