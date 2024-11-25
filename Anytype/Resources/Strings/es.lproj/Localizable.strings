@@ -209,6 +209,8 @@
 "Lets Go" = "Adelante";
 "My spaces" = "Mis espacios";
 "Open file" = "Abrir archivo";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Favoritos";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Icono";
-"Emoji or image for object" = "Emoji o imagen del objeto";
 "Cover" = "Portada";
-"Background picture" = "Imagen de fondo";
 "Layout" = "Diseño";
-"Arrangement of objects on a canvas" = "Disposición de objetos en un lienzo";
-"ObjectSettings.History.Description" = "Todas las versiones del objeto";
 
 // Version history
 "VersionHistory.Title" = "Historial de versiones";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Para capturar pensamientos rápidamente";
 "Action-focused layout with a checkbox" = "Diseño con casillas para verificar acciones";
 "Standard layout for canvas blocks" = "Diseño estándar para bloques en el lienzo";
-"List of related objects" = "Lista de objetos relacionados";
 "Lock" = "Proteger";
 "Unlock" = "Desproteger";
 "Favorite" = "Favorito";
@@ -704,6 +701,8 @@
 "My First Space" = "Mi Primer Espacio";
 "Copy space info" = "Copiar información del espacio";
 "Save" = "Guardar";
+"Set of" = "Set of %@";
+"New set" = "Nuevo conjunto";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";

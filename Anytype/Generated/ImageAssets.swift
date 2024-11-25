@@ -30,6 +30,12 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  enum Chat {
+    enum SendMessage {
+      static let active = ImageAsset.bundle(name: "Chat/SendMessage/active")
+      static let inactive = ImageAsset.bundle(name: "Chat/SendMessage/inactive")
+    }
+  }
   enum EmptyIcon {
     static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
     static let chat = ImageAsset.bundle(name: "EmptyIcon/chat")
@@ -288,7 +294,6 @@ internal extension ImageAsset {
     static let replace = ImageAsset.bundle(name: "x32/Replace")
     static let restore = ImageAsset.bundle(name: "x32/Restore")
     static let search = ImageAsset.bundle(name: "x32/Search")
-    static let sendMessage = ImageAsset.bundle(name: "x32/Send Message")
     static let slashMenu = ImageAsset.bundle(name: "x32/Slash Menu")
     static let sort = ImageAsset.bundle(name: "x32/Sort")
     static let style = ImageAsset.bundle(name: "x32/Style")

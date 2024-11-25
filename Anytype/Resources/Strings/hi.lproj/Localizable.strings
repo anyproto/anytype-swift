@@ -209,6 +209,8 @@
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
 "Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "पसंदीदा";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "आइकन";
-"Emoji or image for object" = "Emoji or image for object";
 "Cover" = "कवर";
-"Background picture" = "पृष्ठभूमि की तस्वीर";
 "Layout" = "विन्यास";
-"Arrangement of objects on a canvas" = "कैनवास पर वस्तुओं की व्यवस्था";
-"ObjectSettings.History.Description" = "All versions of object";
 
 // Version history
 "VersionHistory.Title" = "Version History";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
 "Lock" = "Lock";
 "Unlock" = "Unlock";
 "Favorite" = "Favorite";
@@ -704,6 +701,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "New set";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

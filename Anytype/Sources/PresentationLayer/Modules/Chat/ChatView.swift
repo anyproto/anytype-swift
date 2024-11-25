@@ -55,7 +55,7 @@ struct ChatView: View {
                     model.onTapDeleteReply()
                 }
             }
-            MessageLinkInputViewContainer(objects: model.linkedObjects) {
+            MessageInputAttachmentsViewContainer(objects: model.linkedObjects) {
                 model.didSelectObject(linkedObject: $0)
             } onTapRemove: {
                 model.onTapRemoveLinkedObject(linkedObject: $0)
@@ -81,7 +81,6 @@ struct ChatView: View {
         .background(Color.Background.navigationPanel)
         .background(.ultraThinMaterial)
         .cornerRadius(16)
-        .border(16, color: .Shape.transperentSecondary)
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
@@ -94,6 +93,8 @@ struct ChatView: View {
     private var mainView: some View {
         ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy, bottomPanel: bottomPanel) {
             MessageView(data: $0, output: model)
+        } headerBuilder: {
+            ChatMessageHeaderView(text: $0)
         } scrollToBottom: {
             await model.scrollToBottom()
         }

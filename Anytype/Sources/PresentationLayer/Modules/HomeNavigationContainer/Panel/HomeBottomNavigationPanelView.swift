@@ -134,7 +134,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     private var progressView: some View {
         if let progress = model.progress {
             GeometryReader { reader in
-                Color.VeryLight.amber
+                Color.VeryLight.orange
                     .cornerRadius(2)
                     .frame(width: max(reader.size.width * progress, 30), alignment: .leading)
                     .animation(.linear, value: progress)

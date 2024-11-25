@@ -209,6 +209,8 @@
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
 "Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Favoritos";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Ícone";
-"Emoji or image for object" = "Emoji ou imagem para o objeto";
 "Cover" = "Capa";
-"Background picture" = "Imagem de fundo";
 "Layout" = "Leiaute";
-"Arrangement of objects on a canvas" = "Posicionamento de objetos num canvas";
-"ObjectSettings.History.Description" = "Todas as versões do objeto";
 
 // Version history
 "VersionHistory.Title" = "Histórico de versões";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Projetado para capturar pensamentos rapidamente";
 "Action-focused layout with a checkbox" = "Layout focado em ações com uma caixa de seleção";
 "Standard layout for canvas blocks" = "Layout padrão para blocos de tela";
-"List of related objects" = "Lista de objetos relacionados";
 "Lock" = "Bloquear";
 "Unlock" = "Desbloquear";
 "Favorite" = "Favorito";
@@ -704,6 +701,8 @@
 "My First Space" = "Meu Primeiro Espaço";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Novo conjunto";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Tem certeza de que deseja excluir seu cofre?";

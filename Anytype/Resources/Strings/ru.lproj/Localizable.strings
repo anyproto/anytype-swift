@@ -209,6 +209,8 @@
 "Lets Go" = "Давайте начнём";
 "My spaces" = "Мои пространства";
 "Open file" = "Открыть файл";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Избранное";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Иконка";
-"Emoji or image for object" = "Эмодзи или изображение для объекта";
 "Cover" = "Обложка";
-"Background picture" = "Фоновое изображение";
 "Layout" = "Макет";
-"Arrangement of objects on a canvas" = "Расположение объектов на холсте";
-"ObjectSettings.History.Description" = "Все версии объекта";
 
 // Version history
 "VersionHistory.Title" = "История версий";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Создано для быстрой записи мыслей";
 "Action-focused layout with a checkbox" = "Действующий макет с галочкой";
 "Standard layout for canvas blocks" = "Стандартный макет для холста блоков";
-"List of related objects" = "Список связанных объектов";
 "Lock" = "Заблокировать";
 "Unlock" = "Разблокировать";
 "Favorite" = "Избранное";
@@ -704,6 +701,8 @@
 "My First Space" = "Моё первое пространство";
 "Copy space info" = "Скопировать информацию о пространстве";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Новый набор";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";

@@ -209,6 +209,8 @@
 "Lets Go" = "Let’s Go";
 "My spaces" = "My Spaces";
 "Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Favoritter";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Ikon";
-"Emoji or image for object" = "Emoji eller bilde for objekt";
 "Cover" = "Omslag";
-"Background picture" = "Bakgrunnsbilde";
 "Layout" = "Oppsett";
-"Arrangement of objects on a canvas" = "Organisering av objekter på et lerret";
-"ObjectSettings.History.Description" = "All versions of object";
 
 // Version history
 "VersionHistory.Title" = "Version History";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Utformet for å raskt notere tanker";
 "Action-focused layout with a checkbox" = "Handlingsfokusert oppsett med avkrysningsboks";
 "Standard layout for canvas blocks" = "Standardoppsett for lerretblokker";
-"List of related objects" = "Liste over relaterte objekter";
 "Lock" = "Lås";
 "Unlock" = "Lås opp";
 "Favorite" = "Favoritt";
@@ -704,6 +701,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Nytt sett";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Er du sikker på at du vil slette hvelvet ditt?";

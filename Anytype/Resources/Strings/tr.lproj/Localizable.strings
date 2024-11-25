@@ -209,6 +209,8 @@
 "Lets Go" = "Haydi Başlayalım";
 "My spaces" = "Benim Alanlarım";
 "Open file" = "Dosya aç";
+"Open Set" = "Set aç";
+"Create Set" = "Set oluştur";
 
 // Home
 "Favorites" = "Favoriler";
@@ -293,12 +295,8 @@
 // Object settings
 
 "Icon" = "Simge";
-"Emoji or image for object" = "Nesne için emoji ya da resim";
 "Cover" = "Kapak";
-"Background picture" = "Arka plan resmi";
 "Layout" = "Düzen";
-"Arrangement of objects on a canvas" = "Tuval üzerinde nesnelerin düzenlenmesi";
-"ObjectSettings.History.Description" = "Nesnenin tüm versiyonları";
 
 // Version history
 "VersionHistory.Title" = "Sürüm geçmişi";
@@ -623,7 +621,6 @@
 "Designed to capture thoughts quickly" = "Düşünceleri hızlıca yakalamak için tasarlandı";
 "Action-focused layout with a checkbox" = "Onay kutusu ile eylem odaklı düzen";
 "Standard layout for canvas blocks" = "Tuval blokları için standart düzen";
-"List of related objects" = "İlgili nesnelerin listesi";
 "Lock" = "Kilitle";
 "Unlock" = "Kilidi aç";
 "Favorite" = "Favorilere ekle";
@@ -704,6 +701,8 @@
 "My First Space" = "Benim İlk Alanım";
 "Copy space info" = "Alan bilgisini kopyala";
 "Save" = "Kaydet";
+"Set of" = "%@ seti";
+"New set" = "Yeni Set";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";

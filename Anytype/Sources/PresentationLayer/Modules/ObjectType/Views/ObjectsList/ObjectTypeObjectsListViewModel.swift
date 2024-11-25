@@ -8,22 +8,29 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
     @Published var numberOfObjectsLeft = 0
     @Published var sort = AllContentSort(relation: .dateUpdated)
     
-    @Injected(\.objectsListSubscriptionService)
-    private var service: any ObjectsListSubscriptionServiceProtocol
+    var isEditorLayout: Bool { document.details?.recommendedLayoutValue?.isEditorLayout ?? false }
     
-    private let objectTypeId: String
-    private let spaceId: String
+    @Published private var detailsOfSet: ObjectDetails?
+    var setButtonText: String { detailsOfSet.isNotNil ? Loc.openSet : Loc.createSet }
+    
+    @Injected(\.objectsListSubscriptionService)
+    private var listService: any ObjectsListSubscriptionServiceProtocol
+    @Injected(\.setByTypeSubscriptionService)
+    private var setService: any SetByTypeSubscriptionServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
+    
+    private let document: any BaseDocumentProtocol
     
     private weak var output: (any ObjectTypeObjectsListViewModelOutput)?
     
-    init(objectTypeId: String, spaceId: String, output: (any ObjectTypeObjectsListViewModelOutput)?) {
-        self.objectTypeId = objectTypeId
-        self.spaceId = spaceId
+    init(document: any BaseDocumentProtocol, output: (any ObjectTypeObjectsListViewModelOutput)?) {
+        self.document = document
         self.output = output
     }
     
-    func startSubscription() async {
-        await service.startSubscription(objectTypeId: objectTypeId, spaceId: spaceId, sort: sort) { details, numberOfObjectsLeft in
+    func startListSubscription() async {
+        await listService.startSubscription(objectTypeId: document.objectId, spaceId: document.spaceId, sort: sort) { details, numberOfObjectsLeft in
             self.rows = details.map { details in
                 WidgetObjectListRowModel(details: details, canArchive: false) { [weak self] in
                     self?.output?.onOpenObjectTap(objectId: details.id)
@@ -33,13 +40,45 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
         }
     }
     
-    func stopStopSubscription() {
+    func startSetSubscription() async {
+        await setService.startSubscription(typeId: document.objectId, spaceId: document.spaceId) { [weak self] details in
+            self?.detailsOfSet = details
+        }
+    }
+    
+    func stopSubscriptions() {
         Task {
-            await service.stopSubscription()
+            await listService.stopSubscription()
+            await setService.stopSubscription()
         }
     }
     
     func onCreateNewObjectTap() {
         output?.onCreateNewObjectTap()
+    }
+    
+    func onSetButtonTap() async throws {
+        if let detailsOfSet {
+            output?.onOpenSetTap(objectId: detailsOfSet.id)
+        } else {
+            try await createAndOpenNewSet()
+        }
+    }
+    
+    private func createAndOpenNewSet() async throws {
+        let setName: String
+        if let details = document.details {
+            setName = Loc.setOf(details.objectName)
+        } else {
+            setName = Loc.newSet
+        }
+        
+        let detailsOfSet = try await objectActionsService.createSet(
+            name: setName,
+            iconEmoji: document.details?.iconEmoji,
+            setOfObjectType: document.objectId,
+            spaceId: document.spaceId
+        )
+        output?.onOpenSetTap(objectId: detailsOfSet.id)
     }
 }

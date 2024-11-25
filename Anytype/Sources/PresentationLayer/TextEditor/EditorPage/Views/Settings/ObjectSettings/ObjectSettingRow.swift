@@ -1,14 +1,15 @@
 import SwiftUI
 
+
 struct ObjectSettingRow: View {
     
     let setting: ObjectSetting
     let showDivider: Bool
-    let onTap: () -> Void
+    let onTap: () async throws -> Void
     
     var body: some View {
-        Button {
-            onTap()
+        AsyncButton {
+            try await onTap()
         } label: {
             settingButton
         }
@@ -26,17 +27,28 @@ struct ObjectSettingRow: View {
 
             Spacer()
 
-            Image(asset: .arrowForward)
+            decoration
         }
         .frame(height: 52)
+    }
+    
+    private var decoration: some View {
+        Group {
+            switch setting {
+            case .icon, .cover, .layout, .relations, .history:
+                Image(asset: .arrowForward)
+            case .description(let isVisible):
+                AnytypeText(isVisible ? Loc.hide : Loc.show, style: .previewTitle1Regular).foregroundColor(Color.Text.secondary)
+            }
+        }
     }
     
 }
 
 #Preview {
     VStack {
-        ForEach(ObjectSetting.allCases, id:\.self) {
-            ObjectSettingRow(setting: $0, showDivider: true) {}
-        }
+        ObjectSettingRow(setting: .cover, showDivider: true) {}
+        ObjectSettingRow(setting: .relations, showDivider: true) {}
+        ObjectSettingRow(setting: .description(isVisible: false), showDivider: true) {}
     }.padding()
 }
