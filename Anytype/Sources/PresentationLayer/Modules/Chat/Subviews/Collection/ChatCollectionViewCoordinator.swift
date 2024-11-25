@@ -64,29 +64,6 @@ final class ChatCollectionViewCoordinator<
             return
         }
         
-        let currentSnapshot = dataSource.snapshot()
-        
-//        for visibleItem in currentSnapshot.visibleItems {
-//            if let newIndex = snapshot.index(of: visibleItem) {
-//                visibleNewItemIndex = newIndex
-//                if let oldIndex = currentSnapshot.index(of: visibleItem) {
-//                    oldVisibleCellAttributes = collectionView.layoutAttributesForItem(at: IndexPath(row: oldIndex, section: 0))
-//                }
-//                break
-//            }
-//        }
-        
-//        for visibleItem in currentSnapshot.visibleItems {
-//            if let newIndex = snapshot.index(of: visibleItem) {
-//                visibleNewItemIndex = newIndex
-//                if let oldIndex = currentSnapshot.index(of: visibleItem) {
-//                    oldVisibleCellAttributes = collectionView.layoutAttributesForItem(at: IndexPath(row: oldIndex, section: 0))
-//                }
-//                break
-//            }
-//        }
-        
-//        let currentSnapshot = dataSource.snapshot()
         var newSnapshot = NSDiffableDataSourceSnapshot<Section.ID, Item>()
         
         for section in sections.reversed() {
@@ -94,8 +71,6 @@ final class ChatCollectionViewCoordinator<
             
             newSnapshot.appendSections([section.id])
             newSnapshot.appendItems(newItems, toSection: section.id)
-            
-//            updateState(collectionView: collectionView, sectionId: section.id, items: section.items, currentSnapshot: sectionSnapshot, scrollProxy: scrollProxy)
         }
         
         var oldVisibleCellAttributes: UICollectionViewLayoutAttributes?
@@ -104,9 +79,6 @@ final class ChatCollectionViewCoordinator<
         for visibleIndexPath in collectionView.indexPathsForVisibleItems {
             if let attributes = collectionView.layoutAttributesForItem(at: visibleIndexPath),
                let item = dataSource.itemIdentifier(for: visibleIndexPath),
-//               let section = self.sections[safe: visibleIndexPath.section],
-//               let item = section.items[safe: visibleIndexPath.item],
-//               currentSnapshot.indexOfItem(item) != nil,
                newSnapshot.indexOfItem(item) != nil {
                 visibleItem = item
                 oldVisibleCellAttributes = attributes
@@ -224,7 +196,7 @@ final class ChatCollectionViewCoordinator<
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView.contentSize.isNotZero else { return }
         
-        let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height
+        let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height + scrollView.adjustedContentInset.bottom
         
         if distanceForLoadNextPage > distance {
             if canCallScrollToBottom, scrollUpdateTask.isNil {

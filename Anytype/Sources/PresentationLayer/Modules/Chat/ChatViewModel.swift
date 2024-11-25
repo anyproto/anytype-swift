@@ -27,8 +27,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var fileActionsService: any FileActionsServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
-    private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage((spaceId, chatId))
+    private let chatStorage: any ChatMessagesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let chatMessageBuilder: any ChatMessageBuilderProtocol
     
     // MARK: - State
     
@@ -55,6 +56,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         self.spaceId = spaceId
         self.chatId = chatId
         self.output = output
+        self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
+        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId, chatStorage: chatStorage)
     }
     
     func onTapAddObjectToMessage() {
@@ -95,12 +98,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     func subscribeOnPermissions() async {
         for await canEditMessages in accountParticipantsStorage.canEditPublisher(spaceId: spaceId).values {
             canEdit = canEditMessages
-        }
-    }
-    
-    func loadNextPage() {
-        Task {
-            try await chatStorage.loadNextPage()
         }
     }
     
@@ -278,81 +275,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     // MARK: - Private
     
     private func updateMessages() async {
-        
-        let yourProfileIdentity = accountParticipantsStorage.participants.first?.identity
-        
-        let newMessages = await messages.asyncMap { message -> MessageViewData in
-            
-            let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
-                
-                let content: MessageReactionModelContent
-                
-                if value.ids.count == 1,
-                   let firstId = value.ids.first,
-                   let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) }) {
-                       content = .icon(icon)
-                   } else {
-                       content = .count(value.ids.count)
-                   }
-                
-                return MessageReactionModel(
-                    emoji: key,
-                    content: content,
-                    selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false
-                )
-            }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
-            
-            let replyMessage = await chatStorage.reply(message: message)
-            let replyAttachments = await replyMessage.asyncMap { await chatStorage.attachments(message: $0) } ?? []
-            
-            return MessageViewData(
-                spaceId: spaceId,
-                chatId: chatId,
-                message: message,
-                participant: participants.first { $0.identity == message.creator },
-                reactions: reactions,
-                attachmentsDetails: await chatStorage.attachments(message: message),
-                reply: replyMessage,
-                replyAttachments: replyAttachments,
-                replyAuthor: participants.first { $0.identity == replyMessage?.creator }
-            )
-        }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        
-//        var currentDateString: String?
-        var currentSectionData: MessageSectionData?
-        var newMessageBlocks: [MessageSectionData] = []
-        
-        let calendar = Calendar.current
-        
-        for newMessage in newMessages {
-            let dateComponents = calendar.dateComponents([.year, .month, .day], from: newMessage.message.createdAtDate)
-            let date = calendar.date(from: dateComponents) ?? newMessage.message.createdAtDate
-            
-            if currentSectionData?.id == date.hashValue {
-                currentSectionData?.items.append(newMessage)
-            } else {
-                if let currentSectionData {
-                    newMessageBlocks.append(currentSectionData)
-                }
-                currentSectionData = MessageSectionData(header: dateFormatter.string(from: date), id: date.hashValue, items: [newMessage])
-            }
-        }
-        
-        if let currentSectionData {
-            newMessageBlocks.append(currentSectionData)
-        }
-        
-//        let newMessageBlocks: [MessageSectionData]
-//        if newMessages.count > 3 {
-//            newMessageBlocks = [MessageSectionData(header: "123", id: "123", items: Array(newMessages[0..<3])), MessageSectionData(header: "456", id: "456", items: Array(newMessages[4...]))]
-//        } else {
-//            newMessageBlocks = [MessageSectionData(header: "123", id: "123", items: newMessages)]
-//        }
-        
+        let newMessageBlocks = await chatMessageBuilder.makeMessage(messages: messages, participants: participants)
         guard newMessageBlocks != mesageBlocks else { return }
         mesageBlocks = newMessageBlocks
     }
