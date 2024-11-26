@@ -703,6 +703,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "Novo conjunto";
+"Show" = "Exibir";
+"Hide" = "Ocultar";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Tem certeza de que deseja excluir seu cofre?";
