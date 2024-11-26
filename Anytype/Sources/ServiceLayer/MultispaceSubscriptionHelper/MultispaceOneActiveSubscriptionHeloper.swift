@@ -44,9 +44,9 @@ final class MultispaceOneActiveSubscriptionHelper<Value: DetailsModel> {
     }
     
     private func updateSubscription(spaceId: String, update: @escaping (() -> Void)) async {
-        if activeSpaceId != spaceId {
-            try? await activeSubscriptionStorage?.stopSubscription()
-        }
+        guard activeSpaceId != spaceId else { return }
+        
+        try? await activeSubscriptionStorage?.stopSubscription()
         
         let subId = subIdPrefix + spaceId
         let subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
