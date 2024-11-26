@@ -116,6 +116,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             defaultTemplateId: "",
             canCreateObjectOfThisType: false,
             recommendedRelations: [],
+            recommendedFeaturedRelations: [],
             recommendedLayout: nil
         )
     }
