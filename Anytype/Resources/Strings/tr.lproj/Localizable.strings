@@ -703,6 +703,8 @@
 "Save" = "Kaydet";
 "Set of" = "%@ seti";
 "New set" = "Yeni Set";
+"Show" = "Göster";
+"Hide" = "Gizle";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
