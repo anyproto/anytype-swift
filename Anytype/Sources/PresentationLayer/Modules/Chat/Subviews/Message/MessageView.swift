@@ -33,7 +33,7 @@ private struct MessageInternalView: View {
             content
             trailingView
         }
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 12)
         .onChange(of: data) {
             model.update(data: $0)
         }
@@ -43,6 +43,7 @@ private struct MessageInternalView: View {
         .onDisappear {
             model.onDisappear()
         }
+        .padding(.bottom, model.nextSpacing.height)
     }
     
     private var content: some View {
@@ -132,20 +133,41 @@ private struct MessageInternalView: View {
     @ViewBuilder
     private var leadingView: some View {
         if model.isYourMessage {
-            Spacer(minLength: 32)
+            horizontalBubbleSpacing
         } else {
-            IconView(icon: model.authorIcon)
-                .frame(width: 32, height: 32)
+            authorIcon
         }
     }
     
     @ViewBuilder
     private var trailingView: some View {
         if model.isYourMessage {
+            authorIcon
+        } else {
+            horizontalBubbleSpacing
+        }
+    }
+    
+    @ViewBuilder
+    private var authorIcon: some View {
+        switch model.authorMode {
+        case .show:
             IconView(icon: model.authorIcon)
                 .frame(width: 32, height: 32)
-        } else {
+        case .empty:
+            Spacer.fixedWidth(32)
+        case .hidden:
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private var horizontalBubbleSpacing: some View {
+        switch model.authorMode {
+        case .show, .empty:
             Spacer(minLength: 32)
+        case .hidden:
+            Spacer(minLength: 64)
         }
     }
     

@@ -32,7 +32,18 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         
         let yourProfileIdentity = await accountParticipantsStorage.participants.first?.identity
         
-        let newMessages = await messages.asyncMap { message -> MessageViewData in
+        var currentSectionData: MessageSectionData?
+        var newMessageBlocks: [MessageSectionData] = []
+        
+        var prevDate: Date?
+        var prevCreator: String?
+        
+        let calendar = Calendar.current
+        
+        for message in messages {
+            
+            let dateComponents = calendar.dateComponents([.year, .month, .day], from: message.createdAtDate)
+            let createDateDay = calendar.date(from: dateComponents) ?? message.createdAtDate
             
             let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
                 
@@ -55,8 +66,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             
             let replyMessage = await chatStorage.reply(message: message)
             let replyAttachments = await replyMessage.asyncMap { await chatStorage.attachments(message: $0) } ?? []
+            let isYourMessage = message.creator == yourProfileIdentity
             
-            return MessageViewData(
+            let messageModel = MessageViewData(
                 spaceId: spaceId,
                 chatId: chatId,
                 message: message,
@@ -65,29 +77,24 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 attachmentsDetails: await chatStorage.attachments(message: message),
                 reply: replyMessage,
                 replyAttachments: replyAttachments,
-                replyAuthor: participants.first { $0.identity == replyMessage?.creator }
+                replyAuthor: participants.first { $0.identity == replyMessage?.creator },
+                nextSpacing: prevDate != createDateDay ? .disable : (prevCreator == message.creator ? .small : .medium),
+                authorMode: isYourMessage ? .hidden : (prevCreator != message.creator || prevDate != createDateDay ? .show : .hidden)
             )
-        }
-        
-        var currentSectionData: MessageSectionData?
-        var newMessageBlocks: [MessageSectionData] = []
-        
-        let calendar = Calendar.current
-        
-        for newMessage in newMessages {
-            let dateComponents = calendar.dateComponents([.year, .month, .day], from: newMessage.message.createdAtDate)
-            let date = calendar.date(from: dateComponents) ?? newMessage.message.createdAtDate
             
-            if currentSectionData?.id == date.hashValue {
-                currentSectionData?.items.append(newMessage)
+            prevDate = createDateDay
+            prevCreator = message.creator
+            
+            if currentSectionData?.id == createDateDay.hashValue {
+                currentSectionData?.items.append(messageModel)
             } else {
                 if let currentSectionData {
                     newMessageBlocks.append(currentSectionData)
                 }
-                currentSectionData = MessageSectionData(header: dateFormatter.string(from: date), id: date.hashValue, items: [newMessage])
+                currentSectionData = MessageSectionData(header: dateFormatter.string(from: createDateDay), id: createDateDay.hashValue, items: [messageModel])
             }
         }
-        
+
         if let currentSectionData {
             newMessageBlocks.append(currentSectionData)
         }

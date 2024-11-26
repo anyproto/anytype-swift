@@ -24,7 +24,7 @@ final class ChatCollectionViewCoordinator<
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
         { [weak self] view, _, indexPath in
-            guard let header = self?.sections.reversed()[safe: indexPath.section]?.header else { return }
+            guard let header = self?.sections[safe: indexPath.section]?.header else { return }
             view.contentConfiguration = UIHostingConfiguration {
                 self?.headerBuilder?(header)
             }
@@ -66,11 +66,9 @@ final class ChatCollectionViewCoordinator<
         
         var newSnapshot = NSDiffableDataSourceSnapshot<Section.ID, Item>()
         
-        for section in sections.reversed() {
-            let newItems = section.items.reversed() as [Item]
-            
+        for section in sections {
             newSnapshot.appendSections([section.id])
-            newSnapshot.appendItems(newItems, toSection: section.id)
+            newSnapshot.appendItems(section.items, toSection: section.id)
         }
         
         var oldVisibleCellAttributes: UICollectionViewLayoutAttributes?
