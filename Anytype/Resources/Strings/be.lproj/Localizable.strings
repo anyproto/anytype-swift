@@ -704,6 +704,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "Новы набор";
+"Show" = "Паказаць";
+"Hide" = "Схаваць";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";

@@ -703,6 +703,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "Nieuwe set";
+"Show" = "Toon";
+"Hide" = "Verberg";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";

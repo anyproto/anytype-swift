@@ -703,6 +703,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "신규 세트";
+"Show" = "표시하기";
+"Hide" = "숨기기";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

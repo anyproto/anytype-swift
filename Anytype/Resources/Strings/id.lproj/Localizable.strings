@@ -704,6 +704,8 @@
 "Save" = "Simpan";
 "Set of" = "Set of %@";
 "New set" = "Set baru";
+"Show" = "Tampilkan";
+"Hide" = "Sembunyikan";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";

@@ -703,6 +703,8 @@
 "Save" = "Speichern";
 "Set of" = "Set of %@";
 "New set" = "Neues Set";
+"Show" = "Zeigen";
+"Hide" = "Verstecken";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
