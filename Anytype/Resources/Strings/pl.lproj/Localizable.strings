@@ -703,6 +703,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "Nowy zestaw";
+"Show" = "Pokaż";
+"Hide" = "Ukryj";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";

@@ -703,6 +703,8 @@
 "Save" = "Sauvegarder";
 "Set of" = "Set de %@";
 "New set" = "Nouvel ensemble";
+"Show" = "Montrer";
+"Hide" = "Masquer";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";

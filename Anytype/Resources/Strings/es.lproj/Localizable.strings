@@ -703,6 +703,8 @@
 "Save" = "Guardar";
 "Set of" = "Set of %@";
 "New set" = "Nuevo conjunto";
+"Show" = "Mostrar";
+"Hide" = "Ocultar";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";

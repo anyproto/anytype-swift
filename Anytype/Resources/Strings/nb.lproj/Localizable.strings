@@ -703,6 +703,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "Nytt sett";
+"Show" = "Vis";
+"Hide" = "Skjul";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Er du sikker på at du vil slette hvelvet ditt?";
