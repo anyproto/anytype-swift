@@ -704,6 +704,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "新增集合";
+"Show" = "顯示";
+"Hide" = "隱藏";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您確定要刪除您的帳戶嗎？";
