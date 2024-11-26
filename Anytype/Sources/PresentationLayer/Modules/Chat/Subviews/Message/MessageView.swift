@@ -52,17 +52,14 @@ private struct MessageInternalView: View {
                 
             if let reply = model.reply {
                 MessageReplyView(model: reply)
-                    .padding(.horizontal, 4)
-                    .padding(.top, 4)
+                    .padding(4)
                     .onTapGesture {
                         model.onTapReplyMessage()
                     }
             }
             
             if !model.message.isEmpty {
-                if model.reply.isNotNil {
-                    Spacer.fixedHeight(4)
-                } else if !model.showHeader {
+                if !model.showHeader && model.reply.isNil {
                     Spacer.fixedHeight(12)
                 }
                 Text(model.message)
@@ -77,14 +74,12 @@ private struct MessageInternalView: View {
                     MessageListAttachmentsViewContainer(objects: items) {
                         model.onTapObject(details: $0)
                     }
-                    .padding(.horizontal, 4)
-                    .padding(.top, 4)
+                    .padding(4)
                 case .grid(let items):
                     MessageGridAttachmentsContainer(objects: items) {
                         model.onTapObject(details: $0)
                     }
-                    .padding(.horizontal, 4)
-                    .padding(.top, 4)
+                    .padding(4)
                 }
             }
             
@@ -95,13 +90,11 @@ private struct MessageInternalView: View {
                     model.onTapAddReaction()
                 }
                 .padding(.horizontal, 12)
-                .padding(.top, 4)
+                .padding(.vertical, 8)
             }
             
-            if model.reactions.isNotEmpty || model.linkedObjects == nil {
+            if model.reactions.isEmpty && model.linkedObjects == nil {
                 Spacer.fixedHeight(12)
-            } else {
-                Spacer.fixedHeight(4)
             }
         }
         .readSize {
