@@ -703,6 +703,8 @@
 "Save" = "Salva";
 "Set of" = "Set of %@";
 "New set" = "Nuovo insieme";
+"Show" = "Mostra";
+"Hide" = "Nascondi";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
