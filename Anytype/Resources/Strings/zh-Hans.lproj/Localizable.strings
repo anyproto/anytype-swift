@@ -704,6 +704,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "新建集合";
+"Show" = "显示";
+"Hide" = "隐藏";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
