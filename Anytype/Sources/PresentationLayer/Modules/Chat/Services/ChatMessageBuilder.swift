@@ -7,6 +7,10 @@ protocol ChatMessageBuilderProtocol: AnyObject {
 
 final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     
+    private enum Constants {
+        static let grouppingDateInterval: Int = 180 // seconds
+    }
+    
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
@@ -35,15 +39,26 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         var currentSectionData: MessageSectionData?
         var newMessageBlocks: [MessageSectionData] = []
         
-        var prevDate: Date?
+        var prevDateInterval: Int64?
+        var prevDateDay: Date?
         var prevCreator: String?
         
         let calendar = Calendar.current
         
-        for message in messages {
+        for messageIndex in 0..<messages.count {
+            
+            let message = messages[messageIndex]
+            let nextMessage = messages[safe: messageIndex + 1]
             
             let dateComponents = calendar.dateComponents([.year, .month, .day], from: message.createdAtDate)
             let createDateDay = calendar.date(from: dateComponents) ?? message.createdAtDate
+            
+            let firstInSection = createDateDay != prevDateDay
+            let firstForCurrentUser = prevCreator != message.creator
+            let prevDateInternalIsBig = prevDateInterval.map { ($0 - message.createdAt) > Constants.grouppingDateInterval } ?? true
+            let nextDateIntervalIsBig = nextMessage.map { (message.createdAt - $0.createdAt) > Constants.grouppingDateInterval } ?? true
+            
+            let lastForCurrentUser = nextMessage?.creator != message.creator
             
             let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
                 
@@ -78,12 +93,14 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 reply: replyMessage,
                 replyAttachments: replyAttachments,
                 replyAuthor: participants.first { $0.identity == replyMessage?.creator },
-                nextSpacing: prevDate != createDateDay ? .disable : (prevCreator == message.creator ? .small : .medium),
-                authorMode: isYourMessage ? .hidden : (prevCreator != message.creator || prevDate != createDateDay ? .show : .hidden)
+                nextSpacing: firstInSection ? .disable : (firstForCurrentUser || prevDateInternalIsBig ? .medium : .small),
+                authorMode: isYourMessage ? .hidden : (firstForCurrentUser || firstInSection || prevDateInternalIsBig ? .show : .empty),
+                showHeader: lastForCurrentUser || nextDateIntervalIsBig
             )
             
-            prevDate = createDateDay
+            prevDateDay = createDateDay
             prevCreator = message.creator
+            prevDateInterval = message.createdAt
             
             if currentSectionData?.id == createDateDay.hashValue {
                 currentSectionData?.items.append(messageModel)

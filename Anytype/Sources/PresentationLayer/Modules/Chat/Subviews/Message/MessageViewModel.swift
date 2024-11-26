@@ -39,6 +39,7 @@ final class MessageViewModel: ObservableObject {
     @Published var reply: MessageReplyModel?
     @Published var nextSpacing: MessageViewSpacing = .disable
     @Published var authorMode: MessageAuthorMode = .hidden
+    @Published var showHeader: Bool = true
     
     private let yourProfileIdentity: String?
     private var linkedObjectsDetails: [MessageAttachmentDetails] = []
@@ -70,6 +71,7 @@ final class MessageViewModel: ObservableObject {
         reactions = data.reactions
         nextSpacing = data.nextSpacing
         authorMode = data.authorMode
+        showHeader = data.showHeader
         
         if let replyChat = data.reply {
             let replyAttachment = data.replyAttachments.first

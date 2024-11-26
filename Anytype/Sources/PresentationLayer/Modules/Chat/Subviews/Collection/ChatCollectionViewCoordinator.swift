@@ -9,7 +9,7 @@ final class ChatCollectionViewCoordinator<
     DataView: View,
     HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item {
     
-    private let distanceForLoadNextPage: CGFloat = 50
+    private let distanceForLoadNextPage: CGFloat = 1000
     private var canCallScrollToBottom = false
     private var scrollUpdateTask: AnyCancellable?
     private var sections: [Section] = []
@@ -92,6 +92,10 @@ final class ChatCollectionViewCoordinator<
         dataSource.apply(newSnapshot, animatingDifferences: false) { [weak self] in
             guard let self else { return }
             
+            defer {
+                canCallScrollToBottom = true
+            }
+            
             guard !decelerating, // If is not scroll animation
                 collectionView.contentSize.height != oldContentSize.height, // If the height has changed
                 oldContentSize.height != 0, // If is not first update
@@ -125,7 +129,7 @@ final class ChatCollectionViewCoordinator<
     // MARK: - UICollectionViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentSize.isNotZero else { return }
+        guard scrollView.contentSize.height > 0 else { return }
         
         let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height + scrollView.adjustedContentInset.bottom
         
@@ -137,8 +141,6 @@ final class ChatCollectionViewCoordinator<
                     self?.scrollUpdateTask = nil
                 }.cancellable()
             }
-        } else {
-            canCallScrollToBottom = true
         }
     }
     

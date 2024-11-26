@@ -13,6 +13,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let replyAuthor: Participant?
     let nextSpacing: MessageViewSpacing
     let authorMode: MessageAuthorMode
+    let showHeader: Bool
     
     var id: String {
         message.id

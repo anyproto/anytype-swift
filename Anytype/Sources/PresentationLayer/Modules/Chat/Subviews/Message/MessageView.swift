@@ -48,24 +48,7 @@ private struct MessageInternalView: View {
     
     private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 10) {
-                Text(model.author)
-                    .anytypeStyle(.previewTitle2Medium)
-                    .foregroundColor(textColor)
-                    .lineLimit(1)
-            
-                Text(model.date)
-                    .anytypeStyle(.caption1Regular)
-                    .foregroundColor(timeColor)
-                    .lineLimit(1)
-                    .offset(x: contentSize.width - headerSize.width)
-            }
-            .padding(.horizontal, 12)
-            .padding(.top, 12)
-            .readSize {
-                headerSize = $0
-            }
-            
+            header
                 
             if let reply = model.reply {
                 MessageReplyView(model: reply)
@@ -79,6 +62,8 @@ private struct MessageInternalView: View {
             if !model.message.isEmpty {
                 if model.reply.isNotNil {
                     Spacer.fixedHeight(4)
+                } else if !model.showHeader {
+                    Spacer.fixedHeight(12)
                 }
                 Text(model.message)
                     .anytypeStyle(.previewTitle1Regular)
@@ -124,7 +109,7 @@ private struct MessageInternalView: View {
         }
         .background(messageBackgorundColor)
         .cornerRadius(20, style: .circular)
-        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 24, style: .circular))
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20, style: .circular))
         .contextMenu {
             contextMenu
         }
@@ -168,6 +153,29 @@ private struct MessageInternalView: View {
             Spacer(minLength: 32)
         case .hidden:
             Spacer(minLength: 64)
+        }
+    }
+    
+    @ViewBuilder
+    private var header: some View {
+        if model.showHeader {
+            HStack(spacing: 10) {
+                Text(model.author)
+                    .anytypeStyle(.previewTitle2Medium)
+                    .foregroundColor(textColor)
+                    .lineLimit(1)
+            
+                Text(model.date)
+                    .anytypeStyle(.caption1Regular)
+                    .foregroundColor(timeColor)
+                    .lineLimit(1)
+                    .offset(x: contentSize.width - headerSize.width)
+            }
+            .padding(.horizontal, 12)
+            .padding(.top, 12)
+            .readSize {
+                headerSize = $0
+            }
         }
     }
     
