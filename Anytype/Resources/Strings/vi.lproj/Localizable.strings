@@ -960,7 +960,7 @@
 "SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Phê duyệt";
 "SpaceShare.DeleteSharingLink.Title" = "Xóa link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ yêu cầu gia nhập không gian %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
