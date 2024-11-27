@@ -1,10 +1,10 @@
 import Foundation
 import ProtobufMessages
 
-public extension RelationLinksStorageProtocol {
+public extension RelationKeysStorageProtocol {
 
     func ammend(data: Anytype_Event.Object.Relations.Amend) {
-        amend(relationLinks: data.relationLinks.map { RelationLink(middlewareRelationLink: $0) })
+        amend(relationKeys: data.relationLinks.map { $0.key })
     }
     
     func remove(data: Anytype_Event.Object.Relations.Remove) {

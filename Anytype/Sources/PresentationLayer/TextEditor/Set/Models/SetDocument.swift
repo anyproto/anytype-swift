@@ -265,14 +265,14 @@ final class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataViewRelations() {
-        let relationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, spaceId: spaceId, includeDeleted: false)
+        let relationsDetails = relationDetailsStorage.relationsDetails(keys: dataView.relationLinks.map(\.key), spaceId: spaceId, includeDeleted: false)
         dataViewRelationsDetails = enrichedByDoneRelationIfNeeded(relationsDetails: relationsDetails)
     }
     
     private func enrichedByDoneRelationIfNeeded(relationsDetails: [RelationDetails]) -> [RelationDetails] {
         // force insert Done relation for dataView if needed
         let containsDoneRelation = relationsDetails.first { $0.key == BundledRelationKey.done.rawValue }.isNotNil
-        let doneRelationDetails = try? relationDetailsStorage.relationsDetails(for: BundledRelationKey.done, spaceId: spaceId)
+        let doneRelationDetails = try? relationDetailsStorage.relationsDetails(bundledKey: BundledRelationKey.done, spaceId: spaceId)
         if !containsDoneRelation, let doneRelationDetails {
             var relationsDetails = relationsDetails
             relationsDetails.append(doneRelationDetails)
