@@ -703,7 +703,7 @@ internal enum Loc {
     internal enum Object {
       internal enum Empty {
         internal enum State {
-          internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet.")
+          internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet")
         }
       }
     }
