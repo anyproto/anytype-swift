@@ -959,7 +959,7 @@
 "SpaceShare.Action.ViewRequest" = "Wyświetl zapytanie";
 "SpaceShare.Action.Approve" = "Zatwierdź";
 "SpaceShare.DeleteSharingLink.Title" = "Usuń link";
-"SpaceShare.DeleteSharingLink.Message" = "Nowi członkowie nie będą mogli dołączyć do pokoju. Możesz wygenerować nowy link dowolnego typu";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Zatwierdziłeś prośbę %@.";
 "SpaceShare.ViewRequest.Title" = "%@ poprosił o dołączenie do %@ przestrzeni";
 "SpaceShare.ViewRequest.ViewAccess" = "Dodaj jako przeglądający";
