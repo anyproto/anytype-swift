@@ -7125,6 +7125,7 @@ public struct Anytype_Rpc {
         /// add relation option details to meta
         public var returnMetaRelationDetails: Bool = false
 
+        ///DEPRECATED
         public var returnHtmlhighlightsInsteadOfRanges: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
