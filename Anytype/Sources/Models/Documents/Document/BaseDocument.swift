@@ -285,8 +285,8 @@ final class BaseDocument: BaseDocumentProtocol {
         let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
         let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
         let newRelations = relationBuilder.parsedRelations(
-            relationsDetails: objectRelationsDetails,
-            typeRelationsDetails: typeRelationsDetails,
+            objectRelations: objectRelationsDetails,
+            typeRelations: typeRelationsDetails,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage

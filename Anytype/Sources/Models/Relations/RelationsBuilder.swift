@@ -6,8 +6,8 @@ import AnytypeCore
 
 protocol RelationsBuilderProtocol: AnyObject {
     func parsedRelations(
-        relationsDetails: [RelationDetails],
-        typeRelationsDetails: [RelationDetails],
+        objectRelations: [RelationDetails],
+        typeRelations: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -22,8 +22,8 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     // MARK: - Internal functions
     
     func parsedRelations(
-        relationsDetails: [RelationDetails],
-        typeRelationsDetails: [RelationDetails],
+        objectRelations: [RelationDetails],
+        typeRelations: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -38,7 +38,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         
         
         hackGlobalNameValue(
-            relationsDetails: relationsDetails,
+            objectRelations: objectRelations,
             objectDetails: objectDetails,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
@@ -46,7 +46,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         .flatMap { featuredRelations.append($0) }
         
         
-        relationsDetails.forEach { relationDetails in
+        objectRelations.forEach { relationDetails in
             guard !relationDetails.isHidden else { return }
             guard relationDetails.key != BundledRelationKey.globalName.rawValue && relationDetails.key != BundledRelationKey.identity.rawValue else {
                 return // see hackGlobalNameValue
@@ -70,7 +70,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             }
         }
         
-        let typeRelations: [Relation] = typeRelationsDetails.compactMap { relationDetails in
+        let typeRelations: [Relation] = typeRelations.compactMap { relationDetails in
             guard !relationDetails.isHidden else { return nil }
             return builder.relation(
                 relationDetails: relationDetails,
@@ -90,14 +90,14 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     
     //fallback to identiy if globalName is empty
     private func hackGlobalNameValue(
-        relationsDetails: [RelationDetails],
+        objectRelations: [RelationDetails],
         objectDetails: ObjectDetails,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation? {
         if let globaName = relationForKey(
             key: BundledRelationKey.globalName.rawValue,
-            relationsDetails: relationsDetails,
+            objectRelations: objectRelations,
             objectDetails: objectDetails,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
@@ -105,7 +105,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         
         if let identity = relationForKey(
             key: BundledRelationKey.identity.rawValue,
-            relationsDetails: relationsDetails,
+            objectRelations: objectRelations,
             objectDetails: objectDetails,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
@@ -116,12 +116,12 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     
     private func relationForKey(
         key: String,
-        relationsDetails: [RelationDetails],
+        objectRelations: [RelationDetails],
         objectDetails: ObjectDetails,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation? {
-        guard let details = relationsDetails.first(where: { $0.key == key }) else {
+        guard let details = objectRelations.first(where: { $0.key == key }) else {
             return nil
         }
         
