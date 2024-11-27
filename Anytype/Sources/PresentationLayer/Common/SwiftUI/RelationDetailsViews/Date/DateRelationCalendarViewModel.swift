@@ -34,7 +34,7 @@ final class DateRelationCalendarViewModel: ObservableObject {
     private func updateDateRelation(with value: Double) {
         Task {
             try await relationsService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: value.protobufValue)
-            let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
+            let relationDetails = try relationDetailsStorage.relationsDetails(key: config.relationKey, spaceId: config.spaceId)
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                 isEmpty: value.isZero,
                 format: relationDetails.format,

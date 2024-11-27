@@ -113,7 +113,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     private func logChangeOrDeleteRelationValue() {
         guard initialText != text else { return }
         Task {
-            let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
+            let relationDetails = try relationDetailsStorage.relationsDetails(key: config.relationKey, spaceId: config.spaceId)
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                 isEmpty: text.isEmpty,
                 format: relationDetails.format,

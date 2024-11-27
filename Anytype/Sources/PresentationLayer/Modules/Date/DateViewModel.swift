@@ -50,7 +50,7 @@ final class DateViewModel: ObservableObject {
         let reorderedRelationsKeys = relationsKeys?.reordered(by: [BundledRelationKey.mentions.rawValue], transform: { $0 }) ?? []
         relationDetails = reorderedRelationsKeys.compactMap { [weak self] key -> RelationDetails? in
             guard let self else { return nil }
-            return try? relationDetailsStorage.relationsDetails(for: key, spaceId: spaceId)
+            return try? relationDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
         }
         state.selectedRelation = relationDetails.first
     }
