@@ -42,7 +42,9 @@ extension ObjectDetails {
            return [.tree, .link]
         case .list:
             return [.view, .compactList, .list, .link]
-        case .date, .type:
+        case .date:
+            return [.link]
+        case .type:
             return []
         }
     }
