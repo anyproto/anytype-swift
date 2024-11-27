@@ -961,7 +961,7 @@
 "SpaceShare.Action.ViewRequest" = "Anfrage ansehen";
 "SpaceShare.Action.Approve" = "Genehmigen";
 "SpaceShare.DeleteSharingLink.Title" = "Link löschen";
-"SpaceShare.DeleteSharingLink.Message" = "Neue Mitglieder werden nicht in der Lage sein, dem Space beizutreten. Sie können jederzeit einen neuen Link generieren";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Du hast die Anfrage von %@ genehmigt.";
 "SpaceShare.ViewRequest.Title" = "%@ beantragte den Beitritt zu %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Als Zuschauer hinzufügen";
