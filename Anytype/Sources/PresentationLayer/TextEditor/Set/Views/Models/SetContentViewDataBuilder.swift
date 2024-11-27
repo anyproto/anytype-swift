@@ -138,8 +138,9 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         details.map { details in
             let parsedRelations = relationsBuilder
                 .parsedRelations(
-                    objectRelations: relationsDetails,
-                    typeRelations: [],
+                    objectRelationDetails: relationsDetails,
+                    typeRelationDetails: [],
+                    featuredTypeRelationsDetails: [],
                     objectId: details.id,
                     relationValuesIsLocked: viewRelationValueIsLocked,
                     storage: storage

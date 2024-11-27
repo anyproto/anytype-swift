@@ -279,14 +279,21 @@ final class BaseDocument: BaseDocumentProtocol {
         guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
         
         let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            keys: relationKeysStorage.relationKeys,
-            spaceId: spaceId
+            keys: relationKeysStorage.relationKeys, spaceId: spaceId
         )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
-        let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
+        
+        let typeRelationsDetails = relationDetailsStorage.relationsDetails(
+            ids: details?.objectType.recommendedRelations ?? [], spaceId: spaceId
+        )
+        
+        let featuredTypeRelationsDetails = relationDetailsStorage.relationsDetails(
+            ids: details?.objectType.recommendedFeaturedRelations ?? [], spaceId: spaceId
+        )
+        
         let newRelations = relationBuilder.parsedRelations(
-            objectRelations: objectRelationsDetails,
-            typeRelations: typeRelationsDetails,
+            objectRelationDetails: objectRelationsDetails,
+            typeRelationDetails: typeRelationsDetails,
+            featuredTypeRelationsDetails: featuredTypeRelationsDetails,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
