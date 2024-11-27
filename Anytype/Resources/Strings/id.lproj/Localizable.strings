@@ -960,7 +960,7 @@
 "SpaceShare.Action.ViewRequest" = "Lihat permintaan";
 "SpaceShare.Action.Approve" = "Terima";
 "SpaceShare.DeleteSharingLink.Title" = "Hapus tautan";
-"SpaceShare.DeleteSharingLink.Message" = "Anggota baru tidak akan dapat bergabung ke ruang ini. Kamu bisa membuat tautan batu kapan saja";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Kamu menyetujui permintaan %@.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Tambahkan sebagai pembaca";

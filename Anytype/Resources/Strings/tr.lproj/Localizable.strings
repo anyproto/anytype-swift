@@ -960,7 +960,7 @@
 "SpaceShare.Action.ViewRequest" = "İsteği görüntüle";
 "SpaceShare.Action.Approve" = "Onayla";
 "SpaceShare.DeleteSharingLink.Title" = "Bağlantıyı sil";
-"SpaceShare.DeleteSharingLink.Message" = "Yeni üyeler alana katılamayacaktır. İstediğiniz zaman yeni bir bağlantı oluşturabilirsiniz";
+"SpaceShare.DeleteSharingLink.Message" = "Yeni üyeler alanınıza katılamayacaklar. İstediğiniz zaman yeni bir bağlantı oluşturabilirsiniz.";
 "SpaceShare.Approve.Toast" = "%@'nin talebini onayladınız.";
 "SpaceShare.ViewRequest.Title" = "%@, %@ alanına katılmak istiyor";
 "SpaceShare.ViewRequest.ViewAccess" = "Görüntüleyici olarak ekleyin";

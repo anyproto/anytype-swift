@@ -963,7 +963,7 @@
 "SpaceShare.Action.ViewRequest" = "查看請求";
 "SpaceShare.Action.Approve" = "批准";
 "SpaceShare.DeleteSharingLink.Title" = "刪除連結";
-"SpaceShare.DeleteSharingLink.Message" = "新成員將無法加入該空間。 您可以隨時產生一個新連結。";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "您批准了 %@ 的請求。";
 "SpaceShare.ViewRequest.Title" = "%@ 請求加入 %@ 空間";
 "SpaceShare.ViewRequest.ViewAccess" = "新增為瀏覽者";

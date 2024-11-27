@@ -960,7 +960,7 @@
 "SpaceShare.Action.ViewRequest" = "Паглядзець запыт";
 "SpaceShare.Action.Approve" = "Зацвердзіць";
 "SpaceShare.DeleteSharingLink.Title" = "Выдаліць спасылку";
-"SpaceShare.DeleteSharingLink.Message" = "Новыя ўдзельнікі не змогуць далучыцца да прасторы. Вы можаце стварыць новую спасылку ў любы час";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Вы ўхвалілі запыт ад %@.";
 "SpaceShare.ViewRequest.Title" = "%@ запытаў доступ да Прасторы \"%@\"";
 "SpaceShare.ViewRequest.ViewAccess" = "Дадаць гледача";

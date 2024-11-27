@@ -959,7 +959,7 @@
 "SpaceShare.Action.ViewRequest" = "Vis forespørsel";
 "SpaceShare.Action.Approve" = "Godkjenn";
 "SpaceShare.DeleteSharingLink.Title" = "Slett lenke";
-"SpaceShare.DeleteSharingLink.Message" = "Nye medlemmer vil ikke kunne bli medlem av rommet. Du kan generere en ny lenke når som helst";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Du har godkjent %@s forespørsel.";
 "SpaceShare.ViewRequest.Title" = "%@ ba om å bli med i %@-rommet";
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
