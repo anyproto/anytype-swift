@@ -960,7 +960,7 @@
 "SpaceShare.Action.ViewRequest" = "Ver solicitação";
 "SpaceShare.Action.Approve" = "Aprovar";
 "SpaceShare.DeleteSharingLink.Title" = "Excluir link";
-"SpaceShare.DeleteSharingLink.Message" = "Novos membros não poderão entrar no espaço. Você pode gerar um novo link a qualquer momento";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Você aprovou o pedido de %@.";
 "SpaceShare.ViewRequest.Title" = "%@ pediu para entrar no espaço de %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Adicionar como visualizador";
