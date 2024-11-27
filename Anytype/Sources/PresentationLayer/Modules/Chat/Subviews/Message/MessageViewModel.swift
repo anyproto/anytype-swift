@@ -37,6 +37,9 @@ final class MessageViewModel: ObservableObject {
     @Published var reactions: [MessageReactionModel] = []
     @Published var linkedObjects: MessageLinkedObjectsLayout?
     @Published var reply: MessageReplyModel?
+    @Published var nextSpacing: MessageViewSpacing = .disable
+    @Published var authorMode: MessageAuthorMode = .hidden
+    @Published var showHeader: Bool = true
     
     private let yourProfileIdentity: String?
     private var linkedObjectsDetails: [MessageAttachmentDetails] = []
@@ -66,6 +69,9 @@ final class MessageViewModel: ObservableObject {
         date = chatMessage.createdAtDate.formatted(date: .omitted, time: .shortened)
         isYourMessage = chatMessage.creator == yourProfileIdentity
         reactions = data.reactions
+        nextSpacing = data.nextSpacing
+        authorMode = data.authorMode
+        showHeader = data.showHeader
         
         if let replyChat = data.reply {
             let replyAttachment = data.replyAttachments.first

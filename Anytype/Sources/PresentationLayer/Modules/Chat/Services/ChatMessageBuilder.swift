@@ -7,6 +7,10 @@ protocol ChatMessageBuilderProtocol: AnyObject {
 
 final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     
+    private enum Constants {
+        static let grouppingDateInterval: Int = 5 * 60 // seconds
+    }
+    
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
@@ -32,7 +36,29 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         
         let yourProfileIdentity = await accountParticipantsStorage.participants.first?.identity
         
-        let newMessages = await messages.asyncMap { message -> MessageViewData in
+        var currentSectionData: MessageSectionData?
+        var newMessageBlocks: [MessageSectionData] = []
+        
+        var prevDateInterval: Int64?
+        var prevDateDay: Date?
+        var prevCreator: String?
+        
+        let calendar = Calendar.current
+        
+        for messageIndex in 0..<messages.count {
+            
+            let message = messages[messageIndex]
+            let nextMessage = messages[safe: messageIndex + 1]
+            
+            let dateComponents = calendar.dateComponents([.year, .month, .day], from: message.createdAtDate)
+            let createDateDay = calendar.date(from: dateComponents) ?? message.createdAtDate
+            
+            let firstInSection = createDateDay != prevDateDay
+            let firstForCurrentUser = prevCreator != message.creator
+            let prevDateInternalIsBig = prevDateInterval.map { ($0 - message.createdAt) > Constants.grouppingDateInterval } ?? true
+            let nextDateIntervalIsBig = nextMessage.map { (message.createdAt - $0.createdAt) > Constants.grouppingDateInterval } ?? true
+            
+            let lastForCurrentUser = nextMessage?.creator != message.creator
             
             let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
                 
@@ -55,8 +81,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             
             let replyMessage = await chatStorage.reply(message: message)
             let replyAttachments = await replyMessage.asyncMap { await chatStorage.attachments(message: $0) } ?? []
+            let isYourMessage = message.creator == yourProfileIdentity
             
-            return MessageViewData(
+            let messageModel = MessageViewData(
                 spaceId: spaceId,
                 chatId: chatId,
                 message: message,
@@ -65,29 +92,26 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 attachmentsDetails: await chatStorage.attachments(message: message),
                 reply: replyMessage,
                 replyAttachments: replyAttachments,
-                replyAuthor: participants.first { $0.identity == replyMessage?.creator }
+                replyAuthor: participants.first { $0.identity == replyMessage?.creator },
+                nextSpacing: firstInSection ? .disable : (firstForCurrentUser || prevDateInternalIsBig ? .medium : .small),
+                authorMode: isYourMessage ? .hidden : (firstForCurrentUser || firstInSection || prevDateInternalIsBig ? .show : .empty),
+                showHeader: lastForCurrentUser || nextDateIntervalIsBig
             )
-        }
-        
-        var currentSectionData: MessageSectionData?
-        var newMessageBlocks: [MessageSectionData] = []
-        
-        let calendar = Calendar.current
-        
-        for newMessage in newMessages {
-            let dateComponents = calendar.dateComponents([.year, .month, .day], from: newMessage.message.createdAtDate)
-            let date = calendar.date(from: dateComponents) ?? newMessage.message.createdAtDate
             
-            if currentSectionData?.id == date.hashValue {
-                currentSectionData?.items.append(newMessage)
+            prevDateDay = createDateDay
+            prevCreator = message.creator
+            prevDateInterval = message.createdAt
+            
+            if currentSectionData?.id == createDateDay.hashValue {
+                currentSectionData?.items.append(messageModel)
             } else {
                 if let currentSectionData {
                     newMessageBlocks.append(currentSectionData)
                 }
-                currentSectionData = MessageSectionData(header: dateFormatter.string(from: date), id: date.hashValue, items: [newMessage])
+                currentSectionData = MessageSectionData(header: dateFormatter.string(from: createDateDay), id: createDateDay.hashValue, items: [messageModel])
             }
         }
-        
+
         if let currentSectionData {
             newMessageBlocks.append(currentSectionData)
         }

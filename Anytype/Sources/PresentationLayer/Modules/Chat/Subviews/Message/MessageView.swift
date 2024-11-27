@@ -33,7 +33,7 @@ private struct MessageInternalView: View {
             content
             trailingView
         }
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 12)
         .onChange(of: data) {
             model.update(data: $0)
         }
@@ -43,10 +43,115 @@ private struct MessageInternalView: View {
         .onDisappear {
             model.onDisappear()
         }
+        .padding(.bottom, model.nextSpacing.height)
     }
     
     private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
+            header
+                
+            if let reply = model.reply {
+                MessageReplyView(model: reply)
+                    .padding(4)
+                    .onTapGesture {
+                        model.onTapReplyMessage()
+                    }
+            }
+            
+            if !model.message.isEmpty {
+                if !model.showHeader && model.reply.isNil {
+                    Spacer.fixedHeight(12)
+                }
+                Text(model.message)
+                    .anytypeStyle(.previewTitle1Regular)
+                    .foregroundColor(textColor)
+                    .padding(.horizontal, 12)
+            }
+            
+            if let objects = model.linkedObjects {
+                switch objects {
+                case .list(let items):
+                    MessageListAttachmentsViewContainer(objects: items) {
+                        model.onTapObject(details: $0)
+                    }
+                    .padding(4)
+                case .grid(let items):
+                    MessageGridAttachmentsContainer(objects: items) {
+                        model.onTapObject(details: $0)
+                    }
+                    .padding(4)
+                }
+            }
+            
+            if model.reactions.isNotEmpty {
+                MessageReactionList(rows: model.reactions) { reaction in
+                    try await model.onTapReaction(reaction)
+                } onTapAdd: {
+                    model.onTapAddReaction()
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+            }
+            
+            if model.reactions.isEmpty && model.linkedObjects == nil {
+                Spacer.fixedHeight(12)
+            }
+        }
+        .readSize {
+            contentSize = $0
+        }
+        .background(messageBackgorundColor)
+        .cornerRadius(20, style: .circular)
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20, style: .circular))
+        .contextMenu {
+            contextMenu
+        }
+    }
+    
+    @ViewBuilder
+    private var leadingView: some View {
+        if model.isYourMessage {
+            horizontalBubbleSpacing
+        } else {
+            authorIcon
+        }
+    }
+    
+    @ViewBuilder
+    private var trailingView: some View {
+        if model.isYourMessage {
+            authorIcon
+        } else {
+            horizontalBubbleSpacing
+        }
+    }
+    
+    @ViewBuilder
+    private var authorIcon: some View {
+        switch model.authorMode {
+        case .show:
+            IconView(icon: model.authorIcon)
+                .frame(width: 32, height: 32)
+        case .empty:
+            Spacer.fixedWidth(32)
+        case .hidden:
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private var horizontalBubbleSpacing: some View {
+        switch model.authorMode {
+        case .show, .empty:
+            Spacer(minLength: 32)
+        case .hidden:
+            Spacer(minLength: 64)
+        }
+    }
+    
+    @ViewBuilder
+    private var header: some View {
+        if model.showHeader {
             HStack(spacing: 10) {
                 Text(model.author)
                     .anytypeStyle(.previewTitle2Medium)
@@ -64,88 +169,6 @@ private struct MessageInternalView: View {
             .readSize {
                 headerSize = $0
             }
-            
-                
-            if let reply = model.reply {
-                MessageReplyView(model: reply)
-                    .padding(.horizontal, 4)
-                    .padding(.top, 4)
-                    .onTapGesture {
-                        model.onTapReplyMessage()
-                    }
-            }
-            
-            if !model.message.isEmpty {
-                if model.reply.isNotNil {
-                    Spacer.fixedHeight(4)
-                }
-                Text(model.message)
-                    .anytypeStyle(.previewTitle1Regular)
-                    .foregroundColor(textColor)
-                    .padding(.horizontal, 12)
-            }
-            
-            if let objects = model.linkedObjects {
-                switch objects {
-                case .list(let items):
-                    MessageListAttachmentsViewContainer(objects: items) {
-                        model.onTapObject(details: $0)
-                    }
-                    .padding(.horizontal, 4)
-                    .padding(.top, 4)
-                case .grid(let items):
-                    MessageGridAttachmentsContainer(objects: items) {
-                        model.onTapObject(details: $0)
-                    }
-                    .padding(.horizontal, 4)
-                    .padding(.top, 4)
-                }
-            }
-            
-            if model.reactions.isNotEmpty {
-                MessageReactionList(rows: model.reactions) { reaction in
-                    try await model.onTapReaction(reaction)
-                } onTapAdd: {
-                    model.onTapAddReaction()
-                }
-                .padding(.horizontal, 12)
-                .padding(.top, 4)
-            }
-            
-            if model.reactions.isNotEmpty || model.linkedObjects == nil {
-                Spacer.fixedHeight(12)
-            } else {
-                Spacer.fixedHeight(4)
-            }
-        }
-        .readSize {
-            contentSize = $0
-        }
-        .background(messageBackgorundColor)
-        .cornerRadius(20, style: .circular)
-        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 24, style: .circular))
-        .contextMenu {
-            contextMenu
-        }
-    }
-    
-    @ViewBuilder
-    private var leadingView: some View {
-        if model.isYourMessage {
-            Spacer(minLength: 32)
-        } else {
-            IconView(icon: model.authorIcon)
-                .frame(width: 32, height: 32)
-        }
-    }
-    
-    @ViewBuilder
-    private var trailingView: some View {
-        if model.isYourMessage {
-            IconView(icon: model.authorIcon)
-                .frame(width: 32, height: 32)
-        } else {
-            Spacer(minLength: 32)
         }
     }
     
