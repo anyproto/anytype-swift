@@ -703,6 +703,8 @@
 "Save" = "Save";
 "Set of" = "Set of %@";
 "New set" = "Nieuwe set";
+"Show" = "Toon";
+"Hide" = "Verberg";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";
@@ -958,7 +960,7 @@
 "SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
 "SpaceShare.Action.Approve" = "Goedkeuren";
 "SpaceShare.DeleteSharingLink.Title" = "Verwijder link";
-"SpaceShare.DeleteSharingLink.Message" = "Nieuwe leden zullen niet kunnen deelnemen aan de ruimte. Je kunt op elk gewenst moment een nieuwe link genereren";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Voeg toe als lezer";

@@ -703,6 +703,8 @@
 "Save" = "Guardar";
 "Set of" = "Set of %@";
 "New set" = "Nuevo conjunto";
+"Show" = "Mostrar";
+"Hide" = "Ocultar";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -957,7 +959,7 @@
 "SpaceShare.Action.ViewRequest" = "Ver solicitud";
 "SpaceShare.Action.Approve" = "Aprobar";
 "SpaceShare.DeleteSharingLink.Title" = "Eliminar enlace";
-"SpaceShare.DeleteSharingLink.Message" = "No podrán acceder nuevos miembros al espacio. Puedes generar un enlace nuevo en cualquier momento.";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Has aprobado la solicitud de %@.";
 "SpaceShare.ViewRequest.Title" = "%@ solicita acceder al espacio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Añadir como visitante";

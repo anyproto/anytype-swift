@@ -703,6 +703,8 @@
 "Save" = "Salva";
 "Set of" = "Set of %@";
 "New set" = "Nuovo insieme";
+"Show" = "Mostra";
+"Hide" = "Nascondi";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
@@ -957,7 +959,7 @@
 "SpaceShare.Action.ViewRequest" = "Visualizza richiesta";
 "SpaceShare.Action.Approve" = "Approva";
 "SpaceShare.DeleteSharingLink.Title" = "Elimina link";
-"SpaceShare.DeleteSharingLink.Message" = "I nuovi membri non saranno in grado di unirsi allo spazio. È possibile generare un nuovo link in qualsiasi momento";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Hai approvato la richiesta di %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Aggiungi come visualizzatore";

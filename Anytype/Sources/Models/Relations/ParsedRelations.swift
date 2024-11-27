@@ -2,15 +2,15 @@ import AnytypeCore
 import Services
 
 struct ParsedRelations: Equatable {
-
-    let installed: [Relation]
-    let installedInObject: [Relation]
-    let all: [Relation]
     
     let featuredRelations: [Relation]
     let deletedRelations: [Relation]
     let typeRelations: [Relation]
     let otherRelations: [Relation]
+    
+    var installed: [Relation] { featuredRelations + otherRelations + typeRelations }
+    var installedInObject: [Relation] { featuredRelations + otherRelations }
+    var all: [Relation] { featuredRelations + deletedRelations + otherRelations + typeRelations }
     
     init(
         featuredRelations: [Relation],
@@ -18,9 +18,6 @@ struct ParsedRelations: Equatable {
         typeRelations: [Relation],
         otherRelations: [Relation]
     ){
-        self.installedInObject = featuredRelations + otherRelations
-        self.installed = featuredRelations + otherRelations + typeRelations
-        self.all = featuredRelations + deletedRelations + otherRelations + typeRelations
         self.featuredRelations = featuredRelations
         self.deletedRelations = deletedRelations
         self.typeRelations = typeRelations

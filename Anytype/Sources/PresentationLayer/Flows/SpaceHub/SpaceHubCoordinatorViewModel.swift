@@ -29,8 +29,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     var fallbackSpaceId: String? {
-        userDefaults.lastOpenedScreen?.spaceId ?? participantSpacesStorage.activeParticipantSpaces.first?.id
+        userDefaults.lastOpenedScreen?.spaceId ?? fallbackSpaceView?.targetSpaceId
     }
+    @Published private var fallbackSpaceView: SpaceView?
     
     @Published var pathChanging: Bool = false
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
@@ -83,12 +84,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Injected(\.userWarningAlertsHandler)
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     
-    private var membershipStatusSubscription: AnyCancellable?
     private var needSetup = true
     
-    init() {
-        startSubscriptions()
-    }
+    init() { }
     
     func onManageSpacesSelected() {
         showSpaceManager = true
@@ -110,19 +108,22 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     // MARK: - Setup
     func setup() async {
-        guard needSetup else { return }
+        if needSetup {
+            await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
+            await setupInitialScreen()
+            await handleVersionAlerts()
+            needSetup = false
+        }
         
-        await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
-        await setupInitialScreen()
-        await handleVersionAlerts()
-        
-        needSetup = false
+        await startSubscriptions()
     }
     
     func startSubscriptions() async {
-        async let subscription1: () = startHandleWorkspaceInfo()
-        async let subscription2: () = startHandleAppActions()
-        (_,_) = await (subscription1, subscription2)
+        async let workspaceInfoSub: () = startHandleWorkspaceInfo()
+        async let appActionsSub: () = startHandleAppActions()
+        async let membershipSub: () = startHandleMembershipStatus()
+        async let spaceInfoSub: () = startHandleSpaceInfo()
+        (_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub)
     }
     
     func setupInitialScreen() async {
@@ -147,11 +148,26 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
-    func startHandleWorkspaceInfo() async {
+    private func startHandleWorkspaceInfo() async {
         activeSpaceManager.startSubscription()
         for await info in activeSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
         }
+    }
+    
+    private func startHandleSpaceInfo() async {
+        for await spaces in participantSpacesStorage.activeParticipantSpacesPublisher.values {
+            fallbackSpaceView = spaces.first?.spaceView
+        }
+    }
+    
+    func startHandleMembershipStatus() async {
+        for await membership in Container.shared.membershipStatusStorage.resolve()
+            .statusPublisher.values {
+                guard membership.status == .pendingRequiresFinalization else { return }
+                
+                membershipNameFinalizationData = membership.tier
+            }
     }
     
     func handleVersionAlerts() async {
@@ -161,17 +177,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    
-    private func startSubscriptions() {
-        membershipStatusSubscription = Container.shared
-            .membershipStatusStorage.resolve()
-            .statusPublisher.receiveOnMain()
-            .sink { [weak self] membership in
-                guard membership.status == .pendingRequiresFinalization else { return }
-                
-                self?.membershipNameFinalizationData = membership.tier
-            }
-    }
 
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
         TypeSearchForNewObjectCoordinatorView(spaceId: spaceId) { [weak self] details in

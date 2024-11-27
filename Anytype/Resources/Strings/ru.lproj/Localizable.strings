@@ -209,8 +209,8 @@
 "Lets Go" = "Давайте начнём";
 "My spaces" = "Мои пространства";
 "Open file" = "Открыть файл";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Открыть набор";
+"Create Set" = "Создать Набор";
 
 // Home
 "Favorites" = "Избранное";
@@ -325,7 +325,7 @@
 "Choose layout type" = "Выберите тип макета";
 
 "Templates" = "Шаблоны";
-"Header" = "Header";
+"Header" = "Заголовок";
 
 "Undo typing" = "Отменить ввод";
 "Undo" = "Отменить";
@@ -700,9 +700,11 @@
 "Blurred icon" = "Размытая\n иконка";
 "My First Space" = "Моё первое пространство";
 "Copy space info" = "Скопировать информацию о пространстве";
-"Save" = "Save";
-"Set of" = "Set of %@";
+"Save" = "Сохранить";
+"Set of" = "Набор %@";
 "New set" = "Новый набор";
+"Show" = "Показать";
+"Hide" = "Скрыть";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -723,7 +725,7 @@
 "ObjectType.MyTypes" = "Мои типы";
 "ObjectType.AddedToLibrary" = "Свойство ‘%@’ добавлено в вашу библиотеку";
 "ObjectType.DeletedName" = "Удаленный тип";
-"ObjectType.editingType" = "You're editing type";
+"ObjectType.editingType" = "Вы редактировали тип";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Создать %@";
@@ -957,7 +959,7 @@
 "SpaceShare.Action.ViewRequest" = "Посмотреть запрос";
 "SpaceShare.Action.Approve" = "Утверждено";
 "SpaceShare.DeleteSharingLink.Title" = "Удалить ссылку";
-"SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к этому пространству. Вы можете создать новую ссылку Anytype";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Вы приняли запрос от %@";
 "SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
 "SpaceShare.ViewRequest.ViewAccess" = "Добавить как наблюдателя";
@@ -1271,4 +1273,4 @@
 "EmptyView.Bin.subtitle" = "Похоже, у вас всё аккуратно и организовано!";
 
 // MARK: - Fields
-"Fields.menu" = "Fields menu";
+"Fields.menu" = "Меню полей";

@@ -173,7 +173,7 @@ final class DateViewModel: ObservableObject {
         guard let relationsKeys else { return [] }
         let relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
             guard let self else { return nil }
-            return try? relationDetailsStorage.relationsDetails(for: key, spaceId: document.spaceId)
+            return try? relationDetailsStorage.relationsDetails(key: key, spaceId: document.spaceId)
         }
         return relationDetails.filter { details in
             if details.key == BundledRelationKey.mentions.rawValue {
