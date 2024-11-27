@@ -5,8 +5,8 @@ struct DateView: View {
     
     @StateObject private var model: DateViewModel
     
-    init(objectId: String, spaceId: String, output: (any DateModuleOutput)?) {
-        self._model = StateObject(wrappedValue: DateViewModel(objectId: objectId, spaceId: spaceId, output: output))
+    init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
+        self._model = StateObject(wrappedValue: DateViewModel(date: date, spaceId: spaceId, output: output))
     }
     
     var body: some View {
@@ -15,7 +15,7 @@ struct DateView: View {
             titleView
             content
         }
-        .task(id: model.document.objectId) {
+        .task(id: model.document?.objectId) {
             await model.documentDidChange()
         }
         .task(item: model.state) { state in
@@ -160,5 +160,5 @@ struct DateView: View {
 }
 
 #Preview {
-    DateView(objectId: "", spaceId: "", output: nil)
+    DateView(date: Date(), spaceId: "spaceId", output: nil)
 }

@@ -11,34 +11,28 @@ struct DateCoordinatorView: View {
     
     var body: some View {
         DateView(
-            objectId: model.objectId,
-            spaceId: model.spaceId,
+            date: model.initialData.date,
+            spaceId: model.initialData.spaceId,
             output: model
         )
         .onAppear {
             model.pageNavigation = pageNavigation
         }
         .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
-            SyncStatusInfoView(spaceId: model.spaceId)
+            SyncStatusInfoView(spaceId: model.initialData.spaceId)
         }
         .sheet(item: $model.searchData) { data in
             SimpleSearchListView(items: data.items)
                 .mediumPresentationDetents()
         }
         .sheet(item: $model.calendarData) { data in
-            calendarView(with: data)
-        }
-    }
-    
-    private func calendarView(with data: CalendarData) -> some View {
-        VStack(spacing: 0) {
-            DragIndicator()
             CalendarView(data: data)
+                .applyDragIndicator()
+                .fitPresentationDetents()
         }
-        .fitPresentationDetents()
     }
 }
 
 #Preview {
-    DateCoordinatorView(data: EditorDateObject(objectId: "", spaceId: ""))
+    DateCoordinatorView(data: EditorDateObject(date: Date(), spaceId: ""))
 }
