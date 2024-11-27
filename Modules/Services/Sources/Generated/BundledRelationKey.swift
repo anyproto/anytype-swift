@@ -380,4 +380,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Unix time representation of date object
     case timestamp = "timestamp"
+
+    /// List of recommended featured relations
+    case recommendedFeaturedRelations = "recommendedFeaturedRelations"
 }

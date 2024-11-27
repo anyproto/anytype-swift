@@ -18,6 +18,7 @@ extension ObjectType {
         defaultTemplateId: "",
         canCreateObjectOfThisType: true,
         recommendedRelations: [],
+        recommendedFeaturedRelations: [],
         recommendedLayout: nil
     )
     

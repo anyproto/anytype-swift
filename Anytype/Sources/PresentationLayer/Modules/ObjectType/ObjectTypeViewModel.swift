@@ -6,7 +6,6 @@ import AnytypeCore
 @MainActor
 final class ObjectTypeViewModel: ObservableObject {
     @Published var details: ObjectDetails?
-    @Published var relationsCount: Int = 0
     
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var syncStatusData: SyncStatusData?
@@ -18,8 +17,9 @@ final class ObjectTypeViewModel: ObservableObject {
     
     let document: any BaseDocumentProtocol
     var isEditorLayout: Bool { details?.recommendedLayoutValue?.isEditorLayout ?? false }
+    var relationsCount: Int { details?.recommendedRelations.count ?? 0 }
     var canArchive: Bool { document.permissions.canArchive }
-    weak var output: (any ObjectTypeViewModelOutput)?
+    private(set) weak var output: (any ObjectTypeViewModelOutput)?
     
     private var defaultTemplateId: String? { details?.defaultTemplateId }
     private var rawTemplates: [ObjectDetails] = []
@@ -48,9 +48,8 @@ final class ObjectTypeViewModel: ObservableObject {
         async let detailsSubscription: () = subscribeOnDetails()
         async let templatesSubscription: () = subscribeOnTemplates()
         async let syncStatusSubscription: () = subscribeOnSyncStatus()
-        async let fieldsSubscription: () = subscribeOnFields()
         
-        (_, _, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription, fieldsSubscription)
+        (_, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription)
     }
     
     func setDismissHandler(dismiss: DismissAction) {
@@ -128,12 +127,6 @@ final class ObjectTypeViewModel: ObservableObject {
             withAnimation {
                 syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
             }
-        }
-    }
-    
-    func subscribeOnFields() async {
-        for await relations in document.parsedRelationsPublisher.values {
-            relationsCount = relations.all.count
         }
     }
     

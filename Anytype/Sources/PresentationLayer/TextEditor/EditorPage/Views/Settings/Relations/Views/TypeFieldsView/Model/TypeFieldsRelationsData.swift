@@ -1,7 +1,9 @@
+import Services
+
 struct TypeFieldsRelationsData: Identifiable {
     var id: String { relation.id }
     
-    let relation: Relation
+    let relation: RelationDetails
     let relationIndex: Int
     let section: TypeFieldsRelationsSection
 }

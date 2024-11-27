@@ -117,7 +117,7 @@ struct TypeFieldsView: View {
     
     private func relationRow(_ data: TypeFieldsRelationsData) -> some View {
         HStack(spacing: 0) {
-            Image(asset: data.relation.iconAsset)
+            Image(asset: data.relation.format.iconAsset)
                 .foregroundColor(.Control.active)
             Spacer.fixedWidth(10)
             AnytypeText(data.relation.name, style: .uxBodyRegular)
