@@ -11,6 +11,9 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let reply: ChatMessage?
     let replyAttachments: [MessageAttachmentDetails]
     let replyAuthor: Participant?
+    let nextSpacing: MessageViewSpacing
+    let authorMode: MessageAuthorMode
+    let showHeader: Bool
     
     var id: String {
         message.id

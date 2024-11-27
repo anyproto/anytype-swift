@@ -28,7 +28,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private(set) var syncStatus: SyncStatus?
     
     let infoContainer: any InfoContainerProtocol
-    let relationLinksStorage: any RelationLinksStorageProtocol
+    let relationKeysStorage: any RelationKeysStorageProtocol
     let restrictionsContainer: ObjectRestrictionsContainer
     let detailsStorage: ObjectDetailsStorage
     
@@ -74,7 +74,7 @@ final class BaseDocument: BaseDocumentProtocol {
         eventsListener: some EventsListenerProtocol,
         viewModelSetter: some DocumentViewModelSetterProtocol,
         infoContainer: some InfoContainerProtocol,
-        relationLinksStorage: some RelationLinksStorageProtocol,
+        relationKeysStorage: some RelationKeysStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         detailsStorage: ObjectDetailsStorage
     ) {
@@ -88,7 +88,7 @@ final class BaseDocument: BaseDocumentProtocol {
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.infoContainer = infoContainer
-        self.relationLinksStorage = relationLinksStorage
+        self.relationKeysStorage = relationKeysStorage
         self.restrictionsContainer = restrictionsContainer
         self.detailsStorage = detailsStorage
         
@@ -263,7 +263,7 @@ final class BaseDocument: BaseDocumentProtocol {
         relationDetailsStorage.relationsDetailsPublisher(spaceId: spaceId)
             .sink { [weak self] details in
                 guard let self else { return }
-                let contains = details.contains { self.relationLinksStorage.contains(relationKeys: [$0.key]) }
+                let contains = details.contains { self.relationKeysStorage.contains(relationKeys: [$0.key]) }
                 if contains {
                     triggerSync(updates: [.relationDetails])
                 }
@@ -279,14 +279,14 @@ final class BaseDocument: BaseDocumentProtocol {
         guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
         
         let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            for: relationLinksStorage.relationLinks,
+            keys: relationKeysStorage.relationKeys,
             spaceId: spaceId
         )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
+        let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
         let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
         let newRelations = relationBuilder.parsedRelations(
-            relationsDetails: objectRelationsDetails,
-            typeRelationsDetails: typeRelationsDetails,
+            objectRelations: objectRelationsDetails,
+            typeRelations: typeRelationsDetails,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage

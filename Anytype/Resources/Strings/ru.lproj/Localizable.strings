@@ -959,7 +959,7 @@
 "SpaceShare.Action.ViewRequest" = "Посмотреть запрос";
 "SpaceShare.Action.Approve" = "Утверждено";
 "SpaceShare.DeleteSharingLink.Title" = "Удалить ссылку";
-"SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к этому пространству. Вы можете создать новую ссылку Anytype";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Вы приняли запрос от %@";
 "SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
 "SpaceShare.ViewRequest.ViewAccess" = "Добавить как наблюдателя";

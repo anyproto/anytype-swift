@@ -37,11 +37,11 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     // MARK: - RelationDetailsStorageProtocol
     
-    func relationsDetails(for links: [RelationLink], spaceId: String) -> [RelationDetails] {
-        return links.map { searchDetailsByKey[RelationDetailsKey(key: $0.key, spaceId: spaceId)] ?? createDeletedRelation(link: $0) }
+    func relationsDetails(keys: [String], spaceId: String) -> [RelationDetails] {
+        return keys.map { searchDetailsByKey[RelationDetailsKey(key: $0, spaceId: spaceId)] ?? createDeletedRelation(key: $0) }
     }
     
-    func relationsDetails(for ids: [ObjectId], spaceId: String) -> [RelationDetails] {
+    func relationsDetails(ids: [String], spaceId: String) -> [RelationDetails] {
         return ids.compactMap { id in
             return relationsDetails(spaceId: spaceId).first { $0.id == id && $0.spaceId == spaceId }
         }
@@ -51,14 +51,14 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         return multispaceSubscriptionHelper.data[spaceId] ?? []
     }
     
-    func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails {
-        guard let details = searchDetailsByKey[RelationDetailsKey(key: key.rawValue, spaceId: spaceId)] else {
+    func relationsDetails(bundledKey: BundledRelationKey, spaceId: String) throws -> RelationDetails {
+        guard let details = searchDetailsByKey[RelationDetailsKey(key: bundledKey.rawValue, spaceId: spaceId)] else {
             throw RelationDetailsStorageError.relationNotFound
         }
         return details
     }
     
-    func relationsDetails(for key: String, spaceId: String) throws -> RelationDetails {
+    func relationsDetails(key: String, spaceId: String) throws -> RelationDetails {
         guard let details = searchDetailsByKey[RelationDetailsKey(key: key, spaceId: spaceId)] else {
             throw RelationDetailsStorageError.relationNotFound
         }
@@ -94,10 +94,10 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         }
     }
     
-    private func createDeletedRelation(link: RelationLink) -> RelationDetails {
+    private func createDeletedRelation(key: String) -> RelationDetails {
         return RelationDetails(
             id: "",
-            key: link.key,
+            key: key,
             name: "",
             format: .shortText,
             isHidden: false,

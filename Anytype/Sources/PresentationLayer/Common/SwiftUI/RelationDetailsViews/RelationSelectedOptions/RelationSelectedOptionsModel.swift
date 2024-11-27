@@ -78,7 +78,7 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     
     private func logChanges() {
         Task {
-            let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
+            let relationDetails = try relationDetailsStorage.relationsDetails(key: config.relationKey, spaceId: config.spaceId)
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                 isEmpty: selectedOptionsIds.isEmpty,
                 format: relationDetails.format,

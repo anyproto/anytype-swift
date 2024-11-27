@@ -23,7 +23,7 @@ struct ChatCollectionView<
             configuration.showsSeparators = false
             
             let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
-            section.interGroupSpacing = 12
+            section.interGroupSpacing = 0
             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             section.decorationItems = [] // Delete section background
             

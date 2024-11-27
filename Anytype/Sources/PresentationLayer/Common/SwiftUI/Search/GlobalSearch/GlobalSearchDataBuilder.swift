@@ -71,7 +71,7 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
             return nil
         }
         
-        guard let relationDetails = try? relationDetailsStorage.relationsDetails(for: meta.relationKey, spaceId: spaceId) else {
+        guard let relationDetails = try? relationDetailsStorage.relationsDetails(key: meta.relationKey, spaceId: spaceId) else {
             return nil
         }
         

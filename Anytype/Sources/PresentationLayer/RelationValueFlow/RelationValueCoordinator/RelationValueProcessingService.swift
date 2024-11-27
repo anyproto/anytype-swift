@@ -45,7 +45,7 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
             Task {
                 let newValue = !checkbox.value
                 try await relationsService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
-                let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: objectDetails.spaceId)
+                let relationDetails = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: objectDetails.spaceId)
                 AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                     isEmpty: !newValue,
                     format: relationDetails.format,
