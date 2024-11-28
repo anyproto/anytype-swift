@@ -23,7 +23,9 @@ struct HomeTabBarSwipeContainer<HomeView: View, ChatView: View>: View {
     private var bodyOldiOS: some View {
         ZStack {
             homeView
+                .opacity(tab == .widgets ? 1 : 0)
             chatView
+                .opacity(tab == .chat ? 1 : 0)
         }
     }
     
