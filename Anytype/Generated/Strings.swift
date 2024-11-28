@@ -1213,15 +1213,6 @@ internal enum Loc {
         internal static let placeholder = Loc.tr("Localizable", "Relation.Create.Textfield.placeholder", fallback: "Enter name...")
       }
     }
-    internal enum Date {
-      internal enum Locked {
-        internal enum Alert {
-          internal static func title(_ p1: Any) -> String {
-            return Loc.tr("Localizable", "Relation.Date.Locked.Alert.title", String(describing: p1), fallback: "Relation “%@” is locked")
-          }
-        }
-      }
-    }
     internal enum Delete {
       internal enum Alert {
         internal static let description = Loc.tr("Localizable", "Relation.Delete.Alert.Description", fallback: "The option will be permanently removed from your space.")

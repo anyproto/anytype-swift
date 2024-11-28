@@ -1,4 +1,5 @@
 import Services
+import Foundation
 import AnytypeCore
 
 enum EditorScreenData: Hashable, Codable {
@@ -63,7 +64,7 @@ struct EditorListObject: Hashable, Codable {
 }
 
 struct EditorDateObject: Hashable, Codable {
-    let objectId: String
+    let date: Date?
     let spaceId: String
 }
 
