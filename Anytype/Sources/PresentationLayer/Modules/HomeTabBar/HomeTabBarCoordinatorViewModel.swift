@@ -13,6 +13,7 @@ final class HomeTabBarCoordinatorViewModel: ObservableObject {
     @Published var tab: HomeTabState = .chat
     @Published var bottomPanelState = HomeBottomPanelState()
     @Published var chatData: ChatCoordinatorData?
+    @Published var showSpaceSettingsData: AccountInfo?
     
     init(spaceInfo: AccountInfo) {
         self.spaceInfo = spaceInfo
@@ -25,5 +26,9 @@ final class HomeTabBarCoordinatorViewModel: ObservableObject {
                 chatData = ChatCoordinatorData(chatId: chatId, spaceId: spaceInfo.accountSpaceId)
             }
         }
+    }
+    
+    func onSpaceSelected() {
+        showSpaceSettingsData = spaceInfo
     }
 }
