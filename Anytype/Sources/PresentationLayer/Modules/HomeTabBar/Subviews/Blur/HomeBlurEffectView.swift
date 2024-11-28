@@ -81,4 +81,11 @@ final class HomeBlurEffectUIView: UIView {
             filter?.setValue(4, forKey: "inputRadius")
         }
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        DispatchQueue.main.async { [weak self] in
+            self?.setBlurRadius()
+        }
+    }
 }
