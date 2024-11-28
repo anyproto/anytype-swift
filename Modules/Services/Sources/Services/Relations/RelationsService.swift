@@ -113,4 +113,13 @@ final class RelationsService: RelationsServiceProtocol {
             $0.optionIds = ids
         }).invoke()
     }
+    
+    // MARK: - New api
+    func updateRecommendedRelations(objectId: String, relationIds: [String]) async throws {
+        try await updateRelation(objectId: objectId, relationKey: BundledRelationKey.recommendedRelations.rawValue, value: relationIds.protobufValue)
+    }
+    
+    func updateRecommendedFeaturedRelations(objectId: String, relationIds: [String]) async throws {
+        try await updateRelation(objectId: objectId, relationKey: BundledRelationKey.recommendedFeaturedRelations.rawValue, value: relationIds.protobufValue)
+    }
 }

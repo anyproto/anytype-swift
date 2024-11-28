@@ -5,17 +5,26 @@ final class TypeFieldsRelationsDataBuilder {
     func build(relations: [RelationDetails], featured: [RelationDetails]) -> [TypeFieldsRelationsData] {
         var data = [TypeFieldsRelationsData]()
 
-        data.append(
-            contentsOf: featured.enumerated().map { index, relation in
-                TypeFieldsRelationsData(relation: relation, relationIndex: index, section: .header)
-            }
-        )
+        
+        if featured.isNotEmpty {
+            data.append(
+                contentsOf: featured.enumerated().map { index, relation in
+                    TypeFieldsRelationsData(data: .relation(relation), relationIndex: index, section: .header)
+                }
+            )
+        } else {
+            data.append(TypeFieldsRelationsData(data: .stub, relationIndex: 0, section: .header))
+        }
 
-        data.append(
-            contentsOf: relations.enumerated().map { index, relation in
-                TypeFieldsRelationsData(relation: relation, relationIndex: index, section: .fieldsMenu)
-            }
-        )
+        if relations.isNotEmpty {
+            data.append(
+                contentsOf: relations.enumerated().map { index, relation in
+                    TypeFieldsRelationsData(data: .relation(relation), relationIndex: index, section: .fieldsMenu)
+                }
+            )
+        } else {
+            data.append(TypeFieldsRelationsData(data: .stub, relationIndex: 0, section: .fieldsMenu))
+        }
 
         return data
     }

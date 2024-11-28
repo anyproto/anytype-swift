@@ -43,10 +43,13 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     private func setupRelationsSubscription() async {
-        for await _ in document.subscibeFor(update: [.relations]).values {
-            guard let details = document.details else { return }
-            let recommendedRelations = relationDetailsStorage.relationsDetails(for: details.recommendedRelations, spaceId: document.spaceId)
-            let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(for: details.recommendedFeaturedRelations, spaceId: document.spaceId)
+        for await details in document.subscribeForDetails(objectId: document.objectId).values {
+            let recommendedRelations = relationDetailsStorage
+                .relationsDetails(ids: details.recommendedRelations, spaceId: document.spaceId)
+                .filter { $0.key != BundledRelationKey.description.rawValue }
+            let recommendedFeaturedRelations = relationDetailsStorage
+                .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: document.spaceId)
+                .filter { $0.key != BundledRelationKey.description.rawValue }
             
             self.relations = fieldsDataBuilder.build(relations: recommendedRelations, featured: recommendedFeaturedRelations)
         }
@@ -65,22 +68,38 @@ final class TypeFieldsViewModel: ObservableObject {
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
             target: .object,
             onRelationSelect: { [weak self] details, isNew in
-                if section == .header { self?.featureRelation(key: details.key) }
+                guard let self else { return }
+                addRelation(details, section: section)
             }
         )
     }
     
     func onDeleteRelations(_ indexes: IndexSet) {
-        let keys = indexes.map { relations[$0].relation.key }
-        
         Task {
-            try await relationsService.removeRelations(objectId: document.objectId, relationKeys: keys)
+            let relationsIds = indexes.compactMap { relations[$0].relationId }
+            
+            if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelations.filter({ !relationsIds.contains($0) }) {
+                try await relationsService.updateRecommendedFeaturedRelations(objectId: document.objectId, relationIds: recommendedFeaturedRelations)
+            }
+            if let recommendedRelations = document.details?.recommendedRelations.filter({ !relationsIds.contains($0) }) {
+                try await relationsService.updateRecommendedRelations(objectId: document.objectId, relationIds: recommendedRelations)
+            }
+            
         }
     }
     
-    private func featureRelation(key: String) {
+    private func addRelation(_ details: RelationDetails, section: TypeFieldsRelationsSection) {
         Task {
-            try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: key)
+            switch section {
+            case .header:
+                var relationIds = document.details?.recommendedFeaturedRelations ?? []
+                relationIds.insert(details.id, at: 0)
+                try await relationsService.updateRecommendedFeaturedRelations(objectId: document.objectId, relationIds: relationIds)
+            case .fieldsMenu:
+                var relationIds = document.details?.recommendedRelations ?? []
+                relationIds.insert(details.id, at: 0)
+                try await self.relationsService.updateRecommendedRelations(objectId: self.document.objectId, relationIds: relationIds)
+            }
         }
     }
 }

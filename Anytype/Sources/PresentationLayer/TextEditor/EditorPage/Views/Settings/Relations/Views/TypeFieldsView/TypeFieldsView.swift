@@ -93,7 +93,7 @@ struct TypeFieldsView: View {
             Section {
                 relationRow(data)
                     .divider()
-                    .deleteDisabled(!data.relation.canBeRemovedFromObject)
+                    .deleteDisabled(!data.canBeRemovedFromObject)
             } header: {
                 // hacky way to enable dnd between sections: All sections should be created within single ForEach loop
                 if data.relationIndex == 0 {
@@ -116,13 +116,20 @@ struct TypeFieldsView: View {
     }
     
     private func relationRow(_ data: TypeFieldsRelationsData) -> some View {
-        HStack(spacing: 0) {
-            Image(asset: data.relation.format.iconAsset)
-                .foregroundColor(.Control.active)
-            Spacer.fixedWidth(10)
-            AnytypeText(data.relation.name, style: .uxBodyRegular)
-            Spacer()
+        Group {
+            switch data.data {
+            case .relation(let relationDetails):
+                HStack(spacing: 0) {
+                    Image(asset: relationDetails.format.iconAsset)
+                        .foregroundColor(.Control.active)
+                    Spacer.fixedWidth(10)
+                    AnytypeText(relationDetails.name, style: .uxBodyRegular)
+                    Spacer()
+                }
+                .frame(height: 52)
+            case .stub:
+                Rectangle().foregroundStyle(Color.Background.secondary).frame(height: 52)
+            }
         }
-        .frame(height: 52)
     }
 }
