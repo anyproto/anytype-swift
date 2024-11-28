@@ -21,11 +21,16 @@ final class DateViewModel: ObservableObject {
     private var dateRelatedObjectsSubscriptionService: any DateRelatedObjectsSubscriptionServiceProtocol
     @Injected(\.objectDateByTimestampService)
     private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionService: any ObjectActionsServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     
     // MARK: - State
     
     private var objectsToLoad = 0
     private var lastSelectedRelation: RelationDetails? = nil
+    private var details = [ObjectDetails]()
     
     @Published var document: (any BaseDocumentProtocol)?
     @Published var title = ""
@@ -33,6 +38,7 @@ final class DateViewModel: ObservableObject {
     @Published var relationItems = [RelationItemData]()
     @Published var state = DateModuleState()
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
+    @Published private var participantCanEdit = false
     
     init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
         self.spaceId = spaceId
@@ -49,8 +55,9 @@ final class DateViewModel: ObservableObject {
     func documentDidChange() async {
         async let detailsSubscription: () = subscribeOnDetails()
         async let syncStatusSubscription: () = subscribeOnSyncStatus()
+        async let participantSubscription: () = subscribeOnParticipant()
         async let relationListUpdate: () = getRelationsList()
-        (_, _, _) = await (detailsSubscription, syncStatusSubscription, relationListUpdate)
+        (_, _, _, _) = await (detailsSubscription, syncStatusSubscription, participantSubscription, relationListUpdate)
     }
     
     func restartRelationSubscription(with state: DateModuleState) async {
@@ -64,7 +71,8 @@ final class DateViewModel: ObservableObject {
             limit: state.limit,
             update: { [weak self] details, objectsToLoad  in
                 self?.objectsToLoad = objectsToLoad
-                self?.updateRows(with: details)
+                self?.details = details
+                self?.updateRows()
             }
         )
     }
@@ -135,6 +143,10 @@ final class DateViewModel: ObservableObject {
         }
     }
     
+    func onDelete(objectId: String) {
+        setArchive(objectId: objectId)
+    }
+    
     // MARK: - Object updates / subscriptions
     
     private func subscribeOnSyncStatus() async {
@@ -151,6 +163,13 @@ final class DateViewModel: ObservableObject {
                 title = dateFormatter.string(from: date)
             }
             state.currentDate = details.timestamp
+        }
+    }
+    
+    func subscribeOnParticipant() async {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+            participantCanEdit = participant.canEdit
+            updateRows()
         }
     }
     
@@ -194,13 +213,14 @@ final class DateViewModel: ObservableObject {
         }
     }
     
-    private func updateRows(with details: [ObjectDetails]) {
+    private func updateRows() {
         objects = details.map { details in
             ObjectCellData(
                 id: details.id,
                 icon: details.objectIconImage,
                 title: details.title,
                 type: details.objectType.name,
+                canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
                 onTap: { [weak self] in
                     self?.output?.onObjectTap(data: details.editorScreenData())
                 }
@@ -265,5 +285,11 @@ final class DateViewModel: ObservableObject {
             title: title,
             details: details
         )
+    }
+    
+    private func setArchive(objectId: String) {
+        AnytypeAnalytics.instance().logMoveToBin(true)
+        Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }
