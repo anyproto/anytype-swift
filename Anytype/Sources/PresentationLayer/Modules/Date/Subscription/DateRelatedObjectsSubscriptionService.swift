@@ -6,6 +6,7 @@ protocol DateRelatedObjectsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
         filter: DataviewFilter,
+        sort: DataviewSort,
         limit: Int,
         update: @escaping ([ObjectDetails], Int) -> Void
     ) async
@@ -27,13 +28,10 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
     func startSubscription(
         spaceId: String,
         filter: DataviewFilter,
+        sort: DataviewSort,
         limit: Int,
         update: @escaping ([ObjectDetails], Int) -> Void
     ) async {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
-            type: .desc
-        )
         
         let filters: [DataviewFilter] = .builder {
             SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles)

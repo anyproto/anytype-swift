@@ -7,13 +7,7 @@ final class RelationFilterBuilder {
         
     // MARK: - Private variables
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        return dateFormatter
-    }()
-    
+    private let dateFormatter = DateFormatter.defaultDateFormatter
     private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     
     func relation(

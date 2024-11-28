@@ -17,22 +17,23 @@ struct DateRelationCalendarView: View {
         VStack(spacing: 0) {
             DragIndicator()
             navigationBar
-            dateCalendarView
+            calendarView
+        }
+        .onChange(of: viewModel.dismiss) { _ in
+            dismiss()
         }
         .fitPresentationDetents()
     }
     
-    private var dateCalendarView: some View {
-        DateCalendarView(
-            date: viewModel.date,
-            embedded: true,
-            onDateChanged: { newDate in
-                viewModel.dateChanged(newDate)
-            }
+    private var calendarView: some View {
+        CalendarView(
+            data: CalendarData(
+                date: viewModel.date,
+                onDateChanged: { newDate in
+                    viewModel.dateChanged(newDate)
+                }
+            )
         )
-        .onChange(of: viewModel.dismiss) { _ in
-            dismiss()
-        }
     }
     
     private var navigationBar: some View {

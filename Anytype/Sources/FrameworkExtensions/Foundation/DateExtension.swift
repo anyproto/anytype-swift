@@ -19,6 +19,14 @@ extension Date {
         let date = Calendar.current.date(from: components)
         return date
     }
+    
+    func prevDay() -> Date? {
+        Calendar.current.date(byAdding: .day, value: -1, to: self)
+    }
+    
+    func nextDay() -> Date? {
+        Calendar.current.date(byAdding: .day, value: 1, to: self)
+    }
 }
 
 extension ClosedRange where Bound == Date {

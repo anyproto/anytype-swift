@@ -19,12 +19,12 @@ final class MentionsViewModel {
     private var mentionService: any MentionObjectsServiceProtocol
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
-    @Injected(\.objectActionsService)
-    private var objectService: any ObjectActionsServiceProtocol
+    @Injected(\.objectDateByTimestampService)
+    private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
     
     private var searchTask: Task<(), any Error>?
 
-    private let formatter = DateFormatter.relationDateFormatter
+    private let formatter = DateFormatter.relativeDateFormatter
     
     private let router: any EditorRouterProtocol
     
@@ -105,18 +105,10 @@ final class MentionsViewModel {
     
     private func createDateObject(with date: Date) {
         Task {
-            let title = formatter.string(from: date)
-            let details = try? await objectService.createObject(
-                name: title,
-                typeUniqueKey: .date,
-                shouldDeleteEmptyObject: false,
-                shouldSelectType: false,
-                shouldSelectTemplate: false,
-                spaceId: document.spaceId,
-                origin: .none,
-                templateId: nil
-            )
-            guard let details else { return }
+            guard let details = try? await objectDateByTimestampService.objectDateByTimestamp(
+                date.timeIntervalSince1970,
+                spaceId: document.spaceId
+            ) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .mention)
             let mention = MentionObject(details: details)

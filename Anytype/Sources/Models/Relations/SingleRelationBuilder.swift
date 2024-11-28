@@ -12,7 +12,7 @@ protocol SingleRelationBuilderProtocol {
 }
 
 final class SingleRelationBuilder: SingleRelationBuilderProtocol {
-    private let dateFormatter = DateFormatter.relationDateFormatter
+    private let dateFormatter = DateFormatter.relativeDateFormatter
     private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     
     

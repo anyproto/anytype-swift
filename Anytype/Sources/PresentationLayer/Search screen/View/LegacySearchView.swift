@@ -96,7 +96,7 @@ extension LegacySearchView {
         var buttonTitle: String {
             switch self {
             case .default: return Loc.add
-            case .embedded: return Loc.Set.Button.Title.apply
+            case .embedded: return Loc.apply
             }
         }
         

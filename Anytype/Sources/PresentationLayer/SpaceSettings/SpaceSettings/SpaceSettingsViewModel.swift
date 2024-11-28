@@ -25,7 +25,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
-    private let dateFormatter = DateFormatter.relationDateFormatter
+    private let dateFormatter = DateFormatter.relativeDateFormatter
     private weak var output: (any SpaceSettingsModuleOutput)?
     
     // MARK: - State

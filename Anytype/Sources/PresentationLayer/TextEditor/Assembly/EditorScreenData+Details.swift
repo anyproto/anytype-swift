@@ -19,7 +19,7 @@ extension EditorScreenData {
                 mode: mode
             ))
         case .date:
-            self = .date(EditorDateObject(objectId: details.id, spaceId: details.spaceId))
+            self = .date(EditorDateObject(date: details.timestamp, spaceId: details.spaceId))
         case .type:
             self = .type(EditorTypeObject(objectId: details.id, spaceId: details.spaceId))
         }
@@ -69,13 +69,11 @@ extension EditorScreenData {
    
     var objectId: String? {
         switch self {
-        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .allContent:
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .allContent, .date:
             return nil
         case .page(let object):
             return object.objectId
         case .list(let object):
-            return object.objectId
-        case .date(let object):
             return object.objectId
         case .type(let object):
             return object.objectId

@@ -20,7 +20,7 @@ enum RelationOptionSettingsMode {
     var buttonTitle: String {
         switch self {
         case .create: return Loc.create
-        case .edit: return Loc.Relation.Edit.Button.title
+        case .edit: return Loc.apply
         }
     }
     

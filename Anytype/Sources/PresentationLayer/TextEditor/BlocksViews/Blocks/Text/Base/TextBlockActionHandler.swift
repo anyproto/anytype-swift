@@ -525,9 +525,11 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         try await slashMenuActionHandler.handle(
             action,
             textView: textView,
-            blockInformation: info) { [weak resetSubject] modifiedAttributedString in
+            blockInformation: info,
+            modifiedStringHandler: { [weak resetSubject] modifiedAttributedString in
                 resetSubject?.send(modifiedAttributedString.value)
             }
+        )
     }
     
     func didSelectEditButton() {

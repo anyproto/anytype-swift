@@ -25,11 +25,7 @@ public extension MembershipStatus {
     }
     
     var formattedDateEnds: String {
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        
+        let dateFormatter = DateFormatter.defaultDateFormatter
         return dateFormatter.string(from: dateEnds)
     }
     

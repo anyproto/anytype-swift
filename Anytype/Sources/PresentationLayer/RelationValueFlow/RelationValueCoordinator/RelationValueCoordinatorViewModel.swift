@@ -15,6 +15,8 @@ final class RelationValueCoordinatorViewModel:
 {
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.objectDateByTimestampService)
+    private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
     
     var mediumDetent: Bool = false
     
@@ -36,19 +38,7 @@ final class RelationValueCoordinatorViewModel:
     func relationModule() -> AnyView {
         switch relation {
         case .date(let date):
-            let dateValue = date.value?.date
-            let configuration = RelationModuleConfiguration(
-                title: date.name,
-                isEditable: relation.isEditable,
-                relationKey: date.key,
-                objectId: objectDetails.id,
-                spaceId: objectDetails.spaceId,
-                analyticsType: analyticsType
-            )
-            return DateRelationCalendarView(
-                date: dateValue,
-                configuration: configuration
-            ).eraseToAnyView()
+            return dateModule(date: date)
         case .status(let status):
             let configuration = RelationModuleConfiguration(
                 title: status.name,
@@ -180,6 +170,32 @@ final class RelationValueCoordinatorViewModel:
         case .unknown, .checkbox:
             anytypeAssertionFailure("There is no module for this relation", info: ["relation": relation.name])
             return EmptyView().eraseToAnyView()
+        }
+    }
+    
+    private func dateModule(date: Relation.Date) -> AnyView {
+        if date.isEditable {
+            let dateValue = date.value?.date
+            let configuration = RelationModuleConfiguration(
+                title: date.name,
+                isEditable: relation.isEditable,
+                relationKey: date.key,
+                objectId: objectDetails.id,
+                spaceId: objectDetails.spaceId,
+                analyticsType: analyticsType
+            )
+            return DateRelationCalendarView(
+                date: dateValue,
+                configuration: configuration
+            ).eraseToAnyView()
+        } else {
+            let dateValue = date.value?.date ?? Date()
+            return DateCoordinatorView(
+                data: EditorDateObject(
+                    date: dateValue,
+                    spaceId: objectDetails.spaceId
+                )
+            ).applyDragIndicator().eraseToAnyView()
         }
     }
     
