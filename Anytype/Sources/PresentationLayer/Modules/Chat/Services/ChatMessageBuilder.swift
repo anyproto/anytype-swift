@@ -53,7 +53,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             let dateComponents = calendar.dateComponents([.year, .month, .day], from: message.createdAtDate)
             let createDateDay = calendar.date(from: dateComponents) ?? message.createdAtDate
             
-            let firstInSection = createDateDay != prevDateDay
+            let firstInSection = prevDateDay.map({ $0.timeIntervalSince1970 > createDateDay.timeIntervalSince1970 }) ?? true
             let firstForCurrentUser = prevCreator != message.creator
             let prevDateInternalIsBig = prevDateInterval.map { ($0 - message.createdAt) > Constants.grouppingDateInterval } ?? true
             let nextDateIntervalIsBig = nextMessage.map { (message.createdAt - $0.createdAt) > Constants.grouppingDateInterval } ?? true
@@ -98,18 +98,19 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 showHeader: lastForCurrentUser || nextDateIntervalIsBig
             )
             
-            prevDateDay = createDateDay
-            prevCreator = message.creator
-            prevDateInterval = message.createdAt
-            
-            if currentSectionData?.id == createDateDay.hashValue {
-                currentSectionData?.items.append(messageModel)
-            } else {
+            if firstInSection {
                 if let currentSectionData {
                     newMessageBlocks.append(currentSectionData)
                 }
                 currentSectionData = MessageSectionData(header: dateFormatter.string(from: createDateDay), id: createDateDay.hashValue, items: [messageModel])
+            } else {
+                currentSectionData?.items.append(messageModel)
             }
+            
+            
+            prevDateDay = createDateDay
+            prevCreator = message.creator
+            prevDateInterval = message.createdAt
         }
 
         if let currentSectionData {
