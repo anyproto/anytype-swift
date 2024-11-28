@@ -851,7 +851,7 @@ internal enum Loc {
   internal enum EmptyView {
     internal enum Bin {
       internal static let subtitle = Loc.tr("Localizable", "EmptyView.Bin.subtitle", fallback: "Looks like you’re all tidy and organized!")
-      internal static let title = Loc.tr("Localizable", "EmptyView.Bin.title", fallback: "Your trash is empty.")
+      internal static let title = Loc.tr("Localizable", "EmptyView.Bin.title", fallback: "Your bin is empty.")
     }
     internal enum Default {
       internal static let subtitle = Loc.tr("Localizable", "EmptyView.Default.subtitle", fallback: "Create your first objects to get started.")
