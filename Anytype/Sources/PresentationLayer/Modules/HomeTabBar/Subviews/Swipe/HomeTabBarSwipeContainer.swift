@@ -33,12 +33,12 @@ struct HomeTabBarSwipeContainer<HomeView: View, ChatView: View>: View {
             homeView
                 .opacity(widgetAnimationProgress.opacity(progress: transitionPercent))
                 .zIndex(widgetAnimationProgress.zIndex())
-                .offset(x: widgetAnimationProgress.offsetX(progress: transitionPercent, containerWidth: containerSize.width))
+                .offset(x: widgetAnimationProgress.offsetX(progress: transitionPercent, containerWidth: containerSize.width, gestureActive: gestureActive))
             
             chatView
                 .opacity(chatAnimationProgress.opacity(progress: transitionPercent))
                 .zIndex(chatAnimationProgress.zIndex())
-                .offset(x: chatAnimationProgress.offsetX(progress: transitionPercent, containerWidth: containerSize.width))
+                .offset(x: chatAnimationProgress.offsetX(progress: transitionPercent, containerWidth: containerSize.width, gestureActive: gestureActive))
         }
         .readSize {
             containerSize = $0

@@ -29,16 +29,18 @@ enum HomeTabBarAnimationProgress {
         }
     }
     
-    func offsetX(progress: CGFloat, containerWidth: CGFloat) -> CGFloat {
+    func offsetX(progress: CGFloat, containerWidth: CGFloat, gestureActive: Bool) -> CGFloat {
+        guard gestureActive else { return 0 }
+        
         switch self {
         case .readyToShow:
-            -(containerWidth * 0.3)
+            return -(containerWidth * 0.3)
         case .showInProgress:
-            (containerWidth * 0.3 * progress)-(containerWidth * 0.3)
+            return (containerWidth * 0.3 * progress)-(containerWidth * 0.3)
         case .show:
-            0
+            return 0
         case .hiddenInProgress:
-            containerWidth * progress
+            return containerWidth * progress
         }
     }
 }
