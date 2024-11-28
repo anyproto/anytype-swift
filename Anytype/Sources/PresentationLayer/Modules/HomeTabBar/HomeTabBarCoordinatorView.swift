@@ -36,15 +36,15 @@ struct HomeTabBarCoordinatorView: View {
         ZStack {
             HomeWallpaperView(spaceInfo: model.spaceInfo)
             
-            HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
-                .anytypeNavigationItemData(HomeTabState.widgets)
-                .homeBottomPanelState($model.bottomPanelState)
-                .opacity(model.tab == .widgets ? 1 : 0)
-            
-            ChatCoordinatorView(data: chatData)
-                .anytypeNavigationItemData(HomeTabState.chat)
-                .homeBottomPanelState($model.bottomPanelState)
-                .opacity(model.tab == .chat ? 1 : 0)
+            HomeTabBarSwipeContainer(tab: $model.tab) {
+                HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
+                    .anytypeNavigationItemData(HomeTabState.widgets)
+                    .homeBottomPanelState($model.bottomPanelState)
+            } chatView: {
+                ChatCoordinatorView(data: chatData)
+                    .anytypeNavigationItemData(HomeTabState.chat)
+                    .homeBottomPanelState($model.bottomPanelState)
+            }
         }
         .safeAreaInset(edge: .top, spacing: 0) {
             HomeTabBarView(icon: model.spaceIcon, state: $model.tab)
