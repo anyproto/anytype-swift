@@ -151,6 +151,13 @@ struct DateView: View {
                     .onAppear {
                         model.onAppearLastRow(data.id)
                     }
+                    .if(data.canArchive) {
+                        $0.swipeActions {
+                            Button(Loc.toBin, role: .destructive) {
+                                model.onDelete(objectId: data.id)
+                            }
+                        }
+                    }
             }
             AnytypeNavigationSpacer(minHeight: 130)
         }
