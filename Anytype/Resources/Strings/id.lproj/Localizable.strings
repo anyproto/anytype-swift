@@ -209,8 +209,8 @@
 "Lets Go" = "Mulai!";
 "My spaces" = "Ruangku";
 "Open file" = "Buka berkas";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Buka Set";
+"Create Set" = "Buat Set";
 
 // Home
 "Favorites" = "Favorit";
@@ -702,7 +702,7 @@
 "My First Space" = "Ruang Pertamaku";
 "Copy space info" = "Salin info ruang";
 "Save" = "Simpan";
-"Set of" = "Set of %@";
+"Set of" = "Set dari %@";
 "New set" = "Set baru";
 "Show" = "Tampilkan";
 "Hide" = "Sembunyikan";
@@ -960,7 +960,7 @@
 "SpaceShare.Action.ViewRequest" = "Lihat permintaan";
 "SpaceShare.Action.Approve" = "Terima";
 "SpaceShare.DeleteSharingLink.Title" = "Hapus tautan";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
+"SpaceShare.DeleteSharingLink.Message" = "Anggota baru tidak akan dapat bergabung ke ruang ini. Kamu bisa membuat tautan baru kapan saja";
 "SpaceShare.Approve.Toast" = "Kamu menyetujui permintaan %@.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Tambahkan sebagai pembaca";

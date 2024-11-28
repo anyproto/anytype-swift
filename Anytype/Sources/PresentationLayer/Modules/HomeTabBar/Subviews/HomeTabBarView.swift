@@ -7,6 +7,8 @@ struct HomeTabBarView: View {
     
     let icon: Icon?
     @Binding var state: HomeTabState
+    let onIconTap: () -> Void
+    
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     
     var body: some View {
@@ -19,6 +21,9 @@ struct HomeTabBarView: View {
             IconView(icon: icon)
                 .frame(width: 40, height: 40)
                 .shadow(color: .black.opacity(0.25), radius: 20, y: 4)
+                .onTapGesture {
+                    onIconTap()
+                }
             
             Spacer()
             
