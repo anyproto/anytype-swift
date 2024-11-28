@@ -13,7 +13,8 @@ final class SlashMenuActionHandler {
     
     @Injected(\.pasteboardBlockDocumentService)
     private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
-    
+    @Injected(\.objectDateByTimestampService)
+    private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
     
     init(
         document: some BaseDocumentProtocol,
@@ -47,6 +48,10 @@ final class SlashMenuActionHandler {
             case .linkTo:
                 router.showLinkTo { [weak self] details in
                     self?.actionHandler.addLink(targetDetails: details, blockId: blockInformation.id)
+                }
+            case .date:
+                router.showDatePicker { [weak self] newDate in
+                    self?.handleDate(newDate, blockId: blockInformation.id)
                 }
             case .objectType(let object):
                 let spaceId = document.spaceId
@@ -99,6 +104,17 @@ final class SlashMenuActionHandler {
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])
         case let .background(color):
             actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id])
+        }
+    }
+    
+    private func handleDate(_ newDate: Date, blockId: String) {
+        Task {
+            let details = try? await objectDateByTimestampService.objectDateByTimestamp(
+                newDate.timeIntervalSince1970,
+                spaceId: document.spaceId
+            )
+            guard let details else { return }
+            actionHandler.addLink(targetDetails: details, blockId: blockId)
         }
     }
     

@@ -51,6 +51,13 @@ enum SlashAction {
                         subtitle: Loc.SlashMenu.LinkTo.description
                     )
                 )
+            case .date:
+                return .titleSubtitleDisplayData(
+                    SlashMenuItemDisplayData(
+                        iconData: .object(.empty(.date)),
+                        title: Loc.selectDate
+                    )
+                )
             case .objectType(let objectType):
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
