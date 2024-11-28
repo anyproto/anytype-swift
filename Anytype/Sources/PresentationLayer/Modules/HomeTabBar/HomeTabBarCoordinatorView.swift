@@ -23,6 +23,9 @@ struct HomeTabBarCoordinatorView: View {
         .task {
             await model.startSubscription()
         }
+        .sheet(item: $model.showSpaceSettingsData) {
+            SpaceSettingsCoordinatorView(workspaceInfo: $0)
+        }
     }
     
     private var widgetsOnlyBody: some View {
@@ -47,7 +50,9 @@ struct HomeTabBarCoordinatorView: View {
             }
         }
         .safeAreaInset(edge: .top, spacing: 0) {
-            HomeTabBarView(icon: model.spaceIcon, state: $model.tab)
+            HomeTabBarView(icon: model.spaceIcon, state: $model.tab) {
+                model.onSpaceSelected()
+            }
         }
         .homeBottomPanelHidden(bottomPanelHidden)
     }
