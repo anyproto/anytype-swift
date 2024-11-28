@@ -153,10 +153,7 @@ final class EditorSetCoordinatorViewModel:
         relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
             objectDetails: objectDetails,
-            analyticsType: .dataview,
-            onToastShow: { [weak self] message in
-                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
-            }
+            analyticsType: .dataview
         )
     }
     

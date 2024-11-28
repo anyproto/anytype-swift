@@ -3,8 +3,7 @@ import SwiftUI
 @MainActor
 final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     
-    let objectId: String
-    let spaceId: String
+    let initialData: EditorDateObject
     
     @Published var showSyncStatusInfo = false
     @Published var searchData: SimpleSearchData?
@@ -13,8 +12,7 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     var pageNavigation: PageNavigation?
     
     init(data: EditorDateObject) {
-        self.objectId = data.objectId
-        self.spaceId = data.spaceId
+        self.initialData = data
     }
     
     // MARK: - DateModuleOutput

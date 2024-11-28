@@ -127,10 +127,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
             objectDetails: objectDetails,
-            analyticsType: .block,
-            onToastShow: { [weak self] message in
-                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
-            }
+            analyticsType: .block
         )
     }
 }

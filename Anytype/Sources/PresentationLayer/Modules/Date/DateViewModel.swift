@@ -6,6 +6,7 @@ final class DateViewModel: ObservableObject {
     
     // MARK: - DI
     
+    private let spaceId: String
     private weak var output: (any DateModuleOutput)?
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     private let dateFormatter = DateFormatter.defaultDateFormatter
@@ -26,16 +27,19 @@ final class DateViewModel: ObservableObject {
     private var objectsToLoad = 0
     private var lastSelectedRelation: RelationDetails? = nil
     
-    @Published var document: any BaseDocumentProtocol
+    @Published var document: (any BaseDocumentProtocol)?
     @Published var title = ""
     @Published var objects = [ObjectCellData]()
     @Published var relationItems = [RelationItemData]()
     @Published var state = DateModuleState()
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     
-    init(objectId: String, spaceId: String, output: (any DateModuleOutput)?) {
+    init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
+        self.spaceId = spaceId
         self.output = output
-        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
+        
+        let date = date ?? Date()
+        updateDate(date)
     }
     
     func onDisappear() {
@@ -54,7 +58,7 @@ final class DateViewModel: ObservableObject {
               let sort = buildSort(from: state) else { return }
         
         await dateRelatedObjectsSubscriptionService.startSubscription(
-            spaceId: document.spaceId,
+            spaceId: spaceId,
             filter: filter,
             sort: sort,
             limit: state.limit,
@@ -124,7 +128,7 @@ final class DateViewModel: ObservableObject {
         Task {
             guard let details = try? await objectDateByTimestampService.objectDateByTimestamp(
                 date.timeIntervalSince1970,
-                spaceId: document.spaceId
+                spaceId: spaceId
             ) else { return }
             
             document = openDocumentProvider.document(objectId: details.id, spaceId: details.spaceId, mode: .preview)
@@ -134,12 +138,14 @@ final class DateViewModel: ObservableObject {
     // MARK: - Object updates / subscriptions
     
     private func subscribeOnSyncStatus() async {
+        guard let document else { return }
         for await status in document.syncStatusDataPublisher.values {
             syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
         }
     }
     
     private func subscribeOnDetails() async {
+        guard let document else { return }
         for await details in document.detailsPublisher.values {
             if let date = details.timestamp {
                 title = dateFormatter.string(from: date)
@@ -149,6 +155,7 @@ final class DateViewModel: ObservableObject {
     }
     
     private func getRelationsList() async {
+        guard let document else { return }
         let relationsKeys = try? await relationListWithValueService.relationListWithValue(
             document.objectId,
             spaceId: document.spaceId
@@ -173,7 +180,7 @@ final class DateViewModel: ObservableObject {
         guard let relationsKeys else { return [] }
         let relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
             guard let self else { return nil }
-            return try? relationDetailsStorage.relationsDetails(key: key, spaceId: document.spaceId)
+            return try? relationDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
         }
         return relationDetails.filter { details in
             if details.key == BundledRelationKey.mentions.rawValue {
@@ -208,7 +215,7 @@ final class DateViewModel: ObservableObject {
     }
     
     private func buildFilter(from state: DateModuleState) -> DataviewFilter? {
-        guard let relationDetails = state.selectedRelation else { return nil }
+        guard let document, let relationDetails = state.selectedRelation else { return nil }
         
         switch relationDetails.format {
         case .date:

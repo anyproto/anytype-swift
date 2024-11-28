@@ -703,7 +703,7 @@ internal enum Loc {
     internal enum Object {
       internal enum Empty {
         internal enum State {
-          internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet.")
+          internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet")
         }
       }
     }
@@ -1211,15 +1211,6 @@ internal enum Loc {
       }
       internal enum Textfield {
         internal static let placeholder = Loc.tr("Localizable", "Relation.Create.Textfield.placeholder", fallback: "Enter name...")
-      }
-    }
-    internal enum Date {
-      internal enum Locked {
-        internal enum Alert {
-          internal static func title(_ p1: Any) -> String {
-            return Loc.tr("Localizable", "Relation.Date.Locked.Alert.title", String(describing: p1), fallback: "Relation “%@” is locked")
-          }
-        }
       }
     }
     internal enum Delete {
