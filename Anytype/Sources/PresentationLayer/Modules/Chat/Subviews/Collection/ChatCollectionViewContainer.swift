@@ -33,6 +33,7 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
         
         keyboardListener = KeyboardEventsListnerHelper(
             willShowAction: { [weak self] event in
+                guard self?.presentedViewController == nil else { return }
                 event.animate { [weak self] in
                     guard let self, let endFrame = event.endFrame else { return }
                     
@@ -45,6 +46,7 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
                 }
             },
             didChangeFrame: { [weak self] event in
+                guard self?.presentedViewController == nil else { return }
                 event.animate { [weak self] in
                     guard let self, let endFrame = event.endFrame else { return }
                     let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
@@ -52,7 +54,6 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
                 }
             },
             willHideAction: { [weak self] event in
-                // Ignore handling when user show context menu
                 guard self?.presentedViewController == nil else { return }
                 event.animate { [weak self] in
                     guard let self, let endFrame = event.endFrame else { return }
