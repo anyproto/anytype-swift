@@ -1,16 +1,59 @@
 import Services
 
-struct TypeFieldsRelationsData: Identifiable {
-    var id: String { relation.id }
+enum TypeFieldsRelationsDataMode: Identifiable {
+    case relation(RelationDetails)
+    case stub
     
-    let relation: RelationDetails
-    let relationIndex: Int
-    let section: TypeFieldsRelationsSection
+    var id: String {
+        switch self {
+        case .relation(let relationDetails):
+            relationDetails.id
+        case .stub:
+            "stub"
+        }
+    }
 }
 
-enum TypeFieldsRelationsSection {
+struct TypeFieldsRelationsData: Identifiable {
+    var id: String { section.id + data.id }
+    
+    let data: TypeFieldsRelationsDataMode
+    let relationIndex: Int
+    let section: TypeFieldsRelationsSection
+    
+    var canBeRemovedFromObject: Bool {
+        switch data {
+        case .relation(let relationDetails):
+            relationDetails.canBeRemovedFromObject
+        case .stub:
+            false
+        }
+    }
+    
+    var key: String? {
+        switch data {
+        case .relation(let relationDetails):
+            relationDetails.key
+        case .stub:
+            nil
+        }
+    }
+    
+    var relationId: String? {
+        switch data {
+        case .relation(let relationDetails):
+            relationDetails.id
+        case .stub:
+            nil
+        }
+    }
+}
+
+enum TypeFieldsRelationsSection: String, Identifiable {
     case header
     case fieldsMenu
+    
+    var id: String { self.rawValue }
     
     var title: String {
         switch self {
