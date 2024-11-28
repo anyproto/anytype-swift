@@ -11,13 +11,13 @@ final class ObjectTypeViewModel: ObservableObject {
     @Published var syncStatusData: SyncStatusData?
     
     @Published var typeName = ""
+    @Published var relationsCount: Int = 0
     
     @Published var toastBarData: ToastBarData = .empty
     @Published var showDeleteConfirmation = false
     
     let document: any BaseDocumentProtocol
     var isEditorLayout: Bool { details?.recommendedLayoutValue?.isEditorLayout ?? false }
-    var relationsCount: Int { details?.recommendedRelations.count ?? 0 }
     var canArchive: Bool { document.permissions.canArchive }
     private(set) weak var output: (any ObjectTypeViewModelOutput)?
     
@@ -110,6 +110,7 @@ final class ObjectTypeViewModel: ObservableObject {
             }
             
             self.details = details
+            self.relationsCount = document.buildParsedRelationsForType().installed.count
             buildTemplates()
         }
     }

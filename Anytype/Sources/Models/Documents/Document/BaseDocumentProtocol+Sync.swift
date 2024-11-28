@@ -67,4 +67,10 @@ extension BaseDocumentProtocol {
             }
             .eraseToAnyPublisher()
     }
+    
+    var parsedRelationsPublisherForType: AnyPublisher<ParsedRelations, Never> {
+        subscribeForDetails(objectId: objectId).compactMap { [weak self] _ in
+            self?.buildParsedRelationsForType()
+        }.eraseToAnyPublisher()
+    }
 }

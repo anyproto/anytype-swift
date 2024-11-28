@@ -2,7 +2,7 @@ import Services
 
 
 final class TypeFieldsRelationsDataBuilder {
-    func build(relations: [RelationDetails], featured: [RelationDetails]) -> [TypeFieldsRelationsData] {
+    func build(relations: [Relation], featured: [Relation]) -> [TypeFieldsRelationsData] {
         var data = [TypeFieldsRelationsData]()
 
         
