@@ -44,8 +44,12 @@ final class TypeFieldsViewModel: ObservableObject {
     
     private func setupRelationsSubscription() async {
         for await details in document.subscribeForDetails(objectId: document.objectId).values {
-            let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details.recommendedRelations, spaceId: document.spaceId)
-            let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: document.spaceId)
+            let recommendedRelations = relationDetailsStorage
+                .relationsDetails(ids: details.recommendedRelations, spaceId: document.spaceId)
+                .filter { $0.key != BundledRelationKey.description.rawValue }
+            let recommendedFeaturedRelations = relationDetailsStorage
+                .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: document.spaceId)
+                .filter { $0.key != BundledRelationKey.description.rawValue }
             
             self.relations = fieldsDataBuilder.build(relations: recommendedRelations, featured: recommendedFeaturedRelations)
         }
