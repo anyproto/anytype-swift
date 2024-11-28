@@ -23,7 +23,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     func parsedRelations(
         objectRelationDetails: [RelationDetails],
         typeRelationDetails: [RelationDetails],
-        featuredTypeRelationsDetails: [RelationDetails] = [],
+        featuredTypeRelationsDetails: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -39,7 +39,6 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         )
         
         let deletedRelations = objectRelations.filter({ $0.isDeleted }) // TBD: take info from type as well
-        let otherRelations = objectRelations.filter({ !$0.isDeleted })
         
         let featuredRelations = buildRelations(
             relationDetails: featuredTypeRelationsDetails,
@@ -58,7 +57,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         )
         
-        let conflictedRelations = objectRelations.filter { typeRelations.contains($0) }
+        let conflictedRelations = objectRelations.filter { !typeRelations.contains($0) && !featuredRelations.contains($0) }
         
         return ParsedRelations(
             featuredRelations: featuredRelations,
@@ -77,7 +76,9 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         storage: ObjectDetailsStorage
     ) -> [Relation] {
         var relations: [Relation] = relationDetails.compactMap { relation in
-            guard isRelationCanBeAddedToList(relation) else { return nil }
+            guard isRelationCanBeAddedToList(relation) else {
+                return nil
+            }
             return builder.relation(
                 relationDetails: relation,
                 details: objectDetails,
@@ -103,6 +104,11 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     
     private func isRelationCanBeAddedToList(_ relation: RelationDetails) -> Bool {
         guard !relation.isHidden else { return false }
+        
+        // We are filtering out description from the list of relations
+        guard relation.key != BundledRelationKey.description.rawValue else { return false }
+        
+        // See hackGlobalNameValue
         guard relation.key != BundledRelationKey.globalName.rawValue && relation.key != BundledRelationKey.identity.rawValue else {
             return false
         }

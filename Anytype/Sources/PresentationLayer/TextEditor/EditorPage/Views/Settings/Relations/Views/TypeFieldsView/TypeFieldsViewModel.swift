@@ -43,8 +43,7 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     private func setupRelationsSubscription() async {
-        for await _ in document.subscibeFor(update: [.relations]).values {
-            guard let details = document.details else { return }
+        for await details in document.subscribeForDetails(objectId: document.objectId).values {
             let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details.recommendedRelations, spaceId: document.spaceId)
             let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: document.spaceId)
             
@@ -65,7 +64,8 @@ final class TypeFieldsViewModel: ObservableObject {
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
             target: .object,
             onRelationSelect: { [weak self] details, isNew in
-                if section == .header { self?.featureRelation(key: details.key) }
+                guard let self else { return }
+                addRelation(details, section: section)
             }
         )
     }
@@ -81,6 +81,21 @@ final class TypeFieldsViewModel: ObservableObject {
     private func featureRelation(key: String) {
         Task {
             try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: key)
+        }
+    }
+    
+    private func addRelation(_ details: RelationDetails, section: TypeFieldsRelationsSection) {
+        Task {
+            switch section {
+            case .header:
+                var relationIds = document.details?.recommendedFeaturedRelations ?? []
+                relationIds.insert(details.id, at: 0)
+                try await relationsService.updateRecommendedFeaturedRelations(objectId: document.objectId, relationIds: relationIds)
+            case .fieldsMenu:
+                var relationIds = document.details?.recommendedRelations ?? []
+                relationIds.insert(details.id, at: 0)
+                try await self.relationsService.updateRecommendedRelations(objectId: self.document.objectId, relationIds: relationIds)
+            }
         }
     }
 }

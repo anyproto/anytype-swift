@@ -93,6 +93,7 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.smartblockTypes,
             BundledRelationKey.sourceObject,
             BundledRelationKey.recommendedRelations,
+            BundledRelationKey.recommendedFeaturedRelations,
             BundledRelationKey.recommendedLayout,
             BundledRelationKey.uniqueKey,
             BundledRelationKey.spaceId,
