@@ -78,11 +78,12 @@ struct SlashMenuItemsBuilder {
         }
 
         let linkTo = SlashActionObject.linkTo
+        let date = SlashActionObject.date
         let objectTypes = searchTypes.map(SlashActionObject.objectType)
 
         return SlashMenuItem(
             type: .objects,
-            children: ([linkTo] + objectTypes).map(SlashAction.objects)
+            children: ([linkTo, date] + objectTypes).map(SlashAction.objects)
         )
     }
     
