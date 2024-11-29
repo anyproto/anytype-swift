@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Utwórz opcję";
 "Relation.View.Edit.title" = "Edytuj opcję";
 "Relation.Create.Textfield.placeholder" = "Wprowadź nazwę...";
-"Relation.Edit.Button.title" = "Zastosuj";
-"Relation.Date.Locked.Alert.title" = "Relacja „%@” jest zablokowana";
 "Relation.ObjectTypes.Header.title" = "Typy obiektów:";
 "Relation.ObjectType.Header.title" = "Typ obiektu:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Numer telefonu";
 
 "Relation.Search.View.Placeholder" = "Szukaj lub utwórz nową relację";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -488,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Relacja:";
 "Set.FeaturedRelations.Type" = "Typy:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Zastosuj";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Wkleić link";
 "Set.Bookmark.Error.Message" = "Ups - wystąpił problem. Spróbuj ponownie";
@@ -705,6 +702,7 @@
 "New set" = "Nowy zestaw";
 "Show" = "Pokaż";
 "Hide" = "Ukryj";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";
@@ -1238,6 +1236,9 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sortuj wg";
 "AllContent.Sort.DateUpdated" = "Date updated";
@@ -1266,7 +1267,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
-"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
 
 // MARK: - Fields

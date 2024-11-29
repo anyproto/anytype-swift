@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "建立選項";
 "Relation.View.Edit.title" = "編輯選項";
 "Relation.Create.Textfield.placeholder" = "輸入名稱...";
-"Relation.Edit.Button.title" = "套用";
-"Relation.Date.Locked.Alert.title" = "關聯 \"%@\" 已鎖定";
 "Relation.ObjectTypes.Header.title" = "物件類型：";
 "Relation.ObjectType.Header.title" = "物件類型：";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "電話號碼";
 
 "Relation.Search.View.Placeholder" = "搜尋或建立新關聯";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -489,9 +489,6 @@
 "Set.FeaturedRelations.Relation" = "關聯：";
 "Set.FeaturedRelations.Type" = "類型：";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "套用";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "貼上連結";
 "Set.Bookmark.Error.Message" = "哎呀，出了點問題。請再試一次。";
@@ -706,6 +703,7 @@
 "New set" = "新增集合";
 "Show" = "顯示";
 "Hide" = "隱藏";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您確定要刪除您的帳戶嗎？";
@@ -1242,6 +1240,9 @@
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "排序方式";
 "AllContent.Sort.DateUpdated" = "Date updated";
@@ -1270,7 +1271,7 @@
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
-"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
 
 // MARK: - Fields

@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Tạo lựa chọn";
 "Relation.View.Edit.title" = "Sửa tùy chọn";
 "Relation.Create.Textfield.placeholder" = "Nhập tên...";
-"Relation.Edit.Button.title" = "Áp dụng";
-"Relation.Date.Locked.Alert.title" = "Liên hệ “%@” bị khoá";
 "Relation.ObjectTypes.Header.title" = "Loại đối tượng:";
 "Relation.ObjectType.Header.title" = "Loại đối tượng:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Số điện thoại";
 
 "Relation.Search.View.Placeholder" = "Tìm hoặc tạo một liên hệ mới";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -489,9 +489,6 @@
 "Set.FeaturedRelations.Relation" = "Liên hệ:";
 "Set.FeaturedRelations.Type" = "Loại:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Áp dụng";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Dán link";
 "Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
@@ -706,6 +703,7 @@
 "New set" = "Tập mới";
 "Show" = "Hiện";
 "Hide" = "Ẩn";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -1239,6 +1237,9 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sắp xếp theo";
 "AllContent.Sort.DateUpdated" = "Date updated";
@@ -1267,7 +1268,7 @@ Please provide specific details of your needs here.";
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
-"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
 
 // MARK: - Fields
