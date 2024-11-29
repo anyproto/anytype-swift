@@ -10,6 +10,7 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     @Published var calendarData: CalendarData?
     
     var pageNavigation: PageNavigation?
+    var dismissAllPresented: DismissAllPresented?
     
     init(data: EditorDateObject) {
         self.initialData = data
@@ -22,7 +23,10 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     }
     
     func onObjectTap(data: EditorScreenData) {
-        pageNavigation?.push(data)
+        Task {
+            await dismissAllPresented?()
+            pageNavigation?.push(data)
+        }
     }
     
     func onSearchListTap(items: [SimpleSearchListItem]) {
