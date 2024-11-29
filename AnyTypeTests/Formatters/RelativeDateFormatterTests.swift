@@ -1,9 +1,9 @@
 import XCTest
 @testable import Anytype
 
-final class RelationDateFormatterTests: XCTestCase {
+final class RelativeDateFormatterTests: XCTestCase {
 
-    private let formatter = DateFormatter.relationDateFormatter
+    private let formatter = DateFormatter.relativeDateFormatter
 
     override func tearDownWithError() throws {
     }

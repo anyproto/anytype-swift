@@ -5,29 +5,21 @@ struct DateView: View {
     
     @StateObject private var model: DateViewModel
     
-    init(objectId: String, spaceId: String, output: (any DateModuleOutput)?) {
-        self._model = StateObject(wrappedValue: DateViewModel(objectId: objectId, spaceId: spaceId, output: output))
+    init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
+        self._model = StateObject(wrappedValue: DateViewModel(date: date, spaceId: spaceId, output: output))
     }
     
     var body: some View {
         VStack(spacing: 0) {
             navigationBar
             titleView
-            relations
-            Spacer.fixedHeight(8)
-            list
+            content
         }
-        .task {
-            await model.subscribeOnSyncStatus()
-        }
-        .task {
-            await model.subscribeOnDetails()
-        }
-        .task {
-            await model.getRelationsList()
+        .task(id: model.document?.objectId) {
+            await model.documentDidChange()
         }
         .task(item: model.state) { state in
-            await model.restartSubscription(with: state)
+            await model.restartRelationSubscription(with: state)
         }
         .onDisappear() {
             model.onDisappear()
@@ -46,15 +38,65 @@ struct DateView: View {
             .frame(width: 28, height: 28)
             
             Spacer()
+            
+            Image(asset: .X24.calendar)
+                .foregroundColor(.Control.active)
+                .onTapGesture {
+                    model.onCalendarTap()
+                }
         }
         .padding(.horizontal, 12)
         .frame(height: 48)
     }
     
     private var titleView: some View {
-        AnytypeText(model.title, style: .title)
-            .foregroundColor(.Text.primary)
-            .padding(.vertical, 32)
+        HStack(alignment: .center) {
+            Image(asset: .X24.Arrow.left)
+                .foregroundColor(.Control.active)
+                .onTapGesture {
+                    model.onPrevDayTap()
+                }
+                .opacity(model.hasPrevDay() ? 1 : 0)
+            
+            Spacer()
+            AnytypeText(model.title, style: .title)
+                .foregroundColor(.Text.primary)
+                .padding(.vertical, 32)
+                .onTapGesture {
+                    model.onCalendarTap()
+                }
+            Spacer()
+            
+            Image(asset: .X24.Arrow.right)
+                .foregroundColor(.Control.active)
+                .onTapGesture {
+                    model.onNextDayTap()
+                }
+                .opacity(model.hasNextDay() ? 1 : 0)
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    private var content: some View {
+        VStack(spacing: 8) {
+            if model.relationItems.isNotEmpty {
+                relations
+                list
+            } else {
+                emptyState
+            }
+        }
+    }
+    
+    private var emptyState: some View {
+        VStack {
+            Spacer()
+            AnytypeText(Loc.Date.Object.Empty.State.title, style: .bodyRegular)
+                .foregroundColor(.Text.secondary)
+                .padding(.vertical, 16)
+            Spacer.fixedHeight(80)
+            Spacer()
+        }
     }
     
     private var relationsListButton: some View {
@@ -74,8 +116,8 @@ struct DateView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 8) {
                 relationsListButton
-                ForEach(model.relationDetails, id: \.self) { details in
-                    relationView(details: details)
+                ForEach(model.relationItems) { item in
+                    relationView(item: item)
                 }
             }
             .frame(height: 40)
@@ -84,21 +126,22 @@ struct DateView: View {
         }
     }
     
-    private func relationView(details: RelationDetails) -> some View {
+    private func relationView(item: RelationItemData) -> some View {
         Button {
-            model.onRelationTap(details)
+            model.onRelationTap(item.details)
         } label: {
-            AnytypeText(details.name, style: .uxCalloutMedium)
-                .foregroundColor(.Text.primary)
-                .padding(.horizontal,12)
-                .padding(.vertical, 10)
-                .background(model.state.selectedRelation == details ? Color.Shape.transperentSecondary : .clear)
-                .cornerRadius(10, style: .continuous)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.Shape.primary, lineWidth: 1)
-                )
+            HStack(spacing: 6) {
+                IconView(icon: item.icon)
+                    .frame(width: 24, height: 24)
+                AnytypeText(item.title, style: .uxCalloutMedium)
+                    .foregroundColor(.Text.primary)
+            }
         }
+        .padding(.horizontal,12)
+        .frame(height: 40)
+        .background(model.state.selectedRelation == item.details ? Color.Shape.transperentSecondary : .clear)
+        .cornerRadius(10, style: .continuous)
+        .border(10, color: Color.Shape.primary)
     }
     
     private var list: some View {
@@ -107,6 +150,13 @@ struct DateView: View {
                 ObjectCell(data: data)
                     .onAppear {
                         model.onAppearLastRow(data.id)
+                    }
+                    .if(data.canArchive) {
+                        $0.swipeActions {
+                            Button(Loc.toBin, role: .destructive) {
+                                model.onDelete(objectId: data.id)
+                            }
+                        }
                     }
             }
             AnytypeNavigationSpacer(minHeight: 130)
@@ -117,5 +167,5 @@ struct DateView: View {
 }
 
 #Preview {
-    DateView(objectId: "", spaceId: "", output: nil)
+    DateView(date: Date(), spaceId: "spaceId", output: nil)
 }

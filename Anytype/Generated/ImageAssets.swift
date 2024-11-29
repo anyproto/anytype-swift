@@ -164,6 +164,7 @@ internal extension ImageAsset {
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
     static let blur = ImageAsset.bundle(name: "x24/Blur")
     static let burger = ImageAsset.bundle(name: "x24/Burger")
+    static let calendar = ImageAsset.bundle(name: "x24/Calendar")
     static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
     static let clipboard = ImageAsset.bundle(name: "x24/Clipboard")
     static let close = ImageAsset.bundle(name: "x24/Close")
@@ -179,6 +180,7 @@ internal extension ImageAsset {
       static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
     }
     static let folder = ImageAsset.bundle(name: "x24/Folder")
+    static let mention = ImageAsset.bundle(name: "x24/Mention")
     static let more = ImageAsset.bundle(name: "x24/More")
     static let multiselect = ImageAsset.bundle(name: "x24/Multiselect")
     static let name = ImageAsset.bundle(name: "x24/Name")

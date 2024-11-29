@@ -27,15 +27,14 @@ extension NavigationContextProtocol {
         dismissAllPresented(animated: animated, completion: completion)
     }
     
-    func presentSwiftUIView<Content: View>(view: Content, customHeight: CGFloat? = nil, animated: Bool = true) {
-        present(view, customHeight: customHeight, animated: animated)
+    func presentSwiftUIView<Content: View>(view: Content, animated: Bool = true) {
+        present(view, animated: animated)
     }
     
     func present<Content: View>(
         _ view: Content,
         modalPresentationStyle: UIModalPresentationStyle? = nil,
         mediumDetent: Bool = false,
-        customHeight: CGFloat? = nil,
         animated: Bool = true,
         completion: (() -> Void)? = nil)
     {
@@ -47,12 +46,6 @@ extension NavigationContextProtocol {
         if mediumDetent, let sheet = controller.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
             sheet.selectedDetentIdentifier = .medium
-        }
-        
-        if let customHeight, let sheet = controller.sheetPresentationController {
-            sheet.detents = [
-                .custom { _ in customHeight }
-            ]
         }
         
         present(controller, animated: animated, completion: completion)

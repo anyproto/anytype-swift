@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Создать параметр";
 "Relation.View.Edit.title" = "Изменить вариант";
 "Relation.Create.Textfield.placeholder" = "Введите название...";
-"Relation.Edit.Button.title" = "Применить";
-"Relation.Date.Locked.Alert.title" = "Отношение “%@” заблокировано";
 "Relation.ObjectTypes.Header.title" = "Типы объектов:";
 "Relation.ObjectType.Header.title" = "Тип объекта:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Номер телефона";
 
 "Relation.Search.View.Placeholder" = "Найти или создать новую связь";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -488,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Свойство:";
 "Set.FeaturedRelations.Type" = "Тип:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Применить";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Вставить ссылку";
 "Set.Bookmark.Error.Message" = "Ой, что-то пошло не так. Повторите попытку.";
@@ -705,6 +702,7 @@
 "New set" = "Новый набор";
 "Show" = "Показать";
 "Hide" = "Скрыть";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -959,7 +957,7 @@
 "SpaceShare.Action.ViewRequest" = "Посмотреть запрос";
 "SpaceShare.Action.Approve" = "Утверждено";
 "SpaceShare.DeleteSharingLink.Title" = "Удалить ссылку";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
+"SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к пространству. Вы можете создать новую ссылку в любое время";
 "SpaceShare.Approve.Toast" = "Вы приняли запрос от %@";
 "SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
 "SpaceShare.ViewRequest.ViewAccess" = "Добавить как наблюдателя";
@@ -1241,6 +1239,9 @@
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
 "Message.ChatTitle.Placeholder" = "Чат без названия";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Сортировать по";
 "AllContent.Sort.DateUpdated" = "Дата обновления";
@@ -1269,7 +1270,7 @@
 // MARK: - Empty view
 "EmptyView.Default.title" = "Здесь пусто.";
 "EmptyView.Default.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
-"EmptyView.Bin.title" = "Ваша корзина пуста.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Похоже, у вас всё аккуратно и организовано!";
 
 // MARK: - Fields

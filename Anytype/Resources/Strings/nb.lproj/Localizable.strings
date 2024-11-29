@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Opprett alternativ";
 "Relation.View.Edit.title" = "Rediger valg";
 "Relation.Create.Textfield.placeholder" = "Skriv inn navn...";
-"Relation.Edit.Button.title" = "Bruk";
-"Relation.Date.Locked.Alert.title" = "Relasjon “%@” er låst";
 "Relation.ObjectTypes.Header.title" = "Objekttyper:";
 "Relation.ObjectType.Header.title" = "Objekttype:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
 "Relation.Search.View.Placeholder" = "Søk eller opprett en ny relasjon";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -488,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Relasjon:";
 "Set.FeaturedRelations.Type" = "Type:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Bruk";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Lim inn lenke";
 "Set.Bookmark.Error.Message" = "Oops - noe gikk galt. Vennligst prøv igjen";
@@ -705,6 +702,7 @@
 "New set" = "Nytt sett";
 "Show" = "Vis";
 "Hide" = "Skjul";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Er du sikker på at du vil slette hvelvet ditt?";
@@ -1238,6 +1236,9 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sorter etter";
 "AllContent.Sort.DateUpdated" = "Date updated";
@@ -1266,7 +1267,7 @@ Please provide specific details of your needs here.";
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
-"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
 
 // MARK: - Fields

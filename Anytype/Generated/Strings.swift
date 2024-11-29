@@ -36,6 +36,7 @@ internal enum Loc {
   internal static let anytypeNetwork = Loc.tr("Localizable", "Anytype Network", fallback: "Anytype Network")
   internal static let appearance = Loc.tr("Localizable", "Appearance", fallback: "Appearance")
   internal static let applicationIcon = Loc.tr("Localizable", "Application icon", fallback: "Application icon")
+  internal static let apply = Loc.tr("Localizable", "Apply", fallback: "Apply")
   internal static func areYouSureYouWantToDelete(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Plural format key: \"Are you sure you want to delete %#@object@?\"")
   }
@@ -698,6 +699,15 @@ internal enum Loc {
     internal static let kanban = Loc.tr("Localizable", "DataviewType.kanban", fallback: "Kanban")
     internal static let list = Loc.tr("Localizable", "DataviewType.list", fallback: "List")
   }
+  internal enum Date {
+    internal enum Object {
+      internal enum Empty {
+        internal enum State {
+          internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet")
+        }
+      }
+    }
+  }
   internal enum Debug {
     internal static let info = Loc.tr("Localizable", "Debug.Info", fallback: "Debug Info")
     internal static func mimeTypes(_ p1: Any) -> String {
@@ -1203,24 +1213,10 @@ internal enum Loc {
         internal static let placeholder = Loc.tr("Localizable", "Relation.Create.Textfield.placeholder", fallback: "Enter name...")
       }
     }
-    internal enum Date {
-      internal enum Locked {
-        internal enum Alert {
-          internal static func title(_ p1: Any) -> String {
-            return Loc.tr("Localizable", "Relation.Date.Locked.Alert.title", String(describing: p1), fallback: "Relation “%@” is locked")
-          }
-        }
-      }
-    }
     internal enum Delete {
       internal enum Alert {
         internal static let description = Loc.tr("Localizable", "Relation.Delete.Alert.Description", fallback: "The option will be permanently removed from your space.")
         internal static let title = Loc.tr("Localizable", "Relation.Delete.Alert.Title", fallback: "Are you sure?")
-      }
-    }
-    internal enum Edit {
-      internal enum Button {
-        internal static let title = Loc.tr("Localizable", "Relation.Edit.Button.title", fallback: "Apply")
       }
     }
     internal enum EmptyState {
@@ -1277,6 +1273,9 @@ internal enum Loc {
       internal static let notion = Loc.tr("Localizable", "Relation.ImportType.Notion", fallback: "Notion")
       internal static let protobuf = Loc.tr("Localizable", "Relation.ImportType.Protobuf", fallback: "Any-Block")
       internal static let text = Loc.tr("Localizable", "Relation.ImportType.Text", fallback: "TXT")
+    }
+    internal enum Mention {
+      internal static let title = Loc.tr("Localizable", "Relation.Mention.title", fallback: "Mentioned in")
     }
     internal enum Object {
       internal enum Delete {
@@ -1399,11 +1398,6 @@ internal enum Loc {
       }
       internal enum Error {
         internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Oops - something went wrong. Please try again")
-      }
-    }
-    internal enum Button {
-      internal enum Title {
-        internal static let apply = Loc.tr("Localizable", "Set.Button.Title.Apply", fallback: "Apply")
       }
     }
     internal enum Create {

@@ -7,8 +7,7 @@ protocol RelationValueProcessingServiceProtocol {
     func handleRelationValue(
         relation: Relation,
         objectDetails: ObjectDetails,
-        analyticsType: AnalyticsEventsRelationType,
-        onToastShow: (String) -> Void
+        analyticsType: AnalyticsEventsRelationType
     ) -> RelationValueData?
 }
 
@@ -25,14 +24,8 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
     func handleRelationValue(
         relation: Relation,
         objectDetails: ObjectDetails,
-        analyticsType: AnalyticsEventsRelationType,
-        onToastShow: (String) -> Void
+        analyticsType: AnalyticsEventsRelationType
     ) -> RelationValueData? {
-        if case .date = relation, !relation.isEditable {
-            onToastShow(Loc.Relation.Date.Locked.Alert.title(relation.name))
-            return nil
-        }
-        
         switch relation {
         case .status, .tag, .object, .date, .file, .text, .number, .url, .email, .phone:
             return RelationValueData(

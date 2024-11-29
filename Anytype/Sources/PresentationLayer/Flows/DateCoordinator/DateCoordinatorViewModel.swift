@@ -3,17 +3,16 @@ import SwiftUI
 @MainActor
 final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     
-    let objectId: String
-    let spaceId: String
+    let initialData: EditorDateObject
     
     @Published var showSyncStatusInfo = false
     @Published var searchData: SimpleSearchData?
+    @Published var calendarData: CalendarData?
     
     var pageNavigation: PageNavigation?
     
     init(data: EditorDateObject) {
-        self.objectId = data.objectId
-        self.spaceId = data.spaceId
+        self.initialData = data
     }
     
     // MARK: - DateModuleOutput
@@ -28,6 +27,13 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     
     func onSearchListTap(items: [SimpleSearchListItem]) {
         searchData = SimpleSearchData(items: items)
+    }
+    
+    func onCalendarTap(with currentDate: Date, completion: @escaping (Date) -> Void) {
+        calendarData = CalendarData(
+            date: currentDate,
+            onDateChanged: completion
+        )
     }
 }
 

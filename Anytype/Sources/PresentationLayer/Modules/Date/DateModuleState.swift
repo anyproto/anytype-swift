@@ -3,6 +3,7 @@ import Services
 
 struct DateModuleState: Equatable, Hashable {
     var selectedRelation: RelationDetails? = nil { didSet { resetLimit() } }
+    var sortType: DataviewSort.TypeEnum = .desc { didSet { resetLimit() } }
     var currentDate: Date? = nil { didSet { resetLimit() } }
     var limit = Constants.limit
     

@@ -34,6 +34,5 @@ struct RelationsListCoordinatorView: View {
         .sheet(item: $model.objectTypeData) {
             TypeFieldsView(data: $0)
         }
-        .snackbar(toastBarData: $model.toastBarData)
     }
 }

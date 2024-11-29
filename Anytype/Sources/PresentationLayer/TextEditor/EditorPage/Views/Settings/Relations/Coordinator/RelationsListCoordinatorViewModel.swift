@@ -16,7 +16,6 @@ final class RelationsListCoordinatorViewModel:
     @Published var relationValueData: RelationValueData?
     @Published var relationsSearchData: RelationsSearchData?
     @Published var objectTypeData: EditorTypeObject?
-    @Published var toastBarData: ToastBarData = .empty
     
     let document: any BaseDocumentProtocol
     
@@ -68,10 +67,7 @@ final class RelationsListCoordinatorViewModel:
         relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
             objectDetails: objectDetails,
-            analyticsType: .menu,
-            onToastShow: { [weak self] message in
-                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
-            }
+            analyticsType: .menu
         )
     }
     

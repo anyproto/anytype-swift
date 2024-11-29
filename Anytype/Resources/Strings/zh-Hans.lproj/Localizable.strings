@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "创建选项";
 "Relation.View.Edit.title" = "编辑选项";
 "Relation.Create.Textfield.placeholder" = "输入名称...";
-"Relation.Edit.Button.title" = "应用";
-"Relation.Date.Locked.Alert.title" = "关系“%@” 已锁定";
 "Relation.ObjectTypes.Header.title" = "对象类型：";
 "Relation.ObjectType.Header.title" = "对象类型：";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "电话号码";
 
 "Relation.Search.View.Placeholder" = "搜索或创建新关系";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -489,9 +489,6 @@
 "Set.FeaturedRelations.Relation" = "关联:";
 "Set.FeaturedRelations.Type" = "类型:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "应用";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "粘贴链接";
 "Set.Bookmark.Error.Message" = "噢不 - 出现了一些问题。请重试";
@@ -706,6 +703,7 @@
 "New set" = "新建集合";
 "Show" = "显示";
 "Hide" = "隐藏";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -1240,6 +1238,9 @@
 "Message.Input.EmptyPlaceholder" = "写一段话…";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "排序方式";
 "AllContent.Sort.DateUpdated" = "更新日期";
@@ -1268,7 +1269,7 @@
 // MARK: - Empty view
 "EmptyView.Default.title" = "这里是空的";
 "EmptyView.Default.subtitle" = "创建您的第一个对象以开始操作。";
-"EmptyView.Bin.title" = "您的回收站是空的。";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "看起来您已经整理得井井有条了！";
 
 // MARK: - Fields

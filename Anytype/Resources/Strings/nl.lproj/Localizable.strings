@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Maak optie aan";
 "Relation.View.Edit.title" = "Bewerk optie";
 "Relation.Create.Textfield.placeholder" = "Voer naam... in";
-"Relation.Edit.Button.title" = "Pas toe";
-"Relation.Date.Locked.Alert.title" = "Relatie \"%@\" is vergrendeld";
 "Relation.ObjectTypes.Header.title" = "Object types:";
 "Relation.ObjectType.Header.title" = "Object type:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Telefoonnummer";
 
 "Relation.Search.View.Placeholder" = "Zoek of maak een nieuwe relatie aan";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -488,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Relatie:";
 "Set.FeaturedRelations.Type" = "Type:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Pas toe";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Plak link";
 "Set.Bookmark.Error.Message" = "Oeps - er is iets misgegaan. Probeer het nogmaals.";
@@ -705,6 +702,7 @@
 "New set" = "Nieuwe set";
 "Show" = "Toon";
 "Hide" = "Verberg";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";
@@ -1240,6 +1238,9 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sorteer op";
 "AllContent.Sort.DateUpdated" = "Date updated";
@@ -1268,7 +1269,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
-"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
 
 // MARK: - Fields

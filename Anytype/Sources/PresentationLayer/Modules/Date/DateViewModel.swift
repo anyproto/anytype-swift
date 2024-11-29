@@ -6,11 +6,10 @@ final class DateViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let objectId: String
     private let spaceId: String
     private weak var output: (any DateModuleOutput)?
-    
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let dateFormatter = DateFormatter.defaultDateFormatter
     
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
@@ -20,65 +19,62 @@ final class DateViewModel: ObservableObject {
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     @Injected(\.dateRelatedObjectsSubscriptionService)
     private var dateRelatedObjectsSubscriptionService: any DateRelatedObjectsSubscriptionServiceProtocol
+    @Injected(\.objectDateByTimestampService)
+    private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionService: any ObjectActionsServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     
     // MARK: - State
     
-    private let document: any BaseDocumentProtocol
     private var objectsToLoad = 0
-    private var currentDate: Date? = nil
+    private var lastSelectedRelation: RelationDetails? = nil
+    private var details = [ObjectDetails]()
     
+    @Published var document: (any BaseDocumentProtocol)?
     @Published var title = ""
     @Published var objects = [ObjectCellData]()
-    @Published var relationDetails = [RelationDetails]()
+    @Published var relationItems = [RelationItemData]()
     @Published var state = DateModuleState()
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
+    @Published private var participantCanEdit = false
     
-    init(objectId: String, spaceId: String, output: (any DateModuleOutput)?) {
+    init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
         self.spaceId = spaceId
-        self.objectId = objectId
         self.output = output
-        self.document = openDocumentProvider.document(objectId: objectId, spaceId: spaceId)
+        
+        let date = date ?? Date()
+        updateDate(date)
     }
     
     func onDisappear() {
         stopSubscription()
     }
     
-    func getRelationsList() async {
-        let relationsKeys = try? await relationListWithValueService.relationListWithValue(objectId, spaceId: spaceId)
-        // Set mentions relation first
-        let reorderedRelationsKeys = relationsKeys?.reordered(by: [BundledRelationKey.mentions.rawValue], transform: { $0 }) ?? []
-        relationDetails = reorderedRelationsKeys.compactMap { [weak self] key -> RelationDetails? in
-            guard let self else { return nil }
-            return try? relationDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
-        }
-        state.selectedRelation = relationDetails.first
+    func documentDidChange() async {
+        async let detailsSubscription: () = subscribeOnDetails()
+        async let syncStatusSubscription: () = subscribeOnSyncStatus()
+        async let participantSubscription: () = subscribeOnParticipant()
+        async let relationListUpdate: () = getRelationsList()
+        (_, _, _, _) = await (detailsSubscription, syncStatusSubscription, participantSubscription, relationListUpdate)
     }
     
-    func restartSubscription(with state: DateModuleState) async {
-        guard let filter = buildFilter(from: state) else { return }
+    func restartRelationSubscription(with state: DateModuleState) async {
+        guard let filter = buildFilter(from: state),
+              let sort = buildSort(from: state) else { return }
+        
         await dateRelatedObjectsSubscriptionService.startSubscription(
             spaceId: spaceId,
             filter: filter,
+            sort: sort,
             limit: state.limit,
             update: { [weak self] details, objectsToLoad  in
                 self?.objectsToLoad = objectsToLoad
-                self?.updateRows(with: details)
+                self?.details = details
+                self?.updateRows()
             }
         )
-    }
-    
-    func subscribeOnSyncStatus() async {
-        for await status in document.syncStatusDataPublisher.values {
-            syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
-        }
-    }
-    
-    func subscribeOnDetails() async {
-        for await details in document.detailsPublisher.values {
-            title = details.title
-            state.currentDate = details.timestamp
-        }
     }
     
     func onAppearLastRow(_ id: String) {
@@ -92,28 +88,139 @@ final class DateViewModel: ObservableObject {
     }
     
     func onRelationTap(_ details: RelationDetails) {
-        state.selectedRelation = details
+        if state.selectedRelation != details {
+            state.selectedRelation = details
+        } else {
+            state.sortType = state.sortType == .asc ? .desc : .asc
+        }
     }
     
     func onRelationsListTap() {
-        guard relationDetails.isNotEmpty else { return }
-        let items = relationDetails.map { details in
-            SimpleSearchListItem(icon: nil, title: details.name) { [weak self] in
-                self?.state.selectedRelation = details
+        guard relationItems.isNotEmpty else { return }
+        let items = relationItems.map { item in
+            SimpleSearchListItem(icon: item.icon, title: item.title) { [weak self] in
+                self?.state.selectedRelation = item.details
             }
         }
         output?.onSearchListTap(items: items)
     }
     
+    func onCalendarTap() {
+        guard let currentDate = state.currentDate else { return }
+        output?.onCalendarTap(with: currentDate, completion: { [weak self] newDate in
+            self?.updateDate(newDate)
+        })
+    }
+    
+    func onPrevDayTap() {
+        guard let prevDay = state.currentDate?.prevDay() else { return }
+        updateDate(prevDay)
+    }
+    
+    func onNextDayTap() {
+        guard let nextDay = state.currentDate?.nextDay() else { return }
+        updateDate(nextDay)
+    }
+    
+    func hasPrevDay() -> Bool {
+        guard let prevDay = state.currentDate?.prevDay() else { return false }
+        return ClosedRange.anytypeDateRange.contains(prevDay)
+    }
+    
+    func hasNextDay() -> Bool {
+        guard let nextDay = state.currentDate?.nextDay() else { return false }
+        return ClosedRange.anytypeDateRange.contains(nextDay)
+    }
+    
+    func updateDate(_ date: Date) {
+        Task {
+            guard let details = try? await objectDateByTimestampService.objectDateByTimestamp(
+                date.timeIntervalSince1970,
+                spaceId: spaceId
+            ) else { return }
+            
+            document = openDocumentProvider.document(objectId: details.id, spaceId: details.spaceId, mode: .preview)
+        }
+    }
+    
+    func onDelete(objectId: String) {
+        setArchive(objectId: objectId)
+    }
+    
+    // MARK: - Object updates / subscriptions
+    
+    private func subscribeOnSyncStatus() async {
+        guard let document else { return }
+        for await status in document.syncStatusDataPublisher.values {
+            syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
+        }
+    }
+    
+    private func subscribeOnDetails() async {
+        guard let document else { return }
+        for await details in document.detailsPublisher.values {
+            if let date = details.timestamp {
+                title = dateFormatter.string(from: date)
+            }
+            state.currentDate = details.timestamp
+        }
+    }
+    
+    func subscribeOnParticipant() async {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+            participantCanEdit = participant.canEdit
+            updateRows()
+        }
+    }
+    
+    private func getRelationsList() async {
+        guard let document else { return }
+        let relationsKeys = try? await relationListWithValueService.relationListWithValue(
+            document.objectId,
+            spaceId: document.spaceId
+        )
+        let relationDetails = relationDetails(for: relationsKeys)
+        
+        relationItems = relationDetails.compactMap { [weak self] details in
+            self?.relationItemData(from: details)
+        }
+        
+        // Save last no nil selectedRelation to preselect it for another date
+        if let selectedRelation = state.selectedRelation {
+            lastSelectedRelation = selectedRelation
+        }
+        let prevSelectedRelation = relationDetails.first { $0.id == lastSelectedRelation?.id } ?? relationDetails.first
+        state.selectedRelation = prevSelectedRelation
+    }
+    
     // MARK: - Private
     
-    private func updateRows(with details: [ObjectDetails]) {
+    private func relationDetails(for relationsKeys: [String]?) -> [RelationDetails] {
+        guard let relationsKeys else { return [] }
+        let relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
+            guard let self else { return nil }
+            return try? relationDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
+        }
+        return relationDetails.filter { details in
+            if details.key == BundledRelationKey.mentions.rawValue {
+                return true
+            }
+            if details.key == BundledRelationKey.links.rawValue ||
+                details.key == BundledRelationKey.backlinks.rawValue {
+                return false
+            }
+            return !details.isHidden
+        }
+    }
+    
+    private func updateRows() {
         objects = details.map { details in
             ObjectCellData(
                 id: details.id,
                 icon: details.objectIconImage,
                 title: details.title,
                 type: details.objectType.name,
+                canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
                 onTap: { [weak self] in
                     self?.output?.onObjectTap(data: details.editorScreenData())
                 }
@@ -128,13 +235,13 @@ final class DateViewModel: ObservableObject {
     }
     
     private func buildFilter(from state: DateModuleState) -> DataviewFilter? {
-        guard let relationDetails = state.selectedRelation else { return nil }
+        guard let document, let relationDetails = state.selectedRelation else { return nil }
         
         switch relationDetails.format {
         case .date:
             return dateRelationFilter(key: relationDetails.key, date: state.currentDate)
         default:
-            return objectRelationFilter(key: relationDetails.key, value: objectId)
+            return objectRelationFilter(key: relationDetails.key, value: document.objectId)
         }
     }
     
@@ -157,5 +264,32 @@ final class DateViewModel: ObservableObject {
         filter.relationKey = key
         
         return filter
+    }
+    
+    private func buildSort(from state: DateModuleState) -> DataviewSort? {
+        guard let relationDetails = state.selectedRelation else { return nil }
+        
+        let relationKey = relationDetails.format == .date ? relationDetails.key : BundledRelationKey.lastOpenedDate.rawValue
+        return SearchHelper.sort(
+            relationKey: relationKey,
+            type: state.sortType
+        )
+    }
+    
+    private func relationItemData(from details: RelationDetails) -> RelationItemData {
+        let isMention = details.key == BundledRelationKey.mentions.rawValue
+        let icon: Icon? = isMention ? .asset(.X24.mention) : nil
+        let title = isMention ? Loc.Relation.Mention.title : details.name
+        return RelationItemData(
+            icon: icon,
+            title: title,
+            details: details
+        )
+    }
+    
+    private func setArchive(objectId: String) {
+        AnytypeAnalytics.instance().logMoveToBin(true)
+        Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }
