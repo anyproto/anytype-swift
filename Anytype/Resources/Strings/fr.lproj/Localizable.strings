@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Créer une option";
 "Relation.View.Edit.title" = "Éditer l'option";
 "Relation.Create.Textfield.placeholder" = "Saisir un nom...";
-"Relation.Edit.Button.title" = "Appliquer";
-"Relation.Date.Locked.Alert.title" = "La relation “%@” est verrouillée";
 "Relation.ObjectTypes.Header.title" = "Types d'objets :";
 "Relation.ObjectType.Header.title" = "Type d'objet :";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "N° de téléphone";
 
 "Relation.Search.View.Placeholder" = "Chercher ou créer une nouvelle relation";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -488,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Relation:";
 "Set.FeaturedRelations.Type" = "Type :";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Appliquer";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Coller le lien";
 "Set.Bookmark.Error.Message" = "Oups, une erreur s’est produite. Veuillez réessayer.";
@@ -705,6 +702,7 @@
 "New set" = "Nouvel ensemble";
 "Show" = "Montrer";
 "Hide" = "Masquer";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -1238,6 +1236,9 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Message.Action.Reply" = "Répondre";
 "Message.Input.EmptyPlaceholder" = "Ecrire un message...";
 "Message.ChatTitle.Placeholder" = "Chat sans titre";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
