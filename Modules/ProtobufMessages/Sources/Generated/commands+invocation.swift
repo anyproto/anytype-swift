@@ -941,6 +941,11 @@ extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: Respons
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.DateByTimestamp.Response: ResultWithError {}
+extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.Duplicate.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Duplicate.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1173,6 +1178,16 @@ extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: ResponseError
 
 extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

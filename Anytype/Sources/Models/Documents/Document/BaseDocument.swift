@@ -275,6 +275,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
         var updatesForRelations: [DocumentUpdate] = [.general, .relationLinks, .details(id: objectId)]
         updatesForRelations.append(contentsOf: parsedRelationDependedDetailsEvents)
+        details.flatMap { updatesForRelations.append(.details(id: $0.type)) }
         
         guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
         
