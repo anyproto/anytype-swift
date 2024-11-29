@@ -48,8 +48,9 @@ final class ObjectTypeViewModel: ObservableObject {
         async let detailsSubscription: () = subscribeOnDetails()
         async let templatesSubscription: () = subscribeOnTemplates()
         async let syncStatusSubscription: () = subscribeOnSyncStatus()
+        async let relationsSubscription: () = subscribeOnRelations()
         
-        (_, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription)
+        (_, _, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription, relationsSubscription)
     }
     
     func setDismissHandler(dismiss: DismissAction) {
@@ -110,7 +111,6 @@ final class ObjectTypeViewModel: ObservableObject {
             }
             
             self.details = details
-            self.relationsCount = document.buildParsedRelationsForType().installed.count
             buildTemplates()
         }
     }
@@ -128,6 +128,12 @@ final class ObjectTypeViewModel: ObservableObject {
             withAnimation {
                 syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
             }
+        }
+    }
+    
+    func subscribeOnRelations() async {
+        for await relations in document.parsedRelationsPublisherForType.values {
+            self.relationsCount = relations.installed.count
         }
     }
     

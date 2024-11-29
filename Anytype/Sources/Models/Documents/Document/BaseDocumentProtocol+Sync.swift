@@ -69,8 +69,31 @@ extension BaseDocumentProtocol {
     }
     
     var parsedRelationsPublisherForType: AnyPublisher<ParsedRelations, Never> {
-        subscribeForDetails(objectId: objectId).compactMap { [weak self] _ in
+        subscibeFor(update: [.relations]).compactMap { [weak self] _ in
             self?.buildParsedRelationsForType()
         }.eraseToAnyPublisher()
+    }
+    
+    // Temporary design: Move to the dedicated TypeDocument later
+    private func buildParsedRelationsForType() -> ParsedRelations {
+        guard let details else { return .empty }
+        
+        let relationDetailsStorage = Container.shared.relationDetailsStorage()
+        
+        let recommendedRelations = relationDetailsStorage
+            .relationsDetails(ids: details.recommendedRelations, spaceId: spaceId)
+            .filter { $0.key != BundledRelationKey.description.rawValue }
+        let recommendedFeaturedRelations = relationDetailsStorage
+            .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: spaceId)
+            .filter { $0.key != BundledRelationKey.description.rawValue }
+        
+        return Container.shared.relationsBuilder().parsedRelations(
+            objectRelationDetails: [],
+            typeRelationDetails: recommendedRelations,
+            featuredTypeRelationsDetails: recommendedFeaturedRelations,
+            objectId: objectId,
+            relationValuesIsLocked: !permissions.canEditRelationValues,
+            storage: detailsStorage
+        )
     }
 }

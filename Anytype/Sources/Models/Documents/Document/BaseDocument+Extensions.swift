@@ -76,26 +76,4 @@ extension BaseDocumentProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
-    
-    func buildParsedRelationsForType() -> ParsedRelations {
-        guard let details else { return .empty }
-        
-        let relationDetailsStorage = Container.shared.relationDetailsStorage()
-        
-        let recommendedRelations = relationDetailsStorage
-            .relationsDetails(ids: details.recommendedRelations, spaceId: spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue }
-        let recommendedFeaturedRelations = relationDetailsStorage
-            .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue }
-        
-        return Container.shared.relationsBuilder().parsedRelations(
-            objectRelationDetails: [],
-            typeRelationDetails: recommendedRelations,
-            featuredTypeRelationsDetails: recommendedFeaturedRelations,
-            objectId: objectId,
-            relationValuesIsLocked: !permissions.canEditRelationValues,
-            storage: detailsStorage
-        )
-    }
 }
