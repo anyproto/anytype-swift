@@ -4,6 +4,7 @@ struct DateCoordinatorView: View {
     
     @StateObject private var model: DateCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
+    @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     init(data: EditorDateObject) {
         self._model = StateObject(wrappedValue: DateCoordinatorViewModel(data: data))
@@ -17,6 +18,7 @@ struct DateCoordinatorView: View {
         )
         .onAppear {
             model.pageNavigation = pageNavigation
+            model.dismissAllPresented = dismissAllPresented
         }
         .anytypeSheet(isPresented: $model.showSyncStatusInfo) {
             SyncStatusInfoView(spaceId: model.initialData.spaceId)
