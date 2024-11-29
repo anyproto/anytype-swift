@@ -16,7 +16,7 @@ protocol ChatMessagesStorageProtocol: AnyObject {
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private enum Constants {
-        static let pageSize = 10
+        static let pageSize = 100
     }
     
     @Injected(\.chatService)
