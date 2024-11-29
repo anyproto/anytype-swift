@@ -11,13 +11,13 @@ final class ObjectTypeViewModel: ObservableObject {
     @Published var syncStatusData: SyncStatusData?
     
     @Published var typeName = ""
+    @Published var relationsCount: Int = 0
     
     @Published var toastBarData: ToastBarData = .empty
     @Published var showDeleteConfirmation = false
     
     let document: any BaseDocumentProtocol
     var isEditorLayout: Bool { details?.recommendedLayoutValue?.isEditorLayout ?? false }
-    var relationsCount: Int { details?.recommendedRelations.count ?? 0 }
     var canArchive: Bool { document.permissions.canArchive }
     private(set) weak var output: (any ObjectTypeViewModelOutput)?
     
@@ -48,8 +48,9 @@ final class ObjectTypeViewModel: ObservableObject {
         async let detailsSubscription: () = subscribeOnDetails()
         async let templatesSubscription: () = subscribeOnTemplates()
         async let syncStatusSubscription: () = subscribeOnSyncStatus()
+        async let relationsSubscription: () = subscribeOnRelations()
         
-        (_, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription)
+        (_, _, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription, relationsSubscription)
     }
     
     func setDismissHandler(dismiss: DismissAction) {
@@ -127,6 +128,12 @@ final class ObjectTypeViewModel: ObservableObject {
             withAnimation {
                 syncStatusData = SyncStatusData(status: status.syncStatus, networkId: accountManager.account.info.networkId, isHidden: false)
             }
+        }
+    }
+    
+    func subscribeOnRelations() async {
+        for await relations in document.parsedRelationsPublisherForType.values {
+            self.relationsCount = relations.installed.count
         }
     }
     

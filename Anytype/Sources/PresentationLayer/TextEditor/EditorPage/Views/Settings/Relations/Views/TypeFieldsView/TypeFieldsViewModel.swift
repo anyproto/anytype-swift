@@ -11,7 +11,7 @@ final class TypeFieldsViewModel: ObservableObject {
         
     @Published var canEditRelationsList = false
     @Published var editMode = EditMode.inactive
-    @Published var relations = [TypeFieldsRelationsData]()
+    @Published var relationRows = [TypeFieldsRelationsData]()
     @Published var relationsSearchData: RelationsSearchData?
     
     // MARK: - Private variables
@@ -43,15 +43,8 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     private func setupRelationsSubscription() async {
-        for await details in document.subscribeForDetails(objectId: document.objectId).values {
-            let recommendedRelations = relationDetailsStorage
-                .relationsDetails(ids: details.recommendedRelations, spaceId: document.spaceId)
-                .filter { $0.key != BundledRelationKey.description.rawValue }
-            let recommendedFeaturedRelations = relationDetailsStorage
-                .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: document.spaceId)
-                .filter { $0.key != BundledRelationKey.description.rawValue }
-            
-            self.relations = fieldsDataBuilder.build(relations: recommendedRelations, featured: recommendedFeaturedRelations)
+        for await relations in document.parsedRelationsPublisherForType.values {
+            self.relationRows = fieldsDataBuilder.build(relations: relations.sidebarRelations, featured: relations.featuredRelations)
         }
     }
     
@@ -76,7 +69,7 @@ final class TypeFieldsViewModel: ObservableObject {
     
     func onDeleteRelations(_ indexes: IndexSet) {
         Task {
-            let relationsIds = indexes.compactMap { relations[$0].relationId }
+            let relationsIds = indexes.compactMap { relationRows[$0].relationId }
             
             if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelations.filter({ !relationsIds.contains($0) }) {
                 try await relationsService.updateRecommendedFeaturedRelations(objectId: document.objectId, relationIds: recommendedFeaturedRelations)

@@ -1,7 +1,7 @@
 import Services
 
 enum TypeFieldsRelationsDataMode: Identifiable {
-    case relation(RelationDetails)
+    case relation(Relation)
     case stub
     
     var id: String {

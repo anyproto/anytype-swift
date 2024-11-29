@@ -89,7 +89,7 @@ struct TypeFieldsView: View {
     }
     
     private var relationsSection: some View {
-        ForEach(model.relations) { data in
+        ForEach(model.relationRows) { data in
             Section {
                 relationRow(data)
                     .divider()
@@ -120,7 +120,7 @@ struct TypeFieldsView: View {
             switch data.data {
             case .relation(let relationDetails):
                 HStack(spacing: 0) {
-                    Image(asset: relationDetails.format.iconAsset)
+                    Image(asset: relationDetails.iconAsset)
                         .foregroundColor(.Control.active)
                     Spacer.fixedWidth(10)
                     AnytypeText(relationDetails.name, style: .uxBodyRegular)
