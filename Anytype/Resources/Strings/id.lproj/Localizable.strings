@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Buat opsi";
 "Relation.View.Edit.title" = "Sunting opsi";
 "Relation.Create.Textfield.placeholder" = "Masukkan nama...";
-"Relation.Edit.Button.title" = "Terapkan";
-"Relation.Date.Locked.Alert.title" = "Relasi “%@” terkunci";
 "Relation.ObjectTypes.Header.title" = "Tipe objek:";
 "Relation.ObjectType.Header.title" = "Tipe objek:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Nomor telepon";
 
 "Relation.Search.View.Placeholder" = "Telusuri atau buat relasi baru";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -489,9 +489,6 @@
 "Set.FeaturedRelations.Relation" = "Relasi:";
 "Set.FeaturedRelations.Type" = "Tipe:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Terapkan";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Tempelkan tautan";
 "Set.Bookmark.Error.Message" = "Ups - terjadi kesalahan. Silakan coba lagi";
@@ -706,6 +703,7 @@
 "New set" = "Set baru";
 "Show" = "Tampilkan";
 "Hide" = "Sembunyikan";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
@@ -1239,6 +1237,9 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
 "Message.ChatTitle.Placeholder" = "Obrolan Nirjudul";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Tanggal diperbarui";
@@ -1267,7 +1268,7 @@ Please provide specific details of your needs here.";
 // MARK: - Empty view
 "EmptyView.Default.title" = "Di sini kosong.";
 "EmptyView.Default.subtitle" = "Buat objek pertamamu untuk memulai.";
-"EmptyView.Bin.title" = "Bak sampah kosong.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Kamu orangnya rapi dan tertata, ya?";
 
 // MARK: - Fields
