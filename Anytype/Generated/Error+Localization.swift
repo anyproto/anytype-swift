@@ -4930,6 +4930,30 @@ extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: @retroa
     }
 }
 
+extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.DateByTimestamp.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.DateByTimestamp.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Object.Duplicate.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -6115,6 +6139,60 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: @retroactive
             case .badInput:
                 return String(localized: "ObjectRelation.RemoveFeatured.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "ObjectRelation.RemoveFeatured.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.Recommended.FeaturedRelationsSet.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.FeaturedRelationsSet.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.Recommended.FeaturedRelationsSet.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.FeaturedRelationsSet.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.Recommended.RelationsSet.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.RelationsSet.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.Recommended.RelationsSet.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.RelationsSet.readonlyObjectType")
             case .UNRECOGNIZED:
                 return ""
         }
