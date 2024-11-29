@@ -72,7 +72,7 @@ public extension FeatureDescription {
         title: "New Primitives",
         type: .feature(author: "vova@anytype.io", releaseVersion: "8"),
         defaultValue: false,
-        debugValue: true
+        debugValue: false
     )
     
     // MARK: - Debug
