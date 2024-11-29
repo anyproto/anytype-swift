@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Сварыць опцыю";
 "Relation.View.Edit.title" = "Рэдагаваць опцыю";
 "Relation.Create.Textfield.placeholder" = "Увядзіце назву...";
-"Relation.Edit.Button.title" = "Ужыць";
-"Relation.Date.Locked.Alert.title" = "Уласцівасць “%@” заблакіравана";
 "Relation.ObjectTypes.Header.title" = "Тыпы аб'екта:";
 "Relation.ObjectType.Header.title" = "Тып аб'екта:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Нумар тэлефона";
 
 "Relation.Search.View.Placeholder" = "Шукайце або стварыце новую ўласцівасць";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -488,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Уласцівасць:";
 "Set.FeaturedRelations.Type" = "Тып:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Ужыць";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Уставіць спасылку";
 "Set.Bookmark.Error.Message" = "Ой - нешта пайшло не так. Калі ласка паспрабуйце зноў";
@@ -706,6 +703,7 @@
 "New set" = "Новы набор";
 "Show" = "Паказаць";
 "Hide" = "Схаваць";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
@@ -1239,6 +1237,9 @@
 "Message.Input.EmptyPlaceholder" = "Напісаць паведамленне...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Сартаваць па";
 "AllContent.Sort.DateUpdated" = "Дата змянення";
@@ -1267,7 +1268,7 @@
 // MARK: - Empty view
 "EmptyView.Default.title" = "Тут пуста.";
 "EmptyView.Default.subtitle" = "Стварыце свае першыя аб'екты, каб пачаць працу.";
-"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
 
 // MARK: - Fields
