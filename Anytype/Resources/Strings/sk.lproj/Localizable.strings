@@ -85,8 +85,6 @@
 "Relation.View.Edit.title" = "Upraviť možnosť";
 "Relation.Create.Textfield.placeholder" = "Zadajte meno
 ";
-"Relation.Edit.Button.title" = "Apply";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
 "Relation.ObjectTypes.Header.title" = "Object types:";
 "Relation.ObjectType.Header.title" = "Object type:";
 
@@ -107,6 +105,8 @@
 "Relation.Format.Phone.Title" = "Telefónne číslo";
 
 "Relation.Search.View.Placeholder" = "Search or create a new relation";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -489,9 +489,6 @@
 "Set.FeaturedRelations.Relation" = "Relation:";
 "Set.FeaturedRelations.Type" = "Type:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Apply";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Paste link";
 "Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
@@ -706,6 +703,7 @@
 "New set" = "New set";
 "Show" = "Show";
 "Hide" = "Hide";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -1239,6 +1237,9 @@ Please provide specific details of your needs here.";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Date updated";
@@ -1267,7 +1268,7 @@ Please provide specific details of your needs here.";
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
-"EmptyView.Bin.title" = "Your trash is empty.";
+"EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
 
 // MARK: - Fields
