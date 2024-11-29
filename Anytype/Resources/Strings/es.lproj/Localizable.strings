@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Crear opción ";
 "Relation.View.Edit.title" = "Editar opción";
 "Relation.Create.Textfield.placeholder" = "Introducir nombre…";
-"Relation.Edit.Button.title" = "Aplicar";
-"Relation.Date.Locked.Alert.title" = "La relación “%@” está protegida";
 "Relation.ObjectTypes.Header.title" = "Tipos de objeto";
 "Relation.ObjectType.Header.title" = "Tipo de objeto";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Número de teléfono";
 
 "Relation.Search.View.Placeholder" = "Busca una relación o créala";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -209,8 +209,8 @@
 "Lets Go" = "Adelante";
 "My spaces" = "Mis espacios";
 "Open file" = "Abrir archivo";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Abrir conjunto";
+"Create Set" = "Crear conjunto";
 
 // Home
 "Favorites" = "Favoritos";
@@ -488,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Relación:";
 "Set.FeaturedRelations.Type" = "Tipo:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Aplicar";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Pegar enlace";
 "Set.Bookmark.Error.Message" = "Huy, algo salió mal. Inténtalo de nuevo.";
@@ -701,10 +698,11 @@
 "My First Space" = "Mi Primer Espacio";
 "Copy space info" = "Copiar información del espacio";
 "Save" = "Guardar";
-"Set of" = "Set of %@";
+"Set of" = "Conjunto de %@";
 "New set" = "Nuevo conjunto";
 "Show" = "Mostrar";
 "Hide" = "Ocultar";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -959,7 +957,7 @@
 "SpaceShare.Action.ViewRequest" = "Ver solicitud";
 "SpaceShare.Action.Approve" = "Aprobar";
 "SpaceShare.DeleteSharingLink.Title" = "Eliminar enlace";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
+"SpaceShare.DeleteSharingLink.Message" = "No podrán acceder nuevos miembros al espacio. Puedes generar un enlace nuevo en cualquier momento";
 "SpaceShare.Approve.Toast" = "Has aprobado la solicitud de %@.";
 "SpaceShare.ViewRequest.Title" = "%@ solicita acceder al espacio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Añadir como visitante";
@@ -1237,6 +1235,9 @@ En concreto,
 "Message.Action.Reply" = "Responder";
 "Message.Input.EmptyPlaceholder" = "Escribe un mensaje...";
 "Message.ChatTitle.Placeholder" = "Chat sin título";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Ordenar por";
