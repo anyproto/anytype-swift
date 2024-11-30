@@ -105,7 +105,7 @@
 
 "Relation.Search.View.Placeholder" = "Yeni bir ilişki arayın veya oluşturun";
 
-"Relation.Mention.title" = "Mentioned in";
+"Relation.Mention.title" = "Bahsedildiği yer";
 
 // Origin Relation
 
@@ -702,7 +702,7 @@
 "New set" = "Yeni Set";
 "Show" = "Göster";
 "Hide" = "Gizle";
-"Apply" = "Apply";
+"Apply" = "Uygula";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
@@ -1239,7 +1239,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Message.ChatTitle.Placeholder" = "Başlıksız Sohbet";
 
 // MARK: - Date
-"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Object.Empty.State.title" = "Bu tarih için henüz bir şey yok";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Şuna göre sırala";
