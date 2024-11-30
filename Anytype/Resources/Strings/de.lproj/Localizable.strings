@@ -105,7 +105,7 @@
 
 "Relation.Search.View.Placeholder" = "Suche oder erstelle eine neue Relation";
 
-"Relation.Mention.title" = "Mentioned in";
+"Relation.Mention.title" = "Erwähnt in";
 
 // Origin Relation
 
@@ -1238,7 +1238,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Message.ChatTitle.Placeholder" = "Unbenannter Chat ";
 
 // MARK: - Date
-"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Object.Empty.State.title" = "Für dieses Datum ist hier noch nichts eingetragen";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sortiere nach";
