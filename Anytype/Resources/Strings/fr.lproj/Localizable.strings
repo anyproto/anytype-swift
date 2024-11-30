@@ -105,7 +105,7 @@
 
 "Relation.Search.View.Placeholder" = "Chercher ou créer une nouvelle relation";
 
-"Relation.Mention.title" = "Mentioned in";
+"Relation.Mention.title" = "Mentionné dans";
 
 // Origin Relation
 
@@ -702,7 +702,7 @@
 "New set" = "Nouvel ensemble";
 "Show" = "Montrer";
 "Hide" = "Masquer";
-"Apply" = "Apply";
+"Apply" = "Appliquer";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -1238,7 +1238,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Message.ChatTitle.Placeholder" = "Chat sans titre";
 
 // MARK: - Date
-"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Object.Empty.State.title" = "Il n'y a encore rien ici pour cette date";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
