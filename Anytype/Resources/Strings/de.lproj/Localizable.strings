@@ -702,7 +702,7 @@
 "New set" = "Neues Set";
 "Show" = "Zeigen";
 "Hide" = "Verstecken";
-"Apply" = "Apply";
+"Apply" = "Anwenden";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
@@ -959,7 +959,7 @@
 "SpaceShare.Action.ViewRequest" = "Anfrage ansehen";
 "SpaceShare.Action.Approve" = "Genehmigen";
 "SpaceShare.DeleteSharingLink.Title" = "Link löschen";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
+"SpaceShare.DeleteSharingLink.Message" = "Neue Mitglieder können dem Space nicht beitreten. Du kannst jederzeit einen neuen Link erstellen";
 "SpaceShare.Approve.Toast" = "Du hast die Anfrage von %@ genehmigt.";
 "SpaceShare.ViewRequest.Title" = "%@ beantragte den Beitritt zu %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Als Zuschauer hinzufügen";
@@ -1041,7 +1041,7 @@
 "Swipe.Tip.Subtitle" = "Erstelle Objekte in Widgets durch einfaches Wischen nach links.";
 
 // MARK: - Space Share Tip
-"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Title" = "Zusammenarbeiten in Spaces";
 "SpaceShare.Tip.Steps.1" = "Tippe auf das Widget des Spaces um auf die Einstellungen zuzugreifen. ";
 "SpaceShare.Tip.Steps.2" = "Teilen-Bereich öffnen";
 "SpaceShare.Tip.Steps.3" = "Einladungslink erstellen und teilen";
@@ -1212,7 +1212,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.AppleId" = "";
 
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Datensicherung ist deaktiviert";
