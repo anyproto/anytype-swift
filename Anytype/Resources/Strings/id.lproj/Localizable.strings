@@ -105,7 +105,7 @@
 
 "Relation.Search.View.Placeholder" = "Telusuri atau buat relasi baru";
 
-"Relation.Mention.title" = "Mentioned in";
+"Relation.Mention.title" = "Disebut di";
 
 // Origin Relation
 
@@ -703,7 +703,7 @@
 "New set" = "Set baru";
 "Show" = "Tampilkan";
 "Hide" = "Sembunyikan";
-"Apply" = "Apply";
+"Apply" = "Terapkan";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
@@ -1238,7 +1238,7 @@ Please provide specific details of your needs here.";
 "Message.ChatTitle.Placeholder" = "Obrolan Nirjudul";
 
 // MARK: - Date
-"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Object.Empty.State.title" = "Belum ada apa-apa untuk tanggal ini";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1268,7 +1268,7 @@ Please provide specific details of your needs here.";
 // MARK: - Empty view
 "EmptyView.Default.title" = "Di sini kosong.";
 "EmptyView.Default.subtitle" = "Buat objek pertamamu untuk memulai.";
-"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.title" = "Bak sampah kosong.";
 "EmptyView.Bin.subtitle" = "Kamu orangnya rapi dan tertata, ya?";
 
 // MARK: - Fields
