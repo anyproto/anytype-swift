@@ -50,6 +50,7 @@ final class SlashMenuActionHandler {
                     self?.actionHandler.addLink(targetDetails: details, blockId: blockInformation.id)
                 }
             case .date:
+                textView?.shouldResignFirstResponder()
                 router.showDatePicker { [weak self] newDate in
                     self?.handleDate(newDate, blockId: blockInformation.id)
                 }
