@@ -87,6 +87,8 @@ final class ChatCollectionViewCoordinator<
         let oldContentSize = collectionView.contentSize
         let oldContentOffset = collectionView.contentOffset
         
+        self.sections = sections
+        
         CATransaction.begin()
         
         dataSource.apply(newSnapshot, animatingDifferences: false) { [weak self] in
@@ -122,8 +124,6 @@ final class ChatCollectionViewCoordinator<
             
             appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: oldContentOffset.y == 0)
         }
-        
-        self.sections = sections
     }
     
     // MARK: - UICollectionViewDelegate
