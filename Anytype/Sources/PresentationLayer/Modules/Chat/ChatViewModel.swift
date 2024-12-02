@@ -247,6 +247,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         output?.didSelectAddReaction(messageId: messageId)
     }
     
+    func didLongTapOnReaction(data: MessageParticipantsReactionData) {
+        output?.didLongTapOnReaction(data: data)
+    }
+    
     func didSelectObject(details: MessageAttachmentDetails) {
         let screenData = details.editorScreenData
         output?.onObjectSelected(screenData: screenData)

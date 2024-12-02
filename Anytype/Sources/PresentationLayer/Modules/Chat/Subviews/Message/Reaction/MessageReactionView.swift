@@ -6,6 +6,7 @@ struct MessageReactionView: View {
     
     let model: MessageReactionModel
     let onTap: () async throws -> Void
+    let onLongTap: () -> Void
     
     var body: some View {
         AsyncButton {
@@ -34,6 +35,12 @@ struct MessageReactionView: View {
             .cornerRadius(16, style: .circular)
             .border(16, color: model.selected ? Color.System.amber50 : Color.clear, lineWidth: 1)
         }
+        .highPriorityGesture(
+            LongPressGesture(minimumDuration: 0.3)
+                .onEnded { _ in
+                    onLongTap()
+                }
+        )
     }
 }
 
@@ -41,11 +48,13 @@ struct MessageReactionView: View {
     VStack {
         MessageReactionView(
             model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false),
-            onTap: {}
+            onTap: {},
+            onLongTap: {}
         )
         MessageReactionView(
             model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true),
-            onTap: {}
+            onTap: {},
+            onLongTap: {}
         )
     }
 }
