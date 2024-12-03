@@ -31,7 +31,7 @@ struct MessageReactionView: View {
             .frame(height: 32)
             .padding(.horizontal, 8)
             .background(model.selected ? Color.VeryLight.orange : Color.Shape.transperentPrimary)
-            .cornerRadius(20, style: .circular)
+            .cornerRadius(20, style: .continuous)
             .border(20, color: model.selected ? Color.System.amber125 : Color.clear, lineWidth: 1)
         }
         .highPriorityGesture(
