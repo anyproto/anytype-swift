@@ -445,7 +445,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
             currentLinkString: text.linkToObjectState(range: range),
             setLinkToObject: { [weak self] linkBlockId in
                 guard let self = self else { return }
-                AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.linkToObject(linkBlockId))
+                AnytypeAnalytics.instance().logChangeTextStyle(markupType: MarkupType.linkToObject(linkBlockId), objectType: .custom)
                 let newText = markupChanger.setMarkup(.linkToObject(linkBlockId), range: range, attributedString: text, contentType: info.content.type)
                 setNewTextSync(attributedString: newText)
             },
