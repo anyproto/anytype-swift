@@ -121,6 +121,7 @@ struct SpaceHubView: View {
                 debugMenuItems(spaceView: space.spaceView)
             }
         }
+        .padding(.horizontal, 8)
         .onDrop(
             of: [.text],
             delegate:  SpaceHubDropDelegate(
@@ -155,12 +156,11 @@ struct SpaceHubView: View {
         )
         .cornerRadius(20, style: .continuous)
         .if(space.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
-        .contentShape([.dragPreview], RoundedRectangle(cornerRadius: 20))
+        .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         .onDrag {
             draggedSpace = space
             return NSItemProvider()
         }
-        .padding(.horizontal, 8)
     }
     
     private func debugMenuItems(spaceView: SpaceView) -> some View {
