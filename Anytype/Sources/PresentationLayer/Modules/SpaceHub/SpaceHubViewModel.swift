@@ -35,7 +35,6 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     init(sceneId: String) {
         self.sceneId = sceneId
-        Task { startSubscriptions() }
     }
     
     func onAppear() {
@@ -67,19 +66,24 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         UIPasteboard.general.string = String(describing: spaceView)
     }
     
-    // MARK: - Private
-    private func startSubscriptions() {
-        participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher
-            .receiveOnMain()
-            .sink { [weak self] spaces in
-                guard let self else { return }
-                
-                self.spaces = spaces
-                
-                createSpaceAvailable = workspacesStorage.canCreateNewSpace()
-            }
-            .store(in: &subscriptions)
+    func startSubscriptions() async {
+        async let spacesSub: () = subscribeOnSpaces()
+        async let wallpapersSub: () = subscribeOnWallpapers()
         
-        userDefaults.wallpapersPublisher().receiveOnMain().assign(to: &$wallpapers)
+        (_, _) = await (spacesSub, wallpapersSub)
+    }
+    
+    // MARK: - Private
+    private func subscribeOnSpaces() async {
+        for await spaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
+            self.spaces = spaces
+            createSpaceAvailable = workspacesStorage.canCreateNewSpace()
+        }
+    }
+    
+    private func subscribeOnWallpapers() async {
+        for await wallpapers in userDefaults.wallpapersPublisher().values {
+            self.wallpapers = wallpapers
+        }
     }
 }

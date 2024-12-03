@@ -16,9 +16,9 @@ struct SpaceHubView: View {
     var body: some View {
         content
             .readSize { size = $0 }
-            .onAppear {
-                model.onAppear()
-            }
+            .onAppear { model.onAppear() }
+            .task { await model.startSubscriptions() }
+        
             .sheet(isPresented: $model.showSpaceCreate) {
                 SpaceCreateView(sceneId: model.sceneId, output: model)
             }
