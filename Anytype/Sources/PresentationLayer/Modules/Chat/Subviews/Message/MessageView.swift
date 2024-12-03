@@ -86,6 +86,7 @@ private struct MessageInternalView: View {
             if model.reactions.isNotEmpty {
                 MessageReactionList(
                     rows: model.reactions,
+                    isYourMessage: model.isYourMessage,
                     onTapRow: { reaction in
                         try await model.onTapReaction(reaction)
                     },

@@ -4,6 +4,7 @@ struct MessageReactionModel: Equatable, Hashable {
     var emoji: String
     var content: MessageReactionModelContent
     var selected: Bool
+    var isYourMessage: Bool
 }
 
 enum MessageReactionModelContent: Equatable, Hashable {
