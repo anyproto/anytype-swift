@@ -34,7 +34,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     
     func makeMessage(messages: [ChatMessage], participants: [Participant]) async -> [MessageSectionData] {
         
-        let yourProfileIdentity = await accountParticipantsStorage.participants.first?.identity
+        let participant = await accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
+        let canEdit = participant?.canEdit ?? false
+        let yourProfileIdentity = participant?.identity
         
         var currentSectionData: MessageSectionData?
         var newMessageBlocks: [MessageSectionData] = []
@@ -95,7 +97,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 replyAuthor: participants.first { $0.identity == replyMessage?.creator },
                 nextSpacing: firstInSection ? .disable : (firstForCurrentUser || prevDateInternalIsBig ? .medium : .small),
                 authorMode: isYourMessage ? .hidden : (firstForCurrentUser || firstInSection || prevDateInternalIsBig ? .show : .empty),
-                showHeader: lastForCurrentUser || nextDateIntervalIsBig
+                showHeader: lastForCurrentUser || nextDateIntervalIsBig,
+                canDelete: isYourMessage && canEdit
             )
             
             if firstInSection {
