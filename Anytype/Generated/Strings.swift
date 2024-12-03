@@ -1154,7 +1154,7 @@ internal enum Loc {
   }
   internal enum ObjectType {
     internal static func addedToLibrary(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
+      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ has been created")
     }
     internal static let deletedName = Loc.tr("Localizable", "ObjectType.DeletedName", fallback: "Deleted type")
     internal static let editingType = Loc.tr("Localizable", "ObjectType.editingType", fallback: "You're editing type")
@@ -1199,7 +1199,7 @@ internal enum Loc {
   }
   internal enum Relation {
     internal static func addedToLibrary(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ added to your library")
+      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ has been created")
     }
     internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")

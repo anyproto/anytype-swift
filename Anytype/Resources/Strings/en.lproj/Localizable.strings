@@ -74,7 +74,7 @@
 "Create relation" = "Create relation ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
 "Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Deleted relation";
 "Relation.From.Type" = "From type %@";
 "Relation.EmptyState.title" = "No options";
@@ -721,7 +721,7 @@
 "ObjectType.SearchOrInstall" = "Search or install a new type";
 "ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "My Types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Deleted type";
 "ObjectType.editingType" = "You're editing type";
 
