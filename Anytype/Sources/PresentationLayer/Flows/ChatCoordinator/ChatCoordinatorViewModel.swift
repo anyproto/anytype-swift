@@ -22,6 +22,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var showFilesPicker = false
     @Published var showPhotosPicker = false
     @Published var photosItems: [PhotosPickerItem] = []
+    @Published var participantsReactionData: MessageParticipantsReactionData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -39,6 +40,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func didSelectAddReaction(messageId: String) {
         showEmojiData = MessageReactionPickerData(chatObjectId: chatId, messageId: messageId)
+    }
+    
+    func didLongTapOnReaction(data: MessageParticipantsReactionData) {
+        participantsReactionData = data
     }
     
     func didSelectLinkToObject(data: LinkToObjectSearchModuleData) {

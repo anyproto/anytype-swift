@@ -29,6 +29,9 @@ struct ChatCoordinatorView: View {
             .sheet(item: $model.linkToObjectData) {
                 LinkToObjectSearchView(data: $0, showEditorScreen: { _ in })
             }
+            .sheet(item: $model.participantsReactionData) {
+                MessageParticipantsReactionView(data: $0)
+            }
             .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
             .fileImporter(
                 isPresented: $model.showFilesPicker,

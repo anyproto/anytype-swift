@@ -84,11 +84,18 @@ private struct MessageInternalView: View {
             }
             
             if model.reactions.isNotEmpty {
-                MessageReactionList(rows: model.reactions) { reaction in
-                    try await model.onTapReaction(reaction)
-                } onTapAdd: {
-                    model.onTapAddReaction()
-                }
+                MessageReactionList(
+                    rows: model.reactions,
+                    onTapRow: { reaction in
+                        try await model.onTapReaction(reaction)
+                    },
+                    onLongTapRow: { reaction in
+                        model.onLongTapReaction(reaction)
+                    },
+                    onTapAdd: {
+                        model.onTapAddReaction()
+                    }
+                )
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
             }
