@@ -19,9 +19,8 @@ struct MessageReactionView: View {
                 switch model.content {
                 case .count(let count):
                     Text("\(count)")
-                        .anytypeFontStyle(.caption1Medium)
-                        .foregroundColor(.Text.primary)
-                        .frame(minWidth: 18)
+                        .anytypeFontStyle(.caption1Regular)
+                        .foregroundColor(model.isYourMessage && !model.selected ? .Text.white : .Text.primary)
                 case .icon(let icon):
                     IconView(icon: icon)
                         .frame(width: 20, height: 20)
@@ -31,9 +30,9 @@ struct MessageReactionView: View {
             .dynamicTypeSize(.large)
             .frame(height: 32)
             .padding(.horizontal, 8)
-            .background(model.selected ? Color.VeryLight.orange : Color.Background.highlightedMedium)
-            .cornerRadius(16, style: .circular)
-            .border(16, color: model.selected ? Color.System.amber50 : Color.clear, lineWidth: 1)
+            .background(model.selected ? Color.VeryLight.orange : Color.Shape.transperentPrimary)
+            .cornerRadius(20, style: .circular)
+            .border(20, color: model.selected ? Color.System.amber125 : Color.clear, lineWidth: 1)
         }
         .highPriorityGesture(
             LongPressGesture(minimumDuration: 0.3)
@@ -47,12 +46,12 @@ struct MessageReactionView: View {
 #Preview {
     VStack {
         MessageReactionView(
-            model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false),
+            model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false, isYourMessage: false),
             onTap: {},
             onLongTap: {}
         )
         MessageReactionView(
-            model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true),
+            model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true, isYourMessage: true),
             onTap: {},
             onLongTap: {}
         )
