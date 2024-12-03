@@ -40,8 +40,8 @@ struct MessageParticipantsReactionView: View {
             list(with: participantsData)
         case .empty:
             EmptyStateView(
-                title: Loc.EmptyView.Default.title,
-                subtitle: "",
+                title: Loc.Chat.Reactions.Empty.title,
+                subtitle: Loc.Chat.Reactions.Empty.subtitle,
                 style: .plain
             )
         }

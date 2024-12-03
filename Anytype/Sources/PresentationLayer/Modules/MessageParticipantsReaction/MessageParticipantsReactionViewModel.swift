@@ -38,29 +38,26 @@ final class MessageParticipantsReactionViewModel: ObservableObject {
     
     private func updateList(with participants: [Participant]) {
         let reactedParticipants = data.participantsIds.compactMap { participantId in
-            participants.first { $0.identity == participantId}
+            participants.first { $0.identity == participantId }
         }
-        if reactedParticipants.isEmpty {
-            title = data.emoji
-            state = .empty
-        } else {
-            let participantsData = reactedParticipants.map { participant in
-                var icon: Icon? = nil
-                if let objectIcon = participant.icon {
-                    icon = .object(objectIcon)
-                }
-                let type = try? objectTypeProvider.objectType(id: participant.type).name
-                return ObjectCellData(
-                    id: participant.id,
-                    icon: icon,
-                    title: participant.localName.withPlaceholder,
-                    type: type ?? "",
-                    canArchive: false,
-                    onTap: {}
-                )
+
+        let participantsData = reactedParticipants.map { participant in
+            var icon: Icon? = nil
+            if let objectIcon = participant.icon {
+                icon = .object(objectIcon)
             }
-            title = data.emoji + " \(participantsData.count)"
-            state = .data(participantsData)
+            let type = try? objectTypeProvider.objectType(id: participant.type).name
+            return ObjectCellData(
+                id: participant.id,
+                icon: icon,
+                title: participant.localName.withPlaceholder,
+                type: type ?? "",
+                canArchive: false,
+                onTap: {}
+            )
         }
+        
+        title = data.emoji + " \(participantsData.count)"
+        state = participantsData.isEmpty ? .empty : .data(participantsData)
     }
 }
