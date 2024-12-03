@@ -89,14 +89,11 @@ struct DateView: View {
     }
     
     private var emptyState: some View {
-        VStack {
-            Spacer()
-            AnytypeText(Loc.Date.Object.Empty.State.title, style: .bodyRegular)
-                .foregroundColor(.Text.secondary)
-                .padding(.vertical, 16)
-            Spacer.fixedHeight(80)
-            Spacer()
-        }
+        EmptyStateView(
+            title: "",
+            subtitle: Loc.Date.Object.Empty.State.title,
+            style: .plain
+        )
     }
     
     private var relationsListButton: some View {
