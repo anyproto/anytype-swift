@@ -38,7 +38,7 @@ final class MessageParticipantsReactionViewModel: ObservableObject {
     
     private func updateList(with participants: [Participant]) {
         let reactedParticipants = data.participantsIds.compactMap { participantId in
-            participants.first { $0.id == participantId }
+            participants.first { $0.identity == participantId }
         }
 
         let participantsData = reactedParticipants.map { participant in
