@@ -627,6 +627,13 @@ internal enum Loc {
     internal static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
     }
+    internal enum Actions {
+      internal enum Menu {
+        internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
+        internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
+        internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
+      }
+    }
     internal enum Empty {
       internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Write a first one to start a conversation")
       internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages here yet...")
