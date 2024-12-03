@@ -100,7 +100,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 nextSpacing: firstInSection ? .disable : (firstForCurrentUser || prevDateInternalIsBig ? .medium : .small),
                 authorMode: isYourMessage ? .hidden : (firstForCurrentUser || firstInSection || prevDateInternalIsBig ? .show : .empty),
                 showHeader: lastForCurrentUser || nextDateIntervalIsBig,
-                canDelete: isYourMessage && canEdit
+                canDelete: isYourMessage && canEdit,
+                canEdit: isYourMessage && canEdit
             )
             
             if firstInSection {

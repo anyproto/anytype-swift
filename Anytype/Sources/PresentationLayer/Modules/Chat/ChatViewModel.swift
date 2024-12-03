@@ -27,6 +27,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var fileActionsService: any FileActionsServiceProtocol
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
+    @Injected(\.chatInputConverter)
+    private var chatInputConverter: any ChatInputConverterProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -35,26 +37,39 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     // MARK: - State
     
-    @Published var linkedObjects: [ChatLinkedObject] = []
-    @Published var mesageBlocks: [MessageSectionData] = []
-    @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
-    @Published var message = NSAttributedString()
-    @Published var canEdit = false
-    @Published var inputFocused = false
+    // Global
+    
     @Published var dataLoaded = false
-    @Published var mentionSearchState = ChatTextMention.finish
-    @Published var mentionObjects: [MentionObject] = []
+    @Published var canEdit = false
+    
+    // Input Message
+    
+    @Published var linkedObjects: [ChatLinkedObject] = []
+    @Published var message = NSAttributedString()
+    @Published var inputFocused = false
     @Published var photosItemsTask = UUID()
     @Published var attachmentsDownloading: Bool = false
     @Published var replyToMessage: ChatInputReplyModel?
-    @Published var deleteMessageConfirmation: MessageViewData?
+    @Published var editMessage: ChatMessage?
     
-    var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
+    private var photosItems: [PhotosPickerItem] = []
+    
+    // List
+    
+    @Published var mentionSearchState = ChatTextMention.finish
+    @Published var mesageBlocks: [MessageSectionData] = []
+    @Published var mentionObjects: [MentionObject] = []
+    @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
-    private var photosItems: [PhotosPickerItem] = []
     
+    var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
+
+    // Alerts
+    
+    @Published var deleteMessageConfirmation: MessageViewData?
+        
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
         self.chatId = chatId
@@ -115,18 +130,26 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     func onTapSendMessage() {
         Task {
-            let messageId = try await chatActionService.createMessage(
-                chatId: chatId,
-                spaceId: spaceId,
-                message: message.sendable(),
-                linkedObjects: linkedObjects,
-                replyToMessageId: replyToMessage?.id
-            )
-            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom)
-            message = NSAttributedString()
-            linkedObjects = []
-            photosItems = []
-            replyToMessage = nil
+            if let editMessage {
+                try await chatActionService.updateMessage(
+                    chatId: chatId,
+                    spaceId: spaceId,
+                    messageId: editMessage.id,
+                    message: message.sendable(),
+                    linkedObjects: linkedObjects,
+                    replyToMessageId: replyToMessage?.id
+                )
+            } else {
+                let messageId = try await chatActionService.createMessage(
+                    chatId: chatId,
+                    spaceId: spaceId,
+                    message: message.sendable(),
+                    linkedObjects: linkedObjects,
+                    replyToMessageId: replyToMessage?.id
+                )
+                collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom)
+            }
+            clearInput()
         }
     }
     
@@ -202,6 +225,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         withAnimation {
             replyToMessage = nil
         }
+    }
+    
+    func onTapDeleteEdit() {
+        clearInput()
     }
     
     func updatePickerItems() async {
@@ -287,6 +314,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         deleteMessageConfirmation = message
     }
     
+    func didSelectEditMessage(message messageToEdit: MessageViewData) async {
+        clearInput()
+        editMessage = messageToEdit.message
+        message = chatInputConverter.convert(content: messageToEdit.message.message)
+        linkedObjects = await chatStorage.attachments(message: messageToEdit.message).map { .uploadedObject($0) }
+    }
+    
     // MARK: - Private
     
     private func updateMessages() async {
@@ -311,5 +345,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         case .failure:
             break
         }
+    }
+    
+    private func clearInput() {
+        message = NSAttributedString()
+        linkedObjects = []
+        photosItems = []
+        replyToMessage = nil
+        editMessage = nil
     }
 }
