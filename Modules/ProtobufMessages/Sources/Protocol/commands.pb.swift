@@ -10919,10 +10919,6 @@ public struct Anytype_Rpc {
           public typealias RawValue = Int
           case none // = 0
           case getStarted // = 1
-          case personalProjects // = 2
-          case knowledgeBase // = 3
-          case notesDiary // = 4
-          case strategicWriting // = 5
           case empty // = 6
           case UNRECOGNIZED(Int)
 
@@ -10934,10 +10930,6 @@ public struct Anytype_Rpc {
             switch rawValue {
             case 0: self = .none
             case 1: self = .getStarted
-            case 2: self = .personalProjects
-            case 3: self = .knowledgeBase
-            case 4: self = .notesDiary
-            case 5: self = .strategicWriting
             case 6: self = .empty
             default: self = .UNRECOGNIZED(rawValue)
             }
@@ -10947,10 +10939,6 @@ public struct Anytype_Rpc {
             switch self {
             case .none: return 0
             case .getStarted: return 1
-            case .personalProjects: return 2
-            case .knowledgeBase: return 3
-            case .notesDiary: return 4
-            case .strategicWriting: return 5
             case .empty: return 6
             case .UNRECOGNIZED(let i): return i
             }
@@ -32097,10 +32085,6 @@ extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: CaseIterable {
   public static var allCases: [Anytype_Rpc.Object.ImportUseCase.Request.UseCase] = [
     .none,
     .getStarted,
-    .personalProjects,
-    .knowledgeBase,
-    .notesDiary,
-    .strategicWriting,
     .empty,
   ]
 }
@@ -50907,10 +50891,6 @@ extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: SwiftProtobuf._Proto
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NONE"),
     1: .same(proto: "GET_STARTED"),
-    2: .same(proto: "PERSONAL_PROJECTS"),
-    3: .same(proto: "KNOWLEDGE_BASE"),
-    4: .same(proto: "NOTES_DIARY"),
-    5: .same(proto: "STRATEGIC_WRITING"),
     6: .same(proto: "EMPTY"),
   ]
 }
