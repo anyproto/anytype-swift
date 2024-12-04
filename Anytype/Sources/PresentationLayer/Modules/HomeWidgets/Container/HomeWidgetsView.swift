@@ -24,7 +24,7 @@ private struct HomeWidgetsInternalView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VerticalScrollViewWithOverlayHeader {
-                if !FeatureFlags.homeSpaceLevelChat {
+                if !FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId) {
                     HomeTopShadow()
                 }
             } content: {
@@ -87,7 +87,7 @@ private struct HomeWidgetsInternalView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
-        .if(FeatureFlags.homeSpaceLevelChat) {
+        .if(FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId)) {
             $0.overlay(alignment: .top) {
                 HomeBlurEffectView(direction: .topToBottom)
                     .ignoresSafeArea()
