@@ -263,10 +263,10 @@ public class SearchHelper {
         return filter
     }
     
-    public static func notHiddenFilters(isArchive: Bool = false) -> [DataviewFilter] {
+    public static func notHiddenFilters(isArchive: Bool = false, hideHiddenDescoveryFiles: Bool = true) -> [DataviewFilter] {
         .builder {
             SearchHelper.isHidden(false)
-            SearchHelper.isHiddenDiscovery(false)
+            if hideHiddenDescoveryFiles { SearchHelper.isHiddenDiscovery(false) }
             SearchHelper.isDeletedFilter(isDeleted: false)
             SearchHelper.isArchivedFilter(isArchived: isArchive)
         }
