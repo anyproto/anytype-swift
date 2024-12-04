@@ -11,6 +11,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     @Published var showSpaceCreate = false
     @Published var showSettings = false
     @Published var createSpaceAvailable = false
+    @Published var spaceIdToLeave: StringIdentifiable?
     
     let sceneId: String
     
@@ -58,10 +59,12 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
 
     }
     
-    func deleteSpace(spaceId: String) {
-        Task {
-            try await workspaceService.deleteSpace(spaceId: spaceId)
-        }
+    func deleteSpace(spaceId: String) async throws {
+        try await workspaceService.deleteSpace(spaceId: spaceId)
+    }
+    
+    func leaveSpace(spaceId: String) {
+        spaceIdToLeave = spaceId.identifiable
     }
     
     func copySpaceInfo(spaceView: SpaceView) {

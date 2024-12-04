@@ -25,6 +25,9 @@ struct SpaceHubView: View {
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
             }
+            .anytypeSheet(item: $model.spaceIdToLeave) {
+                SpaceLeaveAlert(spaceId: $0.value)
+            }
             .homeBottomPanelHidden(true)
     }
     
@@ -117,7 +120,7 @@ struct SpaceHubView: View {
             spaceCardLabel(space)
         }
         .disabled(space.spaceView.isLoading)
-        .contextMenu { menuItems(spaceView: space.spaceView) }
+        .contextMenu { menuItems(space: space) }
         .padding(.horizontal, 8)
         .onDrop(
             of: [.text],
@@ -166,29 +169,38 @@ struct SpaceHubView: View {
         */
     }
     
-    private func menuItems(spaceView: SpaceView) -> some View {
+    private func menuItems(space: ParticipantSpaceViewData) -> some View {
         Group {
-            if spaceView.isLoading {
-                Button { model.copySpaceInfo(spaceView: spaceView) } label: {
+            if space.spaceView.isLoading {
+                Button { model.copySpaceInfo(spaceView: space.spaceView) } label: {
                     Text(Loc.copySpaceInfo)
                 }
             } else {
-                if spaceView.isPinned {
-                    AsyncButton { try await model.unpin(spaceView: spaceView) } label: {
+                if space.spaceView.isPinned {
+                    AsyncButton { try await model.unpin(spaceView: space.spaceView) } label: {
                         Text(Loc.unpin)
                     }
                 } else {
-                    AsyncButton { try await model.pin(spaceView: spaceView) } label: {
+                    AsyncButton { try await model.pin(spaceView: space.spaceView) } label: {
                         Text(Loc.pin)
                     }
                 }
             }
             
             Divider()
-            Button(role: .destructive) {
-                model.deleteSpace(spaceId: spaceView.targetSpaceId)
-            } label: {
-                Text(Loc.delete)
+            if space.canLeave {
+                Button(role: .destructive) {
+                    model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
+                } label: {
+                    Text(Loc.leaveASpace)
+                }
+            }
+            if space.canBeDeleted {
+                AsyncButton(role: .destructive) {
+                    try await model.deleteSpace(spaceId: space.spaceView.targetSpaceId)
+                } label: {
+                    Text(Loc.delete)
+                }
             }
         }
     }

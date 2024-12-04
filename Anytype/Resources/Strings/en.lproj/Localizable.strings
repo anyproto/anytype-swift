@@ -704,6 +704,7 @@
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "Apply";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -934,7 +935,6 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Share" = "Share";
 "SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 

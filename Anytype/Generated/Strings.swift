@@ -179,6 +179,7 @@ internal enum Loc {
   internal static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   internal static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
   internal static let learnMore = Loc.tr("Localizable", "Learn more", fallback: "Learn more")
+  internal static let leaveASpace = Loc.tr("Localizable", "Leave a space", fallback: "Leave a space")
   internal static let letsGo = Loc.tr("Localizable", "Lets Go", fallback: "Let’s Go")
   internal static let limitObjectTypes = Loc.tr("Localizable", "Limit object types", fallback: "Limit object types")
   internal static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
@@ -1691,7 +1692,6 @@ internal enum Loc {
       internal static func message(_ p1: Any) -> String {
         return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Message", String(describing: p1), fallback: "%@ space will be removed from your devices and you will no longer have access to it")
       }
-      internal static let title = Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Title", fallback: "Leave a space")
       internal static func toast(_ p1: Any) -> String {
         return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Toast", String(describing: p1), fallback: "You left the %@.")
       }
