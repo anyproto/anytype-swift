@@ -29,6 +29,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceOrderService)
+    private var spaceOrderService: any SpaceOrderServiceProtocol
     
     private var subscriptions = [AnyCancellable]()
     
@@ -64,6 +66,14 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     func copySpaceInfo(spaceView: SpaceView) {
         UIPasteboard.general.string = String(describing: spaceView)
+    }
+    
+    func pin(spaceView: SpaceView) async throws {
+        try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: [spaceView.id])
+    }
+    
+    func unpin(spaceView: SpaceView) async throws {
+        try await spaceOrderService.unsetOrder(spaceViewId: spaceView.id)
     }
     
     func startSubscriptions() async {

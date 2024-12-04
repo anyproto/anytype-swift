@@ -116,11 +116,7 @@ struct SpaceHubView: View {
             spaceCardLabel(space)
         }
         .disabled(space.spaceView.isLoading)
-        .contextMenu {
-            if space.spaceView.isLoading {
-                debugMenuItems(spaceView: space.spaceView)
-            }
-        }
+        .contextMenu { menuItems(spaceView: space.spaceView) }
         .padding(.horizontal, 8)
         .onDrop(
             of: [.text],
@@ -155,26 +151,43 @@ struct SpaceHubView: View {
             )
         )
         .cornerRadius(20, style: .continuous)
+        
         .if(space.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .onDrag {
-            draggedSpace = space
-            return NSItemProvider()
+        
+        /* TBD;
+        .if(space.spaceView.isPinned) {
+            $0.onDrag {
+                draggedSpace = space
+                return NSItemProvider()
+            }
         }
+        */
     }
     
-    private func debugMenuItems(spaceView: SpaceView) -> some View {
+    private func menuItems(spaceView: SpaceView) -> some View {
         Group {
-            Button {
-                model.copySpaceInfo(spaceView: spaceView)
-            } label: {
-                Label(Loc.copySpaceInfo, systemImage: "info.windshield")
+            if spaceView.isLoading {
+                Button { model.copySpaceInfo(spaceView: spaceView) } label: {
+                    Text(Loc.copySpaceInfo)
+                }
+            } else {
+                if spaceView.isPinned {
+                    AsyncButton { try await model.unpin(spaceView: spaceView) } label: {
+                        Text(Loc.unpin)
+                    }
+                } else {
+                    AsyncButton { try await model.pin(spaceView: spaceView) } label: {
+                        Text(Loc.pin)
+                    }
+                }
             }
             
+            Divider()
             Button(role: .destructive) {
                 model.deleteSpace(spaceId: spaceView.targetSpaceId)
             } label: {
-                Label(Loc.delete, systemImage: "figure.australian.football")
+                Text(Loc.delete)
             }
         }
     }

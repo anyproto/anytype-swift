@@ -13,6 +13,7 @@ struct SpaceView: Identifiable, Equatable {
     let readersLimit: Int?
     let writersLimit: Int?
     let chatId: String?
+    let isPinned: Bool
 }
 
 extension SpaceView: DetailsModel {
@@ -28,6 +29,7 @@ extension SpaceView: DetailsModel {
         self.readersLimit = details.readersLimit
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
+        self.isPinned = details.spaceOrder.isNotEmpty
     }
     
     static var subscriptionKeys: [BundledRelationKey] = .builder {

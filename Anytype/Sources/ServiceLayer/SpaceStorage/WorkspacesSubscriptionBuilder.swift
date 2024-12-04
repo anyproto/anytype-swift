@@ -20,10 +20,10 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
     }
     
     func build(techSpaceId: String) -> SubscriptionData {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.createdDate,
-            type: .desc
-        )
+        let sorts: [DataviewSort] = .builder {
+            SearchHelper.sort(relation: .spaceOrder, type: .asc)
+            SearchHelper.sort(relation: .createdDate, type: .desc)
+        }
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.layoutFilter([.spaceView])
@@ -34,7 +34,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
             SubscriptionData.Search(
                 identifier: Constants.spacesSubId,
                 spaceId: techSpaceId,
-                sorts: [sort],
+                sorts: sorts,
                 filters: filters,
                 limit: 0,
                 offset: 0,

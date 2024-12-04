@@ -29,9 +29,6 @@ protocol UserDefaultsStorageProtocol {
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
     var lastOpenedScreen: LastOpenedScreen? { get set }
     
-    func saveSpacesOrder(accountId: String, spaces: [String])
-    func getSpacesOrder(accountId: String) -> [String]
-    
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
     func wallpaper(spaceId: String) -> SpaceWallpaperType
@@ -109,17 +106,6 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     
     func setWallpaper(spaceId: String, wallpaper: SpaceWallpaperType) {
         _wallpapers[spaceId] = wallpaper
-    }
-    
-    // MARK: - Spaces order
-    @UserDefault("SpaceOrderStorage.CustomSpaceOrder", defaultValue: [:])
-    private var spacesOrder: [String: [String]]
-    
-    func saveSpacesOrder(accountId: String, spaces: [String]) {
-        spacesOrder[accountId] = spaces
-    }
-    func getSpacesOrder(accountId: String) -> [String] {
-        spacesOrder[accountId] ?? []
     }
     
     // MARK: - Cleanup

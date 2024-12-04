@@ -164,6 +164,7 @@
 "Move" = "Move";
 "Move to" = "Move to";
 "Back" = "Back";
+"Pin" = "Pin";
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
