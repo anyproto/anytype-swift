@@ -38,25 +38,26 @@ struct ChatInput: View {
             
             Menu {
                 Button {
-                    onTapAddFiles()
+                    onTapAddObject()
                 } label: {
-                    Text(Loc.files)
+                    Text(Loc.Chat.Actions.Menu.objects)
                 }
                 Button {
                     onTapAddMedia()
                 } label: {
-                    Text(Loc.media)
+                    Text(Loc.Chat.Actions.Menu.media)
                 }
                 Button {
-                    onTapAddObject()
+                    onTapAddFiles()
                 } label: {
-                    Text(Loc.objects)
+                    Text(Loc.Chat.Actions.Menu.files)
                 }
             } label: {
                 Image(asset: .X32.plus)
                     .foregroundColor(.Control.navPanelIcon)
             }
             .frame(height: 56)
+            .menuOrder(.fixed)
             
             if hasAdditionalData || !text.string.isEmpty {
                 Button {

@@ -45,7 +45,7 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilters()
+            SearchHelper.notHiddenFilters(hideHiddenDescoveryFiles: false)
             SearchHelper.fileSyncStatus(syncStatus)
         }
         

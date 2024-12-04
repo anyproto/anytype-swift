@@ -61,10 +61,13 @@ extension AnytypeAnalytics {
         )
     }
 
-    func logChangeTextStyle(_ markupType: MarkupType) {
+    func logChangeTextStyle(markupType: MarkupType, objectType: StyleObjectType) {
         logEvent(
             "ChangeTextStyle",
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: markupType.analyticsValue]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: markupType.analyticsValue,
+                AnalyticsEventsPropertiesKey.objectType: objectType.rawValue
+            ]
         )
     }
     
@@ -703,8 +706,8 @@ extension AnytypeAnalytics {
         logEvent("ScreenSettingsStorageIndex")
     }
     
-    func logScreenSettingsStorageManager() {
-        logEvent("ScreenSettingsStorageManager")
+    func logScreenSettingsSpaceStorageManager() {
+        logEvent("ScreenSettingsSpaceStorageManager")
     }
     
     func logScreenFileOffloadWarning() {
@@ -855,8 +858,14 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCreateLink(spaceId: String) {
-        logEvent("CreateLink", spaceId: spaceId)
+    func logCreateLink(spaceId: String, objectType: AnalyticsObjectType) {
+        logEvent(
+            "CreateLink",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
     }
     
     func logScreenSettingsSpaceCreate() {
@@ -1206,4 +1215,40 @@ extension AnytypeAnalytics {
     func logLibraryResult() {
         logEvent("LibraryResult")
     }
+    
+    func logScreenDate() {
+        logEvent("ScreenDate")
+    }
+    
+    func logSwitchRelationDate(key: AnalyticsRelationKey) {
+        logEvent(
+            "SwitchRelationDate",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.relationKey: key.value
+            ]
+        )
+    }
+    
+    func logClickDateForward() {
+        logEvent("ClickDateForward")
+    }
+    
+    func logClickDateBack() {
+        logEvent("ClickDateBack")
+    }
+    
+    func logClickDateCalendarView() {
+        logEvent("ClickDateCalendarView")
+    }
+    
+    func logObjectListSort(route: ObjectListSortRoute, type: String) {
+        logEvent(
+            "ObjectListSort",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route.rawValue,
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
 }
