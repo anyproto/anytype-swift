@@ -1,15 +1,16 @@
 import SwiftUI
 import Services
 
-struct DateRelationCalendarView: View {
+struct RelationCalendarView: View {
     
-    @StateObject var viewModel: DateRelationCalendarViewModel
+    @StateObject var viewModel: RelationCalendarViewModel
     @Environment(\.dismiss) var dismiss
     
-    init(date: Date?, configuration: RelationModuleConfiguration) {
-        _viewModel = StateObject(wrappedValue: DateRelationCalendarViewModel(
+    init(date: Date?, configuration: RelationModuleConfiguration, output: (any RelationCalendarOutput)?) {
+        _viewModel = StateObject(wrappedValue: RelationCalendarViewModel(
             date: date,
-            configuration: configuration
+            configuration: configuration,
+            output: output
         ))
     }
     
@@ -18,11 +19,11 @@ struct DateRelationCalendarView: View {
             DragIndicator()
             navigationBar
             calendarView
+            openCurrentDateView
         }
         .onChange(of: viewModel.dismiss) { _ in
             dismiss()
         }
-        .fitPresentationDetents()
     }
     
     private var calendarView: some View {
@@ -34,6 +35,26 @@ struct DateRelationCalendarView: View {
                 }
             )
         )
+        .newDivider(leadingPadding: 16)
+    }
+    
+    private var openCurrentDateView: some View {
+        Button {
+            viewModel.onOpenCurrentDateSelected()
+        } label: {
+            HStack(spacing: 0) {
+                AnytypeText(Loc.Date.Open.Action.title, style: .bodyRegular)
+                    .foregroundColor(.Text.primary)
+                Spacer()
+                Image(asset: .X24.Arrow.right)
+                    .foregroundColor(.Control.active)
+            }
+        }
+        .frame(height: 44)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .fixTappableArea()
+        .padding(.horizontal, 16)
+        .newDivider(leadingPadding: 16)
     }
     
     private var navigationBar: some View {
@@ -61,8 +82,9 @@ struct DateRelationCalendarView: View {
 }
 
 #Preview {
-    DateRelationCalendarView(
+    RelationCalendarView(
         date: nil,
-        configuration: RelationModuleConfiguration.default
+        configuration: RelationModuleConfiguration.default,
+        output: nil
     )
 }
