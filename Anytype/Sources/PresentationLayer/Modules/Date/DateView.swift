@@ -21,7 +21,10 @@ struct DateView: View {
         .task(item: model.state) { state in
             await model.restartRelationSubscription(with: state)
         }
-        .onDisappear() {
+        .onAppear {
+            model.onAppear()
+        }
+        .onDisappear {
             model.onDisappear()
         }
     }
