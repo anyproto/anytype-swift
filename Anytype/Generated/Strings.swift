@@ -724,6 +724,11 @@ internal enum Loc {
         }
       }
     }
+    internal enum Open {
+      internal enum Action {
+        internal static let title = Loc.tr("Localizable", "Date.Open.Action.title", fallback: "Open selected date")
+      }
+    }
   }
   internal enum Debug {
     internal static let info = Loc.tr("Localizable", "Debug.Info", fallback: "Debug Info")
