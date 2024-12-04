@@ -72,7 +72,11 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     }
     
     func pin(spaceView: SpaceView) async throws {
-        try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: [spaceView.id])
+        guard let spaces else { return }
+        var newOrder = spaces.map(\.spaceView.id).filter { $0 != spaceView.id }
+        newOrder.insert(spaceView.id, at: 0)        
+        
+        try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
     }
     
     func unpin(spaceView: SpaceView) async throws {

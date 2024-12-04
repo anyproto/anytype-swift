@@ -145,6 +145,9 @@ struct SpaceHubView: View {
                 Spacer.fixedHeight(1)
             }
             Spacer()
+            if space.spaceView.isPinned {
+                Circle().foregroundColor(.System.amber100).frame(width: 22, height: 22)
+            }
         }
         .padding(16)
         .background(
