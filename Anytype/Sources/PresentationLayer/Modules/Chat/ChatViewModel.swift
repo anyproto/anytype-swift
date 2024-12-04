@@ -317,7 +317,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     func didSelectEditMessage(message messageToEdit: MessageViewData) async {
         clearInput()
         editMessage = messageToEdit.message
-        message = chatInputConverter.convert(content: messageToEdit.message.message)
+        message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
         linkedObjects = await chatStorage.attachments(message: messageToEdit.message).map { .uploadedObject($0) }
     }
     
