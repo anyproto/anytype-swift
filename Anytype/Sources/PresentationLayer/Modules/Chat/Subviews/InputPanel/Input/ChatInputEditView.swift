@@ -6,7 +6,7 @@ struct ChatInputEditView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            Text("Edit Message")
+            Text(Loc.Chat.editMessage)
                 .anytypeStyle(.caption1Medium)
                 .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
