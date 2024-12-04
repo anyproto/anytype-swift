@@ -34,6 +34,7 @@ final class DateViewModel: ObservableObject {
     
     @Published var document: (any BaseDocumentProtocol)?
     @Published var title = ""
+    @Published var weekday = ""
     @Published var objects = [ObjectCellData]()
     @Published var relationItems = [RelationItemData]()
     @Published var state = DateModuleState()
@@ -170,6 +171,10 @@ final class DateViewModel: ObservableObject {
         for await details in document.detailsPublisher.values {
             if let date = details.timestamp {
                 title = dateFormatter.string(from: date)
+                let weekdayIndex = Calendar.current.component(.weekday, from: date) - 1
+                if dateFormatter.weekdaySymbols.count > weekdayIndex {
+                    weekday = dateFormatter.weekdaySymbols[weekdayIndex]
+                }
             }
             state.currentDate = details.timestamp
         }

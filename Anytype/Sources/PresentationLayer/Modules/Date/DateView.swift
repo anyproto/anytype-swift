@@ -53,30 +53,35 @@ struct DateView: View {
     }
     
     private var titleView: some View {
-        HStack(alignment: .center) {
-            Image(asset: .X24.Arrow.left)
-                .foregroundColor(.Control.active)
-                .onTapGesture {
-                    model.onPrevDayTap()
-                }
-                .opacity(model.hasPrevDay() ? 1 : 0)
-            
-            Spacer()
-            AnytypeText(model.title, style: .title)
-                .foregroundColor(.Text.primary)
-                .padding(.vertical, 32)
-                .onTapGesture {
-                    model.onCalendarTap()
-                }
-            Spacer()
-            
-            Image(asset: .X24.Arrow.right)
-                .foregroundColor(.Control.active)
-                .onTapGesture {
-                    model.onNextDayTap()
-                }
-                .opacity(model.hasNextDay() ? 1 : 0)
+        VStack(spacing: 4) {
+            AnytypeText(model.weekday, style: .relation2Regular)
+                .foregroundColor(.Text.secondary)
+            HStack(alignment: .center) {
+                Image(asset: .X24.Arrow.left)
+                    .foregroundColor(.Control.active)
+                    .onTapGesture {
+                        model.onPrevDayTap()
+                    }
+                    .opacity(model.hasPrevDay() ? 1 : 0)
+                
+                Spacer()
+                AnytypeText(model.title, style: .title)
+                    .foregroundColor(.Text.primary)
+                    .onTapGesture {
+                        model.onCalendarTap()
+                    }
+                Spacer()
+                
+                Image(asset: .X24.Arrow.right)
+                    .foregroundColor(.Control.active)
+                    .onTapGesture {
+                        model.onNextDayTap()
+                    }
+                    .opacity(model.hasNextDay() ? 1 : 0)
+            }
         }
+        .padding(.top, 16)
+        .padding(.bottom, 32)
         .padding(.horizontal, 16)
     }
     
