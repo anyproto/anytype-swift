@@ -60,6 +60,17 @@ final class MessageViewModel: ObservableObject {
         try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: reaction.emoji)
     }
     
+    func onLongTapReaction(_ reaction: MessageReactionModel) {
+        let participantsIds = data.message.reactions.reactions[reaction.emoji]?.ids ?? []
+        output?.didLongTapOnReaction(
+            data: MessageParticipantsReactionData(
+                spaceId: data.spaceId,
+                emoji: reaction.emoji,
+                participantsIds: participantsIds
+            )
+        )
+    }
+    
     private func updateView() {
         let chatMessage = data.message
         let authorParticipant = data.participant

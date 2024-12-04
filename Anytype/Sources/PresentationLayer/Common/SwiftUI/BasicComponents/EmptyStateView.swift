@@ -20,11 +20,11 @@ struct EmptyStateView: View {
                 ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
                 Spacer.fixedHeight(12)
             }
-            AnytypeText(title, style: .uxCalloutMedium)
+            AnytypeText(title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            AnytypeText(subtitle, style: .uxCalloutRegular, enableMarkdown: true)
-                .foregroundColor(.Text.primary)
+            AnytypeText(subtitle, style: .uxBodyRegular, enableMarkdown: true)
+                .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(12)
             if let buttonData {

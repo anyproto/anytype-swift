@@ -74,7 +74,7 @@
 "Create relation" = "Maak relatie '%@'";
 "Relation.View.Hint.Empty" = "leeg";
 "Relation.MyRelations" = "Mijn relaties";
-"Relation.AddedToLibrary" = "Relatie %@ is toegevoegd aan jouw bibliotheek";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Verwijderde relatie";
 "Relation.From.Type" = "Van type %@";
 "Relation.EmptyState.title" = "Geen opties";
@@ -721,7 +721,7 @@
 "ObjectType.SearchOrInstall" = "Zoek of installeer een nieuw type";
 "ObjectType.Search" = "Zoek naar type";
 "ObjectType.MyTypes" = "Mijn types";
-"ObjectType.AddedToLibrary" = "Type '%@' toegevoegd aan jouw bibliotheek";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Verwijderd type";
 "ObjectType.editingType" = "Je bewerkt het type";
 
@@ -1260,6 +1260,8 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.ReplyTo" = "Antwoord op %@";
 "Chat.Empty.Title" = "Nog geen berichten hier...";
 "Chat.Empty.Description" = "Schrijf een eerste om een gesprek te beginnen";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";

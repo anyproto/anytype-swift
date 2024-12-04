@@ -74,7 +74,7 @@
 "Create relation" = "Stwórz relację '%@'";
 "Relation.View.Hint.Empty" = "pusty";
 "Relation.MyRelations" = "Moje relacje";
-"Relation.AddedToLibrary" = "Relacja %@ została dodana do Twojej biblioteki";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Usunięta relacja";
 "Relation.From.Type" = "Z typu %@";
 "Relation.EmptyState.title" = "Brak opcji";
@@ -721,7 +721,7 @@
 "ObjectType.SearchOrInstall" = "Szukaj lub utwórz nowy typ";
 "ObjectType.Search" = "Wyszukaj typ";
 "ObjectType.MyTypes" = "Moje typy";
-"ObjectType.AddedToLibrary" = "Wpisz \"%@\" dodany do biblioteki";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Usunięty typ";
 "ObjectType.editingType" = "You're editing type";
 
@@ -1258,6 +1258,8 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

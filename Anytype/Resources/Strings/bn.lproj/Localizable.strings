@@ -74,7 +74,7 @@
 "Create relation" = "সম্পর্ক তৈরি করুন %@";
 "Relation.View.Hint.Empty" = "খালি";
 "Relation.MyRelations" = "আমার সম্পর্ক";
-"Relation.AddedToLibrary" = "আপনার লাইব্রেরিতে %@ সম্পর্ক যুক্ত করা হয়েছে";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "মুছে ফেলা সম্পর্ক";
 "Relation.From.Type" = "%@ প্রকার থেকে";
 "Relation.EmptyState.title" = "No options";
@@ -721,7 +721,7 @@
 "ObjectType.SearchOrInstall" = "Search or install a new type";
 "ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "My Types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Deleted type";
 "ObjectType.editingType" = "You're editing type";
 
@@ -1258,6 +1258,8 @@ Please provide specific details of your needs here.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

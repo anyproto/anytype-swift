@@ -62,6 +62,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             
             let lastForCurrentUser = nextMessage?.creator != message.creator
             
+            let isYourMessage = message.creator == yourProfileIdentity
+            
             let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
                 
                 let content: MessageReactionModelContent
@@ -77,13 +79,13 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 return MessageReactionModel(
                     emoji: key,
                     content: content,
-                    selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false
+                    selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false,
+                    isYourMessage: isYourMessage
                 )
             }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
             
             let replyMessage = await chatStorage.reply(message: message)
             let replyAttachments = await replyMessage.asyncMap { await chatStorage.attachments(message: $0) } ?? []
-            let isYourMessage = message.creator == yourProfileIdentity
             
             let messageModel = MessageViewData(
                 spaceId: spaceId,

@@ -19,13 +19,18 @@ private struct ChatActionViewModifier<OverlayContent: View>: ViewModifier {
     @Binding var offset: CGFloat
     @ViewBuilder let overlayView: OverlayContent
     
+    @State private var currentOffset: CGFloat = 0
+    
     func body(content: Content) -> some View {
         content
-            .alignmentGuide(.chatAction) { $0[.top] + offset }
+            // Custom coordinator space doens't work in bottom panel inside UIHostingController
+            .readFrame {
+                currentOffset = $0.minY
+            }
+            .alignmentGuide(.chatAction) { $0[.top] + (offset - currentOffset) }
             .overlay(alignment: .chatAction) {
                 overlayView
             }
-            .coordinateSpace(name: "ChatActionViewModifier")
     }
 }
 
@@ -35,7 +40,7 @@ private struct ChatActionStateTopProvider: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .readFrame(space: .named("ChatActionViewModifier")) {
+            .readFrame {
                 offset = $0.minY
             }
     }

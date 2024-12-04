@@ -51,5 +51,6 @@ struct ChatMentionList: View {
         .overlay(alignment: .top) {
             AnytypeDivider()
         }
+        .padding(.bottom, 4)
     }
 }
