@@ -706,8 +706,8 @@ extension AnytypeAnalytics {
         logEvent("ScreenSettingsStorageIndex")
     }
     
-    func logScreenSettingsStorageManager() {
-        logEvent("ScreenSettingsStorageManager")
+    func logScreenSettingsSpaceStorageManager() {
+        logEvent("ScreenSettingsSpaceStorageManager")
     }
     
     func logScreenFileOffloadWarning() {

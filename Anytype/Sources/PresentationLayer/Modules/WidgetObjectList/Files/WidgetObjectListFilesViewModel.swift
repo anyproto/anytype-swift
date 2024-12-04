@@ -36,7 +36,7 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenSettingsStorageManager()
+        AnytypeAnalytics.instance().logScreenSettingsSpaceStorageManager()
         Task {
             await subscriptionService.startSubscription(syncStatus: .synced, spaceId: spaceId, objectLimit: nil, update: { [weak self] details in
                 self?.details = details
