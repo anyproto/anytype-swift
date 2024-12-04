@@ -34,6 +34,7 @@ final class DateViewModel: ObservableObject {
     
     @Published var document: (any BaseDocumentProtocol)?
     @Published var title = ""
+    @Published var weekday = ""
     @Published var objects = [ObjectCellData]()
     @Published var relationItems = [RelationItemData]()
     @Published var state = DateModuleState()
@@ -46,6 +47,10 @@ final class DateViewModel: ObservableObject {
         
         let date = date ?? Date()
         updateDate(date)
+    }
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenDate()
     }
     
     func onDisappear() {
@@ -90,8 +95,10 @@ final class DateViewModel: ObservableObject {
     func onRelationTap(_ details: RelationDetails) {
         if state.selectedRelation != details {
             state.selectedRelation = details
+            AnytypeAnalytics.instance().logSwitchRelationDate(key: details.analyticsKey)
         } else {
             state.sortType = state.sortType == .asc ? .desc : .asc
+            AnytypeAnalytics.instance().logObjectListSort(route: .screenDate, type: state.sortType.analyticValue)
         }
     }
     
@@ -110,16 +117,19 @@ final class DateViewModel: ObservableObject {
         output?.onCalendarTap(with: currentDate, completion: { [weak self] newDate in
             self?.updateDate(newDate)
         })
+        AnytypeAnalytics.instance().logClickDateCalendarView()
     }
     
     func onPrevDayTap() {
         guard let prevDay = state.currentDate?.prevDay() else { return }
         updateDate(prevDay)
+        AnytypeAnalytics.instance().logClickDateBack()
     }
     
     func onNextDayTap() {
         guard let nextDay = state.currentDate?.nextDay() else { return }
         updateDate(nextDay)
+        AnytypeAnalytics.instance().logClickDateForward()
     }
     
     func hasPrevDay() -> Bool {
@@ -161,6 +171,10 @@ final class DateViewModel: ObservableObject {
         for await details in document.detailsPublisher.values {
             if let date = details.timestamp {
                 title = dateFormatter.string(from: date)
+                let weekdayIndex = Calendar.current.component(.weekday, from: date) - 1
+                if dateFormatter.weekdaySymbols.count > weekdayIndex {
+                    weekday = dateFormatter.weekdaySymbols[weekdayIndex]
+                }
             }
             state.currentDate = details.timestamp
         }

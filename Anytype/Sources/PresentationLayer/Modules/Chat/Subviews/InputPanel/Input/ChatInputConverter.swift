@@ -1,11 +1,16 @@
 import Foundation
 import Services
+import AnytypeCore
 
 protocol ChatInputConverterProtocol: AnyObject {
     func convert(message: NSAttributedString) -> ChatMessageContent
+    func convert(content: ChatMessageContent, spaceId: String) async -> SafeNSAttributedString
 }
 
 final class ChatInputConverter: ChatInputConverterProtocol {
+    
+    @Injected(\.mentionObjectsService)
+    private var mentionObjectsService: any MentionObjectsServiceProtocol
     
     func convert(message: NSAttributedString) -> ChatMessageContent {
         
@@ -65,6 +70,42 @@ final class ChatInputConverter: ChatInputConverterProtocol {
         }
         
         return marks
+    }
+    
+    func convert(content: ChatMessageContent, spaceId: String) async -> SafeNSAttributedString {
+        var message = NSMutableAttributedString(string: content.text)
+        
+        for mark in content.marks.reversed() {
+            let nsRange = NSRange(mark.range)
+
+            switch mark.type {
+            case .strikethrough:
+                message.addAttribute(.chatStrikethrough, value: true, range: nsRange)
+            case .keyboard:
+                message.addAttribute(.chatKeyboard, value: true, range: nsRange)
+            case .italic:
+                message.addAttribute(.chatItalic, value: true, range: nsRange)
+            case .bold:
+                message.addAttribute(.chatBold, value: true, range: nsRange)
+            case .underscored:
+                message.addAttribute(.chatUnderscored, value: true, range: nsRange)
+            case .link:
+                if let link = URL(string: mark.param) {
+                    message.addAttribute(.chatLinkToURL, value: link, range: nsRange)
+                }
+            case .object:
+                message.addAttribute(.chatLinkToObject, value: mark.param, range: nsRange)
+            case .mention:
+                do {
+                    let mention = try await mentionObjectsService.searchMentionById(spaceId: spaceId, objectId: mark.param)
+                    message.addAttribute(.chatMention, value: mention, range: nsRange)
+                } catch {}
+            case .UNRECOGNIZED, .textColor, .backgroundColor, .emoji:
+                break
+            }
+        }
+        
+        return message.sendable()
     }
 }
 

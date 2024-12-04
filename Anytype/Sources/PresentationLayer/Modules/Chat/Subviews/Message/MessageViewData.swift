@@ -14,6 +14,8 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let nextSpacing: MessageViewSpacing
     let authorMode: MessageAuthorMode
     let showHeader: Bool
+    let canDelete: Bool
+    let canEdit: Bool
     
     var id: String {
         message.id

@@ -24,13 +24,12 @@ private struct HomeWidgetsInternalView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VerticalScrollViewWithOverlayHeader {
-                if !FeatureFlags.homeSpaceLevelChat {
+                if !FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId) {
                     HomeTopShadow()
                 }
             } content: {
                 VStack(spacing: 12) {
                     if model.dataLoaded {
-                        HomeUpdateSubmoduleView()
                         if model.showSpaceWidget {
                             SpaceWidgetView(spaceId: model.spaceId) {
                                 model.onSpaceSelected()
@@ -88,7 +87,7 @@ private struct HomeWidgetsInternalView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
-        .if(FeatureFlags.homeSpaceLevelChat) {
+        .if(FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId)) {
             $0.overlay(alignment: .top) {
                 HomeBlurEffectView(direction: .topToBottom)
                     .ignoresSafeArea()

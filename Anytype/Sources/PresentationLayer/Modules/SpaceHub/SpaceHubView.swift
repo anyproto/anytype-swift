@@ -31,6 +31,7 @@ struct SpaceHubView: View {
     var content: some View {
         VStack(spacing: 0) {
             navBar
+            HomeUpdateSubmoduleView().padding(8)
             
             if let spaces = model.spaces {
                 VStack(spacing: 8) {

@@ -624,9 +624,21 @@ internal enum Loc {
     }
   }
   internal enum Chat {
+    internal static let editMessage = Loc.tr("Localizable", "Chat.EditMessage", fallback: "Edit Message")
     internal static let readOnly = Loc.tr("Localizable", "Chat.ReadOnly", fallback: "Only editors can send messages. Contact the owner to request access.")
     internal static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
+    }
+    internal enum Actions {
+      internal enum Menu {
+        internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
+        internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
+        internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
+      }
+    }
+    internal enum DeleteMessage {
+      internal static let description = Loc.tr("Localizable", "Chat.DeleteMessage.Description", fallback: "It cannot be restored after confirmation")
+      internal static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     internal enum Empty {
       internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Write a first one to start a conversation")
@@ -712,6 +724,11 @@ internal enum Loc {
         internal enum State {
           internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet")
         }
+      }
+    }
+    internal enum Open {
+      internal enum Action {
+        internal static let title = Loc.tr("Localizable", "Date.Open.Action.title", fallback: "Open selected date")
       }
     }
   }

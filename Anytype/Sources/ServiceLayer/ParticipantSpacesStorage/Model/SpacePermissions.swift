@@ -6,8 +6,8 @@ struct SpacePermissions: Equatable {
     let canStopSharing: Bool
     let canEdit: Bool
     let canLeave: Bool
-    let canBeDelete: Bool
-    let canBeArchive: Bool
+    let canBeDeleted: Bool
+    let canBeArchived: Bool
     let canCancelJoinRequest: Bool
     let canDeleteLink: Bool
     let canEditPermissions: Bool
@@ -22,9 +22,9 @@ extension SpacePermissions {
         canStopSharing = isOwner && (spaceView.spaceAccessType == .shared) && !isLocalMode
         canEdit = participant?.canEdit ?? false
         canLeave = !isOwner && spaceView.isActive && !isLocalMode
-        canBeDelete = (isOwner && (spaceView.spaceAccessType == .private || spaceView.spaceAccessType == .shared))
+        canBeDeleted = (isOwner && (spaceView.spaceAccessType == .private || spaceView.spaceAccessType == .shared))
                         || (!isOwner && spaceView.accountStatus == .spaceRemoving)
-        canBeArchive = spaceView.isActive
+        canBeArchived = spaceView.isActive
         canCancelJoinRequest = spaceView.accountStatus == .spaceJoining
         canDeleteLink = isOwner && !isLocalMode
         canEditPermissions = isOwner && !isLocalMode

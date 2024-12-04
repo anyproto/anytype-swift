@@ -40,6 +40,8 @@ final class MessageViewModel: ObservableObject {
     @Published var nextSpacing: MessageViewSpacing = .disable
     @Published var authorMode: MessageAuthorMode = .hidden
     @Published var showHeader: Bool = true
+    @Published var canDelete: Bool = false
+    @Published var canEdit: Bool = false
     
     private let yourProfileIdentity: String?
     private var linkedObjectsDetails: [MessageAttachmentDetails] = []
@@ -83,6 +85,8 @@ final class MessageViewModel: ObservableObject {
         nextSpacing = data.nextSpacing
         authorMode = data.authorMode
         showHeader = data.showHeader
+        canDelete = data.canDelete
+        canEdit = data.canEdit
         
         if let replyChat = data.reply {
             let replyAttachment = data.replyAttachments.first
@@ -143,6 +147,14 @@ final class MessageViewModel: ObservableObject {
     
     func onTapReplyMessage() {
         output?.didSelectReplyMessage(message: data)
+    }
+    
+    func onTapEdit() async {
+        await output?.didSelectEditMessage(message: data)
+    }
+    
+    func onTapDelete() {
+        output?.didSelectDeleteMessage(message: data)
     }
     
     // MARK: - Private

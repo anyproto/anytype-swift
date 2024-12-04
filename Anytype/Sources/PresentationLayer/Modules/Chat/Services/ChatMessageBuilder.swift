@@ -34,7 +34,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     
     func makeMessage(messages: [ChatMessage], participants: [Participant]) async -> [MessageSectionData] {
         
-        let yourProfileIdentity = await accountParticipantsStorage.participants.first?.identity
+        let participant = await accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
+        let canEdit = participant?.canEdit ?? false
+        let yourProfileIdentity = participant?.identity
         
         var currentSectionData: MessageSectionData?
         var newMessageBlocks: [MessageSectionData] = []
@@ -60,6 +62,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             
             let lastForCurrentUser = nextMessage?.creator != message.creator
             
+            let isYourMessage = message.creator == yourProfileIdentity
+            
             let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
                 
                 let content: MessageReactionModelContent
@@ -75,13 +79,13 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 return MessageReactionModel(
                     emoji: key,
                     content: content,
-                    selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false
+                    selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false,
+                    isYourMessage: isYourMessage
                 )
             }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
             
             let replyMessage = await chatStorage.reply(message: message)
             let replyAttachments = await replyMessage.asyncMap { await chatStorage.attachments(message: $0) } ?? []
-            let isYourMessage = message.creator == yourProfileIdentity
             
             let messageModel = MessageViewData(
                 spaceId: spaceId,
@@ -95,7 +99,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 replyAuthor: participants.first { $0.identity == replyMessage?.creator },
                 nextSpacing: firstInSection ? .disable : (firstForCurrentUser || prevDateInternalIsBig ? .medium : .small),
                 authorMode: isYourMessage ? .hidden : (firstForCurrentUser || firstInSection || prevDateInternalIsBig ? .show : .empty),
-                showHeader: lastForCurrentUser || nextDateIntervalIsBig
+                showHeader: lastForCurrentUser || nextDateIntervalIsBig,
+                canDelete: isYourMessage && canEdit,
+                canEdit: isYourMessage && canEdit
             )
             
             if firstInSection {

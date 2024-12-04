@@ -74,7 +74,7 @@
 "Create relation" = "Crear relación ‘%@’";
 "Relation.View.Hint.Empty" = "vacío";
 "Relation.MyRelations" = "Mis relaciones";
-"Relation.AddedToLibrary" = "La relación ‘%@’ ha sido añadida a tu librería";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Relación eliminada";
 "Relation.From.Type" = "Del tipo %@";
 "Relation.EmptyState.title" = "Sin opciones";
@@ -721,7 +721,7 @@
 "ObjectType.SearchOrInstall" = "Buscar o instalar un nuevo tipo";
 "ObjectType.Search" = "Buscar un tipo";
 "ObjectType.MyTypes" = "Mis tipos";
-"ObjectType.AddedToLibrary" = "El tipo «%@» se ha añadido a tu biblioteca.";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Tipo eliminado";
 "ObjectType.editingType" = "Estás editando el tipo";
 
@@ -1258,6 +1258,8 @@ En concreto,
 "Chat.ReplyTo" = "Responder a %@";
 "Chat.Empty.Title" = "Aún no hay mensajes…";
 "Chat.Empty.Description" = "Escribe el primero para iniciar una conversación.";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";

@@ -86,6 +86,7 @@ private struct MessageInternalView: View {
             if model.reactions.isNotEmpty {
                 MessageReactionList(
                     rows: model.reactions,
+                    isYourMessage: model.isYourMessage,
                     onTapRow: { reaction in
                         try await model.onTapReaction(reaction)
                     },
@@ -193,6 +194,22 @@ private struct MessageInternalView: View {
             model.onTapReplyTo()
         } label: {
             Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
+        }
+        
+        if model.canEdit {
+            AsyncButton {
+                await model.onTapEdit()
+            } label: {
+                Label(Loc.edit, systemImage: "pencil")
+            }
+        }
+        
+        if model.canDelete {
+            Button(role: .destructive) {
+                model.onTapDelete()
+            } label: {
+                Label(Loc.delete, systemImage: "trash")
+            }
         }
     }
     

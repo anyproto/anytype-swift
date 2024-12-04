@@ -184,7 +184,7 @@ final class RelationValueCoordinatorViewModel:
                 spaceId: objectDetails.spaceId,
                 analyticsType: analyticsType
             )
-            return DateRelationCalendarView(
+            return RelationCalendarCoordinatorView(
                 date: dateValue,
                 configuration: configuration
             ).eraseToAnyView()

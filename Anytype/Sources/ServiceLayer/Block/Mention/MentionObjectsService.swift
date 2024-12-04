@@ -1,7 +1,9 @@
 import Services
+import AnytypeCore
 
 protocol MentionObjectsServiceProtocol: AnyObject {
     func searchMentions(spaceId: String, text: String, excludedObjectIds: [String], limitLayout: [DetailsLayout]) async throws -> [MentionObject]
+    func searchMentionById(spaceId: String, objectId: String) async throws -> MentionObject
 }
 
 final class MentionObjectsService: MentionObjectsServiceProtocol {
@@ -23,5 +25,18 @@ final class MentionObjectsService: MentionObjectsServiceProtocol {
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
         
         return details.map { MentionObject(details: $0) }
+    }
+    
+    func searchMentionById(spaceId: String, objectId: String) async throws -> MentionObject {
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.objectsIds([objectId])
+        }
+        
+        let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [], fullText: "", limit: 1)
+        guard let first = details.first else {
+            anytypeAssertionFailure("Mention object not found")
+            throw CommonError.undefined
+        }
+        return MentionObject(details: first)
     }
 }

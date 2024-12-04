@@ -74,7 +74,7 @@
 "Create relation" = "Vytvoriť prepojenie '%@'";
 "Relation.View.Hint.Empty" = "prázdne";
 "Relation.MyRelations" = "Moje prepojenia";
-"Relation.AddedToLibrary" = "Prepojenie '%@' pridané do vašej knižnice";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Odstránené prepojenie";
 "Relation.From.Type" = "Z typu %@";
 "Relation.EmptyState.title" = "Žiadne možnosti";
@@ -722,7 +722,7 @@
 "ObjectType.SearchOrInstall" = "Search or install a new type";
 "ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "My Types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Deleted type";
 "ObjectType.editingType" = "You're editing type";
 
@@ -1259,6 +1259,8 @@ Please provide specific details of your needs here.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
