@@ -74,7 +74,7 @@
 "Create relation" = "Створити зв'язок ’%@’";
 "Relation.View.Hint.Empty" = "пусто";
 "Relation.MyRelations" = "Мої відносини";
-"Relation.AddedToLibrary" = "Відношення ‘%@’ додано до вашої бібліотеки";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Видалене відношення";
 "Relation.From.Type" = "З типу %@";
 "Relation.EmptyState.title" = "No options";
@@ -721,7 +721,7 @@
 "ObjectType.SearchOrInstall" = "Знайдіть або встановіть новий тип";
 "ObjectType.Search" = "Пошук типу";
 "ObjectType.MyTypes" = "Мої типи";
-"ObjectType.AddedToLibrary" = "Тип ‘%@’ додано до вашої бібліотеки";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Видалений тип";
 "ObjectType.editingType" = "You're editing type";
 
@@ -1259,6 +1259,8 @@ Please provide specific details of your needs here.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
