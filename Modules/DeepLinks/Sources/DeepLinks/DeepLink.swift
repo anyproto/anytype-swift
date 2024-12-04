@@ -4,7 +4,8 @@ public enum DeepLink: Equatable {
     case spaceSelection
     case galleryImport(type: String, source: String)
     case invite(cid: String, key: String)
-    case object(objectId: String, spaceId: String)
+    case object(objectId: String, spaceId: String, cid: String?, key: String?)
+    
     case spaceShareTip
     case membership(tierId: Int)
 }

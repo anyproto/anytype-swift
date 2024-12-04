@@ -37,7 +37,7 @@ struct ObjectActionsView: View {
                         case .createWidget:
                             try await viewModel.createWidget()
                         case .copyLink:
-                            viewModel.copyLinkAction()
+                            try await viewModel.copyLinkAction()
                         }
                     }
                 }
