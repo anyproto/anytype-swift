@@ -74,7 +74,7 @@
 "Create relation" = "İlişki oluştur ‘%@’";
 "Relation.View.Hint.Empty" = "boş";
 "Relation.MyRelations" = "İlişkilerim";
-"Relation.AddedToLibrary" = "%@ ilişkisi kitaplığınıza eklendi";
+"Relation.AddedToLibrary" = "'%@' ilişkisi oluşturuldu";
 "Relation.Deleted" = "Silinmiş ilişki";
 "Relation.From.Type" = "%@ türünden";
 "Relation.EmptyState.title" = "Seçenek yok";
@@ -721,7 +721,7 @@
 "ObjectType.SearchOrInstall" = "Yeni bir tür arayın veya yükleyin";
 "ObjectType.Search" = "Tür ara";
 "ObjectType.MyTypes" = "Türlerim";
-"ObjectType.AddedToLibrary" = "'%@' türü kitaplığınıza eklendi";
+"ObjectType.AddedToLibrary" = "'%@' türü oluşturuldu";
 "ObjectType.DeletedName" = "Türü sil";
 "ObjectType.editingType" = "Düzenleme türünüz";
 
@@ -1260,6 +1260,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.ReplyTo" = "Yanıtla: %@";
 "Chat.Empty.Title" = "Burada henüz mesaj yok...";
 "Chat.Empty.Description" = "Bir konuşma başlatmak için ilk mesajı siz yazın";
+"Chat.Reactions.Empty.Title" = "Henüz tepki verilmemiş";
+"Chat.Reactions.Empty.Subtitle" = "Muhtemelen birisi tepkisini kaldırdı veya teknik bir sorun oluştu";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";
