@@ -86,7 +86,7 @@ extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == Em
         color: BottomAlertHeaderBackgroundColor,
         @ArrayBuilder<BottomAlertButton> buttons: () -> [BottomAlertButton]
     ) {
-        self.init(title: title, icon: icon, style: .color(color), buttons: buttons)
+        self.init(title: title, message: message, icon: icon, style: .color(color), buttons: buttons)
     }
     
     

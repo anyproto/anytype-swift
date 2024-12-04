@@ -195,6 +195,14 @@ private struct MessageInternalView: View {
         } label: {
             Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
         }
+        
+        if model.canDelete {
+            Button(role: .destructive) {
+                model.onTapDelete()
+            } label: {
+                Label(Loc.delete, systemImage: "trash")
+            }
+        }
     }
     
     private var messageBackgorundColor: Color {

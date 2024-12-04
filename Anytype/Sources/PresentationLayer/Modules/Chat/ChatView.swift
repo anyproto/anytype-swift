@@ -35,6 +35,9 @@ struct ChatView: View {
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
         }
+        .anytypeSheet(item: $model.deleteMessageConfirmation) {
+            ChatDeleteMessageAlert(message: $0)
+        }
         .homeBottomPanelHidden(true)
     }
     
