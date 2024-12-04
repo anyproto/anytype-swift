@@ -45,6 +45,7 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.writersLimit
         BundledRelationKey.sharedSpacesLimit
         BundledRelationKey.chatId
+        BundledRelationKey.spaceOrder
     }
 }
 
