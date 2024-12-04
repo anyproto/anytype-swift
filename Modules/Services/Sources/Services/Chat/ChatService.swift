@@ -5,6 +5,7 @@ public protocol ChatServiceProtocol: AnyObject {
     func getMessages(chatObjectId: String, beforeOrderId: String?, limit: Int?) async throws -> [ChatMessage]
     func getMessagesByIds(chatObjectId: String, messageIds: [String]) async throws -> [ChatMessage]
     func addMessage(chatObjectId: String, message: ChatMessage) async throws -> String
+    func updateMessage(chatObjectId: String, message: ChatMessage) async throws
     func subscribeLastMessages(chatObjectId: String, limit: Int?) async throws -> [ChatMessage]
     func unsubscribeLastMessages(chatObjectId: String) async throws
     func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws
@@ -35,6 +36,14 @@ final class ChatService: ChatServiceProtocol {
             $0.message = message
         }).invoke()
         return result.messageID
+    }
+    
+    func updateMessage(chatObjectId: String, message: ChatMessage) async throws {
+        try await ClientCommands.chatEditMessageContent(.with {
+            $0.chatObjectID = chatObjectId
+            $0.messageID = message.id
+            $0.editedMessage = message
+        }).invoke()
     }
     
     func subscribeLastMessages(chatObjectId: String, limit: Int?) async throws -> [ChatMessage] {

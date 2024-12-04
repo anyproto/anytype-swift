@@ -53,7 +53,11 @@ struct ChatView: View {
     
     private var inputPanel: some View {
         VStack(spacing: 0) {
-            if let replyToMessage = model.replyToMessage {
+            if model.editMessage.isNotNil {
+                ChatInputEditView {
+                    model.onTapDeleteEdit()
+                }
+            } else if let replyToMessage = model.replyToMessage {
                 ChatInputReplyView(model: replyToMessage) {
                     model.onTapDeleteReply()
                 }
