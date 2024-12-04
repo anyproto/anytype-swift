@@ -352,9 +352,10 @@ extension AccessoryViewStateManagerImpl: MentionViewDelegate {
             mentionsViewModel.setFilterString("")
             configuration.output?.accessoryState = .none
             
-            AnytypeAnalytics
-                .instance()
-                .logChangeTextStyle(.mention(MentionObject.noDetails(blockId: "")))
+            AnytypeAnalytics.instance().logChangeTextStyle(
+                markupType: .mention(MentionObject.noDetails(blockId: "")),
+                objectType: mention.details.objectType.isDateType ? .date : .custom
+            )
         }
     }
 }

@@ -25,6 +25,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var chatActionService: any ChatActionServiceProtocol
     @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
+    @Injected(\.chatService)
+    private var chatService: any ChatServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -45,6 +47,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     @Published var photosItemsTask = UUID()
     @Published var attachmentsDownloading: Bool = false
     @Published var replyToMessage: ChatInputReplyModel?
+    @Published var deleteMessageConfirmation: MessageViewData?
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     
@@ -241,6 +244,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         }
     }
     
+    func deleteMessage(message: MessageViewData) async throws {
+        try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
+    }
+    
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
@@ -274,6 +281,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             try await chatStorage.loadPagesTo(messageId: reply.id)
             collectionViewScrollProxy.scrollTo(itemId: reply.id)
         }
+    }
+    
+    func didSelectDeleteMessage(message: MessageViewData) {
+        deleteMessageConfirmation = message
     }
     
     // MARK: - Private
