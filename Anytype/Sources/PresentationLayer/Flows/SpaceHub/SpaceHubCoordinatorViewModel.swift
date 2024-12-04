@@ -272,16 +272,25 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
-        case .object(let objectId, let spaceId):
-            let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
-            try await document.open()
-            guard let editorData = document.details?.editorScreenData() else { return }
-            try await push(data: editorData)
+        case let .object(objectId, spaceId, cid, key):
+            await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
         case .spaceShareTip:
             showSpaceShareTip = true
         case .membership(let tierId):
             guard accountManager.account.isInProdOrStagingNetwork else { return }
             membershipTierId = tierId.identifiable
+        }
+    }
+    
+    private func handleObjectDeelpink(objectId: String, spaceId: String, cid: String?, key: String?) async {
+        let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
+        do {
+            try await document.open()
+            guard let editorData = document.details?.editorScreenData() else { return }
+            try? await push(data: editorData)
+        } catch let error {
+            guard let cid, let key else { return }
+            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
         }
     }
 

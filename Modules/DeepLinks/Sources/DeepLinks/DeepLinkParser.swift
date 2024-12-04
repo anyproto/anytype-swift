@@ -1,5 +1,6 @@
 import Foundation
 
+
 public protocol DeepLinkParserProtocol: AnyObject {
     func parse(url: URL) -> DeepLink?
     func createUrl(deepLink: DeepLink, scheme: DeepLinkScheme) -> URL?
@@ -68,7 +69,9 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         case LinkPaths.object:
             guard let objectId = queryItems.stringValue(key: "objectId"),
                   let spaceId = queryItems.stringValue(key: "spaceId") else { return nil }
-            return .object(objectId: objectId, spaceId: spaceId)
+            let cid = queryItems.stringValue(key: "cid")
+            let key = queryItems.stringValue(key: "key")
+            return .object(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
         case LinkPaths.spaceShareTip:
             return .spaceShareTip
         case LinkPaths.membership:
@@ -105,11 +108,13 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             ]
             
             return components.url
-        case .object(let objectId, let  spaceId):
+        case let .object(objectId, spaceId, cid, key):
             guard var components = URLComponents(string: host + LinkPaths.object) else { return nil }
             components.queryItems = [
                 URLQueryItem(name: "objectId", value: objectId),
-                URLQueryItem(name: "spaceId", value: spaceId)
+                URLQueryItem(name: "spaceId", value: spaceId),
+                URLQueryItem(name: "cid", value: cid),
+                URLQueryItem(name: "key", value: key)
             ]
             
             return components.url

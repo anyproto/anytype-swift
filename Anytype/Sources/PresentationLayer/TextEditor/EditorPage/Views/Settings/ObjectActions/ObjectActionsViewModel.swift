@@ -32,6 +32,8 @@ final class ObjectActionsViewModel: ObservableObject {
     private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.documentService)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     
     @Published var objectActions: [ObjectAction] = []
     @Published var toastData = ToastBarData.empty
@@ -160,9 +162,11 @@ final class ObjectActionsViewModel: ObservableObject {
         dismiss.toggle()
     }
     
-    func copyLinkAction() {
+    func copyLinkAction() async throws {
         guard let details = document.details else { return }
-        let link = deepLinkParser.createUrl(deepLink: .object(objectId: details.id, spaceId: details.spaceId), scheme: .main)
+        let invite = try? await workspaceService.getCurrentInvite(spaceId: details.spaceId)
+        let link = deepLinkParser.createUrl(deepLink: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey), scheme: .main)
+        
         UIPasteboard.general.string = link?.absoluteString
         toastData = ToastBarData(text: Loc.copied, showSnackBar: true)
         dismiss.toggle()
