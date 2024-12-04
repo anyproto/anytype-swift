@@ -1262,6 +1262,9 @@ Please provide specific details of your needs here.";
 "Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
 "Chat.Reactions.Empty.Title" = "No reactions yet";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.Actions.Menu.Objects" = "Select existing object";
+"Chat.Actions.Menu.Media" = "Upload media";
+"Chat.Actions.Menu.Files" = "Upload file";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
