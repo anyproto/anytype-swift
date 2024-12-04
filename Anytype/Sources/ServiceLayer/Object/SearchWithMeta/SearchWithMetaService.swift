@@ -29,7 +29,7 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol {
         )
         let filters: [DataviewFilter] = .builder {
             SearchHelper.includeIdsFilter(limitObjectIds)
-            SearchHelper.notHiddenFilters(includeHiddenDiscovery: false)
+            SearchHelper.notHiddenFilters()
         }
         return try await searchWithMetaMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
     }

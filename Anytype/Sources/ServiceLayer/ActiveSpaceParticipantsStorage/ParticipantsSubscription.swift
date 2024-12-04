@@ -44,7 +44,7 @@ actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilters(includeHiddenDiscovery: false)
+            SearchHelper.notHiddenFilters()
             SearchHelper.layoutFilter([.participant])
             SearchHelper.participantStatusFilter(.active, .joining, .removing)
         }

@@ -32,7 +32,10 @@ actor ObjectsListSubscriptionService: ObjectsListSubscriptionServiceProtocol {
             relation: sort.relation.key,
             type: sort.type
         )
-        let filter = SearchHelper.typeFilter([objectTypeId])
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.typeFilter([objectTypeId])
+            SearchHelper.notHiddenFilters()
+        }
         let keys: [BundledRelationKey] = .builder {
             BundledRelationKey.createdDate
             BundledRelationKey.lastModifiedDate
@@ -43,7 +46,7 @@ actor ObjectsListSubscriptionService: ObjectsListSubscriptionServiceProtocol {
                 identifier: subscriptionId,
                 spaceId: spaceId,
                 sorts: [sort],
-                filters: [filter],
+                filters: filters,
                 limit: 20,
                 offset: 0,
                 keys: keys.map { $0.rawValue }
