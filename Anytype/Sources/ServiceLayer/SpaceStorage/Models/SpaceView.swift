@@ -30,7 +30,7 @@ extension SpaceView: DetailsModel {
         self.chatId = details.chatId
     }
     
-    static var subscriptionKeys: [BundledRelationKey] = .builder {
+    static let subscriptionKeys: [BundledRelationKey] = .builder {
         BundledRelationKey.id
         BundledRelationKey.name
         BundledRelationKey.objectIconImageKeys
