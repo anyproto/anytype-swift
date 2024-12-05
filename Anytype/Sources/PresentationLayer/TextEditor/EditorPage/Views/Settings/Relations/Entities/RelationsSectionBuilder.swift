@@ -6,16 +6,34 @@ import AnytypeCore
 final class RelationsSectionBuilder {
     
     func buildObjectSections(from parsedRelations: ParsedRelations) -> [RelationsSection] {
-        let objectRelations = parsedRelations.sidebarRelations
-        
         var sections: [RelationsSection] = []
         
-        if objectRelations.isNotEmpty {
+        if parsedRelations.featuredRelations.isNotEmpty {
             sections.append(
                 RelationsSection(
-                    id: RelationsSection.Constants.typeRelationsSectionId,
-                    title: "",
-                    relations: objectRelations
+                    id: RelationsSection.Constants.featuredRelationsSectionId,
+                    title: Loc.header,
+                    relations: parsedRelations.featuredRelations
+                )
+            )
+        }
+        
+        if parsedRelations.sidebarRelations.isNotEmpty {
+            sections.append(
+                RelationsSection(
+                    id: RelationsSection.Constants.sidebarRelationsSectionId,
+                    title: Loc.Fields.menu,
+                    relations: parsedRelations.sidebarRelations
+                )
+            )
+        }
+        
+        if parsedRelations.conflictedRelations.isNotEmpty {
+            sections.append(
+                RelationsSection(
+                    id: RelationsSection.Constants.conflictingRelationsSectionId,
+                    title: Loc.Fields.missing,
+                    relations: parsedRelations.conflictedRelations
                 )
             )
         }

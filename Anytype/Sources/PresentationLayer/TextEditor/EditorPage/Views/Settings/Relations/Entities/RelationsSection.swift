@@ -6,14 +6,14 @@ struct RelationsSection: Identifiable {
     let relations: [Relation]
     
     var addedToObject: Bool {
-        id != Constants.typeRelationsSectionId
+        id != Constants.conflictingRelationsSectionId
     }
 }
 
 extension RelationsSection {
     enum Constants {
         static let featuredRelationsSectionId = "featuredRelationsSectionId"
-        static let otherRelationsSectionId = "otherRelationsSectionId"
-        static let typeRelationsSectionId = "typeRelationsSectionId"
+        static let sidebarRelationsSectionId = "sidebarRelationsSectionId"
+        static let conflictingRelationsSectionId = "conflictingRelationsSectionId"
     }
 }
