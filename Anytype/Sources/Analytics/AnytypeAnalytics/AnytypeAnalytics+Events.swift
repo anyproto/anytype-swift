@@ -674,18 +674,18 @@ extension AnytypeAnalytics {
             "DuplicateObject",
             spaceId: spaceId,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.count: count,
+                AnalyticsEventsPropertiesKey.count: count.description,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
             ]
         )
     }
     
     func logCopyBlock(spaceId: String, countBlocks: Int) {
-        logEvent("CopyBlock", spaceId: spaceId, withEventProperties: [AnalyticsEventsPropertiesKey.count: countBlocks])
+        logEvent("CopyBlock", spaceId: spaceId, withEventProperties: [AnalyticsEventsPropertiesKey.count: countBlocks.description])
     }
     
     func logPasteBlock(spaceId: String, countBlocks: Int) {
-        logEvent("PasteBlock", spaceId: spaceId, withEventProperties: [AnalyticsEventsPropertiesKey.count: countBlocks])
+        logEvent("PasteBlock", spaceId: spaceId, withEventProperties: [AnalyticsEventsPropertiesKey.count: countBlocks.description])
     }
     
     func logSetObjectDescription() {

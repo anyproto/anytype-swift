@@ -26,6 +26,7 @@ struct StatusBarStyleModifier: ViewModifier {
     
     let style: AnytypeStatusBarStyle
     
+    @available(*, deprecated) // Workround for disable deprecated API
     func body(content: Content) -> some View {
         content
             .onAppear {
