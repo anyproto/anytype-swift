@@ -61,6 +61,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let relativeDates = FeatureDescription(
+        title: "Turn on relative date for mentions / relations / widgets and so on (exept Date object inside)",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
+        defaultValue: true
+    )
+    
     static let homeSpaceLevelChat = FeatureDescription(
         title: "Space-Level Chat",
         type: .feature(author: "m@anytype.io", releaseVersion: "9"),
