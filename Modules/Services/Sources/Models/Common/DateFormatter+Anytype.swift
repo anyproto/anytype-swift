@@ -1,6 +1,6 @@
 import Foundation
 
-extension DateFormatter {
+public extension DateFormatter {
     static let relativeDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .none
