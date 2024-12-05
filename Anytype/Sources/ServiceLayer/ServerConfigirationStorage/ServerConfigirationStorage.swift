@@ -23,8 +23,8 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     private var serverConfig: NetworkServerConfig
     
     private enum Constants {
-        static var configStorageFolder = "Servers"
-        static var pathExtension = "yml"
+        static let configStorageFolder = "Servers"
+        static let pathExtension = "yml"
     }
     
     private let storagePath: URL
