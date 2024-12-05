@@ -142,6 +142,7 @@ public protocol BundledRelationsValueProvider {
     var mentions: [ObjectId] { get }
     var timestamp: Date? { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
+    var layoutWidth: Int? { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -656,5 +657,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// List of recommended featured relations
     var recommendedFeaturedRelations: [ObjectId] {
         return value(for: BundledRelationKey.recommendedFeaturedRelations.rawValue)
+    }
+    /// Width of object's layout
+    var layoutWidth: Int? {
+        return value(for: BundledRelationKey.layoutWidth.rawValue)
     }
 }

@@ -95,5 +95,6 @@ public extension BundledRelationKey {
         .hasChat,
         .timestamp,
         .recommendedFeaturedRelations,
+        .layoutWidth,
     ]
 }

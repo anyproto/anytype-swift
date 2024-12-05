@@ -383,4 +383,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// List of recommended featured relations
     case recommendedFeaturedRelations = "recommendedFeaturedRelations"
+
+    /// Width of object's layout
+    case layoutWidth = "layoutWidth"
 }
