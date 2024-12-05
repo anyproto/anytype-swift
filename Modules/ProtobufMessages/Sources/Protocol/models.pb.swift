@@ -2370,18 +2370,17 @@ public struct Anytype_Model_Block {
           public typealias RawValue = Int
           case none // = 0
           case count // = 1
-          case countValue // = 2
-          case countDistinct // = 3
-          case countEmpty // = 4
-          case countNotEmpty // = 5
-          case percentEmpty // = 6
-          case percentNotEmpty // = 7
-          case mathSum // = 8
-          case mathAverage // = 9
-          case mathMedian // = 10
-          case mathMin // = 11
-          case mathMax // = 12
-          case range // = 13
+          case countDistinct // = 2
+          case countEmpty // = 3
+          case countNotEmpty // = 4
+          case percentEmpty // = 5
+          case percentNotEmpty // = 6
+          case mathSum // = 7
+          case mathAverage // = 8
+          case mathMedian // = 9
+          case mathMin // = 10
+          case mathMax // = 11
+          case range // = 12
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -2392,18 +2391,17 @@ public struct Anytype_Model_Block {
             switch rawValue {
             case 0: self = .none
             case 1: self = .count
-            case 2: self = .countValue
-            case 3: self = .countDistinct
-            case 4: self = .countEmpty
-            case 5: self = .countNotEmpty
-            case 6: self = .percentEmpty
-            case 7: self = .percentNotEmpty
-            case 8: self = .mathSum
-            case 9: self = .mathAverage
-            case 10: self = .mathMedian
-            case 11: self = .mathMin
-            case 12: self = .mathMax
-            case 13: self = .range
+            case 2: self = .countDistinct
+            case 3: self = .countEmpty
+            case 4: self = .countNotEmpty
+            case 5: self = .percentEmpty
+            case 6: self = .percentNotEmpty
+            case 7: self = .mathSum
+            case 8: self = .mathAverage
+            case 9: self = .mathMedian
+            case 10: self = .mathMin
+            case 11: self = .mathMax
+            case 12: self = .range
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -2412,18 +2410,17 @@ public struct Anytype_Model_Block {
             switch self {
             case .none: return 0
             case .count: return 1
-            case .countValue: return 2
-            case .countDistinct: return 3
-            case .countEmpty: return 4
-            case .countNotEmpty: return 5
-            case .percentEmpty: return 6
-            case .percentNotEmpty: return 7
-            case .mathSum: return 8
-            case .mathAverage: return 9
-            case .mathMedian: return 10
-            case .mathMin: return 11
-            case .mathMax: return 12
-            case .range: return 13
+            case .countDistinct: return 2
+            case .countEmpty: return 3
+            case .countNotEmpty: return 4
+            case .percentEmpty: return 5
+            case .percentNotEmpty: return 6
+            case .mathSum: return 7
+            case .mathAverage: return 8
+            case .mathMedian: return 9
+            case .mathMin: return 10
+            case .mathMax: return 11
+            case .range: return 12
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -3350,7 +3347,6 @@ extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: CaseIterabl
   public static var allCases: [Anytype_Model_Block.Content.Dataview.Relation.FormulaType] = [
     .none,
     .count,
-    .countValue,
     .countDistinct,
     .countEmpty,
     .countNotEmpty,
@@ -8148,18 +8144,17 @@ extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: SwiftProtob
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "None"),
     1: .same(proto: "Count"),
-    2: .same(proto: "CountValue"),
-    3: .same(proto: "CountDistinct"),
-    4: .same(proto: "CountEmpty"),
-    5: .same(proto: "CountNotEmpty"),
-    6: .same(proto: "PercentEmpty"),
-    7: .same(proto: "PercentNotEmpty"),
-    8: .same(proto: "MathSum"),
-    9: .same(proto: "MathAverage"),
-    10: .same(proto: "MathMedian"),
-    11: .same(proto: "MathMin"),
-    12: .same(proto: "MathMax"),
-    13: .same(proto: "Range"),
+    2: .same(proto: "CountDistinct"),
+    3: .same(proto: "CountEmpty"),
+    4: .same(proto: "CountNotEmpty"),
+    5: .same(proto: "PercentEmpty"),
+    6: .same(proto: "PercentNotEmpty"),
+    7: .same(proto: "MathSum"),
+    8: .same(proto: "MathAverage"),
+    9: .same(proto: "MathMedian"),
+    10: .same(proto: "MathMin"),
+    11: .same(proto: "MathMax"),
+    12: .same(proto: "Range"),
   ]
 }
 
