@@ -36,10 +36,8 @@ struct ChatMentionList: View {
             Spacer()
         }
         .frame(height: Constants.itemHeight)
-        .overlay(alignment: .bottom) {
-            AnytypeDivider()
-        }
         .padding(.horizontal, 20)
+        .newDivider(leadingPadding: 72)
         .fixTappableArea()
         .onTapGesture {
             didSelect(model.object)
@@ -50,7 +48,7 @@ struct ChatMentionList: View {
         VStack(alignment: .leading) {
             title(for: model)
             Text(model.object.details.objectType.name)
-                .anytypeStyle(.caption1Regular)
+                .anytypeStyle(.relation2Regular)
                 .foregroundStyle(Color.Text.secondary)
                 .lineLimit(1)
         }
