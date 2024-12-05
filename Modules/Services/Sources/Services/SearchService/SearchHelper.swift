@@ -3,15 +3,16 @@ import SwiftProtobuf
 import Foundation
 
 public class SearchHelper {
-    public static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
-        sort(relationKey: relation.rawValue, type: type)
+    public static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum, noCollate: Bool = false) -> DataviewSort {
+        sort(relationKey: relation.rawValue, type: type, noCollate: noCollate)
     }
     
-    public static func sort(relationKey: String, type: DataviewSort.TypeEnum) -> DataviewSort {
+    public static func sort(relationKey: String, type: DataviewSort.TypeEnum, noCollate: Bool = false) -> DataviewSort {
         var sort = DataviewSort()
         sort.relationKey = relationKey
         sort.type = type
-        
+        sort.noCollate = noCollate // https://linear.app/anytype/issue/IOS-3813/add-nocollate-parameter-to-sort-model-for-spaceorder
+         
         return sort
     }
     
