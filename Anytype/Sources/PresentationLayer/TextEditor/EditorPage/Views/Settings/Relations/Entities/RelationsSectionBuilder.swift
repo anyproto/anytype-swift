@@ -5,7 +5,10 @@ import AnytypeCore
 
 final class RelationsSectionBuilder {
     
-    func buildObjectSections(from parsedRelations: ParsedRelations) -> [RelationsSection] {
+    func buildObjectSections(
+        parsedRelations: ParsedRelations,
+        onConflictingRelationsSectionTap: @escaping () -> ()
+    ) -> [RelationsSection] {
         var sections: [RelationsSection] = []
         
         if parsedRelations.featuredRelations.isNotEmpty {
@@ -13,7 +16,8 @@ final class RelationsSectionBuilder {
                 RelationsSection(
                     id: RelationsSection.Constants.featuredRelationsSectionId,
                     title: Loc.header,
-                    relations: parsedRelations.featuredRelations
+                    relations: parsedRelations.featuredRelations,
+                    action: nil
                 )
             )
         }
@@ -23,7 +27,8 @@ final class RelationsSectionBuilder {
                 RelationsSection(
                     id: RelationsSection.Constants.sidebarRelationsSectionId,
                     title: Loc.Fields.menu,
-                    relations: parsedRelations.sidebarRelations
+                    relations: parsedRelations.sidebarRelations,
+                    action: nil
                 )
             )
         }
@@ -33,7 +38,8 @@ final class RelationsSectionBuilder {
                 RelationsSection(
                     id: RelationsSection.Constants.conflictingRelationsSectionId,
                     title: Loc.Fields.missing,
-                    relations: parsedRelations.conflictedRelations
+                    relations: parsedRelations.conflictedRelations,
+                    action: RelationsSectionAction(asset: .X18.help, action: onConflictingRelationsSectionTap)
                 )
             )
         }

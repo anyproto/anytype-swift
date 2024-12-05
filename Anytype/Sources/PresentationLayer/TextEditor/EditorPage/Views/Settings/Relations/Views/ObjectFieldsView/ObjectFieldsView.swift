@@ -12,6 +12,9 @@ struct ObjectFieldsView: View {
     var body: some View {
         content
             .task { await model.setupSubscriptions() }
+            .anytypeSheet(isPresented: $model.showConflictingInfo) {
+                ObjectFieldsBottomAlert()
+            }
     }
     
     private var content: some View {
@@ -49,14 +52,14 @@ struct ObjectFieldsView: View {
     
     private var relationsList: some View {
         ScrollView {
-            LazyVStack(spacing: 0) {
+            LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(model.sections) { section in
-                    VStack(alignment: .leading, spacing: 0) {
-                        Section(header: sectionHeader(title: section.title)) {
-                            ForEach(section.relations) {
-                                row(with: $0, addedToObject: section.addedToObject)
-                            }
+                    Section {
+                        ForEach(section.relations) {
+                            row(with: $0, addedToObject: section.addedToObject)
                         }
+                    } header: {
+                        sectionHeader(section: section)
                     }
                 }
             }
@@ -64,12 +67,19 @@ struct ObjectFieldsView: View {
         }
     }
     
-    private func sectionHeader(title: String) -> some View {
+    private func sectionHeader(section: RelationsSection) -> some View {
         Group {
-            if title.isNotEmpty {
-                ListSectionHeaderView(title: title)
+            if let action = section.action {
+                ListSectionHeaderView(title: section.title) {
+                    Button {
+                        action.action()
+                    } label: {
+                        Image(asset: action.asset)
+                            .renderingMode(.original).frame(width: 18, height: 18)
+                    }
+                }
             } else {
-                EmptyView()
+                ListSectionHeaderView(title: section.title)
             }
         }
     }

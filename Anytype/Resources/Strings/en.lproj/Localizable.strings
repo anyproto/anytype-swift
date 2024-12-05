@@ -703,6 +703,7 @@
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "Apply";
+"Got it" = "I got it!";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -1271,7 +1272,6 @@ Please provide specific details of your needs here.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
@@ -1282,3 +1282,4 @@ Please provide specific details of your needs here.";
 // MARK: - Fields
 "Fields.menu" = "Fields menu";
 "Fields.missing" = "Missing fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";

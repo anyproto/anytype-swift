@@ -154,6 +154,7 @@ internal enum Loc {
   internal static let foreverFree = Loc.tr("Localizable", "Forever free", fallback: "Forever free")
   internal static let gallery = Loc.tr("Localizable", "Gallery", fallback: "Gallery")
   internal static let goBack = Loc.tr("Localizable", "Go back", fallback: "Go back")
+  internal static let gotIt = Loc.tr("Localizable", "Got it", fallback: "I got it!")
   internal static let gradients = Loc.tr("Localizable", "Gradients", fallback: "Gradients")
   internal static let green = Loc.tr("Localizable", "Green", fallback: "Green")
   internal static let greenBackground = Loc.tr("Localizable", "Green background", fallback: "Green background")
@@ -910,6 +911,7 @@ internal enum Loc {
   internal enum Fields {
     internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
     internal static let missing = Loc.tr("Localizable", "Fields.missing", fallback: "Missing fields")
+    internal static let missingInfo = Loc.tr("Localizable", "Fields.missingInfo", fallback: "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.")
   }
   internal enum FileStorage {
     internal static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
@@ -1217,7 +1219,6 @@ internal enum Loc {
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType", fallback: "Red pill")
   }
   internal enum ReindexingWarningAlert {
-    internal static let button = Loc.tr("Localizable", "ReindexingWarningAlert.Button", fallback: "I got it!")
     internal static let description = Loc.tr("Localizable", "ReindexingWarningAlert.Description", fallback: "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.")
     internal static let title = Loc.tr("Localizable", "ReindexingWarningAlert.Title", fallback: "Upgrading your search experience")
   }

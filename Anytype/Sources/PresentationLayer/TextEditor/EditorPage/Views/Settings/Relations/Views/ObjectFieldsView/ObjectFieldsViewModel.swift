@@ -8,6 +8,7 @@ import Combine
 @MainActor
 final class ObjectFieldsViewModel: ObservableObject {
     @Published var sections = [RelationsSection]()
+    @Published var showConflictingInfo = false
     
     var typeId: String? { document.details?.objectType.id }
     
@@ -37,7 +38,9 @@ final class ObjectFieldsViewModel: ObservableObject {
     
     func setupSubscriptions() async {
         for await relations in document.parsedRelationsPublisher.values {
-            sections = sectionsBuilder.buildObjectSections(from: relations)
+            sections = sectionsBuilder.buildObjectSections(parsedRelations: relations) { [weak self] in
+                self?.showConflictingInfo.toggle()
+            }
         }
     }
     
