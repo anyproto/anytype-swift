@@ -623,13 +623,31 @@ internal enum Loc {
     }
   }
   internal enum Chat {
+    internal static let editMessage = Loc.tr("Localizable", "Chat.EditMessage", fallback: "Edit Message")
     internal static let readOnly = Loc.tr("Localizable", "Chat.ReadOnly", fallback: "Only editors can send messages. Contact the owner to request access.")
     internal static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
     }
+    internal enum Actions {
+      internal enum Menu {
+        internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
+        internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
+        internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
+      }
+    }
+    internal enum DeleteMessage {
+      internal static let description = Loc.tr("Localizable", "Chat.DeleteMessage.Description", fallback: "It cannot be restored after confirmation")
+      internal static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
+    }
     internal enum Empty {
       internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Write a first one to start a conversation")
       internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages here yet...")
+    }
+    internal enum Reactions {
+      internal enum Empty {
+        internal static let subtitle = Loc.tr("Localizable", "Chat.Reactions.Empty.Subtitle", fallback: "Probably someone has just removed the reaction or technical issue happened")
+        internal static let title = Loc.tr("Localizable", "Chat.Reactions.Empty.Title", fallback: "No reactions yet")
+      }
     }
   }
   internal enum ClearCache {
@@ -705,6 +723,11 @@ internal enum Loc {
         internal enum State {
           internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet")
         }
+      }
+    }
+    internal enum Open {
+      internal enum Action {
+        internal static let title = Loc.tr("Localizable", "Date.Open.Action.title", fallback: "Open selected date")
       }
     }
   }
@@ -1154,7 +1177,7 @@ internal enum Loc {
   }
   internal enum ObjectType {
     internal static func addedToLibrary(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
+      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ has been created")
     }
     internal static let deletedName = Loc.tr("Localizable", "ObjectType.DeletedName", fallback: "Deleted type")
     internal static let editingType = Loc.tr("Localizable", "ObjectType.editingType", fallback: "You're editing type")
@@ -1199,7 +1222,7 @@ internal enum Loc {
   }
   internal enum Relation {
     internal static func addedToLibrary(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ added to your library")
+      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ has been created")
     }
     internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")

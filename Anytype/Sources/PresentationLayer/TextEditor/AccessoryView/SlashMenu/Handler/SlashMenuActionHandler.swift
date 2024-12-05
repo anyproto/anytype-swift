@@ -56,7 +56,7 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 let spaceId = document.spaceId
-                AnytypeAnalytics.instance().logCreateLink(spaceId: spaceId)
+                AnytypeAnalytics.instance().logCreateLink(spaceId: spaceId, objectType: object.objectType.analyticsType)
                 try await actionHandler
                     .createPage(
                         targetId: blockInformation.id,

@@ -74,7 +74,7 @@
 "Create relation" = "建立關聯 \"%@\"";
 "Relation.View.Hint.Empty" = "空的";
 "Relation.MyRelations" = "我的關聯";
-"Relation.AddedToLibrary" = "關聯 \"%@\" 已加入到您的資料庫";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "已刪除的關聯";
 "Relation.From.Type" = "來自類型 %@";
 "Relation.EmptyState.title" = "無選項";
@@ -723,7 +723,7 @@
 "ObjectType.SearchOrInstall" = "搜尋或安裝新類型";
 "ObjectType.Search" = "搜尋類型";
 "ObjectType.MyTypes" = "我的類型";
-"ObjectType.AddedToLibrary" = "類型 \"%@\" 已添加至您的筆記庫";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "已刪除類型";
 "ObjectType.editingType" = "You're editing type";
 
@@ -1242,6 +1242,7 @@
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Open.Action.title" = "Open selected date";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "排序方式";
@@ -1262,6 +1263,14 @@
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.DeleteMessage.Title" = "Delete this message?";
+"Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.EditMessage" = "Edit Message";
+"Chat.Actions.Menu.Objects" = "Select existing object";
+"Chat.Actions.Menu.Media" = "Upload media";
+"Chat.Actions.Menu.Files" = "Upload file";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

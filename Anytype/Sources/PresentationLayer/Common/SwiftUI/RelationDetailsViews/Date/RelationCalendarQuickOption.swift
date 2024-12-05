@@ -1,6 +1,6 @@
 import Foundation
 
-enum DateRelationCalendarQuickOption: String, CaseIterable, Identifiable {
+enum RelationCalendarQuickOption: String, CaseIterable, Identifiable {
     case today
     case tomorrow
     
@@ -21,6 +21,6 @@ enum DateRelationCalendarQuickOption: String, CaseIterable, Identifiable {
     }
     
     var isLast: Bool {
-        self == DateRelationCalendarQuickOption.allCases.last
+        self == RelationCalendarQuickOption.allCases.last
     }
 }

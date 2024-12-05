@@ -20,8 +20,6 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {

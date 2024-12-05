@@ -3,6 +3,7 @@ import SwiftUI
 
 struct MessageReactionAddView: View {
     
+    let isYourMessage: Bool
     let onTap: () -> Void
     
     var body: some View {
@@ -10,13 +11,15 @@ struct MessageReactionAddView: View {
             onTap()
         } label: {
             Image(asset: .X24.reaction)
+                .foregroundStyle(isYourMessage ? Color.Control.white : Color.Control.button)
                 .frame(width: 32, height: 32)
-                .background(Color.Background.highlightedMedium)
+                .background(Color.Shape.transperentPrimary)
                 .cornerRadius(16, style: .circular)
         }
     }
 }
 
 #Preview {
-    MessageReactionAddView(onTap: {})
+    MessageReactionAddView(isYourMessage: false, onTap: {})
+    MessageReactionAddView(isYourMessage: true, onTap: {})
 }

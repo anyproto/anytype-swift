@@ -21,7 +21,10 @@ struct DateView: View {
         .task(item: model.state) { state in
             await model.restartRelationSubscription(with: state)
         }
-        .onDisappear() {
+        .onAppear {
+            model.onAppear()
+        }
+        .onDisappear {
             model.onDisappear()
         }
     }
@@ -50,30 +53,35 @@ struct DateView: View {
     }
     
     private var titleView: some View {
-        HStack(alignment: .center) {
-            Image(asset: .X24.Arrow.left)
-                .foregroundColor(.Control.active)
-                .onTapGesture {
-                    model.onPrevDayTap()
-                }
-                .opacity(model.hasPrevDay() ? 1 : 0)
-            
-            Spacer()
-            AnytypeText(model.title, style: .title)
-                .foregroundColor(.Text.primary)
-                .padding(.vertical, 32)
-                .onTapGesture {
-                    model.onCalendarTap()
-                }
-            Spacer()
-            
-            Image(asset: .X24.Arrow.right)
-                .foregroundColor(.Control.active)
-                .onTapGesture {
-                    model.onNextDayTap()
-                }
-                .opacity(model.hasNextDay() ? 1 : 0)
+        VStack(spacing: 4) {
+            AnytypeText(model.weekday, style: .relation2Regular)
+                .foregroundColor(.Text.secondary)
+            HStack(alignment: .center) {
+                Image(asset: .X24.Arrow.left)
+                    .foregroundColor(.Control.active)
+                    .onTapGesture {
+                        model.onPrevDayTap()
+                    }
+                    .opacity(model.hasPrevDay() ? 1 : 0)
+                
+                Spacer()
+                AnytypeText(model.title, style: .title)
+                    .foregroundColor(.Text.primary)
+                    .onTapGesture {
+                        model.onCalendarTap()
+                    }
+                Spacer()
+                
+                Image(asset: .X24.Arrow.right)
+                    .foregroundColor(.Control.active)
+                    .onTapGesture {
+                        model.onNextDayTap()
+                    }
+                    .opacity(model.hasNextDay() ? 1 : 0)
+            }
         }
+        .padding(.top, 16)
+        .padding(.bottom, 32)
         .padding(.horizontal, 16)
     }
     
@@ -89,14 +97,11 @@ struct DateView: View {
     }
     
     private var emptyState: some View {
-        VStack {
-            Spacer()
-            AnytypeText(Loc.Date.Object.Empty.State.title, style: .bodyRegular)
-                .foregroundColor(.Text.secondary)
-                .padding(.vertical, 16)
-            Spacer.fixedHeight(80)
-            Spacer()
-        }
+        EmptyStateView(
+            title: "",
+            subtitle: Loc.Date.Object.Empty.State.title,
+            style: .plain
+        )
     }
     
     private var relationsListButton: some View {

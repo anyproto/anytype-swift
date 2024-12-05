@@ -14,7 +14,7 @@ struct HomeTabBarCoordinatorView: View {
     
     var body: some View {
         ZStack {
-            if FeatureFlags.homeSpaceLevelChat, let chatData = model.chatData {
+            if FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceInfo.accountSpaceId), let chatData = model.chatData {
                 tabBarBody(chatData: chatData)
             } else {
                 widgetsOnlyBody

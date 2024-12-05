@@ -322,3 +322,12 @@ enum ScreenSearchType: String {
 enum SearchInputRoute: String {
     case library = "Library"
 }
+
+enum StyleObjectType: String {
+    case date = "Date"
+    case custom = "Custom"
+}
+
+enum ObjectListSortRoute: String {
+    case screenDate = "ScreenDate"
+}

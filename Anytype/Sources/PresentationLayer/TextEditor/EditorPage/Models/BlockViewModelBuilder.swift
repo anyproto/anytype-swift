@@ -87,7 +87,7 @@ final class BlockViewModelBuilder {
             items.insert(.system(spacer), at: featureRelationsIndex + 2)
         } else if let featureRelationsIndex  {
             items.insert(.system(spacer), at: featureRelationsIndex + 1)
-        } else if let openFileButton  {
+        } else if let openFileButton, items.count > 0 {
             items.insert(openFileButton, at: 1)
             items.insert(.system(spacer), at: 2)
         }

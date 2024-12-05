@@ -21,8 +21,6 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.subscriptionStorageProvider)

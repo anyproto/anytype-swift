@@ -3,7 +3,12 @@ import Services
 import Foundation
 
 @MainActor
-final class DateRelationCalendarViewModel: ObservableObject {
+protocol RelationCalendarOutput: AnyObject {
+    func onOpenDateSelected(date: Date)
+}
+
+@MainActor
+final class RelationCalendarViewModel: ObservableObject {
     
     var date: Date
     @Published var dismiss = false
@@ -15,20 +20,30 @@ final class DateRelationCalendarViewModel: ObservableObject {
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
-    init(date: Date?, configuration: RelationModuleConfiguration) {
+    private weak var output: (any RelationCalendarOutput)?
+    
+    init(date: Date?, configuration: RelationModuleConfiguration, output: (any RelationCalendarOutput)?) {
         self.date = date ?? Date()
         self.config = configuration
+        self.output = output
+        let value = self.date.timeIntervalSince1970
+        updateDateRelation(with: value)
     }
     
     func dateChanged(_ newDate: Date) {
         let date = newDate.trimTime() ??  newDate
         let value = date.timeIntervalSince1970
+        self.date = newDate
         updateDateRelation(with: value)
     }
     
     func clear() {
         updateDateRelation(with: 0)
         dismiss.toggle()
+    }
+    
+    func onOpenCurrentDateSelected() {
+        output?.onOpenDateSelected(date: date)
     }
     
     private func updateDateRelation(with value: Double) {

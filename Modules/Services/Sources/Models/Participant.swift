@@ -16,6 +16,7 @@ public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsM
     public let identity: String
     public let identityProfileLink: String
     public let spaceId: String
+    public let type: String
     
     public init(details: ObjectDetails) throws {
         self.id = details.id
@@ -35,6 +36,7 @@ public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsM
         self.identity = details.identity
         self.identityProfileLink = details.identityProfileLink
         self.spaceId = details.spaceId
+        self.type = details.type
     }
     
     public static var subscriptionKeys: [BundledRelationKey] {
