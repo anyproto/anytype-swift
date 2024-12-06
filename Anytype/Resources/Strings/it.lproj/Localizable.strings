@@ -74,7 +74,7 @@
 "Create relation" = "Crea relazione ‘%@’";
 "Relation.View.Hint.Empty" = "vuoto";
 "Relation.MyRelations" = "Le mie relazioni";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "La relazione '%@' è stata creata";
 "Relation.Deleted" = "Relazione eliminata";
 "Relation.From.Type" = "Dal tipo %@";
 "Relation.EmptyState.title" = "Nessuna opzione";
@@ -721,7 +721,7 @@
 "ObjectType.SearchOrInstall" = "Cerca o crea un nuovo tipo";
 "ObjectType.Search" = "Cerca per Tipo";
 "ObjectType.MyTypes" = "I miei Tipi";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "Il tipo '%@' è stato creato";
 "ObjectType.DeletedName" = "Tipo eliminato";
 "ObjectType.editingType" = "Stai modificando il tipo";
 
@@ -1238,7 +1238,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Non c'è ancora nulla per questa data";
-"Date.Open.Action.title" = "Open selected date";
+"Date.Open.Action.title" = "Apri la data selezionata";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1259,14 +1259,14 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.ReplyTo" = "Rispondi a %@";
 "Chat.Empty.Title" = "Ancora nessun messaggio qui...";
 "Chat.Empty.Description" = "Scrivi un primo messaggio per iniziare una conversazione";
-"Chat.DeleteMessage.Title" = "Delete this message?";
-"Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
-"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
-"Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Objects" = "Select existing object";
-"Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload file";
+"Chat.DeleteMessage.Title" = "Eliminare questo messaggio?";
+"Chat.DeleteMessage.Description" = "Non può essere ripristinato dopo la conferma";
+"Chat.Reactions.Empty.Title" = "Ancora nessuna reazione";
+"Chat.Reactions.Empty.Subtitle" = "Probabilmente qualcuno ha appena rimosso la reazione o si è verificato un problema tecnico";
+"Chat.EditMessage" = "Modifica messaggio";
+"Chat.Actions.Menu.Objects" = "Selezionare l'oggetto esistente";
+"Chat.Actions.Menu.Media" = "Carica i media";
+"Chat.Actions.Menu.Files" = "Carica file";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
