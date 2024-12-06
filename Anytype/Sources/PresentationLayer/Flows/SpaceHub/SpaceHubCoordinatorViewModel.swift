@@ -288,7 +288,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             try await document.open()
             guard let editorData = document.details?.editorScreenData() else { return }
             try? await push(data: editorData)
-        } catch let error {
+        } catch {
             guard let cid, let key else { return }
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
         }

@@ -1,7 +1,6 @@
 import Foundation
 import Services
 
-
 final class AnytypeAnalytics: Sendable {
     
     private static let anytypeAnalytics = AnytypeAnalytics()

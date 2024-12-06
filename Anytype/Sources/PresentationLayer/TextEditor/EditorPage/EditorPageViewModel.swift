@@ -321,7 +321,7 @@ extension EditorPageViewModel {
 
 // MARK: - Debug
 
-extension EditorPageViewModel: CustomDebugStringConvertible {
+extension EditorPageViewModel: @preconcurrency CustomDebugStringConvertible {
     var debugDescription: String {
         "\(Unmanaged.passUnretained(self).toOpaque()) -> \(String(reflecting: Self.self)) -> \(String(describing: document.objectId))"
     }
