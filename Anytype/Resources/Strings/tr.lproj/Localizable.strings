@@ -1265,7 +1265,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.DeleteMessage.Description" = "Onaylandıktan sonra geri getirilemez";
 "Chat.Reactions.Empty.Title" = "Henüz tepki verilmemiş";
 "Chat.Reactions.Empty.Subtitle" = "Muhtemelen birisi tepkisini kaldırdı veya teknik bir sorun oluştu";
-"Chat.EditMessage" = "Edit Message";
+"Chat.EditMessage" = "Mesajı Düzenle";
 "Chat.Actions.Menu.Objects" = "Mevcut nesneyi seç";
 "Chat.Actions.Menu.Media" = "Ortam yükle";
 "Chat.Actions.Menu.Files" = "Dosya yükle";
