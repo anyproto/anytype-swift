@@ -46,13 +46,17 @@ final class VaultViewModel: ObservableObject {
             
             do {
                 state.mnemonic = try await authService.createWallet()
+                let iconOption = IconColorStorage.randomOption()
                 let account = try await authService.createAccount(
                     name: state.soul,
-                    iconOption: IconColorStorage.randomOption,
+                    iconOption: iconOption,
                     imagePath: ""
                 )
                 try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
-                try? await workspaceService.workspaceSetDetails(spaceId: account.info.accountSpaceId, details: [.name(Loc.myFirstSpace)])
+                try? await workspaceService.workspaceSetDetails(
+                    spaceId: account.info.accountSpaceId,
+                    details: [.name(Loc.myFirstSpace), .iconOption(iconOption)]
+                )
                 try? seedService.saveSeed(state.mnemonic)
                 
                 onSuccess()
