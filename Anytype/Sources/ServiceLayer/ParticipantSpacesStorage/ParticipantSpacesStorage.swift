@@ -92,7 +92,7 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
             objectId: accountManager.account.info.profileObjectID,
             additionalKeys: [.sharedSpacesLimit]
         ) { [weak self] details in
-            self?.sharedSpacesLimit = details.sharedSpacesLimit
+            await self?.handleSubscription(details: details)
         }
     }
     
@@ -102,6 +102,10 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     }
     
     // MARK: - Private
+    
+    private func handleSubscription(details: ObjectDetails) {
+        sharedSpacesLimit = details.sharedSpacesLimit
+    }
     
     private func updateData(spaces: [SpaceView], participants: [Participant]) {
         allParticipantSpaces = spaces.compactMap { space in

@@ -67,9 +67,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     func startSubscription() async {
         let data = subscriptionBuilder.build(techSpaceId: accountManager.account.info.techSpaceId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
-            guard let self else { return }
             let spaces = data.items.map { SpaceView(details: $0) }
-            allWorkspaces = customOrderBuilder.updateSpacesList(spaces: spaces)
+            await self?.updateSpaces(spaces)
         }
     }
     
@@ -99,5 +98,11 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func canCreateNewSpace() -> Bool {
         return activeWorkspaces.count < 50
+    }
+    
+    // MARK: - Private
+    
+    private func updateSpaces(_ spaces: [SpaceView]) {
+        allWorkspaces = customOrderBuilder.updateSpacesList(spaces: spaces)
     }
 }
