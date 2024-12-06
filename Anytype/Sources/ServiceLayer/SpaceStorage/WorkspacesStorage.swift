@@ -12,7 +12,6 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func stopSubscription() async
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
-    func move(space: SpaceView, after: SpaceView)
     func workspaceInfo(spaceId: String) -> AccountInfo?
     // TODO: Kostyl. Waiting when middleware to add method for receive account info without set active space
     func addWorkspaceInfo(spaceId: String, info: AccountInfo)
@@ -80,10 +79,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func spaceView(spaceId: String) -> SpaceView? {
         return allWorkspaces.first(where: { $0.targetSpaceId == spaceId })
-    }
-    
-    func move(space: SpaceView, after: SpaceView) {
-        // TBD;
     }
     
     func workspaceInfo(spaceId: String) -> AccountInfo? {
