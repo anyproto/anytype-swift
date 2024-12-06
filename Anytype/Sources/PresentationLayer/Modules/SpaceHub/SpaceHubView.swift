@@ -178,7 +178,7 @@ struct SpaceHubView: View {
                 Button { model.copySpaceInfo(spaceView: space.spaceView) } label: {
                     Text(Loc.copySpaceInfo)
                 }
-            } else {
+            } else if FeatureFlags.pinnedSpaces {
                 if space.spaceView.isPinned {
                     AsyncButton { try await model.unpin(spaceView: space.spaceView) } label: {
                         Text(Loc.unpin)
