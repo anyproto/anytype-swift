@@ -1,6 +1,5 @@
 import Foundation
 import Services
-import AnytypeCore
 
 final class AnytypeAnalytics: Sendable {
     

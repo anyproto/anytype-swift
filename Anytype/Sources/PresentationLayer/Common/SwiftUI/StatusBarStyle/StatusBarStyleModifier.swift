@@ -18,6 +18,7 @@ enum AnytypeStatusBarStyle {
     }
 }
 
+
 struct StatusBarStyleModifier: ViewModifier {
     
     private static var lastId: UUID?
@@ -26,7 +27,7 @@ struct StatusBarStyleModifier: ViewModifier {
     
     let style: AnytypeStatusBarStyle
     
-    @available(*, deprecated) // Workround for disable deprecated API
+    @available(*, deprecated) // Workround for disable deprecated API warning
     func body(content: Content) -> some View {
         content
             .onAppear {
