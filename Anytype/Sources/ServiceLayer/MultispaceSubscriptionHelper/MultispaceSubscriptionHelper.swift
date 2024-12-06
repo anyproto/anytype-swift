@@ -3,29 +3,26 @@ import AnytypeCore
 import Combine
 import Services
 
-protocol MultispaceSubscriptionDataBuilderProtocol: AnyObject {
+protocol MultispaceSubscriptionDataBuilderProtocol: AnyObject, Sendable {
     func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData
 }
 
-final class MultispaceSubscriptionHelper<Value: DetailsModel> {
+final class MultispaceSubscriptionHelper<Value: DetailsModel>: Sendable {
 
     // MARK: - DI
     
     private let subIdPrefix: String
     private let subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol
     
-    @Injected(\.workspaceStorage)
-    private var workspacessStorage: any WorkspacesStorageProtocol
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
+    private let workspacessStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
+    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     
     // MARK: - State
     
-    private(set) var data = SynchronizedDictionary<String, [Value]>()
+    let data = SynchronizedDictionary<String, [Value]>()
     
-    private var subscriptionStorages = SynchronizedDictionary<String, any SubscriptionStorageProtocol>()
+    private let subscriptionStorages = SynchronizedDictionary<String, any SubscriptionStorageProtocol>()
     private var spacesSubscription: AnyCancellable?
     
     init(subIdPrefix: String, subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol) {
@@ -35,14 +32,15 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel> {
     
     func startSubscription(update: @escaping () -> Void) async {
         // Start first subscription in current async context for guarantee data state before return
-        let spaceIds = await workspacessStorage.allWorkspaces
+        let spaceIds = workspacessStorage.allWorkspaces
             .filter { $0.isActive || $0.isLoading }
             .map { $0.targetSpaceId }
         await updateSubscriptions(spaceIds: spaceIds, update: update)
         
-        spacesSubscription = await workspacessStorage.allWorkspsacesPublisher
+        spacesSubscription = workspacessStorage.allWorkspsacesPublisher
             .map { $0.filter { $0.isActive || $0.isLoading }.map { $0.targetSpaceId } }
             .removeDuplicates()
+            .receiveOnMain()
             .sink { [weak self] spaceIds in
                 Task {
                     await self?.updateSubscriptions(spaceIds: spaceIds, update: update)

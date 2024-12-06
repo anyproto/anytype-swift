@@ -2,7 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol WorkspacesSubscriptionBuilderProtocol: AnyObject {
+protocol WorkspacesSubscriptionBuilderProtocol: AnyObject, Sendable {
     var subscriptionId: String { get }
     func build(techSpaceId: String) -> SubscriptionData
 }

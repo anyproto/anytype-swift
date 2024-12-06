@@ -3,7 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
-protocol SubscriptionStorageProtocol: AnyObject {
+protocol SubscriptionStorageProtocol: AnyObject, Sendable {
     var subId: String { get }
     var detailsStorage: ObjectDetailsStorage { get }
     

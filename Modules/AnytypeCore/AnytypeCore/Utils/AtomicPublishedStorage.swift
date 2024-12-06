@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-public final class AtomicPublishedStorage<T: Sendable>: @unchecked Sendable {
+public final class AtomicPublishedStorage<T: Sendable & Equatable>: @unchecked Sendable {
     
     private let lock = NSLock()
     private let subject: CurrentValueSubject<T, Never>
@@ -26,6 +26,6 @@ public final class AtomicPublishedStorage<T: Sendable>: @unchecked Sendable {
     public var publisher: AnyPublisher<T, Never> {
         lock.lock()
         defer { lock.unlock() }
-        return subject.eraseToAnyPublisher()
+        return subject.removeDuplicates().eraseToAnyPublisher()
     }
 }

@@ -3,9 +3,7 @@ import Combine
 import Services
 import AnytypeCore
 
-
-@MainActor
-protocol WorkspacesStorageProtocol: AnyObject {
+protocol WorkspacesStorageProtocol: AnyObject, Sendable {
     var allWorkspaces: [SpaceView] { get }
     var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { get }
     func startSubscription() async
@@ -39,36 +37,33 @@ extension WorkspacesStorageProtocol {
     }
 }
 
-@MainActor
 final class WorkspacesStorage: WorkspacesStorageProtocol {
     // MARK: - DI
     
-    @Injected(\.workspacesSubscriptionBuilder)
-    private var subscriptionBuilder: any WorkspacesSubscriptionBuilderProtocol
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
-    }()
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
+    private let subscriptionBuilder: any WorkspacesSubscriptionBuilderProtocol = Container.shared.workspacesSubscriptionBuilder()
+    private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
+    private let subscriptionStorage: any SubscriptionStorageProtocol
+    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     
     private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
     
     // MARK: - State
 
-    private var workspacesInfo: [String: AccountInfo] = [:]
+    private let workspacesInfo = SynchronizedDictionary<String, AccountInfo>()
     
-    @Published private(set) var allWorkspaces: [SpaceView] = []
-    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { $allWorkspaces.removeDuplicates().eraseToAnyPublisher() }
+    private let allWorkspacesStorage = AtomicPublishedStorage<[SpaceView]>([])
+    var allWorkspaces: [SpaceView] { allWorkspacesStorage.value }
+    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { allWorkspacesStorage.publisher }
     
-    nonisolated init() {}
+    init() {
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
+    }
     
     func startSubscription() async {
         let data = subscriptionBuilder.build(techSpaceId: accountManager.account.info.techSpaceId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             let spaces = data.items.map { SpaceView(details: $0) }
-            await self?.updateSpaces(spaces)
+            self?.updateSpaces(spaces)
         }
     }
     
@@ -77,15 +72,15 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     }
     
     func spaceView(spaceViewId: String) -> SpaceView? {
-        return allWorkspaces.first(where: { $0.id == spaceViewId })
+        return allWorkspacesStorage.value.first(where: { $0.id == spaceViewId })
     }
     
     func spaceView(spaceId: String) -> SpaceView? {
-        return allWorkspaces.first(where: { $0.targetSpaceId == spaceId })
+        return allWorkspacesStorage.value.first(where: { $0.targetSpaceId == spaceId })
     }
     
     func move(space: SpaceView, after: SpaceView) {
-        allWorkspaces = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
+        allWorkspacesStorage.value = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspacesStorage.value)
     }
     
     func workspaceInfo(spaceId: String) -> AccountInfo? {
@@ -103,6 +98,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     // MARK: - Private
     
     private func updateSpaces(_ spaces: [SpaceView]) {
-        allWorkspaces = customOrderBuilder.updateSpacesList(spaces: spaces)
+        allWorkspacesStorage.value = customOrderBuilder.updateSpacesList(spaces: spaces)
     }
 }
