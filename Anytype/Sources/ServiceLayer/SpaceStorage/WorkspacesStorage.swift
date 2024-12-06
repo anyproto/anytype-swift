@@ -60,7 +60,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     private var workspacesInfo: [String: AccountInfo] = [:]
     
     @Published private(set) var allWorkspaces: [SpaceView] = []
-    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { $allWorkspaces.eraseToAnyPublisher() }
+    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { $allWorkspaces.removeDuplicates().eraseToAnyPublisher() }
     
     nonisolated init() {}
     

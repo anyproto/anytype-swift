@@ -41,7 +41,7 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     // MARK: - State
     
     @Published private(set) var participants: [Participant] = []
-    var participantsPublisher: AnyPublisher<[Participant], Never> { $participants.eraseToAnyPublisher() }
+    var participantsPublisher: AnyPublisher<[Participant], Never> { $participants.removeDuplicates().eraseToAnyPublisher() }
     
     nonisolated init() {}
     
