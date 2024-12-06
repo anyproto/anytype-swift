@@ -24,7 +24,7 @@ struct SpaceHubDropDelegate: DropDelegate {
         let destinationIndex = finalIndex > initialIndex ? finalIndex - 1 : finalIndex + 1
         guard let destinationItem = allSpaces[safe: destinationIndex] else { return false }
         
-        workspacesStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView)
+        // TBD: Use spaceOrderService
         
         self.draggedItem = nil
         self.initialIndex = nil
