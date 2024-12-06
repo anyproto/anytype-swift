@@ -70,7 +70,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     // MARK: - Private
     private func startSubscriptions() {
         participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher
-            .delay(for: 0.3, scheduler: RunLoop.main)
+            .receiveOnMain()
             .sink { [weak self] spaces in
                 guard let self else { return }
                 
