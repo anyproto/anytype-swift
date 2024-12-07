@@ -164,6 +164,7 @@
 "Move" = "Переместить";
 "Move to" = "Переместить в";
 "Back" = "Назад";
+"Pin" = "Pin";
 "Unpin" = "Открепить";
 "Pin on top" = "Закрепить сверху";
 "File block subtitle" = "Сохранить файл в исходном состоянии";
@@ -703,6 +704,7 @@
 "Show" = "Показать";
 "Hide" = "Скрыть";
 "Apply" = "Apply";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -933,7 +935,6 @@
 "SpaceSettings.DeleteButton" = "Удалить пространство";
 "SpaceSettings.Share" = "Поделиться";
 "SpaceSettings.LeaveButton" = "Покинуть";
-"SpaceSettings.LeaveAlert.Title" = "Покинуть пространство";
 "SpaceSettings.LeaveAlert.Message" = "%@ пространство будет удалено с ваших устройств и у вас больше не будет к ним доступа ";
 "SpaceSettings.LeaveAlert.Toast" = "Вы покинули %@.";
 
@@ -1270,6 +1271,7 @@
 "Chat.Actions.Menu.Objects" = "Select existing object";
 "Chat.Actions.Menu.Media" = "Upload media";
 "Chat.Actions.Menu.Files" = "Upload file";
+"Chat.Participant.Badge" = "(You)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
