@@ -165,6 +165,7 @@
 "Move" = "Presunúť";
 "Move to" = "Presunúť do";
 "Back" = "Späť";
+"Pin" = "Pin";
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Uložiť súbor v pôvodnom stave";
@@ -704,6 +705,7 @@
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "Apply";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -934,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Share" = "Share";
 "SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
@@ -1268,6 +1269,7 @@ Please provide specific details of your needs here.";
 "Chat.Actions.Menu.Objects" = "Select existing object";
 "Chat.Actions.Menu.Media" = "Upload media";
 "Chat.Actions.Menu.Files" = "Upload file";
+"Chat.Participant.Badge" = "(You)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
