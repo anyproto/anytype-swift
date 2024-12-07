@@ -164,6 +164,7 @@
 "Move" = "移动";
 "Move to" = "移至";
 "Back" = "返回";
+"Pin" = "Pin";
 "Unpin" = "取消固定";
 "Pin on top" = "置顶";
 "File block subtitle" = "以原始状态存储文件";
@@ -704,6 +705,7 @@
 "Show" = "显示";
 "Hide" = "隐藏";
 "Apply" = "应用";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -934,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "删除空间";
 "SpaceSettings.Share" = "分享";
 "SpaceSettings.LeaveButton" = "离开";
-"SpaceSettings.LeaveAlert.Title" = "离开空间";
 "SpaceSettings.LeaveAlert.Message" = "%@ 空间将被从您的设备中删除，您将无法再访问它";
 "SpaceSettings.LeaveAlert.Toast" = "你离开了 %@。";
 
@@ -1269,6 +1270,7 @@
 "Chat.Actions.Menu.Objects" = "Select existing object";
 "Chat.Actions.Menu.Media" = "上传媒体文件";
 "Chat.Actions.Menu.Files" = "上传文件";
+"Chat.Participant.Badge" = "(You)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
