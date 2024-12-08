@@ -74,7 +74,7 @@
 "Create relation" = "Buat relasi ‘%@’";
 "Relation.View.Hint.Empty" = "kosong";
 "Relation.MyRelations" = "Relasiku";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "Relasi '%@' telah dibuat";
 "Relation.Deleted" = "Relasi terhapus";
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.EmptyState.title" = "Tidak ada opsi";
@@ -724,7 +724,7 @@
 "ObjectType.SearchOrInstall" = "Telusuri atau buat tipe baru";
 "ObjectType.Search" = "Telusuri Tipe";
 "ObjectType.MyTypes" = "Tipeku";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "Tipe '%@' telah dibuat";
 "ObjectType.DeletedName" = "Tipe yang terhapus";
 "ObjectType.editingType" = "You're editing type";
 
@@ -1240,7 +1240,7 @@ Please provide specific details of your needs here.";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Belum ada apa-apa untuk tanggal ini";
-"Date.Open.Action.title" = "Open selected date";
+"Date.Open.Action.title" = "Buka tanggal terpilih";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1261,15 +1261,15 @@ Please provide specific details of your needs here.";
 "Chat.ReplyTo" = "Balas %@";
 "Chat.Empty.Title" = "Belum ada pesan di sini …";
 "Chat.Empty.Description" = "Tulis pesan untuk memulai obrolan";
-"Chat.DeleteMessage.Title" = "Delete this message?";
-"Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
-"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
-"Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Objects" = "Select existing object";
-"Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload file";
-"Chat.Participant.Badge" = "(You)";
+"Chat.DeleteMessage.Title" = "Hapus pesan ini?";
+"Chat.DeleteMessage.Description" = "Pesan tak dapat dikembalikan lagi";
+"Chat.Reactions.Empty.Title" = "Belum ada reaksi";
+"Chat.Reactions.Empty.Subtitle" = "Mungkin seseorang menghapus reaksinya atau ada masalah teknis";
+"Chat.EditMessage" = "Sunting Pesan";
+"Chat.Actions.Menu.Objects" = "Pilih objek yang sudah ada";
+"Chat.Actions.Menu.Media" = "Unggah media";
+"Chat.Actions.Menu.Files" = "Unggah berkas";
+"Chat.Participant.Badge" = "(Kamu)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
