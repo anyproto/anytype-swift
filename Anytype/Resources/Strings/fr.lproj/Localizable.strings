@@ -164,7 +164,7 @@
 "Move" = "Déplacer";
 "Move to" = "Déplacer vers";
 "Back" = "Retour";
-"Pin" = "Pin";
+"Pin" = "Épingler";
 "Unpin" = "Désépingler";
 "Pin on top" = "Épingler en haut";
 "File block subtitle" = "Stocker le fichier dans l'état original";
@@ -704,7 +704,7 @@
 "Show" = "Montrer";
 "Hide" = "Masquer";
 "Apply" = "Appliquer";
-"Leave a space" = "Leave a space";
+"Leave a space" = "Quitter l'espace";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
