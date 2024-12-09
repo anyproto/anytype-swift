@@ -10,7 +10,6 @@ protocol WorkspacesStorageProtocol: AnyObject, Sendable {
     func stopSubscription() async
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
-    func move(space: SpaceView, after: SpaceView)
     func workspaceInfo(spaceId: String) -> AccountInfo?
     // TODO: Kostyl. Waiting when middleware to add method for receive account info without set active space
     func addWorkspaceInfo(spaceId: String, info: AccountInfo)
@@ -45,8 +44,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     private let subscriptionStorage: any SubscriptionStorageProtocol
     private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     
-    private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
-    
     // MARK: - State
 
     private let workspacesInfo = SynchronizedDictionary<String, AccountInfo>()
@@ -63,7 +60,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         let data = subscriptionBuilder.build(techSpaceId: accountManager.account.info.techSpaceId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             let spaces = data.items.map { SpaceView(details: $0) }
-            self?.updateSpaces(spaces)
+            self?.allWorkspacesStorage.value = spaces
         }
     }
     
@@ -79,10 +76,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         return allWorkspacesStorage.value.first(where: { $0.targetSpaceId == spaceId })
     }
     
-    func move(space: SpaceView, after: SpaceView) {
-        allWorkspacesStorage.value = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspacesStorage.value)
-    }
-    
     func workspaceInfo(spaceId: String) -> AccountInfo? {
         workspacesInfo[spaceId]
     }
@@ -93,11 +86,5 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func canCreateNewSpace() -> Bool {
         return activeWorkspaces.count < 50
-    }
-    
-    // MARK: - Private
-    
-    private func updateSpaces(_ spaces: [SpaceView]) {
-        allWorkspacesStorage.value = customOrderBuilder.updateSpacesList(spaces: spaces)
     }
 }

@@ -164,6 +164,7 @@
 "Move" = "Taşı";
 "Move to" = "Şuraya taşı";
 "Back" = "Geri";
+"Pin" = "Pin";
 "Unpin" = "Sabitlemeyi kaldır";
 "Pin on top" = "Başa sabitle";
 "File block subtitle" = "Dosyayı orijinal halinde sakla";
@@ -703,6 +704,7 @@
 "Show" = "Göster";
 "Hide" = "Gizle";
 "Apply" = "Uygula";
+"Leave a space" = "Bir boşluk bırak";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
@@ -934,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "Alanı sil";
 "SpaceSettings.Share" = "Paylaş";
 "SpaceSettings.LeaveButton" = "Ayrıl";
-"SpaceSettings.LeaveAlert.Title" = "Alandan ayrıl";
 "SpaceSettings.LeaveAlert.Message" = "%@ alanı cihazlarınızdan kaldırılacak ve artık buna erişiminiz olmayacak";
 "SpaceSettings.LeaveAlert.Toast" = "%@'den ayrıldınız.";
 
@@ -1269,6 +1270,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.Actions.Menu.Objects" = "Mevcut nesneyi seç";
 "Chat.Actions.Menu.Media" = "Ortam yükle";
 "Chat.Actions.Menu.Files" = "Dosya yükle";
+"Chat.Participant.Badge" = "(Siz)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";

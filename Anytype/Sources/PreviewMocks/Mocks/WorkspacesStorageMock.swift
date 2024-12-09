@@ -27,7 +27,8 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
                 spaceAccessType: .shared,
                 readersLimit: nil,
                 writersLimit: nil,
-                chatId: nil
+                chatId: nil,
+                isPinned: false
             )
         ]
     }
@@ -39,7 +40,6 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
     func startSubscription() async {}
     func stopSubscription() async {}
     func spaceView(spaceViewId: String) -> SpaceView? { return nil }
-    func move(space: SpaceView, after: SpaceView) { fatalError()}
     func workspaceInfo(spaceId: String) -> AccountInfo? { return nil }
     func addWorkspaceInfo(spaceId: String, info: AccountInfo) {}
     func canCreateNewSpace() -> Bool { true }

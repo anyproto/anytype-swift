@@ -164,6 +164,7 @@
 "Move" = "Déplacer";
 "Move to" = "Déplacer vers";
 "Back" = "Retour";
+"Pin" = "Épingler";
 "Unpin" = "Désépingler";
 "Pin on top" = "Épingler en haut";
 "File block subtitle" = "Stocker le fichier dans l'état original";
@@ -703,6 +704,7 @@
 "Show" = "Montrer";
 "Hide" = "Masquer";
 "Apply" = "Appliquer";
+"Leave a space" = "Quitter l'espace";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -933,7 +935,6 @@
 "SpaceSettings.DeleteButton" = "Supprimer l'espace";
 "SpaceSettings.Share" = "Partager";
 "SpaceSettings.LeaveButton" = "Quitter";
-"SpaceSettings.LeaveAlert.Title" = "Quitter l'espace";
 "SpaceSettings.LeaveAlert.Message" = "L'espace %@ sera supprimé de votre appareil et vous ne pourrez plus y avoir accès";
 "SpaceSettings.LeaveAlert.Toast" = "Vous avez quitté le %@.";
 
@@ -1268,6 +1269,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.Actions.Menu.Objects" = "Sélectionner l'objet existant";
 "Chat.Actions.Menu.Media" = "Télécharger des médias";
 "Chat.Actions.Menu.Files" = "Télécharger un fichier";
+"Chat.Participant.Badge" = "(Vous)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";

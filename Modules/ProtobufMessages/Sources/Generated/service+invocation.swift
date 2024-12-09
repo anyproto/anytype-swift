@@ -454,6 +454,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceSetOrder(
+        _ request: Anytype_Rpc.Space.SetOrder.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.SetOrder.Request, Anytype_Rpc.Space.SetOrder.Response> {
+        return Invocation(messageName: "SpaceSetOrder", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceSetOrder(requestData) ?? Data()
+            return try Anytype_Rpc.Space.SetOrder.Response(serializedData: responseData)
+        }
+    }
+
+    public static func spaceUnsetOrder(
+        _ request: Anytype_Rpc.Space.UnsetOrder.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.UnsetOrder.Request, Anytype_Rpc.Space.UnsetOrder.Response> {
+        return Invocation(messageName: "SpaceUnsetOrder", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceUnsetOrder(requestData) ?? Data()
+            return try Anytype_Rpc.Space.UnsetOrder.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectOpen(
         _ request: Anytype_Rpc.Object.Open.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.Open.Request, Anytype_Rpc.Object.Open.Response> {

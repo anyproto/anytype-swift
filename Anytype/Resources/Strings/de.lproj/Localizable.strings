@@ -164,6 +164,7 @@
 "Move" = "Verschieben";
 "Move to" = "Verschieben nach";
 "Back" = "Zurück";
+"Pin" = "Pin";
 "Unpin" = "Loslösen";
 "Pin on top" = "Oben anheften";
 "File block subtitle" = "Datei im Originalzustand speichern";
@@ -703,6 +704,7 @@
 "Show" = "Zeigen";
 "Hide" = "Verstecken";
 "Apply" = "Anwenden";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
@@ -934,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "Space löschen";
 "SpaceSettings.Share" = "Teilen";
 "SpaceSettings.LeaveButton" = "Verlassen";
-"SpaceSettings.LeaveAlert.Title" = "Space verlassen";
 "SpaceSettings.LeaveAlert.Message" = "%@ Space wird von deinen Geräten entfernt und du hast dann keinen Zugriff mehr darauf";
 "SpaceSettings.LeaveAlert.Toast" = "Du hast die %@ verlassen.";
 
@@ -1268,6 +1269,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Actions.Menu.Objects" = "Bestehendes Objekt auswählen";
 "Chat.Actions.Menu.Media" = "Medien hochladen";
 "Chat.Actions.Menu.Files" = "Datei hochladen";
+"Chat.Participant.Badge" = "(Du)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";

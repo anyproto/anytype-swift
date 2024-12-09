@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .primitives)
     }
 
+    static var pinnedSpaces: Bool {
+        value(for: .pinnedSpaces)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -115,6 +119,7 @@ public extension FeatureFlags {
         .dateAsAnObject,
         .homeSpaceLevelChat,
         .primitives,
+        .pinnedSpaces,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -164,6 +164,7 @@
 "Move" = "Verplaats";
 "Move to" = "Verplaats naar";
 "Back" = "Terug";
+"Pin" = "Pin";
 "Unpin" = "Maak los";
 "Pin on top" = "Zet vast bovenaan";
 "File block subtitle" = "Sla bestand op in oorspronkelijke staat";
@@ -703,6 +704,7 @@
 "Show" = "Toon";
 "Hide" = "Verberg";
 "Apply" = "Pas toe";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";
@@ -934,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
 "SpaceSettings.Share" = "Deel";
 "SpaceSettings.LeaveButton" = "Verlaat";
-"SpaceSettings.LeaveAlert.Title" = "Verlaat een ruimte";
 "SpaceSettings.LeaveAlert.Message" = "%@ ruimte zal worden verwijderd van jouw apparaten en je hebt er dan geen toegang meer toe";
 "SpaceSettings.LeaveAlert.Toast" = "Je hebt de %@ verlaten.";
 
@@ -1269,6 +1270,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.Actions.Menu.Objects" = "Select existing object";
 "Chat.Actions.Menu.Media" = "Upload media";
 "Chat.Actions.Menu.Files" = "Upload file";
+"Chat.Participant.Badge" = "(You)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";
