@@ -54,10 +54,10 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     private let subscriptionService: any SingleObjectSubscriptionServiceProtocol = Container.shared.singleObjectSubscriptionService()
     private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     
-    private var subscriptions: [AnyCancellable] = []
+    private let subscription = AtomicStorage<AnyCancellable?>(nil)
     private let subId = "ParticipantSpacesStorage-\(UUID().uuidString)"
     
-    private var sharedSpacesLimit: Int?
+    private let sharedSpacesLimit = AtomicStorage<Int?>(nil)
     private let allParticipantSpacesStorage = AtomicPublishedStorage<[ParticipantSpaceViewData]>([])
 
     // MARK: - Public
@@ -68,17 +68,16 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     nonisolated init() {}
     
     var spaceSharingInfo: SpaceSharingInfo? {
-        guard let sharedSpacesLimit else { return nil }
+        guard let sharedSpacesLimit = sharedSpacesLimit.value else { return nil }
         let sharedSpacesCount = allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count
         return SpaceSharingInfo(sharedSpacesLimit: sharedSpacesLimit, sharedSpacesCount: sharedSpacesCount)
     }
     
     func startSubscription() async {
-        Publishers.CombineLatest(workspaceStorage.allWorkspsacesPublisher, accountParticipantsStorage.participantsPublisher)
+        subscription.value = Publishers.CombineLatest(workspaceStorage.allWorkspsacesPublisher, accountParticipantsStorage.participantsPublisher)
             .sink { [weak self] spaces, participants in
                 self?.updateData(spaces: spaces, participants: participants)
             }
-            .store(in: &subscriptions)
         
         await subscriptionService.startSubscription(
             subId: subId,
@@ -91,14 +90,15 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     }
     
     func stopSubscription() async {
-        subscriptions.removeAll()
+        subscription.value?.cancel()
+        subscription.value = nil
         await subscriptionService.stopSubscription(subId: subId)
     }
     
     // MARK: - Private
     
     private func handleSubscription(details: ObjectDetails) {
-        sharedSpacesLimit = details.sharedSpacesLimit
+        sharedSpacesLimit.value = details.sharedSpacesLimit
     }
     
     private func updateData(spaces: [SpaceView], participants: [Participant]) {

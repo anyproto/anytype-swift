@@ -23,7 +23,7 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel>: Sendable {
     let data = SynchronizedDictionary<String, [Value]>()
     
     private let subscriptionStorages = SynchronizedDictionary<String, any SubscriptionStorageProtocol>()
-    private var spacesSubscription: AnyCancellable?
+    private let spacesSubscription = AtomicStorage<AnyCancellable?>(nil)
     
     init(subIdPrefix: String, subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol) {
         self.subIdPrefix = subIdPrefix
@@ -37,7 +37,7 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel>: Sendable {
             .map { $0.targetSpaceId }
         await updateSubscriptions(spaceIds: spaceIds, update: update)
         
-        spacesSubscription = workspacessStorage.allWorkspsacesPublisher
+        spacesSubscription.value = workspacessStorage.allWorkspsacesPublisher
             .map { $0.filter { $0.isActive || $0.isLoading }.map { $0.targetSpaceId } }
             .removeDuplicates()
             .receiveOnMain()
@@ -49,8 +49,8 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel>: Sendable {
     }
     
     func stopSubscription() async {
-        spacesSubscription?.cancel()
-        spacesSubscription = nil
+        spacesSubscription.value?.cancel()
+        spacesSubscription.value = nil
         for subscriptionStorage in subscriptionStorages.values {
             try? await subscriptionStorage.stopSubscription()
         }
