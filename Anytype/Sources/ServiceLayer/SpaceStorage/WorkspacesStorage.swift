@@ -12,7 +12,6 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func stopSubscription() async
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
-    func move(space: SpaceView, after: SpaceView)
     func workspaceInfo(spaceId: String) -> AccountInfo?
     // TODO: Kostyl. Waiting when middleware to add method for receive account info without set active space
     func addWorkspaceInfo(spaceId: String, info: AccountInfo)
@@ -53,8 +52,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     
-    private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
-    
     // MARK: - State
 
     private var workspacesInfo: [String: AccountInfo] = [:]
@@ -68,8 +65,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         let data = subscriptionBuilder.build(techSpaceId: accountManager.account.info.techSpaceId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
-            let spaces = data.items.map { SpaceView(details: $0) }
-            allWorkspaces = customOrderBuilder.updateSpacesList(spaces: spaces)
+            allWorkspaces = data.items.map { SpaceView(details: $0) }
         }
     }
     
@@ -83,10 +79,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func spaceView(spaceId: String) -> SpaceView? {
         return allWorkspaces.first(where: { $0.targetSpaceId == spaceId })
-    }
-    
-    func move(space: SpaceView, after: SpaceView) {
-        allWorkspaces = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
     }
     
     func workspaceInfo(spaceId: String) -> AccountInfo? {

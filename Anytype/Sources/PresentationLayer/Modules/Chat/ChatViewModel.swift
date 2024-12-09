@@ -58,7 +58,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     @Published var mentionSearchState = ChatTextMention.finish
     @Published var mesageBlocks: [MessageSectionData] = []
-    @Published var mentionObjects: [MentionObject] = []
+    @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
     
     private var messages: [ChatMessage] = []
@@ -167,9 +167,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     func updateMentionState() async throws {
         switch mentionSearchState {
         case let .search(searchText, _):
-            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [], limitLayout: [.participant])
+            let mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [], limitLayout: [.participant])
+            mentionObjectsModels = handledMentionObjects(mentionObjects)
         case .finish:
-            mentionObjects = []
+            mentionObjectsModels = []
         }
     }
     
@@ -353,5 +354,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         photosItems = []
         replyToMessage = nil
         editMessage = nil
+    }
+    
+    private func handledMentionObjects(_ mentionObjects: [MentionObject]) -> [MentionObjectModel] {
+        let isYourIdentityProfileLink = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }?.identityProfileLink
+        return mentionObjects.map { mentionObject in
+            let titleBadge = mentionObject.details.identityProfileLink == isYourIdentityProfileLink ? Loc.Chat.Participant.badge : nil
+            return MentionObjectModel(object: mentionObject, titleBadge: titleBadge)
+        }
     }
 }
