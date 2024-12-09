@@ -35,6 +35,7 @@ public extension DetailsLayout {
     var isNote: Bool { self == .note }
     var isImage: Bool { self == .image }
     var isParticipant: Bool { self == .participant }
+    var isDate: Bool { self == .date }
     
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }

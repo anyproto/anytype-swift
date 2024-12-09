@@ -8,6 +8,9 @@ protocol DocumentViewModelSetterProtocol: AnyObject {
 
 final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     
+    @Injected(\.mentionTextUpdateHandler)
+    private var mentionTextUpdateHandler: any MentionTextUpdateHandlerProtocol
+    
     private let detailsStorage: ObjectDetailsStorage
     private let relationKeysStorage: any RelationKeysStorageProtocol
     private let restrictionsContainer: ObjectRestrictionsContainer
@@ -53,6 +56,14 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
         let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
         
         restrictionsContainer.restrinctions = restrinctions
+        
+        if FeatureFlags.relativeDates {
+            mentionTextUpdateHandler.updateMentionsTextsIfNeeded(
+                objectId: data.rootID,
+                infoContainer: infoContainer,
+                detailsStorage: detailsStorage
+            )
+        }
     }
     
     // MARK: - Private

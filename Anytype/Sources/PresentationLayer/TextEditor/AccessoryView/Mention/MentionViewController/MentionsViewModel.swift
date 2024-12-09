@@ -23,8 +23,6 @@ final class MentionsViewModel {
     private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
     
     private var searchTask: Task<(), any Error>?
-
-    private let formatter = DateFormatter.relativeDateFormatter
     
     private let router: any EditorRouterProtocol
     
