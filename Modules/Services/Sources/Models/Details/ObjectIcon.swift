@@ -13,6 +13,23 @@ public enum ObjectIcon: Hashable, Sendable, Equatable {
     case empty(EmptyType)
 }
 
+public extension ObjectIcon {
+    var imageId: String? {
+        switch self {
+        case .basic(let imageId):
+            return imageId
+        case .profile(let data):
+            return data.imageId
+        case .bookmark(let imageId):
+            return imageId
+        case .space(let data):
+            return data.imageId
+        case .todo(_, _), .emoji(_), .placeholder(_), .file(_, _), .deleted, .empty(_):
+            return nil
+        }
+    }
+}
+
 // MARK: - ProfileIcon
 
 public extension ObjectIcon {
@@ -20,6 +37,15 @@ public extension ObjectIcon {
     enum Profile: Hashable, Sendable {
         case imageId(String)
         case name(String)
+        
+        var imageId: String? {
+            switch self {
+            case .imageId(let imageId):
+                return imageId
+            case .name(_):
+                return nil
+            }
+        }
     }
     
 }
@@ -28,6 +54,15 @@ public extension ObjectIcon {
     enum Space: Hashable, Sendable {
         case name(name: String, iconOption: Int)
         case imageId(_ imageId: String)
+        
+        var imageId: String? {
+            switch self {
+            case .imageId(let imageId):
+                return imageId
+            case .name(_, _):
+                return nil
+            }
+        }
     }
 }
 
