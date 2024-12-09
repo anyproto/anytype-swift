@@ -2,7 +2,7 @@ import ProtobufMessages
 import Services
 import AnytypeCore
 
-protocol SubscriptionTogglerProtocol {
+protocol SubscriptionTogglerProtocol: Sendable {
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult
     func stopSubscription(id: String) async throws
     func stopSubscriptions(ids: [String]) async throws
@@ -10,10 +10,8 @@ protocol SubscriptionTogglerProtocol {
 
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
-    @Injected(\.objectSubscriptionService)
-    private var objectSubscriptionService: any ObjectSubscriptionServiceProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
+    private let objectSubscriptionService: any ObjectSubscriptionServiceProtocol = Container.shared.objectSubscriptionService()
+    private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
     
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult {
         switch data {

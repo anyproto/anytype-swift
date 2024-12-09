@@ -34,7 +34,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     
     func makeMessage(messages: [ChatMessage], participants: [Participant]) async -> [MessageSectionData] {
         
-        let participant = await accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
+        let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let canEdit = participant?.canEdit ?? false
         let yourProfileIdentity = participant?.identity
         

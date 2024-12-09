@@ -239,7 +239,7 @@ final class SetDocument: SetDocumentProtocol {
         }
         .store(in: &subscriptions)
         
-        await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
+        accountParticipantsStorage.canEditPublisher(spaceId: spaceId).receiveOnMain().sink { [weak self] canEdit in
             self?.participantIsEditor = canEdit
             self?.updateData()
         }.store(in: &subscriptions)

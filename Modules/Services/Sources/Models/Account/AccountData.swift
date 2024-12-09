@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public struct AccountData: Sendable {
+public struct AccountData: Sendable, Equatable {
     
     public let id: String
     public let config: AccountConfiguration

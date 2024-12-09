@@ -2,7 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol SingleObjectSubscriptionServiceProtocol: AnyObject {
+protocol SingleObjectSubscriptionServiceProtocol: AnyObject, Sendable {
     func startSubscription(
         subId: String,
         spaceId: String,

@@ -254,7 +254,7 @@ final class BaseDocument: BaseDocumentProtocol {
             self?.triggerSync(updates: [.syncStatus])
         }.store(in: &subscriptions)
         
-        accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
+        accountParticipantsStorage.canEditPublisher(spaceId: spaceId).receiveOnMain().sink { [weak self] canEdit in
             self?.participantIsEditor = canEdit
             self?.triggerSync(updates: [.restrictions])
         }

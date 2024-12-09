@@ -3,7 +3,7 @@ import Combine
 import Services
 import Factory
 
-final class WorkspacesStorageMock: WorkspacesStorageProtocol {
+final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendable {
     
     nonisolated static let shared = WorkspacesStorageMock()
     

@@ -65,7 +65,7 @@ actor AnytypeAnalyticsCore {
     
     func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: @autoclosure () -> [AnyHashable : Any]?) async {
         var eventProperties = eventProperties() ?? [:]
-        let participantSpaceView = await participantSpacesStorage.participantSpaceView(spaceId: spaceId)
+        let participantSpaceView = participantSpacesStorage.participantSpaceView(spaceId: spaceId)
         
         if let permissions = participantSpaceView?.participant?.permission.analyticsType {
             eventProperties[AnalyticsEventsPropertiesKey.permissions] = permissions.rawValue

@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public struct AccountConfiguration: Sendable {    
+public struct AccountConfiguration: Sendable, Equatable {    
     let enableSpaces: Bool
     let enableDataview: Bool
     let enableDebug: Bool
