@@ -86,6 +86,7 @@ final class ChatCollectionViewCoordinator<
         
         let oldContentSize = collectionView.contentSize
         let oldContentOffset = collectionView.contentOffset
+        let olsIsNearTop = (collectionView.contentOffset.y - collectionView.topOffset.y) < 30
         
         self.sections = sections
         
@@ -110,7 +111,8 @@ final class ChatCollectionViewCoordinator<
                 CATransaction.commit()
                 return
             }
-                
+            
+            // Safe offset for visible cells
             let diffY = visibleCellAttributes.frame.minY - oldVisibleCellAttributes.frame.minY
             
             let offsetY = oldContentOffset.y + diffY
@@ -122,7 +124,8 @@ final class ChatCollectionViewCoordinator<
             // Apply the update only after set the correct offset
             CATransaction.commit()
             
-            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: oldContentOffset.y == 0)
+            // Sctoll to scrollProxy or restore top position
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: olsIsNearTop)
         }
     }
     
@@ -189,6 +192,6 @@ final class ChatCollectionViewCoordinator<
     }
     
     private func scrollToTop(collectionView: UICollectionView) {
-        collectionView.setContentOffset(CGPoint.zero, animated: true)
+        collectionView.setContentOffset(collectionView.topOffset, animated: true)
     }
 }
