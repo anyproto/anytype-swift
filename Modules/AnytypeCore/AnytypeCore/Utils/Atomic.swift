@@ -1,7 +1,7 @@
 import Foundation
 
 @propertyWrapper
-public struct Atomic<Value>: @unchecked Sendable {
+public struct Atomic<Value> {
 
     private var value: Value
     private let lock = NSLock()
