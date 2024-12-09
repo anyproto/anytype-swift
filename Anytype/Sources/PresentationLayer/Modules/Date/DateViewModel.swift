@@ -319,7 +319,6 @@ final class DateViewModel: ObservableObject {
         if Calendar.current.isDateInTomorrow(date) {
             return Loc.tomorrow
         }
-        
         return ""
     }
 }
