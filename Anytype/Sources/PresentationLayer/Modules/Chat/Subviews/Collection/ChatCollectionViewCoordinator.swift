@@ -9,7 +9,7 @@ final class ChatCollectionViewCoordinator<
     DataView: View,
     HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item {
     
-    private let distanceForLoadNextPage: CGFloat = 1000
+    private let distanceForLoadNextPage: CGFloat = 300
     private var canCallScrollToBottom = false
     private var scrollUpdateTask: AnyCancellable?
     private var sections: [Section] = []
@@ -41,14 +41,12 @@ final class ChatCollectionViewCoordinator<
     
         let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueConfiguredReusableCell(using: itemRegistration, for: indexPath, item: item)
-            cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
             return cell
         }
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView in
             let cell = collectionView.dequeueConfiguredReusableSupplementary(using: sectionRegistration, for: indexPath)
-            cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
             return cell
         }
@@ -60,7 +58,7 @@ final class ChatCollectionViewCoordinator<
     
     func updateState(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
         guard let dataSource, self.sections != sections else {
-            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: false)
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: false)
             return
         }
         
@@ -86,7 +84,7 @@ final class ChatCollectionViewCoordinator<
         
         let oldContentSize = collectionView.contentSize
         let oldContentOffset = collectionView.contentOffset
-        let oldIsNearTop = (collectionView.contentOffset.y - collectionView.topOffset.y) < 30
+        let oldIsNearBottom = (collectionView.bottomOffset.y - collectionView.contentOffset.y) < 30
         
         self.sections = sections
         
@@ -96,6 +94,7 @@ final class ChatCollectionViewCoordinator<
             guard let self else { return }
             
             defer {
+                appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: oldIsNearBottom)
                 canCallScrollToBottom = true
             }
             
@@ -123,9 +122,6 @@ final class ChatCollectionViewCoordinator<
             // Sometimes the collection may be rendered with an incorrect offset.
             // Apply the update only after set the correct offset
             CATransaction.commit()
-            
-            // Sctoll to scrollProxy or restore top position
-            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: oldIsNearTop)
         }
     }
     
@@ -134,7 +130,7 @@ final class ChatCollectionViewCoordinator<
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView.contentSize.height > 0 else { return }
         
-        let distance = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height + scrollView.adjustedContentInset.bottom
+        let distance = scrollView.contentOffset.y - scrollView.topOffset.y
         
         if distanceForLoadNextPage > distance {
             if canCallScrollToBottom, scrollUpdateTask.isNil {
@@ -157,41 +153,41 @@ final class ChatCollectionViewCoordinator<
     
     // MARK: - Private
     
-    private func appyScrollProxy(collectionView: UICollectionView, scrollProxy: ChatCollectionScrollProxy, fallbackScrollToTop: Bool) {
+    private func appyScrollProxy(collectionView: UICollectionView, scrollProxy: ChatCollectionScrollProxy, fallbackScrollToBottom: Bool) {
         guard lastScrollProxy != scrollProxy else {
-            if fallbackScrollToTop {
-                scrollToTop(collectionView: collectionView)
+            if fallbackScrollToBottom {
+                scrollToBottom(collectionView: collectionView)
             }
             return
         }
         
         switch scrollProxy.scrollOperation {
-        case .scrollTo(let itemId, let position):
-            if scrollTo(collectionView: collectionView, itemId: itemId, position: position.collectionViewPosition) {
+        case .scrollTo(let itemId, let position, let animated):
+            if scrollTo(collectionView: collectionView, itemId: itemId, position: position.collectionViewPosition, animated: animated) {
                 lastScrollProxy = scrollProxy
             }
         case .none:
-            if fallbackScrollToTop {
-                scrollToTop(collectionView: collectionView)
+            if fallbackScrollToBottom {
+                scrollToBottom(collectionView: collectionView)
             }
             lastScrollProxy = scrollProxy
         }
     }
     
-    private func scrollTo(collectionView: UICollectionView, itemId: String, position: UICollectionView.ScrollPosition) -> Bool {
+    private func scrollTo(collectionView: UICollectionView, itemId: String, position: UICollectionView.ScrollPosition, animated: Bool) -> Bool {
         guard let dataSource else { return false }
         
         let currentSnapshot = dataSource.snapshot()
         
         if let item = currentSnapshot.itemIdentifiers.first(where: { $0.id == itemId }),
            let indexPath = dataSource.indexPath(for: item) {
-            collectionView.scrollToItem(at: indexPath, at: position, animated: true)
+            collectionView.scrollToItem(at: indexPath, at: position, animated: animated)
             return true
         }
         return false
     }
     
-    private func scrollToTop(collectionView: UICollectionView) {
-        collectionView.setContentOffset(collectionView.topOffset, animated: true)
+    private func scrollToBottom(collectionView: UICollectionView) {
+        collectionView.setContentOffset(collectionView.bottomOffset, animated: true)
     }
 }
