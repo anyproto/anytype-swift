@@ -98,7 +98,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         relationsSearchData = RelationsSearchData(
-            document: document,
+            objectId: document.objectId,
+            spaceId: document.spaceId,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
             target: .object, 
             onRelationSelect: onSelect
