@@ -69,6 +69,8 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     @UserDefault("UserData.LastOpenedScreen.NewKey", defaultValue: nil)
     var lastOpenedScreen: LastOpenedScreen?
     
+    @UserDefault("serverConfig", defaultValue: .anytype)
+    private var serverConfig: NetworkServerConfig
     
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)

@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-final class SingleObjectSubscriptionServiceMock: SingleObjectSubscriptionServiceProtocol {
+final class SingleObjectSubscriptionServiceMock: SingleObjectSubscriptionServiceProtocol, @unchecked Sendable {
     
     static let shared = SingleObjectSubscriptionServiceMock()
     
