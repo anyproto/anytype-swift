@@ -16,6 +16,7 @@ final class TreeSubscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol {
         let keys: [BundledRelationKey] = .builder {
             BundledRelationKey.objectListKeys
             BundledRelationKey.links
+            BundledRelationKey.timestamp
         }.uniqued()
         
         return .objects(
