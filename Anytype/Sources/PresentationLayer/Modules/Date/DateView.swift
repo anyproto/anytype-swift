@@ -54,8 +54,18 @@ struct DateView: View {
     
     private var titleView: some View {
         VStack(spacing: 4) {
-            AnytypeText(model.weekday, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+            HStack(spacing: 0) {
+                if model.relativeTag.isNotEmpty {
+                    AnytypeText(model.relativeTag, style: .relation2Regular)
+                        .foregroundColor(.Text.secondary)
+                    Circle()
+                        .fill(Color.Text.secondary)
+                        .frame(width: 3, height: 3)
+                        .padding(.horizontal, 8)
+                }
+                AnytypeText(model.weekday, style: .relation2Regular)
+                    .foregroundColor(.Text.secondary)
+            }
             HStack(alignment: .center) {
                 Image(asset: .X24.Arrow.left)
                     .foregroundColor(.Control.active)
