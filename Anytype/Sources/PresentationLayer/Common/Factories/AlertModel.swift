@@ -14,7 +14,7 @@ struct AlertModel {
 }
 
 extension AlertModel.ButtonModel {
-    static var cancel: Self = .init(title: Loc.cancel, style: .cancel, action: { })
+    static let cancel = AlertModel.ButtonModel(title: Loc.cancel, style: .cancel, action: { })
 }
 
 extension AlertModel {

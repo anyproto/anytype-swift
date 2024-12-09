@@ -68,6 +68,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let pinnedSpaces = FeatureDescription(
+        title: "Pinned Spaces",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

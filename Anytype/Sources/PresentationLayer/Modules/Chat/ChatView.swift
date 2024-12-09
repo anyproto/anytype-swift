@@ -17,8 +17,8 @@ struct ChatView: View {
         }
         .ignoresSafeArea(.keyboard)
         .chatActionOverlay(state: $actionState) {
-            if model.mentionObjects.isNotEmpty {
-                ChatMentionList(mentions: model.mentionObjects) {
+            if model.mentionObjectsModels.isNotEmpty {
+                ChatMentionList(models: model.mentionObjectsModels) {
                     model.didSelectMention($0)
                 }
             }

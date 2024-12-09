@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 
-@MainActor
 struct PageNavigation {
     let push: (EditorScreenData) -> Void
     let pop: () -> Void

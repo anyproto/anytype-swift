@@ -164,6 +164,7 @@
 "Move" = "Déplacer";
 "Move to" = "Déplacer vers";
 "Back" = "Retour";
+"Pin" = "Épingler";
 "Unpin" = "Désépingler";
 "Pin on top" = "Épingler en haut";
 "File block subtitle" = "Stocker le fichier dans l'état original";
@@ -703,6 +704,7 @@
 "Show" = "Montrer";
 "Hide" = "Masquer";
 "Apply" = "Appliquer";
+"Leave a space" = "Quitter l'espace";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -933,7 +935,6 @@
 "SpaceSettings.DeleteButton" = "Supprimer l'espace";
 "SpaceSettings.Share" = "Partager";
 "SpaceSettings.LeaveButton" = "Quitter";
-"SpaceSettings.LeaveAlert.Title" = "Quitter l'espace";
 "SpaceSettings.LeaveAlert.Message" = "L'espace %@ sera supprimé de votre appareil et vous ne pourrez plus y avoir accès";
 "SpaceSettings.LeaveAlert.Toast" = "Vous avez quitté le %@.";
 
@@ -1239,7 +1240,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Il n'y a encore rien ici pour cette date";
-"Date.Open.Action.title" = "Open selected date";
+"Date.Open.Action.title" = "Ouvrir la date sélectionnée";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1264,10 +1265,11 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.DeleteMessage.Description" = "Il ne pourra pas être restauré après confirmation";
 "Chat.Reactions.Empty.Title" = "Aucune réaction pour l'instant";
 "Chat.Reactions.Empty.Subtitle" = "Probablement quelqu'un vient de supprimer la réaction ou un problème technique est survenu";
-"Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Objects" = "Select existing object";
-"Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload file";
+"Chat.EditMessage" = "Modifier le message";
+"Chat.Actions.Menu.Objects" = "Sélectionner l'objet existant";
+"Chat.Actions.Menu.Media" = "Télécharger des médias";
+"Chat.Actions.Menu.Files" = "Télécharger un fichier";
+"Chat.Participant.Badge" = "(Vous)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";

@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public protocol SharedFileStorageProtocol: AnyObject {
+public protocol SharedFileStorageProtocol: AnyObject, Sendable {
     func clearStorage() throws
     func saveFileToGroup(url: URL) throws -> URL
     func saveImageToGroup(image: UIImage, name: String) throws -> URL
