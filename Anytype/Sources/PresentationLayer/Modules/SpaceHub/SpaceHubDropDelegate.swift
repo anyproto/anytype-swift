@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 
 struct SpaceHubDropDelegate: DropDelegate {
@@ -8,8 +9,8 @@ struct SpaceHubDropDelegate: DropDelegate {
     @Binding var draggedItem: ParticipantSpaceViewData?
     @Binding var initialIndex: Int?
     
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceOrderService)
+    private var spaceOrderService: any SpaceOrderServiceProtocol
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         return DropProposal(operation: .move)
@@ -21,28 +22,34 @@ struct SpaceHubDropDelegate: DropDelegate {
         guard let finalIndex = allSpaces.firstIndex(of: destinationItem) else { return false }
         guard finalIndex != initialIndex else { return false }
         
-        let destinationIndex = finalIndex > initialIndex ? finalIndex - 1 : finalIndex + 1
-        guard let destinationItem = allSpaces[safe: destinationIndex] else { return false }
-        
-        // TBD: Use spaceOrderService
-        
         self.draggedItem = nil
         self.initialIndex = nil
         return true
     }
     
     func dropEntered(info: DropInfo) {
-        guard let allSpaces, let draggedItem else { return }
+        guard var allSpaces, let draggedItem else { return }
         guard let fromIndex = allSpaces.firstIndex(of: draggedItem) else { return }
         guard let toIndex = allSpaces.firstIndex(of: destinationItem) else { return }
+        
         guard fromIndex != toIndex else { return }
         
         if initialIndex.isNil { initialIndex = fromIndex }
         
-        withAnimation {
-            self.allSpaces?.move(
-                fromOffsets: IndexSet(integer: fromIndex),
-                toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex)
+        guard let destinationSpace = allSpaces[safe: toIndex] else { return }
+        guard destinationSpace.spaceView.isPinned else { return }
+        
+        allSpaces.move(
+            fromOffsets: IndexSet(integer: fromIndex),
+            toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex)
+        )
+        let newOrder = allSpaces
+            .filter({ $0.spaceView.isPinned })
+            .map(\.spaceView.id)
+        
+        Task {
+            try await spaceOrderService.setOrder(
+                spaceViewIdMoved: draggedItem.spaceView.id, newOrder: newOrder
             )
         }
     }

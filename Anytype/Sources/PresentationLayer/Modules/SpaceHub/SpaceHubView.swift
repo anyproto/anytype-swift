@@ -162,14 +162,14 @@ struct SpaceHubView: View {
         .if(space.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
-        /* TBD;
         .if(space.spaceView.isPinned) {
             $0.onDrag {
                 draggedSpace = space
                 return NSItemProvider()
+            } preview: {
+                EmptyView()
             }
         }
-        */
     }
     
     private func menuItems(space: ParticipantSpaceViewData) -> some View {
