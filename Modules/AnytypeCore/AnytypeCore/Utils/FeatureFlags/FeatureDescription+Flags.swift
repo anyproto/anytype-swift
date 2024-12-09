@@ -68,13 +68,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let primitives = FeatureDescription(
-        title: "New Primitives",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -54,8 +54,6 @@ struct ObjectSettingsView: View {
                 viewModel.onTapCoverPicker()
             case .description:
                 try await viewModel.onTapDescription()
-            case .layout:
-                viewModel.onTapLayoutPicker()
             case .relations:
                 viewModel.onTapRelations()
             case .history:

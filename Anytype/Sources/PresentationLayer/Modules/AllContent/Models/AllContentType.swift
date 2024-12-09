@@ -9,13 +9,7 @@ enum AllContentType: String {
     case files
     case types
     
-    static var allSupportedTypes: [AllContentType] {
-        var supportedTypes: [AllContentType] = [.pages, .lists, .media, .bookmarks, .files]
-        if FeatureFlags.primitives {
-            supportedTypes.append(.types)
-        }
-        return supportedTypes
-    }
+    static let allSupportedTypes: [AllContentType] = [.pages, .lists, .media, .bookmarks, .files, .types]
     
     var title: String {
         switch self {

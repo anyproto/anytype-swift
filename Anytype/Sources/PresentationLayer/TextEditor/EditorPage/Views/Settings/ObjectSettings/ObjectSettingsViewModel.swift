@@ -14,7 +14,6 @@ enum ObjectSettingsAction {
 @MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, ObjectHeaderModuleOutput {
     func undoRedoAction(objectId: String)
-    func layoutPickerAction(document: some BaseDocumentProtocol)
     func relationsAction(document: some BaseDocumentProtocol)
     func showVersionHistory(document: some BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
@@ -63,10 +62,6 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
                 )
             }
         }
-    }
-    
-    func onTapLayoutPicker() {
-        output?.layoutPickerAction(document: document)
     }
     
     func onTapIconPicker() {
