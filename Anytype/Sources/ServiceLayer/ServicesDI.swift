@@ -351,4 +351,8 @@ extension Container {
     var setByTypeSubscriptionService: Factory<any SetByTypeSubscriptionServiceProtocol> {
         self { SetByTypeSubscriptionService() }
     }
+    
+    var mentionTextUpdateHandler: Factory<any MentionTextUpdateHandlerProtocol> {
+        self { MentionTextUpdateHandler() }
+    }
 }
