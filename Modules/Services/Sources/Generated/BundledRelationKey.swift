@@ -380,4 +380,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Unix time representation of date object
     case timestamp = "timestamp"
+
+    /// Space order
+    case spaceOrder = "spaceOrder"
 }

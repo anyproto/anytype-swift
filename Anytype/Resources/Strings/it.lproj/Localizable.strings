@@ -164,6 +164,7 @@
 "Move" = "Sposta";
 "Move to" = "Sposta in";
 "Back" = "Indietro";
+"Pin" = "Pin";
 "Unpin" = "Togli";
 "Pin on top" = "Fissa in alto";
 "File block subtitle" = "Salva file nello stato originale";
@@ -703,6 +704,7 @@
 "Show" = "Mostra";
 "Hide" = "Nascondi";
 "Apply" = "Applica";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
@@ -933,7 +935,6 @@
 "SpaceSettings.DeleteButton" = "Elimina spazio";
 "SpaceSettings.Share" = "Condividi";
 "SpaceSettings.LeaveButton" = "Lascia";
-"SpaceSettings.LeaveAlert.Title" = "Lascia lo spazio";
 "SpaceSettings.LeaveAlert.Message" = "Lo spazio %@ verrà rimosso dai tuoi dispositivi e non avrai più accesso ad esso";
 "SpaceSettings.LeaveAlert.Toast" = "Hai lasciato %@.";
 
@@ -1267,6 +1268,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.Actions.Menu.Objects" = "Selezionare l'oggetto esistente";
 "Chat.Actions.Menu.Media" = "Carica i media";
 "Chat.Actions.Menu.Files" = "Carica file";
+"Chat.Participant.Badge" = "(You)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
