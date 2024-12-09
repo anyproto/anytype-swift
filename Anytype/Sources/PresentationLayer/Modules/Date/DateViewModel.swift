@@ -34,6 +34,7 @@ final class DateViewModel: ObservableObject {
     
     @Published var document: (any BaseDocumentProtocol)?
     @Published var title = ""
+    @Published var relativeTag = ""
     @Published var weekday = ""
     @Published var objects = [ObjectCellData]()
     @Published var relationItems = [RelationItemData]()
@@ -171,6 +172,7 @@ final class DateViewModel: ObservableObject {
         for await details in document.detailsPublisher.values {
             if let date = details.timestamp {
                 title = dateFormatter.string(from: date)
+                relativeTag = relativeTag(date: date)
                 let weekdayIndex = Calendar.current.component(.weekday, from: date) - 1
                 if dateFormatter.weekdaySymbols.count > weekdayIndex {
                     weekday = dateFormatter.weekdaySymbols[weekdayIndex]
@@ -305,5 +307,19 @@ final class DateViewModel: ObservableObject {
         AnytypeAnalytics.instance().logMoveToBin(true)
         Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
         UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    private func relativeTag(date: Date) -> String {
+        if Calendar.current.isDateInYesterday(date) {
+            return Loc.yesterday
+        }
+        if Calendar.current.isDateInToday(date) {
+            return Loc.today
+        }
+        if Calendar.current.isDateInTomorrow(date) {
+            return Loc.tomorrow
+        }
+        
+        return ""
     }
 }
