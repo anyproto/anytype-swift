@@ -73,7 +73,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             if space?.spaceAccessType == .private {
                 SpaceShareTip.didOpenPrivateSpace = true
             }
-            showSpaceWidget = FeatureFlags.showHomeSpaceLevelChat(spaceId: spaceId) ? (space?.chatId?.isEmpty ?? true) : false
+            showSpaceWidget = FeatureFlags.showHomeSpaceLevelChat(spaceId: spaceId) ? (space?.chatId?.isEmpty ?? true) : true
         }
     }
     
