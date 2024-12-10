@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import Combine
 
-protocol ServerConfigurationStorageProtocol: AnyObject {
+protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
     var installedConfigurationsPublisher: AnyPublisher<Void, Never> { get }
     func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws
     func setupCurrentConfiguration(config: NetworkServerConfig)
