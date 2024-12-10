@@ -86,7 +86,7 @@ final class ChatCollectionViewCoordinator<
         
         let oldContentSize = collectionView.contentSize
         let oldContentOffset = collectionView.contentOffset
-        let olsIsNearTop = (collectionView.contentOffset.y - collectionView.topOffset.y) < 30
+        let oldIsNearTop = (collectionView.contentOffset.y - collectionView.topOffset.y) < 30
         
         self.sections = sections
         
@@ -125,7 +125,7 @@ final class ChatCollectionViewCoordinator<
             CATransaction.commit()
             
             // Sctoll to scrollProxy or restore top position
-            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: olsIsNearTop)
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToTop: oldIsNearTop)
         }
     }
     
