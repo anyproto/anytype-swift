@@ -61,4 +61,13 @@ enum TypeFieldsRelationsSection: String, Identifiable {
         case .fieldsMenu: return Loc.Fields.menu
         }
     }
+    
+    var isHeader: Bool {
+        switch self {
+        case .header:
+            true
+        case .fieldsMenu:
+            false
+        }
+    }
 }

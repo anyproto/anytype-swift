@@ -93,8 +93,8 @@ extension NewRelationViewModel {
             let createdRelation = try await relationsInteractor.createRelation(spaceId: spaceId, relation: relationDetails)
             
             switch target {
-            case .object:
-                try await relationsInteractor.addRelationToObject(relation: createdRelation)
+            case .type(let isFeatured):
+                try await relationsInteractor.addRelationToType(relation: createdRelation, isFeatured: isFeatured)
             case .dataview(let activeViewId):
                 try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId)
             }

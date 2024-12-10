@@ -3,29 +3,40 @@ import Services
 
 protocol RelationsInteractorProtocol {
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
-    func addRelationToObject(relation: RelationDetails) async throws
+    func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws
 }
 
 final class RelationsInteractor: RelationsInteractorProtocol {
-    
-    private let objectId: String
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
     
-    init(objectId: String) {
-        self.objectId = objectId
+    private let document: any BaseDocumentProtocol
+    
+    init(objectId: String, spaceId: String) {
+        let documentsProvider = Container.shared.documentsProvider()
+        document = documentsProvider.document(objectId: objectId, spaceId: spaceId)
     }
     
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {
         try await relationsService.createRelation(spaceId: spaceId, relationDetails: relation)
     }
     
-    func addRelationToObject(relation: RelationDetails) async throws {
-        try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
+    func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws {
+        guard let details = document.details else { return }
+        
+        if isFeatured {
+            var relationIds = details.recommendedFeaturedRelations
+            relationIds.insert(relation.id, at: 0)
+            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: relationIds)
+        } else {
+            var relationIds = details.recommendedRelations
+            relationIds.insert(relation.id, at: 0)
+            try await self.relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: relationIds)
+        }
     }
     
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws {

@@ -19,6 +19,6 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func removeRelationOptions(ids: [String]) async throws
     
     // New api
-    func updateRecommendedRelations(objectId: String, relationIds: [ObjectId]) async throws
-    func updateRecommendedFeaturedRelations(objectId: String, relationIds: [ObjectId]) async throws
+    func updateRecommendedRelations(typeId: String, relationIds: [ObjectId]) async throws
+    func updateRecommendedFeaturedRelations(typeId: String, relationIds: [ObjectId]) async throws
 }
