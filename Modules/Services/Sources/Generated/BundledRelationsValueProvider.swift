@@ -143,6 +143,7 @@ public protocol BundledRelationsValueProvider {
     var timestamp: Date? { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
     var layoutWidth: Int? { get }
+    var spaceOrder: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -661,5 +662,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Width of object's layout
     var layoutWidth: Int? {
         return value(for: BundledRelationKey.layoutWidth.rawValue)
+    }
+    /// Space order
+    var spaceOrder: String {
+        return value(for: BundledRelationKey.spaceOrder.rawValue)
     }
 }

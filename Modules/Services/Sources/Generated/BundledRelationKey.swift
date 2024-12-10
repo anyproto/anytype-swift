@@ -386,4 +386,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Width of object's layout
     case layoutWidth = "layoutWidth"
+
+    /// Space order
+    case spaceOrder = "spaceOrder"
 }

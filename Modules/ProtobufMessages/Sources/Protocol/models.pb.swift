@@ -2452,6 +2452,8 @@ public struct Anytype_Model_Block {
 
         public var emptyPlacement: Anytype_Model_Block.Content.Dataview.Sort.EmptyType = .notSpecified
 
+        public var noCollate: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum TypeEnum: SwiftProtobuf.Enum {
@@ -3658,6 +3660,7 @@ public struct Anytype_Model_Account {
 
     public var deviceID: String = String()
 
+    /// the first created private space. It's filled only when account is created
     public var accountSpaceID: String = String()
 
     public var widgetsID: String = String()
@@ -8173,6 +8176,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     5: .same(proto: "includeTime"),
     6: .same(proto: "id"),
     7: .same(proto: "emptyPlacement"),
+    8: .same(proto: "noCollate"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8188,6 +8192,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
       case 5: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.emptyPlacement) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.noCollate) }()
       default: break
       }
     }
@@ -8215,6 +8220,9 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     if self.emptyPlacement != .notSpecified {
       try visitor.visitSingularEnumField(value: self.emptyPlacement, fieldNumber: 7)
     }
+    if self.noCollate != false {
+      try visitor.visitSingularBoolField(value: self.noCollate, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -8226,6 +8234,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     if lhs.includeTime != rhs.includeTime {return false}
     if lhs.id != rhs.id {return false}
     if lhs.emptyPlacement != rhs.emptyPlacement {return false}
+    if lhs.noCollate != rhs.noCollate {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

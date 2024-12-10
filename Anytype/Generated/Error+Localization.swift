@@ -6919,6 +6919,30 @@ extension Anytype_Rpc.Space.RequestDecline.Response.Error: @retroactive Localize
     }
 }
 
+extension Anytype_Rpc.Space.SetOrder.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Space.SetOrder.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.SetOrder.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Space.StopSharing.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -6949,6 +6973,30 @@ extension Anytype_Rpc.Space.StopSharing.Response.Error: @retroactive LocalizedEr
             case .limitReached:
                 return String(localized: "Space.StopSharing.limitReached", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Space.StopSharing.limitReached")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Space.UnsetOrder.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Space.UnsetOrder.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.UnsetOrder.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
