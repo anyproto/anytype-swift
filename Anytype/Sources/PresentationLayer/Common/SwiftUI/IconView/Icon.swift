@@ -13,3 +13,14 @@ extension ObjectIcon {
         return .object(self)
     }
 }
+
+extension Icon {
+    var imageId: String? {
+        switch self {
+        case .object(let icon):
+            return icon.imageId
+        case .asset(_), .image(_):
+            return nil
+        }
+    }
+}

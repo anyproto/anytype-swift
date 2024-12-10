@@ -20,7 +20,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showFiles = false
     @Published var showObjectTypeSearch = false
     @Published var dismiss = false
-    @Published var showIconPickerSpaceViewId: StringIdentifiable?
+    @Published var showIconPickerSpaceId: StringIdentifiable?
     
     let workspaceInfo: AccountInfo
     var accountSpaceId: String { workspaceInfo.accountSpaceId }
@@ -31,8 +31,8 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     // MARK: - SpaceSettingsModuleOutput
     
-    func onChangeIconSelected(objectId: String) {
-        showIconPickerSpaceViewId = objectId.identifiable
+    func onChangeIconSelected() {
+        showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
     }
     
     func onRemoteStorageSelected() {
