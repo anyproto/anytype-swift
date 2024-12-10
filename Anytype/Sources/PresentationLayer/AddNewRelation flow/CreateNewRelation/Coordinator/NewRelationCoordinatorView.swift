@@ -3,7 +3,8 @@ import SwiftUI
 struct NewRelationData: Identifiable {
     let id = UUID()
     let name: String
-    let document: any BaseDocumentProtocol
+    let objectId: String
+    let spaceId: String
     let target: RelationsModuleTarget
 }
 

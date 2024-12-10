@@ -35,7 +35,7 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String], onSelect: @escaping ([String]) -> Void) {
         searchData = ObjectTypesLimitedSearchData(
             title: Loc.limitObjectTypes,
-            spaceId: data.document.spaceId,
+            spaceId: data.spaceId,
             selectedObjectTypesIds: selectedObjectTypesIds,
             onSelect: { ids in
                 onSelect(ids)

@@ -25,7 +25,8 @@ final class SetRelationsCoordinatorViewModel:
 
     func onAddButtonTap(completion: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         relationsSearchData = RelationsSearchData(
-            document: setDocument.document,
+            objectId: setDocument.objectId,
+            spaceId: setDocument.spaceId,
             excludedRelationsIds: setDocument.sortedRelations(for: viewId).map(\.id),
             target: .dataview(activeViewId: setDocument.activeView.id), 
             onRelationSelect: { [weak self] relationDetails, isNew in
