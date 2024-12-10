@@ -1,10 +1,9 @@
 import Foundation
 import Combine
-import os
 
-public final class AtomicPublishedStorage<T: Sendable & Equatable>: @unchecked Sendable {
+public final class AtomicPublishedStorage<T: Sendable>: @unchecked Sendable {
     
-    private let lock = OSAllocatedUnfairLock()
+    private let queue = DispatchQueue(label: "AtomicPublishedStorageQueue", attributes: .concurrent)
     private let subject: CurrentValueSubject<T, Never>
     
     public init(_ value: T) {
@@ -13,20 +12,18 @@ public final class AtomicPublishedStorage<T: Sendable & Equatable>: @unchecked S
     
     public var value: T {
         get {
-            lock.lock()
-            defer { lock.unlock() }
-            return subject.value
+            queue.sync {
+                subject.value
+            }
         }
         set {
-            lock.lock()
-            defer { lock.unlock() }
-            subject.send(newValue)
+            queue.async(flags: .barrier) {
+                self.subject.send(newValue)
+            }
         }
     }
     
     public var publisher: AnyPublisher<T, Never> {
-        lock.lock()
-        defer { lock.unlock() }
-        return subject.removeDuplicates().eraseToAnyPublisher()
+        subject.eraseToAnyPublisher()
     }
 }
