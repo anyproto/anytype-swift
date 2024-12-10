@@ -115,11 +115,17 @@ final class RelationsService: RelationsServiceProtocol {
     }
     
     // MARK: - New api
-    func updateRecommendedRelations(objectId: String, relationIds: [String]) async throws {
-        try await updateRelation(objectId: objectId, relationKey: BundledRelationKey.recommendedRelations.rawValue, value: relationIds.protobufValue)
+    func updateRecommendedRelations(typeId: String, relationIds: [String]) async throws {
+        try await ClientCommands.objectTypeRecommendedRelationsSet(.with {
+            $0.typeObjectID = typeId
+            $0.relationObjectIds = relationIds
+        }).invoke()
     }
     
-    func updateRecommendedFeaturedRelations(objectId: String, relationIds: [String]) async throws {
-        try await updateRelation(objectId: objectId, relationKey: BundledRelationKey.recommendedFeaturedRelations.rawValue, value: relationIds.protobufValue)
+    func updateRecommendedFeaturedRelations(typeId: String, relationIds: [String]) async throws {
+        try await ClientCommands.objectTypeRecommendedFeaturedRelationsSet(.with {
+            $0.typeObjectID = typeId
+            $0.relationObjectIds = relationIds
+        }).invoke()
     }
 }

@@ -70,27 +70,12 @@ final class TypeFieldsViewModel: ObservableObject {
             let relationsIds = indexes.compactMap { relationRows[$0].relationId }
             
             if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelations.filter({ !relationsIds.contains($0) }) {
-                try await relationsService.updateRecommendedFeaturedRelations(objectId: document.objectId, relationIds: recommendedFeaturedRelations)
+                try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: recommendedFeaturedRelations)
             }
             if let recommendedRelations = document.details?.recommendedRelations.filter({ !relationsIds.contains($0) }) {
-                try await relationsService.updateRecommendedRelations(objectId: document.objectId, relationIds: recommendedRelations)
+                try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: recommendedRelations)
             }
             
-        }
-    }
-    
-    private func addRelation(_ details: RelationDetails, section: TypeFieldsRelationsSection) {
-        Task {
-            switch section {
-            case .header:
-                var relationIds = document.details?.recommendedFeaturedRelations ?? []
-                relationIds.insert(details.id, at: 0)
-                try await relationsService.updateRecommendedFeaturedRelations(objectId: document.objectId, relationIds: relationIds)
-            case .fieldsMenu:
-                var relationIds = document.details?.recommendedRelations ?? []
-                relationIds.insert(details.id, at: 0)
-                try await self.relationsService.updateRecommendedRelations(objectId: self.document.objectId, relationIds: relationIds)
-            }
         }
     }
 }

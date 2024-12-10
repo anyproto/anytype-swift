@@ -31,11 +31,11 @@ final class RelationsInteractor: RelationsInteractorProtocol {
         if isFeatured {
             var relationIds = details.recommendedFeaturedRelations
             relationIds.insert(relation.id, at: 0)
-            try await relationsService.updateRecommendedFeaturedRelations(objectId: document.objectId, relationIds: relationIds)
+            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: relationIds)
         } else {
             var relationIds = details.recommendedRelations
             relationIds.insert(relation.id, at: 0)
-            try await self.relationsService.updateRecommendedRelations(objectId: document.objectId, relationIds: relationIds)
+            try await self.relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: relationIds)
         }
     }
     
