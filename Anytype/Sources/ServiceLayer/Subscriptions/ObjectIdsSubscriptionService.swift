@@ -8,7 +8,7 @@ protocol ObjectIdsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
         objectIds: [String],
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @MainActor ([ObjectDetails]) -> Void
     ) async
     func stopSubscription() async
 }
@@ -29,7 +29,7 @@ final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
     func startSubscription(
         spaceId: String,
         objectIds: [String],
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @MainActor ([ObjectDetails]) -> Void
     ) async {
         
         let searchData: SubscriptionData = .objects(
@@ -42,7 +42,7 @@ final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items)
+            await update(data.items)
         }
     }
     

@@ -89,7 +89,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                 spaceId: info.techSpaceId,
                 objectId: info.profileObjectID
             ) { [weak self] details in
-                self?.handleProfileDetails(details: details)
+                await self?.handleProfileDetails(details: details)
             }
             
             await processSubscriptionService.addHandler { [weak self] events in

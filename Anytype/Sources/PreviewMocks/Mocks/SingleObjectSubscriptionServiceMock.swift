@@ -12,10 +12,10 @@ final class SingleObjectSubscriptionServiceMock: SingleObjectSubscriptionService
         spaceId: String,
         objectId: String,
         additionalKeys: [BundledRelationKey],
-        dataHandler: @escaping (ObjectDetails) -> Void
+        dataHandler: @escaping @Sendable (ObjectDetails) async -> Void
     ) async {
         if let objectDetails {
-            dataHandler(objectDetails)
+            await dataHandler(objectDetails)
         }
     }
     
