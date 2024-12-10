@@ -38,7 +38,8 @@ extension ObjectPermissions {
         let isArchive = details.isArchived
         let isTemplateType = details.isTemplateType
         
-        let canEdit = !isLocked && !isArchive && participantCanEdit && !isVersionMode && !details.layoutValue.isFileOrMedia
+        let caEditRelations = !isLocked && !isArchive && participantCanEdit && !isVersionMode
+        let canEdit = caEditRelations && !details.layoutValue.isFileOrMedia
         let canApplyUneditableActions = participantCanEdit && !isArchive
         
         let specificTypes = !details.layoutValue.isList && !details.layoutValue.isParticipant
@@ -66,8 +67,8 @@ extension ObjectPermissions {
         self.canChangeIcon = details.layoutValue.haveIcon && canEdit
         self.canChangeCover = details.layoutValue.haveCover && canEdit
         self.canChangeLayout = details.layoutValue.isEditorLayout && canEdit
-        self.canEditRelationValues = canEdit && !objectRestrictions.contains(.details)
-        self.canEditRelationsList = canEdit && !objectRestrictions.contains(.relations)
+        self.canEditRelationValues = caEditRelations && !objectRestrictions.contains(.details)
+        self.canEditRelationsList = caEditRelations && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplateType
         self.canApplyTemplates = canEdit && !isTemplateType
         self.canEditMessages = canEdit
