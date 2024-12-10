@@ -23,8 +23,9 @@ final class NewRelationViewModel: ObservableObject {
     @Published private var objectTypes: [ObjectType]?
     @Published var toastData: ToastBarData = .empty
     
-    private let document: any BaseDocumentProtocol
     private let target: RelationsModuleTarget
+    private let objectId: String
+    private let spaceId: String
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
@@ -39,7 +40,8 @@ final class NewRelationViewModel: ObservableObject {
         relationsInteractor: some RelationsInteractorProtocol,
         output: (any NewRelationModuleOutput)?
     ) {
-        self.document = data.document
+        self.objectId = data.objectId
+        self.spaceId = data.spaceId
         self.target = data.target
         self.relationsInteractor = relationsInteractor
         self.output = output
@@ -88,13 +90,13 @@ extension NewRelationViewModel {
     
     private func createRelation(relationDetails: RelationDetails) {
         Task {
-            let createdRelation = try await relationsInteractor.createRelation(spaceId: document.spaceId, relation: relationDetails)
+            let createdRelation = try await relationsInteractor.createRelation(spaceId: spaceId, relation: relationDetails)
             
             switch target {
             case .object:
                 try await relationsInteractor.addRelationToObject(relation: createdRelation)
             case .dataview(let activeViewId):
-                try await relationsInteractor.addRelationToDataview(objectId: document.objectId, relation: createdRelation, activeViewId: activeViewId)
+                try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId)
             }
             
             relationDetailsAdded(relationDetails: createdRelation)

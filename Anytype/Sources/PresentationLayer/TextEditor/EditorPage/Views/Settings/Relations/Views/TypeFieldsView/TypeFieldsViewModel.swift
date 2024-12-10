@@ -57,7 +57,8 @@ final class TypeFieldsViewModel: ObservableObject {
     
     func onAddRelationTap(section: TypeFieldsRelationsSection) {
         relationsSearchData = RelationsSearchData(
-            document: document,
+            objectId: document.objectId,
+            spaceId: document.spaceId,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
             target: .object,
             onRelationSelect: { [weak self] details, isNew in

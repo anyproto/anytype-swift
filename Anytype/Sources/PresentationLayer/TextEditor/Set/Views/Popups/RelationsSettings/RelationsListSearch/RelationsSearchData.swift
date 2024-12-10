@@ -3,7 +3,8 @@ import Services
 
 struct RelationsSearchData: Identifiable {
     let id = UUID()
-    let document: any BaseDocumentProtocol
+    let objectId: String
+    let spaceId: String
     let excludedRelationsIds: [String]
     let target: RelationsModuleTarget
     @EquatableNoop

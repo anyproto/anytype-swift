@@ -33,7 +33,8 @@ final class RelationsListCoordinatorViewModel:
     
     func addNewRelationAction(document: some BaseDocumentProtocol) {
         relationsSearchData = RelationsSearchData(
-            document: document,
+            objectId: document.objectId,
+            spaceId: document.spaceId,
             excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
             target: .object, 
             onRelationSelect: { relationDetails, isNew in
