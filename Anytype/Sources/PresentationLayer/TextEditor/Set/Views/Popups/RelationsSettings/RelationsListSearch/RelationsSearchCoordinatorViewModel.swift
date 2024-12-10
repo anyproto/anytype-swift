@@ -17,7 +17,8 @@ final class RelationsSearchCoordinatorViewModel: ObservableObject, NewRelationCo
     func onShowCreateNewRelation(name: String) {
         newRelationData = NewRelationData(
             name: name,
-            document: data.document,
+            objectId: data.objectId,
+            spaceId: data.spaceId,
             target: data.target
         )
     }

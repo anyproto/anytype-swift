@@ -3,9 +3,7 @@ import Combine
 import Services
 import AnytypeCore
 
-
-@MainActor
-protocol WorkspacesStorageProtocol: AnyObject {
+protocol WorkspacesStorageProtocol: AnyObject, Sendable {
     var allWorkspaces: [SpaceView] { get }
     var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { get }
     func startSubscription() async
@@ -38,34 +36,31 @@ extension WorkspacesStorageProtocol {
     }
 }
 
-@MainActor
 final class WorkspacesStorage: WorkspacesStorageProtocol {
     // MARK: - DI
     
-    @Injected(\.workspacesSubscriptionBuilder)
-    private var subscriptionBuilder: any WorkspacesSubscriptionBuilderProtocol
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
-    }()
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
+    private let subscriptionBuilder: any WorkspacesSubscriptionBuilderProtocol = Container.shared.workspacesSubscriptionBuilder()
+    private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
+    private let subscriptionStorage: any SubscriptionStorageProtocol
+    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     
     // MARK: - State
 
-    private var workspacesInfo: [String: AccountInfo] = [:]
+    private let workspacesInfo = SynchronizedDictionary<String, AccountInfo>()
     
-    @Published private(set) var allWorkspaces: [SpaceView] = []
-    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { $allWorkspaces.eraseToAnyPublisher() }
+    private let allWorkspacesStorage = AtomicPublishedStorage<[SpaceView]>([])
+    var allWorkspaces: [SpaceView] { allWorkspacesStorage.value }
+    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { allWorkspacesStorage.publisher }
     
-    nonisolated init() {}
+    init() {
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
+    }
     
     func startSubscription() async {
         let data = subscriptionBuilder.build(techSpaceId: accountManager.account.info.techSpaceId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
-            guard let self else { return }
-            allWorkspaces = data.items.map { SpaceView(details: $0) }
+            let spaces = data.items.map { SpaceView(details: $0) }
+            self?.allWorkspacesStorage.value = spaces
         }
     }
     
@@ -74,11 +69,11 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     }
     
     func spaceView(spaceViewId: String) -> SpaceView? {
-        return allWorkspaces.first(where: { $0.id == spaceViewId })
+        return allWorkspacesStorage.value.first(where: { $0.id == spaceViewId })
     }
     
     func spaceView(spaceId: String) -> SpaceView? {
-        return allWorkspaces.first(where: { $0.targetSpaceId == spaceId })
+        return allWorkspacesStorage.value.first(where: { $0.targetSpaceId == spaceId })
     }
     
     func workspaceInfo(spaceId: String) -> AccountInfo? {

@@ -17,7 +17,7 @@ enum LastOpenedScreen: Codable {
     }
 }
 
-protocol UserDefaultsStorageProtocol {
+protocol UserDefaultsStorageProtocol: Sendable {
     var showUnstableMiddlewareError: Bool { get set }
     var usersId: String { get set }
     var currentVersionOverride: String { get set }
@@ -37,7 +37,7 @@ protocol UserDefaultsStorageProtocol {
     func cleanStateAfterLogout()
 }
 
-final class UserDefaultsStorage: UserDefaultsStorageProtocol {
+final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendable {
     @UserDefault("showUnstableMiddlewareError", defaultValue: true)
     var showUnstableMiddlewareError: Bool
     
@@ -66,6 +66,8 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     @UserDefault("UserData.LastOpenedScreen.NewKey", defaultValue: nil)
     var lastOpenedScreen: LastOpenedScreen?
     
+    @UserDefault("serverConfig", defaultValue: .anytype)
+    private var serverConfig: NetworkServerConfig
     
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)

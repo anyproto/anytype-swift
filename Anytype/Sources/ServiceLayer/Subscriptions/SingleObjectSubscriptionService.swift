@@ -2,19 +2,19 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol SingleObjectSubscriptionServiceProtocol: AnyObject {
+protocol SingleObjectSubscriptionServiceProtocol: AnyObject, Sendable {
     func startSubscription(
         subId: String,
         spaceId: String,
         objectId: String,
         additionalKeys: [BundledRelationKey],
-        dataHandler: @escaping (ObjectDetails) -> Void
+        dataHandler: @escaping @Sendable (ObjectDetails) async -> Void
     ) async
     func stopSubscription(subId: String) async
 }
 
 extension SingleObjectSubscriptionServiceProtocol {
-    func startSubscription(subId: String, spaceId: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void) async {
+    func startSubscription(subId: String, spaceId: String, objectId: String, dataHandler: @escaping @Sendable (ObjectDetails) async -> Void) async {
         await self.startSubscription(subId: subId, spaceId: spaceId, objectId: objectId, additionalKeys: [], dataHandler: dataHandler)
     }
 }
@@ -37,7 +37,7 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
         spaceId: String,
         objectId: String,
         additionalKeys: [BundledRelationKey],
-        dataHandler: @escaping (ObjectDetails) -> Void
+        dataHandler: @escaping @Sendable (ObjectDetails) async -> Void
     ) async {
         let subData = subscriptionBuilder.build(subId: subId, spaceId: spaceId, objectIds: [objectId], additionalKeys: additionalKeys)
     
@@ -49,7 +49,7 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: subData) { data in
             guard let item = data.items.first else { return }
-            dataHandler(item)
+            await dataHandler(item)
         }
         
         subscriptionStorages[subId] = subscriptionStorage

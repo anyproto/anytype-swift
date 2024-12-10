@@ -7,8 +7,8 @@ protocol TemplatesSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         objectType: String,
         spaceId: String,
-        update: @escaping ([ObjectDetails]) -> Void
-    ) async
+        update: (@Sendable ([ObjectDetails]) async -> Void)? // For legacy editor code
+    ) async -> AnyPublisher<[ObjectDetails], Never>
     func stopSubscription() async
 }
 
@@ -24,8 +24,8 @@ actor TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
     func startSubscription(
         objectType: String,
         spaceId: String,
-        update: @escaping ([ObjectDetails]) -> Void
-    ) async {
+        update: (@Sendable ([ObjectDetails]) async -> Void)?
+    ) async -> AnyPublisher<[ObjectDetails], Never> {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.addedDate,
             type: .desc
@@ -44,8 +44,9 @@ actor TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items)
+            await update?(data.items)
         }
+        return subscriptionStorage.statePublisher.map { $0.items }.eraseToAnyPublisher()
     }
     
     func stopSubscription() async {
