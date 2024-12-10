@@ -74,7 +74,7 @@
 "Create relation" = "Maak relatie '%@'";
 "Relation.View.Hint.Empty" = "leeg";
 "Relation.MyRelations" = "Mijn relaties";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "Relatie %@ is gemaakt";
 "Relation.Deleted" = "Verwijderde relatie";
 "Relation.From.Type" = "Van type %@";
 "Relation.EmptyState.title" = "Geen opties";
@@ -164,7 +164,7 @@
 "Move" = "Verplaats";
 "Move to" = "Verplaats naar";
 "Back" = "Terug";
-"Pin" = "Pin";
+"Pin" = "Zet vast";
 "Unpin" = "Maak los";
 "Pin on top" = "Zet vast bovenaan";
 "File block subtitle" = "Sla bestand op in oorspronkelijke staat";
@@ -704,7 +704,7 @@
 "Show" = "Toon";
 "Hide" = "Verberg";
 "Apply" = "Pas toe";
-"Leave a space" = "Leave a space";
+"Leave a space" = "Verlaat een ruimte";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";
@@ -723,7 +723,7 @@
 "ObjectType.SearchOrInstall" = "Zoek of installeer een nieuw type";
 "ObjectType.Search" = "Zoek naar type";
 "ObjectType.MyTypes" = "Mijn types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "Type '%@' is gemaakt";
 "ObjectType.DeletedName" = "Verwijderd type";
 "ObjectType.editingType" = "Je bewerkt het type";
 
@@ -1241,7 +1241,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Er is hier nog niets voor deze datum";
-"Date.Open.Action.title" = "Open selected date";
+"Date.Open.Action.title" = "Open geselecteerde datum";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sorteer op";
@@ -1262,15 +1262,15 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.ReplyTo" = "Antwoord op %@";
 "Chat.Empty.Title" = "Nog geen berichten hier...";
 "Chat.Empty.Description" = "Schrijf een eerste om een gesprek te beginnen";
-"Chat.DeleteMessage.Title" = "Delete this message?";
-"Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
-"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
-"Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Objects" = "Select existing object";
+"Chat.DeleteMessage.Title" = "Verwijder dit bericht?";
+"Chat.DeleteMessage.Description" = "Het kan niet worden hersteld na bevestiging";
+"Chat.Reactions.Empty.Title" = "Nog geen reacties";
+"Chat.Reactions.Empty.Subtitle" = "Waarschijnlijk heeft iemand zojuist de reactie verwijderd of was er een technisch probleem";
+"Chat.EditMessage" = "Bewerk bericht";
+"Chat.Actions.Menu.Objects" = "Selecteer bestaand object";
 "Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload file";
-"Chat.Participant.Badge" = "(You)";
+"Chat.Actions.Menu.Files" = "Upload bestand";
+"Chat.Participant.Badge" = "(Jij)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";
