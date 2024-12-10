@@ -59,12 +59,9 @@ final class TypeFieldsViewModel: ObservableObject {
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,
             spaceId: document.spaceId,
-            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
-            target: .object,
-            onRelationSelect: { [weak self] details, isNew in
-                guard let self else { return }
-                addRelation(details, section: section)
-            }
+            excludedRelationsIds: relationRows.compactMap(\.relationId),
+            target: .type(isFeatured: section.isHeader),
+            onRelationSelect: { _, _ in }
         )
     }
     
