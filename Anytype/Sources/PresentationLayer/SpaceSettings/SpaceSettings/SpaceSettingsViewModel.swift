@@ -58,7 +58,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: workspaceInfo.spaceViewId)
+        output?.onChangeIconSelected()
     }
     
     func onStorageTap() {

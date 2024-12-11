@@ -5,8 +5,8 @@ struct SpaceObjectIconPickerView: View {
     
     @StateObject private var model: SpaceObjectIconPickerViewModel
     
-    init(spaceViewId: String, spaceId: String) {
-        self._model = StateObject(wrappedValue: SpaceObjectIconPickerViewModel(spaceViewId: spaceViewId, spaceId: spaceId))
+    init(spaceId: String) {
+        self._model = StateObject(wrappedValue: SpaceObjectIconPickerViewModel(spaceId: spaceId))
     }
     
     var body: some View {
@@ -21,7 +21,7 @@ struct SpaceObjectIconPickerView: View {
             }
         )
         .task {
-            await model.startDocumentHandler()
+            await model.startSpaceTask()
         }
     }
 }

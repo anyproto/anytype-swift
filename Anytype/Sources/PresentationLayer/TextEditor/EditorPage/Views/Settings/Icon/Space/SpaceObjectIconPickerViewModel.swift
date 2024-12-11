@@ -8,40 +8,30 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
-    private let spaceViewId: String
     private let spaceId: String
     
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.fileActionsService)
     private var fileService: any FileActionsServiceProtocol
-    @Injected(\.documentService)
-    private var openDocumentProvider: any OpenedDocumentsProviderProtocol
-    
-    private lazy var document: any BaseDocumentProtocol = {
-        openDocumentProvider.document(objectId: spaceViewId, spaceId: spaceId)
-    }()
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     
     @Published private(set) var isRemoveEnabled: Bool = false
 
     // MARK: - Initializer
     
-    init(spaceViewId: String, spaceId: String) {
-        self.spaceViewId = spaceViewId
+    init(spaceId: String) {
         self.spaceId = spaceId
     }
     
-    func startDocumentHandler() async {
-        for await details in document.detailsPublisher.values {
-            isRemoveEnabled = details.iconImage.isNotEmpty
+    func startSpaceTask() async {
+        for await space in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
+            isRemoveEnabled = space.iconImage?.imageId.isNotNil ?? false
         }
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        guard let spaceId = document.details?.targetSpaceId else {
-            anytypeAssertionFailure("target space id not found")
-            return
-        }
         AnytypeAnalytics.instance().logSetIcon()
         let safeSendableItemProvider = itemProvider.sendable()
         Task {
@@ -52,10 +42,6 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     }
     
     func removeIcon() {
-        guard let spaceId = document.details?.targetSpaceId else {
-            anytypeAssertionFailure("target space id not found")
-            return
-        }
         AnytypeAnalytics.instance().logRemoveIcon()
         Task {
             try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId("")])
