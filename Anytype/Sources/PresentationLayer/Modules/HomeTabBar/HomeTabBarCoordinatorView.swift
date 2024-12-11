@@ -50,7 +50,7 @@ struct HomeTabBarCoordinatorView: View {
             }
         }
         .safeAreaInset(edge: .top, spacing: 0) {
-            HomeTabBarView(icon: model.spaceIcon, state: $model.tab) {
+            HomeTabBarView(name: model.spaceName, icon: model.spaceIcon, state: $model.tab) {
                 model.onSpaceSelected()
             }
         }
