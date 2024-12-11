@@ -96,7 +96,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 replyAttachments: replyAttachments,
                 replyAuthor: participants.first { $0.identity == replyMessage?.creator },
                 nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
-                authorMode: isYourMessage ? .hidden : (lastForCurrentUser || firstInSection || nextDateIntervalIsBig ? .show : .empty),
+                authorMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 showHeader: firstForCurrentUser || prevDateIntervalIsBig,
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit
