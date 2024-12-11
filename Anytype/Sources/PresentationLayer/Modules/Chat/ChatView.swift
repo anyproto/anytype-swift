@@ -91,8 +91,12 @@ struct ChatView: View {
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
+        .disabled(model.sendMessageTaskInProgress)
         .task(id: model.mentionSearchState) {
             try? await model.updateMentionState()
+        }
+        .throwingTask(id: model.sendMessageTaskInProgress) {
+            try await model.sendMessageTask()
         }
     }
     

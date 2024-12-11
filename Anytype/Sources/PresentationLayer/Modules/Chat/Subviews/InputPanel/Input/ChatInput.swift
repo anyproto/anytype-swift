@@ -63,9 +63,9 @@ struct ChatInput: View {
                 Button {
                     onTapSend()
                 } label: {
-                    Image(asset: additionalDataLoading ? .Chat.SendMessage.inactive : .Chat.SendMessage.active)
+                    EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
                 }
-                .allowsHitTesting(!additionalDataLoading)
+                .disabled(additionalDataLoading)
                 .frame(width: 32, height: 56)
             }
                 
