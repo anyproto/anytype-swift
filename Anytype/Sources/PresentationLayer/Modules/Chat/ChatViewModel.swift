@@ -352,6 +352,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         message = NSAttributedString()
         linkedObjects = []
         photosItems = []
+        photosItemsTask = UUID()
         replyToMessage = nil
         editMessage = nil
     }
