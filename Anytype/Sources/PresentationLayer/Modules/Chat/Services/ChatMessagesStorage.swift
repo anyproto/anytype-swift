@@ -16,7 +16,7 @@ protocol ChatMessagesStorageProtocol: AnyObject {
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private enum Constants {
-        static let pageSize = 20
+        static let pageSize = 100
     }
     
     @Injected(\.chatService)
@@ -59,11 +59,11 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     func loadNextPage() async throws {
-        guard let allMessages, let last = allMessages.last else {
+        guard let allMessages, let first = allMessages.first else {
             anytypeAssertionFailure("Last message not found")
             return
         }
-        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: last.orderID, limit: Constants.pageSize)
+        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, limit: Constants.pageSize)
         guard messages.isNotEmpty else { return }
         await loadAttachments(messages: messages)
         await loadReplies(messages: messages)
@@ -143,10 +143,12 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let loadedAttachmentsIds = Set(attachmentsDetails.map(\.id))
         let attachmentsInMessage = Set(messages.flatMap { $0.attachments.map(\.target) })
         let newAttachmentsIds = attachmentsInMessage.subtracting(loadedAttachmentsIds)
-        if let newAttachmentsDetails = try? await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds)) {
+        guard newAttachmentsIds.isNotEmpty else { return }
+        do {
+            let newAttachmentsDetails = try await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds))
             let newAttachments = newAttachmentsDetails.map { MessageAttachmentDetails(details: $0) }
             attachmentsDetails.append(contentsOf: newAttachments)
-        }
+        } catch {}
     }
     
     private func loadReplies(messages: [ChatMessage]) async {

@@ -42,9 +42,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         var newMessageBlocks: [MessageSectionData] = []
         
         var prevDateInterval: Int64?
-        var prevDateDay: Date?
         var prevCreator: String?
-                
+        var sectionDateDay: Date?
+        
         for messageIndex in 0..<messages.count {
             
             let message = messages[messageIndex]
@@ -52,7 +52,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             
             let createDateDay = dayDate(for: message.createdAtDate)
             
-            let firstInSection = prevDateDay.map { $0.timeIntervalSince1970 < createDateDay.timeIntervalSince1970 } ?? true
+            let firstInSection = sectionDateDay.map { $0.timeIntervalSince1970 < createDateDay.timeIntervalSince1970 } ?? true
             let lastInSection = nextMessage.map { dayDate(for: $0.createdAtDate).timeIntervalSince1970 > createDateDay.timeIntervalSince1970 } ?? true
             let firstForCurrentUser = prevCreator != message.creator
             let prevDateIntervalIsBig = prevDateInterval.map { (message.createdAt - $0) > Constants.grouppingDateInterval } ?? true
@@ -106,13 +106,17 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 if let currentSectionData {
                     newMessageBlocks.append(currentSectionData)
                 }
-                currentSectionData = MessageSectionData(header: dateFormatter.string(from: createDateDay), id: createDateDay.hashValue, items: [messageModel])
+                currentSectionData = MessageSectionData(
+                    header: dateFormatter.string(from: createDateDay),
+                    id: createDateDay.hashValue,
+                    items: [messageModel]
+                )
+                sectionDateDay = createDateDay
             } else {
                 currentSectionData?.items.append(messageModel)
             }
             
             
-            prevDateDay = createDateDay
             prevCreator = message.creator
             prevDateInterval = message.createdAt
         }

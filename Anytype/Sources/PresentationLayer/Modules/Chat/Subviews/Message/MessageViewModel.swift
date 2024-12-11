@@ -160,11 +160,16 @@ final class MessageViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateSubscription() async {
-        await objectIdsSubscriptionService.startSubscription(spaceId: data.spaceId, objectIds: data.message.attachments.map(\.target)) { [weak self] linkedDetails in
-            let linkedDetails = linkedDetails.map { MessageAttachmentDetails(details: $0) }.sorted { $0.id > $1.id }
-            if self?.linkedObjectsDetails != linkedDetails {
-                self?.linkedObjectsDetails = linkedDetails
-                self?.updateAttachments()
+        let objectIds = data.message.attachments.map(\.target)
+        if objectIds.isEmpty {
+            await objectIdsSubscriptionService.stopSubscription()
+        } else {
+            await objectIdsSubscriptionService.startSubscription(spaceId: data.spaceId, objectIds: objectIds) { [weak self] linkedDetails in
+                let linkedDetails = linkedDetails.map { MessageAttachmentDetails(details: $0) }.sorted { $0.id > $1.id }
+                if self?.linkedObjectsDetails != linkedDetails {
+                    self?.linkedObjectsDetails = linkedDetails
+                    self?.updateAttachments()
+                }
             }
         }
     }

@@ -13,6 +13,7 @@ final class ChatCollectionViewCoordinator<
     private var canCallScrollToBottom = false
     private var scrollUpdateTask: AnyCancellable?
     private var sections: [Section] = []
+    private var dataSourceApplyTransaction = false
     
     var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     var scrollToBottom: (() async -> Void)?
@@ -90,37 +91,30 @@ final class ChatCollectionViewCoordinator<
         
         CATransaction.begin()
         
+        dataSourceApplyTransaction = true
         dataSource.apply(newSnapshot, animatingDifferences: false) { [weak self] in
             guard let self else { return }
             
-            defer {
-                appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: oldIsNearBottom)
-                canCallScrollToBottom = true
-            }
-            
-            guard !decelerating, // If is not scroll animation
-                collectionView.contentSize.height != oldContentSize.height, // If the height has changed
+            // Safe offset for visible cells
+            if collectionView.contentSize.height != oldContentSize.height, // If the height has changed
                 oldContentSize.height != 0, // If is not first update
                 let oldVisibleCellAttributes, // If the old state contains a visible cell that will be used to calculate the difference
                 let visibleItem,
                 // If the new state contains the same cell
                 let visibleIndexPath = dataSource.indexPath(for: visibleItem),
                 let visibleCellAttributes = collectionView.layoutAttributesForItem(at: visibleIndexPath)
-            else {
-                CATransaction.commit()
-                return
+            {
+                let diffY = visibleCellAttributes.frame.minY - oldVisibleCellAttributes.frame.minY
+                
+                let offsetY = oldContentOffset.y + diffY
+                if collectionView.contentOffset.y != offsetY {
+                    collectionView.contentOffset.y = offsetY
+                }
             }
             
-            // Safe offset for visible cells
-            let diffY = visibleCellAttributes.frame.minY - oldVisibleCellAttributes.frame.minY
-            
-            let offsetY = oldContentOffset.y + diffY
-            if collectionView.contentOffset.y != offsetY {
-                collectionView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: false)
-            }
-            
-            // Sometimes the collection may be rendered with an incorrect offset.
-            // Apply the update only after set the correct offset
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: oldIsNearBottom)
+            canCallScrollToBottom = true
+            dataSourceApplyTransaction = false
             CATransaction.commit()
         }
     }
@@ -128,7 +122,7 @@ final class ChatCollectionViewCoordinator<
     // MARK: - UICollectionViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentSize.height > 0 else { return }
+        guard !dataSourceApplyTransaction, scrollView.contentSize.height > 0 else { return }
         
         let distance = scrollView.contentOffset.y - scrollView.topOffset.y
         
