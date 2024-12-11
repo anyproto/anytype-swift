@@ -95,7 +95,9 @@ struct AuthView: View {
                 }
             )
             .colorScheme(.light)
-            .addEmptyNavigationLink(destination: model.onJoinAction(), isActive: $model.showJoinFlow)
+            .navigationDestination(isPresented: $model.showJoinFlow) {
+                model.onJoinAction()
+            }
             
             StandardButton(
                 Loc.Auth.logIn,
@@ -104,7 +106,9 @@ struct AuthView: View {
                     model.onLoginButtonTap()
                 }
             )
-            .addEmptyNavigationLink(destination: model.onLoginAction(), isActive: $model.showLoginFlow)
+            .navigationDestination(isPresented: $model.showLoginFlow) {
+                model.onLoginAction()
+            }
         }
     }
     

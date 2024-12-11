@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public protocol ChatServiceProtocol: AnyObject {
+public protocol ChatServiceProtocol: AnyObject, Sendable {
     func getMessages(chatObjectId: String, beforeOrderId: String?, limit: Int?) async throws -> [ChatMessage]
     func getMessagesByIds(chatObjectId: String, messageIds: [String]) async throws -> [ChatMessage]
     func addMessage(chatObjectId: String, message: ChatMessage) async throws -> String

@@ -478,8 +478,7 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionStorages[data.identifier] = subscription
 
         try? await subscription.startOrUpdateSubscription(data: data) { [weak self] state in
-            guard let self else { return }
-            updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
+            await self?.updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
         }
     }
 
