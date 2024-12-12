@@ -50,12 +50,16 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
-    static var primitives: Bool {
-        value(for: .primitives)
-    }
-
     static var pinnedSpaces: Bool {
         value(for: .pinnedSpaces)
+    }
+
+    static var newSpacesLoading: Bool {
+        value(for: .newSpacesLoading)
+    }
+
+    static var primitives: Bool {
+        value(for: .primitives)
     }
 
     static var rainbowViews: Bool {
@@ -123,8 +127,9 @@ public extension FeatureFlags {
         .dateAsAnObject,
         .relativeDates,
         .homeSpaceLevelChat,
-        .primitives,
         .pinnedSpaces,
+        .newSpacesLoading,
+        .primitives,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
