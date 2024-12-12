@@ -326,10 +326,9 @@ final class DateViewModel: ObservableObject {
     private func relationItemData(from details: RelationDetails) -> RelationItemData {
         let isMention = details.key == BundledRelationKey.mentions.rawValue
         let icon: Icon? = isMention ? .asset(.X24.mention) : nil
-        let title = isMention ? Loc.Relation.Mention.title : details.name
         return RelationItemData(
             icon: icon,
-            title: title,
+            title: details.name,
             details: details
         )
     }
