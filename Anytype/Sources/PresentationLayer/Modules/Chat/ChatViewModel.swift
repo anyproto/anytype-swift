@@ -123,9 +123,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
         for await messages in await chatStorage.messagesPublisher.values {
+            let prevChatIsEmpty = self.messages.isEmpty
             self.messages = messages
             self.dataLoaded = true
             await updateMessages()
+            if prevChatIsEmpty, let message = messages.last {
+                collectionViewScrollProxy.scrollTo(itemId: message.id, position: .bottom, animated: false)
+            }
         }
     }
     
@@ -153,7 +157,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 linkedObjects: linkedObjects,
                 replyToMessageId: replyToMessage?.id
             )
-            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom)
+            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
         }
         clearInput()
         sendMessageTaskInProgress = false

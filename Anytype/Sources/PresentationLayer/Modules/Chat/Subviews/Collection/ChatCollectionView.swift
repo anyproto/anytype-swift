@@ -30,7 +30,7 @@ struct ChatCollectionView<
             let header = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
                 elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .bottom
+                alignment: .top
             )
             
             section.boundarySupplementaryItems = [header]
@@ -40,9 +40,12 @@ struct ChatCollectionView<
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.allowsSelection = false
-        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
         collectionView.delegate = context.coordinator
         collectionView.scrollsToTop = false
+        
+        if #available(iOS 17.4, *) {
+            collectionView.contentAlignmentPoint = CGPoint(x: 0, y: 1)
+        }
         
         if #available(iOS 16.4, *) {
             collectionView.keyboardDismissMode = .interactive

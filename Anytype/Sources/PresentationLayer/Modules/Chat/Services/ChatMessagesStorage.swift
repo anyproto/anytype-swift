@@ -50,7 +50,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         await loadAttachments(messages: messages)
         await loadReplies(messages: messages)
         subscriptionStarted = true
-        allMessages = messages.sorted(by: { $0.orderID > $1.orderID })
+        allMessages = messages.sorted(by: sortChat)
         
         EventBunchSubscribtion.default.addHandler { [weak self] events in
             guard events.contextId == self?.chatObjectId else { return }
@@ -59,15 +59,15 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     func loadNextPage() async throws {
-        guard let allMessages, let last = allMessages.last else {
+        guard let allMessages, let first = allMessages.first else {
             anytypeAssertionFailure("Last message not found")
             return
         }
-        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: last.orderID, limit: Constants.pageSize)
+        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, limit: Constants.pageSize)
         guard messages.isNotEmpty else { return }
         await loadAttachments(messages: messages)
         await loadReplies(messages: messages)
-        self.allMessages = (allMessages + messages).sorted(by: { $0.orderID > $1.orderID }).uniqued()
+        self.allMessages = (allMessages + messages).sorted(by: sortChat).uniqued()
     }
     
     func loadPagesTo(messageId: String) async throws {
@@ -81,7 +81,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         var allLoadedMessages = [ChatMessage]()
         while let message = lastMessage {
             let loadedMessages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: message.orderID, limit: 2)
-            let sortedMessages = loadedMessages.sorted(by: { $0.orderID > $1.orderID })
+            let sortedMessages = loadedMessages.sorted(by: sortChat)
             allLoadedMessages.append(contentsOf: sortedMessages)
             
             if sortedMessages.contains(where: { $0.id == messageId }) {
@@ -91,7 +91,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
         await loadAttachments(messages: allLoadedMessages)
         await loadReplies(messages: allLoadedMessages)
-        self.allMessages = (allMessages + allLoadedMessages).sorted(by: { $0.orderID > $1.orderID }).uniqued()
+        self.allMessages = (allMessages + allLoadedMessages).sorted(by: sortChat).uniqued()
     }
     
     func attachments(message: ChatMessage) async -> [MessageAttachmentDetails] {
@@ -120,7 +120,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
-                let newAllMessage = ((allMessages ?? []) + [data.message]).sorted(by: { $0.orderID > $1.orderID }).uniqued()
+                let newAllMessage = ((allMessages ?? []) + [data.message]).sorted(by: sortChat).uniqued()
                 await loadAttachments(messages: [data.message])
                 allMessages = newAllMessage
             case let .chatDelete(data):
@@ -143,10 +143,12 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let loadedAttachmentsIds = Set(attachmentsDetails.map(\.id))
         let attachmentsInMessage = Set(messages.flatMap { $0.attachments.map(\.target) })
         let newAttachmentsIds = attachmentsInMessage.subtracting(loadedAttachmentsIds)
-        if let newAttachmentsDetails = try? await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds)) {
+        guard newAttachmentsIds.isNotEmpty else { return }
+        do {
+            let newAttachmentsDetails = try await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds))
             let newAttachments = newAttachmentsDetails.map { MessageAttachmentDetails(details: $0) }
             attachmentsDetails.append(contentsOf: newAttachments)
-        }
+        } catch {}
     }
     
     private func loadReplies(messages: [ChatMessage]) async {
@@ -159,6 +161,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             replies.append(contentsOf: newReplies)
             await loadAttachments(messages: newReplies)
         } catch {}
+    }
+    
+    private func sortChat(_ chat1: ChatMessage, _ chat2: ChatMessage) -> Bool {
+        chat1.orderID < chat2.orderID
     }
 }
 
