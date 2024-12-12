@@ -78,7 +78,7 @@ public extension FeatureDescription {
         title: "Pinned Spaces",
         type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
         defaultValue: false,
-        debugValue: true
+        debugValue: false
     )
     
     static let newSpacesLoading = FeatureDescription(
