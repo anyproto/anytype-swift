@@ -1302,9 +1302,6 @@ internal enum Loc {
       internal static let protobuf = Loc.tr("Localizable", "Relation.ImportType.Protobuf", fallback: "Any-Block")
       internal static let text = Loc.tr("Localizable", "Relation.ImportType.Text", fallback: "TXT")
     }
-    internal enum Mention {
-      internal static let title = Loc.tr("Localizable", "Relation.Mention.title", fallback: "Mentioned in")
-    }
     internal enum Object {
       internal enum Delete {
         internal enum Alert {
