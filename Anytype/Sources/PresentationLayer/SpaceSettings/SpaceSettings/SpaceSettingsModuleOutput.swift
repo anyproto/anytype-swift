@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 protocol SpaceSettingsModuleOutput: AnyObject {
-    func onChangeIconSelected(objectId: String)
+    func onChangeIconSelected()
     func onRemoteStorageSelected()
     func onPersonalizationSelected()
     func onSpaceShareSelected()

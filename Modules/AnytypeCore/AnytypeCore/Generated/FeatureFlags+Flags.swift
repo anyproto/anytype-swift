@@ -42,6 +42,10 @@ public extension FeatureFlags {
         value(for: .dateAsAnObject)
     }
 
+    static var relativeDates: Bool {
+        value(for: .relativeDates)
+    }
+
     static var homeSpaceLevelChat: Bool {
         value(for: .homeSpaceLevelChat)
     }
@@ -117,6 +121,7 @@ public extension FeatureFlags {
         .spaceHubParallax,
         .userWarningAlerts,
         .dateAsAnObject,
+        .relativeDates,
         .homeSpaceLevelChat,
         .primitives,
         .pinnedSpaces,
