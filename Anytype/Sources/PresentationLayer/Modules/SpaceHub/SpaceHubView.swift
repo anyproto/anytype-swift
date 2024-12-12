@@ -145,7 +145,9 @@ struct SpaceHubView: View {
                 Spacer.fixedHeight(1)
             }
             Spacer()
-            if space.spaceView.isPinned {
+            if space.spaceView.isLoading && FeatureFlags.newSpacesLoading {
+                DotsView().frame(width: 30, height: 6)
+            } else if space.spaceView.isPinned {
                 Image(asset: .X24.pin).frame(width: 22, height: 22)
             }
         }
@@ -159,7 +161,7 @@ struct SpaceHubView: View {
         )
         .cornerRadius(20, style: .continuous)
         
-        .if(space.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
+        .if(space.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
         .if(space.spaceView.isPinned) {
