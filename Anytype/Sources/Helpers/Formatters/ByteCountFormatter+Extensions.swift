@@ -1,6 +1,6 @@
 import Foundation
 
-extension ByteCountFormatter {
+extension ByteCountFormatter: @unchecked @retroactive Sendable {
     static let fileFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
         formatter.allowedUnits = .useAll

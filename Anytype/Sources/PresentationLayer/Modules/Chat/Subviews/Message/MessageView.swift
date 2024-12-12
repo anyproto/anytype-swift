@@ -172,6 +172,8 @@ private struct MessageInternalView: View {
                     .lineLimit(1)
                     .offset(x: contentSize.width - headerSize.width)
             }
+            // Height is required for prevent change cell height if participant not loaded. For empty text
+            .frame(height: 20)
             .padding(.horizontal, 12)
             .padding(.top, 12)
             .readSize {

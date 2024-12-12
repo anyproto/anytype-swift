@@ -8,7 +8,7 @@ protocol DateRelatedObjectsSubscriptionServiceProtocol: AnyObject {
         filters: [DataviewFilter],
         sort: DataviewSort,
         limit: Int,
-        update: @escaping ([ObjectDetails], Int) -> Void
+        update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async
     func stopSubscription() async
 }
@@ -30,7 +30,7 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
         filters: [DataviewFilter],
         sort: DataviewSort,
         limit: Int,
-        update: @escaping ([ObjectDetails], Int) -> Void
+        update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async {
         
         let filters: [DataviewFilter] = .builder {
@@ -53,7 +53,7 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items, data.prevCount)
+            await update(data.items, data.prevCount)
         }
     }
     

@@ -60,6 +60,9 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.userWarningAlert, dismissOnBackgroundView: false) {
                 UserWarningAlertCoordinatorView(alert: $0)
             }
+            .anytypeSheet(isPresented: $model.showObjectIsNotAvailableAlert) {
+                ObjectIsNotAvailableAlert()
+            }
     }
     
     private var content: some View {  

@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 protocol ParticipantsSubscriptionProtocol: AnyObject {
     var participantsPublisher: AnyPublisher<[Participant], Never> { get }
 }
@@ -12,7 +13,8 @@ extension ParticipantsSubscriptionProtocol {
     }
 }
 
-actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
+@MainActor
+final class ParticipantsSubscription: ParticipantsSubscriptionProtocol {
     
     // MARK: - DI
     

@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import Combine
 
-protocol ServerConfigurationStorageProtocol: AnyObject {
+protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
     var installedConfigurationsPublisher: AnyPublisher<Void, Never> { get }
     func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws
     func setupCurrentConfiguration(config: NetworkServerConfig)
@@ -23,8 +23,8 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     private var serverConfig: NetworkServerConfig
     
     private enum Constants {
-        static var configStorageFolder = "Servers"
-        static var pathExtension = "yml"
+        static let configStorageFolder = "Servers"
+        static let pathExtension = "yml"
     }
     
     private let storagePath: URL

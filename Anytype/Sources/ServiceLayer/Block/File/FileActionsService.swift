@@ -45,15 +45,15 @@ final class FileActionsService: FileActionsServiceProtocol {
         ]
     }
     
-    // Clear file cache once for app launch
-    private static var cacheCleared: Bool = false
+    // Clear file cache once for app launch. Should be as singletone in DI.
+    private var cacheCleared: Bool = false
     @Injected(\.fileService)
     private var fileService: any FileServiceProtocol
     
     init() {
-        if !FileActionsService.cacheCleared {
+        if !cacheCleared {
             clearFileCache()
-            FileActionsService.cacheCleared = true
+            cacheCleared = true
         }
     }
     

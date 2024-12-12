@@ -17,20 +17,23 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private var objects: [RelationDetails] = []
     private var marketplaceObjects: [RelationDetails] = []
     
-    private let document: any BaseDocumentProtocol
+    private let objectId: String
+    private let spaceId: String
     private let excludedRelationsIds: [String]
     private let target: RelationsModuleTarget
     private let interactor: RelationsSearchInteractor
     private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
-        document: some BaseDocumentProtocol,
+        objectId: String,
+        spaceId: String,
         excludedRelationsIds: [String],
         target: RelationsModuleTarget,
         interactor: RelationsSearchInteractor,
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) {
-        self.document = document
+        self.objectId = objectId
+        self.spaceId = spaceId
         self.excludedRelationsIds = excludedRelationsIds
         self.target = target
         self.interactor = interactor
@@ -40,8 +43,8 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     // MARK: - NewInternalSearchViewModelProtocol
     
     func search(text: String) async throws {
-        let objects = try await interactor.search(text: text, excludedIds: excludedRelationsIds, spaceId: document.spaceId)
-        let marketplaceObjects = try await interactor.searchInLibrary(text: text, spaceId: document.spaceId)
+        let objects = try await interactor.search(text: text, excludedIds: excludedRelationsIds, spaceId: spaceId)
+        let marketplaceObjects = try await interactor.searchInLibrary(text: text, spaceId: spaceId)
         
         handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
         
@@ -62,7 +65,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         
         if let marketplaceRelation = marketplaceObjects.first(where: { $0.id == id}) {
             Task { @MainActor in
-                guard let installedRelation = try await interactor.installRelation(spaceId: document.spaceId, objectId: marketplaceRelation.id) else {
+                guard let installedRelation = try await interactor.installRelation(spaceId: spaceId, objectId: marketplaceRelation.id) else {
                     anytypeAssertionFailure("Relation not installed", info: ["id": marketplaceRelation.id, "key": marketplaceRelation.key])
                     return
                 }
@@ -90,7 +93,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
             }
         case .dataview(let activeViewId):
             Task { @MainActor in
-                try await interactor.addRelationToDataview(objectId: document.objectId, relation: relation, activeViewId: activeViewId)
+                try await interactor.addRelationToDataview(objectId: objectId, relation: relation, activeViewId: activeViewId)
                 onSelect(relation)
             }
         }

@@ -17,8 +17,8 @@ struct ChatView: View {
         }
         .ignoresSafeArea(.keyboard)
         .chatActionOverlay(state: $actionState) {
-            if model.mentionObjects.isNotEmpty {
-                ChatMentionList(mentions: model.mentionObjects) {
+            if model.mentionObjectsModels.isNotEmpty {
+                ChatMentionList(models: model.mentionObjectsModels) {
                     model.didSelectMention($0)
                 }
             }
@@ -91,8 +91,12 @@ struct ChatView: View {
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
+        .disabled(model.sendMessageTaskInProgress)
         .task(id: model.mentionSearchState) {
             try? await model.updateMentionState()
+        }
+        .throwingTask(id: model.sendMessageTaskInProgress) {
+            try await model.sendMessageTask()
         }
     }
     

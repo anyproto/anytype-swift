@@ -189,6 +189,7 @@ internal extension ImageAsset {
     static let openToEdit = ImageAsset.bundle(name: "x24/Open to Edit")
     static let `open` = ImageAsset.bundle(name: "x24/Open")
     static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
+    static let pin = ImageAsset.bundle(name: "x24/Pin")
     static let plus = ImageAsset.bundle(name: "x24/Plus")
     static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
     static let reaction = ImageAsset.bundle(name: "x24/Reaction")
