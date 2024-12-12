@@ -1759,6 +1759,7 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.Join.Message", String(describing: p1), String(describing: p2), fallback: "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.")
       }
       internal static let objectIsNotAvailable = Loc.tr("Localizable", "SpaceShare.Join.ObjectIsNotAvailable", fallback: "Object is not available. Ask the owner to share it.")
+      internal static let spaceDeleted = Loc.tr("Localizable", "SpaceShare.Join.SpaceDeleted", fallback: "The space you try to access has been deleted")
       internal static let title = Loc.tr("Localizable", "SpaceShare.Join.Title", fallback: "Join a space")
     }
     internal enum JoinConfirmation {
