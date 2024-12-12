@@ -64,7 +64,9 @@ extension SpaceView {
     }
     
     var isLoading: Bool {
-        localStatus == .loading && accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+        let spaceIsLoading = localStatus == .loading || localStatus == .unknown
+        let spaceIsNotDeleted = accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+        return spaceIsLoading && spaceIsNotDeleted
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {
