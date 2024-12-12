@@ -66,13 +66,12 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 
                 let content: MessageReactionModelContent
                 
-                if value.ids.count == 1,
-                   let firstId = value.ids.first,
-                   let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) }) {
-                       content = .icon(icon)
-                   } else {
-                       content = .count(value.ids.count)
-                   }
+                if value.ids.count == 1, let firstId = value.ids.first {
+                    let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) })
+                    content = .icon(icon ?? Icon.object(.profile(.placeholder)))
+                } else {
+                    content = .count(value.ids.count)
+                }
                 
                 return MessageReactionModel(
                     emoji: key,

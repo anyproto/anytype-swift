@@ -13,6 +13,8 @@ struct ProfileIconView: View {
                 ImageIdIconView(imageId: imageId)
             case .name(let name):
                 ImageCharIconView(text: name.withPlaceholder)
+            case .placeholder:
+                LoadingPlaceholderIconView()
             }
         }
         .background(Color.Background.highlightedMedium)
