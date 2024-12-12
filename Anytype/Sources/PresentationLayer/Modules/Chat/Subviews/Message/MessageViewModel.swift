@@ -78,7 +78,7 @@ final class MessageViewModel: ObservableObject {
         
         message = MessageTextBuilder.makeMessage(content: chatMessage.message)
         author = authorParticipant?.title ?? ""
-        authorIcon = authorParticipant?.icon.map { .object($0) }
+        authorIcon = authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder))
         date = chatMessage.createdAtDate.formatted(date: .omitted, time: .shortened)
         isYourMessage = chatMessage.creator == yourProfileIdentity
         reactions = data.reactions
