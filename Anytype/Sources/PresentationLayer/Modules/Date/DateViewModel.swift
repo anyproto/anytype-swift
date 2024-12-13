@@ -67,12 +67,12 @@ final class DateViewModel: ObservableObject {
     }
     
     func restartRelationSubscription(with state: DateModuleState) async {
-        guard let filter = buildFilter(from: state),
-              let sort = buildSort(from: state) else { return }
+        let filters = buildFilters(from: state)
+        guard filters.isNotEmpty, let sort = buildSort(from: state) else { return }
         
         await dateRelatedObjectsSubscriptionService.startSubscription(
             spaceId: spaceId,
-            filter: filter,
+            filters: filters,
             sort: sort,
             limit: state.limit,
             update: { [weak self] details, objectsToLoad  in
@@ -250,14 +250,18 @@ final class DateViewModel: ObservableObject {
         }
     }
     
-    private func buildFilter(from state: DateModuleState) -> DataviewFilter? {
-        guard let document, let relationDetails = state.selectedRelation else { return nil }
+    private func buildFilters(from state: DateModuleState) -> [DataviewFilter] {
+        guard let document, let relationDetails = state.selectedRelation else { return [] }
         
         switch relationDetails.format {
         case .date:
-            return dateRelationFilter(key: relationDetails.key, date: state.currentDate)
+            let dateRelationFilter = dateRelationFilter(key: relationDetails.key, date: state.currentDate)
+            let creatorFilter = creatorFilter()
+            let creationDateCompositFilter = creationDateCompositFilter()
+            return [dateRelationFilter, creatorFilter, creationDateCompositFilter].compactMap { $0 }
         default:
-            return objectRelationFilter(key: relationDetails.key, value: document.objectId)
+            let objectRelationFilter = objectRelationFilter(key: relationDetails.key, value: document.objectId)
+            return [objectRelationFilter]
         }
     }
     
@@ -269,6 +273,33 @@ final class DateViewModel: ObservableObject {
         filter.value = date.timeIntervalSince1970.protobufValue
         filter.format = .date
         filter.relationKey = key
+        
+        return filter
+    }
+    
+    private func creatorFilter() -> DataviewFilter? {
+        guard state.selectedRelation?.key == BundledRelationKey.createdDate.rawValue else {
+            return nil
+        }
+        var filter = DataviewFilter()
+        filter.condition = .notEqual
+        filter.value = Constants.anytypeProfileId.protobufValue
+        filter.relationKey = BundledRelationKey.creator.rawValue
+        
+        return filter
+    }
+    
+    private func creationDateCompositFilter() -> DataviewFilter? {
+        guard state.selectedRelation?.key == BundledRelationKey.lastModifiedDate.rawValue else {
+            return nil
+        }
+        var filter = DataviewFilter()
+        filter.condition = .notEqual
+        filter.value = [
+            Constants.relationKey : BundledRelationKey.lastModifiedDate.rawValue.protobufValue,
+            Constants.typeKey : Constants.typeValue.protobufValue
+        ].protobufValue
+        filter.relationKey = BundledRelationKey.createdDate.rawValue
         
         return filter
     }
@@ -295,10 +326,9 @@ final class DateViewModel: ObservableObject {
     private func relationItemData(from details: RelationDetails) -> RelationItemData {
         let isMention = details.key == BundledRelationKey.mentions.rawValue
         let icon: Icon? = isMention ? .asset(.X24.mention) : nil
-        let title = isMention ? Loc.Relation.Mention.title : details.name
         return RelationItemData(
             icon: icon,
-            title: title,
+            title: details.name,
             details: details
         )
     }
@@ -320,5 +350,14 @@ final class DateViewModel: ObservableObject {
             return Loc.tomorrow
         }
         return ""
+    }
+}
+
+private extension DateViewModel {
+    enum Constants {
+        static let relationKey = "relationKey"
+        static let typeKey = "type"
+        static let typeValue = "valueFromRelation"
+        static let anytypeProfileId = "_anytype_profile"
     }
 }

@@ -26,7 +26,7 @@ public extension FeatureDescription {
     
     static let hideCoCreator = FeatureDescription(
         title: "Hide CoCreator tier",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "On demand"),
         defaultValue: true
     )
     
@@ -78,7 +78,21 @@ public extension FeatureDescription {
         title: "Pinned Spaces",
         type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
         defaultValue: false,
-        debugValue: true
+        debugValue: false
+    )
+    
+    static let newSpacesLoading = FeatureDescription(
+        title: "Spaces loading indicator",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let primitives = FeatureDescription(
+        title: "New Primitives",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

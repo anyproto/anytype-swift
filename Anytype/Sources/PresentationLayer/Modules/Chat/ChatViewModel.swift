@@ -51,6 +51,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     @Published var attachmentsDownloading: Bool = false
     @Published var replyToMessage: ChatInputReplyModel?
     @Published var editMessage: ChatMessage?
+    @Published var sendMessageTaskInProgress: Bool = false
     
     private var photosItems: [PhotosPickerItem] = []
     
@@ -122,35 +123,44 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
         for await messages in await chatStorage.messagesPublisher.values {
+            let prevChatIsEmpty = self.messages.isEmpty
             self.messages = messages
             self.dataLoaded = true
             await updateMessages()
+            if prevChatIsEmpty, let message = messages.last {
+                collectionViewScrollProxy.scrollTo(itemId: message.id, position: .bottom, animated: false)
+            }
         }
     }
     
     func onTapSendMessage() {
-        Task {
-            if let editMessage {
-                try await chatActionService.updateMessage(
-                    chatId: chatId,
-                    spaceId: spaceId,
-                    messageId: editMessage.id,
-                    message: message.sendable(),
-                    linkedObjects: linkedObjects,
-                    replyToMessageId: replyToMessage?.id
-                )
-            } else {
-                let messageId = try await chatActionService.createMessage(
-                    chatId: chatId,
-                    spaceId: spaceId,
-                    message: message.sendable(),
-                    linkedObjects: linkedObjects,
-                    replyToMessageId: replyToMessage?.id
-                )
-                collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom)
-            }
-            clearInput()
+        sendMessageTaskInProgress = true
+    }
+    
+    func sendMessageTask() async throws {
+        guard sendMessageTaskInProgress else { return }
+        mentionSearchState = .finish
+        if let editMessage {
+            try await chatActionService.updateMessage(
+                chatId: chatId,
+                spaceId: spaceId,
+                messageId: editMessage.id,
+                message: message.sendable(),
+                linkedObjects: linkedObjects,
+                replyToMessageId: replyToMessage?.id
+            )
+        } else {
+            let messageId = try await chatActionService.createMessage(
+                chatId: chatId,
+                spaceId: spaceId,
+                message: message.sendable(),
+                linkedObjects: linkedObjects,
+                replyToMessageId: replyToMessage?.id
+            )
+            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
         }
+        clearInput()
+        sendMessageTaskInProgress = false
     }
     
     func onTapRemoveLinkedObject(linkedObject: ChatLinkedObject) {
@@ -352,6 +362,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         message = NSAttributedString()
         linkedObjects = []
         photosItems = []
+        photosItemsTask = UUID()
         replyToMessage = nil
         editMessage = nil
     }

@@ -51,6 +51,7 @@ struct ChatTextView: UIViewRepresentable {
             .paragraphStyle: paragraph,
             .kern: Constants.anytypeFont.config.kern
         ]
+        context.coordinator.defaultTypingAttributes = textView.typingAttributes
         textView.textColor = .Text.primary
         
         return textView

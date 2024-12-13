@@ -54,6 +54,14 @@ public extension FeatureFlags {
         value(for: .pinnedSpaces)
     }
 
+    static var newSpacesLoading: Bool {
+        value(for: .newSpacesLoading)
+    }
+
+    static var primitives: Bool {
+        value(for: .primitives)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -120,6 +128,8 @@ public extension FeatureFlags {
         .relativeDates,
         .homeSpaceLevelChat,
         .pinnedSpaces,
+        .newSpacesLoading,
+        .primitives,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
