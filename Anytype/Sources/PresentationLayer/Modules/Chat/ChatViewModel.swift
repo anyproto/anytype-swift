@@ -62,7 +62,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
     
-    private var messages: [ChatMessage] = []
+    private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
@@ -76,7 +76,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         self.chatId = chatId
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
-        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId, chatStorage: chatStorage)
+        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
     }
     
     func onTapAddObjectToMessage() {
@@ -128,7 +128,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             self.dataLoaded = true
             await updateMessages()
             if prevChatIsEmpty, let message = messages.last {
-                collectionViewScrollProxy.scrollTo(itemId: message.id, position: .bottom, animated: false)
+                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
             }
         }
     }
@@ -284,6 +284,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     func deleteMessage(message: MessageViewData) async throws {
         try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
+    }
+    
+    func visibleRangeChanged(fromId: String, toId: String) {
+        Task {
+            await chatStorage.updateVisibleRange(starMessageId: fromId, endMessageId: toId)
+        }
     }
     
     // MARK: - MessageModuleOutput

@@ -16,6 +16,7 @@ struct ChatCollectionView<
     let itemBuilder: (Item) -> ItemView
     let headerBuilder: (Section.Header) -> HeaderView
     let scrollToBottom: () async -> Void
+    let handleVisibleRange: (_ fromId: String, _ toId: String) -> Void
     
     func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
@@ -75,6 +76,7 @@ struct ChatCollectionView<
         context.coordinator.itemBuilder = itemBuilder
         context.coordinator.headerBuilder = headerBuilder
         context.coordinator.scrollToBottom = scrollToBottom
+        context.coordinator.handleVisibleRange = handleVisibleRange
         context.coordinator.updateState(collectionView: container.collectionView, sections: items, scrollProxy: scrollProxy)
     }
     

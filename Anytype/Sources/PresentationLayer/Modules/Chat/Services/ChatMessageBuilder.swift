@@ -2,7 +2,7 @@ import SwiftUI
 import Services
 
 protocol ChatMessageBuilderProtocol: AnyObject {
-    func makeMessage(messages: [ChatMessage], participants: [Participant]) async -> [MessageSectionData]
+    func makeMessage(messages: [FullChatMessage], participants: [Participant]) async -> [MessageSectionData]
 }
 
 final class ChatMessageBuilder: ChatMessageBuilderProtocol {
@@ -16,7 +16,6 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     
     private let spaceId: String
     private let chatId: String
-    private let chatStorage: any ChatMessagesStorageProtocol
     
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -26,13 +25,12 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         return dateFormatter
     }()
     
-    init(spaceId: String, chatId: String, chatStorage: any ChatMessagesStorageProtocol) {
+    init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
         self.chatId = chatId
-        self.chatStorage = chatStorage
     }
     
-    func makeMessage(messages: [ChatMessage], participants: [Participant]) async -> [MessageSectionData] {
+    func makeMessage(messages: [FullChatMessage], participants: [Participant]) async -> [MessageSectionData] {
         
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let canEdit = participant?.canEdit ?? false
@@ -47,8 +45,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         
         for messageIndex in 0..<messages.count {
             
-            let message = messages[messageIndex]
-            let nextMessage = messages[safe: messageIndex + 1]
+            let fullMessage = messages[messageIndex]
+            let message = fullMessage.message
+            let nextMessage = messages[safe: messageIndex + 1]?.message
             
             let createDateDay = dayDate(for: message.createdAtDate)
             
@@ -81,19 +80,16 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 )
             }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
             
-            let replyMessage = await chatStorage.reply(message: message)
-            let replyAttachments = await replyMessage.asyncMap { await chatStorage.attachments(message: $0) } ?? []
-            
             let messageModel = MessageViewData(
                 spaceId: spaceId,
                 chatId: chatId,
                 message: message,
                 participant: participants.first { $0.identity == message.creator },
                 reactions: reactions,
-                attachmentsDetails: await chatStorage.attachments(message: message),
-                reply: replyMessage,
-                replyAttachments: replyAttachments,
-                replyAuthor: participants.first { $0.identity == replyMessage?.creator },
+                attachmentsDetails: fullMessage.attachments,
+                reply: fullMessage.reply,
+                replyAttachments: fullMessage.replyAttachments,
+                replyAuthor: participants.first { $0.identity == fullMessage.reply?.creator },
                 nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 showHeader: firstForCurrentUser || prevDateIntervalIsBig,

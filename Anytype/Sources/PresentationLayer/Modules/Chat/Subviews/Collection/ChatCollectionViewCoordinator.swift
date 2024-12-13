@@ -14,6 +14,7 @@ final class ChatCollectionViewCoordinator<
     private var scrollUpdateTask: AnyCancellable?
     private var sections: [Section] = []
     private var dataSourceApplyTransaction = false
+    private var oldVisibleRange: [String] = []
     
     var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     var scrollToBottom: (() async -> Void)?
@@ -21,6 +22,7 @@ final class ChatCollectionViewCoordinator<
     var lastScrollProxy: ChatCollectionScrollProxy?
     var itemBuilder: ((Item) -> DataView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
+    var handleVisibleRange: ((_ fromId: String, _ toId: String) -> Void)?
     
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
@@ -143,6 +145,24 @@ final class ChatCollectionViewCoordinator<
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         decelerating = false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard !dataSourceApplyTransaction, let handleVisibleRange else { return }
+        
+        let visibleIndexes = collectionView.indexPathsForVisibleItems.sorted(by: <)
+        
+        if let first = visibleIndexes.first,
+           let firstItem = dataSource?.itemIdentifier(for: first),
+           let last = visibleIndexes.last,
+           let lastItem = dataSource?.itemIdentifier(for: last) {
+        
+            let newRange = [firstItem.id, lastItem.id]
+            if oldVisibleRange != newRange {
+                oldVisibleRange = newRange
+                handleVisibleRange(firstItem.id, lastItem.id)
+            }
+        }
     }
     
     // MARK: - Private
