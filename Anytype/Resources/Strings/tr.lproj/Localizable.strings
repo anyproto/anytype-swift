@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Yeni bir ilişki arayın veya oluşturun";
 
-"Relation.Mention.title" = "Bahsedildiği yer";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Pano";
@@ -976,6 +974,8 @@
 "SpaceShare.Join.InviteNotFound" = "Bu bağlantı çalışmıyor gibi görünüyor";
 "SpaceShare.JoinConfirmation.Title" = "İstek gönderildi";
 "SpaceShare.JoinConfirmation.Message" = "Alan sahibi talebinizi onayladığında bir bildirim alacaksınız.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Nesne mevcut değil. Nesnenin sahibinden paylaşmasını isteyin.";
+
 "SpaceShare.YouSuffix" = "%@ (siz)";
 "SpaceShare.ManageSpaces" = "Alanları yönetin";
 "SpaceShare.AccessChanged" = "Erişim hakları değiştirildi.";

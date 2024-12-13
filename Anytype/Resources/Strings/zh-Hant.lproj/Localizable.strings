@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "搜尋或建立新關聯";
 
-"Relation.Mention.title" = "Mentioned in";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "剪貼簿";
@@ -979,6 +977,8 @@
 "SpaceShare.Join.InviteNotFound" = "這個連結似乎不起作用";
 "SpaceShare.JoinConfirmation.Title" = "已送出請求";
 "SpaceShare.JoinConfirmation.Message" = "當空間所有者批准您的請求後，您將會收到通知。";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+
 "SpaceShare.YouSuffix" = "%@ (您)";
 "SpaceShare.ManageSpaces" = "管理空間";
 "SpaceShare.AccessChanged" = "存取權限已變更";

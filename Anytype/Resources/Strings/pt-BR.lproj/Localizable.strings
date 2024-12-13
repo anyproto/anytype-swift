@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Pesquisar ou criar uma relação";
 
-"Relation.Mention.title" = "Mentioned in";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Área de Transferência";
@@ -976,6 +974,8 @@
 "SpaceShare.Join.InviteNotFound" = "Este link parece não funcionar";
 "SpaceShare.JoinConfirmation.Title" = "Solicitação enviada";
 "SpaceShare.JoinConfirmation.Message" = "Você será notificado quando o dono do espaço aprovar sua solicitação.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+
 "SpaceShare.YouSuffix" = "%@ (você)";
 "SpaceShare.ManageSpaces" = "Gerenciar espaços";
 "SpaceShare.AccessChanged" = "Os direitos de acesso foram alterados.";

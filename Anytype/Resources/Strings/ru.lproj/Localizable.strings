@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Найти или создать новую связь";
 
-"Relation.Mention.title" = "Упомянуто в";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Буфер обмена";
@@ -975,6 +973,8 @@
 "SpaceShare.Join.InviteNotFound" = "Эта ссылка, похоже, не работает";
 "SpaceShare.JoinConfirmation.Title" = "Запрос отправлен";
 "SpaceShare.JoinConfirmation.Message" = "Вы получите уведомление, когда владелец сообщества одобрит ваш запрос.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+
 "SpaceShare.YouSuffix" = "%@ (вы)";
 "SpaceShare.ManageSpaces" = "Управление пространствами";
 "SpaceShare.AccessChanged" = "Права доступа были изменены.";

@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Telusuri atau buat relasi baru";
 
-"Relation.Mention.title" = "Disebut di";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Papan kerani";
@@ -976,6 +974,8 @@
 "SpaceShare.Join.InviteNotFound" = "Sepertinya tautan ini tidak bisa digunakan";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+
 "SpaceShare.YouSuffix" = "%@ (kamu)";
 "SpaceShare.ManageSpaces" = "Kelola Ruang";
 "SpaceShare.AccessChanged" = "Hak akses telah diubah.";

@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Tìm hoặc tạo một liên hệ mới";
 
-"Relation.Mention.title" = "Mentioned in";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";
@@ -976,6 +974,8 @@
 "SpaceShare.Join.InviteNotFound" = "Link này có vẻ như không hoạt động";
 "SpaceShare.JoinConfirmation.Title" = "Đã gửi yêu cầu";
 "SpaceShare.JoinConfirmation.Message" = "Bạn sẽ nhận được thông báo khi chủ không gian chấp thuận yêu cầu của bạn.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+
 "SpaceShare.YouSuffix" = "%@ (bạn)";
 "SpaceShare.ManageSpaces" = "Quản lý các Không gian";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";

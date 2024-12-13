@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Zoek of maak een nieuwe relatie";
 
-"Relation.Mention.title" = "Vermeld in";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Klembord";
@@ -976,6 +974,8 @@
 "SpaceShare.Join.InviteNotFound" = "Deze link lijkt niet te werken";
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+
 "SpaceShare.YouSuffix" = "%@ (jij)";
 "SpaceShare.ManageSpaces" = "Beheer ruimten";
 "SpaceShare.AccessChanged" = "De toegangsrechten zijn gewijzigd.";
