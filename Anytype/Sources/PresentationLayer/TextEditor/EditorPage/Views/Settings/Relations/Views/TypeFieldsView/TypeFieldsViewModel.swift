@@ -11,13 +11,13 @@ final class TypeFieldsViewModel: ObservableObject {
         
     @Published var canEditRelationsList = false
     @Published var editMode = EditMode.inactive
-    @Published var relationRows = [TypeFieldsRelationsData]()
+    @Published var relationRows = [TypeFieldsRow]()
     @Published var relationsSearchData: RelationsSearchData?
     
     // MARK: - Private variables
     
     let document: any BaseDocumentProtocol
-    private let fieldsDataBuilder = TypeFieldsRelationsDataBuilder()
+    private let fieldsDataBuilder = TypeFieldsRowBuilder()
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
@@ -55,7 +55,7 @@ final class TypeFieldsViewModel: ObservableObject {
         }
     }
     
-    func onAddRelationTap(section: TypeFieldsRelationsSection) {
+    func onAddRelationTap(section: TypeFieldsSectionRow) {
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,
             spaceId: document.spaceId,

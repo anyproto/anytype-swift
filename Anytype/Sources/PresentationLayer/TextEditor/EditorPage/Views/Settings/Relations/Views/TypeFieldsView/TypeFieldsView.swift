@@ -89,22 +89,19 @@ struct TypeFieldsView: View {
     }
     
     private var relationsSection: some View {
-        ForEach(model.relationRows) { data in
-            Section {
-                relationRow(data)
+        ForEach(model.relationRows) { row in
+            switch row {
+            case .header(let header):
+                headerRow(header)
+                    .deleteDisabled(true)
+                    .moveDisabled(true)
+            case .relation(let relation):
+                relationRow(relation)
                     .divider()
-                    .deleteDisabled(!data.canBeRemovedFromObject)
-            } header: {
-                // hacky way to enable dnd between sections: All sections should be created within single ForEach loop
-                if data.relationIndex == 0 {
-                    ListSectionHeaderView(title: data.section.title, increasedTopPadding: false) {
-                        Button(action: {
-                            model.onAddRelationTap(section: data.section)
-                        }, label: {
-                            IconView(asset: .X24.plus).frame(width: 24, height: 24)
-                        })
-                    }
-                }
+            case .emptyRow:
+                Rectangle().foregroundStyle(Color.Background.secondary).frame(height: 52)
+                    .deleteDisabled(true)
+                    .moveDisabled(true)
             }
         }
         .onDelete { indexes in
@@ -115,21 +112,24 @@ struct TypeFieldsView: View {
 //        }
     }
     
-    private func relationRow(_ data: TypeFieldsRelationsData) -> some View {
-        Group {
-            switch data.data {
-            case .relation(let relationDetails):
-                HStack(spacing: 0) {
-                    Image(asset: relationDetails.iconAsset)
-                        .foregroundColor(.Control.active)
-                    Spacer.fixedWidth(10)
-                    AnytypeText(relationDetails.name, style: .uxBodyRegular)
-                    Spacer()
-                }
-                .frame(height: 52)
-            case .stub:
-                Rectangle().foregroundStyle(Color.Background.secondary).frame(height: 52)
-            }
+    private func headerRow(_ data: TypeFieldsSectionRow) -> some View {
+        ListSectionHeaderView(title: data.title, increasedTopPadding: false) {
+            Button(action: {
+                model.onAddRelationTap(section: data)
+            }, label: {
+                IconView(asset: .X24.plus).frame(width: 24, height: 24)
+            })
         }
+    }
+    
+    private func relationRow(_ data: TypeFieldsRelationRow) -> some View {
+        HStack(spacing: 0) {
+            Image(asset: data.relation.iconAsset)
+                .foregroundColor(.Control.active)
+            Spacer.fixedWidth(10)
+            AnytypeText(data.relation.name, style: .uxBodyRegular)
+            Spacer()
+        }
+        .frame(height: 52)
     }
 }
