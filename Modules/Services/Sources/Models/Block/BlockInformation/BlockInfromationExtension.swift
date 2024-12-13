@@ -74,6 +74,15 @@ public extension BlockInformation {
         }
     }
     
+    var isFile: Bool {
+        switch content {
+        case .file:
+            return true
+        default:
+            return false
+        }
+    }
+    
     func headerLayout(container: InfoContainerProtocol) -> BlockInformation? {
         container.children(of: id).first { info in
             info.content == .layout(.init(style: .header))
