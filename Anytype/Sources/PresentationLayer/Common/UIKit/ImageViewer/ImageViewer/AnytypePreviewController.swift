@@ -81,7 +81,7 @@ extension AnytypePreviewController: QLPreviewControllerDataSource, QLPreviewCont
     // MARK: - QLPreviewControllerDelegate
 
     func previewController(_ controller: QLPreviewController, editingModeFor previewItem: any QLPreviewItem) -> QLPreviewItemEditingMode {
-        .createCopy
+        .disabled
     }
 
     func previewController(_ controller: QLPreviewController, didUpdateContentsOf previewItem: any QLPreviewItem) {
