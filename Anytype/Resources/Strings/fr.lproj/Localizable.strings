@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Chercher ou créer une nouvelle relation";
 
-"Relation.Mention.title" = "Mentionné dans";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Presse-papier";
@@ -975,6 +973,8 @@
 "SpaceShare.Join.InviteNotFound" = "Ce lien ne semble pas fonctionner";
 "SpaceShare.JoinConfirmation.Title" = "Demande envoyée";
 "SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+
 "SpaceShare.YouSuffix" = "%@ (vous)";
 "SpaceShare.ManageSpaces" = "Gérer les espaces";
 "SpaceShare.AccessChanged" = "Les droits d'accès ont été modifiés.";
