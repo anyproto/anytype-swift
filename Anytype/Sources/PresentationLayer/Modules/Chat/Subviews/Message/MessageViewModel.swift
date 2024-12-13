@@ -141,7 +141,7 @@ final class MessageViewModel: ObservableObject {
         if details.layoutValue.isFileOrMedia {
             let items = buildPreviewRemoteItemFromLinkedObjects()
             let startAtIndex = items.firstIndex { $0.id == details.id } ?? 0
-            output?.didSelectFileOrMedia(startAtIndex: startAtIndex, items: items)
+            output?.didSelectMediaFile(startAtIndex: startAtIndex, items: items)
         } else {
             output?.didSelectObject(details: details)
         }

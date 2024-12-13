@@ -10,5 +10,5 @@ protocol MessageModuleOutput: AnyObject {
     func didSelectReplyMessage(message: MessageViewData)
     func didSelectDeleteMessage(message: MessageViewData)
     func didSelectEditMessage(message: MessageViewData) async
-    func didSelectFileOrMedia(startAtIndex: Int, items: [any PreviewRemoteItem])
+    func didSelectMediaFile(startAtIndex: Int, items: [any PreviewRemoteItem])
 }

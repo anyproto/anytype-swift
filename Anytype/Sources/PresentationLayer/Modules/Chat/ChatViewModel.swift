@@ -300,8 +300,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         output?.onObjectSelected(screenData: details.editorScreenData)
     }
     
-    func didSelectFileOrMedia(startAtIndex: Int, items: [any PreviewRemoteItem]) {
-        output?.onFileOrMediaSelected(startAtIndex: startAtIndex, items: items)
+    func didSelectMediaFile(startAtIndex: Int, items: [any PreviewRemoteItem]) {
+        output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
     }
     
     func didSelectReplyTo(message: MessageViewData) {

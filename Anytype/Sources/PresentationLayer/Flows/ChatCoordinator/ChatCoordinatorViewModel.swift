@@ -57,7 +57,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         pageNavigation?.push(screenData)
     }
     
-    func onFileOrMediaSelected(startAtIndex: Int, items: [any PreviewRemoteItem]) {
+    func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem]) {
         let previewController = AnytypePreviewController(with: items, initialPreviewItemIndex: startAtIndex)
         navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true
