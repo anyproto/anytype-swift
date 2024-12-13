@@ -138,7 +138,7 @@ final class MessageViewModel: ObservableObject {
     }
     
     func onTapObject(details: MessageAttachmentDetails) {
-        if details.layoutValue.isFileOrMedia {
+        if FeatureFlags.fullScreenMediaFileByTap, details.layoutValue.isFileOrMedia {
             let items = buildPreviewRemoteItemFromLinkedObjects()
             let startAtIndex = items.firstIndex { $0.id == details.id } ?? 0
             output?.didSelectMediaFile(startAtIndex: startAtIndex, items: items)

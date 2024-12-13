@@ -20,8 +20,13 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
         self.fileDetails = fileDetails
         
         super.init()
-
-        startDownloading()
+        
+        let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileName)
+        if FileManager.default.fileExists(atPath: path.relativePath) {
+            self.previewItemURL = path
+        } else {
+            startDownloading()
+        }
     }
 
     func startDownloading() {
