@@ -19,8 +19,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private enum Constants {
         static let pageSize = 100
-        static let subscriptionInterval = 20
-        static let subsctiptionLimit = 60
+        // As user scroll N messages, we update the attachments subscription. Not every message.
+        static let subscriptionMessageIntervalForAttachments = 20
+        // Subscribe to visible cells attachments AND N top and N bottom. Should be more "interval" value for better experience.
+        static let subsctiptionMessageOverLimitForAttachments = 30
     }
     
     @Injected(\.chatService)
@@ -64,8 +66,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let currentStartMessageIndex = subscriptionStartMessageId.map { allMessages.index(forKey: $0) ?? 0 } ?? 0
         let currentEndMessageIndex = subscriptionEndMessageId.map { allMessages.index(forKey: $0) ?? 0 } ?? 0
         
-        guard abs(startMessageIndex - currentStartMessageIndex) > Constants.subscriptionInterval
-                || abs(endMessageIndex - currentEndMessageIndex) > Constants.subscriptionInterval else { return }
+        guard abs(startMessageIndex - currentStartMessageIndex) > Constants.subscriptionMessageIntervalForAttachments
+                || abs(endMessageIndex - currentEndMessageIndex) > Constants.subscriptionMessageIntervalForAttachments else { return }
         
         subscriptionStartMessageId = starMessageId
         subscriptionEndMessageId = endMessageId
@@ -240,10 +242,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
               let startMessageIndex = allMessages.index(forKey: subscriptionStartMessageId),
               let endMessageIndex = allMessages.index(forKey: subscriptionEndMessageId)  else { return }
         
-        
-        let middleIndex = startMessageIndex + (endMessageIndex - startMessageIndex) * 0.5
-        let startIndex = Int(middleIndex - Constants.subsctiptionLimit * 0.5)
-        let endIndex = Int(middleIndex + Constants.subsctiptionLimit * 0.5)
+        let startIndex = startMessageIndex - Constants.subsctiptionMessageOverLimitForAttachments
+        let endIndex = endMessageIndex + Constants.subsctiptionMessageOverLimitForAttachments
         
         var attachmentIds = Set<String>()
         
