@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Шукайце або стварыце новую ўласцівасць";
 
-"Relation.Mention.title" = "Mentioned in";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Буфер абмену";
@@ -976,6 +974,8 @@
 "SpaceShare.Join.InviteNotFound" = "Здаецца, гэтая спасылка не працуе";
 "SpaceShare.JoinConfirmation.Title" = "Запыт адпраўлены";
 "SpaceShare.JoinConfirmation.Message" = "Вы атрымаеце паведамленне, калі ўладальнік прасторы зацвердзіць ваш запыт.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+
 "SpaceShare.YouSuffix" = "%@ (вы)";
 "SpaceShare.ManageSpaces" = "Кіраванне Прасторамі";
 "SpaceShare.AccessChanged" = "Правы доступу былі змененыя.";
