@@ -13,6 +13,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.messageAttachmentsGridLayoutBuilder)
+    private var gridLayoutBuilder: any MessageAttachmentsGridLayoutBuilderProtocol
     
     private let spaceId: String
     private let chatId: String
@@ -61,40 +63,36 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             
             let isYourMessage = message.creator == yourProfileIdentity
             
-            let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
-                
-                let content: MessageReactionModelContent
-                
-                if value.ids.count == 1, let firstId = value.ids.first {
-                    let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) })
-                    content = .icon(icon ?? Icon.object(.profile(.placeholder)))
-                } else {
-                    content = .count(value.ids.count)
-                }
-                
-                return MessageReactionModel(
-                    emoji: key,
-                    content: content,
-                    selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false,
-                    isYourMessage: isYourMessage
-                )
-            }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
+            let authorParticipant = participants.first { $0.identity == message.creator }
             
             let messageModel = MessageViewData(
                 spaceId: spaceId,
                 chatId: chatId,
-                message: message,
-                participant: participants.first { $0.identity == message.creator },
-                reactions: reactions,
-                attachmentsDetails: fullMessage.attachments,
-                reply: fullMessage.reply,
-                replyAttachments: fullMessage.replyAttachments,
-                replyAuthor: participants.first { $0.identity == fullMessage.reply?.creator },
+                authorName: authorParticipant?.title ?? "",
+                authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
+                createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
+                messageString: MessageTextBuilder.makeMessage(content: message.message),
+                replyModel: mapReply(
+                    fullMessage: fullMessage,
+                    participants: participants,
+                    isYourMessage: isYourMessage)
+                ,
+                isYourMessage: isYourMessage,
+                linkedObjects: mapAttachments(fullMessage: fullMessage),
+                reactions: mapReactions(
+                    fullMessage: fullMessage,
+                    participants: participants,
+                    yourProfileIdentity: yourProfileIdentity,
+                    isYourMessage: isYourMessage
+                ),
                 nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 showHeader: firstForCurrentUser || prevDateIntervalIsBig,
                 canDelete: isYourMessage && canEdit,
-                canEdit: isYourMessage && canEdit
+                canEdit: isYourMessage && canEdit,
+                message: message,
+                attachmentsDetails: fullMessage.attachments,
+                reply: fullMessage.reply
             )
             
             if firstInSection {
@@ -127,5 +125,84 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         let calendar = Calendar.current
         let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
         return calendar.date(from: dateComponents) ?? date
+    }
+    
+    private func mapReactions(
+        fullMessage: FullChatMessage,
+        participants: [Participant],
+        yourProfileIdentity: String?,
+        isYourMessage: Bool
+    ) -> [MessageReactionModel] {
+        fullMessage.message.reactions.reactions.map { (key, value) -> MessageReactionModel in
+            
+            let content: MessageReactionModelContent
+            
+            if value.ids.count == 1, let firstId = value.ids.first {
+                let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) })
+                content = .icon(icon ?? Icon.object(.profile(.placeholder)))
+            } else {
+                content = .count(value.ids.count)
+            }
+            
+            return MessageReactionModel(
+                emoji: key,
+                content: content,
+                selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false,
+                isYourMessage: isYourMessage
+            )
+        }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
+    }
+    
+    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], isYourMessage: Bool) -> MessageReplyModel? {
+        if let replyChat = fullMessage.reply {
+            let replyAuthor = participants.first { $0.identity == fullMessage.reply?.creator }
+            let replyAttachment = fullMessage.replyAttachments.first
+            // Without style. Request from designers.
+            let message = replyChat.message.text.isNotEmpty
+                ? MessageTextBuilder.makeMessaeWithoutStyle(content: replyChat.message)
+                : (replyAttachment?.title ?? "")
+            return MessageReplyModel(
+                author: replyAuthor?.title ?? "",
+                description: message,
+                icon: replyAttachment?.objectIconImage,
+                isYour: isYourMessage
+            )
+        }
+        return nil
+    }
+    
+    private func mapAttachments(fullMessage: FullChatMessage) -> MessageLinkedObjectsLayout? {
+        let chatMessage = fullMessage.message
+        
+        guard chatMessage.attachments.isNotEmpty else {
+            return nil
+        }
+        
+        var attachmentsDetails = fullMessage.attachments
+        
+        // Add empty objects
+        for attachment in fullMessage.message.attachments {
+            if !attachmentsDetails.contains(where: { $0.id == attachment.target }) {
+                attachmentsDetails.append(MessageAttachmentDetails(details: ObjectDetails(id: attachment.target)))
+            }
+        }
+        
+        let linkedObjectsDetails = attachmentsDetails.sorted { $0.id > $1.id }
+        
+        let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.layoutValue != .image && $0.layoutValue != .video }
+        
+        if containsNotOnlyMediaFiles {
+            return .list(linkedObjectsDetails)
+        } else {
+            let gridItems = gridLayoutBuilder.makeGridRows(countItems: linkedObjectsDetails.count)
+            var prevIndex = 0
+            let items = gridItems.map { itemsCount in
+                let nextIndex = prevIndex + itemsCount
+                let items = linkedObjectsDetails[prevIndex..<nextIndex]
+                prevIndex = nextIndex
+                return Array(items)
+            }
+            return .grid(items)
+        }
     }
 }

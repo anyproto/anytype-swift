@@ -37,8 +37,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private var subscriptionStarted = false
     private var subscriptions: [AnyCancellable] = []
-    private var subscriptionStartMessageId: String = ""
-    private var subscriptionEndMessageId: String = ""
+    private var subscriptionStartMessageId: String?
+    private var subscriptionEndMessageId: String?
+    private var subscribedAttachmentIds = Set<String>()
     
     // MARK: - Message State
     
@@ -60,31 +61,15 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     func updateVisibleRange(starMessageId: String, endMessageId: String) async {
         let startMessageIndex = allMessages.index(forKey: starMessageId) ?? 0
         let endMessageIndex = allMessages.index(forKey: endMessageId) ?? 0
-        let currentStartMessageIndex = allMessages.index(forKey: subscriptionStartMessageId) ?? 0
-        let currentEndMessageIndex = allMessages.index(forKey: subscriptionEndMessageId) ?? 0
+        let currentStartMessageIndex = subscriptionStartMessageId.map { allMessages.index(forKey: $0) ?? 0 } ?? 0
+        let currentEndMessageIndex = subscriptionEndMessageId.map { allMessages.index(forKey: $0) ?? 0 } ?? 0
         
         guard abs(startMessageIndex - currentStartMessageIndex) > Constants.subscriptionInterval
                 || abs(endMessageIndex - currentEndMessageIndex) > Constants.subscriptionInterval else { return }
         
         subscriptionStartMessageId = starMessageId
         subscriptionEndMessageId = endMessageId
-        
-        let middleIndex = startMessageIndex + (endMessageIndex - startMessageIndex) * 0.5
-        let startIndex = Int(middleIndex - Constants.subsctiptionLimit * 0.5)
-        let endIndex = Int(middleIndex + Constants.subsctiptionLimit * 0.5)
-        
-        var attachmentIds = Set<String>()
-        
-        for index in startIndex..<endIndex {
-            if let message = allMessages.values[safe: index] {
-                let ids = message.attachments.map(\.target)
-                attachmentIds.subtract(ids)
-            }
-        }
-        
-        await objectIdsSubscriptionService.startSubscription(spaceId: spaceId, objectIds: Array(attachmentIds)) { [weak self] details in
-            await self?.updateAttachments(details: details, notifyChanges: true)
-        }
+        await updateAttachmentSubscription()
     }
     
     func startSubscriptionIfNeeded() async throws {
@@ -164,15 +149,16 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 allMessages.removeAll { $0.key == data.id }
                 updateFullMessages()
             case let .chatUpdate(data):
-//                if let index = allMessages.firstIndex(where: { $0.id == data.id }) {
-//                    allMessages[index] = data.message
-//                }
-                break
+                if allMessages[data.message.id].isNotNil {
+                    allMessages[data.message.id] = data.message
+                }
+                await updateAttachmentSubscription()
+                updateFullMessages()
             case let .chatUpdateReactions(data):
-//                if let index = allMessages.firstIndex(where: { $0.id == data.id }) {
-//                    allMessages[index].reactions = data.reactions
-//                }
-                break
+                if allMessages[data.id].isNotNil {
+                    allMessages[data.id]?.reactions = data.reactions
+                }
+                updateFullMessages()
             default:
                 break
             }
@@ -186,6 +172,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         
         let newReplies = await loadReplies(messages: messages)
         await loadAttachments(messages: messages + newReplies)
+        await updateAttachmentSubscription()
     }
     
     private func loadAttachments(messages: [ChatMessage]) async {
@@ -201,7 +188,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func loadReplies(messages: [ChatMessage]) async -> [ChatMessage] {
         let loadedIds = Set(messages.map(\.id) + replies.keys + allMessages.keys)
-        let repliesIds = Set(messages.map(\.replyToMessageID))
+        let repliesIds = Set(messages.filter { $0.replyToMessageID.isNotEmpty }.map(\.replyToMessageID))
         let notLoadedIds = repliesIds.subtracting(loadedIds)
         guard notLoadedIds.isNotEmpty else { return [] }
         do {
@@ -245,6 +232,33 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
         if fullAllMessages != newFullAllMessages {
             fullAllMessages = newFullAllMessages
+        }
+    }
+    
+    private func updateAttachmentSubscription() async {
+        guard let subscriptionStartMessageId, let subscriptionEndMessageId,
+              let startMessageIndex = allMessages.index(forKey: subscriptionStartMessageId),
+              let endMessageIndex = allMessages.index(forKey: subscriptionEndMessageId)  else { return }
+        
+        
+        let middleIndex = startMessageIndex + (endMessageIndex - startMessageIndex) * 0.5
+        let startIndex = Int(middleIndex - Constants.subsctiptionLimit * 0.5)
+        let endIndex = Int(middleIndex + Constants.subsctiptionLimit * 0.5)
+        
+        var attachmentIds = Set<String>()
+        
+        for index in startIndex...endIndex {
+            if let message = allMessages.values[safe: index] {
+                let ids = message.attachments.map(\.target)
+                attachmentIds = attachmentIds.union(ids)
+            }
+        }
+        
+        guard subscribedAttachmentIds != attachmentIds else { return }
+        subscribedAttachmentIds = attachmentIds
+        
+        await objectIdsSubscriptionService.startSubscription(spaceId: spaceId, objectIds: Array(attachmentIds)) { [weak self] details in
+            await self?.updateAttachments(details: details, notifyChanges: true)
         }
     }
 }

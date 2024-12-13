@@ -298,8 +298,19 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         output?.didSelectAddReaction(messageId: messageId)
     }
     
-    func didLongTapOnReaction(data: MessageParticipantsReactionData) {
-        output?.didLongTapOnReaction(data: data)
+    func didTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) async throws {
+        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: reaction.emoji)
+    }
+    
+    func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {
+        let participantsIds = data.message.reactions.reactions[reaction.emoji]?.ids ?? []
+        output?.didLongTapOnReaction(
+            data: MessageParticipantsReactionData(
+                spaceId: data.spaceId,
+                emoji: reaction.emoji,
+                participantsIds: participantsIds
+            )
+        )
     }
     
     func didSelectObject(details: MessageAttachmentDetails) {
@@ -311,7 +322,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         withAnimation {
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
-                title: Loc.Chat.replyTo(message.participant?.title ?? ""),
+                title: Loc.Chat.replyTo(message.authorName),
                 // Without style. Request from designers.
                 description: MessageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
                 icon: message.attachmentsDetails.first?.objectIconImage
