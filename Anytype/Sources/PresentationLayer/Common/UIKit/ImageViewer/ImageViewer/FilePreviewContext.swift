@@ -1,7 +1,7 @@
 import UIKit
 
 struct FilePreviewContext {
-    let file: any PreviewRemoteItem
+    let previewItem: any PreviewRemoteItem
 
     let sourceView: UIView?
     let previewImage: UIImage?

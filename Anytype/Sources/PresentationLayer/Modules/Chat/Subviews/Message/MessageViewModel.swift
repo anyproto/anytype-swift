@@ -138,7 +138,13 @@ final class MessageViewModel: ObservableObject {
     }
     
     func onTapObject(details: MessageAttachmentDetails) {
-        output?.didSelectObject(details: details)
+        if details.layoutValue.isFileOrMedia {
+            let items = buildPreviewRemoteItemFromLinkedObjects()
+            let startAtIndex = items.firstIndex { $0.id == details.id } ?? 0
+            output?.didSelectFileOrMedia(startAtIndex: startAtIndex, items: items)
+        } else {
+            output?.didSelectObject(details: details)
+        }
     }
     
     func onTapReplyTo() {
@@ -196,6 +202,18 @@ final class MessageViewModel: ObservableObject {
                 return Array(items)
             }
             linkedObjects = .grid(items)
+        }
+    }
+    
+    private func buildPreviewRemoteItemFromLinkedObjects() -> [any PreviewRemoteItem] {
+        linkedObjectsDetails.compactMap { details in
+            guard details.layoutValue.isFileOrMedia else { return nil }
+            switch details.fileDetails.fileContentType {
+            case .image:
+                return ImagePreviewMedia(fileDetails: details.fileDetails)
+            case .file, .audio, .video, .none:
+                return FilePreviewMedia(fileDetails: details.fileDetails)
+            }
         }
     }
 }

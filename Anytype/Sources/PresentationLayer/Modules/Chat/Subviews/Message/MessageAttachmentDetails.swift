@@ -7,6 +7,7 @@ struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
     let layoutValue: DetailsLayout
     let objectIconImage: Icon
     let objectType: ObjectType
+    let fileDetails: FileDetails
     let editorScreenData: EditorScreenData
 }
 
@@ -18,6 +19,7 @@ extension MessageAttachmentDetails {
             layoutValue: details.layoutValue,
             objectIconImage: details.objectIconImage,
             objectType: details.objectType,
+            fileDetails: FileDetails(objectDetails: details),
             editorScreenData: details.editorScreenData()
         )
     }
