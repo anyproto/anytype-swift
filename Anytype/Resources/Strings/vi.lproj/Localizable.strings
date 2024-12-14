@@ -975,6 +975,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Đã gửi yêu cầu";
 "SpaceShare.JoinConfirmation.Message" = "Bạn sẽ nhận được thông báo khi chủ không gian chấp thuận yêu cầu của bạn.";
 "SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (bạn)";
 "SpaceShare.ManageSpaces" = "Quản lý các Không gian";
