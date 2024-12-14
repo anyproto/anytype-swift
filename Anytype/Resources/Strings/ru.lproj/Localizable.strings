@@ -974,6 +974,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Запрос отправлен";
 "SpaceShare.JoinConfirmation.Message" = "Вы получите уведомление, когда владелец сообщества одобрит ваш запрос.";
 "SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (вы)";
 "SpaceShare.ManageSpaces" = "Управление пространствами";
