@@ -200,9 +200,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     }
     
     func didSelectObject(linkedObject: ChatLinkedObject) {
-        guard let details = linkedObject.uploadedObject else { return }
-        let screenData = details.editorScreenData
-        output?.onObjectSelected(screenData: screenData)
+        Task {
+            let ids = linkedObjects.compactMap { $0.uploadedObject?.id }
+            let attachments = await chatStorage.attachments(ids: ids)
+            
+            guard let selectedAttachment = attachments.first(where: { $0.id == linkedObject.uploadedObject?.id }) else { return }
+            
+            didSelectAttachment(attachment: selectedAttachment, attachments: attachments)
+        }
     }
     
     func onTapLinkTo(range: NSRange) {
@@ -317,12 +322,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         )
     }
     
-    func didSelectObject(details: MessageAttachmentDetails) {
-        output?.onObjectSelected(screenData: details.editorScreenData)
-    }
-    
-    func didSelectMediaFile(startAtIndex: Int, items: [any PreviewRemoteItem]) {
-        output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
+    func didSelectAttachment(data: MessageViewData, details: MessageAttachmentDetails) {
+        guard let details = data.attachmentsDetails.first(where: { $0.id == details.id }) else { return }
+        didSelectAttachment(attachment: details, attachments: data.attachmentsDetails)
     }
     
     func didSelectReplyTo(message: MessageViewData) {
@@ -353,7 +355,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         clearInput()
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
-        linkedObjects = await chatStorage.attachments(message: messageToEdit.message).map { .uploadedObject($0) }
+        let attachments = await chatStorage.attachments(message: messageToEdit.message)
+        let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
+        linkedObjects = messageAttachments.map { .uploadedObject($0) }
     }
     
     // MARK: - Private
@@ -396,6 +400,29 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         return mentionObjects.map { mentionObject in
             let titleBadge = mentionObject.details.identityProfileLink == isYourIdentityProfileLink ? Loc.Chat.Participant.badge : nil
             return MentionObjectModel(object: mentionObject, titleBadge: titleBadge)
+        }
+    }
+    
+    private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
+        if FeatureFlags.fullScreenMediaFileByTap, attachment.layoutValue.isFileOrMedia {
+            let items = buildPreviewRemoteItemFromAttachments(attachments)
+            let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
+            output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
+        } else {
+            output?.onObjectSelected(screenData: attachment.editorScreenData())
+        }
+    }
+    
+    private func buildPreviewRemoteItemFromAttachments(_ attachments: [ObjectDetails]) -> [any PreviewRemoteItem] {
+        attachments.compactMap { details in
+            guard details.layoutValue.isFileOrMedia else { return nil }
+            let fileDetails = FileDetails(objectDetails: details)
+            switch fileDetails.fileContentType {
+            case .image:
+                return ImagePreviewMedia(fileDetails: fileDetails)
+            case .file, .audio, .video, .none:
+                return FilePreviewMedia(fileDetails: fileDetails)
+            }
         }
     }
 }

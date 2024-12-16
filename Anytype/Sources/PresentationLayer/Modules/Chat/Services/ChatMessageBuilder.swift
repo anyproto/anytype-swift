@@ -178,7 +178,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             return nil
         }
         
-        var attachmentsDetails = fullMessage.attachments
+        var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(details: $0) }
         
         // Add empty objects
         for attachment in fullMessage.message.attachments {

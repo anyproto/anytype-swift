@@ -10,7 +10,8 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func loadNextPage() async throws
     func loadPrevPage() async throws
     func loadPagesTo(messageId: String) async throws
-    func attachments(message: ChatMessage) async -> [MessageAttachmentDetails]
+    func attachments(message: ChatMessage) async -> [ObjectDetails]
+    func attachments(ids: [String]) async -> [ObjectDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
     func updateVisibleRange(starMessageId: String, endMessageId: String) async
     var messagesPublisher: AnyPublisher<[FullChatMessage], Never> { get async }
@@ -47,7 +48,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     // MARK: - Message State
     
-    private var attachmentsDetails: [String: MessageAttachmentDetails] = [:]
+    private var attachmentsDetails: [String: ObjectDetails] = [:]
     private var allMessages = OrderedDictionary<String, ChatMessage>()
     private var replies = [String: ChatMessage]()
     @Published
@@ -141,9 +142,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         updateFullMessages()
     }
     
-    func attachments(message: ChatMessage) async -> [MessageAttachmentDetails] {
+    func attachments(message: ChatMessage) async -> [ObjectDetails] {
         let ids = message.attachments.map(\.target)
-        return attachmentsDetails.filter { ids.contains($0.key) }.map { $0.value }
+        return await attachments(ids: ids)
+    }
+    
+    func attachments(ids: [String]) async -> [ObjectDetails] {
+        attachmentsDetails.filter { ids.contains($0.key) }.map { $0.value }
     }
     
     func reply(message: ChatMessage) async -> ChatMessage? {
@@ -255,8 +260,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func updateAttachments(details: [ObjectDetails], notifyChanges: Bool = false) {
         let newAttachments = details
-            .map { MessageAttachmentDetails(details: $0) }
-            .reduce(into: [String: MessageAttachmentDetails]()) { $0[$1.id] = $1 }
+            .reduce(into: [String: ObjectDetails]()) { $0[$1.id] = $1 }
         
         if attachmentsDetails != newAttachments {
             attachmentsDetails.merge(newAttachments, uniquingKeysWith: { $1 })
