@@ -43,6 +43,9 @@ struct ObjectTypeSearchView: View {
         .task {
             viewModel.onAppear()
         }
+        .task {
+            await viewModel.subscribeOnParticipant()
+        }
     }
     
     private var pasteButton: some View {
@@ -74,10 +77,10 @@ struct ObjectTypeSearchView: View {
                     title: Loc.nothingFound,
                     subtitle: Loc.noTypeFoundText(viewModel.searchText),
                     style: .plain,
-                    buttonData: EmptyStateView.ButtonData(
+                    buttonData: viewModel.participantCanEdit ? EmptyStateView.ButtonData(
                         title: Loc.createType,
                         action: { viewModel.createType(name: viewModel.searchText) }
-                    )
+                    ) : nil
                 )
             }
         }
