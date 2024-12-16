@@ -6,7 +6,7 @@ import UIKit
 final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
     
     // MARK: - PreviewRemoteItem
-    var id: String { fileDetails.id }
+    let id: String
     let fileDetails: FileDetails
     let didUpdateContentSubject = PassthroughSubject<Void, Never>()
     
@@ -19,6 +19,7 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
     private var cancellables = [AnyCancellable]()
 
     init(previewImage: UIImage? = nil, fileDetails: FileDetails) {
+        self.id = fileDetails.id
         self.previewImage = previewImage
         self.fileDetails = fileDetails
 

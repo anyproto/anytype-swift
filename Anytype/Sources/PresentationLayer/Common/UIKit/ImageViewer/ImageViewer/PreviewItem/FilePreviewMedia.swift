@@ -6,7 +6,7 @@ import AnytypeCore
 final class FilePreviewMedia: NSObject, PreviewRemoteItem {
     
     // MARK: - PreviewRemoteItem
-    var id: String { fileDetails.id }
+    let id: String
     let fileDetails: FileDetails
     let didUpdateContentSubject = PassthroughSubject<Void, Never>()
 
@@ -17,6 +17,7 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
     private let fileDownloader = FileDownloader()
 
     init(fileDetails: FileDetails) {
+        self.id = fileDetails.id
         self.fileDetails = fileDetails
         
         super.init()
@@ -32,7 +33,7 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
     func startDownloading() {
         Task {
             do {
-                guard let url = fileDetails.contentUrl else { return }
+                guard let url = ContentUrlBuilder.fileUrl(fileId: fileDetails.id) else { return }
                 let data = try await fileDownloader.downloadData(url: url)
                 let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileName)
 
