@@ -20,6 +20,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private enum Constants {
         static let pageSize = 100
+        static let maxCacheSize = 1000
         // As user scroll N messages, we update the attachments subscription. Not every message.
         static let subscriptionMessageIntervalForAttachments = 20
         // Subscribe to visible cells attachments AND N top and N bottom. Should be more "interval" value for better experience.
