@@ -13,6 +13,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var showPasteButton = false
     @Published var toastData: ToastBarData = .empty
+    @Published var participantCanEdit = false
     
     let settings: ObjectTypeSearchViewSettings
     private let spaceId: String
@@ -25,6 +26,8 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.pasteboardHelper)
     private var pasteboardHelper: any PasteboardHelperProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     
     private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?
@@ -49,6 +52,12 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         
         search(text: searchText)
         updatePasteButton()
+    }
+    
+    func subscribeOnParticipant() async {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+            participantCanEdit = participant.canEdit
+        }
     }
     
     func updatePasteButton() {
