@@ -4,7 +4,8 @@ import Services
 @MainActor
 protocol MessageModuleOutput: AnyObject {
     func didSelectAddReaction(messageId: String)
-    func didLongTapOnReaction(data: MessageParticipantsReactionData)
+    func didTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) async throws
+    func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel)
     func didSelectObject(details: MessageAttachmentDetails)
     func didSelectReplyTo(message: MessageViewData)
     func didSelectReplyMessage(message: MessageViewData)

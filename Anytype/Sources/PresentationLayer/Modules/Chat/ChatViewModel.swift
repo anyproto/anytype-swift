@@ -62,7 +62,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
     
-    private var messages: [ChatMessage] = []
+    private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
@@ -76,7 +76,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         self.chatId = chatId
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
-        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId, chatStorage: chatStorage)
+        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
     }
     
     func onTapAddObjectToMessage() {
@@ -128,7 +128,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             self.dataLoaded = true
             await updateMessages()
             if prevChatIsEmpty, let message = messages.last {
-                collectionViewScrollProxy.scrollTo(itemId: message.id, position: .bottom, animated: false)
+                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
             }
         }
     }
@@ -170,8 +170,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         }
     }
     
-    func scrollToBottom() async {
+    func scrollToTop() async {
         try? await chatStorage.loadNextPage()
+    }
+    
+    func scrollToBottom() async {
+        try? await chatStorage.loadPrevPage()
     }
     
     func updateMentionState() async throws {
@@ -286,14 +290,31 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
     }
     
+    func visibleRangeChanged(fromId: String, toId: String) {
+        Task {
+            await chatStorage.updateVisibleRange(starMessageId: fromId, endMessageId: toId)
+        }
+    }
+    
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
         output?.didSelectAddReaction(messageId: messageId)
     }
     
-    func didLongTapOnReaction(data: MessageParticipantsReactionData) {
-        output?.didLongTapOnReaction(data: data)
+    func didTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) async throws {
+        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: reaction.emoji)
+    }
+    
+    func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {
+        let participantsIds = data.message.reactions.reactions[reaction.emoji]?.ids ?? []
+        output?.didLongTapOnReaction(
+            data: MessageParticipantsReactionData(
+                spaceId: data.spaceId,
+                emoji: reaction.emoji,
+                participantsIds: participantsIds
+            )
+        )
     }
     
     func didSelectObject(details: MessageAttachmentDetails) {
@@ -308,7 +329,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         withAnimation {
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
-                title: Loc.Chat.replyTo(message.participant?.title ?? ""),
+                title: Loc.Chat.replyTo(message.authorName),
                 // Without style. Request from designers.
                 description: MessageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
                 icon: message.attachmentsDetails.first?.objectIconImage

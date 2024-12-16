@@ -978,6 +978,7 @@
 "SpaceShare.JoinConfirmation.Title" = "已送出請求";
 "SpaceShare.JoinConfirmation.Message" = "當空間所有者批准您的請求後，您將會收到通知。";
 "SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (您)";
 "SpaceShare.ManageSpaces" = "管理空間";

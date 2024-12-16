@@ -973,7 +973,8 @@
 "SpaceShare.Join.InviteNotFound" = "Questo link non sembra funzionare";
 "SpaceShare.JoinConfirmation.Title" = "Richiesta inviata";
 "SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "L'oggetto non è disponibile. Chiedere al proprietario di condividerlo.";
+"SpaceShare.Join.SpaceDeleted" = "Lo spazio a cui si cerca di accedere è stato cancellato";
 
 "SpaceShare.YouSuffix" = "%@ (tu)";
 "SpaceShare.ManageSpaces" = "Gestisci Spazi";
@@ -1268,7 +1269,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.Actions.Menu.Objects" = "Selezionare l'oggetto esistente";
 "Chat.Actions.Menu.Media" = "Carica i media";
 "Chat.Actions.Menu.Files" = "Carica file";
-"Chat.Participant.Badge" = "(You)";
+"Chat.Participant.Badge" = "(Tu)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";

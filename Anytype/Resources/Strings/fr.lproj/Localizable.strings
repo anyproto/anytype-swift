@@ -973,7 +973,8 @@
 "SpaceShare.Join.InviteNotFound" = "Ce lien ne semble pas fonctionner";
 "SpaceShare.JoinConfirmation.Title" = "Demande envoyée";
 "SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "L'objet n'est pas disponible. Demandez au propriétaire de le partager.";
+"SpaceShare.Join.SpaceDeleted" = "L'espace que vous essayez d'accéder a été supprimé";
 
 "SpaceShare.YouSuffix" = "%@ (vous)";
 "SpaceShare.ManageSpaces" = "Gérer les espaces";

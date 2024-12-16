@@ -975,6 +975,7 @@
 "SpaceShare.JoinConfirmation.Title" = "İstek gönderildi";
 "SpaceShare.JoinConfirmation.Message" = "Alan sahibi talebinizi onayladığında bir bildirim alacaksınız.";
 "SpaceShare.Join.ObjectIsNotAvailable" = "Nesne mevcut değil. Nesnenin sahibinden paylaşmasını isteyin.";
+"SpaceShare.Join.SpaceDeleted" = "Erişmeye çalıştığınız alan silindi";
 
 "SpaceShare.YouSuffix" = "%@ (siz)";
 "SpaceShare.ManageSpaces" = "Alanları yönetin";

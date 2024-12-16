@@ -3,17 +3,15 @@ import Services
 import Combine
 import AnytypeCore
 
-@MainActor
 protocol ObjectIdsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
         objectIds: [String],
-        update: @escaping @MainActor ([ObjectDetails]) -> Void
+        update: @escaping @Sendable ([ObjectDetails]) async -> Void
     ) async
     func stopSubscription() async
 }
 
-@MainActor
 final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
     
     @Injected(\.subscriptionStorageProvider)
@@ -29,7 +27,7 @@ final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
     func startSubscription(
         spaceId: String,
         objectIds: [String],
-        update: @escaping @MainActor ([ObjectDetails]) -> Void
+        update: @escaping @Sendable ([ObjectDetails]) async -> Void
     ) async {
         
         let searchData: SubscriptionData = .objects(

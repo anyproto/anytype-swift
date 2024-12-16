@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct MessageReplyModel {
+struct MessageReplyModel: Equatable, Hashable {
     let author: String
     let description: String
     let icon: Icon?

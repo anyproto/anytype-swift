@@ -106,8 +106,12 @@ struct ChatView: View {
             MessageView(data: $0, output: model)
         } headerBuilder: {
             ChatMessageHeaderView(text: $0)
+        } scrollToTop: {
+            await model.scrollToTop()
         } scrollToBottom: {
             await model.scrollToBottom()
+        } handleVisibleRange: { fromId, toId in
+            model.visibleRangeChanged(fromId: fromId, toId: toId)
         }
         .overlay(alignment: .center) {
             if model.showEmptyState {
