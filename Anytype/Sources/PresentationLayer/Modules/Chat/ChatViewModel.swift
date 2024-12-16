@@ -356,7 +356,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
         let attachments = await chatStorage.attachments(message: messageToEdit.message)
-        let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
+        let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }.sorted { $0.id > $1.id }
         linkedObjects = messageAttachments.map { .uploadedObject($0) }
     }
     
@@ -405,7 +405,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
         if FeatureFlags.fullScreenMediaFileByTap, attachment.layoutValue.isFileOrMedia {
-            let items = buildPreviewRemoteItemFromAttachments(attachments)
+            let reorderedAttachments = attachments.sorted { $0.id > $1.id }
+            let items = buildPreviewRemoteItemFromAttachments(reorderedAttachments)
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
             output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
         } else {
