@@ -170,8 +170,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         }
     }
     
-    func scrollToBottom() async {
+    func scrollToTop() async {
         try? await chatStorage.loadNextPage()
+    }
+    
+    func scrollToBottom() async {
+        try? await chatStorage.loadPrevPage()
     }
     
     func updateMentionState() async throws {

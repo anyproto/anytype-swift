@@ -8,6 +8,7 @@ import ProtobufMessages
 protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func startSubscriptionIfNeeded() async throws
     func loadNextPage() async throws
+    func loadPrevPage() async throws
     func loadPagesTo(messageId: String) async throws
     func attachments(message: ChatMessage) async -> [MessageAttachmentDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
@@ -97,27 +98,44 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             anytypeAssertionFailure("Last message not found")
             return
         }
-        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, limit: Constants.pageSize)
+        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, afterOrderId: nil, limit: Constants.pageSize)
         guard messages.isNotEmpty else { return }
         await addNewMessages(messages: messages)
+        if allMessages.count > Constants.maxCacheSize {
+            allMessages.removeLast(allMessages.count - Constants.maxCacheSize)
+        }
+        updateFullMessages()
+    }
+    
+    func loadPrevPage() async throws {
+        guard let last = allMessages.values.last else {
+            anytypeAssertionFailure("Last message not found")
+            return
+        }
+        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: nil, afterOrderId: last.orderID, limit: Constants.pageSize)
+        guard messages.isNotEmpty else { return }
+        await addNewMessages(messages: messages)
+        if allMessages.count > Constants.maxCacheSize {
+            allMessages.removeFirst(allMessages.count - Constants.maxCacheSize)
+        }
         updateFullMessages()
     }
     
     func loadPagesTo(messageId: String) async throws {
-        guard !allMessages.contains(where: { $0.key == messageId }) else { return }
+        guard allMessages[messageId].isNil else { return }
         
-        var lastMessage = allMessages.values.last
-        var allLoadedMessages = [ChatMessage]()
-        while let message = lastMessage {
-            let loadedMessages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: message.orderID, limit: 2)
-            let sortedMessages = loadedMessages.sorted(by: sortChat)
-            allLoadedMessages.append(contentsOf: sortedMessages)
-            
-            if sortedMessages.contains(where: { $0.id == messageId }) {
-                break
-            }
-            lastMessage = sortedMessages.first
+        let replyMessage = try await chatService.getMessagesByIds(chatObjectId: chatObjectId, messageIds: [messageId]).first
+        
+        guard let replyMessage else {
+            throw CommonError.undefined
         }
+        
+        let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: replyMessage.orderID, afterOrderId: nil, limit: Constants.pageSize)
+        let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: nil, afterOrderId: replyMessage.orderID, limit: Constants.pageSize)
+        
+        let allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
+        allMessages.removeAll()
+        
         await addNewMessages(messages: allLoadedMessages)
         updateFullMessages()
     }
@@ -145,22 +163,25 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
+                // TODO: Add message only if page is visible. Waiting middleware API updates.
                 await addNewMessages(messages: [data.message])
                 updateFullMessages()
             case let .chatDelete(data):
-                allMessages.removeAll { $0.key == data.id }
-                updateFullMessages()
+                if allMessages[data.id].isNotNil {
+                    allMessages.removeAll { $0.key == data.id }
+                    updateFullMessages()
+                }
             case let .chatUpdate(data):
                 if allMessages[data.message.id].isNotNil {
                     allMessages[data.message.id] = data.message
+                    await updateAttachmentSubscription()
+                    updateFullMessages()
                 }
-                await updateAttachmentSubscription()
-                updateFullMessages()
             case let .chatUpdateReactions(data):
                 if allMessages[data.id].isNotNil {
                     allMessages[data.id]?.reactions = data.reactions
+                    updateFullMessages()
                 }
-                updateFullMessages()
             default:
                 break
             }

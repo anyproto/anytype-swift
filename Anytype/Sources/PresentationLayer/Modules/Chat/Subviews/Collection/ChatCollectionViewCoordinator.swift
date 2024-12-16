@@ -10,13 +10,16 @@ final class ChatCollectionViewCoordinator<
     HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item {
     
     private let distanceForLoadNextPage: CGFloat = 300
+    private var canCallScrollToTop = false
     private var canCallScrollToBottom = false
-    private var scrollUpdateTask: AnyCancellable?
+    private var scrollToTopUpdateTask: AnyCancellable?
+    private var scrollToBottomUpdateTask: AnyCancellable?
     private var sections: [Section] = []
     private var dataSourceApplyTransaction = false
     private var oldVisibleRange: [String] = []
     
     var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
+    var scrollToTop: (() async -> Void)?
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
     var lastScrollProxy: ChatCollectionScrollProxy?
@@ -115,6 +118,7 @@ final class ChatCollectionViewCoordinator<
             }
             
             appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: oldIsNearBottom)
+            canCallScrollToTop = true
             canCallScrollToBottom = true
             dataSourceApplyTransaction = false
             CATransaction.commit()
@@ -126,17 +130,27 @@ final class ChatCollectionViewCoordinator<
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard !dataSourceApplyTransaction, scrollView.contentSize.height > 0 else { return }
         
-        let distance = scrollView.contentOffset.y - scrollView.topOffset.y
+        let distanceToTop = scrollView.contentOffset.y - scrollView.topOffset.y
+        let distanceToBottom = scrollView.bottomOffset.y - scrollView.contentOffset.y
         
-        if distanceForLoadNextPage > distance {
-            if canCallScrollToBottom, scrollUpdateTask.isNil {
+        if distanceForLoadNextPage > distanceToTop {
+            if canCallScrollToTop, scrollToTopUpdateTask.isNil {
+                canCallScrollToTop = false
+                scrollToTopUpdateTask = Task { [weak self] in
+                    await self?.scrollToTop?()
+                    self?.scrollToTopUpdateTask = nil
+                }.cancellable()
+            }
+        } else if distanceForLoadNextPage > distanceToBottom {
+            if canCallScrollToBottom, scrollToBottomUpdateTask.isNil {
                 canCallScrollToBottom = false
-                scrollUpdateTask = Task { [weak self] in
+                scrollToBottomUpdateTask = Task { [weak self] in
                     await self?.scrollToBottom?()
-                    self?.scrollUpdateTask = nil
+                    self?.scrollToBottomUpdateTask = nil
                 }.cancellable()
             }
         }
+        
     }
     
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
