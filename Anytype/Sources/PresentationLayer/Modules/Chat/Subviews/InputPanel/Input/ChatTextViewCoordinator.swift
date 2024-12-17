@@ -146,6 +146,12 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         if textView.attributedText.string.isEmpty {
             textView.typingAttributes = defaultTypingAttributes
         }
+        
+        if let selectedRange = textView.selectedTextRange {
+            var cursorRect = textView.caretRect(for: selectedRange.end)
+            cursorRect.origin.y += textView.textContainerInset.bottom
+            textView.scrollRectToVisible(cursorRect, animated: true)
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
