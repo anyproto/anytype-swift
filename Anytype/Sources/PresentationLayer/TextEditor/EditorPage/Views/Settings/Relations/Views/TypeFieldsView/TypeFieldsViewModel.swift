@@ -18,6 +18,7 @@ final class TypeFieldsViewModel: ObservableObject {
     
     let document: any BaseDocumentProtocol
     private let fieldsDataBuilder = TypeFieldsRowBuilder()
+    private let moveHandler = TypeFieldsMoveHandler()
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
@@ -78,4 +79,9 @@ final class TypeFieldsViewModel: ObservableObject {
             
         }
     }
+    
+    func onMove(from: IndexSet, to: Int) {
+        moveHandler.onMove(from: from, to: to, relationRows: relationRows, document: document)
+    }
+     
 }

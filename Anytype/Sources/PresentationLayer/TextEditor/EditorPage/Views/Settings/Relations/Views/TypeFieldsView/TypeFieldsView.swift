@@ -107,9 +107,9 @@ struct TypeFieldsView: View {
         .onDelete { indexes in
             model.onDeleteRelations(indexes)
         }
-//        .onMove { from, to in
-            // TBD;
-//        }
+        .onMove { from, to in
+            model.onMove(from: from, to: to)
+        }
     }
     
     private func headerRow(_ data: TypeFieldsSectionRow) -> some View {
