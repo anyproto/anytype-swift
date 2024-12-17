@@ -81,7 +81,7 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     func onMove(from: IndexSet, to: Int) {
-        moveHandler.onMove(from: from, to: to, relationRows: relationRows, document: document)
+        Task { try await  moveHandler.onMove(from: from, to: to, relationRows: relationRows, document: document) }
     }
      
 }

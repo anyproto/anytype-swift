@@ -2,25 +2,30 @@ import Foundation
 import AnytypeCore
 import Services
 
+enum TypeFieldsMoveError: Error {
+    case nonSingularFromIndex
+    case wrongDataForFromRow
+    case wrongDataForToRow
+}
 
 protocol TypeFieldsMoveHandlerProtocol {
-    func onMove(from: IndexSet, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol)
+    func onMove(from: IndexSet, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws
 }
 
 final class TypeFieldsMoveHandler {
     @Injected(\.relationsService) var relationsService: any RelationsServiceProtocol
     
     
-    func onMove(from: IndexSet, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) {
+    func onMove(from: IndexSet, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
         guard from.count == 1 else {
             anytypeAssertionFailure("Non singular number of index for onMove", info: ["fromIndexes": from.description])
-            return
+            throw TypeFieldsMoveError.nonSingularFromIndex
         }
         
         guard let fromIndex = from.first else { return }
         guard let fromRow = relationRows[safe: fromIndex], case let .relation(fromRelation) = fromRow else {
             anytypeAssertionFailure("Wrong data for fromRow", info: ["fromIndex": fromIndex.description, "rows": relationRows.description])
-            return
+            throw TypeFieldsMoveError.wrongDataForFromRow
         }
         
         // Adjust 'to' index if moving downwards
@@ -29,20 +34,18 @@ final class TypeFieldsMoveHandler {
         guard let toRow = relationRows[safe: adjustedTo],
               case let .relation(toRelation) = toRow else {
             anytypeAssertionFailure("Wrong data for toRow", info: ["toIndex": adjustedTo.description, "rows": relationRows.description])
-            return
+            throw TypeFieldsMoveError.wrongDataForToRow
         }
         
-        move(from: fromRelation, to: toRelation, document: document)
+        try await move(from: fromRelation, to: toRelation, document: document)
     }
 
     
-    private func move(from: TypeFieldsRelationRow, to: TypeFieldsRelationRow, document: any BaseDocumentProtocol) {
-        Task {
-            if from.section == to.section {
-                try await moveWithinSection(from: from, to: to, document: document)
-            } else {
-                try await moveBetweenSections(from: from, to: to, document: document)
-            }
+    private func move(from: TypeFieldsRelationRow, to: TypeFieldsRelationRow, document: any BaseDocumentProtocol) async throws {
+        if from.section == to.section {
+            try await moveWithinSection(from: from, to: to, document: document)
+        } else {
+            try await moveBetweenSections(from: from, to: to, document: document)
         }
     }
     
