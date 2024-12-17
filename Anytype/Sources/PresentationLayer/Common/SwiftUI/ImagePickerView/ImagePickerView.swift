@@ -11,12 +11,12 @@ struct ImagePickerView: UIViewControllerRepresentable {
     private let sourceType: UIImagePickerController.SourceType
     private let onMediaTaken: (_ media: ImagePickerMediaType) -> Void
     
-    public init(sourceType: UIImagePickerController.SourceType, onMediaTaken: @escaping (ImagePickerMediaType) -> Void) {
+    init(sourceType: UIImagePickerController.SourceType, onMediaTaken: @escaping (ImagePickerMediaType) -> Void) {
         self.sourceType = sourceType
         self.onMediaTaken = onMediaTaken
     }
     
-    public func makeUIViewController(context: Context) -> UIImagePickerController {
+    func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.sourceType = sourceType
         if let mediaTypes = UIImagePickerController.availableMediaTypes(for: sourceType) {
@@ -26,13 +26,13 @@ struct ImagePickerView: UIViewControllerRepresentable {
         return picker
     }
     
-    public func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
     
-    public func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> Coordinator {
         Coordinator(onMediaTaken: onMediaTaken)
     }
     
-    final public class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    final class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         
         private let onMediaTaken: (_ media: ImagePickerMediaType) -> Void
         
@@ -40,7 +40,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
             self.onMediaTaken = onMediaTaken
         }
         
-        public func imagePickerController(
+        func imagePickerController(
             _ picker: UIImagePickerController,
             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
         ) {
@@ -54,7 +54,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
             picker.dismiss(animated: true)
         }
         
-        public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+       func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             picker.dismiss(animated: true)
         }
     }
