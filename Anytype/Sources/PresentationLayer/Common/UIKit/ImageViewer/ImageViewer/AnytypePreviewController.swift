@@ -19,19 +19,20 @@ final class AnytypePreviewController: QLPreviewController {
     private let onContentChanged: (URL) -> Void
     private var itemsSubscriptions = [AnyCancellable]()
     private weak var sourceView: UIView?
+    private let initialPreviewItemIndex: Int
 
     init(
         with items: [any PreviewRemoteItem],
-        sourceView: UIView?,
-        onContentChanged: @escaping (URL) -> Void
+        initialPreviewItemIndex: Int = 0,
+        sourceView: UIView? = nil,
+        onContentChanged: @escaping (URL) -> Void = { _ in }
     ) {
         self.items = items
         self.sourceView = sourceView
         self.onContentChanged = onContentChanged
+        self.initialPreviewItemIndex = initialPreviewItemIndex
 
         super.init(nibName: nil, bundle: nil)
-
-        self.currentPreviewItemIndex = 0
 
         navigationItem.leftBarButtonItem = nil
         navigationController?.navigationItem.leftBarButtonItem = nil
@@ -47,16 +48,16 @@ final class AnytypePreviewController: QLPreviewController {
 
         delegate = self
         dataSource = self
+        currentPreviewItemIndex = initialPreviewItemIndex
 
         items.forEach { item in
-            item.didUpdateContentSubject.sinkWithResult { [weak self] _ in
-                guard let self = self else { return }
-                if self.didFinishTransition {
-                    self.refreshCurrentPreviewItem()
+            item.didUpdateContentSubject.receiveOnMain().sinkWithResult { [weak self] _ in
+                guard let self else { return }
+                if didFinishTransition {
+                    refreshCurrentPreviewItem()
                 } else {
-                    self.hasUpdates = true
+                    hasUpdates = true
                 }
-
             }.store(in: &itemsSubscriptions)
         }
     }
@@ -70,7 +71,7 @@ extension AnytypePreviewController: QLPreviewControllerDataSource, QLPreviewCont
     }
 
     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-        return 1
+        return items.count
     }
 
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> any QLPreviewItem {
@@ -80,7 +81,7 @@ extension AnytypePreviewController: QLPreviewControllerDataSource, QLPreviewCont
     // MARK: - QLPreviewControllerDelegate
 
     func previewController(_ controller: QLPreviewController, editingModeFor previewItem: any QLPreviewItem) -> QLPreviewItemEditingMode {
-        .updateContents
+        .disabled
     }
 
     func previewController(_ controller: QLPreviewController, didUpdateContentsOf previewItem: any QLPreviewItem) {

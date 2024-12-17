@@ -53,12 +53,12 @@ struct MessageView: View {
                 switch objects {
                 case .list(let items):
                     MessageListAttachmentsViewContainer(objects: items) {
-                        output?.didSelectObject(details: $0)
+                        output?.didSelectAttachment(data: data, details: $0)
                     }
                     .padding(4)
                 case .grid(let items):
                     MessageGridAttachmentsContainer(objects: items) {
-                        output?.didSelectObject(details: $0)
+                        output?.didSelectAttachment(data: data, details: $0)
                     }
                     .padding(4)
                 }

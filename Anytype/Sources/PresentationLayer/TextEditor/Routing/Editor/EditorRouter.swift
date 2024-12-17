@@ -387,7 +387,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
 extension EditorRouter: AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext) {
-        let previewController = AnytypePreviewController(with: [imageContext.file], sourceView: imageContext.sourceView, onContentChanged: imageContext.onDidEditFile)
+        let previewController = AnytypePreviewController(with: [imageContext.previewItem], sourceView: imageContext.sourceView, onContentChanged: imageContext.onDidEditFile)
 
         navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true

@@ -20,7 +20,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     
     // Raw data for action logic
     let message: ChatMessage
-    let attachmentsDetails: [MessageAttachmentDetails]
+    let attachmentsDetails: [ObjectDetails]
     let reply: ChatMessage?
     
     var id: String {

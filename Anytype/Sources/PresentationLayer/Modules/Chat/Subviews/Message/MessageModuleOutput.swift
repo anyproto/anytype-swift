@@ -6,7 +6,7 @@ protocol MessageModuleOutput: AnyObject {
     func didSelectAddReaction(messageId: String)
     func didTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) async throws
     func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel)
-    func didSelectObject(details: MessageAttachmentDetails)
+    func didSelectAttachment(data: MessageViewData, details: MessageAttachmentDetails)
     func didSelectReplyTo(message: MessageViewData)
     func didSelectReplyMessage(message: MessageViewData)
     func didSelectDeleteMessage(message: MessageViewData)

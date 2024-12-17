@@ -37,7 +37,7 @@ extension MessageObjectAttachmentView {
         self = MessageObjectAttachmentView(
             icon: details.objectIconImage,
             title: details.title,
-            description: details.objectType.name
+            description: details.description
         )
     }
 }
