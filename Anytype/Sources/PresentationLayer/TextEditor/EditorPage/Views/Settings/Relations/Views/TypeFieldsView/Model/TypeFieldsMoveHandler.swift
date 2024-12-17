@@ -75,11 +75,11 @@ final class TypeFieldsMoveHandler {
             
             var newFeaturedRelations = details.recommendedFeaturedRelations
             newFeaturedRelations.remove(at: fromIndex)
-            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: newFeaturedRelations)
             
             var newRecommendedRelations = details.recommendedRelations
             newRecommendedRelations.insert(fromRelation, at: toIndex + 1)
-            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: newRecommendedRelations)
+            
+            try await relationsService.updateTypeRelations(typeId: document.objectId, recommendedRelationIds: newRecommendedRelations, recommendedFeaturedRelationsIds: newFeaturedRelations)
         } else {
             guard let fromIndex = details.recommendedRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedFeaturedRelations.firstIndex(of: to.relation.id) else { return }
@@ -88,11 +88,10 @@ final class TypeFieldsMoveHandler {
             
             var newRecommendedRelations = details.recommendedRelations
             newRecommendedRelations.remove(at: fromIndex)
-            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: newRecommendedRelations)
             
-            var newRecommendedFeaturedRelations = details.recommendedFeaturedRelations
-            newRecommendedFeaturedRelations.insert(fromRelation, at: toIndex)
-            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: newRecommendedFeaturedRelations)
+            var newFeaturedRelations = details.recommendedFeaturedRelations
+            newFeaturedRelations.insert(fromRelation, at: toIndex)
+            try await relationsService.updateTypeRelations(typeId: document.objectId, recommendedRelationIds: newRecommendedRelations, recommendedFeaturedRelationsIds: newFeaturedRelations)
         }
     }
 }
