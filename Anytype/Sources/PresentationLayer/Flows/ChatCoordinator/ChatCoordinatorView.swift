@@ -40,6 +40,7 @@ struct ChatCoordinatorView: View {
             ) { result in
                 model.fileImporterFinished(result: result)
             }
+            .safariSheet(url: $model.safariUrl)
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()
             }
