@@ -6,15 +6,14 @@ protocol ViewControllerProviderProtocol {
     var window: UIWindow? { get }
     var rootViewController: UIViewController? { get }
     var topVisibleController: UIViewController? { get }
+    func setSceneWindow(_ sceneWindow: UIWindow?)
 }
 
 @MainActor
 final class ViewControllerProvider: ViewControllerProviderProtocol {
     
-    weak var sceneWindow: UIWindow?
-    
-    static let shared = ViewControllerProvider()
-    
+    private weak var sceneWindow: UIWindow?
+        
     // MARK: - ViewControllerProviderProtocol
     
     var window: UIWindow? {
@@ -27,5 +26,9 @@ final class ViewControllerProvider: ViewControllerProviderProtocol {
     
     var topVisibleController: UIViewController? {
         return sceneWindow?.rootViewController?.topVisibleController
+    }
+    
+    func setSceneWindow(_ sceneWindow: UIWindow?) {
+        self.sceneWindow = sceneWindow
     }
 }

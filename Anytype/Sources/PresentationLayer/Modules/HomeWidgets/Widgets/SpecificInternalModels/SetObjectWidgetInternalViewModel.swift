@@ -181,7 +181,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
-            self?.updateRowDetails(details: data.items)
+            await self?.updateRowDetails(details: data.items)
         }
     }
     

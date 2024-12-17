@@ -1,8 +1,8 @@
 import Foundation
 import ProtobufMessages
 
-public protocol ChatServiceProtocol: AnyObject {
-    func getMessages(chatObjectId: String, beforeOrderId: String?, limit: Int?) async throws -> [ChatMessage]
+public protocol ChatServiceProtocol: AnyObject, Sendable {
+    func getMessages(chatObjectId: String, beforeOrderId: String?, afterOrderId: String?, limit: Int?) async throws -> [ChatMessage]
     func getMessagesByIds(chatObjectId: String, messageIds: [String]) async throws -> [ChatMessage]
     func addMessage(chatObjectId: String, message: ChatMessage) async throws -> String
     func updateMessage(chatObjectId: String, message: ChatMessage) async throws
@@ -13,10 +13,11 @@ public protocol ChatServiceProtocol: AnyObject {
 }
 
 final class ChatService: ChatServiceProtocol {
-    func getMessages(chatObjectId: String, beforeOrderId: String?, limit: Int?) async throws -> [ChatMessage] {
+    func getMessages(chatObjectId: String, beforeOrderId: String?, afterOrderId: String?, limit: Int?) async throws -> [ChatMessage] {
         let result = try await ClientCommands.chatGetMessages(.with {
             $0.chatObjectID = chatObjectId
             $0.beforeOrderID = beforeOrderId ?? ""
+            $0.afterOrderID = afterOrderId ?? ""
             $0.limit = Int32(limit ?? 0)
         }).invoke()
         return result.messages

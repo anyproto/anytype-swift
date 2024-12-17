@@ -90,7 +90,7 @@ final class SettingsViewModel: ObservableObject {
             spaceId: accountManager.account.info.techSpaceId,
             objectId: accountManager.account.info.profileObjectID
         ) { [weak self] details in
-            self?.handleProfileDetails(details: details)
+            await self?.handleProfileDetails(details: details)
         }
     }
     

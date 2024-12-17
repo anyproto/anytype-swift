@@ -16,14 +16,17 @@ struct SpaceHubView: View {
     var body: some View {
         content
             .readSize { size = $0 }
-            .onAppear {
-                model.onAppear()
-            }
+            .onAppear { model.onAppear() }
+            .task { await model.startSubscriptions() }
+        
             .sheet(isPresented: $model.showSpaceCreate) {
                 SpaceCreateView(sceneId: model.sceneId, output: model)
             }
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
+            }
+            .anytypeSheet(item: $model.spaceIdToLeave) {
+                SpaceLeaveAlert(spaceId: $0.value)
             }
             .homeBottomPanelHidden(true)
     }
@@ -117,11 +120,8 @@ struct SpaceHubView: View {
             spaceCardLabel(space)
         }
         .disabled(space.spaceView.isLoading)
-        .contextMenu {
-            if space.spaceView.isLoading {
-                debugMenuItems(spaceView: space.spaceView)
-            }
-        }
+        .contextMenu { menuItems(space: space) }
+        .padding(.horizontal, 8)
         .onDrop(
             of: [.text],
             delegate:  SpaceHubDropDelegate(
@@ -145,6 +145,11 @@ struct SpaceHubView: View {
                 Spacer.fixedHeight(1)
             }
             Spacer()
+            if space.spaceView.isLoading && FeatureFlags.newSpacesLoading {
+                DotsView().frame(width: 30, height: 6)
+            } else if space.spaceView.isPinned {
+                Image(asset: .X24.pin).frame(width: 22, height: 22)
+            }
         }
         .padding(16)
         .background(
@@ -155,27 +160,52 @@ struct SpaceHubView: View {
             )
         )
         .cornerRadius(20, style: .continuous)
-        .if(space.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
-        .contentShape([.dragPreview], RoundedRectangle(cornerRadius: 20))
-        .onDrag {
-            draggedSpace = space
-            return NSItemProvider()
+        
+        .if(space.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
+        .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
+        
+        .if(space.spaceView.isPinned) {
+            $0.onDrag {
+                draggedSpace = space
+                return NSItemProvider()
+            } preview: {
+                EmptyView()
+            }
         }
-        .padding(.horizontal, 8)
     }
     
-    private func debugMenuItems(spaceView: SpaceView) -> some View {
+    private func menuItems(space: ParticipantSpaceViewData) -> some View {
         Group {
-            Button {
-                model.copySpaceInfo(spaceView: spaceView)
-            } label: {
-                Label(Loc.copySpaceInfo, systemImage: "info.windshield")
+            if space.spaceView.isLoading {
+                Button { model.copySpaceInfo(spaceView: space.spaceView) } label: {
+                    Text(Loc.copySpaceInfo)
+                }
+            } else if FeatureFlags.pinnedSpaces {
+                if space.spaceView.isPinned {
+                    AsyncButton { try await model.unpin(spaceView: space.spaceView) } label: {
+                        Text(Loc.unpin)
+                    }
+                } else {
+                    AsyncButton { try await model.pin(spaceView: space.spaceView) } label: {
+                        Text(Loc.pin)
+                    }
+                }
             }
             
-            Button(role: .destructive) {
-                model.deleteSpace(spaceId: spaceView.targetSpaceId)
-            } label: {
-                Label(Loc.delete, systemImage: "figure.australian.football")
+            Divider()
+            if space.canLeave {
+                Button(role: .destructive) {
+                    model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
+                } label: {
+                    Text(Loc.leaveASpace)
+                }
+            }
+            if space.canBeDeleted {
+                AsyncButton(role: .destructive) {
+                    try await model.deleteSpace(spaceId: space.spaceView.targetSpaceId)
+                } label: {
+                    Text(Loc.delete)
+                }
             }
         }
     }

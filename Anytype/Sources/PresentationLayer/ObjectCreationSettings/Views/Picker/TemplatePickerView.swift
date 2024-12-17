@@ -37,6 +37,9 @@ struct TemplatePickerView: View {
                 applyButton
             }
         }
+        .task {
+            await viewModel.startTemplateSubscription()
+        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

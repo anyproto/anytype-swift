@@ -17,7 +17,7 @@ final class MultispaceOneActiveSubscriptionHelper<Value: DetailsModel> {
     
     // MARK: - State
     
-    private(set) var data = SynchronizedDictionary<String, [Value]>()
+    let data = SynchronizedDictionary<String, [Value]>()
     
     private var activeSubscriptionStorage: (any SubscriptionStorageProtocol)?
     private var activeSpaceId: String?

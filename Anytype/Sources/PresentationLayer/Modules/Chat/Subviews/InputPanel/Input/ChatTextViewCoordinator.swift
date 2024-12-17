@@ -21,6 +21,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     private let anytypeCodeFont: AnytypeFont
     
     var linkTo: ((_ range: NSRange) -> Void)?
+    var defaultTypingAttributes: [NSAttributedString.Key : Any] = [:]
     
     // MARK: - State
     private var mode: Mode = .text
@@ -70,6 +71,10 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         let oldTextBeforeCarret = textView.textBeforeCaret
         
         textView.attributedText = string
+        
+        if textView.attributedText.string.isEmpty {
+            textView.typingAttributes = defaultTypingAttributes
+        }
         
         if editing {
             // Save carret position

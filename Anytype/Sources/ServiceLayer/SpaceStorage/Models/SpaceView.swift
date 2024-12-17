@@ -13,6 +13,7 @@ struct SpaceView: Identifiable, Equatable {
     let readersLimit: Int?
     let writersLimit: Int?
     let chatId: String?
+    let isPinned: Bool
 }
 
 extension SpaceView: DetailsModel {
@@ -28,9 +29,10 @@ extension SpaceView: DetailsModel {
         self.readersLimit = details.readersLimit
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
+        self.isPinned = details.spaceOrder.isNotEmpty
     }
     
-    static var subscriptionKeys: [BundledRelationKey] = .builder {
+    static let subscriptionKeys: [BundledRelationKey] = .builder {
         BundledRelationKey.id
         BundledRelationKey.name
         BundledRelationKey.objectIconImageKeys
@@ -43,6 +45,7 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.writersLimit
         BundledRelationKey.sharedSpacesLimit
         BundledRelationKey.chatId
+        BundledRelationKey.spaceOrder
     }
 }
 
@@ -61,7 +64,9 @@ extension SpaceView {
     }
     
     var isLoading: Bool {
-        localStatus == .loading && accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+        let spaceIsLoading = localStatus == .loading || localStatus == .unknown
+        let spaceIsNotDeleted = accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+        return spaceIsLoading && spaceIsNotDeleted
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {

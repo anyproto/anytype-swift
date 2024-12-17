@@ -6,8 +6,7 @@ public protocol ParticipantServiceProtocol: AnyObject, Sendable {
 
 final class ParticipantService: ParticipantServiceProtocol {
     
-    @Injected(\.searchMiddleService)
-    private var searchService: any SearchMiddleServiceProtocol
+    private let searchService: any SearchMiddleServiceProtocol = Container.shared.searchMiddleService()
     
     func searchParticipants(spaceId: String) async throws -> [Participant] {
         

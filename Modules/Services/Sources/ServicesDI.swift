@@ -139,4 +139,8 @@ public extension Container {
     var objectDateByTimestampService: Factory<ObjectDateByTimestampServiceProtocol> {
         self { ObjectDateByTimestampService() }.shared
     }
+    
+    var spaceOrderService: Factory<SpaceOrderServiceProtocol> {
+        self { SpaceOrderService() }.shared
+    }
 }

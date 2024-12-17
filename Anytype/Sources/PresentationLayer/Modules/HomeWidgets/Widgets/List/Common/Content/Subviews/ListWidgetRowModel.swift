@@ -5,7 +5,7 @@ struct ListWidgetRowModel: Identifiable {
     let icon: Icon
     let title: String
     let description: String?
-    let onTap: () -> Void
+    let onTap: @MainActor () -> Void
     
     var id: String { objectId }
 }

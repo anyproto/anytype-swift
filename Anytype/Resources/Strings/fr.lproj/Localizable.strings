@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Chercher ou créer une nouvelle relation";
 
-"Relation.Mention.title" = "Mentionné dans";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Presse-papier";
@@ -164,6 +162,7 @@
 "Move" = "Déplacer";
 "Move to" = "Déplacer vers";
 "Back" = "Retour";
+"Pin" = "Épingler";
 "Unpin" = "Désépingler";
 "Pin on top" = "Épingler en haut";
 "File block subtitle" = "Stocker le fichier dans l'état original";
@@ -703,6 +702,7 @@
 "Show" = "Montrer";
 "Hide" = "Masquer";
 "Apply" = "Appliquer";
+"Leave a space" = "Quitter l'espace";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -933,7 +933,6 @@
 "SpaceSettings.DeleteButton" = "Supprimer l'espace";
 "SpaceSettings.Share" = "Partager";
 "SpaceSettings.LeaveButton" = "Quitter";
-"SpaceSettings.LeaveAlert.Title" = "Quitter l'espace";
 "SpaceSettings.LeaveAlert.Message" = "L'espace %@ sera supprimé de votre appareil et vous ne pourrez plus y avoir accès";
 "SpaceSettings.LeaveAlert.Toast" = "Vous avez quitté le %@.";
 
@@ -974,6 +973,9 @@
 "SpaceShare.Join.InviteNotFound" = "Ce lien ne semble pas fonctionner";
 "SpaceShare.JoinConfirmation.Title" = "Demande envoyée";
 "SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "L'objet n'est pas disponible. Demandez au propriétaire de le partager.";
+"SpaceShare.Join.SpaceDeleted" = "L'espace que vous essayez d'accéder a été supprimé";
+
 "SpaceShare.YouSuffix" = "%@ (vous)";
 "SpaceShare.ManageSpaces" = "Gérer les espaces";
 "SpaceShare.AccessChanged" = "Les droits d'accès ont été modifiés.";
@@ -1239,6 +1241,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Il n'y a encore rien ici pour cette date";
+"Date.Open.Action.title" = "Ouvrir la date sélectionnée";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1259,8 +1262,15 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.ReplyTo" = "Réponse à %@";
 "Chat.Empty.Title" = "Aucun message pour l'instant...";
 "Chat.Empty.Description" = "Écrivez une première pour démarrer une conversation";
+"Chat.DeleteMessage.Title" = "Supprimer ce message ?";
+"Chat.DeleteMessage.Description" = "Il ne pourra pas être restauré après confirmation";
 "Chat.Reactions.Empty.Title" = "Aucune réaction pour l'instant";
 "Chat.Reactions.Empty.Subtitle" = "Probablement quelqu'un vient de supprimer la réaction ou un problème technique est survenu";
+"Chat.EditMessage" = "Modifier le message";
+"Chat.Actions.Menu.Objects" = "Sélectionner l'objet existant";
+"Chat.Actions.Menu.Media" = "Télécharger des médias";
+"Chat.Actions.Menu.Files" = "Télécharger un fichier";
+"Chat.Participant.Badge" = "(Vous)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";

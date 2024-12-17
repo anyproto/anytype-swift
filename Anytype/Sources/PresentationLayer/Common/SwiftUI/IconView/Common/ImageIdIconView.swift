@@ -14,10 +14,7 @@ struct ImageIdIconView: View {
             ) { image in
                 image.resizable().scaledToFill()
             } placeholder: {
-                Image(uiImage: UIImage(ciImage: .empty()))
-                    .resizable()
-                    .scaledToFill()
-                    .redacted(reason: .placeholder)
+                LoadingPlaceholderIconView()
             }
             .frame(width: side, height: side)
         }

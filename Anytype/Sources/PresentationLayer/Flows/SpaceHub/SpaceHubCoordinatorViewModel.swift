@@ -11,6 +11,7 @@ struct SpaceHubNavigationItem: Hashable { }
 final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
+    @Published var showObjectIsNotAvailableAlert = false
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
@@ -288,8 +289,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             try await document.open()
             guard let editorData = document.details?.editorScreenData() else { return }
             try? await push(data: editorData)
-        } catch let error {
-            guard let cid, let key else { return }
+        } catch {
+            guard let cid, let key else {
+                showObjectIsNotAvailableAlert = true
+                return
+            }
+            
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
         }
     }

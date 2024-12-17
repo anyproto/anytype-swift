@@ -50,8 +50,20 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
+    static var pinnedSpaces: Bool {
+        value(for: .pinnedSpaces)
+    }
+
+    static var newSpacesLoading: Bool {
+        value(for: .newSpacesLoading)
+    }
+
     static var primitives: Bool {
         value(for: .primitives)
+    }
+
+    static var fullScreenMediaFileByTap: Bool {
+        value(for: .fullScreenMediaFileByTap)
     }
 
     static var rainbowViews: Bool {
@@ -119,7 +131,10 @@ public extension FeatureFlags {
         .dateAsAnObject,
         .relativeDates,
         .homeSpaceLevelChat,
+        .pinnedSpaces,
+        .newSpacesLoading,
         .primitives,
+        .fullScreenMediaFileByTap,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -1,20 +1,20 @@
 import Services
 import Foundation
 
-extension BlockFile {
-    func originalPath(blockId: String, fileName: String) -> URL {
+extension FileManager {
+    static func originalPath(objectId: String, fileName: String) -> URL {
         FileManager
             .default
             .temporaryDirectory
-            .appendingPathComponent("file-\(blockId)")
+            .appendingPathComponent("file-\(objectId)")
             .appendingPathComponent(fileName)
     }
 
-    func previewPath(blockId: String, fileName: String) -> URL {
+    static func previewPath(objectId: String, fileName: String) -> URL {
         FileManager
             .default
             .temporaryDirectory
-            .appendingPathComponent(blockId)
+            .appendingPathComponent(objectId)
             .appendingPathComponent("preview")
             .appendingPathComponent(fileName)
     }

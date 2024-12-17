@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "搜索或创建新关系";
 
-"Relation.Mention.title" = "Mentioned in";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "剪贴板";
@@ -164,6 +162,7 @@
 "Move" = "移动";
 "Move to" = "移至";
 "Back" = "返回";
+"Pin" = "Pin";
 "Unpin" = "取消固定";
 "Pin on top" = "置顶";
 "File block subtitle" = "以原始状态存储文件";
@@ -698,12 +697,13 @@
 "Blurred icon" = "模糊\n 图标";
 "My First Space" = "我的第一个空间";
 "Copy space info" = "复制空间信息";
-"Save" = "Save";
+"Save" = "保存";
 "Set of" = "Set of %@";
 "New set" = "新建集合";
 "Show" = "显示";
 "Hide" = "隐藏";
-"Apply" = "Apply";
+"Apply" = "应用";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -934,7 +934,6 @@
 "SpaceSettings.DeleteButton" = "删除空间";
 "SpaceSettings.Share" = "分享";
 "SpaceSettings.LeaveButton" = "离开";
-"SpaceSettings.LeaveAlert.Title" = "离开空间";
 "SpaceSettings.LeaveAlert.Message" = "%@ 空间将被从您的设备中删除，您将无法再访问它";
 "SpaceSettings.LeaveAlert.Toast" = "你离开了 %@。";
 
@@ -958,7 +957,7 @@
 "SpaceShare.Action.ViewRequest" = "查看请求";
 "SpaceShare.Action.Approve" = "接受";
 "SpaceShare.DeleteSharingLink.Title" = "删除链接";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
+"SpaceShare.DeleteSharingLink.Message" = "新成员将无法加入空间。您可以随时生成一个新链接。";
 "SpaceShare.Approve.Toast" = "您批准了 %@ 的请求。";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
 "SpaceShare.ViewRequest.ViewAccess" = "添加为查看者";
@@ -975,6 +974,9 @@
 "SpaceShare.Join.InviteNotFound" = "这个链接似乎无法工作";
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "当空间所有者批准你的请求后，你将收到通知。";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
+
 "SpaceShare.YouSuffix" = "%@ （您）";
 "SpaceShare.ManageSpaces" = "管理空间";
 "SpaceShare.AccessChanged" = "访问权限现已更改。";
@@ -1234,12 +1236,13 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
-"Message.Action.Reply" = "Reply";
+"Message.Action.Reply" = "回复";
 "Message.Input.EmptyPlaceholder" = "写一段话…";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - Date
-"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Object.Empty.State.title" = "此日期暂无任何内容";
+"Date.Open.Action.title" = "打开选定日期";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "排序方式";
@@ -1256,12 +1259,19 @@
 "AllContent.Search.Empty.State.subtitle" = "尝试使用不同的关键字搜索";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
-"Chat.ReplyTo" = "Reply to %@";
+"Chat.ReadOnly" = "只有编辑者可以发送消息。请联系所有者请求访问权限。";
+"Chat.ReplyTo" = "回复 %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.DeleteMessage.Title" = "删除此消息？";
+"Chat.DeleteMessage.Description" = "确认后无法恢复";
 "Chat.Reactions.Empty.Title" = "No reactions yet";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.EditMessage" = "Edit Message";
+"Chat.Actions.Menu.Objects" = "Select existing object";
+"Chat.Actions.Menu.Media" = "上传媒体文件";
+"Chat.Actions.Menu.Files" = "上传文件";
+"Chat.Participant.Badge" = "(You)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";

@@ -37,12 +37,15 @@ public extension ObjectIcon {
     enum Profile: Hashable, Sendable {
         case imageId(String)
         case name(String)
+        case placeholder
         
         var imageId: String? {
             switch self {
             case .imageId(let imageId):
                 return imageId
             case .name(_):
+                return nil
+            case .placeholder:
                 return nil
             }
         }

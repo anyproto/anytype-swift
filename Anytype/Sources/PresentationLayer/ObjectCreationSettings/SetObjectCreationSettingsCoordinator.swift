@@ -13,7 +13,8 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject, SetObjectCreat
     )
 }
 
-final class SetObjectCreationSettingsCoordinator: 
+@MainActor
+final class SetObjectCreationSettingsCoordinator:
     SetObjectCreationSettingsCoordinatorProtocol,
     ObjectSettingsCoordinatorOutput,
     SetObjectCreationSettingsOutput
