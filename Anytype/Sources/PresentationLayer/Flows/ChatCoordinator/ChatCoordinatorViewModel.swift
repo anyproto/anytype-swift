@@ -23,6 +23,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var showPhotosPicker = false
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var participantsReactionData: MessageParticipantsReactionData?
+    @Published var safariUrl: URL?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -62,6 +63,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true
         }
+    }
+    
+    func onUrlSelected(url: URL) {
+        safariUrl = url
     }
     
     func onPhotosPickerSelected(data: ChatPhotosPickerData) {

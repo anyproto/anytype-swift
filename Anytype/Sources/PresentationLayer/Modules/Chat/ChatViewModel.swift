@@ -409,6 +409,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             let items = buildPreviewRemoteItemFromAttachments(reorderedAttachments)
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
             output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
+        } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
+            output?.onUrlSelected(url: url)
         } else {
             output?.onObjectSelected(screenData: attachment.editorScreenData())
         }
