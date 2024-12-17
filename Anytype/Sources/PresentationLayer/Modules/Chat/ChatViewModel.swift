@@ -107,6 +107,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         output?.onFilePickerSelected(data: data)
     }
     
+    func onTapCamera() {
+        let data = SimpleCameraData(onMediaTaken: { [weak self] media in
+            self?.handleCameraMedia(media)
+        })
+        output?.onShowCameraSelected(data: data)
+    }
+    
     func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants
@@ -383,6 +390,19 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             }
         case .failure:
             break
+        }
+    }
+    
+    private func handleCameraMedia(_ media: ImagePickerMediaType) {
+        switch media {
+        case .image(let image, let type):
+            if let fileData = try? fileActionsService.createFileData(image: image, type: type) {
+                linkedObjects.append(.localBinaryFile(fileData))
+            }
+        case .video(let file):
+            if let fileData = try? fileActionsService.createFileData(fileUrl: file) {
+                linkedObjects.append(.localBinaryFile(fileData))
+            }
         }
     }
     

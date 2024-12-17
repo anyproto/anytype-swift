@@ -15,4 +15,10 @@ public extension DateFormatter {
         dateFormatter.dateStyle = .medium
         return dateFormatter
     }()
+
+    static let photoDateTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
+        return formatter
+    }()
 }
