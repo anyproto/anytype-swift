@@ -157,7 +157,11 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             // Doesn't support
             return true
         case .addStyle(let markupType, let text, let range, let focusRange):
-            return addStyle(textView: textView, type: markupType, text: text, range: range, focusRange: focusRange, removeAttribute: false)
+            let result = addStyle(textView: textView, type: markupType, text: text, range: range, focusRange: focusRange, removeAttribute: false)
+            if !result {
+                textViewDidChange(textView)
+            }
+            return result
         }
     }
     
