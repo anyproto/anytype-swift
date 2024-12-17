@@ -142,6 +142,10 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         }
         
         text = textView.attributedText
+        
+        if textView.attributedText.string.isEmpty {
+            textView.typingAttributes = defaultTypingAttributes
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

@@ -72,7 +72,7 @@ struct ChatView: View {
                 editing: $model.inputFocused,
                 mention: $model.mentionSearchState,
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
-                additionalDataLoading: model.attachmentsDownloading
+                disableSendButton: model.attachmentsDownloading || model.textLimitReached
             ) {
                 model.onTapAddObjectToMessage()
             } onTapAddMedia: {
@@ -83,6 +83,19 @@ struct ChatView: View {
                 model.onTapSendMessage()
             } onTapLinkTo: { range in
                 model.onTapLinkTo(range: range)
+            }
+            .overlay(alignment: .top) {
+                if let messageTextLimit = model.messageTextLimit {
+                    Text(messageTextLimit)
+                        .foregroundStyle(model.textLimitReached ? Color.Dark.red : Color.Text.primary)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.Background.secondary)
+                        .cornerRadius(12)
+                        .border(12, color: .Shape.tertiary)
+                        .shadow(color: .black.opacity(0.15), radius: 12)
+                        .padding(.top, 8)
+                }
             }
         }
         .background(Color.Background.navigationPanel)
@@ -97,6 +110,9 @@ struct ChatView: View {
         }
         .throwingTask(id: model.sendMessageTaskInProgress) {
             try await model.sendMessageTask()
+        }
+        .onChange(of: model.message) { _ in
+            model.messageDidChanged()
         }
     }
     
