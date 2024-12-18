@@ -79,6 +79,8 @@ struct ChatView: View {
                 model.onTapAddMediaToMessage()
             } onTapAddFiles: {
                 model.onTapAddFilesToMessage()
+            } onTapCamera: {
+                model.onTapCamera()
             } onTapSend: {
                 model.onTapSendMessage()
             } onTapLinkTo: { range in

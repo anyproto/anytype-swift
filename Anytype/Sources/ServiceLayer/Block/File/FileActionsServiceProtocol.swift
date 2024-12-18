@@ -20,6 +20,7 @@ protocol FileActionsServiceProtocol {
     
     func createFileData(source: FileUploadingSource) async throws -> FileData
     func createFileData(photoItem: PhotosPickerItem) async throws -> FileData
+    func createFileData(image: UIImage, type: String) throws -> FileData
     func createFileData(fileUrl: URL) throws -> FileData
     
     func uploadDataAt(data: FileData, contextID: String, blockID: String) async throws

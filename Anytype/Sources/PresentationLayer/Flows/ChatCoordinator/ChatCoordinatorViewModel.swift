@@ -24,6 +24,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var participantsReactionData: MessageParticipantsReactionData?
     @Published var safariUrl: URL?
+    @Published var cameraData: SimpleCameraData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -78,6 +79,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     func onFilePickerSelected(data: ChatFilesPickerData) {
         showFilesPicker = true
         filesPickerData = data
+    }
+    
+    func onShowCameraSelected(data: SimpleCameraData) {
+        cameraData = data
     }
     
     func photosPickerFinished() {

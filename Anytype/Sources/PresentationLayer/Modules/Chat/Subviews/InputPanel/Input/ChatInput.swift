@@ -10,6 +10,7 @@ struct ChatInput: View {
     let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
+    let onTapCamera: () -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     
@@ -51,6 +52,11 @@ struct ChatInput: View {
                     onTapAddFiles()
                 } label: {
                     Text(Loc.Chat.Actions.Menu.files)
+                }
+                Button {
+                    onTapCamera()
+                } label: {
+                    Text(Loc.Chat.Actions.Menu.camera)
                 }
             } label: {
                 Image(asset: .X32.plus)
