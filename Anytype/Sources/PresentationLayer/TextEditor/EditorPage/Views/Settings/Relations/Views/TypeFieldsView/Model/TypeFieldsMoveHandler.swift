@@ -89,7 +89,31 @@ final class TypeFieldsMoveHandler {
     }
     
     private func move(from: TypeFieldsRelationRow, to: TypeFieldsSectionRow, document: any BaseDocumentProtocol) async throws {
-        // TBD;
+        guard let details = document.details else { return }
+        
+        if from.section.isHeader {
+            guard let fromIndex = details.recommendedFeaturedRelations.firstIndex(of: from.relation.id) else { return }
+            
+            let fromRelation = details.recommendedFeaturedRelations[fromIndex]
+            
+            var newFeaturedRelations = details.recommendedFeaturedRelations
+            newFeaturedRelations.remove(at: fromIndex)
+            
+            let newRecommendedRelations = [fromRelation]
+            
+            try await relationsService.updateTypeRelations(typeId: document.objectId, recommendedRelationIds: newRecommendedRelations, recommendedFeaturedRelationsIds: newFeaturedRelations)
+        } else {
+            guard let fromIndex = details.recommendedRelations.firstIndex(of: from.relation.id) else { return }
+            
+            let fromRelation = details.recommendedRelations[fromIndex]
+            
+            var newRecommendedRelations = details.recommendedRelations
+            newRecommendedRelations.remove(at: fromIndex)
+            
+            let newFeaturedRelations = [fromRelation]
+            
+            try await relationsService.updateTypeRelations(typeId: document.objectId, recommendedRelationIds: newRecommendedRelations, recommendedFeaturedRelationsIds: newFeaturedRelations)
+        }
     }
     
     private func move(from: TypeFieldsRelationRow, to: TypeFieldsRelationRow, document: any BaseDocumentProtocol) async throws {
