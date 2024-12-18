@@ -11098,7 +11098,7 @@ public struct Anytype_Rpc {
           public typealias RawValue = Int
           case none // = 0
           case getStarted // = 1
-          case empty // = 6
+          case empty // = 2
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -11109,7 +11109,7 @@ public struct Anytype_Rpc {
             switch rawValue {
             case 0: self = .none
             case 1: self = .getStarted
-            case 6: self = .empty
+            case 2: self = .empty
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -11118,7 +11118,7 @@ public struct Anytype_Rpc {
             switch self {
             case .none: return 0
             case .getStarted: return 1
-            case .empty: return 6
+            case .empty: return 2
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -30986,6 +30986,9 @@ public struct Anytype_Rpc {
         // methods supported on all messages.
 
         public var chatObjectID: String = String()
+
+        /// OrderId of the message after which to get messages
+        public var afterOrderID: String = String()
 
         /// OrderId of the message before which to get messages
         public var beforeOrderID: String = String()
@@ -51601,7 +51604,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: SwiftProtobuf._Proto
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NONE"),
     1: .same(proto: "GET_STARTED"),
-    6: .same(proto: "EMPTY"),
+    2: .same(proto: "EMPTY"),
   ]
 }
 
@@ -80657,6 +80660,7 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
   public static let protoMessageName: String = Anytype_Rpc.Chat.GetMessages.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "chatObjectId"),
+    4: .same(proto: "afterOrderId"),
     2: .same(proto: "beforeOrderId"),
     3: .same(proto: "limit"),
   ]
@@ -80670,6 +80674,7 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
       case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.beforeOrderID) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.afterOrderID) }()
       default: break
       }
     }
@@ -80685,11 +80690,15 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
     if self.limit != 0 {
       try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 3)
     }
+    if !self.afterOrderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterOrderID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.GetMessages.Request, rhs: Anytype_Rpc.Chat.GetMessages.Request) -> Bool {
     if lhs.chatObjectID != rhs.chatObjectID {return false}
+    if lhs.afterOrderID != rhs.afterOrderID {return false}
     if lhs.beforeOrderID != rhs.beforeOrderID {return false}
     if lhs.limit != rhs.limit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

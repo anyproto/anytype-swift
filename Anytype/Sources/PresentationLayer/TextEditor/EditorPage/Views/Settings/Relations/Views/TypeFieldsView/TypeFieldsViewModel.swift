@@ -18,6 +18,7 @@ final class TypeFieldsViewModel: ObservableObject {
     
     let document: any BaseDocumentProtocol
     private let fieldsDataBuilder = TypeFieldsRowBuilder()
+    private let moveHandler = TypeFieldsMoveHandler()
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
