@@ -67,6 +67,7 @@ struct MessageView: View {
             if data.reactions.isNotEmpty {
                 MessageReactionList(
                     rows: data.reactions,
+                    canAddReaction: data.canAddReaction,
                     isYourMessage: data.isYourMessage,
                     onTapRow: { reaction in
                         try await output?.didTapOnReaction(data: data, reaction: reaction)
@@ -165,10 +166,12 @@ struct MessageView: View {
     
     @ViewBuilder
     private var contextMenu: some View {
-        Button {
-            output?.didSelectAddReaction(messageId: data.message.id)
-        } label: {
-            Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+        if data.canAddReaction {
+            Button {
+                output?.didSelectAddReaction(messageId: data.message.id)
+            } label: {
+                Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+            }
         }
         
         Divider()

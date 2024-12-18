@@ -2,7 +2,7 @@ import SwiftUI
 import Services
 
 protocol ChatMessageBuilderProtocol: AnyObject {
-    func makeMessage(messages: [FullChatMessage], participants: [Participant]) async -> [MessageSectionData]
+    func makeMessage(messages: [FullChatMessage], participants: [Participant], limits: any ChatMessageLimitsProtocol) async -> [MessageSectionData]
 }
 
 final class ChatMessageBuilder: ChatMessageBuilderProtocol {
@@ -32,7 +32,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         self.chatId = chatId
     }
     
-    func makeMessage(messages: [FullChatMessage], participants: [Participant]) async -> [MessageSectionData] {
+    func makeMessage(messages: [FullChatMessage], participants: [Participant], limits: any ChatMessageLimitsProtocol) async -> [MessageSectionData] {
         
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let canEdit = participant?.canEdit ?? false
@@ -85,6 +85,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                     yourProfileIdentity: yourProfileIdentity,
                     isYourMessage: isYourMessage
                 ),
+                canAddReaction: limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
                 nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 showHeader: firstForCurrentUser || prevDateIntervalIsBig,

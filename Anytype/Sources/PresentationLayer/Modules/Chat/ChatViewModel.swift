@@ -9,11 +9,6 @@ import UIKit
 @MainActor
 final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
-    private enum Constants {
-        static let textLimit = 2000
-        static let textLimitWarning = 1950
-    }
-    
     // MARK: - DI
     
     let spaceId: String
@@ -34,6 +29,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var chatService: any ChatServiceProtocol
     @Injected(\.chatInputConverter)
     private var chatInputConverter: any ChatInputConverterProtocol
+    @Injected(\.chatMessageLimits)
+    private var chatMessageLimits: any ChatMessageLimitsProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -308,8 +305,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     }
     
     func messageDidChanged() {
-        textLimitReached = message.string.count > Constants.textLimit
-        messageTextLimit = message.string.count < Constants.textLimitWarning ? nil : "\(message.string.count) / \(Constants.textLimit)"
+        textLimitReached = chatMessageLimits.textIsLimited(text: message)
+        messageTextLimit = chatMessageLimits.textIsWarinig(text: message) ? "\(message.string.count) / \(chatMessageLimits.textLimit)" : nil
     }
     
     // MARK: - MessageModuleOutput
@@ -374,7 +371,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     // MARK: - Private
     
     private func updateMessages() async {
-        let newMessageBlocks = await chatMessageBuilder.makeMessage(messages: messages, participants: participants)
+        let newMessageBlocks = await chatMessageBuilder.makeMessage(
+            messages: messages,
+            participants: participants,
+            limits: chatMessageLimits
+        )
         guard newMessageBlocks != mesageBlocks else { return }
         mesageBlocks = newMessageBlocks
     }
