@@ -5,22 +5,29 @@ import os
 public final class AtomicStorage<T>: @unchecked Sendable {
     
     private let lock = OSAllocatedUnfairLock()
-    private let subject: CurrentValueSubject<T, Never>
+    private var storage: T
     
     public init(_ value: T) {
-        subject = CurrentValueSubject(value)
+        storage = value
     }
     
     public var value: T {
         get {
             lock.lock()
             defer { lock.unlock() }
-            return subject.value
+            return storage
         }
         set {
             lock.lock()
             defer { lock.unlock() }
-            subject.send(newValue)
+            storage = newValue
         }
+    }
+    
+    @discardableResult
+    public func access<R>(_ closure: (_ value: inout T) -> R) -> R {
+        lock.lock()
+        defer { lock.unlock() }
+        return closure(&storage)
     }
 }

@@ -159,7 +159,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 linkedObjects: linkedObjects,
                 replyToMessageId: replyToMessage?.id
             )
-        } else {
+        } else if chatMessageLimits.canSendMessage() {
             let messageId = try await chatActionService.createMessage(
                 chatId: chatId,
                 spaceId: spaceId,
@@ -168,6 +168,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 replyToMessageId: replyToMessage?.id
             )
             collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
+            chatMessageLimits.markSentMessage()
         }
         clearInput()
         sendMessageTaskInProgress = false
