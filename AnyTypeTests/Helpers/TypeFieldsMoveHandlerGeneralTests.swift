@@ -16,25 +16,10 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
     }
 
     func testErrorHandling() async {
-        // 1. Non-singular from index
+        // Test invalid index error
         do {
             try await moveHandler.onMove(
-                from: IndexSet(integersIn: 0...1),
-                to: 1,
-                relationRows: [],
-                document: mockDocument
-            )
-            XCTFail("Expected nonSingularFromIndex error")
-        } catch let error as TypeFieldsMoveError {
-            XCTAssertEqual(error, .nonSingularFromIndex)
-        } catch let error {
-            XCTFail()
-        }
-        
-        // 2. Wrong data for fromRow
-        do {
-            try await moveHandler.onMove(
-                from: IndexSet(integer: 10),
+                from: 10,
                 to: 1,
                 relationRows: [],
                 document: mockDocument
@@ -42,8 +27,24 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
             XCTFail("Expected wrongDataForFromRow error")
         } catch let error as TypeFieldsMoveError {
             XCTAssertEqual(error, .wrongDataForFromRow)
-        } catch let error {
-            XCTFail()
+        } catch {
+            XCTFail("Unexpected error type: \(error)")
+        }
+        
+        // Test wrong data for fromRow
+        let invalidRows = [TypeFieldsRow.header(.header)]
+        do {
+            try await moveHandler.onMove(
+                from: 0,
+                to: 1,
+                relationRows: invalidRows,
+                document: mockDocument
+            )
+            XCTFail("Expected wrongDataForFromRow error")
+        } catch let error as TypeFieldsMoveError {
+            XCTAssertEqual(error, .wrongDataForFromRow)
+        } catch {
+            XCTFail("Unexpected error type: \(error)")
         }
     }
 
@@ -60,7 +61,7 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
         
         // Act & Assert
         try await moveHandler.onMove(
-            from: IndexSet(integer: 0),
+            from: 0,
             to: 0,
             relationRows: relationRows,
             document: mockDocument

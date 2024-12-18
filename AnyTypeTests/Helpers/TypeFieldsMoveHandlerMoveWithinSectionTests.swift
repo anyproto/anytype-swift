@@ -22,8 +22,9 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
             recommendedFeaturedRelations: ["h1", "h2", "h3", "h4"]
         )
         
+        // Moving h1 (index 1) to after h3 (index 3)
         try await moveHandler.onMove(
-            from: IndexSet(integer: 1), // First relation after header
+            from: 1,
             to: 3,
             relationRows: relationRows,
             document: mockDocument
@@ -31,7 +32,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         
         XCTAssertEqual(
             mockRelationsService.lastUpdateFeaturedRelations,
-            ["h2", "h1", "h3", "h4"]
+            ["h2", "h3", "h1", "h4"]
         )
     }
 
@@ -42,8 +43,8 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 1),
-            to: 5,
+            from: 1,
+            to: 4,
             relationRows: relationRows,
             document: mockDocument
         )
@@ -61,7 +62,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 2),
+            from: 2,
             to: 1,
             relationRows: relationRows,
             document: mockDocument
@@ -80,8 +81,8 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 2),
-            to: 5,
+            from: 2,
+            to: 4,
             relationRows: relationRows,
             document: mockDocument
         )
@@ -99,7 +100,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 4),
+            from: 4,
             to: 1,
             relationRows: relationRows,
             document: mockDocument
@@ -118,15 +119,15 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 4),
-            to: 3,
+            from: 4,
+            to: 2,
             relationRows: relationRows,
             document: mockDocument
         )
         
         XCTAssertEqual(
             mockRelationsService.lastUpdateFeaturedRelations,
-            ["h1", "h2", "h4", "h3"]
+            ["h1", "h4", "h2", "h3"]
         )
     }
 
@@ -138,15 +139,15 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 6), // First relation after fields menu header
-            to: 8,
+            from: 2,
+            to: 4,
             relationRows: relationRows,
             document: mockDocument
         )
         
         XCTAssertEqual(
             mockRelationsService.lastUpdateRecommendedRelations?.relationIds,
-            ["f2", "f1", "f3", "f4"]
+            ["f2", "f3", "f1", "f4"]
         )
     }
 
@@ -157,8 +158,8 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 6),
-            to: 10,
+            from: 2,
+            to: 5,
             relationRows: relationRows,
             document: mockDocument
         )
@@ -176,8 +177,8 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 7),
-            to: 6,
+            from: 3,
+            to: 2,
             relationRows: relationRows,
             document: mockDocument
         )
@@ -195,8 +196,8 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 7),
-            to: 10,
+            from: 3,
+            to: 5,
             relationRows: relationRows,
             document: mockDocument
         )
@@ -214,8 +215,8 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 9),
-            to: 6,
+            from: 5,
+            to: 2,
             relationRows: relationRows,
             document: mockDocument
         )
@@ -233,15 +234,15 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         try await moveHandler.onMove(
-            from: IndexSet(integer: 9),
-            to: 8,
+            from: 5,
+            to: 3,
             relationRows: relationRows,
             document: mockDocument
         )
         
         XCTAssertEqual(
             mockRelationsService.lastUpdateRecommendedRelations?.relationIds,
-            ["f1", "f2", "f4", "f3"]
+            ["f1", "f4", "f2", "f3"]
         )
     }
 
@@ -249,29 +250,24 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
     private func createHeaderSectionRows() -> [TypeFieldsRow] {
         let headerSection = TypeFieldsSectionRow.header
         return [
-            TypeFieldsRow.header(.header),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h1"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h2"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h3"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h4"))),
-            TypeFieldsRow.header(.fieldsMenu)
+            .header(.header),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h1"))),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h2"))),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h3"))),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h4"))),
+            .header(.fieldsMenu)
         ]
     }
 
     private func createFieldsSectionRows() -> [TypeFieldsRow] {
-        let headerSection = TypeFieldsSectionRow.header
         let fieldsSection = TypeFieldsSectionRow.fieldsMenu
         return [
-            TypeFieldsRow.header(.header),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h1"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h2"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h3"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h4"))),
-            TypeFieldsRow.header(.fieldsMenu),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f1"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f2"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f3"))),
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f4")))
+            .header(.header),
+            .header(.fieldsMenu),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f1"))),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f2"))),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f3"))),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f4")))
         ]
     }
 }
