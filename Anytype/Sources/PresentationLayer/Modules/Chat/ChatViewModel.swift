@@ -73,7 +73,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     // Alerts
     
     @Published var deleteMessageConfirmation: MessageViewData?
-        
+    @Published var showSendLimitAlert = false
+    
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
         self.chatId = chatId
@@ -169,6 +170,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             )
             collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
             chatMessageLimits.markSentMessage()
+        } else {
+            showSendLimitAlert = true
         }
         clearInput()
         sendMessageTaskInProgress = false
