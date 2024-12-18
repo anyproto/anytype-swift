@@ -7,7 +7,7 @@ import UniformTypeIdentifiers
 import PhotosUI
 import SwiftUI
 
-final class FileActionsService: FileActionsServiceProtocol {
+final class FileActionsService: FileActionsServiceProtocol, Sendable {
     
     private enum FileServiceError: Error {
         case undefiled
@@ -46,16 +46,15 @@ final class FileActionsService: FileActionsServiceProtocol {
     }
     
     // Clear file cache once for app launch. Should be as singletone in DI.
-    private var cacheCleared: Bool = false
-    @Injected(\.fileService)
-    private var fileService: any FileServiceProtocol
+    private let cacheCleared = AtomicStorage(false)
+    private let fileService: any FileServiceProtocol = Container.shared.fileService()
     
     private let dateTimeFormatter = DateFormatter.photoDateTimeFormatter
     
     init() {
-        if !cacheCleared {
+        if !cacheCleared.value {
             clearFileCache()
-            cacheCleared = true
+            cacheCleared.value = true
         }
     }
     

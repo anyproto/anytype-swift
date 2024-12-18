@@ -1,7 +1,7 @@
 import AnytypeCore
 import Services
 
-protocol LoginStateServiceProtocol: AnyObject {
+protocol LoginStateServiceProtocol: AnyObject, Sendable {
     var isFirstLaunchAfterRegistration: Bool { get }
     var isFirstLaunchAfterAuthorization: Bool { get }
     func setupStateAfterLoginOrAuth(account: AccountData) async
@@ -11,7 +11,7 @@ protocol LoginStateServiceProtocol: AnyObject {
     func setupStateBeforeLoginOrAuth() async
 }
 
-final class LoginStateService: LoginStateServiceProtocol {
+final class LoginStateService: LoginStateServiceProtocol, Sendable {
     var isFirstLaunchAfterRegistration: Bool = false
     var isFirstLaunchAfterAuthorization: Bool = false
     

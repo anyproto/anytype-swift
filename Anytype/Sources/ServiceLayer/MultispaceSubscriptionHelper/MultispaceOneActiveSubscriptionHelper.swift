@@ -3,7 +3,7 @@ import AnytypeCore
 import Combine
 import Services
 
-final class MultispaceOneActiveSubscriptionHelper<Value: DetailsModel> {
+actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
 
     // MARK: - DI
     
@@ -55,7 +55,7 @@ final class MultispaceOneActiveSubscriptionHelper<Value: DetailsModel> {
         try? await subscriptionStorage.startOrUpdateSubscription(
             data: subscriptionBuilder.build(accountId: accountManager.account.id, spaceId: spaceId, subId: subId)
         ) { [weak self] data in
-            self?.updateStorage(subscriptionState: data, spaceId: spaceId, update: update)
+            await self?.updateStorage(subscriptionState: data, spaceId: spaceId, update: update)
         }
     }
     

@@ -7,7 +7,7 @@ enum ObjectTypeError: Error {
     case objectTypeNotFound
 }
 
-final class ObjectTypeProvider: ObjectTypeProviderProtocol {
+final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
     
     private enum Constants {
         static let subscriptionIdPrefix = "SubscriptionId.ObjectType-"
@@ -19,18 +19,13 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     // MARK: - DI
     
-    @Injected(\.objectTypeSubscriptionDataBuilder)
-    private var subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol
-    private var userDefaults: any UserDefaultsStorageProtocol
-    
-    private lazy var multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<ObjectType>(
-        subIdPrefix: Constants.subscriptionIdPrefix,
-        subscriptionBuilder: subscriptionBuilder
-    )
+    private let subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.objectTypeSubscriptionDataBuilder()
+    private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let multispaceSubscriptionHelper: MultispaceOneActiveSubscriptionHelper<ObjectType>
     
     // MARK: - Private variables
         
-    private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
+    private let searchTypesById = SynchronizedDictionary<String, ObjectType>()
     
     @Published private var defaultObjectTypes: [String: String] {
         didSet {
@@ -41,8 +36,10 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
 
     private init() {
-        let userDefaults = Container.shared.userDefaultsStorage()
-        self.userDefaults = userDefaults
+        multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<ObjectType>(
+            subIdPrefix: Constants.subscriptionIdPrefix,
+            subscriptionBuilder: subscriptionBuilder
+        )
         defaultObjectTypes = userDefaults.defaultObjectTypes
     }
     
