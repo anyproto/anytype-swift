@@ -6,7 +6,7 @@ struct ChatInput: View {
     @Binding var editing: Bool
     @Binding var mention: ChatTextMention
     let hasAdditionalData: Bool
-    let additionalDataLoading: Bool
+    let disableSendButton: Bool
     let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
@@ -65,7 +65,7 @@ struct ChatInput: View {
                 } label: {
                     EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
                 }
-                .disabled(additionalDataLoading)
+                .disabled(disableSendButton)
                 .frame(width: 32, height: 56)
             }
                 

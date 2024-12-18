@@ -9,6 +9,11 @@ import UIKit
 @MainActor
 final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
+    private enum Constants {
+        static let textLimit = 2000
+        static let textLimitWarning = 1950
+    }
+    
     // MARK: - DI
     
     let spaceId: String
@@ -52,7 +57,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     @Published var replyToMessage: ChatInputReplyModel?
     @Published var editMessage: ChatMessage?
     @Published var sendMessageTaskInProgress: Bool = false
-    
+    @Published var messageTextLimit: String?
+    @Published var textLimitReached = false
     private var photosItems: [PhotosPickerItem] = []
     
     // List
@@ -299,6 +305,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         Task {
             await chatStorage.updateVisibleRange(starMessageId: fromId, endMessageId: toId)
         }
+    }
+    
+    func messageDidChanged() {
+        textLimitReached = message.string.count > Constants.textLimit
+        messageTextLimit = message.string.count < Constants.textLimitWarning ? nil : "\(message.string.count) / \(Constants.textLimit)"
     }
     
     // MARK: - MessageModuleOutput

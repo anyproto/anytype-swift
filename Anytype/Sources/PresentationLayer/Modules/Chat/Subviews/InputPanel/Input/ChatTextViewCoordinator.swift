@@ -142,6 +142,16 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         }
         
         text = textView.attributedText
+        
+        if textView.attributedText.string.isEmpty {
+            textView.typingAttributes = defaultTypingAttributes
+        }
+        
+        if let selectedRange = textView.selectedTextRange {
+            var cursorRect = textView.caretRect(for: selectedRange.end)
+            cursorRect.origin.y += textView.textContainerInset.bottom
+            textView.scrollRectToVisible(cursorRect, animated: true)
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -153,7 +163,11 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             // Doesn't support
             return true
         case .addStyle(let markupType, let text, let range, let focusRange):
-            return addStyle(textView: textView, type: markupType, text: text, range: range, focusRange: focusRange, removeAttribute: false)
+            let result = addStyle(textView: textView, type: markupType, text: text, range: range, focusRange: focusRange, removeAttribute: false)
+            if !result {
+                textViewDidChange(textView)
+            }
+            return result
         }
     }
     
