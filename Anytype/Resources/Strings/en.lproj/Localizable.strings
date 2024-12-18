@@ -1270,6 +1270,9 @@ Please provide specific details of your needs here.";
 "Chat.Actions.Menu.Media" = "Upload media";
 "Chat.Actions.Menu.Files" = "Upload file";
 "Chat.Participant.Badge" = "(You)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

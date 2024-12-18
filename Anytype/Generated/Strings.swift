@@ -654,6 +654,17 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Chat.Reactions.Empty.Title", fallback: "No reactions yet")
       }
     }
+    internal enum Reply {
+      internal static func attachments(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Attachments", String(describing: p1), fallback: "Attachments (%@)")
+      }
+      internal static func files(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Files", String(describing: p1), fallback: "Files (%@)")
+      }
+      internal static func images(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Images", String(describing: p1), fallback: "Images (%@)")
+      }
+    }
   }
   internal enum ClearCache {
     internal static let error = Loc.tr("Localizable", "ClearCache.Error", fallback: "Error, try again later")
