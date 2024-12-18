@@ -18,7 +18,7 @@ final class EditorSetCoordinatorViewModel:
     RelationValueCoordinatorOutput,
     SetObjectCreationSettingsOutput
 {
-    let data: EditorSetObject
+    let data: EditorListObject
     let showHeader: Bool
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -47,7 +47,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var setObjectCreationData: SetObjectCreationData?
     @Published var presentSettings = false
     
-    init(data: EditorSetObject, showHeader: Bool) {
+    init(data: EditorListObject, showHeader: Bool) {
         self.data = data
         self.showHeader = showHeader
     }
@@ -153,10 +153,7 @@ final class EditorSetCoordinatorViewModel:
         relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
             objectDetails: objectDetails,
-            analyticsType: .dataview,
-            onToastShow: { [weak self] message in
-                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
-            }
+            analyticsType: .dataview
         )
     }
     
@@ -193,7 +190,7 @@ final class EditorSetCoordinatorViewModel:
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId, spaceId: data.spaceId) { [weak self] in
             Task { [weak self] in
                 self?.showEditorScreen(data: data)
             }

@@ -74,7 +74,7 @@
 "Create relation" = "Lag relasjon ’%@’";
 "Relation.View.Hint.Empty" = "tom";
 "Relation.MyRelations" = "Mine relasjoner";
-"Relation.AddedToLibrary" = "Relasjonen ’%@’ har blitt lagt til i biblioteket ditt";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Slettet relasjon";
 "Relation.From.Type" = "Fra type %@";
 "Relation.EmptyState.title" = "Ingen valg";
@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Opprett alternativ";
 "Relation.View.Edit.title" = "Rediger valg";
 "Relation.Create.Textfield.placeholder" = "Skriv inn navn...";
-"Relation.Edit.Button.title" = "Bruk";
-"Relation.Date.Locked.Alert.title" = "Relasjon “%@” er låst";
 "Relation.ObjectTypes.Header.title" = "Objekttyper:";
 "Relation.ObjectType.Header.title" = "Objekttype:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
 "Relation.Search.View.Placeholder" = "Søk eller opprett en ny relasjon";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -152,6 +152,7 @@
 "Files" = "Files";
 "Media" = "Media";
 "Lists" = "Groups";
+"Dates" = "Dates";
 "Pinned" = "Festet";
 "Delete" = "Slett";
 "Export" = "Eksport";
@@ -190,6 +191,7 @@
 "Blue background" = "Blå bakgrunn";
 "Green background" = "Grønn bakgrunn";
 "Create new object" = "Opprett nytt objekt";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Avbryt";
 "Paste or type URL" = "Lim inn eller skriv URL";
 "No items match filter" = "Ingen elementer samsvarer med filteret";
@@ -205,13 +207,16 @@
 "Join" = "Bli med";
 "Agreement Disclamer" = "Ved å fortsette godtar du [Brukervilkårene](%@) og [Personvernerklæringen](%@)";
 "Lets Go" = "Let’s Go";
-"My spaces" = "My spaces";
+"My spaces" = "My Spaces";
+"Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Favoritter";
 "Recent" = "Nylig";
 "Bin" = "Papirkurv";
-"All objects" = "All objects";
+"All objects" = "All Objects";
 
 // Settings
 "Wallpaper" = "Bakgrunnsbilde";
@@ -290,12 +295,8 @@
 // Object settings
 
 "Icon" = "Ikon";
-"Emoji or image for object" = "Emoji eller bilde for objekt";
 "Cover" = "Omslag";
-"Background picture" = "Bakgrunnsbilde";
 "Layout" = "Oppsett";
-"Arrangement of objects on a canvas" = "Organisering av objekter på et lerret";
-"ObjectSettings.History.Description" = "All versions of object";
 
 // Version history
 "VersionHistory.Title" = "Version History";
@@ -322,6 +323,9 @@
 "Task" = "Oppgave";
 "Note" = "Notat";
 "Choose layout type" = "Velg oppsett";
+
+"Templates" = "Maler";
+"Header" = "Header";
 
 "Undo typing" = "Angre skriving";
 "Undo" = "Angre";
@@ -484,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Relasjon:";
 "Set.FeaturedRelations.Type" = "Type:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Bruk";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Lim inn lenke";
 "Set.Bookmark.Error.Message" = "Oops - noe gikk galt. Vennligst prøv igjen";
@@ -575,6 +576,7 @@
 
 "Limit object types" = "Begrens objekttyper";
 "Type" = "Type";
+"Types" = "Types";
 "No name" = "Ingen navn";
 "New relation" = "Ny relasjon";
 "Non-existent object" = "Ikke-eksisterende objekt";
@@ -616,7 +618,6 @@
 "Designed to capture thoughts quickly" = "Utformet for å raskt notere tanker";
 "Action-focused layout with a checkbox" = "Handlingsfokusert oppsett med avkrysningsboks";
 "Standard layout for canvas blocks" = "Standardoppsett for lerretblokker";
-"List of related objects" = "Liste over relaterte objekter";
 "Lock" = "Lås";
 "Unlock" = "Lås opp";
 "Favorite" = "Favoritt";
@@ -696,6 +697,12 @@
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
+"Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Nytt sett";
+"Show" = "Vis";
+"Hide" = "Skjul";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Er du sikker på at du vil slette hvelvet ditt?";
@@ -714,8 +721,9 @@
 "ObjectType.SearchOrInstall" = "Søk eller installer en ny type";
 "ObjectType.Search" = "Søk etter type";
 "ObjectType.MyTypes" = "Mine typer";
-"ObjectType.AddedToLibrary" = "Type ’%@’ har blitt lagt til i biblioteket ditt";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Slettet type";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Opprett %@";
@@ -949,7 +957,7 @@
 "SpaceShare.Action.ViewRequest" = "Vis forespørsel";
 "SpaceShare.Action.Approve" = "Godkjenn";
 "SpaceShare.DeleteSharingLink.Title" = "Slett lenke";
-"SpaceShare.DeleteSharingLink.Message" = "Nye medlemmer vil ikke kunne bli medlem av rommet. Du kan generere en ny lenke når som helst";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Du har godkjent %@s forespørsel.";
 "SpaceShare.ViewRequest.Title" = "%@ ba om å bli med i %@-rommet";
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
@@ -1046,8 +1054,8 @@
 "SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
@@ -1224,7 +1232,12 @@ Please provide specific details of your needs here.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sorter etter";
@@ -1237,7 +1250,27 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Title" = "No messages here yet...";
+"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "It’s empty here.";
+"EmptyView.Default.subtitle" = "Create your first objects to get started.";
+"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

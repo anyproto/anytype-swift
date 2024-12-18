@@ -12,12 +12,16 @@ extension EditorScreenData {
                 mode: mode,
                 blockId: blockId
             ))
-        case .set:
-            self = .set(EditorSetObject(
+        case .list:
+            self = .list(EditorListObject(
                 details: details,
                 activeViewId: activeViewId,
                 mode: mode
             ))
+        case .date:
+            self = .date(EditorDateObject(date: details.timestamp, spaceId: details.spaceId))
+        case .type:
+            self = .type(EditorTypeObject(objectId: details.id, spaceId: details.spaceId))
         }
     }
 }
@@ -37,7 +41,7 @@ extension EditorPageObject {
     }
 }
 
-extension EditorSetObject {
+extension EditorListObject {
     init(
         details: ObjectDetails,
         activeViewId: String? = nil,
@@ -65,11 +69,13 @@ extension EditorScreenData {
    
     var objectId: String? {
         switch self {
-        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .discussion, .allContent:
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .allContent, .date:
             return nil
         case .page(let object):
             return object.objectId
-        case .set(let object):
+        case .list(let object):
+            return object.objectId
+        case .type(let object):
             return object.objectId
         }
     }
@@ -90,11 +96,13 @@ extension EditorScreenData {
             return spaceId
         case .allContent(let spaceId):
             return spaceId
-        case .discussion(let object):
-            return object.spaceId
         case .page(let object):
             return object.spaceId
-        case .set(let object):
+        case .list(let object):
+            return object.spaceId
+        case .date(let object):
+            return object.spaceId
+        case .type(let object):
             return object.spaceId
         }
     }

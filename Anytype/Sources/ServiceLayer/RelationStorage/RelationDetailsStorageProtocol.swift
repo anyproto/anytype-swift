@@ -5,20 +5,22 @@ import AnytypeCore
 
 protocol RelationDetailsStorageProtocol: AnyObject {
     
-    func relationsDetails(for links: [RelationLink], spaceId: String) -> [RelationDetails]
-    func relationsDetails(for ids: [ObjectId], spaceId: String) -> [RelationDetails]
+    func relationsDetails(keys: [String], spaceId: String) -> [RelationDetails]
+    func relationsDetails(key: String, spaceId: String) throws -> RelationDetails
+    func relationsDetails(bundledKey: BundledRelationKey, spaceId: String) throws -> RelationDetails
+    
+    func relationsDetails(ids: [String], spaceId: String) -> [RelationDetails]
     func relationsDetails(spaceId: String) -> [RelationDetails]
-    func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails
-    func relationsDetails(for key: String, spaceId: String) throws -> RelationDetails
+    
     var syncPublisher: AnyPublisher<Void, Never> { get }
     
-    func startSubscription() async
-    func stopSubscription() async
+    func startSubscription(spaceId: String) async
+    func stopSubscription(cleanCache: Bool) async
 }
 
 extension RelationDetailsStorageProtocol {
-    func relationsDetails(for links: [RelationLink], spaceId: String, includeDeleted: Bool = false) -> [RelationDetails] {
-        return relationsDetails(for: links, spaceId: spaceId).filter { !$0.isDeleted }
+    func relationsDetails(keys: [String], spaceId: String, includeDeleted: Bool = false) -> [RelationDetails] {
+        return relationsDetails(keys: keys, spaceId: spaceId).filter { !$0.isDeleted }
     }
     
     func relationsDetailsPublisher(spaceId: String) -> AnyPublisher<[RelationDetails], Never> {

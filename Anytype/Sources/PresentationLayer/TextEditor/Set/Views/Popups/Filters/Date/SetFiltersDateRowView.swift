@@ -10,7 +10,7 @@ struct SetFiltersDateRowView: View {
             if configuration.isSelected {
                 valueView
                 Image(asset: .X24.tick)
-                    .foregroundColor(.Button.button)
+                    .foregroundColor(.Control.button)
             }
         }
     }
@@ -35,7 +35,7 @@ struct SetFiltersDateRowView: View {
         Group {
             switch configuration.dateType {
             case .exactDate:
-                DatePicker("", selection: $date, displayedComponents: .date)
+                DatePicker("", selection: $date, in: ClosedRange.anytypeDateRange, displayedComponents: .date)
                     .datePickerStyle(.compact)
                     .frame(height: 24)
                     .accentColor(Color.System.amber100)

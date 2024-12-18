@@ -37,7 +37,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
         .background(progressView)
-        .background(Color.Navigation.background)
+        .background(Color.Background.navigationPanel)
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .overlay {
@@ -78,6 +78,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 }
                 model.onTapBackward()
             }
+            .foregroundColor(.Control.navPanelIcon)
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.3)
                     .onEnded { _ in
@@ -93,6 +94,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 .onTapGesture {
                     model.onTapNewObject()
                 }
+                .foregroundColor(.Control.navPanelIcon)
                 .simultaneousGesture(
                     LongPressGesture(minimumDuration: 0.3)
                         .onEnded { _ in
@@ -105,6 +107,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             model.onTapSearch()
         } label: {
             Image(asset: .X32.Island.search)
+                .foregroundColor(.Control.navPanelIcon)
         }
     }
     
@@ -118,14 +121,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
         } label: {
             Image(asset: .X32.Arrow.left)
-                .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
+                .foregroundColor(.Control.navPanelIcon)
         }
         .transition(.identity)
-        .disabled(navigationButtonDisabled)
-    }
-    
-    private var navigationButtonDisabled: Bool {
-        homeMode && !homePath.hasForwardPath()
     }
     
     private var homeMode: Bool {
@@ -136,7 +134,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     private var progressView: some View {
         if let progress = model.progress {
             GeometryReader { reader in
-                Color.VeryLight.amber
+                Color.VeryLight.orange
                     .cornerRadius(2)
                     .frame(width: max(reader.size.width * progress, 30), alignment: .leading)
                     .animation(.linear, value: progress)

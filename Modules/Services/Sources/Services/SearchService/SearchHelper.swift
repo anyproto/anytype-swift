@@ -4,8 +4,12 @@ import Foundation
 
 public class SearchHelper {
     public static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
+        sort(relationKey: relation.rawValue, type: type)
+    }
+    
+    public static func sort(relationKey: String, type: DataviewSort.TypeEnum) -> DataviewSort {
         var sort = DataviewSort()
-        sort.relationKey = relation.rawValue
+        sort.relationKey = relationKey
         sort.type = type
         
         return sort
@@ -259,12 +263,10 @@ public class SearchHelper {
         return filter
     }
     
-    public static func notHiddenFilters(isArchive: Bool = false, includeHiddenDiscovery: Bool = true) -> [DataviewFilter] {
+    public static func notHiddenFilters(isArchive: Bool = false, hideHiddenDescoveryFiles: Bool = true) -> [DataviewFilter] {
         .builder {
             SearchHelper.isHidden(false)
-            if includeHiddenDiscovery {
-                SearchHelper.isHiddenDiscovery(false)
-            }
+            if hideHiddenDescoveryFiles { SearchHelper.isHiddenDiscovery(false) }
             SearchHelper.isDeletedFilter(isDeleted: false)
             SearchHelper.isArchivedFilter(isArchived: isArchive)
         }
@@ -275,6 +277,16 @@ public class SearchHelper {
             SearchHelper.emptyLinks()
             SearchHelper.emptyBacklinks()
         }
+    }
+    
+    public static func setOfType(typeId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = typeId.protobufValue
+        
+        filter.relationKey = BundledRelationKey.setOf.rawValue
+        
+        return filter
     }
     
     // MARK: - Private

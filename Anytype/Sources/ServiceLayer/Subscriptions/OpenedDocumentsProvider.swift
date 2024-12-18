@@ -1,19 +1,19 @@
 import Foundation
 
 protocol OpenedDocumentsProviderProtocol: AnyObject {
-    func document(objectId: String, mode: DocumentMode) -> any BaseDocumentProtocol
-    func setDocument(objectId: String, mode: DocumentMode) -> any SetDocumentProtocol
+    func document(objectId: String, spaceId: String, mode: DocumentMode) -> any BaseDocumentProtocol
+    func setDocument(objectId: String, spaceId: String, mode: DocumentMode) -> any SetDocumentProtocol
 }
 
 // Default arguments
 extension OpenedDocumentsProviderProtocol {
     
-    func document(objectId: String) -> any BaseDocumentProtocol {
-        return document(objectId: objectId, mode: .handling)
+    func document(objectId: String, spaceId: String) -> any BaseDocumentProtocol {
+        return document(objectId: objectId, spaceId: spaceId, mode: .handling)
     }
     
-    func setDocument(objectId: String) -> any SetDocumentProtocol {
-        return setDocument(objectId: objectId, mode: .handling)
+    func setDocument(objectId: String, spaceId: String) -> any SetDocumentProtocol {
+        return setDocument(objectId: objectId, spaceId: spaceId, mode: .handling)
     }
 }
 
@@ -23,8 +23,8 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
     private var documentsProvider: any DocumentsProviderProtocol
     
     // MARK: - DocumentServiceProtocol
-    func document(objectId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
-        let document = documentsProvider.document(objectId: objectId, mode: mode)
+    func document(objectId: String, spaceId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
+        let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: mode)
         
         Task { @MainActor in
             try await document.open()
@@ -33,9 +33,10 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
         return document
     }
     
-    func setDocument(objectId: String, mode: DocumentMode) -> any SetDocumentProtocol {
+    func setDocument(objectId: String, spaceId: String, mode: DocumentMode) -> any SetDocumentProtocol {
         let document = documentsProvider.setDocument(
             objectId: objectId,
+            spaceId: spaceId,
             mode: mode
         )
         

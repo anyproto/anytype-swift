@@ -130,13 +130,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.delete(blockIds: blockIds)
     }
     
-    func moveToPage(blockId: String, pageId: String) {
+    func moveToPage(blockIds: [String], pageId: String) async throws {
         AnytypeAnalytics.instance().logMoveBlock()
-        Task {
-            try await blockService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
-        }
+        try await blockService.moveToPage(objectId: document.objectId, blockIds: blockIds, pageId: pageId)
     }
-    
+
+
     func createEmptyBlock(parentId: String, spaceId: String) {
         Task {
             let emptyBlock = BlockInformation.emptyText
@@ -148,7 +147,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func addLink(targetDetails: ObjectDetails, blockId: String) {
         Task {
             let isBookmarkType = targetDetails.layoutValue == .bookmark
-            AnytypeAnalytics.instance().logCreateLink(spaceId: targetDetails.spaceId)
+            AnytypeAnalytics.instance().logCreateLink(
+                spaceId: targetDetails.spaceId,
+                objectType: targetDetails.objectType.analyticsType
+            )
             try await service.add(
                 info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
                 targetBlockId: blockId,
@@ -197,7 +199,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             contentType: contentType
         ).sendable()
 
-        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
+        AnytypeAnalytics.instance().logChangeTextStyle(markupType: attribute, objectType: .custom)
 
         try await changeText(newText, blockId: blockId)
         

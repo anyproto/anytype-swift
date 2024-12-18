@@ -7,6 +7,7 @@ struct StandardButton: View {
     enum Content {
         case text(String)
         case image(ImageAsset)
+        case textWithBadge(text: String, badge: String)
     }
     
     let content: Content
@@ -77,6 +78,14 @@ struct StandardButton: View {
                 Image(asset: asset)
                     .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
                     .padding(.horizontal, 5)
+            case let .textWithBadge(text, badge):
+                HStack(spacing: 8) {
+                    AnytypeText(text, style: style.config.textFont)
+                        .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
+                    AnytypeText(badge, style: style.config.textFont)
+                        .foregroundColor(Color.Control.active)
+                }
+                .padding(.horizontal, style.config.horizontalPadding)
             }
         }
         .setZeroOpacity(inProgress)

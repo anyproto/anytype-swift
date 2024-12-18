@@ -103,7 +103,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         Task { [weak self] in
             guard let self else { return }
             do {
-                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId)
+                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId, spaceId: spaceId)
                 AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId), spaceId: spaceId)
                 output?.templateEditingHandler(
                     setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId),
@@ -112,7 +112,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                     },
                     onTemplateSelection: data.onTemplateSelection
                 )
-                let objectDetails = await retrieveObjectDetails(objectId: interactor.objectTypeId)
+                let objectDetails = await retrieveObjectDetails(objectId: objectTypeId, spaceId: spaceId)
                 let title = objectDetails?.title.trimmed(numberOfCharacters: 16) ?? ""
                 toastData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(title), showSnackBar: true)
             } catch {
@@ -173,7 +173,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             let defaultObjectType = objectTypesConfig.objectTypes.first {
                 $0.id == objectTypesConfig.objectTypeId
             }
-            let isAvailable = defaultObjectType?.recommendedLayout?.isTemplatesAvailable ?? false
+            let isAvailable = defaultObjectType?.recommendedLayout?.isEditorLayout ?? false
             if isAvailable != isTemplatesEditable {
                 isTemplatesEditable = isAvailable
                 updateTemplatesList()
@@ -267,15 +267,15 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     private func updateTemplatesList() {
         var templates = [TemplatePreviewModel]()
 
-        if !userTemplates.contains(where: { $0.isDefault }) {
-            templates.append(.init(mode: .blank, alignment: .left, isDefault: true))
+        if !userTemplates.contains(where: { $0.decoration.isNotNil }) {
+            templates.append(.init(mode: .blank, alignment: .left, decoration: .border))
         } else {
-            templates.append(.init(mode: .blank, alignment: .left, isDefault: false))
+            templates.append(.init(mode: .blank, alignment: .left, decoration: nil))
         }
         
         templates.append(contentsOf: userTemplates)
         if isTemplatesEditable {
-            templates.append(.init(mode: .addTemplate, alignment: .center, isDefault: false))
+            templates.append(.init(mode: .addTemplate, alignment: .center))
         }
         
         withAnimation {
@@ -290,8 +290,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    private func retrieveObjectDetails(objectId: String) async -> ObjectDetails? {
-        let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
+    private func retrieveObjectDetails(objectId: String, spaceId: String) async -> ObjectDetails? {
+        let targetDocument = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
         try? await targetDocument.open()
         
         return targetDocument.details
@@ -299,7 +299,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
 }
 
 extension TemplatePreviewModel {
-    init(objectDetails: ObjectDetails, isDefault: Bool) {
+    init(objectDetails: ObjectDetails, decoration: TemplateDecoration?) {
         self = .init(
             mode: .installed(.init(
                 id: objectDetails.id,
@@ -316,7 +316,7 @@ extension TemplatePreviewModel {
             )
             ),
             alignment: objectDetails.layoutAlignValue,
-            isDefault: isDefault
+            decoration: decoration
         )
     }
 }

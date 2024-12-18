@@ -13,6 +13,8 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func addRelations(objectId: String, relationKeys: [String]) async throws
 
     func removeRelation(objectId: String, relationKey: String) async throws
+    func removeRelations(objectId: String, relationKeys: [String]) async throws
+    
     func addRelationOption(spaceId: String, relationKey: String, optionText: String, color: String?) async throws -> String?
     func removeRelationOptions(ids: [String]) async throws
 }

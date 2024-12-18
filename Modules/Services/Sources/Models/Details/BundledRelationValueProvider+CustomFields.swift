@@ -4,28 +4,22 @@ import ProtobufMessages
 
 extension BundledRelationsValueProvider {
     
-    public var isDone: Bool {
-        return done
-    }
+    public var isDone: Bool { done }
     
     public var layoutValue: DetailsLayout {
-        guard
-            let number = layout,
-            let layout = DetailsLayout(rawValue: number)
-        else { return .UNRECOGNIZED(layout ?? -1) }
+        guard let number = layout, let layout = DetailsLayout(rawValue: number) else {
+            return .UNRECOGNIZED(layout ?? -1)
+        }
         
         return layout
     }
     
     public var recommendedLayoutValue: DetailsLayout? {
-        return recommendedLayout.flatMap { DetailsLayout(rawValue: $0) }
+        recommendedLayout.flatMap { DetailsLayout(rawValue: $0) }
     }
     
     public var coverTypeValue: CoverType {
-        guard
-            let number = coverType,
-            let coverType = CoverType(rawValue: number)
-        else {
+        guard let number = coverType, let coverType = CoverType(rawValue: number) else {
             return .none
         }
         
@@ -33,10 +27,7 @@ extension BundledRelationsValueProvider {
     }
     
     public var layoutAlignValue: LayoutAlignment {
-        guard
-            let number = layoutAlign,
-            let layout = LayoutAlignment(rawValue: number)
-        else {
+        guard let number = layoutAlign, let layout = LayoutAlignment(rawValue: number) else {
             return .left
         }
         
@@ -46,10 +37,12 @@ extension BundledRelationsValueProvider {
     public var objectName: String {
         let title: String
 
-        if layoutValue == .note {
+        if layoutValue.isNote {
             title = snippet
-        } else if DetailsLayout.fileAndMediaLayouts.contains(layoutValue) {
+        } else if layoutValue.isFileOrMedia {
             title = FileDetails.formattedFileName(name, fileExt: fileExt)
+        } else if FeatureFlags.relativeDates, layoutValue.isDate, let timestamp {
+            title = DateFormatter.relativeDateFormatter.string(from: timestamp)
         } else {
             title = name
         }

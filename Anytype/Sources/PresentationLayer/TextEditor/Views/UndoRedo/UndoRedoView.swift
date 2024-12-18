@@ -42,7 +42,7 @@ private struct ItemView: View {
     var body: some View {
         VStack(spacing: 5) {
             Image(asset: imageAsset)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
                 .frame(height: 52)
                 .frame(
                     minWidth: 0,

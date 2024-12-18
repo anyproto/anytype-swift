@@ -37,8 +37,8 @@ struct SetHeaderSettingsView: View {
             UISelectionFeedbackGenerator().selectionChanged()
             model.onSettingsTap()
         }) {
-            Image(asset: .X24.customizeView)
-                .foregroundColor(model.isActiveHeader ? .Button.active : .Button.inactive)
+            Image(asset: .X24.settings)
+                .foregroundColor(model.isActiveHeader ? .Control.active : .Control.inactive)
         }
         .disabled(!model.isActiveHeader)
     }
@@ -92,7 +92,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
     static var previews: some View {
         SetHeaderSettingsView(
             model: SetHeaderSettingsViewModel(
-                setDocument: Container.shared.documentsProvider().setDocument(objectId: ""),
+                setDocument: Container.shared.documentsProvider().setDocument(objectId: "", spaceId: ""),
                 onViewTap: {},
                 onSettingsTap: {},
                 onCreateTap:{},

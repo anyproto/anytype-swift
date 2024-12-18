@@ -10,6 +10,12 @@ protocol TemplatesCoordinatorProtocol {
         document: some BaseDocumentProtocol,
         onSetAsDefaultTempalte: @escaping (String) -> Void
     )
+    
+    @MainActor
+    func showTemplatesPicker(
+        data: TemplatePickerViewModelData,
+        onSetAsDefaultTempalte: @escaping (String) -> Void
+    )
 }
 
 final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCoordinatorOutput {
@@ -29,10 +35,22 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
         document: some BaseDocumentProtocol,
         onSetAsDefaultTempalte: @escaping (String) -> Void
     ) {
-        self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
-        let picker = TemplatePickerView(
-            viewModel: .init(output: self, document: document)
+        let data = TemplatePickerViewModelData(
+            mode: .objectTemplate(objectId: document.objectId),
+            typeId: document.details?.objectType.id,
+            spaceId: document.spaceId,
+            defaultTemplateId: nil
         )
+        showTemplatesPicker(data: data, onSetAsDefaultTempalte: onSetAsDefaultTempalte)
+    }
+    
+    @MainActor
+    func showTemplatesPicker(
+        data: TemplatePickerViewModelData,
+        onSetAsDefaultTempalte: @escaping (String) -> Void
+    ) {
+        self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
+        let picker = TemplatePickerView(viewModel: .init(data: data, output: self))
         let hostViewController = UIHostingController(rootView: picker)
         hostViewController.modalPresentationStyle = .fullScreen
         navigationContext.present(hostViewController, animated: true, completion: nil)

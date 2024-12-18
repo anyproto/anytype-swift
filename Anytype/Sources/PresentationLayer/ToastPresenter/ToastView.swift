@@ -42,7 +42,7 @@ final class ToastView: UIView {
             bottomConstraint = $0.bottom.equal(to: bottomAnchor)
         }
         
-        wrapperView.backgroundColor = .Background.black
+        wrapperView.backgroundColor = .BackgroundCustom.black
         wrapperView.layer.cornerRadius = 8
         wrapperView.layer.masksToBounds = true
         wrapperView.layer.borderWidth = 1

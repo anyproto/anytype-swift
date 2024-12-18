@@ -3,20 +3,26 @@ import SwiftProtobuf
 import UIKit
 
 final class RelationsSectionBuilder {
+    
+    func buildObjectSections(from parsedRelations: ParsedRelations) -> [RelationsSection] {
+        let objectRelations = parsedRelations.otherRelations + parsedRelations.typeRelations
+        
+        var sections: [RelationsSection] = []
+        
+        if objectRelations.isNotEmpty {
+            sections.append(
+                RelationsSection(
+                    id: RelationsSection.Constants.typeRelationsSectionId,
+                    title: "",
+                    relations: objectRelations
+                )
+            )
+        }
 
-    // MARK: - Private variables
+        return sections
+    }
 
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.doesRelativeDateFormatting = true
-        return dateFormatter
-    }()
-
-    // MARK: - Internal functions
-
-    func buildSections(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
+    func buildSectionsLegacy(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
         let featuredRelations = parsedRelations.featuredRelations
         let otherRelations = parsedRelations.otherRelations
         let typeRelations = parsedRelations.typeRelations

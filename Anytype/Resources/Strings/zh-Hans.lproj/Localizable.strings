@@ -74,7 +74,7 @@
 "Create relation" = "创建关联 ‘%@’";
 "Relation.View.Hint.Empty" = "空的";
 "Relation.MyRelations" = "我的关联";
-"Relation.AddedToLibrary" = "关联“%@”已添加到您的文库";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "已删除的关联";
 "Relation.From.Type" = "来自 %@ 类型";
 "Relation.EmptyState.title" = "无选项";
@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "创建选项";
 "Relation.View.Edit.title" = "编辑选项";
 "Relation.Create.Textfield.placeholder" = "输入名称...";
-"Relation.Edit.Button.title" = "应用";
-"Relation.Date.Locked.Alert.title" = "关系“%@” 已锁定";
 "Relation.ObjectTypes.Header.title" = "对象类型：";
 "Relation.ObjectType.Header.title" = "对象类型：";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "电话号码";
 
 "Relation.Search.View.Placeholder" = "搜索或创建新关系";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -146,12 +146,13 @@
 "Relations" = "关联";
 "History" = "历史记录";
 "Objects" = "对象";
-"Pages" = "Pages";
+"Pages" = "页面";
 "Lists" = "分组";
-"Bookmarks" = "Bookmarks";
+"Bookmarks" = "书签";
 "Files" = "文件";
 "Media" = "媒体";
 "Lists" = "分组";
+"Dates" = "Dates";
 "Pinned" = "固定";
 "Delete" = "删除";
 "Export" = "导出";
@@ -166,7 +167,7 @@
 "Unpin" = "取消固定";
 "Pin on top" = "置顶";
 "File block subtitle" = "以原始状态存储文件";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "上传图像并丰富页面";
 "Video block subtitle" = "上传可播放的视频";
 "Bookmark block subtitle" = "剪藏您最喜欢的链接和摘要";
 "Code block subtitle" = "捕获代码片段";
@@ -190,6 +191,7 @@
 "Blue background" = "星蓝色背景";
 "Green background" = "浮萍绿背景";
 "Create new object" = "创建新对象";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "取消";
 "Paste or type URL" = "粘贴或输入URL网址";
 "No items match filter" = "没有与筛选匹配的项目";
@@ -204,14 +206,17 @@
 "Okay" = "好的";
 "Join" = "加入";
 "Agreement Disclamer" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
-"Lets Go" = "Let’s Go";
+"Lets Go" = "让我们开始！";
 "My spaces" = "我的空间";
+"Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "收藏夹";
 "Recent" = "最近";
 "Bin" = "废纸篓";
-"All objects" = "All objects";
+"All objects" = "所有对象";
 
 // Settings
 "Wallpaper" = "壁纸";
@@ -291,12 +296,8 @@
 // Object settings
 
 "Icon" = "图标";
-"Emoji or image for object" = "对象的表情符号或图像";
 "Cover" = "封面";
-"Background picture" = "背景图片";
 "Layout" = "布局";
-"Arrangement of objects on a canvas" = "画布上对象的排列";
-"ObjectSettings.History.Description" = "对象的所有历史版本";
 
 // Version history
 "VersionHistory.Title" = "版本历史";
@@ -323,6 +324,9 @@
 "Task" = "任务";
 "Note" = "笔记";
 "Choose layout type" = "选择布局类型";
+
+"Templates" = "模板";
+"Header" = "Header";
 
 "Undo typing" = "撤消输入";
 "Undo" = "撤消";
@@ -485,9 +489,6 @@
 "Set.FeaturedRelations.Relation" = "关联:";
 "Set.FeaturedRelations.Type" = "类型:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "应用";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "粘贴链接";
 "Set.Bookmark.Error.Message" = "噢不 - 出现了一些问题。请重试";
@@ -576,6 +577,7 @@
 
 "Limit object types" = "限制对象类型";
 "Type" = "类型";
+"Types" = "类型";
 "No name" = "无名称";
 "New relation" = "新增关联";
 "Non-existent object" = "对象不存在";
@@ -617,7 +619,6 @@
 "Designed to capture thoughts quickly" = "专为快速捕捉想法而设计";
 "Action-focused layout with a checkbox" = "带复选框的操作重点布局";
 "Standard layout for canvas blocks" = "画布区块的标准布局";
-"List of related objects" = "关联对象列表";
 "Lock" = "上锁";
 "Unlock" = "解锁";
 "Favorite" = "收藏夹";
@@ -694,9 +695,15 @@
 "Cancel deletion" = "取消删除";
 "Logout and clear data" = "注销并清除数据";
 "New" = "新建";
-"Blurred icon" = "Blurred\n icon";
-"My First Space" = "My First Space";
-"Copy space info" = "Copy space info";
+"Blurred icon" = "模糊\n 图标";
+"My First Space" = "我的第一个空间";
+"Copy space info" = "复制空间信息";
+"Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "新建集合";
+"Show" = "显示";
+"Hide" = "隐藏";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -715,8 +722,9 @@
 "ObjectType.SearchOrInstall" = "搜索或安装新类型";
 "ObjectType.Search" = "搜索类型";
 "ObjectType.MyTypes" = "我的类型";
-"ObjectType.AddedToLibrary" = "类型 ‘%@’ 已添加到您的文库";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "删除类型";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "创建 %@";
@@ -950,7 +958,7 @@
 "SpaceShare.Action.ViewRequest" = "查看请求";
 "SpaceShare.Action.Approve" = "接受";
 "SpaceShare.DeleteSharingLink.Title" = "删除链接";
-"SpaceShare.DeleteSharingLink.Message" = "新成员将无法加入空间。您可以随时生成一个新链接";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "您批准了 %@ 的请求。";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
 "SpaceShare.ViewRequest.ViewAccess" = "添加为查看者";
@@ -989,7 +997,7 @@
 "ParticipantRequestApprovedNotification.Text" = "您加入 **%@** 空间的请求已获批准并获得了 **%@** 访问权限，该空间很快就会在您的设备中显示。";
 "ParticipantRequestDeclineNotification.Text" = "您加入**%@** 空间的请求已被拒绝。";
 "RequestToLeaveNotification.Text" = "**%@** 想要离开 **%@** 空间。";
-"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
+"ParticipantRemoveNotification.Text" = "您已被移除出 “%@” 空间，或该空间已被所有者删除.";
 "RequestToJoinNotification.Text" = "**%@** 请求加入 **%@** 空间。";
 "RequestToJoinNotification.GoToSpace" = "转到空间";
 "RequestToJoinNotification.ViewRequest" = "查看请求";
@@ -1038,17 +1046,17 @@
 "SpaceShare.Tip.Steps.3" = "生成一个邀请链接并分享它";
 
 // MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Welcome to the Vault";
+"SpaceHub.Tip.Title3" = "动态背景";
+"SpaceHub.Tip.Title2" = "简单&灵活的";
+"SpaceHub.Tip.Title1" = "欢迎来到库！";
 
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
-"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
+"SpaceHub.Tip.Text3" = "默认情况下，我们会将您空间的图标作为背景模糊。如果需要，您可以在空间设置中更改它。";
+"SpaceHub.Tip.Text2" = "您现在可以轻松地通过拖放和导航来重新排序您的空间。";
+"SpaceHub.Tip.Text1" = "库是您所有空间的新的主页。创建、加入或共享空间 - 一切都安全地存放在这里。";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
@@ -1074,7 +1082,7 @@
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "7天前";
-"RelativeFormatter.days14" = "Previous 14 days";
+"RelativeFormatter.days14" = "14天前";
 
 // MARK: - Server
 "Server.Network" = "网络";
@@ -1171,7 +1179,7 @@
 "Membership.EmailValidation" = "输入发送到您邮箱的代码";
 
 "Membership.NameForm.Title" = "选择您独有的名字";
-"Membership.NameForm.Subtitle" = "这是您在 Anytype 网络上独有的名字，正在确认您的会员资格。它将作为您的个人域名，且不能更改。";
+"Membership.NameForm.Subtitle" = "这是您在 Anytype 网络上的独特名称，用于确认您的会员身份。它是您的个人域名，且无法更改。";
 "Membership.NameForm.Validating" = "请耐心等待...";
 "Membership.NameForm.Validated" = "这个名称是可获得的";
 
@@ -1210,14 +1218,14 @@
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "数据备份已禁用";
 "SyncStatus.Info.AnytypeNetwork" = "端到端加密";
-"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Info.NetworkNeedsUpdate" = "同步可能很慢，请更新应用程序。";
 "SyncStatus.Error.storageLimitExceed" = "已达到储存限制";
 "SyncStatus.Error.incompatibleVersion" = "不兼容版本";
 "SyncStatus.Error.networkError" = "没有访问空间的权限";
 "SyncStatus.Error.UNRECOGNIZED" = "未知的错误";
 "SyncStatus.P2P.Restricted" = "受限制。点击打开设备设置。";
-"SyncStatus.P2P.NotConnected" = "Not connected";
-"SyncStatus.P2P.NotPossible" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "未连接";
+"SyncStatus.P2P.NotPossible" = "连接不可用";
 
 
 // MARK: - Debug
@@ -1226,20 +1234,45 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "写一段话…";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "排序方式";
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldest first";
-"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.DateUpdated" = "更新日期";
+"AllContent.Sort.DateCreated" = "创建日期";
+"AllContent.Sort.Date.Asc" = "按时间先后排升序排序";
+"AllContent.Sort.Date.Desc" = "按时间顺序最新的优先";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
-"AllContent.Settings.Unlinked.Title" = "Only unlinked";
-"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllContent.Settings.ViewBin" = "View Bin";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
-"AllContent.Search.Empty.State.title" = "No results found.";
-"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+"AllContent.Settings.Unlinked.Title" = "仅未链接";
+"AllContent.Settings.Unlinked.Description" = "在图中没有与其他对象直接链接或反向链接的未链接对象。";
+"AllContent.Settings.ViewBin" = "查看垃圾桶";
+"AllContent.Search.Empty.State.title" = "未找到结果。";
+"AllContent.Search.Empty.State.subtitle" = "尝试使用不同的关键字搜索";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Title" = "No messages here yet...";
+"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "升级您的搜索体验";
+"ReindexingWarningAlert.Description" = "我们已经实施了一个新的搜索库，以获得更快、更准确的结果。\n重新索引可能需要几分钟。";
+"ReindexingWarningAlert.Button" = "我明白了！";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "这里是空的";
+"EmptyView.Default.subtitle" = "创建您的第一个对象以开始操作。";
+"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.subtitle" = "看起来您已经整理得井井有条了！";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

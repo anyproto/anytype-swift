@@ -25,7 +25,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
-    private let dateFormatter = DateFormatter.relationDateFormatter
+    private let dateFormatter = DateFormatter.relativeDateFormatter
     private weak var output: (any SpaceSettingsModuleOutput)?
     
     // MARK: - State
@@ -58,7 +58,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: workspaceInfo.spaceViewId)
+        output?.onChangeIconSelected()
     }
     
     func onStorageTap() {
@@ -163,7 +163,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         info.removeAll()
         
-        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId, spaceId: workspaceInfo.accountSpaceId) {
+        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .spaceId, spaceId: workspaceInfo.accountSpaceId) {
             info.append(
                 SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
                     UIPasteboard.general.string = details.targetSpaceId
@@ -172,7 +172,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             )
         }
         
-        if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: workspaceInfo.accountSpaceId) {
+        if let creatorDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .creator, spaceId: workspaceInfo.accountSpaceId) {
             
             if let owner {
                 let displayName = owner.globalName.isNotEmpty ? owner.globalName : owner.identity
@@ -195,7 +195,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             })
         )
         
-        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate, spaceId: workspaceInfo.accountSpaceId),
+        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .createdDate, spaceId: workspaceInfo.accountSpaceId),
            let date = details.createdDate.map({ dateFormatter.string(from: $0) }) {
             info.append(
                 SettingsInfoModel(title: createdDateDetails.name, subtitle: date)

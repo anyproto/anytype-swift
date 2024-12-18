@@ -24,15 +24,8 @@ struct DismissAllPresented: Equatable {
     }
 }
 
-struct PresentedDismissKey: EnvironmentKey {
-    static let defaultValue = DismissAllPresented(window: nil)
-}
-
 extension EnvironmentValues {
-    var dismissAllPresented: DismissAllPresented {
-        get { self[PresentedDismissKey.self] }
-        set { self[PresentedDismissKey.self] = newValue }
-    }
+    @Entry var dismissAllPresented = DismissAllPresented(window: nil)
 }
 
 extension View {

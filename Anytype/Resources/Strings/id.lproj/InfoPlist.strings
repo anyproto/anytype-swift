@@ -1,4 +1,5 @@
-"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
-"NSCameraUsageDescription" = "Kamera digunakan untuk memindai kode QR untuk pengalaman masuk yang aman dan nyaman";
-"NSLocalNetworkUsageDescription" = "Akses jaringan lokal digunakan untuk menghubungkan data secara langsung di antara perangkat terdekat Anda";
-"NSPhotoLibraryAddUsageDescription" = "Izin dibutuhkan untuk menyimpan gambar terpilih ke perpustakaan Anda";
+"NSFaceIDUsageDescription" = "Face ID digunakan untuk mengambil Frasa Pemulihan yang tersimpan di dalam rantai kunci
+";
+"NSCameraUsageDescription" = "Kamera digunakan untuk memindai Kode QR untuk pengalaman login yang aman dan nyaman";
+"NSLocalNetworkUsageDescription" = "Akses jaringan lokal digunakan untuk meniyinkronkan data langsung di antara perangkat terdekat Anda";
+"NSPhotoLibraryAddUsageDescription" = "Izin diperlukan untuk menyimpan gambar ke perpustakaan Anda";

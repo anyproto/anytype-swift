@@ -127,4 +127,16 @@ public extension Container {
     var historyVersionsService: Factory<HistoryVersionsServiceProtocol> {
         self { HistoryVersionsService() }.shared
     }
+    
+    var chatService: Factory<ChatServiceProtocol> {
+        self { ChatService() }.shared
+    }
+    
+    var relationListWithValueService: Factory<RelationListWithValueServiceProtocol> {
+        self { RelationListWithValueService() }.shared
+    }
+    
+    var objectDateByTimestampService: Factory<ObjectDateByTimestampServiceProtocol> {
+        self { ObjectDateByTimestampService() }.shared
+    }
 }

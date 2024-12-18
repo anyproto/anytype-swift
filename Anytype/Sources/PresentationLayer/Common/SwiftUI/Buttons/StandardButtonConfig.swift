@@ -46,8 +46,8 @@ extension StandardButtonStyle {
         case .primaryLarge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
-                    textColor: .Text.labelInversion,
-                    backgroundColor: .Button.button
+                    textColor: .Text.inversion,
+                    backgroundColor: .Control.button
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))
@@ -116,7 +116,7 @@ extension StandardButtonStyle {
                 textFont: .button1Regular,
                 height: 48,
                 stretchSize: true,
-                radius: 12,
+                radius: 0,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .primaryMedium:
@@ -186,6 +186,25 @@ extension StandardButtonStyle {
                 radius: 8,
                 loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
+        case .borderlessSmall:
+            return StandardButtonConfig(
+                normal: StandardButtonConfig.Style(
+                    textColor: .Text.secondary,
+                    borderColor: .clear
+                ),
+                higlighted: StandardButtonConfig.Style(
+                    textColor: .Text.tertiary
+                ),
+                disabled: StandardButtonConfig.Style(
+                    textColor: .Text.tertiary
+                ),
+                textFont: .uxBodyRegular,
+                height: 48,
+                stretchSize: false,
+                radius: 0,
+                loadingIndicatorSize: .ButtonLoadingIndicator.small,
+                horizontalPadding: 0
+            )
         case .primaryXSmall:
             return StandardButtonConfig(
                 normal: StandardButtonStyle.primaryLarge.config.normal,
@@ -235,8 +254,8 @@ extension StandardButtonStyle {
         case .upgradeBadge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
-                    textColor: .Text.labelInversion,
-                    backgroundColor: .Button.button
+                    textColor: .Text.inversion,
+                    backgroundColor: .Control.button
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))

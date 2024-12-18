@@ -15,11 +15,11 @@ struct EditorBarItemState: Equatable {
             if opacity < 0.7 {
                 return .Text.white
             } else {
-                return .Button.active.withAlphaComponent(opacity)
+                return .Control.active.withAlphaComponent(opacity)
             }
         }
-        return .Button.active
+        return .Control.active
     }
     
-    static var initial = EditorBarItemState(haveBackground: false, opacity: 0)
+    static let initial = EditorBarItemState(haveBackground: false, opacity: 0)
 }

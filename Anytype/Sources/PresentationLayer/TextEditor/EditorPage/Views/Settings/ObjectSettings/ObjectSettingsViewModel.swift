@@ -30,22 +30,27 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
 
     @Injected(\.documentService)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
+    @Injected(\.relationsService)
+    private var relationsService: any RelationsServiceProtocol
     
     private weak var output: (any ObjectSettingsModelOutput)?
     private let settingsBuilder = ObjectSettingBuilder()
     
     private lazy var document: any BaseDocumentProtocol = {
-        openDocumentsProvider.document(objectId: objectId)
+        openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
     
     let objectId: String
+    let spaceId: String
     @Published var settings: [ObjectSetting] = []
     
     init(
         objectId: String,
+        spaceId: String,
         output: some ObjectSettingsModelOutput
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.output = output
     }
 
@@ -78,6 +83,16 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     
     func onTapHistory() {
         output?.showVersionHistory(document: document)
+    }
+    
+    func onTapDescription() async throws {
+        guard let details = document.details else { return }
+        
+        if details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue }) {
+            try await relationsService.removeRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
+        } else {
+            try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
+        }
     }
     
     // MARK: - ObjectActionsOutput

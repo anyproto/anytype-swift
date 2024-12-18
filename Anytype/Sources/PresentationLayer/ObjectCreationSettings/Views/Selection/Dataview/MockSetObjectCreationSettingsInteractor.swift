@@ -45,7 +45,7 @@ extension MockTemplatePreviewModel {
     
     static let blankPreview = MockTemplatePreviewModel(
         title: "Blank preview",
-        model: .init(mode: .blank, alignment: .left, isDefault: false)
+        model: .init(mode: .blank, alignment: .left)
     )
     
     static let templateWithTitle = MockTemplatePreviewModel(
@@ -60,8 +60,7 @@ extension MockTemplatePreviewModel {
                     style: .todo(false)
                 )
             ),
-            alignment: .left,
-            isDefault: false
+            alignment: .left
         )
     )
     
@@ -91,8 +90,7 @@ extension MockTemplatePreviewModel {
                     style: .todo(false)
                 )
             ),
-            alignment: .left,
-            isDefault: false
+            alignment: .left
         )
     )
     
@@ -121,8 +119,7 @@ extension MockTemplatePreviewModel {
                     style: .todo(false)
                 )
             ),
-            alignment: .left,
-            isDefault: false
+            alignment: .left
         )
     )
     
@@ -145,8 +142,7 @@ extension MockTemplatePreviewModel {
                     style: .todo(false)
                 )
             ),
-            alignment: .left,
-            isDefault: false
+            alignment: .left
         )
     )
 }

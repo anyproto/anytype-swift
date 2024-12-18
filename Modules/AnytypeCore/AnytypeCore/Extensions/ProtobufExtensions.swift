@@ -44,3 +44,13 @@ public extension Array where Element == Int {
         )
     }
 }
+
+public extension Dictionary where Key == String, Value == Google_Protobuf_Value {
+    var protobufValue: Google_Protobuf_Value {
+        Google_Protobuf_Value(
+            structValue: Google_Protobuf_Struct(
+                fields: self
+            )
+        )
+    }
+}

@@ -74,7 +74,7 @@
 "Create relation" = "Створити зв'язок ’%@’";
 "Relation.View.Hint.Empty" = "пусто";
 "Relation.MyRelations" = "Мої відносини";
-"Relation.AddedToLibrary" = "Відношення ‘%@’ додано до вашої бібліотеки";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Видалене відношення";
 "Relation.From.Type" = "З типу %@";
 "Relation.EmptyState.title" = "No options";
@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Create option";
 "Relation.View.Edit.title" = "Edit option";
 "Relation.Create.Textfield.placeholder" = "Enter name...";
-"Relation.Edit.Button.title" = "Застосувати";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
 "Relation.ObjectTypes.Header.title" = "Object types:";
 "Relation.ObjectType.Header.title" = "Object type:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Номер телефону";
 
 "Relation.Search.View.Placeholder" = "Search or create a new relation";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -152,6 +152,7 @@
 "Files" = "Files";
 "Media" = "Медіа";
 "Lists" = "Groups";
+"Dates" = "Dates";
 "Pinned" = "Pinned";
 "Delete" = "Видалити";
 "Export" = "Export";
@@ -190,6 +191,7 @@
 "Blue background" = "Синє тло";
 "Green background" = "Зелене тло";
 "Create new object" = "Створити об'єкт";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Скасувати";
 "Paste or type URL" = "Вставити або ввести URL-адресу";
 "No items match filter" = "Немає збігів із цим фільтром";
@@ -205,13 +207,16 @@
 "Join" = "Join";
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Lets Go" = "Let’s Go";
-"My spaces" = "My spaces";
+"My spaces" = "My Spaces";
+"Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Обрані";
 "Recent" = "Нещодавні";
 "Bin" = "Кошик";
-"All objects" = "All objects";
+"All objects" = "All Objects";
 
 // Settings
 "Wallpaper" = "Шпалери";
@@ -290,12 +295,8 @@
 // Object settings
 
 "Icon" = "Іконка";
-"Emoji or image for object" = "Емоджі або зображення для об'єкта";
 "Cover" = "Обкладинка";
-"Background picture" = "Зображення тла";
 "Layout" = "Макет";
-"Arrangement of objects on a canvas" = "Розташування об'єктів на полотні";
-"ObjectSettings.History.Description" = "All versions of object";
 
 // Version history
 "VersionHistory.Title" = "Version History";
@@ -322,6 +323,9 @@
 "Task" = "Задача";
 "Note" = "Нотатка";
 "Choose layout type" = "Вибрати тип макета";
+
+"Templates" = "Templates";
+"Header" = "Header";
 
 "Undo typing" = "Скасувати введення";
 "Undo" = "Повернути";
@@ -484,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Зв’язок:";
 "Set.FeaturedRelations.Type" = "Тип:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Застосувати";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Вставити посилання";
 "Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
@@ -575,6 +576,7 @@
 
 "Limit object types" = "Обмежити типи об'єктів";
 "Type" = "Тип";
+"Types" = "Types";
 "No name" = "Без назви";
 "New relation" = "Новий зв'язок";
 "Non-existent object" = "Відсутній об'єкт";
@@ -616,7 +618,6 @@
 "Designed to capture thoughts quickly" = "Розроблено для швидкого захоплення думок";
 "Action-focused layout with a checkbox" = "Макет, орієнтований на дію, з прапорцем";
 "Standard layout for canvas blocks" = "Стандартний макет для полотна блоків";
-"List of related objects" = "Список пов'язаних об'єктів";
 "Lock" = "Заблокувати";
 "Unlock" = "Розблокувати";
 "Favorite" = "Обране";
@@ -664,7 +665,7 @@
 "View" = "Подання";
 "Home" = "Головна";
 "Highlight" = "Виділити";
-"Create object" = "Створити об'єкт";
+"Create object" = "Create Object";
 "Web pages" = "Вебсторінки";
 "Preview layout" = "Попередній перегляд макета";
 "Everywhere" = "Всюди";
@@ -696,6 +697,12 @@
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
+"Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "New set";
+"Show" = "Show";
+"Hide" = "Hide";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -714,8 +721,9 @@
 "ObjectType.SearchOrInstall" = "Знайдіть або встановіть новий тип";
 "ObjectType.Search" = "Пошук типу";
 "ObjectType.MyTypes" = "Мої типи";
-"ObjectType.AddedToLibrary" = "Тип ‘%@’ додано до вашої бібліотеки";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Видалений тип";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Створити %@";
@@ -950,7 +958,7 @@
 "SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Approve";
 "SpaceShare.DeleteSharingLink.Title" = "Delete link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
@@ -1047,8 +1055,8 @@
 "SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
@@ -1225,7 +1233,12 @@ Please provide specific details of your needs here.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1238,7 +1251,27 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Title" = "No messages here yet...";
+"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "It’s empty here.";
+"EmptyView.Default.subtitle" = "Create your first objects to get started.";
+"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

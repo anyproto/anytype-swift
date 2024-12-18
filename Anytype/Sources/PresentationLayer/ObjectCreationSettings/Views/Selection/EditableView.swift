@@ -41,7 +41,7 @@ struct EditableView<Content: View & ContextualMenuItemsProvider>: View {
         Image(asset: ImageAsset.X24.more)
             .resizable()
             .frame(width: Constaints.dotImageSize, height: Constaints.dotImageSize)
-            .foregroundColor(Color.Button.active)
+            .foregroundColor(Color.Control.active)
             .background(Color.Background.highlightedMedium)
             .background(.ultraThinMaterial)
             .cornerRadius(Constaints.dotImageSize / 2)

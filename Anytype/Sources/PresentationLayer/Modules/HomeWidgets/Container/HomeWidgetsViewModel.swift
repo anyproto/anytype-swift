@@ -23,8 +23,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager)
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     
@@ -34,9 +32,9 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: SpaceWallpaperType = .default
+    @Published var showSpaceWidget: Bool = true
     
     var spaceId: String { info.accountSpaceId }
-    var space: SpaceView? { workspaceStorage.spaceView(spaceId: spaceId) }
     
     init(
         info: AccountInfo,
@@ -44,8 +42,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     ) {
         self.info = info
         self.output = output
-        self.widgetObject = documentService.document(objectId: info.widgetsId)
-        subscribeOnWallpaper()
+        self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
     }
     
     func startWidgetObjectTask() async {
@@ -72,9 +69,11 @@ final class HomeWidgetsViewModel: ObservableObject {
     func onAppear() {
         AnytypeAnalytics.instance().logScreenWidget()
         if #available(iOS 17.0, *) {
+            let space = workspaceStorage.spaceView(spaceId: spaceId)
             if space?.spaceAccessType == .private {
                 SpaceShareTip.didOpenPrivateSpace = true
             }
+            showSpaceWidget = FeatureFlags.showHomeSpaceLevelChat(spaceId: spaceId) ? (space?.chatId?.isEmpty ?? true) : true
         }
     }
     
@@ -115,13 +114,5 @@ final class HomeWidgetsViewModel: ObservableObject {
     func onCreateWidgetFromMainMode() {
         AnytypeAnalytics.instance().logClickAddWidget(context: .main)
         output?.onCreateWidgetSelected(context: .main)
-    }
-    
-    // MARK: - Private
-    
-    private func subscribeOnWallpaper() {
-        userDefaults.wallpaperPublisher(spaceId: info.accountSpaceId)
-            .receiveOnMain()
-            .assign(to: &$wallpaper)
     }
 }

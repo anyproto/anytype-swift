@@ -74,7 +74,7 @@
 "Create relation" = "Создать свойство ‘%@’";
 "Relation.View.Hint.Empty" = "пусто";
 "Relation.MyRelations" = "Мои свойства";
-"Relation.AddedToLibrary" = "Свойство ‘%@’ добавлено в вашу библиотеку";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Удалённое свойство";
 "Relation.From.Type" = "Из типа %@";
 "Relation.EmptyState.title" = "Опций нет";
@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Создать параметр";
 "Relation.View.Edit.title" = "Изменить вариант";
 "Relation.Create.Textfield.placeholder" = "Введите название...";
-"Relation.Edit.Button.title" = "Применить";
-"Relation.Date.Locked.Alert.title" = "Отношение “%@” заблокировано";
 "Relation.ObjectTypes.Header.title" = "Типы объектов:";
 "Relation.ObjectType.Header.title" = "Тип объекта:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Номер телефона";
 
 "Relation.Search.View.Placeholder" = "Найти или создать новую связь";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -152,6 +152,7 @@
 "Files" = "Files";
 "Media" = "Медиа-файлы";
 "Lists" = "Списки";
+"Dates" = "Даты";
 "Pinned" = "Закреплённые";
 "Delete" = "Удалить";
 "Export" = "Экспорт";
@@ -190,6 +191,7 @@
 "Blue background" = "Синий фон";
 "Green background" = "Зелёный фон";
 "Create new object" = "Создать новый объект";
+"Create new object with name" = "Создать новый набор \"%@\"";
 "Cancel" = "Отмена";
 "Paste or type URL" = "Вставить или ввести URL-адрес";
 "No items match filter" = "Нет элементов, соответствующих фильтру";
@@ -206,6 +208,9 @@
 "Agreement Disclamer" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@)";
 "Lets Go" = "Давайте начнём";
 "My spaces" = "Мои пространства";
+"Open file" = "Открыть файл";
+"Open Set" = "Открыть набор";
+"Create Set" = "Создать Набор";
 
 // Home
 "Favorites" = "Избранное";
@@ -290,12 +295,8 @@
 // Object settings
 
 "Icon" = "Иконка";
-"Emoji or image for object" = "Эмодзи или изображение для объекта";
 "Cover" = "Обложка";
-"Background picture" = "Фоновое изображение";
 "Layout" = "Макет";
-"Arrangement of objects on a canvas" = "Расположение объектов на холсте";
-"ObjectSettings.History.Description" = "Все версии объекта";
 
 // Version history
 "VersionHistory.Title" = "История версий";
@@ -322,6 +323,9 @@
 "Task" = "Задача";
 "Note" = "Заметка";
 "Choose layout type" = "Выберите тип макета";
+
+"Templates" = "Шаблоны";
+"Header" = "Заголовок";
 
 "Undo typing" = "Отменить ввод";
 "Undo" = "Отменить";
@@ -484,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Свойство:";
 "Set.FeaturedRelations.Type" = "Тип:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Применить";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Вставить ссылку";
 "Set.Bookmark.Error.Message" = "Ой, что-то пошло не так. Повторите попытку.";
@@ -575,6 +576,7 @@
 
 "Limit object types" = "Ограничить типы объектов";
 "Type" = "Тип";
+"Types" = "Типы";
 "No name" = "Без названия";
 "New relation" = "Новое свойство";
 "Non-existent object" = "Несуществующий объект";
@@ -616,7 +618,6 @@
 "Designed to capture thoughts quickly" = "Создано для быстрой записи мыслей";
 "Action-focused layout with a checkbox" = "Действующий макет с галочкой";
 "Standard layout for canvas blocks" = "Стандартный макет для холста блоков";
-"List of related objects" = "Список связанных объектов";
 "Lock" = "Заблокировать";
 "Unlock" = "Разблокировать";
 "Favorite" = "Избранное";
@@ -696,6 +697,12 @@
 "Blurred icon" = "Размытая\n иконка";
 "My First Space" = "Моё первое пространство";
 "Copy space info" = "Скопировать информацию о пространстве";
+"Save" = "Сохранить";
+"Set of" = "Набор %@";
+"New set" = "Новый набор";
+"Show" = "Показать";
+"Hide" = "Скрыть";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -714,8 +721,9 @@
 "ObjectType.SearchOrInstall" = "Искать или создать новый тип";
 "ObjectType.Search" = "Поиск типа";
 "ObjectType.MyTypes" = "Мои типы";
-"ObjectType.AddedToLibrary" = "Свойство ‘%@’ добавлено в вашу библиотеку";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Удаленный тип";
+"ObjectType.editingType" = "Вы редактировали тип";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Создать %@";
@@ -814,7 +822,7 @@
 "Widgets.Actions.AddWidget" = "Добавить виджет";
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
 "Widgets.Actions.AddBelow" = "Добавить ниже";
-"Widgets.Actions.NewObject" = "Новый объект";
+"Widgets.Actions.NewObject" = "Создать новый объект";
 "Widgets.Actions.SeeAllObjects" = "Показать все объекты";
 "Widgets.Layout.Screen.Title" = "Тип виджета";
 "Widgets.Layout.Link.Title" = "Ссылка";
@@ -949,7 +957,7 @@
 "SpaceShare.Action.ViewRequest" = "Посмотреть запрос";
 "SpaceShare.Action.Approve" = "Утверждено";
 "SpaceShare.DeleteSharingLink.Title" = "Удалить ссылку";
-"SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к этому пространству. Вы можете создать новую ссылку Anytype";
+"SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к пространству. Вы можете создать новую ссылку в любое время";
 "SpaceShare.Approve.Toast" = "Вы приняли запрос от %@";
 "SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
 "SpaceShare.ViewRequest.ViewAccess" = "Добавить как наблюдателя";
@@ -1046,8 +1054,8 @@
 "SpaceHub.Tip.Text1" = "Хранилище является новым домом для всех ваших пространств. Создавайте, присоединяйтесь  или делитесь пространствами – все безопасно хранится здесь.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Быстрое переключение между пространствами ";
-"SpaceSwitcher.Tip.Text" = "Зажать кнопку \"Назад\" для переключения пространства";
+"ReturnToWidgets.Tip.Title" = "Долгое нажатие для возврата к виджетам";
+"ReturnToWidgets.Tip.Text" = "Длительное нажатие кнопки \"Назад\", чтобы вернуться к виджетам вместо повторного нажатия на него.";
 
 // MARK: - Initial
 
@@ -1227,7 +1235,12 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Добавить реакцию";
+"Message.Action.Reply" = "Ответить";
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
+"Message.ChatTitle.Placeholder" = "Чат без названия";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Сортировать по";
@@ -1240,7 +1253,27 @@
 "AllContent.Settings.Unlinked.Title" = "Только несвязанные";
 "AllContent.Settings.Unlinked.Description" = "Непривязанные объекты, не имеющие прямой связи или обратной связи с другими объектами на графике.";
 "AllContent.Settings.ViewBin" = "Просмотр корзины";
-"AllContent.Empty.State.title" = "Здесь пусто.";
-"AllContent.Empty.State.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
 "AllContent.Search.Empty.State.title" = "Результаты не найдены.";
 "AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Только редакторы могут отправлять сообщения. Свяжитесь с владельцем для запроса доступа.";
+"Chat.ReplyTo" = "Ответить %@";
+"Chat.Empty.Title" = "Здесь пока нет сообщений...";
+"Chat.Empty.Description" = "Напишите первый, чтобы начать диалог";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
+"ReindexingWarningAlert.Description" = "Мы внедрили новую библиотеку поиска для более быстрых и точных результатов.\nПереиндексация может занять несколько минут.";
+"ReindexingWarningAlert.Button" = "Я понял!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Здесь пусто.";
+"EmptyView.Default.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
+"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.subtitle" = "Похоже, у вас всё аккуратно и организовано!";
+
+// MARK: - Fields
+"Fields.menu" = "Меню полей";

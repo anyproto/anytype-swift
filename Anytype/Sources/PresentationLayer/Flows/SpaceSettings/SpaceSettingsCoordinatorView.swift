@@ -40,8 +40,8 @@ struct SpaceSettingsCoordinatorView: View {
         .sheet(item: $model.showSpaceMembersDataSpaceId) {
             SpaceMembersView(spaceId: $0.value)
         }
-        .sheet(item: $model.showIconPickerSpaceViewId) {
-            SpaceObjectIconPickerView(spaceViewId: $0.value)
+        .sheet(item: $model.showIconPickerSpaceId) {
+            SpaceObjectIconPickerView(spaceId: $0.value)
         }
         .onChange(of: model.dismiss) { _ in
             dismiss()

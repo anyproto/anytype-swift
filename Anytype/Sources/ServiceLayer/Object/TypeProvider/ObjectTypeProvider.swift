@@ -23,7 +23,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private var subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol
     private var userDefaults: any UserDefaultsStorageProtocol
     
-    private lazy var multispaceSubscriptionHelper = MultispaceSubscriptionHelper<ObjectType>(
+    private lazy var multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<ObjectType>(
         subIdPrefix: Constants.subscriptionIdPrefix,
         subscriptionBuilder: subscriptionBuilder
     )
@@ -120,16 +120,18 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         )
     }
     
-    func startSubscription() async {
-        await multispaceSubscriptionHelper.startSubscription { [weak self] in
+    func startSubscription(spaceId: String) async {
+        await multispaceSubscriptionHelper.startSubscription(spaceId: spaceId) { [weak self] in
             self?.updateAllCache()
             self?.sync = ()
         }
     }
     
-    func stopSubscription() async {
-        await multispaceSubscriptionHelper.stopSubscription()
-        updateAllCache()
+    func stopSubscription(cleanCache: Bool) async {
+        await multispaceSubscriptionHelper.stopSubscription(cleanCache: cleanCache)
+        if cleanCache {
+            updateAllCache()
+        }
     }
     
     // MARK: - Private func

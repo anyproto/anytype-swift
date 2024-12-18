@@ -13,6 +13,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - Local state
     let objectId: String
+    let spaceId: String
     let mode: DocumentMode
     
     @Atomic
@@ -27,7 +28,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private(set) var syncStatus: SyncStatus?
     
     let infoContainer: any InfoContainerProtocol
-    let relationLinksStorage: any RelationLinksStorageProtocol
+    let relationKeysStorage: any RelationKeysStorageProtocol
     let restrictionsContainer: ObjectRestrictionsContainer
     let detailsStorage: ObjectDetailsStorage
     
@@ -64,6 +65,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
     init(
         objectId: String,
+        spaceId: String,
         mode: DocumentMode,
         objectLifecycleService: some ObjectLifecycleServiceProtocol,
         relationDetailsStorage: some RelationDetailsStorageProtocol,
@@ -72,11 +74,12 @@ final class BaseDocument: BaseDocumentProtocol {
         eventsListener: some EventsListenerProtocol,
         viewModelSetter: some DocumentViewModelSetterProtocol,
         infoContainer: some InfoContainerProtocol,
-        relationLinksStorage: some RelationLinksStorageProtocol,
+        relationKeysStorage: some RelationKeysStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.mode = mode
         self.eventsListener = eventsListener
         self.viewModelSetter = viewModelSetter
@@ -85,7 +88,7 @@ final class BaseDocument: BaseDocumentProtocol {
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.infoContainer = infoContainer
-        self.relationLinksStorage = relationLinksStorage
+        self.relationKeysStorage = relationKeysStorage
         self.restrictionsContainer = restrictionsContainer
         self.detailsStorage = detailsStorage
         
@@ -94,23 +97,19 @@ final class BaseDocument: BaseDocumentProtocol {
     
     deinit {
         guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
-        Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
-            try await objectLifecycleService.close(contextId: objectId)
+        Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId, spaceId] in
+            try await objectLifecycleService.close(contextId: objectId, spaceId: spaceId)
         }
     }
     
     // MARK: - BaseDocumentProtocol
-    
-    var spaceId: String {
-        details?.spaceId ?? ""
-    }
     
     @MainActor
     func open() async throws {
         switch mode {
         case .handling:
             guard !isOpened else { return }
-            let model = try await objectLifecycleService.open(contextId: objectId)
+            let model = try await objectLifecycleService.open(contextId: objectId, spaceId: spaceId)
             setupView(model)
         case .preview:
             try await updateDocumentPreview()
@@ -134,7 +133,7 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     func close() async throws {
         guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
-        try await objectLifecycleService.close(contextId: objectId)
+        try await objectLifecycleService.close(contextId: objectId, spaceId: spaceId)
         isOpened = false
     }
     
@@ -166,7 +165,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     private func updateDocumentPreview() async throws {
-        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
+        let model = try await objectLifecycleService.openForPreview(contextId: objectId, spaceId: spaceId)
         setupView(model)
     }
     
@@ -264,7 +263,7 @@ final class BaseDocument: BaseDocumentProtocol {
         relationDetailsStorage.relationsDetailsPublisher(spaceId: spaceId)
             .sink { [weak self] details in
                 guard let self else { return }
-                let contains = details.contains { self.relationLinksStorage.contains(relationKeys: [$0.key]) }
+                let contains = details.contains { self.relationKeysStorage.contains(relationKeys: [$0.key]) }
                 if contains {
                     triggerSync(updates: [.relationDetails])
                 }
@@ -280,14 +279,14 @@ final class BaseDocument: BaseDocumentProtocol {
         guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
         
         let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            for: relationLinksStorage.relationLinks,
+            keys: relationKeysStorage.relationKeys,
             spaceId: spaceId
         )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
+        let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
         let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
         let newRelations = relationBuilder.parsedRelations(
-            relationsDetails: objectRelationsDetails,
-            typeRelationsDetails: typeRelationsDetails,
+            objectRelations: objectRelationsDetails,
+            typeRelations: typeRelationsDetails,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage

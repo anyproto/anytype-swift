@@ -37,7 +37,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
                 return details.map {
                     TemplatePreviewModel(
                         objectDetails: $0,
-                        isDefault: $0.id == templateId
+                        decoration: $0.id == templateId ? .border : nil
                     )
                 }
             }
@@ -155,6 +155,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
                 includeLists: true,
                 includeBookmarks: true,
                 includeFiles: false,
+                includeChat: false,
                 includeTemplates: false,
                 incudeNotForCreation: false,
                 spaceId: setDocument.spaceId

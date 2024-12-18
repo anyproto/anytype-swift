@@ -2370,17 +2370,18 @@ public struct Anytype_Model_Block {
           public typealias RawValue = Int
           case none // = 0
           case count // = 1
-          case countDistinct // = 2
-          case countEmpty // = 3
-          case countNotEmpty // = 4
-          case percentEmpty // = 5
-          case percentNotEmpty // = 6
-          case mathSum // = 7
-          case mathAverage // = 8
-          case mathMedian // = 9
-          case mathMin // = 10
-          case mathMax // = 11
-          case range // = 12
+          case countValue // = 2
+          case countDistinct // = 3
+          case countEmpty // = 4
+          case countNotEmpty // = 5
+          case percentEmpty // = 6
+          case percentNotEmpty // = 7
+          case mathSum // = 8
+          case mathAverage // = 9
+          case mathMedian // = 10
+          case mathMin // = 11
+          case mathMax // = 12
+          case range // = 13
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -2391,17 +2392,18 @@ public struct Anytype_Model_Block {
             switch rawValue {
             case 0: self = .none
             case 1: self = .count
-            case 2: self = .countDistinct
-            case 3: self = .countEmpty
-            case 4: self = .countNotEmpty
-            case 5: self = .percentEmpty
-            case 6: self = .percentNotEmpty
-            case 7: self = .mathSum
-            case 8: self = .mathAverage
-            case 9: self = .mathMedian
-            case 10: self = .mathMin
-            case 11: self = .mathMax
-            case 12: self = .range
+            case 2: self = .countValue
+            case 3: self = .countDistinct
+            case 4: self = .countEmpty
+            case 5: self = .countNotEmpty
+            case 6: self = .percentEmpty
+            case 7: self = .percentNotEmpty
+            case 8: self = .mathSum
+            case 9: self = .mathAverage
+            case 10: self = .mathMedian
+            case 11: self = .mathMin
+            case 12: self = .mathMax
+            case 13: self = .range
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -2410,17 +2412,18 @@ public struct Anytype_Model_Block {
             switch self {
             case .none: return 0
             case .count: return 1
-            case .countDistinct: return 2
-            case .countEmpty: return 3
-            case .countNotEmpty: return 4
-            case .percentEmpty: return 5
-            case .percentNotEmpty: return 6
-            case .mathSum: return 7
-            case .mathAverage: return 8
-            case .mathMedian: return 9
-            case .mathMin: return 10
-            case .mathMax: return 11
-            case .range: return 12
+            case .countValue: return 2
+            case .countDistinct: return 3
+            case .countEmpty: return 4
+            case .countNotEmpty: return 5
+            case .percentEmpty: return 6
+            case .percentNotEmpty: return 7
+            case .mathSum: return 8
+            case .mathAverage: return 9
+            case .mathMedian: return 10
+            case .mathMin: return 11
+            case .mathMax: return 12
+            case .range: return 13
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -2448,6 +2451,8 @@ public struct Anytype_Model_Block {
         public var id: String = String()
 
         public var emptyPlacement: Anytype_Model_Block.Content.Dataview.Sort.EmptyType = .notSpecified
+
+        public var noCollate: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3347,6 +3352,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: CaseIterabl
   public static var allCases: [Anytype_Model_Block.Content.Dataview.Relation.FormulaType] = [
     .none,
     .count,
+    .countValue,
     .countDistinct,
     .countEmpty,
     .countNotEmpty,
@@ -3654,6 +3660,7 @@ public struct Anytype_Model_Account {
 
     public var deviceID: String = String()
 
+    /// the first created private space. It's filled only when account is created
     public var accountSpaceID: String = String()
 
     public var widgetsID: String = String()
@@ -8144,17 +8151,18 @@ extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: SwiftProtob
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "None"),
     1: .same(proto: "Count"),
-    2: .same(proto: "CountDistinct"),
-    3: .same(proto: "CountEmpty"),
-    4: .same(proto: "CountNotEmpty"),
-    5: .same(proto: "PercentEmpty"),
-    6: .same(proto: "PercentNotEmpty"),
-    7: .same(proto: "MathSum"),
-    8: .same(proto: "MathAverage"),
-    9: .same(proto: "MathMedian"),
-    10: .same(proto: "MathMin"),
-    11: .same(proto: "MathMax"),
-    12: .same(proto: "Range"),
+    2: .same(proto: "CountValue"),
+    3: .same(proto: "CountDistinct"),
+    4: .same(proto: "CountEmpty"),
+    5: .same(proto: "CountNotEmpty"),
+    6: .same(proto: "PercentEmpty"),
+    7: .same(proto: "PercentNotEmpty"),
+    8: .same(proto: "MathSum"),
+    9: .same(proto: "MathAverage"),
+    10: .same(proto: "MathMedian"),
+    11: .same(proto: "MathMin"),
+    12: .same(proto: "MathMax"),
+    13: .same(proto: "Range"),
   ]
 }
 
@@ -8168,6 +8176,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     5: .same(proto: "includeTime"),
     6: .same(proto: "id"),
     7: .same(proto: "emptyPlacement"),
+    8: .same(proto: "noCollate"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8183,6 +8192,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
       case 5: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.emptyPlacement) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.noCollate) }()
       default: break
       }
     }
@@ -8210,6 +8220,9 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     if self.emptyPlacement != .notSpecified {
       try visitor.visitSingularEnumField(value: self.emptyPlacement, fieldNumber: 7)
     }
+    if self.noCollate != false {
+      try visitor.visitSingularBoolField(value: self.noCollate, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -8221,6 +8234,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     if lhs.includeTime != rhs.includeTime {return false}
     if lhs.id != rhs.id {return false}
     if lhs.emptyPlacement != rhs.emptyPlacement {return false}
+    if lhs.noCollate != rhs.noCollate {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

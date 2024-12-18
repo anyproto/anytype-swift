@@ -33,7 +33,9 @@ struct TemplatePickerView: View {
                 }
             }
             
-            button
+            if viewModel.showApplyButton {
+                applyButton
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -100,7 +102,7 @@ struct TemplatePickerView: View {
             .frame(maxWidth: 20)
     }
 
-    private var button: some View {
+    private var applyButton: some View {
         StandardButton(Loc.TemplateSelection.selectTemplate, style: .primaryLarge) { [weak viewModel] in
             viewModel?.onApplyButton()
         }
@@ -113,7 +115,7 @@ struct TemplatePickerView: View {
             viewModel.onCloseButtonTap()
         } label: {
             Image(asset: .X24.close)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
         }
     }
     
@@ -122,7 +124,7 @@ struct TemplatePickerView: View {
             viewModel.onSettingsButtonTap()
         } label: {
             Image(asset: .X24.more)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
         }
     }
 }

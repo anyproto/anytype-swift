@@ -187,6 +187,16 @@ final class EditorPageController: UIViewController {
         }
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        // On iPadOS, when the app window changes between fullscreen, split view, or slide over,
+        // we need to redraw the collection view so its cells fit the new size.
+        coordinator.animate { [weak self] _ in
+            self?.collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+
     private func handleState(state: EditorEditingState) {
         navigationBarHelper.editorEditingStateDidChange(state)
 

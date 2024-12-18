@@ -13,7 +13,6 @@ on:
 jobs:
   main:
     runs-on: ${{ vars.RUNNER }}
-    timeout-minutes: 40
 
     steps:
       - name: Checkout

@@ -225,4 +225,20 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.internalFlags = flags
         }).invoke()
     }
+    
+    public func createSet(name: String, iconEmoji: Emoji?, setOfObjectType: String, spaceId: String) async throws -> ObjectDetails {
+        let fields: [String: Google_Protobuf_Value] = [
+            BundledRelationKey.name.rawValue: name.protobufValue,
+            BundledRelationKey.iconEmoji.rawValue: iconEmoji?.value.protobufValue
+        ].compactMapValues { $0 }
+        
+        let details = Google_Protobuf_Struct(fields: fields)
+        
+        return try await ClientCommands.objectCreateSet(.with {
+            $0.details = details
+            $0.source = [setOfObjectType]
+            $0.spaceID = spaceId
+            $0.withChat = false
+        }).invoke().details.toDetails()
+    }
 }

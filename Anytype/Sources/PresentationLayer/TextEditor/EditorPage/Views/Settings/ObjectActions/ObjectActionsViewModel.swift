@@ -9,10 +9,11 @@ import DeepLinks
 final class ObjectActionsViewModel: ObservableObject {
 
     private let objectId: String
+    private let spaceId: String
     private weak var output: (any ObjectActionsOutput)?
     
     private lazy var document: any BaseDocumentProtocol = {
-        openDocumentsProvider.document(objectId: objectId)
+        openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
     
     @Injected(\.objectActionsService)
@@ -31,13 +32,16 @@ final class ObjectActionsViewModel: ObservableObject {
     private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.documentService)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     
     @Published var objectActions: [ObjectAction] = []
     @Published var toastData = ToastBarData.empty
     @Published var dismiss = false
     
-    init(objectId: String, output: (any ObjectActionsOutput)?) {
+    init(objectId: String, spaceId: String, output: (any ObjectActionsOutput)?) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.output = output
     }
     
@@ -48,7 +52,7 @@ final class ObjectActionsViewModel: ObservableObject {
                 return
             }
 
-            objectActions = ObjectAction.allCasesWith(
+            objectActions = ObjectAction.buildActions(
                 details: details,
                 isLocked: document.isLocked,
                 permissions: document.permissions
@@ -93,9 +97,9 @@ final class ObjectActionsViewModel: ObservableObject {
 
     func linkItselfAction() {
         guard let currentObjectId = document.details?.id else { return }
-
+        let spaceId = document.spaceId
         let onObjectSelection: (String) -> Void = { [weak self] objectId in
-            self?.onObjectSelection(objectId: objectId, currentObjectId: currentObjectId)
+            self?.onObjectSelection(objectId: objectId, spaceId: spaceId, currentObjectId: currentObjectId)
         }
 
         output?.onLinkItselfAction(onSelect: onObjectSelection)
@@ -140,7 +144,7 @@ final class ObjectActionsViewModel: ObservableObject {
             anytypeAssertionFailure("Default layout not found")
             return
         }
-        let widgetObject = documentsProvider.document(objectId: info.widgetsId, mode: .preview)
+        let widgetObject = documentsProvider.document(objectId: info.widgetsId, spaceId: spaceId, mode: .preview)
         try await widgetObject.open()
         guard let first = widgetObject.children.first else {
             anytypeAssertionFailure("First children not found")
@@ -158,9 +162,11 @@ final class ObjectActionsViewModel: ObservableObject {
         dismiss.toggle()
     }
     
-    func copyLinkAction() {
+    func copyLinkAction() async throws {
         guard let details = document.details else { return }
-        let link = deepLinkParser.createUrl(deepLink: .object(objectId: details.id, spaceId: details.spaceId), scheme: .main)
+        let invite = try? await workspaceService.getCurrentInvite(spaceId: details.spaceId)
+        let link = deepLinkParser.createUrl(deepLink: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey), scheme: .main)
+        
         UIPasteboard.general.string = link?.absoluteString
         toastData = ToastBarData(text: Loc.copied, showSnackBar: true)
         dismiss.toggle()
@@ -170,22 +176,11 @@ final class ObjectActionsViewModel: ObservableObject {
         output?.undoRedoAction()
     }
     
-    func onTapDiscussion() {
-        guard let details = document.details else { return }
-        output?.openPageAction(screenData: .discussion(
-            EditorDiscussionObject(
-                objectId: details.id,
-                spaceId: details.spaceId
-            )
-        ))
-        dismiss.toggle()
-    }
-    
     // MARK: - Private
     
-    private func onObjectSelection(objectId: String, currentObjectId: String) {
+    private func onObjectSelection(objectId: String, spaceId: String, currentObjectId: String) {
         Task { @MainActor in
-            let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
+            let targetDocument = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
             try? await targetDocument.open()
             guard let id = targetDocument.children.last?.id,
                   let details = targetDocument.details else { return }

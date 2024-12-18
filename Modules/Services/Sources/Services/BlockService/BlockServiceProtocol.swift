@@ -14,11 +14,11 @@ public protocol BlockServiceProtocol: AnyObject, Sendable {
     
     func replace(objectId: String, blockIds: [String], targetId: String) async throws
     func move(objectId: String, blockId: String, targetId: String, position: Anytype_Model_Block.Position) async throws
-    func moveToPage(objectId: String, blockId: String, pageId: String) async throws
+    func moveToPage(objectId: String, blockIds: [String], pageId: String) async throws
     func setLinkAppearance(objectId: String, blockIds: [String], appearance: BlockLink.Appearance) async throws
     func changeMarkup(objectId: String, blockIds: [String], markType: MarkupType) async throws
     
-    func lastBlockId(from objectId: String) async throws -> String
+    func lastBlockId(from objectId: String, spaceId: String) async throws -> String
     
     func convertChildrenToObjects(
         contextId: String,

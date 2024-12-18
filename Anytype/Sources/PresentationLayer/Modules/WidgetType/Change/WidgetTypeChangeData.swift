@@ -2,6 +2,7 @@ import Foundation
 
 struct WidgetTypeChangeData: Identifiable, Hashable {
     let widgetObjectId: String
+    let widgetSpaceId: String
     let widgetId: String
     let context: AnalyticsWidgetContext
     @EquatableNoop var onFinish: () -> Void

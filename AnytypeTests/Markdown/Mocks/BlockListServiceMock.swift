@@ -65,7 +65,7 @@ final class BlockServiceMock: BlockServiceProtocol {
         assertionFailure()
     }
     
-    func lastBlockId(from objectId: String) async throws -> String {
+    func lastBlockId(from objectId: String, spaceId: String) async throws -> String {
         ""
     }
     
@@ -100,5 +100,9 @@ final class BlockServiceMock: BlockServiceProtocol {
     func createBlockLink(contextId: String, targetId: String, spaceId: String, details: [Services.BundledDetails], typeUniqueKey: Services.ObjectTypeUniqueKey, position: Services.BlockPosition, templateId: String) async throws -> String {
         assertionFailure()
         return ""
+    }
+    
+    func moveToPage(objectId: String, blockIds: [String], pageId: String) async throws {
+        assertionFailure()
     }
 }

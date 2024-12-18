@@ -96,7 +96,7 @@ struct GlobalSearchView: View {
                         }
                         model.showRelatedObjects(data)
                     }
-                    .tint(Color.Button.active)
+                    .tint(Color.Control.active)
                 }
             }
     }
@@ -115,6 +115,7 @@ struct GlobalSearchView: View {
         EmptyStateView(
             title: Loc.nothingFound,
             subtitle: Loc.GlobalSearch.EmptyState.subtitle,
+            style: .plain,
             buttonData: EmptyStateView.ButtonData(
                 title: Loc.createObject,
                 action: {

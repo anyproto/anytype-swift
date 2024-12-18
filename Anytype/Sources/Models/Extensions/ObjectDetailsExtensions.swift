@@ -38,75 +38,65 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: EditorViewType {
         switch layoutValue {
-        case .basic, .profile, .participant, .todo, .note, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag:
+        case .basic, .profile, .participant, .todo, .note, .bookmark, .space, .file, .image, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView, .tag, .chat, .chatDerived:
             return .page
         case .set, .collection:
-            return .set
-        case .chat, .chatDerived:
-            return .page
+            return .list
+        case .date:
+            return FeatureFlags.dateAsAnObject ? .date : .page
+        case .objectType:
+            return .type
         }
-    }
-    
-    var isList: Bool {
-        isSet || isCollection
-    }
-    
-    var isCollection: Bool {
-        return layoutValue == .collection
-    }
-    
-    var isSet: Bool {
-        return layoutValue == .set
-    }
-    
-    var isSupportedForEdit: Bool {
-        return DetailsLayout.supportedForEditLayouts.contains(layoutValue)
-    }
-    
-    var isVisibleLayout: Bool {
-        return DetailsLayout.visibleLayouts.contains(layoutValue)
-    }
-    
-    var isNotDeletedAndVisibleForEdit: Bool {
-        return !isDeleted && !isArchived && isVisibleLayout && !isHiddenDiscovery
-    }
-    
-    var isNotDeletedAndSupportedForEdit: Bool {
-        return !isDeleted && !isArchived && isSupportedForEdit && !isHiddenDiscovery
-    }
-    
-    var canMakeTemplate: Bool {
-        layoutValue.isTemplatesAvailable && !isTemplateType && profileOwnerIdentity.isEmpty
-    }
-    
-    var isTemplateType: Bool {
-        objectType.isTemplateType
     }
     
     var filteredSetOf: [String] {
         setOf.filter { $0.isNotEmpty }
     }
     
-    private var isDiscussion: Bool {
-        return layoutValue == .chat || layoutValue == .chatDerived
+    var isNotDeletedAndVisibleForEdit: Bool {
+        return !isDeleted && !isArchived && isVisibleLayout && !isHiddenDiscovery
     }
+    
+    var isNotDeletedAndSupportedForOpening: Bool {
+        return !isDeleted && !isArchived && isSupportedForOpening && !isHiddenDiscovery
+    }
+    
+    var isTemplateType: Bool { objectType.isTemplateType }
+    
+    var canMakeTemplate: Bool {
+        layoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty
+    }
+    
+    // MARK: - DetailsLayout proxy
+    
+    var isList: Bool { layoutValue.isList }
+    
+    var isCollection: Bool { layoutValue.isCollection }
+    
+    var isSet: Bool { layoutValue.isSet }
+    
+    var isSupportedForOpening: Bool { layoutValue.isSupportedForOpening }
+    
+    var isVisibleLayout: Bool { layoutValue.isVisible }
     
     private var emptyIconType: ObjectIcon.EmptyType {
         switch layoutValue {
         case .basic, .profile, .participant, .todo, .note, .space, .file, .image, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView:
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView:
             return .page
         case .set, .collection:
             return .list
         case .bookmark:
             return .bookmark
         case .chat, .chatDerived:
-            return .discussion
+            return .chat
         case .objectType:
             return .objectType
         case .tag:
             return .tag
+        case .date:
+            return .date
         }
     }
 }

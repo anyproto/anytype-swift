@@ -1,15 +1,8 @@
 import Foundation
 import SwiftUI
 
-struct StandardButtonGroupDisableKey: EnvironmentKey {
-    static let defaultValue: Binding<Bool> = .constant(false)
-}
-
 extension EnvironmentValues {
-    var standardButtonGroupDisable: Binding<Bool> {
-        get { self[StandardButtonGroupDisableKey.self] }
-        set { self[StandardButtonGroupDisableKey.self] = newValue }
-    }
+    @Entry var standardButtonGroupDisable: Binding<Bool> = .constant(false)
 }
 
 struct AsyncStandardButtonGroup<Content: View>: View {

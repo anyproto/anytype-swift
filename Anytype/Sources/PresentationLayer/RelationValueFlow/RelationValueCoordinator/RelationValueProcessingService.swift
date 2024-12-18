@@ -7,8 +7,7 @@ protocol RelationValueProcessingServiceProtocol {
     func handleRelationValue(
         relation: Relation,
         objectDetails: ObjectDetails,
-        analyticsType: AnalyticsEventsRelationType,
-        onToastShow: (String) -> Void
+        analyticsType: AnalyticsEventsRelationType
     ) -> RelationValueData?
 }
 
@@ -25,14 +24,8 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
     func handleRelationValue(
         relation: Relation,
         objectDetails: ObjectDetails,
-        analyticsType: AnalyticsEventsRelationType,
-        onToastShow: (String) -> Void
+        analyticsType: AnalyticsEventsRelationType
     ) -> RelationValueData? {
-        if case .date = relation, !relation.isEditable {
-            onToastShow(Loc.Relation.Date.Locked.Alert.title(relation.name))
-            return nil
-        }
-        
         switch relation {
         case .status, .tag, .object, .date, .file, .text, .number, .url, .email, .phone:
             return RelationValueData(
@@ -45,7 +38,7 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
             Task {
                 let newValue = !checkbox.value
                 try await relationsService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
-                let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: objectDetails.spaceId)
+                let relationDetails = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: objectDetails.spaceId)
                 AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                     isEmpty: !newValue,
                     format: relationDetails.format,

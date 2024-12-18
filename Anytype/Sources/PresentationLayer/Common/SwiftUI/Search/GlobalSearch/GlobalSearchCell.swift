@@ -63,7 +63,7 @@ struct GlobalSearchCell: View {
     }
     
     private var relationLinksIndicator: some View {
-        Color.Button.active
+        Color.Control.active
             .frame(width: Constants.realIndicatorWidth, height: 28)
             .cornerRadius(4, style: .continuous)
     }

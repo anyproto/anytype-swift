@@ -36,7 +36,7 @@ struct SettingsInfoBlockView: View {
                 Spacer()
                 if model.onTap.isNotNil {
                     Image(asset: .X24.copy)
-                        .foregroundColor(.Button.active)
+                        .foregroundColor(.Control.active)
                 }
             }
         }

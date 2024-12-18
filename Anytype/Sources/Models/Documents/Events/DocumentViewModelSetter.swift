@@ -8,19 +8,22 @@ protocol DocumentViewModelSetterProtocol: AnyObject {
 
 final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     
+    @Injected(\.mentionTextUpdateHandler)
+    private var mentionTextUpdateHandler: any MentionTextUpdateHandlerProtocol
+    
     private let detailsStorage: ObjectDetailsStorage
-    private let relationLinksStorage: any RelationLinksStorageProtocol
+    private let relationKeysStorage: any RelationKeysStorageProtocol
     private let restrictionsContainer: ObjectRestrictionsContainer
     private let infoContainer: any InfoContainerProtocol
     
     init(
         detailsStorage: ObjectDetailsStorage,
-        relationLinksStorage: some RelationLinksStorageProtocol,
+        relationKeysStorage: some RelationKeysStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         infoContainer: some InfoContainerProtocol
     ) {
         self.detailsStorage = detailsStorage
-        self.relationLinksStorage = relationLinksStorage
+        self.relationKeysStorage = relationKeysStorage
         self.restrictionsContainer = restrictionsContainer
         self.infoContainer = infoContainer
     }
@@ -47,12 +50,20 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
         
         parsedDetails.forEach { detailsStorage.add(details: $0) }
         
-        let relationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
-        relationLinksStorage.set(relationLinks: relationLinks)
+        let relationKeys = data.relationLinks.map { $0.key }
+        relationKeysStorage.set(relationKeys: relationKeys)
         
         let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
         
         restrictionsContainer.restrinctions = restrinctions
+        
+        if FeatureFlags.relativeDates {
+            mentionTextUpdateHandler.updateMentionsTextsIfNeeded(
+                objectId: data.rootID,
+                infoContainer: infoContainer,
+                detailsStorage: detailsStorage
+            )
+        }
     }
     
     // MARK: - Private

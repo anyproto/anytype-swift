@@ -56,7 +56,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             return false
         }
         
-        return DetailsLayout.supportedForCreationInSets.contains(layout)
+        return layout.isSupportedForCreationInSets
     }
     
     private func canEditRelationValuesInView(setDocument: some SetDocumentProtocol) -> Bool {

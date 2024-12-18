@@ -9,7 +9,7 @@ struct RelationFormatListCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             Image(asset: model.iconAsset)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
 
             AnytypeText(model.title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)

@@ -5,7 +5,7 @@ import AnytypeCore
 public typealias ParticipantPermissions = Anytype_Model_ParticipantPermissions
 public typealias ParticipantStatus = Anytype_Model_ParticipantStatus
 
-public struct Participant: Identifiable, Equatable, Sendable, DetailsModel {
+public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsModel {
     
     public let id: String
     public let localName: String
@@ -16,6 +16,7 @@ public struct Participant: Identifiable, Equatable, Sendable, DetailsModel {
     public let identity: String
     public let identityProfileLink: String
     public let spaceId: String
+    public let type: String
     
     public init(details: ObjectDetails) throws {
         self.id = details.id
@@ -35,6 +36,7 @@ public struct Participant: Identifiable, Equatable, Sendable, DetailsModel {
         self.identity = details.identity
         self.identityProfileLink = details.identityProfileLink
         self.spaceId = details.spaceId
+        self.type = details.type
     }
     
     public static var subscriptionKeys: [BundledRelationKey] {

@@ -6,7 +6,7 @@ import Foundation
 
 final class MiddlewareEventConverter {
     private let infoContainer: any InfoContainerProtocol
-    private let relationLinksStorage: any RelationLinksStorageProtocol
+    private let relationKeysStorage: any RelationKeysStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
     private let restrictionsContainer: ObjectRestrictionsContainer
     
@@ -14,13 +14,13 @@ final class MiddlewareEventConverter {
     
     init(
         infoContainer: some InfoContainerProtocol,
-        relationLinksStorage: some RelationLinksStorageProtocol,
+        relationKeysStorage: some RelationKeysStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.infoContainer = infoContainer
-        self.relationLinksStorage = relationLinksStorage
+        self.relationKeysStorage = relationKeysStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
         self.restrictionsContainer = restrictionsContainer
@@ -92,11 +92,11 @@ final class MiddlewareEventConverter {
             return .details(id: details.id)
             
         case .objectRelationsAmend(let data):
-            relationLinksStorage.ammend(data: data)
+            relationKeysStorage.ammend(data: data)
             return .relationLinks
             
         case .objectRelationsRemove(let data):
-            relationLinksStorage.remove(data: data)
+            relationKeysStorage.remove(data: data)
             return .relationLinks
             
         case let .blockSetFile(data):
@@ -204,7 +204,11 @@ final class MiddlewareEventConverter {
                 .importFinish,
                 .spaceSyncStatusUpdate, // Implemented in `SyncStatusStorage`
                 .p2PStatusUpdate, // Implemented in `P2PStatusStorage`
-                .membershipUpdate: // Implemented in `MembershipStatusStorage`
+                .membershipUpdate, // Implemented in `MembershipStatusStorage`
+                .chatAdd,
+                .chatDelete,
+                .chatUpdate,
+                .chatUpdateReactions:
             return nil
         case .chatAdd, .chatUpdate, .chatUpdateReactions, .chatDelete:
             return nil

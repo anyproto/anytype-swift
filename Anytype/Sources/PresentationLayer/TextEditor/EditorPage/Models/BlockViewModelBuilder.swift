@@ -71,19 +71,67 @@ final class BlockViewModelBuilder {
     }
     
     func buildEditorItems(infos: [String]) -> [EditorItem] {
-        let blockViewModels = build(infos)
+        let viewModels = build(infos)
+        return buildEditorItems(viewModels)
+    }
+    
+    func buildEditorItems(_ viewModels: [any BlockViewModelProtocol]) -> [EditorItem] {
+        var items = viewModels.map(EditorItem.block)
         
+        items = removeBlockFileIfNeeded(items)
+        let featureRelationsIndex = viewModels.firstIndex { $0.content == .featuredRelations }
+        let openFileButton = createOpenFileButtonIfNeeded()
+        let spacer = SpacerBlockViewModel(usage: .firstRowOffset)
         
-        var editorItems = blockViewModels.map (EditorItem.block)
-        
-        let featureRelationsIndex = blockViewModels.firstIndex { $0.content == .featuredRelations }
-        
-        if let featureRelationsIndex = featureRelationsIndex {
-            let spacer = SpacerBlockViewModel(usage: .firstRowOffset)
-            editorItems.insert(.system(spacer), at: featureRelationsIndex + 1)
+        if let featureRelationsIndex, let openFileButton  {
+            items.insert(openFileButton, at: featureRelationsIndex + 1)
+            items.insert(.system(spacer), at: featureRelationsIndex + 2)
+        } else if let featureRelationsIndex  {
+            items.insert(.system(spacer), at: featureRelationsIndex + 1)
+        } else if let openFileButton, items.count > 0 {
+            items.insert(openFileButton, at: 1)
+            items.insert(.system(spacer), at: 2)
         }
         
-        return editorItems
+        return items
+    }
+    
+    // temporary hack to display open button for files
+    // remove after https://linear.app/anytype/issue/IOS-3806/%5Bepic%5D-release-x-or-ios-or-file-layout
+    private func createOpenFileButtonIfNeeded() -> EditorItem? {
+        guard let details = document.details else { return nil }
+        guard details.layoutValue.isFileOrMedia else { return nil }
+        
+        let model = OpenFileBlockViewModel(
+            info: .file(fileDetails: FileDetails(objectDetails: details)),
+            handler: handler,
+            documentId: document.objectId,
+            spaceId: document.spaceId
+        ) { [weak router] fileContext in
+            router?.openImage(fileContext)
+        }
+        
+        return EditorItem.block(model)
+    }
+    
+    // temporary hack to hide block file for files
+    // remove after https://linear.app/anytype/issue/IOS-3806/%5Bepic%5D-release-x-or-ios-or-file-layout
+    private func removeBlockFileIfNeeded(_ items: [EditorItem]) -> [EditorItem] {
+        guard let details = document.details else { return items }
+        guard details.layoutValue.isFileOrMedia else { return items }
+        
+        let index = items.firstIndex { item in
+            if case let .block(block) = item {
+                return block.info.isFile
+            }
+            return false
+        }
+        
+        guard let index else { return items }
+        
+        var items = items
+        items.remove(at: index)
+        return items
     }
     
     func buildShimeringItem() -> EditorItem {
@@ -109,8 +157,9 @@ final class BlockViewModelBuilder {
         }
         
         let documentId = document.objectId
+        let spaceId = document.spaceId
         let blockInformationProvider = BlockModelInfomationProvider(document: document, info: info)
-  
+        
         switch info.content {
         case let .text(content):
             switch content.contentType {
@@ -122,7 +171,7 @@ final class BlockViewModelBuilder {
                     handler: handler,
                     editorCollectionController: blockCollectionController,
                     showCodeSelection: { [weak self] info in
-                        self?.output?.onSelectCodeLanguage(objectId: documentId, blockId: blockId)
+                        self?.output?.onSelectCodeLanguage(objectId: documentId, spaceId: spaceId, blockId: blockId)
                     }
                 )
             default:
@@ -130,8 +179,8 @@ final class BlockViewModelBuilder {
                     document: document,
                     info: info,
                     focusSubject: subjectsHolder.focusSubject(for: info.id),
-                    showPage: { [weak self] objectId in
-                        self?.router.showPage(objectId: objectId)
+                    showObject: { [weak self] objectId in
+                        self?.router.showObject(objectId: objectId)
                     },
                     openURL: { [weak output] url in
                         output?.openUrl(url)
@@ -180,7 +229,7 @@ final class BlockViewModelBuilder {
                     document: document,
                     blockInformationProvider: blockInformationProvider,
                     actionHandler: textBlockActionHandler,
-                    cursorManager: cursorManager, 
+                    cursorManager: cursorManager,
                     collectionController: blockCollectionController
                 )
                 
@@ -195,16 +244,25 @@ final class BlockViewModelBuilder {
                     informationProvider: blockInformationProvider,
                     handler: handler,
                     documentId: documentId,
+                    spaceId: spaceId,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
                     onFileOpen: { [weak router] fileContext in
-                        router?.openImage(fileContext)
+                        switch fileContext.file.file.contentType {
+                        case .video, .image:
+                            router?.openImage(fileContext)
+                        case .audio, .file:
+                            router?.showObject(objectId: fileContext.file.file.metadata.targetObjectId)
+                        case .none:
+                            return
+                        }
                     }
                 )
             case .image:
                 return BlockImageViewModel(
                     documentId: documentId,
+                    spaceId: spaceId,
                     blockInformationProvider: blockInformationProvider,
                     handler: handler,
                     showIconPicker: { [weak self] blockId in
@@ -223,6 +281,7 @@ final class BlockViewModelBuilder {
             case .audio:
                 return AudioBlockViewModel(
                     documentId: documentId,
+                    spaceId: spaceId,
                     informationProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showAudioPicker: { [weak self] blockId in
@@ -242,7 +301,7 @@ final class BlockViewModelBuilder {
             
             return BlockBookmarkViewModel(
                 editorCollectionController: blockCollectionController,
-                infoProvider: blockInformationProvider, 
+                infoProvider: blockInformationProvider,
                 document: document,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
@@ -269,7 +328,7 @@ final class BlockViewModelBuilder {
                 collectionController: blockCollectionController
             ) { [weak self] relation in
                 guard let self = self else { return }
-
+                
                 if relation.key == BundledRelationKey.type.rawValue && document.permissions.canChangeType {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
@@ -285,7 +344,7 @@ final class BlockViewModelBuilder {
             let relation = document.parsedRelations.all.first {
                 $0.key == content.key
             }
-
+            
             guard let relation = relation else {
                 return nil
             }
@@ -309,7 +368,7 @@ final class BlockViewModelBuilder {
                 },
                 editorCollectionController: blockCollectionController
             )
-        case .smartblock, .layout, .tableRow, .tableColumn, .widget: return nil
+        case .smartblock, .layout, .tableRow, .tableColumn, .widget,. chat: return nil
         case .table:
             return SimpleTableBlockViewModel(
                 info: info,

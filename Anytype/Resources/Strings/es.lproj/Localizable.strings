@@ -74,7 +74,7 @@
 "Create relation" = "Crear relación ‘%@’";
 "Relation.View.Hint.Empty" = "vacío";
 "Relation.MyRelations" = "Mis relaciones";
-"Relation.AddedToLibrary" = "La relación ‘%@’ ha sido añadida a tu librería";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Relación eliminada";
 "Relation.From.Type" = "Del tipo %@";
 "Relation.EmptyState.title" = "Sin opciones";
@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Crear opción ";
 "Relation.View.Edit.title" = "Editar opción";
 "Relation.Create.Textfield.placeholder" = "Introducir nombre…";
-"Relation.Edit.Button.title" = "Aplicar";
-"Relation.Date.Locked.Alert.title" = "La relación “%@” está protegida";
 "Relation.ObjectTypes.Header.title" = "Tipos de objeto";
 "Relation.ObjectType.Header.title" = "Tipo de objeto";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Número de teléfono";
 
 "Relation.Search.View.Placeholder" = "Busca una relación o créala";
+
+"Relation.Mention.title" = "Con mención en";
 
 // Origin Relation
 
@@ -152,6 +152,7 @@
 "Files" = "Archivos";
 "Media" = "Medios";
 "Lists" = "Listas";
+"Dates" = "Fechas";
 "Pinned" = "Anclado";
 "Delete" = "Eliminar";
 "Export" = "Exportar";
@@ -190,6 +191,7 @@
 "Blue background" = "Fondo azul";
 "Green background" = "Fondo verde";
 "Create new object" = "Crear un objeto";
+"Create new object with name" = "Crear nuevo objeto «%@»";
 "Cancel" = "Cancelar";
 "Paste or type URL" = "Pega o escribe una URL";
 "No items match filter" = "Ningún elemento coincide con este filtro";
@@ -206,6 +208,9 @@
 "Agreement Disclamer" = "Al continuar, aceptas nuestros [términos de uso](%@) y nuestra [política de privacidad](%@).";
 "Lets Go" = "Adelante";
 "My spaces" = "Mis espacios";
+"Open file" = "Abrir archivo";
+"Open Set" = "Abrir conjunto";
+"Create Set" = "Crear conjunto";
 
 // Home
 "Favorites" = "Favoritos";
@@ -290,12 +295,8 @@
 // Object settings
 
 "Icon" = "Icono";
-"Emoji or image for object" = "Emoji o imagen del objeto";
 "Cover" = "Portada";
-"Background picture" = "Imagen de fondo";
 "Layout" = "Diseño";
-"Arrangement of objects on a canvas" = "Disposición de objetos en un lienzo";
-"ObjectSettings.History.Description" = "Todas las versiones del objeto";
 
 // Version history
 "VersionHistory.Title" = "Historial de versiones";
@@ -322,6 +323,9 @@
 "Task" = "Tarea";
 "Note" = "Nota";
 "Choose layout type" = "Elige el diseño";
+
+"Templates" = "Plantillas";
+"Header" = "Título";
 
 "Undo typing" = "Deshacer escritura";
 "Undo" = "Deshacer";
@@ -484,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Relación:";
 "Set.FeaturedRelations.Type" = "Tipo:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Aplicar";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Pegar enlace";
 "Set.Bookmark.Error.Message" = "Huy, algo salió mal. Inténtalo de nuevo.";
@@ -575,6 +576,7 @@
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo:";
+"Types" = "Tipos";
 "No name" = "Sin nombre";
 "New relation" = "Nueva relación";
 "Non-existent object" = "Objeto inexistente";
@@ -616,7 +618,6 @@
 "Designed to capture thoughts quickly" = "Para capturar pensamientos rápidamente";
 "Action-focused layout with a checkbox" = "Diseño con casillas para verificar acciones";
 "Standard layout for canvas blocks" = "Diseño estándar para bloques en el lienzo";
-"List of related objects" = "Lista de objetos relacionados";
 "Lock" = "Proteger";
 "Unlock" = "Desproteger";
 "Favorite" = "Favorito";
@@ -696,6 +697,12 @@
 "Blurred icon" = "Icono\n borroso";
 "My First Space" = "Mi Primer Espacio";
 "Copy space info" = "Copiar información del espacio";
+"Save" = "Guardar";
+"Set of" = "Conjunto de %@";
+"New set" = "Nuevo conjunto";
+"Show" = "Mostrar";
+"Hide" = "Ocultar";
+"Apply" = "Aplicar";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -714,8 +721,9 @@
 "ObjectType.SearchOrInstall" = "Buscar o instalar un nuevo tipo";
 "ObjectType.Search" = "Buscar un tipo";
 "ObjectType.MyTypes" = "Mis tipos";
-"ObjectType.AddedToLibrary" = "El tipo «%@» se ha añadido a tu biblioteca.";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Tipo eliminado";
+"ObjectType.editingType" = "Estás editando el tipo";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Crear %@";
@@ -949,7 +957,7 @@
 "SpaceShare.Action.ViewRequest" = "Ver solicitud";
 "SpaceShare.Action.Approve" = "Aprobar";
 "SpaceShare.DeleteSharingLink.Title" = "Eliminar enlace";
-"SpaceShare.DeleteSharingLink.Message" = "No podrán acceder nuevos miembros al espacio. Puedes generar un enlace nuevo en cualquier momento.";
+"SpaceShare.DeleteSharingLink.Message" = "No podrán acceder nuevos miembros al espacio. Puedes generar un enlace nuevo en cualquier momento";
 "SpaceShare.Approve.Toast" = "Has aprobado la solicitud de %@.";
 "SpaceShare.ViewRequest.Title" = "%@ solicita acceder al espacio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Añadir como visitante";
@@ -1046,8 +1054,8 @@
 "SpaceHub.Tip.Text1" = "Tu arca es donde se guardan y protegen todos tus espacios: que crees, los que compartas y los que alguien comparta contigo.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Cambia de espacio más rápido";
-"SpaceSwitcher.Tip.Text" = "Mantén pulsado el botón de retroceso para pasar a otro espacio.";
+"ReturnToWidgets.Tip.Title" = "Pulsación larga para volver a los widgets";
+"ReturnToWidgets.Tip.Text" = "Mantén pulsado el botón de retroceso para volver a los widgets en lugar de pulsarlo varias veces.";
 
 // MARK: - Initial
 
@@ -1224,7 +1232,12 @@ En concreto,
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Añadir reacción";
+"Message.Action.Reply" = "Responder";
 "Message.Input.EmptyPlaceholder" = "Escribe un mensaje...";
+"Message.ChatTitle.Placeholder" = "Chat sin título";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "Aún no hay nada aquí para esta fecha";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Ordenar por";
@@ -1237,7 +1250,27 @@ En concreto,
 "AllContent.Settings.Unlinked.Title" = "Solo desconectados";
 "AllContent.Settings.Unlinked.Description" = "Objetos desconectados que no tienen un enlace a o desde otro objeto del gráfico.";
 "AllContent.Settings.ViewBin" = "Ver papelera";
-"AllContent.Empty.State.title" = "Aquí no hay nada.";
-"AllContent.Empty.State.subtitle" = "Crea tus primeros objetos para empezar.";
 "AllContent.Search.Empty.State.title" = "No se encuentran resultados.";
 "AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Solo pueden enviar mensajes los editores. Solicita acceso a la persona que ha creado esto.";
+"Chat.ReplyTo" = "Responder a %@";
+"Chat.Empty.Title" = "Aún no hay mensajes…";
+"Chat.Empty.Description" = "Escribe el primero para iniciar una conversación.";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
+"ReindexingWarningAlert.Description" = "Hemos cambiado a un nuevo software de búsqueda para obtener resultados más rápidos y precisos.\nPuede llevar unos minutos crear el nuevo índice.";
+"ReindexingWarningAlert.Button" = "¡Entendido!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Aquí no hay nada.";
+"EmptyView.Default.subtitle" = "Crea tus primeros objetos para empezar.";
+"EmptyView.Bin.title" = "Tu papelera está vacía.";
+"EmptyView.Bin.subtitle" = "¡Parece que te gusta tenerlo todo ordenado!";
+
+// MARK: - Fields
+"Fields.menu" = "Menú de campos";

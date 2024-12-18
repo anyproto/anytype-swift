@@ -4,9 +4,10 @@ import Services
 struct ObjectLayoutPicker: View {
     
     @StateObject private var viewModel: ObjectLayoutPickerViewModel
+    @Environment(\.dismiss) private var dismiss
     
-    init(objectId: String) {
-        self._viewModel = StateObject(wrappedValue: ObjectLayoutPickerViewModel(objectId: objectId))
+    init(mode: ObjectLayoutPickerMode, objectId: String, spaceId: String) {
+        self._viewModel = StateObject(wrappedValue: ObjectLayoutPickerViewModel(mode: mode, objectId: objectId, spaceId: spaceId))
     }
     
     var body: some View {
@@ -24,12 +25,13 @@ struct ObjectLayoutPicker: View {
     
     private var layoutList: some View {
         VStack(spacing: 0) {
-            ForEach(DetailsLayout.editorChangeLayouts, id: \.self) { layout in
+            ForEach(DetailsLayout.editorLayouts, id: \.self) { layout in
                 ObjectLayoutRow(
                     layout: layout,
                     isSelected: layout == viewModel.selectedLayout,
                     onTap: {
                         viewModel.didSelectLayout(layout)
+                        dismiss()
                     }
                 )
             }

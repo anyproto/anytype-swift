@@ -14,6 +14,10 @@ final class WidgetObjectListSetsViewModel: WidgetObjectListInternalViewModelProt
     // MARK: - State
     
     let title = Loc.sets
+    let emptyStateData = WidgetObjectListEmptyStateData(
+        title: Loc.EmptyView.Default.title,
+        subtitle: Loc.EmptyView.Default.subtitle
+    )
     let editorScreenData: EditorScreenData
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)

@@ -47,6 +47,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
         let document = documentService.document(
             objectId: data.objectId,
+            spaceId: data.spaceId,
             mode: data.mode
         )
         let router = EditorRouter(

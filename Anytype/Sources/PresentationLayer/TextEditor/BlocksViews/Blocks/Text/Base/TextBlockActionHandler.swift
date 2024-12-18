@@ -14,7 +14,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let document: any BaseDocumentProtocol
     var info: BlockInformation
 
-    let showPage: (String) -> Void
+    let showObject: (String) -> Void
     let openURL: (URL) -> Void
     private let onShowStyleMenu: (BlockInformation) -> Void
     private let onEnterSelectionMode: (BlockInformation) -> Void
@@ -51,7 +51,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         document: some BaseDocumentProtocol,
         info: BlockInformation,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
-        showPage: @escaping (String) -> Void,
+        showObject: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
         onShowStyleMenu: @escaping (BlockInformation) -> Void,
         onEnterSelectionMode: @escaping (BlockInformation) -> Void,
@@ -73,7 +73,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.document = document
         self.info = info
         self.focusSubject = focusSubject
-        self.showPage = showPage
+        self.showObject = showObject
         self.openURL = openURL
         self.onShowStyleMenu = onShowStyleMenu
         self.onEnterSelectionMode = onEnterSelectionMode
@@ -107,8 +107,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             createEmptyBlock: { [weak self] in
                 self?.createEmptyBlock()
             },
-            showPage: { [weak self] in
-                self?.showPage($0)
+            showObject: { [weak self] in
+                self?.showObject($0)
             },
             openURL: { [weak self] in
                 self?.openURL($0)
@@ -445,7 +445,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
             currentLinkString: text.linkToObjectState(range: range),
             setLinkToObject: { [weak self] linkBlockId in
                 guard let self = self else { return }
-                AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.linkToObject(linkBlockId))
+                AnytypeAnalytics.instance().logChangeTextStyle(markupType: MarkupType.linkToObject(linkBlockId), objectType: .custom)
                 let newText = markupChanger.setMarkup(.linkToObject(linkBlockId), range: range, attributedString: text, contentType: info.content.type)
                 setNewTextSync(attributedString: newText)
             },
@@ -525,9 +525,11 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         try await slashMenuActionHandler.handle(
             action,
             textView: textView,
-            blockInformation: info) { [weak resetSubject] modifiedAttributedString in
+            blockInformation: info,
+            modifiedStringHandler: { [weak resetSubject] modifiedAttributedString in
                 resetSubject?.send(modifiedAttributedString.value)
             }
+        )
     }
     
     func didSelectEditButton() {

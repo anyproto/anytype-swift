@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var discussions: Bool {
-        value(for: .discussions)
-    }
-
     static var versionHistory: Bool {
         value(for: .versionHistory)
     }
@@ -40,6 +36,22 @@ public extension FeatureFlags {
 
     static var userWarningAlerts: Bool {
         value(for: .userWarningAlerts)
+    }
+
+    static var dateAsAnObject: Bool {
+        value(for: .dateAsAnObject)
+    }
+
+    static var relativeDates: Bool {
+        value(for: .relativeDates)
+    }
+
+    static var homeSpaceLevelChat: Bool {
+        value(for: .homeSpaceLevelChat)
+    }
+
+    static var primitives: Bool {
+        value(for: .primitives)
     }
 
     static var rainbowViews: Bool {
@@ -100,11 +112,14 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .discussions,
         .versionHistory,
         .allContent,
         .spaceHubParallax,
         .userWarningAlerts,
+        .dateAsAnObject,
+        .relativeDates,
+        .homeSpaceLevelChat,
+        .primitives,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

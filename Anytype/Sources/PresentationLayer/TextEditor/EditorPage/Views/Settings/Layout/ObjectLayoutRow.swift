@@ -29,7 +29,7 @@ struct ObjectLayoutRow: View {
         HStack(spacing: 0) {
             Image(asset: layout.iconAsset)
                 .frame(width: 44, height: 44)
-                .border(8, color: .Button.active.opacity(0.4))
+                .border(8, color: .Control.active.opacity(0.4))
             
             Spacer.fixedWidth(12)
             
@@ -49,7 +49,7 @@ struct ObjectLayoutRow: View {
                     Spacer(minLength: 12)
                     
                     if isSelected {
-                        Image(asset: .X24.tick).frame(width: 24, height: 24).foregroundColor(.Button.button)
+                        Image(asset: .X24.tick).frame(width: 24, height: 24).foregroundColor(.Control.button)
                     }
                 }
                 
@@ -59,67 +59,6 @@ struct ObjectLayoutRow: View {
         }
         .frame(height: 60)
         .padding(.horizontal, 16)
-    }
-    
-}
-
-private extension DetailsLayout {
-    
-    var iconAsset: ImageAsset {
-        switch self {
-        case .basic:
-            return .Layout.basic
-        case .profile, .participant:
-            return .Layout.profile
-        case .todo:
-            return .Layout.task
-        case .note:
-            return .Layout.note
-        case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag:
-            return .noImage
-        case .chat, .chatDerived:
-            return .noImage
-        }
-    }
-    
-    var title: String {
-        switch self {
-        case .basic:
-            return Loc.basic
-        case .profile, .participant:
-            return Loc.profile
-        case .todo:
-            return Loc.task
-        case .note:
-            return Loc.note
-        case .set:
-            return Loc.set
-        case .collection:
-            return Loc.collection
-        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag:
-            return ""
-        case .chat, .chatDerived:
-            return ""
-        }
-    }
-    
-    var description: String {
-        switch self {
-        case .basic:
-            return Loc.standardLayoutForCanvasBlocks
-        case .profile, .participant:
-            return Loc.companiesContactsFriendsAndFamily
-        case .todo:
-            return Loc.actionFocusedLayoutWithACheckbox
-        case .note:
-            return Loc.designedToCaptureThoughtsQuickly
-        case .set, .collection:
-            return Loc.collectionOfObjects
-        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag:
-            return ""
-        case .chat, .chatDerived:
-            return ""
-        }
     }
     
 }

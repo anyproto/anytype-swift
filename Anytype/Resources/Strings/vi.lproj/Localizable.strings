@@ -74,7 +74,7 @@
 "Create relation" = "Tạo liên hệ '%@’";
 "Relation.View.Hint.Empty" = "trống";
 "Relation.MyRelations" = "Các liên hệ của tôi";
-"Relation.AddedToLibrary" = "Liên hệ '%@' đã được thêm vào thư viện của bạn";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Liên hệ đã xoá";
 "Relation.From.Type" = "Của loại '%@'";
 "Relation.EmptyState.title" = "Không có lựa chọn";
@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Tạo lựa chọn";
 "Relation.View.Edit.title" = "Sửa tùy chọn";
 "Relation.Create.Textfield.placeholder" = "Nhập tên...";
-"Relation.Edit.Button.title" = "Áp dụng";
-"Relation.Date.Locked.Alert.title" = "Liên hệ “%@” bị khoá";
 "Relation.ObjectTypes.Header.title" = "Loại đối tượng:";
 "Relation.ObjectType.Header.title" = "Loại đối tượng:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Số điện thoại";
 
 "Relation.Search.View.Placeholder" = "Tìm hoặc tạo một liên hệ mới";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -152,6 +152,7 @@
 "Files" = "Tập tin";
 "Media" = "Đa phương tiện";
 "Lists" = "Các danh sách";
+"Dates" = "Dates";
 "Pinned" = "Đã ghim";
 "Delete" = "Xoá";
 "Export" = "Xuất dữ liệu";
@@ -191,6 +192,7 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Tạo đối tượng mới";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Huỷ";
 "Paste or type URL" = "Dán hoặc nhập URL";
 "No items match filter" = "Không có gì thoả bộ lọc";
@@ -206,13 +208,16 @@
 "Join" = "Gia nhập";
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Lets Go" = "Let’s Go";
-"My spaces" = "Không gian của tôi";
+"My spaces" = "My Spaces";
+"Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Ưa thích";
 "Recent" = "Gần đây";
 "Bin" = "Thùng rác";
-"All objects" = "All objects";
+"All objects" = "All Objects";
 
 // Settings
 "Wallpaper" = "Hình nền";
@@ -291,12 +296,8 @@
 // Object settings
 
 "Icon" = "Biểu tượng";
-"Emoji or image for object" = "Emoji or image for object";
 "Cover" = "Ảnh bìa";
-"Background picture" = "Ảnh nền";
 "Layout" = "Bố cục";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
-"ObjectSettings.History.Description" = "Tất cả phiên bản của đối tượng";
 
 // Version history
 "VersionHistory.Title" = "Lịch sử phiên bản";
@@ -323,6 +324,9 @@
 "Task" = "Tác vụ";
 "Note" = "Ghi chú";
 "Choose layout type" = "Chọn kiểu bố cục";
+
+"Templates" = "Mẫu";
+"Header" = "Header";
 
 "Undo typing" = "Hoàn tác nhập";
 "Undo" = "Hoàn tác";
@@ -485,9 +489,6 @@
 "Set.FeaturedRelations.Relation" = "Liên hệ:";
 "Set.FeaturedRelations.Type" = "Loại:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Áp dụng";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Dán link";
 "Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
@@ -576,6 +577,7 @@
 
 "Limit object types" = "Giới hạn loại đối tượng";
 "Type" = "Loại";
+"Types" = "Loại";
 "No name" = "Không tên";
 "New relation" = "Liên hệ mới";
 "Non-existent object" = "Đối tượng không tồn tại";
@@ -617,7 +619,6 @@
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
 "Lock" = "Khoá";
 "Unlock" = "Mở khoá";
 "Favorite" = "Ưa thích";
@@ -665,7 +666,7 @@
 "View" = "Chế độ xem";
 "Home" = "Trang chủ";
 "Highlight" = "Nổi bật";
-"Create object" = "Tạo đối tượng";
+"Create object" = "Tạo Đối tượng";
 "Web pages" = "Web pages";
 "Preview layout" = "Bố cục bản xem trước";
 "Everywhere" = "Mọi nơi";
@@ -697,6 +698,12 @@
 "Blurred icon" = "Blurred\n icon";
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
+"Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Tập mới";
+"Show" = "Hiện";
+"Hide" = "Ẩn";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -715,8 +722,9 @@
 "ObjectType.SearchOrInstall" = "Tìm hoặc cài một loại mới";
 "ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "Các Loại của tôi";
-"ObjectType.AddedToLibrary" = "Loại ‘%@’ đã được thêm vào thư viện của bạn";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Loại đã xoá";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Tạo %@";
@@ -950,7 +958,7 @@
 "SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Phê duyệt";
 "SpaceShare.DeleteSharingLink.Title" = "Xóa link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ yêu cầu gia nhập không gian %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
@@ -1047,8 +1055,8 @@
 "SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Switch spaces quicker";
-"SpaceSwitcher.Tip.Text" = "Long tap on back button to switch Space";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
@@ -1225,7 +1233,12 @@ Please provide specific details of your needs here.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sắp xếp theo";
@@ -1238,7 +1251,27 @@ Please provide specific details of your needs here.";
 "AllContent.Settings.Unlinked.Title" = "Only unlinked";
 "AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
 "AllContent.Settings.ViewBin" = "View Bin";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Title" = "No messages here yet...";
+"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "It’s empty here.";
+"EmptyView.Default.subtitle" = "Create your first objects to get started.";
+"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

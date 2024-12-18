@@ -97,8 +97,8 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
         
         if FeatureFlags.fullInlineSetImpl, let pageId = info.configurationData.parentId {
             openSet(
-                .set(
-                    EditorSetObject(
+                .list(
+                    EditorListObject(
                         objectId: pageId,
                         spaceId: objectDetails.spaceId,
                         inline: EditorInlineSetObject(blockId: info.id, targetObjectID: objectDetails.id)

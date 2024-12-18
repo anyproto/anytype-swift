@@ -5,10 +5,10 @@ extension Color {
   
     // MARK: - Dark
     enum Dark {
-      internal static let amber = Color(asset: Asset.Dark.amber)
       internal static let blue = Color(asset: Asset.Dark.blue)
       internal static let green = Color(asset: Asset.Dark.green)
       internal static let grey = Color(asset: Asset.Dark.grey)
+      internal static let orange = Color(asset: Asset.Dark.orange)
       internal static let pink = Color(asset: Asset.Dark.pink)
       internal static let purple = Color(asset: Asset.Dark.purple)
       internal static let red = Color(asset: Asset.Dark.red)
@@ -19,10 +19,10 @@ extension Color {
     
     // MARK: - Light
     enum Light {
-      internal static let amber = Color(asset: Asset.Light.amber)
       internal static let blue = Color(asset: Asset.Light.blue)
       internal static let green = Color(asset: Asset.Light.green)
       internal static let grey = Color(asset: Asset.Light.grey)
+      internal static let orange = Color(asset: Asset.Light.orange)
       internal static let pink = Color(asset: Asset.Light.pink)
       internal static let purple = Color(asset: Asset.Light.purple)
       internal static let red = Color(asset: Asset.Light.red)
@@ -51,10 +51,10 @@ extension Color {
     
     // MARK: - VeryLight
     enum VeryLight {
-      internal static let amber = Color(asset: Asset.VeryLight.amber)
       internal static let blue = Color(asset: Asset.VeryLight.blue)
       internal static let green = Color(asset: Asset.VeryLight.green)
       internal static let grey = Color(asset: Asset.VeryLight.grey)
+      internal static let orange = Color(asset: Asset.VeryLight.orange)
       internal static let pink = Color(asset: Asset.VeryLight.pink)
       internal static let purple = Color(asset: Asset.VeryLight.purple)
       internal static let red = Color(asset: Asset.VeryLight.red)
@@ -63,6 +63,8 @@ extension Color {
       internal static let yellow = Color(asset: Asset.VeryLight.yellow)
     }
   
+    // MARK: - Custom
+    
     // MARK: - Additional
     enum Additional {
       
@@ -71,6 +73,7 @@ extension Color {
         internal static let selected = Color(asset: Asset.Additional.Indicator.selected)
         internal static let unselected = Color(asset: Asset.Additional.Indicator.unselected)
       }
+      internal static let messageInputShadow = Color(asset: Asset.Additional.messageInputShadow)
       internal static let separator = Color(asset: Asset.Additional.separator)
       internal static let space = Color(asset: Asset.Additional.space)
     }
@@ -88,14 +91,10 @@ extension Color {
       internal static let text = Color(asset: Asset.Auth.text)
     }
     
-    // MARK: - Background
-    enum Background {
-      internal static let black = Color(asset: Asset.Background.black)
-      internal static let highlightedLight = Color(asset: Asset.Background.highlightedLight)
-      internal static let highlightedMedium = Color(asset: Asset.Background.highlightedMedium)
-      internal static let material = Color(asset: Asset.Background.material)
-      internal static let primary = Color(asset: Asset.Background.primary)
-      internal static let secondary = Color(asset: Asset.Background.secondary)
+    // MARK: - BackgroundCustom
+    enum BackgroundCustom {
+      internal static let black = Color(asset: Asset.BackgroundCustom.black)
+      internal static let material = Color(asset: Asset.BackgroundCustom.material)
     }
     
     // MARK: - BottomAlert
@@ -106,15 +105,6 @@ extension Color {
       internal static let greenStart = Color(asset: Asset.BottomAlert.greenStart)
       internal static let redEnd = Color(asset: Asset.BottomAlert.redEnd)
       internal static let redStart = Color(asset: Asset.BottomAlert.redStart)
-    }
-    
-    // MARK: - Button
-    enum Button {
-      internal static let accent = Color(asset: Asset.Button.accent)
-      internal static let active = Color(asset: Asset.Button.active)
-      internal static let button = Color(asset: Asset.Button.button)
-      internal static let inactive = Color(asset: Asset.Button.inactive)
-      internal static let white = Color(asset: Asset.Button.white)
     }
     
     // MARK: - CoverGradients
@@ -170,16 +160,40 @@ extension Color {
       internal static let backgroundWithBlur = Color(asset: Asset.ModalScreen.backgroundWithBlur)
     }
     
-    // MARK: - Navigation
-    enum Navigation {
-      internal static let background = Color(asset: Asset.Navigation.background)
-      internal static let buttonActive = Color(asset: Asset.Navigation.buttonActive)
-      internal static let buttonInactive = Color(asset: Asset.Navigation.buttonInactive)
-    }
-    
     // MARK: - Shadow
     enum Shadow {
       internal static let primary = Color(asset: Asset.Shadow.primary)
+    }
+    
+    // MARK: - Widget
+    enum Widget {
+      internal static let actionsBackground = Color(asset: Asset.Widget.actionsBackground)
+      internal static let bottomPanel = Color(asset: Asset.Widget.bottomPanel)
+      internal static let divider = Color(asset: Asset.Widget.divider)
+      internal static let inactiveTab = Color(asset: Asset.Widget.inactiveTab)
+      internal static let secondary = Color(asset: Asset.Widget.secondary)
+    }
+    
+    // MARK: - DesignSystem
+    
+    // MARK: - Background
+    enum Background {
+      internal static let highlightedLight = Color(asset: Asset.Background.highlightedLight)
+      internal static let highlightedMedium = Color(asset: Asset.Background.highlightedMedium)
+      internal static let navigationPanel = Color(asset: Asset.Background.navigationPanel)
+      internal static let primary = Color(asset: Asset.Background.primary)
+      internal static let secondary = Color(asset: Asset.Background.secondary)
+      internal static let widget = Color(asset: Asset.Background.widget)
+    }
+    
+    // MARK: - Control
+    enum Control {
+      internal static let accent = Color(asset: Asset.Control.accent)
+      internal static let active = Color(asset: Asset.Control.active)
+      internal static let button = Color(asset: Asset.Control.button)
+      internal static let inactive = Color(asset: Asset.Control.inactive)
+      internal static let navPanelIcon = Color(asset: Asset.Control.navPanelIcon)
+      internal static let white = Color(asset: Asset.Control.white)
     }
     
     // MARK: - Shape
@@ -194,20 +208,10 @@ extension Color {
     
     // MARK: - Text
     enum Text {
-      internal static let labelInversion = Color(asset: Asset.Text.labelInversion)
+      internal static let inversion = Color(asset: Asset.Text.inversion)
       internal static let primary = Color(asset: Asset.Text.primary)
       internal static let secondary = Color(asset: Asset.Text.secondary)
       internal static let tertiary = Color(asset: Asset.Text.tertiary)
       internal static let white = Color(asset: Asset.Text.white)
-    }
-    
-    // MARK: - Widget
-    enum Widget {
-      internal static let actionsBackground = Color(asset: Asset.Widget.actionsBackground)
-      internal static let bottomPanel = Color(asset: Asset.Widget.bottomPanel)
-      internal static let card = Color(asset: Asset.Widget.card)
-      internal static let divider = Color(asset: Asset.Widget.divider)
-      internal static let inactiveTab = Color(asset: Asset.Widget.inactiveTab)
-      internal static let secondary = Color(asset: Asset.Widget.secondary)
     }
 }

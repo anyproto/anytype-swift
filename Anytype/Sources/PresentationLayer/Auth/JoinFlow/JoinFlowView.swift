@@ -72,7 +72,7 @@ struct JoinFlowView: View {
             }
         }) {
             Image(asset: .X18.slashMenuArrow)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
         }
         .disabled(model.disableBackAction)
@@ -80,7 +80,7 @@ struct JoinFlowView: View {
     
     private var counter : some View {
         AnytypeText(model.counter, style: .authBody)
-            .foregroundColor(.Button.active)
+            .foregroundColor(.Control.active)
     }
 }
 

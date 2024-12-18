@@ -941,6 +941,11 @@ extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: Respons
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.DateByTimestamp.Response: ResultWithError {}
+extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.Duplicate.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Duplicate.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1281,8 +1286,18 @@ extension Anytype_Rpc.Space.RequestDecline.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Space.SetOrder.Response: ResultWithError {}
+extension Anytype_Rpc.Space.SetOrder.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Space.StopSharing.Response: ResultWithError {}
 extension Anytype_Rpc.Space.StopSharing.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Space.UnsetOrder.Response: ResultWithError {}
+extension Anytype_Rpc.Space.UnsetOrder.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

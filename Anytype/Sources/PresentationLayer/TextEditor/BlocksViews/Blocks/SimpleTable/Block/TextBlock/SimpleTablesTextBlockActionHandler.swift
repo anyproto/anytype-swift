@@ -8,7 +8,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let document: any BaseDocumentProtocol
     var info: BlockInformation
     
-    let showPage: (String) -> Void
+    let showObject: (String) -> Void
     let openURL: (URL) -> Void
     private let onShowStyleMenu: (BlockInformation) -> Void
     private let onEnterSelectionMode: (BlockInformation) -> Void
@@ -52,7 +52,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         accessoryViewStateManager: some AccessoryViewStateManager,
         markupChanger: some BlockMarkupChangerProtocol,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        showPage: @escaping (String) -> Void,
+        showObject: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,
         onShowStyleMenu: @escaping (BlockInformation) -> Void,
         onEnterSelectionMode: @escaping (BlockInformation) -> Void,
@@ -64,7 +64,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.document = document
         self.info = info
         self.focusSubject = focusSubject
-        self.showPage = showPage
+        self.showObject = showObject
         self.openURL = openURL
         self.onShowStyleMenu = onShowStyleMenu
         self.onEnterSelectionMode = onEnterSelectionMode
@@ -95,8 +95,8 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
             createEmptyBlock: { [weak self] in
                 self?.createEmptyBlock()
             },
-            showPage: { [weak self] in
-                self?.showPage($0)
+            showObject: { [weak self] in
+                self?.showObject($0)
             },
             openURL: { [weak self] in
                 self?.openURL($0)

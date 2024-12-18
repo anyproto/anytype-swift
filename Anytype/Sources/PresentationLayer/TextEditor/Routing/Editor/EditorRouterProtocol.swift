@@ -15,7 +15,7 @@ protocol EditorRouterProtocol:
     ObjectHeaderRouterProtocol
 {
     func showAlert(alertModel: AlertModel)
-    func showPage(objectId: String)
+    func showObject(objectId: String)
     func showEditorScreen(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     
@@ -71,4 +71,6 @@ protocol EditorRouterProtocol:
     
     @MainActor
     func showTemplatesPicker()
+    
+    func showDatePicker(onDateSelection: @escaping (Date) -> Void)
 }

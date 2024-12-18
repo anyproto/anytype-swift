@@ -21,6 +21,7 @@ struct ObjectPermissions: Equatable {
     var canApplyTemplates: Bool = false
     var canShare: Bool = false
     var canEditBlocks: Bool = false
+    var canEditMessages: Bool = false
     var canShowVersionHistory: Bool = false
     var canRestoreVersionHistory: Bool = false
     var editBlocks: EditBlocksPermission = .readonly(.restrictions)
@@ -37,12 +38,11 @@ extension ObjectPermissions {
         let isArchive = details.isArchived
         let isTemplateType = details.isTemplateType
         
-        let canEdit = !isLocked && !isArchive && participantCanEdit && !isVersionMode
+        let caEditRelations = !isLocked && !isArchive && participantCanEdit && !isVersionMode
+        let canEdit = caEditRelations && !details.layoutValue.isFileOrMedia
         let canApplyUneditableActions = participantCanEdit && !isArchive
         
-        let specificTypes = details.layoutValue != .set
-                            && details.layoutValue != .collection
-                            && details.layoutValue != .participant
+        let specificTypes = !details.layoutValue.isList && !details.layoutValue.isParticipant
         
         self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplateType
         self.canDelete = isArchive && participantCanEdit
@@ -64,13 +64,14 @@ extension ObjectPermissions {
         self.canFavorite = canApplyUneditableActions && !isTemplateType
         self.canLinkItself = canApplyUneditableActions && !isTemplateType
         self.canLock = specificTypes && canApplyUneditableActions && !isTemplateType
-        self.canChangeIcon = DetailsLayout.layoutsWithIcon.contains(details.layoutValue) && canEdit
-        self.canChangeCover = DetailsLayout.layoutsWithCover.contains(details.layoutValue) && canEdit
-        self.canChangeLayout = DetailsLayout.layoutsWithChangeLayout.contains(details.layoutValue) && canEdit
-        self.canEditRelationValues = canEdit && !objectRestrictions.contains(.details)
-        self.canEditRelationsList = canEdit && !objectRestrictions.contains(.relations)
+        self.canChangeIcon = details.layoutValue.haveIcon && canEdit
+        self.canChangeCover = details.layoutValue.haveCover && canEdit
+        self.canChangeLayout = details.layoutValue.isEditorLayout && canEdit
+        self.canEditRelationValues = caEditRelations && !objectRestrictions.contains(.details)
+        self.canEditRelationsList = caEditRelations && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplateType
         self.canApplyTemplates = canEdit && !isTemplateType
+        self.canEditMessages = canEdit
         
         if isLocked || isVersionMode {
             self.editBlocks = .readonly(.locked)

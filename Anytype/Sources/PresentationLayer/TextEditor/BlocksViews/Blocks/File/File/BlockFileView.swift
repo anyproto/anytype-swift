@@ -5,6 +5,7 @@ import Services
 struct BlockFileMediaData: Hashable {
     let targetObjectId: String
     let documentId: String
+    let spaceId: String
 }
 
 final class BlockFileView: UIView, BlockContentView {
@@ -28,7 +29,7 @@ final class BlockFileView: UIView, BlockContentView {
 
     func update(with configuration: BlockFileConfiguration) {
        if document?.objectId != configuration.data.documentId {
-            document = documentService.document(objectId: configuration.data.documentId)
+           document = documentService.document(objectId: configuration.data.documentId, spaceId: configuration.data.spaceId)
         }
         
         if targetObjectId != configuration.data.targetObjectId {

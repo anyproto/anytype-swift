@@ -9,7 +9,10 @@ final class EditorSyncStatusItem: UIView {
             configuration: configuration,
             primaryAction: UIAction(
                 title: "",
-                handler: { [weak self] _ in self?.onTap() }
+                handler: { [weak self] _ in
+                    UISelectionFeedbackGenerator().selectionChanged()
+                    self?.onTap()
+                }
             )
         )
     }()
@@ -25,7 +28,7 @@ final class EditorSyncStatusItem: UIView {
     private let width: CGFloat = 28
     private var intristicSize: CGSize = .zero
     
-    func changeStatusData(_ statusData: SyncStatusData) {
+    func changeStatusData(_ statusData: SyncStatusData?) {
         self.statusData = statusData
         self.updateButtonState()
     }

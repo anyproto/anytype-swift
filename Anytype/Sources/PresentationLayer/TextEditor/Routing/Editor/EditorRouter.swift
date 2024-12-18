@@ -35,7 +35,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         super.init()
     }
 
-    func showPage(objectId: String) {
+    func showObject(objectId: String) {
         guard let details = document.detailsStorage.get(id: objectId) else {
             anytypeAssertionFailure("Details not found")
             return
@@ -167,7 +167,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + [.set, .collection]
+        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + DetailsLayout.listLayouts
         let data = BlockObjectSearchData(
             title: Loc.moveTo,
             spaceId: document.spaceId,
@@ -362,6 +362,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     func versionRestored(_ text: String) {
         output?.versionRestored(text)
     }
+    
+    func showDatePicker(onDateSelection: @escaping (Date) -> Void) {
+        let view = CalendarConfirmationDateView(
+            date: Date(),
+            onApply: { newDate in
+                onDateSelection(newDate)
+            }
+        )
+        navigationContext.presentSwiftUIView(view: view)
+    }
 
     // MARK: - Private
     
@@ -412,15 +422,15 @@ extension EditorRouter {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId, spaceId: data.spaceId) { [weak self] in
             self?.showEditorScreen(data: data)
         }
     }
     
     @MainActor
     func didCreateTemplate(templateId: String) {
-        guard let objectTypeId = document.details?.objectType.id else { return }
-        let setting = ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: document.spaceId, templateId: templateId)
+        guard let objectType = document.details?.objectType else { return }
+        let setting = ObjectCreationSetting(objectTypeId: objectType.id, spaceId: document.spaceId, templateId: templateId)
         setObjectCreationSettingsCoordinator.showTemplateEditing(
             setting: setting,
             onTemplateSelection: nil,
@@ -430,7 +440,8 @@ extension EditorRouter {
             completion: { [weak self] in
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Templates.Popup.wasAddedTo,
-                    objectId: objectTypeId,
+                    objectId: objectType.id,
+                    spaceId: objectType.spaceId,
                     tapHandler: { }
                 )
             }

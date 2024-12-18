@@ -36,17 +36,16 @@ internal enum Loc {
   internal static let anytypeNetwork = Loc.tr("Localizable", "Anytype Network", fallback: "Anytype Network")
   internal static let appearance = Loc.tr("Localizable", "Appearance", fallback: "Appearance")
   internal static let applicationIcon = Loc.tr("Localizable", "Application icon", fallback: "Application icon")
+  internal static let apply = Loc.tr("Localizable", "Apply", fallback: "Apply")
   internal static func areYouSureYouWantToDelete(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Plural format key: \"Are you sure you want to delete %#@object@?\"")
   }
   internal static let areYouSure = Loc.tr("Localizable", "AreYouSure", fallback: "Are you sure?")
-  internal static let arrangementOfObjectsOnACanvas = Loc.tr("Localizable", "Arrangement of objects on a canvas", fallback: "Arrangement of objects on a canvas")
   internal static let audio = Loc.tr("Localizable", "Audio", fallback: "Audio")
   internal static let back = Loc.tr("Localizable", "Back", fallback: "Back")
   internal static let backUpKey = Loc.tr("Localizable", "Back up key", fallback: "Back up key")
   internal static let backUpYourKey = Loc.tr("Localizable", "Back up your key", fallback: "Back up your key")
   internal static let background = Loc.tr("Localizable", "Background", fallback: "Background")
-  internal static let backgroundPicture = Loc.tr("Localizable", "Background picture", fallback: "Background picture")
   internal static func backlinksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Backlinks count", p1, fallback: "Plural format key: \"%#@object@\"")
   }
@@ -90,7 +89,10 @@ internal enum Loc {
   internal static let create = Loc.tr("Localizable", "Create", fallback: "Create")
   internal static let createANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Create a new one or search for something else", fallback: "Create a new one or search for something else")
   internal static let createNewObject = Loc.tr("Localizable", "Create new object", fallback: "Create new object")
-  internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
+  internal static func createNewObjectWithName(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Create new object with name", String(describing: p1), fallback: "Create new object \"%@\"")
+  }
+  internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create Object")
   internal static let createObjectFromClipboard = Loc.tr("Localizable", "Create object from clipboard", fallback: "Create object from clipboard")
   internal static func createOptionWith(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create option with", String(describing: p1), fallback: "Create option ‘%@’")
@@ -98,8 +100,10 @@ internal enum Loc {
   internal static func createRelation(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
   }
+  internal static let createSet = Loc.tr("Localizable", "Create Set", fallback: "Create Set")
   internal static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   internal static let current = Loc.tr("Localizable", "Current", fallback: "Current")
+  internal static let dates = Loc.tr("Localizable", "Dates", fallback: "Dates")
   internal static func daysToDeletionVault(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Days to deletion vault", p1, fallback: "Plural format key: \"This vault will be deleted %#@days@\"")
   }
@@ -124,7 +128,6 @@ internal enum Loc {
   internal static let edit = Loc.tr("Localizable", "Edit", fallback: "Edit")
   internal static let emailSuccessfullyValidated = Loc.tr("Localizable", "Email successfully validated", fallback: "Email successfully validated")
   internal static let emoji = Loc.tr("Localizable", "Emoji", fallback: "Emoji")
-  internal static let emojiOrImageForObject = Loc.tr("Localizable", "Emoji or image for object", fallback: "Emoji or image for object")
   internal static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")
   internal static let enterEmail = Loc.tr("Localizable", "Enter email", fallback: "Enter email")
   internal static let enterNumber = Loc.tr("Localizable", "Enter number", fallback: "Enter number")
@@ -156,6 +159,8 @@ internal enum Loc {
   internal static let greenBackground = Loc.tr("Localizable", "Green background", fallback: "Green background")
   internal static let grey = Loc.tr("Localizable", "Grey", fallback: "Grey")
   internal static let greyBackground = Loc.tr("Localizable", "Grey background", fallback: "Grey background")
+  internal static let header = Loc.tr("Localizable", "Header", fallback: "Header")
+  internal static let hide = Loc.tr("Localizable", "Hide", fallback: "Hide")
   internal static let hideTypes = Loc.tr("Localizable", "Hide types", fallback: "Hide types")
   internal static let highlight = Loc.tr("Localizable", "Highlight", fallback: "Highlight")
   internal static let history = Loc.tr("Localizable", "History", fallback: "History")
@@ -180,7 +185,6 @@ internal enum Loc {
   internal static func linksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: \"%#@object@\"")
   }
-  internal static let listOfRelatedObjects = Loc.tr("Localizable", "List of related objects", fallback: "List of related objects")
   internal static let lists = Loc.tr("Localizable", "Lists", fallback: "Lists")
   internal static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait", fallback: "Loading, please wait")
   internal static let localOnly = Loc.tr("Localizable", "Local Only", fallback: "Local Only")
@@ -204,6 +208,7 @@ internal enum Loc {
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   internal static let new = Loc.tr("Localizable", "New", fallback: "New")
   internal static let newRelation = Loc.tr("Localizable", "New relation", fallback: "New relation")
+  internal static let newSet = Loc.tr("Localizable", "New set", fallback: "New set")
   internal static let next = Loc.tr("Localizable", "Next", fallback: "Next")
   internal static let noConnection = Loc.tr("Localizable", "No connection", fallback: "No connection")
   internal static let noDate = Loc.tr("Localizable", "No date", fallback: "No date")
@@ -227,7 +232,9 @@ internal enum Loc {
   internal static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
   internal static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
+  internal static let openFile = Loc.tr("Localizable", "Open file", fallback: "Open file")
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
+  internal static let openSet = Loc.tr("Localizable", "Open Set", fallback: "Open Set")
   internal static let openSource = Loc.tr("Localizable", "Open source", fallback: "Open source")
   internal static func openTypeError(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Open Type Error", String(describing: p1), fallback: "Not supported type \"%@\". You can open it via desktop.")
@@ -288,6 +295,7 @@ internal enum Loc {
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   internal static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain", fallback: "Restore from keychain")
   internal static let restoreKeyFromKeychain = Loc.tr("Localizable", "Restore key from keychain", fallback: "Restore Key from the keychain")
+  internal static let save = Loc.tr("Localizable", "Save", fallback: "Save")
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   internal static let search = Loc.tr("Localizable", "Search", fallback: "Search")
   internal static let searchForLanguage = Loc.tr("Localizable", "Search for language", fallback: "Search for language")
@@ -305,11 +313,15 @@ internal enum Loc {
   internal static let selfHost = Loc.tr("Localizable", "Self Host", fallback: "Self Host")
   internal static let `set` = Loc.tr("Localizable", "Set", fallback: "Set")
   internal static let setAsDefault = Loc.tr("Localizable", "Set as default", fallback: "Set as default")
+  internal static func setOf(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Set of", String(describing: p1), fallback: "Set of %@")
+  }
   internal static let sets = Loc.tr("Localizable", "Sets", fallback: "Sets")
   internal static let settingUpEncryptedStoragePleaseWait = Loc.tr("Localizable", "Setting up encrypted storage\nPlease wait", fallback: "Setting up encrypted storage\nPlease wait")
   internal static let settings = Loc.tr("Localizable", "Settings", fallback: "Settings")
   internal static let share = Loc.tr("Localizable", "Share", fallback: "Share")
   internal static let shared = Loc.tr("Localizable", "Shared", fallback: "Shared")
+  internal static let show = Loc.tr("Localizable", "Show", fallback: "Show")
   internal static let showTypes = Loc.tr("Localizable", "Show types", fallback: "Show types")
   internal static let sky = Loc.tr("Localizable", "Sky", fallback: "Sky")
   internal static let skyBackground = Loc.tr("Localizable", "Sky background", fallback: "Sky background")
@@ -323,6 +335,7 @@ internal enum Loc {
   internal static let task = Loc.tr("Localizable", "Task", fallback: "Task")
   internal static let teal = Loc.tr("Localizable", "Teal", fallback: "Teal")
   internal static let tealBackground = Loc.tr("Localizable", "Teal background", fallback: "Teal background")
+  internal static let templates = Loc.tr("Localizable", "Templates", fallback: "Templates")
   internal static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named", fallback: "There is no emoji named")
   internal static func thereIsNoObjectNamed(_ p1: Any) -> String {
     return Loc.tr("Localizable", "There is no object named", String(describing: p1), fallback: "There is no object named %@")
@@ -337,6 +350,7 @@ internal enum Loc {
   internal static let tomorrow = Loc.tr("Localizable", "Tomorrow", fallback: "Tomorrow")
   internal static let tryToFindANewOneOrUploadYourImage = Loc.tr("Localizable", "Try to find a new one or upload your image", fallback: "Try to find a new one or upload your image")
   internal static let type = Loc.tr("Localizable", "Type", fallback: "Type")
+  internal static let types = Loc.tr("Localizable", "Types", fallback: "Types")
   internal static let undo = Loc.tr("Localizable", "Undo", fallback: "Undo")
   internal static let undoTyping = Loc.tr("Localizable", "Undo typing", fallback: "Undo typing")
   internal static let undoRedo = Loc.tr("Localizable", "Undo/Redo", fallback: "Undo/Redo")
@@ -433,12 +447,6 @@ internal enum Loc {
     }
   }
   internal enum AllContent {
-    internal enum Empty {
-      internal enum State {
-        internal static let subtitle = Loc.tr("Localizable", "AllContent.Empty.State.subtitle", fallback: "Create your first objects to get started.")
-        internal static let title = Loc.tr("Localizable", "AllContent.Empty.State.title", fallback: "It’s empty here.")
-      }
-    }
     internal enum Search {
       internal enum Empty {
         internal enum State {
@@ -614,6 +622,34 @@ internal enum Loc {
       }
     }
   }
+  internal enum Chat {
+    internal static let editMessage = Loc.tr("Localizable", "Chat.EditMessage", fallback: "Edit Message")
+    internal static let readOnly = Loc.tr("Localizable", "Chat.ReadOnly", fallback: "Only editors can send messages. Contact the owner to request access.")
+    internal static func replyTo(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
+    }
+    internal enum Actions {
+      internal enum Menu {
+        internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
+        internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
+        internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
+      }
+    }
+    internal enum DeleteMessage {
+      internal static let description = Loc.tr("Localizable", "Chat.DeleteMessage.Description", fallback: "It cannot be restored after confirmation")
+      internal static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
+    }
+    internal enum Empty {
+      internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Write a first one to start a conversation")
+      internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages here yet...")
+    }
+    internal enum Reactions {
+      internal enum Empty {
+        internal static let subtitle = Loc.tr("Localizable", "Chat.Reactions.Empty.Subtitle", fallback: "Probably someone has just removed the reaction or technical issue happened")
+        internal static let title = Loc.tr("Localizable", "Chat.Reactions.Empty.Title", fallback: "No reactions yet")
+      }
+    }
+  }
   internal enum ClearCache {
     internal static let error = Loc.tr("Localizable", "ClearCache.Error", fallback: "Error, try again later")
     internal static let success = Loc.tr("Localizable", "ClearCache.Success", fallback: "Cache sucessfully cleared")
@@ -680,6 +716,20 @@ internal enum Loc {
     internal static let grid = Loc.tr("Localizable", "DataviewType.grid", fallback: "Grid")
     internal static let kanban = Loc.tr("Localizable", "DataviewType.kanban", fallback: "Kanban")
     internal static let list = Loc.tr("Localizable", "DataviewType.list", fallback: "List")
+  }
+  internal enum Date {
+    internal enum Object {
+      internal enum Empty {
+        internal enum State {
+          internal static let title = Loc.tr("Localizable", "Date.Object.Empty.State.title", fallback: "There is nothing here for this date yet")
+        }
+      }
+    }
+    internal enum Open {
+      internal enum Action {
+        internal static let title = Loc.tr("Localizable", "Date.Open.Action.title", fallback: "Open selected date")
+      }
+    }
   }
   internal enum Debug {
     internal static let info = Loc.tr("Localizable", "Debug.Info", fallback: "Debug Info")
@@ -831,6 +881,16 @@ internal enum Loc {
       }
     }
   }
+  internal enum EmptyView {
+    internal enum Bin {
+      internal static let subtitle = Loc.tr("Localizable", "EmptyView.Bin.subtitle", fallback: "Looks like you’re all tidy and organized!")
+      internal static let title = Loc.tr("Localizable", "EmptyView.Bin.title", fallback: "Your bin is empty.")
+    }
+    internal enum Default {
+      internal static let subtitle = Loc.tr("Localizable", "EmptyView.Default.subtitle", fallback: "Create your first objects to get started.")
+      internal static let title = Loc.tr("Localizable", "EmptyView.Default.title", fallback: "It’s empty here.")
+    }
+  }
   internal enum Error {
     internal static let unableToConnect = Loc.tr("Localizable", "Error.UnableToConnect", fallback: "Please connect to the internet")
     internal enum AnytypeNeedsUpgrate {
@@ -846,6 +906,9 @@ internal enum Loc {
   }
   internal enum ErrorOccurred {
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
+  }
+  internal enum Fields {
+    internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
   }
   internal enum FileStorage {
     internal static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
@@ -1095,6 +1158,10 @@ internal enum Loc {
   internal enum Message {
     internal enum Action {
       internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction", fallback: "Add Reaction")
+      internal static let reply = Loc.tr("Localizable", "Message.Action.Reply", fallback: "Reply")
+    }
+    internal enum ChatTitle {
+      internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder", fallback: "Untitled Chat")
     }
     internal enum Input {
       internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder", fallback: "Write a message...")
@@ -1108,16 +1175,12 @@ internal enum Loc {
       internal static let placeholder = Loc.tr("Localizable", "Object.Title.Placeholder", fallback: "Untitled")
     }
   }
-  internal enum ObjectSettings {
-    internal enum History {
-      internal static let description = Loc.tr("Localizable", "ObjectSettings.History.Description", fallback: "All versions of object")
-    }
-  }
   internal enum ObjectType {
     internal static func addedToLibrary(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
+      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ has been created")
     }
     internal static let deletedName = Loc.tr("Localizable", "ObjectType.DeletedName", fallback: "Deleted type")
+    internal static let editingType = Loc.tr("Localizable", "ObjectType.editingType", fallback: "You're editing type")
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
     internal static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
     internal static let search = Loc.tr("Localizable", "ObjectType.Search", fallback: "Search for Type")
@@ -1159,7 +1222,7 @@ internal enum Loc {
   }
   internal enum Relation {
     internal static func addedToLibrary(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ added to your library")
+      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ has been created")
     }
     internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
@@ -1173,24 +1236,10 @@ internal enum Loc {
         internal static let placeholder = Loc.tr("Localizable", "Relation.Create.Textfield.placeholder", fallback: "Enter name...")
       }
     }
-    internal enum Date {
-      internal enum Locked {
-        internal enum Alert {
-          internal static func title(_ p1: Any) -> String {
-            return Loc.tr("Localizable", "Relation.Date.Locked.Alert.title", String(describing: p1), fallback: "Relation “%@” is locked")
-          }
-        }
-      }
-    }
     internal enum Delete {
       internal enum Alert {
         internal static let description = Loc.tr("Localizable", "Relation.Delete.Alert.Description", fallback: "The option will be permanently removed from your space.")
         internal static let title = Loc.tr("Localizable", "Relation.Delete.Alert.Title", fallback: "Are you sure?")
-      }
-    }
-    internal enum Edit {
-      internal enum Button {
-        internal static let title = Loc.tr("Localizable", "Relation.Edit.Button.title", fallback: "Apply")
       }
     }
     internal enum EmptyState {
@@ -1369,11 +1418,6 @@ internal enum Loc {
       }
       internal enum Error {
         internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Oops - something went wrong. Please try again")
-      }
-    }
-    internal enum Button {
-      internal enum Title {
-        internal static let apply = Loc.tr("Localizable", "Set.Button.Title.Apply", fallback: "Apply")
       }
     }
     internal enum Create {
@@ -1680,7 +1724,7 @@ internal enum Loc {
       }
     }
     internal enum DeleteSharingLink {
-      internal static let message = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Message", fallback: "New members won’t be able to join the space. You can generate a new link anytype")
+      internal static let message = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Message", fallback: "New members won’t be able to join the space. You can generate a new link anytime")
       internal static let title = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Title", fallback: "Delete link")
     }
     internal enum HowToShare {

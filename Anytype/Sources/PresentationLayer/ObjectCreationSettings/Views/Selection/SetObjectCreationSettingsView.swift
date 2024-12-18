@@ -49,7 +49,7 @@ struct SetObjectCreationSettingsView: View {
                         model.isEditingState ? Loc.done : Loc.edit,
                         style: .bodyRegular
                     )
-                    .foregroundColor(.Button.active)
+                    .foregroundColor(.Control.active)
                 }
                 Spacer()
             }
@@ -110,7 +110,7 @@ struct SetObjectCreationSettingsView: View {
 #Preview {
     SetObjectCreationSettingsView(
         data: SetObjectCreationData(
-            setDocument: Container.shared.documentsProvider().setDocument(objectId: ""),
+            setDocument: Container.shared.documentsProvider().setDocument(objectId: "", spaceId: ""),
             viewId: "viewId",
             onTemplateSelection: { _ in }
         ),

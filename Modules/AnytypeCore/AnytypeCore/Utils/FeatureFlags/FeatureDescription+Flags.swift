@@ -30,13 +30,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let discussions = FeatureDescription(
-        title: "Discussions - IOS-3060",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
     static let versionHistory = FeatureDescription(
         title: "Version History - IOS-3058",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
@@ -60,6 +53,32 @@ public extension FeatureDescription {
         title: "User warning alerts",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
         defaultValue: true
+    )
+    
+    static let dateAsAnObject = FeatureDescription(
+        title: "Date as an object",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
+        defaultValue: true
+    )
+    
+    static let relativeDates = FeatureDescription(
+        title: "Turn on relative date for mentions / relations / widgets and so on (exept Date object inside)",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
+        defaultValue: true
+    )
+    
+    static let homeSpaceLevelChat = FeatureDescription(
+        title: "Space-Level Chat",
+        type: .feature(author: "m@anytype.io", releaseVersion: "9"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let primitives = FeatureDescription(
+        title: "New Primitives",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

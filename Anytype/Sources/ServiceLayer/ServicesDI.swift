@@ -24,6 +24,10 @@ extension Container {
         self { SingleObjectSubscriptionService() }
     }
     
+    var objectIdsSubscriptionService: Factory<any ObjectIdsSubscriptionServiceProtocol> {
+        self { ObjectIdsSubscriptionService() }
+    }
+    
     var loginStateService: Factory<any LoginStateServiceProtocol> {
         self { LoginStateService() }.singleton
     }
@@ -320,11 +324,35 @@ extension Container {
         self { AllContentStateStorageService() }.shared
     }
     
+    var chatActionService: Factory<any ChatActionServiceProtocol> {
+        self { ChatActionService() }
+    }
+    
     var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
         self { AppVersionTracker() }.shared
     }
     
     var userWarningAlertsHandler: Factory<any UserWarningAlertsHandlerProtocol> {
         self { UserWarningAlertsHandler() }.shared
+    }
+    
+    var videoPreviewStorage: Factory<any VideoPreviewStorageProtocol> {
+        self { VideoPreviewStorage() }.singleton
+    }
+    
+    var dateRelatedObjectsSubscriptionService: Factory<any DateRelatedObjectsSubscriptionServiceProtocol> {
+        self { DateRelatedObjectsSubscriptionService() }.shared
+    }
+    
+    var objectsListSubscriptionService: Factory<any ObjectsListSubscriptionServiceProtocol> {
+        self { ObjectsListSubscriptionService() }
+    }
+    
+    var setByTypeSubscriptionService: Factory<any SetByTypeSubscriptionServiceProtocol> {
+        self { SetByTypeSubscriptionService() }
+    }
+    
+    var mentionTextUpdateHandler: Factory<any MentionTextUpdateHandlerProtocol> {
+        self { MentionTextUpdateHandler() }
     }
 }

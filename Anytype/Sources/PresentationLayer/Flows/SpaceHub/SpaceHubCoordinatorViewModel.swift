@@ -20,10 +20,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var spaceJoinData: SpaceJoinModuleData?
     @Published var membershipNameFinalizationData: MembershipTier?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
-    @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
-    @Published var showChangeTypeData: WidgetTypeChangeData?
-    @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
-    @Published var showSpaceSettingsData: AccountInfo?
     @Published var toastBarData = ToastBarData.empty
     
     @Published var currentSpaceId: String?
@@ -33,8 +29,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     var fallbackSpaceId: String? {
-        userDefaults.lastOpenedScreen?.spaceId ?? participantSpacesStorage.activeParticipantSpaces.first?.id
+        userDefaults.lastOpenedScreen?.spaceId ?? fallbackSpaceView?.targetSpaceId
     }
+    @Published private var fallbackSpaceView: SpaceView?
     
     @Published var pathChanging: Bool = false
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
@@ -68,8 +65,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
-    @Injected(\.legacySetObjectCreationCoordinator)
-    private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.workspaceStorage)
@@ -89,12 +84,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Injected(\.userWarningAlertsHandler)
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     
-    private var membershipStatusSubscription: AnyCancellable?
     private var needSetup = true
     
-    init() {
-        startSubscriptions()
-    }
+    init() { }
     
     func onManageSpacesSelected() {
         showSpaceManager = true
@@ -116,19 +108,22 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     // MARK: - Setup
     func setup() async {
-        guard needSetup else { return }
+        if needSetup {
+            await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
+            await setupInitialScreen()
+            await handleVersionAlerts()
+            needSetup = false
+        }
         
-        await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
-        await setupInitialScreen()
-        await handleVersionAlerts()
-        
-        needSetup = false
+        await startSubscriptions()
     }
     
     func startSubscriptions() async {
-        async let subscription1: () = startHandleWorkspaceInfo()
-        async let subscription2: () = startHandleAppActions()
-        (_,_) = await (subscription1, subscription2)
+        async let workspaceInfoSub: () = startHandleWorkspaceInfo()
+        async let appActionsSub: () = startHandleAppActions()
+        async let membershipSub: () = startHandleMembershipStatus()
+        async let spaceInfoSub: () = startHandleSpaceInfo()
+        (_,_,_,_) = await (workspaceInfoSub, appActionsSub, membershipSub, spaceInfoSub)
     }
     
     func setupInitialScreen() async {
@@ -153,11 +148,26 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
-    func startHandleWorkspaceInfo() async {
+    private func startHandleWorkspaceInfo() async {
         activeSpaceManager.startSubscription()
         for await info in activeSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
         }
+    }
+    
+    private func startHandleSpaceInfo() async {
+        for await spaces in participantSpacesStorage.activeParticipantSpacesPublisher.values {
+            fallbackSpaceView = spaces.first?.spaceView
+        }
+    }
+    
+    func startHandleMembershipStatus() async {
+        for await membership in Container.shared.membershipStatusStorage.resolve()
+            .statusPublisher.values {
+                guard membership.status == .pendingRequiresFinalization else { return }
+                
+                membershipNameFinalizationData = membership.tier
+            }
     }
     
     func handleVersionAlerts() async {
@@ -167,17 +177,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    
-    private func startSubscriptions() {
-        membershipStatusSubscription = Container.shared
-            .membershipStatusStorage.resolve()
-            .statusPublisher.receiveOnMain()
-            .sink { [weak self] membership in
-                guard membership.status == .pendingRequiresFinalization else { return }
-                
-                self?.membershipNameFinalizationData = membership.tier
-            }
-    }
 
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
         TypeSearchForNewObjectCoordinatorView(spaceId: spaceId) { [weak self] details in
@@ -197,10 +196,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     private func push(data: EditorScreenData) async throws {
         if let objectId = data.objectId { // validate in case of object
-            let document = documentsProvider.document(objectId: objectId, mode: .preview)
+            let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
             guard let details = document.details else { return }
-            guard details.isSupportedForEdit else {
+            guard details.isSupportedForOpening else {
                 toastBarData = ToastBarData(
                     text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none
                 )
@@ -273,16 +272,25 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
-        case .object(let objectId, _):
-            let document = documentsProvider.document(objectId: objectId, mode: .preview)
-            try await document.open()
-            guard let editorData = document.details?.editorScreenData() else { return }
-            try await push(data: editorData)
+        case let .object(objectId, spaceId, cid, key):
+            await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
         case .spaceShareTip:
             showSpaceShareTip = true
         case .membership(let tierId):
             guard accountManager.account.isInProdOrStagingNetwork else { return }
             membershipTierId = tierId.identifiable
+        }
+    }
+    
+    private func handleObjectDeelpink(objectId: String, spaceId: String, cid: String?, key: String?) async {
+        let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
+        do {
+            try await document.open()
+            guard let editorData = document.details?.editorScreenData() else { return }
+            try? await push(data: editorData)
+        } catch let error {
+            guard let cid, let key else { return }
+            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
         }
     }
 
@@ -335,85 +343,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
 }
 
-extension SpaceHubCoordinatorViewModel: HomeWidgetsModuleOutput {
-    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        guard let spaceInfo else { return }
-        
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .end,
-            context: context
-        )
-    }
-        
-    func onObjectSelected(screenData: EditorScreenData) {
-        openObject(screenData: screenData)
-    }
-    
-    func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
-        guard let spaceInfo else { return }
-        
-        showChangeSourceData = WidgetChangeSourceSearchModuleModel(
-            widgetObjectId: spaceInfo.widgetsId,
-            spaceId: spaceInfo.accountSpaceId,
-            widgetId: widgetId,
-            context: context
-        )
-    }
-
-    func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
-        guard let spaceInfo else { return }
-        
-        showChangeTypeData = WidgetTypeChangeData(
-            widgetObjectId: spaceInfo.widgetsId,
-            widgetId: widgetId,
-            context: context,
-            onFinish: { [weak self] in
-                self?.showChangeTypeData = nil
-            }
-        )
-    }
-    
-    func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        guard let spaceInfo else { return }
-        
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .below(widgetId: widgetId),
-            context: context
-        )
-    }
-    
-    func onSpaceSelected() {
-        showSpaceSettingsData = spaceInfo
-    }
-    
-    func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
-    }
-    
-    func onFinishChangeSource(screenData: EditorScreenData?) {
-        showChangeSourceData = nil
-        if let screenData {
-            openObject(screenData: screenData)
-        }
-    }
-    
-    func onFinishCreateSource(screenData: EditorScreenData?) {
-        if let screenData {
-            openObject(screenData: screenData)
-        }
-    }
-}
-
-extension SpaceHubCoordinatorViewModel: SetObjectCreationCoordinatorOutput {   
-    func showEditorScreen(data: EditorScreenData) {
-        pushSync(data: data)
-    }
-}
-
 extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func onSearchSelected() {
         guard let spaceInfo else { return }
@@ -436,9 +365,9 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
     }
 
-    func onHomeSelected() {
+    func onWidgetsSelected() {
         guard !pathChanging else { return }
-        navigationPath.popToRoot()
+        navigationPath.popToFirstOpened()
     }
 
     func onForwardSelected() {

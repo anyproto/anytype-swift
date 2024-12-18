@@ -13,7 +13,8 @@ final class SlashMenuActionHandler {
     
     @Injected(\.pasteboardBlockDocumentService)
     private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
-    
+    @Injected(\.objectDateByTimestampService)
+    private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
     
     init(
         document: some BaseDocumentProtocol,
@@ -48,9 +49,14 @@ final class SlashMenuActionHandler {
                 router.showLinkTo { [weak self] details in
                     self?.actionHandler.addLink(targetDetails: details, blockId: blockInformation.id)
                 }
+            case .date:
+                textView?.shouldResignFirstResponder()
+                router.showDatePicker { [weak self] newDate in
+                    self?.handleDate(newDate, blockId: blockInformation.id)
+                }
             case .objectType(let object):
                 let spaceId = document.spaceId
-                AnytypeAnalytics.instance().logCreateLink(spaceId: spaceId)
+                AnytypeAnalytics.instance().logCreateLink(spaceId: spaceId, objectType: object.objectType.analyticsType)
                 try await actionHandler
                     .createPage(
                         targetId: blockInformation.id,
@@ -102,10 +108,21 @@ final class SlashMenuActionHandler {
         }
     }
     
+    private func handleDate(_ newDate: Date, blockId: String) {
+        Task {
+            let details = try? await objectDateByTimestampService.objectDateByTimestamp(
+                newDate.timeIntervalSince1970,
+                spaceId: document.spaceId
+            )
+            guard let details else { return }
+            actionHandler.addLink(targetDetails: details, blockId: blockId)
+        }
+    }
+    
     private func editorScreenData(objectId: String, objectDetails: ObjectDetails) -> EditorScreenData {
         let objectType = ObjectType(details: objectDetails)
         if objectType.isListType {
-            return .set(EditorSetObject(objectId: objectId, spaceId: objectType.spaceId))
+            return .list(EditorListObject(objectId: objectId, spaceId: objectType.spaceId))
         } else {
             return .page(EditorPageObject(objectId: objectId, spaceId: objectType.spaceId))
         }
@@ -195,7 +212,9 @@ final class SlashMenuActionHandler {
             actionHandler.duplicate(blockId: blockId, spaceId: document.spaceId)
         case .moveTo:
             router.showMoveTo { [weak self] details in
-                self?.actionHandler.moveToPage(blockId: blockId, pageId: details.id)
+                Task {
+                    try await self?.actionHandler.moveToPage(blockIds: [blockId], pageId: details.id)
+                }
             }
         case .copy:
             try await pasteboardService.copy(document: document, blocksIds: [blockId], selectedTextRange: NSRange())

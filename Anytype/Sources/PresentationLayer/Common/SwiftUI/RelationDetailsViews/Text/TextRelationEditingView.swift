@@ -87,7 +87,7 @@ struct TextRelationEditingView: View {
                 viewModel.onClear()
             } label: {
                 AnytypeText(Loc.clear, style: .uxBodyRegular)
-                    .foregroundColor(.Button.active)
+                    .foregroundColor(.Control.active)
             }
         } else {
             Spacer()
@@ -101,7 +101,7 @@ struct TextRelationEditingView: View {
                 viewModel.onPaste()
             } label: {
                 AnytypeText(Loc.paste, style: .uxBodyRegular)
-                    .foregroundColor(.Button.active)
+                    .foregroundColor(.Control.active)
             }
         } else {
             Spacer()
@@ -120,7 +120,7 @@ struct TextRelationEditingView: View {
                 } label: {
                     HStack(spacing: 0) {
                         Image(asset: model.iconAsset)
-                            .foregroundColor(model.isActionAvailable ? .Button.active : .Button.inactive)
+                            .foregroundColor(model.isActionAvailable ? .Control.active : .Control.inactive)
                         Spacer.fixedWidth(10)
                         AnytypeText(
                             model.title,

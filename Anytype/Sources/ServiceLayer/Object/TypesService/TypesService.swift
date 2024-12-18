@@ -43,6 +43,7 @@ final class TypesService: TypesServiceProtocol {
         includeLists: Bool,
         includeBookmarks: Bool,
         includeFiles: Bool,
+        includeChat: Bool,
         includeTemplates: Bool,
         incudeNotForCreation: Bool,
         spaceId: String
@@ -57,12 +58,15 @@ final class TypesService: TypesServiceProtocol {
         var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles : DetailsLayout.visibleLayouts
         
         if !includeLists {
-            layouts.removeAll(where: { $0 == .set })
-            layouts.removeAll(where: { $0 == .collection })
+            layouts.removeAll(where: { $0.isList })
         }
         
         if !includeBookmarks {
             layouts.removeAll(where: { $0 == .bookmark })
+        }
+        
+        if !includeChat {
+            layouts.removeAll(where: { $0 == .chat })
         }
         
         let filters: [DataviewFilter] = .builder {
@@ -94,13 +98,11 @@ final class TypesService: TypesServiceProtocol {
             relation: BundledRelationKey.lastUsedDate,
             type: .desc
         )
-                
-        let layouts: [DetailsLayout] = [.set, .collection]
         
         let filters: [DataviewFilter] = .builder {
             SearchFiltersBuilder.build(isArchived: false)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(layouts)
+            SearchHelper.recomendedLayoutFilter(DetailsLayout.listLayouts)
             SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
         

@@ -68,8 +68,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         covertPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func onSelectCodeLanguage(objectId: String, blockId: String) {
-        codeLanguageData = CodeLanguageListData(documentId: objectId, blockId: blockId)
+    func onSelectCodeLanguage(objectId: String, spaceId: String, blockId: String) {
+        codeLanguageData = CodeLanguageListData(documentId: objectId, spaceId: spaceId, blockId: blockId)
     }
     
     func showLinkToObject(data: LinkToObjectSearchModuleData) {
@@ -127,10 +127,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
             objectDetails: objectDetails,
-            analyticsType: .block,
-            onToastShow: { [weak self] message in
-                self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
-            }
+            analyticsType: .block
         )
     }
 }

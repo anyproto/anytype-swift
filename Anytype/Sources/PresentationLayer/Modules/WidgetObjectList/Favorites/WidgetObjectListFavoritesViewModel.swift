@@ -20,6 +20,10 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     // MARK: - State
     
     let title = Loc.favorites
+    let emptyStateData = WidgetObjectListEmptyStateData(
+        title: Loc.EmptyView.Default.title,
+        subtitle: Loc.EmptyView.Default.subtitle
+    )
     let editorScreenData: EditorScreenData
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher() }
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: true)
@@ -32,7 +36,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     }
     
     init(homeObjectId: String, spaceId: String) {
-        self.homeDocument = documentService.document(objectId: homeObjectId)
+        self.homeDocument = documentService.document(objectId: homeObjectId, spaceId: spaceId)
         self.editorScreenData = .favorites(homeObjectId: homeObjectId, spaceId: spaceId)
     }
     

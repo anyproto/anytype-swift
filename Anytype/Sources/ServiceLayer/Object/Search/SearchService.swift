@@ -53,10 +53,18 @@ final class SearchService: SearchServiceProtocol {
         )
         let filters: [DataviewFilter] = .builder {
             SearchHelper.includeIdsFilter(limitObjectIds)
-            SearchHelper.notHiddenFilters(includeHiddenDiscovery: false)
+            SearchHelper.notHiddenFilters()
         }
                 
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
+    }
+    
+    func searchObjects(spaceId: String, objectIds: [String]) async throws -> [ObjectDetails] {
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.includeIdsFilter(objectIds)
+        }
+                
+        return try await searchMiddleService.search(spaceId: spaceId, filters: filters, limit: 0)
     }
     
     func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails] {

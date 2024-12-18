@@ -39,7 +39,8 @@ struct WidgetContainerView<Content: View>: View {
         self.name = name
         self.icon = icon
         self.dragId = dragId
-        self.menuItems = menuItems
+        let numberOfWidgetLayouts = widgetObject.widgetInfo(blockId: widgetBlockId)?.source.availableWidgetLayout.count ?? 0
+        self.menuItems = numberOfWidgetLayouts > 1 ? menuItems : menuItems.filter { $0 != .changeType }
         self.onCreateObjectTap = onCreateObjectTap
         self.onHeaderTap = onHeaderTap
         self.content = content()

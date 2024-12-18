@@ -4,6 +4,7 @@ struct RelationsListRowView: View {
     
     @Binding var editingMode: Bool
     let starButtonAvailable: Bool
+    let showLocks: Bool
     let addedToObject: Bool
     let relation: Relation
     
@@ -56,9 +57,9 @@ struct RelationsListRowView: View {
                 .foregroundColor(.Text.secondary)
         } label: {
             HStack(spacing: 6) {
-                if !relation.isEditable {
+                if !relation.isEditable && showLocks {
                     Image(asset: .relationLocked)
-                        .tint(.Button.active)
+                        .tint(.Control.active)
                         .frame(width: 15, height: 12)
                 }
                 AnytypeText(relation.name, style: .relation1Regular)
@@ -123,6 +124,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             RelationsListRowView(
                 editingMode: .constant(false),
                 starButtonAvailable: true,
+                showLocks: true,
                 addedToObject: true,
                 relation: Relation.tag(
                     Relation.Tag(
@@ -168,6 +170,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             RelationsListRowView(
                 editingMode: .constant(false),
                 starButtonAvailable: true,
+                showLocks: true,
                 addedToObject: true,
                 relation: Relation.text(
                     Relation.Text(

@@ -15,6 +15,10 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     // MARK: - State
     
     let title = Loc.FilesList.title
+    let emptyStateData = WidgetObjectListEmptyStateData(
+        title: Loc.EmptyView.Default.title,
+        subtitle: Loc.EmptyView.Default.subtitle
+    )
     let editorScreenData: EditorScreenData = .favorites(homeObjectId: "", spaceId: "") // Is not used
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .editOnly
@@ -32,7 +36,7 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenSettingsStorageManager()
+        AnytypeAnalytics.instance().logScreenSettingsSpaceStorageManager()
         Task {
             await subscriptionService.startSubscription(syncStatus: .synced, spaceId: spaceId, objectLimit: nil, update: { [weak self] details in
                 self?.details = details

@@ -74,7 +74,7 @@
 "Create relation" = "Buat relasi ‘%@’";
 "Relation.View.Hint.Empty" = "kosong";
 "Relation.MyRelations" = "Relasiku";
-"Relation.AddedToLibrary" = "Relasi ‘%@’ ditambahkan ke pustakamu";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Relasi terhapus";
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.EmptyState.title" = "Tidak ada opsi";
@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Buat opsi";
 "Relation.View.Edit.title" = "Sunting opsi";
 "Relation.Create.Textfield.placeholder" = "Masukkan nama...";
-"Relation.Edit.Button.title" = "Terapkan";
-"Relation.Date.Locked.Alert.title" = "Relasi “%@” terkunci";
 "Relation.ObjectTypes.Header.title" = "Tipe objek:";
 "Relation.ObjectType.Header.title" = "Tipe objek:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Nomor telepon";
 
 "Relation.Search.View.Placeholder" = "Telusuri atau buat relasi baru";
+
+"Relation.Mention.title" = "Disebut di";
 
 // Origin Relation
 
@@ -152,6 +152,7 @@
 "Files" = "Berkas";
 "Media" = "Media";
 "Lists" = "Grup";
+"Dates" = "Tanggal";
 "Pinned" = "Tersemat";
 "Delete" = "Hapus";
 "Export" = "Ekspor";
@@ -190,6 +191,7 @@
 "Blue background" = "Latar belakang biru";
 "Green background" = "Latar belakang hijau";
 "Create new object" = "Buat objek baru";
+"Create new object with name" = "Buat objek baru \"%@\"";
 "Cancel" = "Batal";
 "Paste or type URL" = "Tempel atau ketik URL";
 "No items match filter" = "Tidak ada kecocokan";
@@ -206,12 +208,15 @@
 "Agreement Disclamer" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Lets Go" = "Mulai!";
 "My spaces" = "Ruangku";
+"Open file" = "Buka berkas";
+"Open Set" = "Buka Set";
+"Create Set" = "Buat Set";
 
 // Home
 "Favorites" = "Favorit";
 "Recent" = "Baru-Baru Ini";
 "Bin" = "Bak Sampah";
-"All objects" = "Semua objek";
+"All objects" = "Semua Objek";
 
 // Settings
 "Wallpaper" = "Latar belakang";
@@ -223,7 +228,7 @@
 // Keychain screen
 "Keychain.Key" = "Kunci";
 "Keychain.Key.Copy.Toast.title" = "Kunci disalin";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Key.description" = "Anda membutuhkannya untuk masuk. Simplanlah dalam tempat yang aman. Jika hilang, kamu tidak akan bisa mengakses brankasmu.";
 "Keychain.Show and copy key" = "Tampilkan dan salin kunci";
 "Keychain.Have you backed up your key?" = "Sudahkah kamu mencadangkan kuncimu?";
 "Keychain.Error.String to Data conversion error" = "Galat konversi String ke Data";
@@ -235,18 +240,19 @@
 "Create" = "Buat";
 "Scan QR code" = "Pindai kode QR";
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
+"Restore key from keychain" = "Pulihkan frasa dari rantai kunci";
+"Auth.LogIn" = "Saya punya Kunci";
 "Auth.Button.Join" = "Brankas Baru";
-"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
+"Auth.Welcome.Subtitle" = "Buat dan berkolaborasi dalam ruang milikmu. Terenkripsi, offline, dan [terbuka](%@).";
 "Auth.Next" = "Lanjut";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "Pemulihan brankas gagal, coba lagi";
+"Vault recover error no internet" = "Pemulihan brankas gagal, kemungkinan tidak ada koneksi internet
+";
 
 // Auth Errors
 "Error creating wallet" = "Galat membuat wallet";
-"Error select vault" = "Error select vault";
+"Error select vault" = "Galat memilih brankas";
 "Error wallet recover vault" = "Error wallet recover vault";
 "Wallet.Recovery.Error.description" = "Kunci tidak valid";
 
@@ -268,11 +274,11 @@
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Bagaimana menyimpan kunciku?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Cara termudah untuk menyimpan kuncimu adalah dengan menyimpannya di aplikasi pengelola sandi.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Sedangkan, cara yang paling aman adalah dengan menuliskannya pada secarik kertas dan menyimpan kertas itu di tempat yang aman.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "Siapa namamu?";
+"Auth.JoinFlow.Soul.Description" = "Hanya dapat dilihat oleh orang yang saling berbagi denganmu. Nama ini tidak disimpan secara sentral.";
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
@@ -290,12 +296,8 @@
 // Object settings
 
 "Icon" = "Ikon";
-"Emoji or image for object" = "Emoji atau gambar untuk objek";
 "Cover" = "Sampul";
-"Background picture" = "Gambar latar belakang";
 "Layout" = "Tata letak";
-"Arrangement of objects on a canvas" = "Susunan balok dalam kanvas";
-"ObjectSettings.History.Description" = "Semua versi objek ini";
 
 // Version history
 "VersionHistory.Title" = "Riwayat Versi";
@@ -322,6 +324,9 @@
 "Task" = "Tugas";
 "Note" = "Catatan";
 "Choose layout type" = "Pilih jenis tata letak";
+
+"Templates" = "Templat";
+"Header" = "Header";
 
 "Undo typing" = "Urungkan mengetik";
 "Undo" = "Urungkan";
@@ -354,8 +359,8 @@
 "Search.Links.Show.title" = "Tampilkan objek terkait";
 "Search.Links.Header.title" = "Terkait dengan: %@";
 "Search.Links.Swipe.title" = "Terkait dengan";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
-"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
+"GlobalSearch.EmptyState.subtitle" = "Buat objek baru atau telusuri yang lain";
+"GlobalSearch.EmptyFilteredState.title" = "Tidak ada objek terkait ditemukan";
 "GlobalSearch.Swipe.Tip.title" = "Objek terkait";
 "GlobalSearch.Swipe.Tip.subtitle" = "Gulir ke kiri untuk melihat objek terkait. Tindakan ini hanya bisa dilakukan pada objek yang memiliki objek terkait.";
 
@@ -389,7 +394,7 @@
 
 "TemplateEditing.Title" = "Sunting templat";
 
-"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
+"Templates.Popup.WasAddedTo.title" = "Templat baru ditambahkan ke tipe %@";
 "Templates.Popup.WasAddedTo" = "Templat baru ditambahkan ke tipe ini";
 "Templates.Popup.Duplicated" = "Templat digandakan";
 "Templates.Popup.Removed" = "Templat dihapus";
@@ -484,9 +489,6 @@
 "Set.FeaturedRelations.Relation" = "Relasi:";
 "Set.FeaturedRelations.Type" = "Tipe:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Terapkan";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Tempelkan tautan";
 "Set.Bookmark.Error.Message" = "Ups - terjadi kesalahan. Silakan coba lagi";
@@ -575,6 +577,7 @@
 
 "Limit object types" = "Batasi tipe objek";
 "Type" = "Tipe";
+"Types" = "Tipe";
 "No name" = "Tanpa nama";
 "New relation" = "Relasi baru";
 "Non-existent object" = "Objek tidak ada";
@@ -597,17 +600,17 @@
 "copied to clipboard" = "%@ tersalin ke papan klip";
 "Create object from clipboard" = "Buat objek dari papan kerani";
 "Access to key from keychain" = "Access to key from keychain";
-"Back up your key" = "Back up your key";
-"Vault" = "Vault";
+"Back up your key" = "Cadangkan kuncimu";
+"Vault" = "Brankas";
 "Access" = "Akses";
-"Back up key" = "Back up key";
+"Back up key" = "Cadangkan kunci";
 "Removing cache" = "Menghapus cache";
 "Deletion error" = "Kesalahan penghapusan ";
 "Start" = "Mulai";
 "On analytics" = "Tentang analitik";
-"Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
+"Select vault error" = "Galat memilih brankas";
+"Vault deleted" = "Brankas dihapus";
+"Vault.Select.Incompatible.Version.Error.Text" = "Kami tidak dapat mengambil data brankasmu karena versi aplikasi sudah kedaluwarsa. Silakan perbarui Anytype terlebih dahulu.";
 "Restore from keychain" = "Memulihkan dari rantai kunci";
 "Edit" = "Sunting";
 "In this object" = "Di objek ini";
@@ -616,7 +619,6 @@
 "Designed to capture thoughts quickly" = "Didesain untuk menangkap pemikiran dengan cepat";
 "Action-focused layout with a checkbox" = "Tata letak berfokus pada aksi dengan sebuah centang";
 "Standard layout for canvas blocks" = "Tata letak standar untuk blok kanvas";
-"List of related objects" = "Daftar dari objek yang berelasi";
 "Lock" = "Kunci";
 "Unlock" = "Buka kunci";
 "Favorite" = "Favorit";
@@ -628,8 +630,8 @@
 "Initializing sync" = "Memulai sinkron";
 "Incompatible version" = "Incompatible version";
 "Connecting" = "Menghubungkan …";
-"P2P Connecting" = "P2P Connecting...";
-"P2P Connection" = "P2P Connection";
+"P2P Connecting" = "Menghubungkan P2P …";
+"P2P Connection" = "Koneksi P2P";
 "Anytype Network" = "Jaringan Anytype";
 "Self Host" = "Swaladen";
 "Local Only" = "Hanya lokal";
@@ -664,7 +666,7 @@
 "View" = "Tampilan";
 "Home" = "Beranda";
 "Highlight" = "Menyorot";
-"Create object" = "Buat objek";
+"Create object" = "Buat Objek";
 "Web pages" = "Halaman web";
 "Preview layout" = "Pratinjau tata letak";
 "Everywhere" = "Dimana saja";
@@ -689,17 +691,23 @@
 "This object doesn't exist" = "Objek ini tidak ada";
 "Setting up encrypted storage\nPlease wait" = "Menyiapkan penyimpanan terenkripsi\nMohon tunggu";
 "These objects will be deleted irrevocably" = "Objek berikut akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
-"Delete vault" = "Delete vault";
+"Delete vault" = "Hapus brankas";
 "Cancel deletion" = "Batalkan penghapusan";
 "Logout and clear data" = "Keluar dan bersihkan data";
 "New" = "Baru";
 "Blurred icon" = "Ikon\n buram";
 "My First Space" = "Ruang Pertamaku";
 "Copy space info" = "Salin info ruang";
+"Save" = "Simpan";
+"Set of" = "Set dari %@";
+"New set" = "Set baru";
+"Show" = "Tampilkan";
+"Hide" = "Sembunyikan";
+"Apply" = "Terapkan";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+"DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
+"DeletionAlert.description" = "Kamu akan dikeluarkan pada semua perangkat. Kamu punya waktu 30 hari untuk membatalkan tindakan ini. Setelah itu, brankas akan dihapus secara permanen.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Tabel";
@@ -714,8 +722,9 @@
 "ObjectType.SearchOrInstall" = "Telusuri atau buat tipe baru";
 "ObjectType.Search" = "Telusuri Tipe";
 "ObjectType.MyTypes" = "Tipeku";
-"ObjectType.AddedToLibrary" = "Tipe '%@' ditambahkan ke perpustakaanmu";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Tipe yang terhapus";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Membuat %@";
@@ -865,7 +874,7 @@
 "Settings.Title" = "Setelan";
 "Settings.SpaceName" = "Nama Ruang";
 "Settings.SpaceType" = "Tipe ruang";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.VaultAndAccess" = "Brankas dan akses";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Penyimpanan berkas";
@@ -949,7 +958,7 @@
 "SpaceShare.Action.ViewRequest" = "Lihat permintaan";
 "SpaceShare.Action.Approve" = "Terima";
 "SpaceShare.DeleteSharingLink.Title" = "Hapus tautan";
-"SpaceShare.DeleteSharingLink.Message" = "Anggota baru tidak akan dapat bergabung ke ruang ini. Kamu bisa membuat tautan batu kapan saja";
+"SpaceShare.DeleteSharingLink.Message" = "Anggota baru tidak akan dapat bergabung ke ruang ini. Kamu bisa membuat tautan baru kapan saja";
 "SpaceShare.Approve.Toast" = "Kamu menyetujui permintaan %@.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Tambahkan sebagai pembaca";
@@ -1032,9 +1041,9 @@
 
 // MARK: - Space Share Tip
 "SpaceShare.Tip.Title" = "Collaborate on spaces";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.1" = "Ketuk gawit Ruang untuk mengakses setelan";
 "SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Steps.3" = "Buat tautan undangan lalu bagikan";
 
 // MARK: - Space Hub Tip
 "SpaceHub.Tip.Title3" = "Latar Belakang Dinamis";
@@ -1046,16 +1055,16 @@
 "SpaceHub.Tip.Text1" = "Brankas adalah rumah baru semua Ruangmu. Membuat, bergabung, atau berbagi Ruang—semuanya disimpan dengan aman di sini.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Pindah ruang lebih cepat";
-"SpaceSwitcher.Tip.Text" = "Tekan lama tombol kembali untuk berpindah ruang";
+"ReturnToWidgets.Tip.Title" = "Tekan Lama untuk Kembali ke Gawit";
+"ReturnToWidgets.Tip.Text" = "Tekan lama tombol kembali untuk kembali ke gawit alih-alih menekannya berkali-kali.";
 
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Peringatan";
 "Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Peringatan";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.Logout" = "Keluar dari brankas saat ini";
+"Initial.UnstableMiddle.Continue" = "Lanjutkan dengan brankas ini";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
@@ -1109,7 +1118,7 @@
 "Resend" = "Kirim ulang";
 "Resend in" = "Kirim ulang dalam %@ detik";
 "Current" = "Current";
-"Forever free" = "Forever free";
+"Forever free" = "Gratis selamanya";
 "Forever" = "Selamanya";
 "Valid until date" = "Berlaku hingga %@";
 "Your current status" = "Statusmu saat ini:";
@@ -1119,7 +1128,7 @@
 "Pay by Card" = "Bayar via kartu";
 "Min X characters" = "Minimal %@ karakter";
 "Pending" = "Pending...";
-"Manage payment" = "Manage payment";
+"Manage payment" = "Kelola pembayaran";
 "Change email" = "Ubah surel";
 "Email successfully validated" = "Surel berhasil divalidasi";
 "Confirm" = "Konfirmasi";
@@ -1215,7 +1224,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.UNRECOGNIZED" = "Galat tak dikenali";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
 "SyncStatus.P2P.NotConnected" = "Tidak terhubung";
-"SyncStatus.P2P.NotPossible" = "Connection not possible";
+"SyncStatus.P2P.NotPossible" = "Koneksi tidak memungkinkan";
 
 
 // MARK: - Debug
@@ -1224,20 +1233,45 @@ Please provide specific details of your needs here.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tambahkan Reaksi";
+"Message.Action.Reply" = "Balas";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
+"Message.ChatTitle.Placeholder" = "Obrolan Nirjudul";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "Belum ada apa-apa untuk tanggal ini";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
 "AllContent.Sort.DateUpdated" = "Tanggal diperbarui";
 "AllContent.Sort.DateCreated" = "Tanggal dibuat";
 "AllContent.Sort.Date.Asc" = "Terlama dahulu";
-"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Date.Desc" = "Terbaru dahulu";
 "AllContent.Sort.Name.Asc" = "A → Z";
 "AllContent.Sort.Name.Desc" = "Z → A";
 "AllContent.Settings.Unlinked.Title" = "Hanya objek nirtaut";
 "AllContent.Settings.Unlinked.Description" = "Objek yang tidak memiliki tautan langsung atau tautan balik ke objek lain di grafik.";
 "AllContent.Settings.ViewBin" = "Lihat Bak Sampah";
-"AllContent.Empty.State.title" = "It’s empty here.";
-"AllContent.Empty.State.subtitle" = "Create your first objects to get started.";
 "AllContent.Search.Empty.State.title" = "No results found.";
-"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+"AllContent.Search.Empty.State.subtitle" = "Coba cari dengan kata kunci yang lain.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Hanya penyunting yang dapat mengirim pesan. Hubungi pemilik ruang untuk meminta akses.";
+"Chat.ReplyTo" = "Balas %@";
+"Chat.Empty.Title" = "Belum ada pesan di sini …";
+"Chat.Empty.Description" = "Tulis pesan untuk memulai obrolan";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
+"ReindexingWarningAlert.Description" = "Kami menerapkan pustaka penelusuran baru untuk pencarian yang lebih cepat dan akurat.\nPengindeksan ulang membutuhkan waktu beberapa menit.";
+"ReindexingWarningAlert.Button" = "Mantap!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Di sini kosong.";
+"EmptyView.Default.subtitle" = "Buat objek pertamamu untuk memulai.";
+"EmptyView.Bin.title" = "Bak sampah kosong.";
+"EmptyView.Bin.subtitle" = "Kamu orangnya rapi dan tertata, ya?";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

@@ -26,7 +26,7 @@ extension ObjectType {
             return false
         }
         
-        return recommendedLayout.isTemplatesAvailable
+        return recommendedLayout.isEditorLayout
     }
 }
 

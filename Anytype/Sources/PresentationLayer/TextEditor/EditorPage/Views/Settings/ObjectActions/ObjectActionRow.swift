@@ -14,7 +14,7 @@ struct ObjectActionRow: View {
         label: {
             VStack(spacing: Constants.space) {
                 Image(asset: icon)
-                    .foregroundColor(.Button.active)
+                    .foregroundColor(.Control.active)
                     .frame(width: 52, height: 52)
                     .background(Color.Background.highlightedMedium)
                     .cornerRadius(10)

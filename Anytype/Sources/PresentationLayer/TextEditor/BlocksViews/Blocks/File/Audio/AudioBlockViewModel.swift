@@ -23,6 +23,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     let audioSessionService: any AudioSessionServiceProtocol
     
     let documentId: String
+    let spaceId: String
     let showAudioPicker: (String) -> ()
 
     // Player properties
@@ -34,16 +35,18 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     private var documentService: any OpenedDocumentsProviderProtocol
     
     lazy var document: any BaseDocumentProtocol = {
-        documentService.document(objectId: documentId)
+        documentService.document(objectId: documentId, spaceId: spaceId)
     }()
     
     init(
         documentId: String,
+        spaceId: String,
         informationProvider: BlockModelInfomationProvider,
         audioSessionService: some AudioSessionServiceProtocol,
         showAudioPicker: @escaping (String) -> ()
     ) {
         self.documentId = documentId
+        self.spaceId = spaceId
         self.informantionProvider = informationProvider
         self.audioSessionService = audioSessionService
         self.showAudioPicker = showAudioPicker

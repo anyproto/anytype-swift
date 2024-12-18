@@ -131,10 +131,10 @@ final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
     
-    public func moveToPage(objectId: String, blockId: String, pageId: String) async throws {
+    public func moveToPage(objectId: String, blockIds: [String], pageId: String) async throws {
         try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = objectId
-            $0.blockIds = [blockId]
+            $0.blockIds = blockIds
             $0.targetContextID = pageId
             $0.dropTargetID = ""
             $0.position = .bottom
@@ -152,10 +152,11 @@ final class BlockService: BlockServiceProtocol {
         }).invoke()
     }
     
-    public func lastBlockId(from objectId: String) async throws -> String {
+    public func lastBlockId(from objectId: String, spaceId: String) async throws -> String {
         let objectShow = try await ClientCommands.objectShow(.with {
             $0.contextID = objectId
             $0.objectID = objectId
+            $0.spaceID = spaceId
         }).invoke()
         
 

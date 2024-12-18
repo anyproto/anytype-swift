@@ -7,9 +7,10 @@ struct ObjectSettingsView: View {
     
     init(
         objectId: String,
+        spaceId: String,
         output: some ObjectSettingsModelOutput
     ) {
-        self._viewModel = StateObject(wrappedValue: ObjectSettingsViewModel(objectId: objectId, output: output))
+        self._viewModel = StateObject(wrappedValue: ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output))
     }
     
     var body: some View {
@@ -23,7 +24,11 @@ struct ObjectSettingsView: View {
             
             settingsList
 
-            ObjectActionsView(objectId: viewModel.objectId, output: viewModel)
+            ObjectActionsView(
+                objectId: viewModel.objectId,
+                spaceId: viewModel.spaceId,
+                output: viewModel
+            )
         }
         .task {
             await viewModel.startDocumentTask()
@@ -41,12 +46,14 @@ struct ObjectSettingsView: View {
     }
     
     private func mainSetting(index: Int) -> some View {
-        ObjectSettingRow(setting: viewModel.settings[index], isLast: index == viewModel.settings.count - 1) {
+        ObjectSettingRow(setting: viewModel.settings[index], showDivider: index != viewModel.settings.count - 1) {
             switch viewModel.settings[index] {
             case .icon:
                 viewModel.onTapIconPicker()
             case .cover:
                 viewModel.onTapCoverPicker()
+            case .description:
+                try await viewModel.onTapDescription()
             case .layout:
                 viewModel.onTapLayoutPicker()
             case .relations:

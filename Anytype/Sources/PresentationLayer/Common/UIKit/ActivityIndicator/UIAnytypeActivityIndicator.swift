@@ -14,11 +14,11 @@ final class UIAnytypeActivityIndicator: UIView {
 
     // MARK: - Public properties
     
-    var circleColor: UIColor = .Button.inactive {
+    var circleColor: UIColor = .Control.inactive {
         didSet { updateColors() }
     }
 
-    var indicatorColor: UIColor = .Button.active {
+    var indicatorColor: UIColor = .Control.active {
         didSet { updateColors() }
     }
     

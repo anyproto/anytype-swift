@@ -75,7 +75,7 @@ struct RelationListContainerView<Content>: View where Content: View {
             onClear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
         }
     }
     
@@ -83,7 +83,7 @@ struct RelationListContainerView<Content>: View where Content: View {
         Button {
             onCreate(nil)
         } label: {
-            Image(asset: .X32.plus).foregroundColor(.Button.active)
+            Image(asset: .X32.plus).foregroundColor(.Control.active)
         }
     }
     
@@ -92,7 +92,7 @@ struct RelationListContainerView<Content>: View where Content: View {
             onCreate(searchText)
         } label: {
             HStack(spacing: 10) {
-                Image(asset: .X32.plus).foregroundColor(.Button.active)
+                Image(asset: .X32.plus).foregroundColor(.Control.active)
                 AnytypeText(Loc.Relation.Create.Row.title(searchText), style: .uxBodyRegular)
                     .foregroundColor(.Text.primary)
             }
@@ -116,6 +116,7 @@ struct RelationListContainerView<Content>: View where Content: View {
         EmptyStateView(
             title: Loc.Relation.EmptyState.title,
             subtitle: Loc.Relation.EmptyState.description,
+            style: .withImage,
             buttonData: EmptyStateView.ButtonData(
                 title: Loc.create,
                 action: { onCreate(nil) }

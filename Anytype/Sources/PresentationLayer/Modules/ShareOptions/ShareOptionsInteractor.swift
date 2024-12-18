@@ -122,7 +122,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             origin: .sharingExtension,
             templateId: nil
         )
-        let lastBlockInDocument = try await blockService.lastBlockId(from: newObject.id)
+        let lastBlockInDocument = try await blockService.lastBlockId(from: newObject.id, spaceId: newObject.spaceId)
         _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected(blockIds: [lastBlockInDocument]))
         
         AnytypeAnalytics.instance().logCreateObject(
@@ -134,7 +134,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createFileObject(url: URL, spaceId: String) async throws -> FileDetails {
-        let data = FileData(path: url.relativePath, isTemporary: false)
+        let data = FileData(path: url.relativePath, type: .data, isTemporary: false)
         let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
         
         AnytypeAnalytics.instance().logCreateObject(
@@ -146,7 +146,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createTextBlock(text: String, addToObject: ObjectDetails, logAnalytics: Bool) async throws {
-        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
         let newBlockId = try await blockService.add(
             contextId: addToObject.id,
             targetId: lastBlockInDocument,
@@ -161,7 +161,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
     private func createBookmarkBlock(url: URL, addToObject: ObjectDetails, logAnalytics: Bool) async throws {
         let blockInformation = url.attributedString.blockInformation
-        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
         _ = try await blockService.add(
             contextId: addToObject.id,
             targetId: lastBlockInDocument,
@@ -174,10 +174,10 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createFileBlock(fileURL: URL, addToObject: ObjectDetails, logAnalytics: Bool) async throws {
-        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id)
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
         let fileDetails = try await fileService.uploadFileObject(
             spaceId: addToObject.spaceId,
-            data: FileData(path: fileURL.relativePath, isTemporary: false),
+            data: FileData(path: fileURL.relativePath, type: .data, isTemporary: false),
             origin: .sharingExtension
         )
         let blockInformation = BlockInformation.file(fileDetails: fileDetails)
@@ -205,7 +205,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                     objectIds: [newObjectId]
                 )
         } else {
-            let lastBlockInDocument = try await blockService.lastBlockId(from: linkToObject.id)
+            let lastBlockInDocument = try await blockService.lastBlockId(from: linkToObject.id, spaceId: linkToObject.spaceId)
             _ = try await blockService.add(
                 contextId: linkToObject.id,
                 targetId: lastBlockInDocument,

@@ -1,4 +1,5 @@
 import Services
+import Foundation
 import AnytypeCore
 
 enum EditorScreenData: Hashable, Codable {
@@ -9,9 +10,10 @@ enum EditorScreenData: Hashable, Codable {
     case collections(spaceId: String)
     case bin(spaceId: String)
     case page(EditorPageObject)
-    case set(EditorSetObject)
-    case discussion(EditorDiscussionObject)
+    case list(EditorListObject)
+    case date(EditorDateObject)
     case allContent(spaceId: String)
+    case type(EditorTypeObject)
 }
 
 struct EditorPageObject: Hashable, Codable {
@@ -36,7 +38,7 @@ struct EditorPageObject: Hashable, Codable {
     }
 }
 
-struct EditorSetObject: Hashable, Codable {
+struct EditorListObject: Hashable, Codable {
     let objectId: String
     let spaceId: String
     let activeViewId: String?
@@ -61,8 +63,8 @@ struct EditorSetObject: Hashable, Codable {
     }
 }
 
-struct EditorDiscussionObject: Hashable, Codable {
-    let objectId: String
+struct EditorDateObject: Hashable, Codable {
+    let date: Date?
     let spaceId: String
 }
 
@@ -71,7 +73,16 @@ struct EditorInlineSetObject: Hashable, Codable {
     let targetObjectID: String
 }
 
+struct EditorTypeObject: Hashable, Codable, Identifiable {
+    let objectId: String
+    let spaceId: String
+    
+    var id: String { spaceId + objectId } 
+}
+
 enum EditorViewType {
     case page
-    case set
+    case list
+    case date
+    case type
 }

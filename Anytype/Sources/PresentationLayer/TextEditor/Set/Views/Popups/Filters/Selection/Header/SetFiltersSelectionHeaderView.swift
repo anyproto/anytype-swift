@@ -13,7 +13,7 @@ struct SetFiltersSelectionHeaderView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.Background.highlightedMedium)
                 Image(asset: viewModel.headerConfiguration.iconAsset)
-                    .foregroundColor(.Button.active)
+                    .foregroundColor(.Control.active)
             }
             .frame(width: 48, height: 48)
             

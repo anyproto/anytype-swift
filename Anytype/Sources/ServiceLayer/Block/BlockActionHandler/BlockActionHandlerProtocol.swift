@@ -15,7 +15,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func toggle(blockId: String)
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [String])
     func delete(blockIds: [String])
-    func moveToPage(blockId: String, pageId: String)
+    func moveToPage(blockIds: [String], pageId: String) async throws
     func createEmptyBlock(parentId: String, spaceId: String)
     func addLink(targetDetails: ObjectDetails, blockId: String)
     func changeMarkup(blockIds: [String], markType: MarkupType)

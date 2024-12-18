@@ -69,7 +69,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: accountManager.account.info.profileObjectID)
+        output?.onChangeIconSelected(objectId: accountManager.account.info.profileObjectID, spaceId: accountManager.account.info.techSpaceId)
     }
     
     func onSpacesTap() {

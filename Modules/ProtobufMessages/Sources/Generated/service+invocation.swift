@@ -454,6 +454,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceSetOrder(
+        _ request: Anytype_Rpc.Space.SetOrder.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.SetOrder.Request, Anytype_Rpc.Space.SetOrder.Response> {
+        return Invocation(messageName: "SpaceSetOrder", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceSetOrder(requestData) ?? Data()
+            return try Anytype_Rpc.Space.SetOrder.Response(serializedData: responseData)
+        }
+    }
+
+    public static func spaceUnsetOrder(
+        _ request: Anytype_Rpc.Space.UnsetOrder.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.UnsetOrder.Request, Anytype_Rpc.Space.UnsetOrder.Response> {
+        return Invocation(messageName: "SpaceUnsetOrder", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceUnsetOrder(requestData) ?? Data()
+            return try Anytype_Rpc.Space.UnsetOrder.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectOpen(
         _ request: Anytype_Rpc.Object.Open.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.Open.Request, Anytype_Rpc.Object.Open.Response> {
@@ -911,6 +931,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectImportExperience(requestData) ?? Data()
             return try Anytype_Rpc.Object.ImportExperience.Response(serializedData: responseData)
+        }
+    }
+
+    public static func objectDateByTimestamp(
+        _ request: Anytype_Rpc.Object.DateByTimestamp.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.DateByTimestamp.Request, Anytype_Rpc.Object.DateByTimestamp.Response> {
+        return Invocation(messageName: "ObjectDateByTimestamp", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectDateByTimestamp(requestData) ?? Data()
+            return try Anytype_Rpc.Object.DateByTimestamp.Response(serializedData: responseData)
         }
     }
 

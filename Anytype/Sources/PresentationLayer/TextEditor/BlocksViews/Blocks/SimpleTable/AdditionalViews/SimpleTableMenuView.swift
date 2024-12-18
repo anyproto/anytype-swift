@@ -77,7 +77,7 @@ struct SimpleTableMenuView: View {
                 item.title,
                 style: .subheading
             )
-            .foregroundColor(item.isSelected ? Color.Button.button : Color.Button.active)
+            .foregroundColor(item.isSelected ? Color.Control.button : Color.Control.active)
         }
     }
 }

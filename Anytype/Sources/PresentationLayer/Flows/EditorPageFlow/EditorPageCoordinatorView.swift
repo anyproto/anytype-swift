@@ -59,6 +59,7 @@ struct EditorPageCoordinatorView: View {
             .anytypeSheet(item: $model.settingsOutput) {
                 ObjectSettingsCoordinatorView(
                     objectId: model.data.objectId,
+                    spaceId: model.data.spaceId,
                     output: $0.value
                 )
             }

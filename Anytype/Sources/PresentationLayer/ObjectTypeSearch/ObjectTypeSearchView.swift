@@ -43,6 +43,9 @@ struct ObjectTypeSearchView: View {
         .task {
             viewModel.onAppear()
         }
+        .task {
+            await viewModel.subscribeOnParticipant()
+        }
     }
     
     private var pasteButton: some View {
@@ -52,7 +55,7 @@ struct ObjectTypeSearchView: View {
                     viewModel.createObjectFromClipboard()
                 } label: {
                     HStack(spacing: 6) {
-                        Image(asset: .X24.clipboard).foregroundColor(.Button.active)
+                        Image(asset: .X24.clipboard).foregroundColor(.Control.active)
                         AnytypeText(Loc.createObjectFromClipboard, style: .caption1Medium)
                             .foregroundColor(.Text.secondary)
                         Spacer()
@@ -73,10 +76,11 @@ struct ObjectTypeSearchView: View {
                 EmptyStateView(
                     title: Loc.nothingFound,
                     subtitle: Loc.noTypeFoundText(viewModel.searchText),
-                    buttonData: EmptyStateView.ButtonData(
+                    style: .plain,
+                    buttonData: viewModel.participantCanEdit ? EmptyStateView.ButtonData(
                         title: Loc.createType,
                         action: { viewModel.createType(name: viewModel.searchText) }
-                    )
+                    ) : nil
                 )
             }
         }
@@ -171,7 +175,7 @@ struct ObjectTypeSearchView: View {
             }
         }
         
-        let isNotListLayout = data.type.recommendedLayout.flatMap { !DetailsLayout.setLayouts.contains($0) } ?? false
+        let isNotListLayout = data.type.recommendedLayout.flatMap { !$0.isList } ?? false
         let canSetAsDefault = !data.isDefault && data.type.canCreateObjectOfThisType && isNotListLayout
         
         if  canSetAsDefault {

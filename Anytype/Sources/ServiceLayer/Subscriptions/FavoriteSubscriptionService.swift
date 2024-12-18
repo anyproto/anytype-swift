@@ -62,7 +62,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
             }
         
             guard let childDetails = document.detailsStorage.get(id: link.targetBlockID),
-                  childDetails.isFavorite, childDetails.isNotDeletedAndSupportedForEdit else { continue }
+                  childDetails.isFavorite, childDetails.isNotDeletedAndSupportedForOpening else { continue }
 
             details.append(FavoriteBlockDetails(blockId: info.id, details: childDetails))
         }

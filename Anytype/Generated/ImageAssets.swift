@@ -30,9 +30,16 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  enum Chat {
+    enum SendMessage {
+      static let active = ImageAsset.bundle(name: "Chat/SendMessage/active")
+      static let inactive = ImageAsset.bundle(name: "Chat/SendMessage/inactive")
+    }
+  }
   enum EmptyIcon {
     static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
-    static let discussion = ImageAsset.bundle(name: "EmptyIcon/discussion")
+    static let chat = ImageAsset.bundle(name: "EmptyIcon/chat")
+    static let date = ImageAsset.bundle(name: "EmptyIcon/date")
     static let list = ImageAsset.bundle(name: "EmptyIcon/list")
     static let objectType = ImageAsset.bundle(name: "EmptyIcon/objectType")
     static let page = ImageAsset.bundle(name: "EmptyIcon/page")
@@ -64,6 +71,7 @@ internal extension ImageAsset {
   }
   enum ObjectSettings {
     static let cover = ImageAsset.bundle(name: "ObjectSettings/Cover")
+    static let description = ImageAsset.bundle(name: "ObjectSettings/Description")
     static let history = ImageAsset.bundle(name: "ObjectSettings/History")
     static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
     static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
@@ -129,10 +137,10 @@ internal extension ImageAsset {
     }
     static let help = ImageAsset.bundle(name: "x18/Help")
     static let listArrow = ImageAsset.bundle(name: "x18/List Arrow")
+    static let list = ImageAsset.bundle(name: "x18/List")
     static let lock = ImageAsset.bundle(name: "x18/Lock")
     static let objectWithoutIcon = ImageAsset.bundle(name: "x18/Object Without Icon")
     static let search = ImageAsset.bundle(name: "x18/Search")
-    static let setOrCollection = ImageAsset.bundle(name: "x18/Set Or Collection")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
     static let updateApp = ImageAsset.bundle(name: "x18/Update App")
     static let webLink = ImageAsset.bundle(name: "x18/Web link")
@@ -155,11 +163,12 @@ internal extension ImageAsset {
     }
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
     static let blur = ImageAsset.bundle(name: "x24/Blur")
+    static let burger = ImageAsset.bundle(name: "x24/Burger")
+    static let calendar = ImageAsset.bundle(name: "x24/Calendar")
     static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
     static let clipboard = ImageAsset.bundle(name: "x24/Clipboard")
     static let close = ImageAsset.bundle(name: "x24/Close")
     static let copy = ImageAsset.bundle(name: "x24/Copy")
-    static let customizeView = ImageAsset.bundle(name: "x24/Customize View")
     static let database = ImageAsset.bundle(name: "x24/Database")
     static let date = ImageAsset.bundle(name: "x24/Date")
     static let edit = ImageAsset.bundle(name: "x24/Edit")
@@ -171,6 +180,7 @@ internal extension ImageAsset {
       static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
     }
     static let folder = ImageAsset.bundle(name: "x24/Folder")
+    static let mention = ImageAsset.bundle(name: "x24/Mention")
     static let more = ImageAsset.bundle(name: "x24/More")
     static let multiselect = ImageAsset.bundle(name: "x24/Multiselect")
     static let name = ImageAsset.bundle(name: "x24/Name")
@@ -187,6 +197,7 @@ internal extension ImageAsset {
     static let replace = ImageAsset.bundle(name: "x24/Replace")
     static let search = ImageAsset.bundle(name: "x24/Search")
     static let select = ImageAsset.bundle(name: "x24/Select")
+    static let settings = ImageAsset.bundle(name: "x24/Settings")
     static let sharing = ImageAsset.bundle(name: "x24/Sharing")
     static let status = ImageAsset.bundle(name: "x24/Status")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
@@ -226,8 +237,10 @@ internal extension ImageAsset {
       static let `right` = ImageAsset.bundle(name: "x32/Arrow/Right")
       static let up = ImageAsset.bundle(name: "x32/Arrow/Up")
     }
+    static let attachment = ImageAsset.bundle(name: "x32/Attachment")
     static let audo = ImageAsset.bundle(name: "x32/Audo")
     static let bookmark = ImageAsset.bundle(name: "x32/Bookmark")
+    static let chat = ImageAsset.bundle(name: "x32/Chat")
     static let clear = ImageAsset.bundle(name: "x32/Clear")
     static let color = ImageAsset.bundle(name: "x32/Color")
     static let copy = ImageAsset.bundle(name: "x32/Copy")
@@ -281,7 +294,6 @@ internal extension ImageAsset {
     static let replace = ImageAsset.bundle(name: "x32/Replace")
     static let restore = ImageAsset.bundle(name: "x32/Restore")
     static let search = ImageAsset.bundle(name: "x32/Search")
-    static let sendMessage = ImageAsset.bundle(name: "x32/Send Message")
     static let slashMenu = ImageAsset.bundle(name: "x32/Slash Menu")
     static let sort = ImageAsset.bundle(name: "x32/Sort")
     static let style = ImageAsset.bundle(name: "x32/Style")
@@ -298,6 +310,7 @@ internal extension ImageAsset {
       static let view = ImageAsset.bundle(name: "x32/View/View")
     }
     static let view = ImageAsset.bundle(name: "x32/View")
+    static let widgets = ImageAsset.bundle(name: "x32/Widgets")
   }
   enum X40 {
     static let actions = ImageAsset.bundle(name: "x40/Actions")

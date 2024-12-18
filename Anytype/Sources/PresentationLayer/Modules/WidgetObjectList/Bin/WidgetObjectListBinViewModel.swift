@@ -15,6 +15,10 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     // MARK: - State
     
     let title = Loc.bin
+    let emptyStateData = WidgetObjectListEmptyStateData(
+        title: Loc.EmptyView.Bin.title,
+        subtitle: Loc.EmptyView.Bin.subtitle
+    )
     let editorScreenData: EditorScreenData
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)

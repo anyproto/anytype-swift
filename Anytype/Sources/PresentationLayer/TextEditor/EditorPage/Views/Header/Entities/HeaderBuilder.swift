@@ -10,11 +10,11 @@ enum HeaderBuilder {
     ) -> ObjectHeader {
         let layoutAlign = details.layoutAlignValue
         
-        if details.layoutValue == .note {
+        if details.layoutValue.isNote {
             return .empty(usecase: presentationUsecase, onTap: {})
         }
         
-        let icon = DetailsLayout.layoutsWithIcon.contains(details.layoutValue) ? details.objectIcon : nil
+        let icon = details.layoutValue.haveIcon ? details.objectIcon : nil
         
         if let icon = icon, let cover = details.documentCover {
             return .filled(state:

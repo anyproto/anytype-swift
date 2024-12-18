@@ -30,7 +30,7 @@ struct SearchBar: View {
     private var overlay: some View {
         HStack() {
             Image(asset: .X18.search)
-                .foregroundColor(.Button.active)
+                .foregroundColor(.Control.active)
                 .padding(.leading, 9)
             
             Spacer()
@@ -39,7 +39,7 @@ struct SearchBar: View {
                 Button(action: { text = "" }) {
                     Image(asset: .multiplyCircleFill)
                         .renderingMode(.template)
-                        .foregroundColor(.Button.active)
+                        .foregroundColor(.Control.active)
                         .padding(.trailing, 8)
                 }
             }

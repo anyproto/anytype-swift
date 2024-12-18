@@ -21,10 +21,10 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal enum Dark {
-    static let amber = ColorAsset(name: "Dark/amber")
     static let blue = ColorAsset(name: "Dark/blue")
     static let green = ColorAsset(name: "Dark/green")
     static let grey = ColorAsset(name: "Dark/grey")
+    static let orange = ColorAsset(name: "Dark/orange")
     static let pink = ColorAsset(name: "Dark/pink")
     static let purple = ColorAsset(name: "Dark/purple")
     static let red = ColorAsset(name: "Dark/red")
@@ -33,10 +33,10 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "Dark/yellow")
   }
   internal enum Light {
-    static let amber = ColorAsset(name: "Light/amber")
     static let blue = ColorAsset(name: "Light/blue")
     static let green = ColorAsset(name: "Light/green")
     static let grey = ColorAsset(name: "Light/grey")
+    static let orange = ColorAsset(name: "Light/orange")
     static let pink = ColorAsset(name: "Light/pink")
     static let purple = ColorAsset(name: "Light/purple")
     static let red = ColorAsset(name: "Light/red")
@@ -61,10 +61,10 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "System/yellow")
   }
   internal enum VeryLight {
-    static let amber = ColorAsset(name: "VeryLight/amber")
     static let blue = ColorAsset(name: "VeryLight/blue")
     static let green = ColorAsset(name: "VeryLight/green")
     static let grey = ColorAsset(name: "VeryLight/grey")
+    static let orange = ColorAsset(name: "VeryLight/orange")
     static let pink = ColorAsset(name: "VeryLight/pink")
     static let purple = ColorAsset(name: "VeryLight/purple")
     static let red = ColorAsset(name: "VeryLight/red")
@@ -72,11 +72,14 @@ internal enum Asset {
     static let teal = ColorAsset(name: "VeryLight/teal")
     static let yellow = ColorAsset(name: "VeryLight/yellow")
   }
+
+  // MARK: - Custom
   internal enum Additional {
     internal enum Indicator {
       static let selected = ColorAsset(name: "Additional/Indicator/selected")
       static let unselected = ColorAsset(name: "Additional/Indicator/unselected")
     }
+    static let messageInputShadow = ColorAsset(name: "Additional/messageInputShadow")
     static let separator = ColorAsset(name: "Additional/separator")
     static let space = ColorAsset(name: "Additional/space")
   }
@@ -91,13 +94,9 @@ internal enum Asset {
     static let modalContent = ColorAsset(name: "Auth/modalContent")
     static let text = ColorAsset(name: "Auth/text")
   }
-  internal enum Background {
-    static let black = ColorAsset(name: "Background/black")
-    static let highlightedLight = ColorAsset(name: "Background/highlightedLight")
-    static let highlightedMedium = ColorAsset(name: "Background/highlightedMedium")
-    static let material = ColorAsset(name: "Background/material")
-    static let primary = ColorAsset(name: "Background/primary")
-    static let secondary = ColorAsset(name: "Background/secondary")
+  internal enum BackgroundCustom {
+    static let black = ColorAsset(name: "BackgroundCustom/black")
+    static let material = ColorAsset(name: "BackgroundCustom/material")
   }
   internal enum BottomAlert {
     static let blueEnd = ColorAsset(name: "BottomAlert/blueEnd")
@@ -106,13 +105,6 @@ internal enum Asset {
     static let greenStart = ColorAsset(name: "BottomAlert/greenStart")
     static let redEnd = ColorAsset(name: "BottomAlert/redEnd")
     static let redStart = ColorAsset(name: "BottomAlert/redStart")
-  }
-  internal enum Button {
-    static let accent = ColorAsset(name: "Button/accent")
-    static let active = ColorAsset(name: "Button/active")
-    static let button = ColorAsset(name: "Button/button")
-    static let inactive = ColorAsset(name: "Button/inactive")
-    static let white = ColorAsset(name: "Button/white")
   }
   internal enum CoverGradients {
     static let blueEnd = ColorAsset(name: "CoverGradients/blueEnd")
@@ -157,13 +149,33 @@ internal enum Asset {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")
   }
-  internal enum Navigation {
-    static let background = ColorAsset(name: "Navigation/background")
-    static let buttonActive = ColorAsset(name: "Navigation/buttonActive")
-    static let buttonInactive = ColorAsset(name: "Navigation/buttonInactive")
-  }
   internal enum Shadow {
     static let primary = ColorAsset(name: "Shadow/primary")
+  }
+  internal enum Widget {
+    static let actionsBackground = ColorAsset(name: "Widget/actionsBackground")
+    static let bottomPanel = ColorAsset(name: "Widget/bottomPanel")
+    static let divider = ColorAsset(name: "Widget/divider")
+    static let inactiveTab = ColorAsset(name: "Widget/inactiveTab")
+    static let secondary = ColorAsset(name: "Widget/secondary")
+  }
+
+  // MARK: - DesignSystem
+  internal enum Background {
+    static let highlightedLight = ColorAsset(name: "Background/highlightedLight")
+    static let highlightedMedium = ColorAsset(name: "Background/highlightedMedium")
+    static let navigationPanel = ColorAsset(name: "Background/navigationPanel")
+    static let primary = ColorAsset(name: "Background/primary")
+    static let secondary = ColorAsset(name: "Background/secondary")
+    static let widget = ColorAsset(name: "Background/widget")
+  }
+  internal enum Control {
+    static let accent = ColorAsset(name: "Control/accent")
+    static let active = ColorAsset(name: "Control/active")
+    static let button = ColorAsset(name: "Control/button")
+    static let inactive = ColorAsset(name: "Control/inactive")
+    static let navPanelIcon = ColorAsset(name: "Control/navPanelIcon")
+    static let white = ColorAsset(name: "Control/white")
   }
   internal enum Shape {
     static let primary = ColorAsset(name: "Shape/primary")
@@ -174,19 +186,11 @@ internal enum Asset {
     static let transperentTertiary = ColorAsset(name: "Shape/transperentTertiary")
   }
   internal enum Text {
-    static let labelInversion = ColorAsset(name: "Text/labelInversion")
+    static let inversion = ColorAsset(name: "Text/inversion")
     static let primary = ColorAsset(name: "Text/primary")
     static let secondary = ColorAsset(name: "Text/secondary")
     static let tertiary = ColorAsset(name: "Text/tertiary")
     static let white = ColorAsset(name: "Text/white")
-  }
-  internal enum Widget {
-    static let actionsBackground = ColorAsset(name: "Widget/actionsBackground")
-    static let bottomPanel = ColorAsset(name: "Widget/bottomPanel")
-    static let card = ColorAsset(name: "Widget/card")
-    static let divider = ColorAsset(name: "Widget/divider")
-    static let inactiveTab = ColorAsset(name: "Widget/inactiveTab")
-    static let secondary = ColorAsset(name: "Widget/secondary")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

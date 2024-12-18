@@ -49,8 +49,12 @@ struct WidgetObjectListView: View {
         switch model.data {
         case .list(let sections):
             dataList(sections: sections)
-        case .error(let error):
-            LegacySearchErrorView(error: error)
+        case .error(let title, let subtitle):
+            EmptyStateView(
+                title: title,
+                subtitle: subtitle,
+                style: .plain
+            )
         }
     }
     
@@ -83,13 +87,13 @@ struct WidgetObjectListView: View {
             switch model.editMode {
             case .normal:
                 EditButton()
-                    .foregroundColor(Color.Button.active)
+                    .foregroundColor(Color.Control.active)
             case .editOnly:
                 Button {
                     model.onSelectAll()
                 } label: {
                     AnytypeText(model.selectButtonText, style: .uxBodyRegular)
-                        .foregroundColor(.Button.active)
+                        .foregroundColor(.Control.active)
                 }
             }
         }

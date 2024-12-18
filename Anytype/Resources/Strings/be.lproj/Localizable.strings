@@ -74,7 +74,7 @@
 "Create relation" = "Стварыць уласцівасць ‘%@’";
 "Relation.View.Hint.Empty" = "пуста";
 "Relation.MyRelations" = "Мае ўласцівасці";
-"Relation.AddedToLibrary" = "Уласцівасць ‘%@’ была дададзена ў вашу бібліятэку";
+"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
 "Relation.Deleted" = "Выдаленая ўласцівасць";
 "Relation.From.Type" = "З тыпу %@";
 "Relation.EmptyState.title" = "Няма опцый";
@@ -84,8 +84,6 @@
 "Relation.View.Create.title" = "Сварыць опцыю";
 "Relation.View.Edit.title" = "Рэдагаваць опцыю";
 "Relation.Create.Textfield.placeholder" = "Увядзіце назву...";
-"Relation.Edit.Button.title" = "Ужыць";
-"Relation.Date.Locked.Alert.title" = "Уласцівасць “%@” заблакіравана";
 "Relation.ObjectTypes.Header.title" = "Тыпы аб'екта:";
 "Relation.ObjectType.Header.title" = "Тып аб'екта:";
 
@@ -106,6 +104,8 @@
 "Relation.Format.Phone.Title" = "Нумар тэлефона";
 
 "Relation.Search.View.Placeholder" = "Шукайце або стварыце новую ўласцівасць";
+
+"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -152,6 +152,7 @@
 "Files" = "Файлы";
 "Media" = "Медыя";
 "Lists" = "Спісы";
+"Dates" = "Dates";
 "Pinned" = "Замацавана";
 "Delete" = "Выдаліць";
 "Export" = "Экспарт";
@@ -190,6 +191,7 @@
 "Blue background" = "Сіні фон";
 "Green background" = "Зялёны фон";
 "Create new object" = "Стварыць новы аб'ект";
+"Create new object with name" = "Create new object \"%@\"";
 "Cancel" = "Скасаваць";
 "Paste or type URL" = "Устаўце або ўвядзіце URL";
 "No items match filter" = "Няма элементаў, якія супадаюць з фільтрам";
@@ -206,6 +208,9 @@
 "Agreement Disclamer" = "Працягваючы,  вы згаджаецеся з нашымі [Умовамі Выкарыстання](%@) і [Палітыкай Прыватнасці](%@)";
 "Lets Go" = "Паехалі";
 "My spaces" = "Мае прасторы";
+"Open file" = "Open file";
+"Open Set" = "Open Set";
+"Create Set" = "Create Set";
 
 // Home
 "Favorites" = "Абранае";
@@ -238,7 +243,7 @@
 "Restore key from keychain" = "Аднавіць ключ з звязкі ключоў";
 "Auth.LogIn" = "У мяне ёсць ключ";
 "Auth.Button.Join" = "Новае Сховішча";
-"Auth.Welcome.Subtitle" = "Стварайце і супрацоўнічайце ва ўласных Прасторах. Зашыфравана, па-за сеткай і адкрыта(%@).";
+"Auth.Welcome.Subtitle" = "Стварайце і супрацоўнічайце ва ўласных Прасторах. Зашыфравана, па-за сеткай і [адкрыта](%@).";
 "Auth.Next" = "Далей";
 
 "Vault recover error" = "Памылка аднаўлення сховішча, паўтарыце спробу";
@@ -290,12 +295,8 @@
 // Object settings
 
 "Icon" = "Значок";
-"Emoji or image for object" = "Эмодзі або відарыс для аб'екта";
 "Cover" = "Вокладка";
-"Background picture" = "Фонавы відарыс";
 "Layout" = "Знешні выгляд";
-"Arrangement of objects on a canvas" = "Размяшчэнне аб'ектаў на палатне";
-"ObjectSettings.History.Description" = "Усе версіі аб'екта";
 
 // Version history
 "VersionHistory.Title" = "Гісторыя версій";
@@ -322,6 +323,9 @@
 "Task" = "Задача";
 "Note" = "Нататка";
 "Choose layout type" = "Абярыце тып макета";
+
+"Templates" = "Шаблоны";
+"Header" = "Header";
 
 "Undo typing" = "Скасаваць увод";
 "Undo" = "Скасаваць";
@@ -484,9 +488,6 @@
 "Set.FeaturedRelations.Relation" = "Уласцівасць:";
 "Set.FeaturedRelations.Type" = "Тып:";
 
-// MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Ужыць";
-
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Уставіць спасылку";
 "Set.Bookmark.Error.Message" = "Ой - нешта пайшло не так. Калі ласка паспрабуйце зноў";
@@ -575,6 +576,7 @@
 
 "Limit object types" = "Абмежаваць тыпы аб'ектаў";
 "Type" = "Тып";
+"Types" = "Тыпы";
 "No name" = "Без назвы";
 "New relation" = "Новая ўласцівасць";
 "Non-existent object" = "Неіснуючы аб'ект";
@@ -616,7 +618,6 @@
 "Designed to capture thoughts quickly" = "Прызначаны для хуткага запісу думак";
 "Action-focused layout with a checkbox" = "Макет, арыентаваны на дзеянні, з птушкай";
 "Standard layout for canvas blocks" = "Прадвызначаны макет для блокаў палатна";
-"List of related objects" = "Спіс звязаных аб'ектаў";
 "Lock" = "Заблакіраваць";
 "Unlock" = "Разблакіраваць";
 "Favorite" = "Абранае";
@@ -665,7 +666,7 @@
 "Home" = "Галоўная
 ";
 "Highlight" = "Цытата";
-"Create object" = "Стварыць аб'ект";
+"Create object" = "Стварыць Аб'ект";
 "Web pages" = "Вэб-старонкі";
 "Preview layout" = "Прадпрагляд макета";
 "Everywhere" = "Усюды";
@@ -697,6 +698,12 @@
 "Blurred icon" = "Размыты\n значок";
 "My First Space" = "Мая першая прастора";
 "Copy space info" = "Скапіраваць інфармацыю пра прастору";
+"Save" = "Save";
+"Set of" = "Set of %@";
+"New set" = "Новы набор";
+"Show" = "Паказаць";
+"Hide" = "Схаваць";
+"Apply" = "Apply";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
@@ -715,8 +722,9 @@
 "ObjectType.SearchOrInstall" = "Пошук або ўстаноўка новага тыпу";
 "ObjectType.Search" = "Пошук тыпу";
 "ObjectType.MyTypes" = "Мае тыпы";
-"ObjectType.AddedToLibrary" = "Тып ‘%@’ быў дададзены ў вашу бібліятэку";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Выдалены тып";
+"ObjectType.editingType" = "You're editing type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Стварыць %@";
@@ -950,7 +958,7 @@
 "SpaceShare.Action.ViewRequest" = "Паглядзець запыт";
 "SpaceShare.Action.Approve" = "Зацвердзіць";
 "SpaceShare.DeleteSharingLink.Title" = "Выдаліць спасылку";
-"SpaceShare.DeleteSharingLink.Message" = "Новыя ўдзельнікі не змогуць далучыцца да прасторы. Вы можаце стварыць новую спасылку ў любы час";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "Вы ўхвалілі запыт ад %@.";
 "SpaceShare.ViewRequest.Title" = "%@ запытаў доступ да Прасторы \"%@\"";
 "SpaceShare.ViewRequest.ViewAccess" = "Дадаць гледача";
@@ -1047,8 +1055,8 @@
 "SpaceHub.Tip.Text1" = "Сховішча - гэта новая хата для ўсіх вашых прастор. Стварайце прасторы, далучайцеся да іх ці дзяліцеся імі - усё будзе надзейна захавана тут.";
 
 // MARK: - Space switcher tip
-"SpaceSwitcher.Tip.Title" = "Хутчэй пераключайцеся паміж прасторамі";
-"SpaceSwitcher.Tip.Text" = "Доўгі націск на кнопку \"Назад\" перамыкае \"Прастору\".";
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
 
 // MARK: - Initial
 
@@ -1225,7 +1233,12 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Дадаць рэакцыю";
+"Message.Action.Reply" = "Reply";
 "Message.Input.EmptyPlaceholder" = "Напісаць паведамленне...";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Сартаваць па";
@@ -1238,7 +1251,27 @@
 "AllContent.Settings.Unlinked.Title" = "Толькі адвязаныя";
 "AllContent.Settings.Unlinked.Description" = "Незвязаныя аб'екты, якія не маюць прамой або зваротнай сувязі з іншымі аб'ектамі ў графе.";
 "AllContent.Settings.ViewBin" = "Прагляд сметніцы";
-"AllContent.Empty.State.title" = "Тут пуста.";
-"AllContent.Empty.State.subtitle" = "Стварыце свае першыя аб'екты, каб пачаць працу.";
 "AllContent.Search.Empty.State.title" = "Вынікаў не знойдзена.";
 "AllContent.Search.Empty.State.subtitle" = "Паспрабуйце шукаць па розных ключавых словах.";
+
+// MARK: - Chats
+"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
+"Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Title" = "No messages here yet...";
+"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+"ReindexingWarningAlert.Button" = "I got it!";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Тут пуста.";
+"EmptyView.Default.subtitle" = "Стварыце свае першыя аб'екты, каб пачаць працу.";
+"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Fields
+"Fields.menu" = "Fields menu";

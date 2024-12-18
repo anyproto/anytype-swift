@@ -23,20 +23,17 @@ private struct HomeWidgetsInternalView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            GeometryReader { geo in
-                DashboardWallpaper(wallpaper: model.wallpaper, spaceIcon: model.space?.iconImage)
-                    .frame(width: geo.size.width)
-                    .clipped()
-                    .ignoresSafeArea()
-            }
             VerticalScrollViewWithOverlayHeader {
-                HomeTopShadow()
+                if !FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId) {
+                    HomeTopShadow()
+                }
             } content: {
                 VStack(spacing: 12) {
                     if model.dataLoaded {
-                        HomeUpdateSubmoduleView()
-                        SpaceWidgetView(spaceId: model.spaceId) {
-                            model.onSpaceSelected()
+                        if model.showSpaceWidget {
+                            SpaceWidgetView(spaceId: model.spaceId) {
+                                model.onSpaceSelected()
+                            }
                         }
                         if FeatureFlags.allContent {
                             AllContentWidgetView(
@@ -89,6 +86,13 @@ private struct HomeWidgetsInternalView: View {
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
+        }
+        .if(FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId)) {
+            $0.overlay(alignment: .top) {
+                HomeBlurEffectView(direction: .topToBottom)
+                    .ignoresSafeArea()
+                    .frame(height: 1)
+            }
         }
     }
     
