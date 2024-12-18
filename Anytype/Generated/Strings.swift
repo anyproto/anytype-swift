@@ -666,6 +666,10 @@ internal enum Loc {
         return Loc.tr("Localizable", "Chat.Reply.Images", String(describing: p1), fallback: "Images (%@)")
       }
     }
+    internal enum SendLimitAlert {
+      internal static let message = Loc.tr("Localizable", "Chat.SendLimitAlert.Message", fallback: "Looks like you're sending messages at lightning speed. Give it a sec before your next one.")
+      internal static let title = Loc.tr("Localizable", "Chat.SendLimitAlert.Title", fallback: "Hold up! Turbo typing detected!")
+    }
   }
   internal enum ClearCache {
     internal static let error = Loc.tr("Localizable", "ClearCache.Error", fallback: "Error, try again later")

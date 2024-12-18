@@ -38,6 +38,9 @@ struct ChatView: View {
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
             ChatDeleteMessageAlert(message: $0)
         }
+        .anytypeSheet(isPresented: $model.showSendLimitAlert) {
+            ChatSendLimitAlert()
+        }
         .homeBottomPanelHidden(true)
     }
     

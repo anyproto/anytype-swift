@@ -73,7 +73,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     // Alerts
     
     @Published var deleteMessageConfirmation: MessageViewData?
-        
+    @Published var showSendLimitAlert = false
+    
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
         self.chatId = chatId
@@ -159,7 +160,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 linkedObjects: linkedObjects,
                 replyToMessageId: replyToMessage?.id
             )
-        } else {
+            clearInput()
+        } else if chatMessageLimits.canSendMessage() {
             let messageId = try await chatActionService.createMessage(
                 chatId: chatId,
                 spaceId: spaceId,
@@ -168,8 +170,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 replyToMessageId: replyToMessage?.id
             )
             collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
+            chatMessageLimits.markSentMessage()
+            clearInput()
+        } else {
+            showSendLimitAlert = true
         }
-        clearInput()
         sendMessageTaskInProgress = false
     }
     
