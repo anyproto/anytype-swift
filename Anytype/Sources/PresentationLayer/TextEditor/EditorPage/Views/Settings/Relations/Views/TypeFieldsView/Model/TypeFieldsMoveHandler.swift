@@ -5,6 +5,8 @@ import Services
 enum TypeFieldsMoveError: Error {
     case wrongDataForFromRow
     case wrongDataForToRow
+    case noHeaderFound
+    case emptySection
 }
 
 protocol TypeFieldsMoveHandlerProtocol {
@@ -21,17 +23,78 @@ final class TypeFieldsMoveHandler {
             throw TypeFieldsMoveError.wrongDataForFromRow
         }
         
-        guard let toRow = relationRows[safe: to],
-              case let .relation(toRelation) = toRow else {
+        guard let toRow = relationRows[safe: to] else {
             anytypeAssertionFailure("Wrong data for toRow", info: ["toIndex": to.description, "rows": relationRows.description])
             throw TypeFieldsMoveError.wrongDataForToRow
         }
         
-        try await move(from: fromRelation, to: toRelation, document: document)
+        switch toRow {
+        case .emptyRow(let section):
+            try await move(from: fromRelation, to: section, document: document)
+        case .header(let section):
+            try await handleMoveToSection(section, fromRelation: fromRelation, relationRows: relationRows, document: document)
+        case .relation(let toRelation):
+            try await move(from: fromRelation, to: toRelation, document: document)
+        }
     }
-
+    
+    private func handleMoveToSection(_ section: TypeFieldsSectionRow, fromRelation: TypeFieldsRelationRow, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
+        let toRow = try findToRowForHeader(section, fromRelation: fromRelation, relationRows: relationRows)
+        switch toRow {
+        case .relation(let toRelation):
+            try await move(from: fromRelation, to: toRelation, document: document)
+        case .header:
+            throw TypeFieldsMoveError.emptySection
+        case .emptyRow(let section):
+            try await move(from: fromRelation, to: section, document: document)
+        }
+    }
+    
+    private func findToRowForHeader(_ header: TypeFieldsSectionRow, fromRelation: TypeFieldsRelationRow, relationRows: [TypeFieldsRow]) throws -> TypeFieldsRow {
+        switch header {
+        case .header:
+            return try findRowClosestToSection(header, above: false, relationRows: relationRows)
+        case .fieldsMenu:
+            guard let headerIndex = relationRows.firstIndex(of: .header(header)) else {
+                anytypeAssertionFailure("No header found", info: ["rows": relationRows.description])
+                throw TypeFieldsMoveError.noHeaderFound
+            }
+            guard let fromIndex = relationRows.firstIndex(of: .relation(fromRelation)) else {
+                anytypeAssertionFailure("Wrong data for fromRow", info: ["rows": relationRows.description])
+                throw TypeFieldsMoveError.wrongDataForFromRow
+            }
+            
+            let isMovingDownwards = fromIndex < headerIndex
+            if isMovingDownwards {
+                return try findRowClosestToSection(header, above: false, relationRows: relationRows)
+            } else {
+                return try findRowClosestToSection(header, above: true, relationRows: relationRows)
+            }
+        }
+    }
+    
+    private func findRowClosestToSection(_ section: TypeFieldsSectionRow, above: Bool, relationRows: [TypeFieldsRow]) throws -> TypeFieldsRow {
+        guard let headerIndex = relationRows.firstIndex(of: .header(section)) else {
+            anytypeAssertionFailure("No section found", info: ["rows": relationRows.description])
+            throw TypeFieldsMoveError.noHeaderFound
+        }
+        
+        let closestRowIndex = above ? relationRows.index(before: headerIndex) : relationRows.index(after: headerIndex)
+        guard let row = relationRows[safe: closestRowIndex] else {
+            anytypeAssertionFailure("Empty section", info: ["rows": relationRows.description])
+            throw TypeFieldsMoveError.emptySection
+        }
+        
+        return row
+    }
+    
+    private func move(from: TypeFieldsRelationRow, to: TypeFieldsSectionRow, document: any BaseDocumentProtocol) async throws {
+        // TBD;
+    }
     
     private func move(from: TypeFieldsRelationRow, to: TypeFieldsRelationRow, document: any BaseDocumentProtocol) async throws {
+        guard from != to else { return }
+        
         if from.section == to.section {
             try await moveWithinSection(from: from, to: to, document: document)
         } else {
@@ -83,7 +146,8 @@ final class TypeFieldsMoveHandler {
             newRecommendedRelations.remove(at: fromIndex)
             
             var newFeaturedRelations = details.recommendedFeaturedRelations
-            newFeaturedRelations.insert(fromRelation, at: toIndex)
+            newFeaturedRelations.insert(fromRelation, at: toIndex + 1) // Insert below target
+            
             try await relationsService.updateTypeRelations(typeId: document.objectId, recommendedRelationIds: newRecommendedRelations, recommendedFeaturedRelationsIds: newFeaturedRelations)
         }
     }

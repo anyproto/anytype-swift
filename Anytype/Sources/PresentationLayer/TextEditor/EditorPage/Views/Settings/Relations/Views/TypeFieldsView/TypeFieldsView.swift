@@ -124,6 +124,7 @@ struct TypeFieldsView: View {
                 IconView(asset: .X24.plus).frame(width: 24, height: 24)
             })
         }
+        .contentShape(Rectangle())
     }
     
     private func relationRow(_ data: TypeFieldsRelationRow) -> some View {
