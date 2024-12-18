@@ -1271,6 +1271,9 @@ Please provide specific details of your needs here.";
 "Chat.Actions.Menu.Files" = "Upload file";
 "Chat.Actions.Menu.Camera" = "Take from camera";
 "Chat.Participant.Badge" = "(You)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

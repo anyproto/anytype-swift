@@ -158,13 +158,27 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         if let replyChat = fullMessage.reply {
             let replyAuthor = participants.first { $0.identity == fullMessage.reply?.creator }
             let replyAttachment = fullMessage.replyAttachments.first
-            // Without style. Request from designers.
-            let message = replyChat.message.text.isNotEmpty
-                ? MessageTextBuilder.makeMessaeWithoutStyle(content: replyChat.message)
-                : (replyAttachment?.title ?? "")
+            
+            let imagesCount = fullMessage.replyAttachments.count(where: \.layoutValue.isImage)
+            let filesCout = fullMessage.replyAttachments.count(where: \.layoutValue.isFile)
+            
+            let description: String
+            if replyChat.message.text.isNotEmpty {
+                // Without style. Request from designers.
+                description = MessageTextBuilder.makeMessaeWithoutStyle(content: replyChat.message)
+            } else if fullMessage.replyAttachments.count == 1 {
+                description = replyAttachment?.title ?? ""
+            } else if imagesCount == fullMessage.replyAttachments.count {
+                description = Loc.Chat.Reply.images(fullMessage.replyAttachments.count)
+            } else if filesCout == fullMessage.replyAttachments.count {
+                description = Loc.Chat.Reply.files(fullMessage.replyAttachments.count)
+            } else {
+                description = Loc.Chat.Reply.attachments(fullMessage.replyAttachments.count)
+            }
+            
             return MessageReplyModel(
                 author: replyAuthor?.title ?? "",
-                description: message,
+                description: description,
                 icon: replyAttachment?.objectIconImage,
                 isYour: isYourMessage
             )
