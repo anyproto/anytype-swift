@@ -3,7 +3,6 @@ import AnytypeCore
 import Services
 
 enum TypeFieldsMoveError: Error {
-    case nonSingularFromIndex
     case wrongDataForFromRow
     case wrongDataForToRow
 }
@@ -16,24 +15,15 @@ final class TypeFieldsMoveHandler {
     @Injected(\.relationsService) var relationsService: any RelationsServiceProtocol
     
     
-    func onMove(from: IndexSet, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
-        guard from.count == 1 else {
-            anytypeAssertionFailure("Non singular number of index for onMove", info: ["fromIndexes": from.description])
-            throw TypeFieldsMoveError.nonSingularFromIndex
-        }
-        
-        guard let fromIndex = from.first else { return }
-        guard let fromRow = relationRows[safe: fromIndex], case let .relation(fromRelation) = fromRow else {
-            anytypeAssertionFailure("Wrong data for fromRow", info: ["fromIndex": fromIndex.description, "rows": relationRows.description])
+    func onMove(from: Int, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
+        guard let fromRow = relationRows[safe: from], case let .relation(fromRelation) = fromRow else {
+            anytypeAssertionFailure("Wrong data for fromRow", info: ["fromIndex": from.description, "rows": relationRows.description])
             throw TypeFieldsMoveError.wrongDataForFromRow
         }
         
-        // Adjust 'to' index if moving downwards
-        let adjustedTo = fromIndex < to ? to - 1 : to
-        
-        guard let toRow = relationRows[safe: adjustedTo],
+        guard let toRow = relationRows[safe: to],
               case let .relation(toRelation) = toRow else {
-            anytypeAssertionFailure("Wrong data for toRow", info: ["toIndex": adjustedTo.description, "rows": relationRows.description])
+            anytypeAssertionFailure("Wrong data for toRow", info: ["toIndex": to.description, "rows": relationRows.description])
             throw TypeFieldsMoveError.wrongDataForToRow
         }
         
@@ -80,7 +70,7 @@ final class TypeFieldsMoveHandler {
             newFeaturedRelations.remove(at: fromIndex)
             
             var newRecommendedRelations = details.recommendedRelations
-            newRecommendedRelations.insert(fromRelation, at: toIndex + 1)
+            newRecommendedRelations.insert(fromRelation, at: toIndex)
             
             try await relationsService.updateTypeRelations(typeId: document.objectId, recommendedRelationIds: newRecommendedRelations, recommendedFeaturedRelationsIds: newFeaturedRelations)
         } else {

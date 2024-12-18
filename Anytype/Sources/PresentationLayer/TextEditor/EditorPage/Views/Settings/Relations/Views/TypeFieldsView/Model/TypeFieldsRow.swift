@@ -2,7 +2,7 @@ import Services
 import Foundation
 
 
-enum TypeFieldsRow: Identifiable {
+enum TypeFieldsRow: Identifiable, Equatable {
     case relation(TypeFieldsRelationRow)
     case header(TypeFieldsSectionRow)
     case emptyRow(TypeFieldsSectionRow)
@@ -28,14 +28,14 @@ enum TypeFieldsRow: Identifiable {
     }
 }
 
-struct TypeFieldsRelationRow: Identifiable {
+struct TypeFieldsRelationRow: Identifiable, Equatable {
     let section: TypeFieldsSectionRow
     let relation: Relation
     
     var id: String { section.id + relation.id }
 }
 
-enum TypeFieldsSectionRow: String, Identifiable {
+enum TypeFieldsSectionRow: String, Identifiable, Equatable {
     case header
     case fieldsMenu
     

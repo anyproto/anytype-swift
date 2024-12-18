@@ -5,6 +5,8 @@ struct TypeFieldsView: View {
     
     @StateObject private var model: TypeFieldsViewModel
     
+    @State private var draggedRow: TypeFieldsRow?
+    
     init(data: EditorTypeObject) {
         _model = StateObject(wrappedValue: TypeFieldsViewModel(data: data))
     }
@@ -15,8 +17,8 @@ struct TypeFieldsView: View {
     
     var body: some View {
         content
+            .animation(.default, value: model.relationRows)
             .task { await model.setupSubscriptions() }
-        
             .sheet(item: $model.relationsSearchData) { data in
                 RelationsSearchCoordinatorView(data: data)
             }
@@ -78,11 +80,12 @@ struct TypeFieldsView: View {
     }
     
     private var fieldsList: some View {
-        PlainList {
-            relationsSection
-                .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+        VStack {
+            ScrollView(showsIndicators: false) {
+                relationsSection
+                    .padding(.horizontal, 20)
+            }
         }
-        .environment(\.editMode, $model.editMode)
         
         .listStyle(.plain)
         .buttonStyle(BorderlessButtonStyle())
@@ -90,26 +93,27 @@ struct TypeFieldsView: View {
     
     private var relationsSection: some View {
         ForEach(model.relationRows) { row in
-            switch row {
-            case .header(let header):
-                headerRow(header)
-                    .deleteDisabled(true)
-                    .moveDisabled(true)
-            case .relation(let relation):
-                relationRow(relation)
-                    .divider()
-            case .emptyRow:
-                Rectangle().foregroundStyle(Color.Background.secondary).frame(height: 52)
-                    .deleteDisabled(true)
-                    .moveDisabled(true)
+            Group {
+                switch row {
+                case .header(let header):
+                    headerRow(header)
+                case .relation(let relation):
+                    relationRow(relation)
+                        .divider()
+                case .emptyRow:
+                    Rectangle().foregroundStyle(Color.Background.secondary).frame(height: 52)
+                }
             }
+            .onDrop(of: [.text], delegate: TypeFieldsDropDelegate(
+                destinationRow: row,
+                document: model.document,
+                draggedRow: $draggedRow,
+                allRows: $model.relationRows)
+            )
         }
-        .onDelete { indexes in
-            model.onDeleteRelations(indexes)
-        }
-        .onMove { from, to in
-            model.onMove(from: from, to: to)
-        }
+//        .onDelete { indexes in
+//            model.onDeleteRelations(indexes)
+//        }
     }
     
     private func headerRow(_ data: TypeFieldsSectionRow) -> some View {
@@ -129,7 +133,15 @@ struct TypeFieldsView: View {
             Spacer.fixedWidth(10)
             AnytypeText(data.relation.name, style: .uxBodyRegular)
             Spacer()
+            MoveIndicator()
         }
         .frame(height: 52)
+        .contentShape(Rectangle())
+        .onDrag {
+            draggedRow = .relation(data)
+            return NSItemProvider()
+        } preview: {
+            EmptyView()
+        }
     }
 }
