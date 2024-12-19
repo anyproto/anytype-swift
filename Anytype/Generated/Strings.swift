@@ -639,6 +639,11 @@ internal enum Loc {
         internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
       }
     }
+    internal enum AttachmentsLimit {
+      internal static func alert(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ files at a time")
+      }
+    }
     internal enum DeleteMessage {
       internal static let description = Loc.tr("Localizable", "Chat.DeleteMessage.Description", fallback: "It cannot be restored after confirmation")
       internal static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
