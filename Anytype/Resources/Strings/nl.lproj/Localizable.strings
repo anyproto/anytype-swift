@@ -1271,7 +1271,13 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.Actions.Menu.Objects" = "Selecteer bestaand object";
 "Chat.Actions.Menu.Media" = "Upload media";
 "Chat.Actions.Menu.Files" = "Upload bestand";
+"Chat.Actions.Menu.Camera" = "Take from camera";
 "Chat.Participant.Badge" = "(Jij)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
+"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
+"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";
