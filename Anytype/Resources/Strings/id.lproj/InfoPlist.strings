@@ -3,3 +3,4 @@
 "NSCameraUsageDescription" = "Kamera digunakan untuk memindai Kode QR untuk pengalaman login yang aman dan nyaman";
 "NSLocalNetworkUsageDescription" = "Akses jaringan lokal digunakan untuk meniyinkronkan data langsung di antara perangkat terdekat Anda";
 "NSPhotoLibraryAddUsageDescription" = "Izin diperlukan untuk menyimpan gambar ke perpustakaan Anda";
+"NSMicrophoneUsageDescription" = "Access is needed to make a video";
