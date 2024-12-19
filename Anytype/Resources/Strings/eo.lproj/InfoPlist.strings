@@ -2,3 +2,4 @@
 "NSCameraUsageDescription" = "Fotilo estas uzata por skani QR-kodojn por sekura kaj oportuna ensaluta sperto";
 "NSLocalNetworkUsageDescription" = "Loka reta aliro estas uzata por sinkronigi datumojn rekte inter viaj proksimaj aparatoj";
 "NSPhotoLibraryAddUsageDescription" = "Aliro necesas por konservi elektitajn bildojn al via biblioteko";
+"NSMicrophoneUsageDescription" = "Access is needed to make a video";
