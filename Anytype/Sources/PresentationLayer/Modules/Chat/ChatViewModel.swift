@@ -74,6 +74,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     @Published var deleteMessageConfirmation: MessageViewData?
     @Published var showSendLimitAlert = false
+    @Published var toastBarData: ToastBarData = .empty
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
@@ -90,7 +91,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
             excludedLayouts: [],
             onSelect: { [weak self] details in
-                self?.linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                guard let self else { return }
+                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                } else {
+                    showFileLimitAlert()
+                }
             }
         )
         output?.onLinkObjectSelected(data: data)
@@ -277,9 +283,18 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         
         // Remove old
         linkedObjects.removeAll { removeIds.contains($0.id) }
-        // Add new in loading state
-        let newItems = photosItems.filter { addIds.contains($0.hashValue) }
+        var newItems = photosItems.filter { addIds.contains($0.hashValue) }
         
+        // Remove over limit
+        let availableItemsCount = chatMessageLimits.countAttachmentsCanBeAdded(current: linkedObjects.count)
+        if availableItemsCount < newItems.count {
+            let deletedIds = newItems[availableItemsCount..<newItems.count]
+            newItems.removeLast(newItems.count - availableItemsCount)
+            photosItems.removeAll { deletedIds.contains($0) }
+            showFileLimitAlert()
+        }
+        
+        // Add new in loading state
         let newLinkedObjects = newItems.map {
             ChatLinkedObject.localPhotosFile(
                 ChatLocalPhotosFile(data: nil, photosPickerItemHash: $0.hashValue)
@@ -395,7 +410,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private func handleFilePicker(result: Result<[URL], any Error>) {
         switch result {
         case .success(let files):
-            files.forEach { file in
+            for file in files {
+                if !chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    showFileLimitAlert()
+                    return
+                }
                 let gotAccess = file.startAccessingSecurityScopedResource()
                 guard gotAccess else { return }
                 
@@ -411,6 +430,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     }
     
     private func handleCameraMedia(_ media: ImagePickerMediaType) {
+        if !chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+            showFileLimitAlert()
+            return
+        }
         switch media {
         case .image(let image, let type):
             if let fileData = try? fileActionsService.createFileData(image: image, type: type) {
@@ -464,5 +487,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 return FilePreviewMedia(fileDetails: fileDetails)
             }
         }
+    }
+    
+    private func showFileLimitAlert() {
+        toastBarData = ToastBarData(text: Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), showSnackBar: true, messageType: .failure)
     }
 }

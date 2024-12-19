@@ -41,6 +41,7 @@ struct ChatView: View {
         .anytypeSheet(isPresented: $model.showSendLimitAlert) {
             ChatSendLimitAlert()
         }
+        .snackbar(toastBarData: $model.toastBarData)
         .homeBottomPanelHidden(true)
     }
     
