@@ -2,3 +2,4 @@
 "NSCameraUsageDescription" = "Kameraet brukes til å skanne QR-koder for en sikker og hensiktsmessig innloggingsopplevelse";
 "NSLocalNetworkUsageDescription" = "Lokal nettverkstilgang brukes til å synkronisere data direkte mellom dine enheter i nærheten";
 "NSPhotoLibraryAddUsageDescription" = "Tilgang er nødvendig for å lagre valgte bilder i biblioteket ditt";
+"NSMicrophoneUsageDescription" = "Access is needed to make a video";

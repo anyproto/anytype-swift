@@ -2,3 +2,4 @@
 "NSCameraUsageDescription" = "Camera được dùng để quét mã QR, giúp trải nghiệm đăng nhập bảo mật và tiện dụng cho người dùng";
 "NSLocalNetworkUsageDescription" = "Truy cập mạng cục bộ giúp đồng bộ dữ liệu trực tiếp giữa các thiết bị của bạn ở gần nhau";
 "NSPhotoLibraryAddUsageDescription" = "Cần có quyền truy cập để lưu trữ hình ảnh vào thư viện của bạn";
+"NSMicrophoneUsageDescription" = "Access is needed to make a video";

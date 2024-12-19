@@ -2,3 +2,4 @@
 "NSCameraUsageDescription" = "Kameraa käytetään QR-koodien skannaamiseen turvallista sekä kätevää kirjautumiskokemusta varten";
 "NSLocalNetworkUsageDescription" = "Pääsy paikallisverkkoon mahdollistaa datan synkronoinnin lähellä olevien laitteidesi välillä";
 "NSPhotoLibraryAddUsageDescription" = "Pääsy vaaditaan valitsemiesi kuvien tallentamiseksi kamerarullaan";
+"NSMicrophoneUsageDescription" = "Access is needed to make a video";

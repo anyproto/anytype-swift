@@ -2,3 +2,4 @@
 "NSCameraUsageDescription" = "La cámara se utiliza para escanear códigos QR, una forma de inicio de sesión segura y cómoda";
 "NSLocalNetworkUsageDescription" = "El acceso a la red local se utiliza para sincronizar datos directamente entre tus dispositivos cercanos";
 "NSPhotoLibraryAddUsageDescription" = "Se necesita acceso para guardar las imágenes seleccionadas en tu biblioteca";
+"NSMicrophoneUsageDescription" = "Access is needed to make a video";

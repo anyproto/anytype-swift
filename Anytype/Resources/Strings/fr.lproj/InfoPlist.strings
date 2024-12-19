@@ -2,3 +2,4 @@
 "NSCameraUsageDescription" = "L'appareil photo est utilisé pour scanner des QR codes pour une connexion pratique et sécurisée";
 "NSLocalNetworkUsageDescription" = "L'accès au réseau local est utilisé pour synchroniser les données directement entre vos appareils";
 "NSPhotoLibraryAddUsageDescription" = "L'accès est nécessaire pour enregistrer les images sélectionnées dans votre galerie";
+"NSMicrophoneUsageDescription" = "L'accès est nécessaire pour faire une vidéo";

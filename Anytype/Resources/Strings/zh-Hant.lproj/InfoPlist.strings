@@ -2,3 +2,4 @@
 "NSCameraUsageDescription" = "用相機掃描 QR code 可以安全又方便的登入";
 "NSLocalNetworkUsageDescription" = "用本地網路存取可以直接地與附近的設備同步數據";
 "NSPhotoLibraryAddUsageDescription" = "需要存取權限才能將選定的圖像儲存到您的資料庫中";
+"NSMicrophoneUsageDescription" = "Access is needed to make a video";
