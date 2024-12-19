@@ -50,6 +50,8 @@ final class FileActionsService: FileActionsServiceProtocol {
     @Injected(\.fileService)
     private var fileService: any FileServiceProtocol
     
+    private let dateTimeFormatter = DateFormatter.photoDateTimeFormatter
+    
     init() {
         if !cacheCleared {
             clearFileCache()
@@ -89,6 +91,31 @@ final class FileActionsService: FileActionsServiceProtocol {
             
             let newFilePath = newPath.appendingPathComponent(data.url.lastPathComponent, isDirectory: false)
             try FileManager.default.moveItem(at: data.url, to: newFilePath)
+            
+            return FileData(path: newFilePath.relativePath, type: typeIdentifier, isTemporary: true)
+        } catch {
+            anytypeAssertionFailure(error.localizedDescription)
+            throw error
+        }
+    }
+    
+    func createFileData(image: UIImage, type: String) throws -> FileData {
+        do {
+            guard let typeIdentifier = UTType(type), Constants.supportedUploadedTypes.contains(typeIdentifier) else {
+                throw FileServiceError.undefiled
+            }
+            guard let data = image.jpegData(compressionQuality: 1) else {
+                throw FileServiceError.undefiled
+            }
+            
+            let path = tempDirectoryPath().appendingPathComponent(UUID().uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
+            
+            let nowDateString = dateTimeFormatter.string(from: Date())
+            let imageName = "IMG_\(nowDateString).jpg"
+            let newFilePath = path.appendingPathComponent(imageName, isDirectory: false)
+            
+            try data.write(to: newFilePath)
             
             return FileData(path: newFilePath.relativePath, type: typeIdentifier, isTemporary: true)
         } catch {

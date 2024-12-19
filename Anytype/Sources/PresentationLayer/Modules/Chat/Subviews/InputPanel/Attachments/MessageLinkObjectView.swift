@@ -40,7 +40,7 @@ extension MessageLinkObjectView {
         self = MessageLinkObjectView(
             icon: details.objectIconImage,
             title: details.title,
-            description: details.objectType.name,
+            description: details.description,
             onTapRemove: { onTapRemove(details) }
         )
     }

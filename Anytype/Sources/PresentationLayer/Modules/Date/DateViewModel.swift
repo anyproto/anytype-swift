@@ -283,8 +283,8 @@ final class DateViewModel: ObservableObject {
         }
         var filter = DataviewFilter()
         filter.condition = .notEqual
-        filter.value = Constants.anytypeProfileId.protobufValue
-        filter.relationKey = BundledRelationKey.creator.rawValue
+        filter.value = ObjectOrigin.builtin.rawValue.protobufValue
+        filter.relationKey = BundledRelationKey.origin.rawValue
         
         return filter
     }
@@ -358,6 +358,5 @@ private extension DateViewModel {
         static let relationKey = "relationKey"
         static let typeKey = "type"
         static let typeValue = "valueFromRelation"
-        static let anytypeProfileId = "_anytype_profile"
     }
 }

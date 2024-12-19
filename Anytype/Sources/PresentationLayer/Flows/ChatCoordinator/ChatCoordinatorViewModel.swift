@@ -23,11 +23,16 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var showPhotosPicker = false
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var participantsReactionData: MessageParticipantsReactionData?
+    @Published var safariUrl: URL?
+    @Published var cameraData: SimpleCameraData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
     
     var pageNavigation: PageNavigation?
+    
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: any NavigationContextProtocol
     
     init(data: ChatCoordinatorData) {
         self.chatId = data.chatId
@@ -54,6 +59,17 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         pageNavigation?.push(screenData)
     }
     
+    func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem]) {
+        let previewController = AnytypePreviewController(with: items, initialPreviewItemIndex: startAtIndex)
+        navigationContext.present(previewController) { [weak previewController] in
+            previewController?.didFinishTransition = true
+        }
+    }
+    
+    func onUrlSelected(url: URL) {
+        safariUrl = url
+    }
+    
     func onPhotosPickerSelected(data: ChatPhotosPickerData) {
         photosItems = data.selectedItems
         photosPickerData = data
@@ -63,6 +79,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     func onFilePickerSelected(data: ChatFilesPickerData) {
         showFilesPicker = true
         filesPickerData = data
+    }
+    
+    func onShowCameraSelected(data: SimpleCameraData) {
+        cameraData = data
     }
     
     func photosPickerFinished() {

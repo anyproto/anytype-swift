@@ -975,6 +975,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 "SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (jij)";
 "SpaceShare.ManageSpaces" = "Beheer ruimten";
@@ -1270,7 +1271,13 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.Actions.Menu.Objects" = "Selecteer bestaand object";
 "Chat.Actions.Menu.Media" = "Upload media";
 "Chat.Actions.Menu.Files" = "Upload bestand";
+"Chat.Actions.Menu.Camera" = "Take from camera";
 "Chat.Participant.Badge" = "(Jij)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
+"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
+"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";

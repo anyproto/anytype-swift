@@ -38,6 +38,9 @@ struct ChatView: View {
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
             ChatDeleteMessageAlert(message: $0)
         }
+        .anytypeSheet(isPresented: $model.showSendLimitAlert) {
+            ChatSendLimitAlert()
+        }
         .homeBottomPanelHidden(true)
     }
     
@@ -72,17 +75,32 @@ struct ChatView: View {
                 editing: $model.inputFocused,
                 mention: $model.mentionSearchState,
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
-                additionalDataLoading: model.attachmentsDownloading
+                disableSendButton: model.attachmentsDownloading || model.textLimitReached
             ) {
                 model.onTapAddObjectToMessage()
             } onTapAddMedia: {
                 model.onTapAddMediaToMessage()
             } onTapAddFiles: {
                 model.onTapAddFilesToMessage()
+            } onTapCamera: {
+                model.onTapCamera()
             } onTapSend: {
                 model.onTapSendMessage()
             } onTapLinkTo: { range in
                 model.onTapLinkTo(range: range)
+            }
+            .overlay(alignment: .top) {
+                if let messageTextLimit = model.messageTextLimit {
+                    Text(messageTextLimit)
+                        .foregroundStyle(model.textLimitReached ? Color.Dark.red : Color.Text.primary)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color.Background.secondary)
+                        .cornerRadius(12)
+                        .border(12, color: .Shape.tertiary)
+                        .shadow(color: .black.opacity(0.15), radius: 12)
+                        .padding(.top, 8)
+                }
             }
         }
         .background(Color.Background.navigationPanel)
@@ -98,6 +116,9 @@ struct ChatView: View {
         .throwingTask(id: model.sendMessageTaskInProgress) {
             try await model.sendMessageTask()
         }
+        .onChange(of: model.message) { _ in
+            model.messageDidChanged()
+        }
     }
     
     @ViewBuilder
@@ -106,8 +127,12 @@ struct ChatView: View {
             MessageView(data: $0, output: model)
         } headerBuilder: {
             ChatMessageHeaderView(text: $0)
+        } scrollToTop: {
+            await model.scrollToTop()
         } scrollToBottom: {
             await model.scrollToBottom()
+        } handleVisibleRange: { fromId, toId in
+            model.visibleRangeChanged(fromId: fromId, toId: toId)
         }
         .overlay(alignment: .center) {
             if model.showEmptyState {

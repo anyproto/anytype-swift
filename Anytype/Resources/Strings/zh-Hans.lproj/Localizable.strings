@@ -975,6 +975,7 @@
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "当空间所有者批准你的请求后，你将收到通知。";
 "SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ （您）";
 "SpaceShare.ManageSpaces" = "管理空间";
@@ -1270,7 +1271,13 @@
 "Chat.Actions.Menu.Objects" = "Select existing object";
 "Chat.Actions.Menu.Media" = "上传媒体文件";
 "Chat.Actions.Menu.Files" = "上传文件";
+"Chat.Actions.Menu.Camera" = "Take from camera";
 "Chat.Participant.Badge" = "(You)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
+"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
+"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";

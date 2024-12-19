@@ -95,6 +95,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let fullScreenMediaFileByTap = FeatureDescription(
+        title: "Open media / files in fullscreen mode in Chats",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "9"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

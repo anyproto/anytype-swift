@@ -22,11 +22,7 @@ final class SharedContentImporter: SharedContentImporterProtocol {
     
     private let sharedFileStorage: SharedFileStorageProtocol
     
-    private let formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
-        return formatter
-    }()
+    private let formatter = DateFormatter.photoDateTimeFormatter
     
     init(sharedFileStorage: SharedFileStorageProtocol) {
         self.sharedFileStorage = sharedFileStorage

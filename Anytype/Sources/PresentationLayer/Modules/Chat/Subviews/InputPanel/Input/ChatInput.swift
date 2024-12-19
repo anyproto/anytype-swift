@@ -6,10 +6,11 @@ struct ChatInput: View {
     @Binding var editing: Bool
     @Binding var mention: ChatTextMention
     let hasAdditionalData: Bool
-    let additionalDataLoading: Bool
+    let disableSendButton: Bool
     let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
+    let onTapCamera: () -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     
@@ -52,6 +53,11 @@ struct ChatInput: View {
                 } label: {
                     Text(Loc.Chat.Actions.Menu.files)
                 }
+                Button {
+                    onTapCamera()
+                } label: {
+                    Text(Loc.Chat.Actions.Menu.camera)
+                }
             } label: {
                 Image(asset: .X32.plus)
                     .foregroundColor(.Control.navPanelIcon)
@@ -65,7 +71,7 @@ struct ChatInput: View {
                 } label: {
                     EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
                 }
-                .disabled(additionalDataLoading)
+                .disabled(disableSendButton)
                 .frame(width: 32, height: 56)
             }
                 

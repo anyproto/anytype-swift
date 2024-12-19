@@ -633,6 +633,7 @@ internal enum Loc {
     }
     internal enum Actions {
       internal enum Menu {
+        internal static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Take from camera")
         internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
         internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
         internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
@@ -654,6 +655,21 @@ internal enum Loc {
         internal static let subtitle = Loc.tr("Localizable", "Chat.Reactions.Empty.Subtitle", fallback: "Probably someone has just removed the reaction or technical issue happened")
         internal static let title = Loc.tr("Localizable", "Chat.Reactions.Empty.Title", fallback: "No reactions yet")
       }
+    }
+    internal enum Reply {
+      internal static func attachments(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Attachments", String(describing: p1), fallback: "Attachments (%@)")
+      }
+      internal static func files(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Files", String(describing: p1), fallback: "Files (%@)")
+      }
+      internal static func images(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Images", String(describing: p1), fallback: "Images (%@)")
+      }
+    }
+    internal enum SendLimitAlert {
+      internal static let message = Loc.tr("Localizable", "Chat.SendLimitAlert.Message", fallback: "Looks like you're sending messages at lightning speed. Give it a sec before your next one.")
+      internal static let title = Loc.tr("Localizable", "Chat.SendLimitAlert.Title", fallback: "Hold up! Turbo typing detected!")
     }
   }
   internal enum ClearCache {

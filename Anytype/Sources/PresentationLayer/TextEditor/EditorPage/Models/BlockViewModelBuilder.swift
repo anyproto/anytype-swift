@@ -78,6 +78,7 @@ final class BlockViewModelBuilder {
     func buildEditorItems(_ viewModels: [any BlockViewModelProtocol]) -> [EditorItem] {
         var items = viewModels.map(EditorItem.block)
         
+        items = removeBlockFileIfNeeded(items)
         let featureRelationsIndex = viewModels.firstIndex { $0.content == .featuredRelations }
         let openFileButton = createOpenFileButtonIfNeeded()
         let spacer = SpacerBlockViewModel(usage: .firstRowOffset)
@@ -96,6 +97,7 @@ final class BlockViewModelBuilder {
     }
     
     // temporary hack to display open button for files
+    // remove after https://linear.app/anytype/issue/IOS-3806/%5Bepic%5D-release-x-or-ios-or-file-layout
     private func createOpenFileButtonIfNeeded() -> EditorItem? {
         guard let details = document.details else { return nil }
         guard details.layoutValue.isFileOrMedia else { return nil }
@@ -112,6 +114,25 @@ final class BlockViewModelBuilder {
         return EditorItem.block(model)
     }
     
+    // temporary hack to hide block file for files
+    // remove after https://linear.app/anytype/issue/IOS-3806/%5Bepic%5D-release-x-or-ios-or-file-layout
+    private func removeBlockFileIfNeeded(_ items: [EditorItem]) -> [EditorItem] {
+        guard let details = document.details else { return items }
+        guard details.layoutValue.isFileOrMedia else { return items }
+        
+        let index = items.firstIndex { item in
+            if case let .block(block) = item {
+                return block.info.isFile
+            }
+            return false
+        }
+        
+        guard let index else { return items }
+        
+        var items = items
+        items.remove(at: index)
+        return items
+    }
     
     func buildShimeringItem() -> EditorItem {
         let shimmeringViewModel = ShimmeringBlockViewModel()
@@ -228,11 +249,11 @@ final class BlockViewModelBuilder {
                         self?.showFilePicker(blockId: blockId)
                     },
                     onFileOpen: { [weak router] fileContext in
-                        switch fileContext.file.file.contentType {
+                        switch fileContext.previewItem.fileDetails.fileContentType {
                         case .video, .image:
                             router?.openImage(fileContext)
                         case .audio, .file:
-                            router?.showObject(objectId: fileContext.file.file.metadata.targetObjectId)
+                            router?.showObject(objectId: fileContext.previewItem.fileDetails.id)
                         case .none:
                             return
                         }
