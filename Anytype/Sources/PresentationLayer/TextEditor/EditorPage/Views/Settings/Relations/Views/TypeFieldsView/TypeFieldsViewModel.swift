@@ -64,14 +64,14 @@ final class TypeFieldsViewModel: ObservableObject {
         )
     }
     
-    func onDeleteRelations(_ indexes: IndexSet) {
+    func onDeleteRelation(_ row: TypeFieldsRelationRow) {
         Task {
-            let relationsIds = indexes.compactMap { relationRows[$0].relationId }
+            let relationsId = row.relation.id
             
-            if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelations.filter({ !relationsIds.contains($0) }) {
+            if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelations.filter({ relationsId != $0 }) {
                 try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: recommendedFeaturedRelations)
             }
-            if let recommendedRelations = document.details?.recommendedRelations.filter({ !relationsIds.contains($0) }) {
+            if let recommendedRelations = document.details?.recommendedRelations.filter({ relationsId != $0 }) {
                 try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: recommendedRelations)
             }
             

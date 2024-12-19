@@ -131,6 +131,11 @@ struct TypeFieldsView: View {
     
     private func relationRow(_ data: TypeFieldsRelationRow) -> some View {
         HStack(spacing: 0) {
+            if model.canEditRelationsList {
+                DeleteIndicator {
+                    model.onDeleteRelation(data)
+                }
+            }
             Image(asset: data.relation.iconAsset)
                 .foregroundColor(.Control.active)
             Spacer.fixedWidth(10)
