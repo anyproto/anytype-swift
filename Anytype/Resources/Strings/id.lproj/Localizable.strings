@@ -1270,7 +1270,13 @@ Please provide specific details of your needs here.";
 "Chat.Actions.Menu.Objects" = "Pilih objek yang sudah ada";
 "Chat.Actions.Menu.Media" = "Unggah media";
 "Chat.Actions.Menu.Files" = "Unggah berkas";
+"Chat.Actions.Menu.Camera" = "Take from camera";
 "Chat.Participant.Badge" = "(Kamu)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
+"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
+"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
