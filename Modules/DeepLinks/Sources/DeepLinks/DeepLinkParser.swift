@@ -17,6 +17,7 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         static let object = "object"
         static let spaceShareTip = "spaceShareTip"
         static let membership = "membership"
+        static let networkConfig = "networkConfig"
     }
 
     private let isDebug: Bool
@@ -77,6 +78,9 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         case LinkPaths.membership:
             guard let tier = queryItems.intValue(key: "tier") else { return nil }
             return .membership(tierId: tier)
+        case LinkPaths.networkConfig:
+            guard let config = queryItems.stringValue(key: "config") else { return nil }
+            return .networkConfig(config: config)
         default:
             return nil
         }
@@ -124,6 +128,13 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             guard var components = URLComponents(string: host + LinkPaths.membership) else { return nil }
             components.queryItems = [
                 URLQueryItem(name: "tier", value: String(tierId)),
+            ]
+            
+            return components.url
+        case .networkConfig(let config):
+            guard var components = URLComponents(string: host + LinkPaths.networkConfig) else { return nil }
+            components.queryItems = [
+                URLQueryItem(name: "config", value: config)
             ]
             
             return components.url

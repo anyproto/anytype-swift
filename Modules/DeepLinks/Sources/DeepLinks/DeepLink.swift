@@ -8,4 +8,6 @@ public enum DeepLink: Equatable {
     
     case spaceShareTip
     case membership(tierId: Int)
+    
+    case networkConfig(config: String)
 }
