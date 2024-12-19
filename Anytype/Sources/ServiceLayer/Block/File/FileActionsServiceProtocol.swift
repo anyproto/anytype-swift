@@ -16,7 +16,7 @@ struct FileData {
     let isTemporary: Bool
 }
 
-protocol FileActionsServiceProtocol {
+protocol FileActionsServiceProtocol: Sendable {
     
     func createFileData(source: FileUploadingSource) async throws -> FileData
     func createFileData(photoItem: PhotosPickerItem) async throws -> FileData

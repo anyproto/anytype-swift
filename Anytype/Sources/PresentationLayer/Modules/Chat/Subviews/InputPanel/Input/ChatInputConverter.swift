@@ -2,15 +2,14 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol ChatInputConverterProtocol: AnyObject {
+protocol ChatInputConverterProtocol: AnyObject, Sendable {
     func convert(message: NSAttributedString) -> ChatMessageContent
     func convert(content: ChatMessageContent, spaceId: String) async -> SafeNSAttributedString
 }
 
-final class ChatInputConverter: ChatInputConverterProtocol {
+final class ChatInputConverter: ChatInputConverterProtocol, Sendable {
     
-    @Injected(\.mentionObjectsService)
-    private var mentionObjectsService: any MentionObjectsServiceProtocol
+    private let mentionObjectsService: any MentionObjectsServiceProtocol = Container.shared.mentionObjectsService()
     
     func convert(message: NSAttributedString) -> ChatMessageContent {
         

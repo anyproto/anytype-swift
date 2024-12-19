@@ -7,10 +7,9 @@ enum SearchDefaults {
     static let objectsLimit = 100
 }
 
-final class SearchService: SearchServiceProtocol {
+final class SearchService: SearchServiceProtocol, Sendable {
     
-    @Injected(\.searchMiddleService)
-    private var searchMiddleService: any SearchMiddleServiceProtocol
+    private let searchMiddleService: any SearchMiddleServiceProtocol = Container.shared.searchMiddleService()
     
     // MARK: - SearchServiceProtocol
     
