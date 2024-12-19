@@ -1271,7 +1271,13 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.Actions.Menu.Objects" = "Mevcut nesneyi seç";
 "Chat.Actions.Menu.Media" = "Ortam yükle";
 "Chat.Actions.Menu.Files" = "Dosya yükle";
+"Chat.Actions.Menu.Camera" = "Kamera ile çek";
 "Chat.Participant.Badge" = "(Siz)";
+"Chat.Reply.Images" = "(%@) görüntü";
+"Chat.Reply.Attachments" = "(%@) ek";
+"Chat.Reply.Files" = "(%@) dosya";
+"Chat.SendLimitAlert.Title" = "Durun! Turbo yazım algılandı!";
+"Chat.SendLimitAlert.Message" = "Görünüşe göre yıldırım hızıyla mesaj gönderiyorsun. Bir sonraki mesajını yollamadan önce bir saniye bekle.";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";
