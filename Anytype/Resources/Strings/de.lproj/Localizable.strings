@@ -975,7 +975,7 @@
 "SpaceShare.Join.InviteNotFound" = "Dieser Link scheint nicht zu funktionieren";
 "SpaceShare.JoinConfirmation.Title" = "Anfrage gesendet";
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Objekt ist nicht verfügbar. Bitte den Eigentümer, es zu teilen.";
 "SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (du)";
@@ -1270,7 +1270,13 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Actions.Menu.Objects" = "Bestehendes Objekt auswählen";
 "Chat.Actions.Menu.Media" = "Medien hochladen";
 "Chat.Actions.Menu.Files" = "Datei hochladen";
+"Chat.Actions.Menu.Camera" = "Von der Kamera nehmen";
 "Chat.Participant.Badge" = "(Du)";
+"Chat.Reply.Images" = "Bilder (%@)";
+"Chat.Reply.Attachments" = "Anhänge (%@)";
+"Chat.Reply.Files" = "Dateien (%@)";
+"Chat.SendLimitAlert.Title" = "Moment mal! Turbotippen erkannt!";
+"Chat.SendLimitAlert.Message" = "Sieht so aus, als würdest du Nachrichten in Windeseile verschicken. Warte noch eine Sekunde bis zur nächsten Nachricht.";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";
