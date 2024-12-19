@@ -2,3 +2,4 @@
 "NSCameraUsageDescription" = "Камера використовується для сканування QR-кодів для безпечного і зручного входу";
 "NSLocalNetworkUsageDescription" = "Доступ до локальної мережі використовується для синхронізації даних безпосередньо між пристроями поблизу";
 "NSPhotoLibraryAddUsageDescription" = "Потрібен доступ для збереження вибраних зображень до вашої бібліотеки";
+"NSMicrophoneUsageDescription" = "Access is needed to make a video";
