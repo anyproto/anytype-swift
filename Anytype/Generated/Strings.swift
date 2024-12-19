@@ -366,6 +366,7 @@ internal enum Loc {
   internal static let unsplash = Loc.tr("Localizable", "Unsplash", fallback: "Unsplash")
   internal static let unsupported = Loc.tr("Localizable", "Unsupported", fallback: "Unsupported")
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block", fallback: "Unsupported block")
+  internal static let unsupportedDeeplink = Loc.tr("Localizable", "Unsupported deeplink", fallback: "Unsupported deeplink")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value", fallback: "Unsupported value")
   internal static let upgrade = Loc.tr("Localizable", "Upgrade", fallback: "Upgrade")
   internal static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
