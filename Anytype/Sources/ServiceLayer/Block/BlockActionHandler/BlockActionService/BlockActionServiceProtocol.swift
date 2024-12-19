@@ -3,6 +3,7 @@ import UIKit
 import ProtobufMessages
 import AnytypeCore
 
+@MainActor
 protocol BlockActionServiceProtocol {
 
     func upload(blockId: String, filePath: String) async throws
