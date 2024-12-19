@@ -45,7 +45,6 @@ struct MessageView: View {
                 }
                 Text(data.messageString)
                     .anytypeStyle(.previewTitle1Regular)
-                    .foregroundColor(textColor)
                     .padding(.horizontal, 12)
             }
             
@@ -204,7 +203,7 @@ struct MessageView: View {
     }
     
     private var textColor: Color {
-        return data.isYourMessage ? .Text.white : .Text.primary
+        return MessageTextBuilder.textColor(data.isYourMessage)
     }
     
     private var timeColor: Color {
