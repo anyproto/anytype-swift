@@ -31,6 +31,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var chatInputConverter: any ChatInputConverterProtocol
     @Injected(\.chatMessageLimits)
     private var chatMessageLimits: any ChatMessageLimitsProtocol
+    @Injected(\.messageTextBuilder)
+    private var messageTextBuilder: any MessageTextBuilderProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -353,7 +355,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.authorName),
                 // Without style. Request from designers.
-                description: MessageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
+                description: messageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
