@@ -70,12 +70,12 @@ struct ObjectFieldsView: View {
     private func sectionHeader(section: RelationsSection) -> some View {
         Group {
             if let action = section.action {
-                ListSectionHeaderView(title: section.title) {
-                    Button {
-                        action.action()
-                    } label: {
-                        Image(asset: action.asset)
-                            .renderingMode(.original).frame(width: 18, height: 18)
+                Button {
+                    action.action()
+                } label: {
+                    ListSectionHeaderView(title: section.title, titleColor: action.color) {
+                        Image(systemName: action.iconSystemName).foregroundStyle(action.color)
+                            .frame(width: 18, height: 18)
                     }
                 }
             } else {

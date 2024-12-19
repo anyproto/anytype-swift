@@ -3,7 +3,8 @@ import SwiftUI
 
 
 struct RelationsSectionAction {
-    let asset: ImageAsset
+    let iconSystemName: String
+    let color: Color
     let action: () -> ()
 }
 

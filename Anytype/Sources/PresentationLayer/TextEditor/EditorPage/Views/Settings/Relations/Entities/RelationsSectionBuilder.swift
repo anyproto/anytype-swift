@@ -39,7 +39,7 @@ final class RelationsSectionBuilder {
                     id: RelationsSection.Constants.conflictingRelationsSectionId,
                     title: Loc.Fields.missing,
                     relations: parsedRelations.conflictedRelations,
-                    action: RelationsSectionAction(asset: .X18.help, action: onConflictingRelationsSectionTap)
+                    action: RelationsSectionAction(iconSystemName: "questionmark.circle.fill", color: .System.red, action: onConflictingRelationsSectionTap)
                 )
             )
         }
