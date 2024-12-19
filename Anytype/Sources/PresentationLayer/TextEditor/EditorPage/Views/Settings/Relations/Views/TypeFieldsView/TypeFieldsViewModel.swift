@@ -10,7 +10,6 @@ import SwiftUI
 final class TypeFieldsViewModel: ObservableObject {
         
     @Published var canEditRelationsList = false
-    @Published var editMode = EditMode.inactive
     @Published var relationRows = [TypeFieldsRow]()
     @Published var relationsSearchData: RelationsSearchData?
     
@@ -52,7 +51,6 @@ final class TypeFieldsViewModel: ObservableObject {
     private func setupPermissionSubscription() async {
         for await permissions in document.permissionsPublisher.values {
             canEditRelationsList = permissions.canEditRelationsList
-            editMode = canEditRelationsList ? .active : .inactive
         }
     }
     

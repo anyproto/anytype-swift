@@ -14,8 +14,8 @@ protocol TypeFieldsMoveHandlerProtocol {
 }
 
 final class TypeFieldsMoveHandler {
-    @Injected(\.relationsService) var relationsService: any RelationsServiceProtocol
-    
+    @Injected(\.relationsService)
+    private var relationsService: any RelationsServiceProtocol
     
     func onMove(from: Int, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
         guard let fromRow = relationRows[safe: from], case let .relation(fromRelation) = fromRow else {

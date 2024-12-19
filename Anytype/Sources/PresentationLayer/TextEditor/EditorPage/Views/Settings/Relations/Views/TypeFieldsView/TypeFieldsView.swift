@@ -118,11 +118,13 @@ struct TypeFieldsView: View {
     
     private func headerRow(_ data: TypeFieldsSectionRow) -> some View {
         ListSectionHeaderView(title: data.title, increasedTopPadding: false) {
-            Button(action: {
-                model.onAddRelationTap(section: data)
-            }, label: {
-                IconView(asset: .X24.plus).frame(width: 24, height: 24)
-            })
+            if model.canEditRelationsList {
+                Button(action: {
+                    model.onAddRelationTap(section: data)
+                }, label: {
+                    IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                })
+            }
         }
         .contentShape(Rectangle())
     }
@@ -134,15 +136,19 @@ struct TypeFieldsView: View {
             Spacer.fixedWidth(10)
             AnytypeText(data.relation.name, style: .uxBodyRegular)
             Spacer()
-            MoveIndicator()
+            if model.canEditRelationsList {
+                MoveIndicator()
+            }
         }
         .frame(height: 52)
         .contentShape(Rectangle())
-        .onDrag {
-            draggedRow = .relation(data)
-            return NSItemProvider()
-        } preview: {
-            EmptyView()
+        .if(model.canEditRelationsList) {
+            $0.onDrag {
+                draggedRow = .relation(data)
+                return NSItemProvider()
+            } preview: {
+                EmptyView()
+            }
         }
     }
 }
