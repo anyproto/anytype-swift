@@ -2,12 +2,10 @@ import Foundation
 import Services
 import AnytypeCore
 
-final class DetailsService: DetailsServiceProtocol {
+final class DetailsService: DetailsServiceProtocol, Sendable {
     
-    @Injected(\.objectActionsService)
-    private var service: any ObjectActionsServiceProtocol
-    @Injected(\.fileActionsService)
-    private var fileService: any FileActionsServiceProtocol
+    private let service: any ObjectActionsServiceProtocol = Container.shared.objectActionsService()
+    private let fileService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
     
     // MARK: - DetailsServiceProtocol
 
