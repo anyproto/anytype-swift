@@ -1270,7 +1270,13 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.Actions.Menu.Objects" = "Sélectionner l'objet existant";
 "Chat.Actions.Menu.Media" = "Télécharger des médias";
 "Chat.Actions.Menu.Files" = "Télécharger un fichier";
+"Chat.Actions.Menu.Camera" = "Depuis l’appareil photo";
 "Chat.Participant.Badge" = "(Vous)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Pièces jointes (%@)";
+"Chat.Reply.Files" = "Fichiers (%@)";
+"Chat.SendLimitAlert.Title" = "Attendez ! Frappe turbo détectée !";
+"Chat.SendLimitAlert.Message" = "Il semble que vous envoyez des messages à la vitesse de la foudre. Attendez un instant avant le suivant.";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";
