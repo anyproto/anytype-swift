@@ -13,7 +13,7 @@ struct SplitData {
     let newBlockContentType: BlockText.Style
 }
 
-final class BlockActionServiceMock: BlockActionServiceProtocol {
+final class BlockActionServiceMock: BlockActionServiceProtocol, @unchecked Sendable {
     var splitStub = false
     var splitNumberOfCalls = 0
     var splitData: SplitData?
