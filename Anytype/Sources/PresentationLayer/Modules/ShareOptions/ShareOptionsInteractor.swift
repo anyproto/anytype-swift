@@ -4,24 +4,18 @@ import SharedContentManager
 import AnytypeCore
 
 
-protocol ShareOptionsInteractorProtocol: AnyObject {
+protocol ShareOptionsInteractorProtocol: AnyObject, Sendable {
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws
 }
 
 final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
-    @Injected(\.blockService)
-    private var blockService: any BlockServiceProtocol
-    @Injected(\.bookmarkService)
-    private var bookmarkService: any BookmarkServiceProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.fileActionsService)
-    private var fileService: any FileActionsServiceProtocol
-    @Injected(\.pasteboardMiddleService)
-    private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
+    private let blockService: any BlockServiceProtocol = Container.shared.blockService()
+    private let bookmarkService: any BookmarkServiceProtocol = Container.shared.bookmarkService()
+    private let objectActionsService: any ObjectActionsServiceProtocol = Container.shared.objectActionsService()
+    private let fileService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
+    private let pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol = Container.shared.pasteboardMiddleService()
+    private let objectTypeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
     
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
         switch saveOptions {

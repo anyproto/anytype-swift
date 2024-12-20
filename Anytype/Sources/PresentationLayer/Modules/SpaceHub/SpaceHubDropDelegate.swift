@@ -17,7 +17,7 @@ struct SpaceHubDropDelegate: DropDelegate {
     }
     
     func performDrop(info: DropInfo) -> Bool {
-        guard let allSpaces, let draggedItem, let initialIndex else { return false }
+        guard let allSpaces, draggedItem.isNotNil, let initialIndex else { return false }
         
         guard let finalIndex = allSpaces.firstIndex(of: destinationItem) else { return false }
         guard finalIndex != initialIndex else { return false }

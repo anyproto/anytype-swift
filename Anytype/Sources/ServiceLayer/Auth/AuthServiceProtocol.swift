@@ -1,6 +1,6 @@
 import Services
 
-protocol AuthServiceProtocol {
+protocol AuthServiceProtocol: Sendable {
     func createWallet() async throws -> String
     func createAccount(name: String, iconOption: Int, imagePath: String) async throws -> AccountData
     func walletRecovery(mnemonic: String) async throws

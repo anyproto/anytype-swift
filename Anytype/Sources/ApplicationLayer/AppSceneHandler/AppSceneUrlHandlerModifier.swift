@@ -24,6 +24,7 @@ private struct AppSceneUrlHandlerModifier: ViewModifier {
                 }
                 _ = model.onOpenURL(url)
             }
+            .safariSheet(url: $model.safariUrl)
     }
 }
 

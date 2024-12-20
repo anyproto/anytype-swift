@@ -367,6 +367,7 @@ internal enum Loc {
   internal static let unsplash = Loc.tr("Localizable", "Unsplash", fallback: "Unsplash")
   internal static let unsupported = Loc.tr("Localizable", "Unsupported", fallback: "Unsupported")
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block", fallback: "Unsupported block")
+  internal static let unsupportedDeeplink = Loc.tr("Localizable", "Unsupported deeplink", fallback: "Unsupported deeplink")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value", fallback: "Unsupported value")
   internal static let upgrade = Loc.tr("Localizable", "Upgrade", fallback: "Upgrade")
   internal static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
@@ -637,6 +638,11 @@ internal enum Loc {
         internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
         internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
         internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
+      }
+    }
+    internal enum AttachmentsLimit {
+      internal static func alert(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ files at a time")
       }
     }
     internal enum DeleteMessage {
