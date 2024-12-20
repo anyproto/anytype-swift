@@ -21,7 +21,12 @@ import Foundation
 
 // Temporary solution - setup environment from main target.
 public enum CoreEnvironment {
-    public static var isDebug: Bool = false
+    
+    private static let isDegubStorage = AtomicStorage(false)
+    public static var isDebug: Bool  {
+        get { isDegubStorage.value }
+        set { isDegubStorage.value = newValue }
+    }
     
     public static var isSimulator: Bool {
         #if targetEnvironment(simulator)
