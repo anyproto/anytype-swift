@@ -2,15 +2,16 @@ import SwiftUI
 import SafariServices
 
 extension View {
-    func safariFullScreen(url: Binding<URL?>, preferredColorScheme: UIUserInterfaceStyle? = nil) -> some View {
+    func safariFullScreen(url: Binding<URL?>) -> some View {
         self.fullScreenCover(item: url) {
-            SafariWebView(url: $0, preferredColorScheme: preferredColorScheme).ignoresSafeArea()
+            SafariWebView(url: $0)
+                .ignoresSafeArea()
         }
     }
     
-    func safariSheet(url: Binding<URL?>, preferredColorScheme: UIUserInterfaceStyle? = nil) -> some View {
+    func safariSheet(url: Binding<URL?>) -> some View {
         self.sheet(item: url) {
-            SafariWebView(url: $0, preferredColorScheme: preferredColorScheme)
+            SafariWebView(url: $0)
                 .ignoresSafeArea()
         }
     }
@@ -18,24 +19,18 @@ extension View {
 
 struct SafariWebView: UIViewControllerRepresentable {
     let url: URL
-    let preferredColorScheme: UIUserInterfaceStyle?
     
-    init(url: URL, preferredColorScheme: UIUserInterfaceStyle? = nil) {
+    init(url: URL) {
         self.url = url
-        self.preferredColorScheme = preferredColorScheme
     }
     
     func makeUIViewController(context: Context) -> SFSafariViewController {
         let url = url.urlByAddingHttpIfSchemeIsEmpty()
-        let safariController = SFSafariViewController(url: url)
-        preferredColorScheme.flatMap { safariController.overrideUserInterfaceStyle = $0 }
-        
+        let safariController = SFSafariViewController(url: url)        
         return safariController
     }
     
-    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
-        
-    }
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {}
 }
 
 #Preview {

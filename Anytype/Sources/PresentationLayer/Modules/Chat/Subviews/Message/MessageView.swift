@@ -2,7 +2,12 @@ import Foundation
 import SwiftUI
 
 struct MessageView: View {
-        
+    
+    private enum Constants {
+        static let gridSize: CGFloat = 250
+        static let gridPadding: CGFloat = 4
+    }
+    
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
     
@@ -45,7 +50,6 @@ struct MessageView: View {
                 }
                 Text(data.messageString)
                     .anytypeStyle(.previewTitle1Regular)
-                    .foregroundColor(textColor)
                     .padding(.horizontal, 12)
             }
             
@@ -57,10 +61,10 @@ struct MessageView: View {
                     }
                     .padding(4)
                 case .grid(let items):
-                    MessageGridAttachmentsContainer(objects: items) {
+                    MessageGridAttachmentsContainer(objects: items, oneSide: Constants.gridSize, spacing: 4) {
                         output?.didSelectAttachment(data: data, details: $0)
                     }
-                    .padding(4)
+                    .padding(Constants.gridPadding)
                 }
             }
             
@@ -86,6 +90,9 @@ struct MessageView: View {
             if data.reactions.isEmpty && data.linkedObjects == nil {
                 Spacer.fixedHeight(12)
             }
+        }
+        .if(data.linkedObjects?.isGrid ?? false) {
+            $0.frame(width: Constants.gridSize + Constants.gridPadding * 2)
         }
         .readSize {
             contentSize = $0
@@ -204,7 +211,7 @@ struct MessageView: View {
     }
     
     private var textColor: Color {
-        return data.isYourMessage ? .Text.white : .Text.primary
+        return MessageTextBuilder.textColor(data.isYourMessage)
     }
     
     private var timeColor: Color {

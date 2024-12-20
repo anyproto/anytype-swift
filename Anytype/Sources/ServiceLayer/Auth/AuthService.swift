@@ -5,22 +5,15 @@ import ProtobufMessages
 import Services
 import AnytypeCore
 
-final class AuthService: AuthServiceProtocol {
+final class AuthService: AuthServiceProtocol, Sendable {
     
-    @Injected(\.localRepoService)
-    private var localRepoService: any LocalRepoServiceProtocol
-    @Injected(\.loginStateService)
-    private var loginStateService: any LoginStateServiceProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
-    @Injected(\.appErrorLoggerConfiguration)
-    private var appErrorLoggerConfiguration: any AppErrorLoggerConfigurationProtocol
-    @Injected(\.serverConfigurationStorage)
-    private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
-    @Injected(\.authMiddleService)
-    private var authMiddleService: any AuthMiddleServiceProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
+    private let localRepoService: any LocalRepoServiceProtocol = Container.shared.localRepoService()
+    private let loginStateService: any LoginStateServiceProtocol = Container.shared.loginStateService()
+    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
+    private let appErrorLoggerConfiguration: any AppErrorLoggerConfigurationProtocol = Container.shared.appErrorLoggerConfiguration()
+    private let serverConfigurationStorage: any ServerConfigurationStorageProtocol = Container.shared.serverConfigurationStorage()
+    private let authMiddleService: any AuthMiddleServiceProtocol = Container.shared.authMiddleService()
+    private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
 
     private lazy var rootPath: String = {
         localRepoService.middlewareRepoPath

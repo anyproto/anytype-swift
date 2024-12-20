@@ -5,6 +5,7 @@ import Combine
 protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
     var installedConfigurationsPublisher: AnyPublisher<Void, Never> { get }
     func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws
+    func addConfiguration(fileBase64Content: String, setupAsCurrent: Bool) throws
     func setupCurrentConfiguration(config: NetworkServerConfig)
     func configurations() -> [NetworkServerConfig]
     func currentConfiguration() -> NetworkServerConfig
@@ -17,6 +18,7 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     enum ServerError: Error {
         case badExtension
         case accessError
+        case badEncoding
     }
     
     @UserDefault("serverConfig", defaultValue: .anytype)
@@ -25,6 +27,8 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     private enum Constants {
         static let configStorageFolder = "Servers"
         static let pathExtension = "yml"
+        
+        static let deeplinkProvidedConfigName = "DeeplinkProvidedConfig.yml"
     }
     
     private let storagePath: URL
@@ -59,6 +63,25 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
             try FileManager.default.copyItem(at: filePath, to: destination)
             if setupAsCurrent {
                 setupCurrentConfiguration(config: .file(filePath.lastPathComponent))
+            }
+            installedConfigurationsSubject.send(())
+        } catch {
+            anytypeAssertionFailure("Add configuration error", info: ["error": error.localizedDescription])
+            throw error
+        }
+    }
+    
+    func addConfiguration(fileBase64Content: String, setupAsCurrent: Bool) throws {
+        do {
+            guard let yamlString = fileBase64Content.decodedBase64(), let data = yamlString.data(using: .utf8) else { throw ServerError.badEncoding }
+            
+            try? FileManager.default.createDirectory(at: storagePath, withIntermediateDirectories: false)
+            let destination = storagePath.appendingPathComponent(Constants.deeplinkProvidedConfigName)
+            try? FileManager.default.removeItem(at: destination)
+            try data.write(to: destination)
+            
+            if setupAsCurrent {
+                setupCurrentConfiguration(config: .file(Constants.deeplinkProvidedConfigName))
             }
             installedConfigurationsSubject.send(())
         } catch {

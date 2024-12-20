@@ -210,6 +210,7 @@
 "Open file" = "Open file";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
+"Unsupported deeplink" = "Unsupported deeplink";
 
 // Home
 "Favorites" = "Favoritos";
@@ -1276,6 +1277,7 @@ Please provide specific details of your needs here.";
 "Chat.Reply.Files" = "Files (%@)";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

@@ -1,5 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID viene utilizzato per recuperare la tua Chiave salvata in modo sicuro nel portachiavi";
-"NSCameraUsageDescription" = "La fotocamera è usata per scannerizzare il QR code per un'esperienza di accesso sicura e conveniente";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "L'accesso alla rete locale viene utilizzato per sincronizzare i dati direttamente tra i tuoi dispositivi vicini";
 "NSPhotoLibraryAddUsageDescription" = "L'accesso è necessario per salvare le immagini selezionate nella tua libreria";
-"NSMicrophoneUsageDescription" = "Access is needed to make a video";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

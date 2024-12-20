@@ -15,6 +15,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     @Injected(\.messageAttachmentsGridLayoutBuilder)
     private var gridLayoutBuilder: any MessageAttachmentsGridLayoutBuilderProtocol
+    @Injected(\.messageTextBuilder)
+    private var messageTextBuilder: any MessageTextBuilderProtocol
     
     private let spaceId: String
     private let chatId: String
@@ -71,7 +73,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
-                messageString: MessageTextBuilder.makeMessage(content: message.message),
+                messageString: messageTextBuilder.makeMessage(content: message.message, isYourMessage: isYourMessage),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
@@ -165,7 +167,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
             let description: String
             if replyChat.message.text.isNotEmpty {
                 // Without style. Request from designers.
-                description = MessageTextBuilder.makeMessaeWithoutStyle(content: replyChat.message)
+                description = messageTextBuilder.makeMessaeWithoutStyle(content: replyChat.message)
             } else if fullMessage.replyAttachments.count == 1 {
                 description = replyAttachment?.title ?? ""
             } else if imagesCount == fullMessage.replyAttachments.count {

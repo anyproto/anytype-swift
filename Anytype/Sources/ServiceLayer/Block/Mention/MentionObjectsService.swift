@@ -1,15 +1,14 @@
 import Services
 import AnytypeCore
 
-protocol MentionObjectsServiceProtocol: AnyObject {
+protocol MentionObjectsServiceProtocol: AnyObject, Sendable {
     func searchMentions(spaceId: String, text: String, excludedObjectIds: [String], limitLayout: [DetailsLayout]) async throws -> [MentionObject]
     func searchMentionById(spaceId: String, objectId: String) async throws -> MentionObject
 }
 
-final class MentionObjectsService: MentionObjectsServiceProtocol {
+final class MentionObjectsService: MentionObjectsServiceProtocol, Sendable {
     
-    @Injected(\.searchMiddleService)
-    private var searchMiddleService: any SearchMiddleServiceProtocol
+    private let searchMiddleService: any SearchMiddleServiceProtocol = Container.shared.searchMiddleService()
     
     func searchMentions(spaceId: String, text: String, excludedObjectIds: [String], limitLayout: [DetailsLayout]) async throws -> [MentionObject] {
         let sort = SearchHelper.sort(
