@@ -17,7 +17,6 @@ struct TypeFieldsView: View {
     
     var body: some View {
         content
-            .animation(.default, value: model.relationRows)
             .task { await model.setupSubscriptions() }
             .sheet(item: $model.relationsSearchData) { data in
                 RelationsSearchCoordinatorView(data: data)

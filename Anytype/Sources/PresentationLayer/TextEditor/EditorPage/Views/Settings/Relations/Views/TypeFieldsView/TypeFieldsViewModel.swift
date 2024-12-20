@@ -44,7 +44,12 @@ final class TypeFieldsViewModel: ObservableObject {
     
     private func setupRelationsSubscription() async {
         for await relations in document.parsedRelationsPublisherForType.values {
-            self.relationRows = fieldsDataBuilder.build(relations: relations.sidebarRelations, featured: relations.featuredRelations)
+            let newRows = fieldsDataBuilder.build(relations: relations.sidebarRelations, featured: relations.featuredRelations)
+            
+            // do not animate on 1st appearance
+            withAnimation(relationRows.isNotEmpty ? .default : nil) {
+                relationRows = newRows
+            }
         }
     }
     
