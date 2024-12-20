@@ -1,10 +1,10 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.0
 import PackageDescription
 
 let package = Package(
     name: "ProtobufMessages",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v16),
     ],
     products: [
         .library(
@@ -23,6 +23,9 @@ let package = Package(
                 "Lib"
             ],
             path: "Sources",
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ],
             linkerSettings: [
                 .linkedLibrary("c++"),
                 .linkedLibrary("resolv")
