@@ -280,6 +280,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .membership(let tierId):
             guard accountManager.account.isInProdOrStagingNetwork else { return }
             membershipTierId = tierId.identifiable
+        case .networkConfig:
+            toastBarData = ToastBarData(text: Loc.unsupportedDeeplink, showSnackBar: true)
         }
     }
     

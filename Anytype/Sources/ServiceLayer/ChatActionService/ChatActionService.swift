@@ -2,7 +2,7 @@ import Services
 import UIKit
 import AnytypeCore
 
-protocol ChatActionServiceProtocol: AnyObject {
+protocol ChatActionServiceProtocol: AnyObject, Sendable {
     func createMessage(
         chatId: String,
         spaceId: String,
@@ -21,14 +21,11 @@ protocol ChatActionServiceProtocol: AnyObject {
     ) async throws
 }
 
-final class ChatActionService: ChatActionServiceProtocol {
+final class ChatActionService: ChatActionServiceProtocol, Sendable {
     
-    @Injected(\.chatInputConverter)
-    private var chatInputConverter: any ChatInputConverterProtocol
-    @Injected(\.fileActionsService)
-    private var fileActionsService: any FileActionsServiceProtocol
-    @Injected(\.chatService)
-    private var chatService: any ChatServiceProtocol
+    private let chatInputConverter: any ChatInputConverterProtocol = Container.shared.chatInputConverter()
+    private let fileActionsService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
+    private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     
     func createMessage(
         chatId: String,

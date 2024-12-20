@@ -17,7 +17,7 @@ enum LastOpenedScreen: Codable {
     }
 }
 
-protocol UserDefaultsStorageProtocol: Sendable {
+protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var showUnstableMiddlewareError: Bool { get set }
     var usersId: String { get set }
     var currentVersionOverride: String { get set }

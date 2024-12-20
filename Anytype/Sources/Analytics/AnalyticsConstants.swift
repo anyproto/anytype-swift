@@ -248,6 +248,7 @@ enum SelectNetworkType: String {
 
 enum SelectNetworkRoute: String {
     case onboarding = "Onboarding"
+    case deeplink = "Deeplink"
 }
 
 enum ClickOnboardingTooltipType: String {

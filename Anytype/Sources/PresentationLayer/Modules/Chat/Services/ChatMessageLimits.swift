@@ -5,11 +5,14 @@ import AnytypeCore
 
 protocol ChatMessageLimitsProtocol: AnyObject {
     var textLimit: Int { get }
+    var attachmentsLimit: Int { get }
     func textIsLimited(text: NSAttributedString) -> Bool
     func textIsWarinig(text: NSAttributedString) -> Bool
     func canAddReaction(message: ChatMessage, yourProfileIdentity: String) -> Bool
     func canSendMessage() -> Bool
     func markSentMessage()
+    func countAttachmentsCanBeAdded(current: Int) -> Int
+    func oneAttachmentCanBeAdded(current: Int) -> Bool
 }
 
 final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
@@ -26,12 +29,17 @@ final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
         static let reactionsForMessageLimit = 12
         static let sendMessagesCountLimit = 5
         static let sendMessagesTimeLimitSec: TimeInterval = 5
+        static let attachmentsLimit: Int = 10
     }
     
     private let messageLimitStorage = AtomicStorage(MessageLimitStorage())
     
     var textLimit: Int {
         Constants.textLimit
+    }
+    
+    var attachmentsLimit: Int {
+        Constants.attachmentsLimit
     }
     
     func textIsLimited(text: NSAttributedString) -> Bool {
@@ -72,6 +80,14 @@ final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
                 value.countMessagesSent += 1
             }
         }
+    }
+    
+    func countAttachmentsCanBeAdded(current: Int) -> Int {
+        return Constants.attachmentsLimit - current
+    }
+    
+    func oneAttachmentCanBeAdded(current: Int) -> Bool {
+        return Constants.attachmentsLimit - current > 0
     }
 }
 
