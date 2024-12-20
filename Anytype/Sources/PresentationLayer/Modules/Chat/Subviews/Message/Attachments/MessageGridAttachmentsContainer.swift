@@ -5,20 +5,31 @@ import Services
 struct MessageGridAttachmentsContainer: View {
 
     let objects: [[MessageAttachmentDetails]]
+    let oneSide: CGFloat
+    let spacing: CGFloat
     let onTapObject: (MessageAttachmentDetails) -> Void
     
-    private enum Constants {
-        static let spacing: CGFloat = 4
-        static let oneSide: CGFloat = 250
-        static let twoSide: CGFloat = (Constants.oneSide - Constants.spacing) * 0.5
-        static let treeSide: CGFloat = (Constants.oneSide - Constants.spacing * 2) * 0.33
-        
+    private let twoSide: CGFloat
+    private let treeSide: CGFloat
+    
+    init(
+        objects: [[MessageAttachmentDetails]],
+        oneSide: CGFloat,
+        spacing: CGFloat,
+        onTapObject: @escaping (MessageAttachmentDetails) -> Void
+    ) {
+        self.objects = objects
+        self.oneSide = oneSide
+        self.spacing = spacing
+        self.onTapObject = onTapObject
+        self.twoSide = (oneSide - spacing) * 0.5
+        self.treeSide = (oneSide - spacing * 2) * 0.33
     }
     
     var body: some View {
-        VStack(spacing: Constants.spacing) {
+        VStack(spacing: spacing) {
             ForEach(objects, id:\.self) { rowObjects in
-                HStack(spacing: Constants.spacing) {
+                HStack(spacing: spacing) {
                     ForEach(rowObjects, id:\.id) { object in
                         Group {
                             switch object.layoutValue {
@@ -37,17 +48,17 @@ struct MessageGridAttachmentsContainer: View {
                 }
             }
         }
-        .cornerRadius(20)
+        .cornerRadius(16)
     }
     
     private func rowItemSize(rowItems: Int) -> CGFloat? {
         switch rowItems {
         case 3:
-            return Constants.treeSide
+            return treeSide
         case 2:
-            return Constants.twoSide
+            return twoSide
         case 1:
-            return Constants.oneSide
+            return oneSide
         default:
             return nil
         }
