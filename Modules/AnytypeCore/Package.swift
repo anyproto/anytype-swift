@@ -23,7 +23,10 @@ let package = Package(
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 "Logger"
             ],
-            path: "AnytypeCore"
+            path: "AnytypeCore",
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
         )
     ]
 )

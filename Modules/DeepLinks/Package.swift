@@ -18,7 +18,7 @@ let package = Package(
             name: "DeepLinks",
             dependencies: [],
             swiftSettings: [
-                .enableExperimentalFeature("StrictConcurrency")
+                .swiftLanguageMode(.v6)
             ]
         ),
         .testTarget(

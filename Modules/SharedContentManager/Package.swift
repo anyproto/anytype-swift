@@ -19,7 +19,10 @@ let package = Package(
         .target(
             name: "SharedContentManager",
             dependencies: ["AnytypeCore"],
-            path: "Sources"
+            path: "Sources",
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
         )
     ]
 )

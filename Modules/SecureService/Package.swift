@@ -17,7 +17,7 @@ let package = Package(
             name: "SecureService",
             path: "SecureService",
             swiftSettings: [
-                .enableExperimentalFeature("StrictConcurrency")
+                .swiftLanguageMode(.v6)
             ]
         )
     ]

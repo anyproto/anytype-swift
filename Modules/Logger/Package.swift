@@ -32,7 +32,10 @@ let package = Package(
                 .product(name: "PulseProxy", package: "Pulse"),
                 .product(name: "Logging", package: "swift-log")
             ],
-            path: "Sources"
+            path: "Sources",
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
         )
     ]
 )
