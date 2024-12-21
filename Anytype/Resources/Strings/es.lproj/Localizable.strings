@@ -74,7 +74,7 @@
 "Create relation" = "Crear relación ‘%@’";
 "Relation.View.Hint.Empty" = "vacío";
 "Relation.MyRelations" = "Mis relaciones";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "Se ha creado la relación «%@».";
 "Relation.Deleted" = "Relación eliminada";
 "Relation.From.Type" = "Del tipo %@";
 "Relation.EmptyState.title" = "Sin opciones";
@@ -210,7 +210,7 @@
 "Open file" = "Abrir archivo";
 "Open Set" = "Abrir conjunto";
 "Create Set" = "Crear conjunto";
-"Unsupported deeplink" = "Unsupported deeplink";
+"Unsupported deeplink" = "Enlace no compatible";
 
 // Home
 "Favorites" = "Favoritos";
@@ -703,7 +703,7 @@
 "Show" = "Mostrar";
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
-"Leave a space" = "Leave a space";
+"Leave a space" = "Abandonar un espacio";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -722,7 +722,7 @@
 "ObjectType.SearchOrInstall" = "Buscar o instalar un nuevo tipo";
 "ObjectType.Search" = "Buscar un tipo";
 "ObjectType.MyTypes" = "Mis tipos";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "Se ha creado el tipo «%@».";
 "ObjectType.DeletedName" = "Tipo eliminado";
 "ObjectType.editingType" = "Estás editando el tipo";
 
