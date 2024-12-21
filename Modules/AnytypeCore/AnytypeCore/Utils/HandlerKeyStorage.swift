@@ -1,7 +1,7 @@
 import Foundation
-import Combine
+@preconcurrency import Combine
 
-public actor HandlerKeyStorage<Key: Hashable, Handler> {
+public actor HandlerKeyStorage<Key: Hashable, Handler: Sendable> {
     
     private var cancellableHandlers = [Key: HandlerStorage<Handler>]()
     

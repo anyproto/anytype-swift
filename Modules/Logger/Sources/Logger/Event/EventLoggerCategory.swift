@@ -1,6 +1,6 @@
 import Foundation
 
-public struct EventLoggerCategory: ExpressibleByStringLiteral {
+public struct EventLoggerCategory: ExpressibleByStringLiteral, Sendable {
     public let category: String
 
     public init(category: String) {
