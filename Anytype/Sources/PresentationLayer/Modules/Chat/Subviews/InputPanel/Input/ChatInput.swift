@@ -7,6 +7,7 @@ struct ChatInput: View {
     @Binding var mention: ChatTextMention
     let hasAdditionalData: Bool
     let disableSendButton: Bool
+    let disableAddButton: Bool
     let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
@@ -64,6 +65,7 @@ struct ChatInput: View {
             }
             .frame(height: 56)
             .menuOrder(.fixed)
+            .disabled(disableAddButton)
             
             if hasAdditionalData || !text.string.isEmpty {
                 Button {

@@ -53,7 +53,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         )
     }
 
-    var keyboardDismiss: (() -> ())?
+    var keyboardDismiss: KeyboardDismiss?
     var dismissAllPresented: DismissAllPresented?
     
     let sceneId = UUID().uuidString

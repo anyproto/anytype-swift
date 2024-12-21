@@ -45,6 +45,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     @Published var dataLoaded = false
     @Published var canEdit = false
+    var keyboardDismiss: KeyboardDismiss?
     
     // Input Message
     
@@ -181,6 +182,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             chatMessageLimits.markSentMessage()
             clearInput()
         } else {
+            keyboardDismiss?()
             showSendLimitAlert = true
         }
         sendMessageTaskInProgress = false
