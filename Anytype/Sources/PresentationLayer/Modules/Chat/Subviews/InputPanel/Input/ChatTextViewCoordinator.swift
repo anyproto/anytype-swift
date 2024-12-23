@@ -50,12 +50,12 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     }
     
     func changeEditingStateIfNeeded(textView: UITextView, editing: Bool) {
-        if editing, lastApplyedEditingState == false {
+        if editing, lastApplyedEditingState != true {
             if !textView.isFirstResponder {
                 textView.becomeFirstResponder()
             }
             lastApplyedEditingState = true
-        } else if lastApplyedEditingState == true {
+        } else if !editing, lastApplyedEditingState != false {
             if textView.isFirstResponder {
                 textView.resignFirstResponder()
             }

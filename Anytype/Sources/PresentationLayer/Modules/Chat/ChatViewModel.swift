@@ -368,6 +368,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     func didSelectReplyTo(message: MessageViewData) {
         withAnimation {
+            inputFocused = true
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.authorName),
