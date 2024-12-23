@@ -1,12 +1,12 @@
 import Foundation
 import Services
 
-struct ChatLocalPhotosFile {
+struct ChatLocalPhotosFile: Equatable {
     let data: FileData?
     let photosPickerItemHash: Int
 }
 
-enum ChatLinkedObject: Identifiable {
+enum ChatLinkedObject: Identifiable, Equatable {
     case uploadedObject(MessageAttachmentDetails)
     case localPhotosFile(ChatLocalPhotosFile)
     case localBinaryFile(FileData)
