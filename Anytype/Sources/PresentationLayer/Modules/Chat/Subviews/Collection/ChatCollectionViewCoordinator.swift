@@ -122,6 +122,8 @@ final class ChatCollectionViewCoordinator<
             canCallScrollToBottom = true
             dataSourceApplyTransaction = false
             CATransaction.commit()
+            
+            updateVisibleRangeIfNeeded(collectionView: collectionView)
         }
     }
     
@@ -162,7 +164,14 @@ final class ChatCollectionViewCoordinator<
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard !dataSourceApplyTransaction, let handleVisibleRange else { return }
+        guard !dataSourceApplyTransaction else { return }
+        updateVisibleRangeIfNeeded(collectionView: collectionView)
+    }
+    
+    // MARK: - Private
+    
+    private func updateVisibleRangeIfNeeded(collectionView: UICollectionView) {
+        guard let handleVisibleRange else { return }
         
         let visibleIndexes = collectionView.indexPathsForVisibleItems.sorted(by: <)
         
@@ -178,8 +187,6 @@ final class ChatCollectionViewCoordinator<
             }
         }
     }
-    
-    // MARK: - Private
     
     private func appyScrollProxy(collectionView: UICollectionView, scrollProxy: ChatCollectionScrollProxy, fallbackScrollToBottom: Bool) {
         guard lastScrollProxy != scrollProxy else {

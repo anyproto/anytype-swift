@@ -12,7 +12,12 @@ struct MessageListAttachmentsViewContainer: View {
             ForEach(objects, id: \.id) { details in
                 MessageObjectAttachmentView(details: details)
                     .onTapGesture {
-                        onTapObject(details)
+                        if !details.loadingState {
+                            onTapObject(details)
+                        }
+                    }
+                    .if(details.loadingState) {
+                        $0.redacted(reason: .placeholder)
                     }
             }
         }
