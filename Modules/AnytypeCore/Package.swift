@@ -13,7 +13,7 @@ let package = Package(
             targets: ["AnytypeCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
+        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.28.2"),
         .package(path: "../Logger")
     ],
     targets: [

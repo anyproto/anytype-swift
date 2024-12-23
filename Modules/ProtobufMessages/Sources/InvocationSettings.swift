@@ -1,5 +1,5 @@
 import Foundation
 
 public struct InvocationSettings {
-    public static var handler: InvocationMesagesHandlerProtocol? = nil
+    nonisolated(unsafe) public static var handler: InvocationMesagesHandlerProtocol? = nil
 }
