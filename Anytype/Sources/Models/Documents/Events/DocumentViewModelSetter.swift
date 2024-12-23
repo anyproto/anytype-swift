@@ -55,7 +55,7 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
         
         let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
         
-        restrictionsContainer.restrinctions = restrinctions
+        restrictionsContainer.restrictions = restrinctions
         
         if FeatureFlags.relativeDates {
             mentionTextUpdateHandler.updateMentionsTextsIfNeeded(

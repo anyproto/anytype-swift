@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-public protocol RelationKeysStorageProtocol: AnyObject {
+public protocol RelationKeysStorageProtocol: AnyObject, Sendable {
     
     var relationKeys: [String] { get }
     
