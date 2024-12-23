@@ -10,7 +10,7 @@ enum FileUploadingSource {
     case itemProvider(NSItemProvider)
 }
 
-struct FileData {
+struct FileData: Equatable {
     let path: String
     let type: UTType
     let isTemporary: Bool
