@@ -2,9 +2,9 @@ import Foundation
 import AnytypeCore
 import Combine
 
-public final class RelationKeysStorage: RelationKeysStorageProtocol {
+public final class RelationKeysStorage: RelationKeysStorageProtocol, Sendable {
     
-    private var storage = SynchronizedArray<String>()
+    private let storage = SynchronizedArray<String>()
     
     public init() {}
     
@@ -15,7 +15,9 @@ public final class RelationKeysStorage: RelationKeysStorageProtocol {
     }
     
     public func set(relationKeys: [String]) {
-        storage = SynchronizedArray<String>(array: relationKeys)
+        storage.mutate {
+            $0 = relationKeys
+        }
     }
     
     public func amend(relationKeys: [String]) {

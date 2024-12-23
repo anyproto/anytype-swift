@@ -9,7 +9,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     var isLocked: Bool { infoContainer.get(id: objectId)?.isLocked ?? false }
     var details: ObjectDetails? { detailsStorage.get(id: objectId) }
-    var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
+    var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrictions }
     
     // MARK: - Local state
     let objectId: String

@@ -1,3 +1,5 @@
+@preconcurrency import ProtobufMessages
+
 struct HeaderBlockRestrictions: BlockRestrictions {
     let canApplyBold = false
     let canApplyItalic = false

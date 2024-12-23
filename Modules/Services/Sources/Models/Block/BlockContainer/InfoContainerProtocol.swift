@@ -1,6 +1,6 @@
 import Combine
 
-public protocol InfoContainerProtocol: AnyObject {
+public protocol InfoContainerProtocol: AnyObject, Sendable {
     
     func children(of id: String) -> [BlockInformation]
     func recursiveChildren(of id: String) -> [BlockInformation]
