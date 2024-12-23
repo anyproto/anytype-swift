@@ -4,7 +4,7 @@ import PhotosUI
 struct ChatView: View {
     
     @StateObject private var model: ChatViewModel
-    @State private var actionState: CGFloat = 0
+    @State private var actionState = ChatActionOverlayState()
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
