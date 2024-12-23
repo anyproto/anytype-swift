@@ -2,7 +2,7 @@ import Foundation
 import Services
 import Combine
 
-protocol TreeSubscriptionManagerProtocol: AnyObject {
+protocol TreeSubscriptionManagerProtocol: AnyObject, Sendable {
     var detailsPublisher: AnyPublisher<[ObjectDetails], Never> { get }
     func startOrUpdateSubscription(spaceId: String, objectIds: [String]) async -> Bool
     func stopAllSubscriptions() async

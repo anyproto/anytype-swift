@@ -28,7 +28,7 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         self.subscriptionBuilder = subscriptionBuilder
     }
     
-    func startSubscription(spaceId: String, update: @escaping () -> Void) async {
+    func startSubscription(spaceId: String, update: @escaping @Sendable () -> Void) async {
         await updateSubscription(spaceId: spaceId, update: update)
     }
     
@@ -43,7 +43,7 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         }
     }
     
-    private func updateSubscription(spaceId: String, update: @escaping (() -> Void)) async {
+    private func updateSubscription(spaceId: String, update: @escaping @Sendable (() -> Void)) async {
         guard activeSpaceId != spaceId else { return }
         
         try? await activeSubscriptionStorage?.stopSubscription()

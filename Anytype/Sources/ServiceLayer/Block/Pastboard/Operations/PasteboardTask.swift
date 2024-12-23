@@ -3,7 +3,7 @@ import Foundation
 import UniformTypeIdentifiers
 import Services
 
-final class PasteboardTask {
+final class PasteboardTask: Sendable {
 
     private enum Constants {
         static let filesDirectory = "PasteboardTask"
@@ -11,7 +11,7 @@ final class PasteboardTask {
     
     // MARK: - Private variables
     
-    private var alreadyStarted: Bool = false
+    private let alreadyStarted = AtomicStorage(false)
     
     private let objectId: String
     private let spaceId: String
@@ -36,11 +36,11 @@ final class PasteboardTask {
     }
 
     func start() async throws -> PasteboardPasteResult? {
-        guard !alreadyStarted else {
+        guard !alreadyStarted.value else {
             return nil
         }
         
-        alreadyStarted = true
+        alreadyStarted.value = true
         
         return try await performPaste()
     }
@@ -78,7 +78,7 @@ final class PasteboardTask {
         let fileSlots = pasteboardHelper.obtainAsFiles()
         AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: fileSlots.count)
         
-        try await fileSlots.asyncForEach { itemProvider in
+        for itemProvider in fileSlots {
             try Task.checkCancellation()
             let path = try? await itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.data.identifier, directory: directory)
             if let path {

@@ -390,7 +390,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func setupGroupsSubscription(forceUpdate: Bool) async throws {
         let data = setGroupSubscriptionDataBuilder.groupsData(setDocument)
-        let hasGroupDiff = groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data)
+        let hasGroupDiff = await groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data)
         if hasGroupDiff {
             try await groupsSubscriptionsHandler.stopAllSubscriptions()
             groups = try await startGroupsSubscription(with: data)
@@ -435,7 +435,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func startSubscriptionsByGroups() async {
-        await sortedVisibleGroups().asyncForEach { group in
+        for group in sortedVisibleGroups() {
             let groupFilter = group.filter(with: self.activeView.groupRelationKey)
             let subscriptionId = group.id
             setupPaginationDataIfNeeded(groupId: group.id)

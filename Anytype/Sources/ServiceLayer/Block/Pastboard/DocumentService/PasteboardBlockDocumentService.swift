@@ -4,10 +4,9 @@ import Combine
 
 
 // Convenience wrapper of PasteboardBlockService
-final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtocol {
+final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtocol, Sendable {
     
-    @Injected(\.pasteboardBlockService)
-    private var service: any PasteboardBlockServiceProtocol
+    private let service: any PasteboardBlockServiceProtocol = Container.shared.pasteboardBlockService()
     
     var hasValidURL: Bool {
         service.hasValidURL

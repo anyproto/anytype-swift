@@ -10,7 +10,7 @@ enum PasteboardContent {
     case otherContent
 }
 
-protocol PasteboardHelperProtocol {
+protocol PasteboardHelperProtocol: Sendable {
     var pasteboardContent: PasteboardContent? { get }
     
     func obtainString() -> String?
@@ -33,7 +33,7 @@ protocol PasteboardHelperProtocol {
     func stopSubscription()
 }
 
-final class PasteboardHelper: PasteboardHelperProtocol {
+final class PasteboardHelper: PasteboardHelperProtocol, Sendable {
     private lazy var pasteboard = UIPasteboard.general
     
     deinit {
