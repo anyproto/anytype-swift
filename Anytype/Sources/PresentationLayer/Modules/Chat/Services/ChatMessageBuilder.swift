@@ -200,7 +200,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         // Add empty objects
         for attachment in fullMessage.message.attachments {
             if !attachmentsDetails.contains(where: { $0.id == attachment.target }) {
-                attachmentsDetails.append(MessageAttachmentDetails(details: ObjectDetails(id: attachment.target)))
+                attachmentsDetails.append(MessageAttachmentDetails.placeholder(tagetId: attachment.target))
             }
         }
         
