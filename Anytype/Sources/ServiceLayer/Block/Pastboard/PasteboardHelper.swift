@@ -29,16 +29,11 @@ protocol PasteboardHelperProtocol: Sendable {
     var hasStrings: Bool { get }
     var hasSlots: Bool { get }
     
-    func startSubscription(onChange: @escaping () -> Void)
-    func stopSubscription()
+    func pasteboardChangePublisher() -> AnyPublisher<Void, Never>
 }
 
 final class PasteboardHelper: PasteboardHelperProtocol, Sendable {
-    private lazy var pasteboard = UIPasteboard.general
-    
-    deinit {
-        stopSubscription()
-    }
+    private var pasteboard: UIPasteboard { UIPasteboard.general }
     
     var pasteboardContent: PasteboardContent? {
         guard numberOfItems != 0 else { return nil }
@@ -158,20 +153,12 @@ final class PasteboardHelper: PasteboardHelperProtocol, Sendable {
         return false
     }
     
-    // MARK: Subscriptions
-    private var subscription: AnyCancellable?
-    func startSubscription(onChange: @escaping () -> Void) {
-        subscription = NotificationCenter.Publisher(
+    func pasteboardChangePublisher() -> AnyPublisher<Void, Never> {
+        return NotificationCenter.Publisher(
             center: .default,
             name: UIPasteboard.changedNotification
         )
-        .receiveOnMain()
-        .sink { _ in
-            onChange()
-        }
-    }
-    
-    func stopSubscription() {
-        NotificationCenter.default.removeObserver(self, name: UIPasteboard.changedNotification, object: nil)
+        .map { _ in }
+        .eraseToAnyPublisher()
     }
 }

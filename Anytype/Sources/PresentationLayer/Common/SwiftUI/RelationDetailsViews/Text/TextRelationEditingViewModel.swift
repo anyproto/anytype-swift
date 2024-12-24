@@ -48,10 +48,6 @@ final class TextRelationEditingViewModel: ObservableObject {
             objectDetails: data.objectDetails,
             output: data.output
         )
-        
-        pasteboardHelper.startSubscription { [weak self] in
-            self?.updatePasteState()
-        }
         self.handleTextUpdate(text: self.text)
     }
     
@@ -76,6 +72,12 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     func onTextChanged(_ text: String) {
         updateText(with: text)
+    }
+    
+    func handlePasteboard() async {
+        for await _ in pasteboardHelper.pasteboardChangePublisher().values {
+            updatePasteState()
+        }
     }
     
     private func updateText(with text: String) {

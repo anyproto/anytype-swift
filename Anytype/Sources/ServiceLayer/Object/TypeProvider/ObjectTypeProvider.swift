@@ -32,8 +32,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
             userDefaults.defaultObjectTypes = defaultObjectTypes
         }
     }
-    @Published var sync: () = ()
-    var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
+    private let sync = AtomicPublishedStorage<Void>(())
+    var syncPublisher: AnyPublisher<Void, Never> { sync.publisher.eraseToAnyPublisher() }
 
     private init() {
         multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<ObjectType>(
@@ -120,7 +120,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
     func startSubscription(spaceId: String) async {
         await multispaceSubscriptionHelper.startSubscription(spaceId: spaceId) { [weak self] in
             self?.updateAllCache()
-            self?.sync = ()
+            self?.sync.value = ()
         }
     }
     

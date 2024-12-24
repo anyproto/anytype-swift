@@ -37,10 +37,6 @@ final class HorizonalTypeListViewModel: ObservableObject {
         self.onPasteTap = onPasteTap
         self.pasteboardHelper = pasteboardHelper
         
-        pasteboardHelper.startSubscription { [weak self] in
-            self?.updatePasteState()
-        }
-        
         itemProvider?.typesPublisher.sink { [weak self] types in
             self?.items = types
         }.store(in: &cancellables)
@@ -55,6 +51,12 @@ final class HorizonalTypeListViewModel: ObservableObject {
     func onPasteButtonTap() {
         if !pasteboardHelper.isPasteboardEmpty { // No Permission
             onPasteTap()
+        }
+    }
+    
+    func handlePasteboard() async {
+        for await _ in pasteboardHelper.pasteboardChangePublisher().values {
+            updatePasteState()
         }
     }
 }

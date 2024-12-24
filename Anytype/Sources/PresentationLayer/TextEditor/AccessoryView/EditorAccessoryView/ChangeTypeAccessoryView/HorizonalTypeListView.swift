@@ -30,6 +30,9 @@ struct HorizonalTypeListView: View {
         .task {
             viewModel.updatePasteState()
         }
+        .task {
+            await viewModel.handlePasteboard()
+        }
     }
     
     var searchButton: some View {

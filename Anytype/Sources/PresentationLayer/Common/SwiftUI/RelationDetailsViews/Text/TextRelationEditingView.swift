@@ -25,6 +25,9 @@ struct TextRelationEditingView: View {
         .task {
             viewModel.updatePasteState()
         }
+        .task {
+            await viewModel.handlePasteboard()
+        }
         .onDisappear {
             viewModel.onDisappear()
         }
