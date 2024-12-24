@@ -50,7 +50,9 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     private let allWorkspacesStorage = AtomicPublishedStorage<[SpaceView]>([])
     var allWorkspaces: [SpaceView] { allWorkspacesStorage.value }
-    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { allWorkspacesStorage.publisher }
+    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> {
+        allWorkspacesStorage.publisher.removeDuplicates().eraseToAnyPublisher()
+    }
     
     init() {
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)

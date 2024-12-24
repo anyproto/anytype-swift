@@ -27,7 +27,7 @@ final class SyncStatusStorage: SyncStatusStorageProtocol {
     
     func startSubscription() {
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            self?.handle(events: events)
+            await self?.handle(events: events)
         }
     }
     

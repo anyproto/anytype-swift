@@ -5,7 +5,7 @@ import Services
 
 
 @MainActor
-protocol MembershipStatusStorageProtocol {
+protocol MembershipStatusStorageProtocol: Sendable {
     var statusPublisher: AnyPublisher<MembershipStatus, Never> { get }
     var currentStatus: MembershipStatus { get }
     

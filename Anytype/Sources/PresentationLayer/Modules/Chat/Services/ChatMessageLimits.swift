@@ -3,7 +3,7 @@ import Factory
 import Services
 import AnytypeCore
 
-protocol ChatMessageLimitsProtocol: AnyObject {
+protocol ChatMessageLimitsProtocol: AnyObject, Sendable {
     var textLimit: Int { get }
     var attachmentsLimit: Int { get }
     func textIsLimited(text: NSAttributedString) -> Bool

@@ -1,23 +1,20 @@
 import AnytypeCore
 import Services
 
-protocol TypesPinStorageProtocol {
+protocol TypesPinStorageProtocol: Sendable {
     func getPins(spaceId: String) throws -> [ObjectType]
     func setPins(_ pins: [ObjectType], spaceId: String)
     func appendPin(_ pin: ObjectType, spaceId: String) throws
     func removePin(typeId: String, spaceId: String) throws
 }
 
-final class TypesPinStorage: TypesPinStorageProtocol {
+final class TypesPinStorage: TypesPinStorageProtocol, Sendable {
     
-    @Injected(\.objectTypeProvider)
-    private var typeProvider: any ObjectTypeProviderProtocol
-    
-    @UserDefault("widgetCollapsedIds", defaultValue: [:])
-    private var storage: [String: [ObjectType]]
+    private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
+    private let storage = UserDefaultStorage<[String: [ObjectType]]>(key: "widgetCollapsedIds", defaultValue: [:])
     
     func getPins(spaceId: String) throws -> [ObjectType] {
-        if let pins = storage[spaceId] {
+        if let pins = storage.value[spaceId] {
             let objectTypeIds = typeProvider.objectTypes(spaceId: spaceId)
                 .filter { !$0.isArchived }
                 .filter { !$0.isDeleted }
@@ -39,7 +36,7 @@ final class TypesPinStorage: TypesPinStorageProtocol {
     }
     
     func setPins(_ pins: [ObjectType], spaceId: String) {
-        storage[spaceId] = pins
+        storage.value[spaceId] = pins
     }
     
     func appendPin(_ pin: ObjectType, spaceId: String) throws {

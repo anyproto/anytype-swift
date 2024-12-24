@@ -12,6 +12,7 @@ struct TextIconPickerData: Identifiable, Hashable {
     var id: Int { hashValue }
 }
 
+@MainActor
 final class TextIconPickerViewModel: ObservableObject {
     
     @Injected(\.fileActionsService)

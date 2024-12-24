@@ -63,7 +63,9 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     // MARK: - Public
     
     var allParticipantSpaces: [ParticipantSpaceViewData] { allParticipantSpacesStorage.value }
-    var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> { allParticipantSpacesStorage.publisher }
+    var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> {
+        allParticipantSpacesStorage.publisher.removeDuplicates().eraseToAnyPublisher()
+    }
     
     nonisolated init() {}
     
