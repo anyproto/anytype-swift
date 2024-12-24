@@ -57,7 +57,8 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
         let data = data.isNil ? image.pngData() : data
         guard let data else { return }
 
-        Task {
+        DispatchQueue.global().async { [weak self] in
+            guard let self else { return }
             do {
                 let path = isPreview ?
                 FileManager.previewPath(objectId: fileDetails.id, fileName: fileDetails.fileName) :
