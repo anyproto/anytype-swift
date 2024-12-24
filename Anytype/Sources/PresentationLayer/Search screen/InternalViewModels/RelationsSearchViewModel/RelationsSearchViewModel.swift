@@ -3,6 +3,7 @@ import Combine
 import Services
 import AnytypeCore
 
+@MainActor
 final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     private enum Constants {

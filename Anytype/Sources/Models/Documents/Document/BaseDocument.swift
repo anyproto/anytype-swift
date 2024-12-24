@@ -3,7 +3,7 @@ import Combine
 import AnytypeCore
 import Foundation
 
-final class BaseDocument: BaseDocumentProtocol {
+final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     
     // MARK: - State from Containers
     

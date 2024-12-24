@@ -1,11 +1,11 @@
 import ProtobufMessages
 import Combine
 
-protocol UsecaseServiceProtocol {
+protocol UsecaseServiceProtocol: Sendable {
     func setObjectImportDefaultUseCase(spaceId: String) async throws
 }
 
-final class UsecaseService: UsecaseServiceProtocol {
+final class UsecaseService: UsecaseServiceProtocol, Sendable {
     
     func setObjectImportDefaultUseCase(spaceId: String) async throws {
         try await ClientCommands.objectImportUseCase(.with {

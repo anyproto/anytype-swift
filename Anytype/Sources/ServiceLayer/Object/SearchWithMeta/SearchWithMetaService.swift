@@ -2,15 +2,14 @@ import ProtobufMessages
 import Services
 import AnytypeCore
 
-protocol SearchWithMetaServiceProtocol: AnyObject {
+protocol SearchWithMetaServiceProtocol: AnyObject, Sendable {
     func search(text: String, spaceId: String) async throws -> [SearchResultWithMeta]
     func search(text: String, spaceId: String, limitObjectIds: [String]) async throws -> [SearchResultWithMeta]
 }
 
-final class SearchWithMetaService: SearchWithMetaServiceProtocol {
+final class SearchWithMetaService: SearchWithMetaServiceProtocol, Sendable {
     
-    @Injected(\.searchWithMetaMiddleService)
-    private var searchWithMetaMiddleService: any SearchWithMetaMiddleServiceProtocol
+    private let searchWithMetaMiddleService: any SearchWithMetaMiddleServiceProtocol = Container.shared.searchWithMetaMiddleService()
     
     // MARK: - SearchServiceProtocol
     

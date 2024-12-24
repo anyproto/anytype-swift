@@ -2,12 +2,10 @@ import Services
 import Foundation
 import Combine
 
-final class PasteboardBlockService: PasteboardBlockServiceProtocol {
+final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
     
-    @Injected(\.pasteboardHelper)
-    private var pasteboardHelper: any PasteboardHelperProtocol
-    @Injected(\.pasteboardMiddleService)
-    private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
+    private let pasteboardHelper: any PasteboardHelperProtocol = Container.shared.pasteboardHelper()
+    private let pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol = Container.shared.pasteboardMiddleService()
     
     private var tasks = [AnyCancellable]()
     

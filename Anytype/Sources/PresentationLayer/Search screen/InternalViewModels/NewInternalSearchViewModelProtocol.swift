@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 
+@MainActor
 protocol NewInternalSearchViewModelProtocol {
     
     var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { get }

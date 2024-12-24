@@ -4,6 +4,7 @@ import Combine
 import SwiftUI
 import AnytypeCore
 
+@MainActor
 final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     
     private enum Constants {

@@ -3,7 +3,7 @@ import Combine
 import AnytypeCore
 import NotificationCenter
 
-final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
+actor GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     
     private struct Subscriber {
         let data: GroupsSubscriptionData
@@ -17,7 +17,9 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     private var subscribers = SynchronizedDictionary<String, Subscriber>()
     
     init() {
-        setup()
+        Task {
+            await setup()
+        }
     }
     
     deinit {

@@ -1,7 +1,7 @@
 import Services
 import Foundation
 
-protocol PasteboardBlockDocumentServiceProtocol: AnyObject {
+protocol PasteboardBlockDocumentServiceProtocol: AnyObject, Sendable {
     var hasValidURL: Bool { get }
     
     func pasteInsideBlock(
