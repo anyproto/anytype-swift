@@ -6,6 +6,8 @@ struct RelationCalendarView: View {
     @StateObject var viewModel: RelationCalendarViewModel
     @Environment(\.dismiss) var dismiss
     
+    @State private var clearButtonWidth: CGFloat = .zero
+    
     init(date: Date?, configuration: RelationModuleConfiguration, output: (any RelationCalendarOutput)?) {
         _viewModel = StateObject(wrappedValue: RelationCalendarViewModel(
             date: date,
@@ -58,14 +60,13 @@ struct RelationCalendarView: View {
     }
     
     private var navigationBar: some View {
-        HStack(alignment: .center, spacing: 0) {
-            Spacer()
+        HStack(spacing: 6) {
+            clearButton
             AnytypeText(viewModel.config.title, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
-            Spacer()
-        }
-        .overlay(alignment: .leading) {
-            clearButton
+                .lineLimit(1)
+                .frame(maxWidth: .infinity)
+            Spacer.fixedWidth(clearButtonWidth)
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
@@ -77,6 +78,9 @@ struct RelationCalendarView: View {
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular)
                 .foregroundColor(.Control.active)
+        }
+        .readSize { size in
+            clearButtonWidth = size.width
         }
     }
 }
