@@ -8,7 +8,7 @@ public extension Sequence {
         }
     }
     
-    func asyncMap<T>(_ transform: (Element) async throws -> T) async rethrows -> [T] {
+    func asyncMap<T>(_ transform: @Sendable (Element) async throws -> T) async rethrows -> [T] {
         var values = [T]()
 
         for element in self {

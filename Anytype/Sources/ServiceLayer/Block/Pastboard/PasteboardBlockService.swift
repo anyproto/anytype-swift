@@ -1,13 +1,14 @@
 import Services
-import Foundation
+@preconcurrency import Foundation
 import Combine
+import AnytypeCore
 
 final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
     
     private let pasteboardHelper: any PasteboardHelperProtocol = Container.shared.pasteboardHelper()
     private let pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol = Container.shared.pasteboardMiddleService()
     
-    private var tasks = [AnyCancellable]()
+    private let tasks = SynchronizedArray<AnyCancellable>()
     
     var hasValidURL: Bool {
         pasteboardHelper.hasValidURL
@@ -53,7 +54,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.longOperationTime, execute: workItem)
         
-        let task = PasteboardTask(
+        let pasteboardTask = PasteboardTask(
             objectId: objectId,
             spaceId: spaceId,
             pasteboardHelper: pasteboardHelper,
@@ -61,8 +62,8 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
             context: context
         )
         
-        Task {
-            let pasteResult = try? await task.start()
+        let task = Task { @Sendable in
+            let pasteResult = try? await pasteboardTask.start()
             
             DispatchQueue.main.async {
                 workItem.cancel()
@@ -70,7 +71,8 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
             }
         }
         .cancellable()
-        .store(in: &tasks)
+        
+        tasks.append(task)
     }
     
     func copy(
