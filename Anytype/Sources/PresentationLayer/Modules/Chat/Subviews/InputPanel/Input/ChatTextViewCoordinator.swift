@@ -272,6 +272,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         
         newText.addAttribute(.kern, value: anytypeFont.config.kern, range: NSRange(location: 0, length: newText.length))
         newText.addAttribute(.paragraphStyle, value: paragraph, range: NSRange(location: 0, length: newText.length))
+        newText.addAttribute(.foregroundColor, value: UIColor.Text.primary, range: NSRange(location: 0, length: newText.length))
         
         return NSTextParagraph(attributedString: newText)
     }
