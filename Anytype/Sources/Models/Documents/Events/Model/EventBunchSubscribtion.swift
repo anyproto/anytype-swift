@@ -14,7 +14,7 @@ actor EventBunchSubscribtion {
     }
     
     nonisolated
-    func addHandler(_ handler: @escaping (_ events: EventsBunch) async -> Void) -> AnyCancellable {
+    func addHandler(_ handler: @escaping @Sendable (_ events: EventsBunch) async -> Void) -> AnyCancellable {
         let subscriber = EventBunchSubscriber(handler: handler)
         Task {
             await addSubscriber(subscriber)
@@ -28,7 +28,7 @@ actor EventBunchSubscribtion {
     }
 }
 
-private class EventBunchSubscriber: Cancellable {
+private class EventBunchSubscriber: Cancellable, @unchecked Sendable {
     
     private(set) var handler:  ((_ events: EventsBunch) async -> Void)?
     

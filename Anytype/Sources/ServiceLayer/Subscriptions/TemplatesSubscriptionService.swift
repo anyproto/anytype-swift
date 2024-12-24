@@ -3,7 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
-protocol TemplatesSubscriptionServiceProtocol: AnyObject {
+protocol TemplatesSubscriptionServiceProtocol: AnyObject, Sendable {
     func startSubscription(
         objectType: String,
         spaceId: String,

@@ -1,6 +1,6 @@
 import Foundation
 import AnytypeCore
-import Combine
+@preconcurrency import Combine
 
 protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
     var installedConfigurationsPublisher: AnyPublisher<Void, Never> { get }
@@ -13,7 +13,7 @@ protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
     func installedConfigurations() -> [NetworkServerConfig]
 }
 
-final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
+final class ServerConfigurationStorage: ServerConfigurationStorageProtocol, Sendable {
 
     enum ServerError: Error {
         case badExtension
@@ -21,8 +21,7 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
         case badEncoding
     }
     
-    @UserDefault("serverConfig", defaultValue: .anytype)
-    private var serverConfig: NetworkServerConfig
+    private let serverConfig = UserDefaultStorage<NetworkServerConfig>(key: "serverConfig", defaultValue: .anytype)
     
     private enum Constants {
         static let configStorageFolder = "Servers"
@@ -92,8 +91,8 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     
     func setupCurrentConfiguration(config: NetworkServerConfig) {
         let configs = configurations()
-        if configs.contains(serverConfig) {
-            serverConfig = config
+        if configs.contains(serverConfig.value) {
+            serverConfig.value = config
         }
     }
     
@@ -110,12 +109,12 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     }
     
     func currentConfiguration() -> NetworkServerConfig {
-        return serverConfig
+        return serverConfig.value
     }
     
     func currentConfigurationPath() -> URL? {
         guard let items = try? FileManager.default.contentsOfDirectory(at: storagePath, includingPropertiesForKeys: nil) else { return nil }
-        return items.first { .file($0.lastPathComponent) == serverConfig }
+        return items.first { .file($0.lastPathComponent) == serverConfig.value }
     }
     
     // MARK: - Private func
@@ -128,8 +127,8 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     
     private func validateServerFile() {
         let configs = configurations()
-        if !configs.contains(serverConfig) {
-            self.serverConfig = .anytype
+        if !configs.contains(serverConfig.value) {
+            self.serverConfig.value = .anytype
         }
     }
 }

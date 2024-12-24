@@ -36,6 +36,7 @@ struct MessageVideoView: View {
     }
 }
 
+@MainActor
 private final class MessageLinkVideoViewModel: ObservableObject {
     
     @Injected(\.videoPreviewStorage)

@@ -3,7 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
-final class SetDocument: SetDocumentProtocol {
+final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     
     let document: any BaseDocumentProtocol
     

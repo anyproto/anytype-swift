@@ -3,7 +3,7 @@ import SwiftUI
 import AnytypeCore
 import DeepLinks
 
-protocol MessageTextBuilderProtocol {
+protocol MessageTextBuilderProtocol: Sendable {
     func makeMessage(content: ChatMessageContent, isYourMessage: Bool, font: AnytypeFont) -> AttributedString
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String
 }
@@ -14,12 +14,10 @@ extension MessageTextBuilderProtocol {
     }
 }
 
-struct MessageTextBuilder: MessageTextBuilderProtocol {
+struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     
-    @Injected(\.deepLinkParser)
-    private var deepLinkParser: any DeepLinkParserProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    private let deepLinkParser: any DeepLinkParserProtocol = Container.shared.deepLinkParser()
+    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     
     func makeMessage(content: ChatMessageContent, isYourMessage: Bool, font: AnytypeFont) -> AttributedString {
         var message = AttributedString(content.text)

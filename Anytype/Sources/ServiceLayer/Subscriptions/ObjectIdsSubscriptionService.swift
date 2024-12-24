@@ -3,7 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
-protocol ObjectIdsSubscriptionServiceProtocol: AnyObject {
+protocol ObjectIdsSubscriptionServiceProtocol: AnyObject, Sendable  {
     func startSubscription(
         spaceId: String,
         objectIds: [String],
@@ -12,7 +12,7 @@ protocol ObjectIdsSubscriptionServiceProtocol: AnyObject {
     func stopSubscription() async
 }
 
-final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
+actor ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
     
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
@@ -21,8 +21,6 @@ final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
     }()
     
     private let subscriptionId = "ObjectIdsSubscriptionService-\(UUID().uuidString)"
-    
-    nonisolated init() {}
     
     func startSubscription(
         spaceId: String,
