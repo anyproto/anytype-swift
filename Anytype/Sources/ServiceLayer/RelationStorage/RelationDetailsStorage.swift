@@ -20,7 +20,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol, Sendable {
     
     // MARK: - DI
     
-    private let subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.objectTypeSubscriptionDataBuilder()
+    private let subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.relationSubscriptionDataBuilder()
     
     private let multispaceSubscriptionHelper : MultispaceOneActiveSubscriptionHelper<RelationDetails>
     
