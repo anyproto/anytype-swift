@@ -5,7 +5,7 @@ extension ListWidgetRowModel {
     
     init(
         details: ObjectDetails,
-        onTap: @escaping (EditorScreenData) -> Void
+        onTap: @escaping @Sendable @MainActor (EditorScreenData) -> Void
     ) {
         self = ListWidgetRowModel(
             objectId: details.id,
