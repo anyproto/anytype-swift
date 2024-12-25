@@ -201,6 +201,7 @@ internal extension ImageAsset {
     static let select = ImageAsset.bundle(name: "x24/Select")
     static let settings = ImageAsset.bundle(name: "x24/Settings")
     static let sharing = ImageAsset.bundle(name: "x24/Sharing")
+    static let spaceSettings = ImageAsset.bundle(name: "x24/Space settings")
     static let status = ImageAsset.bundle(name: "x24/Status")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
     static let text = ImageAsset.bundle(name: "x24/Text")
