@@ -127,6 +127,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         output?.onShowCameraSelected(data: data)
     }
     
+    func onTapWidgets() {
+        output?.onWidgetsSelected()
+    }
+    
     func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants

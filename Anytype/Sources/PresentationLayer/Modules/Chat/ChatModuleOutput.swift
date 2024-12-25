@@ -12,4 +12,5 @@ protocol ChatModuleOutput: AnyObject {
     func onShowCameraSelected(data: SimpleCameraData)
     func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem])
     func onUrlSelected(url: URL)
+    func onWidgetsSelected()
 }

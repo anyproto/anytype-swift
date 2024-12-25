@@ -17,6 +17,11 @@ struct ChatView: View {
             mainView
                 .ignoresSafeArea()
         }
+        .overlay(alignment: .top) {
+            ChatHeaderView(spaceId: model.spaceId) {
+                model.onTapWidgets()
+            }
+        }
         .onAppear {
             model.keyboardDismiss = keyboardDismiss
         }

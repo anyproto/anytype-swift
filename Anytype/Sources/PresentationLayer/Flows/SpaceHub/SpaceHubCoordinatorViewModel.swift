@@ -40,6 +40,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         PageNavigation(
             push: { [weak self] data in
                 self?.pushSync(data: data)
+            }, pushHome: { [weak self] in
+                guard let self, let spaceInfo else { return }
+                navigationPath.push(HomeWidgetData(info: spaceInfo))
             }, pop: { [weak self] in
                 self?.navigationPath.pop()
             }, replace: { [weak self] data in
@@ -254,7 +257,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         .builder {
             SpaceHubNavigationItem()
             if spaceView.hasChat, FeatureFlags.showHomeSpaceLevelChat(spaceId: spaceView.targetSpaceId) {
-                ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
+                ChatCoordinatorData(chatId: spaceView.chatId, spaceInfo: spaceInfo)
             } else {
                 HomeWidgetData(info: spaceInfo)
             }

@@ -25,7 +25,7 @@ final class HomeTabBarCoordinatorViewModel: ObservableObject {
             spaceName = spaceView.title
             spaceIcon = spaceView.objectIconImage
             if spaceView.chatId.isNotEmpty {
-                chatData = ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceInfo.accountSpaceId)
+                chatData = ChatCoordinatorData(chatId: spaceView.chatId, spaceInfo: spaceInfo)
             }
         }
     }

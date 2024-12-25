@@ -162,6 +162,7 @@ internal extension ImageAsset {
       static let up = ImageAsset.bundle(name: "x24/Arrow/Up")
     }
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
+    static let back = ImageAsset.bundle(name: "x24/Back")
     static let blur = ImageAsset.bundle(name: "x24/Blur")
     static let burger = ImageAsset.bundle(name: "x24/Burger")
     static let calendar = ImageAsset.bundle(name: "x24/Calendar")
