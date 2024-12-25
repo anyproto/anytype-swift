@@ -37,8 +37,8 @@ struct HomeTabBarCoordinatorView: View {
     
     private func tabBarBody(chatData: ChatCoordinatorData) -> some View {
         ZStack {
-            HomeWallpaperView(spaceInfo: model.spaceInfo)
-            
+//            HomeWallpaperView(spaceInfo: model.spaceInfo)
+//            
 //            HomeTabBarSwipeContainer(tab: $model.tab) {
 //                HomeWidgetsCoordinatorView(spaceInfo: model.spaceInfo)
 //                    .anytypeNavigationItemData(HomeTabState.widgets)

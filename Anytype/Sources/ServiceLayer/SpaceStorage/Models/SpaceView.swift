@@ -12,7 +12,7 @@ struct SpaceView: Identifiable, Equatable {
     let spaceAccessType: SpaceAccessType?
     let readersLimit: Int?
     let writersLimit: Int?
-    let chatId: String?
+    let chatId: String
     let isPinned: Bool
 }
 
@@ -67,6 +67,10 @@ extension SpaceView {
         let spaceIsLoading = localStatus == .loading || localStatus == .unknown
         let spaceIsNotDeleted = accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
         return spaceIsLoading && spaceIsNotDeleted
+    }
+    
+    var hasChat: Bool {
+        chatId.isNotEmpty
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {

@@ -215,14 +215,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func openSpace(spaceId: String, data: EditorScreenData? = nil) async throws {
         if currentSpaceId != spaceId {
             // Check if space is deleted
-            guard workspaceStorage.spaceView(spaceId: spaceId).isNotNil else { return }
+            guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
            
             currentSpaceId = spaceId
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             currentSpaceId = spaceId
             
             if let spaceInfo {
-                var initialPath: [AnyHashable] = [SpaceHubNavigationItem(), HomeWidgetData(info: spaceInfo)]
+                var initialPath = initialHomePath(spaceView: spaceView, spaceInfo: spaceInfo)
                 if let data { initialPath.append(data) }
                 navigationPath = HomePath(initialPath: initialPath)
             }
@@ -234,17 +234,29 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func switchSpace(info: AccountInfo?) {
         Task {
             guard currentSpaceId != info?.accountSpaceId else { return }
+            
             currentSpaceId = info?.accountSpaceId
             
             if userWarningAlert.isNil {
                 await dismissAllPresented?()
             }
             
-            if let info {
-                let newPath = HomePath(initialPath: [SpaceHubNavigationItem(), HomeWidgetData(info: info)])
-                navigationPath = newPath
+            if let info, let spaceView = workspaceStorage.spaceView(spaceId: info.accountSpaceId) {
+                let newPath = initialHomePath(spaceView: spaceView, spaceInfo: info)
+                navigationPath = HomePath(initialPath: newPath)
             } else {
                 navigationPath.popToRoot()
+            }
+        }
+    }
+    
+    private func initialHomePath(spaceView: SpaceView, spaceInfo: AccountInfo) -> [AnyHashable] {
+        .builder {
+            SpaceHubNavigationItem()
+            if spaceView.hasChat, FeatureFlags.showHomeSpaceLevelChat(spaceId: spaceView.targetSpaceId) {
+                ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
+            } else {
+                HomeWidgetData(info: spaceInfo)
             }
         }
     }

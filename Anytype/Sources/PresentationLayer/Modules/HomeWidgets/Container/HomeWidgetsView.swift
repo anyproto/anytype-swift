@@ -23,7 +23,7 @@ private struct HomeWidgetsInternalView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            HomeWallpaperView(spaceInfo: model.info)
+            HomeWallpaperView(spaceId: model.spaceId)
             VerticalScrollViewWithOverlayHeader {
                 if !FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId) {
                     HomeTopShadow()

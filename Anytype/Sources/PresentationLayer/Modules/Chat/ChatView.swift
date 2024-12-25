@@ -13,6 +13,7 @@ struct ChatView: View {
     
     var body: some View {
         ZStack {
+            HomeWallpaperView(spaceId: model.spaceId)
             mainView
                 .ignoresSafeArea()
         }

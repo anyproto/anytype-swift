@@ -82,6 +82,9 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
                             SpaceHubView(sceneId: model.sceneId)
                         }
+                        builder.appendBuilder(for: ChatCoordinatorData.self) {
+                            ChatCoordinatorView(data: $0)
+                        }
                     }
                 },
                 bottomPanel: {

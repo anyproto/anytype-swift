@@ -24,8 +24,8 @@ final class HomeTabBarCoordinatorViewModel: ObservableObject {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceInfo.accountSpaceId).values {
             spaceName = spaceView.title
             spaceIcon = spaceView.objectIconImage
-            if let chatId = spaceView.chatId, chatId.isNotEmpty {
-                chatData = ChatCoordinatorData(chatId: chatId, spaceId: spaceInfo.accountSpaceId)
+            if spaceView.chatId.isNotEmpty {
+                chatData = ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceInfo.accountSpaceId)
             }
         }
     }

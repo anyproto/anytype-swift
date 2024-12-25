@@ -9,24 +9,24 @@ final class HomeWallpaperViewModel: ObservableObject {
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     
-    private let spaceInfo: AccountInfo
+    private let spaceId: String
     
     @Published var wallpaper: SpaceWallpaperType = .default
     @Published var spaceIcon: Icon?
     
-    init(spaceInfo: AccountInfo) {
-        self.spaceInfo = spaceInfo
-        self.spaceIcon = workspaceStorage.spaceView(spaceId: spaceInfo.accountSpaceId)?.objectIconImage
+    init(spaceId: String) {
+        self.spaceId = spaceId
+        self.spaceIcon = workspaceStorage.spaceView(spaceId: spaceId)?.objectIconImage
     }
     
     func subscribeOnWallpaper() async {
-        for await newWallpaper in userDefaults.wallpaperPublisher(spaceId: spaceInfo.accountSpaceId).values {
+        for await newWallpaper in userDefaults.wallpaperPublisher(spaceId: spaceId).values {
             wallpaper = newWallpaper
         }
     }
     
     func subscribeOnSpace() async {
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceInfo.accountSpaceId).values {
+        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
             spaceIcon = spaceView.objectIconImage
         }
     }
