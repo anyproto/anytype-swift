@@ -79,7 +79,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 .foregroundColor(.Control.navPanelIcon)
         }
         
-        Image(asset: .X32.Island.add)
+        Image(asset: .X32.Island.addObject)
             .onTapGesture {
                 model.onTapNewObject()
             }
