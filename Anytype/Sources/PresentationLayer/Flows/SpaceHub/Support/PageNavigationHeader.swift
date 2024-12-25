@@ -12,10 +12,11 @@ struct PageNavigationHeader<TitleView: View, RightView: View>: View {
     let rightView: RightView
     
     var body: some View {
-        HStack(spacing: 20) {
+        NavigationHeaderContainer(spacing: 20) {
             PageNavigationBackButton()
+        } titleView: {
             titleView
-                .frame(maxWidth: .infinity)
+        } rightView: {
             rightView
         }
         .padding(.horizontal, 16)
