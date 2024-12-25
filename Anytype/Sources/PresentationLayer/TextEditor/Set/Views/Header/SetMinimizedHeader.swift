@@ -32,7 +32,7 @@ struct SetMinimizedHeader: View {
                     }
                 }
             }
-            .padding(.leading, 10)
+            .padding(.leading, 16)
             .padding(.trailing, 2)
         }
         .frame(height: height)
