@@ -63,14 +63,25 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
             )
         }
-        .animation(.default, value: homeMode)
         .task {
             await model.onAppear()
+        }
+        .onAppear {
+            if let last = homePath.lastPathElement {
+                model.updateVisibleScreen(data: last)
+            }
+        }
+        .onChange(of: homePath) { homePath in
+            if let last = homePath.lastPathElement {
+                model.updateVisibleScreen(data: last)
+            }
         }
     }
     
     @ViewBuilder
     private var navigation: some View {
+        
+        leftButton
         
         Button {
             model.onTapSearch()
@@ -94,25 +105,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     }
     
     @ViewBuilder
-    private var navigationButton: some View {
-        Button {
-            if homeMode {
-                model.onTapForward()
-            } else {
-                model.onTapBackward()
-            }
-        } label: {
-            Image(asset: .X32.Arrow.left)
-                .foregroundColor(.Control.navPanelIcon)
-        }
-        .transition(.identity)
-    }
-    
-    private var homeMode: Bool {
-        return homePath.count <= 1
-    }
-    
-    @ViewBuilder
     private var progressView: some View {
         if let progress = model.progress {
             GeometryReader { reader in
@@ -122,6 +114,38 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     .animation(.linear, value: progress)
             }
             .transition(.opacity)
+        }
+    }
+    
+    @ViewBuilder
+    private var leftButton: some View {
+        if model.canLinkToChat {
+            Button {
+                print("chat")
+            } label: {
+                Image(asset: .X32.Island.discuss)
+                    .foregroundColor(.Control.navPanelIcon)
+            }
+        } else {
+            switch model.memberLeftButtonMode {
+            case .member:
+                Button {
+                    print("member")
+                } label: {
+                    Image(asset: .X32.Island.members)
+                        .foregroundColor(.Control.navPanelIcon)
+                }
+            case .owner(let disable):
+                Button {
+                    print("owner")
+                } label: {
+                    Image(asset: .X32.Island.addMember)
+                        .foregroundColor(.Control.navPanelIcon)
+                }
+                .disabled(disable)
+            case .none:
+                EmptyView()
+            }
         }
     }
 }

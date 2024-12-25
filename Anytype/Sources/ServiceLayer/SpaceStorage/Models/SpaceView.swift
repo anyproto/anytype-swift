@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 struct SpaceView: Identifiable, Equatable {
     let id: String
@@ -71,6 +72,10 @@ extension SpaceView {
     
     var hasChat: Bool {
         chatId.isNotEmpty
+    }
+    
+    var showChat: Bool {
+        hasChat && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {

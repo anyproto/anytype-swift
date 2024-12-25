@@ -257,7 +257,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func initialHomePath(spaceView: SpaceView, spaceInfo: AccountInfo) -> [AnyHashable] {
         .builder {
             SpaceHubNavigationItem()
-            if spaceView.hasChat, FeatureFlags.showHomeSpaceLevelChat(spaceId: spaceView.targetSpaceId) {
+            if spaceView.showChat {
                 ChatCoordinatorData(chatId: spaceView.chatId, spaceInfo: spaceInfo)
             } else {
                 HomeWidgetData(info: spaceInfo)
