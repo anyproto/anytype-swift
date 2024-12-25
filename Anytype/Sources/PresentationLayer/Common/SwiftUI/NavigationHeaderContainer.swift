@@ -15,15 +15,17 @@ struct NavigationHeaderContainer<LeftView: View, TitleView: View, RightView: Vie
     @State private var rightSize: CGSize = .zero
     
     var body: some View {
-        HStack(spacing: spacing) {
-            leftView
-                .readSize { leftSize = $0 }
-                .padding(.trailing, max(rightSize.width - leftSize.width, 0))
+        ZStack(alignment: .center) {
             titleView
-                .frame(maxWidth: .infinity)
-            rightView
-                .readSize { rightSize = $0 }
-                .padding(.leading, max(leftSize.width - rightSize.width, 0))
+                .padding(.horizontal, max(leftSize.width, rightSize.width) + spacing)
+            
+            HStack(spacing: 0) {
+                leftView
+                    .readSize { leftSize = $0 }
+                Spacer()
+                rightView
+                    .readSize { rightSize = $0 }
+            }
         }
     }
 }
