@@ -73,8 +73,8 @@ struct SpaceHubCoordinatorView: View {
                 path: $model.navigationPath,
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
-                        builder.appendBuilder(for: AccountInfo.self) { info in
-                            HomeTabBarCoordinatorView(spaceInfo: info)
+                        builder.appendBuilder(for: HomeWidgetData.self) { data in
+                            HomeWidgetsCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)

@@ -222,7 +222,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             currentSpaceId = spaceId
             
             if let spaceInfo {
-                var initialPath: [AnyHashable] = [SpaceHubNavigationItem(), spaceInfo]
+                var initialPath: [AnyHashable] = [SpaceHubNavigationItem(), HomeWidgetData(info: spaceInfo)]
                 if let data { initialPath.append(data) }
                 navigationPath = HomePath(initialPath: initialPath)
             }
@@ -241,7 +241,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             }
             
             if let info {
-                let newPath = HomePath(initialPath: [SpaceHubNavigationItem(), info])
+                let newPath = HomePath(initialPath: [SpaceHubNavigationItem(), HomeWidgetData(info: info)])
                 navigationPath = newPath
             } else {
                 navigationPath.popToRoot()

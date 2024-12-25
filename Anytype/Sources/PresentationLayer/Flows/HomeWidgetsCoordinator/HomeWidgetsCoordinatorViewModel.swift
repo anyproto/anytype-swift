@@ -18,8 +18,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     
-    init(spaceInfo: AccountInfo) {
-        self.spaceInfo = spaceInfo
+    init(data: HomeWidgetData) {
+        self.spaceInfo = data.info
     }
     
     func onFinishCreateSource(screenData: EditorScreenData?) {
