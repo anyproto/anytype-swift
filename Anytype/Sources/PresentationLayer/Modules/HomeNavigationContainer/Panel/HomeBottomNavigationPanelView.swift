@@ -71,37 +71,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     
     @ViewBuilder
     private var navigation: some View {
-        Image(asset: .X32.Island.back)
-            .onTapGesture {
-                if #available(iOS 17.0, *) {
-                    ReturnToWidgetsTip.numberOfBackTaps += 1
-                }
-                model.onTapBackward()
-            }
-            .foregroundColor(.Control.navPanelIcon)
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.3)
-                    .onEnded { _ in
-                        if #available(iOS 17.0, *) {
-                            ReturnToWidgetsTip.usedLongpress = true
-                        }
-                        model.onTapHome()
-                    }
-            )
-        
-        if model.canCreateObject {
-            Image(asset: .X32.Island.add)
-                .onTapGesture {
-                    model.onTapNewObject()
-                }
-                .foregroundColor(.Control.navPanelIcon)
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.3)
-                        .onEnded { _ in
-                            model.onPlusButtonLongtap()
-                        }
-                )
-        }
         
         Button {
             model.onTapSearch()
@@ -109,6 +78,19 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             Image(asset: .X32.Island.search)
                 .foregroundColor(.Control.navPanelIcon)
         }
+        
+        Image(asset: .X32.Island.add)
+            .onTapGesture {
+                model.onTapNewObject()
+            }
+            .foregroundColor(.Control.navPanelIcon)
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 0.3)
+                    .onEnded { _ in
+                        model.onPlusButtonLongtap()
+                    }
+            )
+            .disabled(!model.canCreateObject)
     }
     
     @ViewBuilder

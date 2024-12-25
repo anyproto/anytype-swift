@@ -30,6 +30,7 @@ struct WidgetsHeaderView: View {
             }
         } rightView: {
             IconView(asset: .X24.spaceSettings)
+                .foregroundStyle(Color.Control.navPanelIcon)
                 .onTapGesture {
                     model.onTapSpaceSettings()
                 }

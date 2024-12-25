@@ -58,20 +58,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onSearchSelected()
     }
     
-    func onTapHome() {
-        output?.onWidgetsSelected()
-    }
-    
-    func onTapProfile() {
-        output?.onProfileSelected()
-    }
-    
     func onPlusButtonLongtap() {
         output?.onPickTypeForNewObjectSelected()
-    }
-    
-    func onSpaceHubTap() {
-        output?.onSpaceHubSelected()
     }
     
     func onAppear() async {

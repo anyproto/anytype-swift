@@ -15,7 +15,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
-    @Published var showSpaceSwitchData: SpaceSwitchModuleData?
     @Published var membershipTierId: IntIdentifiable?
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var spaceJoinData: SpaceJoinModuleData?
@@ -45,6 +44,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 navigationPath.push(HomeWidgetData(info: spaceInfo))
             }, pop: { [weak self] in
                 self?.navigationPath.pop()
+            }, popToFirstInSpace: { [weak self] in
+                self?.popToFirstInSpace()
             }, replace: { [weak self] data in
                 guard let self else { return }
                 if navigationPath.count > 1 {
@@ -282,8 +283,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
             sharingSpaceId = fallbackSpaceId?.identifiable
-        case .spaceSelection:
-            showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
         case let .galleryImport(type, source):
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
@@ -382,12 +381,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         openObject(screenData: screenData)
     }
 
-    func onProfileSelected() {
-        UISelectionFeedbackGenerator().selectionChanged()
-        showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
-    }
-
-    func onWidgetsSelected() {
+    func popToFirstInSpace() {
         guard !pathChanging else { return }
         navigationPath.popToFirstOpened()
     }
@@ -407,10 +401,5 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         
         UISelectionFeedbackGenerator().selectionChanged()
         typeSearchForObjectCreationSpaceId = spaceInfo.accountSpaceId.identifiable
-    }
-    
-    func onSpaceHubSelected() {
-        UISelectionFeedbackGenerator().selectionChanged()
-        navigationPath.popToRoot()
     }
 }
