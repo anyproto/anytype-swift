@@ -8,9 +8,10 @@ import Services
 @MainActor
 final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
-    enum MemberLeftButtonMode {
+    enum LeftButtonMode {
         case member
         case owner(_ disable: Bool)
+        case chat(_ disable: Bool)
     }
     
     // MARK: - Private properties
@@ -31,15 +32,14 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var activeProcess: Process?
     private var subscriptions: [AnyCancellable] = []
     private var chatLinkData: ChatLinkObject?
-    private var showChat: Bool = false
+    private var prticipantSpaceView: ParticipantSpaceViewData?
     
     // MARK: - Public properties
     
     @Published var profileIcon: Icon?
     @Published var progress: Double? = nil
-    @Published var memberLeftButtonMode: MemberLeftButtonMode?
+    @Published var leftButtonMode: LeftButtonMode?
     @Published var canCreateObject: Bool = false
-    @Published var canLinkToChat: Bool = false
     
     init(
         info: AccountInfo,
@@ -73,20 +73,14 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     func onAppear() async {
         for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
-            if data.isOwner {
-                memberLeftButtonMode = .owner(!data.permissions.canBeShared)
-            } else {
-                memberLeftButtonMode = .member
-            }
-            showChat = data.spaceView.showChat
-            canCreateObject = data.permissions.canEdit
-            updateCanLinkChat()
+            prticipantSpaceView = data
+            updateState()
         }
     }
     
     func updateVisibleScreen(data: AnyHashable) {
         chatLinkData = (data as? EditorScreenData)?.chatLinkFromPanel
-        updateCanLinkChat()
+        updateState()
     }
     
     func onTapMembers() {
@@ -104,8 +98,20 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func updateCanLinkChat() {
-        canLinkToChat = chatLinkData.isNotNil && showChat
+    private func updateState() {
+        guard let prticipantSpaceView else { return }
+        
+        let canLinkToChat = chatLinkData.isNotNil && prticipantSpaceView.spaceView.showChat
+        
+        if canLinkToChat {
+            leftButtonMode = .chat(!prticipantSpaceView.permissions.canEdit)
+        } else if prticipantSpaceView.isOwner {
+            leftButtonMode = .owner(!prticipantSpaceView.permissions.canBeShared)
+        } else {
+            leftButtonMode = .member
+        }
+        
+        canCreateObject = prticipantSpaceView.permissions.canEdit
     }
     
     private func setupDataSubscription() {

@@ -119,33 +119,32 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     
     @ViewBuilder
     private var leftButton: some View {
-        if model.canLinkToChat {
+        switch model.leftButtonMode {
+        case .member:
+            Button {
+                model.onTapMembers()
+            } label: {
+                Image(asset: .X32.Island.members)
+                    .navPanelDynamicForegroundStyle()
+            }
+        case .owner(let disable):
+            Button {
+                model.onTapShare()
+            } label: {
+                Image(asset: .X32.Island.addMember)
+                    .navPanelDynamicForegroundStyle()
+            }
+            .disabled(disable)
+        case .chat(let disable):
             Button {
                 model.onTapAddToSpaceLevelChat()
             } label: {
                 Image(asset: .X32.Island.discuss)
                     .navPanelDynamicForegroundStyle()
             }
-        } else {
-            switch model.memberLeftButtonMode {
-            case .member:
-                Button {
-                    model.onTapMembers()
-                } label: {
-                    Image(asset: .X32.Island.members)
-                        .navPanelDynamicForegroundStyle()
-                }
-            case .owner(let disable):
-                Button {
-                    model.onTapShare()
-                } label: {
-                    Image(asset: .X32.Island.addMember)
-                        .navPanelDynamicForegroundStyle()
-                }
-                .disabled(disable)
-            case .none:
-                EmptyView()
-            }
+            .disabled(disable)
+        case .none:
+            EmptyView()
         }
     }
 }
