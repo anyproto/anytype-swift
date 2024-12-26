@@ -40,7 +40,7 @@ jobs:
       - name: Build IPA
         run:  |
           if [[ "${{ github.event.inputs.build_type }}" == "release" ]]; then
-            bundle exec fastlane build_ipa_prod
+            bundle exec fastlane build_ipa_release
           else
             bundle exec fastlane build_ipa_dev
           fi
