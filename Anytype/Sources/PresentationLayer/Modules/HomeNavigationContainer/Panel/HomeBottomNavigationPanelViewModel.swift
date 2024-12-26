@@ -30,7 +30,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private var activeProcess: Process?
     private var subscriptions: [AnyCancellable] = []
-    private var chatLinkData: ChatLinkFromPanel?
+    private var chatLinkData: ChatLinkObject?
     private var showChat: Bool = false
     
     // MARK: - Public properties
@@ -95,6 +95,11 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     func onTapShare() {
         output?.onShareSelected()
+    }
+    
+    func onTapAddToSpaceLevelChat() {
+        guard let chatLinkData else { return }
+        output?.onAddAttachmentToSpaceLevelChat(attachment: chatLinkData)
     }
     
     // MARK: - Private

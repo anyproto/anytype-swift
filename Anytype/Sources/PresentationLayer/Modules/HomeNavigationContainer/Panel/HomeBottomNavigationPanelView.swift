@@ -121,7 +121,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     private var leftButton: some View {
         if model.canLinkToChat {
             Button {
-                print("chat")
+                model.onTapAddToSpaceLevelChat()
             } label: {
                 Image(asset: .X32.Island.discuss)
                     .navPanelDynamicForegroundStyle()
