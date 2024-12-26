@@ -14,11 +14,12 @@ struct ChatHeaderView: View {
             AnytypeText(model.title, style: .uxTitle1Semibold)
                 .lineLimit(1)
         } rightView: {
-            IconView(icon: model.icon)
-                .frame(width: 28, height: 28)
-                .onTapGesture {
-                    model.tapSettings()
-                }
+            IncreaseTapButton {
+                model.tapSettings()
+            } label: {
+                IconView(icon: model.icon)
+                    .frame(width: 28, height: 28)
+            }
         }
         .task {
             await model.subscribe()

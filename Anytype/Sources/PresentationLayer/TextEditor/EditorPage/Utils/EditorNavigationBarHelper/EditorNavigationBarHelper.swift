@@ -75,7 +75,7 @@ final class EditorNavigationBarHelper {
         
         var backButtonConfig = UIButton.Configuration.plain()
         backButtonConfig.image = UIImage(asset: .X24.back)
-        backButtonConfig.contentInsets = .zero
+        backButtonConfig.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 20)
         backButtonConfig.baseForegroundColor = .Control.navPanelIcon
         self.backButton = UIButton(configuration: backButtonConfig)
         self.backButton.addAction(
