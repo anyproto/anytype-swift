@@ -48,7 +48,7 @@ struct ChatInput: View {
             }
         } label: {
             Image(asset: .X32.plus)
-                .foregroundColor(.Control.navPanelIcon)
+                .navPanelDynamicForegroundStyle()
         }
         .frame(height: 56)
         .menuOrder(.fixed)

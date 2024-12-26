@@ -74,7 +74,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     func onAppear() async {
         for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
             if data.isOwner {
-                memberLeftButtonMode = .owner(data.permissions.canBeShared)
+                memberLeftButtonMode = .owner(!data.permissions.canBeShared)
             } else {
                 memberLeftButtonMode = .member
             }
@@ -87,6 +87,14 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     func updateVisibleScreen(data: AnyHashable) {
         chatLinkData = (data as? EditorScreenData)?.chatLinkFromPanel
         updateCanLinkChat()
+    }
+    
+    func onTapMembers() {
+        output?.onMembersSelected()
+    }
+    
+    func onTapShare() {
+        output?.onShareSelected()
     }
     
     // MARK: - Private
