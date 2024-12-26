@@ -268,14 +268,14 @@ internal extension ImageAsset {
       static let `right` = ImageAsset.bundle(name: "x32/Insert/Right")
     }
     enum Island {
-      static let addMember = ImageAsset.bundle(name: "x32/Island/Add member")
-      static let addObject = ImageAsset.bundle(name: "x32/Island/Add object")
       static let discuss = ImageAsset.bundle(name: "x32/Island/Discuss")
-      static let members = ImageAsset.bundle(name: "x32/Island/Members")
-      static let search = ImageAsset.bundle(name: "x32/Island/Search")
       static let vault = ImageAsset.bundle(name: "x32/Island/Vault")
+      static let addMember = ImageAsset.bundle(name: "x32/Island/add member")
+      static let addObject = ImageAsset.bundle(name: "x32/Island/add object")
       static let add = ImageAsset.bundle(name: "x32/Island/add")
       static let back = ImageAsset.bundle(name: "x32/Island/back")
+      static let members = ImageAsset.bundle(name: "x32/Island/members")
+      static let search = ImageAsset.bundle(name: "x32/Island/search")
     }
     static let linkTo = ImageAsset.bundle(name: "x32/Link to")
     enum Lock {
