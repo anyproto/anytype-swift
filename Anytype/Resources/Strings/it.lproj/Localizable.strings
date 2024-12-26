@@ -210,7 +210,7 @@
 "Open file" = "Apri file";
 "Open Set" = "Apri Insieme";
 "Create Set" = "Crea un Insieme";
-"Unsupported deeplink" = "Unsupported deeplink";
+"Unsupported deeplink" = "Deeplink non supportato";
 
 // Home
 "Favorites" = "Preferiti";
@@ -1277,7 +1277,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.Reply.Files" = "File (%@)";
 "Chat.SendLimitAlert.Title" = "Aspettate! Rilevata digitazione turbo!";
 "Chat.SendLimitAlert.Message" = "Sembra che tu stia inviando messaggi alla velocità della luce. Dagli un secondo prima di inviare il prossimo.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "È possibile caricare solo %@ file alla volta";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
