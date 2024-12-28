@@ -29,7 +29,7 @@
 "TextStyle.Numbered.Title" = "Genummerde lijst";
 "TextStyle.Numbered.Subtitle" = "Genummerde lijst";
 
-"TextStyle.Toggle.Title" = "Vouw uit";
+"TextStyle.Toggle.Title" = "In-/uitvouwen";
 "TextStyle.Toggle.Subtitle" = "Verberg en toon de inhoud binnenin";
 
 "TextStyle.Bold.Title" = "Vetgedrukt";
@@ -37,14 +37,14 @@
 "TextStyle.Strikethrough.Title" = "Doorhalen";
 "TextStyle.Underline.Title" = "Onderstrepen";
 "TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Link.Title" = "Koppeling";
 
 // MARK: - Block Text
 "BlockText.Content.Placeholder" = "Naamloos";
 
 "BlockText.ContentType.Title.Placeholder" = "Naamloos";
 "BlockText.ContentType.Description.Placeholder" = "Voeg een beschrijving toe";
-"BlockText.ContentType.Toggle.Placeholder" = "Vouw blok uit";
+"BlockText.ContentType.Toggle.Placeholder" = "Open/sluit blok";
 "BlockText.ContentType.Bulleted.Placeholder" = "Onderdeel van lijst met opsommingstekens";
 "BlockText.ContentType.Checkbox.Placeholder" = "Selectievakje";
 "BlockText.ContentType.Numbered.Placeholder" = "Onderdeel van genummerde lijst";
@@ -155,10 +155,10 @@
 "Delete" = "Verwijder";
 "Export" = "Export";
 "Duplicate" = "Dupliceer";
-"Copy" = "Kopieer";
+"Copy" = "Kopiëren";
 "Preview" = "Voorvertoning";
 "View" = "Weergave";
-"Paste" = "Plak";
+"Paste" = "Plakken";
 "Move" = "Verplaats";
 "Move to" = "Verplaats naar";
 "Back" = "Terug";
@@ -169,7 +169,7 @@
 "Image block subtitle" = "Upload en verrijk de pagina met afbeelding";
 "Video block subtitle" = "Upload afspeelbare video";
 "Bookmark block subtitle" = "Sla je favoriete link op met samenvatting";
-"Code block subtitle" = "Leg code fragment vast";
+"Code block subtitle" = "Codefragment vastleggen";
 "Align right" = "Lijn rechts uit";
 "Align left" = "Lijn links uit";
 "Align center" = "Centreer";
@@ -191,10 +191,10 @@
 "Green background" = "Groene achtergrond";
 "Create new object" = "Maak nieuw object";
 "Create new object with name" = "Maak nieuw object \"%@\"";
-"Cancel" = "Annuleer";
+"Cancel" = "Annuleren";
 "Paste or type URL" = "Plak of type URL";
 "No items match filter" = "Geen items die met filter overeenkomen";
-"Unsupported block" = "Niet ondersteund blok";
+"Unsupported block" = "Blok niet ondersteund";
 "Unsupported" = "Niet ondersteund";
 "Name" = "Naam";
 "Description" = "Beschrijving";
@@ -826,7 +826,7 @@
 "Widgets.Actions.NewObject" = "Nieuw object";
 "Widgets.Actions.SeeAllObjects" = "Toon alle objecten";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "Koppeling";
 "Widgets.Layout.Tree.Title" = "Boomstructuur";
 "Widgets.Layout.List.Title" = "Lijst";
 "Widgets.Layout.CompactList.Title" = "Compacte lijst";
@@ -981,7 +981,7 @@
 "SpaceShare.YouSuffix" = "%@ (jij)";
 "SpaceShare.ManageSpaces" = "Beheer ruimten";
 "SpaceShare.AccessChanged" = "De toegangsrechten zijn gewijzigd.";
-"SpaceShare.StopSharing.Action" = "Stop delen";
+"SpaceShare.StopSharing.Action" = "Delen stoppen";
 "SpaceShare.StopSharing.Title" = "Stop met delen van de ruimte";
 "SpaceShare.StopSharing.Message" = "Leden zullen niet langer synchroniseren met deze ruimte en de deellink zal worden gedeactiveerd.";
 "SpaceShare.StopSharing.Toast" = "De ruimte wordt niet langer gedeeld";
@@ -992,8 +992,8 @@
 "SpaceShare.HowToShare.Step2" = "Door op de link te klikken, vraagt een persoon om aan de ruimte deel te nemen.";
 "SpaceShare.HowToShare.Step3" = "Na goedkeuring van het verzoek, kun je de toegangsrechten voor deze persoon kiezen.";
 "SpaceShare.Manage" = "Beheer";
-"SpaceShare.AlreadyJoin.Title" = "Je bent al lid van deze ruimte.";
-"SpaceShare.AlreadyJoin.OpenSpace" = "Open ruimte";
+"SpaceShare.AlreadyJoin.Title" = "Je bent al lid van deze ruimte";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Ruimte openen";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Jouw toegangsrechten werden veranderd naar  **%@** in de ruimte **%@**.";
@@ -1018,7 +1018,7 @@
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Voeg toe aan Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Annuleer";
+"Sharing.Navigation.LeftButton.Title" = "Annuleren";
 "Sharing.Navigation.RightButton.Title" = "Gereed";
 
 "Sharing.SaveAs" = "OPSLAAN ALS";
@@ -1043,7 +1043,7 @@
 "Swipe.Tip.Subtitle" = "Maak objecten binnen widgets door ze naar links te swipen.";
 
 // MARK: - Space Share Tip
-"SpaceShare.Tip.Title" = "Werk samen aan ruimten";
+"SpaceShare.Tip.Title" = "Samenwerken aan ruimtes";
 "SpaceShare.Tip.Steps.1" = "Tik op de ruimte widget om toegang te krijgen tot instellingen";
 "SpaceShare.Tip.Steps.2" = "Open delen sectie";
 "SpaceShare.Tip.Steps.3" = "Genereer een uitnodigingskoppeling en deel deze";
@@ -1169,20 +1169,20 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
 
 "Membership.Banner.Title1" = "Bouw de visie samen";
-"Membership.Banner.Subtitle1" = "Als een gewaardeerd lid doet jouw mening er toe! Neem deel aan exclusieve evenementen, vorm strategische keuzes en beïnvloed onze routekaart.";
+"Membership.Banner.Subtitle1" = "Als gewaardeerd lid telt jouw stem! Neem deel aan exclusieve evenementen, geef vorm aan strategische keuzes en beïnvloed onze roadmap.";
 "Membership.Banner.Title2" = "Ontgrendel ledenvoordelen";
 "Membership.Banner.Subtitle2" = "Leden hebben meer backup opslagcapaciteit & synchronisatielimieten, uitnodigingen voor meerdere gasten om samen te werken in gedeelde ruimten, en een unieke identiteit in het Anytype netwerk.";
 "Membership.Banner.Title3" = "Ondersteun digitale onafhankelijkheid ";
-"Membership.Banner.Subtitle3" = "Jouw bijdrage ondersteunt ons team en onderschrijft onze visie op een digitaal netwerk dat eigendom is van de gebruiker en veilig en collaboratief is.";
+"Membership.Banner.Subtitle3" = "Jouw bijdrage ondersteunt ons team en ondersteunt onze visie van een door gebruikers beheerd, veilig en samenwerkend digitaal netwerk.";
 "Membership.Banner.Title4" = "Investeer in verbinding";
-"Membership.Banner.Subtitle4" = "De waarde van ons netwerk overschrijdt de som der delen. Jouw lidmaatschap houdt de infrastructuur in stand voor de groei die aan dit netwerk ten grondslag ligt.";
+"Membership.Banner.Subtitle4" = "De waarde van ons netwerk overschrijdt de som der delen. Je lidmaatschap houdt de infrastructuur in stand voor de groei die aan dit netwerk ten grondslag ligt.";
 
 "Membership.EmailForm.Title" = "Ontvang updates en geniet van gratis voordelen!";
 "Membership.EmailForm.Subtitle" = "Het is op geen enkele manier gekoppeld met jouw account.";
 "Membership.EmailValidation" = "Voer de code in die naar jouw e-mailadres is verstuurd";
 
 "Membership.NameForm.Title" = "Kies jouw unieke naam";
-"Membership.NameForm.Subtitle" = "Dit is jouw unieke naam op het Anytype netwerk, en bevestigt jouw lidmaatschap. Het dient als jouw persoonlijke domein en kan niet worden gewijzigd.";
+"Membership.NameForm.Subtitle" = "Dit is je unieke naam op het Anytype netwerk, die je lidmaatschap bevestigt. Het fungeert als je persoonlijke domein en kan niet worden gewijzigd.";
 "Membership.NameForm.Validating" = "Even geduld...";
 "Membership.NameForm.Validated" = "Deze naam is voor het grijpen";
 
@@ -1288,7 +1288,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "Het is hier leeg.";
-"EmptyView.Default.subtitle" = "Maak jouw eerste objecten om te beginnen.";
+"EmptyView.Default.subtitle" = "Maak je eerste objecten om te beginnen.";
 "EmptyView.Bin.title" = "Jouw prullenmand is leeg.";
 "EmptyView.Bin.subtitle" = "Het lijkt erop dat je alles netjes en georganiseerd hebt!";
 
