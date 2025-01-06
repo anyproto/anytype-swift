@@ -1,22 +1,19 @@
 import SwiftUI
 import Services
 
-protocol ChatMessageBuilderProtocol: AnyObject {
+protocol ChatMessageBuilderProtocol: AnyObject, Sendable {
     func makeMessage(messages: [FullChatMessage], participants: [Participant], limits: any ChatMessageLimitsProtocol) async -> [MessageSectionData]
 }
 
-final class ChatMessageBuilder: ChatMessageBuilderProtocol {
+final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     
     private enum Constants {
         static let grouppingDateInterval: Int = 5 * 60 // seconds
     }
     
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.messageAttachmentsGridLayoutBuilder)
-    private var gridLayoutBuilder: any MessageAttachmentsGridLayoutBuilderProtocol
-    @Injected(\.messageTextBuilder)
-    private var messageTextBuilder: any MessageTextBuilderProtocol
+    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
+    private let gridLayoutBuilder: any MessageAttachmentsGridLayoutBuilderProtocol = Container.shared.messageAttachmentsGridLayoutBuilder()
+    private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
     
     private let spaceId: String
     private let chatId: String
@@ -200,7 +197,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol {
         // Add empty objects
         for attachment in fullMessage.message.attachments {
             if !attachmentsDetails.contains(where: { $0.id == attachment.target }) {
-                attachmentsDetails.append(MessageAttachmentDetails(details: ObjectDetails(id: attachment.target)))
+                attachmentsDetails.append(MessageAttachmentDetails.placeholder(tagetId: attachment.target))
             }
         }
         

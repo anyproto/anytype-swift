@@ -93,7 +93,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
             }
             
             await processSubscriptionService.addHandler { [weak self] events in
-                self?.handleProcesses(events: events)
+                await self?.handleProcesses(events: events)
             }.store(in: &subscriptions)
         }
     }

@@ -12,7 +12,7 @@ private struct RelationDetailsKey: Hashable {
     let spaceId: String
 }
 
-final class RelationDetailsStorage: RelationDetailsStorageProtocol {
+final class RelationDetailsStorage: RelationDetailsStorageProtocol, Sendable {
     
     private enum Constants {
         static let subscriptionIdPrefix = "SubscriptionId.Relation-"
@@ -20,20 +20,23 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     // MARK: - DI
     
-    @Injected(\.relationSubscriptionDataBuilder)
-    private var subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol
+    private let subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.relationSubscriptionDataBuilder()
     
-    private lazy var multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<RelationDetails>(
-        subIdPrefix: Constants.subscriptionIdPrefix,
-        subscriptionBuilder: subscriptionDataBuilder
-    )
+    private let multispaceSubscriptionHelper : MultispaceOneActiveSubscriptionHelper<RelationDetails>
     
     // MARK: - Private properties
     
-    private var searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
+    private let searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
     
-    @Published var sync: () = ()
-    var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
+    private let sync = AtomicPublishedStorage<Void>(())
+    var syncPublisher: AnyPublisher<Void, Never> { sync.publisher.eraseToAnyPublisher() }
+    
+    init() {
+        multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<RelationDetails>(
+            subIdPrefix: Constants.subscriptionIdPrefix,
+            subscriptionBuilder: subscriptionDataBuilder
+        )
+    }
     
     // MARK: - RelationDetailsStorageProtocol
     
@@ -68,7 +71,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     func startSubscription(spaceId: String) async {
         await multispaceSubscriptionHelper.startSubscription(spaceId: spaceId) { [weak self] in
             self?.updateSearchCache()
-            self?.sync = ()
+            self?.sync.value = ()
         }
     }
     
@@ -76,7 +79,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         await multispaceSubscriptionHelper.stopSubscription(cleanCache: cleanCache)
         if cleanCache {
             updateSearchCache()
-            sync = ()
+            sync.value = ()
         }
     }
     

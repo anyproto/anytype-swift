@@ -1,6 +1,8 @@
 import UIKit
 import AnytypeCore
 
+extension Notification: @unchecked @retroactive Sendable {}
+
 @MainActor
 class KeyboardEventsListnerHelper {
     

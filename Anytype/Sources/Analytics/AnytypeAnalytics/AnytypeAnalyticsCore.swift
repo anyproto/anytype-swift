@@ -27,7 +27,7 @@ actor AnytypeAnalyticsCore {
         if let trackingOptions = AMPTrackingOptions().disableIDFA().disableIPAddress() {
             Amplitude.instance().setTrackingOptions(trackingOptions)
         }
-        
+        Amplitude.instance().setServerUrl("https://amplitude.anytype.io")
         userProperties[Keys.interfaceLang] = Locale.current.language.languageCode?.identifier
     }
 

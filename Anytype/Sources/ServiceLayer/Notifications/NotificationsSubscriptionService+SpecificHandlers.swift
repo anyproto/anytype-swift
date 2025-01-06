@@ -7,7 +7,7 @@ extension NotificationsSubscriptionServiceProtocol {
     
     func handleUpdate(
         notificationID: String,
-        handler: @escaping (Services.Notification) async -> Void
+        handler: @escaping @Sendable (Services.Notification) async -> Void
     ) async -> AnyCancellable {
         await addHandler { events in
             for event in events {
@@ -24,7 +24,7 @@ extension NotificationsSubscriptionServiceProtocol {
     
     func handleGalleryImportUpdate(
         notificationID: String,
-        completion: @escaping (NotificationGalleryImport) async -> Void
+        completion: @escaping @Sendable (NotificationGalleryImport) async -> Void
     ) async -> AnyCancellable {
         await handleUpdate(notificationID: notificationID) { notification in
             switch notification.payload {

@@ -3,7 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
-protocol RelationDetailsStorageProtocol: AnyObject {
+protocol RelationDetailsStorageProtocol: AnyObject, Sendable {
     
     func relationsDetails(keys: [String], spaceId: String) -> [RelationDetails]
     func relationsDetails(key: String, spaceId: String) throws -> RelationDetails

@@ -1,0 +1,53 @@
+name: Build IPA
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: "App build type"
+        required: true
+        type: choice
+        options:
+          - dev
+          - release
+  repository_dispatch:
+    types:
+      - trigger-build
+
+jobs:
+  main:
+    runs-on: ${{ vars.RUNNER }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+           fetch-depth: 0
+
+      - name: Prepare deps
+        uses: ./.github/actions/prepare-deps
+        
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1.6.0
+        with:
+          xcode-version: '16.1'
+
+      - name: Download Middleware
+        run: make setup-middle-ci
+        env:
+          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
+
+      - name: Build IPA
+        run:  |
+          if [[ "${{ github.event.inputs.build_type }}" == "release" ]]; then
+            bundle exec fastlane build_ipa_release
+          else
+            bundle exec fastlane build_ipa_dev
+          fi
+        continue-on-error: true
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AnytypeIOS
+          path: ./build/result

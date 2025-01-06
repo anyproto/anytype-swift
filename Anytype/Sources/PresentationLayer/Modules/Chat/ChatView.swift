@@ -4,7 +4,8 @@ import PhotosUI
 struct ChatView: View {
     
     @StateObject private var model: ChatViewModel
-    @State private var actionState: CGFloat = 0
+    @State private var actionState = ChatActionOverlayState()
+    @Environment(\.keyboardDismiss) private var keyboardDismiss
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self._model = StateObject(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
@@ -14,6 +15,9 @@ struct ChatView: View {
         ZStack {
             mainView
                 .ignoresSafeArea()
+        }
+        .onAppear {
+            model.keyboardDismiss = keyboardDismiss
         }
         .ignoresSafeArea(.keyboard)
         .chatActionOverlay(state: $actionState) {
@@ -57,26 +61,32 @@ struct ChatView: View {
     
     private var inputPanel: some View {
         VStack(spacing: 0) {
+            // For model.sendMessageTaskInProgress disable all view exclude input.
+            // If we disable input, the keyboard will hide and show. This causes bugs on the iPad.
             if model.editMessage.isNotNil {
                 ChatInputEditView {
                     model.onTapDeleteEdit()
                 }
+                .disabled(model.sendMessageTaskInProgress)
             } else if let replyToMessage = model.replyToMessage {
                 ChatInputReplyView(model: replyToMessage) {
                     model.onTapDeleteReply()
                 }
+                .disabled(model.sendMessageTaskInProgress)
             }
             MessageInputAttachmentsViewContainer(objects: model.linkedObjects) {
                 model.didSelectObject(linkedObject: $0)
             } onTapRemove: {
                 model.onTapRemoveLinkedObject(linkedObject: $0)
             }
+            .disabled(model.sendMessageTaskInProgress)
             ChatInput(
                 text: $model.message,
                 editing: $model.inputFocused,
                 mention: $model.mentionSearchState,
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
-                disableSendButton: model.attachmentsDownloading || model.textLimitReached
+                disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
+                disableAddButton: model.sendMessageTaskInProgress
             ) {
                 model.onTapAddObjectToMessage()
             } onTapAddMedia: {
@@ -110,7 +120,6 @@ struct ChatView: View {
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
-        .disabled(model.sendMessageTaskInProgress)
         .task(id: model.mentionSearchState) {
             try? await model.updateMentionState()
         }

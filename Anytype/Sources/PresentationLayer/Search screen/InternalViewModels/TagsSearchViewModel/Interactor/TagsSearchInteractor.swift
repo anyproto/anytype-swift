@@ -1,6 +1,7 @@
 import Foundation
 import Services
 
+@MainActor
 final class TagsSearchInteractor {
     
     private let spaceId: String

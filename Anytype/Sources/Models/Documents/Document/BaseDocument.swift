@@ -3,13 +3,13 @@ import Combine
 import AnytypeCore
 import Foundation
 
-final class BaseDocument: BaseDocumentProtocol {
+final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     
     // MARK: - State from Containers
     
     var isLocked: Bool { infoContainer.get(id: objectId)?.isLocked ?? false }
     var details: ObjectDetails? { detailsStorage.get(id: objectId) }
-    var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
+    var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrictions }
     
     // MARK: - Local state
     let objectId: String

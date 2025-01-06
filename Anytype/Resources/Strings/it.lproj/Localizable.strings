@@ -210,7 +210,7 @@
 "Open file" = "Apri file";
 "Open Set" = "Apri Insieme";
 "Create Set" = "Crea un Insieme";
-"Unsupported deeplink" = "Unsupported deeplink";
+"Unsupported deeplink" = "Deeplink non supportato";
 
 // Home
 "Favorites" = "Preferiti";
@@ -1270,14 +1270,14 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.Actions.Menu.Objects" = "Selezionare l'oggetto esistente";
 "Chat.Actions.Menu.Media" = "Carica i media";
 "Chat.Actions.Menu.Files" = "Carica file";
-"Chat.Actions.Menu.Camera" = "Take from camera";
+"Chat.Actions.Menu.Camera" = "Scatta dalla fotocamera";
 "Chat.Participant.Badge" = "(Tu)";
-"Chat.Reply.Images" = "Images (%@)";
-"Chat.Reply.Attachments" = "Attachments (%@)";
-"Chat.Reply.Files" = "Files (%@)";
-"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
-"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.Reply.Images" = "Immagini (%@)";
+"Chat.Reply.Attachments" = "Allegati (%@)";
+"Chat.Reply.Files" = "File (%@)";
+"Chat.SendLimitAlert.Title" = "Aspettate! Rilevata digitazione turbo!";
+"Chat.SendLimitAlert.Message" = "Sembra che tu stia inviando messaggi alla velocità della luce. Dagli un secondo prima di inviare il prossimo.";
+"Chat.AttachmentsLimit.Alert" = "È possibile caricare solo %@ file alla volta";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";

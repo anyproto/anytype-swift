@@ -41,7 +41,7 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol, Send
     // MARK: - State
     
     var participants: [Participant] { storage.value }
-    var participantsPublisher: AnyPublisher<[Participant], Never> { storage.publisher }
+    var participantsPublisher: AnyPublisher<[Participant], Never> { storage.publisher.removeDuplicates().eraseToAnyPublisher() }
     
     func startSubscription() async {
         await multispaceSubscriptionHelper.startSubscription { [weak self] in

@@ -1273,14 +1273,14 @@
 "Chat.Actions.Menu.Objects" = "Выберите существующий объект";
 "Chat.Actions.Menu.Media" = "Загрузить медиафайл";
 "Chat.Actions.Menu.Files" = "Загрузить файл";
-"Chat.Actions.Menu.Camera" = "Take from camera";
+"Chat.Actions.Menu.Camera" = "Снять на камеру";
 "Chat.Participant.Badge" = "(Вы)";
-"Chat.Reply.Images" = "Images (%@)";
-"Chat.Reply.Attachments" = "Attachments (%@)";
-"Chat.Reply.Files" = "Files (%@)";
-"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
-"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.Reply.Images" = "Изображения (%@)";
+"Chat.Reply.Attachments" = "Вложения (%@)";
+"Chat.Reply.Files" = "Файлы (%@)";
+"Chat.SendLimitAlert.Title" = "Удерживаем! Обнаружен Turbo typing!";
+"Chat.SendLimitAlert.Message" = "Похоже, вы отправляете сообщения со скоростью молнии. Дайте секунду перед следующим.";
+"Chat.AttachmentsLimit.Alert" = "Вы можете загружать только %@ файлов за раз";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";

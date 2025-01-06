@@ -66,8 +66,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     func updateVisibleRange(starMessageId: String, endMessageId: String) async {
         let startMessageIndex = allMessages.index(forKey: starMessageId) ?? 0
         let endMessageIndex = allMessages.index(forKey: endMessageId) ?? 0
-        let currentStartMessageIndex = subscriptionStartMessageId.map { allMessages.index(forKey: $0) ?? 0 } ?? 0
-        let currentEndMessageIndex = subscriptionEndMessageId.map { allMessages.index(forKey: $0) ?? 0 } ?? 0
+        
+        let notFoundValue = Constants.subscriptionMessageIntervalForAttachments * -100
+        let currentStartMessageIndex = subscriptionStartMessageId.map { allMessages.index(forKey: $0) ?? notFoundValue } ?? notFoundValue
+        let currentEndMessageIndex = subscriptionEndMessageId.map { allMessages.index(forKey: $0) ?? notFoundValue } ?? notFoundValue
         
         guard abs(startMessageIndex - currentStartMessageIndex) > Constants.subscriptionMessageIntervalForAttachments
                 || abs(endMessageIndex - currentEndMessageIndex) > Constants.subscriptionMessageIntervalForAttachments else { return }

@@ -4,7 +4,7 @@ enum TypesServiceError: Error {
     case deletingReadonlyType
 }
 
-protocol TypesServiceProtocol {
+protocol TypesServiceProtocol: Sendable {
     func createType(name: String, spaceId: String) async throws -> ObjectType
     func deleteType(typeId: String, spaceId: String) async throws
     

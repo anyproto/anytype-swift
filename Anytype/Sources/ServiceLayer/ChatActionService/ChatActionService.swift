@@ -69,7 +69,6 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
             case .uploadedObject(let objectDetails):
                 var attachment = ChatMessageAttachment()
                 attachment.target = objectDetails.id
-                attachment.type = .link
                 chatMessage.attachments.append(attachment)
             case .localPhotosFile(let chatLocalFile):
                 guard let data = chatLocalFile.data else { continue }
@@ -90,7 +89,6 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
         var attachment = ChatMessageAttachment()
         attachment.target = fileDetails.id
-        attachment.type = .link
         return attachment
     }
 }

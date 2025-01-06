@@ -15,34 +15,41 @@ struct MessageInputAttachmentsViewContainer: View {
     }
     
     private var content: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 12) {
-                ForEach(objects) { object in
-                    switch object {
-                    case .uploadedObject(let details):
-                        MessageLinkedUploadedObject(details: details) {
-                            onTapObject(object)
-                        } onTapRemove: {
-                            onTapRemove(object)
-                        }
-                    case .localPhotosFile(let localFile):
-                        MessageLinkedLocalPhotosFile(localFile: localFile) {
-                            onTapObject(object)
-                        } onTapRemove: {
-                            onTapRemove(object)
-                        }
-                    case .localBinaryFile(let data):
-                        MessageLinkedLocalFile(fileData: data) {
-                            onTapObject(object)
-                        } onTapRemove: {
-                            onTapRemove(object)
+        ScrollViewReader { reader in
+            ScrollView(.horizontal) {
+                HStack(spacing: 12) {
+                    ForEach(objects) { object in
+                        switch object {
+                        case .uploadedObject(let details):
+                            MessageLinkedUploadedObject(details: details) {
+                                onTapObject(object)
+                            } onTapRemove: {
+                                onTapRemove(object)
+                            }
+                        case .localPhotosFile(let localFile):
+                            MessageLinkedLocalPhotosFile(localFile: localFile) {
+                                onTapObject(object)
+                            } onTapRemove: {
+                                onTapRemove(object)
+                            }
+                        case .localBinaryFile(let data):
+                            MessageLinkedLocalFile(fileData: data) {
+                                onTapObject(object)
+                            } onTapRemove: {
+                                onTapRemove(object)
+                            }
                         }
                     }
                 }
+                .padding(.top, 12)
+                .padding(.horizontal, 12)
             }
-            .padding(.top, 12)
-            .padding(.horizontal, 12)
+            .scrollIndicators(.hidden)
+            .onChange(of: objects) { newValue in
+                if objects.count < newValue.count, let last = newValue.last {
+                    reader.scrollTo(last.id, anchor: .bottom)
+                }
+            }
         }
-        .scrollIndicators(.hidden)
     }
 }

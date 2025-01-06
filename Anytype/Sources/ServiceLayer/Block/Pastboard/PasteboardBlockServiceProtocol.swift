@@ -1,7 +1,7 @@
 import Services
 import Foundation
 
-protocol PasteboardBlockServiceProtocol: AnyObject {
+protocol PasteboardBlockServiceProtocol: AnyObject, Sendable {
     var hasValidURL: Bool { get }
     var pasteboardContent: PasteboardContent? { get }
     

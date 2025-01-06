@@ -29,16 +29,16 @@ public struct StoreKitPurchaseSuccess {
     }
 }
 
-public protocol StoreKitServiceProtocol {
+public protocol StoreKitServiceProtocol: Sendable {
     func purchase(product: Product, billingId: UUID) async throws -> StoreKitPurchaseSuccess
     func isPurchased(product: Product) async throws -> Bool
     
-    func startListenForTransactions()
-    func stopListenForTransactions()
+    func startListenForTransactions() async
+    func stopListenForTransactions() async
 }
 
-final class StoreKitService: StoreKitServiceProtocol {
-    @Injected(\.membershipService) 
+actor StoreKitService: StoreKitServiceProtocol {
+    @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
@@ -52,7 +52,7 @@ final class StoreKitService: StoreKitServiceProtocol {
                 let transaction:  Transaction
                 
                 do {
-                    transaction = try self.checkVerified(verificationResult)
+                    transaction = try await self.checkVerified(verificationResult)
                 } catch {
                     anytypeAssertionFailure(
                         "Error in Receipt verification",

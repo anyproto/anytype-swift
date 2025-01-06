@@ -3,7 +3,7 @@ import Combine
 import Services
 import AnytypeCore
 
-final class FilePreviewMedia: NSObject, PreviewRemoteItem {
+final class FilePreviewMedia: NSObject, PreviewRemoteItem, @unchecked Sendable {
     
     // MARK: - PreviewRemoteItem
     let id: String

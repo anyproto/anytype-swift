@@ -85,7 +85,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await accountParticipantsStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
-        storeKitService.startListenForTransactions()
+        await storeKitService.startListenForTransactions()
         
         Task {
             // Time-heavy operation
@@ -103,6 +103,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await syncStatusStorage.stopSubscriptionAndClean()
         await p2pStatusStorage.stopSubscriptionAndClean()
         await networkConnectionStatusDaemon.stop()
-        storeKitService.stopListenForTransactions()
+        await storeKitService.stopListenForTransactions()
     }
 }

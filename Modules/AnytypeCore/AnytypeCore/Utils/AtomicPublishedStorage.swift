@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import os
 
-public final class AtomicPublishedStorage<T: Sendable & Equatable>: @unchecked Sendable {
+public final class AtomicPublishedStorage<T: Sendable>: @unchecked Sendable {
     
     private let lock = OSAllocatedUnfairLock()
     private let subject: CurrentValueSubject<T, Never>
@@ -24,9 +24,9 @@ public final class AtomicPublishedStorage<T: Sendable & Equatable>: @unchecked S
         }
     }
     
-    public var publisher: AnyPublisher<T, Never> {
+    public var publisher: some Publisher<T, Never> {
         lock.lock()
         defer { lock.unlock() }
-        return subject.removeDuplicates().eraseToAnyPublisher()
+        return subject.eraseToAnyPublisher()
     }
 }

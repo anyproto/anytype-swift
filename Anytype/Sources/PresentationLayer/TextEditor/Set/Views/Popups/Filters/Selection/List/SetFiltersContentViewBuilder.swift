@@ -56,6 +56,7 @@ final class SetFiltersContentViewBuilder {
     // MARK: - Private methods: Search
     
     // TODO: Migrate from LegacySearchView
+    @MainActor
     private func buildSearchView(
         with format: RelationFormat,
         onSelect: @escaping (_ ids: [String]) -> Void
@@ -72,6 +73,7 @@ final class SetFiltersContentViewBuilder {
         }
     }
     
+    @MainActor
     private func buildTagsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> AnyView {
@@ -100,6 +102,7 @@ final class SetFiltersContentViewBuilder {
         ).eraseToAnyView()
     }
     
+    @MainActor
     private func buildStatusesSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> AnyView {
@@ -128,6 +131,7 @@ final class SetFiltersContentViewBuilder {
         ).eraseToAnyView()
     }
     
+    @MainActor
     private func buildObjectsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> AnyView {

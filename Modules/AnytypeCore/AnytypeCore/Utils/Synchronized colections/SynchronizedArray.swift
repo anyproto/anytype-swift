@@ -1,7 +1,7 @@
 /// A thread-safe array.
 import Foundation
 
-public final class SynchronizedArray<T> {
+public final class SynchronizedArray<T>: @unchecked Sendable {
 
     // MARK: - Private variables
 

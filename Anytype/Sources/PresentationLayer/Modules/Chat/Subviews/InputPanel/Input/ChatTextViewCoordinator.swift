@@ -50,12 +50,12 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     }
     
     func changeEditingStateIfNeeded(textView: UITextView, editing: Bool) {
-        if editing, lastApplyedEditingState == false {
+        if editing, lastApplyedEditingState != true {
             if !textView.isFirstResponder {
                 textView.becomeFirstResponder()
             }
             lastApplyedEditingState = true
-        } else if lastApplyedEditingState == true {
+        } else if !editing, lastApplyedEditingState != false {
             if textView.isFirstResponder {
                 textView.resignFirstResponder()
             }
@@ -272,6 +272,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         
         newText.addAttribute(.kern, value: anytypeFont.config.kern, range: NSRange(location: 0, length: newText.length))
         newText.addAttribute(.paragraphStyle, value: paragraph, range: NSRange(location: 0, length: newText.length))
+        newText.addAttribute(.foregroundColor, value: UIColor.Text.primary, range: NSRange(location: 0, length: newText.length))
         
         return NSTextParagraph(attributedString: newText)
     }

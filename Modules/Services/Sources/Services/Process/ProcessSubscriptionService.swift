@@ -1,15 +1,15 @@
 import Foundation
 import ProtobufMessages
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 
-public protocol ProcessSubscriptionServiceProtocol: AnyObject {
-    func addHandler(handler: @escaping (_ processes: [ProcessEvent]) async -> Void) async -> AnyCancellable
+public protocol ProcessSubscriptionServiceProtocol: AnyObject, Sendable {
+    func addHandler(handler: @escaping @Sendable (_ processes: [ProcessEvent]) async -> Void) async -> AnyCancellable
 }
 
 actor ProcessSubscriptionService: ServiceEventsHandlerProtocol, ProcessSubscriptionServiceProtocol {
     
-    private var handleStorage = HandlerStorage<(_ processes: [ProcessEvent]) async -> Void>()
+    private var handleStorage = HandlerStorage<@Sendable (_ processes: [ProcessEvent]) async -> Void>()
     
     init() {
         ServiceMessageHandlerAdapter.shared.addHandler(handler: self)
@@ -17,7 +17,7 @@ actor ProcessSubscriptionService: ServiceEventsHandlerProtocol, ProcessSubscript
     
     // MARK: - ProcessSubscriptionServiceProtocol
     
-    public func addHandler(handler: @escaping (_ processes: [ProcessEvent]) async -> Void) async -> AnyCancellable {
+    public func addHandler(handler: @escaping @Sendable (_ processes: [ProcessEvent]) async -> Void) async -> AnyCancellable {
         return await handleStorage.addHandler(handler: handler)
     }
     

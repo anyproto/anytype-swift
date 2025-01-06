@@ -5,6 +5,7 @@ enum SearchAvailability {
     case available(placeholder: String)
 }
 
+@MainActor
 protocol GridItemViewModelProtocol: ObservableObject {
     associatedtype Item: GridItemViewModel
 

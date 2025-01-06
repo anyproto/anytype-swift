@@ -45,6 +45,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     @Published var dataLoaded = false
     @Published var canEdit = false
+    var keyboardDismiss: KeyboardDismiss?
     
     // Input Message
     
@@ -181,6 +182,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             chatMessageLimits.markSentMessage()
             clearInput()
         } else {
+            keyboardDismiss?()
             showSendLimitAlert = true
         }
         sendMessageTaskInProgress = false
@@ -366,6 +368,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     func didSelectReplyTo(message: MessageViewData) {
         withAnimation {
+            inputFocused = true
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
                 title: Loc.Chat.replyTo(message.authorName),

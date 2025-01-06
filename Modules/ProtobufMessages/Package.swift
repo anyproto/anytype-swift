@@ -1,10 +1,10 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.0
 import PackageDescription
 
 let package = Package(
     name: "ProtobufMessages",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v16),
     ],
     products: [
         .library(
@@ -13,7 +13,7 @@ let package = Package(
             targets: ["ProtobufMessages"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0")
+        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.28.2")
     ],
     targets: [
         .target(
@@ -23,6 +23,10 @@ let package = Package(
                 "Lib"
             ],
             path: "Sources",
+            swiftSettings: [
+                // Waiting swift-protobuf
+                .swiftLanguageMode(.v5)
+            ],
             linkerSettings: [
                 .linkedLibrary("c++"),
                 .linkedLibrary("resolv")

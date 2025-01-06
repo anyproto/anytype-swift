@@ -19,7 +19,7 @@ final class AccountManager: AccountManagerProtocol, Sendable {
     }
     
     var accountPublisher: AnyPublisher<AccountData, Never> {
-        return storage.publisher
+        return storage.publisher.removeDuplicates().eraseToAnyPublisher()
     }
     
     init() { }

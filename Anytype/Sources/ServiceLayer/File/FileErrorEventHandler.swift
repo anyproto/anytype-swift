@@ -25,13 +25,12 @@ final class FileErrorEventHandler: FileErrorEventHandlerProtocol {
         guard cancellable == nil else { return }
         
         cancellable = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            await self?.handle(events: events)
+            self?.handle(events: events)
         }
     }
     
     // MARK: - Private
     
-    @MainActor
     private func handle(events: EventsBunch) {
         for event in events.middlewareEvents {
             switch event.value {

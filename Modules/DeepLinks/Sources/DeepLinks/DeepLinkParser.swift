@@ -1,12 +1,12 @@
 import Foundation
 
 
-public protocol DeepLinkParserProtocol: AnyObject {
+public protocol DeepLinkParserProtocol: AnyObject, Sendable {
     func parse(url: URL) -> DeepLink?
     func createUrl(deepLink: DeepLink, scheme: DeepLinkScheme) -> URL?
 }
 
-final class DeepLinkParser: DeepLinkParserProtocol {
+final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
 
     private enum LinkPaths {
         static let createObjectWidget = "create-object-widget"
