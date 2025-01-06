@@ -81,24 +81,26 @@ struct ObjectTypeView: View {
     }
     
     private var buttonsRow: some View {
-        HStack(spacing: 12) {
-            if model.isEditorLayout {
-                StandardButton(
-                    .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
-                    style: .secondarySmall
-                ) {
-                    model.onLayoutTap()
+        Group {
+            if model.canEditDetails {
+                HStack(spacing: 12) {
+                    StandardButton(
+                        .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
+                        style: .secondarySmall
+                    ) {
+                        model.onLayoutTap()
+                    }
+                    
+                    StandardButton(
+                        .textWithBadge(text: Loc.relations, badge: "\(model.relationsCount)"),
+                        style: .secondarySmall
+                    ) {
+                        model.onFieldsTap()
+                    }
+                    
+                    Spacer()
                 }
             }
-            
-            StandardButton(
-                .textWithBadge(text: Loc.relations, badge: "\(model.relationsCount)"),
-                style: .secondarySmall
-            ) {
-                model.onFieldsTap()
-            }
-            
-            Spacer()
         }
     }
     
@@ -109,7 +111,7 @@ struct ObjectTypeView: View {
                 AnytypeText("\(model.templates.count)", style: .previewTitle1Regular)
                     .foregroundColor(Color.Text.secondary)
                 Spacer()
-                if model.isEditorLayout {
+                if model.canEditDetails {
                     Button(action: {
                         model.onAddTemplateTap()
                     }, label: {
