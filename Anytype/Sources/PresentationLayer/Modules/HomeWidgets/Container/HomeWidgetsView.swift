@@ -23,47 +23,10 @@ private struct HomeWidgetsInternalView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            VerticalScrollViewWithOverlayHeader {
-                if !FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId) {
-                    HomeTopShadow()
-                }
-            } content: {
-                VStack(spacing: 12) {
-                    if model.dataLoaded {
-                        if model.showSpaceWidget {
-                            SpaceWidgetView(spaceId: model.spaceId) {
-                                model.onSpaceSelected()
-                            }
-                        }
-                        if FeatureFlags.allContent {
-                            AllContentWidgetView(
-                                spaceId: model.spaceId,
-                                homeState: $model.homeState,
-                                output: model.output
-                            )
-                        }
-                        if #available(iOS 17.0, *) {
-                            WidgetSwipeTipView()
-                        }
-                        ForEach(model.widgetBlocks) { widgetInfo in
-                            HomeWidgetSubmoduleView(
-                                widgetInfo: widgetInfo,
-                                widgetObject: model.widgetObject, 
-                                workspaceInfo: model.info,
-                                homeState: $model.homeState,
-                                output: model.output
-                            )
-                        }
-                        BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
-                        editButtons
-                    }
-                    AnytypeNavigationSpacer()
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 12)
-                .fitIPadToReadableContentGuide()
-            }
-            .animation(.default, value: model.widgetBlocks.count)
+            HomeWallpaperView(spaceId: model.spaceId)
+            
+            content
+                .animation(.default, value: model.widgetBlocks.count)
             
             HomeBottomPanelView(homeState: $model.homeState) {
                 model.onCreateWidgetFromEditMode()
@@ -78,8 +41,12 @@ private struct HomeWidgetsInternalView: View {
         .onAppear {
             model.onAppear()
         }
+        .safeAreaInset(edge: .top) {
+            WidgetsHeaderView(spaceId: model.spaceId) {
+                model.onSpaceSelected()
+            }
+        }
         .navigationBarHidden(true)
-        .anytypeStatusBar(style: .lightContent)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .homeBottomPanelHidden(model.homeState.isEditWidgets)
         .anytypeVerticalDrop(data: model.widgetBlocks, state: $dndState) { from, to in
@@ -87,12 +54,38 @@ private struct HomeWidgetsInternalView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
-        .if(FeatureFlags.showHomeSpaceLevelChat(spaceId: model.spaceId)) {
-            $0.overlay(alignment: .top) {
-                HomeBlurEffectView(direction: .topToBottom)
-                    .ignoresSafeArea()
-                    .frame(height: 1)
+    }
+    
+    private var content: some View {
+        ScrollView {
+            VStack(spacing: 12) {
+                if model.dataLoaded {
+                    if FeatureFlags.allContent {
+                        AllContentWidgetView(
+                            spaceId: model.spaceId,
+                            homeState: $model.homeState,
+                            output: model.output
+                        )
+                    }
+                    if #available(iOS 17.0, *) {
+                        WidgetSwipeTipView()
+                    }
+                    ForEach(model.widgetBlocks) { widgetInfo in
+                        HomeWidgetSubmoduleView(
+                            widgetInfo: widgetInfo,
+                            widgetObject: model.widgetObject,
+                            workspaceInfo: model.info,
+                            homeState: $model.homeState,
+                            output: model.output
+                        )
+                    }
+                    BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
+                    editButtons
+                }
+                AnytypeNavigationSpacer()
             }
+            .padding(.horizontal, 20)
+            .fitIPadToReadableContentGuide()
         }
     }
     

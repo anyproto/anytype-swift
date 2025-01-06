@@ -13,8 +13,14 @@ struct ChatView: View {
     
     var body: some View {
         ZStack {
+            HomeWallpaperView(spaceId: model.spaceId)
             mainView
                 .ignoresSafeArea()
+        }
+        .overlay(alignment: .top) {
+            ChatHeaderView(spaceId: model.spaceId) {
+                model.onTapWidgets()
+            }
         }
         .onAppear {
             model.keyboardDismiss = keyboardDismiss

@@ -27,7 +27,7 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
                 spaceAccessType: .shared,
                 readersLimit: nil,
                 writersLimit: nil,
-                chatId: nil,
+                chatId: "",
                 isPinned: false
             )
         ]

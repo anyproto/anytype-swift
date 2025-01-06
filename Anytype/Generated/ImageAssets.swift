@@ -162,6 +162,7 @@ internal extension ImageAsset {
       static let up = ImageAsset.bundle(name: "x24/Arrow/Up")
     }
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
+    static let back = ImageAsset.bundle(name: "x24/Back")
     static let blur = ImageAsset.bundle(name: "x24/Blur")
     static let burger = ImageAsset.bundle(name: "x24/Burger")
     static let calendar = ImageAsset.bundle(name: "x24/Calendar")
@@ -200,6 +201,7 @@ internal extension ImageAsset {
     static let select = ImageAsset.bundle(name: "x24/Select")
     static let settings = ImageAsset.bundle(name: "x24/Settings")
     static let sharing = ImageAsset.bundle(name: "x24/Sharing")
+    static let spaceSettings = ImageAsset.bundle(name: "x24/Space settings")
     static let status = ImageAsset.bundle(name: "x24/Status")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
     static let text = ImageAsset.bundle(name: "x24/Text")
@@ -266,9 +268,13 @@ internal extension ImageAsset {
       static let `right` = ImageAsset.bundle(name: "x32/Insert/Right")
     }
     enum Island {
+      static let discuss = ImageAsset.bundle(name: "x32/Island/Discuss")
       static let vault = ImageAsset.bundle(name: "x32/Island/Vault")
+      static let addMember = ImageAsset.bundle(name: "x32/Island/add member")
+      static let addObject = ImageAsset.bundle(name: "x32/Island/add object")
       static let add = ImageAsset.bundle(name: "x32/Island/add")
       static let back = ImageAsset.bundle(name: "x32/Island/back")
+      static let members = ImageAsset.bundle(name: "x32/Island/members")
       static let search = ImageAsset.bundle(name: "x32/Island/search")
     }
     static let linkTo = ImageAsset.bundle(name: "x32/Link to")
