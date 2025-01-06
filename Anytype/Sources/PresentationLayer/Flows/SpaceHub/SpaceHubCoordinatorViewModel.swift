@@ -23,6 +23,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var toastBarData = ToastBarData.empty
     @Published var showSpaceShareData: AccountInfo?
     @Published var showSpaceMembersDataSpaceId: StringIdentifiable?
+    @Published var chatProvider = ChatActionProvider()
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -411,5 +412,10 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     
     func onShareSelected() {
         showSpaceShareData = spaceInfo
+    }
+    
+    func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
+        chatProvider.createChatWithAttachment(attachment)
+        popToFirstInSpace()
     }
 }

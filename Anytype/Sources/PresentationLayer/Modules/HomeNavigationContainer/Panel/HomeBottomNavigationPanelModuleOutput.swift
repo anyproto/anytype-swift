@@ -9,4 +9,5 @@ protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onPickTypeForNewObjectSelected()
     func onMembersSelected()
     func onShareSelected()
+    func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject)
 }

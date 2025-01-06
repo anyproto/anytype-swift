@@ -1,17 +1,17 @@
 import Foundation
 
-struct ChatLinkFromPanel {
+struct ChatLinkObject {
     let spaceId: String
     let objectId: String
 }
 
 extension EditorScreenData {
-    var chatLinkFromPanel: ChatLinkFromPanel? {
+    var chatLinkFromPanel: ChatLinkObject? {
         switch self {
         case .page(let data):
-            ChatLinkFromPanel(spaceId: data.spaceId, objectId: data.objectId)
+            ChatLinkObject(spaceId: data.spaceId, objectId: data.objectId)
         case .list(let data):
-            ChatLinkFromPanel(spaceId: data.spaceId, objectId: data.objectId)
+            ChatLinkObject(spaceId: data.spaceId, objectId: data.objectId)
         default:
             nil
         }
