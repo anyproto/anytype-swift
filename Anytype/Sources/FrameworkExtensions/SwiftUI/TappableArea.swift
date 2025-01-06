@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct IncreaseTapGestureV2Midifier: ViewModifier {
+struct IncreaseTapGestureV2Modifier: ViewModifier {
     let insets: EdgeInsets
     let onTap: () -> Void
   
@@ -27,7 +27,7 @@ extension View {
     }
     
     func increaseTapGestureV2(_ insets: EdgeInsets = EdgeInsets(side: 30), _ action: @escaping () -> Void) -> some View {
-        modifier(IncreaseTapGestureV2Midifier(insets: insets, onTap: action))
+        modifier(IncreaseTapGestureV2Modifier(insets: insets, onTap: action))
     }
     
     // Enable taps for empty view and spaces
