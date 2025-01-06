@@ -87,14 +87,14 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             model.onTapSearch()
         } label: {
             Image(asset: .X32.Island.search)
-                .foregroundColor(.Control.navPanelIcon)
+                .navPanelDynamicForegroundStyle()
         }
         
         Image(asset: .X32.Island.addObject)
             .onTapGesture {
                 model.onTapNewObject()
             }
-            .foregroundColor(.Control.navPanelIcon)
+            .navPanelDynamicForegroundStyle()
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.3)
                     .onEnded { _ in
@@ -124,23 +124,23 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 print("chat")
             } label: {
                 Image(asset: .X32.Island.discuss)
-                    .foregroundColor(.Control.navPanelIcon)
+                    .navPanelDynamicForegroundStyle()
             }
         } else {
             switch model.memberLeftButtonMode {
             case .member:
                 Button {
-                    print("member")
+                    model.onTapMembers()
                 } label: {
                     Image(asset: .X32.Island.members)
-                        .foregroundColor(.Control.navPanelIcon)
+                        .navPanelDynamicForegroundStyle()
                 }
             case .owner(let disable):
                 Button {
-                    print("owner")
+                    model.onTapShare()
                 } label: {
                     Image(asset: .X32.Island.addMember)
-                        .foregroundColor(.Control.navPanelIcon)
+                        .navPanelDynamicForegroundStyle()
                 }
                 .disabled(disable)
             case .none:

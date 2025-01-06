@@ -21,6 +21,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var membershipNameFinalizationData: MembershipTier?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var toastBarData = ToastBarData.empty
+    @Published var showSpaceShareData: AccountInfo?
+    @Published var showSpaceMembersDataSpaceId: StringIdentifiable?
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -401,5 +403,13 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         
         UISelectionFeedbackGenerator().selectionChanged()
         typeSearchForObjectCreationSpaceId = spaceInfo.accountSpaceId.identifiable
+    }
+    
+    func onMembersSelected() {
+        showSpaceMembersDataSpaceId = spaceInfo?.accountSpaceId.identifiable
+    }
+    
+    func onShareSelected() {
+        showSpaceShareData = spaceInfo
     }
 }

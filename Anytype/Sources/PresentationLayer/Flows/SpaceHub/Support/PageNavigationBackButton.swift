@@ -12,7 +12,7 @@ struct PageNavigationBackButton: View {
             pageNavigation.pop()
         } label: {
             Image(asset: .X24.back)
-                .foregroundStyle(Color.Control.navPanelIcon)
+                .navPanelDynamicForegroundStyle()
         }
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.3)
