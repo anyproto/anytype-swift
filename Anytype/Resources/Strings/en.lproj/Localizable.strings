@@ -1294,3 +1294,5 @@ Please provide specific details of your needs here.";
 "Fields.menu" = "Fields menu";
 "Fields.missing" = "Missing fields";
 "Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";

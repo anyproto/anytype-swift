@@ -12,7 +12,6 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
     private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
     private let dataviewService: any DataviewServiceProtocol = Container.shared.dataviewService()
     
-    private let objectId: String
     private let document: any BaseDocumentProtocol
     
     init(objectId: String, spaceId: String) {
