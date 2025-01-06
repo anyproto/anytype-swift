@@ -3,7 +3,7 @@ import Combine
 import Services
 
 @MainActor
-final class SpaceWidgetViewModel: ObservableObject {
+final class WidgetsHeaderViewModel: ObservableObject {
     
     // MARK: - DI
     
@@ -43,7 +43,7 @@ final class SpaceWidgetViewModel: ObservableObject {
         }
     }
     
-    func onTapWidget() {
+    func onTapSpaceSettings() {
         onSpaceSelected()
     }
 }

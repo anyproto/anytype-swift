@@ -2,6 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
+@MainActor
 final class Legacy_ObjectTypeSearchInteractor {
     
     private let spaceId: String

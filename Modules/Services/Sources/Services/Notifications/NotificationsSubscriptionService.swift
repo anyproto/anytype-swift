@@ -3,7 +3,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-public protocol NotificationsSubscriptionServiceProtocol: AnyObject {
+public protocol NotificationsSubscriptionServiceProtocol: AnyObject, Sendable {
     func addHandler(handler: @escaping @Sendable (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable
 }
 

@@ -32,7 +32,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: SpaceWallpaperType = .default
-    @Published var showSpaceWidget: Bool = true
     
     var spaceId: String { info.accountSpaceId }
     
@@ -73,7 +72,6 @@ final class HomeWidgetsViewModel: ObservableObject {
             if space?.spaceAccessType == .private {
                 SpaceShareTip.didOpenPrivateSpace = true
             }
-            showSpaceWidget = FeatureFlags.showHomeSpaceLevelChat(spaceId: spaceId) ? (space?.chatId?.isEmpty ?? true) : true
         }
     }
     

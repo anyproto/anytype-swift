@@ -45,7 +45,7 @@ final class EditorNavigationBarView: UIView {
         super.init(frame: frame)
                 
         addSubview(contentView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
             $0.height.equal(to: 44)
         }
         

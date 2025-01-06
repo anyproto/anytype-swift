@@ -1,7 +1,7 @@
 import UIKit
 import Services
 import AnytypeCore
-import Combine
+@preconcurrency import Combine
 
 protocol ObjectHeaderUploadingServiceProtocol: AnyObject, Sendable {
     
@@ -22,7 +22,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
     private let fileService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
     private let unsplashService: any UnsplashServiceProtocol = Container.shared.unsplashService()
     
-    private var coverUploadSubject = PassthroughSubject<(objectId: String, spaceId: String, update: ObjectHeaderUpdate), Never>()
+    private let coverUploadSubject = PassthroughSubject<(objectId: String, spaceId: String, update: ObjectHeaderUpdate), Never>()
     
     func coverUploadPublisher(objectId: String, spaceId: String) -> AnyPublisher<ObjectHeaderUpdate, Never> {
         coverUploadSubject.filter { $0.objectId == objectId && $0.spaceId == spaceId }.map { $0.update }.eraseToAnyPublisher()

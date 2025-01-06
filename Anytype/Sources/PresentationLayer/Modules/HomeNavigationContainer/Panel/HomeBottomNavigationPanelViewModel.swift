@@ -8,6 +8,12 @@ import Services
 @MainActor
 final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
+    enum LeftButtonMode {
+        case member
+        case owner(_ disable: Bool)
+        case chat(_ disable: Bool)
+    }
+    
     // MARK: - Private properties
     private let info: AccountInfo
     
@@ -17,19 +23,22 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.processSubscriptionService)
     private var processSubscriptionService: any ProcessSubscriptionServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
         
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
     
     private var activeProcess: Process?
     private var subscriptions: [AnyCancellable] = []
+    private var chatLinkData: ChatLinkObject?
+    private var prticipantSpaceView: ParticipantSpaceViewData?
     
     // MARK: - Public properties
     
     @Published var profileIcon: Icon?
     @Published var progress: Double? = nil
+    @Published var leftButtonMode: LeftButtonMode?
     @Published var canCreateObject: Bool = false
     
     init(
@@ -58,29 +67,52 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onSearchSelected()
     }
     
-    func onTapHome() {
-        output?.onWidgetsSelected()
-    }
-    
-    func onTapProfile() {
-        output?.onProfileSelected()
-    }
-    
     func onPlusButtonLongtap() {
         output?.onPickTypeForNewObjectSelected()
     }
     
-    func onSpaceHubTap() {
-        output?.onSpaceHubSelected()
-    }
-    
     func onAppear() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
-            canCreateObject = canEdit
+        for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
+            prticipantSpaceView = data
+            updateState()
         }
     }
-        
+    
+    func updateVisibleScreen(data: AnyHashable) {
+        chatLinkData = (data as? EditorScreenData)?.chatLinkFromPanel
+        updateState()
+    }
+    
+    func onTapMembers() {
+        output?.onMembersSelected()
+    }
+    
+    func onTapShare() {
+        output?.onShareSelected()
+    }
+    
+    func onTapAddToSpaceLevelChat() {
+        guard let chatLinkData else { return }
+        output?.onAddAttachmentToSpaceLevelChat(attachment: chatLinkData)
+    }
+    
     // MARK: - Private
+    
+    private func updateState() {
+        guard let prticipantSpaceView else { return }
+        
+        let canLinkToChat = chatLinkData.isNotNil && prticipantSpaceView.spaceView.showChat
+        
+        if canLinkToChat {
+            leftButtonMode = .chat(!prticipantSpaceView.permissions.canEdit)
+        } else if prticipantSpaceView.isOwner {
+            leftButtonMode = .owner(!prticipantSpaceView.permissions.canBeShared)
+        } else {
+            leftButtonMode = .member
+        }
+        
+        canCreateObject = prticipantSpaceView.permissions.canEdit
+    }
     
     private func setupDataSubscription() {
         Task {

@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Services
 
+@MainActor
 final class UnsplashViewModel: GridItemViewModelProtocol {
     typealias Item = UnsplashItemViewModel
     typealias Section = GridItemSection<Item>

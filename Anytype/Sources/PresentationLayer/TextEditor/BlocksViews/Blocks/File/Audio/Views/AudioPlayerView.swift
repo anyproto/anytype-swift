@@ -2,6 +2,7 @@ import UIKit
 import AVFoundation
 
 
+@MainActor
 protocol AudioPlayerViewDelegate: AnyObject {
     var audioPlayerView: (any AudioPlayerViewInput)? { get set }
     var currentTime: Double { get }

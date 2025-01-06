@@ -40,9 +40,6 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.membershipTierId) { tierId in
                 MembershipCoordinator(initialTierId: tierId.value)
             }
-            .sheet(item: $model.showSpaceSwitchData) {
-                SpaceSwitchCoordinatorView(data: $0)
-            }
             .sheet(item: $model.membershipNameFinalizationData) {
                 MembershipNameFinalizationView(tier: $0)
             }
@@ -63,6 +60,12 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(isPresented: $model.showObjectIsNotAvailableAlert) {
                 ObjectIsNotAvailableAlert()
             }
+            .sheet(item: $model.showSpaceShareData) {
+                SpaceShareCoordinatorView(workspaceInfo: $0)
+            }
+            .sheet(item: $model.showSpaceMembersDataSpaceId) {
+                SpaceMembersView(spaceId: $0.value)
+            }
     }
     
     private var content: some View {  
@@ -73,14 +76,17 @@ struct SpaceHubCoordinatorView: View {
                 path: $model.navigationPath,
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
-                        builder.appendBuilder(for: AccountInfo.self) { info in
-                            HomeTabBarCoordinatorView(spaceInfo: info)
+                        builder.appendBuilder(for: HomeWidgetData.self) { data in
+                            HomeWidgetsCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
                             SpaceHubView(sceneId: model.sceneId)
+                        }
+                        builder.appendBuilder(for: ChatCoordinatorData.self) {
+                            ChatCoordinatorView(data: $0)
                         }
                     }
                 },
@@ -93,6 +99,7 @@ struct SpaceHubCoordinatorView: View {
         }
         .animation(.easeInOut, value: model.spaceInfo)
         .environment(\.pageNavigation, model.pageNavigation)
+        .environment(\.chatActionProvider, $model.chatProvider)
     }
 }
 
