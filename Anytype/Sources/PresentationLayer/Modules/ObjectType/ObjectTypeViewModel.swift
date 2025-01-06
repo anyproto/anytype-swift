@@ -17,7 +17,7 @@ final class ObjectTypeViewModel: ObservableObject {
     @Published var showDeleteConfirmation = false
     
     let document: any BaseDocumentProtocol
-    var isEditorLayout: Bool { details?.recommendedLayoutValue?.isEditorLayout ?? false }
+    var canEditDetails: Bool { document.permissions.canEditDetails }
     var canArchive: Bool { document.permissions.canArchive }
     private(set) weak var output: (any ObjectTypeViewModelOutput)?
     
@@ -156,7 +156,7 @@ final class ObjectTypeViewModel: ObservableObject {
         
         templates += middlewareTemplates
 
-        if isEditorLayout {
+        if canEditDetails {
             templates.append(.init(mode: .addTemplate, alignment: .center))
         }
         
