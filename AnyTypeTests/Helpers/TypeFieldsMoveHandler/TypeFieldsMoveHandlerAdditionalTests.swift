@@ -9,10 +9,11 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        mockRelationsService = MockRelationsService()
+        let mockRelationsService = MockRelationsService()
+        Container.shared.relationsService.register { mockRelationsService }
+        self.mockRelationsService = mockRelationsService
         mockDocument = MockBaseDocument()
         moveHandler = TypeFieldsMoveHandler()
-        moveHandler.relationsService = mockRelationsService
     }
     
     // MARK: - Empty Section Tests

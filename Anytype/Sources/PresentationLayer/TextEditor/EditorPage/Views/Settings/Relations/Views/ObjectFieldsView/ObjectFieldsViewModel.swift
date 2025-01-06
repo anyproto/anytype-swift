@@ -87,10 +87,11 @@ final class ObjectFieldsViewModel: ObservableObject {
     func addRelationToType(_ relation: Relation) {
         Task {
             guard let details = document.details else { return }
-            var newRecommendedRelations = details.recommendedRelations
-            newRecommendedRelations.append(relation.id)
             
-            try await relationsService.updateRecommendedRelations(typeId: details.type, relationIds: newRecommendedRelations)
+            var newRecommendedRelations = document.parsedRelations.sidebarRelations
+            newRecommendedRelations.append(relation)
+            
+            try await relationsService.updateRecommendedRelations(typeId: details.type, relationIds: newRecommendedRelations.map(\.id))
         }
     }
 }
