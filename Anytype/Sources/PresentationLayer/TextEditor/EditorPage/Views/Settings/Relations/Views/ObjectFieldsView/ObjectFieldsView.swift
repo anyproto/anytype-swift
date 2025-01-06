@@ -56,7 +56,7 @@ struct ObjectFieldsView: View {
                 ForEach(model.sections) { section in
                     Section {
                         ForEach(section.relations) {
-                            row(with: $0, addedToObject: section.addedToObject)
+                            row(with: $0, section: section)
                         }
                     } header: {
                         sectionHeader(section: section)
@@ -69,13 +69,13 @@ struct ObjectFieldsView: View {
     
     private func sectionHeader(section: RelationsSection) -> some View {
         Group {
-            if let action = section.action {
-                ListSectionHeaderView(title: section.title) {
-                    Button {
-                        action.action()
-                    } label: {
-                        Image(asset: action.asset)
-                            .renderingMode(.original).frame(width: 18, height: 18)
+            if section.isMissingFields {
+                Button {
+                    model.showConflictingInfo.toggle()
+                } label: {
+                    ListSectionHeaderView(title: section.title, titleColor: .System.red) {
+                        Image(systemName: "questionmark.circle.fill").foregroundStyle(Color.System.red)
+                            .frame(width: 18, height: 18)
                     }
                 }
             } else {
@@ -84,7 +84,22 @@ struct ObjectFieldsView: View {
         }
     }
     
-    private func row(with relation: Relation, addedToObject: Bool) -> some View {
+    private func row(with relation: Relation, section: RelationsSection) -> some View {
+        HStack {
+            rowWithoutActions(with: relation, addedToObject: section.addedToObject)
+            if section.isMissingFields {
+                Menu {
+                    Button(Loc.Fields.addToType) { model.addRelationToType(relation) }
+                    Button(Loc.Fields.removeFromObject, role: .destructive) { model.removeRelation(relation) }
+                } label: {
+                    MoreIndicator()
+                }
+            }
+        }
+        .divider()
+    }
+    
+    private func rowWithoutActions(with relation: Relation, addedToObject: Bool) -> some View {
         RelationsListRowView(
             editingMode: .constant(false),
             starButtonAvailable: false,
@@ -92,12 +107,11 @@ struct ObjectFieldsView: View {
             addedToObject: addedToObject,
             relation: relation
         ) {
-            model.removeRelation(relation: $0)
+            model.removeRelation($0)
         } onStarTap: {
             model.changeRelationFeaturedState(relation: $0, addedToObject: addedToObject)
         } onEditTap: {
-            model.handleTapOnRelation(relation: $0)
+            model.handleTapOnRelation($0)
         }
     }
-    
 }

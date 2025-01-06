@@ -936,9 +936,11 @@ internal enum Loc {
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
   }
   internal enum Fields {
+    internal static let addToType = Loc.tr("Localizable", "Fields.addToType", fallback: "Add to the current type")
     internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
     internal static let missing = Loc.tr("Localizable", "Fields.missing", fallback: "Missing fields")
     internal static let missingInfo = Loc.tr("Localizable", "Fields.missingInfo", fallback: "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.")
+    internal static let removeFromObject = Loc.tr("Localizable", "Fields.removeFromObject", fallback: "Remove from the object")
   }
   internal enum FileStorage {
     internal static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
