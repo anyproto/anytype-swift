@@ -18,6 +18,7 @@ enum ObjectIconPickerAction {
     case removeIcon
 }
 
+@MainActor
 final class ObjectIconPickerViewModel: ObservableObject {
     
     @Injected(\.objectHeaderUploadingService)

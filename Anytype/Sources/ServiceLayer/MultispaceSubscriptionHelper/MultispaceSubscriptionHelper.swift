@@ -42,7 +42,7 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel>: Sendable {
             .removeDuplicates()
             .receiveOnMain()
             .sink { [weak self] spaceIds in
-                Task {
+                Task { @Sendable [weak self] in
                     await self?.updateSubscriptions(spaceIds: spaceIds, update: update)
                 }
             }

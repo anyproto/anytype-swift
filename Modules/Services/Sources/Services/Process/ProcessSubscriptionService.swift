@@ -3,7 +3,7 @@ import ProtobufMessages
 @preconcurrency import Combine
 import AnytypeCore
 
-public protocol ProcessSubscriptionServiceProtocol: AnyObject {
+public protocol ProcessSubscriptionServiceProtocol: AnyObject, Sendable {
     func addHandler(handler: @escaping @Sendable (_ processes: [ProcessEvent]) async -> Void) async -> AnyCancellable
 }
 

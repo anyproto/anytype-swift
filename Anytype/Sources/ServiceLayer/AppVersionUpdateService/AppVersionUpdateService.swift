@@ -1,7 +1,7 @@
 import Foundation
 import AnytypeCore
 
-protocol AppVersionUpdateServiceProtocol: AnyObject {
+protocol AppVersionUpdateServiceProtocol: AnyObject, Sendable {
     func prepareData()
     func newVersionIsAvailable() async throws -> Bool
 }

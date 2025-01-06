@@ -46,7 +46,7 @@ final class GalleryNotificationViewModel: ObservableObject {
     
     private func startHandle() async {
         subscription = await notificationSubscriptionService.handleGalleryImportUpdate(notificationID: notification.common.id) { [weak self] notification in
-            self?.updateView(notification: notification)
+            await self?.updateView(notification: notification)
         }
     }
     
