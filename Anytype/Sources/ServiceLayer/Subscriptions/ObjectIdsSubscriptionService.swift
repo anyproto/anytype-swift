@@ -31,6 +31,7 @@ actor ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
         let keys: [BundledRelationKey] = .builder {
             BundledRelationKey.objectListKeys
             BundledRelationKey.sizeInBytes
+            BundledRelationKey.source
         }.uniqued()
         
         let searchData: SubscriptionData = .objects(

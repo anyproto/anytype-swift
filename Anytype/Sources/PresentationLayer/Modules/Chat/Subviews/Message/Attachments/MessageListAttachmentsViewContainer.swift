@@ -10,7 +10,7 @@ struct MessageListAttachmentsViewContainer: View {
     var body: some View {
         VStack(spacing: 4) {
             ForEach(objects, id: \.id) { details in
-                MessageObjectAttachmentView(details: details)
+                content(for: details)
                     .onTapGesture {
                         if !details.loadingState {
                             onTapObject(details)
@@ -20,6 +20,16 @@ struct MessageListAttachmentsViewContainer: View {
                         $0.redacted(reason: .placeholder)
                     }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func content(for details: MessageAttachmentDetails) -> some View {
+        switch details.layoutValue {
+        case .bookmark:
+            MessageObjectBookmarkView(details: details)
+        default:
+            MessageObjectAttachmentView(details: details)
         }
     }
 }

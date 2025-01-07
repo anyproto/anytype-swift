@@ -21,8 +21,13 @@ struct MessageLinkedUploadedObject: View {
                 .onTapGesture {
                     onTapObject()
                 }
+        case .bookmark:
+            MessageLinkBookmarkContainerView(details: details, onTapRemove: onTapRemove)
+                .onTapGesture {
+                    onTapObject()
+                }
         default:
-            MessageLinkObjectView(details: details, onTapRemove: { _ in
+            MessageLinkObjectContainerView(details: details, onTapRemove: { _ in
                 onTapRemove()
             })
             .onTapGesture {
