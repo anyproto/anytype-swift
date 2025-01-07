@@ -6,9 +6,7 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
     let collectionView: UICollectionView
     let bottomPanel: UIHostingController<BottomPanel>
     
-    private let topBlurEffectView = HomeBlurEffectUIView()
     private let bottomBlurEffectView = HomeBlurEffectUIView()
-    private var topHeightConstraint: NSLayoutConstraint?
     private var bottomTopConstraint: NSLayoutConstraint?
     
     var contentInset: UIEdgeInsets = .zero { didSet { updateInsets(animatedIfNear: false) } }
@@ -81,10 +79,6 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
             $0.pinToSuperview()
         }
         
-        view.addSubview(topBlurEffectView) {
-            $0.pinToSuperview(excluding: [.bottom])
-        }
-        
         view.addSubview(bottomBlurEffectView) {
             $0.pinToSuperview(excluding: [.top])
         }
@@ -95,9 +89,6 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
             $0.bottom.equal(to: view.keyboardLayoutGuide.topAnchor)
         }
         bottomPanel.didMove(toParent: self)
-        
-        topHeightConstraint = topBlurEffectView.heightAnchor.constraint(equalToConstant: 0)
-        topHeightConstraint?.isActive = true
         
         bottomTopConstraint = bottomBlurEffectView.topAnchor.constraint(equalTo: bottomPanel.view.topAnchor, constant: 0)
         bottomTopConstraint?.isActive = true
@@ -144,7 +135,6 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
             collectionView.scrollIndicatorInsets = newInsets
         }
         
-        topHeightConstraint?.constant = contentInset.top + view.safeAreaInsets.top
         bottomTopConstraint?.constant = -contentInset.bottom
     }
     

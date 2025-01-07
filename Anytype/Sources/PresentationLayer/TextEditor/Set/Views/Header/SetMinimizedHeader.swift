@@ -20,17 +20,20 @@ struct SetMinimizedHeader: View {
     private var header: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(UIApplication.shared.mainWindowInsets.top)
-            HStack(alignment: .center, spacing: 0) {
-                syncsStatusItem
-                Spacer.fixedWidth(14)
+            NavigationHeaderContainer(spacing: 0) {
+                PageNavigationBackButton()
+            } titleView: {
                 title
-                Spacer()
-                if !model.hasTargetObjectId {
-                    settingsButton
+            } rightView: {
+                HStack(spacing: 12) {
+                    syncsStatusItem
+                    if !model.hasTargetObjectId {
+                        settingsButton
+                    }
                 }
             }
-            .padding(.leading, 10)
-            .padding(.trailing, model.hasTargetObjectId ? 46 : 2)
+            .padding(.leading, 16)
+            .padding(.trailing, 2)
         }
         .frame(height: height)
         .background(Color.Background.primary.opacity(opacity))

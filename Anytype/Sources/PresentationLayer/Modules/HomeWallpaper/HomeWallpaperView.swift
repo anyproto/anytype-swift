@@ -6,8 +6,8 @@ struct HomeWallpaperView: View {
     
     @StateObject private var model: HomeWallpaperViewModel
     
-    init(spaceInfo: AccountInfo) {
-        self._model = StateObject(wrappedValue: HomeWallpaperViewModel(spaceInfo: spaceInfo))
+    init(spaceId: String) {
+        self._model = StateObject(wrappedValue: HomeWallpaperViewModel(spaceId: spaceId))
     }
     
     var body: some View {

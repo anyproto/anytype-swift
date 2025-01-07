@@ -63,71 +63,45 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
             )
         }
-        .animation(.default, value: homeMode)
         .task {
             await model.onAppear()
+        }
+        .onAppear {
+            if let last = homePath.lastPathElement {
+                model.updateVisibleScreen(data: last)
+            }
+        }
+        .onChange(of: homePath) { homePath in
+            if let last = homePath.lastPathElement {
+                model.updateVisibleScreen(data: last)
+            }
         }
     }
     
     @ViewBuilder
     private var navigation: some View {
-        Image(asset: .X32.Island.back)
-            .onTapGesture {
-                if #available(iOS 17.0, *) {
-                    ReturnToWidgetsTip.numberOfBackTaps += 1
-                }
-                model.onTapBackward()
-            }
-            .foregroundColor(.Control.navPanelIcon)
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.3)
-                    .onEnded { _ in
-                        if #available(iOS 17.0, *) {
-                            ReturnToWidgetsTip.usedLongpress = true
-                        }
-                        model.onTapHome()
-                    }
-            )
         
-        if model.canCreateObject {
-            Image(asset: .X32.Island.add)
-                .onTapGesture {
-                    model.onTapNewObject()
-                }
-                .foregroundColor(.Control.navPanelIcon)
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.3)
-                        .onEnded { _ in
-                            model.onPlusButtonLongtap()
-                        }
-                )
-        }
+        leftButton
         
         Button {
             model.onTapSearch()
         } label: {
             Image(asset: .X32.Island.search)
-                .foregroundColor(.Control.navPanelIcon)
+                .navPanelDynamicForegroundStyle()
         }
-    }
-    
-    @ViewBuilder
-    private var navigationButton: some View {
-        Button {
-            if homeMode {
-                model.onTapForward()
-            } else {
-                model.onTapBackward()
+        
+        Image(asset: .X32.Island.addObject)
+            .onTapGesture {
+                model.onTapNewObject()
             }
-        } label: {
-            Image(asset: .X32.Arrow.left)
-                .foregroundColor(.Control.navPanelIcon)
-        }
-        .transition(.identity)
-    }
-    
-    private var homeMode: Bool {
-        return homePath.count <= 1
+            .navPanelDynamicForegroundStyle()
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 0.3)
+                    .onEnded { _ in
+                        model.onPlusButtonLongtap()
+                    }
+            )
+            .disabled(!model.canCreateObject)
     }
     
     @ViewBuilder
@@ -140,6 +114,37 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     .animation(.linear, value: progress)
             }
             .transition(.opacity)
+        }
+    }
+    
+    @ViewBuilder
+    private var leftButton: some View {
+        switch model.leftButtonMode {
+        case .member:
+            Button {
+                model.onTapMembers()
+            } label: {
+                Image(asset: .X32.Island.members)
+                    .navPanelDynamicForegroundStyle()
+            }
+        case .owner(let disable):
+            Button {
+                model.onTapShare()
+            } label: {
+                Image(asset: .X32.Island.addMember)
+                    .navPanelDynamicForegroundStyle()
+            }
+            .disabled(disable)
+        case .chat(let disable):
+            Button {
+                model.onTapAddToSpaceLevelChat()
+            } label: {
+                Image(asset: .X32.Island.discuss)
+                    .navPanelDynamicForegroundStyle()
+            }
+            .disabled(disable)
+        case .none:
+            EmptyView()
         }
     }
 }

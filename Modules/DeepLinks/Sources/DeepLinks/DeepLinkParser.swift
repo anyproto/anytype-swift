@@ -11,7 +11,6 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
     private enum LinkPaths {
         static let createObjectWidget = "create-object-widget"
         static let sharingExtenstion = "sharing-extension"
-        static let spaceSelection = "space-selection"
         static let galleryImport = "main/import"
         static let invite = "invite"
         static let object = "object"
@@ -57,8 +56,6 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
             return .createObjectFromWidget
         case LinkPaths.sharingExtenstion:
             return .showSharingExtension
-        case LinkPaths.spaceSelection:
-            return .spaceSelection
         case LinkPaths.galleryImport:
             guard let type = queryItems.stringValue(key: "type"),
                   let source = queryItems.stringValue(key: "source") else { return nil }
@@ -95,8 +92,6 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
             return URL(string: host + LinkPaths.createObjectWidget)
         case .showSharingExtension:
             return URL(string: host + LinkPaths.sharingExtenstion)
-        case .spaceSelection:
-            return URL(string: host + LinkPaths.spaceSelection)
         case .galleryImport(let type, let source):
             guard var components = URLComponents(string: host + LinkPaths.galleryImport) else { return nil }
             components.queryItems = [

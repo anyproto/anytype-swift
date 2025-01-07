@@ -15,13 +15,15 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
-    @Published var showSpaceSwitchData: SpaceSwitchModuleData?
     @Published var membershipTierId: IntIdentifiable?
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var spaceJoinData: SpaceJoinModuleData?
     @Published var membershipNameFinalizationData: MembershipTier?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var toastBarData = ToastBarData.empty
+    @Published var showSpaceShareData: AccountInfo?
+    @Published var showSpaceMembersDataSpaceId: StringIdentifiable?
+    @Published var chatProvider = ChatActionProvider()
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -40,8 +42,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         PageNavigation(
             push: { [weak self] data in
                 self?.pushSync(data: data)
+            }, pushHome: { [weak self] in
+                guard let self, let spaceInfo else { return }
+                navigationPath.push(HomeWidgetData(info: spaceInfo))
             }, pop: { [weak self] in
                 self?.navigationPath.pop()
+            }, popToFirstInSpace: { [weak self] in
+                self?.popToFirstInSpace()
             }, replace: { [weak self] data in
                 guard let self else { return }
                 if navigationPath.count > 1 {
@@ -215,14 +222,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func openSpace(spaceId: String, data: EditorScreenData? = nil) async throws {
         if currentSpaceId != spaceId {
             // Check if space is deleted
-            guard workspaceStorage.spaceView(spaceId: spaceId).isNotNil else { return }
+            guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
            
             currentSpaceId = spaceId
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             currentSpaceId = spaceId
             
             if let spaceInfo {
-                var initialPath: [AnyHashable] = [SpaceHubNavigationItem(), spaceInfo]
+                var initialPath = initialHomePath(spaceView: spaceView, spaceInfo: spaceInfo)
                 if let data { initialPath.append(data) }
                 navigationPath = HomePath(initialPath: initialPath)
             }
@@ -234,17 +241,29 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func switchSpace(info: AccountInfo?) {
         Task {
             guard currentSpaceId != info?.accountSpaceId else { return }
+            
             currentSpaceId = info?.accountSpaceId
             
             if userWarningAlert.isNil {
                 await dismissAllPresented?()
             }
             
-            if let info {
-                let newPath = HomePath(initialPath: [SpaceHubNavigationItem(), info])
-                navigationPath = newPath
+            if let info, let spaceView = workspaceStorage.spaceView(spaceId: info.accountSpaceId) {
+                let newPath = initialHomePath(spaceView: spaceView, spaceInfo: info)
+                navigationPath = HomePath(initialPath: newPath)
             } else {
                 navigationPath.popToRoot()
+            }
+        }
+    }
+    
+    private func initialHomePath(spaceView: SpaceView, spaceInfo: AccountInfo) -> [AnyHashable] {
+        .builder {
+            SpaceHubNavigationItem()
+            if spaceView.showChat {
+                ChatCoordinatorData(chatId: spaceView.chatId, spaceInfo: spaceInfo)
+            } else {
+                HomeWidgetData(info: spaceInfo)
             }
         }
     }
@@ -267,8 +286,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
             sharingSpaceId = fallbackSpaceId?.identifiable
-        case .spaceSelection:
-            showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
         case let .galleryImport(type, source):
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
@@ -367,12 +384,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         openObject(screenData: screenData)
     }
 
-    func onProfileSelected() {
-        UISelectionFeedbackGenerator().selectionChanged()
-        showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
-    }
-
-    func onWidgetsSelected() {
+    func popToFirstInSpace() {
         guard !pathChanging else { return }
         navigationPath.popToFirstOpened()
     }
@@ -394,8 +406,16 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         typeSearchForObjectCreationSpaceId = spaceInfo.accountSpaceId.identifiable
     }
     
-    func onSpaceHubSelected() {
-        UISelectionFeedbackGenerator().selectionChanged()
-        navigationPath.popToRoot()
+    func onMembersSelected() {
+        showSpaceMembersDataSpaceId = spaceInfo?.accountSpaceId.identifiable
+    }
+    
+    func onShareSelected() {
+        showSpaceShareData = spaceInfo
+    }
+    
+    func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
+        chatProvider.createChatWithAttachment(attachment)
+        popToFirstInSpace()
     }
 }

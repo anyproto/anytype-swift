@@ -30,26 +30,24 @@ struct DateView: View {
     }
     
     private var navigationBar: some View {
-        HStack(alignment: .center, spacing: 14) {
-            SwiftUIEditorSyncStatusItem(
-                statusData: model.syncStatusData,
-                itemState: .initial,
-                onTap: {
-                    model.onSyncStatusTap()
-                }
-            )
-            .frame(width: 28, height: 28)
-            
-            Spacer()
-            
-            Image(asset: .X24.calendar)
-                .foregroundColor(.Control.active)
-                .onTapGesture {
-                    model.onCalendarTap()
-                }
+        PageNavigationHeader(title: "") {
+            HStack(alignment: .center, spacing: 12) {
+                SwiftUIEditorSyncStatusItem(
+                    statusData: model.syncStatusData,
+                    itemState: .initial,
+                    onTap: {
+                        model.onSyncStatusTap()
+                    }
+                )
+                .frame(width: 28, height: 28)
+                
+                Image(asset: .X24.calendar)
+                    .foregroundColor(.Control.active)
+                    .onTapGesture {
+                        model.onCalendarTap()
+                    }
+            }
         }
-        .padding(.horizontal, 12)
-        .frame(height: 48)
     }
     
     private var titleView: some View {

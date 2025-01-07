@@ -7,7 +7,7 @@ import Collections
 import UIKit
 
 @MainActor
-final class ChatViewModel: ObservableObject, MessageModuleOutput {
+final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProviderHandler {
     
     // MARK: - DI
     
@@ -33,6 +33,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var chatMessageLimits: any ChatMessageLimitsProtocol
     @Injected(\.messageTextBuilder)
     private var messageTextBuilder: any MessageTextBuilderProtocol
+    @Injected(\.searchService)
+    private var searchService: any SearchServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -125,6 +127,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             self?.handleCameraMedia(media)
         })
         output?.onShowCameraSelected(data: data)
+    }
+    
+    func onTapWidgets() {
+        output?.onWidgetsSelected()
     }
     
     func subscribeOnParticipants() async {
@@ -340,6 +346,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         messageTextLimit = chatMessageLimits.textIsWarinig(text: message) ? "\(message.string.count) / \(chatMessageLimits.textLimit)" : nil
     }
     
+    func configureProvider(_ provider: Binding<ChatActionProvider>) {
+        provider.wrappedValue.handler = self
+    }
+    
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
@@ -398,6 +408,20 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         let attachments = await chatStorage.attachments(message: messageToEdit.message)
         let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }.sorted { $0.id > $1.id }
         linkedObjects = messageAttachments.map { .uploadedObject($0) }
+    }
+    
+    // MARK: - ChatActionProviderHandler
+    
+    func createChatWithAttachment(_ attachment: ChatLinkObject) {
+        Task {
+            let results = try await searchService.searchObjects(spaceId: attachment.spaceId, objectIds: [attachment.objectId])
+            guard let first = results.first else { return }
+            clearInput()
+            linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
+            // Waiting pop transaction and open keyboard.
+            try await Task.sleep(seconds: 0.5)
+            inputFocused = true
+        }
     }
     
     // MARK: - Private

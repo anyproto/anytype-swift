@@ -210,7 +210,7 @@
 "Open file" = "Открыть файл";
 "Open Set" = "Открыть набор";
 "Create Set" = "Создать Набор";
-"Unsupported deeplink" = "Unsupported deeplink";
+"Unsupported deeplink" = "Неподдерживаемая ссылка";
 
 // Home
 "Favorites" = "Избранное";

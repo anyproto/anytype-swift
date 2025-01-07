@@ -6,6 +6,7 @@ struct ChatView: View {
     @StateObject private var model: ChatViewModel
     @State private var actionState = ChatActionOverlayState()
     @Environment(\.keyboardDismiss) private var keyboardDismiss
+    @Environment(\.chatActionProvider) private var chatActionProvider
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self._model = StateObject(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
@@ -13,11 +14,18 @@ struct ChatView: View {
     
     var body: some View {
         ZStack {
+            HomeWallpaperView(spaceId: model.spaceId)
             mainView
                 .ignoresSafeArea()
         }
+        .overlay(alignment: .top) {
+            ChatHeaderView(spaceId: model.spaceId) {
+                model.onTapWidgets()
+            }
+        }
         .onAppear {
             model.keyboardDismiss = keyboardDismiss
+            model.configureProvider(chatActionProvider)
         }
         .ignoresSafeArea(.keyboard)
         .chatActionOverlay(state: $actionState) {
