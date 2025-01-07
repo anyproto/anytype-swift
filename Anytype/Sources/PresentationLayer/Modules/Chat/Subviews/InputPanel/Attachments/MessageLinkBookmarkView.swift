@@ -39,13 +39,13 @@ struct MessageLinkBookmarkView: View {
                     .anytypeStyle(.caption1Regular)
                     .foregroundColor(.Text.secondary)
                     .lineLimit(1)
+                    .padding(.bottom, 5)
                 Spacer()
             }
             Text(description)
                 .anytypeStyle(.uxTitle2Medium)
                 .foregroundColor(.Text.primary)
                 .lineLimit(1)
-            
         }
         .padding(12)
     }
