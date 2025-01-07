@@ -90,9 +90,6 @@ struct TypeFieldsView: View {
                 allRows: $model.relationRows)
             )
         }
-//        .onDelete { indexes in
-//            model.onDeleteRelations(indexes)
-//        }
     }
     
     private func headerRow(_ data: TypeFieldsSectionRow) -> some View {
@@ -110,7 +107,7 @@ struct TypeFieldsView: View {
     
     private func relationRow(_ data: TypeFieldsRelationRow) -> some View {
         HStack(spacing: 0) {
-            if model.canEditRelationsList {
+            if model.canEditRelationsList && data.relation.isEditable {
                 DeleteIndicator {
                     model.onDeleteRelation(data)
                 }
