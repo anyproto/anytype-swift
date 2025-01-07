@@ -1110,7 +1110,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectTypeRecommendedRelationsSet", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectTypeRecommendedRelationsSet(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response(serializedBytes: responseData)
         }
     }
 
@@ -1120,7 +1120,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectTypeRecommendedFeaturedRelationsSet", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectTypeRecommendedFeaturedRelationsSet(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response(serializedBytes: responseData)
         }
     }
 
