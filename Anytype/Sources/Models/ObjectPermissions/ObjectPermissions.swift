@@ -70,7 +70,7 @@ extension ObjectPermissions {
         self.canChangeLayout = details.layoutValue.isEditorLayout && canEdit // && !objectRestrictions.contains(.layoutChange)
         self.canEditDetails = !objectRestrictions.contains(.details)
         self.canEditRelationValues = caEditRelations && canEditDetails
-        self.canEditRelationsList = caEditRelations && !objectRestrictions.contains(.relations)
+        self.canEditRelationsList = canEditRelationValues && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplateType
         self.canApplyTemplates = canEdit && !isTemplateType
         self.canEditMessages = canEdit

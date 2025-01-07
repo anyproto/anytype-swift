@@ -81,26 +81,24 @@ struct ObjectTypeView: View {
     }
     
     private var buttonsRow: some View {
-        Group {
+        HStack(spacing: 12) {
             if model.canEditDetails {
-                HStack(spacing: 12) {
-                    StandardButton(
-                        .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
-                        style: .secondarySmall
-                    ) {
-                        model.onLayoutTap()
-                    }
-                    
-                    StandardButton(
-                        .textWithBadge(text: Loc.relations, badge: "\(model.relationsCount)"),
-                        style: .secondarySmall
-                    ) {
-                        model.onFieldsTap()
-                    }
-                    
-                    Spacer()
+                StandardButton(
+                    .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
+                    style: .secondarySmall
+                ) {
+                    model.onLayoutTap()
                 }
             }
+            
+            StandardButton(
+                .textWithBadge(text: Loc.relations, badge: "\(model.relationsCount)"),
+                style: .secondarySmall
+            ) {
+                model.onFieldsTap()
+            }
+            
+            Spacer()
         }
     }
     
