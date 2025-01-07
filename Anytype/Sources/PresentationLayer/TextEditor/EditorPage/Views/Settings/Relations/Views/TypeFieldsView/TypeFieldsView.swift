@@ -34,33 +34,13 @@ struct TypeFieldsView: View {
     
     private var navigationBar: some View {
         HStack {
-            if model.canEditRelationsList {
-                cancelButton
-            }
-            
             Spacer()
             AnytypeText(Loc.relations, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer()
-            
-            if model.canEditRelationsList {
-                saveButton
-            }
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
-    }
-    
-    private var cancelButton: some View {
-        StandardButton(Loc.cancel, style: .borderlessSmall) {
-            // TBD;
-        }.disabled(true)
-    }
-    
-    private var saveButton: some View {
-        StandardButton(Loc.save, style: .borderlessSmall) {
-            // TBD;
-        }.disabled(true)
     }
     
     private var banner: some View {
