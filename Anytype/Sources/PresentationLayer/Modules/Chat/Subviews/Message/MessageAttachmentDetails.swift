@@ -14,6 +14,7 @@ struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
 
 extension MessageAttachmentDetails {
     init(details: ObjectDetails) {
+        let source = details.source?.url.host() ?? details.source?.absoluteString
         self = MessageAttachmentDetails(
             id: details.id,
             title: details.title,
@@ -21,7 +22,7 @@ extension MessageAttachmentDetails {
             sizeInBytes: details.sizeInBytes,
             layoutValue: details.layoutValue,
             objectIconImage: details.objectIconImage,
-            source: details.source?.absoluteString,
+            source: source,
             loadingState: false
         )
     }
