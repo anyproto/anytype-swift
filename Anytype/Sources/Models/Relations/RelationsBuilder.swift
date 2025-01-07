@@ -57,7 +57,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         )
         
-        let conflictedRelations = objectRelations.filter { !typeRelations.contains($0) && !featuredRelations.contains($0) }
+        let conflictedRelations = objectRelations.filter { !typeRelations.map(\.id).contains($0.id) && !featuredRelations.map(\.id).contains($0.id) }
         
         return ParsedRelations(
             featuredRelations: featuredRelations,
