@@ -21,7 +21,7 @@ struct MessageLinkLocalBinaryFileView: View {
     }
     
     private func size() -> String? {
-        guard let sizeInBytes, sizeInBytes > 0 else { return nil }
-        return ByteCountFormatter.fileFormatter.string(fromByteCount: Int64(sizeInBytes))
+        let sizeInBytes = Int64(sizeInBytes ?? 0)
+        return sizeInBytes > 0 ? ByteCountFormatter.fileFormatter.string(fromByteCount: sizeInBytes) : nil
     }
 }
