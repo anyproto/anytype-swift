@@ -28,12 +28,17 @@ actor ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
         update: @escaping @Sendable ([ObjectDetails]) async -> Void
     ) async {
         
+        let keys: [BundledRelationKey] = .builder {
+            BundledRelationKey.objectListKeys
+            BundledRelationKey.sizeInBytes
+        }.uniqued()
+        
         let searchData: SubscriptionData = .objects(
             SubscriptionData.Object(
                 identifier: subscriptionId,
                 spaceId: spaceId,
                 objectIds: objectIds,
-                keys: (BundledRelationKey.objectListKeys).uniqued().map { $0.rawValue }
+                keys: keys.map { $0.rawValue }
             )
         )
         

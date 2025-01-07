@@ -128,7 +128,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createFileObject(url: URL, spaceId: String) async throws -> FileDetails {
-        let data = FileData(path: url.relativePath, type: .data, isTemporary: false)
+        let resources = try url.resourceValues(forKeys: [.fileSizeKey])
+        let data = FileData(path: url.relativePath, type: .data, sizeInBytes: resources.fileSize, isTemporary: false)
         let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
         
         AnytypeAnalytics.instance().logCreateObject(
@@ -169,9 +170,10 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
     private func createFileBlock(fileURL: URL, addToObject: ObjectDetails, logAnalytics: Bool) async throws {
         let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
+        let resources = try fileURL.resourceValues(forKeys: [.fileSizeKey])
         let fileDetails = try await fileService.uploadFileObject(
             spaceId: addToObject.spaceId,
-            data: FileData(path: fileURL.relativePath, type: .data, isTemporary: false),
+            data: FileData(path: fileURL.relativePath, type: .data, sizeInBytes: resources.fileSize, isTemporary: false),
             origin: .sharingExtension
         )
         let blockInformation = BlockInformation.file(fileDetails: fileDetails)
