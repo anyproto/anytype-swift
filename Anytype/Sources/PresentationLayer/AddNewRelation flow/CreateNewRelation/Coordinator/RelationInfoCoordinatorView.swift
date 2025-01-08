@@ -1,12 +1,5 @@
 import SwiftUI
 
-struct RelationInfoData: Identifiable {
-    let id = UUID()
-    let name: String
-    let objectId: String
-    let spaceId: String
-    let target: RelationsModuleTarget
-}
 
 struct RelationInfoCoordinatorView: View {
     

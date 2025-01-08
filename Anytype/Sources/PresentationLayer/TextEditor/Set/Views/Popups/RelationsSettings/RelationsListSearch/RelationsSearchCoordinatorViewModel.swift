@@ -19,7 +19,8 @@ final class RelationsSearchCoordinatorViewModel: ObservableObject, RelationInfoC
             name: name,
             objectId: data.objectId,
             spaceId: data.spaceId,
-            target: data.target
+            target: data.target,
+            mode: .create
         )
     }
     
@@ -31,7 +32,7 @@ final class RelationsSearchCoordinatorViewModel: ObservableObject, RelationInfoC
     
     // MARK: - RelationInfoCoordinatorViewOutput
     
-    func didCreateRelation(_ relation: RelationDetails) {
+    func didPressConfirm(_ relation: RelationDetails) {
         data.onRelationSelect(relation, true)
         dismiss.toggle()
     }

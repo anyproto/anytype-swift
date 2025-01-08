@@ -18,6 +18,26 @@ final class RelationInfoViewModel: ObservableObject {
         name.isNotEmpty
     }
     
+    var confirmButtonTitle: String {
+        switch mode {
+        case .create:
+            Loc.create
+        case .edit:
+            Loc.save
+        }
+    }
+    
+    var title: String {
+        switch mode {
+        case .create:
+            Loc.newRelation
+        case .edit:
+            Loc.editField
+        }
+    }
+    
+    let mode: RelationInfoViewMode
+    
     @Published var name: String
     @Published private var format: SupportedRelationFormat
     @Published private var objectTypes: [ObjectType]?
@@ -45,9 +65,10 @@ final class RelationInfoViewModel: ObservableObject {
         self.target = data.target
         self.relationsInteractor = relationsInteractor
         self.output = output
+        self.mode = data.mode
         
         self.name = data.name
-        self.format = SupportedRelationFormat.object
+        self.format = data.mode.format ?? SupportedRelationFormat.object
         handleFormatUpdate()
     }
     
@@ -106,7 +127,7 @@ extension RelationInfoViewModel {
     private func relationDetailsAdded(relationDetails: RelationDetails) {
         toastData = ToastBarData(text: Loc.Relation.addedToLibrary(relationDetails.name), showSnackBar: true)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        output?.didCreateRelation(relationDetails)
+        output?.didPressConfirm(relationDetails)
     }
 }
 

@@ -17,7 +17,7 @@ struct RelationInfoView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.newRelation)
+            TitleView(title: viewModel.title)
             content
         }
         .padding(.horizontal, 20)
@@ -60,8 +60,8 @@ struct RelationInfoView: View {
                 UIApplication.shared.hideKeyboard()
                 viewModel.didTapFormatSection()
             },
-            isArrowVisible: true
-        )
+            isArrowVisible: viewModel.mode.canEditRelationType
+        ).disabled(viewModel.mode.canEditRelationType)
     }
     
     private var restrictionsSection: some View {
@@ -81,7 +81,7 @@ struct RelationInfoView: View {
     }
     
     private var button: some View {
-        StandardButton(Loc.create, style: .primaryLarge) {
+        StandardButton(viewModel.confirmButtonTitle, style: .primaryLarge) {
             viewModel.didTapAddButton()
             dismiss()
         }
