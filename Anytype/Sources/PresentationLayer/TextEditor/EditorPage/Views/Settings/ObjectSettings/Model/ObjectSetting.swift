@@ -21,7 +21,7 @@ extension ObjectSetting {
         case .description:
             Loc.description
         case .relations:
-            Loc.relations
+            Loc.fields
         case .history:
             Loc.history
         }

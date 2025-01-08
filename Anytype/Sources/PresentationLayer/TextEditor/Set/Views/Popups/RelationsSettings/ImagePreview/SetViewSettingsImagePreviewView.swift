@@ -63,7 +63,7 @@ struct SetViewSettingsImagePreviewView: View {
     private var relationsHeader: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(26)
-            AnytypeText(Loc.relations, style: .caption1Regular)
+            AnytypeText(Loc.fields, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
             Spacer.fixedHeight(8)
         }

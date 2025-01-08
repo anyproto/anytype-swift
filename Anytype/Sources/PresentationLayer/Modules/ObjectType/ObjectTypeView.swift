@@ -92,7 +92,7 @@ struct ObjectTypeView: View {
             }
             
             StandardButton(
-                .textWithBadge(text: Loc.relations, badge: "\(model.relationsCount)"),
+                .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
                 style: .secondarySmall
             ) {
                 model.onFieldsTap()
