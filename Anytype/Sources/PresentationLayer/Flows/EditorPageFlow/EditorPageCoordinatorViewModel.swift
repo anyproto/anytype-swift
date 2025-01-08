@@ -96,7 +96,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         toastBarData = ToastBarData(text: Loc.VersionHistory.Toast.message(text), showSnackBar: true, messageType: .none)
     }
     
-    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,
             spaceId: document.spaceId,

@@ -4,7 +4,7 @@ import Services
 import Combine
 
 @MainActor
-final class NewRelationViewModel: ObservableObject {
+final class RelationInfoViewModel: ObservableObject {
     
     var formatModel: NewRelationFormatSectionView.Model {
         format.asViewModel
@@ -33,12 +33,12 @@ final class NewRelationViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private let relationsInteractor: any RelationsInteractorProtocol
-    private weak var output: (any NewRelationModuleOutput)?
+    private weak var output: (any RelationInfoModuleOutput)?
     
     init(
-        data: NewRelationData,
+        data: RelationInfoData,
         relationsInteractor: some RelationsInteractorProtocol,
-        output: (any NewRelationModuleOutput)?
+        output: (any RelationInfoModuleOutput)?
     ) {
         self.objectId = data.objectId
         self.spaceId = data.spaceId
@@ -55,7 +55,7 @@ final class NewRelationViewModel: ObservableObject {
 
 // MARK: - Internal functions
 
-extension NewRelationViewModel {
+extension RelationInfoViewModel {
     
     func didTapFormatSection() {
         output?.didAskToShowRelationFormats(selectedFormat: format, onSelect: { [weak self] format in
@@ -110,9 +110,9 @@ extension NewRelationViewModel {
     }
 }
 
-// MARK: - NewRelationModuleInput
+// MARK: - RelationInfoModuleInput
 
-extension NewRelationViewModel: NewRelationModuleInput {
+extension RelationInfoViewModel: RelationInfoModuleInput {
     
     func updateRelationFormat(_ newFormat: SupportedRelationFormat) {
         format = newFormat
@@ -129,7 +129,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
 
 // MARK: - Private extension
 
-private extension NewRelationViewModel {
+private extension RelationInfoViewModel {
     
     func handleFormatUpdate() {
         objectTypes = format == .object ? [] : nil

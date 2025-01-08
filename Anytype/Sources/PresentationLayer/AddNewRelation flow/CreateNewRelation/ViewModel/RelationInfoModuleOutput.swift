@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 @MainActor
-protocol NewRelationModuleOutput: AnyObject {
+protocol RelationInfoModuleOutput: AnyObject {
     
     func didAskToShowRelationFormats(
         selectedFormat: SupportedRelationFormat,
