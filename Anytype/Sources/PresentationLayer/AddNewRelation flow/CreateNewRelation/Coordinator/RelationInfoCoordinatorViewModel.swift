@@ -4,26 +4,26 @@ import Services
 import Combine
 
 @MainActor
-protocol NewRelationCoordinatorViewOutput: AnyObject {
+protocol RelationInfoCoordinatorViewOutput: AnyObject {
     func didCreateRelation(_ relation: RelationDetails)
 }
 
 @MainActor
-final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModuleOutput {
+final class RelationInfoCoordinatorViewModel: ObservableObject, RelationInfoModuleOutput {
     
     @Published var relationFormatsData: RelationFormatsData?
     @Published var searchData: ObjectTypesLimitedSearchData?
     
-    let data: NewRelationData
+    let data: RelationInfoData
     
-    private weak var output: (any NewRelationCoordinatorViewOutput)?
+    private weak var output: (any RelationInfoCoordinatorViewOutput)?
     
-    init(data: NewRelationData, output: (any NewRelationCoordinatorViewOutput)?) {
+    init(data: RelationInfoData, output: (any RelationInfoCoordinatorViewOutput)?) {
         self.data = data
         self.output = output
     }
     
-    // MARK: - NewRelationModuleOutput
+    // MARK: - RelationInfoModuleOutput
     
     func didAskToShowRelationFormats(selectedFormat: SupportedRelationFormat, onSelect: @escaping (SupportedRelationFormat) -> Void) {
         relationFormatsData = RelationFormatsData(

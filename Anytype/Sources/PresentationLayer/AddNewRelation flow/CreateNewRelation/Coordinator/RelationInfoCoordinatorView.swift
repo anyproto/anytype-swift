@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NewRelationData: Identifiable {
+struct RelationInfoData: Identifiable {
     let id = UUID()
     let name: String
     let objectId: String
@@ -8,16 +8,16 @@ struct NewRelationData: Identifiable {
     let target: RelationsModuleTarget
 }
 
-struct NewRelationCoordinatorView: View {
+struct RelationInfoCoordinatorView: View {
     
-    @StateObject private var model: NewRelationCoordinatorViewModel
+    @StateObject private var model: RelationInfoCoordinatorViewModel
     
-    init(data: NewRelationData, output: (any NewRelationCoordinatorViewOutput)?) {
-        _model = StateObject(wrappedValue: NewRelationCoordinatorViewModel(data: data, output: output))
+    init(data: RelationInfoData, output: (any RelationInfoCoordinatorViewOutput)?) {
+        _model = StateObject(wrappedValue: RelationInfoCoordinatorViewModel(data: data, output: output))
     }
     
     var body: some View {
-        NewRelationView(
+        RelationInfoView(
             data: model.data,
             output: model
         )

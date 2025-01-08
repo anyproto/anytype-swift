@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct NewRelationView: View {
+struct RelationInfoView: View {
     
-    @StateObject private var viewModel: NewRelationViewModel
+    @StateObject private var viewModel: RelationInfoViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: NewRelationData, output: (any NewRelationModuleOutput)?) {
+    init(data: RelationInfoData, output: (any RelationInfoModuleOutput)?) {
         let relationsInteractor = RelationsInteractor(objectId: data.objectId)
-        _viewModel = StateObject(wrappedValue: NewRelationViewModel(
+        _viewModel = StateObject(wrappedValue: RelationInfoViewModel(
             data: data,
             relationsInteractor: relationsInteractor,
             output: output

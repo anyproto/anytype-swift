@@ -35,7 +35,7 @@ struct RelationsSearchCoordinatorView: View {
             )
         )
         .sheet(item: $model.newRelationData) {
-            NewRelationCoordinatorView(
+            RelationInfoCoordinatorView(
                 data: $0,
                 output: model
             )
