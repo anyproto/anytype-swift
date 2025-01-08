@@ -31,7 +31,7 @@ struct MessageLinkBookmarkView: View {
     let description: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 2) {
             HStack(spacing: 6) {
                 IconView(icon: icon)
                     .frame(width: 14, height: 14)
