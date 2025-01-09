@@ -36,6 +36,18 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
     
+    func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws {
+        try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = objectId
+            $0.details = fields.map { key, value in
+                Anytype_Model_Detail.with {
+                    $0.key = key
+                    $0.value = value
+                }
+            }
+        }).invoke()
+    }
+    
     public func updateRelationOption(id: String, text: String, color: String?) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = id
@@ -56,7 +68,7 @@ final class RelationsService: RelationsServiceProtocol {
 
     public func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails {
         let result = try await ClientCommands.objectCreateRelation(.with {
-            $0.details = relationDetails.asCreateMiddleware
+            $0.details = relationDetails.asMiddleware
             $0.spaceID = spaceId
         }).invoke()
         

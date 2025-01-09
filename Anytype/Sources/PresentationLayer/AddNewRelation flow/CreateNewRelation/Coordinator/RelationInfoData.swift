@@ -3,14 +3,23 @@ import Foundation
 
 enum RelationInfoViewMode {
     case create
-    case edit(format: SupportedRelationFormat)
+    case edit(relationId: String, format: SupportedRelationFormat)
     
     var format: SupportedRelationFormat? {
         switch self {
         case .create:
             nil
-        case .edit(let format):
+        case .edit(_, let format):
             format
+        }
+    }
+    
+    var relationId: String? {
+        switch self {
+        case .create:
+            nil
+        case .edit(let relationId, _):
+            relationId
         }
     }
     

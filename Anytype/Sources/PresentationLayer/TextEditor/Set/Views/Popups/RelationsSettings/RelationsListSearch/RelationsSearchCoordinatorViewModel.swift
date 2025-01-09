@@ -26,7 +26,7 @@ final class RelationsSearchCoordinatorViewModel: ObservableObject, RelationInfoC
     
     func onSelectRelation(_ relation: RelationDetails) {
         data.onRelationSelect(relation, false)
-        toastData = ToastBarData(text: Loc.Relation.addedToLibrary(relation.name), showSnackBar: true)
+        toastData = ToastBarData(text: Loc.Fields.created(relation.name), showSnackBar: true)
         dismiss.toggle()
     }
     

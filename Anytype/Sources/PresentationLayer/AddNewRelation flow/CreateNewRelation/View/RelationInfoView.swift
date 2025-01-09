@@ -51,17 +51,28 @@ struct RelationInfoView: View {
     }
     
     private var formatSection: some View {
-        NewRelationSectionView(
-            title: Loc.type,
-            contentViewBuilder: {
-                NewRelationFormatSectionView(model: viewModel.formatModel)
-            },
-            onTap: {
-                UIApplication.shared.hideKeyboard()
-                viewModel.didTapFormatSection()
-            },
-            isArrowVisible: viewModel.mode.canEditRelationType
-        ).disabled(viewModel.mode.canEditRelationType)
+        if viewModel.mode.canEditRelationType {
+            NewRelationSectionView(
+                title: Loc.type,
+                contentViewBuilder: {
+                    NewRelationFormatSectionView(model: viewModel.formatModel)
+                },
+                onTap: {
+                    UIApplication.shared.hideKeyboard()
+                    viewModel.didTapFormatSection()
+                },
+                isArrowVisible: true
+            )
+        } else {
+            NewRelationSectionView(
+                title: Loc.type,
+                contentViewBuilder: {
+                    NewRelationFormatSectionView(model: viewModel.formatModel)
+                },
+                onTap: nil,
+                isArrowVisible: false
+            )
+        }
     }
     
     private var restrictionsSection: some View {
