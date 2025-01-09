@@ -28,7 +28,7 @@ struct ObjectFieldsView: View {
     private var navigationBar: some View {
         HStack {            
             Spacer()
-            AnytypeText(Loc.relations, style: .uxTitle1Semibold)
+            AnytypeText(Loc.fields, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer()
             

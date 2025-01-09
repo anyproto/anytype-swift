@@ -17,7 +17,7 @@ struct NewRelationView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.newRelation)
+            TitleView(title: Loc.newField)
             content
         }
         .padding(.horizontal, 20)
