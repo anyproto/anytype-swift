@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 @MainActor
-protocol NewRelationModuleOutput: AnyObject {
+protocol RelationInfoModuleOutput: AnyObject {
     
     func didAskToShowRelationFormats(
         selectedFormat: SupportedRelationFormat,
@@ -12,6 +12,6 @@ protocol NewRelationModuleOutput: AnyObject {
         selectedObjectTypesIds: [String],
         onSelect: @escaping ([String]) -> Void
     )
-    func didCreateRelation(_ relation: RelationDetails)
+    func didPressConfirm(_ relation: RelationDetails)
     
 }

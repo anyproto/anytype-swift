@@ -4,7 +4,7 @@ import Services
 import Combine
 
 @MainActor
-final class NewRelationViewModel: ObservableObject {
+final class RelationInfoViewModel: ObservableObject {
     
     var formatModel: NewRelationFormatSectionView.Model {
         format.asViewModel
@@ -17,6 +17,26 @@ final class NewRelationViewModel: ObservableObject {
     var isCreateButtonActive: Bool {
         name.isNotEmpty
     }
+    
+    var confirmButtonTitle: String {
+        switch mode {
+        case .create:
+            Loc.create
+        case .edit:
+            Loc.save
+        }
+    }
+    
+    var title: String {
+        switch mode {
+        case .create:
+            Loc.newField
+        case .edit:
+            Loc.editField
+        }
+    }
+    
+    let mode: RelationInfoViewMode
     
     @Published var name: String
     @Published private var format: SupportedRelationFormat
@@ -33,21 +53,22 @@ final class NewRelationViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private let relationsInteractor: any RelationsInteractorProtocol
-    private weak var output: (any NewRelationModuleOutput)?
+    private weak var output: (any RelationInfoModuleOutput)?
     
     init(
-        data: NewRelationData,
+        data: RelationInfoData,
         relationsInteractor: some RelationsInteractorProtocol,
-        output: (any NewRelationModuleOutput)?
+        output: (any RelationInfoModuleOutput)?
     ) {
         self.objectId = data.objectId
         self.spaceId = data.spaceId
         self.target = data.target
         self.relationsInteractor = relationsInteractor
         self.output = output
+        self.mode = data.mode
         
         self.name = data.name
-        self.format = SupportedRelationFormat.object
+        self.format = data.mode.format ?? SupportedRelationFormat.object
         handleFormatUpdate()
     }
     
@@ -55,7 +76,7 @@ final class NewRelationViewModel: ObservableObject {
 
 // MARK: - Internal functions
 
-extension NewRelationViewModel {
+extension RelationInfoViewModel {
     
     func didTapFormatSection() {
         output?.didAskToShowRelationFormats(selectedFormat: format, onSelect: { [weak self] format in
@@ -106,13 +127,13 @@ extension NewRelationViewModel {
     private func relationDetailsAdded(relationDetails: RelationDetails) {
         toastData = ToastBarData(text: Loc.Relation.addedToLibrary(relationDetails.name), showSnackBar: true)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        output?.didCreateRelation(relationDetails)
+        output?.didPressConfirm(relationDetails)
     }
 }
 
-// MARK: - NewRelationModuleInput
+// MARK: - RelationInfoModuleInput
 
-extension NewRelationViewModel: NewRelationModuleInput {
+extension RelationInfoViewModel: RelationInfoModuleInput {
     
     func updateRelationFormat(_ newFormat: SupportedRelationFormat) {
         format = newFormat
@@ -129,7 +150,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
 
 // MARK: - Private extension
 
-private extension NewRelationViewModel {
+private extension RelationInfoViewModel {
     
     func handleFormatUpdate() {
         objectTypes = format == .object ? [] : nil

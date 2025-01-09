@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct NewRelationView: View {
+struct RelationInfoView: View {
     
-    @StateObject private var viewModel: NewRelationViewModel
+    @StateObject private var viewModel: RelationInfoViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: NewRelationData, output: (any NewRelationModuleOutput)?) {
+    init(data: RelationInfoData, output: (any RelationInfoModuleOutput)?) {
         let relationsInteractor = RelationsInteractor(objectId: data.objectId, spaceId: data.spaceId)
-        _viewModel = StateObject(wrappedValue: NewRelationViewModel(
+        _viewModel = StateObject(wrappedValue: RelationInfoViewModel(
             data: data,
             relationsInteractor: relationsInteractor,
             output: output
@@ -17,7 +17,7 @@ struct NewRelationView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.newField)
+            TitleView(title: viewModel.title)
             content
         }
         .padding(.horizontal, 20)
@@ -60,8 +60,8 @@ struct NewRelationView: View {
                 UIApplication.shared.hideKeyboard()
                 viewModel.didTapFormatSection()
             },
-            isArrowVisible: true
-        )
+            isArrowVisible: viewModel.mode.canEditRelationType
+        ).disabled(viewModel.mode.canEditRelationType)
     }
     
     private var restrictionsSection: some View {
@@ -81,7 +81,7 @@ struct NewRelationView: View {
     }
     
     private var button: some View {
-        StandardButton(Loc.create, style: .primaryLarge) {
+        StandardButton(viewModel.confirmButtonTitle, style: .primaryLarge) {
             viewModel.didTapAddButton()
             dismiss()
         }
