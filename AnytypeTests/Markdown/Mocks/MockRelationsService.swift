@@ -64,6 +64,10 @@ class MockRelationsService: RelationsServiceProtocol {
         }
     }
     
+    func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws {
+        assertionFailure()
+    }
+    
     func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails {
         lastCreateRelation = (spaceId, relationDetails)
         if let error = createRelationError {
