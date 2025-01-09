@@ -5,7 +5,7 @@ import Combine
 
 @MainActor
 protocol RelationInfoCoordinatorViewOutput: AnyObject {
-    func didCreateRelation(_ relation: RelationDetails)
+    func didPressConfirm(_ relation: RelationDetails)
 }
 
 @MainActor
@@ -43,8 +43,8 @@ final class RelationInfoCoordinatorViewModel: ObservableObject, RelationInfoModu
         )
     }
     
-    func didCreateRelation(_ relation: RelationDetails) {
-        output?.didCreateRelation(relation)
+    func didPressConfirm(_ relation: RelationDetails) {
+        output?.didPressConfirm(relation)
     }
     
 }

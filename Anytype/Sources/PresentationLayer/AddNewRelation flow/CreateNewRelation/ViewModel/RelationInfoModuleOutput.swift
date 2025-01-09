@@ -12,6 +12,6 @@ protocol RelationInfoModuleOutput: AnyObject {
         selectedObjectTypesIds: [String],
         onSelect: @escaping ([String]) -> Void
     )
-    func didCreateRelation(_ relation: RelationDetails)
+    func didPressConfirm(_ relation: RelationDetails)
     
 }
