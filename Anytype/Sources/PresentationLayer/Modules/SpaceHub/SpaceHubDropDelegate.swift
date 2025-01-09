@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 struct SpaceHubDropDelegate: DropDelegate {
@@ -11,6 +12,8 @@ struct SpaceHubDropDelegate: DropDelegate {
     
     @Injected(\.spaceOrderService)
     private var spaceOrderService: any SpaceOrderServiceProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         return DropProposal(operation: .move)
@@ -37,7 +40,7 @@ struct SpaceHubDropDelegate: DropDelegate {
         if initialIndex.isNil { initialIndex = fromIndex }
         
         guard let destinationSpace = allSpaces[safe: toIndex] else { return }
-        guard destinationSpace.spaceView.isPinned else { return }
+        guard destinationSpace.spaceView.isPinned || !FeatureFlags.pinnedSpaces else { return }
         
         allSpaces.move(
             fromOffsets: IndexSet(integer: fromIndex),
@@ -47,10 +50,17 @@ struct SpaceHubDropDelegate: DropDelegate {
             .filter({ $0.spaceView.isPinned })
             .map(\.spaceView.id)
         
-        Task {
-            try await spaceOrderService.setOrder(
-                spaceViewIdMoved: draggedItem.spaceView.id, newOrder: newOrder
-            )
+        if FeatureFlags.pinnedSpaces {
+            Task {
+                try await spaceOrderService.setOrder(
+                    spaceViewIdMoved: draggedItem.spaceView.id, newOrder: newOrder
+                )
+            }
+        } else {
+            let destinationIndex = toIndex > initialIndex! ? toIndex - 1 : toIndex + 1
+            if let destinationItem = allSpaces[safe: destinationIndex] {
+                Task { await workspaceStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView) }
+            }
         }
     }
 }

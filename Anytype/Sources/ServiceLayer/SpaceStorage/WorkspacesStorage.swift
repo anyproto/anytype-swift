@@ -15,6 +15,9 @@ protocol WorkspacesStorageProtocol: AnyObject, Sendable {
     func addWorkspaceInfo(spaceId: String, info: AccountInfo)
     
     func canCreateNewSpace() -> Bool
+    
+    // TODO: Remove with SpacePin toggle
+    func move(space: SpaceView, after: SpaceView) async
 }
 
 extension WorkspacesStorageProtocol {
@@ -44,6 +47,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     private let subscriptionStorage: any SubscriptionStorageProtocol
     private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     
+    private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
+    
     // MARK: - State
 
     private let workspacesInfo = SynchronizedDictionary<String, AccountInfo>()
@@ -61,8 +66,14 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     func startSubscription() async {
         let data = subscriptionBuilder.build(techSpaceId: accountManager.account.info.techSpaceId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
-            let spaces = data.items.map { SpaceView(details: $0) }
-            self?.allWorkspacesStorage.value = spaces
+            guard let self else { return }
+            
+            var spaces = data.items.map { SpaceView(details: $0) }
+            if !FeatureFlags.pinnedSpaces {
+                spaces = await customOrderBuilder.updateSpacesList(spaces: spaces)
+            }
+            
+            allWorkspacesStorage.value = spaces
         }
     }
     
@@ -76,6 +87,10 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func spaceView(spaceId: String) -> SpaceView? {
         return allWorkspacesStorage.value.first(where: { $0.targetSpaceId == spaceId })
+    }
+    
+    func move(space: SpaceView, after: SpaceView) async {
+        allWorkspacesStorage.value = await customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
     }
     
     func workspaceInfo(spaceId: String) -> AccountInfo? {

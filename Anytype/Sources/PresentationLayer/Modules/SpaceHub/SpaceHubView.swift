@@ -164,7 +164,7 @@ struct SpaceHubView: View {
         .if(space.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
-        .if(space.spaceView.isPinned) {
+        .if(!FeatureFlags.pinnedSpaces || space.spaceView.isPinned) {
             $0.onDrag {
                 draggedSpace = space
                 return NSItemProvider()
