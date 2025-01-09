@@ -17,11 +17,7 @@ struct MessageLinkObjectContainerView: View {
             description: description,
             size: size
         )
-        .frame(width: 216, height: 72)
-        .background(Color.Background.secondary)
-        .cornerRadius(12, style: .continuous)
-        .outerBorder(12, color: .Shape.tertiary, lineWidth: 1)
-        .shadow(color: .Additional.messageInputShadow, radius: 4)
+        .messageLinkObjectStyle()
         .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }
