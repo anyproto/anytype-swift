@@ -12,7 +12,7 @@ final class BlockBookmarkInfoView: UIView {
         descriptionView.setText(payload.subtitle)
         descriptionView.isHidden = payload.subtitle.isEmpty
         
-        urlView.setText(payload.source?.absoluteString ?? "")
+        urlView.setText(payload.source?.url.host() ?? "")
         
         layoutUsing.stack {
             $0.edgesToSuperview()

@@ -13,6 +13,7 @@ enum FileUploadingSource {
 struct FileData: Equatable {
     let path: String
     let type: UTType
+    let sizeInBytes: Int?
     let isTemporary: Bool
 }
 
