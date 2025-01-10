@@ -32,7 +32,7 @@ extension ObjectBackgroundType: GridItemViewModel {
             return Color(hex: coverColor.data.hex)
                 .eraseToAnyView()
         case .gradient(let gradient):
-            return gradient.data.asLinearGradient()
+            return CoverGradientView(data: gradient.data)
                 .eraseToAnyView()
         }
     }
