@@ -117,7 +117,7 @@ final class GlobalSearchViewModel: ObservableObject {
             AnytypeAnalytics.instance().logCreateObject(objectType: objectDetails.analyticsType, spaceId: objectDetails.spaceId, route: .search)
             
             dismiss.toggle()
-            moduleData.onSelect(objectDetails.editorScreenData())
+            moduleData.onSelect(objectDetails.screenData())
         }
     }
     

@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct PageNavigation {
-    let push: (EditorScreenData) -> Void
+    let push: (ScreenData) -> Void
     let pushHome: () -> Void
     let pop: () -> Void
     let popToFirstInSpace: () -> Void
-    let replace: (EditorScreenData) -> Void
+    let replace: (ScreenData) -> Void
 }
 
 extension EnvironmentValues {

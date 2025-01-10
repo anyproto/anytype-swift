@@ -51,8 +51,8 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     func startHeaderSubscription() {}
     
-    func screenData() -> EditorScreenData? {
-        return type.editorScreenData(spaceId: spaceId)
+    func screenData() -> ScreenData? {
+        return .editor(type.editorScreenData(spaceId: spaceId))
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

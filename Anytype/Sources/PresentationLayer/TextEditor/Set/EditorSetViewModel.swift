@@ -721,7 +721,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            output?.replaceEditorScreen(data: .list(EditorListObject(objectId: objectId, spaceId: setDocument.spaceId)))
+            output?.replaceEditorScreen(data: .editor(.list(EditorListObject(objectId: objectId, spaceId: setDocument.spaceId))))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
@@ -765,7 +765,7 @@ extension EditorSetViewModel {
     }
     
     private func openObject(details: ObjectDetails) {
-        output?.showEditorScreen(data: details.editorScreenData())
+        output?.showEditorScreen(data: details.screenData())
     }
 }
 

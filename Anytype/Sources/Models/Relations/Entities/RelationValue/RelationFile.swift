@@ -31,7 +31,7 @@ extension Relation.File {
         let icon: Icon
         let title: String
         
-        let editorScreenData: EditorScreenData
+        let editorScreenData: ScreenData
     }
     
 }

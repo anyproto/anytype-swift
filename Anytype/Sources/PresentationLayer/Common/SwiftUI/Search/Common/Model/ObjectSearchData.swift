@@ -13,7 +13,7 @@ struct ObjectSearchData: SearchDataProtocol {
     
     let blockId: String
     
-    let editorScreenData: EditorScreenData
+    let screenData: ScreenData
     
     let details: ObjectDetails
     
@@ -25,7 +25,7 @@ struct ObjectSearchData: SearchDataProtocol {
         self.typeId = details.objectType.id
         
         self.blockId = details.id
-        self.editorScreenData = details.editorScreenData()
+        self.screenData = details.screenData()
     }
 
 }

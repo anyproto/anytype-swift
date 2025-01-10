@@ -10,7 +10,7 @@ protocol WidgetInternalViewModelProtocol: AnyObject {
     
     func startHeaderSubscription()
     func startContentSubscription() async
-    func screenData() -> EditorScreenData?
+    func screenData() -> ScreenData?
     func analyticsSource() -> AnalyticsWidgetSource
     func onCreateObjectTap()
 }

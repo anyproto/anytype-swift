@@ -57,7 +57,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         linkToObjectData = data
     }
     
-    func onObjectSelected(screenData: EditorScreenData) {
+    func onObjectSelected(screenData: ScreenData) {
         pageNavigation?.push(screenData)
     }
     

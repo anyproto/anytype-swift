@@ -5,7 +5,7 @@ import UIKit
 
 @MainActor
 protocol AllContentModuleOutput: AnyObject {
-    func onObjectSelected(screenData: EditorScreenData)
+    func onObjectSelected(screenData: ScreenData)
 }
 
 @MainActor
@@ -96,7 +96,7 @@ final class AllContentViewModel: ObservableObject {
     }
     
     func binTapped() {
-        output?.onObjectSelected(screenData: .bin(spaceId: spaceId))
+        output?.onObjectSelected(screenData: .editor(.bin(spaceId: spaceId)))
     }
     
     func onDisappear() {
@@ -167,7 +167,7 @@ final class AllContentViewModel: ObservableObject {
                     details: details,
                     canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
                     onTap: { [weak self] in
-                        self?.output?.onObjectSelected(screenData: details.editorScreenData())
+                        self?.output?.onObjectSelected(screenData: details.screenData())
                         AnytypeAnalytics.instance().logLibraryResult()
                     }
                 )

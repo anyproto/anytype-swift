@@ -54,7 +54,7 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
         if id == Constants.newObjectId {
             Task { @MainActor in
                 let details = try await interactor.createNewObject(name: searchText)
-                internalModel.onSelect(source: .object(details), openObject: details.editorScreenData())
+                internalModel.onSelect(source: .object(details), openObject: details.screenData())
             }
             return
         }

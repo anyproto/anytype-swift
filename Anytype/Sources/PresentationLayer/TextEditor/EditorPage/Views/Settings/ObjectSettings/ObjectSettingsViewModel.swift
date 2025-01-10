@@ -17,10 +17,10 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
     func layoutPickerAction(document: some BaseDocumentProtocol)
     func relationsAction(document: some BaseDocumentProtocol)
     func showVersionHistory(document: some BaseDocumentProtocol)
-    func openPageAction(screenData: EditorScreenData)
+    func openPageAction(screenData: ScreenData)
     func linkToAction(document: some BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
-    func didCreateLinkToItself(selfName: String, data: EditorScreenData)
+    func didCreateLinkToItself(selfName: String, data: ScreenData)
     func didCreateTemplate(templateId: String)
     func didTapUseTemplateAsDefault(templateId: String)
 }
@@ -101,7 +101,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         output?.undoRedoAction(objectId: objectId)
     }
     
-    func openPageAction(screenData: EditorScreenData) {
+    func openPageAction(screenData: ScreenData) {
         output?.openPageAction(screenData: screenData)
     }
     
@@ -121,7 +121,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
     
-    func onLinkItselfToObjectHandler(data: EditorScreenData) {
+    func onLinkItselfToObjectHandler(data: ScreenData) {
         guard let documentName = document.details?.name else { return }
         output?.didCreateLinkToItself(selfName: documentName, data: data)
     }
