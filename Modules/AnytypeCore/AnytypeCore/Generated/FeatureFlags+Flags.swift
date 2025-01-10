@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .allContent)
     }
 
-    static var spaceHubParallax: Bool {
-        value(for: .spaceHubParallax)
-    }
-
     static var userWarningAlerts: Bool {
         value(for: .userWarningAlerts)
     }
@@ -126,7 +122,6 @@ public extension FeatureFlags {
         .hideCoCreator,
         .versionHistory,
         .allContent,
-        .spaceHubParallax,
         .userWarningAlerts,
         .dateAsAnObject,
         .relativeDates,
