@@ -66,6 +66,9 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.showSpaceMembersDataSpaceId) {
                 SpaceMembersView(spaceId: $0.value)
             }
+            .anytypeSheet(isPresented: $model.showProfile) {
+                ProfileView()
+            }
     }
     
     private var content: some View {  

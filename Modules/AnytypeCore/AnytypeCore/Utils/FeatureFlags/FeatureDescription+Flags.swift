@@ -102,6 +102,13 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let memberProfile = FeatureDescription(
+        title: "Space member profile",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

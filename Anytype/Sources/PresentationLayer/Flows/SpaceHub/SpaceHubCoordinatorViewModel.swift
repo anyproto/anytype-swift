@@ -12,6 +12,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
     @Published var showObjectIsNotAvailableAlert = false
+    @Published var showProfile = false
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
@@ -220,6 +221,21 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     private func openSpace(spaceId: String, data: ScreenData? = nil) async throws {
+        switch data {
+        case .editor(let editorScreenData):
+            try await openSpace(spaceId: spaceId, editorData: editorScreenData)
+        case .alert(let alertScreenData):
+            if FeatureFlags.memberProfile {
+                showProfile.toggle()
+            } else { // fallback to page screen
+                try await openSpace(spaceId: spaceId, editorData: .page(EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)))
+            }
+        case nil:
+            try await openSpace(spaceId: spaceId, editorData: nil)
+        }
+    }
+        
+    private func openSpace(spaceId: String, editorData: EditorScreenData?) async throws {
         if currentSpaceId != spaceId {
             // Check if space is deleted
             guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
@@ -230,11 +246,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             
             if let spaceInfo {
                 var initialPath = initialHomePath(spaceView: spaceView, spaceInfo: spaceInfo)
-                if let data { initialPath.append(data) }
+                editorData.flatMap { initialPath.append($0) }
                 navigationPath = HomePath(initialPath: initialPath)
             }
         } else {
-            data.flatMap { navigationPath.push($0) }
+            editorData.flatMap { navigationPath.push($0) }
         }
     }
     
