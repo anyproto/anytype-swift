@@ -938,10 +938,16 @@ internal enum Loc {
   }
   internal enum Fields {
     internal static let addToType = Loc.tr("Localizable", "Fields.addToType", fallback: "Add to the current type")
+    internal static func created(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Fields.Created", String(describing: p1), fallback: "Field ‘%@’ has been created")
+    }
     internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
     internal static let missing = Loc.tr("Localizable", "Fields.missing", fallback: "Missing fields")
     internal static let missingInfo = Loc.tr("Localizable", "Fields.missingInfo", fallback: "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.")
     internal static let removeFromObject = Loc.tr("Localizable", "Fields.removeFromObject", fallback: "Remove from the object")
+    internal static func updated(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Fields.Updated", String(describing: p1), fallback: "Field ‘%@’ has been updated")
+    }
   }
   internal enum FileStorage {
     internal static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
@@ -1253,9 +1259,6 @@ internal enum Loc {
     internal static let title = Loc.tr("Localizable", "ReindexingWarningAlert.Title", fallback: "Upgrading your search experience")
   }
   internal enum Relation {
-    internal static func addedToLibrary(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Field ‘%@’ has been created")
-    }
     internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted field")
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My fields")
     internal enum Create {

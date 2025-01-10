@@ -21,6 +21,9 @@ struct TypeFieldsView: View {
             .sheet(item: $model.relationsSearchData) { data in
                 RelationsSearchCoordinatorView(data: data)
             }
+            .sheet(item: $model.relationData) {
+                RelationInfoCoordinatorView(data: $0, output: nil)
+            }
     }
     
     var content: some View {
@@ -112,11 +115,18 @@ struct TypeFieldsView: View {
                     model.onDeleteRelation(data)
                 }
             }
-            Image(asset: data.relation.iconAsset)
-                .foregroundColor(.Control.active)
-            Spacer.fixedWidth(10)
-            AnytypeText(data.relation.name, style: .uxBodyRegular)
-            Spacer()
+            
+            Button {
+                model.onRelationTap(data)
+            } label: {
+                Image(asset: data.relation.iconAsset)
+                    .foregroundColor(.Control.active)
+                Spacer.fixedWidth(10)
+                AnytypeText(data.relation.name, style: .uxBodyRegular)
+                
+                Spacer()
+            }.disabled(!model.canEditRelationsList || !data.relation.isEditable)
+            
             if model.canEditRelationsList {
                 MoveIndicator()
             }

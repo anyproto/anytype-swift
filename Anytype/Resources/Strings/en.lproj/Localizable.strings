@@ -69,12 +69,20 @@
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Deleted object";
 
-// MARK: - Relation
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.missing" = "Missing fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
 "Featured relations" = "Featured fields";
 "Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
 "Relation.MyRelations" = "My fields";
-"Relation.AddedToLibrary" = "Field ‘%@’ has been created";
 "Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "From type %@";
 "Relation.EmptyState.title" = "No options";
@@ -1290,10 +1298,3 @@ Please provide specific details of your needs here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
-"Fields.missing" = "Missing fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
-"Fields.addToType" = "Add to the current type";
-"Fields.removeFromObject" = "Remove from the object";

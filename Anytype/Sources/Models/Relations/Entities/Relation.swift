@@ -187,4 +187,34 @@ extension Relation: RelationProtocol {
             return nil
         }
     }
+    
+    var format: SupportedRelationFormat? {
+        switch self {
+        case .text:
+            .text
+        case .number:
+            .number
+        case .status:
+            .status
+        case .date:
+            .date
+        case .object:
+            .object
+        case .checkbox:
+            .checkbox
+        case .url:
+            .url
+        case .email:
+            .email
+        case .phone:
+            .phone
+        case .tag:
+            .tag
+        case .file:
+            .file
+        case .unknown:
+            nil
+        }
+    }
+    
 }

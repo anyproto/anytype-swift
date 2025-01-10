@@ -3,6 +3,7 @@ import Services
 
 protocol RelationsInteractorProtocol: Sendable {
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
+    func updateRelation(spaceId: String, relation: RelationDetails) async throws
     func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws
 }
@@ -21,6 +22,10 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
     
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {
         try await relationsService.createRelation(spaceId: spaceId, relationDetails: relation)
+    }
+    
+    func updateRelation(spaceId: String, relation: RelationDetails) async throws {
+        try await relationsService.updateRelation(objectId: relation.id, fields: relation.fields)
     }
     
     func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws {

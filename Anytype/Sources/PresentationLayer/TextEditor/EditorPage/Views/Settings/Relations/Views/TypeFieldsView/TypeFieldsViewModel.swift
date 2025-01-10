@@ -12,6 +12,7 @@ final class TypeFieldsViewModel: ObservableObject {
     @Published var canEditRelationsList = false
     @Published var relationRows = [TypeFieldsRow]()
     @Published var relationsSearchData: RelationsSearchData?
+    @Published var relationData: RelationInfoData?
     
     // MARK: - Private variables
     
@@ -57,6 +58,18 @@ final class TypeFieldsViewModel: ObservableObject {
         for await permissions in document.permissionsPublisher.values {
             canEditRelationsList = permissions.canEditRelationsList
         }
+    }
+    
+    func onRelationTap(_ data: TypeFieldsRelationRow) {
+        guard let format = data.relation.format else { return }
+        
+        relationData = RelationInfoData(
+            name: data.relation.name,
+            objectId: document.objectId,
+            spaceId: document.spaceId,
+            target: .type(isFeatured: data.relation.isFeatured),
+            mode: .edit(relationId: data.relation.id, format: format)
+        )
     }
     
     func onAddRelationTap(section: TypeFieldsSectionRow) {

@@ -6,6 +6,7 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func removeFeaturedRelation(objectId: String, relationKey: String) async throws
     
     func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws
+    func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws
     func updateRelationOption(id: String, text: String, color: String?) async throws
 
     func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails
