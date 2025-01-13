@@ -15,6 +15,6 @@ final class EditorCoordinatorViewModel: ObservableObject, WidgetObjectListCommon
     // MARK: - WidgetObjectListCommonModuleOutput
     
     func onObjectSelected(screenData: ScreenData) {
-        pageNavigation?.push(screenData)
+        pageNavigation?.open(screenData)
     }
 }

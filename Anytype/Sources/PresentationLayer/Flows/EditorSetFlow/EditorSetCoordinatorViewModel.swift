@@ -55,7 +55,7 @@ final class EditorSetCoordinatorViewModel:
     // MARK: - EditorSetModuleOutput
     
     func showEditorScreen(data: ScreenData) {
-        pageNavigation?.push(data)
+        pageNavigation?.open(data)
     }
     
     func replaceEditorScreen(data: ScreenData) {

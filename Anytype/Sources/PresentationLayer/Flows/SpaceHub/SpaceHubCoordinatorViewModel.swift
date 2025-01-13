@@ -41,8 +41,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
     var pageNavigation: PageNavigation {
         PageNavigation(
-            push: { [weak self] data in
-                self?.pushSync(data: data)
+            open: { [weak self] data in
+                self?.openSync(data: data)
             }, pushHome: { [weak self] in
                 guard let self, let spaceInfo else { return }
                 navigationPath.push(HomeWidgetData(info: spaceInfo))
@@ -140,7 +140,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
-            try? await push(data: .editor(editorData))
+            try? await open(data: .editor(editorData))
         case .widgets(let spaceId):
             try? await openSpace(spaceId: spaceId)
         case .none:
@@ -196,14 +196,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     // MARK: - Navigation
     private func openObject(screenData: ScreenData) {
-        pushSync(data: screenData)
+        openSync(data: screenData)
     }
     
-    private func pushSync(data: ScreenData) {
-        Task { try await push(data: data) }
+    private func openSync(data: ScreenData) {
+        Task { try await open(data: data) }
     }
     
-    private func push(data: ScreenData) async throws {
+    private func open(data: ScreenData) async throws {
         if let objectId = data.objectId { // validate in case of object
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
@@ -222,14 +222,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     private func openSpace(spaceId: String, data: ScreenData? = nil) async throws {
         switch data {
-        case .editor(let editorScreenData):
-            try await openSpace(spaceId: spaceId, editorData: editorScreenData)
         case .alert(let alertScreenData):
             if FeatureFlags.memberProfile {
                 showProfile.toggle()
             } else { // fallback to page screen
                 try await openSpace(spaceId: spaceId, editorData: .page(EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)))
             }
+        case .editor(let editorScreenData):
+            try await openSpace(spaceId: spaceId, editorData: editorScreenData)
         case nil:
             try await openSpace(spaceId: spaceId, editorData: nil)
         }
@@ -323,7 +323,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         do {
             try await document.open()
             guard let editorData = document.details?.screenData() else { return }
-            try? await push(data: editorData)
+            try? await open(data: editorData)
         } catch {
             guard let cid, let key else {
                 showObjectIsNotAvailableAlert = true
