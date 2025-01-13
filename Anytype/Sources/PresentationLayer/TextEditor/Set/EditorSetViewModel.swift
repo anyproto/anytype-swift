@@ -720,7 +720,6 @@ extension EditorSetViewModel {
         guard setDocument.setPermissions.canTurnSetIntoCollection else { return }
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
-            try await setDocument.close()
             output?.replaceEditorScreen(data: .editor(.list(EditorListObject(objectId: objectId, spaceId: setDocument.spaceId))))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()

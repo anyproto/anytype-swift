@@ -7,15 +7,12 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
-    @State private var size = CGSizeZero
-    
     init(sceneId: String) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId))
     }
     
     var body: some View {
         content
-            .readSize { size = $0 }
             .onAppear { model.onAppear() }
             .task { await model.startSubscriptions() }
         
@@ -88,11 +85,11 @@ struct SpaceHubView: View {
                     model.showSettings = true
                 },
                 label: {
-                    Image(asset: .NavigationBase.settings)
+                    IconView(icon: model.profileIcon)
                         .foregroundStyle(Color.Control.active)
-                        .frame(width: 22, height: 22)
+                        .frame(width: 28, height: 28)
                         .padding(.vertical, 10)
-                        .padding(.horizontal, 26)
+                        .padding(.horizontal, 16)
                 }
             )
         }
@@ -154,7 +151,7 @@ struct SpaceHubView: View {
         .padding(16)
         .background(
             DashboardWallpaper(
-                mode: FeatureFlags.spaceHubParallax ? .parallax(containerHeight: size.height) : .spaceHub,
+                mode: .spaceHub,
                 wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
                 spaceIcon: space.spaceView.iconImage
             )

@@ -1,19 +1,23 @@
 import SwiftUI
 
-struct CoverGradientData: Identifiable {
+struct CoverGradientData: Identifiable, Equatable {
     let name: String
     let startColor: Color
     let endColor: Color
     
     var id: String { "\(name)\(startColor)\(endColor)" }
+}
+
+struct CoverGradientView: View, Equatable {
     
-    // do not make var - SwiftUI glitches
-    func asLinearGradient() -> some View {
+    let data: CoverGradientData
+    
+    var body: some View {
         LinearGradient(
             gradient: Gradient(
                 colors: [
-                    startColor,
-                    endColor
+                    data.startColor,
+                    data.endColor
                 ]
             ),
             startPoint: .top,
