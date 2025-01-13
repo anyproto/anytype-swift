@@ -33,7 +33,7 @@ extension EditorPageViewModel {
             Task { @MainActor in
                 subscriptions.removeAll()
                 try await actionHandler.setObjectSetType()
-                router.replaceCurrentPage(with: .editor(.list(.init(objectId: document.objectId, spaceId: document.spaceId))))
+                router.replaceCurrentPage(with: .list(.init(objectId: document.objectId, spaceId: document.spaceId)))
             }
             return
         }
@@ -42,7 +42,7 @@ extension EditorPageViewModel {
             Task { @MainActor in
                 subscriptions.removeAll()
                 try await actionHandler.setObjectCollectionType()
-                router.replaceCurrentPage(with: .editor(.list(.init(objectId: document.objectId, spaceId: document.spaceId))))
+                router.replaceCurrentPage(with: .list(.init(objectId: document.objectId, spaceId: document.spaceId)))
             }
             return
         }

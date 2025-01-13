@@ -51,7 +51,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
     }
 
-    func replaceCurrentPage(with data: ScreenData) {
+    func replaceCurrentPage(with data: EditorScreenData) {
         Task { @MainActor in
             output?.replaceEditorScreen(data: data)
         }
