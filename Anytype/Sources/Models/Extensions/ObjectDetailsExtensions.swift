@@ -48,7 +48,7 @@ extension BundledRelationsValueProvider {
         case .objectType:
             return .type
         case .participant:
-            return .participant
+            return FeatureFlags.memberProfile ? .participant : .page
         }
     }
     
