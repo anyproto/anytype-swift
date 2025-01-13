@@ -1,6 +1,6 @@
 import Services
 
-enum EditorViewType {
+enum ScreenType {
     case page
     case list
     case date
