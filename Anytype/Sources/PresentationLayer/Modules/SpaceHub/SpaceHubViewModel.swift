@@ -52,6 +52,10 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         }
     }
     
+    func onDisappear() {
+        Task { await subscriptionService.stopSubscription(subId: profileSubId) }
+    }
+    
     func onSpaceTap(spaceId: String) {
         Task {
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)

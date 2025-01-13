@@ -14,6 +14,7 @@ struct SpaceHubView: View {
     var body: some View {
         content
             .onAppear { model.onAppear() }
+            .onDisappear { model.onDisappear() }
             .task { await model.startSubscriptions() }
         
             .sheet(isPresented: $model.showSpaceCreate) {
