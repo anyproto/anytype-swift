@@ -224,7 +224,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         switch data {
         case .alert(let alertScreenData):
             if FeatureFlags.memberProfile {
-                showAlert(alertScreenData)
+                await showAlert(alertScreenData)
             } else { // fallback to page screen
                 try await openSpace(spaceId: spaceId, editorData: .page(EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)))
             }
@@ -235,7 +235,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
-    private func showAlert(_ data: AlertScreenData) {
+    private func showAlert(_ data: AlertScreenData) async {
+        await dismissAllPresented?()
+        
         switch data {
         case .spaceMember(let objectInfo):
             profileData = objectInfo
