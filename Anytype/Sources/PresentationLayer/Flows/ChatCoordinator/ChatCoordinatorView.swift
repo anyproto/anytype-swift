@@ -50,16 +50,14 @@ struct ChatCoordinatorView: View {
                     .homeBottomPanelState(.constant(HomeBottomPanelState()))
                     .environment(\.pageNavigation, PageNavigation(push: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in }))
                     .safeAreaInset(edge: .bottom) {
-                        HStack {
-                            StandardButton("A", style: .primaryLarge, action: {})
-                            StandardButton("B", style: .primaryLarge, action: {})
+                        HStack(spacing: 8) {
+                            StandardButton(Loc.cancel, style: .secondaryLarge, action: {})
+                            StandardButton(Loc.Chat.AttachedObject.attach, style: .primaryLarge, action: {})
                         }
-                        .background(Color.red)
-                        .ignoresSafeArea(.keyboard)
+                        .padding(16)
                     }
                     .safeAreaInset(edge: .top) {
-                        Text("Link object to space")
-                            .background(Color.red)
+                        AnytypeDivider()
                     }
             }
             .onChange(of: model.photosItems) { _ in

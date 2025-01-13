@@ -638,8 +638,12 @@ internal enum Loc {
         internal static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Take from camera")
         internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
         internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
+        internal static let more = Loc.tr("Localizable", "Chat.Actions.Menu.More", fallback: "More")
         internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
       }
+    }
+    internal enum AttachedObject {
+      internal static let attach = Loc.tr("Localizable", "Chat.AttachedObject.Attach", fallback: "Attach")
     }
     internal enum AttachmentsLimit {
       internal static func alert(_ p1: Any) -> String {

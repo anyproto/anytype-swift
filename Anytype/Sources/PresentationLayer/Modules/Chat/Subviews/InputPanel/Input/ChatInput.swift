@@ -61,7 +61,7 @@ struct ChatInput: View {
                     }
                 }
             } label: {
-                Text("More")
+                Text(Loc.Chat.Actions.Menu.more)
             }
         } label: {
             Image(asset: .X32.plus)
