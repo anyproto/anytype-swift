@@ -17,7 +17,7 @@ protocol EditorRouterProtocol:
     func showAlert(alertModel: AlertModel)
     func showObject(objectId: String)
     func showEditorScreen(data: ScreenData)
-    func replaceCurrentPage(with data: ScreenData)
+    func replaceCurrentPage(with data: EditorScreenData)
     
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
     func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void)

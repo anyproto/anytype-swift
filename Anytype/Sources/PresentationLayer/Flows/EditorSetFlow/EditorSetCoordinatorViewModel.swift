@@ -58,7 +58,7 @@ final class EditorSetCoordinatorViewModel:
         pageNavigation?.open(data)
     }
     
-    func replaceEditorScreen(data: ScreenData) {
+    func replaceEditorScreen(data: EditorScreenData) {
         pageNavigation?.replace(data)
     }
     

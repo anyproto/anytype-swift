@@ -6,7 +6,7 @@ struct PageNavigation {
     let pushHome: () -> Void
     let pop: () -> Void
     let popToFirstInSpace: () -> Void
-    let replace: (ScreenData) -> Void
+    let replace: (EditorScreenData) -> Void
 }
 
 extension EnvironmentValues {
