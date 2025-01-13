@@ -4,6 +4,7 @@ struct ChatCoordinatorView: View {
     
     @StateObject private var model: ChatCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
+    @Environment(\.chatActionProvider) private var chatActionProvider
     
     init(data: ChatCoordinatorData) {
         self._model = StateObject(wrappedValue: ChatCoordinatorViewModel(data: data))
@@ -43,6 +44,9 @@ struct ChatCoordinatorView: View {
             .safariSheet(url: $model.safariUrl)
             .fullScreenCover(item: $model.cameraData) {
                 SimpleCameraView(data: $0)
+            }
+            .sheet(item: $model.newLinkedObject) {
+                EditorCoordinatorView(data: $0)
             }
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()

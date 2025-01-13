@@ -36,6 +36,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var messageTextBuilder: any MessageTextBuilderProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -62,6 +64,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var sendMessageTaskInProgress: Bool = false
     @Published var messageTextLimit: String?
     @Published var textLimitReached = false
+    @Published var typesForCreateObject: [ObjectType] = []
     private var photosItems: [PhotosPickerItem] = []
     
     // List
@@ -157,6 +160,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if prevChatIsEmpty, let message = messages.last {
                 collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
             }
+        }
+    }
+    
+    func subscribeOnTypes() async {
+        for await _ in objectTypeProvider.syncPublisher.values {
+            self.typesForCreateObject = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
         }
     }
     
@@ -349,6 +358,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func configureProvider(_ provider: Binding<ChatActionProvider>) {
         provider.wrappedValue.handler = self
+    }
+    
+    func onTapCreateObject(type: ObjectType) {
+        output?.didSelectCreateObject(type: type)
     }
     
     // MARK: - MessageModuleOutput
