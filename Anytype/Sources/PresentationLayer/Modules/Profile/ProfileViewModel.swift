@@ -7,11 +7,18 @@ import AnytypeCore
 final class ProfileViewModel: ObservableObject {
     
     @Published var details: ObjectDetails?
+    @Published var showSettings = false
+    
+    var isOwner: Bool {
+        accountManager.account.info.profileObjectID == details?.identityProfileLink
+    }
     
     private let info: ObjectInfo
     
     @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     private let subId = "ProfileViewModel-\(UUID().uuidString)"
     
@@ -32,7 +39,7 @@ final class ProfileViewModel: ObservableObject {
             subId: subId,
             spaceId: info.spaceId,
             objectId: info.objectId,
-            additionalKeys: [.identity]
+            additionalKeys: [.identity, .identityProfileLink]
         ) { [weak self] details in
             await self?.handleProfileDetails(details)
         }
