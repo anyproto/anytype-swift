@@ -24,14 +24,14 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     func onFinishCreateSource(screenData: ScreenData?) {
         if let screenData {
-            pageNavigation?.push(screenData)
+            pageNavigation?.open(screenData)
         }
     }
     
     func onFinishChangeSource(screenData: ScreenData?) {
         showChangeSourceData = nil
         if let screenData {
-            pageNavigation?.push(screenData)
+            pageNavigation?.open(screenData)
         }
     }
     
@@ -51,7 +51,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     }
     
     func onObjectSelected(screenData: ScreenData) {
-        pageNavigation?.push(screenData)
+        pageNavigation?.open(screenData)
     }
     
     func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
@@ -91,6 +91,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     // MARK: - SetObjectCreationCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {
-        pageNavigation?.push(data)
+        pageNavigation?.open(data)
     }
 }

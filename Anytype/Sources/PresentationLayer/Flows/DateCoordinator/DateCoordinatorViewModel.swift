@@ -25,7 +25,7 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
     func onObjectTap(data: ScreenData) {
         Task {
             await dismissAllPresented?()
-            pageNavigation?.push(data)
+            pageNavigation?.open(data)
         }
     }
     

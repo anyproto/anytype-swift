@@ -41,7 +41,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
     var pageNavigation: PageNavigation {
         PageNavigation(
-            push: { [weak self] data in
+            open: { [weak self] data in
                 self?.pushSync(data: data)
             }, pushHome: { [weak self] in
                 guard let self, let spaceInfo else { return }
