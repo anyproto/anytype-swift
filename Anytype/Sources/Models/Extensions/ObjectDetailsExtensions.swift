@@ -36,7 +36,7 @@ extension BundledRelationsValueProvider {
         return parsedType ?? ObjectTypeProvider.shared.deletedObjectType(id: type)
     }
     
-    var editorViewType: EditorViewType {
+    var editorViewType: ScreenType {
         switch layoutValue {
         case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView, .tag, .chat, .chatDerived:
