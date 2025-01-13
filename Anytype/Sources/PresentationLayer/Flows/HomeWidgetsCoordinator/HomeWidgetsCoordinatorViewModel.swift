@@ -22,13 +22,13 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
         self.spaceInfo = data.info
     }
     
-    func onFinishCreateSource(screenData: EditorScreenData?) {
+    func onFinishCreateSource(screenData: ScreenData?) {
         if let screenData {
             pageNavigation?.push(screenData)
         }
     }
     
-    func onFinishChangeSource(screenData: EditorScreenData?) {
+    func onFinishChangeSource(screenData: ScreenData?) {
         showChangeSourceData = nil
         if let screenData {
             pageNavigation?.push(screenData)
@@ -50,7 +50,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
         )
     }
     
-    func onObjectSelected(screenData: EditorScreenData) {
+    func onObjectSelected(screenData: ScreenData) {
         pageNavigation?.push(screenData)
     }
     
@@ -90,7 +90,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     // MARK: - SetObjectCreationCoordinatorOutput
     
-    func showEditorScreen(data: EditorScreenData) {
+    func showEditorScreen(data: ScreenData) {
         pageNavigation?.push(data)
     }
 }

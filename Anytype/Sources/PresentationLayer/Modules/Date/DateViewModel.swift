@@ -245,7 +245,7 @@ final class DateViewModel: ObservableObject {
                 type: details.objectType.name,
                 canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
                 onTap: { [weak self] in
-                    self?.output?.onObjectTap(data: details.editorScreenData())
+                    self?.output?.onObjectTap(data: details.screenData())
                 }
             )
         }

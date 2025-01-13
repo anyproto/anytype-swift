@@ -174,7 +174,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
                             output: self
                         ),
                         onTap: { [weak self] in
-                            self?.output?.onObjectSelected(screenData: details.editorScreenData())
+                            self?.output?.onObjectSelected(screenData: details.screenData())
                         },
                         onCheckboxTap: { [weak self] in
                             self?.switchCheckbox(details: details)

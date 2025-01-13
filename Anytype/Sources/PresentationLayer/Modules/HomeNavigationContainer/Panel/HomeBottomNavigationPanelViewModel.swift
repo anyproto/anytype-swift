@@ -139,7 +139,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
             guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: info.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .navigation)
             
-            output?.onCreateObjectSelected(screenData: details.editorScreenData())
+            output?.onCreateObjectSelected(screenData: details.screenData())
         }
     }
     

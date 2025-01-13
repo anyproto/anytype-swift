@@ -92,7 +92,7 @@ final class ObjectActionsViewModel: ObservableObject {
         
         let newDetails = ObjectDetails(id: duplicatedId, values: details.values)
         dismiss.toggle()
-        output?.openPageAction(screenData: newDetails.editorScreenData())
+        output?.openPageAction(screenData: newDetails.screenData())
     }
 
     func linkItselfAction() {
@@ -190,7 +190,7 @@ final class ObjectActionsViewModel: ObservableObject {
                     contextId: objectId,
                     objectIds: [currentObjectId]
                 )
-                output?.onLinkItselfToObjectHandler(data: details.editorScreenData())
+                output?.onLinkItselfToObjectHandler(data: details.screenData())
                 AnytypeAnalytics.instance().logLinkToObject(type: .collection, spaceId: details.spaceId)
             } else {
                 let info = BlockInformation.emptyLink(targetId: currentObjectId)
@@ -201,7 +201,7 @@ final class ObjectActionsViewModel: ObservableObject {
                     info: info,
                     position: .bottom
                 )
-                output?.onLinkItselfToObjectHandler(data: details.editorScreenData())
+                output?.onLinkItselfToObjectHandler(data: details.screenData())
                 AnytypeAnalytics.instance().logLinkToObject(type: .object, spaceId: details.spaceId)
             }
         }

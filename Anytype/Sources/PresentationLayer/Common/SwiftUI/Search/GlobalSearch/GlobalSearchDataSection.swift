@@ -25,7 +25,7 @@ struct GlobalSearchData: Identifiable, Hashable {
     let highlights: [HighlightsData]
     let objectTypeName: String
     let relatedLinks: [String]
-    let editorScreenData: EditorScreenData
+    let editorScreenData: ScreenData
     let score: String
 }
 

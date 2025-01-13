@@ -62,6 +62,10 @@ public extension FeatureFlags {
         value(for: .fullScreenMediaFileByTap)
     }
 
+    static var memberProfile: Bool {
+        value(for: .memberProfile)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -130,6 +134,7 @@ public extension FeatureFlags {
         .newSpacesLoading,
         .primitives,
         .fullScreenMediaFileByTap,
+        .memberProfile,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

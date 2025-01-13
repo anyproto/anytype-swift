@@ -129,7 +129,7 @@ private extension RelationFilterBuilder {
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted,
-                    editorScreenData: objectDetail.editorScreenData()
+                    editorScreenData: objectDetail.screenData()
                 )
             }
             
@@ -339,7 +339,7 @@ private extension RelationFilterBuilder {
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImage,
                     title: objectDetail.title,
-                    editorScreenData: objectDetail.editorScreenData()
+                    editorScreenData: objectDetail.screenData()
                 )
             }
             

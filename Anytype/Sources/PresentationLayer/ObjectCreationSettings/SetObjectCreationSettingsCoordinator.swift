@@ -82,9 +82,9 @@ final class SetObjectCreationSettingsCoordinator:
         navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
     
-    func showEditorScreen(data: EditorScreenData) {}
+    func showEditorScreen(data: ScreenData) {}
     
-    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+    func didCreateLinkToItself(selfName: String, data: ScreenData) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     

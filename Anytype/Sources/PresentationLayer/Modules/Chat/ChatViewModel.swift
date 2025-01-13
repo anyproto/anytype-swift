@@ -501,7 +501,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
             output?.onUrlSelected(url: url)
         } else {
-            output?.onObjectSelected(screenData: attachment.editorScreenData())
+            output?.onObjectSelected(screenData: attachment.screenData())
         }
     }
     

@@ -3,8 +3,8 @@ import Services
 
 @MainActor
 protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
-    func showEditorScreen(data: EditorScreenData)
-    func replaceEditorScreen(data: EditorScreenData)
+    func showEditorScreen(data: ScreenData)
+    func replaceEditorScreen(data: ScreenData)
     func closeEditor()
     func onSelectCodeLanguage(objectId: String, spaceId: String, blockId: String)
     func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Relation)
