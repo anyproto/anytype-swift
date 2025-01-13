@@ -47,6 +47,9 @@ struct SpaceShareView: View {
             .anytypeSheet(item: $model.qrCodeInviteLink) {
                 QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
             }
+            .anytypeSheet(item: $model.participantInfo) {
+                ProfileView(info: $0)
+            }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .ignoresSafeArea()
     }
