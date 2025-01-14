@@ -101,8 +101,8 @@ struct SpaceHubCoordinatorView: View {
             )
         }
         .animation(.easeInOut, value: model.spaceInfo)
-        .environment(\.pageNavigation, model.pageNavigation)
-        .environment(\.chatActionProvider, $model.chatProvider)
+        .pageNavigation(model.pageNavigation)
+        .chatActionProvider($model.chatProvider)
     }
 }
 

@@ -15,7 +15,7 @@ struct EditorPageView: View {
     }
     
     var body: some View {
-        GenericUIKitToSwiftUIView(viewController: stateModel.viewController)
+        EditorSwiftUIViewContainer(viewController: stateModel.viewController)
             .anytypeStatusBar(style: .default)
             .homeBottomPanelHidden(model.bottomPanelHidden, animated: model.bottomPanelHiddenAnimated)
             .onChange(of: model.dismiss) { _ in

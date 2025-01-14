@@ -57,6 +57,18 @@ final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
         dismiss?()
     }
     
+    func onTapCacel() {
+        if interactiveDismissDisable {
+            dismissConfirmationAlert = true
+        } else {
+            dismiss?()
+        }
+    }
+    
+    func onTapAttach() {
+        
+    }
+    
     // MARK: - Private
     
     private func handleOpenObject(data: ScreenData) {

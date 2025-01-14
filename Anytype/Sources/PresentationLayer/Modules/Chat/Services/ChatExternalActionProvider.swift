@@ -19,3 +19,9 @@ struct ChatActionProvider {
 extension EnvironmentValues {
     @Entry var chatActionProvider: Binding<ChatActionProvider> = .constant(ChatActionProvider())
 }
+
+extension View {
+    func chatActionProvider(_ privider: Binding<ChatActionProvider>) -> some View {
+        environment(\.chatActionProvider, privider)
+    }
+}
