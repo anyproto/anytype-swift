@@ -1,7 +1,7 @@
 import Foundation
 import OrderedCollections
 import Services
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 import ProtobufMessages
 

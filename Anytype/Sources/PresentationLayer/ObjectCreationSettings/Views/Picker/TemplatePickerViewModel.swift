@@ -1,5 +1,5 @@
 import Services
-import Combine
+@preconcurrency import Combine
 import SwiftUI
 
 @MainActor

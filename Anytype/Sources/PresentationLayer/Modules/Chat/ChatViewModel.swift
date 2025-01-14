@@ -5,6 +5,7 @@ import PhotosUI
 import AnytypeCore
 import Collections
 import UIKit
+@preconcurrency import Combine
 
 @MainActor
 final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProviderHandler {
