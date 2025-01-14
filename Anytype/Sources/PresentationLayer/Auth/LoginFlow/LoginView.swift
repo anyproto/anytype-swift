@@ -38,9 +38,6 @@ struct LoginView: View {
             .ifLet(model.errorText) { view, errorText in
                 view.alertView(isShowing: $model.showError, errorText: errorText)
             }
-            .anytypeSheet(item: $model.accountMigrationData, dismissOnBackgroundView: false) {
-                AccountMigrationAlertView(data: $0)
-            }
             .onAppear {
                 model.onAppear()
             }
@@ -54,6 +51,13 @@ struct LoginView: View {
             .sheet(isPresented: $model.showDebugMenu) {
                 PublicDebugMenuView()
             }
+        
+            // migration
+            .alert("Migration is in progress...", isPresented: $model.migrationInProgress, actions: {
+                Button(Loc.cancel, action: { model.cancelMigration() })
+            }, message: {
+                Text("Please wait")
+            })
     }
     
     private var content: some View {

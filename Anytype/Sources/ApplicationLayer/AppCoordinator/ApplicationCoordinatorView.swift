@@ -27,9 +27,13 @@ struct ApplicationCoordinatorView: View {
             model.setDismissAllPresented(dismissAllPresented: $0)
         }
         .snackbar(toastBarData: $model.toastBarData)
-        .anytypeSheet(item: $model.accountMigrationData, dismissOnBackgroundView: false) {
-            AccountMigrationAlertView(data: $0)
-        }
+        
+        // migration
+        .alert("Migration is in progress...", isPresented: $model.migrationInProgress, actions: {
+            Button(Loc.cancel, action: { model.cancelMigration() })
+        }, message: {
+            Text("Please wait")
+        })
     }
     
     @ViewBuilder

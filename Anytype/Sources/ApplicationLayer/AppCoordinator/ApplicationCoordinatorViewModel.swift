@@ -21,6 +21,11 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
     
+    @Injected(\.accountMigrationService)
+    private var accountMigrationService: any AccountMigrationServiceProtocol
+    @Injected(\.localRepoService)
+    private var localRepoService: any LocalRepoServiceProtocol
+    
     private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?
     
@@ -28,7 +33,9 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     @Published var applicationState: ApplicationState = .initial
     @Published var toastBarData: ToastBarData = .empty
-    @Published var accountMigrationData: AccountMigrationData?
+    @Published var migrationInProgress = false
+    
+    private var migrationTask: Task<(), any Error>?
     
     // MARK: - Initializers
 
@@ -144,11 +151,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
                 applicationStateService.state = .auth
             }
         } catch SelectAccountError.accountStoreNotMigrated {
-            accountMigrationData = AccountMigrationData(
-                accountId: id,
-                completion: { [weak self] error in
-                    self?.handleAccountMigrationResult(id: id, error: error)
-                })
+            startMigration(id: id)
         } catch {
             applicationStateService.state = .auth
         }
@@ -158,14 +161,25 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         toastBarData = ToastBarData(text: Loc.FileStorage.limitError, showSnackBar: true, messageType: .none)
     }
     
-    private func handleAccountMigrationResult(id: String, error: (any Error)?) {
-        if let error {
-            applicationStateService.state = .auth
-            toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
-        } else {
-            Task {
+    private func startMigration(id: String) {
+        migrationTask = Task {
+            do {
+                migrationInProgress = true
+                try await accountMigrationService.accountMigrate(id: userDefaults.usersId, rootPath: localRepoService.middlewareRepoPath)
+                migrationInProgress = false
                 await selectAccount(id: id)
+            } catch {
+                applicationStateService.state = .auth
+                toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
             }
+        }
+    }
+    
+    func cancelMigration() {
+        migrationInProgress = false
+        migrationTask?.cancel()
+        Task {
+            try await accountMigrationService.accountMigrateCancel(id: userDefaults.usersId)
         }
     }
 }

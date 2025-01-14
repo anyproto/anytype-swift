@@ -25,7 +25,7 @@ final class LoginViewModel: ObservableObject {
         }
     }
     @Published var showError: Bool = false
-    @Published var accountMigrationData: AccountMigrationData?
+    @Published var migrationInProgress = false
     @Published var dismiss = false
     
     var loginButtonDisabled: Bool {
@@ -58,9 +58,16 @@ final class LoginViewModel: ObservableObject {
     private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
+    @Injected(\.accountMigrationService)
+    private var accountMigrationService: any AccountMigrationServiceProtocol
+    @Injected(\.localRepoService)
+    private var localRepoService: any LocalRepoServiceProtocol
+    
     private weak var output: (any LoginFlowOutput)?
     
     private var selectAccountTask: Task<(), any Error>?
+    private var migrationTask: Task<(), any Error>?
+    private var accountId: String?
     private var subscriptions = [AnyCancellable]()
     
     init(output: (any LoginFlowOutput)?) {
@@ -165,6 +172,7 @@ final class LoginViewModel: ObservableObject {
     private func handleAccountShowEvent() {
         accountEventHandler.accountShowPublisher
             .sink { [weak self] accountId in
+                self?.accountId = accountId
                 self?.selectProfile(id: accountId)
             }
             .store(in: &subscriptions)
@@ -209,11 +217,7 @@ final class LoginViewModel: ObservableObject {
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
                 errorText = Loc.Vault.Select.Incompatible.Version.Error.text
             } catch SelectAccountError.accountStoreNotMigrated {
-                accountMigrationData = AccountMigrationData(
-                    accountId: id,
-                    completion: { [weak self] error in
-                        self?.handleAccountMigrationResult(id: id, error: error)
-                    })
+                startMigration(id: id)
             } catch {
                 errorText = Loc.selectVaultError
             }
@@ -224,11 +228,25 @@ final class LoginViewModel: ObservableObject {
         loadingRoute = .none
     }
     
-    private func handleAccountMigrationResult(id: String, error: (any Error)?) {
-        if let error {
-            errorText = error.localizedDescription
-        } else {
-            selectProfile(id: id)
+    private func startMigration(id: String) {
+        migrationTask = Task {
+            do {
+                migrationInProgress = true
+                try await accountMigrationService.accountMigrate(id: id, rootPath: localRepoService.middlewareRepoPath)
+                migrationInProgress = false
+                selectProfile(id: id)
+            } catch {
+                errorText = error.localizedDescription
+            }
+        }
+    }
+    
+    func cancelMigration() {
+        guard let accountId else { return }
+        migrationInProgress = false
+        migrationTask?.cancel()
+        Task {
+            try await accountMigrationService.accountMigrateCancel(id: accountId)
         }
     }
 }
