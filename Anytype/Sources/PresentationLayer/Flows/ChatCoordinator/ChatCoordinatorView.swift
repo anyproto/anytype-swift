@@ -46,19 +46,7 @@ struct ChatCoordinatorView: View {
                 SimpleCameraView(data: $0)
             }
             .sheet(item: $model.newLinkedObject) {
-                EditorCoordinatorView(data: $0)
-                    .homeBottomPanelState(.constant(HomeBottomPanelState()))
-                    .environment(\.pageNavigation, PageNavigation(open: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in }))
-                    .safeAreaInset(edge: .bottom) {
-                        HStack(spacing: 8) {
-                            StandardButton(Loc.cancel, style: .secondaryLarge, action: {})
-                            StandardButton(Loc.Chat.AttachedObject.attach, style: .primaryLarge, action: {})
-                        }
-                        .padding(16)
-                    }
-                    .safeAreaInset(edge: .top) {
-                        AnytypeDivider()
-                    }
+                ChatCreateObjectCoordinatorView(data: $0)
             }
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()
