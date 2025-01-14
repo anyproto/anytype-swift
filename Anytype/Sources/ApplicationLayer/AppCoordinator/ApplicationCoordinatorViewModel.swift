@@ -180,6 +180,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         migrationTask?.cancel()
         Task {
             try await accountMigrationService.accountMigrateCancel(id: userDefaults.usersId)
+            applicationStateService.state = .auth
         }
     }
 }
