@@ -108,7 +108,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
             let object = try await objectActionsService.createObject(
                 name: "",
                 typeUniqueKey: type.uniqueKey,
-                shouldDeleteEmptyObject: false,
+                shouldDeleteEmptyObject: true,
                 shouldSelectType: false,
                 shouldSelectTemplate: false,
                 spaceId: spaceId,
