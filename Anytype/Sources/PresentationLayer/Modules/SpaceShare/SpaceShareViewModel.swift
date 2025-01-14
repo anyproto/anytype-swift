@@ -196,17 +196,17 @@ final class SpaceShareViewModel: ObservableObject {
     private func participantAction(_ participant: Participant) -> SpaceShareParticipantViewModel.Action? {
         switch participant.status {
         case .joining:
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, showButton: true, action: { [weak self] in
+            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
                 self?.showRequestAlert(participant: participant)
             })
         case .removing:
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, showButton: true, action: { [weak self] in
+            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
                 AnytypeAnalytics.instance().logApproveLeaveRequest()
                 try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
                 self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
             })
         case .active:
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, showButton: false, action: { [weak self] in
+            return SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
                 self?.showParticipantInfo(participant)
             })
         case .canceled, .declined, .removed, .UNRECOGNIZED:

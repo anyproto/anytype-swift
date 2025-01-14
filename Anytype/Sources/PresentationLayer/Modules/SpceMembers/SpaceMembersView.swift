@@ -29,5 +29,8 @@ struct SpaceMembersView: View {
         .onAppear {
             model.onAppear()
         }
+        .anytypeSheet(item: $model.participantInfo) {
+            ProfileView(info: $0)
+        }
     }
 }
