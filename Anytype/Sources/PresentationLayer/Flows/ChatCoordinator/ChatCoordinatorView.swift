@@ -48,7 +48,7 @@ struct ChatCoordinatorView: View {
             .sheet(item: $model.newLinkedObject) {
                 EditorCoordinatorView(data: $0)
                     .homeBottomPanelState(.constant(HomeBottomPanelState()))
-                    .environment(\.pageNavigation, PageNavigation(push: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in }))
+                    .environment(\.pageNavigation, PageNavigation(open: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in }))
                     .safeAreaInset(edge: .bottom) {
                         HStack(spacing: 8) {
                             StandardButton(Loc.cancel, style: .secondaryLarge, action: {})

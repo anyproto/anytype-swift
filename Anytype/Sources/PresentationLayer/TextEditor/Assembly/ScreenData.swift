@@ -32,5 +32,14 @@ extension ScreenData {
             alertScreenData.spaceId
         }
     }
+    
+    var editorScreenData: EditorScreenData? {
+        switch self {
+        case .editor(let editorScreenData):
+            return editorScreenData
+        case .alert(let alertScreenData):
+            return nil
+        }
+    }
 }
 

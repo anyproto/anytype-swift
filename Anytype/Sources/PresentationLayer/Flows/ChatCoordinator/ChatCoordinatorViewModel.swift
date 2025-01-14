@@ -115,7 +115,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-            newLinkedObject = object.editorScreenData()
+            newLinkedObject = object.screenData().editorScreenData
         }
     }
 }
