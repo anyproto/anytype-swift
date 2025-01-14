@@ -143,4 +143,8 @@ public extension Container {
     var spaceOrderService: Factory<SpaceOrderServiceProtocol> {
         self { SpaceOrderService() }.shared
     }
+    
+    var accountMigrationService: Factory<AccountMigrationServiceProtocol> {
+        self { AccountMigrationService() }.shared
+    }
 }

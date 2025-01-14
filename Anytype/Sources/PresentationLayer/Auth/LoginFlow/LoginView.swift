@@ -38,6 +38,9 @@ struct LoginView: View {
             .ifLet(model.errorText) { view, errorText in
                 view.alertView(isShowing: $model.showError, errorText: errorText)
             }
+            .anytypeSheet(item: $model.accountMigrationData, dismissOnBackgroundView: false) {
+                AccountMigrationAlertView(data: $0)
+            }
             .onAppear {
                 model.onAppear()
             }

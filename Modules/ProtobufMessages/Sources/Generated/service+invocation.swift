@@ -214,6 +214,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func accountMigrate(
+        _ request: Anytype_Rpc.Account.Migrate.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.Migrate.Request, Anytype_Rpc.Account.Migrate.Response> {
+        return Invocation(messageName: "AccountMigrate", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountMigrate(requestData) ?? Data()
+            return try Anytype_Rpc.Account.Migrate.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func accountMigrateCancel(
+        _ request: Anytype_Rpc.Account.MigrateCancel.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.MigrateCancel.Request, Anytype_Rpc.Account.MigrateCancel.Response> {
+        return Invocation(messageName: "AccountMigrateCancel", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountMigrateCancel(requestData) ?? Data()
+            return try Anytype_Rpc.Account.MigrateCancel.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func accountCreate(
         _ request: Anytype_Rpc.Account.Create.Request = .init()
     ) -> Invocation<Anytype_Rpc.Account.Create.Request, Anytype_Rpc.Account.Create.Response> {

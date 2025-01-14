@@ -25,6 +25,7 @@ final class LoginViewModel: ObservableObject {
         }
     }
     @Published var showError: Bool = false
+    @Published var accountMigrationData: AccountMigrationData?
     @Published var dismiss = false
     
     var loginButtonDisabled: Bool {
@@ -181,6 +182,7 @@ final class LoginViewModel: ObservableObject {
     }
     
     private func selectProfile(id: String) {
+        selectAccountTask?.cancel()
         selectAccountTask = Task {
             defer {
                 stopButtonsLoading()
@@ -206,6 +208,12 @@ final class LoginViewModel: ObservableObject {
                 errorText = Loc.vaultDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
                 errorText = Loc.Vault.Select.Incompatible.Version.Error.text
+            } catch SelectAccountError.accountStoreNotMigrated {
+                accountMigrationData = AccountMigrationData(
+                    accountId: id,
+                    completion: { [weak self] error in
+                        self?.handleAccountMigrationResult(id: id, error: error)
+                    })
             } catch {
                 errorText = Loc.selectVaultError
             }
@@ -214,5 +222,13 @@ final class LoginViewModel: ObservableObject {
     
     private func stopButtonsLoading() {
         loadingRoute = .none
+    }
+    
+    private func handleAccountMigrationResult(id: String, error: (any Error)?) {
+        if let error {
+            errorText = error.localizedDescription
+        } else {
+            selectProfile(id: id)
+        }
     }
 }
