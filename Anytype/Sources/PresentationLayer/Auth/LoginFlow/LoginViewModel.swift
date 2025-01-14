@@ -182,7 +182,6 @@ final class LoginViewModel: ObservableObject {
     }
     
     private func selectProfile(id: String) {
-        selectAccountTask?.cancel()
         selectAccountTask = Task {
             defer {
                 stopButtonsLoading()

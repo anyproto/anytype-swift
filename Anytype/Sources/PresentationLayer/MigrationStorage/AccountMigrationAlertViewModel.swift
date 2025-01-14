@@ -43,7 +43,6 @@ final class AccountMigrationAlertViewModel: ObservableObject {
             }
             do {
                 try await accountMigrationService.accountMigrateCancel(id: accountId)
-                completion(nil)
             } catch {
                 completion(error)
             }
