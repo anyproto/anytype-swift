@@ -46,6 +46,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canRemoveMember = false
     @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
+    @Published var participantInfo: ObjectInfo?
     
     init(workspaceInfo: AccountInfo, onMoreInfo: @escaping () -> Void) {
         self.workspaceInfo = workspaceInfo
@@ -195,16 +196,20 @@ final class SpaceShareViewModel: ObservableObject {
     private func participantAction(_ participant: Participant) -> SpaceShareParticipantViewModel.Action? {
         switch participant.status {
         case .joining:
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
+            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, showButton: true, action: { [weak self] in
                 self?.showRequestAlert(participant: participant)
             })
         case .removing:
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
+            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, showButton: true, action: { [weak self] in
                 AnytypeAnalytics.instance().logApproveLeaveRequest()
                 try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
                 self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
             })
-        case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
+        case .active:
+            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, showButton: false, action: { [weak self] in
+                self?.showParticipantInfo(participant)
+            })
+        case .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil
         }
     }
@@ -280,6 +285,10 @@ final class SpaceShareViewModel: ObservableObject {
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
             }
         )
+    }
+    
+    private func showParticipantInfo(_ participant: Participant) {
+        participantInfo = ObjectInfo(objectId: participant.id, spaceId: participant.spaceId)
     }
 }
 

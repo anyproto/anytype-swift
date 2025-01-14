@@ -16,6 +16,7 @@ struct SpaceShareParticipantViewModel: Identifiable {
     
     struct Action {
         let title: String
+        let showButton: Bool
         let action: () async throws -> Void
     }
     
@@ -44,7 +45,7 @@ struct SpaceShareParticipantView: View {
                 status
             }
             Spacer()
-            if let action = participant.action {
+            if let action = participant.action, action.showButton {
                 AsyncStandardButton(action.title, style: .secondarySmall, action: action.action)
             }
             menu

@@ -21,7 +21,7 @@ extension ScreenData {
         case .type:
             self = .editor(.type(EditorTypeObject(objectId: details.id, spaceId: details.spaceId)))
         case .participant:
-            self = .alert(.spaceMember(objectId: details.id, spaceId: details.spaceId))
+            self = .alert(.spaceMember(ObjectInfo(objectId: details.id, spaceId: details.spaceId)))
         }
     }
 }
