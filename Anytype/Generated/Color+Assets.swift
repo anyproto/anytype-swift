@@ -192,7 +192,8 @@ extension Color {
       internal static let active = Color(asset: Asset.Control.active)
       internal static let button = Color(asset: Asset.Control.button)
       internal static let inactive = Color(asset: Asset.Control.inactive)
-      internal static let navPanelIcon = Color(asset: Asset.Control.navPanelIcon)
+      internal static let transparentActive = Color(asset: Asset.Control.transparentActive)
+      internal static let transparentInactive = Color(asset: Asset.Control.transparentInactive)
       internal static let white = Color(asset: Asset.Control.white)
     }
     

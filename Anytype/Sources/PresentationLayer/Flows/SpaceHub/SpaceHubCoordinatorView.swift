@@ -61,13 +61,13 @@ struct SpaceHubCoordinatorView: View {
                 ObjectIsNotAvailableAlert()
             }
             .sheet(item: $model.showSpaceShareData) {
-                SpaceShareCoordinatorView(workspaceInfo: $0)
+                SpaceShareCoordinatorView(data: $0)
             }
-            .sheet(item: $model.showSpaceMembersDataSpaceId) {
-                SpaceMembersView(spaceId: $0.value)
+            .sheet(item: $model.showSpaceMembersData) {
+                SpaceMembersView(data: $0)
             }
-            .anytypeSheet(isPresented: $model.showProfile) {
-                ProfileView()
+            .anytypeSheet(item: $model.profileData) {
+                ProfileView(info: $0)
             }
     }
     

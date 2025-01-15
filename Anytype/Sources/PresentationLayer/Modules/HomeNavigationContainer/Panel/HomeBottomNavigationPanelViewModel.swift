@@ -1,6 +1,6 @@
 import Foundation
 import Services
-import Combine
+@preconcurrency import Combine
 import UIKit
 import AnytypeCore
 import Services

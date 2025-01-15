@@ -1,6 +1,6 @@
 import SwiftUI
 import Services
-
+@preconcurrency import Combine
 
 @MainActor
 final class ObjectTypeObjectsListViewModel: ObservableObject {

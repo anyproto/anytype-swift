@@ -12,7 +12,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
     @Published var showObjectIsNotAvailableAlert = false
-    @Published var showProfile = false
+    @Published var profileData: ObjectInfo?
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
@@ -22,8 +22,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var membershipNameFinalizationData: MembershipTier?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var toastBarData = ToastBarData.empty
-    @Published var showSpaceShareData: AccountInfo?
-    @Published var showSpaceMembersDataSpaceId: StringIdentifiable?
+    @Published var showSpaceShareData: SpaceShareData?
+    @Published var showSpaceMembersData: SpaceMembersData?
     @Published var chatProvider = ChatActionProvider()
     
     @Published var currentSpaceId: String?
@@ -224,7 +224,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         switch data {
         case .alert(let alertScreenData):
             if FeatureFlags.memberProfile {
-                showProfile.toggle()
+                await showAlert(alertScreenData)
             } else { // fallback to page screen
                 try await openSpace(spaceId: spaceId, editorData: .page(EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)))
             }
@@ -232,6 +232,15 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             try await openSpace(spaceId: spaceId, editorData: editorScreenData)
         case nil:
             try await openSpace(spaceId: spaceId, editorData: nil)
+        }
+    }
+    
+    private func showAlert(_ data: AlertScreenData) async {
+        await dismissAllPresented?()
+        
+        switch data {
+        case .spaceMember(let objectInfo):
+            profileData = objectInfo
         }
     }
         
@@ -423,14 +432,17 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     }
     
     func onMembersSelected() {
-        showSpaceMembersDataSpaceId = spaceInfo?.accountSpaceId.identifiable
+        guard let spaceInfo else { return }
+        showSpaceMembersData = SpaceMembersData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
     }
     
     func onShareSelected() {
-        showSpaceShareData = spaceInfo
+        guard let spaceInfo else { return }
+        showSpaceShareData = SpaceShareData(workspaceInfo: spaceInfo, route: .navigation)
     }
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
+        AnytypeAnalytics.instance().logClickQuote()
         chatProvider.createChatWithAttachment(attachment)
         popToFirstInSpace()
     }

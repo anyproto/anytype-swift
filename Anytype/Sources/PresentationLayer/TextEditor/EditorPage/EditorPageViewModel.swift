@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import Combine
+@preconcurrency import Combine
 import os
 import Services
 import AnytypeCore

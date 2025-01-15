@@ -34,12 +34,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.spaceOrderService)
     private var spaceOrderService: any SpaceOrderServiceProtocol
-    @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
-    
-    private let profileSubId = "SpaceHubViewModel-\(UUID().uuidString)"
+    @Injected(\.profileStorage)
+    private var profileStorage: any ProfileStorageProtocol
     
     init(sceneId: String) {
         self.sceneId = sceneId
@@ -91,7 +87,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     func startSubscriptions() async {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
-        async let profileSub: () = await subscribeOnProfile()
+        async let profileSub: () = subscribeOnProfile()
         
         (_, _, _) = await (spacesSub, wallpapersSub, profileSub)
     }
@@ -111,14 +107,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     }
     
     private func subscribeOnProfile() async {
-        await subscriptionService.startSubscription(
-            subId: profileSubId,
-            spaceId: accountManager.account.info.techSpaceId,
-            objectId: accountManager.account.info.profileObjectID
-        ) { details in
-            await MainActor.run { [weak self] in
-                self?.profileIcon = details.objectIconImage
-            }
+        for await profile in profileStorage.profilePublisher.values {
+            profileIcon = profile.icon
         }
     }
 }

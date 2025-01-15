@@ -1,6 +1,6 @@
 import Foundation
 import Services
-import Combine
+@preconcurrency import Combine
 
 protocol TreeSubscriptionManagerProtocol: AnyObject, Sendable {
     var detailsPublisher: AnyPublisher<[ObjectDetails], Never> { get }

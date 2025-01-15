@@ -356,4 +356,8 @@ extension Container {
     var mentionTextUpdateHandler: Factory<any MentionTextUpdateHandlerProtocol> {
         self { MentionTextUpdateHandler() }
     }
+    
+    var profileStorage: Factory<any ProfileStorageProtocol> {
+        self { ProfileStorage() }.singleton
+    }
 }

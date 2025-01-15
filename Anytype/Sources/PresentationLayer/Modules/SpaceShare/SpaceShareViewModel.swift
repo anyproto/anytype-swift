@@ -5,6 +5,12 @@ import DeepLinks
 import Combine
 import AnytypeCore
 
+struct SpaceShareData: Identifiable, Hashable {
+    let workspaceInfo: AccountInfo
+    let route: SettingsSpaceShareRoute
+    var id: Int { hashValue }
+}
+
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
     
@@ -26,7 +32,8 @@ final class SpaceShareViewModel: ObservableObject {
     private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
-    private let workspaceInfo: AccountInfo
+    private var workspaceInfo: AccountInfo { data.workspaceInfo }
+    private let data: SpaceShareData
     
     var accountSpaceId: String { workspaceInfo.accountSpaceId }
     
@@ -46,9 +53,10 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canRemoveMember = false
     @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
+    @Published var participantInfo: ObjectInfo?
     
-    init(workspaceInfo: AccountInfo, onMoreInfo: @escaping () -> Void) {
-        self.workspaceInfo = workspaceInfo
+    init(data: SpaceShareData, onMoreInfo: @escaping () -> Void) {
+        self.data = data
         self.onMoreInfo = onMoreInfo
     }
     
@@ -67,7 +75,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onAppear() async {
-        AnytypeAnalytics.instance().logScreenSettingsSpaceShare()
+        AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
             inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
@@ -204,7 +212,11 @@ final class SpaceShareViewModel: ObservableObject {
                 try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
                 self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
             })
-        case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
+        case .active:
+            return SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
+                self?.showParticipantInfo(participant)
+            })
+        case .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil
         }
     }
@@ -280,6 +292,10 @@ final class SpaceShareViewModel: ObservableObject {
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
             }
         )
+    }
+    
+    private func showParticipantInfo(_ participant: Participant) {
+        participantInfo = ObjectInfo(objectId: participant.id, spaceId: participant.spaceId)
     }
 }
 
