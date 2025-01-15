@@ -127,6 +127,7 @@ internal enum Loc {
   internal static let eMail = Loc.tr("Localizable", "E-mail", fallback: "E-mail")
   internal static let edit = Loc.tr("Localizable", "Edit", fallback: "Edit")
   internal static let editField = Loc.tr("Localizable", "Edit field", fallback: "Edit field")
+  internal static let editProfile = Loc.tr("Localizable", "Edit Profile", fallback: "Edit Profile")
   internal static let emailSuccessfullyValidated = Loc.tr("Localizable", "Email successfully validated", fallback: "Email successfully validated")
   internal static let emoji = Loc.tr("Localizable", "Emoji", fallback: "Emoji")
   internal static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")

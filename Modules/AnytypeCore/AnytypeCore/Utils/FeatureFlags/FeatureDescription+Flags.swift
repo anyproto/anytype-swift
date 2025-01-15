@@ -42,13 +42,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let spaceHubParallax = FeatureDescription(
-        title: "Parallax on Space hub screen",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
     static let userWarningAlerts = FeatureDescription(
         title: "User warning alerts",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
@@ -100,6 +93,13 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "9"),
         defaultValue: false,
         debugValue: true
+    )
+    
+    static let memberProfile = FeatureDescription(
+        title: "Space member profile",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

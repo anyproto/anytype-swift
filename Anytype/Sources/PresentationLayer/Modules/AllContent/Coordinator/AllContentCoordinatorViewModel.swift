@@ -13,7 +13,7 @@ final class AllContentCoordinatorViewModel: ObservableObject, AllContentModuleOu
     
     // MARK: - AllContentModuleOutput
     
-    func onObjectSelected(screenData: EditorScreenData) {
+    func onObjectSelected(screenData: ScreenData) {
         output?.onObjectSelected(screenData: screenData)
     }
 }

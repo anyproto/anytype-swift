@@ -211,6 +211,7 @@
 "Open Set" = "Set aç";
 "Create Set" = "Set oluştur";
 "Unsupported deeplink" = "Desteklenmeyen derin bağlantı";
+"Edit Profile" = "Profili Düzenle";
 
 // Home
 "Favorites" = "Favoriler";
@@ -579,6 +580,7 @@
 "Types" = "Türler";
 "No name" = "İsim yok";
 "New relation" = "Yeni ilişki";
+"Edit field" = "Alanı düzenle";
 "Non-existent object" = "Var olmayan nesne";
 
 "Select all" = "Tümünü seç";

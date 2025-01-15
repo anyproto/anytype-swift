@@ -6,7 +6,7 @@ struct LinkToObjectSearchView: View {
     @StateObject private var model: LinkToObjectSearchViewModel
     @Environment(\.openURL) private var openURL
     
-    init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: EditorScreenData) -> Void) {
+    init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: ScreenData) -> Void) {
         self._model = StateObject(wrappedValue: LinkToObjectSearchViewModel(data: data, showEditorScreen: showEditorScreen))
     }
     

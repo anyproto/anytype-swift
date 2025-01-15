@@ -60,7 +60,7 @@ final class RelationsListCoordinatorViewModel:
     
     // MARK: - RelationValueCoordinatorOutput
     
-    func showEditorScreen(data: EditorScreenData) {
+    func showEditorScreen(data: ScreenData) {
         output?.showEditorScreen(data: data)
     }
 }

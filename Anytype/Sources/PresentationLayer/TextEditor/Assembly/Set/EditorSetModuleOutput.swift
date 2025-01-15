@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
-    func showEditorScreen(data: EditorScreenData)
+    func showEditorScreen(data: ScreenData)
     func replaceEditorScreen(data: EditorScreenData)
     func closeEditor()
     

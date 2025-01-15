@@ -57,8 +57,8 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
     
     func startHeaderSubscription() {}
     
-    func screenData() -> EditorScreenData? {
-        return .favorites(homeObjectId: homeObjectId, spaceId: spaceId)
+    func screenData() -> ScreenData? {
+        return .editor(.favorites(homeObjectId: homeObjectId, spaceId: spaceId))
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
@@ -71,7 +71,7 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
             AnytypeAnalytics.instance().logAddToFavorites(true)
             try await objectActionsService.setFavorite(objectIds: [details.id], true)
-            output?.onObjectSelected(screenData: details.editorScreenData())
+            output?.onObjectSelected(screenData: details.screenData())
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }

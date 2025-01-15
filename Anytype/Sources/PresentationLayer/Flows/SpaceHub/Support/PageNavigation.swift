@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct PageNavigation {
-    let push: (EditorScreenData) -> Void
+    let open: (ScreenData) -> Void
     let pushHome: () -> Void
     let pop: () -> Void
     let popToFirstInSpace: () -> Void
@@ -10,5 +10,5 @@ struct PageNavigation {
 }
 
 extension EnvironmentValues {
-    @Entry var pageNavigation = PageNavigation(push: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in })
+    @Entry var pageNavigation = PageNavigation(open: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in })
 }

@@ -14,7 +14,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     
     let iconImage: Icon?
     
-    let editorScreenData: EditorScreenData
+    let screenData: ScreenData
 
     init(details: ObjectDetails, searchKind: LinkToObjectSearchViewModel.SearchKind? = nil) {
         self.searchKind = searchKind ?? .object(details.id)
@@ -23,7 +23,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.callout = details.objectType.name
         self.typeId = details.objectType.id
         self.iconImage = details.objectIconImage
-        self.editorScreenData = details.editorScreenData()
+        self.screenData = details.screenData()
     }
 
     init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: Icon?) {
@@ -33,7 +33,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.description = ""
         self.callout = ""
         self.typeId = ""
-        self.editorScreenData = .page(EditorPageObject(objectId: "", spaceId: ""))
+        self.screenData = .editor(.page(EditorPageObject(objectId: "", spaceId: "")))
     }
     
 }

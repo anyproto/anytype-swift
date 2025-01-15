@@ -46,6 +46,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canRemoveMember = false
     @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
+    @Published var participantInfo: ObjectInfo?
     
     init(workspaceInfo: AccountInfo, onMoreInfo: @escaping () -> Void) {
         self.workspaceInfo = workspaceInfo
@@ -204,7 +205,11 @@ final class SpaceShareViewModel: ObservableObject {
                 try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
                 self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
             })
-        case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
+        case .active:
+            return SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
+                self?.showParticipantInfo(participant)
+            })
+        case .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil
         }
     }
@@ -280,6 +285,10 @@ final class SpaceShareViewModel: ObservableObject {
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
             }
         )
+    }
+    
+    private func showParticipantInfo(_ participant: Participant) {
+        participantInfo = ObjectInfo(objectId: participant.id, spaceId: participant.spaceId)
     }
 }
 

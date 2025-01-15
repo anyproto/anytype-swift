@@ -8,7 +8,7 @@ extension BundledRelationsValueProvider {
     
     public var layoutValue: DetailsLayout {
         guard let number = layout, let layout = DetailsLayout(rawValue: number) else {
-            return .UNRECOGNIZED(layout ?? -1)
+            return .basic
         }
         
         return layout

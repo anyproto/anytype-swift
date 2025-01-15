@@ -212,6 +212,7 @@
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "Ưa thích";
@@ -580,6 +581,7 @@
 "Types" = "Loại";
 "No name" = "Không tên";
 "New relation" = "Liên hệ mới";
+"Edit field" = "Edit field";
 "Non-existent object" = "Đối tượng không tồn tại";
 
 "Select all" = "Chọn hết";

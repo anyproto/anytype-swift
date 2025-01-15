@@ -40,8 +40,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     // MARK: - EditorPageModuleOutput
     
-    func showEditorScreen(data: EditorScreenData) {
-        pageNavigation?.push(data)
+    func showEditorScreen(data: ScreenData) {
+        pageNavigation?.open(data)
     }
     
     func replaceEditorScreen(data: EditorScreenData) {

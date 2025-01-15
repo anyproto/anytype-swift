@@ -61,7 +61,7 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
     func createFileData(source: FileUploadingSource) async throws -> FileData {
         switch source {
         case .path(let path):
-            return FileData(path: path, type: .data, isTemporary: false)
+            return FileData(path: path, type: .data, sizeInBytes: nil, isTemporary: false)
         case .itemProvider(let itemProvider):
             let typeIdentifier = itemProvider.registeredTypeIdentifiers.compactMap { typeId in
                 Constants.supportedUploadedTypes.first { $0.identifier == typeId }
@@ -70,7 +70,8 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
                 throw FileServiceError.undefiled
             }
             let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: typeIdentifier.identifier, directory: tempDirectoryPath())
-            return FileData(path: url.relativePath, type: typeIdentifier, isTemporary: true)
+            let resources = try url.resourceValues(forKeys: [.fileSizeKey])
+            return FileData(path: url.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
         }
     }
  
@@ -91,7 +92,8 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
             let newFilePath = newPath.appendingPathComponent(data.url.lastPathComponent, isDirectory: false)
             try FileManager.default.moveItem(at: data.url, to: newFilePath)
             
-            return FileData(path: newFilePath.relativePath, type: typeIdentifier, isTemporary: true)
+            let resources = try newFilePath.resourceValues(forKeys: [.fileSizeKey])
+            return FileData(path: newFilePath.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
             throw error
@@ -116,7 +118,9 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
             
             try data.write(to: newFilePath)
             
-            return FileData(path: newFilePath.relativePath, type: typeIdentifier, isTemporary: true)
+            let resources = try newFilePath.resourceValues(forKeys: [.fileSizeKey])
+            
+            return FileData(path: newFilePath.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
             throw error
@@ -131,7 +135,9 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
             let newFilePath = newPath.appendingPathComponent(fileUrl.lastPathComponent, isDirectory: false)
             try FileManager.default.copyItem(at: fileUrl, to: newFilePath)
             
-            return FileData(path: newFilePath.relativePath, type: getUTType(for: newFilePath) ?? .data, isTemporary: true)
+            let resources = try fileUrl.resourceValues(forKeys: [.fileSizeKey])
+            
+            return FileData(path: newFilePath.relativePath, type: getUTType(for: newFilePath) ?? .data, sizeInBytes: resources.fileSize, isTemporary: true)
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
             throw error

@@ -14,6 +14,6 @@ final class AllContentWidgetViewModel: ObservableObject {
     }
     
     func onTapWidget() {
-        output?.onObjectSelected(screenData: .allContent(spaceId: spaceId))
+        output?.onObjectSelected(screenData: .editor(.allContent(spaceId: spaceId)))
     }
 }

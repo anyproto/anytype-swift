@@ -1,19 +1,11 @@
 import SwiftUI
 import AnytypeCore
+import Services
+import CachedAsyncImage
 
-enum DashboardWallpaperMode {
+enum DashboardWallpaperMode: Hashable {
     case `default`
     case spaceHub
-    case parallax(containerHeight: CGFloat)
-    
-    var containerHeight: CGFloat? {
-        switch self {
-        case .default, .spaceHub:
-            return nil
-        case .parallax(let height):
-            return height
-        }
-    }
 }
 
 struct DashboardWallpaper: View {
@@ -21,10 +13,6 @@ struct DashboardWallpaper: View {
     let mode: DashboardWallpaperMode
     let wallpaper: SpaceWallpaperType
     let spaceIcon: Icon?
-    @Environment(\.colorScheme) private var colorScheme
-    
-    @State private var viewLocation = CGPointZero
-    @State private var imageSize = CGSizeZero
     
     init(mode: DashboardWallpaperMode = .default, wallpaper: SpaceWallpaperType, spaceIcon: Icon?) {
         self.mode = mode
@@ -32,50 +20,79 @@ struct DashboardWallpaper: View {
         self.spaceIcon = spaceIcon
     }
     
-    private var iconOpacity: CGFloat {
-        switch mode {
-        case .default:
-            0.3
-        case .parallax, .spaceHub:
-            colorScheme == .dark ? 0.5 : 0.3
-        }
-    }
-    
     var body: some View {
             ZStack() {
                 switch wallpaper {
                 case .blurredIcon:
-                    IconView(icon: spaceIcon)
-                        .scaledToFill()
-                        .scaleEffect(1.2)
-                        .ifLet(mode.containerHeight) { view, height in
-                            view
-                                .readSize { imageSize = $0 }
-                                .offset(y: parallaxOffset(containerHeight: height))
-                                .background(PositionCatcher { viewLocation = $0 })
-                        }
-                        .blur(radius: 32)
-                        .clipped()
-                        .opacity(iconOpacity)
-                        .overlay(colorOverlay)
+                    DashboardWallpaperBluerredIcon(mode: mode, spaceIcon: spaceIcon)
+                        .equatable()
                 case .color(let color):
                     Color(hex: color.data.hex).opacity(0.3)
                 case .gradient(let gradient):
-                    gradient.data.asLinearGradient().opacity(0.3)
+                    CoverGradientView(data: gradient.data)
+                        .equatable()
+                        .opacity(0.3)
                 }
             }
             .ignoresSafeArea()
+        
+    }
+}
+
+private struct DashboardWallpaperBluerredIcon: View, Equatable {
+    
+    let mode: DashboardWallpaperMode
+    let spaceIcon: Icon?
+    
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View {
+        switch spaceIcon {
+        case let .object(.space(icon)):
+            spaceIconView(spaceIcon: icon)
+                .clipped()
+                .opacity(iconOpacity)
+                .overlay(colorOverlay)
+        default:
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private func spaceIconView(spaceIcon: ObjectIcon.Space) -> some View {
+        switch spaceIcon {
+        case let .name(_, iconOption):
+            IconColorStorage.iconColor(iconOption: iconOption)
+        case .imageId(let imageId):
+            CachedAsyncImage(
+                url: ImageMetadata(id: imageId, width: .width(50)).contentUrl
+            ) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .padding(-64)
+                    .blur(radius: 32)
+            } placeholder: {
+                LoadingPlaceholderIconView()
+            }
+        }
+    }
+    
+    private var iconOpacity: CGFloat {
+        switch mode {
+        case .default:
+            0.3
+        case .spaceHub:
+            colorScheme == .dark ? 0.5 : 0.3
+        }
     }
     
     private var colorOverlay: some View {
         colorScheme == .dark ? Color.white.opacity(0.02) : Color.black.opacity(0.02)
     }
     
-    private func parallaxOffset(containerHeight: CGFloat) -> CGFloat {
-        let offsetFromCenter = containerHeight / 2 - viewLocation.y
-        let relativeOffset = offsetFromCenter / containerHeight
-        
-        return relativeOffset * imageSize.height
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.mode == rhs.mode && lhs.spaceIcon == rhs.spaceIcon
     }
 }
 

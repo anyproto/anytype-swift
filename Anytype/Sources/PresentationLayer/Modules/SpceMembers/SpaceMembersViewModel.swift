@@ -4,6 +4,8 @@ import Services
 @MainActor
 final class SpaceMembersViewModel: ObservableObject {
     
+    @Published var participantInfo: ObjectInfo?
+    
     // MARK: - DI
     
     @Injected(\.accountManager)
@@ -38,9 +40,15 @@ final class SpaceMembersViewModel: ObservableObject {
                 icon: participant.icon?.icon,
                 name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
                 status: .active(permission: participant.permission.title),
-                action: nil,
+                action: SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
+                    self?.showParticipantInfo(participant)
+                }),
                 contextActions: []
             )
         }
+    }
+    
+    private func showParticipantInfo(_ participant: Participant) {
+        participantInfo = ObjectInfo(objectId: participant.id, spaceId: participant.spaceId)
     }
 }

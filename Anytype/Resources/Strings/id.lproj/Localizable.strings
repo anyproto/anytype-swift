@@ -211,6 +211,7 @@
 "Open Set" = "Buka Set";
 "Create Set" = "Buat Set";
 "Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "Favorit";
@@ -580,6 +581,7 @@
 "Types" = "Tipe";
 "No name" = "Tanpa nama";
 "New relation" = "Relasi baru";
+"Edit field" = "Edit field";
 "Non-existent object" = "Objek tidak ada";
 
 "Select all" = "Pilih semua";

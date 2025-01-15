@@ -57,8 +57,8 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         linkToObjectData = data
     }
     
-    func onObjectSelected(screenData: EditorScreenData) {
-        pageNavigation?.push(screenData)
+    func onObjectSelected(screenData: ScreenData) {
+        pageNavigation?.open(screenData)
     }
     
     func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem]) {

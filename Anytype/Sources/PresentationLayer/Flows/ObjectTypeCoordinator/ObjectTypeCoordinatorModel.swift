@@ -89,11 +89,11 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     
     // MARK: - ObjectTypeObjectsListViewModelOutput
     func onOpenObjectTap(objectId: String) {
-        pageNavigation?.push(.page(EditorPageObject(objectId: objectId, spaceId: document.spaceId)))
+        pageNavigation?.open(.editor(.page(EditorPageObject(objectId: objectId, spaceId: document.spaceId))))
     }
     
     func onOpenSetTap(objectId: String) {
-        pageNavigation?.push(.list(EditorListObject(objectId: objectId, spaceId: document.spaceId)))
+        pageNavigation?.open(.editor(.list(EditorListObject(objectId: objectId, spaceId: document.spaceId))))
     }
     
     func onCreateNewObjectTap() {

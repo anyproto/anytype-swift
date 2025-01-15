@@ -211,6 +211,7 @@
 "Open Set" = "打开集合";
 "Create Set" = "创建集合";
 "Unsupported deeplink" = "不支持的深度链接";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "收藏夹";
@@ -580,6 +581,7 @@
 "Types" = "类型";
 "No name" = "无名称";
 "New relation" = "新增关联";
+"Edit field" = "Edit field";
 "Non-existent object" = "对象不存在";
 
 "Select all" = "全选";

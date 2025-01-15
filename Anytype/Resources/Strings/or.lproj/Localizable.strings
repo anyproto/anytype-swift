@@ -211,6 +211,7 @@
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "ପସନ୍ଦ";
@@ -581,6 +582,7 @@
 "Types" = "Types";
 "No name" = "No name";
 "New relation" = "New relation";
+"Edit field" = "Edit field";
 "Non-existent object" = "Non-existent object";
 
 "Select all" = "Select all";

@@ -3,29 +3,6 @@ import Services
 
 // MARK: - Init helpers
 
-extension EditorScreenData {
-    init(details: ObjectDetails, mode: DocumentMode = .handling, blockId: String? = nil, activeViewId: String? = nil) {
-        switch details.editorViewType {
-        case .page:
-            self = .page(EditorPageObject(
-                details: details,
-                mode: mode,
-                blockId: blockId
-            ))
-        case .list:
-            self = .list(EditorListObject(
-                details: details,
-                activeViewId: activeViewId,
-                mode: mode
-            ))
-        case .date:
-            self = .date(EditorDateObject(date: details.timestamp, spaceId: details.spaceId))
-        case .type:
-            self = .type(EditorTypeObject(objectId: details.id, spaceId: details.spaceId))
-        }
-    }
-}
-
 extension EditorPageObject {
     init(
         details: ObjectDetails,
@@ -58,8 +35,8 @@ extension EditorListObject {
 }
 
 extension ObjectDetails {
-    func editorScreenData() -> EditorScreenData {
-        return EditorScreenData(details: self)
+    func screenData() -> ScreenData {
+        ScreenData(details: self)
     }
 }
 

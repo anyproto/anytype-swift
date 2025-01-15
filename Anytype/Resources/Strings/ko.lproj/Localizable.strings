@@ -211,6 +211,7 @@
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "즐겨찾기";
@@ -579,6 +580,7 @@
 "Types" = "유형";
 "No name" = "No name";
 "New relation" = "New relation";
+"Edit field" = "Edit field";
 "Non-existent object" = "Non-existent object";
 
 "Select all" = "Select all";

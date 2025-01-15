@@ -13,6 +13,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     @Published var createSpaceAvailable = false
     @Published var spaceIdToLeave: StringIdentifiable?
     
+    @Published var profileIcon: Icon?
+    
     let sceneId: String
     
     var showPlusInNavbar: Bool {
@@ -32,9 +34,12 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.spaceOrderService)
     private var spaceOrderService: any SpaceOrderServiceProtocol
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
-    private var subscriptions = [AnyCancellable]()
-    
+    private let profileSubId = "SpaceHubViewModel-\(UUID().uuidString)"
     
     init(sceneId: String) {
         self.sceneId = sceneId
@@ -45,6 +50,10 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         if #available(iOS 17.0, *) {
             SpaceHubTip.didShowSpaceHub = true
         }
+    }
+    
+    func onDisappear() {
+        Task { await subscriptionService.stopSubscription(subId: profileSubId) }
     }
     
     func onSpaceTap(spaceId: String) {
@@ -86,8 +95,9 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     func startSubscriptions() async {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
+        async let profileSub: () = await subscribeOnProfile()
         
-        (_, _) = await (spacesSub, wallpapersSub)
+        (_, _, _) = await (spacesSub, wallpapersSub, profileSub)
     }
     
     // MARK: - Private
@@ -101,6 +111,18 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private func subscribeOnWallpapers() async {
         for await wallpapers in userDefaults.wallpapersPublisher().values {
             self.wallpapers = wallpapers
+        }
+    }
+    
+    private func subscribeOnProfile() async {
+        await subscriptionService.startSubscription(
+            subId: profileSubId,
+            spaceId: accountManager.account.info.techSpaceId,
+            objectId: accountManager.account.info.profileObjectID
+        ) { details in
+            await MainActor.run { [weak self] in
+                self?.profileIcon = details.objectIconImage
+            }
         }
     }
 }

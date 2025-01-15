@@ -211,6 +211,7 @@
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Profil bearbeiten";
 
 // Home
 "Favorites" = "Favoriten";
@@ -579,6 +580,7 @@
 "Types" = "Typen";
 "No name" = "Kein Name";
 "New relation" = "Neue Relation";
+"Edit field" = "Feld bearbeiten";
 "Non-existent object" = "Nicht existentes Objekt";
 
 "Select all" = "Alles auswählen";

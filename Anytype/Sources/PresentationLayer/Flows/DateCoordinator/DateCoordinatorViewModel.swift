@@ -22,10 +22,10 @@ final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
         showSyncStatusInfo.toggle()
     }
     
-    func onObjectTap(data: EditorScreenData) {
+    func onObjectTap(data: ScreenData) {
         Task {
             await dismissAllPresented?()
-            pageNavigation?.push(data)
+            pageNavigation?.open(data)
         }
     }
     

@@ -12,6 +12,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
     @Published var showObjectIsNotAvailableAlert = false
+    @Published var profileData: ObjectInfo?
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
@@ -40,8 +41,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
     var pageNavigation: PageNavigation {
         PageNavigation(
-            push: { [weak self] data in
-                self?.pushSync(data: data)
+            open: { [weak self] data in
+                self?.openSync(data: data)
             }, pushHome: { [weak self] in
                 guard let self, let spaceInfo else { return }
                 navigationPath.push(HomeWidgetData(info: spaceInfo))
@@ -139,7 +140,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
-            try? await push(data: editorData)
+            try? await open(data: .editor(editorData))
         case .widgets(let spaceId):
             try? await openSpace(spaceId: spaceId)
         case .none:
@@ -189,20 +190,20 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
         TypeSearchForNewObjectCoordinatorView(spaceId: spaceId) { [weak self] details in
             guard let self else { return }
-            openObject(screenData: details.editorScreenData())
+            openObject(screenData: details.screenData())
         }
     }
     
     // MARK: - Navigation
-    private func openObject(screenData: EditorScreenData) {
-        pushSync(data: screenData)
+    private func openObject(screenData: ScreenData) {
+        openSync(data: screenData)
     }
     
-    private func pushSync(data: EditorScreenData) {
-        Task { try await push(data: data) }
+    private func openSync(data: ScreenData) {
+        Task { try await open(data: data) }
     }
     
-    private func push(data: EditorScreenData) async throws {
+    private func open(data: ScreenData) async throws {
         if let objectId = data.objectId { // validate in case of object
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
@@ -219,7 +220,31 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         try await openSpace(spaceId: spaceId, data: data)
     }
     
-    private func openSpace(spaceId: String, data: EditorScreenData? = nil) async throws {
+    private func openSpace(spaceId: String, data: ScreenData? = nil) async throws {
+        switch data {
+        case .alert(let alertScreenData):
+            if FeatureFlags.memberProfile {
+                await showAlert(alertScreenData)
+            } else { // fallback to page screen
+                try await openSpace(spaceId: spaceId, editorData: .page(EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)))
+            }
+        case .editor(let editorScreenData):
+            try await openSpace(spaceId: spaceId, editorData: editorScreenData)
+        case nil:
+            try await openSpace(spaceId: spaceId, editorData: nil)
+        }
+    }
+    
+    private func showAlert(_ data: AlertScreenData) async {
+        await dismissAllPresented?()
+        
+        switch data {
+        case .spaceMember(let objectInfo):
+            profileData = objectInfo
+        }
+    }
+        
+    private func openSpace(spaceId: String, editorData: EditorScreenData?) async throws {
         if currentSpaceId != spaceId {
             // Check if space is deleted
             guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
@@ -230,11 +255,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             
             if let spaceInfo {
                 var initialPath = initialHomePath(spaceView: spaceView, spaceInfo: spaceInfo)
-                if let data { initialPath.append(data) }
+                editorData.flatMap { initialPath.append($0) }
                 navigationPath = HomePath(initialPath: initialPath)
             }
         } else {
-            data.flatMap { navigationPath.push($0) }
+            editorData.flatMap { navigationPath.push($0) }
         }
     }
     
@@ -306,8 +331,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
         do {
             try await document.open()
-            guard let editorData = document.details?.editorScreenData() else { return }
-            try? await push(data: editorData)
+            guard let editorData = document.details?.screenData() else { return }
+            try? await open(data: editorData)
         } catch {
             guard let cid, let key else {
                 showObjectIsNotAvailableAlert = true
@@ -351,7 +376,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
             
-            openObject(screenData: details.editorScreenData())
+            openObject(screenData: details.screenData())
         }
     }
     
@@ -362,7 +387,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         Task {
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: fallbackSpaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
-            openObject(screenData: details.editorScreenData())
+            openObject(screenData: details.screenData())
         }
     }
 }
@@ -379,7 +404,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         )
     }
     
-    func onCreateObjectSelected(screenData: EditorScreenData) {
+    func onCreateObjectSelected(screenData: ScreenData) {
         UISelectionFeedbackGenerator().selectionChanged()
         openObject(screenData: screenData)
     }

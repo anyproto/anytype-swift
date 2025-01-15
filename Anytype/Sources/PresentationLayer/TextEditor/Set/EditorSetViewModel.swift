@@ -720,7 +720,6 @@ extension EditorSetViewModel {
         guard setDocument.setPermissions.canTurnSetIntoCollection else { return }
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
-            try await setDocument.close()
             output?.replaceEditorScreen(data: .list(EditorListObject(objectId: objectId, spaceId: setDocument.spaceId)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
@@ -765,7 +764,7 @@ extension EditorSetViewModel {
     }
     
     private func openObject(details: ObjectDetails) {
-        output?.showEditorScreen(data: details.editorScreenData())
+        output?.showEditorScreen(data: details.screenData())
     }
 }
 
