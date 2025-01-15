@@ -337,3 +337,8 @@ enum SettingsSpaceMembersRoute: String {
     case settings = "Settings"
     case navigation = "Navigation"
 }
+
+enum SettingsSpaceShareRoute: String {
+    case settings = "Settings"
+    case navigation = "Navigation"
+}

@@ -22,7 +22,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var membershipNameFinalizationData: MembershipTier?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var toastBarData = ToastBarData.empty
-    @Published var showSpaceShareData: AccountInfo?
+    @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersModuleData?
     @Published var chatProvider = ChatActionProvider()
     
@@ -437,7 +437,8 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     }
     
     func onShareSelected() {
-        showSpaceShareData = spaceInfo
+        guard let spaceInfo else { return }
+        showSpaceShareData = SpaceShareData(workspaceInfo: spaceInfo, route: .navigation)
     }
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {

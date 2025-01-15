@@ -952,8 +952,8 @@ extension AnytypeAnalytics {
         logEvent("ShareSpace")
     }
     
-    func logScreenSettingsSpaceShare() {
-        logEvent("ScreenSettingsSpaceShare")
+    func logScreenSettingsSpaceShare(route: SettingsSpaceShareRoute) {
+        logEvent("ScreenSettingsSpaceShare", withEventProperties: [AnalyticsEventsPropertiesKey.route:  route.rawValue])
     }
     
     func logClickShareSpaceCopyLink() {
