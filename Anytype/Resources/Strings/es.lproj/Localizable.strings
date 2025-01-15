@@ -211,6 +211,7 @@
 "Open Set" = "Abrir conjunto";
 "Create Set" = "Crear conjunto";
 "Unsupported deeplink" = "Enlace no compatible";
+"Edit Profile" = "Editar perfil";
 
 // Home
 "Favorites" = "Favoritos";
@@ -579,7 +580,7 @@
 "Types" = "Tipos";
 "No name" = "Sin nombre";
 "New relation" = "Nueva relación";
-"Edit field" = "Edit field";
+"Edit field" = "Editar campo";
 "Non-existent object" = "Objeto inexistente";
 
 "Select all" = "Seleccionar todo";
@@ -976,7 +977,7 @@
 "SpaceShare.JoinConfirmation.Title" = "Solicitud enviada";
 "SpaceShare.JoinConfirmation.Message" = "Recibirás una notificación cuando el propietario del espacio apruebe tu solicitud.";
 "SpaceShare.Join.ObjectIsNotAvailable" = "Ese objeto no está disponible. Pide a su propietario que lo comparta.";
-"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
+"SpaceShare.Join.SpaceDeleted" = "El espacio al que intentas acceder se ha eliminado";
 
 "SpaceShare.YouSuffix" = "%@ (tú)";
 "SpaceShare.ManageSpaces" = "Gestionar espacios";
@@ -1242,7 +1243,7 @@ En concreto,
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Aún no hay nada aquí para esta fecha";
-"Date.Open.Action.title" = "Open selected date";
+"Date.Open.Action.title" = "Abrir fecha seleccionada";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Ordenar por";
@@ -1263,22 +1264,22 @@ En concreto,
 "Chat.ReplyTo" = "Responder a %@";
 "Chat.Empty.Title" = "Aún no hay mensajes…";
 "Chat.Empty.Description" = "Escribe el primero para iniciar una conversación.";
-"Chat.DeleteMessage.Title" = "Delete this message?";
-"Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
-"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
-"Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Objects" = "Select existing object";
-"Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload file";
-"Chat.Actions.Menu.Camera" = "Take from camera";
-"Chat.Participant.Badge" = "(You)";
-"Chat.Reply.Images" = "Images (%@)";
-"Chat.Reply.Attachments" = "Attachments (%@)";
-"Chat.Reply.Files" = "Files (%@)";
-"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
-"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.DeleteMessage.Title" = "¿Eliminar este mensaje?";
+"Chat.DeleteMessage.Description" = "Después de confirmar esto, no podrás restaurarlo.";
+"Chat.Reactions.Empty.Title" = "Aún no hay reacciones";
+"Chat.Reactions.Empty.Subtitle" = "Puede que se haya eliminado la reacción o se haya producido un error técnico";
+"Chat.EditMessage" = "Editar mensaje";
+"Chat.Actions.Menu.Objects" = "Seleccionar objeto existente";
+"Chat.Actions.Menu.Media" = "Subir medios";
+"Chat.Actions.Menu.Files" = "Subir archivo";
+"Chat.Actions.Menu.Camera" = "Tomar con la cámara";
+"Chat.Participant.Badge" = "(Tú)";
+"Chat.Reply.Images" = "Imágenes (%@)";
+"Chat.Reply.Attachments" = "Archivos adjuntos (%@)";
+"Chat.Reply.Files" = "Archivos (%@)";
+"Chat.SendLimitAlert.Title" = "¡Calma! ¡Estás escribiendo muy deprisa!";
+"Chat.SendLimitAlert.Message" = "Parece que estás enviando mensajes a la velocidad de la luz. Espera un poco para el siguiente.";
+"Chat.AttachmentsLimit.Alert" = "No puedes subir más de %@ archivos al mismo tiempo";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
