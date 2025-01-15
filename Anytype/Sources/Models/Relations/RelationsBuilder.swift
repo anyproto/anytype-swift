@@ -38,8 +38,6 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         )
         
-        let deletedRelations = objectRelations.filter({ $0.isDeleted }) // TBD: take info from type as well
-        
         let featuredRelations = buildRelations(
             relationDetails: featuredTypeRelationsDetails,
             objectDetails: objectDetails,
@@ -49,7 +47,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         )
         
-        let typeRelations = buildRelations(
+        let sidebarRelations = buildRelations(
             relationDetails: typeRelationDetails,
             objectDetails: objectDetails,
             isFeatured: false,
@@ -57,11 +55,17 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         )
         
-        let conflictedRelations = objectRelations.filter { !typeRelations.map(\.id).contains($0.id) && !featuredRelations.map(\.id).contains($0.id) }
+        let allConflictedRelations = objectRelations
+            .filter {
+                !sidebarRelations.map(\.id).contains($0.id) && !featuredRelations.map(\.id).contains($0.id)
+            }
+        
+        let deletedRelations = allConflictedRelations.filter { $0.isDeleted }
+        let conflictedRelations = allConflictedRelations.filter { !$0.isDeleted }
         
         return ParsedRelations(
             featuredRelations: featuredRelations,
-            sidebarRelations: typeRelations,
+            sidebarRelations: sidebarRelations,
             conflictedRelations: conflictedRelations,
             deletedRelations: deletedRelations
         )
