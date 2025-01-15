@@ -1044,8 +1044,8 @@ extension AnytypeAnalytics {
         logEvent("ClickQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: "Share"])
     }
     
-    func logScreenSettingsSpaceMembers() {
-        logEvent("ScreenSettingsSpaceMembers")
+    func logScreenSettingsSpaceMembers(route: SettingsSpaceMembersRoute) {
+        logEvent("ScreenSettingsSpaceMembers", withEventProperties: [AnalyticsEventsPropertiesKey.route:  route.rawValue])
     }
     
     func logDuplicateBlock(spaceId: String) {

@@ -332,3 +332,8 @@ enum StyleObjectType: String {
 enum ObjectListSortRoute: String {
     case screenDate = "ScreenDate"
 }
+
+enum SettingsSpaceMembersRoute: String {
+    case settings = "Settings"
+    case navigation = "Navigation"
+}

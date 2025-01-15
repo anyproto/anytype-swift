@@ -16,7 +16,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
     @Published var showSpaceShareData: AccountInfo?
-    @Published var showSpaceMembersDataSpaceId: StringIdentifiable?
+    @Published var showSpaceMembersData: SpaceMembersModuleData?
     @Published var showFiles = false
     @Published var showObjectTypeSearch = false
     @Published var dismiss = false
@@ -48,7 +48,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     }
     
     func onSpaceMembersSelected() {
-        showSpaceMembersDataSpaceId = workspaceInfo.accountSpaceId.identifiable
+        showSpaceMembersData = SpaceMembersModuleData(spaceId: workspaceInfo.accountSpaceId, route: .settings)
     }
     
     func onSelectDefaultObjectType(type: ObjectType) {
