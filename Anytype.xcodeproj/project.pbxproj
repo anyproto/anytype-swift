@@ -1209,7 +1209,7 @@
 			};
 			name = Debug;
 		};
-		0303ED0E22D8EDAD005C552B /* Release */ = {
+		0303ED0E22D8EDAD005C552B /* Release-Anytype */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1274,7 +1274,7 @@
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = "Release-Anytype";
 		};
 		0303ED1022D8EDAD005C552B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1322,7 +1322,7 @@
 			};
 			name = Debug;
 		};
-		0303ED1122D8EDAD005C552B /* Release */ = {
+		0303ED1122D8EDAD005C552B /* Release-Anytype */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1366,7 +1366,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = Release;
+			name = "Release-Anytype";
 		};
 		03C5C54822DFD90C00DD91DE /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1395,7 +1395,7 @@
 			};
 			name = Debug;
 		};
-		03C5C54922DFD90C00DD91DE /* Release */ = {
+		03C5C54922DFD90C00DD91DE /* Release-Anytype */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1420,7 +1420,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anytype.app/Anytype";
 			};
-			name = Release;
+			name = "Release-Anytype";
 		};
 		1267458B2696FEC1002132F3 /* Release-Nightly */ = {
 			isa = XCBuildConfiguration;
@@ -1607,7 +1607,7 @@
 			};
 			name = Debug;
 		};
-		862D559C2A8F78340018103F /* Release */ = {
+		862D559C2A8F78340018103F /* Release-Anytype */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1648,7 +1648,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Release;
+			name = "Release-Anytype";
 		};
 		862D559D2A8F78340018103F /* Release-Nightly */ = {
 			isa = XCBuildConfiguration;
@@ -1740,7 +1740,7 @@
 			};
 			name = Debug;
 		};
-		C960DFBC28D88618002898AE /* Release */ = {
+		C960DFBC28D88618002898AE /* Release-Anytype */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1783,7 +1783,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Release;
+			name = "Release-Anytype";
 		};
 		C960DFBD28D88618002898AE /* Release-Nightly */ = {
 			isa = XCBuildConfiguration;
@@ -1837,51 +1837,51 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,
-				0303ED0E22D8EDAD005C552B /* Release */,
+				0303ED0E22D8EDAD005C552B /* Release-Anytype */,
 				1267458B2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-Anytype";
 		};
 		0303ED0F22D8EDAD005C552B /* Build configuration list for PBXNativeTarget "Anytype" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED1022D8EDAD005C552B /* Debug */,
-				0303ED1122D8EDAD005C552B /* Release */,
+				0303ED1122D8EDAD005C552B /* Release-Anytype */,
 				1267458C2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-Anytype";
 		};
 		03C5C54722DFD90C00DD91DE /* Build configuration list for PBXNativeTarget "AnytypeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				03C5C54822DFD90C00DD91DE /* Debug */,
-				03C5C54922DFD90C00DD91DE /* Release */,
+				03C5C54922DFD90C00DD91DE /* Release-Anytype */,
 				1267458D2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-Anytype";
 		};
 		862D559E2A8F78340018103F /* Build configuration list for PBXNativeTarget "AnytypeShareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				862D559B2A8F78340018103F /* Debug */,
-				862D559C2A8F78340018103F /* Release */,
+				862D559C2A8F78340018103F /* Release-Anytype */,
 				862D559D2A8F78340018103F /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-Anytype";
 		};
 		C960DFBE28D88618002898AE /* Build configuration list for PBXNativeTarget "AnytypeWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C960DFBB28D88618002898AE /* Debug */,
-				C960DFBC28D88618002898AE /* Release */,
+				C960DFBC28D88618002898AE /* Release-Anytype */,
 				C960DFBD28D88618002898AE /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-Anytype";
 		};
 /* End XCConfigurationList section */
 
