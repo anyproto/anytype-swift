@@ -31,10 +31,12 @@ struct ObjectTypeView: View {
                 navbar
                 Spacer.fixedHeight(32)
                 header.padding(.horizontal, 20)
-                Spacer.fixedHeight(24)
-                buttonsRow.padding(.horizontal, 20)
-                Spacer.fixedHeight(32)
-                templates
+                if model.canEditDetails {
+                    Spacer.fixedHeight(24)
+                    buttonsRow.padding(.horizontal, 20)
+                    Spacer.fixedHeight(32)
+                    templates
+                }
                 Spacer.fixedHeight(32)
                 ObjectTypeObjectsListView(typeDocument: model.document, output: model.output)
             }
@@ -82,13 +84,11 @@ struct ObjectTypeView: View {
     
     private var buttonsRow: some View {
         HStack(spacing: 12) {
-            if model.canEditDetails {
-                StandardButton(
-                    .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
-                    style: .secondarySmall
-                ) {
-                    model.onLayoutTap()
-                }
+            StandardButton(
+                .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
+                style: .secondarySmall
+            ) {
+                model.onLayoutTap()
             }
             
             StandardButton(
@@ -109,13 +109,12 @@ struct ObjectTypeView: View {
                 AnytypeText("\(model.templates.count)", style: .previewTitle1Regular)
                     .foregroundColor(Color.Text.secondary)
                 Spacer()
-                if model.canEditDetails {
-                    Button(action: {
-                        model.onAddTemplateTap()
-                    }, label: {
-                        IconView(asset: .X24.plus).frame(width: 24, height: 24)
-                    })
-                }
+                
+                Button(action: {
+                    model.onAddTemplateTap()
+                }, label: {
+                    IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                })
             }.padding(10).padding(.horizontal, 10)
             templatesList
         }
