@@ -4,12 +4,5 @@ struct GlobalSearchState: Equatable, Hashable, Codable {
     
     enum Mode: Equatable, Hashable, Codable {
         case `default`
-        case filtered(FilteredData)
     }
-}
-
-struct FilteredData: Equatable, Hashable, Codable {
-    let id: String
-    let name: String
-    let limitObjectIds: [String]
 }

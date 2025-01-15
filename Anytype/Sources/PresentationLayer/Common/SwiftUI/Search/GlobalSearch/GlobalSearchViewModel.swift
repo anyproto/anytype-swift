@@ -12,8 +12,6 @@ final class GlobalSearchViewModel: ObservableObject {
     private var defaultObjectCreationService: any DefaultObjectCreationServiceProtocol
     @Injected(\.globalSearchSavedStatesService)
     private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
-    @Injected(\.searchService)
-    private var searchService: any SearchServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
@@ -22,7 +20,6 @@ final class GlobalSearchViewModel: ObservableObject {
     @Published var dismiss = false
     
     var isInitial = true
-    private var modeChanged = false
     
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
@@ -39,8 +36,6 @@ final class GlobalSearchViewModel: ObservableObject {
             switch state.mode {
             case .default:
                 result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId)
-            case .filtered(let data):
-                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, limitObjectIds: data.limitObjectIds)
             }
             
             updateInitialStateIfNeeded()
@@ -84,26 +79,6 @@ final class GlobalSearchViewModel: ObservableObject {
         moduleData.onSelect(searchData.editorScreenData)
     }
     
-    func showRelatedObjects(_ data: GlobalSearchData) {
-        let name = String(data.title.characters)
-        state = GlobalSearchState(
-            searchText: "",
-            mode: .filtered(FilteredData(id: data.id, name: name, limitObjectIds: data.relatedLinks))
-        )
-        storeState()
-        modeChanged = true
-        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId, type: .empty)
-    }
-    
-    func clear() {
-        state = GlobalSearchState(
-            searchText: "",
-            mode: .default
-        )
-        storeState()
-        modeChanged = true
-    }
-    
     func createObject() {
         Task {            
             let objectDetails = try? await defaultObjectCreationService.createDefaultObject(
@@ -122,15 +97,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func sectionConfig() -> GlobalSearchDataSection.SectionConfig? {
-        switch state.mode {
-        case .default:
-            return nil
-        case .filtered(let data):
-            return GlobalSearchDataSection.SectionConfig(
-                title: Loc.Search.Links.Header.title(data.name),
-                buttonTitle: Loc.clear
-            )
-        }
+        return nil
     }
     
     private func updateInitialStateIfNeeded() {
@@ -139,9 +106,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     private func needDelay() -> Bool {
-        guard modeChanged || isInitial else { return true }
-        modeChanged = false
-        return false
+        !isInitial
     }
     
     private func restoreState() {
@@ -155,20 +120,6 @@ final class GlobalSearchViewModel: ObservableObject {
             state = restoredState
             if restoredState.searchText.isNotEmpty {
                 AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
-            }
-        case .filtered(let data):
-            Task {
-                let details = try await searchService.search(text: "", spaceId: moduleData.spaceId, limitObjectIds: [data.id]).first
-                guard let details else { return }
-                state = GlobalSearchState(
-                    searchText: restoredState.searchText,
-                    mode: .filtered(FilteredData(
-                        id: details.id,
-                        name: details.title,
-                        limitObjectIds: details.backlinks + details.links
-                    ))
-                )
-                AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId, type: .saved)
             }
         }
     }

@@ -37,7 +37,6 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
             title: title,
             highlights: highlights,
             objectTypeName: details.objectType.name,
-            relatedLinks: details.backlinks + details.links,
             editorScreenData: ScreenData(details: details, blockId: meta.first?.blockID),
             score: score
         )

@@ -45,36 +45,14 @@ struct GlobalSearchView: View {
     
     private var searchResults: some View {
         PlainList {
-            if #available(iOS 17.0, *) {
-                GlobalSearchRelatedObjectsSwipeTipView()
-            }
             ForEach(model.searchData) { section in
-                Section {
-                    ForEach(section.searchData) { data in
-                        itemRow(for: data)
-                    }
-                } header: {
-                    sectionHeader(for: section.sectionConfig)
+                ForEach(section.searchData) { data in
+                    itemRow(for: data)
                 }
             }
         }
         .scrollIndicators(.never)
         .id(model.state)
-    }
-    
-    @ViewBuilder
-    private func sectionHeader(for sectionConfig: GlobalSearchDataSection.SectionConfig?) -> some View {
-        if let sectionConfig {
-            ListSectionHeaderView(title: sectionConfig.title, increasedTopPadding: false) {
-                Button {
-                    model.clear()
-                } label: {
-                    AnytypeText(sectionConfig.buttonTitle, style: .caption1Regular)
-                        .foregroundColor(.Text.secondary)
-                }
-            }
-            .padding(.horizontal, 20)
-        }
     }
     
     private func itemRow(for data: GlobalSearchData) -> some View {
@@ -83,35 +61,9 @@ struct GlobalSearchView: View {
             .onTapGesture {
                 model.onSelect(searchData: data)
             }
-            .if(data.relatedLinks.isNotEmpty) {
-                $0.contextMenu {
-                    Button(Loc.Search.Links.Show.title) {
-                        model.showRelatedObjects(data)
-                    }
-                }
-                .swipeActions {
-                    Button(Loc.Search.Links.Swipe.title) {
-                        if #available(iOS 17.0, *) {
-                            GlobalSearchRelatedObjectsSwipeTip().invalidate(reason: .actionPerformed)
-                        }
-                        model.showRelatedObjects(data)
-                    }
-                    .tint(Color.Control.active)
-                }
-            }
     }
     
-    @ViewBuilder
     private var emptyState: some View {
-        switch model.state.mode {
-        case .default:
-            defaultEmptyState
-        case .filtered:
-            filteredEmptyState
-        }
-    }
-    
-    private var defaultEmptyState: some View {
         EmptyStateView(
             title: Loc.nothingFound,
             subtitle: Loc.GlobalSearch.EmptyState.subtitle,
@@ -123,16 +75,5 @@ struct GlobalSearchView: View {
                 }
             )
         )
-    }
-    
-    private var filteredEmptyState: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(22)
-            sectionHeader(for: model.sectionConfig())
-            Spacer()
-            AnytypeText(Loc.GlobalSearch.EmptyFilteredState.title, style: .calloutRegular)
-                .foregroundColor(.Text.primary)
-            Spacer()
-        }
     }
 }
