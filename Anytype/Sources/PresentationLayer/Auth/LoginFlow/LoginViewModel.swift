@@ -14,11 +14,7 @@ final class LoginViewModel: ObservableObject {
     @Published var showQrCodeView: Bool = false
     @Published var openSettingsURL = false
     @Published var showDebugMenu = false
-    @Published var entropy: String = "" {
-        didSet {
-            onEntropySet()
-        }
-    }
+    @Published var entropy: String = ""
     @Published var errorText: String? {
         didSet {
             showError = errorText.isNotNil
@@ -27,6 +23,7 @@ final class LoginViewModel: ObservableObject {
     @Published var showError: Bool = false
     @Published var migrationInProgress = false
     @Published var dismiss = false
+    @Published var accountId: String?
     
     var loginButtonDisabled: Bool {
         phrase.isEmpty || loadingRoute.isKeychainInProgress || loadingRoute.isQRInProgress
@@ -65,9 +62,6 @@ final class LoginViewModel: ObservableObject {
     
     private weak var output: (any LoginFlowOutput)?
     
-    private var selectAccountTask: Task<(), any Error>?
-    private var migrationTask: Task<(), any Error>?
-    private var accountId: String?
     private var subscriptions = [AnyCancellable]()
     
     init(output: (any LoginFlowOutput)?) {
@@ -86,7 +80,7 @@ final class LoginViewModel: ObservableObject {
     
     func onEnterButtonAction() {
         AnytypeAnalytics.instance().logClickLogin(button: .phrase)
-        walletRecovery(with: phrase, route: .login)
+        walletRecoverySync(with: phrase, route: .login)
     }
     
     func onScanQRButtonAction() {
@@ -106,7 +100,11 @@ final class LoginViewModel: ObservableObject {
     
     func onKeychainButtonAction() {
         AnytypeAnalytics.instance().logClickLogin(button: .keychain)
-        restoreFromkeychain()
+        Task {
+            try await localAuthService.auth(reason: Loc.restoreKeyFromKeychain)
+            let phrase = try seedService.obtainSeed()
+            await walletRecovery(with: phrase, route: .keychain)
+        }
     }
     
     func onbackButtonAction() {
@@ -114,7 +112,7 @@ final class LoginViewModel: ObservableObject {
             dismiss.toggle()
             return
         }
-        selectAccountTask?.cancel()
+        accountId = nil
         logout()
     }
     
@@ -125,43 +123,38 @@ final class LoginViewModel: ObservableObject {
         }
     }
     
-    private func onEntropySet() {
+    func onEntropySet() async {
+        guard entropy.isNotEmpty else { return }
+        do {
+            let phrase = try await authService.mnemonicByEntropy(entropy)
+            await walletRecovery(with: phrase, route: .qr)
+        } catch {
+            errorText = error.localizedDescription
+        }
+    }
+    
+    private func walletRecoverySync(with phrase: String, route: LoginLoadingRoute) {
         Task {
-            do {
-                let phrase = try await authService.mnemonicByEntropy(entropy)
-                walletRecovery(with: phrase, route: .qr)
-            } catch {
-                errorText = error.localizedDescription
-            }
+            await walletRecovery(with: phrase, route: route)
         }
     }
 
-    private func walletRecovery(with phrase: String, route: LoginLoadingRoute) {
-        Task {
-            do {
-                self.phrase = phrase
-                loadingRoute = route
-                
-                try await authService.walletRecovery(mnemonic: phrase.trimmingCharacters(in: .whitespacesAndNewlines))
-                try seedService.saveSeed(phrase)
-                
-                recoverWalletSuccess()
-            } catch {
-                recoverWalletError(error)
-            }
+    private func walletRecovery(with phrase: String, route: LoginLoadingRoute) async {
+        do {
+            self.phrase = phrase
+            loadingRoute = route
+            
+            try await authService.walletRecovery(mnemonic: phrase.trimmingCharacters(in: .whitespacesAndNewlines))
+            try seedService.saveSeed(phrase)
+            
+            await recoverWalletSuccess()
+        } catch {
+            recoverWalletError(error)
         }
     }
     
-    private func restoreFromkeychain() {
-        Task {
-            try await localAuthService.auth(reason: Loc.restoreKeyFromKeychain)
-            let phrase = try seedService.obtainSeed()
-            walletRecovery(with: phrase, route: .keychain)
-        }
-    }
-    
-    private func recoverWalletSuccess() {
-        accountRecover()
+    private func recoverWalletSuccess() async {
+        await accountRecover()
     }
     
     private func recoverWalletError(_ error: some Error) {
@@ -173,80 +166,77 @@ final class LoginViewModel: ObservableObject {
         accountEventHandler.accountShowPublisher
             .sink { [weak self] accountId in
                 self?.accountId = accountId
-                self?.selectProfile(id: accountId)
             }
             .store(in: &subscriptions)
     }
     
-    private func accountRecover() {
-        Task {
-            do {
-                try await authService.accountRecover()
-            } catch {
-                stopButtonsLoading()
-                errorText = error.localizedDescription
-            }
+    private func accountRecover() async {
+        do {
+            try await authService.accountRecover()
+        } catch {
+            stopButtonsLoading()
+            errorText = error.localizedDescription
         }
     }
     
-    private func selectProfile(id: String) {
-        selectAccountTask?.cancel()
-        selectAccountTask = Task {
-            defer {
-                stopButtonsLoading()
-                accountSelectInProgress = false
-            }
-            do {
-                accountSelectInProgress = true
-                let account = try await authService.selectAccount(id: id)
-                
-                switch account.status {
-                case .active:
-                    applicationStateService.state = .home
-                case .pendingDeletion:
-                    applicationStateService.state = .delete
-                case .deleted:
-                    errorText = Loc.vaultDeleted
-                }
-            } catch is CancellationError {
-                // Ignore cancellations
-            } catch SelectAccountError.accountLoadIsCanceled {
-                // Ignore load cancellation
-            } catch SelectAccountError.accountIsDeleted {
+    func selectAccount() async {
+        guard let accountId else { return }
+        defer {
+            stopButtonsLoading()
+            accountSelectInProgress = false
+        }
+        do {
+            accountSelectInProgress = true
+            let account = try await authService.selectAccount(id: accountId)
+            
+            switch account.status {
+            case .active:
+                applicationStateService.state = .home
+            case .pendingDeletion:
+                applicationStateService.state = .delete
+            case .deleted:
                 errorText = Loc.vaultDeleted
-            } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
-                errorText = Loc.Vault.Select.Incompatible.Version.Error.text
-            } catch SelectAccountError.accountStoreNotMigrated {
-                startMigration(id: id)
-            } catch {
-                errorText = Loc.selectVaultError
             }
+        } catch is CancellationError {
+            // Ignore cancellations
+        } catch SelectAccountError.accountLoadIsCanceled {
+            // Ignore load cancellation
+        } catch SelectAccountError.accountIsDeleted {
+            errorText = Loc.vaultDeleted
+        } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
+            errorText = Loc.Vault.Select.Incompatible.Version.Error.text
+        } catch SelectAccountError.accountStoreNotMigrated {
+            await startMigration()
+        } catch {
+            errorText = Loc.selectVaultError
+        }
+    }
+    
+    func startMigration() async {
+        guard let accountId else { return }
+        
+        do {
+            migrationInProgress = true
+            try await accountMigrationService.accountMigrate(id: accountId, rootPath: localRepoService.middlewareRepoPath)
+            migrationInProgress = false
+            await selectAccount()
+        } catch {
+            errorText = error.localizedDescription
+        }
+    }
+    
+    func cancelMigration() {
+        migrationInProgress = false
+        let id = accountId
+        accountId = nil
+        guard let id else { return }
+        
+        Task {
+            try? await accountMigrationService.accountMigrateCancel(id: id)
         }
     }
     
     private func stopButtonsLoading() {
         loadingRoute = .none
-    }
-    
-    private func startMigration(id: String) {
-        migrationTask = Task {
-            do {
-                migrationInProgress = true
-                try await accountMigrationService.accountMigrate(id: id, rootPath: localRepoService.middlewareRepoPath)
-                migrationInProgress = false
-                selectProfile(id: id)
-            } catch {
-                errorText = error.localizedDescription
-            }
-        }
-    }
-    
-    func cancelMigration() {
-        guard let accountId else { return }
-        migrationInProgress = false
-        migrationTask?.cancel()
-        Task {
-            try await accountMigrationService.accountMigrateCancel(id: accountId)
-        }
     }
 }

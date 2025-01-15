@@ -11,6 +11,12 @@ struct LoginView: View {
     
     var body: some View {
         content
+            .task(id: model.accountId) {
+                await model.selectAccount()
+            }
+            .task(id: model.entropy) {
+                await model.onEntropySet()
+            }
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .disablePresentationBackground()

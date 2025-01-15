@@ -23,6 +23,9 @@ struct ApplicationCoordinatorView: View {
         .task {
             await model.startFileHandler()
         }
+        .task(item: model.migrationTaskId) { _ in
+            await model.startMigration()
+        }
         .onChange(of: dismissAllPresented) {
             model.setDismissAllPresented(dismissAllPresented: $0)
         }

@@ -34,8 +34,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Published var applicationState: ApplicationState = .initial
     @Published var toastBarData: ToastBarData = .empty
     @Published var migrationInProgress = false
-    
-    private var migrationTask: Task<(), any Error>?
+    @Published var migrationTaskId: String?
     
     // MARK: - Initializers
 
@@ -151,7 +150,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
                 applicationStateService.state = .auth
             }
         } catch SelectAccountError.accountStoreNotMigrated {
-            startMigration(id: id)
+            migrationTaskId = UUID().uuidString
         } catch {
             applicationStateService.state = .auth
         }
@@ -161,23 +160,21 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         toastBarData = ToastBarData(text: Loc.FileStorage.limitError, showSnackBar: true, messageType: .none)
     }
     
-    private func startMigration(id: String) {
-        migrationTask = Task {
-            do {
-                migrationInProgress = true
-                try await accountMigrationService.accountMigrate(id: userDefaults.usersId, rootPath: localRepoService.middlewareRepoPath)
-                migrationInProgress = false
-                await selectAccount(id: id)
-            } catch {
-                applicationStateService.state = .auth
-                toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
-            }
+    func startMigration() async {
+        do {
+            migrationInProgress = true
+            try await accountMigrationService.accountMigrate(id: userDefaults.usersId, rootPath: localRepoService.middlewareRepoPath)
+            migrationInProgress = false
+            await selectAccount(id: userDefaults.usersId)
+        } catch {
+            applicationStateService.state = .auth
+            toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
         }
     }
     
     func cancelMigration() {
         migrationInProgress = false
-        migrationTask?.cancel()
+        migrationTaskId = nil
         Task {
             try await accountMigrationService.accountMigrateCancel(id: userDefaults.usersId)
             applicationStateService.state = .auth
