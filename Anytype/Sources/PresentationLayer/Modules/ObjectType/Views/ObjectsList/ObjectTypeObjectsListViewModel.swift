@@ -7,8 +7,7 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
     @Published var rows = [WidgetObjectListRowModel]()
     @Published var numberOfObjectsLeft = 0
     @Published var sort = AllContentSort(relation: .dateUpdated)
-    
-    var isEditorLayout: Bool { document.details?.recommendedLayoutValue?.isEditorLayout ?? false }
+    @Published var isEditorLayout = false
     
     @Published private var detailsOfSet: ObjectDetails?
     var setButtonText: String { detailsOfSet.isNotNil ? Loc.openSet : Loc.createSet }
@@ -38,6 +37,19 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
                 }
             }
             numberOfObjectsLeft = state.nextCount
+        }
+    }
+    
+    func startSubscriptions() async {
+        async let setSub: () = startSetSubscription()
+        async let detailsSub: () = startDetailsSubscription()
+        
+        (_, _) = await (setSub, detailsSub)
+    }
+    
+    func startDetailsSubscription() async {
+        for await details in document.detailsPublisher.values {
+            isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
         }
     }
     

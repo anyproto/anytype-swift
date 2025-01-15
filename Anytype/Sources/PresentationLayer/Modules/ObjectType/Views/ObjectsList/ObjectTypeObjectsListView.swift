@@ -12,7 +12,7 @@ struct ObjectTypeObjectsListView: View {
     var body: some View {
         content
             .task(id: model.sort) { await model.startListSubscription() }
-            .task { await model.startSetSubscription() }
+            .task { await model.startSubscriptions() }
             .onDisappear { model.stopSubscriptions() }
     }
     
