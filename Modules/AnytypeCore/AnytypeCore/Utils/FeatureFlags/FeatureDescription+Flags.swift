@@ -62,7 +62,7 @@ public extension FeatureDescription {
     
     static let homeSpaceLevelChat = FeatureDescription(
         title: "Space-Level Chat",
-        type: .feature(author: "m@anytype.io", releaseVersion: "9"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
         defaultValue: false,
         debugValue: false
     )
@@ -90,7 +90,7 @@ public extension FeatureDescription {
     
     static let fullScreenMediaFileByTap = FeatureDescription(
         title: "Open media / files in fullscreen mode in Chats",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "9"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
         defaultValue: false,
         debugValue: true
     )
