@@ -442,6 +442,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     }
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
+        AnytypeAnalytics.instance().logClickQuote()
         chatProvider.createChatWithAttachment(attachment)
         popToFirstInSpace()
     }

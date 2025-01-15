@@ -1251,4 +1251,7 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logClickQuote() {
+        logEvent("ClickQuote")
+    }
 }
