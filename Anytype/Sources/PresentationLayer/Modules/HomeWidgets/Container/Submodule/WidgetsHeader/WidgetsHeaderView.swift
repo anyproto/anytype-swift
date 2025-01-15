@@ -28,6 +28,10 @@ struct WidgetsHeaderView: View {
                 }
                 Spacer()
             }
+            .fixTappableArea()
+            .onTapGesture {
+                model.onTapSpaceSettings()
+            }
         } rightView: {
             Image(asset: .X24.spaceSettings)
                 .foregroundStyle(Color.Control.navPanelIcon)

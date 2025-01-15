@@ -7,7 +7,7 @@ struct IncreaseTapButton<Label: View>: View {
     @ViewBuilder
     let label: Label
     
-    init(action: @escaping @MainActor () -> Void, insets: EdgeInsets = EdgeInsets(side: 30), @ViewBuilder label: () -> Label) {
+    init(action: @escaping @MainActor () -> Void, insets: EdgeInsets = EdgeInsets(side: 15), @ViewBuilder label: () -> Label) {
         self.action = action
         self.insets = insets
         self.label = label()
