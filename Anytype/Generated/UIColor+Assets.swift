@@ -192,7 +192,8 @@ extension UIColor {
       internal static let active = UIColor(asset: Asset.Control.active)
       internal static let button = UIColor(asset: Asset.Control.button)
       internal static let inactive = UIColor(asset: Asset.Control.inactive)
-      internal static let navPanelIcon = UIColor(asset: Asset.Control.navPanelIcon)
+      internal static let transparentActive = UIColor(asset: Asset.Control.transparentActive)
+      internal static let transparentInactive = UIColor(asset: Asset.Control.transparentInactive)
       internal static let white = UIColor(asset: Asset.Control.white)
     }
     

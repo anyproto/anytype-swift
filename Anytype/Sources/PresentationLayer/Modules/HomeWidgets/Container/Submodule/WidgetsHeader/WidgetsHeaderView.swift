@@ -20,10 +20,10 @@ struct WidgetsHeaderView: View {
                         .lineLimit(1)
                     if model.sharedSpace {
                         AnytypeText(model.spaceMembers, style: .relation2Regular)
-                            .foregroundColor(.Control.navPanelIcon)
+                            .foregroundColor(.Control.transparentActive)
                     } else {
                         AnytypeText(model.spaceAccessType, style: .relation2Regular)
-                            .foregroundColor(.Control.navPanelIcon)
+                            .foregroundColor(.Control.transparentActive)
                     }
                 }
                 Spacer()
@@ -34,7 +34,7 @@ struct WidgetsHeaderView: View {
             }
         } rightView: {
             Image(asset: .X24.spaceSettings)
-                .foregroundStyle(Color.Control.navPanelIcon)
+                .foregroundStyle(Color.Control.transparentActive)
                 .onTapGesture {
                     model.onTapSpaceSettings()
                 }
