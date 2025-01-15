@@ -1181,6 +1181,11 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: ResponseErro
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

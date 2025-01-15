@@ -8,7 +8,6 @@ public extension BundledRelationKey {
         .iconEmoji,
         .iconImage,
         .type,
-        .layout,
         .createdDate,
         .creator,
         .lastModifiedDate,

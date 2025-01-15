@@ -6145,6 +6145,33 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: @retroactive
     }
 }
 
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.ListConflictingRelations.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.ListConflictingRelations.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.ListConflictingRelations.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.ListConflictingRelations.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

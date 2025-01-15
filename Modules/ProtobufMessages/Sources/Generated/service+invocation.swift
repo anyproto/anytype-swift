@@ -1124,6 +1124,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectTypeListConflictingRelations(
+        _ request: Anytype_Rpc.ObjectType.ListConflictingRelations.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.ListConflictingRelations.Request, Anytype_Rpc.ObjectType.ListConflictingRelations.Response> {
+        return Invocation(messageName: "ObjectTypeListConflictingRelations", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeListConflictingRelations(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.ListConflictingRelations.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func historyShowVersion(
         _ request: Anytype_Rpc.History.ShowVersion.Request = .init()
     ) -> Invocation<Anytype_Rpc.History.ShowVersion.Request, Anytype_Rpc.History.ShowVersion.Response> {

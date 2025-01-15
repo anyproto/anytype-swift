@@ -96,5 +96,8 @@ public extension BundledRelationKey {
         .timestamp,
         .recommendedFeaturedRelations,
         .layoutWidth,
+        .defaultViewType,
+        .defaultTypeId,
+        .resolvedLayout,
     ]
 }
