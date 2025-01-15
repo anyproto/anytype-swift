@@ -22,8 +22,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var membershipNameFinalizationData: MembershipTier?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var toastBarData = ToastBarData.empty
-    @Published var showSpaceShareData: AccountInfo?
-    @Published var showSpaceMembersDataSpaceId: StringIdentifiable?
+    @Published var showSpaceShareData: SpaceShareData?
+    @Published var showSpaceMembersData: SpaceMembersData?
     @Published var chatProvider = ChatActionProvider()
     
     @Published var currentSpaceId: String?
@@ -432,14 +432,17 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     }
     
     func onMembersSelected() {
-        showSpaceMembersDataSpaceId = spaceInfo?.accountSpaceId.identifiable
+        guard let spaceInfo else { return }
+        showSpaceMembersData = SpaceMembersData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
     }
     
     func onShareSelected() {
-        showSpaceShareData = spaceInfo
+        guard let spaceInfo else { return }
+        showSpaceShareData = SpaceShareData(workspaceInfo: spaceInfo, route: .navigation)
     }
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
+        AnytypeAnalytics.instance().logClickQuote()
         chatProvider.createChatWithAttachment(attachment)
         popToFirstInSpace()
     }
