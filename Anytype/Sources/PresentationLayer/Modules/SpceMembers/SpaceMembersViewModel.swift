@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct SpaceMembersModuleData: Identifiable, Hashable {
+struct SpaceMembersData: Identifiable, Hashable {
     let spaceId: String
     let route: SettingsSpaceMembersRoute
     var id: Int { hashValue }
@@ -18,13 +18,13 @@ final class SpaceMembersViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(data.spaceId)
     
-    private let data: SpaceMembersModuleData
+    private let data: SpaceMembersData
     
     // MARK: - State
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
     
-    init(data: SpaceMembersModuleData) {
+    init(data: SpaceMembersData) {
         self.data = data
     }
     

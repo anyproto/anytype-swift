@@ -23,7 +23,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var toastBarData = ToastBarData.empty
     @Published var showSpaceShareData: SpaceShareData?
-    @Published var showSpaceMembersData: SpaceMembersModuleData?
+    @Published var showSpaceMembersData: SpaceMembersData?
     @Published var chatProvider = ChatActionProvider()
     
     @Published var currentSpaceId: String?
@@ -433,7 +433,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     
     func onMembersSelected() {
         guard let spaceInfo else { return }
-        showSpaceMembersData = SpaceMembersModuleData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
+        showSpaceMembersData = SpaceMembersData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
     }
     
     func onShareSelected() {

@@ -5,7 +5,7 @@ struct SpaceMembersView: View {
     
     @StateObject private var model: SpaceMembersViewModel
     
-    init(data: SpaceMembersModuleData) {
+    init(data: SpaceMembersData) {
         _model = StateObject(wrappedValue: SpaceMembersViewModel(data: data))
     }
     
