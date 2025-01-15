@@ -69,14 +69,14 @@ public extension FeatureDescription {
     
     static let pinnedSpaces = FeatureDescription(
         title: "Pinned Spaces",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         defaultValue: false,
         debugValue: false
     )
     
     static let newSpacesLoading = FeatureDescription(
         title: "Spaces loading indicator",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         defaultValue: false,
         debugValue: false
     )
@@ -98,8 +98,7 @@ public extension FeatureDescription {
     static let memberProfile = FeatureDescription(
         title: "Space member profile",
         type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
-        defaultValue: false,
-        debugValue: false
+        defaultValue: true
     )
     
     // MARK: - Debug
