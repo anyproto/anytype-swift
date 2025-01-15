@@ -51,13 +51,10 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
     private let serverConfigurationStorage: any ServerConfigurationStorageProtocol = Container.shared.serverConfigurationStorage()
-    private let subscriptionService: any SingleObjectSubscriptionServiceProtocol = Container.shared.singleObjectSubscriptionService()
-    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
+    private let profileStorage: any ProfileStorageProtocol = Container.shared.profileStorage()
     
     private let subscription = AtomicStorage<AnyCancellable?>(nil)
-    private let subId = "ParticipantSpacesStorage-\(UUID().uuidString)"
     
-    private let sharedSpacesLimit = AtomicStorage<Int?>(nil)
     private let allParticipantSpacesStorage = AtomicPublishedStorage<[ParticipantSpaceViewData]>([])
 
     // MARK: - Public
@@ -70,7 +67,7 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     nonisolated init() {}
     
     var spaceSharingInfo: SpaceSharingInfo? {
-        guard let sharedSpacesLimit = sharedSpacesLimit.value else { return nil }
+        guard let sharedSpacesLimit = profileStorage.profile.sharedSpacesLimit else { return nil }
         let sharedSpacesCount = allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count
         return SpaceSharingInfo(sharedSpacesLimit: sharedSpacesLimit, sharedSpacesCount: sharedSpacesCount)
     }
@@ -80,28 +77,14 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
             .sink { [weak self] spaces, participants in
                 self?.updateData(spaces: spaces, participants: participants)
             }
-        
-        await subscriptionService.startSubscription(
-            subId: subId,
-            spaceId: accountManager.account.info.techSpaceId,
-            objectId: accountManager.account.info.profileObjectID,
-            additionalKeys: [.sharedSpacesLimit]
-        ) { [weak self] details in
-            self?.handleSubscription(details: details)
-        }
     }
     
     func stopSubscription() async {
         subscription.value?.cancel()
         subscription.value = nil
-        await subscriptionService.stopSubscription(subId: subId)
     }
     
     // MARK: - Private
-    
-    private func handleSubscription(details: ObjectDetails) {
-        sharedSpacesLimit.value = details.sharedSpacesLimit
-    }
     
     private func updateData(spaces: [SpaceView], participants: [Participant]) {
         allParticipantSpacesStorage.value = spaces.compactMap { space in
