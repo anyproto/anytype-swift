@@ -4,13 +4,25 @@ platform :ios do
 
   lane :dev do
     deploy(
-      release: false
+      configs: [ENV["APP_CONF_DEVELOP"]]
     )
   end
 
   lane :release do
     deploy(
-      release: true
+      apps[ENV["APP_CONF_RELEASE_ANYTYPE"], ENV["APP_CONF_RELEASE_ANYAPP"]]
+    )
+  end
+
+  lane :release_anytype do
+    deploy(
+      apps[ENV["APP_CONF_RELEASE_ANYTYPE"]]
+    )
+  end
+
+  lane :release_anyapp do
+    deploy(
+      apps[ENV["APP_CONF_RELEASE_ANYAPP"]]
     )
   end
 
@@ -41,31 +53,6 @@ platform :ios do
       no_verify: true
     )
 
-    if !options[:release] 
-      add_badge(
-        shield: "#{version}-#{build_number}-blue",
-        no_badge: true
-      )
-    end
-
-    set_amplitude_api_key_to_info_plist
-    set_sentry_dsn_to_info_plist
-    
-    
-    build_app(
-      scheme: ENV["APP_TARGET"], 
-      configuration: options[:release] ? ENV["APP_CONF_RELEASE"] : ENV["APP_CONF_DEVELOP"],
-      include_symbols: true,
-      use_system_scm: true,
-      archive_path: "./build/archive",
-      output_directory: "./build/result",
-      xcargs: ENV['BUILD_OPTIONS'],
-      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
-    )
-
-    # Reset icon/info.plist changes
-    reset_git_repo(skip_clean: true)
-
     sh("git checkout " + current_branch)
 
     git_pull
@@ -73,33 +60,77 @@ platform :ios do
     sh("git merge --ff --no-verify " + temp_branch)
     sh("git branch -d " + temp_branch)
 
-    prefix = options[:release] ? "release" : "dev"
-    tag_name = "#{prefix}/#{version}/#{build_number}"
-    add_git_tag(
-      tag: tag_name,
-      force: true
-    )
-
     push_to_git_remote(no_verify: true)
-  
-    appInfo = options[:release] ? "Release" : "Dev"
-    add_linear_comment(
-      from_tag: old_tag_name,
-      to_tag: tag_name,
-      comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
-    )
     
+    config_settings = {
+      ENV["APP_CONF_DEVELOP"] => {
+        tag_prefix: "dev",
+        add_badge: true,
+        app_info: "Debug"
+      },
+      ENV["APP_CONF_RELEASE_ANYTYPE"] => => {
+        tag_prefix: "release/anytype",
+        add_badge: false,
+        app_info: "Release Anytype"
+      },
+      ENV["APP_CONF_RELEASE_ANYAPP"] => {
+        tag_prefix: "release/anyapp",
+        add_badge: false,
+        app_info: "Release Any App"
+      },
+    }
+
     set_api_key
-    upload_to_testflight(skip_waiting_for_build_processing: true)
 
-    message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"
-    sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
+    options[:configs].each do |config|
 
-    upload_dsyms_to_sentry
+      settings = config_settings[config]
 
-    dsym_paths = []
-    Dir.chdir("..") do
-      dsym_paths = Dir["./build/result/*.dSYM.zip"]
+      puts "Start Build: #{config}"
+      
+      if setting[:add_badge]
+        add_badge(
+          shield: "#{version}-#{build_number}-blue",
+          no_badge: true
+        )
+      end
+      
+      build_app(
+        scheme: ENV["APP_TARGET"], 
+        configuration: config,
+        include_symbols: true,
+        use_system_scm: true,
+        archive_path: "./build/archive",
+        output_directory: "./build/result",
+        xcargs: ENV['BUILD_OPTIONS'],
+        cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+      )
+
+      # Reset icon/info.plist changes
+      reset_git_repo(skip_clean: true)
+    
+      prefix = setting[:tag_prefix]
+      tag_name = "#{prefix}/#{version}/#{build_number}"
+      add_git_tag(
+        tag: tag_name,
+        force: true
+      )
+
+      push_to_git_remote(no_verify: true)
+    
+      appInfo = setting[:app_info]
+      add_linear_comment(
+        from_tag: old_tag_name,
+        to_tag: tag_name,
+        comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
+      )
+    
+      upload_to_testflight(skip_waiting_for_build_processing: true)
+
+      message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"
+      sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
+
+      upload_dsyms_to_sentry
     end
 
   end
