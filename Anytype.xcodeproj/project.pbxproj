@@ -1571,7 +1571,7 @@
 			};
 			name = "Release-Nightly";
 		};
-		74F7F7E72D37BC1400F6C566 /* Release-Any */ = {
+		74F7F7E72D37BC1400F6C566 /* Release-AnyApp */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1637,9 +1637,9 @@
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release-Any";
+			name = "Release-AnyApp";
 		};
-		74F7F7E82D37BC1400F6C566 /* Release-Any */ = {
+		74F7F7E82D37BC1400F6C566 /* Release-AnyApp */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1670,8 +1670,8 @@
 				MARKETING_VERSION = 0.35.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
-				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
+				PRODUCT_NAME = Any;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app";
 				SENTRY_ENV = production;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1683,9 +1683,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Release-Any";
+			name = "Release-AnyApp";
 		};
-		74F7F7E92D37BC1400F6C566 /* Release-Any */ = {
+		74F7F7E92D37BC1400F6C566 /* Release-AnyApp */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1710,9 +1710,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anytype.app/Anytype";
 			};
-			name = "Release-Any";
+			name = "Release-AnyApp";
 		};
-		74F7F7EA2D37BC1400F6C566 /* Release-Any */ = {
+		74F7F7EA2D37BC1400F6C566 /* Release-AnyApp */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1755,9 +1755,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Release-Any";
+			name = "Release-AnyApp";
 		};
-		74F7F7EB2D37BC1400F6C566 /* Release-Any */ = {
+		74F7F7EB2D37BC1400F6C566 /* Release-AnyApp */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1798,7 +1798,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Release-Any";
+			name = "Release-AnyApp";
 		};
 		862D559B2A8F78340018103F /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2074,7 +2074,7 @@
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,
 				0303ED0E22D8EDAD005C552B /* Release-Anytype */,
-				74F7F7E72D37BC1400F6C566 /* Release-Any */,
+				74F7F7E72D37BC1400F6C566 /* Release-AnyApp */,
 				1267458B2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2085,7 +2085,7 @@
 			buildConfigurations = (
 				0303ED1022D8EDAD005C552B /* Debug */,
 				0303ED1122D8EDAD005C552B /* Release-Anytype */,
-				74F7F7E82D37BC1400F6C566 /* Release-Any */,
+				74F7F7E82D37BC1400F6C566 /* Release-AnyApp */,
 				1267458C2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2096,7 +2096,7 @@
 			buildConfigurations = (
 				03C5C54822DFD90C00DD91DE /* Debug */,
 				03C5C54922DFD90C00DD91DE /* Release-Anytype */,
-				74F7F7E92D37BC1400F6C566 /* Release-Any */,
+				74F7F7E92D37BC1400F6C566 /* Release-AnyApp */,
 				1267458D2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2107,7 +2107,7 @@
 			buildConfigurations = (
 				862D559B2A8F78340018103F /* Debug */,
 				862D559C2A8F78340018103F /* Release-Anytype */,
-				74F7F7EB2D37BC1400F6C566 /* Release-Any */,
+				74F7F7EB2D37BC1400F6C566 /* Release-AnyApp */,
 				862D559D2A8F78340018103F /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2118,7 +2118,7 @@
 			buildConfigurations = (
 				C960DFBB28D88618002898AE /* Debug */,
 				C960DFBC28D88618002898AE /* Release-Anytype */,
-				74F7F7EA2D37BC1400F6C566 /* Release-Any */,
+				74F7F7EA2D37BC1400F6C566 /* Release-AnyApp */,
 				C960DFBD28D88618002898AE /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
