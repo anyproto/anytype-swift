@@ -78,7 +78,8 @@ platform :ios do
     push_to_git_remote(no_verify: true)
   
     appInfo = setting[:app_info]
-    old_tag_name = sh("git describe --first-parent --tags --abbrev=0").chomp
+    old_tag_name = sh("git describe --first-parent --tags --abbrev=0 HEAD~").chomp
+    
     add_linear_comment(
       from_tag: old_tag_name,
       to_tag: tag_name,
