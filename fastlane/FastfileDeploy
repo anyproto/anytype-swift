@@ -24,7 +24,7 @@ platform :ios do
         add_badge: true,
         app_info: "Debug"
       },
-      ENV["APP_CONF_RELEASE_ANYTYPE"] => => {
+      ENV["APP_CONF_RELEASE_ANYTYPE"] => {
         tag_prefix: "release/anytype",
         add_badge: false,
         app_info: "Release Anytype"
@@ -36,10 +36,10 @@ platform :ios do
       },
     }
 
-    setup_ci
+    # setup_ci
     match(readonly: true)
 
-    set_api_key
+    # set_api_key
 
     config = options[:configs]
     
@@ -47,51 +47,51 @@ platform :ios do
 
     puts "Start Build: #{config}"
     
-    if setting[:add_badge]
-      add_badge(
-        shield: "#{version}-#{build_number}-blue",
-        no_badge: true
-      )
-    end
+    # if settings[:add_badge]
+    #   add_badge(
+    #     shield: "#{version}-#{build_number}-blue",
+    #     no_badge: true
+    #   )
+    # end
     
-    build_app(
-      scheme: ENV["APP_TARGET"], 
-      configuration: config,
-      include_symbols: true,
-      use_system_scm: true,
-      archive_path: "./build/archive",
-      output_directory: "./build/result",
-      xcargs: ENV['BUILD_OPTIONS'],
-      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
-    )
+    # build_app(
+    #   scheme: ENV["APP_TARGET"], 
+    #   configuration: config,
+    #   include_symbols: true,
+    #   use_system_scm: true,
+    #   archive_path: "./build/archive",
+    #   output_directory: "./build/result",
+    #   xcargs: ENV['BUILD_OPTIONS'],
+    #   cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+    # )
 
     # Reset icon/info.plist changes
-    reset_git_repo(skip_clean: true)
+    # reset_git_repo(skip_clean: true)
   
-    prefix = setting[:tag_prefix]
+    prefix = settings[:tag_prefix]
     tag_name = "#{prefix}/#{version}/#{build_number}"
     add_git_tag(
       tag: tag_name,
       force: true
     )
 
-    push_to_git_remote(no_verify: true)
+    # push_to_git_remote(no_verify: true)
   
-    appInfo = setting[:app_info]
+    appInfo = settings[:app_info]
     old_tag_name = sh("git describe --first-parent --tags --abbrev=0 HEAD~").chomp
-    
-    add_linear_comment(
-      from_tag: old_tag_name,
-      to_tag: tag_name,
-      comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
-    )
+
+    # add_linear_comment(
+    #   from_tag: old_tag_name,
+    #   to_tag: tag_name,
+    #   comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
+    # )
   
-    upload_to_testflight(skip_waiting_for_build_processing: true)
+    # upload_to_testflight(skip_waiting_for_build_processing: true)
 
     message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"
     sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
 
-    upload_dsyms_to_sentry
+    # upload_dsyms_to_sentry
 
   end
   

@@ -2,11 +2,24 @@ git_url("git@github.com:anyproto/ios-match.git")
 
 storage_mode("git")
 
-username("Anytype Team") # Your Apple Developer Portal username
+username(ENV["APPLE_ID"]) # Your Apple Developer Portal username
 
-APP_ID_ALL_DEVELOP = [ENV["APP_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"]]
-APP_ID_ALL_RELEASE_ANYTYPE = [ENV["APP_ID_RELEASE_ANYTYPE"], ENV["APP_WIDGET_ID_RELEASE_ANYTYPE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE_ANYTYPE"]]
-APP_ID_ALL_RELEASE_ANYAPP = [ENV["APP_ID_RELEASE_ANYAPP"], ENV["APP_WIDGET_ID_RELEASE_ANYAPP"], ENV["APP_SHARE_EXTENSION_ID_RELEASE_ANYAPP"]]
+
+APP_ID_ALL_DEVELOP ||= [
+    ENV["APP_ID_DEVELOP"],
+    ENV["APP_SHARE_EXTENSION_ID_DEVELOP"],
+    ENV["APP_WIDGET_ID_DEVELOP"]
+]
+APP_ID_ALL_RELEASE_ANYTYPE ||= [
+    ENV["APP_ID_RELEASE_ANYTYPE"],
+    ENV["APP_WIDGET_ID_RELEASE_ANYTYPE"],
+    ENV["APP_SHARE_EXTENSION_ID_RELEASE_ANYTYPE"]
+]
+APP_ID_ALL_RELEASE_ANYAPP ||= [
+    ENV["APP_ID_RELEASE_ANYAPP"],
+    ENV["APP_WIDGET_ID_RELEASE_ANYAPP"], 
+    ENV["APP_SHARE_EXTENSION_ID_RELEASE_ANYAPP"]
+]
 
 for_lane :release_dev do
 	type("appstore")
@@ -43,9 +56,19 @@ for_lane :install_dev_profiles do
 	app_identifier(APP_ID_ALL_DEVELOP) 
 end
 
-for_lane :generate_appstore_profiles do
+for_lane :generate_appstore_profiles_for_nightly do
 	type("appstore")
-	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE + APP_ID_ALL_RELEASE_ANYAPP) 
+	app_identifier(APP_ID_ALL_DEVELOP) 
+end
+
+for_lane :generate_appstore_profiles_for_anytype do
+	type("appstore")
+	app_identifier(APP_ID_ALL_RELEASE_ANYTYPE) 
+end
+
+for_lane :generate_appstore_profiles_for_anyapp do
+	type("appstore")
+	app_identifier(APP_ID_ALL_RELEASE_ANYAPP) 
 end
 
 for_lane :install_appstore_profiles do
