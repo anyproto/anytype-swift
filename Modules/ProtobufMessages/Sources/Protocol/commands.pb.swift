@@ -10294,6 +10294,9 @@ public struct Anytype_Rpc {
         /// for migration
         public var includeArchived: Bool = false
 
+        /// for integrations like raycast and web publishing
+        public var noProgress: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -50163,6 +50166,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     6: .same(proto: "includeFiles"),
     7: .same(proto: "isJson"),
     9: .same(proto: "includeArchived"),
+    11: .same(proto: "noProgress"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -50180,6 +50184,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
       case 7: try { try decoder.decodeSingularBoolField(value: &self.isJson) }()
       case 9: try { try decoder.decodeSingularBoolField(value: &self.includeArchived) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 11: try { try decoder.decodeSingularBoolField(value: &self.noProgress) }()
       default: break
       }
     }
@@ -50213,6 +50218,9 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 10)
     }
+    if self.noProgress != false {
+      try visitor.visitSingularBoolField(value: self.noProgress, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -50226,6 +50234,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     if lhs.includeFiles != rhs.includeFiles {return false}
     if lhs.isJson != rhs.isJson {return false}
     if lhs.includeArchived != rhs.includeArchived {return false}
+    if lhs.noProgress != rhs.noProgress {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

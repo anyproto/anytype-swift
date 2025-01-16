@@ -2289,6 +2289,8 @@ public struct Anytype_Model_Block {
 
         public var formula: Anytype_Model_Block.Content.Dataview.Relation.FormulaType = .none
 
+        public var align: Anytype_Model_Block.Align = .left
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum DateFormat: SwiftProtobuf.Enum {
@@ -8072,6 +8074,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
     6: .same(proto: "timeFormat"),
     7: .same(proto: "dateFormat"),
     8: .same(proto: "formula"),
+    9: .same(proto: "align"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8087,6 +8090,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
       case 6: try { try decoder.decodeSingularEnumField(value: &self.timeFormat) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.dateFormat) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.formula) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.align) }()
       default: break
       }
     }
@@ -8114,6 +8118,9 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
     if self.formula != .none {
       try visitor.visitSingularEnumField(value: self.formula, fieldNumber: 8)
     }
+    if self.align != .left {
+      try visitor.visitSingularEnumField(value: self.align, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -8125,6 +8132,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
     if lhs.timeFormat != rhs.timeFormat {return false}
     if lhs.dateFormat != rhs.dateFormat {return false}
     if lhs.formula != rhs.formula {return false}
+    if lhs.align != rhs.align {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
