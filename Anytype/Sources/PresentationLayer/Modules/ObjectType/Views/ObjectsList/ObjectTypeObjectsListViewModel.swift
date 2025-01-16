@@ -6,7 +6,7 @@ import Services
 final class ObjectTypeObjectsListViewModel: ObservableObject {
     @Published var rows = [WidgetObjectListRowModel]()
     @Published var numberOfObjectsLeft = 0
-    @Published var sort = AllContentSort(relation: .dateUpdated)
+    @Published var sort = ObjectSort(relation: .dateUpdated)
     
     var isEditorLayout: Bool { document.details?.recommendedLayoutValue?.isEditorLayout ?? false }
     

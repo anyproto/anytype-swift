@@ -35,7 +35,7 @@ final class GlobalSearchViewModel: ObservableObject {
             let result: [SearchResultWithMeta]
             switch state.mode {
             case .default:
-                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId)
+                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, sorts: buildSorts())
             }
             
             updateInitialStateIfNeeded()
@@ -126,5 +126,18 @@ final class GlobalSearchViewModel: ObservableObject {
     
     private func storeState() {
         globalSearchSavedStatesService.storeState(state, spaceId: moduleData.spaceId)
+    }
+    
+    private func buildSorts() -> [DataviewSort] {
+        .builder {
+            if state.searchText.isEmpty {
+                state.sort.asDataviewSort()
+            } else {
+                SearchHelper.sort(
+                    relation: BundledRelationKey.lastOpenedDate,
+                    type: .desc
+                )
+            }
+        }
     }
 }

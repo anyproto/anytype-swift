@@ -13,7 +13,7 @@ struct GlobalSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            searchBar
+            header
             content
         }
         .background(Color.Background.secondary)
@@ -24,12 +24,34 @@ struct GlobalSearchView: View {
         .onChange(of: model.state.searchText) { _ in model.onSearchTextChanged() }
     }
     
+    private var header: some View {
+        HStack(spacing: 0) {
+            searchBar
+            if model.state.searchText.isEmpty {
+                menu
+            }
+        }
+        .animation(.easeInOut, value: model.state.searchText.isEmpty)
+    }
+    
     private var searchBar: some View {
         SearchBar(text: $model.state.searchText, focused: true, placeholder: Loc.search)
             .submitLabel(.go)
             .onSubmit {
                 model.onKeyboardButtonTap()
             }
+    }
+    
+    private var menu: some View {
+        ObjectsSortMenu(
+            sort: $model.state.sort,
+            label: {
+                Image(asset: .X40.sorts)
+            }
+        )
+        .padding(.leading, -8)
+        .padding(.trailing, 16)
+        .menuActionDisableDismissBehavior()
     }
     
     @ViewBuilder

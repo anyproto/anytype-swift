@@ -7,7 +7,7 @@ protocol ObjectsListSubscriptionServiceProtocol: AnyObject, Sendable {
     func startSubscription(
         objectTypeId: String,
         spaceId: String,
-        sort: AllContentSort
+        sort: ObjectSort
     ) async -> AnyPublisher<SubscriptionStorageState, Never>
     func stopSubscription() async
 }
@@ -24,7 +24,7 @@ actor ObjectsListSubscriptionService: ObjectsListSubscriptionServiceProtocol {
     func startSubscription(
         objectTypeId: String,
         spaceId: String,
-        sort: AllContentSort
+        sort: ObjectSort
     ) async -> AnyPublisher<SubscriptionStorageState, Never>{
         let sort = SearchHelper.sort(
             relation: sort.relation.key,
