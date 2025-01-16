@@ -58,7 +58,7 @@ struct GlobalSearchView: View {
     private var content: some View {
         if model.isInitial {
             Spacer()
-        } else if model.searchData.isEmpty {
+        } else if model.sections.isEmpty {
             emptyState
         } else {
             searchResults
@@ -67,8 +67,12 @@ struct GlobalSearchView: View {
     
     private var searchResults: some View {
         PlainList {
-            ForEach(model.searchData) { section in
-                ForEach(section.searchData) { data in
+            ForEach(model.sections) { section in
+                if let title = section.data, title.isNotEmpty {
+                    ListSectionHeaderView(title: title)
+                        .padding(.horizontal, 20)
+                }
+                ForEach(section.rows) { data in
                     itemRow(for: data)
                 }
             }

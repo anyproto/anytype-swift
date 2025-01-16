@@ -1,5 +1,7 @@
 import Services
 import Combine
+import Foundation
+import OrderedCollections
 
 @MainActor
 final class GlobalSearchViewModel: ObservableObject {
@@ -15,8 +17,10 @@ final class GlobalSearchViewModel: ObservableObject {
     
     private let moduleData: GlobalSearchModuleData
     
+    private let dateFormatter = AnytypeRelativeDateTimeFormatter()
+    
     @Published var state = GlobalSearchState()
-    @Published var searchData: [GlobalSearchDataSection] = []
+    @Published var sections = [ListSectionData<String?, GlobalSearchData>]()
     @Published var dismiss = false
     
     var isInitial = true
@@ -31,35 +35,16 @@ final class GlobalSearchViewModel: ObservableObject {
             if needDelay() {
                 try await Task.sleep(seconds: 0.3)
             }
-            
-            let result: [SearchResultWithMeta]
-            switch state.mode {
-            case .default:
-                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, sorts: buildSorts())
-            }
+
+            let result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, sorts: buildSorts())
             
             updateInitialStateIfNeeded()
-            
-            let objectsSearchData = result.compactMap { result in
-                globalSearchDataBuilder.buildData(with: result, spaceId: moduleData.spaceId)
-            }
-            
-            guard objectsSearchData.isNotEmpty else {
-                searchData = []
-                return
-            }
-            
-            searchData = [
-                GlobalSearchDataSection(
-                    searchData: objectsSearchData,
-                    sectionConfig: sectionConfig()
-                )
-            ]
+            updateSections(result: result)
             
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
         } catch {
-            searchData = []
+            sections = []
         }
     }
     
@@ -69,7 +54,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onKeyboardButtonTap() {
-        guard let firstObject = searchData.first?.searchData.first else { return }
+        guard let firstObject = sections.first?.rows.first else { return }
         onSelect(searchData: firstObject)
     }
     
@@ -96,8 +81,27 @@ final class GlobalSearchViewModel: ObservableObject {
         }
     }
     
-    func sectionConfig() -> GlobalSearchDataSection.SectionConfig? {
-        return nil
+    private func updateSections(result: [SearchResultWithMeta]) {
+        guard state.shouldGroupResults else {
+            sections = [listSectionData(title: nil, result: result)]
+            return
+        }
+        
+        let today = Date()
+        let dict = OrderedDictionary(
+            grouping: result,
+            by: {
+                dateFormatter.localizedString(for: sortValue(for: $0.objectDetails) ?? today, relativeTo: today)
+            }
+        )
+        
+        if dict.count == 1 {
+            sections = [listSectionData(title: nil, result: result)]
+        } else {
+            sections = dict.map { (key, result) in
+                listSectionData(title: key, result: result)
+            }
+        }
     }
     
     private func updateInitialStateIfNeeded() {
@@ -128,6 +132,16 @@ final class GlobalSearchViewModel: ObservableObject {
         globalSearchSavedStatesService.storeState(state, spaceId: moduleData.spaceId)
     }
     
+    private func listSectionData(title: String?, result: [SearchResultWithMeta]) -> ListSectionData<String?, GlobalSearchData> {
+        ListSectionData(
+            id: title ?? UUID().uuidString,
+            data: title,
+            rows: result.compactMap { result in
+                globalSearchDataBuilder.buildData(with: result, spaceId: moduleData.spaceId)
+            }
+        )
+    }
+    
     private func buildSorts() -> [DataviewSort] {
         .builder {
             if state.searchText.isEmpty {
@@ -138,6 +152,17 @@ final class GlobalSearchViewModel: ObservableObject {
                     type: .desc
                 )
             }
+        }
+    }
+    
+    private func sortValue(for details: ObjectDetails) -> Date? {
+        switch state.sort.relation {
+        case .dateUpdated:
+            return details.lastModifiedDate
+        case .dateCreated:
+            return details.createdDate
+        case .name:
+            return nil
         }
     }
 }
