@@ -82,6 +82,11 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     private func updateSections(result: [SearchResultWithMeta]) {
+        guard result.isNotEmpty else {
+            sections = []
+            return
+        }
+        
         guard state.shouldGroupResults else {
             sections = [listSectionData(title: nil, result: result)]
             return
