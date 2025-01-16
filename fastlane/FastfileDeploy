@@ -2,65 +2,21 @@ default_platform(:ios)
 
 platform :ios do
 
-  lane :dev do
-    deploy(
-      configs: [ENV["APP_CONF_DEVELOP"]]
-    )
-  end
-
-  lane :release do
-    deploy(
-      apps[ENV["APP_CONF_RELEASE_ANYTYPE"], ENV["APP_CONF_RELEASE_ANYAPP"]]
-    )
+  lane :release_dev do
+    deploy(config: ENV["APP_CONF_DEVELOP"])
   end
 
   lane :release_anytype do
-    deploy(
-      apps[ENV["APP_CONF_RELEASE_ANYTYPE"]]
-    )
+    deploy(config: ENV["APP_CONF_RELEASE_ANYTYPE"])
   end
 
   lane :release_anyapp do
-    deploy(
-      apps[ENV["APP_CONF_RELEASE_ANYAPP"]]
-    )
+    deploy(config: ENV["APP_CONF_RELEASE_ANYAPP"])
   end
 
   # Private lanes
 
   private_lane :deploy do |options| 
-    xcodeproj = ENV["APP_PROJECT"]
-    current_branch = git_branch
-    temp_branch = "#{current_branch}-temp"
-
-    setup_ci
-    match(readonly: true)
-    
-    ensure_git_status_clean(
-      show_uncommitted_changes: true,
-      show_diff: true
-    )
-
-    sh("git checkout -b " + temp_branch)
-
-    build_number = increment_build_number(xcodeproj: xcodeproj, skip_info_plist: true)
-    version = get_version_number(xcodeproj: xcodeproj, target: ENV["APP_TARGET"])
-    old_tag_name = sh("git describe --first-parent --tags --abbrev=0").chomp
-
-    commit_version_bump(
-      message: "Bump version #{version}(#{build_number})",
-      xcodeproj: xcodeproj,
-      no_verify: true
-    )
-
-    sh("git checkout " + current_branch)
-
-    git_pull
-
-    sh("git merge --ff --no-verify " + temp_branch)
-    sh("git branch -d " + temp_branch)
-
-    push_to_git_remote(no_verify: true)
     
     config_settings = {
       ENV["APP_CONF_DEVELOP"] => {
@@ -80,58 +36,61 @@ platform :ios do
       },
     }
 
+    setup_ci
+    match(readonly: true)
+
     set_api_key
 
-    options[:configs].each do |config|
-
-      settings = config_settings[config]
-
-      puts "Start Build: #{config}"
-      
-      if setting[:add_badge]
-        add_badge(
-          shield: "#{version}-#{build_number}-blue",
-          no_badge: true
-        )
-      end
-      
-      build_app(
-        scheme: ENV["APP_TARGET"], 
-        configuration: config,
-        include_symbols: true,
-        use_system_scm: true,
-        archive_path: "./build/archive",
-        output_directory: "./build/result",
-        xcargs: ENV['BUILD_OPTIONS'],
-        cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
-      )
-
-      # Reset icon/info.plist changes
-      reset_git_repo(skip_clean: true)
+    config = options[:configs]
     
-      prefix = setting[:tag_prefix]
-      tag_name = "#{prefix}/#{version}/#{build_number}"
-      add_git_tag(
-        tag: tag_name,
-        force: true
-      )
+    settings = config_settings[config]
 
-      push_to_git_remote(no_verify: true)
+    puts "Start Build: #{config}"
     
-      appInfo = setting[:app_info]
-      add_linear_comment(
-        from_tag: old_tag_name,
-        to_tag: tag_name,
-        comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
+    if setting[:add_badge]
+      add_badge(
+        shield: "#{version}-#{build_number}-blue",
+        no_badge: true
       )
-    
-      upload_to_testflight(skip_waiting_for_build_processing: true)
-
-      message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"
-      sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
-
-      upload_dsyms_to_sentry
     end
+    
+    build_app(
+      scheme: ENV["APP_TARGET"], 
+      configuration: config,
+      include_symbols: true,
+      use_system_scm: true,
+      archive_path: "./build/archive",
+      output_directory: "./build/result",
+      xcargs: ENV['BUILD_OPTIONS'],
+      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+    )
+
+    # Reset icon/info.plist changes
+    reset_git_repo(skip_clean: true)
+  
+    prefix = setting[:tag_prefix]
+    tag_name = "#{prefix}/#{version}/#{build_number}"
+    add_git_tag(
+      tag: tag_name,
+      force: true
+    )
+
+    push_to_git_remote(no_verify: true)
+  
+    appInfo = setting[:app_info]
+    old_tag_name = sh("git describe --first-parent --tags --abbrev=0").chomp
+    add_linear_comment(
+      from_tag: old_tag_name,
+      to_tag: tag_name,
+      comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
+    )
+  
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+
+    message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"
+    sh("echo FASTLANE_SUMMARY='#{message}' >> $GITHUB_ENV")
+
+    upload_dsyms_to_sentry
 
   end
   
