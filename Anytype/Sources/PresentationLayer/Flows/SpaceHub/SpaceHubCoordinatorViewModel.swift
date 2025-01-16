@@ -221,17 +221,37 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     private func openSpace(spaceId: String, data: ScreenData? = nil) async throws {
+        guard currentSpaceId != spaceId else {
+            try await showScreen(spaceId: spaceId, data: data)
+            return
+        }
+        
+        // Check if space is deleted
+        guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
+        
+        currentSpaceId = spaceId
+        try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+        currentSpaceId = spaceId
+        
+        if let spaceInfo {
+            navigationPath = HomePath(initialPath: initialHomePath(spaceView: spaceView, spaceInfo: spaceInfo))
+            try await showScreen(spaceId: spaceId, data: data)
+        }
+    }
+    
+    private func showScreen(spaceId: String, data: ScreenData?) async throws {
         switch data {
         case .alert(let alertScreenData):
             if FeatureFlags.memberProfile {
                 await showAlert(alertScreenData)
             } else { // fallback to page screen
-                try await openSpace(spaceId: spaceId, editorData: .page(EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)))
+                let pageObject = EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)
+                navigationPath.push(EditorScreenData.page(pageObject))
             }
         case .editor(let editorScreenData):
-            try await openSpace(spaceId: spaceId, editorData: editorScreenData)
+            navigationPath.push(editorScreenData)
         case nil:
-            try await openSpace(spaceId: spaceId, editorData: nil)
+            return
         }
     }
     
@@ -241,25 +261,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         switch data {
         case .spaceMember(let objectInfo):
             profileData = objectInfo
-        }
-    }
-        
-    private func openSpace(spaceId: String, editorData: EditorScreenData?) async throws {
-        if currentSpaceId != spaceId {
-            // Check if space is deleted
-            guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
-           
-            currentSpaceId = spaceId
-            try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
-            currentSpaceId = spaceId
-            
-            if let spaceInfo {
-                var initialPath = initialHomePath(spaceView: spaceView, spaceInfo: spaceInfo)
-                editorData.flatMap { initialPath.append($0) }
-                navigationPath = HomePath(initialPath: initialPath)
-            }
-        } else {
-            editorData.flatMap { navigationPath.push($0) }
         }
     }
     
