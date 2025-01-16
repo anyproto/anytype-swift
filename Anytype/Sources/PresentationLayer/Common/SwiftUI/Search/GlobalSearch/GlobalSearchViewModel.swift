@@ -90,9 +90,7 @@ final class GlobalSearchViewModel: ObservableObject {
         let today = Date()
         let dict = OrderedDictionary(
             grouping: result,
-            by: {
-                dateFormatter.localizedString(for: sortValue(for: $0.objectDetails) ?? today, relativeTo: today)
-            }
+            by: { dateFormatter.localizedString(for: sortValue(for: $0.objectDetails) ?? today, relativeTo: today) }
         )
         
         if dict.count == 1 {

@@ -31,7 +31,6 @@ struct GlobalSearchView: View {
                 menu
             }
         }
-        .animation(.easeInOut, value: model.state.searchText.isEmpty)
     }
     
     private var searchBar: some View {
