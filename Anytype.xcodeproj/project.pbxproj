@@ -76,7 +76,9 @@
 		538ABD4E284F9F88000D3CCC /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4D284F9F88000D3CCC /* Collections */; };
 		538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4F284F9F88000D3CCC /* DequeModule */; };
 		538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD51284F9F88000D3CCC /* OrderedCollections */; };
-		74593F722D38F0750094CFFA /* AppTargetType in Frameworks */ = {isa = PBXBuildFile; productRef = 74593F712D38F0750094CFFA /* AppTargetType */; };
+		7434DAC32D3916FF00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC22D3916FF00E18A0C /* AppTarget */; };
+		7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC42D3920BE00E18A0C /* AppTarget */; };
+		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
 		74AD8EC52D12F2FD000EDFBE /* ChatMessageLimitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD8EC42D12F2FD000EDFBE /* ChatMessageLimitsTests.swift */; };
 		862D559A2A8F78330018103F /* AnytypeShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */; };
@@ -274,7 +276,7 @@
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		3DE5975E2C78BDE800883AF8 /* UserDefaultsStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsStorageMock.swift; path = AnyTypeTests/Markdown/Mocks/UserDefaultsStorageMock.swift; sourceTree = SOURCE_ROOT; };
 		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
-		74593F702D38F0630094CFFA /* AppTargetType */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppTargetType; path = Modules/AppTargetType; sourceTree = "<group>"; };
+		7434DAC12D3916F000E18A0C /* AppTarget */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppTarget; path = Modules/AppTarget; sourceTree = "<group>"; };
 		74AD8EC42D12F2FD000EDFBE /* ChatMessageLimitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatMessageLimitsTests.swift; path = AnyTypeTests/Services/ChatMessageLimitsTests.swift; sourceTree = SOURCE_ROOT; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmojiTests.swift; path = AnyTypeTests/Emoji/EmojiTests.swift; sourceTree = SOURCE_ROOT; };
@@ -326,6 +328,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7434DAC32D3916FF00E18A0C /* AppTarget in Frameworks */,
 				3DC133F22CAFE5DD000FF065 /* Factory in Frameworks */,
 				3DC133F12CAFE5DD000FF065 /* SharedContentManager in Frameworks */,
 				3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */,
@@ -348,7 +351,6 @@
 				1259300826F3A60B00B115CD /* Amplitude in Frameworks */,
 				3D3B350E2BCE872E008456F8 /* StoreKit.framework in Frameworks */,
 				2A6ED170285B452600AAA21C /* SwiftProtobuf in Frameworks */,
-				74593F722D38F0750094CFFA /* AppTargetType in Frameworks */,
 				86E69DD62A938CE8009F2221 /* SecureService in Frameworks */,
 				2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
@@ -377,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DC133F32CAFE5DD000FF065 /* SharedContentManager in Frameworks */,
+				7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */,
 				2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */,
 				2A6C3ED62C008DAF00B8D57C /* AnytypeCore in Frameworks */,
 			);
@@ -387,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C960DFAD28D88615002898AE /* SwiftUI.framework in Frameworks */,
+				7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */,
 				C960DFAB28D88615002898AE /* WidgetKit.framework in Frameworks */,
 				2A41A68D2B84EBBC00EAE6E6 /* DeepLinks in Frameworks */,
 			);
@@ -518,7 +522,7 @@
 		2A5DEC4B285B3A410083EA6B /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				74593F702D38F0630094CFFA /* AppTargetType */,
+				7434DAC12D3916F000E18A0C /* AppTarget */,
 				2A41A6762B84D43C00EAE6E6 /* DeepLinks */,
 				2ACDC9AF2B553F690063BFBD /* SharedContentManager */,
 				2A6ED162285B448700AAA21C /* ProtobufMessages */,
@@ -709,7 +713,7 @@
 				3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */,
 				2A10D84F2C53A6C90088BB46 /* WrappingHStack */,
 				2ADB57852CB6B6FE00BFC386 /* Cache */,
-				74593F712D38F0750094CFFA /* AppTargetType */,
+				7434DAC22D3916FF00E18A0C /* AppTarget */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -759,6 +763,7 @@
 				2ACDC9B32B553F840063BFBD /* SharedContentManager */,
 				2A41A6792B84E59B00EAE6E6 /* DeepLinks */,
 				2A6C3ED52C008DAF00B8D57C /* AnytypeCore */,
+				7434DAC42D3920BE00E18A0C /* AppTarget */,
 			);
 			productName = AnytypeShareExtension;
 			productReference = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */;
@@ -783,6 +788,7 @@
 			name = AnytypeWidgetExtension;
 			packageProductDependencies = (
 				2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */,
+				7434DAC62D39212E00E18A0C /* AppTarget */,
 			);
 			productName = AnytypeWidgetExtension;
 			productReference = C960DFA928D88615002898AE /* AnytypeWidgetExtension.appex */;
@@ -1183,10 +1189,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1265,6 +1267,7 @@
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE_ANYTYPE;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
@@ -1467,7 +1470,6 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1620,6 +1622,7 @@
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE_ANYAPP;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
@@ -2422,9 +2425,17 @@
 			package = 538ABD4C284F9F88000D3CCC /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
 		};
-		74593F712D38F0750094CFFA /* AppTargetType */ = {
+		7434DAC22D3916FF00E18A0C /* AppTarget */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = AppTargetType;
+			productName = AppTarget;
+		};
+		7434DAC42D3920BE00E18A0C /* AppTarget */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppTarget;
+		};
+		7434DAC62D39212E00E18A0C /* AppTarget */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppTarget;
 		};
 		86E69DD52A938CE8009F2221 /* SecureService */ = {
 			isa = XCSwiftPackageProductDependency;

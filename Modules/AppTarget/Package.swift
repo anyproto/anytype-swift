@@ -4,18 +4,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "AppTargetType",
+    name: "AppTarget",
     platforms: [
         .iOS(.v15),
     ],
     products: [
         .library(
-            name: "AppTargetType",
-            targets: ["AppTargetType"]),
+            name: "AppTarget",
+            targets: ["AppTarget"]),
     ],
     targets: [
         .target(
-            name: "AppTargetType",
+            name: "AppTarget",
             dependencies: [],
             swiftSettings: [
                 .swiftLanguageMode(.v6)
