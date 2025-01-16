@@ -117,12 +117,9 @@ final class GlobalSearchViewModel: ObservableObject {
             AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .empty)
             return
         }
-        switch restoredState.mode {
-        case .default:
-            state = restoredState
-            if restoredState.searchText.isNotEmpty {
-                AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
-            }
+        state = restoredState
+        if restoredState.searchText.isNotEmpty {
+            AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
         }
     }
     
