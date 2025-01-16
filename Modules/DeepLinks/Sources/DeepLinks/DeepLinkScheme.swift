@@ -9,7 +9,8 @@ extension DeepLinkScheme {
     
     private enum Scheme {
         static let dev = "dev-anytype://"
-        static let prod = "prod-anytype://"
+        static let prodAnytype = "prod-anytype://"
+        static let prodAnyApp = "prod-anyapp://"
         static let main = "anytype://"
     }
     
@@ -23,6 +24,6 @@ extension DeepLinkScheme {
     }
     
     private func currentDebugSchema(isDebug: Bool) -> String {
-        return isDebug ? Scheme.dev : Scheme.prod
+        return isDebug ? Scheme.dev : Scheme.prodAnytype
     }
 }
