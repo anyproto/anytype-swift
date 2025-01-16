@@ -28,7 +28,6 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     private(set) var syncStatus: SyncStatus?
     
     let infoContainer: any InfoContainerProtocol
-    let relationKeysStorage: any RelationKeysStorageProtocol
     let restrictionsContainer: ObjectRestrictionsContainer
     let detailsStorage: ObjectDetailsStorage
     
@@ -74,7 +73,6 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         eventsListener: some EventsListenerProtocol,
         viewModelSetter: some DocumentViewModelSetterProtocol,
         infoContainer: some InfoContainerProtocol,
-        relationKeysStorage: some RelationKeysStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         detailsStorage: ObjectDetailsStorage
     ) {
@@ -88,7 +86,6 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.infoContainer = infoContainer
-        self.relationKeysStorage = relationKeysStorage
         self.restrictionsContainer = restrictionsContainer
         self.detailsStorage = detailsStorage
         
@@ -210,7 +207,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
                 return [.unhandled(blockId: blockId)]
             case .syncStatus:
                 return [.syncStatus]
-            case .relationLinks, .restrictions, .close:
+            case .restrictions, .close:
                 return [] // A lot of casese for update relations
             }
         }
@@ -262,8 +259,9 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         
         relationDetailsStorage.relationsDetailsPublisher(spaceId: spaceId)
             .sink { [weak self] details in
-                guard let self else { return }
-                let contains = details.contains { self.relationKeysStorage.contains(relationKeys: [$0.key]) }
+                guard let self, let objectDetails = self.details else { return }
+                
+                let contains = details.contains { objectDetails.values.map(\.key).contains([$0.key]) }
                 if contains {
                     triggerSync(updates: [.relationDetails])
                 }
@@ -272,17 +270,18 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     }
     
     private func triggerUpdateRelations(updates: [DocumentUpdate], permissionsChanged: Bool) -> [BaseDocumentUpdate] {
+        guard let details else { return [] }
         
-        var updatesForRelations: [DocumentUpdate] = [.general, .relationLinks, .details(id: objectId)]
+        var updatesForRelations: [DocumentUpdate] = [.general, .details(id: objectId)]
         updatesForRelations.append(contentsOf: parsedRelationDependedDetailsEvents)
         
         guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
         
         let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            keys: relationKeysStorage.relationKeys,
+            keys:  details.values.map(\.key),
             spaceId: spaceId
         )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
+        let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details.objectType.recommendedRelations, spaceId: spaceId)
         let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
         let newRelations = relationBuilder.parsedRelations(
             objectRelations: objectRelationsDetails,
