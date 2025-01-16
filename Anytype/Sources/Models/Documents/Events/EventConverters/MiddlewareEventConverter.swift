@@ -76,7 +76,7 @@ final class MiddlewareEventConverter {
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
-            guard oldDetails.layout == newDetails.layout else {
+            guard oldDetails.resolvedLayout == newDetails.resolvedLayout else {
                 return .general
             }
 
