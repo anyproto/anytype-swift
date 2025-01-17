@@ -19,6 +19,9 @@ struct GlobalSearchView: View {
             content
         }
         .background(Color.Background.secondary)
+        .task {
+            await model.startParticipantTask()
+        }
         .task(id: model.state) {
             await model.search()
         }
@@ -114,6 +117,13 @@ struct GlobalSearchView: View {
             .fixTappableArea()
             .onTapGesture {
                 model.onSelect(searchData: data)
+            }
+            .if(data.canArchive) {
+                $0.swipeActions {
+                    Button(Loc.toBin, role: .destructive) {
+                        model.onRemove(objectId: data.id)
+                    }
+                }
             }
     }
     

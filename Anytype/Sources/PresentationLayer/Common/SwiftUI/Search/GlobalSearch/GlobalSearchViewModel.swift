@@ -3,6 +3,7 @@ import Combine
 import Foundation
 import OrderedCollections
 import AnytypeCore
+import UIKit
 
 @MainActor
 final class GlobalSearchViewModel: ObservableObject {
@@ -13,6 +14,10 @@ final class GlobalSearchViewModel: ObservableObject {
     private var globalSearchDataBuilder: any GlobalSearchDataBuilderProtocol
     @Injected(\.globalSearchSavedStatesService)
     private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionService: any ObjectActionsServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
@@ -21,7 +26,9 @@ final class GlobalSearchViewModel: ObservableObject {
     @Published var state = GlobalSearchState()
     @Published var sections = [ListSectionData<String?, GlobalSearchData>]()
     @Published var dismiss = false
+    @Published private var participantCanEdit = false
     
+    private var searchResult = [SearchResultWithMeta]()
     private var sectionChanged = false
     var isInitial = true
     
@@ -30,13 +37,20 @@ final class GlobalSearchViewModel: ObservableObject {
         self.restoreState()
     }
     
+    func startParticipantTask() async {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: moduleData.spaceId).values {
+            participantCanEdit = participant.canEdit
+            updateSections()
+        }
+    }
+    
     func search() async {
         do {
             if needDelay() {
                 try await Task.sleep(seconds: 0.3)
             }
 
-            let result = try await searchWithMetaService.search(
+            searchResult = try await searchWithMetaService.search(
                 text: state.searchText,
                 spaceId: moduleData.spaceId,
                 layouts: buildLayouts(),
@@ -44,7 +58,7 @@ final class GlobalSearchViewModel: ObservableObject {
             )
             
             updateInitialStateIfNeeded()
-            updateSections(result: result)
+            updateSections()
             
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
@@ -75,20 +89,27 @@ final class GlobalSearchViewModel: ObservableObject {
         moduleData.onSelect(searchData.editorScreenData)
     }
     
-    private func updateSections(result: [SearchResultWithMeta]) {
-        guard result.isNotEmpty else {
+    func onRemove(objectId: String) {
+        AnytypeAnalytics.instance().logMoveToBin(true)
+        Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
+        
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    private func updateSections() {
+        guard searchResult.isNotEmpty else {
             sections = []
             return
         }
         
         guard state.shouldGroupResults else {
-            sections = [listSectionData(title: nil, result: result)]
+            sections = [listSectionData(title: nil, result: searchResult)]
             return
         }
         
         let today = Date()
         let dict = OrderedDictionary(
-            grouping: result,
+            grouping: searchResult,
             by: { dateFormatter.localizedString(for: sortValue(for: $0.objectDetails) ?? today, relativeTo: today) }
         )
         
@@ -129,7 +150,11 @@ final class GlobalSearchViewModel: ObservableObject {
             id: title ?? UUID().uuidString,
             data: title,
             rows: result.compactMap { result in
-                globalSearchDataBuilder.buildData(with: result, spaceId: moduleData.spaceId)
+                globalSearchDataBuilder.buildData(
+                    with: result,
+                    spaceId: moduleData.spaceId,
+                    participantCanEdit: participantCanEdit
+                )
             }
         )
     }
