@@ -27,12 +27,12 @@ platform :ios do
         app_info: "Debug"
       },
       ENV["APP_CONF_RELEASE_ANYTYPE"] => {
-        tag_prefix: "release/anytype",
+        tag_prefix: "release-anytype",
         add_badge: false,
         app_info: "Release Anytype"
       },
       ENV["APP_CONF_RELEASE_ANYAPP"] => {
-        tag_prefix: "release/anyapp",
+        tag_prefix: "release-anyapp",
         add_badge: false,
         app_info: "Release Any App"
       },
