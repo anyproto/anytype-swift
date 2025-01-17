@@ -44,34 +44,27 @@ jobs:
         with:
           xcode-version: '16.1'
 
-      - name: Debug inputs
-        run: |
-          echo "Run Tests: ${{ inputs.build_anytype_app }}"
-          echo "Build Release: ${{ inputs.build_any_app }}"
-          echo "Run Tests: ${{ inputs.build_anytype_app == true }}"
-          echo "Build Release: ${{ inputs.build_any_app == true }}"
+      - name: Download Middleware
+        run: make setup-middle-ci
+        env:
+          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
-      # - name: Download Middleware
-      #   run: make setup-middle-ci
-      #   env:
-      #     MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
+      - name: License Checks
+        uses: ./.github/actions/license-checks
 
-      # - name: License Checks
-      #   uses: ./.github/actions/license-checks
+      - name: Run unit tests
+        run: bundle exec fastlane tests
+        continue-on-error: true
+        env:
+          SLACK_URL_BUILD_TESTS: ${{ secrets.SLACK_URL_BUILD_TESTS }}
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
+          FASTLANE_XCODE_LIST_TIMEOUT: 900
 
-      # - name: Run unit tests
-      #   run: bundle exec fastlane tests
-      #   continue-on-error: true
-      #   env:
-      #     SLACK_URL_BUILD_TESTS: ${{ secrets.SLACK_URL_BUILD_TESTS }}
-      #     FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
-      #     FASTLANE_XCODE_LIST_TIMEOUT: 900
-
-      # - name: Bump Version
-      #   run: bundle exec fastlane increment_build_and_push
+      - name: Bump Version
+        run: bundle exec fastlane increment_build_and_push
 
       - name: Build and upload Anytype to Testflight
-        if: ${{ inputs.build_anytype_app == 'true' }}
+        if: ${{ inputs.build_anytype_app == true }}
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
@@ -90,7 +83,7 @@ jobs:
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
       - name: Build and upload Any App to Testflight
-        if: ${{ inputs.build_any_app == 'true' }}
+        if: ${{ inputs.build_any_app == true }}
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
