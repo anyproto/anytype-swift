@@ -18,6 +18,8 @@ platform :ios do
 
   private_lane :deploy do |options| 
     
+    ensure_git_status_clean
+    
     config_settings = {
       ENV["APP_CONF_DEVELOP"] => {
         tag_prefix: "dev",
