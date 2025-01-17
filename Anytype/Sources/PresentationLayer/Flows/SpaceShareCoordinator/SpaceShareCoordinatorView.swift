@@ -6,12 +6,12 @@ struct SpaceShareCoordinatorView: View {
     
     @StateObject private var model: SpaceShareCoordinatorViewModel
     
-    init(workspaceInfo: AccountInfo) {
-        self._model = StateObject(wrappedValue: SpaceShareCoordinatorViewModel(workspaceInfo: workspaceInfo))
+    init(data: SpaceShareData) {
+        self._model = StateObject(wrappedValue: SpaceShareCoordinatorViewModel(data: data))
     }
     
     var body: some View {
-        SpaceShareView(workspaceInfo: model.workspaceInfo) {
+        SpaceShareView(data: model.data) {
             model.onMoreInfoSelected()
         }
         .sheet(isPresented: $model.showMoreInfo) {

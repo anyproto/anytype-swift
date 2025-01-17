@@ -43,7 +43,7 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         }
     }
     
-    private func updateSubscription(spaceId: String, update: @escaping @Sendable (() -> Void)) async {
+    private func updateSubscription(spaceId: String, update: @escaping (@Sendable () -> Void)) async {
         guard activeSpaceId != spaceId else { return }
         
         try? await activeSubscriptionStorage?.stopSubscription()

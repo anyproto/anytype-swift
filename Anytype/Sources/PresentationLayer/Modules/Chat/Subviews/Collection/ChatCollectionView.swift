@@ -8,18 +8,21 @@ struct ChatCollectionView<
     Section: Hashable & Identifiable & ChatCollectionSection,
     ItemView: View,
     HeaderView: View,
-    BottomPanel: View>: UIViewControllerRepresentable where Item.ID == String, Section.Item == Item {
+    BottomPanel: View,
+    EmptyView: View>: UIViewControllerRepresentable where Item.ID == String, Section.Item == Item {
     
     let items: [Section]
     let scrollProxy: ChatCollectionScrollProxy
     let bottomPanel: BottomPanel
+    let emptyView: EmptyView
+    let showEmptyState: Bool
     let itemBuilder: (Item) -> ItemView
     let headerBuilder: (Section.Header) -> HeaderView
     let scrollToTop: () async -> Void
     let scrollToBottom: () async -> Void
     let handleVisibleRange: (_ fromId: String, _ toId: String) -> Void
     
-    func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel> {
+    func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
             configuration.showsSeparators = false
@@ -63,17 +66,22 @@ struct ChatCollectionView<
         bottomPanel.view.backgroundColor = .clear
         bottomPanel.sizingOptions = [.intrinsicContentSize]
         
+        let emptyView = UIHostingController(rootView: emptyView)
+        emptyView.view.backgroundColor = .clear
+        emptyView.sizingOptions = [.intrinsicContentSize]
+        
         if #available(iOS 16.4, *) {
             bottomPanel.safeAreaRegions = SafeAreaRegions()
         }
         
-        let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel)
+        let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel, emptyView: emptyView)
         container.contentInset = UIEdgeInsets(top: PageNavigationHeaderConstants.height, left: 0, bottom: 10, right: 0)
         return container
     }
     
-    func updateUIViewController(_ container: ChatCollectionViewContainer<BottomPanel>, context: Context) {
+    func updateUIViewController(_ container: ChatCollectionViewContainer<BottomPanel, EmptyView>, context: Context) {
         container.bottomPanel.rootView = bottomPanel
+        container.emptyView.view.isHidden = !showEmptyState
         context.coordinator.itemBuilder = itemBuilder
         context.coordinator.headerBuilder = headerBuilder
         context.coordinator.scrollToTop = scrollToTop

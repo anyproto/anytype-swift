@@ -1,10 +1,11 @@
 import SwiftUI
 import UIKit
 
-final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
+final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIViewController {
     
     let collectionView: UICollectionView
     let bottomPanel: UIHostingController<BottomPanel>
+    let emptyView: UIHostingController<EmptyView>
     
     private let bottomBlurEffectView = HomeBlurEffectUIView()
     private var bottomTopConstraint: NSLayoutConstraint?
@@ -17,9 +18,10 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
     private var keyboardListener: KeyboardEventsListnerHelper?
     private var restoreZeroScrollViewOffset = false
     
-    init(collectionView: UICollectionView, bottomPanel: UIHostingController<BottomPanel>) {
+    init(collectionView: UICollectionView, bottomPanel: UIHostingController<BottomPanel>, emptyView: UIHostingController<EmptyView>) {
         self.collectionView = collectionView
         self.bottomPanel = bottomPanel
+        self.emptyView = emptyView
         super.init(nibName: nil, bundle: nil)
         
         bottomBlurEffectView.direction = .bottomToTop
@@ -72,6 +74,11 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
         // The NSLayoutConstraint for the collection should not be invalidated, making this behavior very unusual.
         // Wrapping the collection in a container resolves this issue.
         let collectionViewContainer = UIView()
+        
+        collectionViewContainer.addSubview(emptyView.view) {
+            $0.pinToSuperview()
+        }
+        
         collectionViewContainer.addSubview(collectionView) {
             $0.pinToSuperview()
         }

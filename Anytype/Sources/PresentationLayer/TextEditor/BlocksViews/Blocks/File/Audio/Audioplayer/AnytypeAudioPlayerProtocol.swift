@@ -17,5 +17,5 @@ protocol AnytypeAudioPlayerProtocol {
     func setAudio(playerItem: AVPlayerItem?, name: String, delegate: some AnytypeAudioPlayerDelegate)
     func play()
     func pause()
-    func setTrackTime(value: Double, completion: @escaping () -> Void)
+    func setTrackTime(value: Double, completion: @escaping @Sendable @MainActor () -> Void)
 }

@@ -207,7 +207,7 @@ struct MessageView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return data.isYourMessage ? .Control.navPanelIcon : .Background.navigationPanel
+        return data.isYourMessage ? .Control.transparentActive : .Background.navigationPanel
     }
     
     private var textColor: Color {

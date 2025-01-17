@@ -30,7 +30,7 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel>: Sendable {
         self.subscriptionBuilder = subscriptionBuilder
     }
     
-    func startSubscription(update: @escaping () -> Void) async {
+    func startSubscription(update: @escaping @Sendable () -> Void) async {
         // Start first subscription in current async context for guarantee data state before return
         let spaceIds = workspacessStorage.allWorkspaces
             .filter { $0.isActive || $0.isLoading }
@@ -58,7 +58,7 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel>: Sendable {
         data.removeAll()
     }
     
-    private func updateSubscriptions(spaceIds: [String], update: @escaping (() -> Void)) async {
+    private func updateSubscriptions(spaceIds: [String], update: @escaping (@Sendable () -> Void)) async {
         for spaceId in spaceIds {
             if subscriptionStorages[spaceId].isNil {
                 let subId = subIdPrefix + spaceId

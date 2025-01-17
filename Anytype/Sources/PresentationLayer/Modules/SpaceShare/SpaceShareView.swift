@@ -6,8 +6,8 @@ struct SpaceShareView: View {
     
     @StateObject private var model: SpaceShareViewModel
     
-    init(workspaceInfo: AccountInfo, onMoreInfo: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: SpaceShareViewModel(workspaceInfo: workspaceInfo, onMoreInfo: onMoreInfo))
+    init(data: SpaceShareData, onMoreInfo: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: SpaceShareViewModel(data: data, onMoreInfo: onMoreInfo))
     }
     
     var body: some View {

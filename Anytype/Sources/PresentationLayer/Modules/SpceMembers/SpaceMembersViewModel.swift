@@ -1,6 +1,12 @@
 import Foundation
 import Services
 
+struct SpaceMembersData: Identifiable, Hashable {
+    let spaceId: String
+    let route: SettingsSpaceMembersRoute
+    var id: Int { hashValue }
+}
+
 @MainActor
 final class SpaceMembersViewModel: ObservableObject {
     
@@ -10,16 +16,16 @@ final class SpaceMembersViewModel: ObservableObject {
     
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(data.spaceId)
     
-    private let spaceId: String
+    private let data: SpaceMembersData
     
     // MARK: - State
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
     
-    init(spaceId: String) {
-        self.spaceId = spaceId
+    init(data: SpaceMembersData) {
+        self.data = data
     }
     
     func startParticipantTask() async {
@@ -29,7 +35,7 @@ final class SpaceMembersViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenSettingsSpaceMembers()
+        AnytypeAnalytics.instance().logScreenSettingsSpaceMembers(route: data.route)
     }
     
     private func updateParticipant(items: [Participant]) {

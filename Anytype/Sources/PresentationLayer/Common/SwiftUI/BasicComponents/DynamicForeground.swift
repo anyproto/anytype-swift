@@ -40,7 +40,7 @@ extension View {
     }
     
     func navPanelDynamicForegroundStyle() -> some View {
-        dynamicForegroundStyle(color: .Control.navPanelIcon, disabledColor: .Control.inactive)
+        dynamicForegroundStyle(color: .Control.transparentActive, disabledColor: .Control.transparentInactive)
     }
     
     func dynamicForegroundStyle(color: Color, disabledColor: Color) -> some View {

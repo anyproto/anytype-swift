@@ -43,6 +43,8 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
+    @Injected(\.profileStorage)
+    private var profileStorage: any ProfileStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     
@@ -86,6 +88,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await participantSpacesStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
         await storeKitService.startListenForTransactions()
+        await profileStorage.startSubscription()
         
         Task {
             // Time-heavy operation
@@ -104,5 +107,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await p2pStatusStorage.stopSubscriptionAndClean()
         await networkConnectionStatusDaemon.stop()
         await storeKitService.stopListenForTransactions()
+        await profileStorage.stopSubscription()
     }
 }
