@@ -4,29 +4,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "DeepLinks",
+    name: "AppTarget",
     platforms: [
         .iOS(.v15),
     ],
     products: [
         .library(
-            name: "DeepLinks",
-            targets: ["DeepLinks"]),
-    ],
-    dependencies: [
-        .package(path: "../AppTarget")
+            name: "AppTarget",
+            targets: ["AppTarget"]),
     ],
     targets: [
         .target(
-            name: "DeepLinks",
-            dependencies: ["AppTarget"],
+            name: "AppTarget",
+            dependencies: [],
             swiftSettings: [
                 .swiftLanguageMode(.v6)
             ]
-        ),
-        .testTarget(
-            name: "DeepLinksTests",
-            dependencies: ["DeepLinks"]
         )
     ]
 )

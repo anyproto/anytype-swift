@@ -1,4 +1,5 @@
 import Foundation
+import AppTarget
 
 public enum DeepLinkScheme {
     case buildSpecific
@@ -9,20 +10,28 @@ extension DeepLinkScheme {
     
     private enum Scheme {
         static let dev = "dev-anytype://"
-        static let prod = "prod-anytype://"
+        static let prodAnytype = "prod-anytype://"
+        static let prodAnyApp = "prod-anyapp://"
         static let main = "anytype://"
     }
     
-    func host(isDebug: Bool) -> String {
+    func host(targetType: AppTargetType) -> String {
         switch self {
         case .buildSpecific:
-            return currentDebugSchema(isDebug: isDebug)
+            return currentDebugSchema(targetType: targetType)
         case .main:
             return Scheme.main
         }
     }
     
-    private func currentDebugSchema(isDebug: Bool) -> String {
-        return isDebug ? Scheme.dev : Scheme.prod
+    private func currentDebugSchema(targetType: AppTargetType) -> String {
+        switch targetType {
+        case .debug:
+            Scheme.dev
+        case .releaseAnytype:
+            Scheme.prodAnytype
+        case .releaseAnyApp:
+            Scheme.prodAnyApp
+        }
     }
 }

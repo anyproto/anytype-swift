@@ -20,7 +20,7 @@ platform :ios do
         setup_ci
     end
 
-    config = options[:release] ? ENV["APP_CONF_RELEASE"] : ENV["APP_CONF_DEVELOP"]
+    config = options[:release] ? ENV["APP_CONF_RELEASE_ANYTYPE"] : ENV["APP_CONF_DEVELOP"]
 
     build_app(
         scheme: ENV["APP_TARGET"],
