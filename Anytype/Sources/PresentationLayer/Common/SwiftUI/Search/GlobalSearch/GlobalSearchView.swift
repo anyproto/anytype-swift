@@ -13,7 +13,7 @@ struct GlobalSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            searchBar
+            header
             content
         }
         .background(Color.Background.secondary)
@@ -24,6 +24,15 @@ struct GlobalSearchView: View {
         .onChange(of: model.state.searchText) { _ in model.onSearchTextChanged() }
     }
     
+    private var header: some View {
+        HStack(spacing: 0) {
+            searchBar
+            if model.state.searchText.isEmpty {
+                menu
+            }
+        }
+    }
+    
     private var searchBar: some View {
         SearchBar(text: $model.state.searchText, focused: true, placeholder: Loc.search)
             .submitLabel(.go)
@@ -32,11 +41,23 @@ struct GlobalSearchView: View {
             }
     }
     
+    private var menu: some View {
+        ObjectsSortMenu(
+            sort: $model.state.sort,
+            label: {
+                Image(asset: .X40.sorts)
+            }
+        )
+        .padding(.leading, -8)
+        .padding(.trailing, 16)
+        .menuActionDisableDismissBehavior()
+    }
+    
     @ViewBuilder
     private var content: some View {
         if model.isInitial {
             Spacer()
-        } else if model.searchData.isEmpty {
+        } else if model.sections.isEmpty {
             emptyState
         } else {
             searchResults
@@ -45,8 +66,12 @@ struct GlobalSearchView: View {
     
     private var searchResults: some View {
         PlainList {
-            ForEach(model.searchData) { section in
-                ForEach(section.searchData) { data in
+            ForEach(model.sections) { section in
+                if let title = section.data, title.isNotEmpty {
+                    ListSectionHeaderView(title: title)
+                        .padding(.horizontal, 20)
+                }
+                ForEach(section.rows) { data in
                     itemRow(for: data)
                 }
             }

@@ -6,7 +6,7 @@ protocol AllContentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
         type: AllContentType,
-        sort: AllContentSort,
+        sort: ObjectSort,
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
         limit: Int,
@@ -30,7 +30,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
     func startSubscription(
         spaceId: String,
         type: AllContentType,
-        sort: AllContentSort,
+        sort: ObjectSort,
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
         limit: Int,
