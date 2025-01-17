@@ -64,23 +64,6 @@ final class GlobalSearchViewModel: ObservableObject {
         moduleData.onSelect(searchData.editorScreenData)
     }
     
-    func createObject() {
-        Task {            
-            let objectDetails = try? await defaultObjectCreationService.createDefaultObject(
-                name: state.searchText,
-                shouldDeleteEmptyObject: false,
-                spaceId: moduleData.spaceId
-            )
-            
-            guard let objectDetails else { return }
-            
-            AnytypeAnalytics.instance().logCreateObject(objectType: objectDetails.analyticsType, spaceId: objectDetails.spaceId, route: .search)
-            
-            dismiss.toggle()
-            moduleData.onSelect(objectDetails.screenData())
-        }
-    }
-    
     private func updateSections(result: [SearchResultWithMeta]) {
         guard result.isNotEmpty else {
             sections = []

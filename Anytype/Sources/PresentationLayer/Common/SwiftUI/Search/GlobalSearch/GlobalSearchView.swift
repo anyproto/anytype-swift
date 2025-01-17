@@ -92,13 +92,7 @@ struct GlobalSearchView: View {
         EmptyStateView(
             title: Loc.nothingFound,
             subtitle: Loc.GlobalSearch.EmptyState.subtitle,
-            style: .plain,
-            buttonData: EmptyStateView.ButtonData(
-                title: Loc.createObject,
-                action: {
-                    model.createObject()
-                }
-            )
+            style: .plain
         )
     }
 }
