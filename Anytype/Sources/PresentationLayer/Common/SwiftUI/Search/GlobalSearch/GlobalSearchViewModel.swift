@@ -2,6 +2,7 @@ import Services
 import Combine
 import Foundation
 import OrderedCollections
+import AnytypeCore
 
 @MainActor
 final class GlobalSearchViewModel: ObservableObject {
@@ -21,6 +22,7 @@ final class GlobalSearchViewModel: ObservableObject {
     @Published var sections = [ListSectionData<String?, GlobalSearchData>]()
     @Published var dismiss = false
     
+    private var sectionChanged = false
     var isInitial = true
     
     init(data: GlobalSearchModuleData) {
@@ -34,7 +36,12 @@ final class GlobalSearchViewModel: ObservableObject {
                 try await Task.sleep(seconds: 0.3)
             }
 
-            let result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, sorts: buildSorts())
+            let result = try await searchWithMetaService.search(
+                text: state.searchText,
+                spaceId: moduleData.spaceId,
+                layouts: buildLayouts(),
+                sorts: buildSorts()
+            )
             
             updateInitialStateIfNeeded()
             updateSections(result: result)
@@ -44,6 +51,12 @@ final class GlobalSearchViewModel: ObservableObject {
         } catch {
             sections = []
         }
+    }
+    
+    func onSectionChanged(_ section: ObjectTypeSection) {
+        sectionChanged = true
+        state.section = section
+        storeState()
     }
     
     func onSearchTextChanged() {
@@ -79,12 +92,8 @@ final class GlobalSearchViewModel: ObservableObject {
             by: { dateFormatter.localizedString(for: sortValue(for: $0.objectDetails) ?? today, relativeTo: today) }
         )
         
-        if dict.count == 1 {
-            sections = [listSectionData(title: nil, result: result)]
-        } else {
-            sections = dict.map { (key, result) in
-                listSectionData(title: key, result: result)
-            }
+        sections = dict.map { (key, result) in
+            listSectionData(title: key, result: result)
         }
     }
     
@@ -94,7 +103,9 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     private func needDelay() -> Bool {
-        !isInitial
+        guard sectionChanged || isInitial else { return true }
+        sectionChanged = false
+        return false
     }
     
     private func restoreState() {
@@ -121,6 +132,16 @@ final class GlobalSearchViewModel: ObservableObject {
                 globalSearchDataBuilder.buildData(with: result, spaceId: moduleData.spaceId)
             }
         )
+    }
+    
+    private func buildLayouts() -> [DetailsLayout] {
+        .builder {
+            if state.searchText.isEmpty {
+                state.section.supportedLayouts.filter { $0 != .participant }
+            } else {
+                state.section.supportedLayouts
+            }
+        }
     }
     
     private func buildSorts() -> [DataviewSort] {
