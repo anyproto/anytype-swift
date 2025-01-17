@@ -1,24 +1,24 @@
 import AnytypeCore
 
 protocol AllContentStateStorageServiceProtocol: AnyObject {
-    func storeSort(_ sort: AllContentSort, spaceId: String)
-    func restoreSort(for spaceId: String) -> AllContentSort?
+    func storeSort(_ sort: ObjectSort, spaceId: String)
+    func restoreSort(for spaceId: String) -> ObjectSort?
     func clear()
 }
 
 final class AllContentStateStorageService: AllContentStateStorageServiceProtocol {
         
-    // [SpaceId : AllContentSort]
+    // [SpaceId : ObjectSort]
     @UserDefault("UserData.AllContentStateStorage", defaultValue: [:])
-    private var spacesSorts: [String: AllContentSort]
+    private var spacesSorts: [String: ObjectSort]
     
     // MARK: - AllContentSavedStatesServiceProtocol
     
-    func storeSort(_ sort: AllContentSort, spaceId: String) {
+    func storeSort(_ sort: ObjectSort, spaceId: String) {
         spacesSorts[spaceId] = sort
     }
     
-    func restoreSort(for spaceId: String) -> AllContentSort? {
+    func restoreSort(for spaceId: String) -> ObjectSort? {
         spacesSorts[spaceId]
     }
     

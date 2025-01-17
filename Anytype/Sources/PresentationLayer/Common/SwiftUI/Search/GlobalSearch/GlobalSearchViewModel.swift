@@ -1,5 +1,7 @@
 import Services
 import Combine
+import Foundation
+import OrderedCollections
 
 @MainActor
 final class GlobalSearchViewModel: ObservableObject {
@@ -12,17 +14,16 @@ final class GlobalSearchViewModel: ObservableObject {
     private var defaultObjectCreationService: any DefaultObjectCreationServiceProtocol
     @Injected(\.globalSearchSavedStatesService)
     private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
-    @Injected(\.searchService)
-    private var searchService: any SearchServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
+    private let dateFormatter = AnytypeRelativeDateTimeFormatter()
+    
     @Published var state = GlobalSearchState()
-    @Published var searchData: [GlobalSearchDataSection] = []
+    @Published var sections = [ListSectionData<String?, GlobalSearchData>]()
     @Published var dismiss = false
     
     var isInitial = true
-    private var modeChanged = false
     
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
@@ -34,37 +35,16 @@ final class GlobalSearchViewModel: ObservableObject {
             if needDelay() {
                 try await Task.sleep(seconds: 0.3)
             }
-            
-            let result: [SearchResultWithMeta]
-            switch state.mode {
-            case .default:
-                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId)
-            case .filtered(let data):
-                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, limitObjectIds: data.limitObjectIds)
-            }
+
+            let result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId, sorts: buildSorts())
             
             updateInitialStateIfNeeded()
-            
-            let objectsSearchData = result.compactMap { result in
-                globalSearchDataBuilder.buildData(with: result, spaceId: moduleData.spaceId)
-            }
-            
-            guard objectsSearchData.isNotEmpty else {
-                searchData = []
-                return
-            }
-            
-            searchData = [
-                GlobalSearchDataSection(
-                    searchData: objectsSearchData,
-                    sectionConfig: sectionConfig()
-                )
-            ]
+            updateSections(result: result)
             
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
         } catch {
-            searchData = []
+            sections = []
         }
     }
     
@@ -74,7 +54,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onKeyboardButtonTap() {
-        guard let firstObject = searchData.first?.searchData.first else { return }
+        guard let firstObject = sections.first?.rows.first else { return }
         onSelect(searchData: firstObject)
     }
     
@@ -82,26 +62,6 @@ final class GlobalSearchViewModel: ObservableObject {
         AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId)
         dismiss.toggle()
         moduleData.onSelect(searchData.editorScreenData)
-    }
-    
-    func showRelatedObjects(_ data: GlobalSearchData) {
-        let name = String(data.title.characters)
-        state = GlobalSearchState(
-            searchText: "",
-            mode: .filtered(FilteredData(id: data.id, name: name, limitObjectIds: data.relatedLinks))
-        )
-        storeState()
-        modeChanged = true
-        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId, type: .empty)
-    }
-    
-    func clear() {
-        state = GlobalSearchState(
-            searchText: "",
-            mode: .default
-        )
-        storeState()
-        modeChanged = true
     }
     
     func createObject() {
@@ -121,15 +81,29 @@ final class GlobalSearchViewModel: ObservableObject {
         }
     }
     
-    func sectionConfig() -> GlobalSearchDataSection.SectionConfig? {
-        switch state.mode {
-        case .default:
-            return nil
-        case .filtered(let data):
-            return GlobalSearchDataSection.SectionConfig(
-                title: Loc.Search.Links.Header.title(data.name),
-                buttonTitle: Loc.clear
-            )
+    private func updateSections(result: [SearchResultWithMeta]) {
+        guard result.isNotEmpty else {
+            sections = []
+            return
+        }
+        
+        guard state.shouldGroupResults else {
+            sections = [listSectionData(title: nil, result: result)]
+            return
+        }
+        
+        let today = Date()
+        let dict = OrderedDictionary(
+            grouping: result,
+            by: { dateFormatter.localizedString(for: sortValue(for: $0.objectDetails) ?? today, relativeTo: today) }
+        )
+        
+        if dict.count == 1 {
+            sections = [listSectionData(title: nil, result: result)]
+        } else {
+            sections = dict.map { (key, result) in
+                listSectionData(title: key, result: result)
+            }
         }
     }
     
@@ -139,9 +113,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     private func needDelay() -> Bool {
-        guard modeChanged || isInitial else { return true }
-        modeChanged = false
-        return false
+        !isInitial
     }
     
     private func restoreState() {
@@ -150,30 +122,47 @@ final class GlobalSearchViewModel: ObservableObject {
             AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .empty)
             return
         }
-        switch restoredState.mode {
-        case .default:
-            state = restoredState
-            if restoredState.searchText.isNotEmpty {
-                AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
-            }
-        case .filtered(let data):
-            Task {
-                let details = try await searchService.search(text: "", spaceId: moduleData.spaceId, limitObjectIds: [data.id]).first
-                guard let details else { return }
-                state = GlobalSearchState(
-                    searchText: restoredState.searchText,
-                    mode: .filtered(FilteredData(
-                        id: details.id,
-                        name: details.title,
-                        limitObjectIds: details.backlinks + details.links
-                    ))
-                )
-                AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId, type: .saved)
-            }
+        state = restoredState
+        if restoredState.searchText.isNotEmpty {
+            AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
         }
     }
     
     private func storeState() {
         globalSearchSavedStatesService.storeState(state, spaceId: moduleData.spaceId)
+    }
+    
+    private func listSectionData(title: String?, result: [SearchResultWithMeta]) -> ListSectionData<String?, GlobalSearchData> {
+        ListSectionData(
+            id: title ?? UUID().uuidString,
+            data: title,
+            rows: result.compactMap { result in
+                globalSearchDataBuilder.buildData(with: result, spaceId: moduleData.spaceId)
+            }
+        )
+    }
+    
+    private func buildSorts() -> [DataviewSort] {
+        .builder {
+            if state.searchText.isEmpty {
+                state.sort.asDataviewSort()
+            } else {
+                SearchHelper.sort(
+                    relation: BundledRelationKey.lastOpenedDate,
+                    type: .desc
+                )
+            }
+        }
+    }
+    
+    private func sortValue(for details: ObjectDetails) -> Date? {
+        switch state.sort.relation {
+        case .dateUpdated:
+            return details.lastModifiedDate
+        case .dateCreated:
+            return details.createdDate
+        case .name:
+            return nil
+        }
     }
 }

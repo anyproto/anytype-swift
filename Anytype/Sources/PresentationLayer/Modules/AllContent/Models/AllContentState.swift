@@ -1,7 +1,7 @@
 struct AllContentState: Equatable, Hashable {
     var mode = AllContentMode.allContent { didSet { resetLimit() } }
     var type = AllContentType.pages { didSet { resetLimit()} }
-    var sort = AllContentSort(relation: .dateUpdated) { didSet { resetLimit() } }
+    var sort = ObjectSort(relation: .dateUpdated) { didSet { resetLimit() } }
     var limitedObjectsIds: [String]? = nil { didSet { resetLimit() } }
     var limit = Constants.limit
     
