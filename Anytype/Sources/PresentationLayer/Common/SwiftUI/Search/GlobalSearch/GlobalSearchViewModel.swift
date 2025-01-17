@@ -10,8 +10,6 @@ final class GlobalSearchViewModel: ObservableObject {
     private var searchWithMetaService: any SearchWithMetaServiceProtocol
     @Injected(\.globalSearchDataBuilder)
     private var globalSearchDataBuilder: any GlobalSearchDataBuilderProtocol
-    @Injected(\.defaultObjectCreationService)
-    private var defaultObjectCreationService: any DefaultObjectCreationServiceProtocol
     @Injected(\.globalSearchSavedStatesService)
     private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
     
