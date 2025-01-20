@@ -73,8 +73,8 @@ struct ObjectFieldsView: View {
                 Button {
                     model.showConflictingInfo.toggle()
                 } label: {
-                    ListSectionHeaderView(title: section.title, titleColor: .System.red) {
-                        Image(systemName: "questionmark.circle.fill").foregroundStyle(Color.System.red)
+                    ListSectionHeaderView(title: section.title) {
+                        Image(systemName: "questionmark.circle.fill").foregroundStyle(Color.Control.active)
                             .frame(width: 18, height: 18)
                     }
                 }
