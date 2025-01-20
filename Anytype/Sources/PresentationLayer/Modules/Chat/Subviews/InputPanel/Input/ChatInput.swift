@@ -42,7 +42,7 @@ struct ChatInput: View {
             }
             
             Button { onTapAddObject() } label: {
-                Label(Loc.Chat.Actions.Menu.objects, systemImage: "text.document")
+                Label(Loc.Chat.Actions.Menu.objects, systemImage: "doc.plaintext")
             }
             
             Divider()
