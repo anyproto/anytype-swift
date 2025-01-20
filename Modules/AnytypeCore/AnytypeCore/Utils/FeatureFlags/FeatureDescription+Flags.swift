@@ -38,8 +38,9 @@ public extension FeatureDescription {
     
     static let allContent = FeatureDescription(
         title: "All content",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        defaultValue: false, // improve Global search instead of it
+        debugValue: false
     )
     
     static let userWarningAlerts = FeatureDescription(
