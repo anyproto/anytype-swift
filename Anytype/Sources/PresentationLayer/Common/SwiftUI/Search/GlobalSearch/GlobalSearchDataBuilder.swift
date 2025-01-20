@@ -5,7 +5,7 @@ import AnytypeCore
 
 @MainActor
 protocol GlobalSearchDataBuilderProtocol {
-    func buildData(with searchResult: SearchResultWithMeta, spaceId: String) -> GlobalSearchData
+    func buildData(with searchResult: SearchResultWithMeta, spaceId: String, participantCanEdit: Bool) -> GlobalSearchData
 }
 
 @MainActor
@@ -16,7 +16,7 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
     
     nonisolated init() { }
     
-    func buildData(with searchResult: SearchResultWithMeta, spaceId: String) -> GlobalSearchData {
+    func buildData(with searchResult: SearchResultWithMeta, spaceId: String, participantCanEdit: Bool) -> GlobalSearchData {
         
         let details = searchResult.objectDetails
         let meta = searchResult.meta
@@ -38,7 +38,8 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
             highlights: highlights,
             objectTypeName: details.objectType.name,
             editorScreenData: ScreenData(details: details, blockId: meta.first?.blockID),
-            score: score
+            score: score,
+            canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive
         )
     }
     
