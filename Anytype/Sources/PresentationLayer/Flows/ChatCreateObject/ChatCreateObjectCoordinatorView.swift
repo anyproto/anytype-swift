@@ -6,6 +6,7 @@ struct ChatCreateObjectCoordinatorView: View {
     @StateObject private var model: ChatCreateObjectCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
     @Environment(\.pageNavigation) private var parentPageNavigation
+    @Environment(\.chatActionProvider) private var chatActionProvider
     
     @State private var topInset: CGFloat = 0
     
@@ -21,6 +22,7 @@ struct ChatCreateObjectCoordinatorView: View {
         .ignoresSafeArea(.keyboard)
         .onAppear {
             model.parentPageNavigation = parentPageNavigation
+            model.chatActionProvider = chatActionProvider.wrappedValue
             model.dismiss = dismiss
         }
         .task {
@@ -36,7 +38,7 @@ struct ChatCreateObjectCoordinatorView: View {
                     topInset = $0.height
                 }
         }
-        .interactiveDismissDisabled(model.interactiveDismissDisable) {
+        .interactiveDismissDisabled(model.isNotEmpty) {
             model.tryDismiss()
         }
         .anytypeSheet(isPresented: $model.dismissConfirmationAlert) {
@@ -59,6 +61,7 @@ struct ChatCreateObjectCoordinatorView: View {
             StandardButton(Loc.Chat.AttachedObject.attach, style: .primaryLarge, action: {
                 model.onTapAttach()
             })
+            .disabled(!model.isNotEmpty)
         }
         .padding(16)
         .background(Color.Background.primary)

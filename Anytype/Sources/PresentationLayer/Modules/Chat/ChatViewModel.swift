@@ -426,15 +426,19 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     // MARK: - ChatActionProviderHandler
     
-    func createChatWithAttachment(_ attachment: ChatLinkObject) {
+    func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
         Task {
             let results = try await searchService.searchObjects(spaceId: attachment.spaceId, objectIds: [attachment.objectId])
             guard let first = results.first else { return }
-            clearInput()
-            linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
-            // Waiting pop transaction and open keyboard.
-            try await Task.sleep(seconds: 0.5)
-            inputFocused = true
+            if needsClearInput {
+                clearInput()
+            }
+            if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
+                linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
+                // Waiting pop transaction and open keyboard.
+                try await Task.sleep(seconds: 0.5)
+                inputFocused = true
+            }
         }
     }
     

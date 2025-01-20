@@ -3,7 +3,7 @@ import SwiftUI
 
 @MainActor
 protocol ChatActionProviderHandler: AnyObject {
-    func createChatWithAttachment(_ attachment: ChatLinkObject)
+    func addAttachment(_ attachment: ChatLinkObject, clearInput: Bool)
 }
 
 struct ChatActionProvider {
@@ -11,8 +11,8 @@ struct ChatActionProvider {
     weak var handler: (any ChatActionProviderHandler)?
         
     @MainActor
-    func createChatWithAttachment(_ attachment: ChatLinkObject) {
-        handler?.createChatWithAttachment(attachment)
+    func addAttachment(_ attachment: ChatLinkObject, clearInput: Bool) {
+        handler?.addAttachment(attachment, clearInput: clearInput)
     }
 }
 

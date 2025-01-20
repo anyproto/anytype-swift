@@ -22,10 +22,11 @@ final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
     )
     private let document: (any BaseDocumentProtocol)?
     
-    @Published var interactiveDismissDisable = false
+    @Published var isNotEmpty = false
     @Published var dismissConfirmationAlert = false
     @Published var openObjectConfirmationAlert: ScreenData?
     var parentPageNavigation: PageNavigation?
+    var chatActionProvider: ChatActionProvider?
     var dismiss: DismissAction?
     
     init(data: EditorScreenData) {
@@ -40,7 +41,7 @@ final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
     func startSubscriptions() async {
         guard let document else { return }
         for await details in document.detailsPublisher.values {
-            interactiveDismissDisable = !details.internalFlagsValue.contains(.editorDeleteEmpty)
+            isNotEmpty = !details.internalFlagsValue.contains(.editorDeleteEmpty)
         }
     }
     
@@ -58,7 +59,7 @@ final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
     }
     
     func onTapCacel() {
-        if interactiveDismissDisable {
+        if isNotEmpty {
             dismissConfirmationAlert = true
         } else {
             dismiss?()
@@ -66,7 +67,9 @@ final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
     }
     
     func onTapAttach() {
-        
+        guard let link = data.chatLink else { return }
+        chatActionProvider?.addAttachment(link, clearInput: false)
+        dismiss?()
     }
     
     // MARK: - Private

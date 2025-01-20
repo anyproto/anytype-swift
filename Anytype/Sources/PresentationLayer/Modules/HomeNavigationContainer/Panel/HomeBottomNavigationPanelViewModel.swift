@@ -79,7 +79,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func updateVisibleScreen(data: AnyHashable) {
-        chatLinkData = (data as? EditorScreenData)?.chatLinkFromPanel
+        chatLinkData = (data as? EditorScreenData)?.chatLink
         updateState()
     }
     
