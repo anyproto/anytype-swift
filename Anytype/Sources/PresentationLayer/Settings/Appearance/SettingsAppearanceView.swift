@@ -20,7 +20,9 @@ struct SettingsAppearanceView: View {
             Spacer.fixedHeight(12)
             
             appearanceType
-            iconPicker
+            #if !RELEASE_ANYAPP
+                iconPicker
+            #endif
             
             Spacer.fixedHeight(20)
         }
