@@ -1221,6 +1221,31 @@ extension Anytype_Rpc.Process.Unsubscribe.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Publishing.Create.Response: ResultWithError {}
+extension Anytype_Rpc.Publishing.Create.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Publishing.GetStatus.Response: ResultWithError {}
+extension Anytype_Rpc.Publishing.GetStatus.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Publishing.List.Response: ResultWithError {}
+extension Anytype_Rpc.Publishing.List.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Publishing.Remove.Response: ResultWithError {}
+extension Anytype_Rpc.Publishing.Remove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Publishing.ResolveUri.Response: ResultWithError {}
+extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Relation.ListRemoveOption.Response: ResultWithError {}
 extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

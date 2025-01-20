@@ -33,9 +33,10 @@ struct GlobalSearchView: View {
         HStack(spacing: 0) {
             searchBar
             if model.state.searchText.isEmpty {
-                menu
+                menu.transition(.move(edge: .trailing))
             }
         }
+        .animation(.easeInOut, value: model.state.searchText.isEmpty)
     }
     
     private var searchBar: some View {
