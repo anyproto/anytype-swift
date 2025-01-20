@@ -28,8 +28,8 @@ struct ChatCreateObjectCoordinatorView: View {
         }
         .homeBottomPanelState(.constant(HomeBottomPanelState()))
         .pageNavigation(model.pageNavigation)
+        .pageNavigationHiddenBackButton(true)
         .pageEditorAdditionalSafeAreaInsets(UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0))
-
         .safeAreaInset(edge: .top) {
             DragIndicator()
                 .readSize {

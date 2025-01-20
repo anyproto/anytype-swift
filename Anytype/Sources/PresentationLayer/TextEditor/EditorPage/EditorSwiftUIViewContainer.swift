@@ -13,14 +13,16 @@ extension View {
 struct EditorSwiftUIViewContainer: UIViewControllerRepresentable {
     
     @Environment(\.pageEditorAdditionalSafeAreaInsets) private var pageEditorAdditionalSafeAreaInsets
+    @Environment(\.pageNavigationHiddenBackButton) private var pageNavigationHiddenBackButton
     
-    let viewController: UIViewController
+    let viewController: EditorPageController
 
-    func makeUIViewController(context: Context) -> UIViewController {
+    func makeUIViewController(context: Context) -> EditorPageController {
         viewController
     }
     
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: EditorPageController, context: Context) {
         viewController.additionalSafeAreaInsets = pageEditorAdditionalSafeAreaInsets
+        viewController.setPageNavigationHiddenBackButton(pageNavigationHiddenBackButton)
     }
 }
