@@ -17,12 +17,16 @@ struct TypeFieldsView: View {
     
     var body: some View {
         content
+            .onAppear { model.onAppear() }
             .task { await model.setupSubscriptions() }
             .sheet(item: $model.relationsSearchData) { data in
                 RelationsSearchCoordinatorView(data: data)
             }
             .sheet(item: $model.relationData) {
                 RelationInfoCoordinatorView(data: $0, output: nil)
+            }
+            .anytypeSheet(isPresented: $model.showConflictingInfo) {
+                ObjectFieldsBottomAlert()
             }
     }
     
@@ -66,6 +70,11 @@ struct TypeFieldsView: View {
             ScrollView(showsIndicators: false) {
                 relationsSection
                     .padding(.horizontal, 20)
+                
+                if model.conflictRelations.isNotEmpty {
+                    localFieldsSection
+                        .padding(.horizontal, 20)
+                }
             }
         }
         
@@ -96,7 +105,7 @@ struct TypeFieldsView: View {
     }
     
     private func headerRow(_ data: TypeFieldsSectionRow) -> some View {
-        ListSectionHeaderView(title: data.title, increasedTopPadding: false) {
+        ListSectionHeaderView(title: data.title, increasedTopPadding: true) {
             if model.canEditRelationsList {
                 Button(action: {
                     model.onAddRelationTap(section: data)
@@ -141,5 +150,42 @@ struct TypeFieldsView: View {
                 EmptyView()
             }
         }
+    }
+    
+    // MARK: - Local fields
+    private var localFieldsSection: some View {
+        VStack(spacing: 0) {
+            Button(action: {
+                model.showConflictingInfo.toggle()
+            }, label: {
+                ListSectionHeaderView(title: Loc.Fields.local, increasedTopPadding: true) {
+                    Image(systemName: "questionmark.circle.fill").foregroundStyle(Color.Control.active)
+                        .frame(width: 18, height: 18)
+                }
+            })
+            
+            ForEach(model.conflictRelations) {
+                localFieldRow($0)
+            }
+        }
+    }
+    
+    private func localFieldRow(_ data: RelationDetails) -> some View {
+        HStack(spacing: 0) {
+            Menu {
+                Button(Loc.Fields.addToType) { model.onAddConflictRelation(data) }
+            } label: {
+                Image(asset: data.format.iconAsset)
+                    .foregroundColor(.Control.active)
+                Spacer.fixedWidth(10)
+                AnytypeText(data.name, style: .uxBodyRegular)
+                
+                Spacer()
+        
+                MoreIndicator()
+            }
+        }
+        .frame(height: 52)
+        .contentShape(Rectangle())
     }
 }

@@ -943,8 +943,8 @@ internal enum Loc {
     internal static func created(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Fields.Created", String(describing: p1), fallback: "Field ‘%@’ has been created")
     }
+    internal static let local = Loc.tr("Localizable", "Fields.local", fallback: "Local fields")
     internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
-    internal static let missing = Loc.tr("Localizable", "Fields.missing", fallback: "Missing fields")
     internal static let missingInfo = Loc.tr("Localizable", "Fields.missingInfo", fallback: "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.")
     internal static let removeFromObject = Loc.tr("Localizable", "Fields.removeFromObject", fallback: "Remove from the object")
     internal static func updated(_ p1: Any) -> String {
