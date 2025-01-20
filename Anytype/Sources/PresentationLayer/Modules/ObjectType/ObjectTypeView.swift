@@ -35,8 +35,8 @@ struct ObjectTypeView: View {
                     Spacer.fixedHeight(24)
                     buttonsRow.padding(.horizontal, 20)
                     Spacer.fixedHeight(32)
-                    templates
                 }
+                if model.showTemplates { templates }
                 Spacer.fixedHeight(32)
                 ObjectTypeObjectsListView(typeDocument: model.document, output: model.output)
             }

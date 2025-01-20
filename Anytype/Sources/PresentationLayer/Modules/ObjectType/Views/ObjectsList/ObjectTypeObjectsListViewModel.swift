@@ -54,7 +54,9 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
                 return
             }
 
-            canCreateOjbect = layout.isEditorLayout || layout.isList
+            let isSupportedLayout = layout.isEditorLayout || layout.isList
+            let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+            canCreateOjbect = isSupportedLayout && !isTemplate
         }
     }
     
