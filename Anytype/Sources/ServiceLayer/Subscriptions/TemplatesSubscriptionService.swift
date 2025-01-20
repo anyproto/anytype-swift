@@ -1,6 +1,6 @@
 import Foundation
 import Services
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 
 protocol TemplatesSubscriptionServiceProtocol: AnyObject, Sendable {

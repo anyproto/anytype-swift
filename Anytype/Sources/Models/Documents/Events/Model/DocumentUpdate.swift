@@ -6,7 +6,6 @@ enum DocumentUpdate: Hashable {
     case block(blockId: String)
     case details(id: String)
     case unhandled(blockId: String)
-    case relationLinks
     case restrictions
     case close
     case syncStatus

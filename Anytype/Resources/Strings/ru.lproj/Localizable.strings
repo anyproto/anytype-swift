@@ -211,7 +211,7 @@
 "Open Set" = "Открыть набор";
 "Create Set" = "Создать Набор";
 "Unsupported deeplink" = "Неподдерживаемая ссылка";
-"Edit Profile" = "Edit Profile";
+"Edit Profile" = "Редактировать профиль";
 
 // Home
 "Favorites" = "Избранное";
@@ -580,7 +580,7 @@
 "Types" = "Типы";
 "No name" = "Без названия";
 "New relation" = "Новое свойство";
-"Edit field" = "Edit field";
+"Edit field" = "Редактировать поле";
 "Non-existent object" = "Несуществующий объект";
 
 "Select all" = "Выбрать все";

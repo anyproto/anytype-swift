@@ -10,7 +10,7 @@ final class MiddlewareMerticsConfigurator: AppConfiguratorProtocol {
     func configure() {
         let appVersion = MetadataProvider.appVersion ?? ""
         let buildNumber = MetadataProvider.buildNumber ?? ""
-        let metricsEnv = CoreEnvironment.isDebug ? "-dev" : ""
+        let metricsEnv = CoreEnvironment.targetType.isDebug ? "-dev" : ""
         let version = appVersion + "(\(buildNumber))" + metricsEnv
         Task {
             try await metricsService.setInitialParameters(platform: "iOS", version: version)

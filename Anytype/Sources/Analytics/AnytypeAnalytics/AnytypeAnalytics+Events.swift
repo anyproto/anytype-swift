@@ -626,15 +626,6 @@ extension AnytypeAnalytics {
         logEvent("SearchResult", spaceId: spaceId)
     }
     
-    func logSearchBacklink(spaceId: String, type: ScreenSearchType) {
-        logEvent(
-            "SearchBacklink",
-            spaceId: spaceId,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: type.rawValue
-            ])
-    }
-    
     func logSearchInput(spaceId: String, route: SearchInputRoute? = nil) {
         logEvent(
             "SearchInput",
@@ -952,8 +943,8 @@ extension AnytypeAnalytics {
         logEvent("ShareSpace")
     }
     
-    func logScreenSettingsSpaceShare() {
-        logEvent("ScreenSettingsSpaceShare")
+    func logScreenSettingsSpaceShare(route: SettingsSpaceShareRoute) {
+        logEvent("ScreenSettingsSpaceShare", withEventProperties: [AnalyticsEventsPropertiesKey.route:  route.rawValue])
     }
     
     func logClickShareSpaceCopyLink() {
@@ -1044,8 +1035,8 @@ extension AnytypeAnalytics {
         logEvent("ClickQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: "Share"])
     }
     
-    func logScreenSettingsSpaceMembers() {
-        logEvent("ScreenSettingsSpaceMembers")
+    func logScreenSettingsSpaceMembers(route: SettingsSpaceMembersRoute) {
+        logEvent("ScreenSettingsSpaceMembers", withEventProperties: [AnalyticsEventsPropertiesKey.route:  route.rawValue])
     }
     
     func logDuplicateBlock(spaceId: String) {
@@ -1251,4 +1242,7 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logClickQuote() {
+        logEvent("ClickQuote")
+    }
 }

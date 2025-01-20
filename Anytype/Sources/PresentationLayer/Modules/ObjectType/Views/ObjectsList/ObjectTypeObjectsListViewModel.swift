@@ -1,12 +1,12 @@
 import SwiftUI
 import Services
-
+@preconcurrency import Combine
 
 @MainActor
 final class ObjectTypeObjectsListViewModel: ObservableObject {
     @Published var rows = [WidgetObjectListRowModel]()
     @Published var numberOfObjectsLeft = 0
-    @Published var sort = AllContentSort(relation: .dateUpdated)
+    @Published var sort = ObjectSort(relation: .dateUpdated)
     @Published var isEditorLayout = false
     
     @Published private var detailsOfSet: ObjectDetails?

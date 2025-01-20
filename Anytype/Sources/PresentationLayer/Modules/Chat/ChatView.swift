@@ -139,9 +139,19 @@ struct ChatView: View {
         }
     }
     
+    private var emptyView: some View {
+        ChatEmptyStateView()
+    }
+    
     @ViewBuilder
     private var mainView: some View {
-        ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy, bottomPanel: bottomPanel) {
+        ChatCollectionView(
+            items: model.mesageBlocks,
+            scrollProxy: model.collectionViewScrollProxy,
+            bottomPanel: bottomPanel,
+            emptyView: emptyView,
+            showEmptyState: model.showEmptyState
+        ) {
             MessageView(data: $0, output: model)
         } headerBuilder: {
             ChatMessageHeaderView(text: $0)
@@ -151,11 +161,6 @@ struct ChatView: View {
             await model.scrollToBottom()
         } handleVisibleRange: { fromId, toId in
             model.visibleRangeChanged(fromId: fromId, toId: toId)
-        }
-        .overlay(alignment: .center) {
-            if model.showEmptyState {
-                ChatEmptyStateView()
-            }
         }
     }
 }

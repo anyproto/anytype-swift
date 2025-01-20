@@ -15,6 +15,20 @@ platform :ios do
   end
 
   lane :generate_appstore_profiles do
+    generate_appstore_profiles_for_nightly
+    generate_appstore_profiles_for_anytype
+    generate_appstore_profiles_for_anyapp
+  end
+
+  lane :generate_appstore_profiles_for_nightly do
+    match(force: true)
+  end
+
+  lane :generate_appstore_profiles_for_anytype do
+    match(force: true)
+  end
+
+  lane :generate_appstore_profiles_for_anyapp do
     match(force: true)
   end
 
