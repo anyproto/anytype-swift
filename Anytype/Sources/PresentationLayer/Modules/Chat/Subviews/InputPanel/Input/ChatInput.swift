@@ -29,25 +29,20 @@ struct ChatInput: View {
     
     private var plusButton: some View {
         Menu {
-            Button {
-                onTapAddObject()
-            } label: {
-                Text(Loc.Chat.Actions.Menu.objects)
+            Button { onTapCamera() } label: {
+                Label(Loc.Chat.Actions.Menu.camera, systemImage: "camera")
             }
-            Button {
-                onTapAddMedia()
-            } label: {
-                Text(Loc.Chat.Actions.Menu.media)
+            
+            Button { onTapAddMedia() } label: {
+                Label(Loc.Chat.Actions.Menu.photos, systemImage: "photo")
             }
-            Button {
-                onTapAddFiles()
-            } label: {
-                Text(Loc.Chat.Actions.Menu.files)
+            
+            Button { onTapAddFiles() } label: {
+                Label(Loc.Chat.Actions.Menu.files, systemImage: "doc")
             }
-            Button {
-                onTapCamera()
-            } label: {
-                Text(Loc.Chat.Actions.Menu.camera)
+            
+            Button { onTapAddObject() } label: {
+                Label(Loc.Chat.Actions.Menu.objects, systemImage: "text.document")
             }
             
             Divider()
