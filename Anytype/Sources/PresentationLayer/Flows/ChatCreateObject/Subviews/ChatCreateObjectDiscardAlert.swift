@@ -8,12 +8,13 @@ struct ChatCreateObjectDiscardAlert: View {
     
     var body: some View {
         BottomAlertView(
-            title: "All changes will be discarded.",
+            title: Loc.Chat.CreateObject.Dismiss.title,
+            message: Loc.Chat.CreateObject.Dismiss.message,
             buttons: {
                 BottomAlertButton(text: Loc.cancel, style: .secondary, action: {
                     dismiss()
                 })
-                BottomAlertButton(text: Loc.ok, style: .primary, action: {
+                BottomAlertButton(text: Loc.Chat.CreateObject.Dismiss.ok, style: .warning, action: {
                     onTapConfirm()
                 })
             }

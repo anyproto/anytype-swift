@@ -650,6 +650,13 @@ internal enum Loc {
         return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ files at a time")
       }
     }
+    internal enum CreateObject {
+      internal enum Dismiss {
+        internal static let message = Loc.tr("Localizable", "Chat.CreateObject.Dismiss.Message", fallback: "If you leave it, all your changes will be lost.")
+        internal static let ok = Loc.tr("Localizable", "Chat.CreateObject.Dismiss.Ok", fallback: "Yes, close")
+        internal static let title = Loc.tr("Localizable", "Chat.CreateObject.Dismiss.Title", fallback: "Are you sure you want to close this screen?")
+      }
+    }
     internal enum DeleteMessage {
       internal static let description = Loc.tr("Localizable", "Chat.DeleteMessage.Description", fallback: "It cannot be restored after confirmation")
       internal static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
