@@ -29,6 +29,7 @@ internal enum Loc {
   internal static let alignLeft = Loc.tr("Localizable", "Align left", fallback: "Align left")
   internal static let alignRight = Loc.tr("Localizable", "Align right", fallback: "Align right")
   internal static let alignment = Loc.tr("Localizable", "Alignment", fallback: "Alignment")
+  internal static let all = Loc.tr("Localizable", "All", fallback: "All")
   internal static let allObjects = Loc.tr("Localizable", "All objects", fallback: "All Objects")
   internal static let amber = Loc.tr("Localizable", "Amber", fallback: "Amber")
   internal static let amberBackground = Loc.tr("Localizable", "Amber background", fallback: "Amber background")

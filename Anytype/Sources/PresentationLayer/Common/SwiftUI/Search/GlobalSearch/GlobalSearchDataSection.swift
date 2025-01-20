@@ -9,6 +9,7 @@ struct GlobalSearchData: Identifiable, Hashable {
     let objectTypeName: String
     let editorScreenData: ScreenData
     let score: String
+    let canArchive: Bool
 }
 
 enum HighlightsData: Identifiable, Hashable {

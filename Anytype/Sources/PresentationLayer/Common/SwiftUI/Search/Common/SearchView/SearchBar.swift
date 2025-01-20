@@ -4,6 +4,7 @@ struct SearchBar: View {
     @Binding var text: String
     let focused: Bool
     var placeholder: String = Loc.search
+    var shouldShowDivider = true
 
     var body: some View {
         Group {
@@ -24,7 +25,9 @@ struct SearchBar: View {
         .overlay(overlay)
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
-        .divider()
+        .if(shouldShowDivider) {
+            $0.divider()
+        }
     }
     
     private var overlay: some View {
