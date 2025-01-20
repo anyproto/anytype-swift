@@ -10,15 +10,19 @@ import SwiftUI
 final class TypeFieldsViewModel: ObservableObject {
         
     @Published var canEditRelationsList = false
+    @Published var showConflictingInfo = false
     @Published var relationRows = [TypeFieldsRow]()
     @Published var relationsSearchData: RelationsSearchData?
     @Published var relationData: RelationInfoData?
+    @Published var conflictRelations = [RelationDetails]()
     
     // MARK: - Private variables
     
     let document: any BaseDocumentProtocol
     private let fieldsDataBuilder = TypeFieldsRowBuilder()
     private let moveHandler = TypeFieldsMoveHandler()
+    
+    private var parsedRelations = ParsedRelations.empty
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
@@ -36,6 +40,10 @@ final class TypeFieldsViewModel: ObservableObject {
         self.document = document
     }
     
+    func onAppear() {
+        Task { try await updateConflictRelations() }
+    }
+    
     func setupSubscriptions() async {
         async let relationsSubscription: () = setupRelationsSubscription()
         async let permissionSubscription: () = setupPermissionSubscription()
@@ -45,6 +53,7 @@ final class TypeFieldsViewModel: ObservableObject {
     
     private func setupRelationsSubscription() async {
         for await relations in document.parsedRelationsPublisherForType.values {
+            parsedRelations = relations
             let newRows = fieldsDataBuilder.build(relations: relations.sidebarRelations, featured: relations.featuredRelations)
             
             // do not animate on 1st appearance
@@ -94,5 +103,22 @@ final class TypeFieldsViewModel: ObservableObject {
             }
             
         }
+    }
+    
+    func onAddConflictRelation(_ relation: RelationDetails) {
+        Task {            
+            var newRecommendedRelations = parsedRelations.sidebarRelations.map(\.id)
+            newRecommendedRelations.append(relation.id)
+            
+            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: newRecommendedRelations)
+            try await updateConflictRelations()
+        }
+    }
+    
+    private func updateConflictRelations() async throws {
+        let releationKeys = try await relationsService.getConflictRelationsForType(typeId: document.objectId, spaceId: document.spaceId)
+        conflictRelations = relationDetailsStorage
+            .relationsDetails(ids: releationKeys, spaceId: document.spaceId)
+            .filter { !$0.isHidden && !$0.isDeleted }
     }
 }
