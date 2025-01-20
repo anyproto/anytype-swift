@@ -44,7 +44,7 @@ struct ObjectTypeObjectsListView: View {
             .menuOrder(.fixed)
             
             Spacer.fixedWidth(16)
-            if model.isEditorLayout {
+            if model.canCreateOjbect {
                 Button(action: {
                     model.onCreateNewObjectTap()
                 }, label: {
