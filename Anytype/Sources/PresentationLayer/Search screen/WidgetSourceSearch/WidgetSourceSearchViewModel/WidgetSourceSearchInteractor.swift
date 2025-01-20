@@ -24,7 +24,7 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     private let spaceId: String
-    private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }
+    private let anytypeLibrary = AnytypeWidgetId.availableWidgets.map { $0.librarySource }
     
     init(spaceId: String) {
         self.spaceId = spaceId
@@ -93,6 +93,41 @@ private extension AnytypeWidgetId {
                 name: Loc.Widgets.Library.RecentlyOpened.name,
                 description: Loc.Widgets.Library.RecentlyOpened.description,
                 icon: .object(.emoji(Emoji("📅")!))
+            )
+        case .pages:
+            return WidgetAnytypeLibrarySource(
+                type: .pages,
+                name: Loc.pages,
+                description: nil,
+                icon: .object(.emoji(Emoji("📄")!))
+            )
+        case .lists:
+            return WidgetAnytypeLibrarySource(
+                type: .lists,
+                name: Loc.lists,
+                description: nil,
+                icon: .object(.emoji(Emoji("📦")!))
+            )
+        case .media:
+            return WidgetAnytypeLibrarySource(
+                type: .media,
+                name: Loc.media,
+                description: nil,
+                icon: .object(.emoji(Emoji("🎞️")!))
+            )
+        case .bookmarks:
+            return WidgetAnytypeLibrarySource(
+                type: .bookmarks,
+                name: Loc.bookmarks,
+                description: nil,
+                icon: .object(.emoji(Emoji("🌎")!))
+            )
+        case .files:
+            return WidgetAnytypeLibrarySource(
+                type: .files,
+                name: Loc.files,
+                description: nil,
+                icon: .object(.emoji(Emoji("📁")!))
             )
         }
     }

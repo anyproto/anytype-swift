@@ -102,6 +102,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let allContentWidgets = FeatureDescription(
+        title: "All content widgets",
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
