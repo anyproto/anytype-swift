@@ -10,4 +10,8 @@ extension EdgeInsets {
     init(horizontal: CGFloat, vertical: CGFloat) {
         self.init(top: vertical, leading: horizontal, bottom: vertical, trailing: horizontal)
     }
+    
+    var uiInsets: UIEdgeInsets {
+        UIEdgeInsets(top: top, left: leading, bottom: bottom, right: trailing)
+    }
 }

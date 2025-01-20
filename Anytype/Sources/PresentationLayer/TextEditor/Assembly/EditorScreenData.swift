@@ -2,7 +2,7 @@ import Services
 import Foundation
 import AnytypeCore
 
-enum EditorScreenData: Hashable, Codable {
+enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
     case favorites(homeObjectId: String, spaceId: String)
     case recentEdit(spaceId: String)
     case recentOpen(spaceId: String)
@@ -14,6 +14,10 @@ enum EditorScreenData: Hashable, Codable {
     case date(EditorDateObject)
     case allContent(spaceId: String)
     case type(EditorTypeObject)
+    
+    var id: Int {
+        hashValue
+    }
 }
 
 struct EditorPageObject: Hashable, Codable {

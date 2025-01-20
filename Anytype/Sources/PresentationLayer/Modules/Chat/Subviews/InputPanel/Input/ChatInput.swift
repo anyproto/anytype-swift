@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 struct ChatInput: View {
     
@@ -8,10 +9,12 @@ struct ChatInput: View {
     let hasAdditionalData: Bool
     let disableSendButton: Bool
     let disableAddButton: Bool
+    let createObjectTypes: [ObjectType]
     let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
     let onTapCamera: () -> Void
+    let onTapCreateObject: (_ type: ObjectType) -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     
@@ -45,6 +48,20 @@ struct ChatInput: View {
                 onTapCamera()
             } label: {
                 Text(Loc.Chat.Actions.Menu.camera)
+            }
+            
+            Divider()
+            
+            Menu {
+                ForEach(createObjectTypes) { type in
+                    Button {
+                        onTapCreateObject(type)
+                    } label: {
+                        Text(type.name)
+                    }
+                }
+            } label: {
+                Text(Loc.Chat.Actions.Menu.more)
             }
         } label: {
             Image(asset: .X32.plus)

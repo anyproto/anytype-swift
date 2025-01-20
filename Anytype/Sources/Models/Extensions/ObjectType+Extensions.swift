@@ -28,5 +28,17 @@ extension ObjectType {
         
         return recommendedLayout.isEditorLayout
     }
+    
+    var canCreateInChat: Bool {
+        // Template is basic layout
+        if isTemplateType {
+            return false
+        }
+        
+        guard let recommendedLayout else { return false }
+        
+        return recommendedLayout.isEditorLayout || recommendedLayout.isSet
+    }
+    
 }
 

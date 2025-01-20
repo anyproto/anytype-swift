@@ -8,7 +8,7 @@ struct SetMinimizedHeader: View {
     var tableViewOffset: CGPoint
     @Binding var headerMinimizedSize: CGSize
 
-    private let height = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
+    private let height = ObjectHeaderConstants.minimizedHeaderHeight
 
     var body: some View {
         VStack {
@@ -19,7 +19,6 @@ struct SetMinimizedHeader: View {
 
     private var header: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(UIApplication.shared.mainWindowInsets.top)
             NavigationHeaderContainer(spacing: 0) {
                 PageNavigationBackButton()
             } titleView: {

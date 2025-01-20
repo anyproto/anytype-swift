@@ -47,6 +47,9 @@ struct ChatView: View {
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
         }
+        .task {
+            await model.subscribeOnTypes()
+        }
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
             ChatDeleteMessageAlert(message: $0)
         }
@@ -94,7 +97,8 @@ struct ChatView: View {
                 mention: $model.mentionSearchState,
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
-                disableAddButton: model.sendMessageTaskInProgress
+                disableAddButton: model.sendMessageTaskInProgress,
+                createObjectTypes: model.typesForCreateObject
             ) {
                 model.onTapAddObjectToMessage()
             } onTapAddMedia: {
@@ -103,6 +107,8 @@ struct ChatView: View {
                 model.onTapAddFilesToMessage()
             } onTapCamera: {
                 model.onTapCamera()
+            } onTapCreateObject: {
+                model.onTapCreateObject(type: $0)
             } onTapSend: {
                 model.onTapSendMessage()
             } onTapLinkTo: { range in

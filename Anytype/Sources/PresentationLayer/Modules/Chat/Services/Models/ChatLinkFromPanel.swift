@@ -6,7 +6,7 @@ struct ChatLinkObject {
 }
 
 extension EditorScreenData {
-    var chatLinkFromPanel: ChatLinkObject? {
+    var chatLink: ChatLinkObject? {
         switch self {
         case .page(let data):
             ChatLinkObject(spaceId: data.spaceId, objectId: data.objectId)

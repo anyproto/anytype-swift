@@ -9,9 +9,11 @@ enum ScreenType {
 }
 
 
-enum ScreenData: Hashable, Codable {
+enum ScreenData: Hashable, Codable, Identifiable {
     case editor(EditorScreenData)
     case alert(AlertScreenData)
+    
+    var id: Int { hashValue }
 }
 
 extension ScreenData {
@@ -30,6 +32,15 @@ extension ScreenData {
             editorScreenData.spaceId
         case .alert(let alertScreenData):
             alertScreenData.spaceId
+        }
+    }
+    
+    var editorScreenData: EditorScreenData? {
+        switch self {
+        case .editor(let editorScreenData):
+            return editorScreenData
+        case .alert:
+            return nil
         }
     }
 }

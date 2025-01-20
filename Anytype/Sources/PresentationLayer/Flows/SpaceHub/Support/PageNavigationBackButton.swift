@@ -3,6 +3,7 @@ import SwiftUI
 struct PageNavigationBackButton: View {
     
     @Environment(\.pageNavigation) private var pageNavigation
+    @Environment(\.pageNavigationHiddenBackButton) private var pageNavigationHiddenBackButton
     
     var body: some View {
         IncreaseTapButton {
@@ -23,5 +24,18 @@ struct PageNavigationBackButton: View {
                     pageNavigation.popToFirstInSpace()
                 }
         )
+        .if(pageNavigationHiddenBackButton) {
+            $0.hidden()
+        }
+    }
+}
+
+extension EnvironmentValues {
+    @Entry var pageNavigationHiddenBackButton = false
+}
+
+extension View {
+    func pageNavigationHiddenBackButton(_ value: Bool) -> some View {
+        environment(\.pageNavigationHiddenBackButton, value)
     }
 }

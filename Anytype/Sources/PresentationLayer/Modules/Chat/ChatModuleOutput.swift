@@ -1,4 +1,5 @@
 import Foundation
+import Services
 
 @MainActor
 protocol ChatModuleOutput: AnyObject {
@@ -13,4 +14,5 @@ protocol ChatModuleOutput: AnyObject {
     func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem])
     func onUrlSelected(url: URL)
     func onWidgetsSelected()
+    func didSelectCreateObject(type: ObjectType)
 }

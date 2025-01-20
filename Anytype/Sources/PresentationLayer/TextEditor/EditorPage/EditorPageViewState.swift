@@ -7,10 +7,10 @@ final class EditorPageViewState: ObservableObject {
     
     private var cancellable : AnyCancellable? = nil
     
-    let viewController: UIViewController
+    let viewController: EditorPageController
     var model: EditorPageViewModel
  
-    init(viewController: UIViewController, model: EditorPageViewModel) {
+    init(viewController: EditorPageController, model: EditorPageViewModel) {
         self.viewController = viewController
         self.model = model
         self.cancellable = model.objectWillChange.receiveOnMain().sink { [weak self] in

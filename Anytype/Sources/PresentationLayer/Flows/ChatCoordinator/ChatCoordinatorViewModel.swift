@@ -26,6 +26,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var safariUrl: URL?
     @Published var cameraData: SimpleCameraData?
     @Published var showSpaceSettingsData: AccountInfo?
+    @Published var newLinkedObject: EditorScreenData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -35,6 +36,8 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     init(data: ChatCoordinatorData) {
         self.chatId = data.chatId
@@ -98,5 +101,21 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func onWidgetsSelected() {
         pageNavigation?.pushHome()
+    }
+    
+    func didSelectCreateObject(type: ObjectType) {
+        Task {
+            let object = try await objectActionsService.createObject(
+                name: "",
+                typeUniqueKey: type.uniqueKey,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: false,
+                spaceId: spaceId,
+                origin: .none,
+                templateId: type.defaultTemplateId
+            )
+            newLinkedObject = object.screenData().editorScreenData
+        }
     }
 }
