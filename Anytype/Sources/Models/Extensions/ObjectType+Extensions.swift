@@ -31,7 +31,7 @@ extension ObjectType {
     
     var canCreateInChat: Bool {
         // Template is basic layout
-        if uniqueKey == .template {
+        if isTemplateType {
             return false
         }
         

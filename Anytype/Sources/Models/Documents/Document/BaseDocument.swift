@@ -107,15 +107,13 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         switch mode {
         case .handling:
             guard !isOpened else { return }
-            if let openTask {
-                try await openTask.value
-            } else {
+            if openTask.isNil {
                 openTask = Task { [weak self, objectId, spaceId, objectLifecycleService] in
                     let model = try await objectLifecycleService.open(contextId: objectId, spaceId: spaceId)
                     self?.setupView(model)
                 }
-                try await openTask?.value
             }
+            try await openTask?.value
         case .preview:
             try await updateDocumentPreview()
         case .version(let versionId):
