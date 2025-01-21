@@ -59,6 +59,7 @@ final class GlobalSearchViewModel: ObservableObject {
             
             updateInitialStateIfNeeded()
             updateSections()
+            storeState()
             
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
@@ -70,11 +71,9 @@ final class GlobalSearchViewModel: ObservableObject {
     func onSectionChanged(_ section: ObjectTypeSection) {
         sectionChanged = true
         state.section = section
-        storeState()
     }
     
     func onSearchTextChanged() {
-        storeState()
         AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
     }
     
