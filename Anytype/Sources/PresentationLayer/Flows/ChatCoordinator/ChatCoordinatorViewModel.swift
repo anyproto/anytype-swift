@@ -14,7 +14,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     let chatId: String
     var spaceId: String { info.accountSpaceId }
     
-    @Published var objectToMessageSearchData: BlockObjectSearchData?
+    @Published var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
     @Published var showEmojiData: MessageReactionPickerData?
     @Published var showSyncStatusInfo = false
     @Published var objectIconPickerData: ObjectIconPickerData?
@@ -44,7 +44,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         self.info = data.spaceInfo
     }
     
-    func onLinkObjectSelected(data: BlockObjectSearchData) {
+    func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {
         objectToMessageSearchData = data
     }
     

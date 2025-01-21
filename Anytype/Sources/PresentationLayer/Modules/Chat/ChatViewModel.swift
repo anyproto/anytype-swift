@@ -93,21 +93,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
     }
     
-    func onTapAddObjectToMessage() {
-        let data = BlockObjectSearchData(
-            title: Loc.linkTo,
-            spaceId: spaceId,
-            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
-            excludedLayouts: [],
-            onSelect: { [weak self] details in
-                guard let self else { return }
-                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
-                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
-                } else {
-                    showFileLimitAlert()
-                }
-            }
-        )
+    func onTapAddPageToMessage() {
+        let data = buildObjectSearcData(title: Loc.Chat.Attach.Page.title, section: .pages)
+        output?.onLinkObjectSelected(data: data)
+    }
+    
+    func onTapAddListToMessage() {
+        let data = buildObjectSearcData(title: Loc.Chat.Attach.List.title, section: .lists)
         output?.onLinkObjectSelected(data: data)
     }
     
@@ -538,5 +530,22 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private func showFileLimitAlert() {
         toastBarData = ToastBarData(text: Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), showSnackBar: true, messageType: .failure)
+    }
+    
+    private func buildObjectSearcData(title: String, section: ObjectTypeSection) -> ObjectSearchWithMetaModuleData {
+        ObjectSearchWithMetaModuleData(
+            spaceId: spaceId,
+            title: title,
+            section: section,
+            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
+            onSelect: { [weak self] details in
+                guard let self else { return }
+                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                } else {
+                    showFileLimitAlert()
+                }
+            }
+        )
     }
 }

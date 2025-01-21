@@ -10,7 +10,8 @@ struct ChatInput: View {
     let disableSendButton: Bool
     let disableAddButton: Bool
     let createObjectTypes: [ObjectType]
-    let onTapAddObject: () -> Void
+    let onTapAddPage: () -> Void
+    let onTapAddList: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
     let onTapCamera: () -> Void
@@ -41,8 +42,12 @@ struct ChatInput: View {
                 Label(Loc.Chat.Actions.Menu.files, systemImage: "doc")
             }
             
-            Button { onTapAddObject() } label: {
-                Label(Loc.Chat.Actions.Menu.objects, systemImage: "doc.plaintext")
+            Button { onTapAddPage() } label: {
+                Label(Loc.Chat.Actions.Menu.pages, systemImage: "doc.plaintext")
+            }
+            
+            Button { onTapAddList() } label: {
+                Label(Loc.Chat.Actions.Menu.lists, systemImage: "list.bullet")
             }
             
             Divider()

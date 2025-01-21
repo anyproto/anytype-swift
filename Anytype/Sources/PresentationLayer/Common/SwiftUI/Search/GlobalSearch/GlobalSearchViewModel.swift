@@ -54,7 +54,8 @@ final class GlobalSearchViewModel: ObservableObject {
                 text: state.searchText,
                 spaceId: moduleData.spaceId,
                 layouts: buildLayouts(),
-                sorts: buildSorts()
+                sorts: buildSorts(),
+                excludedObjectIds: []
             )
             
             updateInitialStateIfNeeded()

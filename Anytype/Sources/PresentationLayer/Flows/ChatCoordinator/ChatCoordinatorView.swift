@@ -16,7 +16,7 @@ struct ChatCoordinatorView: View {
                 model.pageNavigation = pageNavigation
             }
             .sheet(item: $model.objectToMessageSearchData) {
-                BlockObjectSearchView(data: $0)
+                ObjectSearchWithMetaCoordinatorView(data: $0)
             }
             .sheet(item: $model.showEmojiData) {
                 MessageReactionPickerView(data: $0)

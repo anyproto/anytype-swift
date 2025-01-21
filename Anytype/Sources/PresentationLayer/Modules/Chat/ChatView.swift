@@ -98,22 +98,32 @@ struct ChatView: View {
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
                 disableAddButton: model.sendMessageTaskInProgress,
-                createObjectTypes: model.typesForCreateObject
-            ) {
-                model.onTapAddObjectToMessage()
-            } onTapAddMedia: {
-                model.onTapAddMediaToMessage()
-            } onTapAddFiles: {
-                model.onTapAddFilesToMessage()
-            } onTapCamera: {
-                model.onTapCamera()
-            } onTapCreateObject: {
-                model.onTapCreateObject(type: $0)
-            } onTapSend: {
-                model.onTapSendMessage()
-            } onTapLinkTo: { range in
-                model.onTapLinkTo(range: range)
-            }
+                createObjectTypes: model.typesForCreateObject,
+                onTapAddPage: {
+                    model.onTapAddPageToMessage()
+                },
+                onTapAddList: {
+                    model.onTapAddListToMessage()
+                },
+                onTapAddMedia: {
+                    model.onTapAddMediaToMessage()
+                },
+                onTapAddFiles: {
+                    model.onTapAddFilesToMessage()
+                },
+                onTapCamera: {
+                    model.onTapCamera()
+                },
+                onTapCreateObject: {
+                    model.onTapCreateObject(type: $0)
+                },
+                onTapSend: {
+                    model.onTapSendMessage()
+                },
+                onTapLinkTo: { range in
+                    model.onTapLinkTo(range: range)
+                }
+            )
             .overlay(alignment: .top) {
                 if let messageTextLimit = model.messageTextLimit {
                     Text(messageTextLimit)
