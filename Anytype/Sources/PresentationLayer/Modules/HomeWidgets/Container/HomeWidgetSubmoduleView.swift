@@ -54,11 +54,23 @@ struct HomeWidgetSubmoduleView: View {
         case (.collections, .compactList):
             CollectionsCompactListWidgetSubmoduleView(data: widgetData)
         case (.pages, .tree):
-            PagesTreeWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.allContentWidgets {
+                PagesTreeWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case (.pages, .compactList):
-            PagesCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.allContentWidgets {
+                PagesCompactListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case (.pages, .list):
-            PagesListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.allContentWidgets {
+                PagesListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case _:
             EmptyView()
         }
