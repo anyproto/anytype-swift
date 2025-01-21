@@ -4,7 +4,7 @@ import Combine
 import UIKit
 
 @MainActor
-final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewModelProtocol {
+final class AllObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
@@ -12,27 +12,28 @@ final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMod
     private let widgetObject: any BaseDocumentProtocol
     private let spaceId: String
     private weak var output: (any CommonWidgetModuleOutput)?
+    private let type: AllObjectWidgetType
     
-    @Injected(\.setsSubscriptionService)
-    private var setsSubscriptionService: any SetsSubscriptionServiceProtocol
-    @Injected(\.objectActionsService)
-    private var objectService: any ObjectActionsServiceProtocol
+    @Injected(\.allContentSubscriptionService)
+    private var allContentSubscriptionService: any AllContentSubscriptionServiceProtocol
     
     // MARK: - State
     
     @Published private var details: [ObjectDetails]?
-    @Published private var name: String = Loc.pages
+    @Published private var name: String
     private var subscriptions = [AnyCancellable]()
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
-    var allowCreateObject = true
+    var allowCreateObject = false
     
-    init(data: WidgetSubmoduleData) {
+    init(data: WidgetSubmoduleData, type: AllObjectWidgetType) {
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
         self.spaceId = data.workspaceInfo.accountSpaceId
         self.output = data.output
+        self.type = type
+        self.name = type.name
     }
     
     // MARK: - WidgetInternalViewModelProtocol
@@ -52,38 +53,25 @@ final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMod
     func startHeaderSubscription() {}
     
     func screenData() -> ScreenData? {
-        return .editor(.sets(spaceId: spaceId))
+        return type.screenData
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
-        return .sets
-    }
-    
-    func onCreateObjectTap() {
-        Task {
-            let details = try await objectService.createObject(
-                name: "",
-                typeUniqueKey: .set,
-                shouldDeleteEmptyObject: true,
-                shouldSelectType: false,
-                shouldSelectTemplate: false,
-                spaceId: widgetObject.spaceId,
-                origin: .none,
-                templateId: nil
-            )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
-            output?.onObjectSelected(screenData: details.screenData())
-            UISelectionFeedbackGenerator().selectionChanged()
-        }
+        return type.analyticsWidgetSource
     }
     
     // MARK: - Private func
     
     private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
-        await setsSubscriptionService.startSubscription(
+        await allContentSubscriptionService.stopSubscription()
+        await allContentSubscriptionService.startSubscription(
             spaceId: spaceId,
-            objectLimit: widgetInfo.fixedLimit,
-            update: { [weak self] details in
+            section: type.typeSection,
+            sort: ObjectSort(relation: .dateUpdated),
+            onlyUnlinked: false,
+            limitedObjectsIds: nil,
+            limit: widgetInfo.fixedLimit,
+            update: { [weak self] details, _ in
                 self?.details = details
             }
         )

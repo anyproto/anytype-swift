@@ -53,6 +53,12 @@ struct HomeWidgetSubmoduleView: View {
             CollectionsListWidgetSubmoduleView(data: widgetData)
         case (.collections, .compactList):
             CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+        case (.pages, .tree):
+            PagesTreeWidgetSubmoduleView(data: widgetData)
+        case (.pages, .compactList):
+            PagesCompactListWidgetSubmoduleView(data: widgetData)
+        case (.pages, .list):
+            PagesListWidgetSubmoduleView(data: widgetData)
         case _:
             EmptyView()
         }
