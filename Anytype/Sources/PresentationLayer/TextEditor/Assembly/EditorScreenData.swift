@@ -11,6 +11,7 @@ enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
     case collections(spaceId: String)
     case bin(spaceId: String)
     case pages(spaceId: String)
+    case lists(spaceId: String)
     // Object
     case page(EditorPageObject)
     case list(EditorListObject)

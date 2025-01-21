@@ -2,6 +2,7 @@ import Foundation
 
 enum AllObjectWidgetType: String {
     case pages
+    case lists
 }
 
 extension AllObjectWidgetType {
@@ -9,6 +10,8 @@ extension AllObjectWidgetType {
         switch self {
         case .pages:
             Loc.pages
+        case .lists:
+            Loc.lists
         }
     }
     
@@ -16,6 +19,8 @@ extension AllObjectWidgetType {
         switch self {
         case .pages:
             return .pages(spaceId: spaceId)
+        case .lists:
+            return .lists(spaceId: spaceId)
         }
     }
     
@@ -23,6 +28,8 @@ extension AllObjectWidgetType {
         switch self {
         case .pages:
             return .pages
+        case .lists:
+            return .lists
         }
     }
     
@@ -30,6 +37,8 @@ extension AllObjectWidgetType {
         switch self {
         case .pages:
             return .pages
+        case .lists:
+            return .lists
         }
     }
 }
