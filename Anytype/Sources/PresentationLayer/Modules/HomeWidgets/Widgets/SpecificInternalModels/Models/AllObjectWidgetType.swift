@@ -12,8 +12,11 @@ extension AllObjectWidgetType {
         }
     }
     
-    var screenData: ScreenData {
-        fatalError()
+    func editorScreenData(spaceId: String) -> EditorScreenData {
+        switch self {
+        case .pages:
+            return .pages(spaceId: spaceId)
+        }
     }
     
     var analyticsWidgetSource: AnalyticsWidgetSource {

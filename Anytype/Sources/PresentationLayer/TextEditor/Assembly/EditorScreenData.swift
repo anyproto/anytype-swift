@@ -3,12 +3,15 @@ import Foundation
 import AnytypeCore
 
 enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
+    // Anytype widget screens
     case favorites(homeObjectId: String, spaceId: String)
     case recentEdit(spaceId: String)
     case recentOpen(spaceId: String)
     case sets(spaceId: String)
     case collections(spaceId: String)
     case bin(spaceId: String)
+    case pages(spaceId: String)
+    // Object
     case page(EditorPageObject)
     case list(EditorListObject)
     case date(EditorDateObject)

@@ -53,7 +53,7 @@ final class AllObjectWidgetInternalViewModel: ObservableObject, WidgetInternalVi
     func startHeaderSubscription() {}
     
     func screenData() -> ScreenData? {
-        return type.screenData
+        return .editor(type.editorScreenData(spaceId: spaceId))
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
