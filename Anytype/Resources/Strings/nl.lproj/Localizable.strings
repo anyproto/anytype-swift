@@ -1276,6 +1276,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.Actions.Menu.Media" = "Upload media";
 "Chat.Actions.Menu.Files" = "Upload bestand";
 "Chat.Actions.Menu.Camera" = "Neem vanaf camera";
+"Chat.Actions.Menu.More" = "Meer";
 "Chat.Participant.Badge" = "(Jij)";
 "Chat.Reply.Images" = "Afbeeldingen (%@)";
 "Chat.Reply.Attachments" = "Bijlagen (%@)";
@@ -1283,6 +1284,10 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.SendLimitAlert.Title" = "Wacht even! Turbo typen gedetecteerd!";
 "Chat.SendLimitAlert.Message" = "Het lijkt erop dat je berichten met lichtsnelheid verstuurt. Wacht even voor je volgende bericht.";
 "Chat.AttachmentsLimit.Alert" = "Je kunt slechts %@ bestanden tegelijk uploaden";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";

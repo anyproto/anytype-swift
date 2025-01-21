@@ -1275,6 +1275,7 @@ Please provide specific details of your needs here.";
 "Chat.Actions.Menu.Media" = "Unggah media";
 "Chat.Actions.Menu.Files" = "Unggah berkas";
 "Chat.Actions.Menu.Camera" = "Ambil dari kamera";
+"Chat.Actions.Menu.More" = "Lainnya";
 "Chat.Participant.Badge" = "(Kamu)";
 "Chat.Reply.Images" = "Gambar (%@)";
 "Chat.Reply.Attachments" = "Lampiran (%@)";
@@ -1282,6 +1283,10 @@ Please provide specific details of your needs here.";
 "Chat.SendLimitAlert.Title" = "Bentar-bentar, banter banget!";
 "Chat.SendLimitAlert.Message" = "Sepertinya kamu mengirimkan terlalu banyak pesan. Tunggu sebentar sebelum mengirim pesan lagi.";
 "Chat.AttachmentsLimit.Alert" = "Kamu hanya bisa mengunggah %@ berkas pada waktu yang sama";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
