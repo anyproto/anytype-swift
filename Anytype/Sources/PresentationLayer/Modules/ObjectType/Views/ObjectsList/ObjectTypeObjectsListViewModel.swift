@@ -7,7 +7,7 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
     @Published var rows = [WidgetObjectListRowModel]()
     @Published var numberOfObjectsLeft = 0
     @Published var sort = ObjectSort(relation: .dateUpdated)
-    @Published var isEditorLayout = false
+    @Published var canCreateOjbect = false
     
     @Published private var detailsOfSet: ObjectDetails?
     var setButtonText: String { detailsOfSet.isNotNil ? Loc.openSet : Loc.createSet }
@@ -49,7 +49,14 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
     
     func startDetailsSubscription() async {
         for await details in document.detailsPublisher.values {
-            isEditorLayout = details.recommendedLayoutValue?.isEditorLayout ?? false
+            guard let layout = details.recommendedLayoutValue else {
+                canCreateOjbect = false
+                return
+            }
+
+            let isSupportedLayout = layout.isEditorLayout || layout.isList
+            let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+            canCreateOjbect = isSupportedLayout && !isTemplate
         }
     }
     

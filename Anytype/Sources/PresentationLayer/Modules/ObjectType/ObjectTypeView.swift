@@ -35,8 +35,8 @@ struct ObjectTypeView: View {
                     Spacer.fixedHeight(24)
                     buttonsRow.padding(.horizontal, 20)
                     Spacer.fixedHeight(32)
-                    templates
                 }
+                if model.showTemplates { templates }
                 Spacer.fixedHeight(32)
                 ObjectTypeObjectsListView(typeDocument: model.document, output: model.output)
             }
@@ -74,10 +74,15 @@ struct ObjectTypeView: View {
                 model.onIconTap()
             }, label: {
                 IconView(icon: model.details?.objectIconImage).frame(width: 32, height: 32)
-            })
-            TextField(Loc.BlockText.Content.placeholder, text: $model.typeName)
-                .foregroundColor(.Text.primary)
-                .font(AnytypeFontBuilder.font(anytypeFont: .title))
+            }).disabled(!model.canEditDetails)
+            if model.canEditDetails {
+                TextField(Loc.BlockText.Content.placeholder, text: $model.typeName)
+                    .foregroundColor(.Text.primary)
+                    .font(AnytypeFontBuilder.font(anytypeFont: .title))
+            } else {
+                AnytypeText(model.typeName, style: .title)
+                    .foregroundColor(.Text.primary)
+            }
             Spacer()
         }
     }

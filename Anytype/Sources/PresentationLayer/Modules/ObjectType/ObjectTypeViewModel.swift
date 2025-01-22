@@ -15,6 +15,7 @@ final class ObjectTypeViewModel: ObservableObject {
     
     @Published var toastBarData: ToastBarData = .empty
     @Published var showDeleteConfirmation = false
+    @Published var showTemplates = false
     
     let document: any BaseDocumentProtocol
     var canEditDetails: Bool { document.permissions.canEditDetails }
@@ -111,7 +112,15 @@ final class ObjectTypeViewModel: ObservableObject {
             }
             
             self.details = details
-            buildTemplates()
+            
+            if let recommendedLayout = details.recommendedLayoutValue {
+                let isSupportedLayout = recommendedLayout.isEditorLayout
+                let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+                showTemplates = isSupportedLayout && !isTemplate
+                if showTemplates { buildTemplates() }
+            } else {
+                showTemplates = false
+            }
         }
     }
     
