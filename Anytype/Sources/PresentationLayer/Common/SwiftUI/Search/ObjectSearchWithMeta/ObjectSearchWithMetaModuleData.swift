@@ -41,18 +41,17 @@ enum ObjectSearchWithMetaType: String {
     }
     
     func title(for key: ObjectTypeUniqueKey) -> String? {
-        if key == ObjectTypeUniqueKey.page {
-            return "New Page"
+        switch key {
+        case ObjectTypeUniqueKey.page:
+            return Loc.ObjectSearchWithMeta.Create.page
+        case ObjectTypeUniqueKey.note:
+            return Loc.ObjectSearchWithMeta.Create.note
+        case ObjectTypeUniqueKey.set:
+            return Loc.ObjectSearchWithMeta.Create.set
+        case ObjectTypeUniqueKey.collection:
+            return Loc.ObjectSearchWithMeta.Create.collection
+        default:
+            return nil
         }
-        if key == ObjectTypeUniqueKey.note {
-            return "New Note"
-        }
-        if key == ObjectTypeUniqueKey.set {
-            return "New Set"
-        }
-        if key == ObjectTypeUniqueKey.collection {
-            return "New Collection"
-        }
-        return nil
     }
 }
