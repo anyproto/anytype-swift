@@ -86,7 +86,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
         let today = Date()
         let dict = OrderedDictionary(
             grouping: searchResult,
-            by: { dateFormatter.localizedString(for: $0.objectDetails.lastOpenedDate ?? today, relativeTo: today) }
+            by: { dateFormatter.localizedString(for: $0.objectDetails.lastModifiedDate ?? today, relativeTo: today) }
         )
         
         sections = dict.map { (key, result) in
@@ -133,7 +133,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
     private func buildSorts() -> [DataviewSort] {
         .builder {
             SearchHelper.sort(
-                relation: BundledRelationKey.lastOpenedDate,
+                relation: BundledRelationKey.lastModifiedDate,
                 type: .desc
             )
         }
