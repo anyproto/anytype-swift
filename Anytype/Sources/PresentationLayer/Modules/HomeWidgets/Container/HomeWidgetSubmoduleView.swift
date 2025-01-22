@@ -95,6 +95,18 @@ struct HomeWidgetSubmoduleView: View {
             } else {
                 EmptyView()
             }
+        case (.bookmarks, .compactList):
+            if FeatureFlags.allContentWidgets {
+                BookmarksCompactListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
+        case (.bookmarks, .list):
+            if FeatureFlags.allContentWidgets {
+                BookmarksListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case _:
             EmptyView()
         }

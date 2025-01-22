@@ -4,6 +4,7 @@ enum AllObjectWidgetType: String {
     case pages
     case lists
     case media
+    case bookmarks
 }
 
 extension AllObjectWidgetType {
@@ -15,6 +16,8 @@ extension AllObjectWidgetType {
             Loc.lists
         case .media:
             Loc.media
+        case .bookmarks:
+            Loc.bookmarks
         }
     }
     
@@ -26,6 +29,8 @@ extension AllObjectWidgetType {
             .lists(spaceId: spaceId)
         case .media:
             .media(spaceId: spaceId)
+        case .bookmarks:
+            .bookmarks(spaceId: spaceId)
         }
     }
     
@@ -37,6 +42,8 @@ extension AllObjectWidgetType {
             .lists
         case .media:
             .media
+        case .bookmarks:
+            .bookmarks
         }
     }
     
@@ -48,6 +55,8 @@ extension AllObjectWidgetType {
             .lists
         case .media:
             .media
+        case .bookmarks:
+            .bookmarks
         }
     }
 }

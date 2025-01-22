@@ -13,6 +13,7 @@ enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
     case pages(spaceId: String)
     case lists(spaceId: String)
     case media(spaceId: String)
+    case bookmarks(spaceId: String)
     // Object
     case page(EditorPageObject)
     case list(EditorListObject)
