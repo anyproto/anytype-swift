@@ -1225,6 +1225,14 @@ internal enum Loc {
       internal static let placeholder = Loc.tr("Localizable", "Object.Title.Placeholder", fallback: "Untitled")
     }
   }
+  internal enum ObjectSearchWithMeta {
+    internal enum Create {
+      internal static let collection = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Collection", fallback: "New Collection")
+      internal static let note = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Note", fallback: "New Note")
+      internal static let page = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Page", fallback: "New Page")
+      internal static let `set` = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Set", fallback: "New Set")
+    }
+  }
   internal enum ObjectType {
     internal static func addedToLibrary(_ p1: Any) -> String {
       return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ has been created")
