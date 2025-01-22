@@ -3,6 +3,7 @@ import Foundation
 enum AllObjectWidgetType: String {
     case pages
     case lists
+    case media
 }
 
 extension AllObjectWidgetType {
@@ -12,33 +13,41 @@ extension AllObjectWidgetType {
             Loc.pages
         case .lists:
             Loc.lists
+        case .media:
+            Loc.media
         }
     }
     
     func editorScreenData(spaceId: String) -> EditorScreenData {
         switch self {
         case .pages:
-            return .pages(spaceId: spaceId)
+            .pages(spaceId: spaceId)
         case .lists:
-            return .lists(spaceId: spaceId)
+            .lists(spaceId: spaceId)
+        case .media:
+            .media(spaceId: spaceId)
         }
     }
     
     var analyticsWidgetSource: AnalyticsWidgetSource {
         switch self {
         case .pages:
-            return .pages
+            .pages
         case .lists:
-            return .lists
+            .lists
+        case .media:
+            .media
         }
     }
     
     var typeSection: ObjectTypeSection {
         switch self {
         case .pages:
-            return .pages
+            .pages
         case .lists:
-            return .lists
+            .lists
+        case .media:
+            .media
         }
     }
 }

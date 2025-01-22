@@ -83,6 +83,18 @@ struct HomeWidgetSubmoduleView: View {
             } else {
                 EmptyView()
             }
+        case (.media, .compactList):
+            if FeatureFlags.allContentWidgets {
+                MediaCompactListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
+        case (.media, .list):
+            if FeatureFlags.allContentWidgets {
+                MediaListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case _:
             EmptyView()
         }
