@@ -638,9 +638,18 @@ internal enum Loc {
       internal enum Menu {
         internal static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Camera")
         internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Files")
+        internal static let lists = Loc.tr("Localizable", "Chat.Actions.Menu.Lists", fallback: "Lists")
         internal static let more = Loc.tr("Localizable", "Chat.Actions.Menu.More", fallback: "More")
-        internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Objects")
+        internal static let pages = Loc.tr("Localizable", "Chat.Actions.Menu.Pages", fallback: "Pages")
         internal static let photos = Loc.tr("Localizable", "Chat.Actions.Menu.Photos", fallback: "Photos")
+      }
+    }
+    internal enum Attach {
+      internal enum List {
+        internal static let title = Loc.tr("Localizable", "Chat.Attach.List.title", fallback: "Attach List")
+      }
+      internal enum Page {
+        internal static let title = Loc.tr("Localizable", "Chat.Attach.Page.title", fallback: "Attach Page")
       }
     }
     internal enum AttachedObject {
