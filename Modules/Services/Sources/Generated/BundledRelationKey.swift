@@ -398,4 +398,10 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Default object type id that will be set to new sets/collections
     case defaultTypeId = "defaultTypeId"
+
+    /// List of recommended relations that are hidden in layout
+    case recommendedHiddenRelations = "recommendedHiddenRelations"
+
+    /// List of recommended file-specific relations
+    case recommendedFileRelations = "recommendedFileRelations"
 }

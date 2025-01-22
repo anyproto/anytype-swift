@@ -147,6 +147,8 @@ public protocol BundledRelationsValueProvider {
     var spaceOrder: String { get }
     var defaultViewType: Int? { get }
     var defaultTypeId: ObjectId { get }
+    var recommendedHiddenRelations: [ObjectId] { get }
+    var recommendedFileRelations: [ObjectId] { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -681,5 +683,13 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Default object type id that will be set to new sets/collections
     var defaultTypeId: ObjectId {
         return value(for: BundledRelationKey.defaultTypeId.rawValue)
+    }
+    /// List of recommended relations that are hidden in layout
+    var recommendedHiddenRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedHiddenRelations.rawValue)
+    }
+    /// List of recommended file-specific relations
+    var recommendedFileRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedFileRelations.rawValue)
     }
 }
