@@ -637,15 +637,35 @@ internal enum Loc {
     }
     internal enum Actions {
       internal enum Menu {
-        internal static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Take from camera")
-        internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
-        internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
-        internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
+        internal static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Camera")
+        internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Files")
+        internal static let lists = Loc.tr("Localizable", "Chat.Actions.Menu.Lists", fallback: "Lists")
+        internal static let more = Loc.tr("Localizable", "Chat.Actions.Menu.More", fallback: "More")
+        internal static let pages = Loc.tr("Localizable", "Chat.Actions.Menu.Pages", fallback: "Pages")
+        internal static let photos = Loc.tr("Localizable", "Chat.Actions.Menu.Photos", fallback: "Photos")
       }
+    }
+    internal enum Attach {
+      internal enum List {
+        internal static let title = Loc.tr("Localizable", "Chat.Attach.List.title", fallback: "Attach List")
+      }
+      internal enum Page {
+        internal static let title = Loc.tr("Localizable", "Chat.Attach.Page.title", fallback: "Attach Page")
+      }
+    }
+    internal enum AttachedObject {
+      internal static let attach = Loc.tr("Localizable", "Chat.AttachedObject.Attach", fallback: "Attach")
     }
     internal enum AttachmentsLimit {
       internal static func alert(_ p1: Any) -> String {
         return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ files at a time")
+      }
+    }
+    internal enum CreateObject {
+      internal enum Dismiss {
+        internal static let message = Loc.tr("Localizable", "Chat.CreateObject.Dismiss.Message", fallback: "If you leave it, all your changes will be lost.")
+        internal static let ok = Loc.tr("Localizable", "Chat.CreateObject.Dismiss.Ok", fallback: "Yes, close")
+        internal static let title = Loc.tr("Localizable", "Chat.CreateObject.Dismiss.Title", fallback: "Are you sure you want to close this screen?")
       }
     }
     internal enum DeleteMessage {

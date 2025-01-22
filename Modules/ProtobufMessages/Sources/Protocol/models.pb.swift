@@ -3820,9 +3820,6 @@ public struct Anytype_Model_Restrictions {
 
     /// can be set only for types. Restricts creating objects of this type
     case createObjectOfThisType // = 9
-
-    /// object is not allowed to publish
-    case publish // = 10
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -3841,7 +3838,6 @@ public struct Anytype_Model_Restrictions {
       case 7: self = .template
       case 8: self = .duplicate
       case 9: self = .createObjectOfThisType
-      case 10: self = .publish
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -3858,7 +3854,6 @@ public struct Anytype_Model_Restrictions {
       case .template: return 7
       case .duplicate: return 8
       case .createObjectOfThisType: return 9
-      case .publish: return 10
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -3931,7 +3926,6 @@ extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
     .template,
     .duplicate,
     .createObjectOfThisType,
-    .publish,
   ]
 }
 
@@ -9543,7 +9537,6 @@ extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoName
     7: .same(proto: "Template"),
     8: .same(proto: "Duplicate"),
     9: .same(proto: "CreateObjectOfThisType"),
-    10: .same(proto: "Publish"),
   ]
 }
 

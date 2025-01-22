@@ -10,8 +10,8 @@ final class GlobalSearchViewModel: ObservableObject {
     
     @Injected(\.searchWithMetaService)
     private var searchWithMetaService: any SearchWithMetaServiceProtocol
-    @Injected(\.globalSearchDataBuilder)
-    private var globalSearchDataBuilder: any GlobalSearchDataBuilderProtocol
+    @Injected(\.searchWithMetaModelBuilder)
+    private var searchWithMetaModelBuilder: any SearchWithMetaModelBuilderProtocol
     @Injected(\.globalSearchSavedStatesService)
     private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
     @Injected(\.accountParticipantsStorage)
@@ -24,7 +24,7 @@ final class GlobalSearchViewModel: ObservableObject {
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
     @Published var state = GlobalSearchState()
-    @Published var sections = [ListSectionData<String?, GlobalSearchData>]()
+    @Published var sections = [ListSectionData<String?, SearchWithMetaModel>]()
     @Published var dismiss = false
     @Published private var participantCanEdit = false
     
@@ -54,11 +54,13 @@ final class GlobalSearchViewModel: ObservableObject {
                 text: state.searchText,
                 spaceId: moduleData.spaceId,
                 layouts: buildLayouts(),
-                sorts: buildSorts()
+                sorts: buildSorts(),
+                excludedObjectIds: []
             )
             
             updateInitialStateIfNeeded()
             updateSections()
+            storeState()
             
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
@@ -70,11 +72,9 @@ final class GlobalSearchViewModel: ObservableObject {
     func onSectionChanged(_ section: ObjectTypeSection) {
         sectionChanged = true
         state.section = section
-        storeState()
     }
     
     func onSearchTextChanged() {
-        storeState()
         AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
     }
     
@@ -83,7 +83,7 @@ final class GlobalSearchViewModel: ObservableObject {
         onSelect(searchData: firstObject)
     }
     
-    func onSelect(searchData: GlobalSearchData) {
+    func onSelect(searchData: SearchWithMetaModel) {
         AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId)
         dismiss.toggle()
         moduleData.onSelect(searchData.editorScreenData)
@@ -145,12 +145,12 @@ final class GlobalSearchViewModel: ObservableObject {
         globalSearchSavedStatesService.storeState(state, spaceId: moduleData.spaceId)
     }
     
-    private func listSectionData(title: String?, result: [SearchResultWithMeta]) -> ListSectionData<String?, GlobalSearchData> {
+    private func listSectionData(title: String?, result: [SearchResultWithMeta]) -> ListSectionData<String?, SearchWithMetaModel> {
         ListSectionData(
             id: title ?? UUID().uuidString,
             data: title,
             rows: result.compactMap { result in
-                globalSearchDataBuilder.buildData(
+                searchWithMetaModelBuilder.buildModel(
                     with: result,
                     spaceId: moduleData.spaceId,
                     participantCanEdit: participantCanEdit

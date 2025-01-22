@@ -1270,10 +1270,12 @@ En concreto,
 "Chat.Reactions.Empty.Title" = "Aún no hay reacciones";
 "Chat.Reactions.Empty.Subtitle" = "Puede que se haya eliminado la reacción o se haya producido un error técnico";
 "Chat.EditMessage" = "Editar mensaje";
-"Chat.Actions.Menu.Objects" = "Seleccionar objeto existente";
-"Chat.Actions.Menu.Media" = "Subir medios";
-"Chat.Actions.Menu.Files" = "Subir archivo";
-"Chat.Actions.Menu.Camera" = "Tomar con la cámara";
+"Chat.Actions.Menu.Pages" = "Páginas";
+"Chat.Actions.Menu.Lists" = "Listas";
+"Chat.Actions.Menu.Photos" = "Fotos";
+"Chat.Actions.Menu.Files" = "Archivos";
+"Chat.Actions.Menu.Camera" = "Cámara";
+"Chat.Actions.Menu.More" = "Más";
 "Chat.Participant.Badge" = "(Tú)";
 "Chat.Reply.Images" = "Imágenes (%@)";
 "Chat.Reply.Attachments" = "Archivos adjuntos (%@)";
@@ -1281,6 +1283,12 @@ En concreto,
 "Chat.SendLimitAlert.Title" = "¡Calma! ¡Estás escribiendo muy deprisa!";
 "Chat.SendLimitAlert.Message" = "Parece que estás enviando mensajes a la velocidad de la luz. Espera un poco para el siguiente.";
 "Chat.AttachmentsLimit.Alert" = "No puedes subir más de %@ archivos al mismo tiempo";
+"Chat.AttachedObject.Attach" = "Adjuntar";
+"Chat.CreateObject.Dismiss.Title" = "¿Seguro que quieres cerrar esta pantalla?";
+"Chat.CreateObject.Dismiss.Message" = "Si sales de ella, se perderán todos tus cambios.";
+"Chat.CreateObject.Dismiss.Ok" = "Sí, cerrarla";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";

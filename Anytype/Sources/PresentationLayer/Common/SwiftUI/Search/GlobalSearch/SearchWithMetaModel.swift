@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct GlobalSearchData: Identifiable, Hashable {
+struct SearchWithMetaModel: Identifiable, Hashable {
     let id: String
     let iconImage: Icon
     let title: AttributedString

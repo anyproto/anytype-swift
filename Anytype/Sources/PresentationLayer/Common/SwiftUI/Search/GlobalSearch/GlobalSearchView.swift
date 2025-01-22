@@ -104,8 +104,8 @@ struct GlobalSearchView: View {
                     ListSectionHeaderView(title: title)
                         .padding(.horizontal, 20)
                 }
-                ForEach(section.rows) { data in
-                    itemRow(for: data)
+                ForEach(section.rows) { rowModel in
+                    itemRow(for: rowModel)
                 }
             }
         }
@@ -113,16 +113,16 @@ struct GlobalSearchView: View {
         .id(model.state)
     }
     
-    private func itemRow(for data: GlobalSearchData) -> some View {
-        GlobalSearchCell(data: data)
+    private func itemRow(for rowModel: SearchWithMetaModel) -> some View {
+        SearchWithMetaCell(model: rowModel)
             .fixTappableArea()
             .onTapGesture {
-                model.onSelect(searchData: data)
+                model.onSelect(searchData: rowModel)
             }
-            .if(data.canArchive) {
+            .if(rowModel.canArchive) {
                 $0.swipeActions {
                     Button(Loc.toBin, role: .destructive) {
-                        model.onRemove(objectId: data.id)
+                        model.onRemove(objectId: rowModel.id)
                     }
                 }
             }

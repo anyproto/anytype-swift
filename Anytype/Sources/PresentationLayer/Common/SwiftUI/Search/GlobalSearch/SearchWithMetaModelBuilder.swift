@@ -4,19 +4,19 @@ import Foundation
 import AnytypeCore
 
 @MainActor
-protocol GlobalSearchDataBuilderProtocol {
-    func buildData(with searchResult: SearchResultWithMeta, spaceId: String, participantCanEdit: Bool) -> GlobalSearchData
+protocol SearchWithMetaModelBuilderProtocol {
+    func buildModel(with searchResult: SearchResultWithMeta, spaceId: String, participantCanEdit: Bool) -> SearchWithMetaModel
 }
 
 @MainActor
-final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
+final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
     
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     nonisolated init() { }
     
-    func buildData(with searchResult: SearchResultWithMeta, spaceId: String, participantCanEdit: Bool) -> GlobalSearchData {
+    func buildModel(with searchResult: SearchResultWithMeta, spaceId: String, participantCanEdit: Bool) -> SearchWithMetaModel {
         
         let details = searchResult.objectDetails
         let meta = searchResult.meta
@@ -31,7 +31,7 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
             score = "\(scoreDouble)"
         }
         
-        return GlobalSearchData(
+        return SearchWithMetaModel(
             id: details.id,
             iconImage: details.objectIconImage,
             title: title,
@@ -118,7 +118,7 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
 }
 
 extension Container {
-    var globalSearchDataBuilder: Factory<any GlobalSearchDataBuilderProtocol> {
-        self { GlobalSearchDataBuilder() }.shared
+    var searchWithMetaModelBuilder: Factory<any SearchWithMetaModelBuilderProtocol> {
+        self { SearchWithMetaModelBuilder() }.shared
     }
 }

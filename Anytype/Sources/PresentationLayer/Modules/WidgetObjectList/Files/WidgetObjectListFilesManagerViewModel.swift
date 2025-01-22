@@ -3,7 +3,7 @@ import Services
 import Combine
 
 @MainActor
-final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelProtocol {
+final class WidgetObjectListFilesManagerViewModel: WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI
     

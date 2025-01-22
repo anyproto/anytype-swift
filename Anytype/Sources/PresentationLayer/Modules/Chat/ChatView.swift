@@ -47,6 +47,9 @@ struct ChatView: View {
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
         }
+        .task {
+            await model.subscribeOnTypes()
+        }
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
             ChatDeleteMessageAlert(message: $0)
         }
@@ -94,20 +97,33 @@ struct ChatView: View {
                 mention: $model.mentionSearchState,
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
-                disableAddButton: model.sendMessageTaskInProgress
-            ) {
-                model.onTapAddObjectToMessage()
-            } onTapAddMedia: {
-                model.onTapAddMediaToMessage()
-            } onTapAddFiles: {
-                model.onTapAddFilesToMessage()
-            } onTapCamera: {
-                model.onTapCamera()
-            } onTapSend: {
-                model.onTapSendMessage()
-            } onTapLinkTo: { range in
-                model.onTapLinkTo(range: range)
-            }
+                disableAddButton: model.sendMessageTaskInProgress,
+                createObjectTypes: model.typesForCreateObject,
+                onTapAddPage: {
+                    model.onTapAddPageToMessage()
+                },
+                onTapAddList: {
+                    model.onTapAddListToMessage()
+                },
+                onTapAddMedia: {
+                    model.onTapAddMediaToMessage()
+                },
+                onTapAddFiles: {
+                    model.onTapAddFilesToMessage()
+                },
+                onTapCamera: {
+                    model.onTapCamera()
+                },
+                onTapCreateObject: {
+                    model.onTapCreateObject(type: $0)
+                },
+                onTapSend: {
+                    model.onTapSendMessage()
+                },
+                onTapLinkTo: { range in
+                    model.onTapLinkTo(range: range)
+                }
+            )
             .overlay(alignment: .top) {
                 if let messageTextLimit = model.messageTextLimit {
                     Text(messageTextLimit)

@@ -95,4 +95,8 @@ extension BundledRelationsValueProvider {
     public var restrictionsValue: [ObjectRestriction] {
         restrictions.compactMap { ObjectRestriction(rawValue: $0) }
     }
+    
+    public var internalFlagsValue: [InternalFlag] {
+        internalFlags.compactMap { InternalFlag(rawValue: $0) }
+    }
 }
