@@ -36,6 +36,8 @@ struct EditorCoordinatorView: View {
             WidgetObjectListPagesView(spaceId: spaceId, output: model)
         case let .lists(spaceId):
             WidgetObjectListListsView(spaceId: spaceId, output: model)
+        case let .media(spaceId):
+            WidgetObjectListMediaView(spaceId: spaceId, output: model)
         case let .page(data):
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case let .list(data):
