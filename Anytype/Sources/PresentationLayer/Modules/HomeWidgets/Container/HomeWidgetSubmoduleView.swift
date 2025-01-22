@@ -107,6 +107,18 @@ struct HomeWidgetSubmoduleView: View {
             } else {
                 EmptyView()
             }
+        case (.files, .compactList):
+            if FeatureFlags.allContentWidgets {
+                FilesCompactListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
+        case (.files, .list):
+            if FeatureFlags.allContentWidgets {
+                FilesListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case _:
             EmptyView()
         }
