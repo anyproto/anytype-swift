@@ -94,12 +94,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddPageToMessage() {
-        let data = buildObjectSearcData(title: Loc.Chat.Attach.Page.title, section: .pages)
+        let data = buildObjectSearcData(type: .pages)
         output?.onLinkObjectSelected(data: data)
     }
     
     func onTapAddListToMessage() {
-        let data = buildObjectSearcData(title: Loc.Chat.Attach.List.title, section: .lists)
+        let data = buildObjectSearcData(type: .lists)
         output?.onLinkObjectSelected(data: data)
     }
     
@@ -532,11 +532,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         toastBarData = ToastBarData(text: Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), showSnackBar: true, messageType: .failure)
     }
     
-    private func buildObjectSearcData(title: String, section: ObjectTypeSection) -> ObjectSearchWithMetaModuleData {
+    private func buildObjectSearcData(type: ObjectSearchWithMetaType) -> ObjectSearchWithMetaModuleData {
         ObjectSearchWithMetaModuleData(
             spaceId: spaceId,
-            title: title,
-            section: section,
+            type: type,
             excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
             onSelect: { [weak self] details in
                 guard let self else { return }
