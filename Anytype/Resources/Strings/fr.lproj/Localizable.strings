@@ -1271,10 +1271,11 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.Reactions.Empty.Title" = "Aucune réaction pour l'instant";
 "Chat.Reactions.Empty.Subtitle" = "Probablement quelqu'un vient de supprimer la réaction ou un problème technique est survenu";
 "Chat.EditMessage" = "Modifier le message";
-"Chat.Actions.Menu.Objects" = "Sélectionner l'objet existant";
-"Chat.Actions.Menu.Media" = "Télécharger des médias";
-"Chat.Actions.Menu.Files" = "Télécharger un fichier";
-"Chat.Actions.Menu.Camera" = "Depuis l’appareil photo";
+"Chat.Actions.Menu.Pages" = "Pages";
+"Chat.Actions.Menu.Lists" = "Groupes";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "Fichiers";
+"Chat.Actions.Menu.Camera" = "Caméra";
 "Chat.Actions.Menu.More" = "Plus";
 "Chat.Participant.Badge" = "(Vous)";
 "Chat.Reply.Images" = "Images (%@)";
@@ -1287,6 +1288,8 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.CreateObject.Dismiss.Title" = "Êtes-vous sûr de vouloir fermer ce chat ?";
 "Chat.CreateObject.Dismiss.Message" = "Si vous le quittez, tous vos changements seront perdus.";
 "Chat.CreateObject.Dismiss.Ok" = "Oui, fermer";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";

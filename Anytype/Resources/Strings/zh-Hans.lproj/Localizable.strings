@@ -1272,10 +1272,11 @@
 "Chat.Reactions.Empty.Title" = "暂无回应";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 "Chat.EditMessage" = "编辑消息";
-"Chat.Actions.Menu.Objects" = "选择现有对象";
-"Chat.Actions.Menu.Media" = "上传媒体文件";
-"Chat.Actions.Menu.Files" = "上传文件";
-"Chat.Actions.Menu.Camera" = "从相机中获取";
+"Chat.Actions.Menu.Pages" = "页面";
+"Chat.Actions.Menu.Lists" = "分组";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "文件";
+"Chat.Actions.Menu.Camera" = "Camera";
 "Chat.Actions.Menu.More" = "更多";
 "Chat.Participant.Badge" = "(您)";
 "Chat.Reply.Images" = "图像 (%@)";
@@ -1288,6 +1289,8 @@
 "Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
 "Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
 "Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
