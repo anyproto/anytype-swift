@@ -34,7 +34,7 @@ final class RelationsSectionBuilder {
             sections.append(
                 RelationsSection(
                     id: RelationsSection.Constants.conflictingRelationsSectionId,
-                    title: Loc.Fields.missing,
+                    title: Loc.Fields.local,
                     relations: parsedRelations.conflictedRelations,
                     isMissingFields: true
                 )

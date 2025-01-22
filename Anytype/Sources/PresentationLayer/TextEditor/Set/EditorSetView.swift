@@ -16,7 +16,7 @@ struct EditorSetView: View {
     var body: some View {
         Group {
             if model.loadingDocument {
-                EmptyView()
+                Spacer()
             } else {
                 content
             }
@@ -42,25 +42,24 @@ struct EditorSetView: View {
     }
     
     private var content: some View {
-        contentView
-            .overlay(
-                ZStack(alignment: .topLeading, content: {
-                    SetFullHeader(model: model)
-                        .readSize { tableHeaderSize = $0 }
-                        .offset(x: 0, y: offset.y)
-                    if model.showHeader {
-                        SetMinimizedHeader(
-                            model: model,
-                            headerSize: tableHeaderSize,
-                            tableViewOffset: offset,
-                            headerMinimizedSize: $headerMinimizedSize
-                        )
-                    }
-                })
-                , alignment: .topLeading
-            )
-            .ignoresSafeArea(edges: .top)
-            .keyboardToolbar()
+        ZStack(alignment: .top) {
+            contentView
+                .keyboardToolbar()
+            
+            SetFullHeader(model: model)
+                .readSize { tableHeaderSize = $0 }
+                .offset(x: 0, y: offset.y)
+                .ignoresSafeArea(edges: .top)
+            
+            if model.showHeader {
+                SetMinimizedHeader(
+                    model: model,
+                    headerSize: tableHeaderSize,
+                    tableViewOffset: offset,
+                    headerMinimizedSize: $headerMinimizedSize
+                )
+            }
+        }
     }
     
     @ViewBuilder

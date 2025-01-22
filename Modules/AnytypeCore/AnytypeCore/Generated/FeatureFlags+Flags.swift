@@ -66,6 +66,10 @@ public extension FeatureFlags {
         value(for: .memberProfile)
     }
 
+    static var allContentWidgets: Bool {
+        value(for: .allContentWidgets)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -135,6 +139,7 @@ public extension FeatureFlags {
         .primitives,
         .fullScreenMediaFileByTap,
         .memberProfile,
+        .allContentWidgets,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

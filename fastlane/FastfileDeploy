@@ -48,7 +48,10 @@ platform :ios do
     settings = config_settings[config]
 
     puts "Start Build: #{config}"
-    
+
+    build_number = get_build_number(xcodeproj: ENV["APP_PROJECT"])
+    version = get_version_number(xcodeproj: ENV["APP_PROJECT"], target: ENV["APP_TARGET"])
+
     if settings[:add_badge]
       add_badge(
         shield: "#{version}-#{build_number}-blue",
@@ -71,8 +74,6 @@ platform :ios do
     reset_git_repo(skip_clean: true)
   
     prefix = settings[:tag_prefix]
-    build_number = get_build_number(xcodeproj: ENV["APP_PROJECT"])
-    version = get_version_number(xcodeproj: ENV["APP_PROJECT"], target: ENV["APP_TARGET"])
     tag_name = "#{prefix}/#{version}/#{build_number}"
 
     add_git_tag(

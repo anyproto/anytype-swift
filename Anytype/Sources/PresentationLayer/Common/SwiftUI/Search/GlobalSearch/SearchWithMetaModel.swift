@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct GlobalSearchData: Identifiable, Hashable {
+struct SearchWithMetaModel: Identifiable, Hashable {
     let id: String
     let iconImage: Icon
     let title: AttributedString
@@ -9,6 +9,7 @@ struct GlobalSearchData: Identifiable, Hashable {
     let objectTypeName: String
     let editorScreenData: ScreenData
     let score: String
+    let canArchive: Bool
 }
 
 enum HighlightsData: Identifiable, Hashable {

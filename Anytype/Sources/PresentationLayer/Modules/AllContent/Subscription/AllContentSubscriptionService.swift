@@ -5,7 +5,7 @@ import Services
 protocol AllContentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
-        type: AllContentType,
+        section: ObjectTypeSection,
         sort: ObjectSort,
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
@@ -29,7 +29,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
     
     func startSubscription(
         spaceId: String,
-        type: AllContentType,
+        section: ObjectTypeSection,
         sort: ObjectSort,
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
@@ -38,7 +38,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
     ) async {
         
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: type.supportedLayouts)
+            SearchFiltersBuilder.build(isArchived: false, layouts: section.supportedLayouts)
             if onlyUnlinked {
                 SearchHelper.onlyUnlinked()
             }

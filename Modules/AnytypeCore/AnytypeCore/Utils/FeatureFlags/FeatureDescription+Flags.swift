@@ -38,8 +38,9 @@ public extension FeatureDescription {
     
     static let allContent = FeatureDescription(
         title: "All content",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        defaultValue: false, // improve Global search instead of it
+        debugValue: false
     )
     
     static let userWarningAlerts = FeatureDescription(
@@ -99,6 +100,12 @@ public extension FeatureDescription {
         title: "Space member profile",
         type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
         defaultValue: true
+    )
+    
+    static let allContentWidgets = FeatureDescription(
+        title: "All content widgets",
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: false
     )
     
     // MARK: - Debug

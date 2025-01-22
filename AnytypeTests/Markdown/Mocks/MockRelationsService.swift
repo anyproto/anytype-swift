@@ -139,6 +139,11 @@ class MockRelationsService: RelationsServiceProtocol {
             throw error
         }
     }
+    
+    func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String] {
+        assertionFailure()
+        return []
+    }
 
     // Convenience method to reset all last call data
     func reset() {

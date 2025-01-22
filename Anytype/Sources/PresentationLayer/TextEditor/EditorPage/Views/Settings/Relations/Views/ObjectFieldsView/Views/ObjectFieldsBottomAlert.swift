@@ -4,7 +4,7 @@ struct ObjectFieldsBottomAlert: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        BottomAlertView(title: Loc.Fields.missing, message: Loc.Fields.missingInfo) {
+        BottomAlertView(title: Loc.Fields.local, message: Loc.Fields.missingInfo) {
             BottomAlertButton(text: Loc.gotIt, style: .secondary) {
                 dismiss()
             }

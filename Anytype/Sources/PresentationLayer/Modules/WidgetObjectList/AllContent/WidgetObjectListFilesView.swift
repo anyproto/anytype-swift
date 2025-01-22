@@ -1,18 +1,16 @@
 import Foundation
 import SwiftUI
 
-// TODO: Refactoring module
 struct WidgetObjectListFilesView: View {
     
     @StateObject private var model: WidgetObjectListViewModel
     
-    init(spaceId: String) {
+    init(spaceId: String, output: (any WidgetObjectListCommonModuleOutput)?) {
         self._model = StateObject(wrappedValue: WidgetObjectListViewModel(
             spaceId: spaceId,
-            internalModel: WidgetObjectListFilesViewModel(spaceId: spaceId),
+            internalModel: WidgetObjectListAllContentViewModel(spaceId: spaceId, type: .files),
             menuBuilder: WidgetObjectListMenuBuilder(),
-            output: nil,
-            isSheet: true
+            output: output
         ))
     }
     

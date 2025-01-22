@@ -144,6 +144,7 @@
 "Relations" = "Verknüpfungen";
 "History" = "Verlauf";
 "Objects" = "Objekte";
+"All" = "Alle";
 "Pages" = "Seiten";
 "Lists" = "Gruppen";
 "Bookmarks" = "Lesezeichen";
@@ -1270,10 +1271,12 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Reactions.Empty.Title" = "Noch keine Reaktionen";
 "Chat.Reactions.Empty.Subtitle" = "Wahrscheinlich hat jemand gerade die Reaktion entfernt oder es ist ein technisches Problem aufgetreten";
 "Chat.EditMessage" = "Nachricht bearbeiten";
-"Chat.Actions.Menu.Objects" = "Bestehendes Objekt auswählen";
-"Chat.Actions.Menu.Media" = "Medien hochladen";
-"Chat.Actions.Menu.Files" = "Datei hochladen";
-"Chat.Actions.Menu.Camera" = "Von der Kamera nehmen";
+"Chat.Actions.Menu.Pages" = "Seiten";
+"Chat.Actions.Menu.Lists" = "Gruppen";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "Dateien";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "Mehr";
 "Chat.Participant.Badge" = "(Du)";
 "Chat.Reply.Images" = "Bilder (%@)";
 "Chat.Reply.Attachments" = "Anhänge (%@)";
@@ -1281,6 +1284,12 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.SendLimitAlert.Title" = "Moment mal! Turbotippen erkannt!";
 "Chat.SendLimitAlert.Message" = "Sieht so aus, als würdest du Nachrichten in Windeseile verschicken. Warte noch eine Sekunde bis zur nächsten Nachricht.";
 "Chat.AttachmentsLimit.Alert" = "Du kannst nur %@ Dateien auf einmal hochladen";
+"Chat.AttachedObject.Attach" = "Anhängen";
+"Chat.CreateObject.Dismiss.Title" = "Möchtest du diesen Bildschirm wirklich schließen?";
+"Chat.CreateObject.Dismiss.Message" = "Wenn du es verlässt, gehen alle deine Änderungen verloren.";
+"Chat.CreateObject.Dismiss.Ok" = "Ja, schließen";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";

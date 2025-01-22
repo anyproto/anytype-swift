@@ -156,4 +156,11 @@ final class RelationsService: RelationsServiceProtocol {
             ]
         }).invoke()
     }
+    
+    func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String] {
+        try await ClientCommands.objectTypeListConflictingRelations(.with {
+            $0.spaceID = spaceId
+            $0.typeObjectID = typeId
+        }).invoke().relationIds
+    }
 }

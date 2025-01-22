@@ -144,6 +144,7 @@
 "Relations" = "Relazioni";
 "History" = "History";
 "Objects" = "Oggetti";
+"All" = "Tutto";
 "Pages" = "Pagine";
 "Lists" = "Liste";
 "Bookmarks" = "Segnalibri";
@@ -1269,10 +1270,12 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.Reactions.Empty.Title" = "Ancora nessuna reazione";
 "Chat.Reactions.Empty.Subtitle" = "Probabilmente qualcuno ha appena rimosso la reazione o si è verificato un problema tecnico";
 "Chat.EditMessage" = "Modifica messaggio";
-"Chat.Actions.Menu.Objects" = "Selezionare l'oggetto esistente";
-"Chat.Actions.Menu.Media" = "Carica i media";
-"Chat.Actions.Menu.Files" = "Carica file";
-"Chat.Actions.Menu.Camera" = "Scatta dalla fotocamera";
+"Chat.Actions.Menu.Pages" = "Pagine";
+"Chat.Actions.Menu.Lists" = "Liste";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "File";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "Altro";
 "Chat.Participant.Badge" = "(Tu)";
 "Chat.Reply.Images" = "Immagini (%@)";
 "Chat.Reply.Attachments" = "Allegati (%@)";
@@ -1280,6 +1283,12 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.SendLimitAlert.Title" = "Aspettate! Rilevata digitazione turbo!";
 "Chat.SendLimitAlert.Message" = "Sembra che tu stia inviando messaggi alla velocità della luce. Dagli un secondo prima di inviare il prossimo.";
 "Chat.AttachmentsLimit.Alert" = "È possibile caricare solo %@ file alla volta";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";

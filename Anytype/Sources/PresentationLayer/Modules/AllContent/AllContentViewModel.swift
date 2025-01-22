@@ -57,7 +57,7 @@ final class AllContentViewModel: ObservableObject {
     func restartSubscription() async {
         await allContentSubscriptionService.startSubscription(
             spaceId: spaceId,
-            type: state.type,
+            section: state.section,
             sort: state.sort,
             onlyUnlinked: state.mode == .unlinked,
             limitedObjectsIds: state.limitedObjectsIds,
@@ -90,9 +90,9 @@ final class AllContentViewModel: ObservableObject {
         AnytypeAnalytics.instance().logSearchInput(spaceId: spaceId, route: .library)
     }
     
-    func typeChanged(_ type: AllContentType) {
-        state.type = type
-        AnytypeAnalytics.instance().logChangeLibraryType(type: type.analyticsValue)
+    func sectionChanged(_ section: ObjectTypeSection) {
+        state.section = section
+        AnytypeAnalytics.instance().logChangeLibraryType(type: section.analyticsValue)
     }
     
     func binTapped() {

@@ -271,6 +271,10 @@ final class EditorPageController: UIViewController {
             viewModel?.blocksStateManager.didUpdateSelectedIndexPaths([], allSelected: allSelected)
         }
     }
+    
+    func setPageNavigationHiddenBackButton(_ hidden: Bool) {
+        navigationBarHelper.setPageNavigationHiddenBackButton(hidden)
+    }
 }
 
 // MARK: - EditorPageViewInput

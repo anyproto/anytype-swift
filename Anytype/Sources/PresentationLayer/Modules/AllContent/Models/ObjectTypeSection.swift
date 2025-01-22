@@ -1,7 +1,8 @@
 import Services
 import AnytypeCore
 
-enum AllContentType: String {
+enum ObjectTypeSection: String, CaseIterable, Codable {
+    case all
     case pages
     case lists
     case media
@@ -9,10 +10,27 @@ enum AllContentType: String {
     case files
     case types
     
-    static let allSupportedTypes: [AllContentType] = [.pages, .lists, .media, .bookmarks, .files, .types]
+    static var searchSupportedSection: [ObjectTypeSection] {
+        if FeatureFlags.primitives {
+            return allCases
+        } else {
+            return allCases.filter { $0 != .types }
+        }
+    }
+    
+    static var allContentSupportedSections: [ObjectTypeSection] {
+        let supportedSections = allCases.filter { $0 != .all }
+        if FeatureFlags.primitives {
+            return supportedSections
+        } else {
+            return supportedSections.filter { $0 != .types }
+        }
+    }
     
     var title: String {
         switch self {
+        case .all:
+            Loc.all
         case .pages:
             Loc.pages
         case .lists:
@@ -30,6 +48,8 @@ enum AllContentType: String {
     
     var supportedLayouts: [DetailsLayout] {
         switch self {
+        case .all:
+            DetailsLayout.visibleLayoutsWithFiles
         case .pages:
             DetailsLayout.editorLayouts
         case .lists:
@@ -47,6 +67,8 @@ enum AllContentType: String {
     
     var analyticsValue: String {
         switch self {
+        case .all:
+            "All"
         case .pages:
             "Pages"
         case .lists:

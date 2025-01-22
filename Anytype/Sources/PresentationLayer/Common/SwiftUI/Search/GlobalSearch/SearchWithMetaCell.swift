@@ -3,12 +3,12 @@ import AnytypeCore
 import Services
 
 
-struct GlobalSearchCell: View {
+struct SearchWithMetaCell: View {
     
-    let data: GlobalSearchData
+    let model: SearchWithMetaModel
 
     var body: some View {
-        HStack(alignment: data.highlights.isEmpty ? .center : .top, spacing: 12) {
+        HStack(alignment: model.highlights.isEmpty ? .center : .top, spacing: 12) {
             icon
             content
         }
@@ -20,7 +20,7 @@ struct GlobalSearchCell: View {
     private var icon: some View {
         VStack {
             Spacer.fixedHeight(8)
-            IconView(icon: data.iconImage)
+            IconView(icon: model.iconImage)
                 .frame(width: 48, height: 48)
                 .allowsHitTesting(false)
             Spacer.fixedHeight(8)
@@ -31,21 +31,21 @@ struct GlobalSearchCell: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(8)
             
-            Text(data.title)
+            Text(model.title)
                 .anytypeStyle(.previewTitle2Medium)
                 .lineLimit(1)
             
             highlights
             
-            if data.objectTypeName.isNotEmpty {
+            if model.objectTypeName.isNotEmpty {
                 HStack(spacing: 0) {
-                    AnytypeText(data.objectTypeName, style: .relation2Regular)
+                    AnytypeText(model.objectTypeName, style: .relation2Regular)
                         .foregroundColor(.Text.secondary)
                         .lineLimit(1)
                     
-                    if FeatureFlags.showGlobalSearchScore, data.score.isNotEmpty {
+                    if FeatureFlags.showGlobalSearchScore, model.score.isNotEmpty {
                         Spacer()
-                        AnytypeText(data.score, style: .relation2Regular)
+                        AnytypeText(model.score, style: .relation2Regular)
                             .foregroundColor(.Text.secondary)
                             .lineLimit(1)
                     }
@@ -57,7 +57,7 @@ struct GlobalSearchCell: View {
     }
     
     private var highlights: some View {
-        ForEach(data.highlights) { data in
+        ForEach(model.highlights) { data in
             switch data {
             case .text(let text):
                 textHighlight(text: text)

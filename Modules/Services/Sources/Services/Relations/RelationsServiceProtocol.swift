@@ -23,4 +23,5 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func updateTypeRelations(typeId: String, recommendedRelationIds: [ObjectId], recommendedFeaturedRelationsIds: [ObjectId]) async throws
     func updateRecommendedRelations(typeId: String, relationIds: [ObjectId]) async throws
     func updateRecommendedFeaturedRelations(typeId: String, relationIds: [ObjectId]) async throws
+    func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String]
 }

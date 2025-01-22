@@ -14,9 +14,14 @@ struct GlobalSearchView: View {
         VStack(spacing: 0) {
             DragIndicator()
             header
+            sections
+            Divider()
             content
         }
         .background(Color.Background.secondary)
+        .task {
+            await model.startParticipantTask()
+        }
         .task(id: model.state) {
             await model.search()
         }
@@ -28,13 +33,14 @@ struct GlobalSearchView: View {
         HStack(spacing: 0) {
             searchBar
             if model.state.searchText.isEmpty {
-                menu
+                menu.transition(.move(edge: .trailing))
             }
         }
+        .animation(.easeInOut, value: model.state.searchText.isEmpty)
     }
     
     private var searchBar: some View {
-        SearchBar(text: $model.state.searchText, focused: true, placeholder: Loc.search)
+        SearchBar(text: $model.state.searchText, focused: true, shouldShowDivider: false)
             .submitLabel(.go)
             .onSubmit {
                 model.onKeyboardButtonTap()
@@ -51,6 +57,33 @@ struct GlobalSearchView: View {
         .padding(.leading, -8)
         .padding(.trailing, 16)
         .menuActionDisableDismissBehavior()
+    }
+    
+    private var sections: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 10) {
+                ForEach(ObjectTypeSection.searchSupportedSection, id: \.self) { section in
+                    AnytypeText(
+                        section.title,
+                        style: .uxTitle2Medium
+                    )
+                    .foregroundColor(model.state.section == section ? .Text.inversion : .Text.secondary)
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 10)
+                    .background(model.state.section == section ? Color.Control.active : .clear)
+                    .cornerRadius(16)
+                    .fixTappableArea()
+                    .onTapGesture {
+                        UISelectionFeedbackGenerator().selectionChanged()
+                        model.onSectionChanged(section)
+                    }
+                    .animation(.default, value: model.state.section == section)
+                }
+            }
+            .padding(.top, 2)
+            .padding(.bottom, 10)
+            .padding(.horizontal, 16)
+        }
     }
     
     @ViewBuilder
@@ -71,8 +104,8 @@ struct GlobalSearchView: View {
                     ListSectionHeaderView(title: title)
                         .padding(.horizontal, 20)
                 }
-                ForEach(section.rows) { data in
-                    itemRow(for: data)
+                ForEach(section.rows) { rowModel in
+                    itemRow(for: rowModel)
                 }
             }
         }
@@ -80,11 +113,18 @@ struct GlobalSearchView: View {
         .id(model.state)
     }
     
-    private func itemRow(for data: GlobalSearchData) -> some View {
-        GlobalSearchCell(data: data)
+    private func itemRow(for rowModel: SearchWithMetaModel) -> some View {
+        SearchWithMetaCell(model: rowModel)
             .fixTappableArea()
             .onTapGesture {
-                model.onSelect(searchData: data)
+                model.onSelect(searchData: rowModel)
+            }
+            .if(rowModel.canArchive) {
+                $0.swipeActions {
+                    Button(Loc.toBin, role: .destructive) {
+                        model.onRemove(objectId: rowModel.id)
+                    }
+                }
             }
     }
     
@@ -92,13 +132,7 @@ struct GlobalSearchView: View {
         EmptyStateView(
             title: Loc.nothingFound,
             subtitle: Loc.GlobalSearch.EmptyState.subtitle,
-            style: .plain,
-            buttonData: EmptyStateView.ButtonData(
-                title: Loc.createObject,
-                action: {
-                    model.createObject()
-                }
-            )
+            style: .plain
         )
     }
 }

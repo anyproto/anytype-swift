@@ -3,7 +3,13 @@ import Services
 import AnytypeCore
 
 protocol SearchWithMetaServiceProtocol: AnyObject, Sendable {
-    func search(text: String, spaceId: String, sorts: [DataviewSort]) async throws -> [SearchResultWithMeta]
+    func search(
+        text: String,
+        spaceId: String,
+        layouts: [DetailsLayout],
+        sorts: [DataviewSort],
+        excludedObjectIds: [String]
+    ) async throws -> [SearchResultWithMeta]
 }
 
 final class SearchWithMetaService: SearchWithMetaServiceProtocol, Sendable {
@@ -12,18 +18,18 @@ final class SearchWithMetaService: SearchWithMetaServiceProtocol, Sendable {
     
     // MARK: - SearchServiceProtocol
     
-    func search(text: String, spaceId: String, sorts: [DataviewSort]) async throws -> [SearchResultWithMeta] {
-        try await searchObjectsWithLayouts(
-            text: text,
-            spaceId: spaceId,
-            layouts: DetailsLayout.visibleLayoutsWithFiles,
-            sorts: sorts
-        )
-    }
-    
-    private func searchObjectsWithLayouts(text: String, spaceId: String, layouts: [DetailsLayout], sorts: [DataviewSort]) async throws -> [SearchResultWithMeta] {
+    func search(
+        text: String,
+        spaceId: String,
+        layouts: [DetailsLayout],
+        sorts: [DataviewSort],
+        excludedObjectIds: [String]
+    ) async throws -> [SearchResultWithMeta] {
         
-        let filters = SearchFiltersBuilder.build(isArchived: false, layouts: layouts)
+        let filters: [DataviewFilter] = .builder {
+            SearchFiltersBuilder.build(isArchived: false, layouts: layouts)
+            SearchHelper.excludedIdsFilter(excludedObjectIds)
+        }
         
         return try await searchWithMetaMiddleService.search(spaceId: spaceId, filters: filters, sorts: sorts, fullText: text, limit: SearchDefaults.objectsLimit)
     }

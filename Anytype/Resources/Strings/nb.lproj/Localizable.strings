@@ -144,6 +144,7 @@
 "Relations" = "Relasjoner";
 "History" = "Historikk";
 "Objects" = "Objekter";
+"All" = "Alle";
 "Pages" = "Pages";
 "Lists" = "Groups";
 "Bookmarks" = "Bookmarks";
@@ -1269,10 +1270,12 @@ Please provide specific details of your needs here.";
 "Chat.Reactions.Empty.Title" = "No reactions yet";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 "Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Objects" = "Select existing object";
-"Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload file";
-"Chat.Actions.Menu.Camera" = "Take from camera";
+"Chat.Actions.Menu.Pages" = "Pages";
+"Chat.Actions.Menu.Lists" = "Groups";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "Files";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "Mer";
 "Chat.Participant.Badge" = "(You)";
 "Chat.Reply.Images" = "Images (%@)";
 "Chat.Reply.Attachments" = "Attachments (%@)";
@@ -1280,6 +1283,12 @@ Please provide specific details of your needs here.";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
 "Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
