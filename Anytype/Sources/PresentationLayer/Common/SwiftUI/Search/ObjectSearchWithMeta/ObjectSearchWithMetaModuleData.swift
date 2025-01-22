@@ -9,7 +9,7 @@ struct ObjectSearchWithMetaModuleData: Identifiable, Hashable {
     var id: Int { hashValue }
 }
 
-enum ObjectSearchWithMetaType: String {
+enum ObjectSearchWithMetaType: String, CaseIterable {
     case pages
     case lists
     
@@ -31,7 +31,7 @@ enum ObjectSearchWithMetaType: String {
         }
     }
     
-    var objectTypesKeys: [ObjectTypeUniqueKey] {
+    var objectTypesCreationKeys: [ObjectTypeUniqueKey] {
         switch self {
         case .pages:
             return [ObjectTypeUniqueKey.page, ObjectTypeUniqueKey.note]

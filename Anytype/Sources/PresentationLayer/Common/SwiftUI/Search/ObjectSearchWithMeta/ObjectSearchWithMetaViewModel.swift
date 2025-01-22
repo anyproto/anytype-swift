@@ -37,7 +37,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
     func subscribeOnTypes() async {
         for await _ in objectTypeProvider.syncPublisher.values {
             let objectTypes = objectTypeProvider.objectTypes(spaceId: moduleData.spaceId).filter {
-                moduleData.type.objectTypesKeys.contains($0.uniqueKey)
+                moduleData.type.objectTypesCreationKeys.contains($0.uniqueKey)
             }
             updateObjectTypesModels(objectTypes: objectTypes)
         }
@@ -95,7 +95,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
     }
     
     private func updateObjectTypesModels(objectTypes: [ObjectType]) {
-        objectTypesModelsToCreate = moduleData.type.objectTypesKeys.compactMap { [weak self] key in
+        objectTypesModelsToCreate = moduleData.type.objectTypesCreationKeys.compactMap { [weak self] key in
             guard let self, let objectType = objectTypes.first(where: { $0.uniqueKey == key }),
                   let title = moduleData.type.title(for: key) else { return nil }
             return ObjectSearchCreationModel(
