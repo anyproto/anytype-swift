@@ -157,7 +157,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func subscribeOnTypes() async {
         for await _ in objectTypeProvider.syncPublisher.values {
-            self.typesForCreateObject = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
+            let objectTypesCreateInChat = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
+            let usedObjecTypesKeys = ObjectSearchWithMetaType.allCases.flatMap(\.objectTypesCreationKeys)
+            self.typesForCreateObject = objectTypesCreateInChat.filter { !usedObjecTypesKeys.contains($0.uniqueKey) }
         }
     }
     
