@@ -4,6 +4,7 @@ setup-middle:
 
 setup-middle-ci:
 	./Scripts/middle-install.sh
+	make patch-commands-pb
 
 change-github-token:
 	# Token generation info:
@@ -15,8 +16,11 @@ generate:
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
 	sourcery --config ./Modules/AnytypeCore/sourcery.yml
 	sourcery --config ./Anytype/GeneratorConfig/sourcery.yml
-	./Scripts/generate_response_extensions.sh ./Modules/ProtobufMessages/Sources/Protocol/commands.pb.swift
 	# We also have code generation in XCode Build phases for main target and widgets
+	make patch-commands-pb
+
+patch-commands-pb:
+	./Scripts/generate_response_extensions.sh ./Modules/ProtobufMessages/Sources/Protocol/commands.pb.swift
 
 
 update-xcfilelists:
