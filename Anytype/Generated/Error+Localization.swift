@@ -4,6 +4,33 @@
 import Foundation
 import ProtobufMessages
 
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Account.ChangeJsonApiAddr.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.ChangeJsonApiAddr.badInput")
+            case .accountIsNotRunning:
+                return String(localized: "Account.ChangeJsonApiAddr.accountIsNotRunning", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.ChangeJsonApiAddr.accountIsNotRunning")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

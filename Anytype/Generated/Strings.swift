@@ -1372,6 +1372,7 @@ internal enum Loc {
       }
     }
     internal enum Origin {
+      internal static let api = Loc.tr("Localizable", "Relation.Origin.API", fallback: "API")
       internal static let bookmark = Loc.tr("Localizable", "Relation.Origin.Bookmark", fallback: "Bookmark")
       internal static let builtin = Loc.tr("Localizable", "Relation.Origin.Builtin", fallback: "Library installed")
       internal static let clipboard = Loc.tr("Localizable", "Relation.Origin.Clipboard", fallback: "Clipboard")

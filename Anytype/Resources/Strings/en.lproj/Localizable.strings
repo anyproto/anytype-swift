@@ -123,6 +123,7 @@
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
 "Relation.Origin.Bookmark" = "Bookmark";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 

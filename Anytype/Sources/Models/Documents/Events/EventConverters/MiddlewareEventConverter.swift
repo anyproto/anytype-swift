@@ -198,6 +198,7 @@ final class MiddlewareEventConverter {
                 .chatDelete,
                 .chatUpdate,
                 .chatUpdateReactions,
+                .accountLinkChallengeHide,
                 .objectRelationsAmend, // deprecated: will be removed in next release
                 .objectRelationsRemove: // deprecated: will be removed in next release
             return nil
