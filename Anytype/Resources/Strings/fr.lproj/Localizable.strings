@@ -1288,8 +1288,8 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.CreateObject.Dismiss.Title" = "Êtes-vous sûr de vouloir fermer ce chat ?";
 "Chat.CreateObject.Dismiss.Message" = "Si vous le quittez, tous vos changements seront perdus.";
 "Chat.CreateObject.Dismiss.Ok" = "Oui, fermer";
-"Chat.Attach.Page.title" = "Attach Page";
-"Chat.Attach.List.title" = "Attach List";
+"Chat.Attach.Page.title" = "Joindre une page";
+"Chat.Attach.List.title" = "Joindre une liste";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";
@@ -1304,3 +1304,9 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 // MARK: - Fields
 "Fields.menu" = "Menu des champs";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Nouvelle page";
+"ObjectSearchWithMeta.Create.Note" = "Nouvelle note";
+"ObjectSearchWithMeta.Create.Set" = "Nouvel ensemble";
+"ObjectSearchWithMeta.Create.Collection" = "Nouvelle collection";
