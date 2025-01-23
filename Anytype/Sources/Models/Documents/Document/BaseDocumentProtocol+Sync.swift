@@ -86,11 +86,16 @@ extension BaseDocumentProtocol {
         let recommendedFeaturedRelations = relationDetailsStorage
             .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: spaceId)
             .filter { $0.key != BundledRelationKey.description.rawValue }
+        let recommendedHiddenRelations = relationDetailsStorage
+            .relationsDetails(ids: details.recommendedHiddenRelations, spaceId: spaceId)
+            .filter { $0.key != BundledRelationKey.description.rawValue }
+        
         
         return Container.shared.relationsBuilder().parsedRelations(
-            objectRelationDetails: [],
-            typeRelationDetails: recommendedRelations,
-            featuredTypeRelationsDetails: recommendedFeaturedRelations,
+            objectRelations: [],
+            recommendedRelations: recommendedRelations,
+            recommendedFeaturedRelations: recommendedFeaturedRelations,
+            recommendedHiddenRelations: recommendedHiddenRelations,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage

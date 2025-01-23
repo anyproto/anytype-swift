@@ -284,22 +284,27 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         
         guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
 
-        let objectRelationsDetails = relationDetailsStorage.relationsDetails(
+        let objectRelations = relationDetailsStorage.relationsDetails(
             keys:  details.values.map(\.key), spaceId: spaceId
         )
 
-        let typeRelationsDetails = relationDetailsStorage.relationsDetails(
+        let recommendedRelations = relationDetailsStorage.relationsDetails(
             ids: details.objectType.recommendedRelations, spaceId: spaceId
         )
         
-        let featuredTypeRelationsDetails = relationDetailsStorage.relationsDetails(
+        let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(
             ids: details.objectType.recommendedFeaturedRelations, spaceId: spaceId
         )
         
+        let recommendedHiddenRelations = relationDetailsStorage.relationsDetails(
+            ids: details.objectType.recommendedHiddenRelations, spaceId: spaceId
+        )
+        
         let newRelations = relationBuilder.parsedRelations(
-            objectRelationDetails: objectRelationsDetails,
-            typeRelationDetails: typeRelationsDetails,
-            featuredTypeRelationsDetails: featuredTypeRelationsDetails,
+            objectRelations: objectRelations,
+            recommendedRelations: recommendedRelations,
+            recommendedFeaturedRelations: recommendedFeaturedRelations,
+            recommendedHiddenRelations: recommendedHiddenRelations,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
