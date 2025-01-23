@@ -19,7 +19,9 @@ extension ParticipantSpacesStorageProtocol {
     }
     
     var activeParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> {
-        allParticipantSpacesPublisher.map { $0.filter(\.spaceView.isActive) }
+        allParticipantSpacesPublisher.map {
+            $0.filter { $0.spaceView.isActive || $0.spaceView.isJoining }
+        }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
