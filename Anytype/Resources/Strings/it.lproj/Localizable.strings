@@ -1303,3 +1303,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 // MARK: - Fields
 "Fields.menu" = "Menu campi";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";
