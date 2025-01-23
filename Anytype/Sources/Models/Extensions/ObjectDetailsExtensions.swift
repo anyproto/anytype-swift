@@ -102,3 +102,23 @@ extension BundledRelationsValueProvider {
         }
     }
 }
+
+extension ObjectDetails {
+    var previewRemoteItem: (any PreviewRemoteItem)?  {
+        guard layoutValue.isFileOrMedia else { return nil }
+        
+        let fileDetails = FileDetails(objectDetails: self)
+        return fileDetails.previewRemoteItem
+    }
+}
+
+extension FileDetails {
+    var previewRemoteItem: any PreviewRemoteItem  {
+        switch fileContentType {
+        case .image:
+            return ImagePreviewMedia(fileDetails: self)
+        case .file, .audio, .video, .none:
+            return FilePreviewMedia(fileDetails: self)
+        }
+    }
+}

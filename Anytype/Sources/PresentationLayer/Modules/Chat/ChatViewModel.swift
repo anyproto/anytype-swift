@@ -518,16 +518,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func buildPreviewRemoteItemFromAttachments(_ attachments: [ObjectDetails]) -> [any PreviewRemoteItem] {
-        attachments.compactMap { details in
-            guard details.layoutValue.isFileOrMedia else { return nil }
-            let fileDetails = FileDetails(objectDetails: details)
-            switch fileDetails.fileContentType {
-            case .image:
-                return ImagePreviewMedia(fileDetails: fileDetails)
-            case .file, .audio, .video, .none:
-                return FilePreviewMedia(fileDetails: fileDetails)
-            }
-        }
+        attachments.compactMap { $0.previewRemoteItem }
     }
     
     private func showFileLimitAlert() {
