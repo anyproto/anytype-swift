@@ -19,6 +19,7 @@ extension ObjectType {
         canCreateObjectOfThisType: true,
         recommendedRelations: [],
         recommendedFeaturedRelations: [],
+        recommendedHiddenRelations: [],
         recommendedLayout: nil
     )
     

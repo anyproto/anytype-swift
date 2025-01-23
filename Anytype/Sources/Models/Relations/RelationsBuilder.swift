@@ -9,6 +9,7 @@ protocol RelationsBuilderProtocol: AnyObject {
         objectRelations: [RelationDetails],
         recommendedRelations: [RelationDetails],
         recommendedFeaturedRelations: [RelationDetails],
+        recommendedHiddenRelations: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -24,6 +25,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         objectRelations: [RelationDetails],
         recommendedRelations: [RelationDetails],
         recommendedFeaturedRelations: [RelationDetails],
+        recommendedHiddenRelations: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -45,10 +47,18 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             relationValuesIsLocked: relationValuesIsLocked,
             hackGlobalName: true,
             storage: storage
-        )
+        ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
         
         let sidebarRelations = buildRelations(
             relationDetails: recommendedRelations,
+            objectDetails: objectDetails,
+            isFeatured: false,
+            relationValuesIsLocked: relationValuesIsLocked,
+            storage: storage
+        ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
+        
+        let hiddenRalations = buildRelations(
+            relationDetails: recommendedHiddenRelations,
             objectDetails: objectDetails,
             isFeatured: false,
             relationValuesIsLocked: relationValuesIsLocked,
@@ -66,6 +76,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         return ParsedRelations(
             featuredRelations: featuredRelations,
             sidebarRelations: sidebarRelations,
+            hiddenRelations: hiddenRalations,
             conflictedRelations: conflictedRelations,
             deletedRelations: deletedRelations
         )

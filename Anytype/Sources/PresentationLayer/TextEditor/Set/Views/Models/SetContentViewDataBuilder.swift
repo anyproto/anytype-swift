@@ -141,6 +141,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                     objectRelations: relationsDetails,
                     recommendedRelations: [],
                     recommendedFeaturedRelations: [],
+                    recommendedHiddenRelations: [],
                     objectId: details.id,
                     relationValuesIsLocked: viewRelationValueIsLocked,
                     storage: storage
