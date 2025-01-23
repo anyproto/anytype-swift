@@ -2693,6 +2693,9 @@ public struct Anytype_Rpc {
         /// optional, default is false, recommended in case of problems with QUIC transport
         public var preferYamuxTransport: Bool = false
 
+        /// optional, if empty json api will not be started; 127.0.0.1:31009 should be the default one
+        public var jsonApiListenAddr: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         ///TODO: Remove if not needed, GO-1926
@@ -3190,6 +3193,9 @@ public struct Anytype_Rpc {
 
         /// optional, default is false, recommended in case of problems with QUIC transport
         public var preferYamuxTransport: Bool = false
+
+        /// optional, if empty json api will not be started; 127.0.0.1:31009 should be the default one
+        public var jsonApiListenAddr: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3970,6 +3976,98 @@ public struct Anytype_Rpc {
       public init() {}
     }
 
+    public struct ChangeJsonApiAddr {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// make sure to use 127.0.0.1:x to not listen on all interfaces; recommended value is 127.0.0.1:31009
+        public var listenAddr: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error {
+          get {return _error ?? Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case accountIsNotRunning // = 4
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 4: self = .accountIsNotRunning
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .accountIsNotRunning: return 4
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
     public struct ChangeNetworkConfigAndRestart {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -4096,6 +4194,8 @@ public struct Anytype_Rpc {
 
           /// just for info, not secure to rely on
           public var appName: String = String()
+
+          public var scope: Anytype_Model_Account.Auth.LocalApiScope = .limited
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5346,6 +5446,8 @@ public struct Anytype_Rpc {
       public var timestamp: Int64 = 0
 
       public var size: Int64 = 0
+
+      public var joinSpace: Bool = false
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -32209,6 +32311,16 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: CaseIt
   ]
 }
 
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsNotRunning,
+  ]
+}
+
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code] = [
@@ -34908,6 +35020,11 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Request: @unchecked Sendabl
 extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeJsonApiAddr: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart: @unchecked Sendable {}
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response: @unchecked Sendable {}
@@ -39957,6 +40074,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     6: .same(proto: "networkMode"),
     7: .same(proto: "networkCustomConfigFilePath"),
     8: .same(proto: "preferYamuxTransport"),
+    9: .same(proto: "jsonApiListenAddr"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -39980,6 +40098,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
       case 6: try { try decoder.decodeSingularEnumField(value: &self.networkMode) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr) }()
       default: break
       }
     }
@@ -40014,6 +40133,9 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     if self.preferYamuxTransport != false {
       try visitor.visitSingularBoolField(value: self.preferYamuxTransport, fieldNumber: 8)
     }
+    if !self.jsonApiListenAddr.isEmpty {
+      try visitor.visitSingularStringField(value: self.jsonApiListenAddr, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -40026,6 +40148,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.networkMode != rhs.networkMode {return false}
     if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {return false}
     if lhs.preferYamuxTransport != rhs.preferYamuxTransport {return false}
+    if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -40539,6 +40662,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     4: .same(proto: "networkMode"),
     5: .same(proto: "networkCustomConfigFilePath"),
     6: .same(proto: "preferYamuxTransport"),
+    7: .same(proto: "jsonApiListenAddr"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -40553,6 +40677,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
       case 4: try { try decoder.decodeSingularEnumField(value: &self.networkMode) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr) }()
       default: break
       }
     }
@@ -40577,6 +40702,9 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if self.preferYamuxTransport != false {
       try visitor.visitSingularBoolField(value: self.preferYamuxTransport, fieldNumber: 6)
     }
+    if !self.jsonApiListenAddr.isEmpty {
+      try visitor.visitSingularStringField(value: self.jsonApiListenAddr, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -40587,6 +40715,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.networkMode != rhs.networkMode {return false}
     if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {return false}
     if lhs.preferYamuxTransport != rhs.preferYamuxTransport {return false}
+    if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -41478,6 +41607,140 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: SwiftP
   ]
 }
 
+extension Anytype_Rpc.Account.ChangeJsonApiAddr: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".ChangeJsonApiAddr"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.ChangeJsonApiAddr, rhs: Anytype_Rpc.Account.ChangeJsonApiAddr) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.ChangeJsonApiAddr.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "listenAddr"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.listenAddr) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.listenAddr.isEmpty {
+      try visitor.visitSingularStringField(value: self.listenAddr, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.ChangeJsonApiAddr.Request, rhs: Anytype_Rpc.Account.ChangeJsonApiAddr.Request) -> Bool {
+    if lhs.listenAddr != rhs.listenAddr {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.ChangeJsonApiAddr.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    2: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.ChangeJsonApiAddr.Response, rhs: Anytype_Rpc.Account.ChangeJsonApiAddr.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.ChangeJsonApiAddr.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error, rhs: Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    4: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
+  ]
+}
+
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".ChangeNetworkConfigAndRestart"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -41664,6 +41927,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: SwiftProtobuf.Mess
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.NewChallenge.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "appName"),
+    2: .same(proto: "scope"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -41673,6 +41937,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: SwiftProtobuf.Mess
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.appName) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.scope) }()
       default: break
       }
     }
@@ -41682,11 +41947,15 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: SwiftProtobuf.Mess
     if !self.appName.isEmpty {
       try visitor.visitSingularStringField(value: self.appName, fieldNumber: 1)
     }
+    if self.scope != .limited {
+      try visitor.visitSingularEnumField(value: self.scope, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.NewChallenge.Request, rhs: Anytype_Rpc.Account.LocalLink.NewChallenge.Request) -> Bool {
     if lhs.appName != rhs.appName {return false}
+    if lhs.scope != rhs.scope {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -43459,6 +43728,7 @@ extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProto
     5: .same(proto: "version"),
     6: .same(proto: "timestamp"),
     7: .same(proto: "size"),
+    8: .same(proto: "joinSpace"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -43474,6 +43744,7 @@ extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProto
       case 5: try { try decoder.decodeSingularStringField(value: &self.version) }()
       case 6: try { try decoder.decodeSingularInt64Field(value: &self.timestamp) }()
       case 7: try { try decoder.decodeSingularInt64Field(value: &self.size) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.joinSpace) }()
       default: break
       }
     }
@@ -43501,6 +43772,9 @@ extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProto
     if self.size != 0 {
       try visitor.visitSingularInt64Field(value: self.size, fieldNumber: 7)
     }
+    if self.joinSpace != false {
+      try visitor.visitSingularBoolField(value: self.joinSpace, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -43512,6 +43786,7 @@ extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProto
     if lhs.version != rhs.version {return false}
     if lhs.timestamp != rhs.timestamp {return false}
     if lhs.size != rhs.size {return false}
+    if lhs.joinSpace != rhs.joinSpace {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
