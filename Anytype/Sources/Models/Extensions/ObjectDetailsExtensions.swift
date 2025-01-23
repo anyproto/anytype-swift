@@ -38,8 +38,8 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: ScreenType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView, .tag, .chat, .chatDerived:
+        case .basic, .profile, .todo, .note, .bookmark, .space, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag, .chat, .chatDerived:
             return .page
         case .set, .collection:
             return .list
@@ -49,6 +49,8 @@ extension BundledRelationsValueProvider {
             return .type
         case .participant:
             return FeatureFlags.memberProfile ? .participant : .page
+        case .image, .video, .audio, .file, .pdf:
+            return .mediaFile
         }
     }
     
@@ -104,9 +106,7 @@ extension BundledRelationsValueProvider {
 }
 
 extension ObjectDetails {
-    var previewRemoteItem: PreviewRemoteItem?  {
-        guard layoutValue.isFileOrMedia else { return nil }
-        
+    var previewRemoteItem: PreviewRemoteItem {        
         let fileDetails = FileDetails(objectDetails: self)
         return fileDetails.previewRemoteItem
     }

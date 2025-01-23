@@ -22,6 +22,8 @@ extension ScreenData {
             self = .editor(.type(EditorTypeObject(objectId: details.id, spaceId: details.spaceId)))
         case .participant:
             self = .alert(.spaceMember(ObjectInfo(objectId: details.id, spaceId: details.spaceId)))
+        case .mediaFile:
+            self = .mediaFile(MediaFileScreenData(item: details.previewRemoteItem))
         }
     }
 }

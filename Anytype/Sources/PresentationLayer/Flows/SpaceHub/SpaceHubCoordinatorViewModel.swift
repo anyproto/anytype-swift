@@ -90,6 +90,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.userWarningAlertsHandler)
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: any NavigationContextProtocol
     
     private var needSetup = true
     
@@ -246,6 +248,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 let pageObject = EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)
                 navigationPath.push(EditorScreenData.page(pageObject))
             }
+        case .mediaFile(let mediaFileScreenData):
+            await showMediaFile(item: mediaFileScreenData.item)
         case .editor(let editorScreenData):
             navigationPath.push(editorScreenData)
         case nil:
@@ -259,6 +263,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         switch data {
         case .spaceMember(let objectInfo):
             profileData = objectInfo
+        }
+    }
+    
+    private func showMediaFile(item: PreviewRemoteItem) async {
+        await dismissAllPresented?()
+        let previewController = AnytypePreviewController(with: [item])
+        navigationContext.present(previewController) { [weak previewController] in
+            previewController?.didFinishTransition = true
         }
     }
     
