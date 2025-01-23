@@ -1305,3 +1305,9 @@
 
 // MARK: - Fields
 "Fields.menu" = "字段菜单";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";
