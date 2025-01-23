@@ -61,7 +61,7 @@ struct RelationInfoView: View {
                 viewModel.didTapFormatSection()
             },
             isArrowVisible: viewModel.mode.canEditRelationType
-        ).disabled(viewModel.mode.canEditRelationType)
+        ).disabled(!viewModel.mode.canEditRelationType)
     }
     
     private var restrictionsSection: some View {
