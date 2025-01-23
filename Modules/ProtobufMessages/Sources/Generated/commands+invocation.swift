@@ -2,6 +2,11 @@
 // DO NOT EDIT
 
 
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response: ResultWithError {}
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response: ResultWithError {}
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

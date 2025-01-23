@@ -99,6 +99,14 @@ public struct Anytype_Event {
       set {_uniqueStorage()._value = .accountLinkChallenge(newValue)}
     }
 
+    public var accountLinkChallengeHide: Anytype_Event.Account.LinkChallengeHide {
+      get {
+        if case .accountLinkChallengeHide(let v)? = _storage._value {return v}
+        return Anytype_Event.Account.LinkChallengeHide()
+      }
+      set {_uniqueStorage()._value = .accountLinkChallengeHide(newValue)}
+    }
+
     public var objectDetailsSet: Anytype_Event.Object.Details.Set {
       get {
         if case .objectDetailsSet(let v)? = _storage._value {return v}
@@ -662,6 +670,7 @@ public struct Anytype_Event {
       case accountConfigUpdate(Anytype_Event.Account.Config.Update)
       case accountUpdate(Anytype_Event.Account.Update)
       case accountLinkChallenge(Anytype_Event.Account.LinkChallenge)
+      case accountLinkChallengeHide(Anytype_Event.Account.LinkChallengeHide)
       case objectDetailsSet(Anytype_Event.Object.Details.Set)
       case objectDetailsAmend(Anytype_Event.Object.Details.Amend)
       case objectDetailsUnset(Anytype_Event.Object.Details.Unset)
@@ -759,6 +768,10 @@ public struct Anytype_Event {
         }()
         case (.accountLinkChallenge, .accountLinkChallenge): return {
           guard case .accountLinkChallenge(let l) = lhs, case .accountLinkChallenge(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountLinkChallengeHide, .accountLinkChallengeHide): return {
+          guard case .accountLinkChallengeHide(let l) = lhs, case .accountLinkChallengeHide(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.objectDetailsSet, .objectDetailsSet): return {
@@ -1286,6 +1299,8 @@ public struct Anytype_Event {
       /// Clears the value of `clientInfo`. Subsequent reads from it will return its default value.
       public mutating func clearClientInfo() {self._clientInfo = nil}
 
+      public var scope: Anytype_Model_Account.Auth.LocalApiScope = .limited
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public struct ClientInfo {
@@ -1307,6 +1322,19 @@ public struct Anytype_Event {
       public init() {}
 
       fileprivate var _clientInfo: Anytype_Event.Account.LinkChallenge.ClientInfo? = nil
+    }
+
+    public struct LinkChallengeHide {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      /// verify code before hiding to protect from MITM attacks
+      public var challenge: String = String()
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
     }
 
     public init() {}
@@ -5490,6 +5518,7 @@ extension Anytype_Event.Account.Config.Update: @unchecked Sendable {}
 extension Anytype_Event.Account.Update: @unchecked Sendable {}
 extension Anytype_Event.Account.LinkChallenge: @unchecked Sendable {}
 extension Anytype_Event.Account.LinkChallenge.ClientInfo: @unchecked Sendable {}
+extension Anytype_Event.Account.LinkChallengeHide: @unchecked Sendable {}
 extension Anytype_Event.Object: @unchecked Sendable {}
 extension Anytype_Event.Object.Details: @unchecked Sendable {}
 extension Anytype_Event.Object.Details.Amend: @unchecked Sendable {}
@@ -5763,6 +5792,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     202: .same(proto: "accountConfigUpdate"),
     203: .same(proto: "accountUpdate"),
     204: .same(proto: "accountLinkChallenge"),
+    205: .same(proto: "accountLinkChallengeHide"),
     16: .same(proto: "objectDetailsSet"),
     50: .same(proto: "objectDetailsAmend"),
     51: .same(proto: "objectDetailsUnset"),
@@ -6826,6 +6856,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
             _storage._value = .accountLinkChallenge(v)
           }
         }()
+        case 205: try {
+          var v: Anytype_Event.Account.LinkChallengeHide?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .accountLinkChallengeHide(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .accountLinkChallengeHide(v)
+          }
+        }()
         default: break
         }
       }
@@ -7140,6 +7183,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       case .accountLinkChallenge?: try {
         guard case .accountLinkChallenge(let v)? = _storage._value else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 204)
+      }()
+      case .accountLinkChallengeHide?: try {
+        guard case .accountLinkChallengeHide(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 205)
       }()
       default: break
       }
@@ -7557,6 +7604,7 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "challenge"),
     2: .same(proto: "clientInfo"),
+    3: .same(proto: "scope"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7567,6 +7615,7 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.challenge) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._clientInfo) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.scope) }()
       default: break
       }
     }
@@ -7583,12 +7632,16 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
     try { if let v = self._clientInfo {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    if self.scope != .limited {
+      try visitor.visitSingularEnumField(value: self.scope, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Account.LinkChallenge, rhs: Anytype_Event.Account.LinkChallenge) -> Bool {
     if lhs.challenge != rhs.challenge {return false}
     if lhs._clientInfo != rhs._clientInfo {return false}
+    if lhs.scope != rhs.scope {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7633,6 +7686,38 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
     if lhs.processName != rhs.processName {return false}
     if lhs.processPath != rhs.processPath {return false}
     if lhs.signatureVerified != rhs.signatureVerified {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Account.LinkChallengeHide: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".LinkChallengeHide"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "challenge"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.challenge) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.challenge.isEmpty {
+      try visitor.visitSingularStringField(value: self.challenge, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Account.LinkChallengeHide, rhs: Anytype_Event.Account.LinkChallengeHide) -> Bool {
+    if lhs.challenge != rhs.challenge {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
