@@ -1305,3 +1305,9 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
 // MARK: - Fields
 "Fields.menu" = "Velden menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";
