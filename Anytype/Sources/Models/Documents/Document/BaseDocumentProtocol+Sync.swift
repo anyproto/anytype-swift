@@ -88,9 +88,9 @@ extension BaseDocumentProtocol {
             .filter { $0.key != BundledRelationKey.description.rawValue }
         
         return Container.shared.relationsBuilder().parsedRelations(
-            objectRelationDetails: [],
-            typeRelationDetails: recommendedRelations,
-            featuredTypeRelationsDetails: recommendedFeaturedRelations,
+            objectRelations: [],
+            recommendedRelations: recommendedRelations,
+            recommendedFeaturedRelations: recommendedFeaturedRelations,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage

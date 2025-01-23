@@ -6,9 +6,9 @@ import AnytypeCore
 
 protocol RelationsBuilderProtocol: AnyObject {
     func parsedRelations(
-        objectRelationDetails: [RelationDetails],
-        typeRelationDetails: [RelationDetails],
-        featuredTypeRelationsDetails: [RelationDetails],
+        objectRelations: [RelationDetails],
+        recommendedRelations: [RelationDetails],
+        recommendedFeaturedRelations: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -21,9 +21,9 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     private var builder: any SingleRelationBuilderProtocol
     
     func parsedRelations(
-        objectRelationDetails: [RelationDetails],
-        typeRelationDetails: [RelationDetails],
-        featuredTypeRelationsDetails: [RelationDetails],
+        objectRelations: [RelationDetails],
+        recommendedRelations: [RelationDetails],
+        recommendedFeaturedRelations: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -31,7 +31,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         guard let objectDetails = storage.get(id: objectId) else { return .empty }
         
         let objectRelations = buildRelations(
-            relationDetails: objectRelationDetails,
+            relationDetails: objectRelations,
             objectDetails: objectDetails,
             isFeatured: false,
             relationValuesIsLocked: relationValuesIsLocked,
@@ -39,7 +39,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         )
         
         let featuredRelations = buildRelations(
-            relationDetails: featuredTypeRelationsDetails,
+            relationDetails: recommendedFeaturedRelations,
             objectDetails: objectDetails,
             isFeatured: true,
             relationValuesIsLocked: relationValuesIsLocked,
@@ -48,7 +48,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         )
         
         let sidebarRelations = buildRelations(
-            relationDetails: typeRelationDetails,
+            relationDetails: recommendedRelations,
             objectDetails: objectDetails,
             isFeatured: false,
             relationValuesIsLocked: relationValuesIsLocked,

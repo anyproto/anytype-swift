@@ -297,9 +297,9 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         )
         
         let newRelations = relationBuilder.parsedRelations(
-            objectRelationDetails: objectRelationsDetails,
-            typeRelationDetails: typeRelationsDetails,
-            featuredTypeRelationsDetails: featuredTypeRelationsDetails,
+            objectRelations: objectRelationsDetails,
+            recommendedRelations: typeRelationsDetails,
+            recommendedFeaturedRelations: featuredTypeRelationsDetails,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
