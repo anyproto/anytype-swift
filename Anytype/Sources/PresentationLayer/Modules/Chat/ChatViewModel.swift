@@ -507,7 +507,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
         if FeatureFlags.fullScreenMediaFileByTap, attachment.layoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
-            let items = buildPreviewRemoteItemFromAttachments(reorderedAttachments)
+            let items = attachments.compactMap { $0.previewRemoteItem }
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
             output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
         } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
@@ -515,10 +515,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
         }
-    }
-    
-    private func buildPreviewRemoteItemFromAttachments(_ attachments: [ObjectDetails]) -> [any PreviewRemoteItem] {
-        attachments.compactMap { $0.previewRemoteItem }
     }
     
     private func showFileLimitAlert() {

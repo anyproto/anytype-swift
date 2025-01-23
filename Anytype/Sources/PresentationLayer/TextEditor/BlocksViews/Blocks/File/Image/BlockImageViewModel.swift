@@ -105,7 +105,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         }
         onImageOpen?(
             FilePreviewContext(
-                previewItem: ImagePreviewMedia(previewImage: sender.image, fileDetails: fileDetails),
+                previewItem: PreviewRemoteItem(fileDetails: fileDetails, type: .image(sender.image)),
                 sourceView: sender, previewImage: sender.image, onDidEditFile: { url in
                     handler.uploadMediaFile(
                         uploadingSource: .path(url.relativePath),

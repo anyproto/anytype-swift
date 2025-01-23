@@ -11,7 +11,7 @@ protocol ChatModuleOutput: AnyObject {
     func onPhotosPickerSelected(data: ChatPhotosPickerData)
     func onFilePickerSelected(data: ChatFilesPickerData)
     func onShowCameraSelected(data: SimpleCameraData)
-    func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem])
+    func onMediaFileSelected(startAtIndex: Int, items: [PreviewRemoteItem])
     func onUrlSelected(url: URL)
     func onWidgetsSelected()
     func didSelectCreateObject(type: ObjectType)

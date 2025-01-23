@@ -1,35 +1,19 @@
-import QuickLook
-import Combine
 import Services
+import UIKit
+import Combine
 import AnytypeCore
 
-final class FilePreviewMedia: NSObject, PreviewRemoteItem, @unchecked Sendable {
+final class FilePreviewMediaHandler: PreviewMediaHandlingProtocol, @unchecked Sendable {
     
-    // MARK: - PreviewRemoteItem
-    let id: String
-    let fileDetails: FileDetails
-    let didUpdateContentSubject = PassthroughSubject<Void, Never>()
-
-    // MARK: - QLPreviewItem
-    var previewItemTitle: String? { fileDetails.fileName }
-    var previewItemURL: URL?
-
+    private let fileDetails: FileDetails
     private let fileDownloader = FileDownloader()
-
+    
+    weak var output: (any PreviewMediaHandlingOutput)? = nil
+    
     init(fileDetails: FileDetails) {
-        self.id = fileDetails.id
         self.fileDetails = fileDetails
-        
-        super.init()
-        
-        let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileName)
-        if FileManager.default.fileExists(atPath: path.relativePath) {
-            self.previewItemURL = path
-        } else {
-            startDownloading()
-        }
     }
-
+    
     func startDownloading() {
         Task {
             do {
@@ -43,8 +27,7 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem, @unchecked Sendable {
                 )
 
                 try data.write(to: path, options: [.atomic])
-                previewItemURL = path
-                didUpdateContentSubject.send()
+                output?.onUpdate(path: path)
             } catch {
                 anytypeAssertionFailure("Failed to write file into temporary directory")
             }

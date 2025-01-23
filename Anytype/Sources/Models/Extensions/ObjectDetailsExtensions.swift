@@ -104,7 +104,7 @@ extension BundledRelationsValueProvider {
 }
 
 extension ObjectDetails {
-    var previewRemoteItem: (any PreviewRemoteItem)?  {
+    var previewRemoteItem: PreviewRemoteItem?  {
         guard layoutValue.isFileOrMedia else { return nil }
         
         let fileDetails = FileDetails(objectDetails: self)
@@ -113,12 +113,12 @@ extension ObjectDetails {
 }
 
 extension FileDetails {
-    var previewRemoteItem: any PreviewRemoteItem  {
+    var previewRemoteItem: PreviewRemoteItem  {
         switch fileContentType {
         case .image:
-            return ImagePreviewMedia(fileDetails: self)
+            return PreviewRemoteItem(fileDetails: self, type: .image())
         case .file, .audio, .video, .none:
-            return FilePreviewMedia(fileDetails: self)
+            return PreviewRemoteItem(fileDetails: self, type: .file)
         }
     }
 }

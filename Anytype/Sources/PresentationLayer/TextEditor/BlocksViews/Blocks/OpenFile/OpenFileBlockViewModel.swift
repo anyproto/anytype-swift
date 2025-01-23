@@ -44,7 +44,7 @@ final class OpenFileBlockViewModel: BlockViewModelProtocol {
         }
         onFileOpen(
             FilePreviewContext(
-                previewItem: FilePreviewMedia(fileDetails: fileDetails),
+                previewItem: PreviewRemoteItem(fileDetails: fileDetails, type: .file),
                 sourceView: nil,
                 previewImage: nil,
                 onDidEditFile: { [weak self] url in
