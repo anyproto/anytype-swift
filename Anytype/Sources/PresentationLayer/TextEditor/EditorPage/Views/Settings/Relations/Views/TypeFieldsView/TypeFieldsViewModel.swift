@@ -15,6 +15,7 @@ final class TypeFieldsViewModel: ObservableObject {
     @Published var relationsSearchData: RelationsSearchData?
     @Published var relationData: RelationInfoData?
     @Published var conflictRelations = [RelationDetails]()
+    @Published var systemConflictRelations = [Relation]()
     
     // MARK: - Private variables
     
@@ -28,6 +29,9 @@ final class TypeFieldsViewModel: ObservableObject {
     private var relationsService: any RelationsServiceProtocol
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.singleRelationBuilder)
+    private var relationsBuilder: any SingleRelationBuilderProtocol
+    
     
     // MARK: - Initializers
     
@@ -40,32 +44,40 @@ final class TypeFieldsViewModel: ObservableObject {
         self.document = document
     }
     
-    func onAppear() {
-        Task { try await updateConflictRelations() }
-    }
-    
     func setupSubscriptions() async {
         async let relationsSubscription: () = setupRelationsSubscription()
         async let permissionSubscription: () = setupPermissionSubscription()
+        async let detailsSubscription: () = setupDetailsSubscription()
         
-        (_, _) = await (relationsSubscription, permissionSubscription)
+        (_, _, _) = await (relationsSubscription, permissionSubscription, detailsSubscription)
     }
     
     private func setupRelationsSubscription() async {
         for await relations in document.parsedRelationsPublisherForType.values {
             parsedRelations = relations
-            let newRows = fieldsDataBuilder.build(relations: relations.sidebarRelations, featured: relations.featuredRelations)
+            let newRows = fieldsDataBuilder.build(
+                relations: relations.sidebarRelations,
+                featured: relations.featuredRelations,
+                systemConflictedRelations: systemConflictRelations
+            )
             
             // do not animate on 1st appearance
             withAnimation(relationRows.isNotEmpty ? .default : nil) {
                 relationRows = newRows
             }
+            
         }
     }
     
     private func setupPermissionSubscription() async {
         for await permissions in document.permissionsPublisher.values {
             canEditRelationsList = permissions.canEditRelationsList
+        }
+    }
+    
+    func setupDetailsSubscription() async {
+        for await details in document.detailsPublisher.values {
+            try? await updateConflictRelations(details: details)
         }
     }
     
@@ -111,14 +123,40 @@ final class TypeFieldsViewModel: ObservableObject {
             newRecommendedRelations.append(relation.id)
             
             try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: newRecommendedRelations)
-            try await updateConflictRelations()
+            if let details = document.details { try await updateConflictRelations(details: details) }
         }
     }
     
-    private func updateConflictRelations() async throws {
+    private func updateConflictRelations(details: ObjectDetails) async throws {
         let releationKeys = try await relationsService.getConflictRelationsForType(typeId: document.objectId, spaceId: document.spaceId)
-        conflictRelations = relationDetailsStorage
+        let allConflictRelations = relationDetailsStorage
             .relationsDetails(ids: releationKeys, spaceId: document.spaceId)
             .filter { !$0.isHidden && !$0.isDeleted }
+        
+        conflictRelations = allConflictRelations
+            .filter { !BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
+        
+        systemConflictRelations = allConflictRelations
+            .filter { BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
+            .compactMap {
+                relationsBuilder.relation(
+                    relationDetails: $0,
+                    details: details,
+                    isFeatured: false,
+                    relationValuesIsLocked: true,
+                    storage: document.detailsStorage
+                )
+            }
+        
+        let newRows = fieldsDataBuilder.build(
+            relations: parsedRelations.sidebarRelations,
+            featured: parsedRelations.featuredRelations,
+            systemConflictedRelations: systemConflictRelations
+        )
+        
+        // do not animate on 1st appearance
+        withAnimation(relationRows.isNotEmpty ? .default : nil) {
+            relationRows = newRows
+        }
     }
 }

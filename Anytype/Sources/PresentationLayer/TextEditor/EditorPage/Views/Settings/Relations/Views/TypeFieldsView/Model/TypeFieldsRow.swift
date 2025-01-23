@@ -31,6 +31,7 @@ enum TypeFieldsRow: Identifiable, Equatable {
 struct TypeFieldsRelationRow: Identifiable, Equatable {
     let section: TypeFieldsSectionRow
     let relation: Relation
+    let canDrag: Bool
     
     var id: String { section.id + relation.id }
 }
