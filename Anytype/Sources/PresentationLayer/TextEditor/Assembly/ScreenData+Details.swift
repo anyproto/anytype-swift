@@ -23,7 +23,7 @@ extension ScreenData {
         case .participant:
             self = .alert(.spaceMember(ObjectInfo(objectId: details.id, spaceId: details.spaceId)))
         case .mediaFile:
-            self = .mediaFile(MediaFileScreenData(item: details.previewRemoteItem))
+            self = .preview(MediaFileScreenData(item: details.previewRemoteItem))
         }
     }
 }

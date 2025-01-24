@@ -248,7 +248,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 let pageObject = EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)
                 navigationPath.push(EditorScreenData.page(pageObject))
             }
-        case .mediaFile(let mediaFileScreenData):
+        case .preview(let mediaFileScreenData):
             await showMediaFile(item: mediaFileScreenData.item)
         case .editor(let editorScreenData):
             navigationPath.push(editorScreenData)
