@@ -127,22 +127,22 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 Image(asset: .X32.Island.members)
                     .navPanelDynamicForegroundStyle()
             }
-        case .owner(let disable):
+        case .owner(let enable):
             Button {
                 model.onTapShare()
             } label: {
                 Image(asset: .X32.Island.addMember)
                     .navPanelDynamicForegroundStyle()
             }
-            .disabled(disable)
-        case .chat(let disable):
+            .disabled(!enable)
+        case .chat(let enable):
             Button {
                 model.onTapAddToSpaceLevelChat()
             } label: {
                 Image(asset: .X32.Island.discuss)
                     .navPanelDynamicForegroundStyle()
             }
-            .disabled(disable)
+            .disabled(!enable)
         case .none:
             EmptyView()
         }
