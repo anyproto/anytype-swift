@@ -36,7 +36,7 @@ extension ScreenData {
                     blockId: blockId
                 )))
             } else {
-                self = .preview(MediaFileScreenData(item: details.previewRemoteItem))
+                self = .preview(MediaFileScreenData(items: [details.previewRemoteItem]))
             }
         }
     }

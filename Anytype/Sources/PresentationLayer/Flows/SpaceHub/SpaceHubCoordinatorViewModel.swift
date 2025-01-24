@@ -249,7 +249,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 navigationPath.push(EditorScreenData.page(pageObject))
             }
         case .preview(let mediaFileScreenData):
-            await showMediaFile(item: mediaFileScreenData.item)
+            await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):
             navigationPath.push(editorScreenData)
         case nil:
@@ -266,9 +266,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
-    private func showMediaFile(item: PreviewRemoteItem) async {
+    private func showMediaFile(_ data: MediaFileScreenData) async {
         await dismissAllPresented?()
-        let previewController = AnytypePreviewController(with: [item])
+        let previewController = AnytypePreviewController(with: data.items, initialPreviewItemIndex: data.startAtIndex)
         navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true
         }

@@ -58,10 +58,6 @@ public extension FeatureFlags {
         value(for: .primitives)
     }
 
-    static var fullScreenMediaFileByTap: Bool {
-        value(for: .fullScreenMediaFileByTap)
-    }
-
     static var memberProfile: Bool {
         value(for: .memberProfile)
     }
@@ -141,7 +137,6 @@ public extension FeatureFlags {
         .pinnedSpaces,
         .newSpacesLoading,
         .primitives,
-        .fullScreenMediaFileByTap,
         .memberProfile,
         .allContentWidgets,
         .openMediaFileInPreview,

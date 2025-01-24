@@ -505,11 +505,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
-        if FeatureFlags.fullScreenMediaFileByTap, attachment.layoutValue.isFileOrMedia {
+        if FeatureFlags.openMediaFileInPreview, attachment.layoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
-            let items = attachments.compactMap { $0.previewRemoteItem }
+            let items = reorderedAttachments.compactMap { $0.previewRemoteItem }
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
-            output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
+            output?.onObjectSelected(screenData: .preview(MediaFileScreenData(items: items, startAtIndex: startAtIndex)))
         } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
             output?.onUrlSelected(url: url)
         } else {

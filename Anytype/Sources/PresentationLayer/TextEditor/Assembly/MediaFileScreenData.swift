@@ -1,7 +1,13 @@
 struct MediaFileScreenData: Hashable {
-    let item: PreviewRemoteItem
+    let items: [PreviewRemoteItem]
+    let startAtIndex: Int
+    
+    init(items: [PreviewRemoteItem], startAtIndex: Int = 0) {
+        self.items = items
+        self.startAtIndex = startAtIndex
+    }
     
     var spaceId: String {
-        item.fileDetails.spaceId
+        items.first?.fileDetails.spaceId ?? ""
     }
 }
