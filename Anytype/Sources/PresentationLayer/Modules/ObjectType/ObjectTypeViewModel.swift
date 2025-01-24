@@ -19,6 +19,7 @@ final class ObjectTypeViewModel: ObservableObject {
     
     let document: any BaseDocumentProtocol
     var canEditDetails: Bool { document.permissions.canEditDetails }
+    var isEditorLayout: Bool { document.details?.recommendedLayoutValue.isEditorLayout ?? false }
     var canArchive: Bool { document.permissions.canArchive }
     private(set) weak var output: (any ObjectTypeViewModelOutput)?
     
