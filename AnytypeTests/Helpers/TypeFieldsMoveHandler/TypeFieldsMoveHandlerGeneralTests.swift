@@ -55,7 +55,7 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
         let relation1 = Relation.mock(id: "relation1")
         
         let relationRows = [
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: relation1))
+            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: relation1, canDrag: true))
         ]
         
         mockDocument.mockDetails = nil

@@ -142,13 +142,13 @@ class TypeFieldsMoveHandlerMoveBetweenSectionTests: XCTestCase {
         let fieldsSection = TypeFieldsSectionRow.fieldsMenu
         return [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h1"))),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h2"))),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h3"))),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h1"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h2"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h3"), canDrag: true)),
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f1"))),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f2"))),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f3")))
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f1"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f2"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f3"), canDrag: true))
         ]
     }
 }

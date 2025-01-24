@@ -17,7 +17,6 @@ struct TypeFieldsView: View {
     
     var body: some View {
         content
-            .onAppear { model.onAppear() }
             .task { await model.setupSubscriptions() }
             .sheet(item: $model.relationsSearchData) { data in
                 RelationsSearchCoordinatorView(data: data)
@@ -136,13 +135,13 @@ struct TypeFieldsView: View {
                 Spacer()
             }.disabled(!model.canEditRelationsList || !data.relation.isEditable)
             
-            if model.canEditRelationsList {
+            if model.canEditRelationsList && data.canDrag {
                 MoveIndicator()
             }
         }
         .frame(height: 52)
         .contentShape(Rectangle())
-        .if(model.canEditRelationsList) {
+        .if(model.canEditRelationsList && data.canDrag) {
             $0.onDrag {
                 draggedRow = .relation(data)
                 return NSItemProvider()

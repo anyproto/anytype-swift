@@ -23,7 +23,7 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
             .header(.header),
             .emptyRow(.header),
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1")))
+            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true))
         ]
         
         mockDocument.mockDetails = ObjectDetails.mock(
@@ -51,7 +51,7 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     func testMoveToEmptyFieldsSection() async throws {
         let relationRows: [TypeFieldsRow] = [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"))),
+            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
             .header(.fieldsMenu),
             .emptyRow(.fieldsMenu)
         ]
@@ -83,8 +83,8 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     func testMoveWithMissingRecommendedRelations() async throws {
         let relationRows: [TypeFieldsRow] = [
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"))),
-            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f2")))
+            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f2"), canDrag: true))
         ]
         
         let details = ObjectDetails.mock(recommendedRelations: [])
@@ -103,8 +103,8 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     func testMoveWithInvalidRelationId() async throws {
         let relationRows: [TypeFieldsRow] = [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "invalid_id"))),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h2")))
+            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "invalid_id"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h2"), canDrag: true))
         ]
         
         mockDocument.mockDetails = ObjectDetails.mock(
@@ -126,9 +126,9 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     func testConcurrentMoves() async throws {
         let relationRows: [TypeFieldsRow] = [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"))),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h2"))),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h3")))
+            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h2"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h3"), canDrag: true))
         ]
         
         mockDocument.mockDetails = ObjectDetails.mock(
@@ -150,7 +150,7 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     func testMoveToHeaderWithNoNextItem() async throws {
         let relationRows: [TypeFieldsRow] = [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"))),
+            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
             .header(.fieldsMenu)
         ]
         
@@ -171,7 +171,7 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
         let relationRows: [TypeFieldsRow] = [
             .header(.header),
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1")))
+            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true))
         ]
         
         do {
