@@ -268,7 +268,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     private func showMediaFile(_ data: MediaFileScreenData) async {
         await dismissAllPresented?()
-        let previewController = AnytypePreviewController(with: data.items, initialPreviewItemIndex: data.startAtIndex)
+        let previewController = AnytypePreviewController(
+            with: data.items,
+            initialPreviewItemIndex: data.startAtIndex,
+            sourceView: data.sourceView
+        )
         navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true
         }
