@@ -44,3 +44,20 @@ struct ObjectRelationOptionView: View {
         }
     }
 }
+
+#Preview("ObjectOptionView") {
+    ObjectRelationOptionView(
+        option: ObjectRelationOption(
+            id: "",
+            icon: .object(.empty(.page)),
+            title: "File",
+            type: "File",
+            isArchived: false,
+            isDeleted: false,
+            disableDeletion: false,
+            disableDuplication: false,
+            objectScreenData: nil,
+            screenData: nil
+        )
+    )
+}

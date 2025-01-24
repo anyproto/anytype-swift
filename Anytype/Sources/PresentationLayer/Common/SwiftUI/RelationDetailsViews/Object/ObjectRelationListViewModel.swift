@@ -41,9 +41,7 @@ final class ObjectRelationListViewModel: ObservableObject {
     }
     
     func onOpenAsObject(_ option: ObjectRelationOption) {
-        output?.onObjectOpen(
-            screenData: ScreenData(details: option.details, openMediaFileAsObject: true)
-        )
+        output?.onObjectOpen(screenData: option.objectScreenData)
     }
     
     func onOpen(_ option: ObjectRelationOption) {
