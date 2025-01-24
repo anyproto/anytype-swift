@@ -10,8 +10,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     enum LeftButtonMode {
         case member
-        case owner(_ disable: Bool)
-        case chat(_ disable: Bool)
+        case owner(_ enable: Bool)
+        case chat(_ enable: Bool)
     }
     
     // MARK: - Private properties
@@ -104,9 +104,12 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         let canLinkToChat = chatLinkData.isNotNil && prticipantSpaceView.spaceView.showChat
         
         if canLinkToChat {
-            leftButtonMode = .chat(!prticipantSpaceView.permissions.canEdit)
+            leftButtonMode = .chat(prticipantSpaceView.permissions.canEdit)
         } else if prticipantSpaceView.isOwner {
-            leftButtonMode = .owner(!prticipantSpaceView.permissions.canBeShared)
+            let limitAllowSharing = participantSpacesStorage.spaceSharingInfo?.limitsAllowSharing ?? false
+            let canBeShared = prticipantSpaceView.permissions.canBeShared
+            let isShared = prticipantSpaceView.spaceView.isShared
+            leftButtonMode = .owner(isShared || (limitAllowSharing && canBeShared))
         } else {
             leftButtonMode = .member
         }
