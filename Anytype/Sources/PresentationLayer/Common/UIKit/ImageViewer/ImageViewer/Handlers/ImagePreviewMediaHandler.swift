@@ -21,7 +21,7 @@ final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
     }
     
     func startDownloading() {
-        if let previewImage = previewImage {
+        if let previewImage {
             updatePreviewItemURL(with: previewImage, data: nil, isPreview: true)
         }
 
