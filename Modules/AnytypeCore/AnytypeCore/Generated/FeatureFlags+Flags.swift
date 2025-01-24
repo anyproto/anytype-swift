@@ -70,6 +70,10 @@ public extension FeatureFlags {
         value(for: .allContentWidgets)
     }
 
+    static var openMediaFileInPreview: Bool {
+        value(for: .openMediaFileInPreview)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -140,6 +144,7 @@ public extension FeatureFlags {
         .fullScreenMediaFileByTap,
         .memberProfile,
         .allContentWidgets,
+        .openMediaFileInPreview,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

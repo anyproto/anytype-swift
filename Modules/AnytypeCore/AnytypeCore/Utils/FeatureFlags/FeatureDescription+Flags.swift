@@ -108,6 +108,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let openMediaFileInPreview = FeatureDescription(
+        title: "Open all media files in preview",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -50,7 +50,7 @@ extension BundledRelationsValueProvider {
         case .participant:
             return FeatureFlags.memberProfile ? .participant : .page
         case .image, .video, .audio, .file, .pdf:
-            return .mediaFile
+            return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
         }
     }
     
