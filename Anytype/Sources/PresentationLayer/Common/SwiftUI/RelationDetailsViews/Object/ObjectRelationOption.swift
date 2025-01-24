@@ -11,6 +11,7 @@ struct ObjectRelationOption: Equatable, Identifiable {
     let disableDeletion: Bool
     let disableDuplication: Bool
     
+    let details: ObjectDetails
     let screenData: ScreenData?
     
     var isUnavailable: Bool {
@@ -26,6 +27,7 @@ extension ObjectRelationOption {
         type = objectDetails.objectType.name
         isArchived = objectDetails.isArchived
         isDeleted = objectDetails.isDeleted
+        details = objectDetails
         screenData = objectDetails.screenData()
         
         let restrictions = objectDetails.restrictionsValue

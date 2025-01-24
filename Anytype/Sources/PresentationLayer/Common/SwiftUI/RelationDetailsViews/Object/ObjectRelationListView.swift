@@ -87,7 +87,7 @@ struct ObjectRelationListView: View {
         .if(viewModel.configuration.isEditable) {
             $0.contextMenu {
                 Button(Loc.openObject) {
-                    viewModel.onObjectOpen(option)
+                    viewModel.onOpenAsObject(option)
                 }
                 
                 if !option.disableDuplication {
