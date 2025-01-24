@@ -1307,7 +1307,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Fields.menu" = "Alanlar menüsü";
 
 // MARK: - Object Search with meta
-"ObjectSearchWithMeta.Create.Page" = "New Page";
-"ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
-"ObjectSearchWithMeta.Create.Collection" = "New Collection";
+"ObjectSearchWithMeta.Create.Page" = "Yeni Sayfa";
+"ObjectSearchWithMeta.Create.Note" = "Yeni Not";
+"ObjectSearchWithMeta.Create.Set" = "Yeni Set";
+"ObjectSearchWithMeta.Create.Collection" = "Yeni Koleksiyon";
