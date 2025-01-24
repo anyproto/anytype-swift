@@ -9,20 +9,17 @@ final class OpenFileBlockViewModel: BlockViewModelProtocol {
     
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
-    private let handler: any BlockActionHandlerProtocol
     
     private var document: (any BaseDocumentProtocol)?
-    private let onFileOpen: (FilePreviewContext) -> ()
+    private let onFileOpen: (ScreenData) -> ()
     
     init(
         info: BlockInformation,
-        handler: some BlockActionHandlerProtocol,
         documentId: String,
         spaceId: String,
-        onFileOpen: @escaping (FilePreviewContext) -> ()
+        onFileOpen: @escaping (ScreenData) -> ()
     ) {
         self.info = info
-        self.handler = handler
         self.onFileOpen = onFileOpen
         
         self.document = documentService.document(objectId: documentId, spaceId: spaceId)
@@ -42,17 +39,6 @@ final class OpenFileBlockViewModel: BlockViewModelProtocol {
             anytypeAssertionFailure("File details not found")
             return
         }
-        onFileOpen(
-            FilePreviewContext(
-                previewItem: PreviewRemoteItem(fileDetails: fileDetails, type: .file),
-                sourceView: nil,
-                previewImage: nil,
-                onDidEditFile: { [weak self] url in
-                    guard let self else { return }
-                    handler.uploadFileAt(localPath: url.relativePath, blockId: info.id)
-                }
-            )
-        )
-        
+        onFileOpen(.preview(MediaFileScreenData(items: [fileDetails.previewRemoteItem])))
     }
 }

@@ -15,10 +15,9 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     let documentId: String
     let spaceId: String
     let blockInformationProvider: BlockModelInfomationProvider
-    let handler: any BlockActionHandlerProtocol
     
     let showIconPicker: Action<String>
-    let onImageOpen: Action<FilePreviewContext>?
+    let onImageOpen: Action<ScreenData>?
     
     var fileData: BlockFile? {
         guard case let .file(fileData) = info.content else { return nil }
@@ -36,14 +35,12 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         documentId: String,
         spaceId: String,
         blockInformationProvider: BlockModelInfomationProvider,
-        handler: some BlockActionHandlerProtocol,
         showIconPicker: @escaping (String) -> (),
-        onImageOpen: Action<FilePreviewContext>?
+        onImageOpen: Action<ScreenData>?
     ) {
         self.documentId = documentId
         self.spaceId = spaceId
         self.blockInformationProvider = blockInformationProvider
-        self.handler = handler
         self.showIconPicker = showIconPicker
         self.onImageOpen = onImageOpen
     }
@@ -103,18 +100,8 @@ struct BlockImageViewModel: BlockViewModelProtocol {
             anytypeAssertionFailure("File details not found")
             return
         }
-        onImageOpen?(
-            FilePreviewContext(
-                previewItem: PreviewRemoteItem(fileDetails: fileDetails, type: .image(sender.image)),
-                sourceView: sender, previewImage: sender.image, onDidEditFile: { url in
-                    handler.uploadMediaFile(
-                        uploadingSource: .path(url.relativePath),
-                        type: .images,
-                        blockId: info.id
-                    )
-                }
-            )
-        )
+        let item = PreviewRemoteItem(fileDetails: fileDetails, type: .image(sender.image))
+        onImageOpen?(.preview(MediaFileScreenData(items: [item], sourceView: sender)))
     }
 }
 
