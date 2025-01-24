@@ -89,11 +89,13 @@ struct ObjectTypeView: View {
     
     private var buttonsRow: some View {
         HStack(spacing: 12) {
-            StandardButton(
-                .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
-                style: .secondarySmall
-            ) {
-                model.onLayoutTap()
+            if model.isEditorLayout {
+                StandardButton(
+                    .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
+                    style: .secondarySmall
+                ) {
+                    model.onLayoutTap()
+                }
             }
             
             StandardButton(
