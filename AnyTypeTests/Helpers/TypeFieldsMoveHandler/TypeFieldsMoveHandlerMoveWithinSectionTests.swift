@@ -252,10 +252,10 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         let headerSection = TypeFieldsSectionRow.header
         return [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h1"))),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h2"))),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h3"))),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h4"))),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h1"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h2"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h3"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h4"), canDrag: true)),
             .header(.fieldsMenu)
         ]
     }
@@ -265,10 +265,10 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         return [
             .header(.header),
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f1"))),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f2"))),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f3"))),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f4")))
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f1"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f2"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f3"), canDrag: true)),
+            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f4"), canDrag: true))
         ]
     }
 }
