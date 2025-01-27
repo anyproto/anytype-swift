@@ -1944,7 +1944,6 @@ internal enum Loc {
     }
   }
   internal enum TemplateSelection {
-    internal static let blankTemplate = Loc.tr("Localizable", "TemplateSelection.blankTemplate", fallback: "Blank")
     internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
     internal enum Available {
       internal static func title(_ p1: Int) -> String {

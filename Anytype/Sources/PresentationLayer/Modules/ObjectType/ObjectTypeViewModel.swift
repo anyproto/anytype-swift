@@ -63,8 +63,6 @@ final class ObjectTypeViewModel: ObservableObject {
         switch model.mode {
         case .installed:
             output?.showTemplatesPicker(defaultTemplateId: model.mode.id)
-        case .blank:
-            output?.showTemplatesPicker(defaultTemplateId: nil)
         case .addTemplate:
             onAddTemplateTap()
         }
@@ -150,13 +148,6 @@ final class ObjectTypeViewModel: ObservableObject {
     // Adding ephemeral Blank template and create new template button
     private func buildTemplates() {
         var templates = [TemplatePreviewModel]()
-        
-        let isBlankTemplateDefault = !rawTemplates.contains { $0.id == defaultTemplateId }
-        templates.append(TemplatePreviewModel(
-            mode: .blank,
-            alignment: .left,
-            decoration: isBlankTemplateDefault ? .defaultBadge : nil
-        ))
         
         let middlewareTemplates = rawTemplates.map { details in
             let isDefault = details.id == defaultTemplateId

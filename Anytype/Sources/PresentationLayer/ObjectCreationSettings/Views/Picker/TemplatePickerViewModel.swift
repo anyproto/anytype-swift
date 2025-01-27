@@ -5,9 +5,8 @@ import SwiftUI
 @MainActor
 protocol TemplatePickerViewModuleOutput: AnyObject {
     func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void)
-    func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item.TemplateModel)
+    func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item)
     func selectionOptionsView(_ provider: some OptionsItemProvider) -> AnyView
-    func setAsDefaultBlankTemplate()
     func onClose()
 }
 
@@ -36,7 +35,6 @@ struct TemplatePickerViewModelData {
 final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {    
     @Published var items = [Item]()
     @Published var selectedTab = 0
-    @Published var showBlankSettings = false
     
     var showApplyButton: Bool {
         if case .objectTemplate = data.mode { return true }
@@ -64,7 +62,6 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     ) {
         self.data = data
         self.output = output
-        self.options = buildBlankOptions()
     }
 
     func onApplyButton() {
@@ -82,15 +79,8 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     }
     
     func onSettingsButtonTap() {
-        if let model = templateModel() {
-            output?.onTemplateSettingsTap(model)
-        } else {
-            showBlankSettings.toggle()
-        }
-    }
-    
-    func blankSettingsView() -> AnyView? {
-        output?.selectionOptionsView(self)
+        let model = templateModel()
+        output?.onTemplateSettingsTap(model)
     }
     
     func selectedItem() -> Item {
@@ -111,19 +101,6 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
         }
     }
     
-    private func buildBlankOptions() -> [SelectionOptionsItemViewModel] {
-        BlankTemplateSetting.allCases.map { setting in
-            SelectionOptionsItemViewModel(
-                id: UUID().uuidString,
-                title: setting.title,
-                imageAsset: setting.imageAsset,
-                action: { [weak self] in
-                    self?.output?.setAsDefaultBlankTemplate()
-                }
-            )
-        }
-    }
-    
     private func setupDefaultItem() {
         guard !didSetupDefaultItem else { return }
         
@@ -137,80 +114,39 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     private func updateItems(with templates: [ObjectDetails]) {
         output?.onTemplatesChanged(templates, completion: { [weak self] models in
             guard let self else { return }
-            var updatedItems = models.enumerated().map { info -> TemplatePickerViewModel.Item in
+            items = models.enumerated().map { info -> TemplatePickerViewModel.Item in
                 let model = info.element
-                return .template(
-                    .init(
-                        id: info.offset + 1,
-                        view: model.editorView,
-                        object: model.template,
-                        templateId: model.template.id
-                    )
+                return .init(
+                    id: info.offset + 1,
+                    view: model.editorView,
+                    object: model.template,
+                    templateId: model.template.id
                 )
             }
-            
-            updatedItems.insert(.blank(0), at: 0)
-            items = updatedItems
         })
     }
     
     private func selectedTemplateId() -> String {
-        let templateId: String
-        if let model = templateModel() {
-            templateId = model.object.id
-            AnytypeAnalytics.instance().logTemplateSelection(
-                objectType: model.object.templateIsBundled ? .object(typeId: model.object.id) : .custom,
-                route: .navigation
-            )
-        } else {
-            templateId = TemplateType.blank.id
-            AnytypeAnalytics.instance().logTemplateSelection(
-                objectType: nil,
-                route: .navigation
-            )
-        }
+        let model = templateModel()
+        let templateId = model.object.id
+        AnytypeAnalytics.instance().logTemplateSelection(
+            objectType: model.object.templateIsBundled ? .object(typeId: model.object.id) : .custom,
+            route: .navigation
+        )
+
         return templateId
     }
     
-    private func templateModel() -> TemplatePickerViewModel.Item.TemplateModel? {
-        let item = selectedItem()
-        switch item {
-        case let .template(model):
-            return model
-        case .blank:
-            return nil
-        }
+    private func templateModel() -> TemplatePickerViewModel.Item {
+        selectedItem()
     }
 }
 
 extension TemplatePickerViewModel {
-    enum Item: Identifiable {
-        case blank(Int)
-        case template(TemplateModel)
-
-        var id: Int {
-            switch self {
-            case let .blank(id):
-                return id
-            case let .template(model):
-                return model.id
-            }
-        }
-        
-        var templateId: String? {
-            switch self {
-            case .blank:
-                nil
-            case .template(let templateModel):
-                templateModel.templateId
-            }
-        }
-
-        struct TemplateModel {
-            let id: Int
-            let view: AnyView
-            let object: ObjectDetails
-            let templateId: String
-        }
+    struct Item: Identifiable {
+        let id: Int
+        let view: AnyView
+        let object: ObjectDetails
+        let templateId: String
     }
 }
