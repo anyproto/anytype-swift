@@ -352,6 +352,16 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logChangeTypeSort(type: String, sort: String) {
+        logEvent(
+            "ChangeTypeSort",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.sort: sort
+            ]
+        )
+    }
+    
     // MARK: - Set
     func logScreenSet(with type: String, spaceId: String) {
         logEvent(
