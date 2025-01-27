@@ -30,35 +30,11 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let versionHistory = FeatureDescription(
-        title: "Version History - IOS-3058",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: true
-    )
-    
     static let allContent = FeatureDescription(
         title: "All content",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false, // improve Global search instead of it
         debugValue: false
-    )
-    
-    static let userWarningAlerts = FeatureDescription(
-        title: "User warning alerts",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: true
-    )
-    
-    static let dateAsAnObject = FeatureDescription(
-        title: "Date as an object",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
-        defaultValue: true
-    )
-    
-    static let relativeDates = FeatureDescription(
-        title: "Turn on relative date for mentions / relations / widgets and so on (exept Date object inside)",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
-        defaultValue: true
     )
     
     static let homeSpaceLevelChat = FeatureDescription(
