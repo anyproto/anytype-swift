@@ -114,6 +114,12 @@ final class TypeFieldsViewModel: ObservableObject {
                 try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: recommendedRelations)
             }
             
+            
+            guard let format = row.relation.format?.format else {
+                anytypeAssertionFailure("Empty relation format for onDeleteRelation")
+                return
+            }
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: format)
         }
     }
     
