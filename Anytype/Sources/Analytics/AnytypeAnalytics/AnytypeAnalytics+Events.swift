@@ -318,6 +318,17 @@ extension AnytypeAnalytics {
         )
     }
     
+    // MARK: - Type
+    
+    func logSetObjectTitle(objectType: AnalyticsObjectType?) {
+        logEvent(
+            "SetObjectTitle",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType?.analyticsId ?? ""
+            ]
+        )
+    }
+    
     // MARK: - Set
     func logScreenSet(with type: String, spaceId: String) {
         logEvent(

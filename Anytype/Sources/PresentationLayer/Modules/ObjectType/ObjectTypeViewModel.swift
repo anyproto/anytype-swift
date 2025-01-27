@@ -91,6 +91,7 @@ final class ObjectTypeViewModel: ObservableObject {
         nameChangeTask = Task {
             try await Task.sleep(seconds: 0.5)
             try await detailsService.updateBundledDetails(objectId: document.objectId, bundledDetails: [.name(name)])
+            AnytypeAnalytics.instance().logSetObjectTitle(objectType: document.details?.analyticsType)
         }
     }
     
