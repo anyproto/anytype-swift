@@ -342,6 +342,16 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logChangeRecommendedLayout(objectType: AnalyticsObjectType, layout: DetailsLayout) {
+        logEvent(
+            "ChangeRecommendedLayout",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.layout: layout.rawValue
+            ]
+        )
+    }
+    
     // MARK: - Set
     func logScreenSet(with type: String, spaceId: String) {
         logEvent(
