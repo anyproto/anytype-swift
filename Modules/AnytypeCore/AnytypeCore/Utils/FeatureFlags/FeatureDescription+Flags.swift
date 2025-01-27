@@ -89,13 +89,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let fullScreenMediaFileByTap = FeatureDescription(
-        title: "Open media / files in fullscreen mode in Chats",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
     static let memberProfile = FeatureDescription(
         title: "Space member profile",
         type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
@@ -105,6 +98,12 @@ public extension FeatureDescription {
     static let allContentWidgets = FeatureDescription(
         title: "All content widgets",
         type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: false
+    )
+    
+    static let openMediaFileInPreview = FeatureDescription(
+        title: "Open all media files in preview",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
         defaultValue: false
     )
     

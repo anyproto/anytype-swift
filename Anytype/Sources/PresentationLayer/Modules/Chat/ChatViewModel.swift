@@ -505,28 +505,15 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
-        if FeatureFlags.fullScreenMediaFileByTap, attachment.layoutValue.isFileOrMedia {
+        if FeatureFlags.openMediaFileInPreview, attachment.layoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
-            let items = buildPreviewRemoteItemFromAttachments(reorderedAttachments)
+            let items = reorderedAttachments.compactMap { $0.previewRemoteItem }
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
-            output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
+            output?.onObjectSelected(screenData: .preview(MediaFileScreenData(items: items, startAtIndex: startAtIndex)))
         } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
             output?.onUrlSelected(url: url)
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
-        }
-    }
-    
-    private func buildPreviewRemoteItemFromAttachments(_ attachments: [ObjectDetails]) -> [any PreviewRemoteItem] {
-        attachments.compactMap { details in
-            guard details.layoutValue.isFileOrMedia else { return nil }
-            let fileDetails = FileDetails(objectDetails: details)
-            switch fileDetails.fileContentType {
-            case .image:
-                return ImagePreviewMedia(fileDetails: fileDetails)
-            case .file, .audio, .video, .none:
-                return FilePreviewMedia(fileDetails: fileDetails)
-            }
         }
     }
     

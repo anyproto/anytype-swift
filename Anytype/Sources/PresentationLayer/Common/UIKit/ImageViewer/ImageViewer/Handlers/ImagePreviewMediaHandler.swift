@@ -1,43 +1,27 @@
-import Combine
 import Services
-import AnytypeCore
 import UIKit
+import Combine
+import AnytypeCore
 
-final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
+final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
     
-    // MARK: - PreviewRemoteItem
-    let id: String
-    let fileDetails: FileDetails
-    let didUpdateContentSubject = PassthroughSubject<Void, Never>()
-    
-    // MARK: - QLPreviewItem
-    var previewItemTitle: String? { fileDetails.fileName }
-    var previewItemURL: URL?
-
+    private let fileDetails: FileDetails
     private let imageSource: ImageSource
     private let previewImage: UIImage?
+    
+    weak var output: (any PreviewMediaHandlingOutput)? = nil
+    
     private var cancellables = [AnyCancellable]()
-
-    init(previewImage: UIImage? = nil, fileDetails: FileDetails) {
-        self.id = fileDetails.id
-        self.previewImage = previewImage
+    
+    init(fileDetails: FileDetails, previewImage: UIImage?) {
         self.fileDetails = fileDetails
-
         let imageId = ImageMetadata(id: fileDetails.id, width: .original)
         self.imageSource = .middleware(imageId)
-
-        super.init()
-
-        let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileName)
-        if FileManager.default.fileExists(atPath: path.relativePath) {
-            self.previewItemURL = path
-        } else {
-            startDownloading()
-        }
+        self.previewImage = previewImage
     }
-
+    
     func startDownloading() {
-        if let previewImage = previewImage {
+        if let previewImage {
             updatePreviewItemURL(with: previewImage, data: nil, isPreview: true)
         }
 
@@ -70,8 +54,7 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
                 )
                 
                 try data.write(to: path, options: [.atomic])
-                previewItemURL = path
-                didUpdateContentSubject.send(())
+                output?.onUpdate(path: path)
             } catch {
                 anytypeAssertionFailure("Failed to write image into temporary directory")
             }

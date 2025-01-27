@@ -2,7 +2,13 @@ import Services
 
 
 extension ScreenData {
-    init(details: ObjectDetails, mode: DocumentMode = .handling, blockId: String? = nil, activeViewId: String? = nil) {
+    init(
+        details: ObjectDetails,
+        mode: DocumentMode = .handling,
+        blockId: String? = nil,
+        activeViewId: String? = nil,
+        openMediaFileAsObject: Bool = false
+    ) {
         switch details.editorViewType {
         case .page:
             self = .editor(.page(EditorPageObject(
@@ -22,6 +28,16 @@ extension ScreenData {
             self = .editor(.type(EditorTypeObject(objectId: details.id, spaceId: details.spaceId)))
         case .participant:
             self = .alert(.spaceMember(ObjectInfo(objectId: details.id, spaceId: details.spaceId)))
+        case .mediaFile:
+            if openMediaFileAsObject {
+                self = .editor(.page(EditorPageObject(
+                    details: details,
+                    mode: mode,
+                    blockId: blockId
+                )))
+            } else {
+                self = .preview(MediaFileScreenData(items: [details.previewRemoteItem]))
+            }
         }
     }
 }

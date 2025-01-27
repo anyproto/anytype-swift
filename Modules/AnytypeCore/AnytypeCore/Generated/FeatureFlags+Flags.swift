@@ -58,16 +58,16 @@ public extension FeatureFlags {
         value(for: .primitives)
     }
 
-    static var fullScreenMediaFileByTap: Bool {
-        value(for: .fullScreenMediaFileByTap)
-    }
-
     static var memberProfile: Bool {
         value(for: .memberProfile)
     }
 
     static var allContentWidgets: Bool {
         value(for: .allContentWidgets)
+    }
+
+    static var openMediaFileInPreview: Bool {
+        value(for: .openMediaFileInPreview)
     }
 
     static var rainbowViews: Bool {
@@ -137,9 +137,9 @@ public extension FeatureFlags {
         .pinnedSpaces,
         .newSpacesLoading,
         .primitives,
-        .fullScreenMediaFileByTap,
         .memberProfile,
         .allContentWidgets,
+        .openMediaFileInPreview,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

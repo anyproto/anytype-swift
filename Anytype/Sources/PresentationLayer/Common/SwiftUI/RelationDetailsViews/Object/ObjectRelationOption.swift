@@ -11,6 +11,7 @@ struct ObjectRelationOption: Equatable, Identifiable {
     let disableDeletion: Bool
     let disableDuplication: Bool
     
+    let objectScreenData: ScreenData?
     let screenData: ScreenData?
     
     var isUnavailable: Bool {
@@ -26,6 +27,7 @@ extension ObjectRelationOption {
         type = objectDetails.objectType.name
         isArchived = objectDetails.isArchived
         isDeleted = objectDetails.isDeleted
+        objectScreenData = ScreenData(details: objectDetails, openMediaFileAsObject: true)
         screenData = objectDetails.screenData()
         
         let restrictions = objectDetails.restrictionsValue

@@ -38,8 +38,8 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: ScreenType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView, .tag, .chat, .chatDerived:
+        case .basic, .profile, .todo, .note, .bookmark, .space, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag, .chat, .chatDerived:
             return .page
         case .set, .collection:
             return .list
@@ -49,6 +49,8 @@ extension BundledRelationsValueProvider {
             return .type
         case .participant:
             return FeatureFlags.memberProfile ? .participant : .page
+        case .image, .video, .audio, .file, .pdf:
+            return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
         }
     }
     
@@ -99,6 +101,24 @@ extension BundledRelationsValueProvider {
             return .tag
         case .date:
             return .date
+        }
+    }
+}
+
+extension ObjectDetails {
+    var previewRemoteItem: PreviewRemoteItem {        
+        let fileDetails = FileDetails(objectDetails: self)
+        return fileDetails.previewRemoteItem
+    }
+}
+
+extension FileDetails {
+    var previewRemoteItem: PreviewRemoteItem  {
+        switch fileContentType {
+        case .image:
+            return PreviewRemoteItem(fileDetails: self, type: .image())
+        case .file, .audio, .video, .none:
+            return PreviewRemoteItem(fileDetails: self, type: .file)
         }
     }
 }

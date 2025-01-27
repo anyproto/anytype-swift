@@ -34,8 +34,6 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     var pageNavigation: PageNavigation?
     
-    @Injected(\.legacyNavigationContext)
-    private var navigationContext: any NavigationContextProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     
@@ -62,13 +60,6 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func onObjectSelected(screenData: ScreenData) {
         pageNavigation?.open(screenData)
-    }
-    
-    func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem]) {
-        let previewController = AnytypePreviewController(with: items, initialPreviewItemIndex: startAtIndex)
-        navigationContext.present(previewController) { [weak previewController] in
-            previewController?.didFinishTransition = true
-        }
     }
     
     func onUrlSelected(url: URL) {
