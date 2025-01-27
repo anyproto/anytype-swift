@@ -1304,3 +1304,9 @@ Please provide specific details of your needs here.";
 
 // MARK: - Fields
 "Fields.menu" = "Fields menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";

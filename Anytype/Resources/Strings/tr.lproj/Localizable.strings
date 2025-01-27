@@ -1289,8 +1289,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.CreateObject.Dismiss.Title" = "Bu ekranı kapatmak istediğinizden emin misiniz?";
 "Chat.CreateObject.Dismiss.Message" = "Eğer çıkarsanız yaptığınız tüm değişiklikler kaybolacaktır.";
 "Chat.CreateObject.Dismiss.Ok" = "Evet, kapat";
-"Chat.Attach.Page.title" = "Attach Page";
-"Chat.Attach.List.title" = "Attach List";
+"Chat.Attach.Page.title" = "Sayfa Ekle";
+"Chat.Attach.List.title" = "Liste Ekle";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";
@@ -1305,3 +1305,9 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 
 // MARK: - Fields
 "Fields.menu" = "Alanlar menüsü";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Yeni Sayfa";
+"ObjectSearchWithMeta.Create.Note" = "Yeni Not";
+"ObjectSearchWithMeta.Create.Set" = "Yeni Set";
+"ObjectSearchWithMeta.Create.Collection" = "Yeni Koleksiyon";

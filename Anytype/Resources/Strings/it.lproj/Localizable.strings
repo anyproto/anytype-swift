@@ -212,7 +212,7 @@
 "Open Set" = "Apri Insieme";
 "Create Set" = "Crea un Insieme";
 "Unsupported deeplink" = "Deeplink non supportato";
-"Edit Profile" = "Edit Profile";
+"Edit Profile" = "Modifica il Profilo";
 
 // Home
 "Favorites" = "Preferiti";
@@ -1272,9 +1272,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.EditMessage" = "Modifica messaggio";
 "Chat.Actions.Menu.Pages" = "Pagine";
 "Chat.Actions.Menu.Lists" = "Liste";
-"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Photos" = "Foto";
 "Chat.Actions.Menu.Files" = "File";
-"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.Camera" = "Fotocamera";
 "Chat.Actions.Menu.More" = "Altro";
 "Chat.Participant.Badge" = "(Tu)";
 "Chat.Reply.Images" = "Immagini (%@)";
@@ -1283,12 +1283,12 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.SendLimitAlert.Title" = "Aspettate! Rilevata digitazione turbo!";
 "Chat.SendLimitAlert.Message" = "Sembra che tu stia inviando messaggi alla velocità della luce. Dagli un secondo prima di inviare il prossimo.";
 "Chat.AttachmentsLimit.Alert" = "È possibile caricare solo %@ file alla volta";
-"Chat.AttachedObject.Attach" = "Attach";
-"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
-"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
-"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
-"Chat.Attach.Page.title" = "Attach Page";
-"Chat.Attach.List.title" = "Attach List";
+"Chat.AttachedObject.Attach" = "Allega";
+"Chat.CreateObject.Dismiss.Title" = "Sei sicuro di voler chiudere questa schermata?";
+"Chat.CreateObject.Dismiss.Message" = "Se abbandoni, tutte le modifiche andranno perse.";
+"Chat.CreateObject.Dismiss.Ok" = "Sì, chiudi";
+"Chat.Attach.Page.title" = "Allega Pagina";
+"Chat.Attach.List.title" = "Allega Lista";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
@@ -1303,3 +1303,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 // MARK: - Fields
 "Fields.menu" = "Menu campi";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Nuova Pagina";
+"ObjectSearchWithMeta.Create.Note" = "Nuova Nota";
+"ObjectSearchWithMeta.Create.Set" = "Nuovo Insieme";
+"ObjectSearchWithMeta.Create.Collection" = "Nuova Collezione";
