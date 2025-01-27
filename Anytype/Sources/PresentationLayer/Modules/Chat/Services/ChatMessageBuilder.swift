@@ -74,7 +74,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
-                    isYourMessage: isYourMessage)
+                    yourProfileIdentity: yourProfileIdentity
+                )
                 ,
                 isYourMessage: isYourMessage,
                 linkedObjects: mapAttachments(fullMessage: fullMessage),
@@ -87,7 +88,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 canAddReaction: limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
                 nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
-                showHeader: firstForCurrentUser || prevDateIntervalIsBig,
+                showAuthor: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage,
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 message: message,
@@ -153,7 +154,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
     }
     
-    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], isYourMessage: Bool) -> MessageReplyModel? {
+    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], yourProfileIdentity: String?) -> MessageReplyModel? {
         if let replyChat = fullMessage.reply {
             let replyAuthor = participants.first { $0.identity == fullMessage.reply?.creator }
             let replyAttachment = fullMessage.replyAttachments.first
@@ -179,7 +180,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 author: replyAuthor?.title ?? "",
                 description: description,
                 icon: replyAttachment?.objectIconImage,
-                isYour: isYourMessage
+                isYour: replyAuthor?.identity == yourProfileIdentity
             )
         }
         return nil
