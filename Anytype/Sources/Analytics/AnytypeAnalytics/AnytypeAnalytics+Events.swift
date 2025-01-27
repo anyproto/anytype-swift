@@ -816,6 +816,10 @@ extension AnytypeAnalytics {
         logEvent("ScreenOnboardingSkipName")
     }
     
+    func logScreenTemplate() {
+        logEvent("ScreenTemplate")
+    }
+    
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
         logEvent(
             "SelectTemplate",

@@ -8,6 +8,9 @@ struct TemplatePickerView: View {
             content
         }
         .navigationViewStyle(.stack)
+        .onAppear {
+            AnytypeAnalytics.instance().logScreenTemplate()
+        }
     }
     
     private var content: some View {
