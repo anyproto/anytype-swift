@@ -24,6 +24,7 @@ struct MessageReplyView: View {
             .anytypeStyle(.caption1Medium)
             .foregroundStyle(Color.Control.transparentActive)
             .padding(.horizontal, 16)
+            .lineLimit(1)
     }
     
     private var bubble: some View {
@@ -36,6 +37,7 @@ struct MessageReplyView: View {
                 .anytypeStyle(.caption1Regular)
                 .foregroundStyle(Color.Control.transparentActive)
                 .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(8)
         .background(messageBackgorundColor)

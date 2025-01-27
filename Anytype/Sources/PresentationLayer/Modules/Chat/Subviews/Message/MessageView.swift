@@ -78,16 +78,19 @@ struct MessageView: View {
                 // Add spacing for date
                 (Text(data.messageString) + createDateTextForSpacing)
                     .anytypeStyle(.previewTitle1Regular)
-                    .overlay(alignment: .bottomTrailing) {
-                        createDate
-                    }
                     .padding(.horizontal, 12)
                     .padding(.bottom, 12)
             }
         }
+        .overlay(alignment: .bottomTrailing) {
+            createDate
+                .padding(.horizontal, 12)
+                .padding(.bottom, 12)
+        }
         .frame(width: fixedBubbleWidth)
         .background(messageBackgorundColor)
         .cornerRadius(20, style: .continuous)
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20, style: .circular))
         .contextMenu {
             contextMenu
         }
@@ -128,21 +131,24 @@ struct MessageView: View {
             .foregroundColor(.clear)
     }
     
+    @ViewBuilder
     private var reactions: some View {
-        MessageReactionList(
-            rows: data.reactions,
-            canAddReaction: data.canAddReaction,
-            isYourMessage: data.isYourMessage,
-            onTapRow: { reaction in
-                try await output?.didTapOnReaction(data: data, reaction: reaction)
-            },
-            onLongTapRow: { reaction in
-                output?.didLongTapOnReaction(data: data, reaction: reaction)
-            },
-            onTapAdd: {
-                output?.didSelectAddReaction(messageId: data.message.id)
-            }
-        )
+        if data.reactions.isNotEmpty {
+            MessageReactionList(
+                rows: data.reactions,
+                canAddReaction: data.canAddReaction,
+                isYourMessage: data.isYourMessage,
+                onTapRow: { reaction in
+                    try await output?.didTapOnReaction(data: data, reaction: reaction)
+                },
+                onLongTapRow: { reaction in
+                    output?.didLongTapOnReaction(data: data, reaction: reaction)
+                },
+                onTapAdd: {
+                    output?.didSelectAddReaction(messageId: data.message.id)
+                }
+            )
+        }
     }
     
     @ViewBuilder
