@@ -53,7 +53,7 @@ struct MessageView: View {
     
     @ViewBuilder
     private var author: some View {
-        if data.showAuthor {
+        if data.showAuthorName {
             Text(data.authorName)
                 .anytypeStyle(.caption1Medium)
                 .lineLimit(1)
@@ -165,7 +165,7 @@ struct MessageView: View {
     
     @ViewBuilder
     private var authorIcon: some View {
-        switch data.authorMode {
+        switch data.authorIconMode {
         case .show:
             IconView(icon: data.authorIcon)
                 .frame(width: 32, height: 32)
@@ -178,7 +178,7 @@ struct MessageView: View {
     
     @ViewBuilder
     private var horizontalBubbleSpacing: some View {
-        switch data.authorMode {
+        switch data.authorIconMode {
         case .show, .empty:
             Spacer(minLength: 32)
         case .hidden:
