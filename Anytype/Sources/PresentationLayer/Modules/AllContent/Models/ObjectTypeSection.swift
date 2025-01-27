@@ -70,17 +70,17 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
         case .all:
             "All"
         case .pages:
-            "Pages"
+            "Object"
         case .lists:
-            "Lists"
+            "List"
         case .files:
-            "Files"
+            "File"
         case .media:
             "Media"
         case .bookmarks:
-            "Bookmarks"
+            "Bookmark"
         case .types:
-            "Types"
+            "Type"
         }
     }
 }
