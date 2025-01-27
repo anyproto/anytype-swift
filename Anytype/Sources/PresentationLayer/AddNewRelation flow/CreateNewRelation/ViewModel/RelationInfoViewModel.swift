@@ -70,6 +70,7 @@ final class RelationInfoViewModel: ObservableObject {
         self.format = data.mode.format ?? SupportedRelationFormat.object
         self.relationId = data.mode.relationId ?? ""
         handleFormatUpdate()
+        data.mode.limitedObjectTypes.flatMap { updateTypesRestriction(objectTypeIds: $0) }
     }
     
 }

@@ -217,4 +217,12 @@ extension Relation: RelationProtocol {
         }
     }
     
+    var limitedObjectTypes: [String]? {
+        switch self {
+        case .object(let object):
+            object.limitedObjectTypes
+        case .text, .number, .status, .date, .checkbox, .url, .email, .phone, .tag, .file, .unknown:
+            nil
+        }
+    }
 }
