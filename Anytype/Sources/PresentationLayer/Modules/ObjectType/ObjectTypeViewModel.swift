@@ -46,6 +46,10 @@ final class ObjectTypeViewModel: ObservableObject {
         self.document = document
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenType(objectType: document.details?.analyticsType)
+    }
+    
     func setupSubscriptions() async {
         async let detailsSubscription: () = subscribeOnDetails()
         async let templatesSubscription: () = subscribeOnTemplates()
