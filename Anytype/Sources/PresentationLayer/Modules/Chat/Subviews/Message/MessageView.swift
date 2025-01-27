@@ -54,7 +54,7 @@ struct MessageView: View {
     @ViewBuilder
     private var author: some View {
         if data.showAuthorName {
-            Text(data.authorName)
+            Text(data.authorName.isNotEmpty ? data.authorName : " ") // Safe height if participant is not loaded
                 .anytypeStyle(.caption1Medium)
                 .lineLimit(1)
                 .foregroundStyle(Color.Text.primary)

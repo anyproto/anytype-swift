@@ -20,7 +20,7 @@ struct MessageReplyView: View {
     }
     
     private var author: some View {
-        Text(model.author)
+        Text(model.author.isNotEmpty ? model.author : " ") // Safe height if participant is not loaded
             .anytypeStyle(.caption1Medium)
             .foregroundStyle(Color.Control.transparentActive)
             .padding(.horizontal, 16)
