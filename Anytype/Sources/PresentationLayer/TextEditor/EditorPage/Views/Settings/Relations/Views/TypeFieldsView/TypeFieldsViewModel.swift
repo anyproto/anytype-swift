@@ -89,7 +89,7 @@ final class TypeFieldsViewModel: ObservableObject {
             objectId: document.objectId,
             spaceId: document.spaceId,
             target: .type(isFeatured: data.relation.isFeatured),
-            mode: .edit(relationId: data.relation.id, format: format)
+            mode: .edit(relationId: data.relation.id, format: format, limitedObjectTypes: data.relation.limitedObjectTypes)
         )
     }
     
