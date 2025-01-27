@@ -289,16 +289,12 @@ extension AnytypeAnalytics {
     }
 
     func logCreateObject(objectType: AnalyticsObjectType, spaceId: String, route: AnalyticsEventsRouteKind) {
-        let properties = [
-            AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
-            AnalyticsEventsPropertiesKey.route: route.rawValue
-        ]
-        logEvent("CreateObject", spaceId: spaceId, withEventProperties: properties)
+        logCreateObject(objectTypeId: objectType.analyticsId, spaceId: spaceId, route: route)
     }
     
-    func logCreateObject(objectKey: String, spaceId: String, route: AnalyticsEventsRouteKind) {
+    func logCreateObject(objectTypeId: String, spaceId: String, route: AnalyticsEventsRouteKind) {
         let properties = [
-            AnalyticsEventsPropertiesKey.objectType: objectKey,
+            AnalyticsEventsPropertiesKey.objectType: objectTypeId,
             AnalyticsEventsPropertiesKey.route: route.rawValue
         ]
         logEvent("CreateObject", spaceId: spaceId, withEventProperties: properties)

@@ -72,6 +72,7 @@ enum AnalyticsEventsRelationType: String {
     case menu = "menu"
     case dataview = "dataview"
     case block = "block"
+    case type = "type"
 }
 
 enum AnalyticsEventsSetQueryType {

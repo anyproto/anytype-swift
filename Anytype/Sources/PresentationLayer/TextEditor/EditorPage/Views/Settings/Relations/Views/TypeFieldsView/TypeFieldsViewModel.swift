@@ -99,7 +99,9 @@ final class TypeFieldsViewModel: ObservableObject {
             spaceId: document.spaceId,
             excludedRelationsIds: relationRows.compactMap(\.relationId),
             target: .type(isFeatured: section.isHeader),
-            onRelationSelect: { _, _ in }
+            onRelationSelect: { [spaceId = document.spaceId] details, isNew in
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: details.format, isNew: isNew, type: .type, key: details.analyticsKey, spaceId: spaceId)
+            }
         )
     }
     
