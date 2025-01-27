@@ -65,6 +65,7 @@ enum AnalyticsEventsRouteKind: String {
     case homeScreen = "HomeScreen"
     case clipboard = "Clipboard"
     case search = "Search"
+    case type = "Type"
 }
 
 enum AnalyticsEventsRelationType: String {
