@@ -22,24 +22,8 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var versionHistory: Bool {
-        value(for: .versionHistory)
-    }
-
     static var allContent: Bool {
         value(for: .allContent)
-    }
-
-    static var userWarningAlerts: Bool {
-        value(for: .userWarningAlerts)
-    }
-
-    static var dateAsAnObject: Bool {
-        value(for: .dateAsAnObject)
-    }
-
-    static var relativeDates: Bool {
-        value(for: .relativeDates)
     }
 
     static var homeSpaceLevelChat: Bool {
@@ -128,11 +112,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .versionHistory,
         .allContent,
-        .userWarningAlerts,
-        .dateAsAnObject,
-        .relativeDates,
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .newSpacesLoading,

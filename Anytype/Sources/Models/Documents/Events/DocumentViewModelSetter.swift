@@ -52,13 +52,11 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
         
         restrictionsContainer.restrictions = restrinctions
         
-        if FeatureFlags.relativeDates {
-            mentionTextUpdateHandler.updateMentionsTextsIfNeeded(
-                objectId: data.rootID,
-                infoContainer: infoContainer,
-                detailsStorage: detailsStorage
-            )
-        }
+        mentionTextUpdateHandler.updateMentionsTextsIfNeeded(
+            objectId: data.rootID,
+            infoContainer: infoContainer,
+            detailsStorage: detailsStorage
+        )
     }
     
     // MARK: - Private

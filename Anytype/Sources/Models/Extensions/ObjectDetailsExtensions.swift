@@ -44,7 +44,7 @@ extension BundledRelationsValueProvider {
         case .set, .collection:
             return .list
         case .date:
-            return FeatureFlags.dateAsAnObject ? .date : .page
+            return .date
         case .objectType:
             return .type
         case .participant:
