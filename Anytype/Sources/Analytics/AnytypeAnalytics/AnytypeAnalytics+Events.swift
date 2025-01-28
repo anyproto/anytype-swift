@@ -289,8 +289,12 @@ extension AnytypeAnalytics {
     }
 
     func logCreateObject(objectType: AnalyticsObjectType, spaceId: String, route: AnalyticsEventsRouteKind) {
+        logCreateObject(objectTypeId: objectType.analyticsId, spaceId: spaceId, route: route)
+    }
+    
+    func logCreateObject(objectTypeId: String, spaceId: String, route: AnalyticsEventsRouteKind) {
         let properties = [
-            AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+            AnalyticsEventsPropertiesKey.objectType: objectTypeId,
             AnalyticsEventsPropertiesKey.route: route.rawValue
         ]
         logEvent("CreateObject", spaceId: spaceId, withEventProperties: properties)
@@ -314,6 +318,46 @@ extension AnytypeAnalytics {
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
                 AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
+    // MARK: - Type
+    
+    func logScreenType(objectType: AnalyticsObjectType?) {
+        logEvent(
+            "ScreenType",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType?.analyticsId ?? ""
+            ]
+        )
+    }
+    
+    func logSetObjectTitle(objectType: AnalyticsObjectType?) {
+        logEvent(
+            "SetObjectTitle",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType?.analyticsId ?? ""
+            ]
+        )
+    }
+    
+    func logChangeRecommendedLayout(objectType: AnalyticsObjectType, layout: DetailsLayout) {
+        logEvent(
+            "ChangeRecommendedLayout",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.layout: layout.rawValue
+            ]
+        )
+    }
+    
+    func logChangeTypeSort(type: String, sort: String) {
+        logEvent(
+            "ChangeTypeSort",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.sort: sort
             ]
         )
     }
@@ -772,6 +816,10 @@ extension AnytypeAnalytics {
         logEvent("ScreenOnboardingSkipName")
     }
     
+    func logScreenTemplate() {
+        logEvent("ScreenTemplate")
+    }
+    
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
         logEvent(
             "SelectTemplate",
@@ -1057,9 +1105,9 @@ extension AnytypeAnalytics {
         ])
     }
     
-    func logDeleteRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey) {
+    func logDeleteRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey? = nil) {
         logEvent("DeleteRelation", spaceId: spaceId, withEventProperties: [
-            AnalyticsEventsPropertiesKey.relationKey: key.value,
+            AnalyticsEventsPropertiesKey.relationKey: key?.value ?? "",
             AnalyticsEventsPropertiesKey.format: format.analyticsName
         ])
     }

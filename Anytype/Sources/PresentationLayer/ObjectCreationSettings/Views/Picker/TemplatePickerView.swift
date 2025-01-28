@@ -13,6 +13,7 @@ struct TemplatePickerView: View {
             await viewModel.startTemplateSubscription()
         }
         .onAppear {
+            AnytypeAnalytics.instance().logScreenTemplate()
             viewModel.setDismissAction(dismiss)
         }
     }

@@ -47,6 +47,10 @@ final class ObjectTypeViewModel: ObservableObject {
         self.document = document
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenType(objectType: document.details?.analyticsType)
+    }
+    
     func setupSubscriptions() async {
         async let detailsSubscription: () = subscribeOnDetails()
         async let templatesSubscription: () = subscribeOnTemplates()
@@ -90,6 +94,7 @@ final class ObjectTypeViewModel: ObservableObject {
         nameChangeTask = Task {
             try await Task.sleep(seconds: 0.5)
             try await detailsService.updateBundledDetails(objectId: document.objectId, bundledDetails: [.name(name)])
+            AnytypeAnalytics.instance().logSetObjectTitle(objectType: document.details?.analyticsType)
         }
     }
     

@@ -100,6 +100,9 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
             setOfObjectType: document.objectId,
             spaceId: document.spaceId
         )
+        
+        AnytypeAnalytics.instance().logCreateObject(objectTypeId: "_otset", spaceId: document.spaceId, route: .type)
+        
         output?.onOpenSetTap(objectId: detailsOfSet.id)
     }
 }
