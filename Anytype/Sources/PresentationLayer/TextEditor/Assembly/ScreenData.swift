@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 enum ScreenType {
     case page
@@ -47,6 +48,15 @@ extension ScreenData {
             return editorScreenData
         case .alert, .preview:
             return nil
+        }
+    }
+    
+    var isSimpleSet: Bool {
+        switch self {
+        case .editor(let editorScreenData):
+            return FeatureFlags.objectTypeWidgets ? editorScreenData.isSimpleSet : false
+        case .alert, .preview:
+            return false
         }
     }
 }

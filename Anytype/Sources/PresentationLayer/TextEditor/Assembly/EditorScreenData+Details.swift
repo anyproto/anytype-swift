@@ -52,6 +52,8 @@ extension EditorScreenData {
             return object.objectId
         case .list(let object):
             return object.objectId
+        case .simpleSet(let object):
+            return object.objectId
         case .type(let object):
             return object.objectId
         }
@@ -90,6 +92,8 @@ extension EditorScreenData {
         case .date(let object):
             return object.spaceId
         case .type(let object):
+            return object.spaceId
+        case .simpleSet(let object):
             return object.spaceId
         }
     }

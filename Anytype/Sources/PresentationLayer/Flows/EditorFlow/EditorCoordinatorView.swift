@@ -52,6 +52,8 @@ struct EditorCoordinatorView: View {
             DateCoordinatorView(data: data)
         case let .type(data):
             ObjectTypeCoordinator(data: data)
+        case let .simpleSet(data):
+            SimpleSetCoordinatorView(data: data)
         }
     }
 }

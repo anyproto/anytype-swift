@@ -15,9 +15,12 @@ enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
     case media(spaceId: String)
     case bookmarks(spaceId: String)
     case files(spaceId: String)
+    
     // Object
     case page(EditorPageObject)
     case list(EditorListObject)
+    case simpleSet(EditorSimpleSetObject)
+    
     case date(EditorDateObject)
     case allContent(spaceId: String)
     case type(EditorTypeObject)
@@ -89,4 +92,20 @@ struct EditorTypeObject: Hashable, Codable, Identifiable {
     let spaceId: String
     
     var id: String { spaceId + objectId } 
+}
+
+struct EditorSimpleSetObject: Hashable, Codable {
+    let objectId: String
+    let spaceId: String
+}
+
+extension EditorScreenData {
+    var isSimpleSet: Bool {
+        switch self {
+        case .simpleSet:
+            return true
+        default:
+            return false
+        }
+    }
 }
