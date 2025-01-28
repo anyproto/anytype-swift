@@ -37,6 +37,7 @@ public extension DetailsLayout {
     var isParticipant: Bool { self == .participant }
     var isDate: Bool { self == .date }
     var isBookmark: Bool { self == .bookmark }
+    var isObjectType: Bool { self == .objectType }
     
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }

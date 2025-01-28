@@ -33,7 +33,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             anytypeAssertionFailure("SetDocument: No details in canCreateObject")
             return false
         }
-        guard details.isList else { return false }
+        guard details.isList || details.isObjectType else { return false }
         
         if details.isCollection { return true }
         if setDocument.isSetByRelation() { return true }

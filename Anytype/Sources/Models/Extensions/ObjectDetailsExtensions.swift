@@ -84,6 +84,8 @@ extension BundledRelationsValueProvider {
     
     var isSet: Bool { layoutValue.isSet }
     
+    var isObjectType: Bool { layoutValue.isObjectType }
+    
     var isSupportedForOpening: Bool { layoutValue.isSupportedForOpening }
     
     var isVisibleLayout: Bool { layoutValue.isVisible }
