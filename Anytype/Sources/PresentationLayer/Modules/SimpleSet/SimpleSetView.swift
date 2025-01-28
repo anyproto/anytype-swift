@@ -11,9 +11,54 @@ struct SimpleSetView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            PageNavigationHeader(title: "Simple set") {}
-            Spacer()
+            PageNavigationHeader(title: model.title) {}
+            content
         }
+        .task {
+            await model.subscribeOnDetails()
+        }
+        .task(item: model.objectsSubscriptionId) { _ in
+            await model.startObjectsSubscription()
+        }
+        .onDisappear {
+            model.stopObjectsSubscription()
+        }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        if model.isInitial {
+            Spacer()
+        } else if model.sections.isEmpty {
+            emptyState
+        } else {
+            list
+        }
+    }
+    
+    private var list: some View {
+        PlainList {
+            ForEach(model.sections) { section in
+                if let title = section.data, title.isNotEmpty {
+                    ListSectionHeaderView(title: title)
+                        .padding(.horizontal, 20)
+                }
+                ForEach(section.rows, id: \.id) { row in
+                    WidgetObjectListRowView(model: row)
+                }
+            }
+            AnytypeNavigationSpacer(minHeight: 130)
+        }
+        .scrollIndicators(.never)
+        .scrollDismissesKeyboard(.immediately)
+    }
+    
+    private var emptyState: some View {
+        EmptyStateView(
+            title: Loc.nothingFound,
+            subtitle: Loc.GlobalSearch.EmptyState.subtitle,
+            style: .plain
+        )
     }
 }
 
