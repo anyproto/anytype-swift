@@ -122,7 +122,7 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
             items = models.enumerated().map { info -> TemplatePickerViewModel.Item in
                 let model = info.element
                 return .init(
-                    id: info.offset + 1,
+                    id: info.offset,
                     view: model.editorView,
                     object: model.template,
                     templateId: model.template.id
