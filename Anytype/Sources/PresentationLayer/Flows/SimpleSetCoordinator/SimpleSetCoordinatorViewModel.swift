@@ -18,10 +18,3 @@ final class SimpleSetCoordinatorViewModel: ObservableObject, SimpleSetModuleOutp
         pageNavigation?.open(screenData)
     }
 }
-
-extension SimpleSetCoordinatorViewModel {
-    struct SimpleSearchData: Identifiable {
-        let id = UUID()
-        let items: [SimpleSearchListItem]
-    }
-}
