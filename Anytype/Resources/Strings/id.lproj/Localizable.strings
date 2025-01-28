@@ -212,7 +212,7 @@
 "Open Set" = "Buka Set";
 "Create Set" = "Buat Set";
 "Unsupported deeplink" = "Unsupported deeplink";
-"Edit Profile" = "Edit Profile";
+"Edit Profile" = "Sunting Profil";
 
 // Home
 "Favorites" = "Favorit";
@@ -1273,9 +1273,9 @@ Please provide specific details of your needs here.";
 "Chat.EditMessage" = "Sunting Pesan";
 "Chat.Actions.Menu.Pages" = "Halaman";
 "Chat.Actions.Menu.Lists" = "Grup";
-"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Photos" = "Foto";
 "Chat.Actions.Menu.Files" = "Berkas";
-"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.Camera" = "Kamera";
 "Chat.Actions.Menu.More" = "Lainnya";
 "Chat.Participant.Badge" = "(Kamu)";
 "Chat.Reply.Images" = "Gambar (%@)";
@@ -1284,12 +1284,12 @@ Please provide specific details of your needs here.";
 "Chat.SendLimitAlert.Title" = "Bentar-bentar, banter banget!";
 "Chat.SendLimitAlert.Message" = "Sepertinya kamu mengirimkan terlalu banyak pesan. Tunggu sebentar sebelum mengirim pesan lagi.";
 "Chat.AttachmentsLimit.Alert" = "Kamu hanya bisa mengunggah %@ berkas pada waktu yang sama";
-"Chat.AttachedObject.Attach" = "Attach";
-"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
-"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
-"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
-"Chat.Attach.Page.title" = "Attach Page";
-"Chat.Attach.List.title" = "Attach List";
+"Chat.AttachedObject.Attach" = "Lampirkan";
+"Chat.CreateObject.Dismiss.Title" = "Yakin ingin menutup layar ini?";
+"Chat.CreateObject.Dismiss.Message" = "Semua perubahan akan hilang.";
+"Chat.CreateObject.Dismiss.Ok" = "Ya, tutup";
+"Chat.Attach.Page.title" = "Lampirkan Halaman";
+"Chat.Attach.List.title" = "Lampirkan Daftar";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
@@ -1306,7 +1306,7 @@ Please provide specific details of your needs here.";
 "Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
-"ObjectSearchWithMeta.Create.Page" = "New Page";
-"ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
-"ObjectSearchWithMeta.Create.Collection" = "New Collection";
+"ObjectSearchWithMeta.Create.Page" = "Halaman Baru";
+"ObjectSearchWithMeta.Create.Note" = "Catatan Baru";
+"ObjectSearchWithMeta.Create.Set" = "Set Baru";
+"ObjectSearchWithMeta.Create.Collection" = "Koleksi Baru";
