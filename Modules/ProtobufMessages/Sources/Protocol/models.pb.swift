@@ -304,6 +304,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
   case usecase // = 6
   case builtin // = 7
   case bookmark // = 8
+  case api // = 9
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -321,6 +322,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
     case 6: self = .usecase
     case 7: self = .builtin
     case 8: self = .bookmark
+    case 9: self = .api
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -336,6 +338,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
     case .usecase: return 6
     case .builtin: return 7
     case .bookmark: return 8
+    case .api: return 9
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -356,6 +359,7 @@ extension Anytype_Model_ObjectOrigin: CaseIterable {
     .usecase,
     .builtin,
     .bookmark,
+    .api,
   ]
 }
 
@@ -2126,6 +2130,7 @@ public struct Anytype_Model_Block {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
+      /// can be set for detached(without TargetObjectId) inline sets
       public var source: [String] = []
 
       public var views: [Anytype_Model_Block.Content.Dataview.View] = []
@@ -2142,6 +2147,7 @@ public struct Anytype_Model_Block {
 
       public var relationLinks: [Anytype_Model_RelationLink] = []
 
+      /// empty for original set/collection objects and for detached inline sets
       public var targetObjectID: String = String()
 
       public var isCollection: Bool = false
@@ -3690,6 +3696,53 @@ public struct Anytype_Model_Account {
     public init() {}
   }
 
+  public struct Auth {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public enum LocalApiScope: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+
+      /// Used in WebClipper; AccountSelect(to be deprecated), ObjectSearch, ObjectShow, ObjectCreate, ObjectCreateFromURL, BlockPreview, BlockPaste, BroadcastPayloadEvent
+      case limited // = 0
+
+      /// JSON API only, no direct grpc api calls allowed
+      case jsonApi // = 1
+
+      /// Full access, not available via LocalLink
+      case full // = 2
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .limited
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .limited
+        case 1: self = .jsonApi
+        case 2: self = .full
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .limited: return 0
+        case .jsonApi: return 1
+        case .full: return 2
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
@@ -3704,6 +3757,15 @@ extension Anytype_Model_Account.StatusType: CaseIterable {
     .pendingDeletion,
     .startedDeletion,
     .deleted,
+  ]
+}
+
+extension Anytype_Model_Account.Auth.LocalApiScope: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Account.Auth.LocalApiScope] = [
+    .limited,
+    .jsonApi,
+    .full,
   ]
 }
 
@@ -6219,6 +6281,8 @@ extension Anytype_Model_Account.StatusType: @unchecked Sendable {}
 extension Anytype_Model_Account.Config: @unchecked Sendable {}
 extension Anytype_Model_Account.Status: @unchecked Sendable {}
 extension Anytype_Model_Account.Info: @unchecked Sendable {}
+extension Anytype_Model_Account.Auth: @unchecked Sendable {}
+extension Anytype_Model_Account.Auth.LocalApiScope: @unchecked Sendable {}
 extension Anytype_Model_LinkPreview: @unchecked Sendable {}
 extension Anytype_Model_LinkPreview.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Restrictions: @unchecked Sendable {}
@@ -6360,6 +6424,7 @@ extension Anytype_Model_ObjectOrigin: SwiftProtobuf._ProtoNameProviding {
     6: .same(proto: "usecase"),
     7: .same(proto: "builtin"),
     8: .same(proto: "bookmark"),
+    9: .same(proto: "api"),
   ]
 }
 
@@ -9420,6 +9485,33 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_Account.Auth: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Auth"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Account.Auth, rhs: Anytype_Model_Account.Auth) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Account.Auth.LocalApiScope: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Limited"),
+    1: .same(proto: "JsonAPI"),
+    2: .same(proto: "Full"),
+  ]
 }
 
 extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

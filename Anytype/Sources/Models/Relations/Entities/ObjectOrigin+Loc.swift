@@ -4,7 +4,7 @@ import Services
 extension ObjectOrigin {
     var title: String? {
         switch self {
-        case .none, .UNRECOGNIZED:
+        case .none, .UNRECOGNIZED, .api:
             return nil
         case .clipboard:
             return Loc.Relation.Origin.clipboard
