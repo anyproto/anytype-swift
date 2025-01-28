@@ -2,12 +2,19 @@ import SwiftUI
 
 struct TemplatePickerView: View {
     @StateObject var viewModel: TemplatePickerViewModel
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationView {
             content
         }
         .navigationViewStyle(.stack)
+        .task {
+            await viewModel.startTemplateSubscription()
+        }
+        .onAppear {
+            viewModel.setDismissAction(dismiss)
+        }
     }
     
     private var content: some View {
@@ -36,9 +43,6 @@ struct TemplatePickerView: View {
             if viewModel.showApplyButton {
                 applyButton
             }
-        }
-        .task {
-            await viewModel.startTemplateSubscription()
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

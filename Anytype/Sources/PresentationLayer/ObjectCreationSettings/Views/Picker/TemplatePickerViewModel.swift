@@ -43,6 +43,7 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     
     private let data: TemplatePickerViewModelData
     private var didSetupDefaultItem = false
+    private var dismiss: DismissAction?
     
     @Injected(\.objectActionsService)
     private var objectService: any ObjectActionsServiceProtocol
@@ -62,6 +63,10 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     ) {
         self.data = data
         self.output = output
+    }
+    
+    func setDismissAction(_ dismiss: DismissAction) {
+        self.dismiss = dismiss
     }
 
     func onApplyButton() {
@@ -123,6 +128,8 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
                     templateId: model.template.id
                 )
             }
+            
+            if items.count == 0 { dismiss?() }
         })
     }
     
