@@ -144,6 +144,7 @@
 "Relations" = "Свойства";
 "History" = "История";
 "Objects" = "Объекты";
+"All" = "Все";
 "Pages" = "Страницы";
 "Lists" = "Списки";
 "Bookmarks" = "Закладки";
@@ -211,7 +212,7 @@
 "Open Set" = "Открыть набор";
 "Create Set" = "Создать Набор";
 "Unsupported deeplink" = "Неподдерживаемая ссылка";
-"Edit Profile" = "Edit Profile";
+"Edit Profile" = "Редактировать профиль";
 
 // Home
 "Favorites" = "Избранное";
@@ -580,7 +581,7 @@
 "Types" = "Типы";
 "No name" = "Без названия";
 "New relation" = "Новое свойство";
-"Edit field" = "Edit field";
+"Edit field" = "Редактировать поле";
 "Non-existent object" = "Несуществующий объект";
 
 "Select all" = "Выбрать все";
@@ -1272,10 +1273,12 @@
 "Chat.Reactions.Empty.Title" = "Пока нет реакций";
 "Chat.Reactions.Empty.Subtitle" = "Возможно, кто-то только что удалил реакцию или случился технический сбой";
 "Chat.EditMessage" = "Редактировать сообщение";
-"Chat.Actions.Menu.Objects" = "Выберите существующий объект";
-"Chat.Actions.Menu.Media" = "Загрузить медиафайл";
-"Chat.Actions.Menu.Files" = "Загрузить файл";
-"Chat.Actions.Menu.Camera" = "Снять на камеру";
+"Chat.Actions.Menu.Pages" = "Страницы";
+"Chat.Actions.Menu.Lists" = "Списки";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "Files";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "Ещё";
 "Chat.Participant.Badge" = "(Вы)";
 "Chat.Reply.Images" = "Изображения (%@)";
 "Chat.Reply.Attachments" = "Вложения (%@)";
@@ -1283,6 +1286,12 @@
 "Chat.SendLimitAlert.Title" = "Удерживаем! Обнаружен Turbo typing!";
 "Chat.SendLimitAlert.Message" = "Похоже, вы отправляете сообщения со скоростью молнии. Дайте секунду перед следующим.";
 "Chat.AttachmentsLimit.Alert" = "Вы можете загружать только %@ файлов за раз";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
@@ -1297,3 +1306,9 @@
 
 // MARK: - Fields
 "Fields.menu" = "Меню полей";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";

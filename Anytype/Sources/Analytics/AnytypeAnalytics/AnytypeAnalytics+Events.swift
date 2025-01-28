@@ -626,15 +626,6 @@ extension AnytypeAnalytics {
         logEvent("SearchResult", spaceId: spaceId)
     }
     
-    func logSearchBacklink(spaceId: String, type: ScreenSearchType) {
-        logEvent(
-            "SearchBacklink",
-            spaceId: spaceId,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: type.rawValue
-            ])
-    }
-    
     func logSearchInput(spaceId: String, route: SearchInputRoute? = nil) {
         logEvent(
             "SearchInput",

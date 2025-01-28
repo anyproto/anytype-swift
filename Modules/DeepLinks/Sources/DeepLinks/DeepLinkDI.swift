@@ -1,4 +1,5 @@
 import Foundation
+import AppTarget
 
 public final class DeepLinkDI: Sendable {
     
@@ -6,7 +7,7 @@ public final class DeepLinkDI: Sendable {
     
     private init() {}
     
-    public func parser(isDebug: Bool) -> DeepLinkParserProtocol {
-        DeepLinkParser(isDebug: isDebug)
+    public func parser(targetType: AppTargetType) -> DeepLinkParserProtocol {
+        DeepLinkParser(targetType: targetType)
     }
 }

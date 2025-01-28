@@ -346,6 +346,7 @@ internal extension ImageAsset {
     static let picture = ImageAsset.bundle(name: "x40/Picture")
     static let relations = ImageAsset.bundle(name: "x40/Relations")
     static let simpleTables = ImageAsset.bundle(name: "x40/Simple Tables")
+    static let sorts = ImageAsset.bundle(name: "x40/Sorts")
     static let strikethrough = ImageAsset.bundle(name: "x40/Strikethrough")
     enum Style {
       static let bullet = ImageAsset.bundle(name: "x40/Style/Bullet")

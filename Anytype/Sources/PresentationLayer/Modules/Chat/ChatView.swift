@@ -47,6 +47,9 @@ struct ChatView: View {
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
         }
+        .task {
+            await model.subscribeOnTypes()
+        }
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
             ChatDeleteMessageAlert(message: $0)
         }
@@ -94,20 +97,33 @@ struct ChatView: View {
                 mention: $model.mentionSearchState,
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
-                disableAddButton: model.sendMessageTaskInProgress
-            ) {
-                model.onTapAddObjectToMessage()
-            } onTapAddMedia: {
-                model.onTapAddMediaToMessage()
-            } onTapAddFiles: {
-                model.onTapAddFilesToMessage()
-            } onTapCamera: {
-                model.onTapCamera()
-            } onTapSend: {
-                model.onTapSendMessage()
-            } onTapLinkTo: { range in
-                model.onTapLinkTo(range: range)
-            }
+                disableAddButton: model.sendMessageTaskInProgress,
+                createObjectTypes: model.typesForCreateObject,
+                onTapAddPage: {
+                    model.onTapAddPageToMessage()
+                },
+                onTapAddList: {
+                    model.onTapAddListToMessage()
+                },
+                onTapAddMedia: {
+                    model.onTapAddMediaToMessage()
+                },
+                onTapAddFiles: {
+                    model.onTapAddFilesToMessage()
+                },
+                onTapCamera: {
+                    model.onTapCamera()
+                },
+                onTapCreateObject: {
+                    model.onTapCreateObject(type: $0)
+                },
+                onTapSend: {
+                    model.onTapSendMessage()
+                },
+                onTapLinkTo: { range in
+                    model.onTapLinkTo(range: range)
+                }
+            )
             .overlay(alignment: .top) {
                 if let messageTextLimit = model.messageTextLimit {
                     Text(messageTextLimit)
@@ -139,9 +155,19 @@ struct ChatView: View {
         }
     }
     
+    private var emptyView: some View {
+        ChatEmptyStateView()
+    }
+    
     @ViewBuilder
     private var mainView: some View {
-        ChatCollectionView(items: model.mesageBlocks, scrollProxy: model.collectionViewScrollProxy, bottomPanel: bottomPanel) {
+        ChatCollectionView(
+            items: model.mesageBlocks,
+            scrollProxy: model.collectionViewScrollProxy,
+            bottomPanel: bottomPanel,
+            emptyView: emptyView,
+            showEmptyState: model.showEmptyState
+        ) {
             MessageView(data: $0, output: model)
         } headerBuilder: {
             ChatMessageHeaderView(text: $0)
@@ -151,11 +177,6 @@ struct ChatView: View {
             await model.scrollToBottom()
         } handleVisibleRange: { fromId, toId in
             model.visibleRangeChanged(fromId: fromId, toId: toId)
-        }
-        .overlay(alignment: .center) {
-            if model.showEmptyState {
-                ChatEmptyStateView()
-            }
         }
     }
 }

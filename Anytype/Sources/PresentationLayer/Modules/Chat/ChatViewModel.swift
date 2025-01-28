@@ -36,6 +36,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var messageTextBuilder: any MessageTextBuilderProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -62,6 +64,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var sendMessageTaskInProgress: Bool = false
     @Published var messageTextLimit: String?
     @Published var textLimitReached = false
+    @Published var typesForCreateObject: [ObjectType] = []
     private var photosItems: [PhotosPickerItem] = []
     
     // List
@@ -90,21 +93,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
     }
     
-    func onTapAddObjectToMessage() {
-        let data = BlockObjectSearchData(
-            title: Loc.linkTo,
-            spaceId: spaceId,
-            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
-            excludedLayouts: [],
-            onSelect: { [weak self] details in
-                guard let self else { return }
-                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
-                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
-                } else {
-                    showFileLimitAlert()
-                }
-            }
-        )
+    func onTapAddPageToMessage() {
+        let data = buildObjectSearcData(type: .pages)
+        output?.onLinkObjectSelected(data: data)
+    }
+    
+    func onTapAddListToMessage() {
+        let data = buildObjectSearcData(type: .lists)
         output?.onLinkObjectSelected(data: data)
     }
     
@@ -157,6 +152,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if prevChatIsEmpty, let message = messages.last {
                 collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
             }
+        }
+    }
+    
+    func subscribeOnTypes() async {
+        for await _ in objectTypeProvider.syncPublisher.values {
+            let objectTypesCreateInChat = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
+            let usedObjecTypesKeys = ObjectSearchWithMetaType.allCases.flatMap(\.objectTypesCreationKeys)
+            self.typesForCreateObject = objectTypesCreateInChat.filter { !usedObjecTypesKeys.contains($0.uniqueKey) }
         }
     }
     
@@ -351,6 +354,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         provider.wrappedValue.handler = self
     }
     
+    func onTapCreateObject(type: ObjectType) {
+        output?.didSelectCreateObject(type: type)
+    }
+    
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
@@ -413,15 +420,19 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     // MARK: - ChatActionProviderHandler
     
-    func createChatWithAttachment(_ attachment: ChatLinkObject) {
+    func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
         Task {
             let results = try await searchService.searchObjects(spaceId: attachment.spaceId, objectIds: [attachment.objectId])
             guard let first = results.first else { return }
-            clearInput()
-            linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
-            // Waiting pop transaction and open keyboard.
-            try await Task.sleep(seconds: 0.5)
-            inputFocused = true
+            if needsClearInput {
+                clearInput()
+            }
+            if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
+                linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
+                // Waiting pop transaction and open keyboard.
+                try await Task.sleep(seconds: 0.5)
+                inputFocused = true
+            }
         }
     }
     
@@ -494,11 +505,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
-        if FeatureFlags.fullScreenMediaFileByTap, attachment.layoutValue.isFileOrMedia {
+        if FeatureFlags.openMediaFileInPreview, attachment.layoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
-            let items = buildPreviewRemoteItemFromAttachments(reorderedAttachments)
+            let items = reorderedAttachments.compactMap { $0.previewRemoteItem }
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
-            output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
+            output?.onObjectSelected(screenData: .preview(MediaFileScreenData(items: items, startAtIndex: startAtIndex)))
         } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
             output?.onUrlSelected(url: url)
         } else {
@@ -506,20 +517,23 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
-    private func buildPreviewRemoteItemFromAttachments(_ attachments: [ObjectDetails]) -> [any PreviewRemoteItem] {
-        attachments.compactMap { details in
-            guard details.layoutValue.isFileOrMedia else { return nil }
-            let fileDetails = FileDetails(objectDetails: details)
-            switch fileDetails.fileContentType {
-            case .image:
-                return ImagePreviewMedia(fileDetails: fileDetails)
-            case .file, .audio, .video, .none:
-                return FilePreviewMedia(fileDetails: fileDetails)
-            }
-        }
-    }
-    
     private func showFileLimitAlert() {
         toastBarData = ToastBarData(text: Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), showSnackBar: true, messageType: .failure)
+    }
+    
+    private func buildObjectSearcData(type: ObjectSearchWithMetaType) -> ObjectSearchWithMetaModuleData {
+        ObjectSearchWithMetaModuleData(
+            spaceId: spaceId,
+            type: type,
+            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
+            onSelect: { [weak self] details in
+                guard let self else { return }
+                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                } else {
+                    showFileLimitAlert()
+                }
+            }
+        )
     }
 }

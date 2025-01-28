@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 struct ChatInput: View {
     
@@ -8,10 +9,13 @@ struct ChatInput: View {
     let hasAdditionalData: Bool
     let disableSendButton: Bool
     let disableAddButton: Bool
-    let onTapAddObject: () -> Void
+    let createObjectTypes: [ObjectType]
+    let onTapAddPage: () -> Void
+    let onTapAddList: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
     let onTapCamera: () -> Void
+    let onTapCreateObject: (_ type: ObjectType) -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     
@@ -26,25 +30,38 @@ struct ChatInput: View {
     
     private var plusButton: some View {
         Menu {
-            Button {
-                onTapAddObject()
-            } label: {
-                Text(Loc.Chat.Actions.Menu.objects)
+            Button { onTapCamera() } label: {
+                Label(Loc.Chat.Actions.Menu.camera, systemImage: "camera")
             }
-            Button {
-                onTapAddMedia()
-            } label: {
-                Text(Loc.Chat.Actions.Menu.media)
+            
+            Button { onTapAddMedia() } label: {
+                Label(Loc.Chat.Actions.Menu.photos, systemImage: "photo")
             }
-            Button {
-                onTapAddFiles()
-            } label: {
-                Text(Loc.Chat.Actions.Menu.files)
+            
+            Button { onTapAddFiles() } label: {
+                Label(Loc.Chat.Actions.Menu.files, systemImage: "doc")
             }
-            Button {
-                onTapCamera()
+            
+            Button { onTapAddPage() } label: {
+                Label(Loc.Chat.Actions.Menu.pages, systemImage: "doc.plaintext")
+            }
+            
+            Button { onTapAddList() } label: {
+                Label(Loc.Chat.Actions.Menu.lists, systemImage: "list.bullet")
+            }
+            
+            Divider()
+            
+            Menu {
+                ForEach(createObjectTypes) { type in
+                    Button {
+                        onTapCreateObject(type)
+                    } label: {
+                        Text(type.name)
+                    }
+                }
             } label: {
-                Text(Loc.Chat.Actions.Menu.camera)
+                Text(Loc.Chat.Actions.Menu.more)
             }
         } label: {
             Image(asset: .X32.plus)

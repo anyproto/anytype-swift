@@ -108,6 +108,9 @@ final class EditorNavigationBarHelper {
         }
     }
     
+    func setPageNavigationHiddenBackButton(_ hidden: Bool) {
+        backButton.isHidden = hidden
+    }
 }
 
 // MARK: - EditorNavigationBarHelperProtocol

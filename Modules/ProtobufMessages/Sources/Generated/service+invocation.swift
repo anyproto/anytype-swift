@@ -284,6 +284,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func accountChangeJsonApiAddr(
+        _ request: Anytype_Rpc.Account.ChangeJsonApiAddr.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.ChangeJsonApiAddr.Request, Anytype_Rpc.Account.ChangeJsonApiAddr.Response> {
+        return Invocation(messageName: "AccountChangeJsonApiAddr", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountChangeJsonApiAddr(requestData) ?? Data()
+            return try Anytype_Rpc.Account.ChangeJsonApiAddr.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func accountStop(
         _ request: Anytype_Rpc.Account.Stop.Request = .init()
     ) -> Invocation<Anytype_Rpc.Account.Stop.Request, Anytype_Rpc.Account.Stop.Response> {
@@ -491,6 +501,56 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceUnsetOrder(requestData) ?? Data()
             return try Anytype_Rpc.Space.UnsetOrder.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingCreate(
+        _ request: Anytype_Rpc.Publishing.Create.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.Create.Request, Anytype_Rpc.Publishing.Create.Response> {
+        return Invocation(messageName: "PublishingCreate", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingCreate(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.Create.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingRemove(
+        _ request: Anytype_Rpc.Publishing.Remove.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.Remove.Request, Anytype_Rpc.Publishing.Remove.Response> {
+        return Invocation(messageName: "PublishingRemove", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingRemove(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.Remove.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingList(
+        _ request: Anytype_Rpc.Publishing.List.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.List.Request, Anytype_Rpc.Publishing.List.Response> {
+        return Invocation(messageName: "PublishingList", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingList(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.List.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingResolveUri(
+        _ request: Anytype_Rpc.Publishing.ResolveUri.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.ResolveUri.Request, Anytype_Rpc.Publishing.ResolveUri.Response> {
+        return Invocation(messageName: "PublishingResolveUri", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingResolveUri(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.ResolveUri.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingGetStatus(
+        _ request: Anytype_Rpc.Publishing.GetStatus.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.GetStatus.Request, Anytype_Rpc.Publishing.GetStatus.Response> {
+        return Invocation(messageName: "PublishingGetStatus", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingGetStatus(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.GetStatus.Response(serializedBytes: responseData)
         }
     }
 

@@ -5,19 +5,16 @@ struct AllContentSettingsMenu: View {
     @Binding var state: AllContentState
     let binTapped: () -> Void
     
-    @State private var sort: AllContentSort
-    
     init(state: Binding<AllContentState>, binTapped: @escaping () -> Void) {
         self._state = state
         self.binTapped = binTapped
-        self.sort = state.wrappedValue.sort
     }
     
     var body: some View {
         Menu {
             mode
             Divider()
-            AllContentSortMenu(sort: $sort)
+            AllContentSortMenu(sort: $state.sort)
             Divider()
             bin
         } label: {
@@ -25,7 +22,6 @@ struct AllContentSettingsMenu: View {
                 .frame(width: 24, height: 24)
         }
         .menuOrder(.fixed)
-        .onChange(of: sort) { state.sort = $0 }
     }
     
     private var mode: some View {
