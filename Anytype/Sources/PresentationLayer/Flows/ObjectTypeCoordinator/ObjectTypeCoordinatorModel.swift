@@ -108,7 +108,7 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
                 shouldSelectTemplate: true,
                 spaceId: document.spaceId,
                 origin: .builtin,
-                templateId: nil
+                templateId: details.defaultTemplateId
             )
             
             onOpenObjectTap(objectId: newDetails.id)
