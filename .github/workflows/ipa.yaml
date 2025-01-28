@@ -51,3 +51,20 @@ jobs:
         with:
           name: AnytypeIOS
           path: ./build/result
+          
+      - name: Trigger Test Repo Workflow
+        if: success()  # Only trigger if build succeeded
+        run: |
+          RUN_ID=${{ github.run_id }}
+          echo "Triggering anytype-test with run_id=$RUN_ID"
+
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.WORKFLOW_TRIGGER_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/anyproto/anytype-test/dispatches \
+            -d '{
+              "event_type": "trigger-ios-tests",
+              "client_payload": {
+                "run_id": "'$RUN_ID'"
+              }
+            }'
