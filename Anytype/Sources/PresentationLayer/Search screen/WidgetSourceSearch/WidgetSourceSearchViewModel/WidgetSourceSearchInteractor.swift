@@ -33,7 +33,15 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     // MARK: - WidgetSourceSearchInteractorProtocol
     
     func objectSearch(text: String) async throws -> [ObjectDetails] {
-        try await searchService.search(text: text, spaceId: spaceId)
+        if FeatureFlags.objectTypeWidgets {
+            try await searchService.searchObjectsWithLayouts(
+                text: text,
+                layouts: DetailsLayout.visibleLayouts + [.objectType],
+                spaceId: spaceId
+            )
+        } else {
+            try await searchService.search(text: text, spaceId: spaceId)
+        }
     }
     
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {

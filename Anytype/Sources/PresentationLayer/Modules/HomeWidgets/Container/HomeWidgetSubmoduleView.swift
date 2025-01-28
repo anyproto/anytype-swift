@@ -126,18 +126,17 @@ struct HomeWidgetSubmoduleView: View {
         
     @ViewBuilder
     private func viewForObject(_ objectDetails: ObjectDetails) -> some View {
-        if objectDetails.isNotDeletedAndVisibleForEdit {
+        if objectDetails.isNotDeletedAndArchived {
             switch (widgetInfo.fixedLayout, objectDetails.editorViewType) {
-            case (.link, .page),
-                (.link, .list):
+            case (.link, .page), (.link, .list), (.link, .type):
                 LinkWidgetView(data: widgetData)
             case (.tree, .page):
                 ObjectTreeWidgetSubmoduleView(data: widgetData)
-            case (.view, .list):
+            case (.view, .list), (.view, .type):
                 SetObjectViewWidgetSubmoduleView(data: widgetData)
-            case (.list, .list):
+            case (.list, .list), (.list, .type):
                 SetObjectListWidgetSubmoduleView(data: widgetData)
-            case (.compactList, .list):
+            case (.compactList, .list), (.compactList, .type):
                 SetObjectCompactListWidgetSubmoduleView(data: widgetData)
             default:
                 // Fallback

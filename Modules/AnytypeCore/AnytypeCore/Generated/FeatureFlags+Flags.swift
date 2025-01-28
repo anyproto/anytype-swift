@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .allContentWidgets)
     }
 
+    static var objectTypeWidgets: Bool {
+        value(for: .objectTypeWidgets)
+    }
+
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -119,6 +123,7 @@ public extension FeatureFlags {
         .primitives,
         .memberProfile,
         .allContentWidgets,
+        .objectTypeWidgets,
         .openMediaFileInPreview,
         .rainbowViews,
         .showAlertOnAssert,
