@@ -65,12 +65,14 @@ enum AnalyticsEventsRouteKind: String {
     case homeScreen = "HomeScreen"
     case clipboard = "Clipboard"
     case search = "Search"
+    case type = "Type"
 }
 
 enum AnalyticsEventsRelationType: String {
     case menu = "menu"
     case dataview = "dataview"
     case block = "block"
+    case type = "type"
 }
 
 enum AnalyticsEventsSetQueryType {

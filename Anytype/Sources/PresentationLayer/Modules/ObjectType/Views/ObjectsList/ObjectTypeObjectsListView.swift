@@ -14,6 +14,12 @@ struct ObjectTypeObjectsListView: View {
             .task(id: model.sort) { await model.startListSubscription() }
             .task { await model.startSubscriptions() }
             .onDisappear { model.stopSubscriptions() }
+            .onChange(of: model.sort) {
+                AnytypeAnalytics.instance().logChangeTypeSort(
+                    type: $0.relation.analyticsValue,
+                    sort: $0.type.analyticValue
+                )
+            }
     }
     
     private var content: some View {

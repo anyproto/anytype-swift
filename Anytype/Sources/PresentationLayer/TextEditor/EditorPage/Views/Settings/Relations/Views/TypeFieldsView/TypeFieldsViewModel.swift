@@ -99,7 +99,9 @@ final class TypeFieldsViewModel: ObservableObject {
             spaceId: document.spaceId,
             excludedRelationsIds: relationRows.compactMap(\.relationId),
             target: .type(isFeatured: section.isHeader),
-            onRelationSelect: { _, _ in }
+            onRelationSelect: { [spaceId = document.spaceId] details, isNew in
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: details.format, isNew: isNew, type: .type, key: details.analyticsKey, spaceId: spaceId)
+            }
         )
     }
     
@@ -114,6 +116,12 @@ final class TypeFieldsViewModel: ObservableObject {
                 try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: recommendedRelations)
             }
             
+            
+            guard let format = row.relation.format?.format else {
+                anytypeAssertionFailure("Empty relation format for onDeleteRelation")
+                return
+            }
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: format)
         }
     }
     
