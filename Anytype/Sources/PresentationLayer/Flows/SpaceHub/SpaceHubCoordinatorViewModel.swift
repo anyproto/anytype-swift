@@ -104,8 +104,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     func onPathChange() {
         if let editorData = navigationPath.lastPathElement as? EditorScreenData {
             userDefaults.lastOpenedScreen = .editor(editorData)
-        } else if let spaceInfo = navigationPath.lastPathElement as? AccountInfo {
-            userDefaults.lastOpenedScreen = .widgets(spaceId: spaceInfo.accountSpaceId)
+        } else if let widgetData = navigationPath.lastPathElement as? HomeWidgetData {
+            userDefaults.lastOpenedScreen = .widgets(spaceId: widgetData.info.accountSpaceId)
+        } else if let chatData = navigationPath.lastPathElement as? ChatCoordinatorData {
+            userDefaults.lastOpenedScreen = .chat(spaceId: chatData.spaceInfo.accountSpaceId)
         } else {
             userDefaults.lastOpenedScreen = nil
         }
@@ -142,6 +144,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .editor(let editorData):
             try? await open(data: .editor(editorData))
         case .widgets(let spaceId):
+            try? await openSpace(spaceId: spaceId, addWidgets: true)
+        case .chat(let spaceId):
             try? await openSpace(spaceId: spaceId)
         case .none:
             return
@@ -220,7 +224,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         try await openSpace(spaceId: spaceId, data: data)
     }
     
-    private func openSpace(spaceId: String, data: ScreenData? = nil) async throws {
+    private func openSpace(spaceId: String, data: ScreenData? = nil, addWidgets: Bool = false) async throws {
         guard currentSpaceId != spaceId else {
             try await showScreen(spaceId: spaceId, data: data)
             return
@@ -234,7 +238,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         currentSpaceId = spaceId
         
         if let spaceInfo {
-            navigationPath = HomePath(initialPath: initialHomePath(spaceView: spaceView, spaceInfo: spaceInfo))
+            navigationPath = HomePath(initialPath: initialHomePath(spaceView: spaceView, spaceInfo: spaceInfo, addWidgets: addWidgets))
             try await showScreen(spaceId: spaceId, data: data)
         }
     }
@@ -275,7 +279,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             }
             
             if let info, let spaceView = workspaceStorage.spaceView(spaceId: info.accountSpaceId) {
-                let newPath = initialHomePath(spaceView: spaceView, spaceInfo: info)
+                let newPath = initialHomePath(spaceView: spaceView, spaceInfo: info, addWidgets: false)
                 navigationPath = HomePath(initialPath: newPath)
             } else {
                 navigationPath.popToRoot()
@@ -283,11 +287,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
-    private func initialHomePath(spaceView: SpaceView, spaceInfo: AccountInfo) -> [AnyHashable] {
+    private func initialHomePath(spaceView: SpaceView, spaceInfo: AccountInfo, addWidgets: Bool) -> [AnyHashable] {
         .builder {
             SpaceHubNavigationItem()
             if spaceView.showChat {
                 ChatCoordinatorData(chatId: spaceView.chatId, spaceInfo: spaceInfo)
+                if addWidgets {
+                    HomeWidgetData(info: spaceInfo)
+                }
             } else {
                 HomeWidgetData(info: spaceInfo)
             }
