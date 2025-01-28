@@ -1,6 +1,6 @@
 import Foundation
 
-enum MessageAuthorMode {
+enum MessageAuthorIconMode {
     case show
     case empty
     case hidden

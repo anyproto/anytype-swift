@@ -6,12 +6,14 @@ enum ScreenType {
     case date
     case type
     case participant
+    case mediaFile
 }
 
 
-enum ScreenData: Hashable, Codable, Identifiable {
+enum ScreenData: Hashable, Identifiable {
     case editor(EditorScreenData)
     case alert(AlertScreenData)
+    case preview(MediaFileScreenData)
     
     var id: Int { hashValue }
 }
@@ -20,9 +22,11 @@ extension ScreenData {
     var objectId: String? {
         switch self {
         case .editor(let editorScreenData):
-            editorScreenData.objectId
+            return editorScreenData.objectId
         case .alert(let alertScreenData):
-            alertScreenData.objectId
+            return alertScreenData.objectId
+        case .preview:
+            return nil
         }
     }
     
@@ -32,6 +36,8 @@ extension ScreenData {
             editorScreenData.spaceId
         case .alert(let alertScreenData):
             alertScreenData.spaceId
+        case .preview(let mediaFileScreenData):
+            mediaFileScreenData.spaceId
         }
     }
     
@@ -39,9 +45,8 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return editorScreenData
-        case .alert:
+        case .alert, .preview:
             return nil
         }
     }
 }
-

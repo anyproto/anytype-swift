@@ -10,7 +10,7 @@ protocol MessageTextBuilderProtocol: Sendable {
 
 extension MessageTextBuilderProtocol {
     func makeMessage(content: ChatMessageContent, isYourMessage: Bool) -> AttributedString {
-        makeMessage(content: content, isYourMessage: isYourMessage, font: .bodyRegular)
+        makeMessage(content: content, isYourMessage: isYourMessage, font: .previewTitle1Regular)
     }
 }
 
@@ -23,7 +23,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         var message = AttributedString(content.text)
         
         message.font = AnytypeFontBuilder.font(anytypeFont: font)
-        message.foregroundColor = MessageTextBuilder.textColor(isYourMessage)
+        message.foregroundColor = Color.Text.primary
         
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)
@@ -82,12 +82,6 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             deepLink: .object(objectId: objectId, spaceId: spaceId),
             scheme: .main
         )
-    }
-}
-
-extension MessageTextBuilder {
-    static func textColor(_ isYourMessage: Bool) -> Color {
-        isYourMessage ? .Text.white : .Text.primary
     }
 }
 

@@ -61,7 +61,7 @@ struct GlobalSearchView: View {
     
     private var sections: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 10) {
+            HStack(spacing: 0) {
                 ForEach(ObjectTypeSection.searchSupportedSection, id: \.self) { section in
                     AnytypeText(
                         section.title,
@@ -77,12 +77,11 @@ struct GlobalSearchView: View {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.onSectionChanged(section)
                     }
-                    .animation(.default, value: model.state.section == section)
+                    .animation(.easeInOut, value: model.state.section == section)
                 }
             }
-            .padding(.top, 2)
             .padding(.bottom, 10)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 6)
         }
     }
     
@@ -102,7 +101,7 @@ struct GlobalSearchView: View {
             ForEach(model.sections) { section in
                 if let title = section.data, title.isNotEmpty {
                     ListSectionHeaderView(title: title)
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal, 16)
                 }
                 ForEach(section.rows) { rowModel in
                     itemRow(for: rowModel)

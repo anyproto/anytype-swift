@@ -10,7 +10,7 @@ final class TipsConfiguration: AppConfiguratorProtocol {
     func configure() {
         if #available(iOS 17.0, *) {
             do {
-                if FeatureFlags.userWarningAlerts, userWarningAlertsHandler.getNextUserWarningAlert().isNotNil {
+                if userWarningAlertsHandler.getNextUserWarningAlert().isNotNil {
                     // Do not show tips during launch when displaying warning alert. We don't want to overwhelm users.
                     return
                 }
