@@ -9,7 +9,7 @@ protocol ObjectTypeViewModelOutput: AnyObject, ObjectTypeObjectsListViewModelOut
     func onFieldsTap()
     func onSyncStatusTap()
     
-    func showTemplatesPicker(defaultTemplateId: String?)
+    func showTemplatesPicker(defaultTemplateId: String)
     func setTemplateAsDefault(templateId: String)
 }
 
@@ -64,7 +64,7 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
         showSyncStatusInfo.toggle()
     }
     
-    func showTemplatesPicker(defaultTemplateId: String?) {
+    func showTemplatesPicker(defaultTemplateId: String) {
         let data = TemplatePickerViewModelData(
             mode: .typeTemplate,
             typeId: document.objectId,
@@ -108,7 +108,7 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
                 shouldSelectTemplate: true,
                 spaceId: document.spaceId,
                 origin: .builtin,
-                templateId: nil
+                templateId: details.defaultTemplateId
             )
             
             onOpenObjectTap(objectId: newDetails.id)

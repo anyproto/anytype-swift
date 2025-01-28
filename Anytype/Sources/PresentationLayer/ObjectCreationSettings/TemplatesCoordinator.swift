@@ -82,12 +82,8 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
             .eraseToAnyView()
     }
     
-    func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item.TemplateModel) {
+    func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item) {
         editorModuleInputs[model.object.id]?.showSettings(output: self)
-    }
-    
-    func setAsDefaultBlankTemplate() {
-        onSetAsDefaultTempalte?(TemplateType.blank.id)
     }
     
     func onClose() {

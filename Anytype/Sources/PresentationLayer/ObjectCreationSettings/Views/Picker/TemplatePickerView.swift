@@ -2,14 +2,19 @@ import SwiftUI
 
 struct TemplatePickerView: View {
     @StateObject var viewModel: TemplatePickerViewModel
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationView {
             content
         }
         .navigationViewStyle(.stack)
+        .task {
+            await viewModel.startTemplateSubscription()
+        }
         .onAppear {
             AnytypeAnalytics.instance().logScreenTemplate()
+            viewModel.setDismissAction(dismiss)
         }
     }
     
@@ -40,9 +45,6 @@ struct TemplatePickerView: View {
                 applyButton
             }
         }
-        .task {
-            await viewModel.startTemplateSubscription()
-        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -59,45 +61,18 @@ struct TemplatePickerView: View {
                 settingsButton
             }
         }
-        .anytypeSheet(isPresented: $viewModel.showBlankSettings) {
-            viewModel.blankSettingsView()?
-                .frame(height: 100)
-        }
     }
     
     @ViewBuilder
     private var contentView: some View {
         TabView(selection: $viewModel.selectedTab) {
             ForEach(viewModel.items) { item in
-                    switch item {
-                    case .blank:
-                        blankView
-                            .tag(item.id)
-                    case let .template(model):
-                        model.view
-                            .tag(item.id)
-                    }
+                item.view
+                    .tag(item.id)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(maxHeight: .infinity)
-    }
-    
-    private var blankView: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(32)
-            HStack {
-                VStack(alignment: .leading, spacing: 8) {
-                    AnytypeText(Loc.BlockText.ContentType.Title.placeholder, style: .title)
-                        .foregroundColor(.Text.tertiary)
-                    AnytypeText(Loc.TemplateSelection.Template.subtitle, style: .relation2Regular)
-                        .foregroundColor(.Text.tertiary)
-                }
-                Spacer()
-            }
-            Spacer()
-        }
-        .padding([.horizontal], 20)
     }
 
     private func storyIndicatorView(isSelected: Bool) -> some View {

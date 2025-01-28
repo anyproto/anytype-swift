@@ -8,6 +8,7 @@ final class ObjectTypeViewModel: ObservableObject {
     @Published var details: ObjectDetails?
     
     @Published var templates = [TemplatePreviewViewModel]()
+    @Published var templatesCount = 0
     @Published var syncStatusData: SyncStatusData?
     
     @Published var typeName = ""
@@ -67,8 +68,6 @@ final class ObjectTypeViewModel: ObservableObject {
         switch model.mode {
         case .installed:
             output?.showTemplatesPicker(defaultTemplateId: model.mode.id)
-        case .blank:
-            output?.showTemplatesPicker(defaultTemplateId: nil)
         case .addTemplate:
             onAddTemplateTap()
         }
@@ -156,13 +155,6 @@ final class ObjectTypeViewModel: ObservableObject {
     private func buildTemplates() {
         var templates = [TemplatePreviewModel]()
         
-        let isBlankTemplateDefault = !rawTemplates.contains { $0.id == defaultTemplateId }
-        templates.append(TemplatePreviewModel(
-            mode: .blank,
-            alignment: .left,
-            decoration: isBlankTemplateDefault ? .defaultBadge : nil
-        ))
-        
         let middlewareTemplates = rawTemplates.map { details in
             let isDefault = details.id == defaultTemplateId
             let decoration: TemplateDecoration? = isDefault ? .defaultBadge : nil
@@ -170,6 +162,7 @@ final class ObjectTypeViewModel: ObservableObject {
         }
         
         templates += middlewareTemplates
+        templatesCount = middlewareTemplates.count
 
         if canEditDetails {
             templates.append(.init(mode: .addTemplate, alignment: .center))

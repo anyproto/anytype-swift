@@ -114,7 +114,7 @@ struct ObjectTypeView: View {
         VStack {
             HStack(spacing: 8) {
                 AnytypeText(Loc.templates, style: .subheading)
-                AnytypeText("\(model.templates.count)", style: .previewTitle1Regular)
+                AnytypeText("\(model.templatesCount)", style: .previewTitle1Regular)
                     .foregroundColor(Color.Text.secondary)
                 Spacer()
                 
