@@ -154,7 +154,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         let mode: EditorNavigationBarTitleView.Mode
         if templatesCount >= Constants.minimumTemplatesAvailableToPick {
             let model = EditorNavigationBarTitleView.Mode.TemplatesModel(
-                count: templatesCount + 1,
+                count: templatesCount,
                 onTap: onTemplatesButtonTap
             )
             mode = .templates(model)
