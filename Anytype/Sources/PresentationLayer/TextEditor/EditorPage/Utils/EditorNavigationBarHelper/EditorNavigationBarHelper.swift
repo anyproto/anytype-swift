@@ -288,7 +288,7 @@ private extension EditorNavigationBarHelper {
 
 private extension EditorNavigationBarHelper {
     private enum Constants {
-        static let minimumTemplatesAvailableToPick = 1
+        static let minimumTemplatesAvailableToPick = 2
     }
 }
 
