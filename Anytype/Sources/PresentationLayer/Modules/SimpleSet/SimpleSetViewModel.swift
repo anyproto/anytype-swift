@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import UIKit
 
 @MainActor
 protocol SimpleSetModuleOutput: AnyObject {
@@ -12,11 +13,16 @@ final class SimpleSetViewModel: ObservableObject {
     @Published var title = ""
     @Published var objectsSubscriptionId: String? = nil
     @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
+    @Published private var participantCanEdit = false
 
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
     @Injected(\.simpleSetSubscriptionService)
     private var simpleSetSubscriptionService: any SimpleSetSubscriptionServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionService: any ObjectActionsServiceProtocol
     
     private let objectId: String
     private let spaceId: String
@@ -42,6 +48,13 @@ final class SimpleSetViewModel: ObservableObject {
         }
     }
     
+    func subscribeOnParticipant() async {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+            participantCanEdit = participant.canEdit
+            updateRows()
+        }
+    }
+    
     func startObjectsSubscription() async {
         guard setDocument.canStartSubscription() else { return }
         await simpleSetSubscriptionService.startSubscription(
@@ -59,6 +72,12 @@ final class SimpleSetViewModel: ObservableObject {
         }
     }
     
+    func onDelete(objectId: String) {
+        AnytypeAnalytics.instance().logMoveToBin(true)
+        Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
     private func updateRows() {
         sections = [listSectionData(title: nil, details: details)]
     }
@@ -70,7 +89,7 @@ final class SimpleSetViewModel: ObservableObject {
             rows: details.map { details in
                 WidgetObjectListRowModel(
                     details: details,
-                    canArchive: false,
+                    canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: details.screenData())
                     }
