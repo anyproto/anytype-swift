@@ -79,7 +79,7 @@ final class SimpleSetViewModel: ObservableObject {
     }
     
     private func updateRows() {
-        sections = [listSectionData(title: nil, details: details)]
+        sections = details.isNotEmpty ? [listSectionData(title: nil, details: details)] : []
     }
     
     private func listSectionData(title: String?, details: [ObjectDetails]) -> ListSectionData<String?, WidgetObjectListRowModel> {
