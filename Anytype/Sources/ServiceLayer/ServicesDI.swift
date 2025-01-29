@@ -361,4 +361,8 @@ extension Container {
     var profileStorage: Factory<any ProfileStorageProtocol> {
         self { ProfileStorage() }.singleton
     }
+    
+    var simpleSetSubscriptionService: Factory<any SimpleSetSubscriptionServiceProtocol> {
+        self { SimpleSetSubscriptionService() }
+    }
 }

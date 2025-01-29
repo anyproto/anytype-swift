@@ -103,7 +103,12 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
-        let screenData = ScreenData(details: details, activeViewId: activeViewId)
+        let screenData: ScreenData
+        if details.editorViewType == .type {
+            screenData = .editor(.simpleSet(EditorSimpleSetObject(objectId: details.id, spaceId: details.spaceId)))
+        } else {
+            screenData = ScreenData(details: details, activeViewId: activeViewId)
+        }
         AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
         output?.onObjectSelected(screenData: screenData)
     }
