@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import Services
+import SwiftUI
 
 @MainActor
 final class EditorNavigationBarHelper {
@@ -17,7 +18,7 @@ final class EditorNavigationBarHelper {
     private let settingsItem: UIEditorBarButtonItem
     private let syncStatusItem: EditorSyncStatusItem
     private let rightContanerForEditing: UIView
-    private let backButton: UIButton
+    private let backButton: UIView
     
     private var contentOffsetObservation: NSKeyValueObservation?
     
@@ -40,8 +41,7 @@ final class EditorNavigationBarHelper {
         onSelectAllBarButtonItemTap: @escaping (Bool) -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void,
         onTemplatesButtonTap: @escaping () -> Void,
-        onSyncStatusTap: @escaping () -> Void,
-        onBackTap: @escaping () -> Void
+        onSyncStatusTap: @escaping () -> Void
     ) {
         self.navigationBarView = navigationBarView
         self.navigationBarBackgroundView = navigationBarBackgroundView
@@ -73,17 +73,8 @@ final class EditorNavigationBarHelper {
         
         self.rightContanerForEditing = UIView()
         
-        var backButtonConfig = UIButton.Configuration.plain()
-        backButtonConfig.image = UIImage(asset: .X24.back)
-        backButtonConfig.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 20)
-        backButtonConfig.baseForegroundColor = .Control.transparentActive
-        self.backButton = UIButton(configuration: backButtonConfig)
-        self.backButton.addAction(
-            UIAction(handler: { _ in
-                onBackTap()
-            }),
-            for: .touchUpInside
-        )
+        self.backButton = UIHostingController(rootView: PageNavigationBackButton()).view
+        self.backButton.backgroundColor = .clear
         
         // Select all button
         var selectAllConfig = UIButton.Configuration.plain()
