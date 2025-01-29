@@ -20,7 +20,7 @@ struct SimpleSetView: View {
         .task {
             await model.subscribeOnParticipant()
         }
-        .task(item: model.objectsSubscriptionId) { _ in
+        .task(item: model.state) { _ in
             await model.startObjectsSubscription()
         }
         .onDisappear {
@@ -48,6 +48,9 @@ struct SimpleSetView: View {
                 }
                 ForEach(section.rows, id: \.id) { row in
                     WidgetObjectListRowView(model: row)
+                        .onAppear {
+                            model.onAppearLastRow(row.id)
+                        }
                         .if(row.canArchive) {
                             $0.swipeActions {
                                 Button(Loc.toBin, role: .destructive) {

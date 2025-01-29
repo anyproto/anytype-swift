@@ -5,6 +5,7 @@ import Services
 protocol SimpleSetSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         setDocument: some SetDocumentProtocol,
+        limit: Int,
         update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async
     func stopSubscription() async
@@ -29,6 +30,7 @@ final class SimpleSetSubscriptionService: SimpleSetSubscriptionServiceProtocol {
     
     func startSubscription(
         setDocument: some SetDocumentProtocol,
+        limit: Int,
         update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async {
         
@@ -37,8 +39,8 @@ final class SimpleSetSubscriptionService: SimpleSetSubscriptionServiceProtocol {
                 identifier: subscriptionId,
                 document: setDocument,
                 groupFilter: nil,
-                currentPage: 0,
-                numberOfRowsPerPage: 0,
+                currentPage: 1,
+                numberOfRowsPerPage: limit,
                 collectionId: nil,
                 objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId)
             )
