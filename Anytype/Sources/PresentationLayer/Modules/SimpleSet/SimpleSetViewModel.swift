@@ -11,7 +11,7 @@ protocol SimpleSetModuleOutput: AnyObject {
 final class SimpleSetViewModel: ObservableObject {
         
     @Published var title = ""
-    @Published var objectsSubscriptionId: String? = nil
+    @Published var state: SimpleSetState?
     @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
     @Published private var participantCanEdit = false
 
@@ -33,6 +33,7 @@ final class SimpleSetViewModel: ObservableObject {
     }()
     
     private var details = [ObjectDetails]()
+    private var objectsToLoad = 0
     var isInitial = true
     
     init(objectId: String, spaceId: String, output: (any SimpleSetModuleOutput)?) {
@@ -44,7 +45,7 @@ final class SimpleSetViewModel: ObservableObject {
     func subscribeOnDetails() async {
         for await details in setDocument.detailsPublisher.values {
             title = details.pageCellTitle
-            objectsSubscriptionId = details.id
+            setStateIfNeeded()
         }
     }
     
@@ -56,12 +57,14 @@ final class SimpleSetViewModel: ObservableObject {
     }
     
     func startObjectsSubscription() async {
-        guard setDocument.canStartSubscription() else { return }
+        guard let state, setDocument.canStartSubscription() else { return }
         await simpleSetSubscriptionService.startSubscription(
             setDocument: setDocument,
+            limit: state.limit,
             update: { [weak self] details, objectsToLoad in
                 self?.details = details
-                self?.updateInitialStateIfNeeded()
+                self?.objectsToLoad = objectsToLoad
+                self?.updateInitialIfNeeded()
                 self?.updateRows()
             })
     }
@@ -70,6 +73,12 @@ final class SimpleSetViewModel: ObservableObject {
         Task {
             await simpleSetSubscriptionService.stopSubscription()
         }
+    }
+    
+    func onAppearLastRow(_ id: String) {
+        guard objectsToLoad > 0, details.last?.id == id else { return }
+        objectsToLoad = 0
+        state?.increaseLimit()
     }
     
     func onDelete(objectId: String) {
@@ -98,8 +107,13 @@ final class SimpleSetViewModel: ObservableObject {
         )
     }
     
-    private func updateInitialStateIfNeeded() {
+    private func updateInitialIfNeeded() {
         guard isInitial else { return }
         isInitial = false
+    }
+    
+    private func setStateIfNeeded() {
+        guard state.isNil else { return }
+        state = SimpleSetState()
     }
 }
