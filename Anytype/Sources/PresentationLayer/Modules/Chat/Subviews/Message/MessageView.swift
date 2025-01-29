@@ -83,9 +83,11 @@ struct MessageView: View {
             }
         }
         .overlay(alignment: .bottomTrailing) {
-            createDate
-                .padding(.horizontal, 12)
-                .padding(.bottom, 12)
+            if !data.messageString.isEmpty {
+                createDate
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 12)
+            }
         }
         .frame(width: fixedBubbleWidth)
         .background(messageBackgorundColor)
@@ -173,8 +175,14 @@ struct MessageView: View {
     private var authorIcon: some View {
         switch data.authorIconMode {
         case .show:
-            IconView(icon: data.authorIcon)
-                .frame(width: 32, height: 32)
+            Button {
+                if let authorId = data.authorId {
+                    output?.didSelectAuthor(authorId: authorId)
+                }
+            } label: {
+                IconView(icon: data.authorIcon)
+                    .frame(width: 32, height: 32)
+            }
         case .empty:
             Spacer.fixedWidth(32)
         case .hidden:
