@@ -17,6 +17,9 @@ struct SimpleSetView: View {
         .task {
             await model.subscribeOnDetails()
         }
+        .task {
+            await model.subscribeOnParticipant()
+        }
         .task(item: model.objectsSubscriptionId) { _ in
             await model.startObjectsSubscription()
         }
@@ -45,6 +48,13 @@ struct SimpleSetView: View {
                 }
                 ForEach(section.rows, id: \.id) { row in
                     WidgetObjectListRowView(model: row)
+                        .if(row.canArchive) {
+                            $0.swipeActions {
+                                Button(Loc.toBin, role: .destructive) {
+                                    model.onDelete(objectId: row.objectId)
+                                }
+                            }
+                        }
                 }
             }
             AnytypeNavigationSpacer(minHeight: 130)
