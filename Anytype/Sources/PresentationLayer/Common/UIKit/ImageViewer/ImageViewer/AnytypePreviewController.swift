@@ -15,14 +15,14 @@ final class AnytypePreviewController: QLPreviewController {
 
     var hasUpdates = false
 
-    private let items: [any PreviewRemoteItem]
+    private let items: [PreviewRemoteItem]
     private let onContentChanged: (URL) -> Void
     private var itemsSubscriptions = [AnyCancellable]()
     private weak var sourceView: UIView?
     private let initialPreviewItemIndex: Int
 
     init(
-        with items: [any PreviewRemoteItem],
+        with items: [PreviewRemoteItem],
         initialPreviewItemIndex: Int = 0,
         sourceView: UIView? = nil,
         onContentChanged: @escaping (URL) -> Void = { _ in }

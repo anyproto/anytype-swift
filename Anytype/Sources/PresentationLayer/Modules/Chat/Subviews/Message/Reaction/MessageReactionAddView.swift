@@ -11,9 +11,9 @@ struct MessageReactionAddView: View {
             onTap()
         } label: {
             Image(asset: .X24.reaction)
-                .foregroundStyle(isYourMessage ? Color.Control.white : Color.Control.button)
-                .frame(width: 32, height: 32)
-                .background(Color.Shape.transperentPrimary)
+                .foregroundStyle(Color.Control.button)
+                .frame(width: 28, height: 28)
+                .background(Color.Shape.transperentSecondary)
                 .cornerRadius(16, style: .circular)
         }
     }

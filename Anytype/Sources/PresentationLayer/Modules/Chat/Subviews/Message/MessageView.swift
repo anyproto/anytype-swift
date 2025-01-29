@@ -33,75 +33,123 @@ struct MessageView: View {
     }
     
     private var content: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            reply
+            author
+            bubble
+            reactions
+        }
+    }
+    
+    @ViewBuilder
+    private var reply: some View {
+        if let reply = data.replyModel {
+            MessageReplyView(model: reply)
+                .onTapGesture {
+                    output?.didSelectReplyMessage(message: data)
+                }
+        }
+    }
+    
+    @ViewBuilder
+    private var author: some View {
+        if data.showAuthorName {
+            Text(data.authorName.isNotEmpty ? data.authorName : " ") // Safe height if participant is not loaded
+                .anytypeStyle(.caption1Medium)
+                .lineLimit(1)
+                .foregroundStyle(Color.Text.primary)
+                .padding(.horizontal, 12)
+        }
+    }
+    
+    private var bubble: some View {
         VStack(alignment: .leading, spacing: 0) {
-            header
-                
-            if let reply = data.replyModel {
-                MessageReplyView(model: reply)
-                    .padding(4)
-                    .onTapGesture {
-                        output?.didSelectReplyMessage(message: data)
-                    }
-            }
+            
+            linkedObjects
             
             if !data.messageString.isEmpty {
-                if !data.showHeader && data.replyModel.isNil {
+                
+                if data.linkedObjects.isNil {
                     Spacer.fixedHeight(12)
+                } else {
+                    Spacer.fixedHeight(4)
                 }
-                Text(data.messageString)
+                
+                // Add spacing for date
+                (Text(data.messageString) + createDateTextForSpacing)
                     .anytypeStyle(.previewTitle1Regular)
                     .padding(.horizontal, 12)
-            }
-            
-            if let objects = data.linkedObjects {
-                switch objects {
-                case .list(let items):
-                    MessageListAttachmentsViewContainer(objects: items) {
-                        output?.didSelectAttachment(data: data, details: $0)
-                    }
-                    .padding(4)
-                case .grid(let items):
-                    MessageGridAttachmentsContainer(objects: items, oneSide: Constants.gridSize, spacing: 4) {
-                        output?.didSelectAttachment(data: data, details: $0)
-                    }
-                    .padding(Constants.gridPadding)
-                }
-            }
-            
-            if data.reactions.isNotEmpty {
-                MessageReactionList(
-                    rows: data.reactions,
-                    canAddReaction: data.canAddReaction,
-                    isYourMessage: data.isYourMessage,
-                    onTapRow: { reaction in
-                        try await output?.didTapOnReaction(data: data, reaction: reaction)
-                    },
-                    onLongTapRow: { reaction in
-                        output?.didLongTapOnReaction(data: data, reaction: reaction)
-                    },
-                    onTapAdd: {
-                        output?.didSelectAddReaction(messageId: data.message.id)
-                    }
-                )
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-            }
-            
-            if data.reactions.isEmpty && data.linkedObjects == nil {
-                Spacer.fixedHeight(12)
+                    .padding(.bottom, 12)
             }
         }
-        .if(data.linkedObjects?.isGrid ?? false) {
-            $0.frame(width: Constants.gridSize + Constants.gridPadding * 2)
+        .overlay(alignment: .bottomTrailing) {
+            if !data.messageString.isEmpty {
+                createDate
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 12)
+            }
         }
-        .readSize {
-            contentSize = $0
-        }
+        .frame(width: fixedBubbleWidth)
         .background(messageBackgorundColor)
-        .cornerRadius(20, style: .circular)
+        .cornerRadius(20, style: .continuous)
         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20, style: .circular))
         .contextMenu {
             contextMenu
+        }
+    }
+    
+    @ViewBuilder
+    private var linkedObjects: some View {
+        if let objects = data.linkedObjects {
+            switch objects {
+            case .list(let items):
+                MessageListAttachmentsViewContainer(objects: items) {
+                    output?.didSelectAttachment(data: data, details: $0)
+                }
+                .padding(4)
+            case .grid(let items):
+                MessageGridAttachmentsContainer(objects: items, oneSide: Constants.gridSize, spacing: 4) {
+                    output?.didSelectAttachment(data: data, details: $0)
+                }
+                .padding(Constants.gridPadding)
+            }
+        }
+    }
+    
+    private var fixedBubbleWidth: CGFloat? {
+        (data.linkedObjects?.isGrid ?? false) ? Constants.gridSize + Constants.gridPadding * 2 : nil
+    }
+    
+    private var createDate: some View {
+        Text(data.createDate)
+            .anytypeFontStyle(.caption2Regular)
+            .lineLimit(1)
+            .foregroundColor(Color.Control.transparentActive)
+    }
+    
+    private var createDateTextForSpacing: Text {
+        (Text("  ") + Text(data.createDate))
+            .anytypeFontStyle(.caption2Regular)
+            .foregroundColor(.clear)
+    }
+    
+    @ViewBuilder
+    private var reactions: some View {
+        if data.reactions.isNotEmpty {
+            MessageReactionList(
+                rows: data.reactions,
+                canAddReaction: data.canAddReaction,
+                isYourMessage: data.isYourMessage,
+                onTapRow: { reaction in
+                    try await output?.didTapOnReaction(data: data, reaction: reaction)
+                },
+                onLongTapRow: { reaction in
+                    output?.didLongTapOnReaction(data: data, reaction: reaction)
+                },
+                onTapAdd: {
+                    output?.didSelectAddReaction(messageId: data.message.id)
+                }
+            )
         }
     }
     
@@ -125,10 +173,16 @@ struct MessageView: View {
     
     @ViewBuilder
     private var authorIcon: some View {
-        switch data.authorMode {
+        switch data.authorIconMode {
         case .show:
-            IconView(icon: data.authorIcon)
-                .frame(width: 32, height: 32)
+            Button {
+                if let authorId = data.authorId {
+                    output?.didSelectAuthor(authorId: authorId)
+                }
+            } label: {
+                IconView(icon: data.authorIcon)
+                    .frame(width: 32, height: 32)
+            }
         case .empty:
             Spacer.fixedWidth(32)
         case .hidden:
@@ -138,36 +192,11 @@ struct MessageView: View {
     
     @ViewBuilder
     private var horizontalBubbleSpacing: some View {
-        switch data.authorMode {
+        switch data.authorIconMode {
         case .show, .empty:
             Spacer(minLength: 32)
         case .hidden:
             Spacer(minLength: 64)
-        }
-    }
-    
-    @ViewBuilder
-    private var header: some View {
-        if data.showHeader {
-            HStack(spacing: 10) {
-                Text(data.authorName)
-                    .anytypeStyle(.previewTitle2Medium)
-                    .foregroundColor(textColor)
-                    .lineLimit(1)
-            
-                Text(data.createDate)
-                    .anytypeStyle(.caption1Regular)
-                    .foregroundColor(timeColor)
-                    .lineLimit(1)
-                    .offset(x: contentSize.width - headerSize.width)
-            }
-            // Height is required for prevent change cell height if participant not loaded. For empty text
-            .frame(height: 20)
-            .padding(.horizontal, 12)
-            .padding(.top, 12)
-            .readSize {
-                headerSize = $0
-            }
         }
     }
     
@@ -207,14 +236,6 @@ struct MessageView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return data.isYourMessage ? .Control.transparentActive : .Background.navigationPanel
-    }
-    
-    private var textColor: Color {
-        return MessageTextBuilder.textColor(data.isYourMessage)
-    }
-    
-    private var timeColor: Color {
-        return data.isYourMessage ? .Text.white : .Text.secondary
+        return data.isYourMessage ? .Background.primary : .Shape.transperentSecondary
     }
 }

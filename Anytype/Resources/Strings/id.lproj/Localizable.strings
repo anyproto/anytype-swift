@@ -144,6 +144,7 @@
 "Relations" = "Relasi";
 "History" = "History";
 "Objects" = "Objek";
+"All" = "Semua";
 "Pages" = "Halaman";
 "Lists" = "Grup";
 "Bookmarks" = "Markah";
@@ -211,7 +212,7 @@
 "Open Set" = "Buka Set";
 "Create Set" = "Buat Set";
 "Unsupported deeplink" = "Unsupported deeplink";
-"Edit Profile" = "Edit Profile";
+"Edit Profile" = "Sunting Profil";
 
 // Home
 "Favorites" = "Favorit";
@@ -1270,10 +1271,12 @@ Please provide specific details of your needs here.";
 "Chat.Reactions.Empty.Title" = "Belum ada reaksi";
 "Chat.Reactions.Empty.Subtitle" = "Mungkin seseorang menghapus reaksinya atau ada masalah teknis";
 "Chat.EditMessage" = "Sunting Pesan";
-"Chat.Actions.Menu.Objects" = "Pilih objek yang sudah ada";
-"Chat.Actions.Menu.Media" = "Unggah media";
-"Chat.Actions.Menu.Files" = "Unggah berkas";
-"Chat.Actions.Menu.Camera" = "Ambil dari kamera";
+"Chat.Actions.Menu.Pages" = "Halaman";
+"Chat.Actions.Menu.Lists" = "Grup";
+"Chat.Actions.Menu.Photos" = "Foto";
+"Chat.Actions.Menu.Files" = "Berkas";
+"Chat.Actions.Menu.Camera" = "Kamera";
+"Chat.Actions.Menu.More" = "Lainnya";
 "Chat.Participant.Badge" = "(Kamu)";
 "Chat.Reply.Images" = "Gambar (%@)";
 "Chat.Reply.Attachments" = "Lampiran (%@)";
@@ -1281,6 +1284,12 @@ Please provide specific details of your needs here.";
 "Chat.SendLimitAlert.Title" = "Bentar-bentar, banter banget!";
 "Chat.SendLimitAlert.Message" = "Sepertinya kamu mengirimkan terlalu banyak pesan. Tunggu sebentar sebelum mengirim pesan lagi.";
 "Chat.AttachmentsLimit.Alert" = "Kamu hanya bisa mengunggah %@ berkas pada waktu yang sama";
+"Chat.AttachedObject.Attach" = "Lampirkan";
+"Chat.CreateObject.Dismiss.Title" = "Yakin ingin menutup layar ini?";
+"Chat.CreateObject.Dismiss.Message" = "Semua perubahan akan hilang.";
+"Chat.CreateObject.Dismiss.Ok" = "Ya, tutup";
+"Chat.Attach.Page.title" = "Lampirkan Halaman";
+"Chat.Attach.List.title" = "Lampirkan Daftar";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
@@ -1295,3 +1304,9 @@ Please provide specific details of your needs here.";
 
 // MARK: - Fields
 "Fields.menu" = "Fields menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Halaman Baru";
+"ObjectSearchWithMeta.Create.Note" = "Catatan Baru";
+"ObjectSearchWithMeta.Create.Set" = "Set Baru";
+"ObjectSearchWithMeta.Create.Collection" = "Koleksi Baru";

@@ -2,18 +2,29 @@ import Services
 import Foundation
 import AnytypeCore
 
-enum EditorScreenData: Hashable, Codable {
+enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
+    // Anytype widget screens
     case favorites(homeObjectId: String, spaceId: String)
     case recentEdit(spaceId: String)
     case recentOpen(spaceId: String)
     case sets(spaceId: String)
     case collections(spaceId: String)
     case bin(spaceId: String)
+    case pages(spaceId: String)
+    case lists(spaceId: String)
+    case media(spaceId: String)
+    case bookmarks(spaceId: String)
+    case files(spaceId: String)
+    // Object
     case page(EditorPageObject)
     case list(EditorListObject)
     case date(EditorDateObject)
     case allContent(spaceId: String)
     case type(EditorTypeObject)
+    
+    var id: Int {
+        hashValue
+    }
 }
 
 struct EditorPageObject: Hashable, Codable {

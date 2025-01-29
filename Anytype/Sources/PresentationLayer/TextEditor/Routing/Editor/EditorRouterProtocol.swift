@@ -2,16 +2,10 @@ import Services
 import AnytypeCore
 import UIKit
 
-protocol AttachmentRouterProtocol {
-    func openImage(_ imageContext: FilePreviewContext)
-}
-
-
 // LECACY: Use EditorPageModuleOutput + EditorPageCoordinatorView instead
 @MainActor
 protocol EditorRouterProtocol:
     AnyObject,
-    AttachmentRouterProtocol,
     ObjectHeaderRouterProtocol
 {
     func showAlert(alertModel: AlertModel)

@@ -1,7 +1,0 @@
-configurations:
-  - sources:
-      - Sources/Protocol/commands.pb.swift
-    templates:
-      - Templates/invocation-adoption.stencil
-    output:
-      Sources/Generated/commands+invocation.swift

@@ -6,14 +6,17 @@ import MobileCoreServices
 import SharedContentManager
 import DeepLinks
 import AnytypeCore
+import AppTarget
 
 class ShareViewController: SLComposeServiceViewController {
 
     private let sharedContentManager = SharingDI.shared.sharedContentManager()
     #if DEBUG
-    private let deepLinkParser = DeepLinkDI.shared.parser(isDebug: true)
-    #else
-    private let deepLinkParser = DeepLinkDI.shared.parser(isDebug: false)
+        private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .debug)
+    #elseif RELEASE_ANYTYPE
+        private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .releaseAnytype)
+    #elseif RELEASE_ANYAPP
+        private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .releaseAnyApp)
     #endif
     
     override func viewDidLoad() {

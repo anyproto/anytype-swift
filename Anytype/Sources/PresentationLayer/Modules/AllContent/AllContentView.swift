@@ -11,7 +11,7 @@ struct AllContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             navigationBar
-            types
+            sections
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
             content
         }
@@ -95,19 +95,19 @@ struct AllContentView: View {
         .id(model.state.scrollId + model.searchText)
     }
     
-    private var types: some View {
+    private var sections: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
-                ForEach(AllContentType.allSupportedTypes, id: \.self) { type in
+                ForEach(ObjectTypeSection.allContentSupportedSections, id: \.self) { section in
                     Button {
                         UISelectionFeedbackGenerator().selectionChanged()
-                        model.typeChanged(type)
+                        model.sectionChanged(section)
                     } label: {
                         AnytypeText(
-                            type.title,
+                            section.title,
                             style: .uxTitle2Medium
                         )
-                        .foregroundColor(model.state.type == type ? Color.Control.button : Color.Control.active)
+                        .foregroundColor(model.state.section == section ? Color.Control.button : Color.Control.active)
                     }
                 }
             }

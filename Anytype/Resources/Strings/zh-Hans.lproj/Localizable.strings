@@ -144,6 +144,7 @@
 "Relations" = "关联";
 "History" = "历史记录";
 "Objects" = "对象";
+"All" = "所有";
 "Pages" = "页面";
 "Lists" = "分组";
 "Bookmarks" = "书签";
@@ -1271,10 +1272,12 @@
 "Chat.Reactions.Empty.Title" = "暂无回应";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 "Chat.EditMessage" = "编辑消息";
-"Chat.Actions.Menu.Objects" = "选择现有对象";
-"Chat.Actions.Menu.Media" = "上传媒体文件";
-"Chat.Actions.Menu.Files" = "上传文件";
-"Chat.Actions.Menu.Camera" = "从相机中获取";
+"Chat.Actions.Menu.Pages" = "页面";
+"Chat.Actions.Menu.Lists" = "分组";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "文件";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "更多";
 "Chat.Participant.Badge" = "(您)";
 "Chat.Reply.Images" = "图像 (%@)";
 "Chat.Reply.Attachments" = "附件 (%@)";
@@ -1282,6 +1285,12 @@
 "Chat.SendLimitAlert.Title" = "等等！输入得太快了！";
 "Chat.SendLimitAlert.Message" = "闪电的速度似乎都没你发消息快。发下一条消息前先缓缓。";
 "Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
@@ -1296,3 +1305,9 @@
 
 // MARK: - Fields
 "Fields.menu" = "字段菜单";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";

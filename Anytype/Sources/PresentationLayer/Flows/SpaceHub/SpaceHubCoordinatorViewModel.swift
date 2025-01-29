@@ -39,27 +39,25 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     @Published var pathChanging: Bool = false
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
-    var pageNavigation: PageNavigation {
-        PageNavigation(
-            open: { [weak self] data in
-                self?.openSync(data: data)
-            }, pushHome: { [weak self] in
-                guard let self, let spaceInfo else { return }
-                navigationPath.push(HomeWidgetData(info: spaceInfo))
-            }, pop: { [weak self] in
-                self?.navigationPath.pop()
-            }, popToFirstInSpace: { [weak self] in
-                self?.popToFirstInSpace()
-            }, replace: { [weak self] data in
-                guard let self else { return }
-                if navigationPath.count > 1 {
-                    navigationPath.replaceLast(data)
-                } else {
-                    navigationPath.push(data)
-                }
+    lazy var pageNavigation = PageNavigation(
+        open: { [weak self] data in
+            self?.openSync(data: data)
+        }, pushHome: { [weak self] in
+            guard let self, let spaceInfo else { return }
+            navigationPath.push(HomeWidgetData(info: spaceInfo))
+        }, pop: { [weak self] in
+            self?.navigationPath.pop()
+        }, popToFirstInSpace: { [weak self] in
+            self?.popToFirstInSpace()
+        }, replace: { [weak self] data in
+            guard let self else { return }
+            if navigationPath.count > 1 {
+                navigationPath.replaceLast(data)
+            } else {
+                navigationPath.push(data)
             }
-        )
-    }
+        }
+    )
 
     var keyboardDismiss: KeyboardDismiss?
     var dismissAllPresented: DismissAllPresented?
@@ -92,6 +90,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.userWarningAlertsHandler)
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: any NavigationContextProtocol
     
     private var needSetup = true
     
@@ -184,9 +184,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func handleVersionAlerts() async {
-        if FeatureFlags.userWarningAlerts {
-            userWarningAlert = userWarningAlertsHandler.getNextUserWarningAlertAndStore()
-        }
+        userWarningAlert = userWarningAlertsHandler.getNextUserWarningAlertAndStore()
     }
     
     // MARK: - Private
@@ -252,6 +250,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 let pageObject = EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)
                 navigationPath.push(EditorScreenData.page(pageObject))
             }
+        case .preview(let mediaFileScreenData):
+            await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):
             navigationPath.push(editorScreenData)
         case nil:
@@ -265,6 +265,18 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         switch data {
         case .spaceMember(let objectInfo):
             profileData = objectInfo
+        }
+    }
+    
+    private func showMediaFile(_ data: MediaFileScreenData) async {
+        await dismissAllPresented?()
+        let previewController = AnytypePreviewController(
+            with: data.items,
+            initialPreviewItemIndex: data.startAtIndex,
+            sourceView: data.sourceView
+        )
+        navigationContext.present(previewController) { [weak previewController] in
+            previewController?.didFinishTransition = true
         }
     }
     
@@ -328,7 +340,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .spaceShareTip:
             showSpaceShareTip = true
         case .membership(let tierId):
-            guard accountManager.account.isInProdOrStagingNetwork else { return }
+            guard accountManager.account.allowMembership else { return }
             membershipTierId = tierId.identifiable
         case .networkConfig:
             toastBarData = ToastBarData(text: Loc.unsupportedDeeplink, showSnackBar: true)
@@ -451,7 +463,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
         AnytypeAnalytics.instance().logClickQuote()
-        chatProvider.createChatWithAttachment(attachment)
+        chatProvider.addAttachment(attachment, clearInput: true)
         popToFirstInSpace()
     }
 }

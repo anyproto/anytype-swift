@@ -12,3 +12,9 @@ struct PageNavigation {
 extension EnvironmentValues {
     @Entry var pageNavigation = PageNavigation(open: { _ in }, pushHome: { }, pop: { }, popToFirstInSpace: {}, replace: { _ in })
 }
+
+extension View {
+    func pageNavigation(_ navigation: PageNavigation) -> some View {
+        environment(\.pageNavigation, navigation)
+    }
+}

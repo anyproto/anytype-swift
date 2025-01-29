@@ -8,11 +8,10 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     var info: BlockInformation { informationProvider.info }
     
     let informationProvider: BlockModelInfomationProvider
-    let handler: any BlockActionHandlerProtocol
     let documentId: String
     let spaceId: String
     let showFilePicker: (String) -> ()
-    let onFileOpen: (FilePreviewContext) -> ()
+    let onFileOpen: (ScreenData) -> ()
     
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
@@ -21,14 +20,12 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     
     init(
         informationProvider: BlockModelInfomationProvider,
-        handler: some BlockActionHandlerProtocol,
         documentId: String,
         spaceId: String,
         showFilePicker: @escaping (String) -> (),
-        onFileOpen: @escaping (FilePreviewContext) -> ()
+        onFileOpen: @escaping (ScreenData) -> ()
     ) {
         self.informationProvider = informationProvider
-        self.handler = handler
         self.documentId = documentId
         self.spaceId = spaceId
         self.showFilePicker = showFilePicker
@@ -44,17 +41,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
                 anytypeAssertionFailure("File details not found")
                 return
             }
-            onFileOpen(
-                FilePreviewContext(
-                    previewItem: FilePreviewMedia(fileDetails: fileDetails),
-                    sourceView: nil,
-                    previewImage: nil,
-                    onDidEditFile: { [weak self] url in
-                        guard let self else { return }
-                        handler.uploadFileAt(localPath: url.relativePath, blockId: info.id)
-                    }
-                )
-            )
+            onFileOpen(.preview(MediaFileScreenData(items: [fileDetails.previewRemoteItem])))
         case .empty, .error:
             if case .readonly = editorEditingState { return }
             showFilePicker(blockId)
