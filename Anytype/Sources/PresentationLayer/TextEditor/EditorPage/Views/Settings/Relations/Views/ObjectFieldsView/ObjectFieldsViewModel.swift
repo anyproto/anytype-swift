@@ -75,7 +75,7 @@ final class ObjectFieldsViewModel: ObservableObject {
         Task {
             try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
             let relationDetails = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: document.spaceId)
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey, route: .object)
         }
     }
     

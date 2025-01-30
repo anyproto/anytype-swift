@@ -100,7 +100,9 @@ final class TypeFieldsViewModel: ObservableObject {
             excludedRelationsIds: relationRows.compactMap(\.relationId),
             target: .type(isFeatured: section.isHeader),
             onRelationSelect: { [spaceId = document.spaceId] details, isNew in
-                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: details.format, isNew: isNew, type: .type, key: details.analyticsKey, spaceId: spaceId)
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
+                    format: details.format, isNew: isNew, type: .type, key: details.analyticsKey, spaceId: spaceId
+                )
             }
         )
     }
@@ -121,7 +123,7 @@ final class TypeFieldsViewModel: ObservableObject {
                 anytypeAssertionFailure("Empty relation format for onDeleteRelation")
                 return
             }
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: format)
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: format, route: .object)
         }
     }
     

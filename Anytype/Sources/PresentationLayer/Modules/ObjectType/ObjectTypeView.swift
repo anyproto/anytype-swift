@@ -11,7 +11,6 @@ struct ObjectTypeView: View {
     var body: some View {
         content
             .onAppear { model.setDismissHandler(dismiss: dismiss) }
-            .onAppear { model.onAppear() }
             .task { await model.setupSubscriptions() }
         
             .onChange(of: model.typeName) {

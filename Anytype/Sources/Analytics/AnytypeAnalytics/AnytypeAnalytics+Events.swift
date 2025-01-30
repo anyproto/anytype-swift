@@ -1105,10 +1105,11 @@ extension AnytypeAnalytics {
         ])
     }
     
-    func logDeleteRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey? = nil) {
+    func logDeleteRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey? = nil, route: DeleteRelationRoute) {
         logEvent("DeleteRelation", spaceId: spaceId, withEventProperties: [
             AnalyticsEventsPropertiesKey.relationKey: key?.value ?? "",
-            AnalyticsEventsPropertiesKey.format: format.analyticsName
+            AnalyticsEventsPropertiesKey.format: format.analyticsName,
+            AnalyticsEventsPropertiesKey.route: route.rawValue
         ])
     }
     
