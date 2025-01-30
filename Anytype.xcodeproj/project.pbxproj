@@ -1667,7 +1667,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.35.0;
+				MARKETING_VERSION = 0.36.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
@@ -1698,7 +1698,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.35.0;
+				MARKETING_VERSION = 0.36.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1733,7 +1733,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.35.0;
+				MARKETING_VERSION = 0.36.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1777,7 +1777,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.35.0;
+				MARKETING_VERSION = 0.36.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
