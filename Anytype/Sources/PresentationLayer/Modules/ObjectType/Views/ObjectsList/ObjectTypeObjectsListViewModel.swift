@@ -33,7 +33,7 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
         for await state in publisher.values {
             rows = state.items.map { details in
                 WidgetObjectListRowModel(details: details, canArchive: false) { [weak self] in
-                    self?.output?.onOpenObjectTap(objectId: details.id)
+                    self?.output?.onOpenObjectTap(details: details)
                 }
             }
             numberOfObjectsLeft = state.nextCount
