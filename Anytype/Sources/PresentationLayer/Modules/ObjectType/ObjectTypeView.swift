@@ -44,28 +44,27 @@ struct ObjectTypeView: View {
     }
     
     private var navbar: some View {
-        HStack(alignment: .center, spacing: 14) {
-            SwiftUIEditorSyncStatusItem(
-                statusData: model.syncStatusData,
-                itemState: .initial,
-                onTap: { model.onSyncStatusTap() }
-            )
-            .frame(width: 28, height: 28)
-            
-            Spacer()
-            
-            if model.canArchive {
-                Menu {
-                    Button(Loc.delete, role: .destructive) {
-                        model.onDeleteTap()
+        PageNavigationHeader(title: "") {
+            HStack(alignment: .center, spacing: 14) {
+                SwiftUIEditorSyncStatusItem(
+                    statusData: model.syncStatusData,
+                    itemState: .initial,
+                    onTap: { model.onSyncStatusTap() }
+                )
+                .frame(width: 28, height: 28)
+
+                if model.canArchive {
+                    Menu {
+                        Button(Loc.delete, role: .destructive) {
+                            model.onDeleteTap()
+                        }
+                    } label: {
+                        IconView(asset: .X24.more).frame(width: 24, height: 24)
                     }
-                } label: {
-                    IconView(asset: .X24.more).frame(width: 24, height: 24)
                 }
             }
+            .padding(.horizontal, 12)
         }
-        .padding(.horizontal, 12)
-        .frame(height: 48)
     }
     
     private var header: some View {
