@@ -51,6 +51,6 @@ struct MessageReplyView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return model.isYour ? .Background.primary : .Shape.transperentSecondary
+        return model.isYour ? .Background.Chat.replyYours : .Background.Chat.replySomeones
     }
 }
