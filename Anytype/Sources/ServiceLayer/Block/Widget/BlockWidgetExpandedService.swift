@@ -10,7 +10,7 @@ protocol BlockWidgetExpandedServiceProtocol: AnyObject {
 
 final class BlockWidgetExpandedService: BlockWidgetExpandedServiceProtocol {
     
-    @UserDefault("widgetCollapsedIds", defaultValue: [])
+    @UserDefault("widgetCollapsedIdsList", defaultValue: [])
     private var collapsedIds: Set<String>
     
     // MARK: - BlockWidgetExpandedServiceProtocol
