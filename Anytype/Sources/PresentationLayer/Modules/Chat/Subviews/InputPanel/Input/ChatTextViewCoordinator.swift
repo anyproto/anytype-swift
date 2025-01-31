@@ -176,30 +176,16 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     // MARK: - AnytypeUITextViewDelegate
     
     func textViewPasteAction(_ textView: AnytypeUITextView, sender: Any?) {
-//        guard let str = chatPasteboardHelper.attributedString() else { re}
-//        print("str \(str)")
-//        if let contentStorage = textView.textLayoutManager?.textContentManager {
-//            contentStorage.performEditingTransaction {
-//                let start = contentStorage.location(contentStorage.documentRange.location, offsetBy: textView.selectedRange.lowerBound)
-//                let end = contentStorage.location(contentStorage.documentRange.location, offsetBy: textView.selectedRange.upperBound)
-//                let range = NSTextRange(location: start, end: end)
-//                contentStorage.replaceContents(in: range, with: [NSTextElement(str)])
-//            }
-//        }
         
         if let pasteStr = chatPasteboardHelper.attributedString() {
             let newStr = NSMutableAttributedString(attributedString: textView.attributedText)
+            let newSelectedRange = NSRange(location: textView.selectedRange.location + pasteStr.length, length: 0)
             newStr.replaceCharacters(in: textView.selectedRange, with: pasteStr)
             textView.attributedText = newStr
-            
-//           let contentStorage = textView.textLayoutManager?.textContentManager as? NSTextContentStorage,
-//            let attributedString = contentStorage.attributedString {
-//            contentStorage.performEditingTransaction {
-//                let newStr = NSMutableAttributedString(attributedString: attributedString)
-//                newStr.replaceCharacters(in: textView.selectedRange, with: pasteStr)
-//                contentStorage.attributedString = newStr
-//            }
+            textView.selectedRange = newSelectedRange
         }
+        
+        textViewDidChange(textView)
     }
     
     // MARK: - Private
