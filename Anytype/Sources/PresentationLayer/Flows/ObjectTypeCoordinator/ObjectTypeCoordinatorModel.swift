@@ -44,7 +44,7 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     let document: any BaseDocumentProtocol
     
     init(data: EditorTypeObject) {
-        self.document = Container.shared.documentService().document(objectId: data.objectId, spaceId: data.spaceId)
+        self.document = Container.shared.openedDocumentProvider().document(objectId: data.objectId, spaceId: data.spaceId)
     }
     
     // MARK: - ObjectTypeViewModelOutput

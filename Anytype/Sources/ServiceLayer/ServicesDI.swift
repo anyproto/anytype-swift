@@ -185,7 +185,7 @@ extension Container {
         self { ApplicationStateService() }.singleton
     }
     
-    var documentService: Factory<any OpenedDocumentsProviderProtocol> {
+    var openedDocumentProvider: Factory<any OpenedDocumentsProviderProtocol> {
         self { OpenedDocumentsProvider() }.singleton
     }
     

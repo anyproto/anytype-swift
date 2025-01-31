@@ -31,7 +31,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     var currentTimeInSeconds: Double = 0.0
     weak var audioPlayerView: (any AudioPlayerViewInput)?
     
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     lazy var document: any BaseDocumentProtocol = {
