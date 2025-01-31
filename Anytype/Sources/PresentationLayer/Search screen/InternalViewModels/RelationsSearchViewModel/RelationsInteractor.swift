@@ -16,7 +16,7 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
     private let document: any BaseDocumentProtocol
     
     init(objectId: String, spaceId: String) {
-        let documentsProvider = Container.shared.documentsProvider()
+        let documentsProvider = Container.shared.openedDocumentProvider()
         document = documentsProvider.document(objectId: objectId, spaceId: spaceId)
     }
     
