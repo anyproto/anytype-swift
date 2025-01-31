@@ -38,6 +38,10 @@ final class ObjectTypeViewModel: ObservableObject {
     private var detailsService: any DetailsServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     private var nameChangeTask: Task<(), any Error>?
     private var dismiss: DismissAction?
@@ -147,7 +151,13 @@ final class ObjectTypeViewModel: ObservableObject {
     
     func subscribeOnRelations() async {
         for await relations in document.parsedRelationsPublisherForType.values {
-            self.relationsCount = relations.installed.count
+            let conflictingKeys = (try? await relationsService
+                .getConflictRelationsForType(typeId: document.objectId, spaceId: document.spaceId)) ?? []
+            let conflictingRelations = relationDetailsStorage
+                .relationsDetails(ids: conflictingKeys, spaceId: document.spaceId)
+                .filter { !$0.isHidden && !$0.isDeleted }
+
+            self.relationsCount = relations.installed.count + conflictingRelations.count
         }
     }
     
