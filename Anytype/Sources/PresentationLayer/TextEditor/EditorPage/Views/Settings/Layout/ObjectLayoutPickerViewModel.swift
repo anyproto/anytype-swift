@@ -15,7 +15,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     @Injected(\.detailsService)
     private var detailsService: any DetailsServiceProtocol
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     
     private let mode: ObjectLayoutPickerMode

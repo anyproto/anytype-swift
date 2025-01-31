@@ -27,7 +27,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 @MainActor
 final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
 
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol

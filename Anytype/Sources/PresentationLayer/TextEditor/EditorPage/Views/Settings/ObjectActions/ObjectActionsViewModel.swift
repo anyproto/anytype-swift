@@ -30,7 +30,7 @@ final class ObjectActionsViewModel: ObservableObject {
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.deepLinkParser)
     private var deepLinkParser: any DeepLinkParserProtocol
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol

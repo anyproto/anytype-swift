@@ -36,7 +36,7 @@ final class TypeFieldsViewModel: ObservableObject {
     // MARK: - Initializers
     
     convenience init(data: EditorTypeObject) {
-        let document = Container.shared.documentService().document(objectId: data.objectId, spaceId: data.spaceId)
+        let document = Container.shared.openedDocumentProvider().document(objectId: data.objectId, spaceId: data.spaceId)
         self.init(document: document)
     }
     
