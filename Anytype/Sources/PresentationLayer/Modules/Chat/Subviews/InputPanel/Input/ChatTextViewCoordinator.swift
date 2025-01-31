@@ -28,7 +28,8 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     private var mode: Mode = .text
     private var triggerSymbolPosition: UITextPosition?
     private var lastApplyedEditingState: Bool?
-    private let chatPasteboardHelper = ChatPasteboardHelper()
+    @Injected(\.chatPasteboardHelper)
+    private var chatPasteboardHelper: any ChatPasteboardHelperProtocol
     
     init(
         text: Binding<NSAttributedString>,

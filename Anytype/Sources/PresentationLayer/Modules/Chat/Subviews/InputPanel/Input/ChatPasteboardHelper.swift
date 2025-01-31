@@ -2,7 +2,11 @@ import Foundation
 import Factory
 import UIKit
 
-final class ChatPasteboardHelper {
+protocol ChatPasteboardHelperProtocol: AnyObject {
+    func attributedString() -> NSAttributedString?
+}
+
+final class ChatPasteboardHelper: ChatPasteboardHelperProtocol {
     
     @Injected(\.pasteboardHelper)
     private var pasteboardHelper: any PasteboardHelperProtocol
@@ -36,5 +40,11 @@ final class ChatPasteboardHelper {
         }
         
         return newString
+    }
+}
+
+extension Container {
+    var chatPasteboardHelper: Factory<any ChatPasteboardHelperProtocol> {
+        self { ChatPasteboardHelper() }
     }
 }
