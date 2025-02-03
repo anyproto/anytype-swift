@@ -31,11 +31,9 @@ struct ObjectTypeView: View {
                 navbar
                 Spacer.fixedHeight(32)
                 header.padding(.horizontal, 20)
-                if model.canEditDetails {
-                    Spacer.fixedHeight(24)
-                    buttonsRow.padding(.horizontal, 20)
-                    Spacer.fixedHeight(32)
-                }
+                Spacer.fixedHeight(24)
+                buttonsRow.padding(.horizontal, 20)
+                Spacer.fixedHeight(32)
                 if model.showTemplates { templates }
                 Spacer.fixedHeight(32)
                 ObjectTypeObjectsListView(typeDocument: model.document, output: model.output)
@@ -88,7 +86,7 @@ struct ObjectTypeView: View {
     
     private var buttonsRow: some View {
         HStack(spacing: 12) {
-            if model.isEditorLayout {
+            if model.isEditorLayout && model.canEditDetails {
                 StandardButton(
                     .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
                     style: .secondarySmall
