@@ -123,7 +123,7 @@ final class TypeFieldsViewModel: ObservableObject {
                 anytypeAssertionFailure("Empty relation format for onDeleteRelation")
                 return
             }
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: format, route: .object)
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: format, route: .type)
         }
     }
     
