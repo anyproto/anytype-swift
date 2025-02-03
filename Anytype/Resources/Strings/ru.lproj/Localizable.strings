@@ -1275,9 +1275,9 @@
 "Chat.EditMessage" = "Редактировать сообщение";
 "Chat.Actions.Menu.Pages" = "Страницы";
 "Chat.Actions.Menu.Lists" = "Списки";
-"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Photos" = "Фото";
 "Chat.Actions.Menu.Files" = "Files";
-"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.Camera" = "Камера";
 "Chat.Actions.Menu.More" = "Ещё";
 "Chat.Participant.Badge" = "(Вы)";
 "Chat.Reply.Images" = "Изображения (%@)";
@@ -1286,12 +1286,12 @@
 "Chat.SendLimitAlert.Title" = "Удерживаем! Обнаружен Turbo typing!";
 "Chat.SendLimitAlert.Message" = "Похоже, вы отправляете сообщения со скоростью молнии. Дайте секунду перед следующим.";
 "Chat.AttachmentsLimit.Alert" = "Вы можете загружать только %@ файлов за раз";
-"Chat.AttachedObject.Attach" = "Attach";
-"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
-"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
-"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
-"Chat.Attach.Page.title" = "Attach Page";
-"Chat.Attach.List.title" = "Attach List";
+"Chat.AttachedObject.Attach" = "Прикрепить";
+"Chat.CreateObject.Dismiss.Title" = "Вы уверены, что хотите закрыть этот экран?";
+"Chat.CreateObject.Dismiss.Message" = "Если вы покинете, все ваши изменения будут потеряны.";
+"Chat.CreateObject.Dismiss.Ok" = "Да, закрыть";
+"Chat.Attach.Page.title" = "Прикрепить страницу";
+"Chat.Attach.List.title" = "Прикрепить список";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
@@ -1308,7 +1308,7 @@
 "Fields.menu" = "Меню полей";
 
 // MARK: - Object Search with meta
-"ObjectSearchWithMeta.Create.Page" = "New Page";
-"ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
-"ObjectSearchWithMeta.Create.Collection" = "New Collection";
+"ObjectSearchWithMeta.Create.Page" = "Новая страница";
+"ObjectSearchWithMeta.Create.Note" = "Новая заметка";
+"ObjectSearchWithMeta.Create.Set" = "Новый Набор";
+"ObjectSearchWithMeta.Create.Collection" = "Новая коллекция";

@@ -14,6 +14,7 @@ protocol PasteboardHelperProtocol: Sendable {
     var pasteboardContent: PasteboardContent? { get }
     
     func obtainString() -> String?
+    func obtainAttributedString() -> NSAttributedString?
     func obtainUrl() -> AnytypeURL?
     func obtainBlocksSlots() -> [String]?
     func obtainHTMLSlot() -> String?
@@ -51,6 +52,23 @@ final class PasteboardHelper: PasteboardHelperProtocol, Sendable {
 
     func obtainString() -> String? {
         return pasteboard.string
+    }
+    
+    func obtainAttributedString() -> NSAttributedString? {
+        if pasteboard.contains(pasteboardTypes: [UTType.rtf.identifier], inItemSet: nil) {
+            let data = pasteboard.data(
+                forPasteboardType: UTType.rtf.identifier,
+                inItemSet: nil
+            )
+
+            if let data = data?.first, let string = try? NSAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.rtf],
+                documentAttributes: nil) {
+                return string
+            }
+        }
+        return nil
     }
     
     func obtainUrl() -> AnytypeURL? {

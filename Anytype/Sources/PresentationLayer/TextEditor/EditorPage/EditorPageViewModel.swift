@@ -275,10 +275,6 @@ extension EditorPageViewModel {
         bottomPanelHidden = hidden
         bottomPanelHiddenAnimated = animated
     }
-    
-    func popToBack() {
-        output?.closeEditor()
-    }
 }
 
 // MARK: - Selection Handling

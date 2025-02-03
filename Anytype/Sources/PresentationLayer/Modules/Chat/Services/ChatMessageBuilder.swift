@@ -69,8 +69,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 chatId: chatId,
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
+                authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
-                messageString: messageTextBuilder.makeMessage(content: message.message, isYourMessage: isYourMessage),
+                messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, isYourMessage: isYourMessage),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,

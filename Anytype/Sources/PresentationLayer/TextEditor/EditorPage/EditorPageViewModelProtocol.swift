@@ -34,6 +34,4 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func tapOnEmptyPlace()
     
     func showSyncStatusInfo()
-    
-    func popToBack()
 }

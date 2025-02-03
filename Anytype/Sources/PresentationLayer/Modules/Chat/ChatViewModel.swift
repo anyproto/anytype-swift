@@ -418,6 +418,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         linkedObjects = messageAttachments.map { .uploadedObject($0) }
     }
     
+    func didSelectAuthor(authorId: String) {
+        output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
+    }
+    
     // MARK: - ChatActionProviderHandler
     
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
