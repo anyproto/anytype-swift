@@ -82,6 +82,9 @@ struct DebugMenuView: View {
                 model.onSelectUnzipFile(url: url)
             }
         }
+        .anytypeSheet(item: $model.pushToken) {
+            DebugMenuPushTokenAlert(token: $0.value)
+        }
     }
     
     private var mainActions: some View {
@@ -149,6 +152,11 @@ struct DebugMenuView: View {
             StandardButton("Import full directory 📲", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.unzipWorkingDirectory()
+            }
+            Button {
+                model.getNotificationToken()
+            } label: {
+                Text("Notification Token 🔔")
             }
         }
     }

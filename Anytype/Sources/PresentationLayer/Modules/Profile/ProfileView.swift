@@ -33,7 +33,7 @@ struct ProfileView: View {
     private func content(_ details: ObjectDetails) -> some View {
         VStack(spacing: 0) {
             DragIndicator()
-            Spacer.fixedHeight(35)
+            actionRow
             
             if details.description.isNotEmpty {
                 viewWithDescription(details)
@@ -41,22 +41,31 @@ struct ProfileView: View {
                 viewWithoutDescription(details)
             }
             
-            Spacer.fixedHeight(16)
-            
-            if model.isOwner {
-                StandardButton(Loc.editProfile, style: .secondaryLarge) { model.showSettings.toggle() }
-            } else {
-                Spacer.fixedHeight(30)
-            }
-            
-            Spacer.fixedHeight(32)
         }
-        .padding(.horizontal, 32)
+        .padding(.horizontal, 16)
         .background(Color.Background.secondary)
+    }
+    
+    private var actionRow: some View {
+        Group {
+            if model.isOwner {
+                HStack(spacing: 12) {
+                    Spacer()
+                    Button {
+                        model.showSettings.toggle()
+                    } label: {
+                        IconView(asset: .X32.edit).frame(width: 32, height: 32)
+                    }
+                }
+            } else {
+                Spacer.fixedHeight(32)
+            }
+        }
     }
     
     private func viewWithDescription(_ details: ObjectDetails) -> some View {
         Group {
+            Spacer.fixedHeight(30)
             IconView(icon: details.objectIconImage).frame(width: 112, height: 112)
             Spacer.fixedHeight(12)
             AnytypeText(details.name, style: .heading).lineLimit(1)
@@ -64,16 +73,19 @@ struct ProfileView: View {
             AnytypeText(details.identity, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
             Spacer.fixedHeight(4)
             AnytypeText(details.description, style: .previewTitle2Regular)
+            Spacer.fixedHeight(78)
         }
     }
     
     private func viewWithoutDescription(_ details: ObjectDetails) -> some View {
         Group {
+            Spacer.fixedHeight(30)
             IconView(icon: details.objectIconImage).frame(width: 184, height: 184)
             Spacer.fixedHeight(12)
             AnytypeText(details.name, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
             AnytypeText(details.identity, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
+            Spacer.fixedHeight(84)
         }
     }
 }

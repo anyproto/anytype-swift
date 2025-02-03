@@ -5,7 +5,9 @@ struct EditorSetView: View {
     @StateObject private var model: EditorSetViewModel
 
     @State private var headerMinimizedSize = CGSize.zero
+    @State private var tableHeaderFullSize = CGSize.zero
     @State private var tableHeaderSize = CGSize.zero
+    @State private var safeAreaInsets = EdgeInsets()
     @State private var offset = CGPoint.zero
     @Environment(\.dismiss) private var dismiss
     
@@ -47,7 +49,10 @@ struct EditorSetView: View {
                 .keyboardToolbar()
             
             SetFullHeader(model: model)
-                .readSize { tableHeaderSize = $0 }
+                .readSize {
+                    tableHeaderFullSize = $0
+                    updateHeaderSize()
+                }
                 .offset(x: 0, y: offset.y)
                 .ignoresSafeArea(edges: .top)
             
@@ -59,6 +64,10 @@ struct EditorSetView: View {
                     headerMinimizedSize: $headerMinimizedSize
                 )
             }
+        }
+        .readSafeArea {
+            safeAreaInsets = $0
+            updateHeaderSize()
         }
     }
     
@@ -122,5 +131,9 @@ struct EditorSetView: View {
     private var headerSettingsView: some View {
         SetHeaderSettingsView(model: model.headerSettingsViewModel)
             .frame(width: tableHeaderSize.width)
+    }
+    
+    private func updateHeaderSize() {
+        tableHeaderSize = CGSize(width: tableHeaderFullSize.width, height: tableHeaderFullSize.height - safeAreaInsets.top)
     }
 }
