@@ -180,7 +180,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             return MessageReplyModel(
                 author: replyAuthor?.title ?? "",
                 description: description,
-                icon: replyAttachment?.objectIconImage,
+                attachmentIcon: replyAttachment?.objectIconImage,
                 isYour: replyAuthor?.identity == yourProfileIdentity
             )
         }
