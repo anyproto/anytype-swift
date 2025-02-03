@@ -13,6 +13,7 @@ struct MessageView: View {
     
     @State private var contentSize: CGSize = .zero
     @State private var headerSize: CGSize = .zero
+    @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
     
     init(
         data: MessageViewData,
@@ -236,6 +237,7 @@ struct MessageView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return data.isYourMessage ? .Background.Chat.bubbleYour : .Background.Chat.bubbleSomeones
+        return messageYourBackgroundColor
+//        return data.isYourMessage ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
     }
 }
