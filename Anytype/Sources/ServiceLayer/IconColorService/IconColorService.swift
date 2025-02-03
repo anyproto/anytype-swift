@@ -64,8 +64,15 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
         var saturation: CGFloat = 0
         var brightness: CGFloat = 0
         color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: nil)
-        let lightColor = UIColor(hue: hue, saturation: 0.4, brightness: 0.7, alpha: 1)
-        let darkColor = UIColor(hue: hue, saturation: 0.4, brightness: 0.2, alpha: 1)
-        return UIColor(light: lightColor, dark: darkColor)
+        
+        if saturation < 0.2 {
+            let lightColor = UIColor(hue: hue, saturation: saturation, brightness: 0.5, alpha: 1)
+            let darkColor = UIColor(hue: hue, saturation: saturation, brightness: 0.5, alpha: 1)
+            return UIColor(light: lightColor, dark: darkColor)
+        } else {
+            let lightColor = UIColor(hue: hue, saturation: 0.4, brightness: 0.7, alpha: 1)
+            let darkColor = UIColor(hue: hue, saturation: 0.4, brightness: 0.2, alpha: 1)
+            return UIColor(light: lightColor, dark: darkColor)
+        }
     }
 }
