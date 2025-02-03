@@ -34,9 +34,6 @@ struct SpaceHubCoordinatorView: View {
             .sheet(isPresented: $model.showSpaceManager) {
                 SpacesManagerView()
             }
-            .sheet(isPresented: $model.showSpaceShareTip) {
-                SpaceShareTipView()
-            }
             .sheet(item: $model.membershipTierId) { tierId in
                 MembershipCoordinator(initialTierId: tierId.value)
             }

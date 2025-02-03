@@ -459,11 +459,6 @@ internal extension ImageAsset {
     static let vaultImmersive = ImageAsset.bundle(name: "SpaceHubTip/vault_immersive")
     static let vaultMove = ImageAsset.bundle(name: "SpaceHubTip/vault_move")
   }
-  enum SpaceShareTip {
-    static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
-    static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
-    static let step3 = ImageAsset.bundle(name: "SpaceShareTip/step3")
-  }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
   enum Widget {
