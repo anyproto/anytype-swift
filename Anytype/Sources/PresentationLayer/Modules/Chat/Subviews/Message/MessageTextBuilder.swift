@@ -22,7 +22,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         var message = AttributedString(content.text)
         
         message.font = AnytypeFontBuilder.font(anytypeFont: font)
-        message.foregroundColor = Color.Text.primary
+        message.foregroundColor = Color.Text.white
         
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)
