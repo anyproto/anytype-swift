@@ -19,7 +19,6 @@ struct SpaceHubCoordinatorView: View {
         
             .task { await model.setup() }
             
-            .handleSpaceShareTip()
             .handleSharingTip()
             .handleSpaceHubTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
