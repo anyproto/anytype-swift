@@ -94,16 +94,22 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddPageToMessage() {
+//        inputFocused = false
+//        keyboardDismiss?()
         let data = buildObjectSearcData(type: .pages)
         output?.onLinkObjectSelected(data: data)
     }
     
     func onTapAddListToMessage() {
+//        inputFocused = false
+//        keyboardDismiss?()
         let data = buildObjectSearcData(type: .lists)
         output?.onLinkObjectSelected(data: data)
     }
     
     func onTapAddMediaToMessage() {
+//        inputFocused = false
+//        keyboardDismiss?()
         let data = ChatPhotosPickerData(selectedItems: photosItems) { [weak self] result in
             self?.photosItems = result
             self?.photosItemsTask = UUID()
@@ -112,6 +118,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddFilesToMessage() {
+//        inputFocused = false
+//        keyboardDismiss?()
         let data = ChatFilesPickerData(handler: { [weak self] result in
             self?.handleFilePicker(result: result)
         })
@@ -119,6 +127,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapCamera() {
+//        keyboardDismiss?()
         let data = SimpleCameraData(onMediaTaken: { [weak self] media in
             self?.handleCameraMedia(media)
         })
@@ -434,7 +443,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
                 linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
                 // Waiting pop transaction and open keyboard.
-                try await Task.sleep(seconds: 0.5)
+                try await Task.sleep(seconds: 0.8)
                 inputFocused = true
             }
         }
