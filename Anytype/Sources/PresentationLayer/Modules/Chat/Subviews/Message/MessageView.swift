@@ -237,6 +237,7 @@ struct MessageView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return data.isYourMessage ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
+        return messageYourBackgroundColor
+//        return data.isYourMessage ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
     }
 }
