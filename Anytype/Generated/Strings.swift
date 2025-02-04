@@ -657,7 +657,7 @@ internal enum Loc {
     }
     internal enum AttachmentsLimit {
       internal static func alert(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ files at a time")
+        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ attachments at a time")
       }
     }
     internal enum CreateObject {
