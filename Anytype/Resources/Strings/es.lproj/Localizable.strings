@@ -1287,8 +1287,8 @@ En concreto,
 "Chat.CreateObject.Dismiss.Title" = "¿Seguro que quieres cerrar esta pantalla?";
 "Chat.CreateObject.Dismiss.Message" = "Si sales de ella, se perderán todos tus cambios.";
 "Chat.CreateObject.Dismiss.Ok" = "Sí, cerrarla";
-"Chat.Attach.Page.title" = "Attach Page";
-"Chat.Attach.List.title" = "Attach List";
+"Chat.Attach.Page.title" = "Adjuntar página";
+"Chat.Attach.List.title" = "Adjuntar lista";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
@@ -1305,7 +1305,7 @@ En concreto,
 "Fields.menu" = "Menú de campos";
 
 // MARK: - Object Search with meta
-"ObjectSearchWithMeta.Create.Page" = "New Page";
-"ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
-"ObjectSearchWithMeta.Create.Collection" = "New Collection";
+"ObjectSearchWithMeta.Create.Page" = "Nueva página";
+"ObjectSearchWithMeta.Create.Note" = "Nueva nota";
+"ObjectSearchWithMeta.Create.Set" = "Nuevo conjunto";
+"ObjectSearchWithMeta.Create.Collection" = "Nueva colección";
