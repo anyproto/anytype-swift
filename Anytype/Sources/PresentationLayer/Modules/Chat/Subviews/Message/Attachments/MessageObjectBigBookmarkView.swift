@@ -35,6 +35,9 @@ struct MessageObjectBigBookmarkView: View {
                     .lineLimit(2)
                     .foregroundStyle(Color.Text.primary)
             }
+            .padding(.vertical, 4)
+            
+            Spacer()
             
             if pictureId.isNotEmpty {
                 ImageIdIconView(imageId: pictureId)
@@ -42,7 +45,7 @@ struct MessageObjectBigBookmarkView: View {
                     .cornerRadius(8)
             }
         }
-        .frame(width: 250, height: 104)
+        .frame(height: 104)
         .padding(.horizontal, 16)
         .background(Color.Background.primary)
         .cornerRadius(16, style: .continuous)
