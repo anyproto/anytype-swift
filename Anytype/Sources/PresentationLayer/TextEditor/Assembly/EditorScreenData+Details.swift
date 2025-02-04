@@ -35,8 +35,8 @@ extension EditorListObject {
 }
 
 extension ObjectDetails {
-    func screenData() -> ScreenData {
-        ScreenData(details: self)
+    func screenData(usecase: ObjectHeaderEmptyUsecase = .full) -> ScreenData {
+        ScreenData(details: self, usecase: usecase)
     }
 }
 

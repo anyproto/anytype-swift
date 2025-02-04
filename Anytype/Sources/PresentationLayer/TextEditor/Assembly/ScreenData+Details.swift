@@ -7,20 +7,23 @@ extension ScreenData {
         mode: DocumentMode = .handling,
         blockId: String? = nil,
         activeViewId: String? = nil,
-        openMediaFileAsObject: Bool = false
+        openMediaFileAsObject: Bool = false,
+        usecase: ObjectHeaderEmptyUsecase = .full
     ) {
         switch details.editorViewType {
         case .page:
             self = .editor(.page(EditorPageObject(
                 details: details,
                 mode: mode,
-                blockId: blockId
+                blockId: blockId,
+                usecase: usecase
             )))
         case .list:
             self = .editor(.list(EditorListObject(
                 details: details,
                 activeViewId: activeViewId,
-                mode: mode
+                mode: mode,
+                usecase: usecase
             )))
         case .date:
             self = .editor(.date(EditorDateObject(date: details.timestamp, spaceId: details.spaceId)))
