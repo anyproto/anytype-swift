@@ -194,6 +194,12 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             return nil
         }
         
+        if fullMessage.attachments.count == 1,
+           let attachment = fullMessage.attachments.first,
+           attachment.layoutValue.isBookmark {
+            return .bookmark(attachment)
+        }
+        
         var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(details: $0) }
         
         // Add empty objects

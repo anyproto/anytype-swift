@@ -112,6 +112,9 @@ struct MessageView: View {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
                 .padding(Constants.gridPadding)
+            case .bookmark(let item):
+                MessageObjectBigBookmarkView(details: item)
+                    .padding(4)
             }
         }
     }
