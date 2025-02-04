@@ -444,7 +444,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
                 // Waiting pop transaction and open keyboard.
                 try await Task.sleep(seconds: 0.8)
-                inputFocused = true
+//                inputFocused = true
             }
         }
     }
