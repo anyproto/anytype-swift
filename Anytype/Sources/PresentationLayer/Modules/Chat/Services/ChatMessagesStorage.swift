@@ -309,7 +309,11 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         guard subscribedAttachmentIds != attachmentIds else { return }
         subscribedAttachmentIds = attachmentIds
         
-        await objectIdsSubscriptionService.startSubscription(spaceId: spaceId, objectIds: Array(attachmentIds)) { [weak self] details in
+        await objectIdsSubscriptionService.startSubscription(
+            spaceId: spaceId,
+            objectIds: Array(attachmentIds),
+            additionalKeys: [.sizeInBytes, .source, .picture]
+        ) { [weak self] details in
             await self?.updateAttachments(details: details, notifyChanges: true)
         }
     }

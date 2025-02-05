@@ -180,7 +180,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             return MessageReplyModel(
                 author: replyAuthor?.title ?? "",
                 description: description,
-                icon: replyAttachment?.objectIconImage,
+                attachmentIcon: replyAttachment?.objectIconImage,
                 isYour: replyAuthor?.identity == yourProfileIdentity
             )
         }
@@ -192,6 +192,12 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         
         guard chatMessage.attachments.isNotEmpty else {
             return nil
+        }
+        
+        if fullMessage.attachments.count == 1,
+           let attachment = fullMessage.attachments.first,
+           attachment.layoutValue.isBookmark {
+            return .bookmark(attachment)
         }
         
         var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(details: $0) }

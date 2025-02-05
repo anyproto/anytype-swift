@@ -4,8 +4,8 @@ import SwiftUI
 struct MessageView: View {
     
     private enum Constants {
-        static let gridSize: CGFloat = 250
-        static let gridPadding: CGFloat = 4
+        static let attachmentsSize: CGFloat = 250
+        static let attachmentsPadding: CGFloat = 4
     }
     
     private let data: MessageViewData
@@ -13,6 +13,7 @@ struct MessageView: View {
     
     @State private var contentSize: CGSize = .zero
     @State private var headerSize: CGSize = .zero
+    @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
     
     init(
         data: MessageViewData,
@@ -106,25 +107,30 @@ struct MessageView: View {
                 MessageListAttachmentsViewContainer(objects: items) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
-                .padding(4)
+                .frame(width: Constants.attachmentsSize)
+                .padding(Constants.attachmentsPadding)
             case .grid(let items):
-                MessageGridAttachmentsContainer(objects: items, oneSide: Constants.gridSize, spacing: 4) {
+                MessageGridAttachmentsContainer(objects: items, oneSide: Constants.attachmentsSize, spacing: 4) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
-                .padding(Constants.gridPadding)
+                .padding(Constants.attachmentsPadding)
+            case .bookmark(let item):
+                MessageObjectBigBookmarkView(details: item)
+                    .frame(width: Constants.attachmentsSize)
+                    .padding(Constants.attachmentsPadding)
             }
         }
     }
     
     private var fixedBubbleWidth: CGFloat? {
-        (data.linkedObjects?.isGrid ?? false) ? Constants.gridSize + Constants.gridPadding * 2 : nil
+        data.linkedObjects.isNotNil ? Constants.attachmentsSize + Constants.attachmentsPadding * 2 : nil
     }
     
     private var createDate: some View {
         Text(data.createDate)
             .anytypeFontStyle(.caption2Regular)
             .lineLimit(1)
-            .foregroundColor(Color.Control.transparentActive)
+            .foregroundColor(messageTimeColor)
     }
     
     private var createDateTextForSpacing: Text {
@@ -236,6 +242,10 @@ struct MessageView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return data.isYourMessage ? .Background.Chat.bubbleYour : .Background.Chat.bubbleSomeones
+        return data.isYourMessage ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
+    }
+    
+    private var messageTimeColor: Color {
+        return data.isYourMessage ? Color.Background.Chat.replySomeones : Color.Control.transparentActive
     }
 }

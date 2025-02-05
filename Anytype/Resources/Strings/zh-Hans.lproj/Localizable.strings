@@ -1284,7 +1284,7 @@
 "Chat.Reply.Files" = "文件 (%@)";
 "Chat.SendLimitAlert.Title" = "等等！输入得太快了！";
 "Chat.SendLimitAlert.Message" = "闪电的速度似乎都没你发消息快。发下一条消息前先缓缓。";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Attach";
 "Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
 "Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";

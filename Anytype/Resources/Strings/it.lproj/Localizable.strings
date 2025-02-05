@@ -1282,7 +1282,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.Reply.Files" = "File (%@)";
 "Chat.SendLimitAlert.Title" = "Aspettate! Rilevata digitazione turbo!";
 "Chat.SendLimitAlert.Message" = "Sembra che tu stia inviando messaggi alla velocità della luce. Dagli un secondo prima di inviare il prossimo.";
-"Chat.AttachmentsLimit.Alert" = "È possibile caricare solo %@ file alla volta";
+"Chat.AttachmentsLimit.Alert" = "È possibile caricare solo %@ allegati alla volta";
 "Chat.AttachedObject.Attach" = "Allega";
 "Chat.CreateObject.Dismiss.Title" = "Sei sicuro di voler chiudere questa schermata?";
 "Chat.CreateObject.Dismiss.Message" = "Se abbandoni, tutte le modifiche andranno perse.";

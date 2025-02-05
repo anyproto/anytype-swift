@@ -36,19 +36,13 @@ struct ChatView: View {
             }
         }
         .task {
-            await model.subscribeOnPermissions()
-        }
-        .task {
-            await model.subscribeOnParticipants()
+            await model.startSubscriptions()
         }
         .throwingTask {
             try await model.subscribeOnMessages()
         }
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
-        }
-        .task {
-            await model.subscribeOnTypes()
         }
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
             ChatDeleteMessageAlert(message: $0)
@@ -178,5 +172,6 @@ struct ChatView: View {
         } handleVisibleRange: { fromId, toId in
             model.visibleRangeChanged(fromId: fromId, toId: toId)
         }
+        .messageYourBackgroundColor(model.messageYourBackgroundColor)
     }
 }
