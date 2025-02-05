@@ -9,6 +9,7 @@ protocol EditorRouterProtocol:
     ObjectHeaderRouterProtocol
 {
     func showAlert(alertModel: AlertModel)
+    func showObject(objectId: String, forceOpenObject: Bool)
     func showObject(objectId: String)
     func showEditorScreen(data: ScreenData)
     func replaceCurrentPage(with data: EditorScreenData)

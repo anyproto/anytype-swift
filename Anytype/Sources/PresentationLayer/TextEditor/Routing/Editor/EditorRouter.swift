@@ -35,14 +35,18 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         super.init()
     }
 
-    func showObject(objectId: String) {
+    func showObject(objectId: String, forceOpenObject: Bool) {
         guard let details = document.detailsStorage.get(id: objectId) else {
             anytypeAssertionFailure("Details not found")
             return
         }
         guard !details.isDeleted else { return }
         
-        showEditorScreen(data: details.screenData())
+        showEditorScreen(data: details.screenData(openBookmarkAsObject: forceOpenObject))
+    }
+    
+    func showObject(objectId: String) {
+        showObject(objectId: objectId, forceOpenObject: false)
     }
     
     func showEditorScreen(data: ScreenData) {

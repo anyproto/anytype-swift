@@ -6,6 +6,7 @@ extension ScreenData {
         mode: DocumentMode = .handling,
         blockId: String? = nil,
         activeViewId: String? = nil,
+        openBookmarkAsObject: Bool = false,
         openMediaFileAsObject: Bool = false,
         usecase: ObjectHeaderEmptyUsecase = .full
     ) {
@@ -39,7 +40,7 @@ extension ScreenData {
                 self = .preview(MediaFileScreenData(items: [details.previewRemoteItem]))
             }
         case .bookmark:
-            if let source = details.source {
+            if !openBookmarkAsObject, let source = details.source {
                 self = .bookmark(BookmarkScreenData(url: source.url, editorScreenData: page))
             } else {
                 self = .editor(page)

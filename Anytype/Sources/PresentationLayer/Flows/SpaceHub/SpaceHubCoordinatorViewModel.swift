@@ -260,6 +260,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .editor(let editorScreenData):
             navigationPath.push(editorScreenData)
         case .bookmark(let data):
+            await dismissAllPresented?()
             bookmarkScreenData = data
         case nil:
             return
