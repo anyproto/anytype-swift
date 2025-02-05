@@ -19,14 +19,12 @@ struct CircularProgressBar: View {
                 .stroke(
                     AngularGradient(
                         colors: [
-                            Color.System.amber100,
-                            Color.System.amber50
+                            Color.System.amber50,
+                            Color.System.amber100
                         ],
-                        center: .center,
-                        startAngle: .degrees(0),
-                        endAngle: .degrees(350)
+                        center: .center
                     ),
-                    style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                    lineWidth: 8
                 )
                 .rotationEffect(.degrees(-90))
                 .animation(.linear, value: progress)
