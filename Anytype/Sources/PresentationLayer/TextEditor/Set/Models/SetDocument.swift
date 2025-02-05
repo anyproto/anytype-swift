@@ -167,7 +167,8 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     }
     
     func isSetByRelation() -> Bool {
-        if details?.setOf != nil {
+        let relation = parsedRelations.systemRelations.first { $0.key == BundledRelationKey.setOf.rawValue }
+        if let relation, relation.hasSelectedObjectsRelationType {
             return true
         } else {
             return false

@@ -32,6 +32,8 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     ) -> ParsedRelations {
         guard let objectDetails = storage.get(id: objectId) else { return .empty }
         
+        let systemRelations = buildSystemRelations(relationDetails: objectRelations, objectDetails: objectDetails, storage: storage)
+        
         let objectRelations = buildRelations(
             relationDetails: objectRelations,
             objectDetails: objectDetails,
@@ -85,7 +87,8 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             sidebarRelations: sidebarRelations,
             hiddenRelations: hiddenRalations,
             conflictedRelations: conflictedRelations,
-            deletedRelations: deletedRelations
+            deletedRelations: deletedRelations,
+            systemRelations: systemRelations
         )
     }
     
@@ -123,6 +126,24 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         return relations
     }
     
+    private func buildSystemRelations(
+        relationDetails: [RelationDetails],
+        objectDetails: ObjectDetails,
+        storage: ObjectDetailsStorage
+    ) -> [Relation] {
+        return relationDetails.compactMap { relation in
+            guard BundledRelationKey.systemKeys.map(\.rawValue).contains(relation.key) else {
+                return nil
+            }
+            return builder.relation(
+                relationDetails: relation,
+                details: objectDetails,
+                isFeatured: false,
+                relationValuesIsLocked: true,
+                storage: storage
+            )
+        }
+    }
     
     private func isRelationCanBeAddedToList(_ relation: RelationDetails) -> Bool {
         guard !relation.isHidden else { return false }
