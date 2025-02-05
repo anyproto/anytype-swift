@@ -68,7 +68,6 @@ struct TypeFieldsView: View {
         VStack {
             ScrollView(showsIndicators: false) {
                 relationsSection
-                    .padding(.horizontal, 20)
                 
                 if model.conflictRelations.isNotEmpty {
                     localFieldsSection
@@ -86,7 +85,7 @@ struct TypeFieldsView: View {
             Group {
                 switch row {
                 case .header(let header):
-                    headerRow(header)
+                    headerRow(header).padding(.horizontal, 20)
                 case .relation(let relation):
                     relationRow(relation)
                         .divider()
@@ -117,12 +116,6 @@ struct TypeFieldsView: View {
     
     private func relationRow(_ data: TypeFieldsRelationRow) -> some View {
         HStack(spacing: 0) {
-            if model.canEditRelationsList && data.relation.isEditable {
-                DeleteIndicator {
-                    model.onDeleteRelation(data)
-                }
-            }
-            
             Button {
                 model.onRelationTap(data)
             } label: {
@@ -140,6 +133,16 @@ struct TypeFieldsView: View {
         }
         .frame(height: 52)
         .contentShape([.dragPreview], RoundedRectangle(cornerRadius: 4, style: .continuous))
+        
+        .padding(.horizontal, 20)
+        .contextMenu {
+            if model.canEditRelationsList && data.relation.isEditable {
+                Button(Loc.delete, role: .destructive) {
+                    model.onDeleteRelation(data)
+                }
+            }
+        }
+        
         .if(model.canEditRelationsList && data.canDrag) {
             $0.onDrag {
                 draggedRow = .relation(data)
