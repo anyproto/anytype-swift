@@ -125,7 +125,7 @@ struct MessageView: View {
         Text(data.createDate)
             .anytypeFontStyle(.caption2Regular)
             .lineLimit(1)
-            .foregroundColor(Color.Control.transparentActive)
+            .foregroundColor(messageTimeColor)
     }
     
     private var createDateTextForSpacing: Text {
@@ -237,7 +237,10 @@ struct MessageView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return messageYourBackgroundColor
-//        return data.isYourMessage ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
+        return data.isYourMessage ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
+    }
+    
+    private var messageTimeColor: Color {
+        return data.isYourMessage ? Color.Background.Chat.replySomeones : Color.Control.transparentActive
     }
 }
