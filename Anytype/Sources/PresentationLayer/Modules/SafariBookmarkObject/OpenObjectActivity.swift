@@ -10,7 +10,7 @@ final class OpenObjectActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return Loc.openObject
+        return Loc.openAsObject
     }
     
     override var activityImage: UIImage? {
