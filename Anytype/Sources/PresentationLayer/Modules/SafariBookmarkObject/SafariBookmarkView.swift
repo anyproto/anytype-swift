@@ -6,10 +6,6 @@ struct SafariBookmarkView: UIViewControllerRepresentable {
     let onOpenObject: () -> Void
     
     func makeUIViewController(context: Context) -> SFSafariViewController {
-        let config = SFSafariViewController.Configuration()
-        config.entersReaderIfAvailable = false
-        config.barCollapsingEnabled = true
-        
         let url = url.urlByAddingHttpIfSchemeIsEmpty()
         let safariController = SFSafariViewController(url: url)
         safariController.delegate = context.coordinator

@@ -1,5 +1,4 @@
 import Services
-import AnytypeCore
 
 extension ScreenData {
     init(

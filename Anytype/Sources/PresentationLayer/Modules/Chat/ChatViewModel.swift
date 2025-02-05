@@ -384,6 +384,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         didSelectAttachment(attachment: details, attachments: data.attachmentsDetails)
     }
     
+    func didSelectAttachment(data: MessageViewData, details: ObjectDetails) {
+        didSelectAttachment(attachment: details, attachments: [])
+    }
+    
     func didSelectReplyTo(message: MessageViewData) {
         withAnimation {
             inputFocused = true
