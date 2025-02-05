@@ -1283,7 +1283,7 @@ Please provide specific details of your needs here.";
 "Chat.Reply.Files" = "Berkas (%@)";
 "Chat.SendLimitAlert.Title" = "Bentar-bentar, banter banget!";
 "Chat.SendLimitAlert.Message" = "Sepertinya kamu mengirimkan terlalu banyak pesan. Tunggu sebentar sebelum mengirim pesan lagi.";
-"Chat.AttachmentsLimit.Alert" = "Kamu hanya bisa mengunggah %@ berkas pada waktu yang sama";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Lampirkan";
 "Chat.CreateObject.Dismiss.Title" = "Yakin ingin menutup layar ini?";
 "Chat.CreateObject.Dismiss.Message" = "Semua perubahan akan hilang.";
