@@ -118,12 +118,6 @@ struct TypeFieldsView: View {
     
     private func relationRow(_ data: TypeFieldsRelationRow) -> some View {
         HStack(spacing: 0) {
-            if model.canEditRelationsList && data.relation.isEditable {
-                DeleteIndicator {
-                    model.onDeleteRelation(data)
-                }
-            }
-            
             Button {
                 model.onRelationTap(data)
             } label: {
@@ -141,6 +135,15 @@ struct TypeFieldsView: View {
         }
         .frame(height: 52)
         .contentShape(Rectangle())
+        
+        .contextMenu {
+            if model.canEditRelationsList && data.relation.isEditable {
+                Button(Loc.delete, role: .destructive) {
+                    model.onDeleteRelation(data)
+                }
+            }
+        }
+        
         .if(model.canEditRelationsList && data.canDrag) {
             $0.onDrag {
                 draggedRow = .relation(data)
