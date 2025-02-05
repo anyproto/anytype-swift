@@ -185,7 +185,7 @@ final class TreeWidgetViewModel: ObservableObject {
 private extension ObjectDetails {
     func expandedType(isExpanded: Bool, canBeExpanded: Bool) -> TreeWidgetRowViewModel.ExpandedType {
         switch editorViewType {
-        case .page:
+        case .page, .bookmark:
             return links.isEmpty || !canBeExpanded ? .icon(asset: .X18.objectWithoutIcon) : .arrow(expanded: isExpanded)
         case .list:
             return .icon(asset: .X18.list)

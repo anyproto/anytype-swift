@@ -83,6 +83,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let openBookmarkAsLink = FeatureDescription(
+        title: "Open bookmark as link",
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

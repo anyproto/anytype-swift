@@ -54,6 +54,10 @@ public extension FeatureFlags {
         value(for: .openMediaFileInPreview)
     }
 
+    static var openBookmarkAsLink: Bool {
+        value(for: .openBookmarkAsLink)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -120,6 +124,7 @@ public extension FeatureFlags {
         .memberProfile,
         .allContentWidgets,
         .openMediaFileInPreview,
+        .openBookmarkAsLink,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
