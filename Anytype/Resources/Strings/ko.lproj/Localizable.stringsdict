@@ -19,7 +19,7 @@
     <key>Devices connected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@device@ connected</string>
+      <string>%#@device@ 연결됨</string>
       <key>device</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,7 +33,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Are you sure you want to delete %#@object@?</string>
+      <string>%#@object@ 을(를) 삭제하시겠습니까?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -251,7 +251,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d 월</string>
       </dict>
     </dict>
     <key>Per Week</key>
@@ -265,7 +265,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d 주</string>
       </dict>
     </dict>
     <key>Per Year</key>
@@ -279,7 +279,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d 년</string>
       </dict>
     </dict>
     <key>Per Day</key>
@@ -293,7 +293,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d 일</string>
       </dict>
     </dict>
   </dict>
