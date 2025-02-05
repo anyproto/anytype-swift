@@ -1947,7 +1947,7 @@ internal enum Loc {
     internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
     internal enum Available {
       internal static func title(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "TemplateSelection.Available.Title", p1, fallback: "This type has %d templates")
+        return Loc.tr("Localizable", "TemplateSelection.Available.Title", p1, fallback: "Plural format key: \"%#@object@\"")
       }
     }
     internal enum ObjectType {
