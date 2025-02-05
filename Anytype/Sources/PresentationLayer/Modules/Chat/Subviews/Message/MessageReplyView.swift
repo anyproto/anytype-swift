@@ -11,6 +11,7 @@ struct MessageReplyModel: Equatable, Hashable {
 struct MessageReplyView: View {
     
     let model: MessageReplyModel
+    @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
     
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -51,6 +52,6 @@ struct MessageReplyView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return model.isYour ? .Background.Chat.replyYours : .Background.Chat.replySomeones
+        return model.isYour ? messageYourBackgroundColor.opacity(0.5) : .Background.Chat.replySomeones
     }
 }
