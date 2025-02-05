@@ -31,12 +31,13 @@ struct ObjectFieldsView: View {
             AnytypeText(Loc.fields, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer()
-            
+        }
+        .frame(height: 48)
+        .overlay(alignment: .trailing) {
             if model.typeId.isNotNil {
                 editButton
             }
         }
-        .frame(height: 48)
         .padding(.horizontal, 16)
     }
     

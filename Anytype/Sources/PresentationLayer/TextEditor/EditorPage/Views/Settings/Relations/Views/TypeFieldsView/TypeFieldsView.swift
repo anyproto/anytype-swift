@@ -61,7 +61,7 @@ struct TypeFieldsView: View {
         }
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
-        .background(Color.Shape.tertiary)
+        .background(Color.Shape.transperentSecondary)
     }
     
     private var fieldsList: some View {
@@ -112,7 +112,6 @@ struct TypeFieldsView: View {
                 })
             }
         }
-        .contentShape(Rectangle())
     }
     
     private func relationRow(_ data: TypeFieldsRelationRow) -> some View {
@@ -133,7 +132,7 @@ struct TypeFieldsView: View {
             }
         }
         .frame(height: 52)
-        .contentShape(Rectangle())
+        .contentShape([.dragPreview], RoundedRectangle(cornerRadius: 4, style: .continuous))
         
         .padding(.horizontal, 20)
         .contextMenu {
@@ -188,6 +187,5 @@ struct TypeFieldsView: View {
             }
         }
         .frame(height: 52)
-        .contentShape(Rectangle())
     }
 }
