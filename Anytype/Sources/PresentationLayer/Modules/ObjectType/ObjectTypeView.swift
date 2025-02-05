@@ -120,7 +120,10 @@ struct ObjectTypeView: View {
                     IconView(asset: .X24.plus).frame(width: 24, height: 24)
                 })
             }.padding(10).padding(.horizontal, 10)
-            templatesList
+            
+            if model.templatesCount > 0 {
+                templatesList
+            }
         }
     }
     
