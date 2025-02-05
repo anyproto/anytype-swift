@@ -1282,7 +1282,7 @@ En concreto,
 "Chat.Reply.Files" = "Archivos (%@)";
 "Chat.SendLimitAlert.Title" = "¡Calma! ¡Estás escribiendo muy deprisa!";
 "Chat.SendLimitAlert.Message" = "Parece que estás enviando mensajes a la velocidad de la luz. Espera un poco para el siguiente.";
-"Chat.AttachmentsLimit.Alert" = "No puedes subir más de %@ archivos al mismo tiempo";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Adjuntar";
 "Chat.CreateObject.Dismiss.Title" = "¿Seguro que quieres cerrar esta pantalla?";
 "Chat.CreateObject.Dismiss.Message" = "Si sales de ella, se perderán todos tus cambios.";
