@@ -1285,7 +1285,7 @@
 "Chat.Reply.Files" = "Файлы (%@)";
 "Chat.SendLimitAlert.Title" = "Удерживаем! Обнаружен Turbo typing!";
 "Chat.SendLimitAlert.Message" = "Похоже, вы отправляете сообщения со скоростью молнии. Дайте секунду перед следующим.";
-"Chat.AttachmentsLimit.Alert" = "Вы можете загружать только %@ файлов за раз";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Прикрепить";
 "Chat.CreateObject.Dismiss.Title" = "Вы уверены, что хотите закрыть этот экран?";
 "Chat.CreateObject.Dismiss.Message" = "Если вы покинете, все ваши изменения будут потеряны.";
