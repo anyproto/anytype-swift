@@ -33,8 +33,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     @Published var applicationState: ApplicationState = .initial
     @Published var toastBarData: ToastBarData = .empty
-    @Published var migrationInProgress = false
-    @Published var migrationTaskId: String?
+    @Published var migrationData: MigrationModuleData?
     
     // MARK: - Initializers
 
@@ -150,7 +149,12 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
                 applicationStateService.state = .auth
             }
         } catch SelectAccountError.accountStoreNotMigrated {
-            migrationTaskId = UUID().uuidString
+            migrationData = MigrationModuleData(
+                id: id,
+                onFinish: { [weak self] in
+                    await self?.selectAccount(id: id)
+                }
+            )
         } catch {
             applicationStateService.state = .auth
         }
@@ -158,26 +162,5 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
 
     private func handleFileLimitReachedError() {
         toastBarData = ToastBarData(text: Loc.FileStorage.limitError, showSnackBar: true, messageType: .none)
-    }
-    
-    func startMigration() async {
-        do {
-            migrationInProgress = true
-            try await accountMigrationService.accountMigrate(id: userDefaults.usersId, rootPath: localRepoService.middlewareRepoPath)
-            migrationInProgress = false
-            await selectAccount(id: userDefaults.usersId)
-        } catch {
-            applicationStateService.state = .auth
-            toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
-        }
-    }
-    
-    func cancelMigration() {
-        migrationInProgress = false
-        migrationTaskId = nil
-        Task {
-            try await accountMigrationService.accountMigrateCancel(id: userDefaults.usersId)
-            applicationStateService.state = .auth
-        }
     }
 }

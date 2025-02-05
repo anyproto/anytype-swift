@@ -59,11 +59,9 @@ struct LoginView: View {
             }
         
             // migration
-            .alert("Migration is in progress...", isPresented: $model.migrationInProgress, actions: {
-                Button(Loc.cancel, action: { model.cancelMigration() })
-            }, message: {
-                Text("Please wait")
-            })
+            .fullScreenCover(item: $model.migrationData) {
+                MigrationView(data: $0)
+            }
     }
     
     private var content: some View {
