@@ -21,11 +21,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
     
-    @Injected(\.accountMigrationService)
-    private var accountMigrationService: any AccountMigrationServiceProtocol
-    @Injected(\.localRepoService)
-    private var localRepoService: any LocalRepoServiceProtocol
-    
     private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?
     

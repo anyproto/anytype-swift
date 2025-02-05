@@ -55,10 +55,6 @@ final class LoginViewModel: ObservableObject {
     private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
-    @Injected(\.accountMigrationService)
-    private var accountMigrationService: any AccountMigrationServiceProtocol
-    @Injected(\.localRepoService)
-    private var localRepoService: any LocalRepoServiceProtocol
     
     private weak var output: (any LoginFlowOutput)?
     

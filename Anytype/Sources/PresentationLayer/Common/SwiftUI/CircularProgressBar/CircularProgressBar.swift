@@ -19,8 +19,8 @@ struct CircularProgressBar: View {
                 .stroke(
                     AngularGradient(
                         colors: [
-                            Color.System.amber50,
-                            Color.System.amber100
+                            UIColor.System.amber50.light.suColor,
+                            UIColor.System.amber100.light.suColor
                         ],
                         center: .center
                     ),
