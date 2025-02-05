@@ -10,11 +10,14 @@ final class OpenObjectActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return "Open As Object"
+        return Loc.openObject
     }
     
     override var activityImage: UIImage? {
-        return UIImage(systemName: "star.fill")
+        return UIImage(
+            systemName: "arrow.up.left.and.arrow.down.right",
+            withConfiguration: UIImage.SymbolConfiguration(weight: .light)
+        )
     }
     
     override var activityType: UIActivity.ActivityType? {
