@@ -4,7 +4,7 @@ import SwiftUI
 struct ChatTextView: UIViewRepresentable {
     
     private enum Constants {
-        static let anytypeFont = AnytypeFont.bodyRegular
+        static let anytypeFont = AnytypeFont.chatText
         static let font = UIKitFontBuilder.uiKitFont(font: Constants.anytypeFont)
         static let anytypeCodeFont = AnytypeFont.codeBlock
         static let codeFont = UIKitFontBuilder.uiKitFont(font: anytypeCodeFont)
@@ -35,7 +35,7 @@ struct ChatTextView: UIViewRepresentable {
         let textView = AnytypeUITextView(usingTextLayoutManager: true)
         textView.delegate = context.coordinator
         textView.anytypeDelegate = context.coordinator
-        textView.textContainerInset = UIEdgeInsets(top: 15, left: 0, bottom: 10, right: 10)
+        textView.textContainerInset = UIEdgeInsets(top: 18, left: 0, bottom: 10, right: 10)
         textView.textContainer.lineFragmentPadding = 0
         textView.notEditableAttributes = [.chatMention]
         textView.backgroundColor = .clear

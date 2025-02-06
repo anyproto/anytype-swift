@@ -71,29 +71,29 @@ struct MessageView: View {
             if !data.messageString.isEmpty {
                 
                 if data.linkedObjects.isNil {
-                    Spacer.fixedHeight(12)
+                    Spacer.fixedHeight(8)
                 } else {
                     Spacer.fixedHeight(4)
                 }
                 
                 // Add spacing for date
                 (Text(data.messageString) + createDateTextForSpacing)
-                    .anytypeStyle(.previewTitle1Regular)
+                    .anytypeStyle(.chatText)
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 12)
+                    .padding(.bottom, 8)
             }
         }
         .overlay(alignment: .bottomTrailing) {
             if !data.messageString.isEmpty {
                 createDate
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 12)
+                    .padding(.bottom, 8)
             }
         }
         .frame(width: fixedBubbleWidth)
         .background(messageBackgorundColor)
-        .cornerRadius(20, style: .continuous)
-        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20, style: .circular))
+        .cornerRadius(16, style: .continuous)
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
         .contextMenu {
             contextMenu
         }
