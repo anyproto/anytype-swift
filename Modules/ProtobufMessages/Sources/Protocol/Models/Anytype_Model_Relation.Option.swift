@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_Relation {
     public struct Option {
     // SwiftProtobuf.Message conformance is added in an extension below. See the

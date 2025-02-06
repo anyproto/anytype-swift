@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_ChatMessage.Reactions {
     public struct IdentityList {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

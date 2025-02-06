@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Account {
 
     public enum NetworkMode: SwiftProtobuf.Enum {

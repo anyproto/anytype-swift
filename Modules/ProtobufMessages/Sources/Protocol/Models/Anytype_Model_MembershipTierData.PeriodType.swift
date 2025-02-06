@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_MembershipTierData {
 
   public enum PeriodType: SwiftProtobuf.Enum {

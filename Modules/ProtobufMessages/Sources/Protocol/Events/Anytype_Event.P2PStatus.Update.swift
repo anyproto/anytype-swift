@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.P2PStatus {
     public struct Update {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

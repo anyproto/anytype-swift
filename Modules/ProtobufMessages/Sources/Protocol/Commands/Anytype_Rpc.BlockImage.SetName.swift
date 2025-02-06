@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.BlockImage {
     public struct SetName {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

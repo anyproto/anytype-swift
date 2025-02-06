@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Object {
     public struct ToCollection {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

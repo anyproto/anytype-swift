@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_InternalFlag {
 
   /// Use such a weird construction due to the issue with imported repeated enum type

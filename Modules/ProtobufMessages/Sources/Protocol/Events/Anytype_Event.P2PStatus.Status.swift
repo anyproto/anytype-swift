@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.P2PStatus {
 
     public enum Status: SwiftProtobuf.Enum {

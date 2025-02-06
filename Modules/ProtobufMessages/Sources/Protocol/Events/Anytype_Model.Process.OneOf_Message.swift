@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model.Process {
 
     public enum OneOf_Message: Equatable {

@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.App {
     public struct Shutdown {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

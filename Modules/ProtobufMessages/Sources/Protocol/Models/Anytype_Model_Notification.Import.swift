@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_Notification {
     public struct Import {
     // SwiftProtobuf.Message conformance is added in an extension below. See the

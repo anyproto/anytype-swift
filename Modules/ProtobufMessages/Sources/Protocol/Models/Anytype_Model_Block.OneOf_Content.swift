@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_Block {
 
   public enum OneOf_Content: Equatable {

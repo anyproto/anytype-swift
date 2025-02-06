@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Template {
     public struct CreateFromObject {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

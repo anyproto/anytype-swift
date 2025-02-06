@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.Object {
     public struct Subscription {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

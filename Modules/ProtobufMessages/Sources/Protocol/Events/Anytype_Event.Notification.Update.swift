@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.Notification {
     public struct Update {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

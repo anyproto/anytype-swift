@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_Import {
 
   public enum ErrorCode: SwiftProtobuf.Enum {

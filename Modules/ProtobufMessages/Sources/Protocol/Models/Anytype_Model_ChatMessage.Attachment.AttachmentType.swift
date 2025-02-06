@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_ChatMessage.Attachment {
 
     public enum AttachmentType: SwiftProtobuf.Enum {

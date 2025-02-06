@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Account {
     public struct Select {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

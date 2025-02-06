@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Device {
     public struct NetworkState {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

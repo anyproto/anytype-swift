@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.History {
     public struct DiffVersions {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

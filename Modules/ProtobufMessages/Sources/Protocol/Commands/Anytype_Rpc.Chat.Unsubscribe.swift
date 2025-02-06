@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Chat {
     public struct Unsubscribe {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.Space {
 
     public enum SyncError: SwiftProtobuf.Enum {

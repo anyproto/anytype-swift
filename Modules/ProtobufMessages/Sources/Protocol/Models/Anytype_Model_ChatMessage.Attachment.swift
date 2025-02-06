@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_ChatMessage {
     public struct Attachment {
     // SwiftProtobuf.Message conformance is added in an extension below. See the

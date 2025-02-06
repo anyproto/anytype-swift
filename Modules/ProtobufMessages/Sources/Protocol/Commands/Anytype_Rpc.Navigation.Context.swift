@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Navigation {
 
     public enum Context: SwiftProtobuf.Enum {

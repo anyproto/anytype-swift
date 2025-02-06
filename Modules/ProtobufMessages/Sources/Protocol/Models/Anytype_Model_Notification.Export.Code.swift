@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_Notification.Export {
 
     public enum Code: SwiftProtobuf.Enum {

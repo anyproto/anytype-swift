@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.Block {
     public struct Fill {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

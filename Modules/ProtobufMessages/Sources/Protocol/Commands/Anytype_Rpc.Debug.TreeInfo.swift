@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Debug {
     public struct TreeInfo {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

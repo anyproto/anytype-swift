@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.Account {
     public struct Show {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

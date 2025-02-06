@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_Metadata {
 
   public enum OneOf_Payload: Equatable {

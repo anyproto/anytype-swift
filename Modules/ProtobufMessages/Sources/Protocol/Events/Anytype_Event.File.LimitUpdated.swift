@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.File {
     public struct LimitUpdated {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

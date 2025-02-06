@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.NameService {
     public struct ResolveSpaceId {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

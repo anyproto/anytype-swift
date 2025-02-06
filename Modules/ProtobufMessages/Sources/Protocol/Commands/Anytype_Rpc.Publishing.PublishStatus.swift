@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.Publishing {
 
     public enum PublishStatus: SwiftProtobuf.Enum {

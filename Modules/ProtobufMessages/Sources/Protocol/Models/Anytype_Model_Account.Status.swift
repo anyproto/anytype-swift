@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_Account {
     public struct Status {
     // SwiftProtobuf.Message conformance is added in an extension below. See the

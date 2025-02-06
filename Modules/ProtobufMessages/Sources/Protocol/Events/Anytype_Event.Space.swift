@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event {
     public struct Space {
     // SwiftProtobuf.Message conformance is added in an extension below. See the

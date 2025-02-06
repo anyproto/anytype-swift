@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Rpc.ObjectRelation {
     public struct ListAvailable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the

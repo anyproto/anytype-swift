@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Event.Message {
 
     public enum OneOf_Value: Equatable {

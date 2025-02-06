@@ -9,6 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
+
 extension Anytype_Model_Block {
     public struct Restrictions {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
