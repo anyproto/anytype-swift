@@ -33,13 +33,16 @@ struct NewSpaceSettingsView: View {
             .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
                 SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
+            .anytypeSheet(isPresented: $model.showInfoView) {
+                SpaceSettingsInfoView(info: model.info)
+            }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
     }
     
     private var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SpaceSettings.title)
+            header
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -66,31 +69,36 @@ struct NewSpaceSettingsView: View {
                         imageAsset: .Settings.personalization,
                         onTap: { model.onPersonalizationTap() }
                     )
-                    
-                    SectionHeaderView(title: Loc.SpaceSettings.info)
-                    
-                    ForEach(0..<model.info.count, id:\.self) { index in
-                        SettingsInfoBlockView(model: model.info[index])
-                    }
-                    
-                    VStack(spacing: 10) {
-                        if model.allowDelete {
-                            StandardButton(Loc.SpaceSettings.deleteButton, style: .warningLarge) {
-                                model.onDeleteTap()
-                            }
-                        }
-                        if model.allowLeave {
-                            StandardButton(Loc.SpaceSettings.leaveButton, style: .warningLarge) {
-                                model.onLeaveTap()
-                            }
-                        }
-                    }
-                    .padding(.top, 20)
-                    .padding(.bottom, 10)
                 }
             }
             .padding(.horizontal, 20)
         }
+    }
+    
+    private var header: some View {
+        TitleView(title: Loc.SpaceSettings.title)
+            .overlay(alignment: .trailing) {
+                Menu {
+                    Button(Loc.SpaceSettings.info) {
+                        model.onInfoTap()
+                    }
+                    
+                    if model.allowDelete {
+                        Button(Loc.SpaceSettings.deleteButton, role: .destructive) {
+                            model.onDeleteTap()
+                        }
+                    }
+                    if model.allowLeave {
+                        Button(Loc.SpaceSettings.leaveButton, role: .destructive) {
+                            model.onLeaveTap()
+                        }
+                    }
+               } label: {
+                   Image(systemName: "ellipsis")
+                       .foregroundStyle(Color.Control.active)
+                       .padding()
+               }
+            }
     }
     
     @ViewBuilder

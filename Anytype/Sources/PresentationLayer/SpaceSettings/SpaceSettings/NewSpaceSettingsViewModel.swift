@@ -44,6 +44,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
+    @Published var showInfoView = false
     @Published var dismiss = false
     @Published var allowDelete = false
     @Published var allowLeave = false
@@ -55,6 +56,10 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
+    }
+    
+    func onInfoTap() {
+        showInfoView.toggle()
     }
     
     func onChangeIconTap() {
