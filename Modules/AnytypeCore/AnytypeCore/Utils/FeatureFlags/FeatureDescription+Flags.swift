@@ -91,6 +91,12 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let newSettings = FeatureDescription(
+        title: "New settings",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
