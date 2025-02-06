@@ -69,6 +69,9 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
             }
+            .safariBookmarkObject($model.bookmarkScreenData) {
+                model.onOpenBookmarkAsObject($0)
+            }
     }
     
     private var content: some View {  

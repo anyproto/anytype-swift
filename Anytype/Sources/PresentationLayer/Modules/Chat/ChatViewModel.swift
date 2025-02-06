@@ -375,6 +375,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         didSelectAttachment(attachment: details, attachments: data.attachmentsDetails)
     }
     
+    func didSelectAttachment(data: MessageViewData, details: ObjectDetails) {
+        didSelectAttachment(attachment: details, attachments: [])
+    }
+    
     func didSelectReplyTo(message: MessageViewData) {
         withAnimation {
             inputFocused = true
@@ -532,8 +536,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             let items = reorderedAttachments.compactMap { $0.previewRemoteItem }
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
             output?.onObjectSelected(screenData: .preview(MediaFileScreenData(items: items, startAtIndex: startAtIndex)))
-        } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
-            output?.onUrlSelected(url: url)
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
         }

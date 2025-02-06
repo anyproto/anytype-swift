@@ -1,23 +1,25 @@
 import Services
 
-
 extension ScreenData {
     init(
         details: ObjectDetails,
         mode: DocumentMode = .handling,
         blockId: String? = nil,
         activeViewId: String? = nil,
+        openBookmarkAsObject: Bool = false,
         openMediaFileAsObject: Bool = false,
         usecase: ObjectHeaderEmptyUsecase = .full
     ) {
+        let page: EditorScreenData = .page(EditorPageObject(
+            details: details,
+            mode: mode,
+            blockId: blockId,
+            usecase: usecase
+        ))
+        
         switch details.editorViewType {
         case .page:
-            self = .editor(.page(EditorPageObject(
-                details: details,
-                mode: mode,
-                blockId: blockId,
-                usecase: usecase
-            )))
+            self = .editor(page)
         case .list:
             self = .editor(.list(EditorListObject(
                 details: details,
@@ -33,13 +35,15 @@ extension ScreenData {
             self = .alert(.spaceMember(ObjectInfo(objectId: details.id, spaceId: details.spaceId)))
         case .mediaFile:
             if openMediaFileAsObject {
-                self = .editor(.page(EditorPageObject(
-                    details: details,
-                    mode: mode,
-                    blockId: blockId
-                )))
+                self = .editor(page)
             } else {
                 self = .preview(MediaFileScreenData(items: [details.previewRemoteItem]))
+            }
+        case .bookmark:
+            if !openBookmarkAsObject, let source = details.source {
+                self = .bookmark(BookmarkScreenData(url: source.url, editorScreenData: page))
+            } else {
+                self = .editor(page)
             }
         }
     }

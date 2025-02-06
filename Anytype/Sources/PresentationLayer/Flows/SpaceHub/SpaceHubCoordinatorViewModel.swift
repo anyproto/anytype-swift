@@ -25,6 +25,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersData?
     @Published var chatProvider = ChatActionProvider()
+    @Published var bookmarkScreenData: BookmarkScreenData?
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -187,6 +188,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         userWarningAlert = userWarningAlertsHandler.getNextUserWarningAlertAndStore()
     }
     
+    func onOpenBookmarkAsObject(_ data: BookmarkScreenData) {
+        openObject(screenData: .editor(data.editorScreenData))
+    }
+    
     // MARK: - Private
 
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
@@ -254,6 +259,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):
             navigationPath.push(editorScreenData)
+        case .bookmark(let data):
+            await dismissAllPresented?()
+            bookmarkScreenData = data
         case nil:
             return
         }
