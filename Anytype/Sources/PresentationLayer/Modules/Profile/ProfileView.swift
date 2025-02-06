@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 struct ProfileView: View {
@@ -21,7 +22,11 @@ struct ProfileView: View {
         
         .task { await model.setupSubscriptions() }
         .sheet(isPresented: $model.showSettings) {
-            SettingsCoordinatorView()
+            if FeatureFlags.newSettings {
+                NewSettingsCoordinatorView()  // TODO: Open profile settings
+            } else {
+                SettingsCoordinatorView()
+            }
         }
     }
     

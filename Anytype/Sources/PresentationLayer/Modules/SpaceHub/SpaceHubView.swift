@@ -20,7 +20,11 @@ struct SpaceHubView: View {
                 SpaceCreateView(sceneId: model.sceneId, output: model)
             }
             .sheet(isPresented: $model.showSettings) {
-                SettingsCoordinatorView()
+                if FeatureFlags.newSettings {
+                    NewSettingsCoordinatorView()
+                } else {
+                    SettingsCoordinatorView()
+                }
             }
             .anytypeSheet(item: $model.spaceIdToLeave) {
                 SpaceLeaveAlert(spaceId: $0.value)
