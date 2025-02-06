@@ -65,8 +65,8 @@ struct TypeFieldsView: View {
     }
     
     private var fieldsList: some View {
-        VStack {
-            ScrollView(showsIndicators: false) {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
                 relationsSection
                 
                 if model.conflictRelations.isNotEmpty {
