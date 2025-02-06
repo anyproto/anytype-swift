@@ -92,8 +92,8 @@ struct MessageView: View {
         }
         .frame(width: fixedBubbleWidth)
         .background(messageBackgorundColor)
-        .cornerRadius(20, style: .continuous)
-        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20, style: .circular))
+        .cornerRadius(16, style: .continuous)
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
         .contextMenu {
             contextMenu
         }
