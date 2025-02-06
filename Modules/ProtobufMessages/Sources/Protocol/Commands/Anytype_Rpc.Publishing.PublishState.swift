@@ -56,3 +56,137 @@ public extension Anytype_Rpc.Publishing {
       fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
     }
 }
+
+extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Publishing.protoMessageName + ".PublishState"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "spaceId"),
+    2: .same(proto: "objectId"),
+    3: .same(proto: "uri"),
+    4: .same(proto: "status"),
+    5: .same(proto: "version"),
+    6: .same(proto: "timestamp"),
+    7: .same(proto: "size"),
+    8: .same(proto: "joinSpace"),
+    9: .same(proto: "details"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularStringField(value: &self.spaceID)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.objectID)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.uri)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.status)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularStringField(value: &self.version)
+          }()
+      case 6:
+          try {
+              try decoder.decodeSingularInt64Field(value: &self.timestamp)
+          }()
+      case 7:
+          try {
+              try decoder.decodeSingularInt64Field(value: &self.size)
+          }()
+      case 8:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.joinSpace)
+          }()
+      case 9:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._details)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if !self.objectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 2)
+    }
+    if !self.uri.isEmpty {
+      try visitor.visitSingularStringField(value: self.uri, fieldNumber: 3)
+    }
+    if self.status != .created {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 4)
+    }
+    if !self.version.isEmpty {
+      try visitor.visitSingularStringField(value: self.version, fieldNumber: 5)
+    }
+    if self.timestamp != 0 {
+      try visitor.visitSingularInt64Field(value: self.timestamp, fieldNumber: 6)
+    }
+    if self.size != 0 {
+      try visitor.visitSingularInt64Field(value: self.size, fieldNumber: 7)
+    }
+    if self.joinSpace != false {
+      try visitor.visitSingularBoolField(value: self.joinSpace, fieldNumber: 8)
+    }
+    try {
+        if let v = self._details {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+            }
+    }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Publishing.PublishState, rhs: Anytype_Rpc.Publishing.PublishState) -> Bool {
+    if lhs.spaceID != rhs.spaceID {
+        return false
+    }
+    if lhs.objectID != rhs.objectID {
+        return false
+    }
+    if lhs.uri != rhs.uri {
+        return false
+    }
+    if lhs.status != rhs.status {
+        return false
+    }
+    if lhs.version != rhs.version {
+        return false
+    }
+    if lhs.timestamp != rhs.timestamp {
+        return false
+    }
+    if lhs.size != rhs.size {
+        return false
+    }
+    if lhs.joinSpace != rhs.joinSpace {
+        return false
+    }
+    if lhs._details != rhs._details {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}

@@ -143,3 +143,227 @@ public extension Anytype_Rpc.Space {
           }
     }
 }
+
+extension Anytype_Rpc.Space.InviteView: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.protoMessageName + ".InviteView"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Space.InviteView, rhs: Anytype_Rpc.Space.InviteView) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Space.InviteView.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.InviteView.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "inviteCid"),
+    2: .same(proto: "inviteFileKey"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularStringField(value: &self.inviteCid)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.inviteFileKey)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.inviteCid.isEmpty {
+      try visitor.visitSingularStringField(value: self.inviteCid, fieldNumber: 1)
+    }
+    if !self.inviteFileKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.inviteFileKey, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Space.InviteView.Request, rhs: Anytype_Rpc.Space.InviteView.Request) -> Bool {
+    if lhs.inviteCid != rhs.inviteCid {
+        return false
+    }
+    if lhs.inviteFileKey != rhs.inviteFileKey {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.InviteView.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "spaceId"),
+    3: .same(proto: "spaceName"),
+    4: .same(proto: "spaceIconCid"),
+    5: .same(proto: "creatorName"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._error)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.spaceID)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.spaceName)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularStringField(value: &self.spaceIconCid)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularStringField(value: &self.creatorName)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try {
+        if let v = self._error {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+            }
+    }()
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
+    }
+    if !self.spaceName.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 3)
+    }
+    if !self.spaceIconCid.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceIconCid, fieldNumber: 4)
+    }
+    if !self.creatorName.isEmpty {
+      try visitor.visitSingularStringField(value: self.creatorName, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Space.InviteView.Response, rhs: Anytype_Rpc.Space.InviteView.Response) -> Bool {
+    if lhs._error != rhs._error {
+        return false
+    }
+    if lhs.spaceID != rhs.spaceID {
+        return false
+    }
+    if lhs.spaceName != rhs.spaceName {
+        return false
+    }
+    if lhs.spaceIconCid != rhs.spaceIconCid {
+        return false
+    }
+    if lhs.creatorName != rhs.creatorName {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Space.InviteView.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.InviteView.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Space.InviteView.Response.Error, rhs: Anytype_Rpc.Space.InviteView.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Space.InviteView.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    101: .same(proto: "INVITE_NOT_FOUND"),
+    102: .same(proto: "INVITE_BAD_CONTENT"),
+    103: .same(proto: "SPACE_IS_DELETED"),
+  ]
+}

@@ -287,3 +287,459 @@ public extension Anytype_Rpc.BlockDataview {
           }
     }
 }
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".ObjectOrder"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder, rhs: Anytype_Rpc.BlockDataview.ObjectOrder) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.ObjectOrder.protoMessageName + ".Update"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder.Update, rhs: Anytype_Rpc.BlockDataview.ObjectOrder.Update) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.ObjectOrder.Update.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "blockId"),
+    3: .same(proto: "objectOrders"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularStringField(value: &self.contextID)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.blockID)
+          }()
+      case 3:
+          try {
+              try decoder.decodeRepeatedMessageField(value: &self.objectOrders)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.blockID.isEmpty {
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
+    }
+    if !self.objectOrders.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.objectOrders, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder.Update.Request, rhs: Anytype_Rpc.BlockDataview.ObjectOrder.Update.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {
+        return false
+    }
+    if lhs.blockID != rhs.blockID {
+        return false
+    }
+    if lhs.objectOrders != rhs.objectOrders {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.ObjectOrder.Update.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "event"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._error)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._event)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try {
+        if let v = self._error {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+            }
+    }()
+    try {
+        if let v = self._event {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+            }
+    }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response, rhs: Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response) -> Bool {
+    if lhs._error != rhs._error {
+        return false
+    }
+    if lhs._event != rhs._event {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error, rhs: Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.ObjectOrder.protoMessageName + ".Move"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder.Move, rhs: Anytype_Rpc.BlockDataview.ObjectOrder.Move) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.ObjectOrder.Move.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "blockId"),
+    3: .same(proto: "viewId"),
+    4: .same(proto: "groupId"),
+    5: .same(proto: "afterId"),
+    6: .same(proto: "objectIds"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularStringField(value: &self.contextID)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.blockID)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.viewID)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularStringField(value: &self.groupID)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularStringField(value: &self.afterID)
+          }()
+      case 6:
+          try {
+              try decoder.decodeRepeatedStringField(value: &self.objectIds)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.blockID.isEmpty {
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
+    }
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
+    }
+    if !self.groupID.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupID, fieldNumber: 4)
+    }
+    if !self.afterID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 5)
+    }
+    if !self.objectIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectIds, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder.Move.Request, rhs: Anytype_Rpc.BlockDataview.ObjectOrder.Move.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {
+        return false
+    }
+    if lhs.blockID != rhs.blockID {
+        return false
+    }
+    if lhs.viewID != rhs.viewID {
+        return false
+    }
+    if lhs.groupID != rhs.groupID {
+        return false
+    }
+    if lhs.afterID != rhs.afterID {
+        return false
+    }
+    if lhs.objectIds != rhs.objectIds {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.ObjectOrder.Move.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "event"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._error)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._event)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try {
+        if let v = self._error {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+            }
+    }()
+    try {
+        if let v = self._event {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+            }
+    }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response, rhs: Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response) -> Bool {
+    if lhs._error != rhs._error {
+        return false
+    }
+    if lhs._event != rhs._event {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error, rhs: Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}

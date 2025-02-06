@@ -21,3 +21,24 @@ public extension Anytype_Rpc {
         }
   }
 }
+
+extension Anytype_Rpc.BlockWidget: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".BlockWidget"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.BlockWidget, rhs: Anytype_Rpc.BlockWidget) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}

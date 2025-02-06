@@ -273,3 +273,305 @@ public extension Anytype_Rpc.Account {
           }
     }
 }
+
+extension Anytype_Rpc.Account.Create: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Create"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Create, rhs: Anytype_Rpc.Account.Create) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Create.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "avatarLocalPath"),
+    3: .same(proto: "storePath"),
+    4: .same(proto: "icon"),
+    5: .same(proto: "disableLocalNetworkSync"),
+    6: .same(proto: "networkMode"),
+    7: .same(proto: "networkCustomConfigFilePath"),
+    8: .same(proto: "preferYamuxTransport"),
+    9: .same(proto: "jsonApiListenAddr"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularStringField(value: &self.name)
+          }()
+      case 2:
+          try {
+                  var v: String?
+                  try decoder.decodeSingularStringField(value: &v)
+                  if let v = v {
+                    if self.avatar != nil {
+                        try decoder.handleConflictingOneOf()
+                    }
+                    self.avatar = .avatarLocalPath(v)
+                  }
+                }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.storePath)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularInt64Field(value: &self.icon)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.disableLocalNetworkSync)
+          }()
+      case 6:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.networkMode)
+          }()
+      case 7:
+          try {
+              try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath)
+          }()
+      case 8:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport)
+          }()
+      case 9:
+          try {
+              try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    try {
+        if case .avatarLocalPath(let v)? = self.avatar {
+              try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+            }
+    }()
+    if !self.storePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.storePath, fieldNumber: 3)
+    }
+    if self.icon != 0 {
+      try visitor.visitSingularInt64Field(value: self.icon, fieldNumber: 4)
+    }
+    if self.disableLocalNetworkSync != false {
+      try visitor.visitSingularBoolField(value: self.disableLocalNetworkSync, fieldNumber: 5)
+    }
+    if self.networkMode != .defaultConfig {
+      try visitor.visitSingularEnumField(value: self.networkMode, fieldNumber: 6)
+    }
+    if !self.networkCustomConfigFilePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.networkCustomConfigFilePath, fieldNumber: 7)
+    }
+    if self.preferYamuxTransport != false {
+      try visitor.visitSingularBoolField(value: self.preferYamuxTransport, fieldNumber: 8)
+    }
+    if !self.jsonApiListenAddr.isEmpty {
+      try visitor.visitSingularStringField(value: self.jsonApiListenAddr, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Create.Request, rhs: Anytype_Rpc.Account.Create.Request) -> Bool {
+    if lhs.name != rhs.name {
+        return false
+    }
+    if lhs.avatar != rhs.avatar {
+        return false
+    }
+    if lhs.storePath != rhs.storePath {
+        return false
+    }
+    if lhs.icon != rhs.icon {
+        return false
+    }
+    if lhs.disableLocalNetworkSync != rhs.disableLocalNetworkSync {
+        return false
+    }
+    if lhs.networkMode != rhs.networkMode {
+        return false
+    }
+    if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {
+        return false
+    }
+    if lhs.preferYamuxTransport != rhs.preferYamuxTransport {
+        return false
+    }
+    if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Create.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Create.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "account"),
+    3: .same(proto: "config"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._error)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._account)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._config)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try {
+        if let v = self._error {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+            }
+    }()
+    try {
+        if let v = self._account {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+            }
+    }()
+    try {
+        if let v = self._config {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+            }
+    }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Create.Response, rhs: Anytype_Rpc.Account.Create.Response) -> Bool {
+    if lhs._error != rhs._error {
+        return false
+    }
+    if lhs._account != rhs._account {
+        return false
+    }
+    if lhs._config != rhs._config {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Create.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Create.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Create.Response.Error, rhs: Anytype_Rpc.Account.Create.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Create.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    101: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_START_NODE"),
+    102: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_SET_NAME"),
+    104: .same(proto: "FAILED_TO_STOP_RUNNING_NODE"),
+    105: .same(proto: "FAILED_TO_WRITE_CONFIG"),
+    106: .same(proto: "FAILED_TO_CREATE_LOCAL_REPO"),
+    107: .same(proto: "ACCOUNT_CREATION_IS_CANCELED"),
+    200: .same(proto: "CONFIG_FILE_NOT_FOUND"),
+    201: .same(proto: "CONFIG_FILE_INVALID"),
+    202: .same(proto: "CONFIG_FILE_NETWORK_ID_MISMATCH"),
+  ]
+}

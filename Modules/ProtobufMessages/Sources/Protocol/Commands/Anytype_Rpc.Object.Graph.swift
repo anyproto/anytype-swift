@@ -198,3 +198,381 @@ public extension Anytype_Rpc.Object {
           }
     }
 }
+
+extension Anytype_Rpc.Object.Graph: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".Graph"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.Graph, rhs: Anytype_Rpc.Object.Graph) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.Graph.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "filters"),
+    2: .same(proto: "limit"),
+    3: .same(proto: "objectTypeFilter"),
+    4: .same(proto: "keys"),
+    5: .same(proto: "spaceId"),
+    6: .same(proto: "collectionId"),
+    7: .same(proto: "setSource"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeRepeatedMessageField(value: &self.filters)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularInt32Field(value: &self.limit)
+          }()
+      case 3:
+          try {
+              try decoder.decodeRepeatedStringField(value: &self.objectTypeFilter)
+          }()
+      case 4:
+          try {
+              try decoder.decodeRepeatedStringField(value: &self.keys)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularStringField(value: &self.spaceID)
+          }()
+      case 6:
+          try {
+              try decoder.decodeSingularStringField(value: &self.collectionID)
+          }()
+      case 7:
+          try {
+              try decoder.decodeRepeatedStringField(value: &self.setSource)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.filters.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.filters, fieldNumber: 1)
+    }
+    if self.limit != 0 {
+      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 2)
+    }
+    if !self.objectTypeFilter.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectTypeFilter, fieldNumber: 3)
+    }
+    if !self.keys.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.keys, fieldNumber: 4)
+    }
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 5)
+    }
+    if !self.collectionID.isEmpty {
+      try visitor.visitSingularStringField(value: self.collectionID, fieldNumber: 6)
+    }
+    if !self.setSource.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.setSource, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.Graph.Request, rhs: Anytype_Rpc.Object.Graph.Request) -> Bool {
+    if lhs.filters != rhs.filters {
+        return false
+    }
+    if lhs.limit != rhs.limit {
+        return false
+    }
+    if lhs.objectTypeFilter != rhs.objectTypeFilter {
+        return false
+    }
+    if lhs.keys != rhs.keys {
+        return false
+    }
+    if lhs.spaceID != rhs.spaceID {
+        return false
+    }
+    if lhs.collectionID != rhs.collectionID {
+        return false
+    }
+    if lhs.setSource != rhs.setSource {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Edge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.Graph.protoMessageName + ".Edge"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "source"),
+    2: .same(proto: "target"),
+    3: .same(proto: "name"),
+    4: .same(proto: "type"),
+    5: .same(proto: "description"),
+    6: .same(proto: "iconImage"),
+    7: .same(proto: "iconEmoji"),
+    8: .same(proto: "hidden"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularStringField(value: &self.source)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.target)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.name)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.type)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      case 6:
+          try {
+              try decoder.decodeSingularStringField(value: &self.iconImage)
+          }()
+      case 7:
+          try {
+              try decoder.decodeSingularStringField(value: &self.iconEmoji)
+          }()
+      case 8:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.hidden)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.source.isEmpty {
+      try visitor.visitSingularStringField(value: self.source, fieldNumber: 1)
+    }
+    if !self.target.isEmpty {
+      try visitor.visitSingularStringField(value: self.target, fieldNumber: 2)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 3)
+    }
+    if self.type != .link {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 4)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 5)
+    }
+    if !self.iconImage.isEmpty {
+      try visitor.visitSingularStringField(value: self.iconImage, fieldNumber: 6)
+    }
+    if !self.iconEmoji.isEmpty {
+      try visitor.visitSingularStringField(value: self.iconEmoji, fieldNumber: 7)
+    }
+    if self.hidden != false {
+      try visitor.visitSingularBoolField(value: self.hidden, fieldNumber: 8)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.Graph.Edge, rhs: Anytype_Rpc.Object.Graph.Edge) -> Bool {
+    if lhs.source != rhs.source {
+        return false
+    }
+    if lhs.target != rhs.target {
+        return false
+    }
+    if lhs.name != rhs.name {
+        return false
+    }
+    if lhs.type != rhs.type {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.iconImage != rhs.iconImage {
+        return false
+    }
+    if lhs.iconEmoji != rhs.iconEmoji {
+        return false
+    }
+    if lhs.hidden != rhs.hidden {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Link"),
+    1: .same(proto: "Relation"),
+  ]
+}
+
+extension Anytype_Rpc.Object.Graph.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.Graph.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "nodes"),
+    3: .same(proto: "edges"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._error)
+          }()
+      case 2:
+          try {
+              try decoder.decodeRepeatedMessageField(value: &self.nodes)
+          }()
+      case 3:
+          try {
+              try decoder.decodeRepeatedMessageField(value: &self.edges)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try {
+        if let v = self._error {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+            }
+    }()
+    if !self.nodes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.nodes, fieldNumber: 2)
+    }
+    if !self.edges.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.edges, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.Graph.Response, rhs: Anytype_Rpc.Object.Graph.Response) -> Bool {
+    if lhs._error != rhs._error {
+        return false
+    }
+    if lhs.nodes != rhs.nodes {
+        return false
+    }
+    if lhs.edges != rhs.edges {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.Graph.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.Graph.Response.Error, rhs: Anytype_Rpc.Object.Graph.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.Graph.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}

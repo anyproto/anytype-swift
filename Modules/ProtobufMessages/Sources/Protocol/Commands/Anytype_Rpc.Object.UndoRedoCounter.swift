@@ -25,3 +25,54 @@ public extension Anytype_Rpc.Object {
           }
     }
 }
+
+extension Anytype_Rpc.Object.UndoRedoCounter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".UndoRedoCounter"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "undo"),
+    2: .same(proto: "redo"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularInt32Field(value: &self.undo)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularInt32Field(value: &self.redo)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.undo != 0 {
+      try visitor.visitSingularInt32Field(value: self.undo, fieldNumber: 1)
+    }
+    if self.redo != 0 {
+      try visitor.visitSingularInt32Field(value: self.redo, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.UndoRedoCounter, rhs: Anytype_Rpc.Object.UndoRedoCounter) -> Bool {
+    if lhs.undo != rhs.undo {
+        return false
+    }
+    if lhs.redo != rhs.redo {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}

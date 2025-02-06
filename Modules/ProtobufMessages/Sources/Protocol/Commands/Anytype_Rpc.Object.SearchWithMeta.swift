@@ -147,3 +147,290 @@ public extension Anytype_Rpc.Object {
           }
     }
 }
+
+extension Anytype_Rpc.Object.SearchWithMeta: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".SearchWithMeta"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.SearchWithMeta, rhs: Anytype_Rpc.Object.SearchWithMeta) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.SearchWithMeta.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.SearchWithMeta.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    11: .same(proto: "spaceId"),
+    1: .same(proto: "filters"),
+    2: .same(proto: "sorts"),
+    3: .same(proto: "fullText"),
+    4: .same(proto: "offset"),
+    5: .same(proto: "limit"),
+    6: .same(proto: "objectTypeFilter"),
+    7: .same(proto: "keys"),
+    8: .same(proto: "returnMeta"),
+    9: .same(proto: "returnMetaRelationDetails"),
+    10: .same(proto: "returnHTMLHighlightsInsteadOfRanges"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeRepeatedMessageField(value: &self.filters)
+          }()
+      case 2:
+          try {
+              try decoder.decodeRepeatedMessageField(value: &self.sorts)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.fullText)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularInt32Field(value: &self.offset)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularInt32Field(value: &self.limit)
+          }()
+      case 6:
+          try {
+              try decoder.decodeRepeatedStringField(value: &self.objectTypeFilter)
+          }()
+      case 7:
+          try {
+              try decoder.decodeRepeatedStringField(value: &self.keys)
+          }()
+      case 8:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.returnMeta)
+          }()
+      case 9:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.returnMetaRelationDetails)
+          }()
+      case 10:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.returnHtmlhighlightsInsteadOfRanges)
+          }()
+      case 11:
+          try {
+              try decoder.decodeSingularStringField(value: &self.spaceID)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.filters.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.filters, fieldNumber: 1)
+    }
+    if !self.sorts.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.sorts, fieldNumber: 2)
+    }
+    if !self.fullText.isEmpty {
+      try visitor.visitSingularStringField(value: self.fullText, fieldNumber: 3)
+    }
+    if self.offset != 0 {
+      try visitor.visitSingularInt32Field(value: self.offset, fieldNumber: 4)
+    }
+    if self.limit != 0 {
+      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 5)
+    }
+    if !self.objectTypeFilter.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectTypeFilter, fieldNumber: 6)
+    }
+    if !self.keys.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.keys, fieldNumber: 7)
+    }
+    if self.returnMeta != false {
+      try visitor.visitSingularBoolField(value: self.returnMeta, fieldNumber: 8)
+    }
+    if self.returnMetaRelationDetails != false {
+      try visitor.visitSingularBoolField(value: self.returnMetaRelationDetails, fieldNumber: 9)
+    }
+    if self.returnHtmlhighlightsInsteadOfRanges != false {
+      try visitor.visitSingularBoolField(value: self.returnHtmlhighlightsInsteadOfRanges, fieldNumber: 10)
+    }
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 11)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.SearchWithMeta.Request, rhs: Anytype_Rpc.Object.SearchWithMeta.Request) -> Bool {
+    if lhs.spaceID != rhs.spaceID {
+        return false
+    }
+    if lhs.filters != rhs.filters {
+        return false
+    }
+    if lhs.sorts != rhs.sorts {
+        return false
+    }
+    if lhs.fullText != rhs.fullText {
+        return false
+    }
+    if lhs.offset != rhs.offset {
+        return false
+    }
+    if lhs.limit != rhs.limit {
+        return false
+    }
+    if lhs.objectTypeFilter != rhs.objectTypeFilter {
+        return false
+    }
+    if lhs.keys != rhs.keys {
+        return false
+    }
+    if lhs.returnMeta != rhs.returnMeta {
+        return false
+    }
+    if lhs.returnMetaRelationDetails != rhs.returnMetaRelationDetails {
+        return false
+    }
+    if lhs.returnHtmlhighlightsInsteadOfRanges != rhs.returnHtmlhighlightsInsteadOfRanges {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.SearchWithMeta.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.SearchWithMeta.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "results"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._error)
+          }()
+      case 2:
+          try {
+              try decoder.decodeRepeatedMessageField(value: &self.results)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try {
+        if let v = self._error {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+            }
+    }()
+    if !self.results.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.results, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.SearchWithMeta.Response, rhs: Anytype_Rpc.Object.SearchWithMeta.Response) -> Bool {
+    if lhs._error != rhs._error {
+        return false
+    }
+    if lhs.results != rhs.results {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.SearchWithMeta.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Object.SearchWithMeta.Response.Error, rhs: Anytype_Rpc.Object.SearchWithMeta.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}

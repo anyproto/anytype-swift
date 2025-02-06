@@ -167,3 +167,269 @@ public extension Anytype_Rpc.History {
           }
     }
 }
+
+extension Anytype_Rpc.History.ShowVersion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.History.protoMessageName + ".ShowVersion"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.History.ShowVersion, rhs: Anytype_Rpc.History.ShowVersion) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.History.ShowVersion.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.History.ShowVersion.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "objectId"),
+    2: .same(proto: "versionId"),
+    3: .same(proto: "traceId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularStringField(value: &self.objectID)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.versionID)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.traceID)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.objectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 1)
+    }
+    if !self.versionID.isEmpty {
+      try visitor.visitSingularStringField(value: self.versionID, fieldNumber: 2)
+    }
+    if !self.traceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.History.ShowVersion.Request, rhs: Anytype_Rpc.History.ShowVersion.Request) -> Bool {
+    if lhs.objectID != rhs.objectID {
+        return false
+    }
+    if lhs.versionID != rhs.versionID {
+        return false
+    }
+    if lhs.traceID != rhs.traceID {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.History.ShowVersion.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.History.ShowVersion.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "objectView"),
+    3: .same(proto: "version"),
+    4: .same(proto: "traceId"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _error: Anytype_Rpc.History.ShowVersion.Response.Error? = nil
+    var _objectView: Anytype_Model_ObjectView? = nil
+    var _version: Anytype_Rpc.History.Version? = nil
+    var _traceID: String = String()
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {
+    }
+
+    init(copying source: _StorageClass) {
+      _error = source._error
+      _objectView = source._objectView
+      _version = source._version
+      _traceID = source._traceID
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1:
+            try {
+                try decoder.decodeSingularMessageField(value: &_storage._error)
+            }()
+        case 2:
+            try {
+                try decoder.decodeSingularMessageField(value: &_storage._objectView)
+            }()
+        case 3:
+            try {
+                try decoder.decodeSingularMessageField(value: &_storage._version)
+            }()
+        case 4:
+            try {
+                try decoder.decodeSingularStringField(value: &_storage._traceID)
+            }()
+        default:
+            break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try {
+          if let v = _storage._error {
+                  try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+                }
+      }()
+      try {
+          if let v = _storage._objectView {
+                  try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+                }
+      }()
+      try {
+          if let v = _storage._version {
+                  try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+                }
+      }()
+      if !_storage._traceID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._traceID, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.History.ShowVersion.Response, rhs: Anytype_Rpc.History.ShowVersion.Response) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._error != rhs_storage._error {
+            return false
+        }
+        if _storage._objectView != rhs_storage._objectView {
+            return false
+        }
+        if _storage._version != rhs_storage._version {
+            return false
+        }
+        if _storage._traceID != rhs_storage._traceID {
+            return false
+        }
+        return true
+      }
+      if !storagesAreEqual {
+          return false
+      }
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.History.ShowVersion.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.History.ShowVersion.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.History.ShowVersion.Response.Error, rhs: Anytype_Rpc.History.ShowVersion.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.History.ShowVersion.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}

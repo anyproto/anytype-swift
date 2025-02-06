@@ -48,3 +48,93 @@ public extension Anytype_Rpc.Account {
       fileprivate var _extra: SwiftProtobuf.Google_Protobuf_Struct? = nil
     }
 }
+
+extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Config"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "enableDataview"),
+    2: .same(proto: "enableDebug"),
+    3: .same(proto: "enablePrereleaseChannel"),
+    4: .same(proto: "enableSpaces"),
+    100: .same(proto: "extra"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.enableDataview)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.enableDebug)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.enablePrereleaseChannel)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.enableSpaces)
+          }()
+      case 100:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._extra)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.enableDataview != false {
+      try visitor.visitSingularBoolField(value: self.enableDataview, fieldNumber: 1)
+    }
+    if self.enableDebug != false {
+      try visitor.visitSingularBoolField(value: self.enableDebug, fieldNumber: 2)
+    }
+    if self.enablePrereleaseChannel != false {
+      try visitor.visitSingularBoolField(value: self.enablePrereleaseChannel, fieldNumber: 3)
+    }
+    if self.enableSpaces != false {
+      try visitor.visitSingularBoolField(value: self.enableSpaces, fieldNumber: 4)
+    }
+    try {
+        if let v = self._extra {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
+            }
+    }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Config, rhs: Anytype_Rpc.Account.Config) -> Bool {
+    if lhs.enableDataview != rhs.enableDataview {
+        return false
+    }
+    if lhs.enableDebug != rhs.enableDebug {
+        return false
+    }
+    if lhs.enablePrereleaseChannel != rhs.enablePrereleaseChannel {
+        return false
+    }
+    if lhs.enableSpaces != rhs.enableSpaces {
+        return false
+    }
+    if lhs._extra != rhs._extra {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}

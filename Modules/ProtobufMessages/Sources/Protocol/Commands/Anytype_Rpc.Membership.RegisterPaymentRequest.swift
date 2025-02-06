@@ -191,3 +191,245 @@ public extension Anytype_Rpc.Membership {
           }
     }
 }
+
+extension Anytype_Rpc.Membership.RegisterPaymentRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".RegisterPaymentRequest"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.RegisterPaymentRequest, rhs: Anytype_Rpc.Membership.RegisterPaymentRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.RegisterPaymentRequest.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "requestedTier"),
+    2: .same(proto: "paymentMethod"),
+    3: .same(proto: "nsName"),
+    4: .same(proto: "nsNameType"),
+    5: .same(proto: "userEmail"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularUInt32Field(value: &self.requestedTier)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.paymentMethod)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.nsName)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.nsNameType)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularStringField(value: &self.userEmail)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.requestedTier != 0 {
+      try visitor.visitSingularUInt32Field(value: self.requestedTier, fieldNumber: 1)
+    }
+    if self.paymentMethod != .methodNone {
+      try visitor.visitSingularEnumField(value: self.paymentMethod, fieldNumber: 2)
+    }
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 3)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 4)
+    }
+    if !self.userEmail.isEmpty {
+      try visitor.visitSingularStringField(value: self.userEmail, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Request, rhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Request) -> Bool {
+    if lhs.requestedTier != rhs.requestedTier {
+        return false
+    }
+    if lhs.paymentMethod != rhs.paymentMethod {
+        return false
+    }
+    if lhs.nsName != rhs.nsName {
+        return false
+    }
+    if lhs.nsNameType != rhs.nsNameType {
+        return false
+    }
+    if lhs.userEmail != rhs.userEmail {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.RegisterPaymentRequest.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "paymentUrl"),
+    3: .same(proto: "billingId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._error)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.paymentURL)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.billingID)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try {
+        if let v = self._error {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+            }
+    }()
+    if !self.paymentURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.paymentURL, fieldNumber: 2)
+    }
+    if !self.billingID.isEmpty {
+      try visitor.visitSingularStringField(value: self.billingID, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Response, rhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Response) -> Bool {
+    if lhs._error != rhs._error {
+        return false
+    }
+    if lhs.paymentURL != rhs.paymentURL {
+        return false
+    }
+    if lhs.billingID != rhs.billingID {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.RegisterPaymentRequest.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error, rhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "NOT_LOGGED_IN"),
+    4: .same(proto: "PAYMENT_NODE_ERROR"),
+    5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "TIER_NOT_FOUND"),
+    7: .same(proto: "TIER_INVALID"),
+    8: .same(proto: "PAYMENT_METHOD_INVALID"),
+    9: .same(proto: "BAD_ANYNAME"),
+    10: .same(proto: "MEMBERSHIP_ALREADY_EXISTS"),
+    11: .same(proto: "CAN_NOT_CONNECT"),
+    12: .same(proto: "EMAIL_WRONG_FORMAT"),
+  ]
+}

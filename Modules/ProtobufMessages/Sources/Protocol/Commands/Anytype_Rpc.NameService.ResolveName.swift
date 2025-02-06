@@ -145,3 +145,247 @@ public extension Anytype_Rpc.NameService {
           }
     }
 }
+
+extension Anytype_Rpc.NameService.ResolveName: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.NameService.protoMessageName + ".ResolveName"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.NameService.ResolveName, rhs: Anytype_Rpc.NameService.ResolveName) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.NameService.ResolveName.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.NameService.ResolveName.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "nsName"),
+    2: .same(proto: "nsNameType"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularStringField(value: &self.nsName)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.nsNameType)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 1)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.NameService.ResolveName.Request, rhs: Anytype_Rpc.NameService.ResolveName.Request) -> Bool {
+    if lhs.nsName != rhs.nsName {
+        return false
+    }
+    if lhs.nsNameType != rhs.nsNameType {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.NameService.ResolveName.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.NameService.ResolveName.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "available"),
+    3: .same(proto: "ownerScwEthAddress"),
+    4: .same(proto: "ownerEthAddress"),
+    5: .same(proto: "ownerAnyAddress"),
+    6: .same(proto: "spaceId"),
+    7: .same(proto: "nameExpires"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularMessageField(value: &self._error)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularBoolField(value: &self.available)
+          }()
+      case 3:
+          try {
+              try decoder.decodeSingularStringField(value: &self.ownerScwEthAddress)
+          }()
+      case 4:
+          try {
+              try decoder.decodeSingularStringField(value: &self.ownerEthAddress)
+          }()
+      case 5:
+          try {
+              try decoder.decodeSingularStringField(value: &self.ownerAnyAddress)
+          }()
+      case 6:
+          try {
+              try decoder.decodeSingularStringField(value: &self.spaceID)
+          }()
+      case 7:
+          try {
+              try decoder.decodeSingularInt64Field(value: &self.nameExpires)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try {
+        if let v = self._error {
+              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+            }
+    }()
+    if self.available != false {
+      try visitor.visitSingularBoolField(value: self.available, fieldNumber: 2)
+    }
+    if !self.ownerScwEthAddress.isEmpty {
+      try visitor.visitSingularStringField(value: self.ownerScwEthAddress, fieldNumber: 3)
+    }
+    if !self.ownerEthAddress.isEmpty {
+      try visitor.visitSingularStringField(value: self.ownerEthAddress, fieldNumber: 4)
+    }
+    if !self.ownerAnyAddress.isEmpty {
+      try visitor.visitSingularStringField(value: self.ownerAnyAddress, fieldNumber: 5)
+    }
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 6)
+    }
+    if self.nameExpires != 0 {
+      try visitor.visitSingularInt64Field(value: self.nameExpires, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.NameService.ResolveName.Response, rhs: Anytype_Rpc.NameService.ResolveName.Response) -> Bool {
+    if lhs._error != rhs._error {
+        return false
+    }
+    if lhs.available != rhs.available {
+        return false
+    }
+    if lhs.ownerScwEthAddress != rhs.ownerScwEthAddress {
+        return false
+    }
+    if lhs.ownerEthAddress != rhs.ownerEthAddress {
+        return false
+    }
+    if lhs.ownerAnyAddress != rhs.ownerAnyAddress {
+        return false
+    }
+    if lhs.spaceID != rhs.spaceID {
+        return false
+    }
+    if lhs.nameExpires != rhs.nameExpires {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.NameService.ResolveName.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.NameService.ResolveName.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1:
+          try {
+              try decoder.decodeSingularEnumField(value: &self.code)
+          }()
+      case 2:
+          try {
+              try decoder.decodeSingularStringField(value: &self.description_p)
+          }()
+      default:
+          break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.NameService.ResolveName.Response.Error, rhs: Anytype_Rpc.NameService.ResolveName.Response.Error) -> Bool {
+    if lhs.code != rhs.code {
+        return false
+    }
+    if lhs.description_p != rhs.description_p {
+        return false
+    }
+    if lhs.unknownFields != rhs.unknownFields {
+        return false
+    }
+    return true
+  }
+}
+
+extension Anytype_Rpc.NameService.ResolveName.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "CAN_NOT_CONNECT"),
+  ]
+}
