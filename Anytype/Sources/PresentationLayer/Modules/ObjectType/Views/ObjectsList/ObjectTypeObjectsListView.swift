@@ -24,13 +24,13 @@ struct ObjectTypeObjectsListView: View {
     
     private var content: some View {
         VStack {
-            header
+            header.padding(.horizontal, 20)
             if model.rows.count > 0 {
                 objectList
             } else {
-                noObjects
+                noObjects.padding(.horizontal, 20)
             }
-        }.padding(10).padding(.horizontal, 10)
+        }.padding(.vertical, 10)
     }
     
     private var header: some View {
@@ -72,10 +72,10 @@ struct ObjectTypeObjectsListView: View {
     private var objectList: some View {
         VStack(spacing: 0) {
             ForEach(model.rows) { row in
-                WidgetObjectListRowView(model: row)
+                WidgetObjectListRowView(model: row).padding(.horizontal, 4)
             }
             Spacer.fixedHeight(12)
-            setButton
+            setButton.padding(.horizontal, 20)
             AnytypeNavigationSpacer(minHeight: 130)
         }
     }
