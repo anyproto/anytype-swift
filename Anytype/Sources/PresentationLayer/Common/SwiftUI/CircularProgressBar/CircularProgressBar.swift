@@ -17,14 +17,8 @@ struct CircularProgressBar: View {
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
-                    AngularGradient(
-                        colors: [
-                            UIColor.System.amber50.light.suColor,
-                            UIColor.System.amber100.light.suColor
-                        ],
-                        center: .center
-                    ),
-                    lineWidth: 8
+                    Color.System.amber50,
+                    style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round)
                 )
                 .rotationEffect(.degrees(-90))
                 .animation(.linear, value: progress)
