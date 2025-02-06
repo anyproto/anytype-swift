@@ -1,0 +1,146 @@
+public extension Anytype_Rpc.NameService {
+    public struct UserAccount {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Get {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {
+              }
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.NameService.UserAccount.Get.Response.Error {
+            get {
+                    return _error ?? Anytype_Rpc.NameService.UserAccount.Get.Response.Error()
+                }
+            set {
+                    _error = newValue
+                }
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {
+                  return self._error != nil
+              }
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {
+                  self._error = nil
+              }
+
+          /// this will use ReverseResolve to get current name
+          /// user can buy many names, but
+          /// only 1 name can be set as "current": ETH address <-> name
+          public var nsNameAttached: String = String()
+
+          public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
+
+          /// Number of names that the user can reserve
+          public var namesCountLeft: UInt64 = 0
+
+          /// Number of operations: update name, add new data, etc
+          public var operationsCountLeft: UInt64 = 0
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+              case badInput // = 2
+              case notLoggedIn // = 3
+              case badNameResolve // = 4
+              case canNotConnect // = 5
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0:
+                        self = .null
+                case 1:
+                        self = .unknownError
+                case 2:
+                        self = .badInput
+                case 3:
+                        self = .notLoggedIn
+                case 4:
+                        self = .badNameResolve
+                case 5:
+                        self = .canNotConnect
+                default:
+                        self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null:
+                        return 0
+                case .unknownError:
+                        return 1
+                case .badInput:
+                        return 2
+                case .notLoggedIn:
+                        return 3
+                case .badNameResolve:
+                        return 4
+                case .canNotConnect:
+                        return 5
+                case .UNRECOGNIZED(let i):
+                        return i
+                }
+              }
+
+            }
+
+            public init() {
+                }
+          }
+
+          public init() {
+              }
+
+          fileprivate var _error: Anytype_Rpc.NameService.UserAccount.Get.Response.Error? = nil
+        }
+
+        public init() {
+            }
+      }
+
+      public init() {
+          }
+    }
+}

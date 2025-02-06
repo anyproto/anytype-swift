@@ -1,0 +1,47 @@
+public extension Anytype_Rpc.Publishing {
+    public struct PublishState {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var spaceID: String = String()
+
+      public var objectID: String = String()
+
+      public var uri: String = String()
+
+      public var status: Anytype_Rpc.Publishing.PublishStatus = .created
+
+      public var version: String = String()
+
+      public var timestamp: Int64 = 0
+
+      public var size: Int64 = 0
+
+      public var joinSpace: Bool = false
+
+      public var details: SwiftProtobuf.Google_Protobuf_Struct {
+        get {
+                return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
+            }
+        set {
+                _details = newValue
+            }
+      }
+      /// Returns true if `details` has been explicitly set.
+      public var hasDetails: Bool {
+              return self._details != nil
+          }
+      /// Clears the value of `details`. Subsequent reads from it will return its default value.
+      public mutating func clearDetails() {
+              self._details = nil
+          }
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {
+          }
+
+      fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+    }
+}

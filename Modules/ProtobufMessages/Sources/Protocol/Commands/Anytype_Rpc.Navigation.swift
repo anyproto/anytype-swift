@@ -1,0 +1,55 @@
+public extension Anytype_Rpc {
+    public struct Navigation {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public enum Context: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+      case navigation // = 0
+
+      /// do not show sets/archive
+      case moveTo // = 1
+
+      /// same for mention, do not show sets/archive
+      case linkTo // = 2
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .navigation
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0:
+                self = .navigation
+        case 1:
+                self = .moveTo
+        case 2:
+                self = .linkTo
+        default:
+                self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .navigation:
+                return 0
+        case .moveTo:
+                return 1
+        case .linkTo:
+                return 2
+        case .UNRECOGNIZED(let i):
+                return i
+        }
+      }
+
+    }
+
+    public init() {
+        }
+  }
+}

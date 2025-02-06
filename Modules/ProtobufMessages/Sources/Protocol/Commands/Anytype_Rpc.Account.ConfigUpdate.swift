@@ -1,0 +1,283 @@
+public extension Anytype_Rpc.Account {
+    public struct ConfigUpdate {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public enum Timezones: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case gmt // = 0
+        case ect // = 1
+        case eet // = 2
+        case eat // = 3
+        case met // = 4
+        case net // = 5
+        case plt // = 6
+        case ist // = 7
+        case bst // = 8
+        case vst // = 9
+        case ctt // = 10
+        case jst // = 11
+        case act // = 12
+        case aet // = 13
+        case sst // = 14
+        case nst // = 15
+        case mit // = 16
+        case hst // = 17
+        case ast // = 18
+        case pst // = 19
+        case mst // = 20
+        case cst // = 21
+        case iet // = 22
+        case prt // = 23
+        case cnt // = 24
+        case bet // = 25
+        case brt // = 26
+        case cat // = 27
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .gmt
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0:
+                  self = .gmt
+          case 1:
+                  self = .ect
+          case 2:
+                  self = .eet
+          case 3:
+                  self = .eat
+          case 4:
+                  self = .met
+          case 5:
+                  self = .net
+          case 6:
+                  self = .plt
+          case 7:
+                  self = .ist
+          case 8:
+                  self = .bst
+          case 9:
+                  self = .vst
+          case 10:
+                  self = .ctt
+          case 11:
+                  self = .jst
+          case 12:
+                  self = .act
+          case 13:
+                  self = .aet
+          case 14:
+                  self = .sst
+          case 15:
+                  self = .nst
+          case 16:
+                  self = .mit
+          case 17:
+                  self = .hst
+          case 18:
+                  self = .ast
+          case 19:
+                  self = .pst
+          case 20:
+                  self = .mst
+          case 21:
+                  self = .cst
+          case 22:
+                  self = .iet
+          case 23:
+                  self = .prt
+          case 24:
+                  self = .cnt
+          case 25:
+                  self = .bet
+          case 26:
+                  self = .brt
+          case 27:
+                  self = .cat
+          default:
+                  self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .gmt:
+                  return 0
+          case .ect:
+                  return 1
+          case .eet:
+                  return 2
+          case .eat:
+                  return 3
+          case .met:
+                  return 4
+          case .net:
+                  return 5
+          case .plt:
+                  return 6
+          case .ist:
+                  return 7
+          case .bst:
+                  return 8
+          case .vst:
+                  return 9
+          case .ctt:
+                  return 10
+          case .jst:
+                  return 11
+          case .act:
+                  return 12
+          case .aet:
+                  return 13
+          case .sst:
+                  return 14
+          case .nst:
+                  return 15
+          case .mit:
+                  return 16
+          case .hst:
+                  return 17
+          case .ast:
+                  return 18
+          case .pst:
+                  return 19
+          case .mst:
+                  return 20
+          case .cst:
+                  return 21
+          case .iet:
+                  return 22
+          case .prt:
+                  return 23
+          case .cnt:
+                  return 24
+          case .bet:
+                  return 25
+          case .brt:
+                  return 26
+          case .cat:
+                  return 27
+          case .UNRECOGNIZED(let i):
+                  return i
+          }
+        }
+
+      }
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var ipfsstorageAddr: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {
+            }
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Account.ConfigUpdate.Response.Error {
+          get {
+                  return _error ?? Anytype_Rpc.Account.ConfigUpdate.Response.Error()
+              }
+          set {
+                  _error = newValue
+              }
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {
+                return self._error != nil
+            }
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {
+                self._error = nil
+            }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case accountIsNotRunning // = 101
+            case failedToWriteConfig // = 102
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0:
+                      self = .null
+              case 1:
+                      self = .unknownError
+              case 2:
+                      self = .badInput
+              case 101:
+                      self = .accountIsNotRunning
+              case 102:
+                      self = .failedToWriteConfig
+              default:
+                      self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null:
+                      return 0
+              case .unknownError:
+                      return 1
+              case .badInput:
+                      return 2
+              case .accountIsNotRunning:
+                      return 101
+              case .failedToWriteConfig:
+                      return 102
+              case .UNRECOGNIZED(let i):
+                      return i
+              }
+            }
+
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+
+        fileprivate var _error: Anytype_Rpc.Account.ConfigUpdate.Response.Error? = nil
+      }
+
+      public init() {
+          }
+    }
+}

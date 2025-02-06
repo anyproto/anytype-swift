@@ -1,0 +1,179 @@
+public extension Anytype_Rpc.Object {
+    public struct ListModifyDetailValues {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var objectIds: [String] = []
+
+        public var operations: [Anytype_Rpc.Object.ListModifyDetailValues.Request.Operation] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Operation {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var relationKey: String = String()
+
+          public var add: SwiftProtobuf.Google_Protobuf_Value {
+            get {
+                    return _add ?? SwiftProtobuf.Google_Protobuf_Value()
+                }
+            set {
+                    _add = newValue
+                }
+          }
+          /// Returns true if `add` has been explicitly set.
+          public var hasAdd: Bool {
+                  return self._add != nil
+              }
+          /// Clears the value of `add`. Subsequent reads from it will return its default value.
+          public mutating func clearAdd() {
+                  self._add = nil
+              }
+
+          public var set: SwiftProtobuf.Google_Protobuf_Value {
+            get {
+                    return _set ?? SwiftProtobuf.Google_Protobuf_Value()
+                }
+            set {
+                    _set = newValue
+                }
+          }
+          /// Returns true if `set` has been explicitly set.
+          public var hasSet: Bool {
+                  return self._set != nil
+              }
+          /// Clears the value of `set`. Subsequent reads from it will return its default value.
+          public mutating func clearSet() {
+                  self._set = nil
+              }
+
+          public var remove: SwiftProtobuf.Google_Protobuf_Value {
+            get {
+                    return _remove ?? SwiftProtobuf.Google_Protobuf_Value()
+                }
+            set {
+                    _remove = newValue
+                }
+          }
+          /// Returns true if `remove` has been explicitly set.
+          public var hasRemove: Bool {
+                  return self._remove != nil
+              }
+          /// Clears the value of `remove`. Subsequent reads from it will return its default value.
+          public mutating func clearRemove() {
+                  self._remove = nil
+              }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {
+              }
+
+          fileprivate var _add: SwiftProtobuf.Google_Protobuf_Value? = nil
+          fileprivate var _set: SwiftProtobuf.Google_Protobuf_Value? = nil
+          fileprivate var _remove: SwiftProtobuf.Google_Protobuf_Value? = nil
+        }
+
+        public init() {
+            }
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Object.ListModifyDetailValues.Response.Error {
+          get {
+                  return _error ?? Anytype_Rpc.Object.ListModifyDetailValues.Response.Error()
+              }
+          set {
+                  _error = newValue
+              }
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {
+                return self._error != nil
+            }
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {
+                self._error = nil
+            }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Object.ListModifyDetailValues.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0:
+                      self = .null
+              case 1:
+                      self = .unknownError
+              case 2:
+                      self = .badInput
+              default:
+                      self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null:
+                      return 0
+              case .unknownError:
+                      return 1
+              case .badInput:
+                      return 2
+              case .UNRECOGNIZED(let i):
+                      return i
+              }
+            }
+
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+
+        fileprivate var _error: Anytype_Rpc.Object.ListModifyDetailValues.Response.Error? = nil
+      }
+
+      public init() {
+          }
+    }
+}

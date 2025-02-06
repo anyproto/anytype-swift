@@ -1,0 +1,158 @@
+public extension Anytype_Rpc.History {
+    public struct ShowVersion {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var objectID: String = String()
+
+        public var versionID: String = String()
+
+        public var traceID: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {
+            }
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.History.ShowVersion.Response.Error {
+          get {
+                  return _storage._error ?? Anytype_Rpc.History.ShowVersion.Response.Error()
+              }
+          set {
+                  _uniqueStorage()._error = newValue
+              }
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {
+                return _storage._error != nil
+            }
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {
+                _uniqueStorage()._error = nil
+            }
+
+        public var objectView: Anytype_Model_ObjectView {
+          get {
+                  return _storage._objectView ?? Anytype_Model_ObjectView()
+              }
+          set {
+                  _uniqueStorage()._objectView = newValue
+              }
+        }
+        /// Returns true if `objectView` has been explicitly set.
+        public var hasObjectView: Bool {
+                return _storage._objectView != nil
+            }
+        /// Clears the value of `objectView`. Subsequent reads from it will return its default value.
+        public mutating func clearObjectView() {
+                _uniqueStorage()._objectView = nil
+            }
+
+        public var version: Anytype_Rpc.History.Version {
+          get {
+                  return _storage._version ?? Anytype_Rpc.History.Version()
+              }
+          set {
+                  _uniqueStorage()._version = newValue
+              }
+        }
+        /// Returns true if `version` has been explicitly set.
+        public var hasVersion: Bool {
+                return _storage._version != nil
+            }
+        /// Clears the value of `version`. Subsequent reads from it will return its default value.
+        public mutating func clearVersion() {
+                _uniqueStorage()._version = nil
+            }
+
+        public var traceID: String {
+          get {
+                  return _storage._traceID
+              }
+          set {
+                  _uniqueStorage()._traceID = newValue
+              }
+        }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.History.ShowVersion.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0:
+                      self = .null
+              case 1:
+                      self = .unknownError
+              case 2:
+                      self = .badInput
+              default:
+                      self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null:
+                      return 0
+              case .unknownError:
+                      return 1
+              case .badInput:
+                      return 2
+              case .UNRECOGNIZED(let i):
+                      return i
+              }
+            }
+
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+
+        fileprivate var _storage = _StorageClass.defaultInstance
+      }
+
+      public init() {
+          }
+    }
+}

@@ -1,0 +1,252 @@
+public extension Anytype_Rpc.Block {
+    public struct ListUpdate {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var contextID: String = String()
+
+        public var blockIds: [String] = []
+
+        public var field: Anytype_Rpc.Block.ListUpdate.Request.OneOf_Field? = nil
+
+        public var text: Anytype_Rpc.Block.ListUpdate.Request.Text {
+          get {
+            if case .text(let v)? = field {
+                    return v
+                }
+            return Anytype_Rpc.Block.ListUpdate.Request.Text()
+          }
+          set {
+                  field = .text(newValue)
+              }
+        }
+
+        public var backgroundColor: String {
+          get {
+            if case .backgroundColor(let v)? = field {
+                    return v
+                }
+            return String()
+          }
+          set {
+                  field = .backgroundColor(newValue)
+              }
+        }
+
+        public var align: Anytype_Model_Block.Align {
+          get {
+            if case .align(let v)? = field {
+                    return v
+                }
+            return .left
+          }
+          set {
+                  field = .align(newValue)
+              }
+        }
+
+        public var fields: SwiftProtobuf.Google_Protobuf_Struct {
+          get {
+            if case .fields(let v)? = field {
+                    return v
+                }
+            return SwiftProtobuf.Google_Protobuf_Struct()
+          }
+          set {
+                  field = .fields(newValue)
+              }
+        }
+
+        public var divStyle: Anytype_Model_Block.Content.Div.Style {
+          get {
+            if case .divStyle(let v)? = field {
+                    return v
+                }
+            return .line
+          }
+          set {
+                  field = .divStyle(newValue)
+              }
+        }
+
+        public var fileStyle: Anytype_Model_Block.Content.File.Style {
+          get {
+            if case .fileStyle(let v)? = field {
+                    return v
+                }
+            return .auto
+          }
+          set {
+                  field = .fileStyle(newValue)
+              }
+        }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public enum OneOf_Field: Equatable {
+          case text(Anytype_Rpc.Block.ListUpdate.Request.Text)
+          case backgroundColor(String)
+          case align(Anytype_Model_Block.Align)
+          case fields(SwiftProtobuf.Google_Protobuf_Struct)
+          case divStyle(Anytype_Model_Block.Content.Div.Style)
+          case fileStyle(Anytype_Model_Block.Content.File.Style)
+
+        #if !swift(>=4.1)
+          public static func ==(lhs: Anytype_Rpc.Block.ListUpdate.Request.OneOf_Field, rhs: Anytype_Rpc.Block.ListUpdate.Request.OneOf_Field) -> Bool {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch (lhs, rhs) {
+            case (.text, .text):
+                    return {
+                                  guard case .text(let l) = lhs, case .text(let r) = rhs else {
+                                      preconditionFailure()
+                                  }
+                                  return l == r
+                                }()
+            case (.backgroundColor, .backgroundColor):
+                    return {
+                                  guard case .backgroundColor(let l) = lhs, case .backgroundColor(let r) = rhs else {
+                                      preconditionFailure()
+                                  }
+                                  return l == r
+                                }()
+            case (.align, .align):
+                    return {
+                                  guard case .align(let l) = lhs, case .align(let r) = rhs else {
+                                      preconditionFailure()
+                                  }
+                                  return l == r
+                                }()
+            case (.fields, .fields):
+                    return {
+                                  guard case .fields(let l) = lhs, case .fields(let r) = rhs else {
+                                      preconditionFailure()
+                                  }
+                                  return l == r
+                                }()
+            case (.divStyle, .divStyle):
+                    return {
+                                  guard case .divStyle(let l) = lhs, case .divStyle(let r) = rhs else {
+                                      preconditionFailure()
+                                  }
+                                  return l == r
+                                }()
+            case (.fileStyle, .fileStyle):
+                    return {
+                                  guard case .fileStyle(let l) = lhs, case .fileStyle(let r) = rhs else {
+                                      preconditionFailure()
+                                  }
+                                  return l == r
+                                }()
+            default:
+                    return false
+            }
+          }
+        #endif
+        }
+
+        public struct Text {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var field: Anytype_Rpc.Block.ListUpdate.Request.Text.OneOf_Field? = nil
+
+          public var style: Anytype_Model_Block.Content.Text.Style {
+            get {
+              if case .style(let v)? = field {
+                      return v
+                  }
+              return .paragraph
+            }
+            set {
+                    field = .style(newValue)
+                }
+          }
+
+          public var color: String {
+            get {
+              if case .color(let v)? = field {
+                      return v
+                  }
+              return String()
+            }
+            set {
+                    field = .color(newValue)
+                }
+          }
+
+          public var mark: Anytype_Model_Block.Content.Text.Mark {
+            get {
+              if case .mark(let v)? = field {
+                      return v
+                  }
+              return Anytype_Model_Block.Content.Text.Mark()
+            }
+            set {
+                    field = .mark(newValue)
+                }
+          }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum OneOf_Field: Equatable {
+            case style(Anytype_Model_Block.Content.Text.Style)
+            case color(String)
+            case mark(Anytype_Model_Block.Content.Text.Mark)
+
+          #if !swift(>=4.1)
+            public static func ==(lhs: Anytype_Rpc.Block.ListUpdate.Request.Text.OneOf_Field, rhs: Anytype_Rpc.Block.ListUpdate.Request.Text.OneOf_Field) -> Bool {
+              // The use of inline closures is to circumvent an issue where the compiler
+              // allocates stack space for every case branch when no optimizations are
+              // enabled. https://github.com/apple/swift-protobuf/issues/1034
+              switch (lhs, rhs) {
+              case (.style, .style):
+                      return {
+                                      guard case .style(let l) = lhs, case .style(let r) = rhs else {
+                                          preconditionFailure()
+                                      }
+                                      return l == r
+                                    }()
+              case (.color, .color):
+                      return {
+                                      guard case .color(let l) = lhs, case .color(let r) = rhs else {
+                                          preconditionFailure()
+                                      }
+                                      return l == r
+                                    }()
+              case (.mark, .mark):
+                      return {
+                                      guard case .mark(let l) = lhs, case .mark(let r) = rhs else {
+                                          preconditionFailure()
+                                      }
+                                      return l == r
+                                    }()
+              default:
+                      return false
+              }
+            }
+          #endif
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+      }
+
+      public init() {
+          }
+    }
+}

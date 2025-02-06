@@ -1,0 +1,155 @@
+public extension Anytype_Rpc.Object {
+    public struct Show {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// deprecated, GO-1926
+        public var contextID: String = String()
+
+        public var objectID: String = String()
+
+        public var traceID: String = String()
+
+        /// Required only for date objects
+        public var spaceID: String = String()
+
+        /// some clients may set this option instead if having the single subscription to all relations
+        public var includeRelationsAsDependentObjects: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {
+            }
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Object.Show.Response.Error {
+          get {
+                  return _error ?? Anytype_Rpc.Object.Show.Response.Error()
+              }
+          set {
+                  _error = newValue
+              }
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {
+                return self._error != nil
+            }
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {
+                self._error = nil
+            }
+
+        public var objectView: Anytype_Model_ObjectView {
+          get {
+                  return _objectView ?? Anytype_Model_ObjectView()
+              }
+          set {
+                  _objectView = newValue
+              }
+        }
+        /// Returns true if `objectView` has been explicitly set.
+        public var hasObjectView: Bool {
+                return self._objectView != nil
+            }
+        /// Clears the value of `objectView`. Subsequent reads from it will return its default value.
+        public mutating func clearObjectView() {
+                self._objectView = nil
+            }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Object.Show.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notFound // = 3
+            case objectDeleted // = 4
+
+            /// failed to read unknown data format – need to upgrade anytype
+            case anytypeNeedsUpgrade // = 10
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0:
+                      self = .null
+              case 1:
+                      self = .unknownError
+              case 2:
+                      self = .badInput
+              case 3:
+                      self = .notFound
+              case 4:
+                      self = .objectDeleted
+              case 10:
+                      self = .anytypeNeedsUpgrade
+              default:
+                      self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null:
+                      return 0
+              case .unknownError:
+                      return 1
+              case .badInput:
+                      return 2
+              case .notFound:
+                      return 3
+              case .objectDeleted:
+                      return 4
+              case .anytypeNeedsUpgrade:
+                      return 10
+              case .UNRECOGNIZED(let i):
+                      return i
+              }
+            }
+
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+
+        fileprivate var _error: Anytype_Rpc.Object.Show.Response.Error? = nil
+        fileprivate var _objectView: Anytype_Model_ObjectView? = nil
+      }
+
+      public init() {
+          }
+    }
+}

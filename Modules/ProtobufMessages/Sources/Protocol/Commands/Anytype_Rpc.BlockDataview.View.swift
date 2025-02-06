@@ -1,0 +1,767 @@
+public extension Anytype_Rpc.BlockDataview {
+    public struct View {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Create {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var contextID: String {
+            get {
+                    return _storage._contextID
+                }
+            set {
+                    _uniqueStorage()._contextID = newValue
+                }
+          }
+
+          /// id of dataview block to insert the new block
+          public var blockID: String {
+            get {
+                    return _storage._blockID
+                }
+            set {
+                    _uniqueStorage()._blockID = newValue
+                }
+          }
+
+          public var view: Anytype_Model_Block.Content.Dataview.View {
+            get {
+                    return _storage._view ?? Anytype_Model_Block.Content.Dataview.View()
+                }
+            set {
+                    _uniqueStorage()._view = newValue
+                }
+          }
+          /// Returns true if `view` has been explicitly set.
+          public var hasView: Bool {
+                  return _storage._view != nil
+              }
+          /// Clears the value of `view`. Subsequent reads from it will return its default value.
+          public mutating func clearView() {
+                  _uniqueStorage()._view = nil
+              }
+
+          public var source: [String] {
+            get {
+                    return _storage._source
+                }
+            set {
+                    _uniqueStorage()._source = newValue
+                }
+          }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {
+              }
+
+          fileprivate var _storage = _StorageClass.defaultInstance
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.BlockDataview.View.Create.Response.Error {
+            get {
+                    return _error ?? Anytype_Rpc.BlockDataview.View.Create.Response.Error()
+                }
+            set {
+                    _error = newValue
+                }
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {
+                  return self._error != nil
+              }
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {
+                  self._error = nil
+              }
+
+          public var event: Anytype_ResponseEvent {
+            get {
+                    return _event ?? Anytype_ResponseEvent()
+                }
+            set {
+                    _event = newValue
+                }
+          }
+          /// Returns true if `event` has been explicitly set.
+          public var hasEvent: Bool {
+                  return self._event != nil
+              }
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          public mutating func clearEvent() {
+                  self._event = nil
+              }
+
+          public var viewID: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.BlockDataview.View.Create.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+
+              /// ...
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0:
+                        self = .null
+                case 1:
+                        self = .unknownError
+                case 2:
+                        self = .badInput
+                default:
+                        self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null:
+                        return 0
+                case .unknownError:
+                        return 1
+                case .badInput:
+                        return 2
+                case .UNRECOGNIZED(let i):
+                        return i
+                }
+              }
+
+            }
+
+            public init() {
+                }
+          }
+
+          public init() {
+              }
+
+          fileprivate var _error: Anytype_Rpc.BlockDataview.View.Create.Response.Error? = nil
+          fileprivate var _event: Anytype_ResponseEvent? = nil
+        }
+
+        public init() {
+            }
+      }
+
+      public struct Update {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var contextID: String {
+            get {
+                    return _storage._contextID
+                }
+            set {
+                    _uniqueStorage()._contextID = newValue
+                }
+          }
+
+          /// id of dataview block to update
+          public var blockID: String {
+            get {
+                    return _storage._blockID
+                }
+            set {
+                    _uniqueStorage()._blockID = newValue
+                }
+          }
+
+          /// id of view to update
+          public var viewID: String {
+            get {
+                    return _storage._viewID
+                }
+            set {
+                    _uniqueStorage()._viewID = newValue
+                }
+          }
+
+          public var view: Anytype_Model_Block.Content.Dataview.View {
+            get {
+                    return _storage._view ?? Anytype_Model_Block.Content.Dataview.View()
+                }
+            set {
+                    _uniqueStorage()._view = newValue
+                }
+          }
+          /// Returns true if `view` has been explicitly set.
+          public var hasView: Bool {
+                  return _storage._view != nil
+              }
+          /// Clears the value of `view`. Subsequent reads from it will return its default value.
+          public mutating func clearView() {
+                  _uniqueStorage()._view = nil
+              }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {
+              }
+
+          fileprivate var _storage = _StorageClass.defaultInstance
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.BlockDataview.View.Update.Response.Error {
+            get {
+                    return _error ?? Anytype_Rpc.BlockDataview.View.Update.Response.Error()
+                }
+            set {
+                    _error = newValue
+                }
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {
+                  return self._error != nil
+              }
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {
+                  self._error = nil
+              }
+
+          public var event: Anytype_ResponseEvent {
+            get {
+                    return _event ?? Anytype_ResponseEvent()
+                }
+            set {
+                    _event = newValue
+                }
+          }
+          /// Returns true if `event` has been explicitly set.
+          public var hasEvent: Bool {
+                  return self._event != nil
+              }
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          public mutating func clearEvent() {
+                  self._event = nil
+              }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+
+              /// ...
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0:
+                        self = .null
+                case 1:
+                        self = .unknownError
+                case 2:
+                        self = .badInput
+                default:
+                        self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null:
+                        return 0
+                case .unknownError:
+                        return 1
+                case .badInput:
+                        return 2
+                case .UNRECOGNIZED(let i):
+                        return i
+                }
+              }
+
+            }
+
+            public init() {
+                }
+          }
+
+          public init() {
+              }
+
+          fileprivate var _error: Anytype_Rpc.BlockDataview.View.Update.Response.Error? = nil
+          fileprivate var _event: Anytype_ResponseEvent? = nil
+        }
+
+        public init() {
+            }
+      }
+
+      public struct Delete {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          /// id of the context object
+          public var contextID: String = String()
+
+          /// id of the dataview
+          public var blockID: String = String()
+
+          /// id of the view to remove
+          public var viewID: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {
+              }
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.BlockDataview.View.Delete.Response.Error {
+            get {
+                    return _error ?? Anytype_Rpc.BlockDataview.View.Delete.Response.Error()
+                }
+            set {
+                    _error = newValue
+                }
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {
+                  return self._error != nil
+              }
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {
+                  self._error = nil
+              }
+
+          public var event: Anytype_ResponseEvent {
+            get {
+                    return _event ?? Anytype_ResponseEvent()
+                }
+            set {
+                    _event = newValue
+                }
+          }
+          /// Returns true if `event` has been explicitly set.
+          public var hasEvent: Bool {
+                  return self._event != nil
+              }
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          public mutating func clearEvent() {
+                  self._event = nil
+              }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.BlockDataview.View.Delete.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+
+              /// ...
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0:
+                        self = .null
+                case 1:
+                        self = .unknownError
+                case 2:
+                        self = .badInput
+                default:
+                        self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null:
+                        return 0
+                case .unknownError:
+                        return 1
+                case .badInput:
+                        return 2
+                case .UNRECOGNIZED(let i):
+                        return i
+                }
+              }
+
+            }
+
+            public init() {
+                }
+          }
+
+          public init() {
+              }
+
+          fileprivate var _error: Anytype_Rpc.BlockDataview.View.Delete.Response.Error? = nil
+          fileprivate var _event: Anytype_ResponseEvent? = nil
+        }
+
+        public init() {
+            }
+      }
+
+      public struct SetPosition {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          /// id of the context object
+          public var contextID: String = String()
+
+          /// id of the dataview
+          public var blockID: String = String()
+
+          /// id of the view to remove
+          public var viewID: String = String()
+
+          /// index of view position (0 - means first)
+          public var position: UInt32 = 0
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {
+              }
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error {
+            get {
+                    return _error ?? Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error()
+                }
+            set {
+                    _error = newValue
+                }
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {
+                  return self._error != nil
+              }
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {
+                  self._error = nil
+              }
+
+          public var event: Anytype_ResponseEvent {
+            get {
+                    return _event ?? Anytype_ResponseEvent()
+                }
+            set {
+                    _event = newValue
+                }
+          }
+          /// Returns true if `event` has been explicitly set.
+          public var hasEvent: Bool {
+                  return self._event != nil
+              }
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          public mutating func clearEvent() {
+                  self._event = nil
+              }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+
+              /// ...
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0:
+                        self = .null
+                case 1:
+                        self = .unknownError
+                case 2:
+                        self = .badInput
+                default:
+                        self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null:
+                        return 0
+                case .unknownError:
+                        return 1
+                case .badInput:
+                        return 2
+                case .UNRECOGNIZED(let i):
+                        return i
+                }
+              }
+
+            }
+
+            public init() {
+                }
+          }
+
+          public init() {
+              }
+
+          fileprivate var _error: Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error? = nil
+          fileprivate var _event: Anytype_ResponseEvent? = nil
+        }
+
+        public init() {
+            }
+      }
+
+      /// set the current active view locally
+      public struct SetActive {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var contextID: String = String()
+
+          /// id of dataview block
+          public var blockID: String = String()
+
+          /// id of active view
+          public var viewID: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {
+              }
+        }
+
+        public struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var error: Anytype_Rpc.BlockDataview.View.SetActive.Response.Error {
+            get {
+                    return _error ?? Anytype_Rpc.BlockDataview.View.SetActive.Response.Error()
+                }
+            set {
+                    _error = newValue
+                }
+          }
+          /// Returns true if `error` has been explicitly set.
+          public var hasError: Bool {
+                  return self._error != nil
+              }
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          public mutating func clearError() {
+                  self._error = nil
+              }
+
+          public var event: Anytype_ResponseEvent {
+            get {
+                    return _event ?? Anytype_ResponseEvent()
+                }
+            set {
+                    _event = newValue
+                }
+          }
+          /// Returns true if `event` has been explicitly set.
+          public var hasEvent: Bool {
+                  return self._event != nil
+              }
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          public mutating func clearEvent() {
+                  self._event = nil
+              }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var code: Anytype_Rpc.BlockDataview.View.SetActive.Response.Error.Code = .null
+
+            public var description_p: String = String()
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public enum Code: SwiftProtobuf.Enum {
+              public typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              public init() {
+                self = .null
+              }
+
+              public init?(rawValue: Int) {
+                switch rawValue {
+                case 0:
+                        self = .null
+                case 1:
+                        self = .unknownError
+                case 2:
+                        self = .badInput
+                default:
+                        self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              public var rawValue: Int {
+                switch self {
+                case .null:
+                        return 0
+                case .unknownError:
+                        return 1
+                case .badInput:
+                        return 2
+                case .UNRECOGNIZED(let i):
+                        return i
+                }
+              }
+
+            }
+
+            public init() {
+                }
+          }
+
+          public init() {
+              }
+
+          fileprivate var _error: Anytype_Rpc.BlockDataview.View.SetActive.Response.Error? = nil
+          fileprivate var _event: Anytype_ResponseEvent? = nil
+        }
+
+        public init() {
+            }
+      }
+
+      public init() {
+          }
+    }
+}

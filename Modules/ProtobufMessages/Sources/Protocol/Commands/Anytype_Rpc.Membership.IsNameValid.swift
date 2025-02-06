@@ -1,0 +1,176 @@
+public extension Anytype_Rpc.Membership {
+    public struct IsNameValid {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var requestedTier: UInt32 = 0
+
+        public var nsName: String = String()
+
+        public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {
+            }
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.IsNameValid.Response.Error {
+          get {
+                  return _error ?? Anytype_Rpc.Membership.IsNameValid.Response.Error()
+              }
+          set {
+                  _error = newValue
+              }
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {
+                return self._error != nil
+            }
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {
+                self._error = nil
+            }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.IsNameValid.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case tooShort // = 3
+            case tooLong // = 4
+            case hasInvalidChars // = 5
+            case tierFeaturesNoName // = 6
+
+            /// if everything is fine - "name is already taken" check should be done in the NS
+            /// see IsNameAvailable()
+            case tierNotFound // = 7
+            case notLoggedIn // = 8
+            case paymentNodeError // = 9
+            case cacheError // = 10
+
+            /// for some probable future use (if needed)
+            case canNotReserve // = 11
+            case canNotConnect // = 12
+
+            /// Same as if NameService.ResolveName returned that name is already
+            /// occupied by some user
+            case nameIsReserved // = 13
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0:
+                      self = .null
+              case 1:
+                      self = .unknownError
+              case 2:
+                      self = .badInput
+              case 3:
+                      self = .tooShort
+              case 4:
+                      self = .tooLong
+              case 5:
+                      self = .hasInvalidChars
+              case 6:
+                      self = .tierFeaturesNoName
+              case 7:
+                      self = .tierNotFound
+              case 8:
+                      self = .notLoggedIn
+              case 9:
+                      self = .paymentNodeError
+              case 10:
+                      self = .cacheError
+              case 11:
+                      self = .canNotReserve
+              case 12:
+                      self = .canNotConnect
+              case 13:
+                      self = .nameIsReserved
+              default:
+                      self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null:
+                      return 0
+              case .unknownError:
+                      return 1
+              case .badInput:
+                      return 2
+              case .tooShort:
+                      return 3
+              case .tooLong:
+                      return 4
+              case .hasInvalidChars:
+                      return 5
+              case .tierFeaturesNoName:
+                      return 6
+              case .tierNotFound:
+                      return 7
+              case .notLoggedIn:
+                      return 8
+              case .paymentNodeError:
+                      return 9
+              case .cacheError:
+                      return 10
+              case .canNotReserve:
+                      return 11
+              case .canNotConnect:
+                      return 12
+              case .nameIsReserved:
+                      return 13
+              case .UNRECOGNIZED(let i):
+                      return i
+              }
+            }
+
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+
+        fileprivate var _error: Anytype_Rpc.Membership.IsNameValid.Response.Error? = nil
+      }
+
+      public init() {
+          }
+    }
+}

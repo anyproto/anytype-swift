@@ -1,0 +1,185 @@
+public extension Anytype_Rpc.Debug {
+    public struct AnystoreObjectChanges {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var objectID: String = String()
+
+        public var orderBy: Anytype_Rpc.Debug.AnystoreObjectChanges.Request.OrderBy = .orderID
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public enum OrderBy: SwiftProtobuf.Enum {
+          public typealias RawValue = Int
+          case orderID // = 0
+          case iterationOrder // = 1
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .orderID
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0:
+                    self = .orderID
+            case 1:
+                    self = .iterationOrder
+            default:
+                    self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .orderID:
+                    return 0
+            case .iterationOrder:
+                    return 1
+            case .UNRECOGNIZED(let i):
+                    return i
+            }
+          }
+
+        }
+
+        public init() {
+            }
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error {
+          get {
+                  return _error ?? Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error()
+              }
+          set {
+                  _error = newValue
+              }
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {
+                return self._error != nil
+            }
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {
+                self._error = nil
+            }
+
+        public var changes: [Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Change] = []
+
+        public var wrongOrder: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Change {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var changeID: String = String()
+
+          public var orderID: String = String()
+
+          public var error: String = String()
+
+          public var change: SwiftProtobuf.Google_Protobuf_Struct {
+            get {
+                    return _change ?? SwiftProtobuf.Google_Protobuf_Struct()
+                }
+            set {
+                    _change = newValue
+                }
+          }
+          /// Returns true if `change` has been explicitly set.
+          public var hasChange: Bool {
+                  return self._change != nil
+              }
+          /// Clears the value of `change`. Subsequent reads from it will return its default value.
+          public mutating func clearChange() {
+                  self._change = nil
+              }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {
+              }
+
+          fileprivate var _change: SwiftProtobuf.Google_Protobuf_Struct? = nil
+        }
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0:
+                      self = .null
+              case 1:
+                      self = .unknownError
+              case 2:
+                      self = .badInput
+              default:
+                      self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null:
+                      return 0
+              case .unknownError:
+                      return 1
+              case .badInput:
+                      return 2
+              case .UNRECOGNIZED(let i):
+                      return i
+              }
+            }
+
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+
+        fileprivate var _error: Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error? = nil
+      }
+
+      public init() {
+          }
+    }
+}

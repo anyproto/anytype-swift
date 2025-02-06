@@ -1,0 +1,148 @@
+public extension Anytype_Rpc.Membership {
+    public struct Finalize {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// if empty - then no name requested
+        /// if non-empty - PP node will register that name on behalf of the user
+        public var nsName: String = String()
+
+        public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {
+            }
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.Finalize.Response.Error {
+          get {
+                  return _error ?? Anytype_Rpc.Membership.Finalize.Response.Error()
+              }
+          set {
+                  _error = newValue
+              }
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {
+                return self._error != nil
+            }
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {
+                self._error = nil
+            }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.Finalize.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case cacheError // = 5
+            case membershipNotFound // = 6
+            case membershipWrongState // = 7
+            case badAnyname // = 8
+            case canNotConnect // = 9
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0:
+                      self = .null
+              case 1:
+                      self = .unknownError
+              case 2:
+                      self = .badInput
+              case 3:
+                      self = .notLoggedIn
+              case 4:
+                      self = .paymentNodeError
+              case 5:
+                      self = .cacheError
+              case 6:
+                      self = .membershipNotFound
+              case 7:
+                      self = .membershipWrongState
+              case 8:
+                      self = .badAnyname
+              case 9:
+                      self = .canNotConnect
+              default:
+                      self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null:
+                      return 0
+              case .unknownError:
+                      return 1
+              case .badInput:
+                      return 2
+              case .notLoggedIn:
+                      return 3
+              case .paymentNodeError:
+                      return 4
+              case .cacheError:
+                      return 5
+              case .membershipNotFound:
+                      return 6
+              case .membershipWrongState:
+                      return 7
+              case .badAnyname:
+                      return 8
+              case .canNotConnect:
+                      return 9
+              case .UNRECOGNIZED(let i):
+                      return i
+              }
+            }
+
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+
+        fileprivate var _error: Anytype_Rpc.Membership.Finalize.Response.Error? = nil
+      }
+
+      public init() {
+          }
+    }
+}

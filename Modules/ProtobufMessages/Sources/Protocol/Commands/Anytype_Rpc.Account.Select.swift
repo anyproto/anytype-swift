@@ -1,0 +1,243 @@
+public extension Anytype_Rpc.Account {
+    public struct Select {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      ///*
+      /// Front end to middleware request-to-launch-a specific account using account id and a root path
+      /// User can select an account from those, that came with an AccountAdd events
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// Id of a selected account
+        public var id: String = String()
+
+        /// Root path is optional, set if this is a first request
+        public var rootPath: String = String()
+
+        /// Disable local network discovery
+        public var disableLocalNetworkSync: Bool = false
+
+        /// optional, default is DefaultConfig
+        public var networkMode: Anytype_Rpc.Account.NetworkMode = .defaultConfig
+
+        /// config path for the custom network mode
+        public var networkCustomConfigFilePath: String = String()
+
+        /// optional, default is false, recommended in case of problems with QUIC transport
+        public var preferYamuxTransport: Bool = false
+
+        /// optional, if empty json api will not be started; 127.0.0.1:31009 should be the default one
+        public var jsonApiListenAddr: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {
+            }
+      }
+
+      ///*
+      /// Middleware-to-front-end response for an account select request, that can contain a NULL error and selected account or a non-NULL error and an empty account
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// Error while trying to launch/select an account
+        public var error: Anytype_Rpc.Account.Select.Response.Error {
+          get {
+                  return _error ?? Anytype_Rpc.Account.Select.Response.Error()
+              }
+          set {
+                  _error = newValue
+              }
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {
+                return self._error != nil
+            }
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {
+                self._error = nil
+            }
+
+        /// Selected account
+        public var account: Anytype_Model_Account {
+          get {
+                  return _account ?? Anytype_Model_Account()
+              }
+          set {
+                  _account = newValue
+              }
+        }
+        /// Returns true if `account` has been explicitly set.
+        public var hasAccount: Bool {
+                return self._account != nil
+            }
+        /// Clears the value of `account`. Subsequent reads from it will return its default value.
+        public mutating func clearAccount() {
+                self._account = nil
+            }
+
+        /// deprecated, use account, GO-1926
+        public var config: Anytype_Rpc.Account.Config {
+          get {
+                  return _config ?? Anytype_Rpc.Account.Config()
+              }
+          set {
+                  _config = newValue
+              }
+        }
+        /// Returns true if `config` has been explicitly set.
+        public var hasConfig: Bool {
+                return self._config != nil
+            }
+        /// Clears the value of `config`. Subsequent reads from it will return its default value.
+        public mutating func clearConfig() {
+                self._config = nil
+            }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Account.Select.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+
+            /// No error
+            case null // = 0
+
+            /// Any other errors
+            case unknownError // = 1
+
+            /// Id or root path is wrong
+            case badInput // = 2
+            case failedToCreateLocalRepo // = 101
+            case localRepoExistsButCorrupted // = 102
+            case failedToRunNode // = 103
+            case failedToFindAccountInfo // = 104
+            case localRepoNotExistsAndMnemonicNotSet // = 105
+            case failedToStopSearcherNode // = 106
+            case anotherAnytypeProcessIsRunning // = 108
+            case failedToFetchRemoteNodeHasIncompatibleProtoVersion // = 110
+            case accountIsDeleted // = 111
+            case accountLoadIsCanceled // = 112
+            case configFileNotFound // = 200
+            case configFileInvalid // = 201
+            case configFileNetworkIDMismatch // = 202
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0:
+                      self = .null
+              case 1:
+                      self = .unknownError
+              case 2:
+                      self = .badInput
+              case 101:
+                      self = .failedToCreateLocalRepo
+              case 102:
+                      self = .localRepoExistsButCorrupted
+              case 103:
+                      self = .failedToRunNode
+              case 104:
+                      self = .failedToFindAccountInfo
+              case 105:
+                      self = .localRepoNotExistsAndMnemonicNotSet
+              case 106:
+                      self = .failedToStopSearcherNode
+              case 108:
+                      self = .anotherAnytypeProcessIsRunning
+              case 110:
+                      self = .failedToFetchRemoteNodeHasIncompatibleProtoVersion
+              case 111:
+                      self = .accountIsDeleted
+              case 112:
+                      self = .accountLoadIsCanceled
+              case 200:
+                      self = .configFileNotFound
+              case 201:
+                      self = .configFileInvalid
+              case 202:
+                      self = .configFileNetworkIDMismatch
+              default:
+                      self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null:
+                      return 0
+              case .unknownError:
+                      return 1
+              case .badInput:
+                      return 2
+              case .failedToCreateLocalRepo:
+                      return 101
+              case .localRepoExistsButCorrupted:
+                      return 102
+              case .failedToRunNode:
+                      return 103
+              case .failedToFindAccountInfo:
+                      return 104
+              case .localRepoNotExistsAndMnemonicNotSet:
+                      return 105
+              case .failedToStopSearcherNode:
+                      return 106
+              case .anotherAnytypeProcessIsRunning:
+                      return 108
+              case .failedToFetchRemoteNodeHasIncompatibleProtoVersion:
+                      return 110
+              case .accountIsDeleted:
+                      return 111
+              case .accountLoadIsCanceled:
+                      return 112
+              case .configFileNotFound:
+                      return 200
+              case .configFileInvalid:
+                      return 201
+              case .configFileNetworkIDMismatch:
+                      return 202
+              case .UNRECOGNIZED(let i):
+                      return i
+              }
+            }
+
+          }
+
+          public init() {
+              }
+        }
+
+        public init() {
+            }
+
+        fileprivate var _error: Anytype_Rpc.Account.Select.Response.Error? = nil
+        fileprivate var _account: Anytype_Model_Account? = nil
+        fileprivate var _config: Anytype_Rpc.Account.Config? = nil
+      }
+
+      public init() {
+          }
+    }
+}
