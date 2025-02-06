@@ -21,9 +21,9 @@ final class LoginViewModel: ObservableObject {
         }
     }
     @Published var showError: Bool = false
-    @Published var migrationInProgress = false
     @Published var dismiss = false
     @Published var accountId: String?
+    @Published var migrationData: MigrationModuleData?
     
     var loginButtonDisabled: Bool {
         phrase.isEmpty || loadingRoute.isKeychainInProgress || loadingRoute.isQRInProgress
@@ -55,10 +55,6 @@ final class LoginViewModel: ObservableObject {
     private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
-    @Injected(\.accountMigrationService)
-    private var accountMigrationService: any AccountMigrationServiceProtocol
-    @Injected(\.localRepoService)
-    private var localRepoService: any LocalRepoServiceProtocol
     
     private weak var output: (any LoginFlowOutput)?
     
@@ -206,33 +202,14 @@ final class LoginViewModel: ObservableObject {
         } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
             errorText = Loc.Vault.Select.Incompatible.Version.Error.text
         } catch SelectAccountError.accountStoreNotMigrated {
-            await startMigration()
+            migrationData = MigrationModuleData(
+                id: accountId,
+                onFinish: { [weak self] in
+                    await self?.selectAccount()
+                }
+            )
         } catch {
             errorText = Loc.selectVaultError
-        }
-    }
-    
-    func startMigration() async {
-        guard let accountId else { return }
-        
-        do {
-            migrationInProgress = true
-            try await accountMigrationService.accountMigrate(id: accountId, rootPath: localRepoService.middlewareRepoPath)
-            migrationInProgress = false
-            await selectAccount()
-        } catch {
-            errorText = error.localizedDescription
-        }
-    }
-    
-    func cancelMigration() {
-        migrationInProgress = false
-        let id = accountId
-        accountId = nil
-        guard let id else { return }
-        
-        Task {
-            try? await accountMigrationService.accountMigrateCancel(id: id)
         }
     }
     

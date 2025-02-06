@@ -10,10 +10,14 @@ public protocol AccountMigrationServiceProtocol: Sendable {
 final class AccountMigrationService: AccountMigrationServiceProtocol {
     
     public func accountMigrate(id: String, rootPath: String) async throws {
-        _ = try await ClientCommands.accountMigrate(.with {
-            $0.id = id
-            $0.rootPath = rootPath
-        }).invoke()
+        do {
+            _ = try await ClientCommands.accountMigrate(.with {
+                $0.id = id
+                $0.rootPath = rootPath
+            }).invoke()
+        } catch let error as Anytype_Rpc.Account.Migrate.Response.Error {
+            throw error.asError ?? error
+        }
     }
 
     public func accountMigrateCancel(id: String) async throws {

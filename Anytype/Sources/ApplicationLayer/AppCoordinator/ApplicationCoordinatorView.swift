@@ -23,20 +23,15 @@ struct ApplicationCoordinatorView: View {
         .task {
             await model.startFileHandler()
         }
-        .task(item: model.migrationTaskId) { _ in
-            await model.startMigration()
-        }
         .onChange(of: dismissAllPresented) {
             model.setDismissAllPresented(dismissAllPresented: $0)
         }
         .snackbar(toastBarData: $model.toastBarData)
         
         // migration
-        .alert("Migration is in progress...", isPresented: $model.migrationInProgress, actions: {
-            Button(Loc.cancel, action: { model.cancelMigration() })
-        }, message: {
-            Text("Please wait")
-        })
+        .fullScreenCover(item: $model.migrationData) {
+            MigrationView(data: $0)
+        }
     }
     
     @ViewBuilder
