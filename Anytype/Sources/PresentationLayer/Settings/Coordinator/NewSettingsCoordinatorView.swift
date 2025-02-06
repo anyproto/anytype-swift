@@ -1,20 +1,55 @@
 import SwiftUI
 
 struct NewSettingsCoordinatorView: View {
-    @StateObject private var model: NewSettingsCoordinatorViewModel
-    
-    init() {
-        _model = StateObject(wrappedValue: NewSettingsCoordinatorViewModel())
-    }
+    @StateObject private var model = NewSettingsCoordinatorViewModel()
     
     var body: some View {
-        NewSettingsView()
-            .task { await model.setupSubscriptions() }
+        NewSettingsView(output: model)
+            .sheet(isPresented: $model.showFileStorage) {
+                FileStorageView()
+            }
+            .anytypeSheet(isPresented: $model.showAppearance) {
+                SettingsAppearanceView()
+            }
+            .sheet(isPresented: $model.showSettingsAccount) {
+                SettingsAccountView(output: model)
+                    .anytypeSheet(isPresented: $model.showLogoutAlert) {
+                        DashboardLogoutAlert {
+                            model.onBackupTap()
+                        } onLogout: {
+                            model.onLogoutConfirmTap()
+                        }
+                    }
+                    .anytypeSheet(isPresented: $model.showDeleteAccountAlert) {
+                        DashboardAccountDeletionAlert()
+                    }
+                    .sheet(isPresented: $model.showKeychainPhraseForLogout) {
+                        KeychainPhraseView(context: .logout)
+                    }
+                    .sheet(isPresented: $model.showKeychainPhraseForSettings) {
+                        KeychainPhraseView(context: .settings)
+                    }
+            }
+            .sheet(isPresented: $model.showAbout) {
+                AboutView(output: model)
+                    .sheet(isPresented: $model.showDebugMenuForAbout) {
+                        DebugMenuView()
+                    }
+            }
+            .sheet(isPresented: $model.showDebugMenu) {
+                DebugMenuView()
+            }
+            .sheet(isPresented: $model.showSpaceManager) {
+                SpacesManagerView()
+            }
+            .sheet(isPresented: $model.showMembership) {
+                MembershipCoordinator()
+            }
+            .sheet(item: $model.objectIconPickerData) {
+                ObjectIconPicker(data: $0)
+            }
     }
-    
-    private var content: some View {
-        EmptyView()
-    }
+
 
 }
 

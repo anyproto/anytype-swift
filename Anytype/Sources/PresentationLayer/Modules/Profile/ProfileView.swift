@@ -19,7 +19,6 @@ struct ProfileView: View {
             }
         }
         
-        
         .task { await model.setupSubscriptions() }
         .sheet(isPresented: $model.showSettings) {
             if FeatureFlags.newSettings {
