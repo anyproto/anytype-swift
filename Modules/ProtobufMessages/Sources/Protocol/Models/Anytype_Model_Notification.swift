@@ -150,187 +150,8 @@ public struct Anytype_Model_Notification {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public enum OneOf_Payload: Equatable {
-    case `import`(Anytype_Model_Notification.Import)
-    case export(Anytype_Model_Notification.Export)
-    case galleryImport(Anytype_Model_Notification.GalleryImport)
-    case requestToJoin(Anytype_Model_Notification.RequestToJoin)
-    case test(Anytype_Model_Notification.Test)
-    case participantRequestApproved(Anytype_Model_Notification.ParticipantRequestApproved)
-    case requestToLeave(Anytype_Model_Notification.RequestToLeave)
-    case participantRemove(Anytype_Model_Notification.ParticipantRemove)
-    case participantRequestDecline(Anytype_Model_Notification.ParticipantRequestDecline)
-    case participantPermissionsChange(Anytype_Model_Notification.ParticipantPermissionsChange)
-
-  #if !swift(>=4.1)
-    public static func ==(lhs: Anytype_Model_Notification.OneOf_Payload, rhs: Anytype_Model_Notification.OneOf_Payload) -> Bool {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch (lhs, rhs) {
-      case (.import, .import):
-          return {
-                  guard case .import(let l) = lhs, case .import(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.export, .export):
-          return {
-                  guard case .export(let l) = lhs, case .export(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.galleryImport, .galleryImport):
-          return {
-                  guard case .galleryImport(let l) = lhs, case .galleryImport(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.requestToJoin, .requestToJoin):
-          return {
-                  guard case .requestToJoin(let l) = lhs, case .requestToJoin(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.test, .test):
-          return {
-                  guard case .test(let l) = lhs, case .test(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.participantRequestApproved, .participantRequestApproved):
-          return {
-                  guard case .participantRequestApproved(let l) = lhs, case .participantRequestApproved(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.requestToLeave, .requestToLeave):
-          return {
-                  guard case .requestToLeave(let l) = lhs, case .requestToLeave(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.participantRemove, .participantRemove):
-          return {
-                  guard case .participantRemove(let l) = lhs, case .participantRemove(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.participantRequestDecline, .participantRequestDecline):
-          return {
-                  guard case .participantRequestDecline(let l) = lhs, case .participantRequestDecline(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.participantPermissionsChange, .participantPermissionsChange):
-          return {
-                  guard case .participantPermissionsChange(let l) = lhs, case .participantPermissionsChange(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      default:
-          return false
-      }
-    }
-  #endif
-  }
-
-  public enum Status: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-    case created // = 0
-    case shown // = 1
-    case read // = 2
-    case replied // = 3
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .created
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0:
-          self = .created
-      case 1:
-          self = .shown
-      case 2:
-          self = .read
-      case 3:
-          self = .replied
-      default:
-          self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .created:
-          return 0
-      case .shown:
-          return 1
-      case .read:
-          return 2
-      case .replied:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
-      }
-    }
-
-  }
-
-  public enum ActionType: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-    case close // = 0
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .close
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0:
-          self = .close
-      default:
-          self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .close:
-          return 0
-      case .UNRECOGNIZED(let i):
-          return i
-      }
-    }
-
-  }
-
   public init() {
   }
-}
-
-// If the compiler emits an error on this type, it is because this file
-// was generated by a version of the `protoc` Swift plug-in that is
-// incompatible with the version of SwiftProtobuf to which you are linking.
-// Please ensure that you are building against the same version of the API
-// that was used to generate this file.
-fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
-  typealias Version = _2
 }
 extension Anytype_Model_Notification: @unchecked Sendable {
 }
@@ -702,3 +523,18 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
     return true
   }
 }
+
+// If the compiler emits an error on this type, it is because this file
+// was generated by a version of the `protoc` Swift plug-in that is
+// incompatible with the version of SwiftProtobuf to which you are linking.
+// Please ensure that you are building against the same version of the API
+// that was used to generate this file.
+fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
+  }
+  typealias Version = _2
+}
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+fileprivate let _protobuf_package = "anytype.model"
