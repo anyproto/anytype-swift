@@ -37,7 +37,12 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var joiningCount: Int = 0
     private var owner: Participant?
     
+    var spaceDisplayName: String {
+        spaceName.isNotEmpty ? spaceName : Loc.untitled
+    }
+    
     @Published var spaceName = ""
+    @Published var spaceDescription = ""
     @Published var spaceAccessType = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
@@ -154,6 +159,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         
         if !dataLoaded {
             spaceName = spaceView.name
+            spaceDescription = spaceView.description
             dataLoaded = true
             $spaceName
                 .delay(for: 0.3, scheduler: DispatchQueue.main)

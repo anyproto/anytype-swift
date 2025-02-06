@@ -47,10 +47,7 @@ struct NewSpaceSettingsView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     
-                    SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {
-                        model.onChangeIconTap()
-                    })
-                    .disabled(!model.allowEditSpace)
+                    spaceDetailsButton
                     
                     spaceSection
                     
@@ -99,6 +96,41 @@ struct NewSpaceSettingsView: View {
                        .padding()
                }
             }
+    }
+    
+    private var spaceDetailsButton: some View {
+        Button {
+            // TBD;
+        } label: {
+            HStack(spacing: 0) {
+                if let icon = model.spaceIcon {
+                    IconView(icon: icon)
+                        .frame(width: 56, height: 56)
+                }
+                
+                Spacer.fixedWidth(12)
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    AnytypeText(model.spaceDisplayName, style: .bodySemibold)
+                    Spacer.fixedHeight(2)
+                    AnytypeText(model.spaceDescription, style: .uxTitle2Regular)
+                        .foregroundColor(.Text.secondary)
+                }
+                
+                Spacer.fixedWidth(12)
+                
+                Spacer()
+                
+                if model.allowEditSpace {
+                    IconView(asset: .X24.Arrow.right)
+                        .foregroundStyle(Color.Text.tertiary)
+                        .frame(width: 24, height: 24)
+                }
+            }
+            .padding(16)
+            .border(16, color: .Shape.primary, lineWidth: 0.5)
+        }
+        .disabled(!model.allowEditSpace)
     }
     
     @ViewBuilder
