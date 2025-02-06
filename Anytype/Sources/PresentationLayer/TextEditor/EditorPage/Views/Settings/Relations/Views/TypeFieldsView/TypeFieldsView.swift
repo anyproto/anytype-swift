@@ -52,11 +52,11 @@ struct TypeFieldsView: View {
     private var banner: some View {
         HStack(spacing: 0) {
             Spacer()
-            AnytypeText(Loc.ObjectType.editingType, style: .previewTitle2Regular)
+            AnytypeText(Loc.ObjectType.editingType, style: .caption1Medium)
             Spacer.fixedWidth(8)
             IconView(icon: model.document.details?.objectIconImage).frame(width: 18, height: 18)
             Spacer.fixedWidth(5)
-            AnytypeText(model.document.details?.title ?? "", style: .previewTitle2Medium)
+            AnytypeText(model.document.details?.title ?? "", style: .caption1Medium)
             Spacer()
         }
         .padding(.vertical, 8)
