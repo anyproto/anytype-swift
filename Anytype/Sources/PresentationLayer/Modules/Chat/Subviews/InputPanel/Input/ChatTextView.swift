@@ -4,7 +4,7 @@ import SwiftUI
 struct ChatTextView: UIViewRepresentable {
     
     private enum Constants {
-        static let anytypeFont = AnytypeFont.bodyRegular
+        static let anytypeFont = AnytypeFont.chatText
         static let font = UIKitFontBuilder.uiKitFont(font: Constants.anytypeFont)
         static let anytypeCodeFont = AnytypeFont.codeBlock
         static let codeFont = UIKitFontBuilder.uiKitFont(font: anytypeCodeFont)
