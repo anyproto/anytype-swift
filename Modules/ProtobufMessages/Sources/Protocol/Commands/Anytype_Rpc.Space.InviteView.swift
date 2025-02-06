@@ -144,6 +144,28 @@ public extension Anytype_Rpc.Space {
     }
 }
 
+extension Anytype_Rpc.Space.InviteView.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Space.InviteView.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .inviteNotFound,
+    .inviteBadContent,
+    .spaceIsDeleted,
+  ]
+}
+extension Anytype_Rpc.Space.InviteView: @unchecked Sendable {
+}
+extension Anytype_Rpc.Space.InviteView.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Space.InviteView.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Space.InviteView.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Space.InviteView.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Space.InviteView: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.protoMessageName + ".InviteView"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

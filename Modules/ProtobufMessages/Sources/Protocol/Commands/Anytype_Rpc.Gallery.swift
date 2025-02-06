@@ -21,6 +21,8 @@ public extension Anytype_Rpc {
         }
   }
 }
+extension Anytype_Rpc.Gallery: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.Gallery: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Gallery"

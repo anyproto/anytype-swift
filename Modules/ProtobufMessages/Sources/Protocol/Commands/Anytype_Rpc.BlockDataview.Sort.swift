@@ -595,6 +595,84 @@ public extension Anytype_Rpc.BlockDataview {
     }
 }
 
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.Add.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockDataview.Sort: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Add: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Add.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Remove: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Replace: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.SSort: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockDataview.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".Sort"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

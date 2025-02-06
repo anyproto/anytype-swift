@@ -40,6 +40,8 @@ public extension Anytype_Rpc {
     fileprivate var _error: Anytype_Rpc.GenericErrorResponse.Error? = nil
   }
 }
+extension Anytype_Rpc.GenericErrorResponse: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.GenericErrorResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".GenericErrorResponse"

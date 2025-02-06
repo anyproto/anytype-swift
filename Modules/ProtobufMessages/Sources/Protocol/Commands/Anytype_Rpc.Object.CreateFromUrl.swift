@@ -170,6 +170,25 @@ public extension Anytype_Rpc.Object {
     }
 }
 
+extension Anytype_Rpc.Object.CreateFromUrl.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.CreateFromUrl.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Object.CreateFromUrl: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.CreateFromUrl.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.CreateFromUrl.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.CreateFromUrl.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Object.CreateFromUrl: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".CreateFromUrl"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

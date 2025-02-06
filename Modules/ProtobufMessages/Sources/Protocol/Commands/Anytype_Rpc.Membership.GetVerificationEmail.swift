@@ -171,6 +171,34 @@ public extension Anytype_Rpc.Membership {
     }
 }
 
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .notLoggedIn,
+    .paymentNodeError,
+    .cacheError,
+    .emailWrongFormat,
+    .emailAlreadyVerified,
+    .emailAlredySent,
+    .emailFailedToSend,
+    .membershipAlreadyExists,
+    .canNotConnect,
+  ]
+}
+extension Anytype_Rpc.Membership.GetVerificationEmail: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Membership.GetVerificationEmail: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetVerificationEmail"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

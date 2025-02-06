@@ -125,6 +125,25 @@ public extension Anytype_Rpc.BlockVideo {
     }
 }
 
+extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockVideo.SetWidth.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockVideo.SetWidth: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockVideo.SetWidth.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockVideo.SetWidth.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockVideo.SetWidth: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockVideo.protoMessageName + ".SetWidth"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

@@ -167,6 +167,28 @@ public extension Anytype_Rpc.Object {
     }
 }
 
+extension Anytype_Rpc.Object.Open.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Open.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .notFound,
+    .anytypeNeedsUpgrade,
+    .objectDeleted,
+  ]
+}
+extension Anytype_Rpc.Object.Open: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Open.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Open.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Open.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Open.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Object.Open: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".Open"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

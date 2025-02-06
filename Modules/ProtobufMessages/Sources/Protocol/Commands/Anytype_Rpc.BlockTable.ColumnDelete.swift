@@ -143,6 +143,25 @@ public extension Anytype_Rpc.BlockTable {
     }
 }
 
+extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockTable.ColumnDelete.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockTable.ColumnDelete: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockTable.ColumnDelete.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockTable.ColumnDelete.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockTable.ColumnDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockTable.protoMessageName + ".ColumnDelete"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

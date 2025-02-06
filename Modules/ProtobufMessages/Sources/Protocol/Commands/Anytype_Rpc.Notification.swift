@@ -21,6 +21,8 @@ public extension Anytype_Rpc {
         }
   }
 }
+extension Anytype_Rpc.Notification: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.Notification: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Notification"

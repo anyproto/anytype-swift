@@ -195,6 +195,37 @@ public extension Anytype_Rpc.Debug {
     }
 }
 
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Request.OrderBy: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Debug.AnystoreObjectChanges.Request.OrderBy] = [
+    .orderID,
+    .iterationOrder,
+  ]
+}
+
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Debug.AnystoreObjectChanges: @unchecked Sendable {
+}
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Request.OrderBy: @unchecked Sendable {
+}
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Change: @unchecked Sendable {
+}
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Debug.AnystoreObjectChanges: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".AnystoreObjectChanges"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

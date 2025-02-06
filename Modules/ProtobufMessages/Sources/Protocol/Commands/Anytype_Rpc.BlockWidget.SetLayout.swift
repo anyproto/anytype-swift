@@ -141,6 +141,25 @@ public extension Anytype_Rpc.BlockWidget {
     }
 }
 
+extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockWidget.SetLayout.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockWidget.SetLayout: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockWidget.SetLayout.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockWidget.SetLayout.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockWidget.SetLayout: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockWidget.protoMessageName + ".SetLayout"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

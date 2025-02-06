@@ -218,6 +218,37 @@ public extension Anytype_Rpc.Block {
     }
 }
 
+extension Anytype_Rpc.Block.Split.Request.Mode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Block.Split.Request.Mode] = [
+    .bottom,
+    .top,
+    .inner,
+    .title,
+  ]
+}
+
+extension Anytype_Rpc.Block.Split.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Block.Split.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Block.Split: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Split.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Split.Request.Mode: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Split.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Split.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Split.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Block.Split: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".Split"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

@@ -142,6 +142,26 @@ public extension Anytype_Rpc.Broadcast {
     }
 }
 
+extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Broadcast.PayloadEvent.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .internalError,
+  ]
+}
+extension Anytype_Rpc.Broadcast.PayloadEvent: @unchecked Sendable {
+}
+extension Anytype_Rpc.Broadcast.PayloadEvent.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Broadcast.PayloadEvent.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Broadcast.PayloadEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Broadcast.protoMessageName + ".PayloadEvent"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

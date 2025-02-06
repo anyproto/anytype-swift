@@ -139,6 +139,26 @@ public extension Anytype_Rpc.Wallet {
     }
 }
 
+extension Anytype_Rpc.Wallet.Recover.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Wallet.Recover.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .failedToCreateLocalRepo,
+  ]
+}
+extension Anytype_Rpc.Wallet.Recover: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.Recover.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.Recover.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.Recover.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.Recover.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Wallet.Recover: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Wallet.protoMessageName + ".Recover"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

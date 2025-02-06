@@ -117,6 +117,25 @@ public extension Anytype_Rpc.App {
     }
 }
 
+extension Anytype_Rpc.App.Shutdown.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.App.Shutdown.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.App.Shutdown: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.Shutdown.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.Shutdown.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.Shutdown.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.Shutdown.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.App.Shutdown: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.App.protoMessageName + ".Shutdown"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

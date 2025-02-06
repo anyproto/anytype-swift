@@ -140,6 +140,26 @@ public extension Anytype_Rpc.Notification {
     }
 }
 
+extension Anytype_Rpc.Notification.Test.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Notification.Test.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .internalError,
+  ]
+}
+extension Anytype_Rpc.Notification.Test: @unchecked Sendable {
+}
+extension Anytype_Rpc.Notification.Test.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Notification.Test.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Notification.Test.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Notification.Test.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Notification.Test: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Notification.protoMessageName + ".Test"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

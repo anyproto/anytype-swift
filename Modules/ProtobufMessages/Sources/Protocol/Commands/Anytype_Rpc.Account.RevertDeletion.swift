@@ -150,6 +150,27 @@ public extension Anytype_Rpc.Account {
     }
 }
 
+extension Anytype_Rpc.Account.RevertDeletion.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.RevertDeletion.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsActive,
+    .unableToConnect,
+  ]
+}
+extension Anytype_Rpc.Account.RevertDeletion: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.RevertDeletion.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.RevertDeletion.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.RevertDeletion.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.RevertDeletion.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Account.RevertDeletion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".RevertDeletion"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

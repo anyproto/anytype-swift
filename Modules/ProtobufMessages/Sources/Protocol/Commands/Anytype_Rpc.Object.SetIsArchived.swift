@@ -123,6 +123,25 @@ public extension Anytype_Rpc.Object {
     }
 }
 
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.SetIsArchived.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Object.SetIsArchived: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.SetIsArchived.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.SetIsArchived.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Object.SetIsArchived: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".SetIsArchived"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

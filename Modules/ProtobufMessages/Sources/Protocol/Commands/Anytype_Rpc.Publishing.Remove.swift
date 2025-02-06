@@ -131,6 +131,27 @@ public extension Anytype_Rpc.Publishing {
     }
 }
 
+extension Anytype_Rpc.Publishing.Remove.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Publishing.Remove.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .noSuchObject,
+    .noSuchSpace,
+  ]
+}
+extension Anytype_Rpc.Publishing.Remove: @unchecked Sendable {
+}
+extension Anytype_Rpc.Publishing.Remove.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Publishing.Remove.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Publishing.Remove.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Publishing.Remove.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Publishing.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Publishing.protoMessageName + ".Remove"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

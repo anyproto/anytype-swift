@@ -21,6 +21,8 @@ public extension Anytype_Rpc {
         }
   }
 }
+extension Anytype_Rpc.BlockDataview: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.BlockDataview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".BlockDataview"

@@ -21,6 +21,8 @@ public extension Anytype_Rpc {
         }
   }
 }
+extension Anytype_Rpc.BlockImage: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.BlockImage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".BlockImage"

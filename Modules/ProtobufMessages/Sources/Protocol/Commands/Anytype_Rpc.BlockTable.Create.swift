@@ -153,6 +153,25 @@ public extension Anytype_Rpc.BlockTable {
     }
 }
 
+extension Anytype_Rpc.BlockTable.Create.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockTable.Create.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockTable.Create: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockTable.Create.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockTable.Create.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockTable.Create.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockTable.Create.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockTable.Create: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockTable.protoMessageName + ".Create"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

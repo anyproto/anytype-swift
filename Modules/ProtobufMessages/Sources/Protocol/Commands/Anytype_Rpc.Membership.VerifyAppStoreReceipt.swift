@@ -150,6 +150,31 @@ public extension Anytype_Rpc.Membership {
     }
 }
 
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .notLoggedIn,
+    .paymentNodeError,
+    .cacheError,
+    .invalidReceipt,
+    .purchaseRegistrationError,
+    .subscriptionRenewError,
+  ]
+}
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Membership.VerifyAppStoreReceipt: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".VerifyAppStoreReceipt"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

@@ -288,6 +288,46 @@ public extension Anytype_Rpc.BlockDataview {
     }
 }
 
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockDataview.ObjectOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".ObjectOrder"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

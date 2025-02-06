@@ -21,6 +21,8 @@ public extension Anytype_Rpc {
         }
   }
 }
+extension Anytype_Rpc.BlockBookmark: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.BlockBookmark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".BlockBookmark"

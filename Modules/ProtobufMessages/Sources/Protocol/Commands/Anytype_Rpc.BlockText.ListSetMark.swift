@@ -160,6 +160,25 @@ public extension Anytype_Rpc.BlockText {
     }
 }
 
+extension Anytype_Rpc.BlockText.ListSetMark.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockText.ListSetMark.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockText.ListSetMark: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.ListSetMark.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.ListSetMark.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.ListSetMark.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.ListSetMark.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockText.ListSetMark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockText.protoMessageName + ".ListSetMark"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

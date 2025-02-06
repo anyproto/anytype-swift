@@ -56,6 +56,8 @@ public extension Anytype_Rpc.Publishing {
       fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
     }
 }
+extension Anytype_Rpc.Publishing.PublishState: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Publishing.protoMessageName + ".PublishState"

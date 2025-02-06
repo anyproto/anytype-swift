@@ -293,6 +293,63 @@ public extension Anytype_Rpc.Account {
     }
 }
 
+extension Anytype_Rpc.Account.ConfigUpdate.Timezones: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.ConfigUpdate.Timezones] = [
+    .gmt,
+    .ect,
+    .eet,
+    .eat,
+    .met,
+    .net,
+    .plt,
+    .ist,
+    .bst,
+    .vst,
+    .ctt,
+    .jst,
+    .act,
+    .aet,
+    .sst,
+    .nst,
+    .mit,
+    .hst,
+    .ast,
+    .pst,
+    .mst,
+    .cst,
+    .iet,
+    .prt,
+    .cnt,
+    .bet,
+    .brt,
+    .cat,
+  ]
+}
+
+extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsNotRunning,
+    .failedToWriteConfig,
+  ]
+}
+extension Anytype_Rpc.Account.ConfigUpdate: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ConfigUpdate.Timezones: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ConfigUpdate.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ConfigUpdate.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Account.ConfigUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".ConfigUpdate"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

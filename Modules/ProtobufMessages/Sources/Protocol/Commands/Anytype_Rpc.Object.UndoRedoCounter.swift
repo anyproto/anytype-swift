@@ -25,6 +25,8 @@ public extension Anytype_Rpc.Object {
           }
     }
 }
+extension Anytype_Rpc.Object.UndoRedoCounter: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.Object.UndoRedoCounter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".UndoRedoCounter"

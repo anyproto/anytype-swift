@@ -123,6 +123,25 @@ public extension Anytype_Rpc.History {
     }
 }
 
+extension Anytype_Rpc.History.SetVersion.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.History.SetVersion.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.History.SetVersion: @unchecked Sendable {
+}
+extension Anytype_Rpc.History.SetVersion.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.History.SetVersion.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.History.SetVersion.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.History.SetVersion.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.History.SetVersion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.History.protoMessageName + ".SetVersion"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

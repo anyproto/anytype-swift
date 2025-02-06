@@ -33,6 +33,8 @@ public extension Anytype_Rpc.History {
           }
     }
 }
+extension Anytype_Rpc.History.Version: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.History.Version: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.History.protoMessageName + ".Version"

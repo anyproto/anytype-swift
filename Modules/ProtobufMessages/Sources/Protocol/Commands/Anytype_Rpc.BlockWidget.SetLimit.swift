@@ -141,6 +141,25 @@ public extension Anytype_Rpc.BlockWidget {
     }
 }
 
+extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockWidget.SetLimit.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockWidget.SetLimit: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockWidget.SetLimit.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockWidget.SetLimit.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockWidget.SetLimit: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockWidget.protoMessageName + ".SetLimit"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

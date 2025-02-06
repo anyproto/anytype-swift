@@ -147,6 +147,25 @@ public extension Anytype_Rpc.History {
     }
 }
 
+extension Anytype_Rpc.History.DiffVersions.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.History.DiffVersions.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.History.DiffVersions: @unchecked Sendable {
+}
+extension Anytype_Rpc.History.DiffVersions.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.History.DiffVersions.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.History.DiffVersions.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.History.DiffVersions.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.History.DiffVersions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.History.protoMessageName + ".DiffVersions"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

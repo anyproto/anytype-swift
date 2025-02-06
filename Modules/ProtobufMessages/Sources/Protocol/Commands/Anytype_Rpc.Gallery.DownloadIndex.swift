@@ -148,6 +148,29 @@ public extension Anytype_Rpc.Gallery {
     }
 }
 
+extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Gallery.DownloadIndex.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .unmarshallingError,
+    .downloadError,
+  ]
+}
+extension Anytype_Rpc.Gallery.DownloadIndex: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadIndex.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadIndex.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadIndex.Response.Category: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Gallery.DownloadIndex: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Gallery.protoMessageName + ".DownloadIndex"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

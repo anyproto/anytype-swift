@@ -123,6 +123,25 @@ public extension Anytype_Rpc.ObjectRelation {
     }
 }
 
+extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.ObjectRelation.ListAvailable: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectRelation.ListAvailable.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectRelation.ListAvailable.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.ObjectRelation.ListAvailable: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.ObjectRelation.protoMessageName + ".ListAvailable"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

@@ -713,6 +713,105 @@ public extension Anytype_Rpc.Object {
     }
 }
 
+extension Anytype_Rpc.Object.Import.Request.Mode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Import.Request.Mode] = [
+    .allOrNothing,
+    .ignoreErrors,
+  ]
+}
+
+extension Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum] = [
+    .space,
+    .experience,
+  ]
+}
+
+extension Anytype_Rpc.Object.Import.Request.CsvParams.Mode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Import.Request.CsvParams.Mode] = [
+    .collection,
+    .table,
+  ]
+}
+
+extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Import.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .internalError,
+    .noObjectsToImport,
+    .importIsCanceled,
+    .limitOfRowsOrRelationsExceeded,
+    .fileLoadError,
+    .insufficientPermissions,
+  ]
+}
+
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .internalError,
+    .unauthorized,
+    .forbidden,
+    .serviceUnavailable,
+    .accountIsNotRunning,
+  ]
+}
+extension Anytype_Rpc.Object.Import: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.OneOf_Params: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.Mode: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.NotionParams: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.MarkdownParams: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.BookmarksParams: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.HtmlParams: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.TxtParams: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.PbParams: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.PbParams.TypeEnum: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.CsvParams: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.CsvParams.Mode: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Request.Snapshot: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Notion: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Object.Import: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".Import"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

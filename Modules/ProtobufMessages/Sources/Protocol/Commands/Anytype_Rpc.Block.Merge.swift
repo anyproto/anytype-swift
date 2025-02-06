@@ -143,6 +143,25 @@ public extension Anytype_Rpc.Block {
     }
 }
 
+extension Anytype_Rpc.Block.Merge.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Block.Merge.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Block.Merge: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Merge.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Merge.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Merge.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.Merge.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Block.Merge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".Merge"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

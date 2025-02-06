@@ -595,6 +595,84 @@ public extension Anytype_Rpc.BlockDataview {
     }
 }
 
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockDataview.Filter: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Add: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Remove: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Replace: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Sort: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockDataview.Filter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".Filter"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

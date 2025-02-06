@@ -137,6 +137,25 @@ public extension Anytype_Rpc.Gallery {
     }
 }
 
+extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Gallery.DownloadManifest.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Gallery.DownloadManifest: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadManifest.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadManifest.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Gallery.DownloadManifest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Gallery.protoMessageName + ".DownloadManifest"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

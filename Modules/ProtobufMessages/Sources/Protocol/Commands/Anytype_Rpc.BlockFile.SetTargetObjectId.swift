@@ -143,6 +143,25 @@ public extension Anytype_Rpc.BlockFile {
     }
 }
 
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockFile.SetTargetObjectId: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockFile.SetTargetObjectId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockFile.protoMessageName + ".SetTargetObjectId"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

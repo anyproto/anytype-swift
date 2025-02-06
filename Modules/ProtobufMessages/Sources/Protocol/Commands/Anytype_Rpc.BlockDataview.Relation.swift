@@ -284,6 +284,46 @@ public extension Anytype_Rpc.BlockDataview {
     }
 }
 
+extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Relation.Add.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockDataview.Relation: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Add: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Add.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Add.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Delete: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockDataview.Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".Relation"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

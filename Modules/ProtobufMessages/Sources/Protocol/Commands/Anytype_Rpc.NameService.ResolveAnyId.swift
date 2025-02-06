@@ -131,6 +131,26 @@ public extension Anytype_Rpc.NameService {
     }
 }
 
+extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.NameService.ResolveAnyId.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .canNotConnect,
+  ]
+}
+extension Anytype_Rpc.NameService.ResolveAnyId: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.ResolveAnyId.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.ResolveAnyId.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.NameService.ResolveAnyId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.NameService.protoMessageName + ".ResolveAnyId"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

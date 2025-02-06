@@ -193,6 +193,28 @@ public extension Anytype_Rpc.Wallet {
     }
 }
 
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Wallet.CreateSession.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .appTokenNotFoundInTheCurrentAccount,
+  ]
+}
+extension Anytype_Rpc.Wallet.CreateSession: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.CreateSession.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.CreateSession.Request.OneOf_Auth: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.CreateSession.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Wallet.CreateSession: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Wallet.protoMessageName + ".CreateSession"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

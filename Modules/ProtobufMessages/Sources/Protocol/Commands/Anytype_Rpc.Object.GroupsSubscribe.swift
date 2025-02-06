@@ -133,6 +133,25 @@ public extension Anytype_Rpc.Object {
     }
 }
 
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Object.GroupsSubscribe: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.GroupsSubscribe.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.GroupsSubscribe.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Object.GroupsSubscribe: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".GroupsSubscribe"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

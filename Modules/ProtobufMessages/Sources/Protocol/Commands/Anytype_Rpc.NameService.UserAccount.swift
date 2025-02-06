@@ -156,6 +156,30 @@ public extension Anytype_Rpc.NameService {
     }
 }
 
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .notLoggedIn,
+    .badNameResolve,
+    .canNotConnect,
+  ]
+}
+extension Anytype_Rpc.NameService.UserAccount: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.UserAccount.Get: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.UserAccount.Get.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.UserAccount.Get.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.NameService.UserAccount: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.NameService.protoMessageName + ".UserAccount"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

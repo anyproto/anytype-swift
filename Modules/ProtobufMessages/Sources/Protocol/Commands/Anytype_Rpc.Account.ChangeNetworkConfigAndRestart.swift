@@ -146,6 +146,30 @@ public extension Anytype_Rpc.Account {
     }
 }
 
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsNotRunning,
+    .accountFailedToStop,
+    .configFileNotFound,
+    .configFileInvalid,
+    .configFileNetworkIDMismatch,
+  ]
+}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".ChangeNetworkConfigAndRestart"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

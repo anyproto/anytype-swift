@@ -169,6 +169,31 @@ public extension Anytype_Rpc.Membership {
     }
 }
 
+extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Membership.GetStatus.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .notLoggedIn,
+    .paymentNodeError,
+    .cacheError,
+    .membershipNotFound,
+    .membershipWrongState,
+    .canNotConnect,
+  ]
+}
+extension Anytype_Rpc.Membership.GetStatus: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.GetStatus.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.GetStatus.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.GetStatus.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Membership.GetStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetStatus"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

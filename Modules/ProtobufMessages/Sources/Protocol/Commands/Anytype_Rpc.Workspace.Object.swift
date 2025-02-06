@@ -380,6 +380,65 @@ public extension Anytype_Rpc.Workspace {
     }
 }
 
+extension Anytype_Rpc.Workspace.Object.Add.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Workspace.Object.Add.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Workspace.Object.ListAdd.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Workspace.Object: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.Add: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.Add.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.Add.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.Add.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.Add.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListAdd: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListAdd.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListRemove: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListRemove.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Workspace.Object: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".Object"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

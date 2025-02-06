@@ -64,6 +64,8 @@ public extension Anytype_Rpc {
         }
   }
 }
+extension Anytype_Rpc.Navigation: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.Navigation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Navigation"

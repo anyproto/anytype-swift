@@ -192,6 +192,35 @@ public extension Anytype_Rpc.Membership {
     }
 }
 
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .notLoggedIn,
+    .paymentNodeError,
+    .cacheError,
+    .tierNotFound,
+    .tierInvalid,
+    .paymentMethodInvalid,
+    .badAnyname,
+    .membershipAlreadyExists,
+    .canNotConnect,
+    .emailWrongFormat,
+  ]
+}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Membership.RegisterPaymentRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".RegisterPaymentRequest"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

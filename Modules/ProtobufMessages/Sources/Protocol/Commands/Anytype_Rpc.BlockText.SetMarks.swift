@@ -173,6 +173,27 @@ public extension Anytype_Rpc.BlockText {
     }
 }
 
+extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockText.SetMarks.Get.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockText.SetMarks: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetMarks.Get: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetMarks.Get.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetMarks.Get.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockText.SetMarks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockText.protoMessageName + ".SetMarks"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

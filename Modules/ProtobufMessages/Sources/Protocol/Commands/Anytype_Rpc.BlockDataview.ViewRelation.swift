@@ -595,6 +595,84 @@ public extension Anytype_Rpc.BlockDataview {
     }
 }
 
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockDataview.ViewRelation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".ViewRelation"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

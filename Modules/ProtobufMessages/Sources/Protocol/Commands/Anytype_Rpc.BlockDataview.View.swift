@@ -777,6 +777,103 @@ public extension Anytype_Rpc.BlockDataview {
     }
 }
 
+extension Anytype_Rpc.BlockDataview.View.Create.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.Create.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.Delete.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockDataview.View.SetActive.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockDataview.View: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Create: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Create.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Create.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Create.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Update: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Update.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Update.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Delete: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Delete.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Delete.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetPosition: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetPosition.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetPosition.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetActive: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetActive.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetActive.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockDataview.View: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".View"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

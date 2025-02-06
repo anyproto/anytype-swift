@@ -261,6 +261,16 @@ public extension Anytype_Rpc.Block {
           }
     }
 }
+extension Anytype_Rpc.Block.ListUpdate: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.ListUpdate.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.ListUpdate.Request.OneOf_Field: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.ListUpdate.Request.Text: @unchecked Sendable {
+}
+extension Anytype_Rpc.Block.ListUpdate.Request.Text.OneOf_Field: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.Block.ListUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".ListUpdate"

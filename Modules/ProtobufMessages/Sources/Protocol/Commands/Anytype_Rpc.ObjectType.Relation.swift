@@ -258,6 +258,48 @@ public extension Anytype_Rpc.ObjectType {
     }
 }
 
+extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .readonlyObjectType,
+  ]
+}
+
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .readonlyObjectType,
+  ]
+}
+extension Anytype_Rpc.ObjectType.Relation: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Add: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Add.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Add.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Remove: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Remove.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.ObjectType.Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.ObjectType.protoMessageName + ".Relation"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

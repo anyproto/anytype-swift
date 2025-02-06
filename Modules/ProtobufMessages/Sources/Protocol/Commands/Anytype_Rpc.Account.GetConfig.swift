@@ -43,6 +43,12 @@ public extension Anytype_Rpc.Account {
           }
     }
 }
+extension Anytype_Rpc.Account.GetConfig: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.GetConfig.Get: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.GetConfig.Get.Request: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.Account.GetConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".GetConfig"

@@ -191,6 +191,26 @@ public extension Anytype_Rpc.Object {
     }
 }
 
+extension Anytype_Rpc.Object.CreateSet.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.CreateSet.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .unknownObjectTypeURL,
+  ]
+}
+extension Anytype_Rpc.Object.CreateSet: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.CreateSet.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.CreateSet.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.CreateSet.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.CreateSet.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Object.CreateSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".CreateSet"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

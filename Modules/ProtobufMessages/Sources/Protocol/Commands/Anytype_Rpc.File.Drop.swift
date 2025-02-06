@@ -147,6 +147,25 @@ public extension Anytype_Rpc.File {
     }
 }
 
+extension Anytype_Rpc.File.Drop.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.File.Drop.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.File.Drop: @unchecked Sendable {
+}
+extension Anytype_Rpc.File.Drop.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.File.Drop.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.File.Drop.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.File.Drop.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.File.Drop: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.protoMessageName + ".Drop"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

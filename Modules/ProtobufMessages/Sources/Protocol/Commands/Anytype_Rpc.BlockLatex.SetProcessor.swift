@@ -143,6 +143,25 @@ public extension Anytype_Rpc.BlockLatex {
     }
 }
 
+extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockLatex.SetProcessor.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockLatex.SetProcessor: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockLatex.SetProcessor.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockLatex.SetProcessor.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockLatex.SetProcessor: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockLatex.protoMessageName + ".SetProcessor"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

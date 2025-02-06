@@ -141,6 +141,25 @@ public extension Anytype_Rpc.ObjectRelation {
     }
 }
 
+extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.ObjectRelation.RemoveFeatured: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.ObjectRelation.RemoveFeatured: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.ObjectRelation.protoMessageName + ".RemoveFeatured"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

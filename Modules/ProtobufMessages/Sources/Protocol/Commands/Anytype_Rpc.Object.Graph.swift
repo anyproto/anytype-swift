@@ -199,6 +199,37 @@ public extension Anytype_Rpc.Object {
     }
 }
 
+extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Graph.Edge.TypeEnum] = [
+    .link,
+    .relation,
+  ]
+}
+
+extension Anytype_Rpc.Object.Graph.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.Graph.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Object.Graph: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Graph.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Graph.Edge: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Graph.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Graph.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.Graph.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Object.Graph: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".Graph"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

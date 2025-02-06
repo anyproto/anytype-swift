@@ -151,6 +151,25 @@ public extension Anytype_Rpc.BlockFile {
     }
 }
 
+extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockFile.CreateAndUpload: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockFile.CreateAndUpload.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockFile.CreateAndUpload.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockFile.CreateAndUpload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockFile.protoMessageName + ".CreateAndUpload"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

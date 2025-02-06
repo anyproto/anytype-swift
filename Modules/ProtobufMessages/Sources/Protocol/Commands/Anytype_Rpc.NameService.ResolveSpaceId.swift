@@ -131,6 +131,26 @@ public extension Anytype_Rpc.NameService {
     }
 }
 
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.NameService.ResolveSpaceId.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .canNotConnect,
+  ]
+}
+extension Anytype_Rpc.NameService.ResolveSpaceId: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.ResolveSpaceId.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.NameService.ResolveSpaceId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.NameService.protoMessageName + ".ResolveSpaceId"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

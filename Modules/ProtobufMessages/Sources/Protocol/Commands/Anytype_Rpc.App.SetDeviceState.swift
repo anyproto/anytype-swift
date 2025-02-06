@@ -153,6 +153,35 @@ public extension Anytype_Rpc.App {
     }
 }
 
+extension Anytype_Rpc.App.SetDeviceState.Request.DeviceState: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.App.SetDeviceState.Request.DeviceState] = [
+    .background,
+    .foreground,
+  ]
+}
+
+extension Anytype_Rpc.App.SetDeviceState.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.App.SetDeviceState.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.App.SetDeviceState: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.SetDeviceState.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.SetDeviceState.Request.DeviceState: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.SetDeviceState.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.SetDeviceState.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.App.SetDeviceState.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.App.SetDeviceState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.App.protoMessageName + ".SetDeviceState"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

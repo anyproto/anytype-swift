@@ -48,6 +48,8 @@ public extension Anytype_Rpc.Account {
       fileprivate var _extra: SwiftProtobuf.Google_Protobuf_Struct? = nil
     }
 }
+extension Anytype_Rpc.Account.Config: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Config"

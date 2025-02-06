@@ -156,6 +156,32 @@ public extension Anytype_Rpc.Space {
     }
 }
 
+extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .noSuchSpace,
+    .spaceIsDeleted,
+    .requestFailed,
+    .limitReached,
+    .participantNotFound,
+    .incorrectPermissions,
+    .notShareable,
+  ]
+}
+extension Anytype_Rpc.Space.ParticipantPermissionsChange: @unchecked Sendable {
+}
+extension Anytype_Rpc.Space.ParticipantPermissionsChange.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Space.ParticipantPermissionsChange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.protoMessageName + ".ParticipantPermissionsChange"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

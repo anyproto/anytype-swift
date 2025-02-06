@@ -283,6 +283,52 @@ public extension Anytype_Rpc.Account {
     }
 }
 
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsNotRunning,
+    .tooManyRequests,
+  ]
+}
+
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsNotRunning,
+    .invalidChallengeID,
+    .challengeAttemptsExceeded,
+    .incorrectAnswer,
+  ]
+}
+extension Anytype_Rpc.Account.LocalLink: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error.Code: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Account.LocalLink: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".LocalLink"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

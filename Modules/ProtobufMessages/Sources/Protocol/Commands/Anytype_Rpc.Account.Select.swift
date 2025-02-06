@@ -253,6 +253,38 @@ public extension Anytype_Rpc.Account {
     }
 }
 
+extension Anytype_Rpc.Account.Select.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.Select.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .failedToCreateLocalRepo,
+    .localRepoExistsButCorrupted,
+    .failedToRunNode,
+    .failedToFindAccountInfo,
+    .localRepoNotExistsAndMnemonicNotSet,
+    .failedToStopSearcherNode,
+    .anotherAnytypeProcessIsRunning,
+    .failedToFetchRemoteNodeHasIncompatibleProtoVersion,
+    .accountIsDeleted,
+    .accountLoadIsCanceled,
+    .configFileNotFound,
+    .configFileInvalid,
+    .configFileNetworkIDMismatch,
+  ]
+}
+extension Anytype_Rpc.Account.Select: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Select.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Select.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Select.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Select.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Account.Select: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Select"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

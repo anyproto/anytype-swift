@@ -178,6 +178,36 @@ public extension Anytype_Rpc.Object {
     }
 }
 
+extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.ImportUseCase.Request.UseCase] = [
+    .none,
+    .getStarted,
+    .empty,
+  ]
+}
+
+extension Anytype_Rpc.Object.ImportUseCase.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Object.ImportUseCase.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.Object.ImportUseCase: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.ImportUseCase.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.ImportUseCase.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.ImportUseCase.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Object.ImportUseCase.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Object.ImportUseCase: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".ImportUseCase"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

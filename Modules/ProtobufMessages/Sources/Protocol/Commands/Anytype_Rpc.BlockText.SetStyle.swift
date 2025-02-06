@@ -143,6 +143,25 @@ public extension Anytype_Rpc.BlockText {
     }
 }
 
+extension Anytype_Rpc.BlockText.SetStyle.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockText.SetStyle.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockText.SetStyle: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetStyle.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetStyle.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetStyle.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockText.SetStyle.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockText.SetStyle: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockText.protoMessageName + ".SetStyle"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

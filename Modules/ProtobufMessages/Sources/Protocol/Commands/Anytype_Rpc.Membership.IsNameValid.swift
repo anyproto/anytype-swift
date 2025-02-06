@@ -186,6 +186,36 @@ public extension Anytype_Rpc.Membership {
     }
 }
 
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Membership.IsNameValid.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .tooShort,
+    .tooLong,
+    .hasInvalidChars,
+    .tierFeaturesNoName,
+    .tierNotFound,
+    .notLoggedIn,
+    .paymentNodeError,
+    .cacheError,
+    .canNotReserve,
+    .canNotConnect,
+    .nameIsReserved,
+  ]
+}
+extension Anytype_Rpc.Membership.IsNameValid: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.IsNameValid.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.IsNameValid.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Membership.IsNameValid: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".IsNameValid"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

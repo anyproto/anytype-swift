@@ -151,6 +151,28 @@ public extension Anytype_Rpc.Unsplash {
     }
 }
 
+extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Unsplash.Search.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .rateLimitExceeded,
+  ]
+}
+extension Anytype_Rpc.Unsplash.Search: @unchecked Sendable {
+}
+extension Anytype_Rpc.Unsplash.Search.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Unsplash.Search.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Unsplash.Search.Response.Picture: @unchecked Sendable {
+}
+extension Anytype_Rpc.Unsplash.Search.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Unsplash.Search: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Unsplash.protoMessageName + ".Search"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

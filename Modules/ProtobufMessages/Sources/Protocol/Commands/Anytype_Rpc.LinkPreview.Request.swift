@@ -23,6 +23,8 @@ public extension Anytype_Rpc.LinkPreview {
           }
     }
 }
+extension Anytype_Rpc.LinkPreview.Request: @unchecked Sendable {
+}
 
 extension Anytype_Rpc.LinkPreview.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.LinkPreview.protoMessageName + ".Request"

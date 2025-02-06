@@ -233,6 +233,25 @@ public extension Anytype_Rpc.BlockLink {
     }
 }
 
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+extension Anytype_Rpc.BlockLink.CreateWithObject: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockLink.CreateWithObject.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.BlockLink.CreateWithObject: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockLink.protoMessageName + ".CreateWithObject"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

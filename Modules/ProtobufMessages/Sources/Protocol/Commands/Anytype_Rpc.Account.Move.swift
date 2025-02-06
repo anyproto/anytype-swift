@@ -151,6 +151,31 @@ public extension Anytype_Rpc.Account {
     }
 }
 
+extension Anytype_Rpc.Account.Move.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.Move.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .failedToStopNode,
+    .failedToIdentifyAccountDir,
+    .failedToRemoveAccountData,
+    .failedToCreateLocalRepo,
+    .failedToWriteConfig,
+    .failedToGetConfig,
+  ]
+}
+extension Anytype_Rpc.Account.Move: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Move.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Move.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Move.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Move.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Account.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Move"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()

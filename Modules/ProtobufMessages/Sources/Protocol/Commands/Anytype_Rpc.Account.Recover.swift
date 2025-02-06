@@ -132,6 +132,26 @@ public extension Anytype_Rpc.Account {
     }
 }
 
+extension Anytype_Rpc.Account.Recover.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.Recover.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .needToRecoverWalletFirst,
+  ]
+}
+extension Anytype_Rpc.Account.Recover: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Recover.Request: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Recover.Response: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Recover.Response.Error: @unchecked Sendable {
+}
+extension Anytype_Rpc.Account.Recover.Response.Error.Code: @unchecked Sendable {
+}
+
 extension Anytype_Rpc.Account.Recover: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Recover"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
