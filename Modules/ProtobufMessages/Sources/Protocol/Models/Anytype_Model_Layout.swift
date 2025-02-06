@@ -23,11 +23,9 @@ public struct Anytype_Model_Layout {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_Layout: @unchecked Sendable {
-}
+extension Anytype_Model_Layout: @unchecked Sendable {}
 
 extension Anytype_Model_Layout: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Layout"
@@ -43,20 +41,10 @@ extension Anytype_Model_Layout: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.requiredRelations)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.requiredRelations) }()
+      default: break
       }
     }
   }
@@ -75,18 +63,10 @@ extension Anytype_Model_Layout: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 
   public static func ==(lhs: Anytype_Model_Layout, rhs: Anytype_Model_Layout) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.requiredRelations != rhs.requiredRelations {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.requiredRelations != rhs.requiredRelations {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -97,8 +77,7 @@ extension Anytype_Model_Layout: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

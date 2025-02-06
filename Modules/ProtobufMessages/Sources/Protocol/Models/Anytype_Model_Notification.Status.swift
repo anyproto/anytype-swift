@@ -25,36 +25,25 @@ extension Anytype_Model_Notification {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .created
-      case 1:
-          self = .shown
-      case 2:
-          self = .read
-      case 3:
-          self = .replied
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .created
+      case 1: self = .shown
+      case 2: self = .read
+      case 3: self = .replied
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .created:
-          return 0
-      case .shown:
-          return 1
-      case .read:
-          return 2
-      case .replied:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
+      case .created: return 0
+      case .shown: return 1
+      case .read: return 2
+      case .replied: return 3
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Notification.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,8 +54,7 @@ extension Anytype_Model_Notification.Status: CaseIterable {
     .replied,
   ]
 }
-extension Anytype_Model_Notification.Status: @unchecked Sendable {
-}
+extension Anytype_Model_Notification.Status: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.Status: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -83,8 +71,7 @@ extension Anytype_Model_Notification.Status: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

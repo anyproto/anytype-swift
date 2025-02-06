@@ -42,32 +42,22 @@ extension Anytype_Event.Object {
 
           /// should not be null
           public var value: SwiftProtobuf.Google_Protobuf_Value {
-            get {
-                    return _value ?? SwiftProtobuf.Google_Protobuf_Value()
-                }
-            set {
-                    _value = newValue
-                }
+            get {return _value ?? SwiftProtobuf.Google_Protobuf_Value()}
+            set {_value = newValue}
           }
           /// Returns true if `value` has been explicitly set.
-          public var hasValue: Bool {
-                  return self._value != nil
-              }
+          public var hasValue: Bool {return self._value != nil}
           /// Clears the value of `value`. Subsequent reads from it will return its default value.
-          public mutating func clearValue() {
-                  self._value = nil
-              }
+          public mutating func clearValue() {self._value = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       /// Overwrite current state
@@ -81,28 +71,19 @@ extension Anytype_Event.Object {
 
         /// can not be a partial state. Should replace client details state
         public var details: SwiftProtobuf.Google_Protobuf_Struct {
-          get {
-                  return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-              }
-          set {
-                  _details = newValue
-              }
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
         }
         /// Returns true if `details` has been explicitly set.
-        public var hasDetails: Bool {
-                return self._details != nil
-            }
+        public var hasDetails: Bool {return self._details != nil}
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
-        public mutating func clearDetails() {
-                self._details = nil
-            }
+        public mutating func clearDetails() {self._details = nil}
 
         public var subIds: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
@@ -122,24 +103,16 @@ extension Anytype_Event.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.Object.Details: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Details.Amend: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Details.Amend.KeyValue: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Details.Set: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Details.Unset: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.Object.Details: @unchecked Sendable {}
+extension Anytype_Event.Object.Details.Amend: @unchecked Sendable {}
+extension Anytype_Event.Object.Details.Amend.KeyValue: @unchecked Sendable {}
+extension Anytype_Event.Object.Details.Set: @unchecked Sendable {}
+extension Anytype_Event.Object.Details.Unset: @unchecked Sendable {}
 
 extension Anytype_Event.Object.Details: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Object.protoMessageName + ".Details"
@@ -155,9 +128,7 @@ extension Anytype_Event.Object.Details: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   public static func ==(lhs: Anytype_Event.Object.Details, rhs: Anytype_Event.Object.Details) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -176,20 +147,10 @@ extension Anytype_Event.Object.Details.Amend: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.details)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.subIds)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.details) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
+      default: break
       }
     }
   }
@@ -208,18 +169,10 @@ extension Anytype_Event.Object.Details.Amend: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Object.Details.Amend, rhs: Anytype_Event.Object.Details.Amend) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.details != rhs.details {
-        return false
-    }
-    if lhs.subIds != rhs.subIds {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.details != rhs.details {return false}
+    if lhs.subIds != rhs.subIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -237,16 +190,9 @@ extension Anytype_Event.Object.Details.Amend.KeyValue: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.key)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._value) }()
+      default: break
       }
     }
   }
@@ -259,24 +205,16 @@ extension Anytype_Event.Object.Details.Amend.KeyValue: SwiftProtobuf.Message, Sw
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
     }
-    try {
-        if let v = self._value {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._value {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Object.Details.Amend.KeyValue, rhs: Anytype_Event.Object.Details.Amend.KeyValue) -> Bool {
-    if lhs.key != rhs.key {
-        return false
-    }
-    if lhs._value != rhs._value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.key != rhs.key {return false}
+    if lhs._value != rhs._value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -295,20 +233,10 @@ extension Anytype_Event.Object.Details.Set: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.subIds)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
+      default: break
       }
     }
   }
@@ -321,11 +249,9 @@ extension Anytype_Event.Object.Details.Set: SwiftProtobuf.Message, SwiftProtobuf
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     if !self.subIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 3)
     }
@@ -333,18 +259,10 @@ extension Anytype_Event.Object.Details.Set: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Event.Object.Details.Set, rhs: Anytype_Event.Object.Details.Set) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.subIds != rhs.subIds {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.subIds != rhs.subIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -363,20 +281,10 @@ extension Anytype_Event.Object.Details.Unset: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.keys)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.subIds)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.keys) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
+      default: break
       }
     }
   }
@@ -395,18 +303,10 @@ extension Anytype_Event.Object.Details.Unset: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Object.Details.Unset, rhs: Anytype_Event.Object.Details.Unset) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.keys != rhs.keys {
-        return false
-    }
-    if lhs.subIds != rhs.subIds {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.keys != rhs.keys {return false}
+    if lhs.subIds != rhs.subIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -417,8 +317,7 @@ extension Anytype_Event.Object.Details.Unset: SwiftProtobuf.Message, SwiftProtob
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

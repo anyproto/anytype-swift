@@ -29,32 +29,21 @@ extension Anytype_Model_Search {
 
     /// contains details for dependent object. E.g. relation option or type. todo: rename to dependantDetails
     public var relationDetails: SwiftProtobuf.Google_Protobuf_Struct {
-      get {
-              return _relationDetails ?? SwiftProtobuf.Google_Protobuf_Struct()
-          }
-      set {
-              _relationDetails = newValue
-          }
+      get {return _relationDetails ?? SwiftProtobuf.Google_Protobuf_Struct()}
+      set {_relationDetails = newValue}
     }
     /// Returns true if `relationDetails` has been explicitly set.
-    public var hasRelationDetails: Bool {
-            return self._relationDetails != nil
-        }
+    public var hasRelationDetails: Bool {return self._relationDetails != nil}
     /// Clears the value of `relationDetails`. Subsequent reads from it will return its default value.
-    public mutating func clearRelationDetails() {
-            self._relationDetails = nil
-        }
+    public mutating func clearRelationDetails() {self._relationDetails = nil}
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
+    public init() {}
 
     fileprivate var _relationDetails: SwiftProtobuf.Google_Protobuf_Struct? = nil
-  }
-}
-extension Anytype_Model_Search.Meta: @unchecked Sendable {
-}
+  }    }
+extension Anytype_Model_Search.Meta: @unchecked Sendable {}
 
 extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Search.protoMessageName + ".Meta"
@@ -72,28 +61,12 @@ extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.highlight)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.highlightRanges)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationKey)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._relationDetails)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.highlight) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.highlightRanges) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._relationDetails) }()
+      default: break
       }
     }
   }
@@ -115,33 +88,19 @@ extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.relationKey.isEmpty {
       try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 4)
     }
-    try {
-        if let v = self._relationDetails {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
+    try { if let v = self._relationDetails {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Search.Meta, rhs: Anytype_Model_Search.Meta) -> Bool {
-    if lhs.highlight != rhs.highlight {
-        return false
-    }
-    if lhs.highlightRanges != rhs.highlightRanges {
-        return false
-    }
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs.relationKey != rhs.relationKey {
-        return false
-    }
-    if lhs._relationDetails != rhs._relationDetails {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.highlight != rhs.highlight {return false}
+    if lhs.highlightRanges != rhs.highlightRanges {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs._relationDetails != rhs._relationDetails {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -152,8 +111,7 @@ extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._Messa
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

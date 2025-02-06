@@ -30,8 +30,7 @@ extension Anytype_Rpc.Unsplash {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -40,21 +39,13 @@ extension Anytype_Rpc.Unsplash {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Unsplash.Search.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Unsplash.Search.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Unsplash.Search.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var pictures: [Anytype_Rpc.Unsplash.Search.Response.Picture] = []
 
@@ -75,8 +66,7 @@ extension Anytype_Rpc.Unsplash {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Error {
@@ -106,50 +96,36 @@ extension Anytype_Rpc.Unsplash {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 100:
-                      self = .rateLimitExceeded
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 100: self = .rateLimitExceeded
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .rateLimitExceeded:
-                      return 100
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .rateLimitExceeded: return 100
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Unsplash.Search.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -160,18 +136,12 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: CaseIterable {
     .rateLimitExceeded,
   ]
 }
-extension Anytype_Rpc.Unsplash.Search: @unchecked Sendable {
-}
-extension Anytype_Rpc.Unsplash.Search.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Unsplash.Search.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Unsplash.Search.Response.Picture: @unchecked Sendable {
-}
-extension Anytype_Rpc.Unsplash.Search.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Unsplash.Search: @unchecked Sendable {}
+extension Anytype_Rpc.Unsplash.Search.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Unsplash.Search.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Unsplash.Search.Response.Picture: @unchecked Sendable {}
+extension Anytype_Rpc.Unsplash.Search.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Unsplash.Search: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Unsplash.protoMessageName + ".Search"
@@ -187,9 +157,7 @@ extension Anytype_Rpc.Unsplash.Search: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public static func ==(lhs: Anytype_Rpc.Unsplash.Search, rhs: Anytype_Rpc.Unsplash.Search) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -207,16 +175,9 @@ extension Anytype_Rpc.Unsplash.Search.Request: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.query)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.limit)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.query) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      default: break
       }
     }
   }
@@ -232,15 +193,9 @@ extension Anytype_Rpc.Unsplash.Search.Request: SwiftProtobuf.Message, SwiftProto
   }
 
   public static func ==(lhs: Anytype_Rpc.Unsplash.Search.Request, rhs: Anytype_Rpc.Unsplash.Search.Request) -> Bool {
-    if lhs.query != rhs.query {
-        return false
-    }
-    if lhs.limit != rhs.limit {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.query != rhs.query {return false}
+    if lhs.limit != rhs.limit {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -258,16 +213,9 @@ extension Anytype_Rpc.Unsplash.Search.Response: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.pictures)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.pictures) }()
+      default: break
       }
     }
   }
@@ -277,11 +225,9 @@ extension Anytype_Rpc.Unsplash.Search.Response: SwiftProtobuf.Message, SwiftProt
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.pictures.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.pictures, fieldNumber: 2)
     }
@@ -289,15 +235,9 @@ extension Anytype_Rpc.Unsplash.Search.Response: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Rpc.Unsplash.Search.Response, rhs: Anytype_Rpc.Unsplash.Search.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.pictures != rhs.pictures {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.pictures != rhs.pictures {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -317,24 +257,11 @@ extension Anytype_Rpc.Unsplash.Search.Response.Picture: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.url)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.artist)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.artistURL)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.artist) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.artistURL) }()
+      default: break
       }
     }
   }
@@ -356,21 +283,11 @@ extension Anytype_Rpc.Unsplash.Search.Response.Picture: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Rpc.Unsplash.Search.Response.Picture, rhs: Anytype_Rpc.Unsplash.Search.Response.Picture) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.url != rhs.url {
-        return false
-    }
-    if lhs.artist != rhs.artist {
-        return false
-    }
-    if lhs.artistURL != rhs.artistURL {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.artist != rhs.artist {return false}
+    if lhs.artistURL != rhs.artistURL {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -388,16 +305,9 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -413,15 +323,9 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Rpc.Unsplash.Search.Response.Error, rhs: Anytype_Rpc.Unsplash.Search.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -441,8 +345,7 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: SwiftProtobuf._ProtoN
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

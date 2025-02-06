@@ -20,11 +20,9 @@ public struct Anytype_Model_FileInfo {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_FileInfo: @unchecked Sendable {
-}
+extension Anytype_Model_FileInfo: @unchecked Sendable {}
 
 extension Anytype_Model_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".FileInfo"
@@ -39,16 +37,9 @@ extension Anytype_Model_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.fileID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.encryptionKeys)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.fileID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.encryptionKeys) }()
+      default: break
       }
     }
   }
@@ -64,15 +55,9 @@ extension Anytype_Model_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   }
 
   public static func ==(lhs: Anytype_Model_FileInfo, rhs: Anytype_Model_FileInfo) -> Bool {
-    if lhs.fileID != rhs.fileID {
-        return false
-    }
-    if lhs.encryptionKeys != rhs.encryptionKeys {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.fileID != rhs.fileID {return false}
+    if lhs.encryptionKeys != rhs.encryptionKeys {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -83,8 +68,7 @@ extension Anytype_Model_FileInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

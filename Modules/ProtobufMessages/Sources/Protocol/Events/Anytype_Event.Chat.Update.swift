@@ -18,32 +18,21 @@ extension Anytype_Event.Chat {
       public var id: String = String()
 
       public var message: Anytype_Model_ChatMessage {
-        get {
-                return _message ?? Anytype_Model_ChatMessage()
-            }
-        set {
-                _message = newValue
-            }
+        get {return _message ?? Anytype_Model_ChatMessage()}
+        set {_message = newValue}
       }
       /// Returns true if `message` has been explicitly set.
-      public var hasMessage: Bool {
-              return self._message != nil
-          }
+      public var hasMessage: Bool {return self._message != nil}
       /// Clears the value of `message`. Subsequent reads from it will return its default value.
-      public mutating func clearMessage() {
-              self._message = nil
-          }
+      public mutating func clearMessage() {self._message = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _message: Anytype_Model_ChatMessage? = nil
-    }
-}
-extension Anytype_Event.Chat.Update: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Event.Chat.Update: @unchecked Sendable {}
 
 extension Anytype_Event.Chat.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".Update"
@@ -58,16 +47,9 @@ extension Anytype_Event.Chat.Update: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._message)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      default: break
       }
     }
   }
@@ -80,24 +62,16 @@ extension Anytype_Event.Chat.Update: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._message {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Chat.Update, rhs: Anytype_Event.Chat.Update) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._message != rhs._message {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._message != rhs._message {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -108,8 +82,7 @@ extension Anytype_Event.Chat.Update: SwiftProtobuf.Message, SwiftProtobuf._Messa
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

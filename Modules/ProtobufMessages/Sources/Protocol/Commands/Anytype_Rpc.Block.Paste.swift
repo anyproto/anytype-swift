@@ -27,21 +27,13 @@ extension Anytype_Rpc.Block {
         public var focusedBlockID: String = String()
 
         public var selectedTextRange: Anytype_Model_Range {
-          get {
-                  return _selectedTextRange ?? Anytype_Model_Range()
-              }
-          set {
-                  _selectedTextRange = newValue
-              }
+          get {return _selectedTextRange ?? Anytype_Model_Range()}
+          set {_selectedTextRange = newValue}
         }
         /// Returns true if `selectedTextRange` has been explicitly set.
-        public var hasSelectedTextRange: Bool {
-                return self._selectedTextRange != nil
-            }
+        public var hasSelectedTextRange: Bool {return self._selectedTextRange != nil}
         /// Clears the value of `selectedTextRange`. Subsequent reads from it will return its default value.
-        public mutating func clearSelectedTextRange() {
-                self._selectedTextRange = nil
-            }
+        public mutating func clearSelectedTextRange() {self._selectedTextRange = nil}
 
         public var selectedBlockIds: [String] = []
 
@@ -72,12 +64,10 @@ extension Anytype_Rpc.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _selectedTextRange: Anytype_Model_Range? = nil
       }
@@ -88,21 +78,13 @@ extension Anytype_Rpc.Block {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Block.Paste.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Block.Paste.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Block.Paste.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var blockIds: [String] = []
 
@@ -111,21 +93,13 @@ extension Anytype_Rpc.Block {
         public var isSameBlockCaret: Bool = false
 
         public var event: Anytype_ResponseEvent {
-          get {
-                  return _event ?? Anytype_ResponseEvent()
-              }
-          set {
-                  _event = newValue
-              }
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
         /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {
-                return self._event != nil
-            }
+        public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {
-                self._event = nil
-            }
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -155,47 +129,35 @@ extension Anytype_Rpc.Block {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Block.Paste.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Block.Paste.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -205,18 +167,12 @@ extension Anytype_Rpc.Block.Paste.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Block.Paste: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.Paste.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.Paste.Request.File: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.Paste.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.Paste.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.Paste.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Block.Paste: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Request.File: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Block.Paste: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".Paste"
@@ -232,9 +188,7 @@ extension Anytype_Rpc.Block.Paste: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.Paste, rhs: Anytype_Rpc.Block.Paste) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -260,48 +214,17 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.focusedBlockID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._selectedTextRange)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.selectedBlockIds)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isPartOfBlock)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.textSlot)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.htmlSlot)
-          }()
-      case 8:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.anySlot)
-          }()
-      case 9:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.fileSlot)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularStringField(value: &self.url)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.focusedBlockID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._selectedTextRange) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.selectedBlockIds) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.isPartOfBlock) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.textSlot) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.htmlSlot) }()
+      case 8: try { try decoder.decodeRepeatedMessageField(value: &self.anySlot) }()
+      case 9: try { try decoder.decodeRepeatedMessageField(value: &self.fileSlot) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      default: break
       }
     }
   }
@@ -317,11 +240,9 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.focusedBlockID.isEmpty {
       try visitor.visitSingularStringField(value: self.focusedBlockID, fieldNumber: 2)
     }
-    try {
-        if let v = self._selectedTextRange {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._selectedTextRange {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if !self.selectedBlockIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.selectedBlockIds, fieldNumber: 4)
     }
@@ -347,39 +268,17 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.Paste.Request, rhs: Anytype_Rpc.Block.Paste.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.focusedBlockID != rhs.focusedBlockID {
-        return false
-    }
-    if lhs._selectedTextRange != rhs._selectedTextRange {
-        return false
-    }
-    if lhs.selectedBlockIds != rhs.selectedBlockIds {
-        return false
-    }
-    if lhs.isPartOfBlock != rhs.isPartOfBlock {
-        return false
-    }
-    if lhs.textSlot != rhs.textSlot {
-        return false
-    }
-    if lhs.htmlSlot != rhs.htmlSlot {
-        return false
-    }
-    if lhs.anySlot != rhs.anySlot {
-        return false
-    }
-    if lhs.fileSlot != rhs.fileSlot {
-        return false
-    }
-    if lhs.url != rhs.url {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.focusedBlockID != rhs.focusedBlockID {return false}
+    if lhs._selectedTextRange != rhs._selectedTextRange {return false}
+    if lhs.selectedBlockIds != rhs.selectedBlockIds {return false}
+    if lhs.isPartOfBlock != rhs.isPartOfBlock {return false}
+    if lhs.textSlot != rhs.textSlot {return false}
+    if lhs.htmlSlot != rhs.htmlSlot {return false}
+    if lhs.anySlot != rhs.anySlot {return false}
+    if lhs.fileSlot != rhs.fileSlot {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -398,20 +297,10 @@ extension Anytype_Rpc.Block.Paste.Request.File: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularBytesField(value: &self.data)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.localPath)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularBytesField(value: &self.data) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.localPath) }()
+      default: break
       }
     }
   }
@@ -430,18 +319,10 @@ extension Anytype_Rpc.Block.Paste.Request.File: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.Paste.Request.File, rhs: Anytype_Rpc.Block.Paste.Request.File) -> Bool {
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.data != rhs.data {
-        return false
-    }
-    if lhs.localPath != rhs.localPath {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.name != rhs.name {return false}
+    if lhs.data != rhs.data {return false}
+    if lhs.localPath != rhs.localPath {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -462,28 +343,12 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.blockIds)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.caretPosition)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isSameBlockCaret)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.caretPosition) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isSameBlockCaret) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -493,11 +358,9 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.blockIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
     }
@@ -507,33 +370,19 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
     if self.isSameBlockCaret != false {
       try visitor.visitSingularBoolField(value: self.isSameBlockCaret, fieldNumber: 4)
     }
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.Paste.Response, rhs: Anytype_Rpc.Block.Paste.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.blockIds != rhs.blockIds {
-        return false
-    }
-    if lhs.caretPosition != rhs.caretPosition {
-        return false
-    }
-    if lhs.isSameBlockCaret != rhs.isSameBlockCaret {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.blockIds != rhs.blockIds {return false}
+    if lhs.caretPosition != rhs.caretPosition {return false}
+    if lhs.isSameBlockCaret != rhs.isSameBlockCaret {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -551,16 +400,9 @@ extension Anytype_Rpc.Block.Paste.Response.Error: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -576,15 +418,9 @@ extension Anytype_Rpc.Block.Paste.Response.Error: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.Paste.Response.Error, rhs: Anytype_Rpc.Block.Paste.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -603,8 +439,7 @@ extension Anytype_Rpc.Block.Paste.Response.Error.Code: SwiftProtobuf._ProtoNameP
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

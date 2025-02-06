@@ -36,68 +36,42 @@ extension Anytype_Rpc.Object {
           public var relationKey: String = String()
 
           public var add: SwiftProtobuf.Google_Protobuf_Value {
-            get {
-                    return _add ?? SwiftProtobuf.Google_Protobuf_Value()
-                }
-            set {
-                    _add = newValue
-                }
+            get {return _add ?? SwiftProtobuf.Google_Protobuf_Value()}
+            set {_add = newValue}
           }
           /// Returns true if `add` has been explicitly set.
-          public var hasAdd: Bool {
-                  return self._add != nil
-              }
+          public var hasAdd: Bool {return self._add != nil}
           /// Clears the value of `add`. Subsequent reads from it will return its default value.
-          public mutating func clearAdd() {
-                  self._add = nil
-              }
+          public mutating func clearAdd() {self._add = nil}
 
           public var set: SwiftProtobuf.Google_Protobuf_Value {
-            get {
-                    return _set ?? SwiftProtobuf.Google_Protobuf_Value()
-                }
-            set {
-                    _set = newValue
-                }
+            get {return _set ?? SwiftProtobuf.Google_Protobuf_Value()}
+            set {_set = newValue}
           }
           /// Returns true if `set` has been explicitly set.
-          public var hasSet: Bool {
-                  return self._set != nil
-              }
+          public var hasSet: Bool {return self._set != nil}
           /// Clears the value of `set`. Subsequent reads from it will return its default value.
-          public mutating func clearSet() {
-                  self._set = nil
-              }
+          public mutating func clearSet() {self._set = nil}
 
           public var remove: SwiftProtobuf.Google_Protobuf_Value {
-            get {
-                    return _remove ?? SwiftProtobuf.Google_Protobuf_Value()
-                }
-            set {
-                    _remove = newValue
-                }
+            get {return _remove ?? SwiftProtobuf.Google_Protobuf_Value()}
+            set {_remove = newValue}
           }
           /// Returns true if `remove` has been explicitly set.
-          public var hasRemove: Bool {
-                  return self._remove != nil
-              }
+          public var hasRemove: Bool {return self._remove != nil}
           /// Clears the value of `remove`. Subsequent reads from it will return its default value.
-          public mutating func clearRemove() {
-                  self._remove = nil
-              }
+          public mutating func clearRemove() {self._remove = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _add: SwiftProtobuf.Google_Protobuf_Value? = nil
           fileprivate var _set: SwiftProtobuf.Google_Protobuf_Value? = nil
           fileprivate var _remove: SwiftProtobuf.Google_Protobuf_Value? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -106,21 +80,13 @@ extension Anytype_Rpc.Object {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Object.ListModifyDetailValues.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Object.ListModifyDetailValues.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Object.ListModifyDetailValues.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -148,46 +114,34 @@ extension Anytype_Rpc.Object {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Object.ListModifyDetailValues.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -197,18 +151,12 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error.Code: CaseIte
     .badInput,
   ]
 }
-extension Anytype_Rpc.Object.ListModifyDetailValues: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListModifyDetailValues.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListModifyDetailValues.Request.Operation: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListModifyDetailValues.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Object.ListModifyDetailValues: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListModifyDetailValues.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListModifyDetailValues.Request.Operation: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListModifyDetailValues.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object.ListModifyDetailValues: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".ListModifyDetailValues"
@@ -224,9 +172,7 @@ extension Anytype_Rpc.Object.ListModifyDetailValues: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListModifyDetailValues, rhs: Anytype_Rpc.Object.ListModifyDetailValues) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -244,16 +190,9 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Request: SwiftProtobuf.Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.objectIds)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.operations)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.operations) }()
+      default: break
       }
     }
   }
@@ -269,15 +208,9 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Request: SwiftProtobuf.Messa
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListModifyDetailValues.Request, rhs: Anytype_Rpc.Object.ListModifyDetailValues.Request) -> Bool {
-    if lhs.objectIds != rhs.objectIds {
-        return false
-    }
-    if lhs.operations != rhs.operations {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.objectIds != rhs.objectIds {return false}
+    if lhs.operations != rhs.operations {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -297,24 +230,11 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Request.Operation: SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationKey)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._add)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._set)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._remove)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._add) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._set) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._remove) }()
+      default: break
       }
     }
   }
@@ -327,40 +247,24 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Request.Operation: SwiftProt
     if !self.relationKey.isEmpty {
       try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 1)
     }
-    try {
-        if let v = self._add {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._set {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
-    try {
-        if let v = self._remove {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
+    try { if let v = self._add {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._set {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._remove {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListModifyDetailValues.Request.Operation, rhs: Anytype_Rpc.Object.ListModifyDetailValues.Request.Operation) -> Bool {
-    if lhs.relationKey != rhs.relationKey {
-        return false
-    }
-    if lhs._add != rhs._add {
-        return false
-    }
-    if lhs._set != rhs._set {
-        return false
-    }
-    if lhs._remove != rhs._remove {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs._add != rhs._add {return false}
+    if lhs._set != rhs._set {return false}
+    if lhs._remove != rhs._remove {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -377,12 +281,8 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Response: SwiftProtobuf.Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
       }
     }
   }
@@ -392,21 +292,15 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Response: SwiftProtobuf.Mess
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListModifyDetailValues.Response, rhs: Anytype_Rpc.Object.ListModifyDetailValues.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -424,16 +318,9 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -449,15 +336,9 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListModifyDetailValues.Response.Error, rhs: Anytype_Rpc.Object.ListModifyDetailValues.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -476,8 +357,7 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error.Code: SwiftPr
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

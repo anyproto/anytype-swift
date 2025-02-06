@@ -33,36 +33,25 @@ extension Anytype_Model_Relation {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .details
-      case 1:
-          self = .derived
-      case 2:
-          self = .account
-      case 3:
-          self = .local
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .details
+      case 1: self = .derived
+      case 2: self = .account
+      case 3: self = .local
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .details:
-          return 0
-      case .derived:
-          return 1
-      case .account:
-          return 2
-      case .local:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
+      case .details: return 0
+      case .derived: return 1
+      case .account: return 2
+      case .local: return 3
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Relation.DataSource: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -73,8 +62,7 @@ extension Anytype_Model_Relation.DataSource: CaseIterable {
     .local,
   ]
 }
-extension Anytype_Model_Relation.DataSource: @unchecked Sendable {
-}
+extension Anytype_Model_Relation.DataSource: @unchecked Sendable {}
 
 extension Anytype_Model_Relation.DataSource: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -91,8 +79,7 @@ extension Anytype_Model_Relation.DataSource: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -32,53 +32,35 @@ public struct Anytype_Model_ChatMessage {
 
   /// Message content
   public var message: Anytype_Model_ChatMessage.MessageContent {
-    get {
-        return _message ?? Anytype_Model_ChatMessage.MessageContent()
-    }
-    set {
-        _message = newValue
-    }
+    get {return _message ?? Anytype_Model_ChatMessage.MessageContent()}
+    set {_message = newValue}
   }
   /// Returns true if `message` has been explicitly set.
-  public var hasMessage: Bool {
-      return self._message != nil
-  }
+  public var hasMessage: Bool {return self._message != nil}
   /// Clears the value of `message`. Subsequent reads from it will return its default value.
-  public mutating func clearMessage() {
-      self._message = nil
-  }
+  public mutating func clearMessage() {self._message = nil}
 
   /// Attachments slice
   public var attachments: [Anytype_Model_ChatMessage.Attachment] = []
 
   /// Reactions to the message
   public var reactions: Anytype_Model_ChatMessage.Reactions {
-    get {
-        return _reactions ?? Anytype_Model_ChatMessage.Reactions()
-    }
-    set {
-        _reactions = newValue
-    }
+    get {return _reactions ?? Anytype_Model_ChatMessage.Reactions()}
+    set {_reactions = newValue}
   }
   /// Returns true if `reactions` has been explicitly set.
-  public var hasReactions: Bool {
-      return self._reactions != nil
-  }
+  public var hasReactions: Bool {return self._reactions != nil}
   /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
-  public mutating func clearReactions() {
-      self._reactions = nil
-  }
+  public mutating func clearReactions() {self._reactions = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 
   fileprivate var _message: Anytype_Model_ChatMessage.MessageContent? = nil
   fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
 }
-extension Anytype_Model_ChatMessage: @unchecked Sendable {
-}
+extension Anytype_Model_ChatMessage: @unchecked Sendable {}
 
 extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ChatMessage"
@@ -100,44 +82,16 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.orderID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.creator)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.createdAt)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.replyToMessageID)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._message)
-          }()
-      case 7:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.attachments)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._reactions)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.modifiedAt)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.orderID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.creator) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.createdAt) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.replyToMessageID) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
+      case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
+      default: break
       }
     }
   }
@@ -162,19 +116,15 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.replyToMessageID.isEmpty {
       try visitor.visitSingularStringField(value: self.replyToMessageID, fieldNumber: 5)
     }
-    try {
-        if let v = self._message {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     if !self.attachments.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.attachments, fieldNumber: 7)
     }
-    try {
-        if let v = self._reactions {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-            }
-    }()
+    try { if let v = self._reactions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
     if self.modifiedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.modifiedAt, fieldNumber: 9)
     }
@@ -182,36 +132,16 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 
   public static func ==(lhs: Anytype_Model_ChatMessage, rhs: Anytype_Model_ChatMessage) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.orderID != rhs.orderID {
-        return false
-    }
-    if lhs.creator != rhs.creator {
-        return false
-    }
-    if lhs.createdAt != rhs.createdAt {
-        return false
-    }
-    if lhs.modifiedAt != rhs.modifiedAt {
-        return false
-    }
-    if lhs.replyToMessageID != rhs.replyToMessageID {
-        return false
-    }
-    if lhs._message != rhs._message {
-        return false
-    }
-    if lhs.attachments != rhs.attachments {
-        return false
-    }
-    if lhs._reactions != rhs._reactions {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.orderID != rhs.orderID {return false}
+    if lhs.creator != rhs.creator {return false}
+    if lhs.createdAt != rhs.createdAt {return false}
+    if lhs.modifiedAt != rhs.modifiedAt {return false}
+    if lhs.replyToMessageID != rhs.replyToMessageID {return false}
+    if lhs._message != rhs._message {return false}
+    if lhs.attachments != rhs.attachments {return false}
+    if lhs._reactions != rhs._reactions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -222,8 +152,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

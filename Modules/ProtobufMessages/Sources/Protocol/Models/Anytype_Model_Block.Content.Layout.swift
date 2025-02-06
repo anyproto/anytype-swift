@@ -35,48 +35,32 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .row
-          case 1:
-                  self = .column
-          case 2:
-                  self = .div
-          case 3:
-                  self = .header
-          case 4:
-                  self = .tableRows
-          case 5:
-                  self = .tableColumns
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .row
+          case 1: self = .column
+          case 2: self = .div
+          case 3: self = .header
+          case 4: self = .tableRows
+          case 5: self = .tableColumns
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .row:
-                  return 0
-          case .column:
-                  return 1
-          case .div:
-                  return 2
-          case .header:
-                  return 3
-          case .tableRows:
-                  return 4
-          case .tableColumns:
-                  return 5
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .row: return 0
+          case .column: return 1
+          case .div: return 2
+          case .header: return 3
+          case .tableRows: return 4
+          case .tableColumns: return 5
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -89,10 +73,8 @@ extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
     .tableColumns,
   ]
 }
-extension Anytype_Model_Block.Content.Layout: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Layout.Style: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Content.Layout: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Layout.Style: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.Layout: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Layout"
@@ -106,12 +88,8 @@ extension Anytype_Model_Block.Content.Layout: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.style)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      default: break
       }
     }
   }
@@ -124,12 +102,8 @@ extension Anytype_Model_Block.Content.Layout: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Layout, rhs: Anytype_Model_Block.Content.Layout) -> Bool {
-    if lhs.style != rhs.style {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.style != rhs.style {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -151,8 +125,7 @@ extension Anytype_Model_Block.Content.Layout.Style: SwiftProtobuf._ProtoNameProv
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

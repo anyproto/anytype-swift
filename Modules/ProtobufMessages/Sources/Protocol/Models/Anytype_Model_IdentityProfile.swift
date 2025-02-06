@@ -28,11 +28,9 @@ public struct Anytype_Model_IdentityProfile {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_IdentityProfile: @unchecked Sendable {
-}
+extension Anytype_Model_IdentityProfile: @unchecked Sendable {}
 
 extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".IdentityProfile"
@@ -51,32 +49,13 @@ extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.identity)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.iconCid)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.iconEncryptionKeys)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.globalName)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.identity) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.iconCid) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.iconEncryptionKeys) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.globalName) }()
+      default: break
       }
     }
   }
@@ -104,27 +83,13 @@ extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public static func ==(lhs: Anytype_Model_IdentityProfile, rhs: Anytype_Model_IdentityProfile) -> Bool {
-    if lhs.identity != rhs.identity {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.iconCid != rhs.iconCid {
-        return false
-    }
-    if lhs.iconEncryptionKeys != rhs.iconEncryptionKeys {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.globalName != rhs.globalName {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.identity != rhs.identity {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.iconCid != rhs.iconCid {return false}
+    if lhs.iconEncryptionKeys != rhs.iconEncryptionKeys {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.globalName != rhs.globalName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -135,8 +100,7 @@ extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._M
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

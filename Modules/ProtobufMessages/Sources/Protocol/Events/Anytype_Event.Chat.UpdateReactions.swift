@@ -18,32 +18,21 @@ extension Anytype_Event.Chat {
       public var id: String = String()
 
       public var reactions: Anytype_Model_ChatMessage.Reactions {
-        get {
-                return _reactions ?? Anytype_Model_ChatMessage.Reactions()
-            }
-        set {
-                _reactions = newValue
-            }
+        get {return _reactions ?? Anytype_Model_ChatMessage.Reactions()}
+        set {_reactions = newValue}
       }
       /// Returns true if `reactions` has been explicitly set.
-      public var hasReactions: Bool {
-              return self._reactions != nil
-          }
+      public var hasReactions: Bool {return self._reactions != nil}
       /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
-      public mutating func clearReactions() {
-              self._reactions = nil
-          }
+      public mutating func clearReactions() {self._reactions = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
-    }
-}
-extension Anytype_Event.Chat.UpdateReactions: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Event.Chat.UpdateReactions: @unchecked Sendable {}
 
 extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateReactions"
@@ -58,16 +47,9 @@ extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._reactions)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
+      default: break
       }
     }
   }
@@ -80,24 +62,16 @@ extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtob
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._reactions {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._reactions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Chat.UpdateReactions, rhs: Anytype_Event.Chat.UpdateReactions) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._reactions != rhs._reactions {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._reactions != rhs._reactions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -108,8 +82,7 @@ extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtob
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

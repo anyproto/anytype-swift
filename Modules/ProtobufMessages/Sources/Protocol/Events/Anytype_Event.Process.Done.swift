@@ -16,32 +16,21 @@ extension Anytype_Event.Process {
       // methods supported on all messages.
 
       public var process: Anytype_Model.Process {
-        get {
-                return _process ?? Anytype_Model.Process()
-            }
-        set {
-                _process = newValue
-            }
+        get {return _process ?? Anytype_Model.Process()}
+        set {_process = newValue}
       }
       /// Returns true if `process` has been explicitly set.
-      public var hasProcess: Bool {
-              return self._process != nil
-          }
+      public var hasProcess: Bool {return self._process != nil}
       /// Clears the value of `process`. Subsequent reads from it will return its default value.
-      public mutating func clearProcess() {
-              self._process = nil
-          }
+      public mutating func clearProcess() {self._process = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _process: Anytype_Model.Process? = nil
-    }
-}
-extension Anytype_Event.Process.Done: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Event.Process.Done: @unchecked Sendable {}
 
 extension Anytype_Event.Process.Done: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Process.protoMessageName + ".Done"
@@ -55,12 +44,8 @@ extension Anytype_Event.Process.Done: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._process)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._process) }()
+      default: break
       }
     }
   }
@@ -70,21 +55,15 @@ extension Anytype_Event.Process.Done: SwiftProtobuf.Message, SwiftProtobuf._Mess
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._process {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._process {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Process.Done, rhs: Anytype_Event.Process.Done) -> Bool {
-    if lhs._process != rhs._process {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._process != rhs._process {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -95,8 +74,7 @@ extension Anytype_Event.Process.Done: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

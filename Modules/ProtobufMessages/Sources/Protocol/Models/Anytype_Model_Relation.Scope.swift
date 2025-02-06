@@ -36,40 +36,27 @@ extension Anytype_Model_Relation {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .object
-      case 1:
-          self = .type
-      case 2:
-          self = .setOfTheSameType
-      case 3:
-          self = .objectsOfTheSameType
-      case 4:
-          self = .library
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .object
+      case 1: self = .type
+      case 2: self = .setOfTheSameType
+      case 3: self = .objectsOfTheSameType
+      case 4: self = .library
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .object:
-          return 0
-      case .type:
-          return 1
-      case .setOfTheSameType:
-          return 2
-      case .objectsOfTheSameType:
-          return 3
-      case .library:
-          return 4
-      case .UNRECOGNIZED(let i):
-          return i
+      case .object: return 0
+      case .type: return 1
+      case .setOfTheSameType: return 2
+      case .objectsOfTheSameType: return 3
+      case .library: return 4
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Relation.Scope: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -81,8 +68,7 @@ extension Anytype_Model_Relation.Scope: CaseIterable {
     .library,
   ]
 }
-extension Anytype_Model_Relation.Scope: @unchecked Sendable {
-}
+extension Anytype_Model_Relation.Scope: @unchecked Sendable {}
 
 extension Anytype_Model_Relation.Scope: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -100,8 +86,7 @@ extension Anytype_Model_Relation.Scope: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

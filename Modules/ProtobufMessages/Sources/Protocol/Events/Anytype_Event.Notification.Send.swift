@@ -16,32 +16,21 @@ extension Anytype_Event.Notification {
       // methods supported on all messages.
 
       public var notification: Anytype_Model_Notification {
-        get {
-                return _notification ?? Anytype_Model_Notification()
-            }
-        set {
-                _notification = newValue
-            }
+        get {return _notification ?? Anytype_Model_Notification()}
+        set {_notification = newValue}
       }
       /// Returns true if `notification` has been explicitly set.
-      public var hasNotification: Bool {
-              return self._notification != nil
-          }
+      public var hasNotification: Bool {return self._notification != nil}
       /// Clears the value of `notification`. Subsequent reads from it will return its default value.
-      public mutating func clearNotification() {
-              self._notification = nil
-          }
+      public mutating func clearNotification() {self._notification = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _notification: Anytype_Model_Notification? = nil
-    }
-}
-extension Anytype_Event.Notification.Send: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Event.Notification.Send: @unchecked Sendable {}
 
 extension Anytype_Event.Notification.Send: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Notification.protoMessageName + ".Send"
@@ -55,12 +44,8 @@ extension Anytype_Event.Notification.Send: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._notification)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._notification) }()
+      default: break
       }
     }
   }
@@ -70,21 +55,15 @@ extension Anytype_Event.Notification.Send: SwiftProtobuf.Message, SwiftProtobuf.
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._notification {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._notification {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Notification.Send, rhs: Anytype_Event.Notification.Send) -> Bool {
-    if lhs._notification != rhs._notification {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._notification != rhs._notification {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -95,8 +74,7 @@ extension Anytype_Event.Notification.Send: SwiftProtobuf.Message, SwiftProtobuf.
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

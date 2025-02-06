@@ -24,31 +24,21 @@ public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .basic
-    case 1:
-        self = .cover
-    case 2:
-        self = .icon
-    case 3:
-        self = .automaticallyAdded
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .basic
+    case 1: self = .cover
+    case 2: self = .icon
+    case 3: self = .automaticallyAdded
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .basic:
-        return 0
-    case .cover:
-        return 1
-    case .icon:
-        return 2
-    case .automaticallyAdded:
-        return 3
-    case .UNRECOGNIZED(let i):
-        return i
+    case .basic: return 0
+    case .cover: return 1
+    case .icon: return 2
+    case .automaticallyAdded: return 3
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -63,8 +53,7 @@ extension Anytype_Model_ImageKind: CaseIterable {
     .automaticallyAdded,
   ]
 }
-extension Anytype_Model_ImageKind: @unchecked Sendable {
-}
+extension Anytype_Model_ImageKind: @unchecked Sendable {}
 
 extension Anytype_Model_ImageKind: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -81,8 +70,7 @@ extension Anytype_Model_ImageKind: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

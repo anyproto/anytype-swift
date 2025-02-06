@@ -51,39 +51,25 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .none
-          case 1:
-                  self = .file
-          case 2:
-                  self = .image
-          case 3:
-                  self = .video
-          case 4:
-                  self = .audio
-          case 5:
-                  self = .pdf
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .none
+          case 1: self = .file
+          case 2: self = .image
+          case 3: self = .video
+          case 4: self = .audio
+          case 5: self = .pdf
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .none:
-                  return 0
-          case .file:
-                  return 1
-          case .image:
-                  return 2
-          case .video:
-                  return 3
-          case .audio:
-                  return 4
-          case .pdf:
-                  return 5
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .none: return 0
+          case .file: return 1
+          case .image: return 2
+          case .video: return 3
+          case .audio: return 4
+          case .pdf: return 5
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -104,27 +90,19 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .auto
-          case 1:
-                  self = .link
-          case 2:
-                  self = .embed
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .auto
+          case 1: self = .link
+          case 2: self = .embed
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .auto:
-                  return 0
-          case .link:
-                  return 1
-          case .embed:
-                  return 2
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .auto: return 0
+          case .link: return 1
+          case .embed: return 2
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -152,40 +130,28 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .empty
-          case 1:
-                  self = .uploading
-          case 2:
-                  self = .done
-          case 3:
-                  self = .error
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .empty
+          case 1: self = .uploading
+          case 2: self = .done
+          case 3: self = .error
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .empty:
-                  return 0
-          case .uploading:
-                  return 1
-          case .done:
-                  return 2
-          case .error:
-                  return 3
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .empty: return 0
+          case .uploading: return 1
+          case .done: return 2
+          case .error: return 3
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Model_Block.Content.File.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -217,14 +183,10 @@ extension Anytype_Model_Block.Content.File.State: CaseIterable {
     .error,
   ]
 }
-extension Anytype_Model_Block.Content.File: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.File.TypeEnum: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.File.Style: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.File.State: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Content.File: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.File.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.File.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.File.State: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".File"
@@ -246,44 +208,16 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.hash)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.mime)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.size)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.addedAt)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.state)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.style)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularStringField(value: &self.targetObjectID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.hash) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.mime) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.size) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.state) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
+      default: break
       }
     }
   }
@@ -320,36 +254,16 @@ extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.File, rhs: Anytype_Model_Block.Content.File) -> Bool {
-    if lhs.hash != rhs.hash {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.mime != rhs.mime {
-        return false
-    }
-    if lhs.size != rhs.size {
-        return false
-    }
-    if lhs.addedAt != rhs.addedAt {
-        return false
-    }
-    if lhs.targetObjectID != rhs.targetObjectID {
-        return false
-    }
-    if lhs.state != rhs.state {
-        return false
-    }
-    if lhs.style != rhs.style {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.hash != rhs.hash {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.mime != rhs.mime {return false}
+    if lhs.size != rhs.size {return false}
+    if lhs.addedAt != rhs.addedAt {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
+    if lhs.state != rhs.state {return false}
+    if lhs.style != rhs.style {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -388,8 +302,7 @@ extension Anytype_Model_Block.Content.File.State: SwiftProtobuf._ProtoNameProvid
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

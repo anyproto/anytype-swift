@@ -30,48 +30,31 @@ extension Anytype_Model_Import {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .notion
-      case 1:
-          self = .markdown
-      case 2:
-          self = .external
-      case 3:
-          self = .pb
-      case 4:
-          self = .html
-      case 5:
-          self = .txt
-      case 6:
-          self = .csv
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .notion
+      case 1: self = .markdown
+      case 2: self = .external
+      case 3: self = .pb
+      case 4: self = .html
+      case 5: self = .txt
+      case 6: self = .csv
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .notion:
-          return 0
-      case .markdown:
-          return 1
-      case .external:
-          return 2
-      case .pb:
-          return 3
-      case .html:
-          return 4
-      case .txt:
-          return 5
-      case .csv:
-          return 6
-      case .UNRECOGNIZED(let i):
-          return i
+      case .notion: return 0
+      case .markdown: return 1
+      case .external: return 2
+      case .pb: return 3
+      case .html: return 4
+      case .txt: return 5
+      case .csv: return 6
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Import.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -85,8 +68,7 @@ extension Anytype_Model_Import.TypeEnum: CaseIterable {
     .csv,
   ]
 }
-extension Anytype_Model_Import.TypeEnum: @unchecked Sendable {
-}
+extension Anytype_Model_Import.TypeEnum: @unchecked Sendable {}
 
 extension Anytype_Model_Import.TypeEnum: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -106,8 +88,7 @@ extension Anytype_Model_Import.TypeEnum: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

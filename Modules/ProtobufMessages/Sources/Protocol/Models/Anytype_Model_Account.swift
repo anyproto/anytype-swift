@@ -16,74 +16,44 @@ public struct Anytype_Model_Account {
 
   /// User's thread id
   public var id: String {
-    get {
-        return _storage._id
-    }
-    set {
-        _uniqueStorage()._id = newValue
-    }
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
   }
 
   public var config: Anytype_Model_Account.Config {
-    get {
-        return _storage._config ?? Anytype_Model_Account.Config()
-    }
-    set {
-        _uniqueStorage()._config = newValue
-    }
+    get {return _storage._config ?? Anytype_Model_Account.Config()}
+    set {_uniqueStorage()._config = newValue}
   }
   /// Returns true if `config` has been explicitly set.
-  public var hasConfig: Bool {
-      return _storage._config != nil
-  }
+  public var hasConfig: Bool {return _storage._config != nil}
   /// Clears the value of `config`. Subsequent reads from it will return its default value.
-  public mutating func clearConfig() {
-      _uniqueStorage()._config = nil
-  }
+  public mutating func clearConfig() {_uniqueStorage()._config = nil}
 
   public var status: Anytype_Model_Account.Status {
-    get {
-        return _storage._status ?? Anytype_Model_Account.Status()
-    }
-    set {
-        _uniqueStorage()._status = newValue
-    }
+    get {return _storage._status ?? Anytype_Model_Account.Status()}
+    set {_uniqueStorage()._status = newValue}
   }
   /// Returns true if `status` has been explicitly set.
-  public var hasStatus: Bool {
-      return _storage._status != nil
-  }
+  public var hasStatus: Bool {return _storage._status != nil}
   /// Clears the value of `status`. Subsequent reads from it will return its default value.
-  public mutating func clearStatus() {
-      _uniqueStorage()._status = nil
-  }
+  public mutating func clearStatus() {_uniqueStorage()._status = nil}
 
   public var info: Anytype_Model_Account.Info {
-    get {
-        return _storage._info ?? Anytype_Model_Account.Info()
-    }
-    set {
-        _uniqueStorage()._info = newValue
-    }
+    get {return _storage._info ?? Anytype_Model_Account.Info()}
+    set {_uniqueStorage()._info = newValue}
   }
   /// Returns true if `info` has been explicitly set.
-  public var hasInfo: Bool {
-      return _storage._info != nil
-  }
+  public var hasInfo: Bool {return _storage._info != nil}
   /// Clears the value of `info`. Subsequent reads from it will return its default value.
-  public mutating func clearInfo() {
-      _uniqueStorage()._info = nil
-  }
+  public mutating func clearInfo() {_uniqueStorage()._info = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
-extension Anytype_Model_Account: @unchecked Sendable {
-}
+extension Anytype_Model_Account: @unchecked Sendable {}
 
 extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Account"
@@ -102,8 +72,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
     static let defaultInstance = _StorageClass()
 
-    private init() {
-    }
+    private init() {}
 
     init(copying source: _StorageClass) {
       _id = source._id
@@ -128,24 +97,11 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._id)
-            }()
-        case 4:
-            try {
-                try decoder.decodeSingularMessageField(value: &_storage._config)
-            }()
-        case 5:
-            try {
-                try decoder.decodeSingularMessageField(value: &_storage._status)
-            }()
-        case 6:
-            try {
-                try decoder.decodeSingularMessageField(value: &_storage._info)
-            }()
-        default:
-            break
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
+        case 5: try { try decoder.decodeSingularMessageField(value: &_storage._status) }()
+        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._info) }()
+        default: break
         }
       }
     }
@@ -160,21 +116,15 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       if !_storage._id.isEmpty {
         try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
       }
-      try {
-          if let v = _storage._config {
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-                }
-      }()
-      try {
-          if let v = _storage._status {
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-                }
-      }()
-      try {
-          if let v = _storage._info {
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-                }
-      }()
+      try { if let v = _storage._config {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      } }()
+      try { if let v = _storage._status {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      } }()
+      try { if let v = _storage._info {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -184,27 +134,15 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {
-            return false
-        }
-        if _storage._config != rhs_storage._config {
-            return false
-        }
-        if _storage._status != rhs_storage._status {
-            return false
-        }
-        if _storage._info != rhs_storage._info {
-            return false
-        }
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._config != rhs_storage._config {return false}
+        if _storage._status != rhs_storage._status {return false}
+        if _storage._info != rhs_storage._info {return false}
         return true
       }
-      if !storagesAreEqual {
-          return false
-      }
+      if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -215,8 +153,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -16,936 +16,625 @@ extension Anytype_Event {
     // methods supported on all messages.
 
     public var spaceID: String {
-      get {
-              return _storage._spaceID
-          }
-      set {
-              _uniqueStorage()._spaceID = newValue
-          }
+      get {return _storage._spaceID}
+      set {_uniqueStorage()._spaceID = newValue}
     }
 
     public var value: OneOf_Value? {
-      get {
-              return _storage._value
-          }
-      set {
-              _uniqueStorage()._value = newValue
-          }
+      get {return _storage._value}
+      set {_uniqueStorage()._value = newValue}
     }
 
     public var accountShow: Anytype_Event.Account.Show {
       get {
-        if case .accountShow(let v)? = _storage._value {
-                return v
-            }
+        if case .accountShow(let v)? = _storage._value {return v}
         return Anytype_Event.Account.Show()
       }
-      set {
-              _uniqueStorage()._value = .accountShow(newValue)
-          }
+      set {_uniqueStorage()._value = .accountShow(newValue)}
     }
 
     public var accountDetails: Anytype_Event.Account.Details {
       get {
-        if case .accountDetails(let v)? = _storage._value {
-                return v
-            }
+        if case .accountDetails(let v)? = _storage._value {return v}
         return Anytype_Event.Account.Details()
       }
-      set {
-              _uniqueStorage()._value = .accountDetails(newValue)
-          }
+      set {_uniqueStorage()._value = .accountDetails(newValue)}
     }
 
     public var accountConfigUpdate: Anytype_Event.Account.Config.Update {
       get {
-        if case .accountConfigUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .accountConfigUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Account.Config.Update()
       }
-      set {
-              _uniqueStorage()._value = .accountConfigUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .accountConfigUpdate(newValue)}
     }
 
     public var accountUpdate: Anytype_Event.Account.Update {
       get {
-        if case .accountUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .accountUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Account.Update()
       }
-      set {
-              _uniqueStorage()._value = .accountUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .accountUpdate(newValue)}
     }
 
     public var accountLinkChallenge: Anytype_Event.Account.LinkChallenge {
       get {
-        if case .accountLinkChallenge(let v)? = _storage._value {
-                return v
-            }
+        if case .accountLinkChallenge(let v)? = _storage._value {return v}
         return Anytype_Event.Account.LinkChallenge()
       }
-      set {
-              _uniqueStorage()._value = .accountLinkChallenge(newValue)
-          }
+      set {_uniqueStorage()._value = .accountLinkChallenge(newValue)}
     }
 
     public var accountLinkChallengeHide: Anytype_Event.Account.LinkChallengeHide {
       get {
-        if case .accountLinkChallengeHide(let v)? = _storage._value {
-                return v
-            }
+        if case .accountLinkChallengeHide(let v)? = _storage._value {return v}
         return Anytype_Event.Account.LinkChallengeHide()
       }
-      set {
-              _uniqueStorage()._value = .accountLinkChallengeHide(newValue)
-          }
+      set {_uniqueStorage()._value = .accountLinkChallengeHide(newValue)}
     }
 
     public var objectDetailsSet: Anytype_Event.Object.Details.Set {
       get {
-        if case .objectDetailsSet(let v)? = _storage._value {
-                return v
-            }
+        if case .objectDetailsSet(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Details.Set()
       }
-      set {
-              _uniqueStorage()._value = .objectDetailsSet(newValue)
-          }
+      set {_uniqueStorage()._value = .objectDetailsSet(newValue)}
     }
 
     public var objectDetailsAmend: Anytype_Event.Object.Details.Amend {
       get {
-        if case .objectDetailsAmend(let v)? = _storage._value {
-                return v
-            }
+        if case .objectDetailsAmend(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Details.Amend()
       }
-      set {
-              _uniqueStorage()._value = .objectDetailsAmend(newValue)
-          }
+      set {_uniqueStorage()._value = .objectDetailsAmend(newValue)}
     }
 
     public var objectDetailsUnset: Anytype_Event.Object.Details.Unset {
       get {
-        if case .objectDetailsUnset(let v)? = _storage._value {
-                return v
-            }
+        if case .objectDetailsUnset(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Details.Unset()
       }
-      set {
-              _uniqueStorage()._value = .objectDetailsUnset(newValue)
-          }
+      set {_uniqueStorage()._value = .objectDetailsUnset(newValue)}
     }
 
     public var objectRelationsAmend: Anytype_Event.Object.Relations.Amend {
       get {
-        if case .objectRelationsAmend(let v)? = _storage._value {
-                return v
-            }
+        if case .objectRelationsAmend(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Relations.Amend()
       }
-      set {
-              _uniqueStorage()._value = .objectRelationsAmend(newValue)
-          }
+      set {_uniqueStorage()._value = .objectRelationsAmend(newValue)}
     }
 
     public var objectRelationsRemove: Anytype_Event.Object.Relations.Remove {
       get {
-        if case .objectRelationsRemove(let v)? = _storage._value {
-                return v
-            }
+        if case .objectRelationsRemove(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Relations.Remove()
       }
-      set {
-              _uniqueStorage()._value = .objectRelationsRemove(newValue)
-          }
+      set {_uniqueStorage()._value = .objectRelationsRemove(newValue)}
     }
 
     public var objectRemove: Anytype_Event.Object.Remove {
       get {
-        if case .objectRemove(let v)? = _storage._value {
-                return v
-            }
+        if case .objectRemove(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Remove()
       }
-      set {
-              _uniqueStorage()._value = .objectRemove(newValue)
-          }
+      set {_uniqueStorage()._value = .objectRemove(newValue)}
     }
 
     public var objectClose: Anytype_Event.Object.Close {
       get {
-        if case .objectClose(let v)? = _storage._value {
-                return v
-            }
+        if case .objectClose(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Close()
       }
-      set {
-              _uniqueStorage()._value = .objectClose(newValue)
-          }
+      set {_uniqueStorage()._value = .objectClose(newValue)}
     }
 
     public var objectRestrictionsSet: Anytype_Event.Object.Restrictions.Set {
       get {
-        if case .objectRestrictionsSet(let v)? = _storage._value {
-                return v
-            }
+        if case .objectRestrictionsSet(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Restrictions.Set()
       }
-      set {
-              _uniqueStorage()._value = .objectRestrictionsSet(newValue)
-          }
+      set {_uniqueStorage()._value = .objectRestrictionsSet(newValue)}
     }
 
     public var subscriptionAdd: Anytype_Event.Object.Subscription.Add {
       get {
-        if case .subscriptionAdd(let v)? = _storage._value {
-                return v
-            }
+        if case .subscriptionAdd(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Subscription.Add()
       }
-      set {
-              _uniqueStorage()._value = .subscriptionAdd(newValue)
-          }
+      set {_uniqueStorage()._value = .subscriptionAdd(newValue)}
     }
 
     public var subscriptionRemove: Anytype_Event.Object.Subscription.Remove {
       get {
-        if case .subscriptionRemove(let v)? = _storage._value {
-                return v
-            }
+        if case .subscriptionRemove(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Subscription.Remove()
       }
-      set {
-              _uniqueStorage()._value = .subscriptionRemove(newValue)
-          }
+      set {_uniqueStorage()._value = .subscriptionRemove(newValue)}
     }
 
     public var subscriptionPosition: Anytype_Event.Object.Subscription.Position {
       get {
-        if case .subscriptionPosition(let v)? = _storage._value {
-                return v
-            }
+        if case .subscriptionPosition(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Subscription.Position()
       }
-      set {
-              _uniqueStorage()._value = .subscriptionPosition(newValue)
-          }
+      set {_uniqueStorage()._value = .subscriptionPosition(newValue)}
     }
 
     public var subscriptionCounters: Anytype_Event.Object.Subscription.Counters {
       get {
-        if case .subscriptionCounters(let v)? = _storage._value {
-                return v
-            }
+        if case .subscriptionCounters(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Subscription.Counters()
       }
-      set {
-              _uniqueStorage()._value = .subscriptionCounters(newValue)
-          }
+      set {_uniqueStorage()._value = .subscriptionCounters(newValue)}
     }
 
     public var subscriptionGroups: Anytype_Event.Object.Subscription.Groups {
       get {
-        if case .subscriptionGroups(let v)? = _storage._value {
-                return v
-            }
+        if case .subscriptionGroups(let v)? = _storage._value {return v}
         return Anytype_Event.Object.Subscription.Groups()
       }
-      set {
-              _uniqueStorage()._value = .subscriptionGroups(newValue)
-          }
+      set {_uniqueStorage()._value = .subscriptionGroups(newValue)}
     }
 
     public var blockAdd: Anytype_Event.Block.Add {
       get {
-        if case .blockAdd(let v)? = _storage._value {
-                return v
-            }
+        if case .blockAdd(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Add()
       }
-      set {
-              _uniqueStorage()._value = .blockAdd(newValue)
-          }
+      set {_uniqueStorage()._value = .blockAdd(newValue)}
     }
 
     public var blockDelete: Anytype_Event.Block.Delete {
       get {
-        if case .blockDelete(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDelete(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Delete()
       }
-      set {
-              _uniqueStorage()._value = .blockDelete(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDelete(newValue)}
     }
 
     public var filesUpload: Anytype_Event.Block.FilesUpload {
       get {
-        if case .filesUpload(let v)? = _storage._value {
-                return v
-            }
+        if case .filesUpload(let v)? = _storage._value {return v}
         return Anytype_Event.Block.FilesUpload()
       }
-      set {
-              _uniqueStorage()._value = .filesUpload(newValue)
-          }
+      set {_uniqueStorage()._value = .filesUpload(newValue)}
     }
 
     public var marksInfo: Anytype_Event.Block.MarksInfo {
       get {
-        if case .marksInfo(let v)? = _storage._value {
-                return v
-            }
+        if case .marksInfo(let v)? = _storage._value {return v}
         return Anytype_Event.Block.MarksInfo()
       }
-      set {
-              _uniqueStorage()._value = .marksInfo(newValue)
-          }
+      set {_uniqueStorage()._value = .marksInfo(newValue)}
     }
 
     public var blockSetFields: Anytype_Event.Block.Set.Fields {
       get {
-        if case .blockSetFields(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetFields(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Fields()
       }
-      set {
-              _uniqueStorage()._value = .blockSetFields(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetFields(newValue)}
     }
 
     public var blockSetChildrenIds: Anytype_Event.Block.Set.ChildrenIds {
       get {
-        if case .blockSetChildrenIds(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetChildrenIds(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.ChildrenIds()
       }
-      set {
-              _uniqueStorage()._value = .blockSetChildrenIds(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetChildrenIds(newValue)}
     }
 
     public var blockSetRestrictions: Anytype_Event.Block.Set.Restrictions {
       get {
-        if case .blockSetRestrictions(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetRestrictions(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Restrictions()
       }
-      set {
-              _uniqueStorage()._value = .blockSetRestrictions(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetRestrictions(newValue)}
     }
 
     public var blockSetBackgroundColor: Anytype_Event.Block.Set.BackgroundColor {
       get {
-        if case .blockSetBackgroundColor(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetBackgroundColor(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.BackgroundColor()
       }
-      set {
-              _uniqueStorage()._value = .blockSetBackgroundColor(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetBackgroundColor(newValue)}
     }
 
     public var blockSetText: Anytype_Event.Block.Set.Text {
       get {
-        if case .blockSetText(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetText(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Text()
       }
-      set {
-              _uniqueStorage()._value = .blockSetText(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetText(newValue)}
     }
 
     public var blockSetFile: Anytype_Event.Block.Set.File {
       get {
-        if case .blockSetFile(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetFile(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.File()
       }
-      set {
-              _uniqueStorage()._value = .blockSetFile(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetFile(newValue)}
     }
 
     public var blockSetLink: Anytype_Event.Block.Set.Link {
       get {
-        if case .blockSetLink(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetLink(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Link()
       }
-      set {
-              _uniqueStorage()._value = .blockSetLink(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetLink(newValue)}
     }
 
     public var blockSetBookmark: Anytype_Event.Block.Set.Bookmark {
       get {
-        if case .blockSetBookmark(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetBookmark(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Bookmark()
       }
-      set {
-              _uniqueStorage()._value = .blockSetBookmark(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetBookmark(newValue)}
     }
 
     public var blockSetAlign: Anytype_Event.Block.Set.Align {
       get {
-        if case .blockSetAlign(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetAlign(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Align()
       }
-      set {
-              _uniqueStorage()._value = .blockSetAlign(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetAlign(newValue)}
     }
 
     public var blockSetDiv: Anytype_Event.Block.Set.Div {
       get {
-        if case .blockSetDiv(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetDiv(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Div()
       }
-      set {
-              _uniqueStorage()._value = .blockSetDiv(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetDiv(newValue)}
     }
 
     public var blockSetRelation: Anytype_Event.Block.Set.Relation {
       get {
-        if case .blockSetRelation(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetRelation(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Relation()
       }
-      set {
-              _uniqueStorage()._value = .blockSetRelation(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetRelation(newValue)}
     }
 
     public var blockSetLatex: Anytype_Event.Block.Set.Latex {
       get {
-        if case .blockSetLatex(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetLatex(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Latex()
       }
-      set {
-              _uniqueStorage()._value = .blockSetLatex(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetLatex(newValue)}
     }
 
     public var blockSetVerticalAlign: Anytype_Event.Block.Set.VerticalAlign {
       get {
-        if case .blockSetVerticalAlign(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetVerticalAlign(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.VerticalAlign()
       }
-      set {
-              _uniqueStorage()._value = .blockSetVerticalAlign(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetVerticalAlign(newValue)}
     }
 
     public var blockSetTableRow: Anytype_Event.Block.Set.TableRow {
       get {
-        if case .blockSetTableRow(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetTableRow(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.TableRow()
       }
-      set {
-              _uniqueStorage()._value = .blockSetTableRow(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetTableRow(newValue)}
     }
 
     public var blockSetWidget: Anytype_Event.Block.Set.Widget {
       get {
-        if case .blockSetWidget(let v)? = _storage._value {
-                return v
-            }
+        if case .blockSetWidget(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Set.Widget()
       }
-      set {
-              _uniqueStorage()._value = .blockSetWidget(newValue)
-          }
+      set {_uniqueStorage()._value = .blockSetWidget(newValue)}
     }
 
     public var blockDataviewViewSet: Anytype_Event.Block.Dataview.ViewSet {
       get {
-        if case .blockDataviewViewSet(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewViewSet(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.ViewSet()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewViewSet(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewViewSet(newValue)}
     }
 
     public var blockDataviewViewDelete: Anytype_Event.Block.Dataview.ViewDelete {
       get {
-        if case .blockDataviewViewDelete(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewViewDelete(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.ViewDelete()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewViewDelete(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewViewDelete(newValue)}
     }
 
     public var blockDataviewViewOrder: Anytype_Event.Block.Dataview.ViewOrder {
       get {
-        if case .blockDataviewViewOrder(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewViewOrder(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.ViewOrder()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewViewOrder(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewViewOrder(newValue)}
     }
 
     /// deprecated, source is no longer used
     public var blockDataviewSourceSet: Anytype_Event.Block.Dataview.SourceSet {
       get {
-        if case .blockDataviewSourceSet(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewSourceSet(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.SourceSet()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewSourceSet(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewSourceSet(newValue)}
     }
 
     public var blockDataViewGroupOrderUpdate: Anytype_Event.Block.Dataview.GroupOrderUpdate {
       get {
-        if case .blockDataViewGroupOrderUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataViewGroupOrderUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.GroupOrderUpdate()
       }
-      set {
-              _uniqueStorage()._value = .blockDataViewGroupOrderUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataViewGroupOrderUpdate(newValue)}
     }
 
     public var blockDataViewObjectOrderUpdate: Anytype_Event.Block.Dataview.ObjectOrderUpdate {
       get {
-        if case .blockDataViewObjectOrderUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataViewObjectOrderUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.ObjectOrderUpdate()
       }
-      set {
-              _uniqueStorage()._value = .blockDataViewObjectOrderUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataViewObjectOrderUpdate(newValue)}
     }
 
     public var blockDataviewRelationDelete: Anytype_Event.Block.Dataview.RelationDelete {
       get {
-        if case .blockDataviewRelationDelete(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewRelationDelete(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.RelationDelete()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewRelationDelete(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewRelationDelete(newValue)}
     }
 
     public var blockDataviewRelationSet: Anytype_Event.Block.Dataview.RelationSet {
       get {
-        if case .blockDataviewRelationSet(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewRelationSet(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.RelationSet()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewRelationSet(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewRelationSet(newValue)}
     }
 
     public var blockDataviewViewUpdate: Anytype_Event.Block.Dataview.ViewUpdate {
       get {
-        if case .blockDataviewViewUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewViewUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.ViewUpdate()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewViewUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewViewUpdate(newValue)}
     }
 
     public var blockDataviewTargetObjectIDSet: Anytype_Event.Block.Dataview.TargetObjectIdSet {
       get {
-        if case .blockDataviewTargetObjectIDSet(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewTargetObjectIDSet(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.TargetObjectIdSet()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewTargetObjectIDSet(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewTargetObjectIDSet(newValue)}
     }
 
     public var blockDataviewIsCollectionSet: Anytype_Event.Block.Dataview.IsCollectionSet {
       get {
-        if case .blockDataviewIsCollectionSet(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewIsCollectionSet(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.IsCollectionSet()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewIsCollectionSet(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewIsCollectionSet(newValue)}
     }
 
     /// deprecated
     public var blockDataviewOldRelationDelete: Anytype_Event.Block.Dataview.OldRelationDelete {
       get {
-        if case .blockDataviewOldRelationDelete(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewOldRelationDelete(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.OldRelationDelete()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewOldRelationDelete(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewOldRelationDelete(newValue)}
     }
 
     /// deprecated
     public var blockDataviewOldRelationSet: Anytype_Event.Block.Dataview.OldRelationSet {
       get {
-        if case .blockDataviewOldRelationSet(let v)? = _storage._value {
-                return v
-            }
+        if case .blockDataviewOldRelationSet(let v)? = _storage._value {return v}
         return Anytype_Event.Block.Dataview.OldRelationSet()
       }
-      set {
-              _uniqueStorage()._value = .blockDataviewOldRelationSet(newValue)
-          }
+      set {_uniqueStorage()._value = .blockDataviewOldRelationSet(newValue)}
     }
 
     public var userBlockJoin: Anytype_Event.User.Block.Join {
       get {
-        if case .userBlockJoin(let v)? = _storage._value {
-                return v
-            }
+        if case .userBlockJoin(let v)? = _storage._value {return v}
         return Anytype_Event.User.Block.Join()
       }
-      set {
-              _uniqueStorage()._value = .userBlockJoin(newValue)
-          }
+      set {_uniqueStorage()._value = .userBlockJoin(newValue)}
     }
 
     public var userBlockLeft: Anytype_Event.User.Block.Left {
       get {
-        if case .userBlockLeft(let v)? = _storage._value {
-                return v
-            }
+        if case .userBlockLeft(let v)? = _storage._value {return v}
         return Anytype_Event.User.Block.Left()
       }
-      set {
-              _uniqueStorage()._value = .userBlockLeft(newValue)
-          }
+      set {_uniqueStorage()._value = .userBlockLeft(newValue)}
     }
 
     public var userBlockSelectRange: Anytype_Event.User.Block.SelectRange {
       get {
-        if case .userBlockSelectRange(let v)? = _storage._value {
-                return v
-            }
+        if case .userBlockSelectRange(let v)? = _storage._value {return v}
         return Anytype_Event.User.Block.SelectRange()
       }
-      set {
-              _uniqueStorage()._value = .userBlockSelectRange(newValue)
-          }
+      set {_uniqueStorage()._value = .userBlockSelectRange(newValue)}
     }
 
     public var userBlockTextRange: Anytype_Event.User.Block.TextRange {
       get {
-        if case .userBlockTextRange(let v)? = _storage._value {
-                return v
-            }
+        if case .userBlockTextRange(let v)? = _storage._value {return v}
         return Anytype_Event.User.Block.TextRange()
       }
-      set {
-              _uniqueStorage()._value = .userBlockTextRange(newValue)
-          }
+      set {_uniqueStorage()._value = .userBlockTextRange(newValue)}
     }
 
     public var ping: Anytype_Event.Ping {
       get {
-        if case .ping(let v)? = _storage._value {
-                return v
-            }
+        if case .ping(let v)? = _storage._value {return v}
         return Anytype_Event.Ping()
       }
-      set {
-              _uniqueStorage()._value = .ping(newValue)
-          }
+      set {_uniqueStorage()._value = .ping(newValue)}
     }
 
     public var processNew: Anytype_Event.Process.New {
       get {
-        if case .processNew(let v)? = _storage._value {
-                return v
-            }
+        if case .processNew(let v)? = _storage._value {return v}
         return Anytype_Event.Process.New()
       }
-      set {
-              _uniqueStorage()._value = .processNew(newValue)
-          }
+      set {_uniqueStorage()._value = .processNew(newValue)}
     }
 
     public var processUpdate: Anytype_Event.Process.Update {
       get {
-        if case .processUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .processUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Process.Update()
       }
-      set {
-              _uniqueStorage()._value = .processUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .processUpdate(newValue)}
     }
 
     public var processDone: Anytype_Event.Process.Done {
       get {
-        if case .processDone(let v)? = _storage._value {
-                return v
-            }
+        if case .processDone(let v)? = _storage._value {return v}
         return Anytype_Event.Process.Done()
       }
-      set {
-              _uniqueStorage()._value = .processDone(newValue)
-          }
+      set {_uniqueStorage()._value = .processDone(newValue)}
     }
 
     public var threadStatus: Anytype_Event.Status.Thread {
       get {
-        if case .threadStatus(let v)? = _storage._value {
-                return v
-            }
+        if case .threadStatus(let v)? = _storage._value {return v}
         return Anytype_Event.Status.Thread()
       }
-      set {
-              _uniqueStorage()._value = .threadStatus(newValue)
-          }
+      set {_uniqueStorage()._value = .threadStatus(newValue)}
     }
 
     public var fileLimitReached: Anytype_Event.File.LimitReached {
       get {
-        if case .fileLimitReached(let v)? = _storage._value {
-                return v
-            }
+        if case .fileLimitReached(let v)? = _storage._value {return v}
         return Anytype_Event.File.LimitReached()
       }
-      set {
-              _uniqueStorage()._value = .fileLimitReached(newValue)
-          }
+      set {_uniqueStorage()._value = .fileLimitReached(newValue)}
     }
 
     public var fileSpaceUsage: Anytype_Event.File.SpaceUsage {
       get {
-        if case .fileSpaceUsage(let v)? = _storage._value {
-                return v
-            }
+        if case .fileSpaceUsage(let v)? = _storage._value {return v}
         return Anytype_Event.File.SpaceUsage()
       }
-      set {
-              _uniqueStorage()._value = .fileSpaceUsage(newValue)
-          }
+      set {_uniqueStorage()._value = .fileSpaceUsage(newValue)}
     }
 
     public var fileLocalUsage: Anytype_Event.File.LocalUsage {
       get {
-        if case .fileLocalUsage(let v)? = _storage._value {
-                return v
-            }
+        if case .fileLocalUsage(let v)? = _storage._value {return v}
         return Anytype_Event.File.LocalUsage()
       }
-      set {
-              _uniqueStorage()._value = .fileLocalUsage(newValue)
-          }
+      set {_uniqueStorage()._value = .fileLocalUsage(newValue)}
     }
 
     public var fileLimitUpdated: Anytype_Event.File.LimitUpdated {
       get {
-        if case .fileLimitUpdated(let v)? = _storage._value {
-                return v
-            }
+        if case .fileLimitUpdated(let v)? = _storage._value {return v}
         return Anytype_Event.File.LimitUpdated()
       }
-      set {
-              _uniqueStorage()._value = .fileLimitUpdated(newValue)
-          }
+      set {_uniqueStorage()._value = .fileLimitUpdated(newValue)}
     }
 
     public var notificationSend: Anytype_Event.Notification.Send {
       get {
-        if case .notificationSend(let v)? = _storage._value {
-                return v
-            }
+        if case .notificationSend(let v)? = _storage._value {return v}
         return Anytype_Event.Notification.Send()
       }
-      set {
-              _uniqueStorage()._value = .notificationSend(newValue)
-          }
+      set {_uniqueStorage()._value = .notificationSend(newValue)}
     }
 
     public var notificationUpdate: Anytype_Event.Notification.Update {
       get {
-        if case .notificationUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .notificationUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Notification.Update()
       }
-      set {
-              _uniqueStorage()._value = .notificationUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .notificationUpdate(newValue)}
     }
 
     public var payloadBroadcast: Anytype_Event.Payload.Broadcast {
       get {
-        if case .payloadBroadcast(let v)? = _storage._value {
-                return v
-            }
+        if case .payloadBroadcast(let v)? = _storage._value {return v}
         return Anytype_Event.Payload.Broadcast()
       }
-      set {
-              _uniqueStorage()._value = .payloadBroadcast(newValue)
-          }
+      set {_uniqueStorage()._value = .payloadBroadcast(newValue)}
     }
 
     public var membershipUpdate: Anytype_Event.Membership.Update {
       get {
-        if case .membershipUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .membershipUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Membership.Update()
       }
-      set {
-              _uniqueStorage()._value = .membershipUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .membershipUpdate(newValue)}
     }
 
     public var spaceSyncStatusUpdate: Anytype_Event.Space.SyncStatus.Update {
       get {
-        if case .spaceSyncStatusUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .spaceSyncStatusUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Space.SyncStatus.Update()
       }
-      set {
-              _uniqueStorage()._value = .spaceSyncStatusUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .spaceSyncStatusUpdate(newValue)}
     }
 
     public var p2PStatusUpdate: Anytype_Event.P2PStatus.Update {
       get {
-        if case .p2PStatusUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .p2PStatusUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.P2PStatus.Update()
       }
-      set {
-              _uniqueStorage()._value = .p2PStatusUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .p2PStatusUpdate(newValue)}
     }
 
     public var importFinish: Anytype_Event.Import.Finish {
       get {
-        if case .importFinish(let v)? = _storage._value {
-                return v
-            }
+        if case .importFinish(let v)? = _storage._value {return v}
         return Anytype_Event.Import.Finish()
       }
-      set {
-              _uniqueStorage()._value = .importFinish(newValue)
-          }
+      set {_uniqueStorage()._value = .importFinish(newValue)}
     }
 
     public var chatAdd: Anytype_Event.Chat.Add {
       get {
-        if case .chatAdd(let v)? = _storage._value {
-                return v
-            }
+        if case .chatAdd(let v)? = _storage._value {return v}
         return Anytype_Event.Chat.Add()
       }
-      set {
-              _uniqueStorage()._value = .chatAdd(newValue)
-          }
+      set {_uniqueStorage()._value = .chatAdd(newValue)}
     }
 
     public var chatUpdate: Anytype_Event.Chat.Update {
       get {
-        if case .chatUpdate(let v)? = _storage._value {
-                return v
-            }
+        if case .chatUpdate(let v)? = _storage._value {return v}
         return Anytype_Event.Chat.Update()
       }
-      set {
-              _uniqueStorage()._value = .chatUpdate(newValue)
-          }
+      set {_uniqueStorage()._value = .chatUpdate(newValue)}
     }
 
     public var chatUpdateReactions: Anytype_Event.Chat.UpdateReactions {
       get {
-        if case .chatUpdateReactions(let v)? = _storage._value {
-                return v
-            }
+        if case .chatUpdateReactions(let v)? = _storage._value {return v}
         return Anytype_Event.Chat.UpdateReactions()
       }
-      set {
-              _uniqueStorage()._value = .chatUpdateReactions(newValue)
-          }
+      set {_uniqueStorage()._value = .chatUpdateReactions(newValue)}
     }
 
     public var chatDelete: Anytype_Event.Chat.Delete {
       get {
-        if case .chatDelete(let v)? = _storage._value {
-                return v
-            }
+        if case .chatDelete(let v)? = _storage._value {return v}
         return Anytype_Event.Chat.Delete()
       }
-      set {
-              _uniqueStorage()._value = .chatDelete(newValue)
-          }
+      set {_uniqueStorage()._value = .chatDelete(newValue)}
     }
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
+    public init() {}
 
     fileprivate var _storage = _StorageClass.defaultInstance
-  }
-}
-extension Anytype_Event.Message: @unchecked Sendable {
-}
+  }    }
+extension Anytype_Event.Message: @unchecked Sendable {}
 
 extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Message"
@@ -1034,8 +723,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
     static let defaultInstance = _StorageClass()
 
-    private init() {
-    }
+    private init() {}
 
     init(copying source: _StorageClass) {
       _spaceID = source._spaceID
@@ -1058,1362 +746,983 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1:
-            try {
-                      var v: Anytype_Event.Account.Show?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .accountShow(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .accountShow(v)
-                      }
-                    }()
-        case 2:
-            try {
-                      var v: Anytype_Event.Block.Add?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockAdd(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockAdd(v)
-                      }
-                    }()
-        case 3:
-            try {
-                      var v: Anytype_Event.Block.Delete?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDelete(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDelete(v)
-                      }
-                    }()
-        case 4:
-            try {
-                      var v: Anytype_Event.Block.FilesUpload?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .filesUpload(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .filesUpload(v)
-                      }
-                    }()
-        case 5:
-            try {
-                      var v: Anytype_Event.Block.MarksInfo?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .marksInfo(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .marksInfo(v)
-                      }
-                    }()
-        case 6:
-            try {
-                      var v: Anytype_Event.Block.Set.Fields?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetFields(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetFields(v)
-                      }
-                    }()
-        case 7:
-            try {
-                      var v: Anytype_Event.Block.Set.ChildrenIds?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetChildrenIds(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetChildrenIds(v)
-                      }
-                    }()
-        case 8:
-            try {
-                      var v: Anytype_Event.Block.Set.Restrictions?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetRestrictions(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetRestrictions(v)
-                      }
-                    }()
-        case 9:
-            try {
-                      var v: Anytype_Event.Block.Set.BackgroundColor?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetBackgroundColor(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetBackgroundColor(v)
-                      }
-                    }()
-        case 10:
-            try {
-                      var v: Anytype_Event.Block.Set.Text?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetText(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetText(v)
-                      }
-                    }()
-        case 11:
-            try {
-                      var v: Anytype_Event.Block.Set.File?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetFile(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetFile(v)
-                      }
-                    }()
-        case 13:
-            try {
-                      var v: Anytype_Event.Block.Set.Link?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetLink(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetLink(v)
-                      }
-                    }()
-        case 14:
-            try {
-                      var v: Anytype_Event.Block.Set.Bookmark?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetBookmark(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetBookmark(v)
-                      }
-                    }()
-        case 15:
-            try {
-                      var v: Anytype_Event.Block.Set.Align?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetAlign(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetAlign(v)
-                      }
-                    }()
-        case 16:
-            try {
-                      var v: Anytype_Event.Object.Details.Set?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .objectDetailsSet(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .objectDetailsSet(v)
-                      }
-                    }()
-        case 17:
-            try {
-                      var v: Anytype_Event.Block.Set.Div?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetDiv(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetDiv(v)
-                      }
-                    }()
-        case 19:
-            try {
-                      var v: Anytype_Event.Block.Dataview.ViewSet?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewViewSet(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewViewSet(v)
-                      }
-                    }()
-        case 20:
-            try {
-                      var v: Anytype_Event.Block.Dataview.ViewDelete?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewViewDelete(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewViewDelete(v)
-                      }
-                    }()
-        case 21:
-            try {
-                      var v: Anytype_Event.Block.Set.Relation?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetRelation(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetRelation(v)
-                      }
-                    }()
-        case 23:
-            try {
-                      var v: Anytype_Event.Block.Dataview.OldRelationSet?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewOldRelationSet(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewOldRelationSet(v)
-                      }
-                    }()
-        case 24:
-            try {
-                      var v: Anytype_Event.Block.Dataview.OldRelationDelete?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewOldRelationDelete(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewOldRelationDelete(v)
-                      }
-                    }()
-        case 25:
-            try {
-                      var v: Anytype_Event.Block.Set.Latex?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetLatex(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetLatex(v)
-                      }
-                    }()
-        case 29:
-            try {
-                      var v: Anytype_Event.Block.Dataview.ViewOrder?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewViewOrder(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewViewOrder(v)
-                      }
-                    }()
-        case 31:
-            try {
-                      var v: Anytype_Event.User.Block.Join?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .userBlockJoin(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .userBlockJoin(v)
-                      }
-                    }()
-        case 32:
-            try {
-                      var v: Anytype_Event.User.Block.Left?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .userBlockLeft(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .userBlockLeft(v)
-                      }
-                    }()
-        case 33:
-            try {
-                      var v: Anytype_Event.User.Block.SelectRange?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .userBlockSelectRange(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .userBlockSelectRange(v)
-                      }
-                    }()
-        case 34:
-            try {
-                      var v: Anytype_Event.User.Block.TextRange?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .userBlockTextRange(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .userBlockTextRange(v)
-                      }
-                    }()
-        case 35:
-            try {
-                      var v: Anytype_Event.Block.Dataview.SourceSet?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewSourceSet(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewSourceSet(v)
-                      }
-                    }()
-        case 36:
-            try {
-                      var v: Anytype_Event.Block.Set.VerticalAlign?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetVerticalAlign(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetVerticalAlign(v)
-                      }
-                    }()
-        case 37:
-            try {
-                      var v: Anytype_Event.Block.Set.TableRow?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetTableRow(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetTableRow(v)
-                      }
-                    }()
-        case 38:
-            try {
-                      var v: Anytype_Event.Block.Dataview.GroupOrderUpdate?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataViewGroupOrderUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataViewGroupOrderUpdate(v)
-                      }
-                    }()
-        case 39:
-            try {
-                      var v: Anytype_Event.Block.Dataview.ObjectOrderUpdate?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataViewObjectOrderUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataViewObjectOrderUpdate(v)
-                      }
-                    }()
-        case 40:
-            try {
-                      var v: Anytype_Event.Block.Set.Widget?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockSetWidget(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockSetWidget(v)
-                      }
-                    }()
-        case 50:
-            try {
-                      var v: Anytype_Event.Object.Details.Amend?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .objectDetailsAmend(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .objectDetailsAmend(v)
-                      }
-                    }()
-        case 51:
-            try {
-                      var v: Anytype_Event.Object.Details.Unset?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .objectDetailsUnset(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .objectDetailsUnset(v)
-                      }
-                    }()
-        case 52:
-            try {
-                      var v: Anytype_Event.Object.Relations.Amend?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .objectRelationsAmend(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .objectRelationsAmend(v)
-                      }
-                    }()
-        case 53:
-            try {
-                      var v: Anytype_Event.Object.Relations.Remove?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .objectRelationsRemove(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .objectRelationsRemove(v)
-                      }
-                    }()
-        case 54:
-            try {
-                      var v: Anytype_Event.Object.Remove?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .objectRemove(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .objectRemove(v)
-                      }
-                    }()
-        case 55:
-            try {
-                      var v: Anytype_Event.Object.Restrictions.Set?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .objectRestrictionsSet(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .objectRestrictionsSet(v)
-                      }
-                    }()
-        case 60:
-            try {
-                      var v: Anytype_Event.Object.Subscription.Add?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .subscriptionAdd(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .subscriptionAdd(v)
-                      }
-                    }()
-        case 61:
-            try {
-                      var v: Anytype_Event.Object.Subscription.Remove?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .subscriptionRemove(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .subscriptionRemove(v)
-                      }
-                    }()
-        case 62:
-            try {
-                      var v: Anytype_Event.Object.Subscription.Position?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .subscriptionPosition(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .subscriptionPosition(v)
-                      }
-                    }()
-        case 63:
-            try {
-                      var v: Anytype_Event.Object.Subscription.Counters?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .subscriptionCounters(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .subscriptionCounters(v)
-                      }
-                    }()
-        case 64:
-            try {
-                      var v: Anytype_Event.Object.Subscription.Groups?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .subscriptionGroups(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .subscriptionGroups(v)
-                      }
-                    }()
-        case 65:
-            try {
-                      var v: Anytype_Event.Object.Close?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .objectClose(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .objectClose(v)
-                      }
-                    }()
-        case 100:
-            try {
-                      var v: Anytype_Event.Ping?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .ping(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .ping(v)
-                      }
-                    }()
-        case 101:
-            try {
-                      var v: Anytype_Event.Process.New?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .processNew(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .processNew(v)
-                      }
-                    }()
-        case 102:
-            try {
-                      var v: Anytype_Event.Process.Update?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .processUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .processUpdate(v)
-                      }
-                    }()
-        case 103:
-            try {
-                      var v: Anytype_Event.Process.Done?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .processDone(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .processDone(v)
-                      }
-                    }()
-        case 110:
-            try {
-                      var v: Anytype_Event.Status.Thread?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .threadStatus(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .threadStatus(v)
-                      }
-                    }()
-        case 111:
-            try {
-                      var v: Anytype_Event.File.LimitReached?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .fileLimitReached(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .fileLimitReached(v)
-                      }
-                    }()
-        case 112:
-            try {
-                      var v: Anytype_Event.File.SpaceUsage?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .fileSpaceUsage(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .fileSpaceUsage(v)
-                      }
-                    }()
-        case 113:
-            try {
-                      var v: Anytype_Event.File.LocalUsage?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .fileLocalUsage(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .fileLocalUsage(v)
-                      }
-                    }()
-        case 114:
-            try {
-                      var v: Anytype_Event.Notification.Send?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .notificationSend(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .notificationSend(v)
-                      }
-                    }()
-        case 115:
-            try {
-                      var v: Anytype_Event.Notification.Update?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .notificationUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .notificationUpdate(v)
-                      }
-                    }()
-        case 116:
-            try {
-                      var v: Anytype_Event.Payload.Broadcast?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .payloadBroadcast(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .payloadBroadcast(v)
-                      }
-                    }()
-        case 117:
-            try {
-                      var v: Anytype_Event.Membership.Update?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .membershipUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .membershipUpdate(v)
-                      }
-                    }()
-        case 118:
-            try {
-                      var v: Anytype_Event.File.LimitUpdated?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .fileLimitUpdated(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .fileLimitUpdated(v)
-                      }
-                    }()
-        case 119:
-            try {
-                      var v: Anytype_Event.Space.SyncStatus.Update?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .spaceSyncStatusUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .spaceSyncStatusUpdate(v)
-                      }
-                    }()
-        case 120:
-            try {
-                      var v: Anytype_Event.P2PStatus.Update?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .p2PStatusUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .p2PStatusUpdate(v)
-                      }
-                    }()
-        case 121:
-            try {
-                      var v: Anytype_Event.Import.Finish?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .importFinish(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .importFinish(v)
-                      }
-                    }()
-        case 123:
-            try {
-                      var v: Anytype_Event.Block.Dataview.RelationSet?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewRelationSet(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewRelationSet(v)
-                      }
-                    }()
-        case 124:
-            try {
-                      var v: Anytype_Event.Block.Dataview.RelationDelete?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewRelationDelete(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewRelationDelete(v)
-                      }
-                    }()
-        case 125:
-            try {
-                      var v: Anytype_Event.Block.Dataview.ViewUpdate?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewViewUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewViewUpdate(v)
-                      }
-                    }()
-        case 126:
-            try {
-                      var v: Anytype_Event.Block.Dataview.TargetObjectIdSet?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewTargetObjectIDSet(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewTargetObjectIDSet(v)
-                      }
-                    }()
-        case 127:
-            try {
-                      var v: Anytype_Event.Block.Dataview.IsCollectionSet?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .blockDataviewIsCollectionSet(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .blockDataviewIsCollectionSet(v)
-                      }
-                    }()
-        case 128:
-            try {
-                      var v: Anytype_Event.Chat.Add?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .chatAdd(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .chatAdd(v)
-                      }
-                    }()
-        case 129:
-            try {
-                      var v: Anytype_Event.Chat.Update?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .chatUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .chatUpdate(v)
-                      }
-                    }()
-        case 130:
-            try {
-                      var v: Anytype_Event.Chat.UpdateReactions?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .chatUpdateReactions(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .chatUpdateReactions(v)
-                      }
-                    }()
-        case 131:
-            try {
-                      var v: Anytype_Event.Chat.Delete?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .chatDelete(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .chatDelete(v)
-                      }
-                    }()
-        case 132:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._spaceID)
-            }()
-        case 201:
-            try {
-                      var v: Anytype_Event.Account.Details?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .accountDetails(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .accountDetails(v)
-                      }
-                    }()
-        case 202:
-            try {
-                      var v: Anytype_Event.Account.Config.Update?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .accountConfigUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .accountConfigUpdate(v)
-                      }
-                    }()
-        case 203:
-            try {
-                      var v: Anytype_Event.Account.Update?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .accountUpdate(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .accountUpdate(v)
-                      }
-                    }()
-        case 204:
-            try {
-                      var v: Anytype_Event.Account.LinkChallenge?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .accountLinkChallenge(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .accountLinkChallenge(v)
-                      }
-                    }()
-        case 205:
-            try {
-                      var v: Anytype_Event.Account.LinkChallengeHide?
-                      var hadOneofValue = false
-                      if let current = _storage._value {
-                        hadOneofValue = true
-                        if case .accountLinkChallengeHide(let m) = current {
-                            v = m
-                        }
-                      }
-                      try decoder.decodeSingularMessageField(value: &v)
-                      if let v = v {
-                        if hadOneofValue {
-                            try decoder.handleConflictingOneOf()
-                        }
-                        _storage._value = .accountLinkChallengeHide(v)
-                      }
-                    }()
-        default:
-            break
+        case 1: try {
+          var v: Anytype_Event.Account.Show?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .accountShow(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .accountShow(v)
+          }
+        }()
+        case 2: try {
+          var v: Anytype_Event.Block.Add?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockAdd(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockAdd(v)
+          }
+        }()
+        case 3: try {
+          var v: Anytype_Event.Block.Delete?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDelete(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDelete(v)
+          }
+        }()
+        case 4: try {
+          var v: Anytype_Event.Block.FilesUpload?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .filesUpload(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .filesUpload(v)
+          }
+        }()
+        case 5: try {
+          var v: Anytype_Event.Block.MarksInfo?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .marksInfo(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .marksInfo(v)
+          }
+        }()
+        case 6: try {
+          var v: Anytype_Event.Block.Set.Fields?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetFields(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetFields(v)
+          }
+        }()
+        case 7: try {
+          var v: Anytype_Event.Block.Set.ChildrenIds?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetChildrenIds(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetChildrenIds(v)
+          }
+        }()
+        case 8: try {
+          var v: Anytype_Event.Block.Set.Restrictions?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetRestrictions(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetRestrictions(v)
+          }
+        }()
+        case 9: try {
+          var v: Anytype_Event.Block.Set.BackgroundColor?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetBackgroundColor(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetBackgroundColor(v)
+          }
+        }()
+        case 10: try {
+          var v: Anytype_Event.Block.Set.Text?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetText(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetText(v)
+          }
+        }()
+        case 11: try {
+          var v: Anytype_Event.Block.Set.File?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetFile(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetFile(v)
+          }
+        }()
+        case 13: try {
+          var v: Anytype_Event.Block.Set.Link?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetLink(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetLink(v)
+          }
+        }()
+        case 14: try {
+          var v: Anytype_Event.Block.Set.Bookmark?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetBookmark(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetBookmark(v)
+          }
+        }()
+        case 15: try {
+          var v: Anytype_Event.Block.Set.Align?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetAlign(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetAlign(v)
+          }
+        }()
+        case 16: try {
+          var v: Anytype_Event.Object.Details.Set?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .objectDetailsSet(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .objectDetailsSet(v)
+          }
+        }()
+        case 17: try {
+          var v: Anytype_Event.Block.Set.Div?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetDiv(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetDiv(v)
+          }
+        }()
+        case 19: try {
+          var v: Anytype_Event.Block.Dataview.ViewSet?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewViewSet(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewViewSet(v)
+          }
+        }()
+        case 20: try {
+          var v: Anytype_Event.Block.Dataview.ViewDelete?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewViewDelete(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewViewDelete(v)
+          }
+        }()
+        case 21: try {
+          var v: Anytype_Event.Block.Set.Relation?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetRelation(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetRelation(v)
+          }
+        }()
+        case 23: try {
+          var v: Anytype_Event.Block.Dataview.OldRelationSet?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewOldRelationSet(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewOldRelationSet(v)
+          }
+        }()
+        case 24: try {
+          var v: Anytype_Event.Block.Dataview.OldRelationDelete?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewOldRelationDelete(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewOldRelationDelete(v)
+          }
+        }()
+        case 25: try {
+          var v: Anytype_Event.Block.Set.Latex?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetLatex(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetLatex(v)
+          }
+        }()
+        case 29: try {
+          var v: Anytype_Event.Block.Dataview.ViewOrder?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewViewOrder(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewViewOrder(v)
+          }
+        }()
+        case 31: try {
+          var v: Anytype_Event.User.Block.Join?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .userBlockJoin(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .userBlockJoin(v)
+          }
+        }()
+        case 32: try {
+          var v: Anytype_Event.User.Block.Left?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .userBlockLeft(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .userBlockLeft(v)
+          }
+        }()
+        case 33: try {
+          var v: Anytype_Event.User.Block.SelectRange?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .userBlockSelectRange(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .userBlockSelectRange(v)
+          }
+        }()
+        case 34: try {
+          var v: Anytype_Event.User.Block.TextRange?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .userBlockTextRange(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .userBlockTextRange(v)
+          }
+        }()
+        case 35: try {
+          var v: Anytype_Event.Block.Dataview.SourceSet?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewSourceSet(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewSourceSet(v)
+          }
+        }()
+        case 36: try {
+          var v: Anytype_Event.Block.Set.VerticalAlign?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetVerticalAlign(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetVerticalAlign(v)
+          }
+        }()
+        case 37: try {
+          var v: Anytype_Event.Block.Set.TableRow?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetTableRow(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetTableRow(v)
+          }
+        }()
+        case 38: try {
+          var v: Anytype_Event.Block.Dataview.GroupOrderUpdate?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataViewGroupOrderUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataViewGroupOrderUpdate(v)
+          }
+        }()
+        case 39: try {
+          var v: Anytype_Event.Block.Dataview.ObjectOrderUpdate?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataViewObjectOrderUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataViewObjectOrderUpdate(v)
+          }
+        }()
+        case 40: try {
+          var v: Anytype_Event.Block.Set.Widget?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockSetWidget(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockSetWidget(v)
+          }
+        }()
+        case 50: try {
+          var v: Anytype_Event.Object.Details.Amend?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .objectDetailsAmend(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .objectDetailsAmend(v)
+          }
+        }()
+        case 51: try {
+          var v: Anytype_Event.Object.Details.Unset?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .objectDetailsUnset(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .objectDetailsUnset(v)
+          }
+        }()
+        case 52: try {
+          var v: Anytype_Event.Object.Relations.Amend?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .objectRelationsAmend(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .objectRelationsAmend(v)
+          }
+        }()
+        case 53: try {
+          var v: Anytype_Event.Object.Relations.Remove?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .objectRelationsRemove(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .objectRelationsRemove(v)
+          }
+        }()
+        case 54: try {
+          var v: Anytype_Event.Object.Remove?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .objectRemove(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .objectRemove(v)
+          }
+        }()
+        case 55: try {
+          var v: Anytype_Event.Object.Restrictions.Set?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .objectRestrictionsSet(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .objectRestrictionsSet(v)
+          }
+        }()
+        case 60: try {
+          var v: Anytype_Event.Object.Subscription.Add?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .subscriptionAdd(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .subscriptionAdd(v)
+          }
+        }()
+        case 61: try {
+          var v: Anytype_Event.Object.Subscription.Remove?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .subscriptionRemove(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .subscriptionRemove(v)
+          }
+        }()
+        case 62: try {
+          var v: Anytype_Event.Object.Subscription.Position?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .subscriptionPosition(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .subscriptionPosition(v)
+          }
+        }()
+        case 63: try {
+          var v: Anytype_Event.Object.Subscription.Counters?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .subscriptionCounters(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .subscriptionCounters(v)
+          }
+        }()
+        case 64: try {
+          var v: Anytype_Event.Object.Subscription.Groups?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .subscriptionGroups(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .subscriptionGroups(v)
+          }
+        }()
+        case 65: try {
+          var v: Anytype_Event.Object.Close?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .objectClose(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .objectClose(v)
+          }
+        }()
+        case 100: try {
+          var v: Anytype_Event.Ping?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .ping(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .ping(v)
+          }
+        }()
+        case 101: try {
+          var v: Anytype_Event.Process.New?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .processNew(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .processNew(v)
+          }
+        }()
+        case 102: try {
+          var v: Anytype_Event.Process.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .processUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .processUpdate(v)
+          }
+        }()
+        case 103: try {
+          var v: Anytype_Event.Process.Done?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .processDone(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .processDone(v)
+          }
+        }()
+        case 110: try {
+          var v: Anytype_Event.Status.Thread?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .threadStatus(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .threadStatus(v)
+          }
+        }()
+        case 111: try {
+          var v: Anytype_Event.File.LimitReached?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .fileLimitReached(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .fileLimitReached(v)
+          }
+        }()
+        case 112: try {
+          var v: Anytype_Event.File.SpaceUsage?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .fileSpaceUsage(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .fileSpaceUsage(v)
+          }
+        }()
+        case 113: try {
+          var v: Anytype_Event.File.LocalUsage?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .fileLocalUsage(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .fileLocalUsage(v)
+          }
+        }()
+        case 114: try {
+          var v: Anytype_Event.Notification.Send?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .notificationSend(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .notificationSend(v)
+          }
+        }()
+        case 115: try {
+          var v: Anytype_Event.Notification.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .notificationUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .notificationUpdate(v)
+          }
+        }()
+        case 116: try {
+          var v: Anytype_Event.Payload.Broadcast?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .payloadBroadcast(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .payloadBroadcast(v)
+          }
+        }()
+        case 117: try {
+          var v: Anytype_Event.Membership.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .membershipUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .membershipUpdate(v)
+          }
+        }()
+        case 118: try {
+          var v: Anytype_Event.File.LimitUpdated?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .fileLimitUpdated(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .fileLimitUpdated(v)
+          }
+        }()
+        case 119: try {
+          var v: Anytype_Event.Space.SyncStatus.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .spaceSyncStatusUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .spaceSyncStatusUpdate(v)
+          }
+        }()
+        case 120: try {
+          var v: Anytype_Event.P2PStatus.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .p2PStatusUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .p2PStatusUpdate(v)
+          }
+        }()
+        case 121: try {
+          var v: Anytype_Event.Import.Finish?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .importFinish(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .importFinish(v)
+          }
+        }()
+        case 123: try {
+          var v: Anytype_Event.Block.Dataview.RelationSet?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewRelationSet(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewRelationSet(v)
+          }
+        }()
+        case 124: try {
+          var v: Anytype_Event.Block.Dataview.RelationDelete?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewRelationDelete(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewRelationDelete(v)
+          }
+        }()
+        case 125: try {
+          var v: Anytype_Event.Block.Dataview.ViewUpdate?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewViewUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewViewUpdate(v)
+          }
+        }()
+        case 126: try {
+          var v: Anytype_Event.Block.Dataview.TargetObjectIdSet?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewTargetObjectIDSet(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewTargetObjectIDSet(v)
+          }
+        }()
+        case 127: try {
+          var v: Anytype_Event.Block.Dataview.IsCollectionSet?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .blockDataviewIsCollectionSet(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .blockDataviewIsCollectionSet(v)
+          }
+        }()
+        case 128: try {
+          var v: Anytype_Event.Chat.Add?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatAdd(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatAdd(v)
+          }
+        }()
+        case 129: try {
+          var v: Anytype_Event.Chat.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatUpdate(v)
+          }
+        }()
+        case 130: try {
+          var v: Anytype_Event.Chat.UpdateReactions?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatUpdateReactions(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatUpdateReactions(v)
+          }
+        }()
+        case 131: try {
+          var v: Anytype_Event.Chat.Delete?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatDelete(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatDelete(v)
+          }
+        }()
+        case 132: try { try decoder.decodeSingularStringField(value: &_storage._spaceID) }()
+        case 201: try {
+          var v: Anytype_Event.Account.Details?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .accountDetails(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .accountDetails(v)
+          }
+        }()
+        case 202: try {
+          var v: Anytype_Event.Account.Config.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .accountConfigUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .accountConfigUpdate(v)
+          }
+        }()
+        case 203: try {
+          var v: Anytype_Event.Account.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .accountUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .accountUpdate(v)
+          }
+        }()
+        case 204: try {
+          var v: Anytype_Event.Account.LinkChallenge?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .accountLinkChallenge(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .accountLinkChallenge(v)
+          }
+        }()
+        case 205: try {
+          var v: Anytype_Event.Account.LinkChallengeHide?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .accountLinkChallengeHide(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .accountLinkChallengeHide(v)
+          }
+        }()
+        default: break
         }
       }
     }
@@ -2426,540 +1735,313 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
       // https://github.com/apple/swift-protobuf/issues/1182
       switch _storage._value {
-      case .accountShow?:
-          try {
-                  guard case .accountShow(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-                }()
-      case .blockAdd?:
-          try {
-                  guard case .blockAdd(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-                }()
-      case .blockDelete?:
-          try {
-                  guard case .blockDelete(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-                }()
-      case .filesUpload?:
-          try {
-                  guard case .filesUpload(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-                }()
-      case .marksInfo?:
-          try {
-                  guard case .marksInfo(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-                }()
-      case .blockSetFields?:
-          try {
-                  guard case .blockSetFields(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-                }()
-      case .blockSetChildrenIds?:
-          try {
-                  guard case .blockSetChildrenIds(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-                }()
-      case .blockSetRestrictions?:
-          try {
-                  guard case .blockSetRestrictions(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-                }()
-      case .blockSetBackgroundColor?:
-          try {
-                  guard case .blockSetBackgroundColor(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-                }()
-      case .blockSetText?:
-          try {
-                  guard case .blockSetText(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-                }()
-      case .blockSetFile?:
-          try {
-                  guard case .blockSetFile(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-                }()
-      case .blockSetLink?:
-          try {
-                  guard case .blockSetLink(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
-                }()
-      case .blockSetBookmark?:
-          try {
-                  guard case .blockSetBookmark(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
-                }()
-      case .blockSetAlign?:
-          try {
-                  guard case .blockSetAlign(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
-                }()
-      case .objectDetailsSet?:
-          try {
-                  guard case .objectDetailsSet(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
-                }()
-      case .blockSetDiv?:
-          try {
-                  guard case .blockSetDiv(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
-                }()
-      case .blockDataviewViewSet?:
-          try {
-                  guard case .blockDataviewViewSet(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 19)
-                }()
-      case .blockDataviewViewDelete?:
-          try {
-                  guard case .blockDataviewViewDelete(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
-                }()
-      case .blockSetRelation?:
-          try {
-                  guard case .blockSetRelation(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 21)
-                }()
-      case .blockDataviewOldRelationSet?:
-          try {
-                  guard case .blockDataviewOldRelationSet(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 23)
-                }()
-      case .blockDataviewOldRelationDelete?:
-          try {
-                  guard case .blockDataviewOldRelationDelete(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
-                }()
-      case .blockSetLatex?:
-          try {
-                  guard case .blockSetLatex(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
-                }()
-      case .blockDataviewViewOrder?:
-          try {
-                  guard case .blockDataviewViewOrder(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 29)
-                }()
-      case .userBlockJoin?:
-          try {
-                  guard case .userBlockJoin(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 31)
-                }()
-      case .userBlockLeft?:
-          try {
-                  guard case .userBlockLeft(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 32)
-                }()
-      case .userBlockSelectRange?:
-          try {
-                  guard case .userBlockSelectRange(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 33)
-                }()
-      case .userBlockTextRange?:
-          try {
-                  guard case .userBlockTextRange(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 34)
-                }()
-      case .blockDataviewSourceSet?:
-          try {
-                  guard case .blockDataviewSourceSet(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 35)
-                }()
-      case .blockSetVerticalAlign?:
-          try {
-                  guard case .blockSetVerticalAlign(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 36)
-                }()
-      case .blockSetTableRow?:
-          try {
-                  guard case .blockSetTableRow(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 37)
-                }()
-      case .blockDataViewGroupOrderUpdate?:
-          try {
-                  guard case .blockDataViewGroupOrderUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
-                }()
-      case .blockDataViewObjectOrderUpdate?:
-          try {
-                  guard case .blockDataViewObjectOrderUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
-                }()
-      case .blockSetWidget?:
-          try {
-                  guard case .blockSetWidget(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 40)
-                }()
-      case .objectDetailsAmend?:
-          try {
-                  guard case .objectDetailsAmend(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 50)
-                }()
-      case .objectDetailsUnset?:
-          try {
-                  guard case .objectDetailsUnset(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 51)
-                }()
-      case .objectRelationsAmend?:
-          try {
-                  guard case .objectRelationsAmend(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 52)
-                }()
-      case .objectRelationsRemove?:
-          try {
-                  guard case .objectRelationsRemove(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 53)
-                }()
-      case .objectRemove?:
-          try {
-                  guard case .objectRemove(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 54)
-                }()
-      case .objectRestrictionsSet?:
-          try {
-                  guard case .objectRestrictionsSet(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 55)
-                }()
-      case .subscriptionAdd?:
-          try {
-                  guard case .subscriptionAdd(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 60)
-                }()
-      case .subscriptionRemove?:
-          try {
-                  guard case .subscriptionRemove(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 61)
-                }()
-      case .subscriptionPosition?:
-          try {
-                  guard case .subscriptionPosition(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 62)
-                }()
-      case .subscriptionCounters?:
-          try {
-                  guard case .subscriptionCounters(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 63)
-                }()
-      case .subscriptionGroups?:
-          try {
-                  guard case .subscriptionGroups(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 64)
-                }()
-      case .objectClose?:
-          try {
-                  guard case .objectClose(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 65)
-                }()
-      case .ping?:
-          try {
-                  guard case .ping(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
-                }()
-      case .processNew?:
-          try {
-                  guard case .processNew(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
-                }()
-      case .processUpdate?:
-          try {
-                  guard case .processUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
-                }()
-      case .processDone?:
-          try {
-                  guard case .processDone(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
-                }()
-      case .threadStatus?:
-          try {
-                  guard case .threadStatus(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
-                }()
-      case .fileLimitReached?:
-          try {
-                  guard case .fileLimitReached(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 111)
-                }()
-      case .fileSpaceUsage?:
-          try {
-                  guard case .fileSpaceUsage(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 112)
-                }()
-      case .fileLocalUsage?:
-          try {
-                  guard case .fileLocalUsage(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 113)
-                }()
-      case .notificationSend?:
-          try {
-                  guard case .notificationSend(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 114)
-                }()
-      case .notificationUpdate?:
-          try {
-                  guard case .notificationUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 115)
-                }()
-      case .payloadBroadcast?:
-          try {
-                  guard case .payloadBroadcast(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 116)
-                }()
-      case .membershipUpdate?:
-          try {
-                  guard case .membershipUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 117)
-                }()
-      case .fileLimitUpdated?:
-          try {
-                  guard case .fileLimitUpdated(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 118)
-                }()
-      case .spaceSyncStatusUpdate?:
-          try {
-                  guard case .spaceSyncStatusUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 119)
-                }()
-      case .p2PStatusUpdate?:
-          try {
-                  guard case .p2PStatusUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 120)
-                }()
-      case .importFinish?:
-          try {
-                  guard case .importFinish(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 121)
-                }()
-      case .blockDataviewRelationSet?:
-          try {
-                  guard case .blockDataviewRelationSet(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 123)
-                }()
-      case .blockDataviewRelationDelete?:
-          try {
-                  guard case .blockDataviewRelationDelete(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 124)
-                }()
-      case .blockDataviewViewUpdate?:
-          try {
-                  guard case .blockDataviewViewUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 125)
-                }()
-      case .blockDataviewTargetObjectIDSet?:
-          try {
-                  guard case .blockDataviewTargetObjectIDSet(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 126)
-                }()
-      case .blockDataviewIsCollectionSet?:
-          try {
-                  guard case .blockDataviewIsCollectionSet(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 127)
-                }()
-      case .chatAdd?:
-          try {
-                  guard case .chatAdd(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 128)
-                }()
-      case .chatUpdate?:
-          try {
-                  guard case .chatUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 129)
-                }()
-      case .chatUpdateReactions?:
-          try {
-                  guard case .chatUpdateReactions(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 130)
-                }()
-      case .chatDelete?:
-          try {
-                  guard case .chatDelete(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 131)
-                }()
-      default:
-          break
+      case .accountShow?: try {
+        guard case .accountShow(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }()
+      case .blockAdd?: try {
+        guard case .blockAdd(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }()
+      case .blockDelete?: try {
+        guard case .blockDelete(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }()
+      case .filesUpload?: try {
+        guard case .filesUpload(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }()
+      case .marksInfo?: try {
+        guard case .marksInfo(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }()
+      case .blockSetFields?: try {
+        guard case .blockSetFields(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }()
+      case .blockSetChildrenIds?: try {
+        guard case .blockSetChildrenIds(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      }()
+      case .blockSetRestrictions?: try {
+        guard case .blockSetRestrictions(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }()
+      case .blockSetBackgroundColor?: try {
+        guard case .blockSetBackgroundColor(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      }()
+      case .blockSetText?: try {
+        guard case .blockSetText(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      }()
+      case .blockSetFile?: try {
+        guard case .blockSetFile(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      }()
+      case .blockSetLink?: try {
+        guard case .blockSetLink(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+      }()
+      case .blockSetBookmark?: try {
+        guard case .blockSetBookmark(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
+      }()
+      case .blockSetAlign?: try {
+        guard case .blockSetAlign(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+      }()
+      case .objectDetailsSet?: try {
+        guard case .objectDetailsSet(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
+      }()
+      case .blockSetDiv?: try {
+        guard case .blockSetDiv(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
+      }()
+      case .blockDataviewViewSet?: try {
+        guard case .blockDataviewViewSet(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 19)
+      }()
+      case .blockDataviewViewDelete?: try {
+        guard case .blockDataviewViewDelete(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
+      }()
+      case .blockSetRelation?: try {
+        guard case .blockSetRelation(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 21)
+      }()
+      case .blockDataviewOldRelationSet?: try {
+        guard case .blockDataviewOldRelationSet(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 23)
+      }()
+      case .blockDataviewOldRelationDelete?: try {
+        guard case .blockDataviewOldRelationDelete(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
+      }()
+      case .blockSetLatex?: try {
+        guard case .blockSetLatex(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
+      }()
+      case .blockDataviewViewOrder?: try {
+        guard case .blockDataviewViewOrder(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 29)
+      }()
+      case .userBlockJoin?: try {
+        guard case .userBlockJoin(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 31)
+      }()
+      case .userBlockLeft?: try {
+        guard case .userBlockLeft(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 32)
+      }()
+      case .userBlockSelectRange?: try {
+        guard case .userBlockSelectRange(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 33)
+      }()
+      case .userBlockTextRange?: try {
+        guard case .userBlockTextRange(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 34)
+      }()
+      case .blockDataviewSourceSet?: try {
+        guard case .blockDataviewSourceSet(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 35)
+      }()
+      case .blockSetVerticalAlign?: try {
+        guard case .blockSetVerticalAlign(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 36)
+      }()
+      case .blockSetTableRow?: try {
+        guard case .blockSetTableRow(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 37)
+      }()
+      case .blockDataViewGroupOrderUpdate?: try {
+        guard case .blockDataViewGroupOrderUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
+      }()
+      case .blockDataViewObjectOrderUpdate?: try {
+        guard case .blockDataViewObjectOrderUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
+      }()
+      case .blockSetWidget?: try {
+        guard case .blockSetWidget(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 40)
+      }()
+      case .objectDetailsAmend?: try {
+        guard case .objectDetailsAmend(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 50)
+      }()
+      case .objectDetailsUnset?: try {
+        guard case .objectDetailsUnset(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 51)
+      }()
+      case .objectRelationsAmend?: try {
+        guard case .objectRelationsAmend(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 52)
+      }()
+      case .objectRelationsRemove?: try {
+        guard case .objectRelationsRemove(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 53)
+      }()
+      case .objectRemove?: try {
+        guard case .objectRemove(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 54)
+      }()
+      case .objectRestrictionsSet?: try {
+        guard case .objectRestrictionsSet(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 55)
+      }()
+      case .subscriptionAdd?: try {
+        guard case .subscriptionAdd(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 60)
+      }()
+      case .subscriptionRemove?: try {
+        guard case .subscriptionRemove(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 61)
+      }()
+      case .subscriptionPosition?: try {
+        guard case .subscriptionPosition(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 62)
+      }()
+      case .subscriptionCounters?: try {
+        guard case .subscriptionCounters(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 63)
+      }()
+      case .subscriptionGroups?: try {
+        guard case .subscriptionGroups(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 64)
+      }()
+      case .objectClose?: try {
+        guard case .objectClose(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 65)
+      }()
+      case .ping?: try {
+        guard case .ping(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
+      }()
+      case .processNew?: try {
+        guard case .processNew(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
+      }()
+      case .processUpdate?: try {
+        guard case .processUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
+      }()
+      case .processDone?: try {
+        guard case .processDone(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
+      }()
+      case .threadStatus?: try {
+        guard case .threadStatus(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
+      }()
+      case .fileLimitReached?: try {
+        guard case .fileLimitReached(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 111)
+      }()
+      case .fileSpaceUsage?: try {
+        guard case .fileSpaceUsage(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 112)
+      }()
+      case .fileLocalUsage?: try {
+        guard case .fileLocalUsage(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 113)
+      }()
+      case .notificationSend?: try {
+        guard case .notificationSend(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 114)
+      }()
+      case .notificationUpdate?: try {
+        guard case .notificationUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 115)
+      }()
+      case .payloadBroadcast?: try {
+        guard case .payloadBroadcast(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 116)
+      }()
+      case .membershipUpdate?: try {
+        guard case .membershipUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 117)
+      }()
+      case .fileLimitUpdated?: try {
+        guard case .fileLimitUpdated(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 118)
+      }()
+      case .spaceSyncStatusUpdate?: try {
+        guard case .spaceSyncStatusUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 119)
+      }()
+      case .p2PStatusUpdate?: try {
+        guard case .p2PStatusUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 120)
+      }()
+      case .importFinish?: try {
+        guard case .importFinish(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 121)
+      }()
+      case .blockDataviewRelationSet?: try {
+        guard case .blockDataviewRelationSet(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 123)
+      }()
+      case .blockDataviewRelationDelete?: try {
+        guard case .blockDataviewRelationDelete(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 124)
+      }()
+      case .blockDataviewViewUpdate?: try {
+        guard case .blockDataviewViewUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 125)
+      }()
+      case .blockDataviewTargetObjectIDSet?: try {
+        guard case .blockDataviewTargetObjectIDSet(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 126)
+      }()
+      case .blockDataviewIsCollectionSet?: try {
+        guard case .blockDataviewIsCollectionSet(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 127)
+      }()
+      case .chatAdd?: try {
+        guard case .chatAdd(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 128)
+      }()
+      case .chatUpdate?: try {
+        guard case .chatUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 129)
+      }()
+      case .chatUpdateReactions?: try {
+        guard case .chatUpdateReactions(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 130)
+      }()
+      case .chatDelete?: try {
+        guard case .chatDelete(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 131)
+      }()
+      default: break
       }
       if !_storage._spaceID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._spaceID, fieldNumber: 132)
       }
       switch _storage._value {
-      case .accountDetails?:
-          try {
-                  guard case .accountDetails(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 201)
-                }()
-      case .accountConfigUpdate?:
-          try {
-                  guard case .accountConfigUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 202)
-                }()
-      case .accountUpdate?:
-          try {
-                  guard case .accountUpdate(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 203)
-                }()
-      case .accountLinkChallenge?:
-          try {
-                  guard case .accountLinkChallenge(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 204)
-                }()
-      case .accountLinkChallengeHide?:
-          try {
-                  guard case .accountLinkChallengeHide(let v)? = _storage._value else {
-                      preconditionFailure()
-                  }
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 205)
-                }()
-      default:
-          break
+      case .accountDetails?: try {
+        guard case .accountDetails(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 201)
+      }()
+      case .accountConfigUpdate?: try {
+        guard case .accountConfigUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 202)
+      }()
+      case .accountUpdate?: try {
+        guard case .accountUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 203)
+      }()
+      case .accountLinkChallenge?: try {
+        guard case .accountLinkChallenge(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 204)
+      }()
+      case .accountLinkChallengeHide?: try {
+        guard case .accountLinkChallengeHide(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 205)
+      }()
+      default: break
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -2970,21 +2052,13 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._spaceID != rhs_storage._spaceID {
-            return false
-        }
-        if _storage._value != rhs_storage._value {
-            return false
-        }
+        if _storage._spaceID != rhs_storage._spaceID {return false}
+        if _storage._value != rhs_storage._value {return false}
         return true
       }
-      if !storagesAreEqual {
-          return false
-      }
+      if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2995,8 +2069,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

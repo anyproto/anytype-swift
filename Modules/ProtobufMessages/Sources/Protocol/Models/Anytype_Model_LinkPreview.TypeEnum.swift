@@ -25,36 +25,25 @@ extension Anytype_Model_LinkPreview {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .unknown
-      case 1:
-          self = .page
-      case 2:
-          self = .image
-      case 3:
-          self = .text
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .unknown
+      case 1: self = .page
+      case 2: self = .image
+      case 3: self = .text
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .unknown:
-          return 0
-      case .page:
-          return 1
-      case .image:
-          return 2
-      case .text:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
+      case .unknown: return 0
+      case .page: return 1
+      case .image: return 2
+      case .text: return 3
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_LinkPreview.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,8 +54,7 @@ extension Anytype_Model_LinkPreview.TypeEnum: CaseIterable {
     .text,
   ]
 }
-extension Anytype_Model_LinkPreview.TypeEnum: @unchecked Sendable {
-}
+extension Anytype_Model_LinkPreview.TypeEnum: @unchecked Sendable {}
 
 extension Anytype_Model_LinkPreview.TypeEnum: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -83,8 +71,7 @@ extension Anytype_Model_LinkPreview.TypeEnum: SwiftProtobuf._ProtoNameProviding 
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

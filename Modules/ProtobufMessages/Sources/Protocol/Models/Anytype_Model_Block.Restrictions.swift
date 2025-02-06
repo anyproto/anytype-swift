@@ -27,12 +27,9 @@ extension Anytype_Model_Block {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_Block.Restrictions: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_Block.Restrictions: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Restrictions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.protoMessageName + ".Restrictions"
@@ -50,28 +47,12 @@ extension Anytype_Model_Block.Restrictions: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.read)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.edit)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.remove)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.drag)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.dropOn)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.read) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.edit) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.remove) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.drag) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.dropOn) }()
+      default: break
       }
     }
   }
@@ -96,24 +77,12 @@ extension Anytype_Model_Block.Restrictions: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Model_Block.Restrictions, rhs: Anytype_Model_Block.Restrictions) -> Bool {
-    if lhs.read != rhs.read {
-        return false
-    }
-    if lhs.edit != rhs.edit {
-        return false
-    }
-    if lhs.remove != rhs.remove {
-        return false
-    }
-    if lhs.drag != rhs.drag {
-        return false
-    }
-    if lhs.dropOn != rhs.dropOn {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.read != rhs.read {return false}
+    if lhs.edit != rhs.edit {return false}
+    if lhs.remove != rhs.remove {return false}
+    if lhs.drag != rhs.drag {return false}
+    if lhs.dropOn != rhs.dropOn {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -124,8 +93,7 @@ extension Anytype_Model_Block.Restrictions: SwiftProtobuf.Message, SwiftProtobuf
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

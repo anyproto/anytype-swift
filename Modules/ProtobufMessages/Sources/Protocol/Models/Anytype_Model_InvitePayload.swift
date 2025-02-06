@@ -30,11 +30,9 @@ public struct Anytype_Model_InvitePayload {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_InvitePayload: @unchecked Sendable {
-}
+extension Anytype_Model_InvitePayload: @unchecked Sendable {}
 
 extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".InvitePayload"
@@ -54,36 +52,14 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.creatorIdentity)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.creatorName)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBytesField(value: &self.inviteKey)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceName)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceIconCid)
-          }()
-      case 7:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.spaceIconEncryptionKeys)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.creatorIdentity) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.creatorName) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.inviteKey) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.spaceIconCid) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.spaceIconEncryptionKeys) }()
+      default: break
       }
     }
   }
@@ -114,30 +90,14 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public static func ==(lhs: Anytype_Model_InvitePayload, rhs: Anytype_Model_InvitePayload) -> Bool {
-    if lhs.creatorIdentity != rhs.creatorIdentity {
-        return false
-    }
-    if lhs.creatorName != rhs.creatorName {
-        return false
-    }
-    if lhs.inviteKey != rhs.inviteKey {
-        return false
-    }
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.spaceName != rhs.spaceName {
-        return false
-    }
-    if lhs.spaceIconCid != rhs.spaceIconCid {
-        return false
-    }
-    if lhs.spaceIconEncryptionKeys != rhs.spaceIconEncryptionKeys {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.creatorIdentity != rhs.creatorIdentity {return false}
+    if lhs.creatorName != rhs.creatorName {return false}
+    if lhs.inviteKey != rhs.inviteKey {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.spaceIconCid != rhs.spaceIconCid {return false}
+    if lhs.spaceIconEncryptionKeys != rhs.spaceIconEncryptionKeys {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -148,8 +108,7 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

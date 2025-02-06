@@ -15,190 +15,116 @@ public struct Anytype_Model_Relation {
   // methods supported on all messages.
 
   public var id: String {
-    get {
-        return _storage._id
-    }
-    set {
-        _uniqueStorage()._id = newValue
-    }
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
   }
 
   /// Key under which the value is stored in the map. Must be unique for the object type.
   /// It usually auto-generated bsonid, but also may be something human-readable in case of prebuilt types.
   public var key: String {
-    get {
-        return _storage._key
-    }
-    set {
-        _uniqueStorage()._key = newValue
-    }
+    get {return _storage._key}
+    set {_uniqueStorage()._key = newValue}
   }
 
   /// format of the underlying data
   public var format: Anytype_Model_RelationFormat {
-    get {
-        return _storage._format
-    }
-    set {
-        _uniqueStorage()._format = newValue
-    }
+    get {return _storage._format}
+    set {_uniqueStorage()._format = newValue}
   }
 
   /// name to show (can be localized for bundled types)
   public var name: String {
-    get {
-        return _storage._name
-    }
-    set {
-        _uniqueStorage()._name = newValue
-    }
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
   }
 
   public var defaultValue: SwiftProtobuf.Google_Protobuf_Value {
-    get {
-        return _storage._defaultValue ?? SwiftProtobuf.Google_Protobuf_Value()
-    }
-    set {
-        _uniqueStorage()._defaultValue = newValue
-    }
+    get {return _storage._defaultValue ?? SwiftProtobuf.Google_Protobuf_Value()}
+    set {_uniqueStorage()._defaultValue = newValue}
   }
   /// Returns true if `defaultValue` has been explicitly set.
-  public var hasDefaultValue: Bool {
-      return _storage._defaultValue != nil
-  }
+  public var hasDefaultValue: Bool {return _storage._defaultValue != nil}
   /// Clears the value of `defaultValue`. Subsequent reads from it will return its default value.
-  public mutating func clearDefaultValue() {
-      _uniqueStorage()._defaultValue = nil
-  }
+  public mutating func clearDefaultValue() {_uniqueStorage()._defaultValue = nil}
 
   /// where the data is stored
   public var dataSource: Anytype_Model_Relation.DataSource {
-    get {
-        return _storage._dataSource
-    }
-    set {
-        _uniqueStorage()._dataSource = newValue
-    }
+    get {return _storage._dataSource}
+    set {_uniqueStorage()._dataSource = newValue}
   }
 
   /// internal, not displayed to user (e.g. coverX, coverY)
   public var hidden: Bool {
-    get {
-        return _storage._hidden
-    }
-    set {
-        _uniqueStorage()._hidden = newValue
-    }
+    get {return _storage._hidden}
+    set {_uniqueStorage()._hidden = newValue}
   }
 
   /// value not editable by user tobe renamed to readonlyValue
   public var readOnly: Bool {
-    get {
-        return _storage._readOnly
-    }
-    set {
-        _uniqueStorage()._readOnly = newValue
-    }
+    get {return _storage._readOnly}
+    set {_uniqueStorage()._readOnly = newValue}
   }
 
   /// relation metadata, eg name and format is not editable by user
   public var readOnlyRelation: Bool {
-    get {
-        return _storage._readOnlyRelation
-    }
-    set {
-        _uniqueStorage()._readOnlyRelation = newValue
-    }
+    get {return _storage._readOnlyRelation}
+    set {_uniqueStorage()._readOnlyRelation = newValue}
   }
 
   /// allow multiple values (stored in pb list)
   public var multi: Bool {
-    get {
-        return _storage._multi
-    }
-    set {
-        _uniqueStorage()._multi = newValue
-    }
+    get {return _storage._multi}
+    set {_uniqueStorage()._multi = newValue}
   }
 
   /// URL of object type, empty to allow link to any object
   public var objectTypes: [String] {
-    get {
-        return _storage._objectTypes
-    }
-    set {
-        _uniqueStorage()._objectTypes = newValue
-    }
+    get {return _storage._objectTypes}
+    set {_uniqueStorage()._objectTypes = newValue}
   }
 
   /// index 10, 11 was used in internal-only builds. Can be reused, but may break some test accounts
   public var selectDict: [Anytype_Model_Relation.Option] {
-    get {
-        return _storage._selectDict
-    }
-    set {
-        _uniqueStorage()._selectDict = newValue
-    }
+    get {return _storage._selectDict}
+    set {_uniqueStorage()._selectDict = newValue}
   }
 
   /// max number of values can be set for this relation. 0 means no limit. 1 means the value can be stored in non-repeated field
   public var maxCount: Int32 {
-    get {
-        return _storage._maxCount
-    }
-    set {
-        _uniqueStorage()._maxCount = newValue
-    }
+    get {return _storage._maxCount}
+    set {_uniqueStorage()._maxCount = newValue}
   }
 
   public var description_p: String {
-    get {
-        return _storage._description_p
-    }
-    set {
-        _uniqueStorage()._description_p = newValue
-    }
+    get {return _storage._description_p}
+    set {_uniqueStorage()._description_p = newValue}
   }
 
   /// on-store fields, injected only locally
   public var scope: Anytype_Model_Relation.Scope {
-    get {
-        return _storage._scope
-    }
-    set {
-        _uniqueStorage()._scope = newValue
-    }
+    get {return _storage._scope}
+    set {_uniqueStorage()._scope = newValue}
   }
 
   /// creator profile id
   public var creator: String {
-    get {
-        return _storage._creator
-    }
-    set {
-        _uniqueStorage()._creator = newValue
-    }
+    get {return _storage._creator}
+    set {_uniqueStorage()._creator = newValue}
   }
 
   /// revision of system relation. Used to check if we should change relation content or not
   public var revision: Int64 {
-    get {
-        return _storage._revision
-    }
-    set {
-        _uniqueStorage()._revision = newValue
-    }
+    get {return _storage._revision}
+    set {_uniqueStorage()._revision = newValue}
   }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
-extension Anytype_Model_Relation: @unchecked Sendable {
-}
+extension Anytype_Model_Relation: @unchecked Sendable {}
 
 extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Relation"
@@ -243,8 +169,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 
     static let defaultInstance = _StorageClass()
 
-    private init() {
-    }
+    private init() {}
 
     init(copying source: _StorageClass) {
       _id = source._id
@@ -282,76 +207,24 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._key)
-            }()
-        case 2:
-            try {
-                try decoder.decodeSingularEnumField(value: &_storage._format)
-            }()
-        case 3:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._name)
-            }()
-        case 4:
-            try {
-                try decoder.decodeSingularMessageField(value: &_storage._defaultValue)
-            }()
-        case 5:
-            try {
-                try decoder.decodeSingularEnumField(value: &_storage._dataSource)
-            }()
-        case 6:
-            try {
-                try decoder.decodeSingularBoolField(value: &_storage._hidden)
-            }()
-        case 7:
-            try {
-                try decoder.decodeSingularBoolField(value: &_storage._readOnly)
-            }()
-        case 8:
-            try {
-                try decoder.decodeSingularBoolField(value: &_storage._multi)
-            }()
-        case 9:
-            try {
-                try decoder.decodeRepeatedStringField(value: &_storage._objectTypes)
-            }()
-        case 12:
-            try {
-                try decoder.decodeRepeatedMessageField(value: &_storage._selectDict)
-            }()
-        case 13:
-            try {
-                try decoder.decodeSingularInt32Field(value: &_storage._maxCount)
-            }()
-        case 14:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._description_p)
-            }()
-        case 15:
-            try {
-                try decoder.decodeSingularBoolField(value: &_storage._readOnlyRelation)
-            }()
-        case 20:
-            try {
-                try decoder.decodeSingularEnumField(value: &_storage._scope)
-            }()
-        case 21:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._creator)
-            }()
-        case 22:
-            try {
-                try decoder.decodeSingularInt64Field(value: &_storage._revision)
-            }()
-        case 100:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._id)
-            }()
-        default:
-            break
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._key) }()
+        case 2: try { try decoder.decodeSingularEnumField(value: &_storage._format) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._defaultValue) }()
+        case 5: try { try decoder.decodeSingularEnumField(value: &_storage._dataSource) }()
+        case 6: try { try decoder.decodeSingularBoolField(value: &_storage._hidden) }()
+        case 7: try { try decoder.decodeSingularBoolField(value: &_storage._readOnly) }()
+        case 8: try { try decoder.decodeSingularBoolField(value: &_storage._multi) }()
+        case 9: try { try decoder.decodeRepeatedStringField(value: &_storage._objectTypes) }()
+        case 12: try { try decoder.decodeRepeatedMessageField(value: &_storage._selectDict) }()
+        case 13: try { try decoder.decodeSingularInt32Field(value: &_storage._maxCount) }()
+        case 14: try { try decoder.decodeSingularStringField(value: &_storage._description_p) }()
+        case 15: try { try decoder.decodeSingularBoolField(value: &_storage._readOnlyRelation) }()
+        case 20: try { try decoder.decodeSingularEnumField(value: &_storage._scope) }()
+        case 21: try { try decoder.decodeSingularStringField(value: &_storage._creator) }()
+        case 22: try { try decoder.decodeSingularInt64Field(value: &_storage._revision) }()
+        case 100: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        default: break
         }
       }
     }
@@ -372,11 +245,9 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       if !_storage._name.isEmpty {
         try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 3)
       }
-      try {
-          if let v = _storage._defaultValue {
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-                }
-      }()
+      try { if let v = _storage._defaultValue {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      } }()
       if _storage._dataSource != .details {
         try visitor.visitSingularEnumField(value: _storage._dataSource, fieldNumber: 5)
       }
@@ -425,66 +296,28 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {
-            return false
-        }
-        if _storage._key != rhs_storage._key {
-            return false
-        }
-        if _storage._format != rhs_storage._format {
-            return false
-        }
-        if _storage._name != rhs_storage._name {
-            return false
-        }
-        if _storage._defaultValue != rhs_storage._defaultValue {
-            return false
-        }
-        if _storage._dataSource != rhs_storage._dataSource {
-            return false
-        }
-        if _storage._hidden != rhs_storage._hidden {
-            return false
-        }
-        if _storage._readOnly != rhs_storage._readOnly {
-            return false
-        }
-        if _storage._readOnlyRelation != rhs_storage._readOnlyRelation {
-            return false
-        }
-        if _storage._multi != rhs_storage._multi {
-            return false
-        }
-        if _storage._objectTypes != rhs_storage._objectTypes {
-            return false
-        }
-        if _storage._selectDict != rhs_storage._selectDict {
-            return false
-        }
-        if _storage._maxCount != rhs_storage._maxCount {
-            return false
-        }
-        if _storage._description_p != rhs_storage._description_p {
-            return false
-        }
-        if _storage._scope != rhs_storage._scope {
-            return false
-        }
-        if _storage._creator != rhs_storage._creator {
-            return false
-        }
-        if _storage._revision != rhs_storage._revision {
-            return false
-        }
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._key != rhs_storage._key {return false}
+        if _storage._format != rhs_storage._format {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._defaultValue != rhs_storage._defaultValue {return false}
+        if _storage._dataSource != rhs_storage._dataSource {return false}
+        if _storage._hidden != rhs_storage._hidden {return false}
+        if _storage._readOnly != rhs_storage._readOnly {return false}
+        if _storage._readOnlyRelation != rhs_storage._readOnlyRelation {return false}
+        if _storage._multi != rhs_storage._multi {return false}
+        if _storage._objectTypes != rhs_storage._objectTypes {return false}
+        if _storage._selectDict != rhs_storage._selectDict {return false}
+        if _storage._maxCount != rhs_storage._maxCount {return false}
+        if _storage._description_p != rhs_storage._description_p {return false}
+        if _storage._scope != rhs_storage._scope {return false}
+        if _storage._creator != rhs_storage._creator {return false}
+        if _storage._revision != rhs_storage._revision {return false}
         return true
       }
-      if !storagesAreEqual {
-          return false
-      }
+      if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -495,8 +328,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

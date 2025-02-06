@@ -29,8 +29,7 @@ extension Anytype_Event.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Remove {
@@ -45,20 +44,14 @@ extension Anytype_Event.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.Object.Relations: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Relations.Amend: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Relations.Remove: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.Object.Relations: @unchecked Sendable {}
+extension Anytype_Event.Object.Relations.Amend: @unchecked Sendable {}
+extension Anytype_Event.Object.Relations.Remove: @unchecked Sendable {}
 
 extension Anytype_Event.Object.Relations: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Object.protoMessageName + ".Relations"
@@ -74,9 +67,7 @@ extension Anytype_Event.Object.Relations: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   public static func ==(lhs: Anytype_Event.Object.Relations, rhs: Anytype_Event.Object.Relations) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -94,16 +85,9 @@ extension Anytype_Event.Object.Relations.Amend: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relationLinks)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      default: break
       }
     }
   }
@@ -119,15 +103,9 @@ extension Anytype_Event.Object.Relations.Amend: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Event.Object.Relations.Amend, rhs: Anytype_Event.Object.Relations.Amend) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.relationLinks != rhs.relationLinks {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -145,16 +123,9 @@ extension Anytype_Event.Object.Relations.Remove: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.relationKeys)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
+      default: break
       }
     }
   }
@@ -170,15 +141,9 @@ extension Anytype_Event.Object.Relations.Remove: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Event.Object.Relations.Remove, rhs: Anytype_Event.Object.Relations.Remove) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.relationKeys != rhs.relationKeys {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.relationKeys != rhs.relationKeys {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -189,8 +154,7 @@ extension Anytype_Event.Object.Relations.Remove: SwiftProtobuf.Message, SwiftPro
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -23,12 +23,9 @@ extension Anytype_Model_ChatMessage {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_ChatMessage.Attachment: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_ChatMessage.Attachment: @unchecked Sendable {}
 
 extension Anytype_Model_ChatMessage.Attachment: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".Attachment"
@@ -43,16 +40,9 @@ extension Anytype_Model_ChatMessage.Attachment: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.target)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.target) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      default: break
       }
     }
   }
@@ -68,15 +58,9 @@ extension Anytype_Model_ChatMessage.Attachment: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Model_ChatMessage.Attachment, rhs: Anytype_Model_ChatMessage.Attachment) -> Bool {
-    if lhs.target != rhs.target {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.target != rhs.target {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -87,8 +71,7 @@ extension Anytype_Model_ChatMessage.Attachment: SwiftProtobuf.Message, SwiftProt
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -27,12 +27,9 @@ extension Anytype_Model_Notification {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_Notification.ParticipantRemove: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_Notification.ParticipantRemove: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".ParticipantRemove"
@@ -50,28 +47,12 @@ extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.identity)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.identityName)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.identityIcon)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceName)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.identity) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.identityName) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.identityIcon) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      default: break
       }
     }
   }
@@ -96,24 +77,12 @@ extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Model_Notification.ParticipantRemove, rhs: Anytype_Model_Notification.ParticipantRemove) -> Bool {
-    if lhs.identity != rhs.identity {
-        return false
-    }
-    if lhs.identityName != rhs.identityName {
-        return false
-    }
-    if lhs.identityIcon != rhs.identityIcon {
-        return false
-    }
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.spaceName != rhs.spaceName {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.identity != rhs.identity {return false}
+    if lhs.identityName != rhs.identityName {return false}
+    if lhs.identityIcon != rhs.identityIcon {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -124,8 +93,7 @@ extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, S
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

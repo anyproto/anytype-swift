@@ -23,27 +23,19 @@ public enum Anytype_Model_DeviceNetworkType: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .wifi
-    case 1:
-        self = .cellular
-    case 2:
-        self = .notConnected
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .wifi
+    case 1: self = .cellular
+    case 2: self = .notConnected
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .wifi:
-        return 0
-    case .cellular:
-        return 1
-    case .notConnected:
-        return 2
-    case .UNRECOGNIZED(let i):
-        return i
+    case .wifi: return 0
+    case .cellular: return 1
+    case .notConnected: return 2
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -57,8 +49,7 @@ extension Anytype_Model_DeviceNetworkType: CaseIterable {
     .notConnected,
   ]
 }
-extension Anytype_Model_DeviceNetworkType: @unchecked Sendable {
-}
+extension Anytype_Model_DeviceNetworkType: @unchecked Sendable {}
 
 extension Anytype_Model_DeviceNetworkType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -74,8 +65,7 @@ extension Anytype_Model_DeviceNetworkType: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

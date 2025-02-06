@@ -22,12 +22,8 @@ import SwiftProtobuf
 extension SwiftProtobuf.Google_Protobuf_MessageOptions {
 
   public var Anytype_noAuth: Bool {
-    get {
-        return getExtensionValue(ext: Anytype_Extensions_no_auth) ?? false
-    }
-    set {
-        setExtensionValue(ext: Anytype_Extensions_no_auth, value: newValue)
-    }
+    get {return getExtensionValue(ext: Anytype_Extensions_no_auth) ?? false}
+    set {setExtensionValue(ext: Anytype_Extensions_no_auth, value: newValue)}
   }
   /// Returns true if extension `Anytype_Extensions_no_auth`
   /// has been explicitly set.
@@ -67,8 +63,7 @@ public let Anytype_Extensions_no_auth = SwiftProtobuf.MessageExtension<SwiftProt
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

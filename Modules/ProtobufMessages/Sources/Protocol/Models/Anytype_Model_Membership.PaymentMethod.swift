@@ -26,40 +26,27 @@ extension Anytype_Model_Membership {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .methodNone
-      case 1:
-          self = .methodStripe
-      case 2:
-          self = .methodCrypto
-      case 3:
-          self = .methodInappApple
-      case 4:
-          self = .methodInappGoogle
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .methodNone
+      case 1: self = .methodStripe
+      case 2: self = .methodCrypto
+      case 3: self = .methodInappApple
+      case 4: self = .methodInappGoogle
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .methodNone:
-          return 0
-      case .methodStripe:
-          return 1
-      case .methodCrypto:
-          return 2
-      case .methodInappApple:
-          return 3
-      case .methodInappGoogle:
-          return 4
-      case .UNRECOGNIZED(let i):
-          return i
+      case .methodNone: return 0
+      case .methodStripe: return 1
+      case .methodCrypto: return 2
+      case .methodInappApple: return 3
+      case .methodInappGoogle: return 4
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Membership.PaymentMethod: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -71,8 +58,7 @@ extension Anytype_Model_Membership.PaymentMethod: CaseIterable {
     .methodInappGoogle,
   ]
 }
-extension Anytype_Model_Membership.PaymentMethod: @unchecked Sendable {
-}
+extension Anytype_Model_Membership.PaymentMethod: @unchecked Sendable {}
 
 extension Anytype_Model_Membership.PaymentMethod: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -90,8 +76,7 @@ extension Anytype_Model_Membership.PaymentMethod: SwiftProtobuf._ProtoNameProvid
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

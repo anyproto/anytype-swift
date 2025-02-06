@@ -25,36 +25,25 @@ extension Anytype_Event.Space {
 
       public init?(rawValue: Int) {
         switch rawValue {
-        case 0:
-            self = .null
-        case 1:
-            self = .storageLimitExceed
-        case 2:
-            self = .incompatibleVersion
-        case 3:
-            self = .networkError
-        default:
-            self = .UNRECOGNIZED(rawValue)
+        case 0: self = .null
+        case 1: self = .storageLimitExceed
+        case 2: self = .incompatibleVersion
+        case 3: self = .networkError
+        default: self = .UNRECOGNIZED(rawValue)
         }
       }
 
       public var rawValue: Int {
         switch self {
-        case .null:
-            return 0
-        case .storageLimitExceed:
-            return 1
-        case .incompatibleVersion:
-            return 2
-        case .networkError:
-            return 3
-        case .UNRECOGNIZED(let i):
-            return i
+        case .null: return 0
+        case .storageLimitExceed: return 1
+        case .incompatibleVersion: return 2
+        case .networkError: return 3
+        case .UNRECOGNIZED(let i): return i
         }
       }
 
-    }
-}
+    }}
 
 extension Anytype_Event.Space.SyncError: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,8 +54,7 @@ extension Anytype_Event.Space.SyncError: CaseIterable {
     .networkError,
   ]
 }
-extension Anytype_Event.Space.SyncError: @unchecked Sendable {
-}
+extension Anytype_Event.Space.SyncError: @unchecked Sendable {}
 
 extension Anytype_Event.Space.SyncError: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -83,8 +71,7 @@ extension Anytype_Event.Space.SyncError: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

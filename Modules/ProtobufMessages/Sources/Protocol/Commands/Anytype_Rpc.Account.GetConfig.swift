@@ -31,24 +31,17 @@ extension Anytype_Rpc.Account {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Rpc.Account.GetConfig: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.GetConfig.Get: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.GetConfig.Get.Request: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Rpc.Account.GetConfig: @unchecked Sendable {}
+extension Anytype_Rpc.Account.GetConfig.Get: @unchecked Sendable {}
+extension Anytype_Rpc.Account.GetConfig.Get.Request: @unchecked Sendable {}
 
 extension Anytype_Rpc.Account.GetConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".GetConfig"
@@ -64,9 +57,7 @@ extension Anytype_Rpc.Account.GetConfig: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.GetConfig, rhs: Anytype_Rpc.Account.GetConfig) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -85,9 +76,7 @@ extension Anytype_Rpc.Account.GetConfig.Get: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.GetConfig.Get, rhs: Anytype_Rpc.Account.GetConfig.Get) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -106,9 +95,7 @@ extension Anytype_Rpc.Account.GetConfig.Get.Request: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.GetConfig.Get.Request, rhs: Anytype_Rpc.Account.GetConfig.Get.Request) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -119,8 +106,7 @@ extension Anytype_Rpc.Account.GetConfig.Get.Request: SwiftProtobuf.Message, Swif
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

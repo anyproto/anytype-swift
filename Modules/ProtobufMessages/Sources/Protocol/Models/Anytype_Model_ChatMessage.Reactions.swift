@@ -16,16 +16,13 @@ extension Anytype_Model_ChatMessage {
     // methods supported on all messages.
 
     /// Map of emoji to list of user IDs
-    public var reactions: Dictionary<String, Anytype_Model_ChatMessage.Reactions.IdentityList> = [:]
+    public var reactions: Dictionary<String,Anytype_Model_ChatMessage.Reactions.IdentityList> = [:]
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_ChatMessage.Reactions: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_ChatMessage.Reactions: @unchecked Sendable {}
 
 extension Anytype_Model_ChatMessage.Reactions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".Reactions"
@@ -39,30 +36,22 @@ extension Anytype_Model_ChatMessage.Reactions: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Anytype_Model_ChatMessage.Reactions.IdentityList>.self, value: &self.reactions)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Anytype_Model_ChatMessage.Reactions.IdentityList>.self, value: &self.reactions) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.reactions.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Anytype_Model_ChatMessage.Reactions.IdentityList>.self, value: self.reactions, fieldNumber: 1)
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Anytype_Model_ChatMessage.Reactions.IdentityList>.self, value: self.reactions, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_ChatMessage.Reactions, rhs: Anytype_Model_ChatMessage.Reactions) -> Bool {
-    if lhs.reactions != rhs.reactions {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.reactions != rhs.reactions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -73,8 +62,7 @@ extension Anytype_Model_ChatMessage.Reactions: SwiftProtobuf.Message, SwiftProto
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

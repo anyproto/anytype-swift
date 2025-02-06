@@ -27,36 +27,25 @@ extension Anytype_Event.P2PStatus {
 
       public init?(rawValue: Int) {
         switch rawValue {
-        case 0:
-            self = .notConnected
-        case 1:
-            self = .notPossible
-        case 2:
-            self = .connected
-        case 3:
-            self = .restricted
-        default:
-            self = .UNRECOGNIZED(rawValue)
+        case 0: self = .notConnected
+        case 1: self = .notPossible
+        case 2: self = .connected
+        case 3: self = .restricted
+        default: self = .UNRECOGNIZED(rawValue)
         }
       }
 
       public var rawValue: Int {
         switch self {
-        case .notConnected:
-            return 0
-        case .notPossible:
-            return 1
-        case .connected:
-            return 2
-        case .restricted:
-            return 3
-        case .UNRECOGNIZED(let i):
-            return i
+        case .notConnected: return 0
+        case .notPossible: return 1
+        case .connected: return 2
+        case .restricted: return 3
+        case .UNRECOGNIZED(let i): return i
         }
       }
 
-    }
-}
+    }}
 
 extension Anytype_Event.P2PStatus.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -67,8 +56,7 @@ extension Anytype_Event.P2PStatus.Status: CaseIterable {
     .restricted,
   ]
 }
-extension Anytype_Event.P2PStatus.Status: @unchecked Sendable {
-}
+extension Anytype_Event.P2PStatus.Status: @unchecked Sendable {}
 
 extension Anytype_Event.P2PStatus.Status: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -85,8 +73,7 @@ extension Anytype_Event.P2PStatus.Status: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

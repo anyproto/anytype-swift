@@ -18,11 +18,9 @@ public struct Anytype_Model_Relations {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_Relations: @unchecked Sendable {
-}
+extension Anytype_Model_Relations: @unchecked Sendable {}
 
 extension Anytype_Model_Relations: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Relations"
@@ -36,12 +34,8 @@ extension Anytype_Model_Relations: SwiftProtobuf.Message, SwiftProtobuf._Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relations)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      default: break
       }
     }
   }
@@ -54,12 +48,8 @@ extension Anytype_Model_Relations: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   public static func ==(lhs: Anytype_Model_Relations, rhs: Anytype_Model_Relations) -> Bool {
-    if lhs.relations != rhs.relations {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.relations != rhs.relations {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -70,8 +60,7 @@ extension Anytype_Model_Relations: SwiftProtobuf.Message, SwiftProtobuf._Message
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

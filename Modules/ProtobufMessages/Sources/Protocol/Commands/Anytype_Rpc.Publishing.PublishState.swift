@@ -32,32 +32,21 @@ extension Anytype_Rpc.Publishing {
       public var joinSpace: Bool = false
 
       public var details: SwiftProtobuf.Google_Protobuf_Struct {
-        get {
-                return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-            }
-        set {
-                _details = newValue
-            }
+        get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+        set {_details = newValue}
       }
       /// Returns true if `details` has been explicitly set.
-      public var hasDetails: Bool {
-              return self._details != nil
-          }
+      public var hasDetails: Bool {return self._details != nil}
       /// Clears the value of `details`. Subsequent reads from it will return its default value.
-      public mutating func clearDetails() {
-              self._details = nil
-          }
+      public mutating func clearDetails() {self._details = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
-    }
-}
-extension Anytype_Rpc.Publishing.PublishState: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Rpc.Publishing.PublishState: @unchecked Sendable {}
 
 extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Publishing.protoMessageName + ".PublishState"
@@ -79,44 +68,16 @@ extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.objectID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.uri)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.status)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.version)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.timestamp)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.size)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.joinSpace)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.uri) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.version) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.timestamp) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.size) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.joinSpace) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      default: break
       }
     }
   }
@@ -150,45 +111,23 @@ extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProto
     if self.joinSpace != false {
       try visitor.visitSingularBoolField(value: self.joinSpace, fieldNumber: 8)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Publishing.PublishState, rhs: Anytype_Rpc.Publishing.PublishState) -> Bool {
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.objectID != rhs.objectID {
-        return false
-    }
-    if lhs.uri != rhs.uri {
-        return false
-    }
-    if lhs.status != rhs.status {
-        return false
-    }
-    if lhs.version != rhs.version {
-        return false
-    }
-    if lhs.timestamp != rhs.timestamp {
-        return false
-    }
-    if lhs.size != rhs.size {
-        return false
-    }
-    if lhs.joinSpace != rhs.joinSpace {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs.uri != rhs.uri {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.version != rhs.version {return false}
+    if lhs.timestamp != rhs.timestamp {return false}
+    if lhs.size != rhs.size {return false}
+    if lhs.joinSpace != rhs.joinSpace {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -199,8 +138,7 @@ extension Anytype_Rpc.Publishing.PublishState: SwiftProtobuf.Message, SwiftProto
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

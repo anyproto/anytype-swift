@@ -22,11 +22,9 @@ public struct Anytype_ResponseEvent {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_ResponseEvent: @unchecked Sendable {
-}
+extension Anytype_ResponseEvent: @unchecked Sendable {}
 
 extension Anytype_ResponseEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ResponseEvent"
@@ -42,20 +40,10 @@ extension Anytype_ResponseEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.messages)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.traceID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
+      default: break
       }
     }
   }
@@ -74,18 +62,10 @@ extension Anytype_ResponseEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   }
 
   public static func ==(lhs: Anytype_ResponseEvent, rhs: Anytype_ResponseEvent) -> Bool {
-    if lhs.messages != rhs.messages {
-        return false
-    }
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.traceID != rhs.traceID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.messages != rhs.messages {return false}
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.traceID != rhs.traceID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -96,8 +76,7 @@ extension Anytype_ResponseEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

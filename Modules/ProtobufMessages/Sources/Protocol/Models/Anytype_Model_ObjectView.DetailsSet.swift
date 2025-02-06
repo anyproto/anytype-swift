@@ -20,34 +20,23 @@ extension Anytype_Model_ObjectView {
 
     /// can not be a partial state. Should replace client details state
     public var details: SwiftProtobuf.Google_Protobuf_Struct {
-      get {
-              return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-          }
-      set {
-              _details = newValue
-          }
+      get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+      set {_details = newValue}
     }
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool {
-            return self._details != nil
-        }
+    public var hasDetails: Bool {return self._details != nil}
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
-    public mutating func clearDetails() {
-            self._details = nil
-        }
+    public mutating func clearDetails() {self._details = nil}
 
     public var subIds: [String] = []
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
+    public init() {}
 
     fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
-  }
-}
-extension Anytype_Model_ObjectView.DetailsSet: @unchecked Sendable {
-}
+  }    }
+extension Anytype_Model_ObjectView.DetailsSet: @unchecked Sendable {}
 
 extension Anytype_Model_ObjectView.DetailsSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_ObjectView.protoMessageName + ".DetailsSet"
@@ -63,20 +52,10 @@ extension Anytype_Model_ObjectView.DetailsSet: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.subIds)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
+      default: break
       }
     }
   }
@@ -89,11 +68,9 @@ extension Anytype_Model_ObjectView.DetailsSet: SwiftProtobuf.Message, SwiftProto
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     if !self.subIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 3)
     }
@@ -101,18 +78,10 @@ extension Anytype_Model_ObjectView.DetailsSet: SwiftProtobuf.Message, SwiftProto
   }
 
   public static func ==(lhs: Anytype_Model_ObjectView.DetailsSet, rhs: Anytype_Model_ObjectView.DetailsSet) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.subIds != rhs.subIds {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.subIds != rhs.subIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -123,8 +92,7 @@ extension Anytype_Model_ObjectView.DetailsSet: SwiftProtobuf.Message, SwiftProto
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

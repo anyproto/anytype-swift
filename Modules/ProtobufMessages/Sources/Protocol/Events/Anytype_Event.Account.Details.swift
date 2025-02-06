@@ -18,32 +18,21 @@ extension Anytype_Event.Account {
       public var profileID: String = String()
 
       public var details: SwiftProtobuf.Google_Protobuf_Struct {
-        get {
-                return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-            }
-        set {
-                _details = newValue
-            }
+        get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+        set {_details = newValue}
       }
       /// Returns true if `details` has been explicitly set.
-      public var hasDetails: Bool {
-              return self._details != nil
-          }
+      public var hasDetails: Bool {return self._details != nil}
       /// Clears the value of `details`. Subsequent reads from it will return its default value.
-      public mutating func clearDetails() {
-              self._details = nil
-          }
+      public mutating func clearDetails() {self._details = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
-    }
-}
-extension Anytype_Event.Account.Details: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Event.Account.Details: @unchecked Sendable {}
 
 extension Anytype_Event.Account.Details: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".Details"
@@ -58,16 +47,9 @@ extension Anytype_Event.Account.Details: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.profileID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.profileID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      default: break
       }
     }
   }
@@ -80,24 +62,16 @@ extension Anytype_Event.Account.Details: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.profileID.isEmpty {
       try visitor.visitSingularStringField(value: self.profileID, fieldNumber: 1)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Account.Details, rhs: Anytype_Event.Account.Details) -> Bool {
-    if lhs.profileID != rhs.profileID {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.profileID != rhs.profileID {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -108,8 +82,7 @@ extension Anytype_Event.Account.Details: SwiftProtobuf.Message, SwiftProtobuf._M
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -25,26 +25,17 @@ extension Anytype_Rpc.Chat {
         public var chatObjectID: String = String()
 
         public var message: Anytype_Model_ChatMessage {
-          get {
-                  return _message ?? Anytype_Model_ChatMessage()
-              }
-          set {
-                  _message = newValue
-              }
+          get {return _message ?? Anytype_Model_ChatMessage()}
+          set {_message = newValue}
         }
         /// Returns true if `message` has been explicitly set.
-        public var hasMessage: Bool {
-                return self._message != nil
-            }
+        public var hasMessage: Bool {return self._message != nil}
         /// Clears the value of `message`. Subsequent reads from it will return its default value.
-        public mutating func clearMessage() {
-                self._message = nil
-            }
+        public mutating func clearMessage() {self._message = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _message: Anytype_Model_ChatMessage? = nil
       }
@@ -55,40 +46,24 @@ extension Anytype_Rpc.Chat {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Chat.AddMessage.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Chat.AddMessage.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Chat.AddMessage.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var messageID: String = String()
 
         public var event: Anytype_ResponseEvent {
-          get {
-                  return _event ?? Anytype_ResponseEvent()
-              }
-          set {
-                  _event = newValue
-              }
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
         /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {
-                return self._event != nil
-            }
+        public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {
-                self._event = nil
-            }
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -118,47 +93,35 @@ extension Anytype_Rpc.Chat {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Chat.AddMessage.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Chat.AddMessage.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -168,16 +131,11 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Chat.AddMessage: @unchecked Sendable {
-}
-extension Anytype_Rpc.Chat.AddMessage.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Chat.AddMessage.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Chat.AddMessage.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Chat.AddMessage.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Chat.AddMessage: @unchecked Sendable {}
+extension Anytype_Rpc.Chat.AddMessage.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Chat.AddMessage.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Chat.AddMessage.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Chat.AddMessage.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Chat.AddMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".AddMessage"
@@ -193,9 +151,7 @@ extension Anytype_Rpc.Chat.AddMessage: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.AddMessage, rhs: Anytype_Rpc.Chat.AddMessage) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -213,16 +169,9 @@ extension Anytype_Rpc.Chat.AddMessage.Request: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.chatObjectID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._message)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      default: break
       }
     }
   }
@@ -235,24 +184,16 @@ extension Anytype_Rpc.Chat.AddMessage.Request: SwiftProtobuf.Message, SwiftProto
     if !self.chatObjectID.isEmpty {
       try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 1)
     }
-    try {
-        if let v = self._message {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.AddMessage.Request, rhs: Anytype_Rpc.Chat.AddMessage.Request) -> Bool {
-    if lhs.chatObjectID != rhs.chatObjectID {
-        return false
-    }
-    if lhs._message != rhs._message {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.chatObjectID != rhs.chatObjectID {return false}
+    if lhs._message != rhs._message {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -271,20 +212,10 @@ extension Anytype_Rpc.Chat.AddMessage.Response: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.messageID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.messageID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -294,35 +225,23 @@ extension Anytype_Rpc.Chat.AddMessage.Response: SwiftProtobuf.Message, SwiftProt
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.messageID.isEmpty {
       try visitor.visitSingularStringField(value: self.messageID, fieldNumber: 2)
     }
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.AddMessage.Response, rhs: Anytype_Rpc.Chat.AddMessage.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.messageID != rhs.messageID {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.messageID != rhs.messageID {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -340,16 +259,9 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -365,15 +277,9 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.AddMessage.Response.Error, rhs: Anytype_Rpc.Chat.AddMessage.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -392,8 +298,7 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error.Code: SwiftProtobuf._ProtoN
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

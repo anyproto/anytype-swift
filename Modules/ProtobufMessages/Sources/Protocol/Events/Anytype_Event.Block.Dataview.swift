@@ -34,35 +34,23 @@ extension Anytype_Event.Block {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .none
-          case 1:
-                  self = .add
-          case 2:
-                  self = .move
-          case 3:
-                  self = .remove
-          case 4:
-                  self = .replace
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .none
+          case 1: self = .add
+          case 2: self = .move
+          case 3: self = .remove
+          case 4: self = .replace
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .none:
-                  return 0
-          case .add:
-                  return 1
-          case .move:
-                  return 2
-          case .remove:
-                  return 3
-          case .replace:
-                  return 4
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .none: return 0
+          case .add: return 1
+          case .move: return 2
+          case .remove: return 3
+          case .replace: return 4
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -76,45 +64,28 @@ extension Anytype_Event.Block {
 
         /// dataview block's id
         public var id: String {
-          get {
-                  return _storage._id
-              }
-          set {
-                  _uniqueStorage()._id = newValue
-              }
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
         }
 
         /// view id, client should double check this to make sure client doesn't switch the active view in the middle
         public var viewID: String {
-          get {
-                  return _storage._viewID
-              }
-          set {
-                  _uniqueStorage()._viewID = newValue
-              }
+          get {return _storage._viewID}
+          set {_uniqueStorage()._viewID = newValue}
         }
 
         public var view: Anytype_Model_Block.Content.Dataview.View {
-          get {
-                  return _storage._view ?? Anytype_Model_Block.Content.Dataview.View()
-              }
-          set {
-                  _uniqueStorage()._view = newValue
-              }
+          get {return _storage._view ?? Anytype_Model_Block.Content.Dataview.View()}
+          set {_uniqueStorage()._view = newValue}
         }
         /// Returns true if `view` has been explicitly set.
-        public var hasView: Bool {
-                return _storage._view != nil
-            }
+        public var hasView: Bool {return _storage._view != nil}
         /// Clears the value of `view`. Subsequent reads from it will return its default value.
-        public mutating func clearView() {
-                _uniqueStorage()._view = nil
-            }
+        public mutating func clearView() {_uniqueStorage()._view = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _storage = _StorageClass.defaultInstance
       }
@@ -135,21 +106,13 @@ extension Anytype_Event.Block {
         public var sort: [Anytype_Event.Block.Dataview.ViewUpdate.Sort] = []
 
         public var fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields {
-          get {
-                  return _fields ?? Anytype_Event.Block.Dataview.ViewUpdate.Fields()
-              }
-          set {
-                  _fields = newValue
-              }
+          get {return _fields ?? Anytype_Event.Block.Dataview.ViewUpdate.Fields()}
+          set {_fields = newValue}
         }
         /// Returns true if `fields` has been explicitly set.
-        public var hasFields: Bool {
-                return self._fields != nil
-            }
+        public var hasFields: Bool {return self._fields != nil}
         /// Clears the value of `fields`. Subsequent reads from it will return its default value.
-        public mutating func clearFields() {
-                self._fields = nil
-            }
+        public mutating func clearFields() {self._fields = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -191,8 +154,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Filter {
@@ -204,50 +166,34 @@ extension Anytype_Event.Block {
 
           public var add: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add {
             get {
-              if case .add(let v)? = operation {
-                      return v
-                  }
+              if case .add(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add()
             }
-            set {
-                    operation = .add(newValue)
-                }
+            set {operation = .add(newValue)}
           }
 
           public var remove: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove {
             get {
-              if case .remove(let v)? = operation {
-                      return v
-                  }
+              if case .remove(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove()
             }
-            set {
-                    operation = .remove(newValue)
-                }
+            set {operation = .remove(newValue)}
           }
 
           public var update: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update {
             get {
-              if case .update(let v)? = operation {
-                      return v
-                  }
+              if case .update(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update()
             }
-            set {
-                    operation = .update(newValue)
-                }
+            set {operation = .update(newValue)}
           }
 
           public var move: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move {
             get {
-              if case .move(let v)? = operation {
-                      return v
-                  }
+              if case .move(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move()
             }
-            set {
-                    operation = .move(newValue)
-                }
+            set {operation = .move(newValue)}
           }
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -264,36 +210,23 @@ extension Anytype_Event.Block {
               // allocates stack space for every case branch when no optimizations are
               // enabled. https://github.com/apple/swift-protobuf/issues/1034
               switch (lhs, rhs) {
-              case (.add, .add):
-                      return {
-                                      guard case .add(let l) = lhs, case .add(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.remove, .remove):
-                      return {
-                                      guard case .remove(let l) = lhs, case .remove(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.update, .update):
-                      return {
-                                      guard case .update(let l) = lhs, case .update(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.move, .move):
-                      return {
-                                      guard case .move(let l) = lhs, case .move(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              default:
-                      return false
+              case (.add, .add): return {
+                guard case .add(let l) = lhs, case .add(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.remove, .remove): return {
+                guard case .remove(let l) = lhs, case .remove(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.update, .update): return {
+                guard case .update(let l) = lhs, case .update(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.move, .move): return {
+                guard case .move(let l) = lhs, case .move(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              default: return false
               }
             }
           #endif
@@ -310,8 +243,7 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
           public struct Remove {
@@ -323,8 +255,7 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
           public struct Update {
@@ -335,26 +266,17 @@ extension Anytype_Event.Block {
             public var id: String = String()
 
             public var item: Anytype_Model_Block.Content.Dataview.Filter {
-              get {
-                      return _item ?? Anytype_Model_Block.Content.Dataview.Filter()
-                  }
-              set {
-                      _item = newValue
-                  }
+              get {return _item ?? Anytype_Model_Block.Content.Dataview.Filter()}
+              set {_item = newValue}
             }
             /// Returns true if `item` has been explicitly set.
-            public var hasItem: Bool {
-                    return self._item != nil
-                }
+            public var hasItem: Bool {return self._item != nil}
             /// Clears the value of `item`. Subsequent reads from it will return its default value.
-            public mutating func clearItem() {
-                    self._item = nil
-                }
+            public mutating func clearItem() {self._item = nil}
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
 
             fileprivate var _item: Anytype_Model_Block.Content.Dataview.Filter? = nil
           }
@@ -370,12 +292,10 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Relation {
@@ -387,50 +307,34 @@ extension Anytype_Event.Block {
 
           public var add: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add {
             get {
-              if case .add(let v)? = operation {
-                      return v
-                  }
+              if case .add(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add()
             }
-            set {
-                    operation = .add(newValue)
-                }
+            set {operation = .add(newValue)}
           }
 
           public var remove: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove {
             get {
-              if case .remove(let v)? = operation {
-                      return v
-                  }
+              if case .remove(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove()
             }
-            set {
-                    operation = .remove(newValue)
-                }
+            set {operation = .remove(newValue)}
           }
 
           public var update: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update {
             get {
-              if case .update(let v)? = operation {
-                      return v
-                  }
+              if case .update(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update()
             }
-            set {
-                    operation = .update(newValue)
-                }
+            set {operation = .update(newValue)}
           }
 
           public var move: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move {
             get {
-              if case .move(let v)? = operation {
-                      return v
-                  }
+              if case .move(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move()
             }
-            set {
-                    operation = .move(newValue)
-                }
+            set {operation = .move(newValue)}
           }
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -447,36 +351,23 @@ extension Anytype_Event.Block {
               // allocates stack space for every case branch when no optimizations are
               // enabled. https://github.com/apple/swift-protobuf/issues/1034
               switch (lhs, rhs) {
-              case (.add, .add):
-                      return {
-                                      guard case .add(let l) = lhs, case .add(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.remove, .remove):
-                      return {
-                                      guard case .remove(let l) = lhs, case .remove(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.update, .update):
-                      return {
-                                      guard case .update(let l) = lhs, case .update(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.move, .move):
-                      return {
-                                      guard case .move(let l) = lhs, case .move(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              default:
-                      return false
+              case (.add, .add): return {
+                guard case .add(let l) = lhs, case .add(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.remove, .remove): return {
+                guard case .remove(let l) = lhs, case .remove(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.update, .update): return {
+                guard case .update(let l) = lhs, case .update(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.move, .move): return {
+                guard case .move(let l) = lhs, case .move(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              default: return false
               }
             }
           #endif
@@ -493,8 +384,7 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
           public struct Remove {
@@ -506,8 +396,7 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
           public struct Update {
@@ -518,26 +407,17 @@ extension Anytype_Event.Block {
             public var id: String = String()
 
             public var item: Anytype_Model_Block.Content.Dataview.Relation {
-              get {
-                      return _item ?? Anytype_Model_Block.Content.Dataview.Relation()
-                  }
-              set {
-                      _item = newValue
-                  }
+              get {return _item ?? Anytype_Model_Block.Content.Dataview.Relation()}
+              set {_item = newValue}
             }
             /// Returns true if `item` has been explicitly set.
-            public var hasItem: Bool {
-                    return self._item != nil
-                }
+            public var hasItem: Bool {return self._item != nil}
             /// Clears the value of `item`. Subsequent reads from it will return its default value.
-            public mutating func clearItem() {
-                    self._item = nil
-                }
+            public mutating func clearItem() {self._item = nil}
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
 
             fileprivate var _item: Anytype_Model_Block.Content.Dataview.Relation? = nil
           }
@@ -553,12 +433,10 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Sort {
@@ -570,50 +448,34 @@ extension Anytype_Event.Block {
 
           public var add: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add {
             get {
-              if case .add(let v)? = operation {
-                      return v
-                  }
+              if case .add(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add()
             }
-            set {
-                    operation = .add(newValue)
-                }
+            set {operation = .add(newValue)}
           }
 
           public var remove: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove {
             get {
-              if case .remove(let v)? = operation {
-                      return v
-                  }
+              if case .remove(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove()
             }
-            set {
-                    operation = .remove(newValue)
-                }
+            set {operation = .remove(newValue)}
           }
 
           public var update: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update {
             get {
-              if case .update(let v)? = operation {
-                      return v
-                  }
+              if case .update(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update()
             }
-            set {
-                    operation = .update(newValue)
-                }
+            set {operation = .update(newValue)}
           }
 
           public var move: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move {
             get {
-              if case .move(let v)? = operation {
-                      return v
-                  }
+              if case .move(let v)? = operation {return v}
               return Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move()
             }
-            set {
-                    operation = .move(newValue)
-                }
+            set {operation = .move(newValue)}
           }
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -630,36 +492,23 @@ extension Anytype_Event.Block {
               // allocates stack space for every case branch when no optimizations are
               // enabled. https://github.com/apple/swift-protobuf/issues/1034
               switch (lhs, rhs) {
-              case (.add, .add):
-                      return {
-                                      guard case .add(let l) = lhs, case .add(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.remove, .remove):
-                      return {
-                                      guard case .remove(let l) = lhs, case .remove(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.update, .update):
-                      return {
-                                      guard case .update(let l) = lhs, case .update(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.move, .move):
-                      return {
-                                      guard case .move(let l) = lhs, case .move(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              default:
-                      return false
+              case (.add, .add): return {
+                guard case .add(let l) = lhs, case .add(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.remove, .remove): return {
+                guard case .remove(let l) = lhs, case .remove(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.update, .update): return {
+                guard case .update(let l) = lhs, case .update(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.move, .move): return {
+                guard case .move(let l) = lhs, case .move(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              default: return false
               }
             }
           #endif
@@ -676,8 +525,7 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
           public struct Remove {
@@ -689,8 +537,7 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
           public struct Update {
@@ -701,26 +548,17 @@ extension Anytype_Event.Block {
             public var id: String = String()
 
             public var item: Anytype_Model_Block.Content.Dataview.Sort {
-              get {
-                      return _item ?? Anytype_Model_Block.Content.Dataview.Sort()
-                  }
-              set {
-                      _item = newValue
-                  }
+              get {return _item ?? Anytype_Model_Block.Content.Dataview.Sort()}
+              set {_item = newValue}
             }
             /// Returns true if `item` has been explicitly set.
-            public var hasItem: Bool {
-                    return self._item != nil
-                }
+            public var hasItem: Bool {return self._item != nil}
             /// Clears the value of `item`. Subsequent reads from it will return its default value.
-            public mutating func clearItem() {
-                    self._item = nil
-                }
+            public mutating func clearItem() {self._item = nil}
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
 
             fileprivate var _item: Anytype_Model_Block.Content.Dataview.Sort? = nil
           }
@@ -736,16 +574,13 @@ extension Anytype_Event.Block {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields? = nil
       }
@@ -763,8 +598,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct ViewOrder {
@@ -780,8 +614,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct SourceSet {
@@ -796,8 +629,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct OldRelationDelete {
@@ -813,8 +645,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       /// sent when the dataview relation has been changed or added
@@ -830,26 +661,17 @@ extension Anytype_Event.Block {
         public var relationKey: String = String()
 
         public var relation: Anytype_Model_Relation {
-          get {
-                  return _relation ?? Anytype_Model_Relation()
-              }
-          set {
-                  _relation = newValue
-              }
+          get {return _relation ?? Anytype_Model_Relation()}
+          set {_relation = newValue}
         }
         /// Returns true if `relation` has been explicitly set.
-        public var hasRelation: Bool {
-                return self._relation != nil
-            }
+        public var hasRelation: Bool {return self._relation != nil}
         /// Clears the value of `relation`. Subsequent reads from it will return its default value.
-        public mutating func clearRelation() {
-                self._relation = nil
-            }
+        public mutating func clearRelation() {self._relation = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _relation: Anytype_Model_Relation? = nil
       }
@@ -867,8 +689,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       /// sent when the dataview relation has been changed or added
@@ -885,8 +706,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct GroupOrderUpdate {
@@ -898,26 +718,17 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder {
-          get {
-                  return _groupOrder ?? Anytype_Model_Block.Content.Dataview.GroupOrder()
-              }
-          set {
-                  _groupOrder = newValue
-              }
+          get {return _groupOrder ?? Anytype_Model_Block.Content.Dataview.GroupOrder()}
+          set {_groupOrder = newValue}
         }
         /// Returns true if `groupOrder` has been explicitly set.
-        public var hasGroupOrder: Bool {
-                return self._groupOrder != nil
-            }
+        public var hasGroupOrder: Bool {return self._groupOrder != nil}
         /// Clears the value of `groupOrder`. Subsequent reads from it will return its default value.
-        public mutating func clearGroupOrder() {
-                self._groupOrder = nil
-            }
+        public mutating func clearGroupOrder() {self._groupOrder = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder? = nil
       }
@@ -938,8 +749,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct SliceChange {
@@ -955,8 +765,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct TargetObjectIdSet {
@@ -971,8 +780,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct IsCollectionSet {
@@ -987,14 +795,11 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -1006,76 +811,41 @@ extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
     .replace,
   ]
 }
-extension Anytype_Event.Block.Dataview: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.SliceOperation: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewSet: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Filter: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.OneOf_Operation: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Relation: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.OneOf_Operation: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Sort: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.OneOf_Operation: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewDelete: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ViewOrder: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.SourceSet: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.OldRelationDelete: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.OldRelationSet: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.RelationDelete: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.RelationSet: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.GroupOrderUpdate: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.SliceChange: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.TargetObjectIdSet: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Dataview.IsCollectionSet: @unchecked Sendable {
-}
+extension Anytype_Event.Block.Dataview: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.SliceOperation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.OneOf_Operation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.OneOf_Operation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.OneOf_Operation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewDelete: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewOrder: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.SourceSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.OldRelationDelete: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.OldRelationSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.RelationDelete: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.RelationSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.GroupOrderUpdate: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.SliceChange: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.TargetObjectIdSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.IsCollectionSet: @unchecked Sendable {}
 
 extension Anytype_Event.Block.Dataview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.protoMessageName + ".Dataview"
@@ -1091,9 +861,7 @@ extension Anytype_Event.Block.Dataview: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview, rhs: Anytype_Event.Block.Dataview) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1123,8 +891,7 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
 
     static let defaultInstance = _StorageClass()
 
-    private init() {
-    }
+    private init() {}
 
     init(copying source: _StorageClass) {
       _id = source._id
@@ -1148,20 +915,10 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._id)
-            }()
-        case 2:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._viewID)
-            }()
-        case 3:
-            try {
-                try decoder.decodeSingularMessageField(value: &_storage._view)
-            }()
-        default:
-            break
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._viewID) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._view) }()
+        default: break
         }
       }
     }
@@ -1179,11 +936,9 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
       if !_storage._viewID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._viewID, fieldNumber: 2)
       }
-      try {
-          if let v = _storage._view {
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-                }
-      }()
+      try { if let v = _storage._view {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1193,24 +948,14 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {
-            return false
-        }
-        if _storage._viewID != rhs_storage._viewID {
-            return false
-        }
-        if _storage._view != rhs_storage._view {
-            return false
-        }
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._viewID != rhs_storage._viewID {return false}
+        if _storage._view != rhs_storage._view {return false}
         return true
       }
-      if !storagesAreEqual {
-          return false
-      }
+      if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1232,32 +977,13 @@ extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.filter)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relation)
-          }()
-      case 5:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.sort)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._fields)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.filter) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relation) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.sort) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      default: break
       }
     }
   }
@@ -1282,36 +1008,20 @@ extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftP
     if !self.sort.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.sort, fieldNumber: 5)
     }
-    try {
-        if let v = self._fields {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
+    try { if let v = self._fields {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate, rhs: Anytype_Event.Block.Dataview.ViewUpdate) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs.filter != rhs.filter {
-        return false
-    }
-    if lhs.relation != rhs.relation {
-        return false
-    }
-    if lhs.sort != rhs.sort {
-        return false
-    }
-    if lhs._fields != rhs._fields {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.filter != rhs.filter {return false}
+    if lhs.relation != rhs.relation {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs._fields != rhs._fields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1338,52 +1048,18 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.coverRelationKey)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.hideIcon)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.cardSize)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.coverFit)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.groupRelationKey)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.pageLimit)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularStringField(value: &self.defaultTemplateID)
-          }()
-      case 15:
-          try {
-              try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.coverRelationKey) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.hideIcon) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.cardSize) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID) }()
+      default: break
       }
     }
   }
@@ -1426,42 +1102,18 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Fields, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Fields) -> Bool {
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.coverRelationKey != rhs.coverRelationKey {
-        return false
-    }
-    if lhs.hideIcon != rhs.hideIcon {
-        return false
-    }
-    if lhs.cardSize != rhs.cardSize {
-        return false
-    }
-    if lhs.coverFit != rhs.coverFit {
-        return false
-    }
-    if lhs.groupRelationKey != rhs.groupRelationKey {
-        return false
-    }
-    if lhs.groupBackgroundColors != rhs.groupBackgroundColors {
-        return false
-    }
-    if lhs.pageLimit != rhs.pageLimit {
-        return false
-    }
-    if lhs.defaultTemplateID != rhs.defaultTemplateID {
-        return false
-    }
-    if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.type != rhs.type {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.coverRelationKey != rhs.coverRelationKey {return false}
+    if lhs.hideIcon != rhs.hideIcon {return false}
+    if lhs.cardSize != rhs.cardSize {return false}
+    if lhs.coverFit != rhs.coverFit {return false}
+    if lhs.groupRelationKey != rhs.groupRelationKey {return false}
+    if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
+    if lhs.pageLimit != rhs.pageLimit {return false}
+    if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
+    if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1481,80 +1133,59 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .add(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .add(v)
-                  }
-                }()
-      case 2:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .remove(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .remove(v)
-                  }
-                }()
-      case 3:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .update(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .update(v)
-                  }
-                }()
-      case 4:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .move(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .move(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .add(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .add(v)
+        }
+      }()
+      case 2: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .remove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .remove(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .update(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .update(v)
+        }
+      }()
+      case 4: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .move(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .move(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -1565,47 +1196,30 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter: SwiftProtobuf.Message,
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
     switch self.operation {
-    case .add?:
-        try {
-              guard case .add(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }()
-    case .remove?:
-        try {
-              guard case .remove(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }()
-    case .update?:
-        try {
-              guard case .update(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }()
-    case .move?:
-        try {
-              guard case .move(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }()
-    case nil:
-        break
+    case .add?: try {
+      guard case .add(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .remove?: try {
+      guard case .remove(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .update?: try {
+      guard case .update(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .move?: try {
+      guard case .move(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter) -> Bool {
-    if lhs.operation != rhs.operation {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.operation != rhs.operation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1623,16 +1237,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add: SwiftProtobuf.Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.items)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
       }
     }
   }
@@ -1648,15 +1255,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add: SwiftProtobuf.Mess
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add) -> Bool {
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.items != rhs.items {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1673,12 +1274,8 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove: SwiftProtobuf.M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -1691,12 +1288,8 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove: SwiftProtobuf.M
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove) -> Bool {
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1714,16 +1307,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update: SwiftProtobuf.M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._item)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._item) }()
+      default: break
       }
     }
   }
@@ -1736,24 +1322,16 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update: SwiftProtobuf.M
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._item {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._item {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._item != rhs._item {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._item != rhs._item {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1771,16 +1349,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move: SwiftProtobuf.Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -1796,15 +1367,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move: SwiftProtobuf.Mes
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move) -> Bool {
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1824,80 +1389,59 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .add(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .add(v)
-                  }
-                }()
-      case 2:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .remove(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .remove(v)
-                  }
-                }()
-      case 3:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .update(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .update(v)
-                  }
-                }()
-      case 4:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .move(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .move(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .add(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .add(v)
+        }
+      }()
+      case 2: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .remove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .remove(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .update(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .update(v)
+        }
+      }()
+      case 4: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .move(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .move(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -1908,47 +1452,30 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation: SwiftProtobuf.Messag
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
     switch self.operation {
-    case .add?:
-        try {
-              guard case .add(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }()
-    case .remove?:
-        try {
-              guard case .remove(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }()
-    case .update?:
-        try {
-              guard case .update(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }()
-    case .move?:
-        try {
-              guard case .move(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }()
-    case nil:
-        break
+    case .add?: try {
+      guard case .add(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .remove?: try {
+      guard case .remove(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .update?: try {
+      guard case .update(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .move?: try {
+      guard case .move(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation) -> Bool {
-    if lhs.operation != rhs.operation {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.operation != rhs.operation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1966,16 +1493,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add: SwiftProtobuf.Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.items)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
       }
     }
   }
@@ -1991,15 +1511,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add: SwiftProtobuf.Me
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add) -> Bool {
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.items != rhs.items {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2016,12 +1530,8 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove: SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -2034,12 +1544,8 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove: SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove) -> Bool {
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2057,16 +1563,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update: SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._item)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._item) }()
+      default: break
       }
     }
   }
@@ -2079,24 +1578,16 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update: SwiftProtobuf
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._item {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._item {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._item != rhs._item {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._item != rhs._item {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2114,16 +1605,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move: SwiftProtobuf.M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -2139,15 +1623,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move: SwiftProtobuf.M
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move) -> Bool {
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2167,80 +1645,59 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .add(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .add(v)
-                  }
-                }()
-      case 2:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .remove(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .remove(v)
-                  }
-                }()
-      case 3:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .update(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .update(v)
-                  }
-                }()
-      case 4:
-          try {
-                  var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move?
-                  var hadOneofValue = false
-                  if let current = self.operation {
-                    hadOneofValue = true
-                    if case .move(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.operation = .move(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .add(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .add(v)
+        }
+      }()
+      case 2: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .remove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .remove(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .update(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .update(v)
+        }
+      }()
+      case 4: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .move(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .move(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -2251,47 +1708,30 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort: SwiftProtobuf.Message, S
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
     switch self.operation {
-    case .add?:
-        try {
-              guard case .add(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }()
-    case .remove?:
-        try {
-              guard case .remove(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }()
-    case .update?:
-        try {
-              guard case .update(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }()
-    case .move?:
-        try {
-              guard case .move(let v)? = self.operation else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }()
-    case nil:
-        break
+    case .add?: try {
+      guard case .add(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .remove?: try {
+      guard case .remove(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .update?: try {
+      guard case .update(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .move?: try {
+      guard case .move(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort) -> Bool {
-    if lhs.operation != rhs.operation {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.operation != rhs.operation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2309,16 +1749,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.items)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
       }
     }
   }
@@ -2334,15 +1767,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add: SwiftProtobuf.Messag
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add) -> Bool {
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.items != rhs.items {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2359,12 +1786,8 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove: SwiftProtobuf.Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -2377,12 +1800,8 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove: SwiftProtobuf.Mes
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove) -> Bool {
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2400,16 +1819,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update: SwiftProtobuf.Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._item)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._item) }()
+      default: break
       }
     }
   }
@@ -2422,24 +1834,16 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update: SwiftProtobuf.Mes
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._item {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._item {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._item != rhs._item {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._item != rhs._item {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2457,16 +1861,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move: SwiftProtobuf.Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -2482,15 +1879,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move: SwiftProtobuf.Messa
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move) -> Bool {
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2508,16 +1899,9 @@ extension Anytype_Event.Block.Dataview.ViewDelete: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      default: break
       }
     }
   }
@@ -2533,15 +1917,9 @@ extension Anytype_Event.Block.Dataview.ViewDelete: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewDelete, rhs: Anytype_Event.Block.Dataview.ViewDelete) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2559,16 +1937,9 @@ extension Anytype_Event.Block.Dataview.ViewOrder: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.viewIds)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.viewIds) }()
+      default: break
       }
     }
   }
@@ -2584,15 +1955,9 @@ extension Anytype_Event.Block.Dataview.ViewOrder: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewOrder, rhs: Anytype_Event.Block.Dataview.ViewOrder) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.viewIds != rhs.viewIds {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.viewIds != rhs.viewIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2610,16 +1975,9 @@ extension Anytype_Event.Block.Dataview.SourceSet: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.source)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.source) }()
+      default: break
       }
     }
   }
@@ -2635,15 +1993,9 @@ extension Anytype_Event.Block.Dataview.SourceSet: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.SourceSet, rhs: Anytype_Event.Block.Dataview.SourceSet) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.source != rhs.source {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.source != rhs.source {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2661,16 +2013,9 @@ extension Anytype_Event.Block.Dataview.OldRelationDelete: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationKey)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      default: break
       }
     }
   }
@@ -2686,15 +2031,9 @@ extension Anytype_Event.Block.Dataview.OldRelationDelete: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.OldRelationDelete, rhs: Anytype_Event.Block.Dataview.OldRelationDelete) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.relationKey != rhs.relationKey {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2713,20 +2052,10 @@ extension Anytype_Event.Block.Dataview.OldRelationSet: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationKey)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._relation)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._relation) }()
+      default: break
       }
     }
   }
@@ -2742,27 +2071,17 @@ extension Anytype_Event.Block.Dataview.OldRelationSet: SwiftProtobuf.Message, Sw
     if !self.relationKey.isEmpty {
       try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 2)
     }
-    try {
-        if let v = self._relation {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._relation {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.OldRelationSet, rhs: Anytype_Event.Block.Dataview.OldRelationSet) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.relationKey != rhs.relationKey {
-        return false
-    }
-    if lhs._relation != rhs._relation {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs._relation != rhs._relation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2780,16 +2099,9 @@ extension Anytype_Event.Block.Dataview.RelationDelete: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.relationKeys)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
+      default: break
       }
     }
   }
@@ -2805,15 +2117,9 @@ extension Anytype_Event.Block.Dataview.RelationDelete: SwiftProtobuf.Message, Sw
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.RelationDelete, rhs: Anytype_Event.Block.Dataview.RelationDelete) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.relationKeys != rhs.relationKeys {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.relationKeys != rhs.relationKeys {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2831,16 +2137,9 @@ extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relationLinks)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      default: break
       }
     }
   }
@@ -2856,15 +2155,9 @@ extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.RelationSet, rhs: Anytype_Event.Block.Dataview.RelationSet) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.relationLinks != rhs.relationLinks {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2882,16 +2175,9 @@ extension Anytype_Event.Block.Dataview.GroupOrderUpdate: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._groupOrder)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._groupOrder) }()
+      default: break
       }
     }
   }
@@ -2904,24 +2190,16 @@ extension Anytype_Event.Block.Dataview.GroupOrderUpdate: SwiftProtobuf.Message, 
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._groupOrder {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._groupOrder {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.GroupOrderUpdate, rhs: Anytype_Event.Block.Dataview.GroupOrderUpdate) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._groupOrder != rhs._groupOrder {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._groupOrder != rhs._groupOrder {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2941,24 +2219,11 @@ extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.groupID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.sliceChanges)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.sliceChanges) }()
+      default: break
       }
     }
   }
@@ -2980,21 +2245,11 @@ extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ObjectOrderUpdate, rhs: Anytype_Event.Block.Dataview.ObjectOrderUpdate) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs.groupID != rhs.groupID {
-        return false
-    }
-    if lhs.sliceChanges != rhs.sliceChanges {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.sliceChanges != rhs.sliceChanges {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3013,20 +2268,10 @@ extension Anytype_Event.Block.Dataview.SliceChange: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.op)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.op) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      default: break
       }
     }
   }
@@ -3045,18 +2290,10 @@ extension Anytype_Event.Block.Dataview.SliceChange: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.SliceChange, rhs: Anytype_Event.Block.Dataview.SliceChange) -> Bool {
-    if lhs.op != rhs.op {
-        return false
-    }
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.op != rhs.op {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3074,16 +2311,9 @@ extension Anytype_Event.Block.Dataview.TargetObjectIdSet: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.targetObjectID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
+      default: break
       }
     }
   }
@@ -3099,15 +2329,9 @@ extension Anytype_Event.Block.Dataview.TargetObjectIdSet: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.TargetObjectIdSet, rhs: Anytype_Event.Block.Dataview.TargetObjectIdSet) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.targetObjectID != rhs.targetObjectID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3125,16 +2349,9 @@ extension Anytype_Event.Block.Dataview.IsCollectionSet: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3150,15 +2367,9 @@ extension Anytype_Event.Block.Dataview.IsCollectionSet: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.IsCollectionSet, rhs: Anytype_Event.Block.Dataview.IsCollectionSet) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3169,8 +2380,7 @@ extension Anytype_Event.Block.Dataview.IsCollectionSet: SwiftProtobuf.Message, S
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

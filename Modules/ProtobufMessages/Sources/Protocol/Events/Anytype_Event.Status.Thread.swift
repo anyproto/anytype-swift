@@ -16,38 +16,22 @@ extension Anytype_Event.Status {
       // methods supported on all messages.
 
       public var summary: Anytype_Event.Status.Thread.Summary {
-        get {
-                return _summary ?? Anytype_Event.Status.Thread.Summary()
-            }
-        set {
-                _summary = newValue
-            }
+        get {return _summary ?? Anytype_Event.Status.Thread.Summary()}
+        set {_summary = newValue}
       }
       /// Returns true if `summary` has been explicitly set.
-      public var hasSummary: Bool {
-              return self._summary != nil
-          }
+      public var hasSummary: Bool {return self._summary != nil}
       /// Clears the value of `summary`. Subsequent reads from it will return its default value.
-      public mutating func clearSummary() {
-              self._summary = nil
-          }
+      public mutating func clearSummary() {self._summary = nil}
 
       public var cafe: Anytype_Event.Status.Thread.Cafe {
-        get {
-                return _cafe ?? Anytype_Event.Status.Thread.Cafe()
-            }
-        set {
-                _cafe = newValue
-            }
+        get {return _cafe ?? Anytype_Event.Status.Thread.Cafe()}
+        set {_cafe = newValue}
       }
       /// Returns true if `cafe` has been explicitly set.
-      public var hasCafe: Bool {
-              return self._cafe != nil
-          }
+      public var hasCafe: Bool {return self._cafe != nil}
       /// Clears the value of `cafe`. Subsequent reads from it will return its default value.
-      public mutating func clearCafe() {
-              self._cafe = nil
-          }
+      public mutating func clearCafe() {self._cafe = nil}
 
       public var accounts: [Anytype_Event.Status.Thread.Account] = []
 
@@ -70,43 +54,27 @@ extension Anytype_Event.Status {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .unknown
-          case 1:
-                  self = .offline
-          case 2:
-                  self = .syncing
-          case 3:
-                  self = .synced
-          case 4:
-                  self = .failed
-          case 5:
-                  self = .incompatibleVersion
-          case 6:
-                  self = .networkNeedsUpdate
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .unknown
+          case 1: self = .offline
+          case 2: self = .syncing
+          case 3: self = .synced
+          case 4: self = .failed
+          case 5: self = .incompatibleVersion
+          case 6: self = .networkNeedsUpdate
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .unknown:
-                  return 0
-          case .offline:
-                  return 1
-          case .syncing:
-                  return 2
-          case .synced:
-                  return 3
-          case .failed:
-                  return 4
-          case .incompatibleVersion:
-                  return 5
-          case .networkNeedsUpdate:
-                  return 6
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .unknown: return 0
+          case .offline: return 1
+          case .syncing: return 2
+          case .synced: return 3
+          case .failed: return 4
+          case .incompatibleVersion: return 5
+          case .networkNeedsUpdate: return 6
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -121,8 +89,7 @@ extension Anytype_Event.Status {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Cafe {
@@ -137,21 +104,13 @@ extension Anytype_Event.Status {
         public var lastPushSucceed: Bool = false
 
         public var files: Anytype_Event.Status.Thread.Cafe.PinStatus {
-          get {
-                  return _files ?? Anytype_Event.Status.Thread.Cafe.PinStatus()
-              }
-          set {
-                  _files = newValue
-              }
+          get {return _files ?? Anytype_Event.Status.Thread.Cafe.PinStatus()}
+          set {_files = newValue}
         }
         /// Returns true if `files` has been explicitly set.
-        public var hasFiles: Bool {
-                return self._files != nil
-            }
+        public var hasFiles: Bool {return self._files != nil}
         /// Clears the value of `files`. Subsequent reads from it will return its default value.
-        public mutating func clearFiles() {
-                self._files = nil
-            }
+        public mutating func clearFiles() {self._files = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -170,12 +129,10 @@ extension Anytype_Event.Status {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _files: Anytype_Event.Status.Thread.Cafe.PinStatus? = nil
       }
@@ -201,8 +158,7 @@ extension Anytype_Event.Status {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Device {
@@ -220,17 +176,14 @@ extension Anytype_Event.Status {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _summary: Anytype_Event.Status.Thread.Summary? = nil
       fileprivate var _cafe: Anytype_Event.Status.Thread.Cafe? = nil
-    }
-}
+    }    }
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -244,20 +197,13 @@ extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
     .networkNeedsUpdate,
   ]
 }
-extension Anytype_Event.Status.Thread: @unchecked Sendable {
-}
-extension Anytype_Event.Status.Thread.SyncStatus: @unchecked Sendable {
-}
-extension Anytype_Event.Status.Thread.Summary: @unchecked Sendable {
-}
-extension Anytype_Event.Status.Thread.Cafe: @unchecked Sendable {
-}
-extension Anytype_Event.Status.Thread.Cafe.PinStatus: @unchecked Sendable {
-}
-extension Anytype_Event.Status.Thread.Account: @unchecked Sendable {
-}
-extension Anytype_Event.Status.Thread.Device: @unchecked Sendable {
-}
+extension Anytype_Event.Status.Thread: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.SyncStatus: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Summary: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Cafe: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Cafe.PinStatus: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Account: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Device: @unchecked Sendable {}
 
 extension Anytype_Event.Status.Thread: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Status.protoMessageName + ".Thread"
@@ -273,20 +219,10 @@ extension Anytype_Event.Status.Thread: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._summary)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._cafe)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.accounts)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._summary) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._cafe) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.accounts) }()
+      default: break
       }
     }
   }
@@ -296,16 +232,12 @@ extension Anytype_Event.Status.Thread: SwiftProtobuf.Message, SwiftProtobuf._Mes
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._summary {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._cafe {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._summary {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._cafe {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     if !self.accounts.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.accounts, fieldNumber: 3)
     }
@@ -313,18 +245,10 @@ extension Anytype_Event.Status.Thread: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public static func ==(lhs: Anytype_Event.Status.Thread, rhs: Anytype_Event.Status.Thread) -> Bool {
-    if lhs._summary != rhs._summary {
-        return false
-    }
-    if lhs._cafe != rhs._cafe {
-        return false
-    }
-    if lhs.accounts != rhs.accounts {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._summary != rhs._summary {return false}
+    if lhs._cafe != rhs._cafe {return false}
+    if lhs.accounts != rhs.accounts {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -353,12 +277,8 @@ extension Anytype_Event.Status.Thread.Summary: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.status)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      default: break
       }
     }
   }
@@ -371,12 +291,8 @@ extension Anytype_Event.Status.Thread.Summary: SwiftProtobuf.Message, SwiftProto
   }
 
   public static func ==(lhs: Anytype_Event.Status.Thread.Summary, rhs: Anytype_Event.Status.Thread.Summary) -> Bool {
-    if lhs.status != rhs.status {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -396,24 +312,11 @@ extension Anytype_Event.Status.Thread.Cafe: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.status)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.lastPulled)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.lastPushSucceed)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._files)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.lastPulled) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.lastPushSucceed) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._files) }()
+      default: break
       }
     }
   }
@@ -432,30 +335,18 @@ extension Anytype_Event.Status.Thread.Cafe: SwiftProtobuf.Message, SwiftProtobuf
     if self.lastPushSucceed != false {
       try visitor.visitSingularBoolField(value: self.lastPushSucceed, fieldNumber: 3)
     }
-    try {
-        if let v = self._files {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
+    try { if let v = self._files {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Status.Thread.Cafe, rhs: Anytype_Event.Status.Thread.Cafe) -> Bool {
-    if lhs.status != rhs.status {
-        return false
-    }
-    if lhs.lastPulled != rhs.lastPulled {
-        return false
-    }
-    if lhs.lastPushSucceed != rhs.lastPushSucceed {
-        return false
-    }
-    if lhs._files != rhs._files {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.status != rhs.status {return false}
+    if lhs.lastPulled != rhs.lastPulled {return false}
+    if lhs.lastPushSucceed != rhs.lastPushSucceed {return false}
+    if lhs._files != rhs._files {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -475,24 +366,11 @@ extension Anytype_Event.Status.Thread.Cafe.PinStatus: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.pinning)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.pinned)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.failed)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.updated)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.pinning) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.pinned) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.failed) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.updated) }()
+      default: break
       }
     }
   }
@@ -514,21 +392,11 @@ extension Anytype_Event.Status.Thread.Cafe.PinStatus: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Event.Status.Thread.Cafe.PinStatus, rhs: Anytype_Event.Status.Thread.Cafe.PinStatus) -> Bool {
-    if lhs.pinning != rhs.pinning {
-        return false
-    }
-    if lhs.pinned != rhs.pinned {
-        return false
-    }
-    if lhs.failed != rhs.failed {
-        return false
-    }
-    if lhs.updated != rhs.updated {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.pinning != rhs.pinning {return false}
+    if lhs.pinned != rhs.pinned {return false}
+    if lhs.failed != rhs.failed {return false}
+    if lhs.updated != rhs.updated {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -551,36 +419,14 @@ extension Anytype_Event.Status.Thread.Account: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.imageHash)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.online)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.lastPulled)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.lastEdited)
-          }()
-      case 7:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.devices)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.imageHash) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.online) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.lastPulled) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.lastEdited) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.devices) }()
+      default: break
       }
     }
   }
@@ -611,30 +457,14 @@ extension Anytype_Event.Status.Thread.Account: SwiftProtobuf.Message, SwiftProto
   }
 
   public static func ==(lhs: Anytype_Event.Status.Thread.Account, rhs: Anytype_Event.Status.Thread.Account) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.imageHash != rhs.imageHash {
-        return false
-    }
-    if lhs.online != rhs.online {
-        return false
-    }
-    if lhs.lastPulled != rhs.lastPulled {
-        return false
-    }
-    if lhs.lastEdited != rhs.lastEdited {
-        return false
-    }
-    if lhs.devices != rhs.devices {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.imageHash != rhs.imageHash {return false}
+    if lhs.online != rhs.online {return false}
+    if lhs.lastPulled != rhs.lastPulled {return false}
+    if lhs.lastEdited != rhs.lastEdited {return false}
+    if lhs.devices != rhs.devices {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -654,24 +484,11 @@ extension Anytype_Event.Status.Thread.Device: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.online)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.lastPulled)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.lastEdited)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.online) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.lastPulled) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.lastEdited) }()
+      default: break
       }
     }
   }
@@ -693,21 +510,11 @@ extension Anytype_Event.Status.Thread.Device: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Status.Thread.Device, rhs: Anytype_Event.Status.Thread.Device) -> Bool {
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.online != rhs.online {
-        return false
-    }
-    if lhs.lastPulled != rhs.lastPulled {
-        return false
-    }
-    if lhs.lastEdited != rhs.lastEdited {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.name != rhs.name {return false}
+    if lhs.online != rhs.online {return false}
+    if lhs.lastPulled != rhs.lastPulled {return false}
+    if lhs.lastEdited != rhs.lastEdited {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -718,8 +525,7 @@ extension Anytype_Event.Status.Thread.Device: SwiftProtobuf.Message, SwiftProtob
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

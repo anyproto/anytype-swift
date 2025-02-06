@@ -60,127 +60,69 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .accountOld
-    case 16:
-        self = .page
-    case 17:
-        self = .profilePage
-    case 32:
-        self = .home
-    case 48:
-        self = .archive
-    case 112:
-        self = .widget
-    case 256:
-        self = .file
-    case 288:
-        self = .template
-    case 289:
-        self = .bundledTemplate
-    case 512:
-        self = .bundledRelation
-    case 513:
-        self = .subObject
-    case 514:
-        self = .bundledObjectType
-    case 515:
-        self = .anytypeProfile
-    case 516:
-        self = .date
-    case 518:
-        self = .workspace
-    case 519:
-        self = .missingObject
-    case 521:
-        self = .strelation
-    case 528:
-        self = .sttype
-    case 529:
-        self = .strelationOption
-    case 530:
-        self = .spaceView
-    case 532:
-        self = .identity
-    case 533:
-        self = .fileObject
-    case 534:
-        self = .participant
-    case 535:
-        self = .notificationObject
-    case 536:
-        self = .devicesObject
-    case 537:
-        self = .chatObject
-    case 544:
-        self = .chatDerivedObject
-    case 545:
-        self = .accountObject
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .accountOld
+    case 16: self = .page
+    case 17: self = .profilePage
+    case 32: self = .home
+    case 48: self = .archive
+    case 112: self = .widget
+    case 256: self = .file
+    case 288: self = .template
+    case 289: self = .bundledTemplate
+    case 512: self = .bundledRelation
+    case 513: self = .subObject
+    case 514: self = .bundledObjectType
+    case 515: self = .anytypeProfile
+    case 516: self = .date
+    case 518: self = .workspace
+    case 519: self = .missingObject
+    case 521: self = .strelation
+    case 528: self = .sttype
+    case 529: self = .strelationOption
+    case 530: self = .spaceView
+    case 532: self = .identity
+    case 533: self = .fileObject
+    case 534: self = .participant
+    case 535: self = .notificationObject
+    case 536: self = .devicesObject
+    case 537: self = .chatObject
+    case 544: self = .chatDerivedObject
+    case 545: self = .accountObject
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .accountOld:
-        return 0
-    case .page:
-        return 16
-    case .profilePage:
-        return 17
-    case .home:
-        return 32
-    case .archive:
-        return 48
-    case .widget:
-        return 112
-    case .file:
-        return 256
-    case .template:
-        return 288
-    case .bundledTemplate:
-        return 289
-    case .bundledRelation:
-        return 512
-    case .subObject:
-        return 513
-    case .bundledObjectType:
-        return 514
-    case .anytypeProfile:
-        return 515
-    case .date:
-        return 516
-    case .workspace:
-        return 518
-    case .missingObject:
-        return 519
-    case .strelation:
-        return 521
-    case .sttype:
-        return 528
-    case .strelationOption:
-        return 529
-    case .spaceView:
-        return 530
-    case .identity:
-        return 532
-    case .fileObject:
-        return 533
-    case .participant:
-        return 534
-    case .notificationObject:
-        return 535
-    case .devicesObject:
-        return 536
-    case .chatObject:
-        return 537
-    case .chatDerivedObject:
-        return 544
-    case .accountObject:
-        return 545
-    case .UNRECOGNIZED(let i):
-        return i
+    case .accountOld: return 0
+    case .page: return 16
+    case .profilePage: return 17
+    case .home: return 32
+    case .archive: return 48
+    case .widget: return 112
+    case .file: return 256
+    case .template: return 288
+    case .bundledTemplate: return 289
+    case .bundledRelation: return 512
+    case .subObject: return 513
+    case .bundledObjectType: return 514
+    case .anytypeProfile: return 515
+    case .date: return 516
+    case .workspace: return 518
+    case .missingObject: return 519
+    case .strelation: return 521
+    case .sttype: return 528
+    case .strelationOption: return 529
+    case .spaceView: return 530
+    case .identity: return 532
+    case .fileObject: return 533
+    case .participant: return 534
+    case .notificationObject: return 535
+    case .devicesObject: return 536
+    case .chatObject: return 537
+    case .chatDerivedObject: return 544
+    case .accountObject: return 545
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -219,8 +161,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .accountObject,
   ]
 }
-extension Anytype_Model_SmartBlockType: @unchecked Sendable {
-}
+extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 
 extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -261,8 +202,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

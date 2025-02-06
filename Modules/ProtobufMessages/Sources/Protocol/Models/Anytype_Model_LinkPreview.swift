@@ -28,11 +28,9 @@ public struct Anytype_Model_LinkPreview {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_LinkPreview: @unchecked Sendable {
-}
+extension Anytype_Model_LinkPreview: @unchecked Sendable {}
 
 extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".LinkPreview"
@@ -51,32 +49,13 @@ extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.url)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.title)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.imageURL)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.faviconURL)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.title) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.imageURL) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.faviconURL) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      default: break
       }
     }
   }
@@ -104,27 +83,13 @@ extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 
   public static func ==(lhs: Anytype_Model_LinkPreview, rhs: Anytype_Model_LinkPreview) -> Bool {
-    if lhs.url != rhs.url {
-        return false
-    }
-    if lhs.title != rhs.title {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.imageURL != rhs.imageURL {
-        return false
-    }
-    if lhs.faviconURL != rhs.faviconURL {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.url != rhs.url {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.imageURL != rhs.imageURL {return false}
+    if lhs.faviconURL != rhs.faviconURL {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -135,8 +100,7 @@ extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._Messa
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

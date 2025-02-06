@@ -29,26 +29,17 @@ extension Anytype_Event.User {
 
         /// Account of the user, that opened a block
         public var account: Anytype_Event.Account {
-          get {
-                  return _account ?? Anytype_Event.Account()
-              }
-          set {
-                  _account = newValue
-              }
+          get {return _account ?? Anytype_Event.Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {
-                return self._account != nil
-            }
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {
-                self._account = nil
-            }
+        public mutating func clearAccount() {self._account = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _account: Anytype_Event.Account? = nil
       }
@@ -65,26 +56,17 @@ extension Anytype_Event.User {
 
         /// Account of the user, that left the block
         public var account: Anytype_Event.Account {
-          get {
-                  return _account ?? Anytype_Event.Account()
-              }
-          set {
-                  _account = newValue
-              }
+          get {return _account ?? Anytype_Event.Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {
-                return self._account != nil
-            }
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {
-                self._account = nil
-            }
+        public mutating func clearAccount() {self._account = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _account: Anytype_Event.Account? = nil
       }
@@ -101,47 +83,30 @@ extension Anytype_Event.User {
 
         /// Account of the user, that selected a text
         public var account: Anytype_Event.Account {
-          get {
-                  return _account ?? Anytype_Event.Account()
-              }
-          set {
-                  _account = newValue
-              }
+          get {return _account ?? Anytype_Event.Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {
-                return self._account != nil
-            }
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {
-                self._account = nil
-            }
+        public mutating func clearAccount() {self._account = nil}
 
         /// Id of the text block, that have a selection
         public var blockID: String = String()
 
         /// Range of the selection
         public var range: Anytype_Model_Range {
-          get {
-                  return _range ?? Anytype_Model_Range()
-              }
-          set {
-                  _range = newValue
-              }
+          get {return _range ?? Anytype_Model_Range()}
+          set {_range = newValue}
         }
         /// Returns true if `range` has been explicitly set.
-        public var hasRange: Bool {
-                return self._range != nil
-            }
+        public var hasRange: Bool {return self._range != nil}
         /// Clears the value of `range`. Subsequent reads from it will return its default value.
-        public mutating func clearRange() {
-                self._range = nil
-            }
+        public mutating func clearRange() {self._range = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _account: Anytype_Event.Account? = nil
         fileprivate var _range: Anytype_Model_Range? = nil
@@ -159,47 +124,31 @@ extension Anytype_Event.User {
 
         /// Account of the user, that selected blocks
         public var account: Anytype_Event.Account {
-          get {
-                  return _account ?? Anytype_Event.Account()
-              }
-          set {
-                  _account = newValue
-              }
+          get {return _account ?? Anytype_Event.Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {
-                return self._account != nil
-            }
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {
-                self._account = nil
-            }
+        public mutating func clearAccount() {self._account = nil}
 
         /// Ids of selected blocks.
         public var blockIdsArray: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _account: Anytype_Event.Account? = nil
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.User.Block: @unchecked Sendable {
-}
-extension Anytype_Event.User.Block.Join: @unchecked Sendable {
-}
-extension Anytype_Event.User.Block.Left: @unchecked Sendable {
-}
-extension Anytype_Event.User.Block.TextRange: @unchecked Sendable {
-}
-extension Anytype_Event.User.Block.SelectRange: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.User.Block: @unchecked Sendable {}
+extension Anytype_Event.User.Block.Join: @unchecked Sendable {}
+extension Anytype_Event.User.Block.Left: @unchecked Sendable {}
+extension Anytype_Event.User.Block.TextRange: @unchecked Sendable {}
+extension Anytype_Event.User.Block.SelectRange: @unchecked Sendable {}
 
 extension Anytype_Event.User.Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.User.protoMessageName + ".Block"
@@ -215,9 +164,7 @@ extension Anytype_Event.User.Block: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 
   public static func ==(lhs: Anytype_Event.User.Block, rhs: Anytype_Event.User.Block) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -234,12 +181,8 @@ extension Anytype_Event.User.Block.Join: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._account)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      default: break
       }
     }
   }
@@ -249,21 +192,15 @@ extension Anytype_Event.User.Block.Join: SwiftProtobuf.Message, SwiftProtobuf._M
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._account {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.User.Block.Join, rhs: Anytype_Event.User.Block.Join) -> Bool {
-    if lhs._account != rhs._account {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._account != rhs._account {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -280,12 +217,8 @@ extension Anytype_Event.User.Block.Left: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._account)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      default: break
       }
     }
   }
@@ -295,21 +228,15 @@ extension Anytype_Event.User.Block.Left: SwiftProtobuf.Message, SwiftProtobuf._M
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._account {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.User.Block.Left, rhs: Anytype_Event.User.Block.Left) -> Bool {
-    if lhs._account != rhs._account {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._account != rhs._account {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -328,20 +255,10 @@ extension Anytype_Event.User.Block.TextRange: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._account)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._range)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._range) }()
+      default: break
       }
     }
   }
@@ -351,35 +268,23 @@ extension Anytype_Event.User.Block.TextRange: SwiftProtobuf.Message, SwiftProtob
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._account {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.blockID.isEmpty {
       try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
     }
-    try {
-        if let v = self._range {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._range {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.User.Block.TextRange, rhs: Anytype_Event.User.Block.TextRange) -> Bool {
-    if lhs._account != rhs._account {
-        return false
-    }
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs._range != rhs._range {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._account != rhs._account {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs._range != rhs._range {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -397,16 +302,9 @@ extension Anytype_Event.User.Block.SelectRange: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._account)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.blockIdsArray)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.blockIdsArray) }()
+      default: break
       }
     }
   }
@@ -416,11 +314,9 @@ extension Anytype_Event.User.Block.SelectRange: SwiftProtobuf.Message, SwiftProt
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._account {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.blockIdsArray.isEmpty {
       try visitor.visitRepeatedStringField(value: self.blockIdsArray, fieldNumber: 2)
     }
@@ -428,15 +324,9 @@ extension Anytype_Event.User.Block.SelectRange: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Event.User.Block.SelectRange, rhs: Anytype_Event.User.Block.SelectRange) -> Bool {
-    if lhs._account != rhs._account {
-        return false
-    }
-    if lhs.blockIdsArray != rhs.blockIdsArray {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._account != rhs._account {return false}
+    if lhs.blockIdsArray != rhs.blockIdsArray {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -447,8 +337,7 @@ extension Anytype_Event.User.Block.SelectRange: SwiftProtobuf.Message, SwiftProt
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

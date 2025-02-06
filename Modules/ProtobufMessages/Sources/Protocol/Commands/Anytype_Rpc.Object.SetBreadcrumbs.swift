@@ -29,8 +29,7 @@ extension Anytype_Rpc.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -39,38 +38,22 @@ extension Anytype_Rpc.Object {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Object.SetBreadcrumbs.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Object.SetBreadcrumbs.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Object.SetBreadcrumbs.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var event: Anytype_ResponseEvent {
-          get {
-                  return _event ?? Anytype_ResponseEvent()
-              }
-          set {
-                  _event = newValue
-              }
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
         /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {
-                return self._event != nil
-            }
+        public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {
-                self._event = nil
-            }
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -100,47 +83,35 @@ extension Anytype_Rpc.Object {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Object.SetBreadcrumbs.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -150,16 +121,11 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Object.SetBreadcrumbs: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.SetBreadcrumbs.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.SetBreadcrumbs.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Object.SetBreadcrumbs: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetBreadcrumbs.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetBreadcrumbs.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object.SetBreadcrumbs: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".SetBreadcrumbs"
@@ -175,9 +141,7 @@ extension Anytype_Rpc.Object.SetBreadcrumbs: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.SetBreadcrumbs, rhs: Anytype_Rpc.Object.SetBreadcrumbs) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -195,16 +159,9 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Request: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.breadcrumbsID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.breadcrumbsID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -220,15 +177,9 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Request: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.SetBreadcrumbs.Request, rhs: Anytype_Rpc.Object.SetBreadcrumbs.Request) -> Bool {
-    if lhs.breadcrumbsID != rhs.breadcrumbsID {
-        return false
-    }
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.breadcrumbsID != rhs.breadcrumbsID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -246,16 +197,9 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -265,29 +209,19 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response: SwiftProtobuf.Message, Swi
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.SetBreadcrumbs.Response, rhs: Anytype_Rpc.Object.SetBreadcrumbs.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -305,16 +239,9 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -330,15 +257,9 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: SwiftProtobuf.Messag
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.SetBreadcrumbs.Response.Error, rhs: Anytype_Rpc.Object.SetBreadcrumbs.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -357,8 +278,7 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error.Code: SwiftProtobuf._
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

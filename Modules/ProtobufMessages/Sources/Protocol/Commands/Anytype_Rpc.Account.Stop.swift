@@ -28,8 +28,7 @@ extension Anytype_Rpc.Account {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       ///*
@@ -41,21 +40,13 @@ extension Anytype_Rpc.Account {
 
         /// Error while trying to launch/select an account
         public var error: Anytype_Rpc.Account.Stop.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Account.Stop.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Account.Stop.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -92,58 +83,40 @@ extension Anytype_Rpc.Account {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 101:
-                      self = .accountIsNotRunning
-              case 102:
-                      self = .failedToStopNode
-              case 103:
-                      self = .failedToRemoveAccountData
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 101: self = .accountIsNotRunning
+              case 102: self = .failedToStopNode
+              case 103: self = .failedToRemoveAccountData
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .accountIsNotRunning:
-                      return 101
-              case .failedToStopNode:
-                      return 102
-              case .failedToRemoveAccountData:
-                      return 103
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .accountIsNotRunning: return 101
+              case .failedToStopNode: return 102
+              case .failedToRemoveAccountData: return 103
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Account.Stop.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Account.Stop.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -156,16 +129,11 @@ extension Anytype_Rpc.Account.Stop.Response.Error.Code: CaseIterable {
     .failedToRemoveAccountData,
   ]
 }
-extension Anytype_Rpc.Account.Stop: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.Stop.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.Stop.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.Stop.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.Stop.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Account.Stop: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Account.Stop: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Stop"
@@ -181,9 +149,7 @@ extension Anytype_Rpc.Account.Stop: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Stop, rhs: Anytype_Rpc.Account.Stop) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -200,12 +166,8 @@ extension Anytype_Rpc.Account.Stop.Request: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.removeData)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.removeData) }()
+      default: break
       }
     }
   }
@@ -218,12 +180,8 @@ extension Anytype_Rpc.Account.Stop.Request: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Stop.Request, rhs: Anytype_Rpc.Account.Stop.Request) -> Bool {
-    if lhs.removeData != rhs.removeData {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.removeData != rhs.removeData {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -240,12 +198,8 @@ extension Anytype_Rpc.Account.Stop.Response: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
       }
     }
   }
@@ -255,21 +209,15 @@ extension Anytype_Rpc.Account.Stop.Response: SwiftProtobuf.Message, SwiftProtobu
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Stop.Response, rhs: Anytype_Rpc.Account.Stop.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -287,16 +235,9 @@ extension Anytype_Rpc.Account.Stop.Response.Error: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -312,15 +253,9 @@ extension Anytype_Rpc.Account.Stop.Response.Error: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Stop.Response.Error, rhs: Anytype_Rpc.Account.Stop.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -342,8 +277,7 @@ extension Anytype_Rpc.Account.Stop.Response.Error.Code: SwiftProtobuf._ProtoName
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

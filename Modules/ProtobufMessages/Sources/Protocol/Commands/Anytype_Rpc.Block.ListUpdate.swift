@@ -30,74 +30,50 @@ extension Anytype_Rpc.Block {
 
         public var text: Anytype_Rpc.Block.ListUpdate.Request.Text {
           get {
-            if case .text(let v)? = field {
-                    return v
-                }
+            if case .text(let v)? = field {return v}
             return Anytype_Rpc.Block.ListUpdate.Request.Text()
           }
-          set {
-                  field = .text(newValue)
-              }
+          set {field = .text(newValue)}
         }
 
         public var backgroundColor: String {
           get {
-            if case .backgroundColor(let v)? = field {
-                    return v
-                }
+            if case .backgroundColor(let v)? = field {return v}
             return String()
           }
-          set {
-                  field = .backgroundColor(newValue)
-              }
+          set {field = .backgroundColor(newValue)}
         }
 
         public var align: Anytype_Model_Block.Align {
           get {
-            if case .align(let v)? = field {
-                    return v
-                }
+            if case .align(let v)? = field {return v}
             return .left
           }
-          set {
-                  field = .align(newValue)
-              }
+          set {field = .align(newValue)}
         }
 
         public var fields: SwiftProtobuf.Google_Protobuf_Struct {
           get {
-            if case .fields(let v)? = field {
-                    return v
-                }
+            if case .fields(let v)? = field {return v}
             return SwiftProtobuf.Google_Protobuf_Struct()
           }
-          set {
-                  field = .fields(newValue)
-              }
+          set {field = .fields(newValue)}
         }
 
         public var divStyle: Anytype_Model_Block.Content.Div.Style {
           get {
-            if case .divStyle(let v)? = field {
-                    return v
-                }
+            if case .divStyle(let v)? = field {return v}
             return .line
           }
-          set {
-                  field = .divStyle(newValue)
-              }
+          set {field = .divStyle(newValue)}
         }
 
         public var fileStyle: Anytype_Model_Block.Content.File.Style {
           get {
-            if case .fileStyle(let v)? = field {
-                    return v
-                }
+            if case .fileStyle(let v)? = field {return v}
             return .auto
           }
-          set {
-                  field = .fileStyle(newValue)
-              }
+          set {field = .fileStyle(newValue)}
         }
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -116,50 +92,31 @@ extension Anytype_Rpc.Block {
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch (lhs, rhs) {
-            case (.text, .text):
-                    return {
-                                  guard case .text(let l) = lhs, case .text(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.backgroundColor, .backgroundColor):
-                    return {
-                                  guard case .backgroundColor(let l) = lhs, case .backgroundColor(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.align, .align):
-                    return {
-                                  guard case .align(let l) = lhs, case .align(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.fields, .fields):
-                    return {
-                                  guard case .fields(let l) = lhs, case .fields(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.divStyle, .divStyle):
-                    return {
-                                  guard case .divStyle(let l) = lhs, case .divStyle(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.fileStyle, .fileStyle):
-                    return {
-                                  guard case .fileStyle(let l) = lhs, case .fileStyle(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            default:
-                    return false
+            case (.text, .text): return {
+              guard case .text(let l) = lhs, case .text(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.backgroundColor, .backgroundColor): return {
+              guard case .backgroundColor(let l) = lhs, case .backgroundColor(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.align, .align): return {
+              guard case .align(let l) = lhs, case .align(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.fields, .fields): return {
+              guard case .fields(let l) = lhs, case .fields(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.divStyle, .divStyle): return {
+              guard case .divStyle(let l) = lhs, case .divStyle(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.fileStyle, .fileStyle): return {
+              guard case .fileStyle(let l) = lhs, case .fileStyle(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            default: return false
             }
           }
         #endif
@@ -174,38 +131,26 @@ extension Anytype_Rpc.Block {
 
           public var style: Anytype_Model_Block.Content.Text.Style {
             get {
-              if case .style(let v)? = field {
-                      return v
-                  }
+              if case .style(let v)? = field {return v}
               return .paragraph
             }
-            set {
-                    field = .style(newValue)
-                }
+            set {field = .style(newValue)}
           }
 
           public var color: String {
             get {
-              if case .color(let v)? = field {
-                      return v
-                  }
+              if case .color(let v)? = field {return v}
               return String()
             }
-            set {
-                    field = .color(newValue)
-                }
+            set {field = .color(newValue)}
           }
 
           public var mark: Anytype_Model_Block.Content.Text.Mark {
             get {
-              if case .mark(let v)? = field {
-                      return v
-                  }
+              if case .mark(let v)? = field {return v}
               return Anytype_Model_Block.Content.Text.Mark()
             }
-            set {
-                    field = .mark(newValue)
-                }
+            set {field = .mark(newValue)}
           }
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -221,56 +166,37 @@ extension Anytype_Rpc.Block {
               // allocates stack space for every case branch when no optimizations are
               // enabled. https://github.com/apple/swift-protobuf/issues/1034
               switch (lhs, rhs) {
-              case (.style, .style):
-                      return {
-                                      guard case .style(let l) = lhs, case .style(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.color, .color):
-                      return {
-                                      guard case .color(let l) = lhs, case .color(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              case (.mark, .mark):
-                      return {
-                                      guard case .mark(let l) = lhs, case .mark(let r) = rhs else {
-                                          preconditionFailure()
-                                      }
-                                      return l == r
-                                    }()
-              default:
-                      return false
+              case (.style, .style): return {
+                guard case .style(let l) = lhs, case .style(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.color, .color): return {
+                guard case .color(let l) = lhs, case .color(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.mark, .mark): return {
+                guard case .mark(let l) = lhs, case .mark(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              default: return false
               }
             }
           #endif
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Rpc.Block.ListUpdate: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.ListUpdate.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.ListUpdate.Request.OneOf_Field: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.ListUpdate.Request.Text: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.ListUpdate.Request.Text.OneOf_Field: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Rpc.Block.ListUpdate: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ListUpdate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ListUpdate.Request.OneOf_Field: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ListUpdate.Request.Text: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ListUpdate.Request.Text.OneOf_Field: @unchecked Sendable {}
 
 extension Anytype_Rpc.Block.ListUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".ListUpdate"
@@ -286,9 +212,7 @@ extension Anytype_Rpc.Block.ListUpdate: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.ListUpdate, rhs: Anytype_Rpc.Block.ListUpdate) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -312,96 +236,67 @@ extension Anytype_Rpc.Block.ListUpdate.Request: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.blockIds)
-          }()
-      case 3:
-          try {
-                  var v: Anytype_Rpc.Block.ListUpdate.Request.Text?
-                  var hadOneofValue = false
-                  if let current = self.field {
-                    hadOneofValue = true
-                    if case .text(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .text(v)
-                  }
-                }()
-      case 4:
-          try {
-                  var v: String?
-                  try decoder.decodeSingularStringField(value: &v)
-                  if let v = v {
-                    if self.field != nil {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .backgroundColor(v)
-                  }
-                }()
-      case 5:
-          try {
-                  var v: Anytype_Model_Block.Align?
-                  try decoder.decodeSingularEnumField(value: &v)
-                  if let v = v {
-                    if self.field != nil {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .align(v)
-                  }
-                }()
-      case 6:
-          try {
-                  var v: SwiftProtobuf.Google_Protobuf_Struct?
-                  var hadOneofValue = false
-                  if let current = self.field {
-                    hadOneofValue = true
-                    if case .fields(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .fields(v)
-                  }
-                }()
-      case 7:
-          try {
-                  var v: Anytype_Model_Block.Content.Div.Style?
-                  try decoder.decodeSingularEnumField(value: &v)
-                  if let v = v {
-                    if self.field != nil {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .divStyle(v)
-                  }
-                }()
-      case 8:
-          try {
-                  var v: Anytype_Model_Block.Content.File.Style?
-                  try decoder.decodeSingularEnumField(value: &v)
-                  if let v = v {
-                    if self.field != nil {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .fileStyle(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
+      case 3: try {
+        var v: Anytype_Rpc.Block.ListUpdate.Request.Text?
+        var hadOneofValue = false
+        if let current = self.field {
+          hadOneofValue = true
+          if case .text(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.field = .text(v)
+        }
+      }()
+      case 4: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.field != nil {try decoder.handleConflictingOneOf()}
+          self.field = .backgroundColor(v)
+        }
+      }()
+      case 5: try {
+        var v: Anytype_Model_Block.Align?
+        try decoder.decodeSingularEnumField(value: &v)
+        if let v = v {
+          if self.field != nil {try decoder.handleConflictingOneOf()}
+          self.field = .align(v)
+        }
+      }()
+      case 6: try {
+        var v: SwiftProtobuf.Google_Protobuf_Struct?
+        var hadOneofValue = false
+        if let current = self.field {
+          hadOneofValue = true
+          if case .fields(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.field = .fields(v)
+        }
+      }()
+      case 7: try {
+        var v: Anytype_Model_Block.Content.Div.Style?
+        try decoder.decodeSingularEnumField(value: &v)
+        if let v = v {
+          if self.field != nil {try decoder.handleConflictingOneOf()}
+          self.field = .divStyle(v)
+        }
+      }()
+      case 8: try {
+        var v: Anytype_Model_Block.Content.File.Style?
+        try decoder.decodeSingularEnumField(value: &v)
+        if let v = v {
+          if self.field != nil {try decoder.handleConflictingOneOf()}
+          self.field = .fileStyle(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -418,67 +313,40 @@ extension Anytype_Rpc.Block.ListUpdate.Request: SwiftProtobuf.Message, SwiftProt
       try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
     }
     switch self.field {
-    case .text?:
-        try {
-              guard case .text(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }()
-    case .backgroundColor?:
-        try {
-              guard case .backgroundColor(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularStringField(value: v, fieldNumber: 4)
-            }()
-    case .align?:
-        try {
-              guard case .align(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularEnumField(value: v, fieldNumber: 5)
-            }()
-    case .fields?:
-        try {
-              guard case .fields(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }()
-    case .divStyle?:
-        try {
-              guard case .divStyle(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
-            }()
-    case .fileStyle?:
-        try {
-              guard case .fileStyle(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularEnumField(value: v, fieldNumber: 8)
-            }()
-    case nil:
-        break
+    case .text?: try {
+      guard case .text(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .backgroundColor?: try {
+      guard case .backgroundColor(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
+    }()
+    case .align?: try {
+      guard case .align(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 5)
+    }()
+    case .fields?: try {
+      guard case .fields(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    }()
+    case .divStyle?: try {
+      guard case .divStyle(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
+    }()
+    case .fileStyle?: try {
+      guard case .fileStyle(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 8)
+    }()
+    case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.ListUpdate.Request, rhs: Anytype_Rpc.Block.ListUpdate.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.blockIds != rhs.blockIds {
-        return false
-    }
-    if lhs.field != rhs.field {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockIds != rhs.blockIds {return false}
+    if lhs.field != rhs.field {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -497,48 +365,36 @@ extension Anytype_Rpc.Block.ListUpdate.Request.Text: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-                  var v: Anytype_Model_Block.Content.Text.Style?
-                  try decoder.decodeSingularEnumField(value: &v)
-                  if let v = v {
-                    if self.field != nil {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .style(v)
-                  }
-                }()
-      case 2:
-          try {
-                  var v: String?
-                  try decoder.decodeSingularStringField(value: &v)
-                  if let v = v {
-                    if self.field != nil {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .color(v)
-                  }
-                }()
-      case 3:
-          try {
-                  var v: Anytype_Model_Block.Content.Text.Mark?
-                  var hadOneofValue = false
-                  if let current = self.field {
-                    hadOneofValue = true
-                    if case .mark(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.field = .mark(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try {
+        var v: Anytype_Model_Block.Content.Text.Style?
+        try decoder.decodeSingularEnumField(value: &v)
+        if let v = v {
+          if self.field != nil {try decoder.handleConflictingOneOf()}
+          self.field = .style(v)
+        }
+      }()
+      case 2: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.field != nil {try decoder.handleConflictingOneOf()}
+          self.field = .color(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Model_Block.Content.Text.Mark?
+        var hadOneofValue = false
+        if let current = self.field {
+          hadOneofValue = true
+          if case .mark(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.field = .mark(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -549,40 +405,26 @@ extension Anytype_Rpc.Block.ListUpdate.Request.Text: SwiftProtobuf.Message, Swif
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
     switch self.field {
-    case .style?:
-        try {
-              guard case .style(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularEnumField(value: v, fieldNumber: 1)
-            }()
-    case .color?:
-        try {
-              guard case .color(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-            }()
-    case .mark?:
-        try {
-              guard case .mark(let v)? = self.field else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }()
-    case nil:
-        break
+    case .style?: try {
+      guard case .style(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 1)
+    }()
+    case .color?: try {
+      guard case .color(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    }()
+    case .mark?: try {
+      guard case .mark(let v)? = self.field else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.ListUpdate.Request.Text, rhs: Anytype_Rpc.Block.ListUpdate.Request.Text) -> Bool {
-    if lhs.field != rhs.field {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.field != rhs.field {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -593,8 +435,7 @@ extension Anytype_Rpc.Block.ListUpdate.Request.Text: SwiftProtobuf.Message, Swif
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

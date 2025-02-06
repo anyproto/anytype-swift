@@ -20,11 +20,9 @@ public struct Anytype_Model_Restrictions {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_Restrictions: @unchecked Sendable {
-}
+extension Anytype_Model_Restrictions: @unchecked Sendable {}
 
 extension Anytype_Model_Restrictions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Restrictions"
@@ -39,16 +37,9 @@ extension Anytype_Model_Restrictions: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedEnumField(value: &self.object)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.dataview)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedEnumField(value: &self.object) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.dataview) }()
+      default: break
       }
     }
   }
@@ -64,15 +55,9 @@ extension Anytype_Model_Restrictions: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   public static func ==(lhs: Anytype_Model_Restrictions, rhs: Anytype_Model_Restrictions) -> Bool {
-    if lhs.object != rhs.object {
-        return false
-    }
-    if lhs.dataview != rhs.dataview {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.object != rhs.object {return false}
+    if lhs.dataview != rhs.dataview {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -83,8 +68,7 @@ extension Anytype_Model_Restrictions: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

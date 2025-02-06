@@ -25,36 +25,25 @@ extension Anytype_Model_Account {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .active
-      case 1:
-          self = .pendingDeletion
-      case 2:
-          self = .startedDeletion
-      case 3:
-          self = .deleted
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .active
+      case 1: self = .pendingDeletion
+      case 2: self = .startedDeletion
+      case 3: self = .deleted
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .active:
-          return 0
-      case .pendingDeletion:
-          return 1
-      case .startedDeletion:
-          return 2
-      case .deleted:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
+      case .active: return 0
+      case .pendingDeletion: return 1
+      case .startedDeletion: return 2
+      case .deleted: return 3
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Account.StatusType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,8 +54,7 @@ extension Anytype_Model_Account.StatusType: CaseIterable {
     .deleted,
   ]
 }
-extension Anytype_Model_Account.StatusType: @unchecked Sendable {
-}
+extension Anytype_Model_Account.StatusType: @unchecked Sendable {}
 
 extension Anytype_Model_Account.StatusType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -83,8 +71,7 @@ extension Anytype_Model_Account.StatusType: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

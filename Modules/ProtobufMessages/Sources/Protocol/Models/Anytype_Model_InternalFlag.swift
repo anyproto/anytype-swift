@@ -18,11 +18,9 @@ public struct Anytype_Model_InternalFlag {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_InternalFlag: @unchecked Sendable {
-}
+extension Anytype_Model_InternalFlag: @unchecked Sendable {}
 
 extension Anytype_Model_InternalFlag: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".InternalFlag"
@@ -36,12 +34,8 @@ extension Anytype_Model_InternalFlag: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -54,12 +48,8 @@ extension Anytype_Model_InternalFlag: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   public static func ==(lhs: Anytype_Model_InternalFlag, rhs: Anytype_Model_InternalFlag) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -70,8 +60,7 @@ extension Anytype_Model_InternalFlag: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

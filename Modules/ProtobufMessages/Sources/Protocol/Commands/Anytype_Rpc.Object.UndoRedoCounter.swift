@@ -21,12 +21,9 @@ extension Anytype_Rpc.Object {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Rpc.Object.UndoRedoCounter: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Rpc.Object.UndoRedoCounter: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object.UndoRedoCounter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".UndoRedoCounter"
@@ -41,16 +38,9 @@ extension Anytype_Rpc.Object.UndoRedoCounter: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.undo)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.redo)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.undo) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.redo) }()
+      default: break
       }
     }
   }
@@ -66,15 +56,9 @@ extension Anytype_Rpc.Object.UndoRedoCounter: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.UndoRedoCounter, rhs: Anytype_Rpc.Object.UndoRedoCounter) -> Bool {
-    if lhs.undo != rhs.undo {
-        return false
-    }
-    if lhs.redo != rhs.redo {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.undo != rhs.undo {return false}
+    if lhs.redo != rhs.redo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -85,8 +69,7 @@ extension Anytype_Rpc.Object.UndoRedoCounter: SwiftProtobuf.Message, SwiftProtob
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

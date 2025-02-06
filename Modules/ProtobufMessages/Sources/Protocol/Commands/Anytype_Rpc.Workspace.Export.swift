@@ -29,8 +29,7 @@ extension Anytype_Rpc.Workspace {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -39,40 +38,24 @@ extension Anytype_Rpc.Workspace {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Workspace.Export.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Workspace.Export.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Workspace.Export.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var path: String = String()
 
         public var event: Anytype_ResponseEvent {
-          get {
-                  return _event ?? Anytype_ResponseEvent()
-              }
-          set {
-                  _event = newValue
-              }
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
         /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {
-                return self._event != nil
-            }
+        public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {
-                self._event = nil
-            }
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -102,47 +85,35 @@ extension Anytype_Rpc.Workspace {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Workspace.Export.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Workspace.Export.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -152,16 +123,11 @@ extension Anytype_Rpc.Workspace.Export.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Workspace.Export: @unchecked Sendable {
-}
-extension Anytype_Rpc.Workspace.Export.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Workspace.Export.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Workspace.Export.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Workspace.Export.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Workspace.Export: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Export.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Export.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Export.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Export.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Workspace.Export: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Workspace.protoMessageName + ".Export"
@@ -177,9 +143,7 @@ extension Anytype_Rpc.Workspace.Export: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Export, rhs: Anytype_Rpc.Workspace.Export) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -197,16 +161,9 @@ extension Anytype_Rpc.Workspace.Export.Request: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.path)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.workspaceID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.workspaceID) }()
+      default: break
       }
     }
   }
@@ -222,15 +179,9 @@ extension Anytype_Rpc.Workspace.Export.Request: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Export.Request, rhs: Anytype_Rpc.Workspace.Export.Request) -> Bool {
-    if lhs.path != rhs.path {
-        return false
-    }
-    if lhs.workspaceID != rhs.workspaceID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.path != rhs.path {return false}
+    if lhs.workspaceID != rhs.workspaceID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -249,20 +200,10 @@ extension Anytype_Rpc.Workspace.Export.Response: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.path)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -272,35 +213,23 @@ extension Anytype_Rpc.Workspace.Export.Response: SwiftProtobuf.Message, SwiftPro
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.path.isEmpty {
       try visitor.visitSingularStringField(value: self.path, fieldNumber: 2)
     }
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Export.Response, rhs: Anytype_Rpc.Workspace.Export.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.path != rhs.path {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.path != rhs.path {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -318,16 +247,9 @@ extension Anytype_Rpc.Workspace.Export.Response.Error: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -343,15 +265,9 @@ extension Anytype_Rpc.Workspace.Export.Response.Error: SwiftProtobuf.Message, Sw
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Export.Response.Error, rhs: Anytype_Rpc.Workspace.Export.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -370,8 +286,7 @@ extension Anytype_Rpc.Workspace.Export.Response.Error.Code: SwiftProtobuf._Proto
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

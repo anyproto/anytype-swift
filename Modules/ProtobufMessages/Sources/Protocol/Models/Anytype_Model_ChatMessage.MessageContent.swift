@@ -26,12 +26,9 @@ extension Anytype_Model_ChatMessage {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_ChatMessage.MessageContent: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_ChatMessage.MessageContent: @unchecked Sendable {}
 
 extension Anytype_Model_ChatMessage.MessageContent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".MessageContent"
@@ -47,20 +44,10 @@ extension Anytype_Model_ChatMessage.MessageContent: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.text)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.style)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.marks)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.text) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.marks) }()
+      default: break
       }
     }
   }
@@ -79,18 +66,10 @@ extension Anytype_Model_ChatMessage.MessageContent: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Model_ChatMessage.MessageContent, rhs: Anytype_Model_ChatMessage.MessageContent) -> Bool {
-    if lhs.text != rhs.text {
-        return false
-    }
-    if lhs.style != rhs.style {
-        return false
-    }
-    if lhs.marks != rhs.marks {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.text != rhs.text {return false}
+    if lhs.style != rhs.style {return false}
+    if lhs.marks != rhs.marks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -101,8 +80,7 @@ extension Anytype_Model_ChatMessage.MessageContent: SwiftProtobuf.Message, Swift
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

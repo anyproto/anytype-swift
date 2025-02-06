@@ -21,12 +21,9 @@ extension Anytype_Model_Notification {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_Notification.Export: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_Notification.Export: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.Export: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".Export"
@@ -41,16 +38,9 @@ extension Anytype_Model_Notification.Export: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.errorCode)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.exportType)
-          }()
-      default:
-          break
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.errorCode) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.exportType) }()
+      default: break
       }
     }
   }
@@ -66,15 +56,9 @@ extension Anytype_Model_Notification.Export: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Model_Notification.Export, rhs: Anytype_Model_Notification.Export) -> Bool {
-    if lhs.errorCode != rhs.errorCode {
-        return false
-    }
-    if lhs.exportType != rhs.exportType {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.errorCode != rhs.errorCode {return false}
+    if lhs.exportType != rhs.exportType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -85,8 +69,7 @@ extension Anytype_Model_Notification.Export: SwiftProtobuf.Message, SwiftProtobu
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

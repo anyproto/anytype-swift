@@ -37,141 +37,84 @@ extension Anytype_Model_Block {
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch (lhs, rhs) {
-      case (.smartblock, .smartblock):
-          return {
-                  guard case .smartblock(let l) = lhs, case .smartblock(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.text, .text):
-          return {
-                  guard case .text(let l) = lhs, case .text(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.file, .file):
-          return {
-                  guard case .file(let l) = lhs, case .file(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.layout, .layout):
-          return {
-                  guard case .layout(let l) = lhs, case .layout(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.div, .div):
-          return {
-                  guard case .div(let l) = lhs, case .div(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.bookmark, .bookmark):
-          return {
-                  guard case .bookmark(let l) = lhs, case .bookmark(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.icon, .icon):
-          return {
-                  guard case .icon(let l) = lhs, case .icon(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.link, .link):
-          return {
-                  guard case .link(let l) = lhs, case .link(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.dataview, .dataview):
-          return {
-                  guard case .dataview(let l) = lhs, case .dataview(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.relation, .relation):
-          return {
-                  guard case .relation(let l) = lhs, case .relation(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.featuredRelations, .featuredRelations):
-          return {
-                  guard case .featuredRelations(let l) = lhs, case .featuredRelations(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.latex, .latex):
-          return {
-                  guard case .latex(let l) = lhs, case .latex(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.tableOfContents, .tableOfContents):
-          return {
-                  guard case .tableOfContents(let l) = lhs, case .tableOfContents(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.table, .table):
-          return {
-                  guard case .table(let l) = lhs, case .table(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.tableColumn, .tableColumn):
-          return {
-                  guard case .tableColumn(let l) = lhs, case .tableColumn(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.tableRow, .tableRow):
-          return {
-                  guard case .tableRow(let l) = lhs, case .tableRow(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.widget, .widget):
-          return {
-                  guard case .widget(let l) = lhs, case .widget(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      case (.chat, .chat):
-          return {
-                  guard case .chat(let l) = lhs, case .chat(let r) = rhs else {
-                      preconditionFailure()
-                  }
-                  return l == r
-                }()
-      default:
-          return false
+      case (.smartblock, .smartblock): return {
+        guard case .smartblock(let l) = lhs, case .smartblock(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.text, .text): return {
+        guard case .text(let l) = lhs, case .text(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.file, .file): return {
+        guard case .file(let l) = lhs, case .file(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.layout, .layout): return {
+        guard case .layout(let l) = lhs, case .layout(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.div, .div): return {
+        guard case .div(let l) = lhs, case .div(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.bookmark, .bookmark): return {
+        guard case .bookmark(let l) = lhs, case .bookmark(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.icon, .icon): return {
+        guard case .icon(let l) = lhs, case .icon(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.link, .link): return {
+        guard case .link(let l) = lhs, case .link(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.dataview, .dataview): return {
+        guard case .dataview(let l) = lhs, case .dataview(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.relation, .relation): return {
+        guard case .relation(let l) = lhs, case .relation(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.featuredRelations, .featuredRelations): return {
+        guard case .featuredRelations(let l) = lhs, case .featuredRelations(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.latex, .latex): return {
+        guard case .latex(let l) = lhs, case .latex(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.tableOfContents, .tableOfContents): return {
+        guard case .tableOfContents(let l) = lhs, case .tableOfContents(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.table, .table): return {
+        guard case .table(let l) = lhs, case .table(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.tableColumn, .tableColumn): return {
+        guard case .tableColumn(let l) = lhs, case .tableColumn(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.tableRow, .tableRow): return {
+        guard case .tableRow(let l) = lhs, case .tableRow(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.widget, .widget): return {
+        guard case .widget(let l) = lhs, case .widget(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.chat, .chat): return {
+        guard case .chat(let l) = lhs, case .chat(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      default: return false
       }
     }
   #endif
-  }
-}
-extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {
-}
+  }}
+extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
 
 // If the compiler emits an error on this type, it is because this file
 // was generated by a version of the `protoc` Swift plug-in that is
@@ -179,8 +122,7 @@ extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

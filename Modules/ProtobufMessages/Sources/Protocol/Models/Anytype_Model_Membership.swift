@@ -39,11 +39,9 @@ public struct Anytype_Model_Membership {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_Membership: @unchecked Sendable {
-}
+extension Anytype_Model_Membership: @unchecked Sendable {}
 
 extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Membership"
@@ -66,48 +64,17 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularUInt32Field(value: &self.tier)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.status)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularUInt64Field(value: &self.dateStarted)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularUInt64Field(value: &self.dateEnds)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isAutoRenew)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.paymentMethod)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.nsName)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.nsNameType)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularStringField(value: &self.userEmail)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.subscribeToNewsletter)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.tier) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 3: try { try decoder.decodeSingularUInt64Field(value: &self.dateStarted) }()
+      case 4: try { try decoder.decodeSingularUInt64Field(value: &self.dateEnds) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.isAutoRenew) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.paymentMethod) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.userEmail) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.subscribeToNewsletter) }()
+      default: break
       }
     }
   }
@@ -147,39 +114,17 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 
   public static func ==(lhs: Anytype_Model_Membership, rhs: Anytype_Model_Membership) -> Bool {
-    if lhs.tier != rhs.tier {
-        return false
-    }
-    if lhs.status != rhs.status {
-        return false
-    }
-    if lhs.dateStarted != rhs.dateStarted {
-        return false
-    }
-    if lhs.dateEnds != rhs.dateEnds {
-        return false
-    }
-    if lhs.isAutoRenew != rhs.isAutoRenew {
-        return false
-    }
-    if lhs.paymentMethod != rhs.paymentMethod {
-        return false
-    }
-    if lhs.nsName != rhs.nsName {
-        return false
-    }
-    if lhs.nsNameType != rhs.nsNameType {
-        return false
-    }
-    if lhs.userEmail != rhs.userEmail {
-        return false
-    }
-    if lhs.subscribeToNewsletter != rhs.subscribeToNewsletter {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.tier != rhs.tier {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.dateStarted != rhs.dateStarted {return false}
+    if lhs.dateEnds != rhs.dateEnds {return false}
+    if lhs.isAutoRenew != rhs.isAutoRenew {return false}
+    if lhs.paymentMethod != rhs.paymentMethod {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
+    if lhs.userEmail != rhs.userEmail {return false}
+    if lhs.subscribeToNewsletter != rhs.subscribeToNewsletter {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -190,8 +135,7 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

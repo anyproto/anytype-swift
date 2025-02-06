@@ -17,12 +17,9 @@ extension Anytype_Rpc {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Rpc.Object: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Rpc.Object: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Object"
@@ -38,9 +35,7 @@ extension Anytype_Rpc.Object: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 
   public static func ==(lhs: Anytype_Rpc.Object, rhs: Anytype_Rpc.Object) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -51,8 +46,7 @@ extension Anytype_Rpc.Object: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

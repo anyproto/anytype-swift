@@ -25,36 +25,25 @@ extension Anytype_Model_Restrictions {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .dvnone
-      case 1:
-          self = .dvrelation
-      case 2:
-          self = .dvcreateObject
-      case 3:
-          self = .dvviews
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .dvnone
+      case 1: self = .dvrelation
+      case 2: self = .dvcreateObject
+      case 3: self = .dvviews
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .dvnone:
-          return 0
-      case .dvrelation:
-          return 1
-      case .dvcreateObject:
-          return 2
-      case .dvviews:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
+      case .dvnone: return 0
+      case .dvrelation: return 1
+      case .dvcreateObject: return 2
+      case .dvviews: return 3
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Restrictions.DataviewRestriction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,8 +54,7 @@ extension Anytype_Model_Restrictions.DataviewRestriction: CaseIterable {
     .dvviews,
   ]
 }
-extension Anytype_Model_Restrictions.DataviewRestriction: @unchecked Sendable {
-}
+extension Anytype_Model_Restrictions.DataviewRestriction: @unchecked Sendable {}
 
 extension Anytype_Model_Restrictions.DataviewRestriction: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -83,8 +71,7 @@ extension Anytype_Model_Restrictions.DataviewRestriction: SwiftProtobuf._ProtoNa
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

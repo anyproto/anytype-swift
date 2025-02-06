@@ -18,21 +18,13 @@ extension Anytype_Event.Account {
       public var challenge: String = String()
 
       public var clientInfo: Anytype_Event.Account.LinkChallenge.ClientInfo {
-        get {
-                return _clientInfo ?? Anytype_Event.Account.LinkChallenge.ClientInfo()
-            }
-        set {
-                _clientInfo = newValue
-            }
+        get {return _clientInfo ?? Anytype_Event.Account.LinkChallenge.ClientInfo()}
+        set {_clientInfo = newValue}
       }
       /// Returns true if `clientInfo` has been explicitly set.
-      public var hasClientInfo: Bool {
-              return self._clientInfo != nil
-          }
+      public var hasClientInfo: Bool {return self._clientInfo != nil}
       /// Clears the value of `clientInfo`. Subsequent reads from it will return its default value.
-      public mutating func clearClientInfo() {
-              self._clientInfo = nil
-          }
+      public mutating func clearClientInfo() {self._clientInfo = nil}
 
       public var scope: Anytype_Model_Account.Auth.LocalApiScope = .limited
 
@@ -51,20 +43,15 @@ extension Anytype_Event.Account {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _clientInfo: Anytype_Event.Account.LinkChallenge.ClientInfo? = nil
-    }
-}
-extension Anytype_Event.Account.LinkChallenge: @unchecked Sendable {
-}
-extension Anytype_Event.Account.LinkChallenge.ClientInfo: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Event.Account.LinkChallenge: @unchecked Sendable {}
+extension Anytype_Event.Account.LinkChallenge.ClientInfo: @unchecked Sendable {}
 
 extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".LinkChallenge"
@@ -80,20 +67,10 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.challenge)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._clientInfo)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.scope)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.challenge) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._clientInfo) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.scope) }()
+      default: break
       }
     }
   }
@@ -106,11 +83,9 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
     if !self.challenge.isEmpty {
       try visitor.visitSingularStringField(value: self.challenge, fieldNumber: 1)
     }
-    try {
-        if let v = self._clientInfo {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._clientInfo {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     if self.scope != .limited {
       try visitor.visitSingularEnumField(value: self.scope, fieldNumber: 3)
     }
@@ -118,18 +93,10 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
   }
 
   public static func ==(lhs: Anytype_Event.Account.LinkChallenge, rhs: Anytype_Event.Account.LinkChallenge) -> Bool {
-    if lhs.challenge != rhs.challenge {
-        return false
-    }
-    if lhs._clientInfo != rhs._clientInfo {
-        return false
-    }
-    if lhs.scope != rhs.scope {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.challenge != rhs.challenge {return false}
+    if lhs._clientInfo != rhs._clientInfo {return false}
+    if lhs.scope != rhs.scope {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -148,20 +115,10 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.processName)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.processPath)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.signatureVerified)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.processName) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.processPath) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.signatureVerified) }()
+      default: break
       }
     }
   }
@@ -180,18 +137,10 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Event.Account.LinkChallenge.ClientInfo, rhs: Anytype_Event.Account.LinkChallenge.ClientInfo) -> Bool {
-    if lhs.processName != rhs.processName {
-        return false
-    }
-    if lhs.processPath != rhs.processPath {
-        return false
-    }
-    if lhs.signatureVerified != rhs.signatureVerified {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.processName != rhs.processName {return false}
+    if lhs.processPath != rhs.processPath {return false}
+    if lhs.signatureVerified != rhs.signatureVerified {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -202,8 +151,7 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

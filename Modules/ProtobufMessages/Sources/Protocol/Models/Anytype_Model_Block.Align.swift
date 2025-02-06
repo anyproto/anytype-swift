@@ -25,36 +25,25 @@ extension Anytype_Model_Block {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .left
-      case 1:
-          self = .center
-      case 2:
-          self = .right
-      case 3:
-          self = .justify
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .left
+      case 1: self = .center
+      case 2: self = .right
+      case 3: self = .justify
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .left:
-          return 0
-      case .center:
-          return 1
-      case .right:
-          return 2
-      case .justify:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
+      case .left: return 0
+      case .center: return 1
+      case .right: return 2
+      case .justify: return 3
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Block.Align: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,8 +54,7 @@ extension Anytype_Model_Block.Align: CaseIterable {
     .justify,
   ]
 }
-extension Anytype_Model_Block.Align: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Align: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Align: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -83,8 +71,7 @@ extension Anytype_Model_Block.Align: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

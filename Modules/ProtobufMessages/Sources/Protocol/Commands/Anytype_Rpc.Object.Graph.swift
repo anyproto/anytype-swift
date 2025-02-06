@@ -39,8 +39,7 @@ extension Anytype_Rpc.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Edge {
@@ -78,30 +77,23 @@ extension Anytype_Rpc.Object {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .link
-            case 1:
-                    self = .relation
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .link
+            case 1: self = .relation
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .link:
-                    return 0
-            case .relation:
-                    return 1
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .link: return 0
+            case .relation: return 1
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -110,21 +102,13 @@ extension Anytype_Rpc.Object {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Object.Graph.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Object.Graph.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Object.Graph.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var nodes: [SwiftProtobuf.Google_Protobuf_Struct] = []
 
@@ -158,46 +142,34 @@ extension Anytype_Rpc.Object {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Object.Graph.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -215,20 +187,13 @@ extension Anytype_Rpc.Object.Graph.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Object.Graph: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Graph.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Graph.Edge: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Graph.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Graph.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Graph.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Object.Graph: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Edge: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object.Graph: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".Graph"
@@ -244,9 +209,7 @@ extension Anytype_Rpc.Object.Graph: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Graph, rhs: Anytype_Rpc.Object.Graph) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -269,36 +232,14 @@ extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.filters)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.limit)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.objectTypeFilter)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.keys)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.collectionID)
-          }()
-      case 7:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.setSource)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.filters) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.objectTypeFilter) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.keys) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.collectionID) }()
+      case 7: try { try decoder.decodeRepeatedStringField(value: &self.setSource) }()
+      default: break
       }
     }
   }
@@ -329,30 +270,14 @@ extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Graph.Request, rhs: Anytype_Rpc.Object.Graph.Request) -> Bool {
-    if lhs.filters != rhs.filters {
-        return false
-    }
-    if lhs.limit != rhs.limit {
-        return false
-    }
-    if lhs.objectTypeFilter != rhs.objectTypeFilter {
-        return false
-    }
-    if lhs.keys != rhs.keys {
-        return false
-    }
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.collectionID != rhs.collectionID {
-        return false
-    }
-    if lhs.setSource != rhs.setSource {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.filters != rhs.filters {return false}
+    if lhs.limit != rhs.limit {return false}
+    if lhs.objectTypeFilter != rhs.objectTypeFilter {return false}
+    if lhs.keys != rhs.keys {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.collectionID != rhs.collectionID {return false}
+    if lhs.setSource != rhs.setSource {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -376,40 +301,15 @@ extension Anytype_Rpc.Object.Graph.Edge: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.source)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.target)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.iconImage)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.iconEmoji)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.hidden)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.source) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.target) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.iconImage) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.iconEmoji) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.hidden) }()
+      default: break
       }
     }
   }
@@ -443,33 +343,15 @@ extension Anytype_Rpc.Object.Graph.Edge: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Graph.Edge, rhs: Anytype_Rpc.Object.Graph.Edge) -> Bool {
-    if lhs.source != rhs.source {
-        return false
-    }
-    if lhs.target != rhs.target {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.iconImage != rhs.iconImage {
-        return false
-    }
-    if lhs.iconEmoji != rhs.iconEmoji {
-        return false
-    }
-    if lhs.hidden != rhs.hidden {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.source != rhs.source {return false}
+    if lhs.target != rhs.target {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.iconImage != rhs.iconImage {return false}
+    if lhs.iconEmoji != rhs.iconEmoji {return false}
+    if lhs.hidden != rhs.hidden {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -495,20 +377,10 @@ extension Anytype_Rpc.Object.Graph.Response: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.nodes)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.edges)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.nodes) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.edges) }()
+      default: break
       }
     }
   }
@@ -518,11 +390,9 @@ extension Anytype_Rpc.Object.Graph.Response: SwiftProtobuf.Message, SwiftProtobu
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.nodes.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.nodes, fieldNumber: 2)
     }
@@ -533,18 +403,10 @@ extension Anytype_Rpc.Object.Graph.Response: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Graph.Response, rhs: Anytype_Rpc.Object.Graph.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.nodes != rhs.nodes {
-        return false
-    }
-    if lhs.edges != rhs.edges {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.nodes != rhs.nodes {return false}
+    if lhs.edges != rhs.edges {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -562,16 +424,9 @@ extension Anytype_Rpc.Object.Graph.Response.Error: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -587,15 +442,9 @@ extension Anytype_Rpc.Object.Graph.Response.Error: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Graph.Response.Error, rhs: Anytype_Rpc.Object.Graph.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -614,8 +463,7 @@ extension Anytype_Rpc.Object.Graph.Response.Error.Code: SwiftProtobuf._ProtoName
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -26,8 +26,7 @@ extension Anytype_Rpc.Relation {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -36,38 +35,22 @@ extension Anytype_Rpc.Relation {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Relation.Options.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Relation.Options.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Relation.Options.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var options: Anytype_Model_RelationOptions {
-          get {
-                  return _options ?? Anytype_Model_RelationOptions()
-              }
-          set {
-                  _options = newValue
-              }
+          get {return _options ?? Anytype_Model_RelationOptions()}
+          set {_options = newValue}
         }
         /// Returns true if `options` has been explicitly set.
-        public var hasOptions: Bool {
-                return self._options != nil
-            }
+        public var hasOptions: Bool {return self._options != nil}
         /// Clears the value of `options`. Subsequent reads from it will return its default value.
-        public mutating func clearOptions() {
-                self._options = nil
-            }
+        public mutating func clearOptions() {self._options = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -95,47 +78,35 @@ extension Anytype_Rpc.Relation {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Relation.Options.Response.Error? = nil
         fileprivate var _options: Anytype_Model_RelationOptions? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Relation.Options.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -145,16 +116,11 @@ extension Anytype_Rpc.Relation.Options.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Relation.Options: @unchecked Sendable {
-}
-extension Anytype_Rpc.Relation.Options.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Relation.Options.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Relation.Options.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Relation.Options.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Relation.Options: @unchecked Sendable {}
+extension Anytype_Rpc.Relation.Options.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Relation.Options.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Relation.Options.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Relation.Options.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Relation.Options: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Relation.protoMessageName + ".Options"
@@ -170,9 +136,7 @@ extension Anytype_Rpc.Relation.Options: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   public static func ==(lhs: Anytype_Rpc.Relation.Options, rhs: Anytype_Rpc.Relation.Options) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -189,12 +153,8 @@ extension Anytype_Rpc.Relation.Options.Request: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationKey)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      default: break
       }
     }
   }
@@ -207,12 +167,8 @@ extension Anytype_Rpc.Relation.Options.Request: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Rpc.Relation.Options.Request, rhs: Anytype_Rpc.Relation.Options.Request) -> Bool {
-    if lhs.relationKey != rhs.relationKey {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -230,16 +186,9 @@ extension Anytype_Rpc.Relation.Options.Response: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._options)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._options) }()
+      default: break
       }
     }
   }
@@ -249,29 +198,19 @@ extension Anytype_Rpc.Relation.Options.Response: SwiftProtobuf.Message, SwiftPro
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._options {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._options {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Relation.Options.Response, rhs: Anytype_Rpc.Relation.Options.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._options != rhs._options {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._options != rhs._options {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -289,16 +228,9 @@ extension Anytype_Rpc.Relation.Options.Response.Error: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -314,15 +246,9 @@ extension Anytype_Rpc.Relation.Options.Response.Error: SwiftProtobuf.Message, Sw
   }
 
   public static func ==(lhs: Anytype_Rpc.Relation.Options.Response.Error, rhs: Anytype_Rpc.Relation.Options.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -341,8 +267,7 @@ extension Anytype_Rpc.Relation.Options.Response.Error.Code: SwiftProtobuf._Proto
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

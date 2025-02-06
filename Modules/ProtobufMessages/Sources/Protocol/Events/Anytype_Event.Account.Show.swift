@@ -20,32 +20,21 @@ extension Anytype_Event.Account {
 
       /// An Account, that has been found for the mnemonic
       public var account: Anytype_Model_Account {
-        get {
-                return _account ?? Anytype_Model_Account()
-            }
-        set {
-                _account = newValue
-            }
+        get {return _account ?? Anytype_Model_Account()}
+        set {_account = newValue}
       }
       /// Returns true if `account` has been explicitly set.
-      public var hasAccount: Bool {
-              return self._account != nil
-          }
+      public var hasAccount: Bool {return self._account != nil}
       /// Clears the value of `account`. Subsequent reads from it will return its default value.
-      public mutating func clearAccount() {
-              self._account = nil
-          }
+      public mutating func clearAccount() {self._account = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _account: Anytype_Model_Account? = nil
-    }
-}
-extension Anytype_Event.Account.Show: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Event.Account.Show: @unchecked Sendable {}
 
 extension Anytype_Event.Account.Show: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".Show"
@@ -60,16 +49,9 @@ extension Anytype_Event.Account.Show: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.index)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._account)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.index) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      default: break
       }
     }
   }
@@ -82,24 +64,16 @@ extension Anytype_Event.Account.Show: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if self.index != 0 {
       try visitor.visitSingularInt32Field(value: self.index, fieldNumber: 1)
     }
-    try {
-        if let v = self._account {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Account.Show, rhs: Anytype_Event.Account.Show) -> Bool {
-    if lhs.index != rhs.index {
-        return false
-    }
-    if lhs._account != rhs._account {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.index != rhs.index {return false}
+    if lhs._account != rhs._account {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -110,8 +84,7 @@ extension Anytype_Event.Account.Show: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -23,12 +23,9 @@ extension Anytype_Model_Object {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_Object.ChangePayload: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_Object.ChangePayload: @unchecked Sendable {}
 
 extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Object.protoMessageName + ".ChangePayload"
@@ -44,20 +41,10 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.smartBlockType)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.key)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBytesField(value: &self.data)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.smartBlockType) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.data) }()
+      default: break
       }
     }
   }
@@ -76,18 +63,10 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Model_Object.ChangePayload, rhs: Anytype_Model_Object.ChangePayload) -> Bool {
-    if lhs.smartBlockType != rhs.smartBlockType {
-        return false
-    }
-    if lhs.key != rhs.key {
-        return false
-    }
-    if lhs.data != rhs.data {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.smartBlockType != rhs.smartBlockType {return false}
+    if lhs.key != rhs.key {return false}
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -98,8 +77,7 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

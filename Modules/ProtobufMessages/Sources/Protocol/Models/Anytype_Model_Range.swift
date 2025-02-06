@@ -20,11 +20,9 @@ public struct Anytype_Model_Range {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_Range: @unchecked Sendable {
-}
+extension Anytype_Model_Range: @unchecked Sendable {}
 
 extension Anytype_Model_Range: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Range"
@@ -39,16 +37,9 @@ extension Anytype_Model_Range: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.from)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.to)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.from) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.to) }()
+      default: break
       }
     }
   }
@@ -64,15 +55,9 @@ extension Anytype_Model_Range: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
   }
 
   public static func ==(lhs: Anytype_Model_Range, rhs: Anytype_Model_Range) -> Bool {
-    if lhs.from != rhs.from {
-        return false
-    }
-    if lhs.to != rhs.to {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.from != rhs.from {return false}
+    if lhs.to != rhs.to {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -83,8 +68,7 @@ extension Anytype_Model_Range: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

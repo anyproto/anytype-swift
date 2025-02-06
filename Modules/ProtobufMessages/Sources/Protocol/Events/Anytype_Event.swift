@@ -19,33 +19,23 @@ public struct Anytype_Event {
   public var contextID: String = String()
 
   public var initiator: Anytype_Model_Account {
-    get {
-        return _initiator ?? Anytype_Model_Account()
-    }
-    set {
-        _initiator = newValue
-    }
+    get {return _initiator ?? Anytype_Model_Account()}
+    set {_initiator = newValue}
   }
   /// Returns true if `initiator` has been explicitly set.
-  public var hasInitiator: Bool {
-      return self._initiator != nil
-  }
+  public var hasInitiator: Bool {return self._initiator != nil}
   /// Clears the value of `initiator`. Subsequent reads from it will return its default value.
-  public mutating func clearInitiator() {
-      self._initiator = nil
-  }
+  public mutating func clearInitiator() {self._initiator = nil}
 
   public var traceID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 
   fileprivate var _initiator: Anytype_Model_Account? = nil
 }
-extension Anytype_Event: @unchecked Sendable {
-}
+extension Anytype_Event: @unchecked Sendable {}
 
 extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Event"
@@ -62,24 +52,11 @@ extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.messages)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._initiator)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.traceID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._initiator) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
+      default: break
       }
     }
   }
@@ -95,11 +72,9 @@ extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if !self.contextID.isEmpty {
       try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 2)
     }
-    try {
-        if let v = self._initiator {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._initiator {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if !self.traceID.isEmpty {
       try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 4)
     }
@@ -107,21 +82,11 @@ extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
   }
 
   public static func ==(lhs: Anytype_Event, rhs: Anytype_Event) -> Bool {
-    if lhs.messages != rhs.messages {
-        return false
-    }
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs._initiator != rhs._initiator {
-        return false
-    }
-    if lhs.traceID != rhs.traceID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.messages != rhs.messages {return false}
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs._initiator != rhs._initiator {return false}
+    if lhs.traceID != rhs.traceID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -132,8 +97,7 @@ extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

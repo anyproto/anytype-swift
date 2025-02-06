@@ -52,64 +52,39 @@ extension Anytype_Model_Restrictions {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .none
-      case 1:
-          self = .delete
-      case 2:
-          self = .relations
-      case 3:
-          self = .blocks
-      case 4:
-          self = .details
-      case 5:
-          self = .typeChange
-      case 6:
-          self = .layoutChange
-      case 7:
-          self = .template
-      case 8:
-          self = .duplicate
-      case 9:
-          self = .createObjectOfThisType
-      case 10:
-          self = .publish
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .none
+      case 1: self = .delete
+      case 2: self = .relations
+      case 3: self = .blocks
+      case 4: self = .details
+      case 5: self = .typeChange
+      case 6: self = .layoutChange
+      case 7: self = .template
+      case 8: self = .duplicate
+      case 9: self = .createObjectOfThisType
+      case 10: self = .publish
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .none:
-          return 0
-      case .delete:
-          return 1
-      case .relations:
-          return 2
-      case .blocks:
-          return 3
-      case .details:
-          return 4
-      case .typeChange:
-          return 5
-      case .layoutChange:
-          return 6
-      case .template:
-          return 7
-      case .duplicate:
-          return 8
-      case .createObjectOfThisType:
-          return 9
-      case .publish:
-          return 10
-      case .UNRECOGNIZED(let i):
-          return i
+      case .none: return 0
+      case .delete: return 1
+      case .relations: return 2
+      case .blocks: return 3
+      case .details: return 4
+      case .typeChange: return 5
+      case .layoutChange: return 6
+      case .template: return 7
+      case .duplicate: return 8
+      case .createObjectOfThisType: return 9
+      case .publish: return 10
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -127,8 +102,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
     .publish,
   ]
 }
-extension Anytype_Model_Restrictions.ObjectRestriction: @unchecked Sendable {
-}
+extension Anytype_Model_Restrictions.ObjectRestriction: @unchecked Sendable {}
 
 extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -152,8 +126,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoName
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

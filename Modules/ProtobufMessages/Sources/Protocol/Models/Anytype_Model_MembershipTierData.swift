@@ -17,181 +17,111 @@ public struct Anytype_Model_MembershipTierData {
   /// this is a unique Payment Node ID of the tier
   /// WARNING: tiers can be sorted differently, not according to their IDs!
   public var id: UInt32 {
-    get {
-        return _storage._id
-    }
-    set {
-        _uniqueStorage()._id = newValue
-    }
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
   }
 
   /// localazied name of the tier
   public var name: String {
-    get {
-        return _storage._name
-    }
-    set {
-        _uniqueStorage()._name = newValue
-    }
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
   }
 
   /// just a short technical description
   public var description_p: String {
-    get {
-        return _storage._description_p
-    }
-    set {
-        _uniqueStorage()._description_p = newValue
-    }
+    get {return _storage._description_p}
+    set {_uniqueStorage()._description_p = newValue}
   }
 
   /// is this tier for testing and debugging only?
   public var isTest: Bool {
-    get {
-        return _storage._isTest
-    }
-    set {
-        _uniqueStorage()._isTest = newValue
-    }
+    get {return _storage._isTest}
+    set {_uniqueStorage()._isTest = newValue}
   }
 
   /// how long is the period of the subscription
   public var periodType: Anytype_Model_MembershipTierData.PeriodType {
-    get {
-        return _storage._periodType
-    }
-    set {
-        _uniqueStorage()._periodType = newValue
-    }
+    get {return _storage._periodType}
+    set {_uniqueStorage()._periodType = newValue}
   }
 
   /// i.e. "5 days" or "3 years"
   public var periodValue: UInt32 {
-    get {
-        return _storage._periodValue
-    }
-    set {
-        _uniqueStorage()._periodValue = newValue
-    }
+    get {return _storage._periodValue}
+    set {_uniqueStorage()._periodValue = newValue}
   }
 
   /// this one is a price we use ONLY on Stripe platform
   public var priceStripeUsdCents: UInt32 {
-    get {
-        return _storage._priceStripeUsdCents
-    }
-    set {
-        _uniqueStorage()._priceStripeUsdCents = newValue
-    }
+    get {return _storage._priceStripeUsdCents}
+    set {_uniqueStorage()._priceStripeUsdCents = newValue}
   }
 
   /// number of ANY NS names that this tier includes
   /// also in the "features" list (see below)
   public var anyNamesCountIncluded: UInt32 {
-    get {
-        return _storage._anyNamesCountIncluded
-    }
-    set {
-        _uniqueStorage()._anyNamesCountIncluded = newValue
-    }
+    get {return _storage._anyNamesCountIncluded}
+    set {_uniqueStorage()._anyNamesCountIncluded = newValue}
   }
 
   /// somename.any - is of len 8
   public var anyNameMinLength: UInt32 {
-    get {
-        return _storage._anyNameMinLength
-    }
-    set {
-        _uniqueStorage()._anyNameMinLength = newValue
-    }
+    get {return _storage._anyNameMinLength}
+    set {_uniqueStorage()._anyNameMinLength = newValue}
   }
 
   /// localized strings for the features
   public var features: [String] {
-    get {
-        return _storage._features
-    }
-    set {
-        _uniqueStorage()._features = newValue
-    }
+    get {return _storage._features}
+    set {_uniqueStorage()._features = newValue}
   }
 
   /// green, blue, red, purple, custom
   public var colorStr: String {
-    get {
-        return _storage._colorStr
-    }
-    set {
-        _uniqueStorage()._colorStr = newValue
-    }
+    get {return _storage._colorStr}
+    set {_uniqueStorage()._colorStr = newValue}
   }
 
   /// Stripe platform-specific data:
   public var stripeProductID: String {
-    get {
-        return _storage._stripeProductID
-    }
-    set {
-        _uniqueStorage()._stripeProductID = newValue
-    }
+    get {return _storage._stripeProductID}
+    set {_uniqueStorage()._stripeProductID = newValue}
   }
 
   public var stripeManageURL: String {
-    get {
-        return _storage._stripeManageURL
-    }
-    set {
-        _uniqueStorage()._stripeManageURL = newValue
-    }
+    get {return _storage._stripeManageURL}
+    set {_uniqueStorage()._stripeManageURL = newValue}
   }
 
   /// iOS platform-specific data:
   public var iosProductID: String {
-    get {
-        return _storage._iosProductID
-    }
-    set {
-        _uniqueStorage()._iosProductID = newValue
-    }
+    get {return _storage._iosProductID}
+    set {_uniqueStorage()._iosProductID = newValue}
   }
 
   public var iosManageURL: String {
-    get {
-        return _storage._iosManageURL
-    }
-    set {
-        _uniqueStorage()._iosManageURL = newValue
-    }
+    get {return _storage._iosManageURL}
+    set {_uniqueStorage()._iosManageURL = newValue}
   }
 
   /// Android platform-specific data:
   public var androidProductID: String {
-    get {
-        return _storage._androidProductID
-    }
-    set {
-        _uniqueStorage()._androidProductID = newValue
-    }
+    get {return _storage._androidProductID}
+    set {_uniqueStorage()._androidProductID = newValue}
   }
 
   public var androidManageURL: String {
-    get {
-        return _storage._androidManageURL
-    }
-    set {
-        _uniqueStorage()._androidManageURL = newValue
-    }
+    get {return _storage._androidManageURL}
+    set {_uniqueStorage()._androidManageURL = newValue}
   }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
-extension Anytype_Model_MembershipTierData: @unchecked Sendable {
-}
+extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 
 extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".MembershipTierData"
@@ -236,8 +166,7 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
 
     static let defaultInstance = _StorageClass()
 
-    private init() {
-    }
+    private init() {}
 
     init(copying source: _StorageClass) {
       _id = source._id
@@ -275,76 +204,24 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1:
-            try {
-                try decoder.decodeSingularUInt32Field(value: &_storage._id)
-            }()
-        case 2:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._name)
-            }()
-        case 3:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._description_p)
-            }()
-        case 4:
-            try {
-                try decoder.decodeSingularBoolField(value: &_storage._isTest)
-            }()
-        case 5:
-            try {
-                try decoder.decodeSingularEnumField(value: &_storage._periodType)
-            }()
-        case 6:
-            try {
-                try decoder.decodeSingularUInt32Field(value: &_storage._periodValue)
-            }()
-        case 7:
-            try {
-                try decoder.decodeSingularUInt32Field(value: &_storage._priceStripeUsdCents)
-            }()
-        case 8:
-            try {
-                try decoder.decodeSingularUInt32Field(value: &_storage._anyNamesCountIncluded)
-            }()
-        case 9:
-            try {
-                try decoder.decodeSingularUInt32Field(value: &_storage._anyNameMinLength)
-            }()
-        case 10:
-            try {
-                try decoder.decodeRepeatedStringField(value: &_storage._features)
-            }()
-        case 11:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._colorStr)
-            }()
-        case 12:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._stripeProductID)
-            }()
-        case 13:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._stripeManageURL)
-            }()
-        case 15:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._iosProductID)
-            }()
-        case 16:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._iosManageURL)
-            }()
-        case 17:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._androidProductID)
-            }()
-        case 18:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._androidManageURL)
-            }()
-        default:
-            break
+        case 1: try { try decoder.decodeSingularUInt32Field(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._description_p) }()
+        case 4: try { try decoder.decodeSingularBoolField(value: &_storage._isTest) }()
+        case 5: try { try decoder.decodeSingularEnumField(value: &_storage._periodType) }()
+        case 6: try { try decoder.decodeSingularUInt32Field(value: &_storage._periodValue) }()
+        case 7: try { try decoder.decodeSingularUInt32Field(value: &_storage._priceStripeUsdCents) }()
+        case 8: try { try decoder.decodeSingularUInt32Field(value: &_storage._anyNamesCountIncluded) }()
+        case 9: try { try decoder.decodeSingularUInt32Field(value: &_storage._anyNameMinLength) }()
+        case 10: try { try decoder.decodeRepeatedStringField(value: &_storage._features) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._colorStr) }()
+        case 12: try { try decoder.decodeSingularStringField(value: &_storage._stripeProductID) }()
+        case 13: try { try decoder.decodeSingularStringField(value: &_storage._stripeManageURL) }()
+        case 15: try { try decoder.decodeSingularStringField(value: &_storage._iosProductID) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._iosManageURL) }()
+        case 17: try { try decoder.decodeSingularStringField(value: &_storage._androidProductID) }()
+        case 18: try { try decoder.decodeSingularStringField(value: &_storage._androidManageURL) }()
+        default: break
         }
       }
     }
@@ -412,66 +289,28 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {
-            return false
-        }
-        if _storage._name != rhs_storage._name {
-            return false
-        }
-        if _storage._description_p != rhs_storage._description_p {
-            return false
-        }
-        if _storage._isTest != rhs_storage._isTest {
-            return false
-        }
-        if _storage._periodType != rhs_storage._periodType {
-            return false
-        }
-        if _storage._periodValue != rhs_storage._periodValue {
-            return false
-        }
-        if _storage._priceStripeUsdCents != rhs_storage._priceStripeUsdCents {
-            return false
-        }
-        if _storage._anyNamesCountIncluded != rhs_storage._anyNamesCountIncluded {
-            return false
-        }
-        if _storage._anyNameMinLength != rhs_storage._anyNameMinLength {
-            return false
-        }
-        if _storage._features != rhs_storage._features {
-            return false
-        }
-        if _storage._colorStr != rhs_storage._colorStr {
-            return false
-        }
-        if _storage._stripeProductID != rhs_storage._stripeProductID {
-            return false
-        }
-        if _storage._stripeManageURL != rhs_storage._stripeManageURL {
-            return false
-        }
-        if _storage._iosProductID != rhs_storage._iosProductID {
-            return false
-        }
-        if _storage._iosManageURL != rhs_storage._iosManageURL {
-            return false
-        }
-        if _storage._androidProductID != rhs_storage._androidProductID {
-            return false
-        }
-        if _storage._androidManageURL != rhs_storage._androidManageURL {
-            return false
-        }
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._description_p != rhs_storage._description_p {return false}
+        if _storage._isTest != rhs_storage._isTest {return false}
+        if _storage._periodType != rhs_storage._periodType {return false}
+        if _storage._periodValue != rhs_storage._periodValue {return false}
+        if _storage._priceStripeUsdCents != rhs_storage._priceStripeUsdCents {return false}
+        if _storage._anyNamesCountIncluded != rhs_storage._anyNamesCountIncluded {return false}
+        if _storage._anyNameMinLength != rhs_storage._anyNameMinLength {return false}
+        if _storage._features != rhs_storage._features {return false}
+        if _storage._colorStr != rhs_storage._colorStr {return false}
+        if _storage._stripeProductID != rhs_storage._stripeProductID {return false}
+        if _storage._stripeManageURL != rhs_storage._stripeManageURL {return false}
+        if _storage._iosProductID != rhs_storage._iosProductID {return false}
+        if _storage._iosManageURL != rhs_storage._iosManageURL {return false}
+        if _storage._androidProductID != rhs_storage._androidProductID {return false}
+        if _storage._androidManageURL != rhs_storage._androidManageURL {return false}
         return true
       }
-      if !storagesAreEqual {
-          return false
-      }
+      if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -482,8 +321,7 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

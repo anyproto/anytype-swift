@@ -29,12 +29,9 @@ extension Anytype_Model_Notification {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_Notification.Import: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_Notification.Import: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".Import"
@@ -53,32 +50,13 @@ extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.processID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.errorCode)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.importType)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceName)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.processID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.errorCode) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.importType) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      default: break
       }
     }
   }
@@ -106,27 +84,13 @@ extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Model_Notification.Import, rhs: Anytype_Model_Notification.Import) -> Bool {
-    if lhs.processID != rhs.processID {
-        return false
-    }
-    if lhs.errorCode != rhs.errorCode {
-        return false
-    }
-    if lhs.importType != rhs.importType {
-        return false
-    }
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.spaceName != rhs.spaceName {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.processID != rhs.processID {return false}
+    if lhs.errorCode != rhs.errorCode {return false}
+    if lhs.importType != rhs.importType {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -137,8 +101,7 @@ extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobu
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

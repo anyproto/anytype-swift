@@ -21,21 +21,13 @@ extension Anytype_Model_Block.Content {
 
       /// list of marks to apply to the text
       public var marks: Anytype_Model_Block.Content.Text.Marks {
-        get {
-                return _marks ?? Anytype_Model_Block.Content.Text.Marks()
-            }
-        set {
-                _marks = newValue
-            }
+        get {return _marks ?? Anytype_Model_Block.Content.Text.Marks()}
+        set {_marks = newValue}
       }
       /// Returns true if `marks` has been explicitly set.
-      public var hasMarks: Bool {
-              return self._marks != nil
-          }
+      public var hasMarks: Bool {return self._marks != nil}
       /// Clears the value of `marks`. Subsequent reads from it will return its default value.
-      public mutating func clearMarks() {
-              self._marks = nil
-          }
+      public mutating func clearMarks() {self._marks = nil}
 
       public var checked: Bool = false
 
@@ -79,71 +71,41 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .paragraph
-          case 1:
-                  self = .header1
-          case 2:
-                  self = .header2
-          case 3:
-                  self = .header3
-          case 4:
-                  self = .header4
-          case 5:
-                  self = .quote
-          case 6:
-                  self = .code
-          case 7:
-                  self = .title
-          case 8:
-                  self = .checkbox
-          case 9:
-                  self = .marked
-          case 10:
-                  self = .numbered
-          case 11:
-                  self = .toggle
-          case 12:
-                  self = .description_
-          case 13:
-                  self = .callout
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .paragraph
+          case 1: self = .header1
+          case 2: self = .header2
+          case 3: self = .header3
+          case 4: self = .header4
+          case 5: self = .quote
+          case 6: self = .code
+          case 7: self = .title
+          case 8: self = .checkbox
+          case 9: self = .marked
+          case 10: self = .numbered
+          case 11: self = .toggle
+          case 12: self = .description_
+          case 13: self = .callout
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .paragraph:
-                  return 0
-          case .header1:
-                  return 1
-          case .header2:
-                  return 2
-          case .header3:
-                  return 3
-          case .header4:
-                  return 4
-          case .quote:
-                  return 5
-          case .code:
-                  return 6
-          case .title:
-                  return 7
-          case .checkbox:
-                  return 8
-          case .marked:
-                  return 9
-          case .numbered:
-                  return 10
-          case .toggle:
-                  return 11
-          case .description_:
-                  return 12
-          case .callout:
-                  return 13
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .paragraph: return 0
+          case .header1: return 1
+          case .header2: return 2
+          case .header3: return 3
+          case .header4: return 4
+          case .quote: return 5
+          case .code: return 6
+          case .title: return 7
+          case .checkbox: return 8
+          case .marked: return 9
+          case .numbered: return 10
+          case .toggle: return 11
+          case .description_: return 12
+          case .callout: return 13
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -158,8 +120,7 @@ extension Anytype_Model_Block.Content {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Mark {
@@ -169,21 +130,13 @@ extension Anytype_Model_Block.Content {
 
         /// range of symbols to apply this mark. From(symbol) To(symbol)
         public var range: Anytype_Model_Range {
-          get {
-                  return _range ?? Anytype_Model_Range()
-              }
-          set {
-                  _range = newValue
-              }
+          get {return _range ?? Anytype_Model_Range()}
+          set {_range = newValue}
         }
         /// Returns true if `range` has been explicitly set.
-        public var hasRange: Bool {
-                return self._range != nil
-            }
+        public var hasRange: Bool {return self._range != nil}
         /// Clears the value of `range`. Subsequent reads from it will return its default value.
-        public mutating func clearRange() {
-                self._range = nil
-            }
+        public mutating func clearRange() {self._range = nil}
 
         public var type: Anytype_Model_Block.Content.Text.Mark.TypeEnum = .strikethrough
 
@@ -213,76 +166,49 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .strikethrough
-            case 1:
-                    self = .keyboard
-            case 2:
-                    self = .italic
-            case 3:
-                    self = .bold
-            case 4:
-                    self = .underscored
-            case 5:
-                    self = .link
-            case 6:
-                    self = .textColor
-            case 7:
-                    self = .backgroundColor
-            case 8:
-                    self = .mention
-            case 9:
-                    self = .emoji
-            case 10:
-                    self = .object
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .strikethrough
+            case 1: self = .keyboard
+            case 2: self = .italic
+            case 3: self = .bold
+            case 4: self = .underscored
+            case 5: self = .link
+            case 6: self = .textColor
+            case 7: self = .backgroundColor
+            case 8: self = .mention
+            case 9: self = .emoji
+            case 10: self = .object
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .strikethrough:
-                    return 0
-            case .keyboard:
-                    return 1
-            case .italic:
-                    return 2
-            case .bold:
-                    return 3
-            case .underscored:
-                    return 4
-            case .link:
-                    return 5
-            case .textColor:
-                    return 6
-            case .backgroundColor:
-                    return 7
-            case .mention:
-                    return 8
-            case .emoji:
-                    return 9
-            case .object:
-                    return 10
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .strikethrough: return 0
+            case .keyboard: return 1
+            case .italic: return 2
+            case .bold: return 3
+            case .underscored: return 4
+            case .link: return 5
+            case .textColor: return 6
+            case .backgroundColor: return 7
+            case .mention: return 8
+            case .emoji: return 9
+            case .object: return 10
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _range: Anytype_Model_Range? = nil
       }
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _marks: Anytype_Model_Block.Content.Text.Marks? = nil
-    }
-}
+    }    }
 
 extension Anytype_Model_Block.Content.Text.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -320,16 +246,11 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: CaseIterable {
     .object,
   ]
 }
-extension Anytype_Model_Block.Content.Text: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Text.Style: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Text.Marks: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Text.Mark: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Content.Text: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text.Marks: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text.Mark: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Text"
@@ -349,36 +270,14 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.text)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.style)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._marks)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.checked)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.color)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.iconEmoji)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.iconImage)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.text) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._marks) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.checked) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.color) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.iconEmoji) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.iconImage) }()
+      default: break
       }
     }
   }
@@ -394,11 +293,9 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
     if self.style != .paragraph {
       try visitor.visitSingularEnumField(value: self.style, fieldNumber: 2)
     }
-    try {
-        if let v = self._marks {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._marks {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if self.checked != false {
       try visitor.visitSingularBoolField(value: self.checked, fieldNumber: 4)
     }
@@ -415,30 +312,14 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Text, rhs: Anytype_Model_Block.Content.Text) -> Bool {
-    if lhs.text != rhs.text {
-        return false
-    }
-    if lhs.style != rhs.style {
-        return false
-    }
-    if lhs._marks != rhs._marks {
-        return false
-    }
-    if lhs.checked != rhs.checked {
-        return false
-    }
-    if lhs.color != rhs.color {
-        return false
-    }
-    if lhs.iconEmoji != rhs.iconEmoji {
-        return false
-    }
-    if lhs.iconImage != rhs.iconImage {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.text != rhs.text {return false}
+    if lhs.style != rhs.style {return false}
+    if lhs._marks != rhs._marks {return false}
+    if lhs.checked != rhs.checked {return false}
+    if lhs.color != rhs.color {return false}
+    if lhs.iconEmoji != rhs.iconEmoji {return false}
+    if lhs.iconImage != rhs.iconImage {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -474,12 +355,8 @@ extension Anytype_Model_Block.Content.Text.Marks: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.marks)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.marks) }()
+      default: break
       }
     }
   }
@@ -492,12 +369,8 @@ extension Anytype_Model_Block.Content.Text.Marks: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Text.Marks, rhs: Anytype_Model_Block.Content.Text.Marks) -> Bool {
-    if lhs.marks != rhs.marks {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.marks != rhs.marks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -516,20 +389,10 @@ extension Anytype_Model_Block.Content.Text.Mark: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._range)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.param)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._range) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.param) }()
+      default: break
       }
     }
   }
@@ -539,11 +402,9 @@ extension Anytype_Model_Block.Content.Text.Mark: SwiftProtobuf.Message, SwiftPro
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._range {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._range {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if self.type != .strikethrough {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
     }
@@ -554,18 +415,10 @@ extension Anytype_Model_Block.Content.Text.Mark: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Text.Mark, rhs: Anytype_Model_Block.Content.Text.Mark) -> Bool {
-    if lhs._range != rhs._range {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.param != rhs.param {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._range != rhs._range {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.param != rhs.param {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -592,8 +445,7 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: SwiftProtobuf._ProtoNa
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

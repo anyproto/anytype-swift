@@ -30,55 +30,33 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .none
-    case 1:
-        self = .clipboard
-    case 2:
-        self = .dragAndDrop
-    case 3:
-        self = .import
-    case 4:
-        self = .webclipper
-    case 5:
-        self = .sharingExtension
-    case 6:
-        self = .usecase
-    case 7:
-        self = .builtin
-    case 8:
-        self = .bookmark
-    case 9:
-        self = .api
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .none
+    case 1: self = .clipboard
+    case 2: self = .dragAndDrop
+    case 3: self = .import
+    case 4: self = .webclipper
+    case 5: self = .sharingExtension
+    case 6: self = .usecase
+    case 7: self = .builtin
+    case 8: self = .bookmark
+    case 9: self = .api
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .none:
-        return 0
-    case .clipboard:
-        return 1
-    case .dragAndDrop:
-        return 2
-    case .import:
-        return 3
-    case .webclipper:
-        return 4
-    case .sharingExtension:
-        return 5
-    case .usecase:
-        return 6
-    case .builtin:
-        return 7
-    case .bookmark:
-        return 8
-    case .api:
-        return 9
-    case .UNRECOGNIZED(let i):
-        return i
+    case .none: return 0
+    case .clipboard: return 1
+    case .dragAndDrop: return 2
+    case .import: return 3
+    case .webclipper: return 4
+    case .sharingExtension: return 5
+    case .usecase: return 6
+    case .builtin: return 7
+    case .bookmark: return 8
+    case .api: return 9
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -99,8 +77,7 @@ extension Anytype_Model_ObjectOrigin: CaseIterable {
     .api,
   ]
 }
-extension Anytype_Model_ObjectOrigin: @unchecked Sendable {
-}
+extension Anytype_Model_ObjectOrigin: @unchecked Sendable {}
 
 extension Anytype_Model_ObjectOrigin: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -123,8 +100,7 @@ extension Anytype_Model_ObjectOrigin: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

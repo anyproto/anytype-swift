@@ -31,8 +31,7 @@ extension Anytype_Rpc.NameService {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Response {
@@ -41,21 +40,13 @@ extension Anytype_Rpc.NameService {
           // methods supported on all messages.
 
           public var error: Anytype_Rpc.NameService.UserAccount.Get.Response.Error {
-            get {
-                    return _error ?? Anytype_Rpc.NameService.UserAccount.Get.Response.Error()
-                }
-            set {
-                    _error = newValue
-                }
+            get {return _error ?? Anytype_Rpc.NameService.UserAccount.Get.Response.Error()}
+            set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {
-                  return self._error != nil
-              }
+          public var hasError: Bool {return self._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {
-                  self._error = nil
-              }
+          public mutating func clearError() {self._error = nil}
 
           /// this will use ReverseResolve to get current name
           /// user can buy many names, but
@@ -99,62 +90,43 @@ extension Anytype_Rpc.NameService {
 
               public init?(rawValue: Int) {
                 switch rawValue {
-                case 0:
-                        self = .null
-                case 1:
-                        self = .unknownError
-                case 2:
-                        self = .badInput
-                case 3:
-                        self = .notLoggedIn
-                case 4:
-                        self = .badNameResolve
-                case 5:
-                        self = .canNotConnect
-                default:
-                        self = .UNRECOGNIZED(rawValue)
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                case 3: self = .notLoggedIn
+                case 4: self = .badNameResolve
+                case 5: self = .canNotConnect
+                default: self = .UNRECOGNIZED(rawValue)
                 }
               }
 
               public var rawValue: Int {
                 switch self {
-                case .null:
-                        return 0
-                case .unknownError:
-                        return 1
-                case .badInput:
-                        return 2
-                case .notLoggedIn:
-                        return 3
-                case .badNameResolve:
-                        return 4
-                case .canNotConnect:
-                        return 5
-                case .UNRECOGNIZED(let i):
-                        return i
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .notLoggedIn: return 3
+                case .badNameResolve: return 4
+                case .canNotConnect: return 5
+                case .UNRECOGNIZED(let i): return i
                 }
               }
 
             }
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _error: Anytype_Rpc.NameService.UserAccount.Get.Response.Error? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -167,18 +139,12 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: CaseItera
     .canNotConnect,
   ]
 }
-extension Anytype_Rpc.NameService.UserAccount: @unchecked Sendable {
-}
-extension Anytype_Rpc.NameService.UserAccount.Get: @unchecked Sendable {
-}
-extension Anytype_Rpc.NameService.UserAccount.Get.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.NameService.UserAccount.Get.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.NameService.UserAccount: @unchecked Sendable {}
+extension Anytype_Rpc.NameService.UserAccount.Get: @unchecked Sendable {}
+extension Anytype_Rpc.NameService.UserAccount.Get.Request: @unchecked Sendable {}
+extension Anytype_Rpc.NameService.UserAccount.Get.Response: @unchecked Sendable {}
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.NameService.UserAccount: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.NameService.protoMessageName + ".UserAccount"
@@ -194,9 +160,7 @@ extension Anytype_Rpc.NameService.UserAccount: SwiftProtobuf.Message, SwiftProto
   }
 
   public static func ==(lhs: Anytype_Rpc.NameService.UserAccount, rhs: Anytype_Rpc.NameService.UserAccount) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -215,9 +179,7 @@ extension Anytype_Rpc.NameService.UserAccount.Get: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Rpc.NameService.UserAccount.Get, rhs: Anytype_Rpc.NameService.UserAccount.Get) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -236,9 +198,7 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Request: SwiftProtobuf.Message
   }
 
   public static func ==(lhs: Anytype_Rpc.NameService.UserAccount.Get.Request, rhs: Anytype_Rpc.NameService.UserAccount.Get.Request) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -259,28 +219,12 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.nsNameAttached)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.nsNameType)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularUInt64Field(value: &self.namesCountLeft)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularUInt64Field(value: &self.operationsCountLeft)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.nsNameAttached) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
+      case 4: try { try decoder.decodeSingularUInt64Field(value: &self.namesCountLeft) }()
+      case 5: try { try decoder.decodeSingularUInt64Field(value: &self.operationsCountLeft) }()
+      default: break
       }
     }
   }
@@ -290,11 +234,9 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response: SwiftProtobuf.Messag
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.nsNameAttached.isEmpty {
       try visitor.visitSingularStringField(value: self.nsNameAttached, fieldNumber: 2)
     }
@@ -311,24 +253,12 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response: SwiftProtobuf.Messag
   }
 
   public static func ==(lhs: Anytype_Rpc.NameService.UserAccount.Get.Response, rhs: Anytype_Rpc.NameService.UserAccount.Get.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.nsNameAttached != rhs.nsNameAttached {
-        return false
-    }
-    if lhs.nsNameType != rhs.nsNameType {
-        return false
-    }
-    if lhs.namesCountLeft != rhs.namesCountLeft {
-        return false
-    }
-    if lhs.operationsCountLeft != rhs.operationsCountLeft {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.nsNameAttached != rhs.nsNameAttached {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
+    if lhs.namesCountLeft != rhs.namesCountLeft {return false}
+    if lhs.operationsCountLeft != rhs.operationsCountLeft {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -346,16 +276,9 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -371,15 +294,9 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Rpc.NameService.UserAccount.Get.Response.Error, rhs: Anytype_Rpc.NameService.UserAccount.Get.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -401,8 +318,7 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: SwiftProt
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

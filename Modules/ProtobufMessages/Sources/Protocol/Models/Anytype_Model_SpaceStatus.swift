@@ -53,59 +53,35 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .unknown
-    case 1:
-        self = .loading
-    case 2:
-        self = .ok
-    case 3:
-        self = .missing
-    case 4:
-        self = .error
-    case 5:
-        self = .remoteWaitingDeletion
-    case 6:
-        self = .remoteDeleted
-    case 7:
-        self = .spaceDeleted
-    case 8:
-        self = .spaceActive
-    case 9:
-        self = .spaceJoining
-    case 10:
-        self = .spaceRemoving
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .unknown
+    case 1: self = .loading
+    case 2: self = .ok
+    case 3: self = .missing
+    case 4: self = .error
+    case 5: self = .remoteWaitingDeletion
+    case 6: self = .remoteDeleted
+    case 7: self = .spaceDeleted
+    case 8: self = .spaceActive
+    case 9: self = .spaceJoining
+    case 10: self = .spaceRemoving
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .unknown:
-        return 0
-    case .loading:
-        return 1
-    case .ok:
-        return 2
-    case .missing:
-        return 3
-    case .error:
-        return 4
-    case .remoteWaitingDeletion:
-        return 5
-    case .remoteDeleted:
-        return 6
-    case .spaceDeleted:
-        return 7
-    case .spaceActive:
-        return 8
-    case .spaceJoining:
-        return 9
-    case .spaceRemoving:
-        return 10
-    case .UNRECOGNIZED(let i):
-        return i
+    case .unknown: return 0
+    case .loading: return 1
+    case .ok: return 2
+    case .missing: return 3
+    case .error: return 4
+    case .remoteWaitingDeletion: return 5
+    case .remoteDeleted: return 6
+    case .spaceDeleted: return 7
+    case .spaceActive: return 8
+    case .spaceJoining: return 9
+    case .spaceRemoving: return 10
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -127,8 +103,7 @@ extension Anytype_Model_SpaceStatus: CaseIterable {
     .spaceRemoving,
   ]
 }
-extension Anytype_Model_SpaceStatus: @unchecked Sendable {
-}
+extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
 
 extension Anytype_Model_SpaceStatus: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -152,8 +127,7 @@ extension Anytype_Model_SpaceStatus: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

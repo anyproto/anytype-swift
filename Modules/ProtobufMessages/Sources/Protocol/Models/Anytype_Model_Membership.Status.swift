@@ -38,36 +38,25 @@ extension Anytype_Model_Membership {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .unknown
-      case 1:
-          self = .pending
-      case 2:
-          self = .active
-      case 3:
-          self = .pendingRequiresFinalization
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .unknown
+      case 1: self = .pending
+      case 2: self = .active
+      case 3: self = .pendingRequiresFinalization
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .unknown:
-          return 0
-      case .pending:
-          return 1
-      case .active:
-          return 2
-      case .pendingRequiresFinalization:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
+      case .unknown: return 0
+      case .pending: return 1
+      case .active: return 2
+      case .pendingRequiresFinalization: return 3
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Membership.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -78,8 +67,7 @@ extension Anytype_Model_Membership.Status: CaseIterable {
     .pendingRequiresFinalization,
   ]
 }
-extension Anytype_Model_Membership.Status: @unchecked Sendable {
-}
+extension Anytype_Model_Membership.Status: @unchecked Sendable {}
 
 extension Anytype_Model_Membership.Status: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -96,8 +84,7 @@ extension Anytype_Model_Membership.Status: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

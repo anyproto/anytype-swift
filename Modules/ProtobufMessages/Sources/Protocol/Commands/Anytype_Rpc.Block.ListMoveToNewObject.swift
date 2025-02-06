@@ -28,21 +28,13 @@ extension Anytype_Rpc.Block {
 
         /// new object details
         public var details: SwiftProtobuf.Google_Protobuf_Struct {
-          get {
-                  return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-              }
-          set {
-                  _details = newValue
-              }
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
         }
         /// Returns true if `details` has been explicitly set.
-        public var hasDetails: Bool {
-                return self._details != nil
-            }
+        public var hasDetails: Bool {return self._details != nil}
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
-        public mutating func clearDetails() {
-                self._details = nil
-            }
+        public mutating func clearDetails() {self._details = nil}
 
         /// id of the simple block to insert considering position
         public var dropTargetID: String = String()
@@ -52,8 +44,7 @@ extension Anytype_Rpc.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
@@ -64,40 +55,24 @@ extension Anytype_Rpc.Block {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Block.ListMoveToNewObject.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Block.ListMoveToNewObject.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Block.ListMoveToNewObject.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var linkID: String = String()
 
         public var event: Anytype_ResponseEvent {
-          get {
-                  return _event ?? Anytype_ResponseEvent()
-              }
-          set {
-                  _event = newValue
-              }
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
         /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {
-                return self._event != nil
-            }
+        public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {
-                self._event = nil
-            }
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -127,47 +102,35 @@ extension Anytype_Rpc.Block {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Block.ListMoveToNewObject.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -177,16 +140,11 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code: CaseIterabl
     .badInput,
   ]
 }
-extension Anytype_Rpc.Block.ListMoveToNewObject: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.ListMoveToNewObject.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.ListMoveToNewObject.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Block.ListMoveToNewObject: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ListMoveToNewObject.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ListMoveToNewObject.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Block.ListMoveToNewObject: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".ListMoveToNewObject"
@@ -202,9 +160,7 @@ extension Anytype_Rpc.Block.ListMoveToNewObject: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.ListMoveToNewObject, rhs: Anytype_Rpc.Block.ListMoveToNewObject) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -225,28 +181,12 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Request: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.blockIds)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.dropTargetID)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.position)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.dropTargetID) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.position) }()
+      default: break
       }
     }
   }
@@ -262,11 +202,9 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Request: SwiftProtobuf.Message, 
     if !self.blockIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if !self.dropTargetID.isEmpty {
       try visitor.visitSingularStringField(value: self.dropTargetID, fieldNumber: 4)
     }
@@ -277,24 +215,12 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Request: SwiftProtobuf.Message, 
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.ListMoveToNewObject.Request, rhs: Anytype_Rpc.Block.ListMoveToNewObject.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.blockIds != rhs.blockIds {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.dropTargetID != rhs.dropTargetID {
-        return false
-    }
-    if lhs.position != rhs.position {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockIds != rhs.blockIds {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.dropTargetID != rhs.dropTargetID {return false}
+    if lhs.position != rhs.position {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -313,20 +239,10 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.linkID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.linkID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -336,35 +252,23 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response: SwiftProtobuf.Message,
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.linkID.isEmpty {
       try visitor.visitSingularStringField(value: self.linkID, fieldNumber: 2)
     }
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.ListMoveToNewObject.Response, rhs: Anytype_Rpc.Block.ListMoveToNewObject.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.linkID != rhs.linkID {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.linkID != rhs.linkID {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -382,16 +286,9 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: SwiftProtobuf.Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -407,15 +304,9 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: SwiftProtobuf.Me
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.ListMoveToNewObject.Response.Error, rhs: Anytype_Rpc.Block.ListMoveToNewObject.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -434,8 +325,7 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error.Code: SwiftProtob
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

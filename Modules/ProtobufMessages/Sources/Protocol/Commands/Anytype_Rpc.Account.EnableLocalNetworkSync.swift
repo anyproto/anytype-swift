@@ -24,8 +24,7 @@ extension Anytype_Rpc.Account {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -34,21 +33,13 @@ extension Anytype_Rpc.Account {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -77,50 +68,36 @@ extension Anytype_Rpc.Account {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 4:
-                      self = .accountIsNotRunning
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 4: self = .accountIsNotRunning
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .accountIsNotRunning:
-                      return 4
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .accountIsNotRunning: return 4
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -131,16 +108,11 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: CaseIt
     .accountIsNotRunning,
   ]
 }
-extension Anytype_Rpc.Account.EnableLocalNetworkSync: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.EnableLocalNetworkSync.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Account.EnableLocalNetworkSync: @unchecked Sendable {}
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Account.EnableLocalNetworkSync: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".EnableLocalNetworkSync"
@@ -156,9 +128,7 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.EnableLocalNetworkSync, rhs: Anytype_Rpc.Account.EnableLocalNetworkSync) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -177,9 +147,7 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Request: SwiftProtobuf.Mess
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.EnableLocalNetworkSync.Request, rhs: Anytype_Rpc.Account.EnableLocalNetworkSync.Request) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -196,12 +164,8 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response: SwiftProtobuf.Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      default:
-          break
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
       }
     }
   }
@@ -211,21 +175,15 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response: SwiftProtobuf.Mes
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.EnableLocalNetworkSync.Response, rhs: Anytype_Rpc.Account.EnableLocalNetworkSync.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -243,16 +201,9 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -268,15 +219,9 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error, rhs: Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -296,8 +241,7 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error.Code: SwiftP
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

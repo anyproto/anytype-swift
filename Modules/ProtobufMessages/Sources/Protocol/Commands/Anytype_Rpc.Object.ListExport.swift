@@ -52,28 +52,19 @@ extension Anytype_Rpc.Object {
         public var noProgress: Bool = false
 
         public var linksStateFilters: Anytype_Rpc.Object.ListExport.StateFilters {
-          get {
-                  return _linksStateFilters ?? Anytype_Rpc.Object.ListExport.StateFilters()
-              }
-          set {
-                  _linksStateFilters = newValue
-              }
+          get {return _linksStateFilters ?? Anytype_Rpc.Object.ListExport.StateFilters()}
+          set {_linksStateFilters = newValue}
         }
         /// Returns true if `linksStateFilters` has been explicitly set.
-        public var hasLinksStateFilters: Bool {
-                return self._linksStateFilters != nil
-            }
+        public var hasLinksStateFilters: Bool {return self._linksStateFilters != nil}
         /// Clears the value of `linksStateFilters`. Subsequent reads from it will return its default value.
-        public mutating func clearLinksStateFilters() {
-                self._linksStateFilters = nil
-            }
+        public mutating func clearLinksStateFilters() {self._linksStateFilters = nil}
 
         public var includeBacklinks: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _linksStateFilters: Anytype_Rpc.Object.ListExport.StateFilters? = nil
       }
@@ -89,8 +80,7 @@ extension Anytype_Rpc.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct RelationsWhiteList {
@@ -104,8 +94,7 @@ extension Anytype_Rpc.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -114,42 +103,26 @@ extension Anytype_Rpc.Object {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Object.ListExport.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Object.ListExport.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Object.ListExport.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var path: String = String()
 
         public var succeed: Int32 = 0
 
         public var event: Anytype_ResponseEvent {
-          get {
-                  return _event ?? Anytype_ResponseEvent()
-              }
-          set {
-                  _event = newValue
-              }
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
         /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {
-                return self._event != nil
-            }
+        public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {
-                self._event = nil
-            }
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -179,47 +152,35 @@ extension Anytype_Rpc.Object {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Object.ListExport.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Object.ListExport.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -229,20 +190,13 @@ extension Anytype_Rpc.Object.ListExport.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Object.ListExport: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListExport.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListExport.StateFilters: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListExport.RelationsWhiteList: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListExport.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListExport.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.ListExport.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Object.ListExport: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListExport.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListExport.StateFilters: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListExport.RelationsWhiteList: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListExport.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListExport.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ListExport.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object.ListExport: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".ListExport"
@@ -258,9 +212,7 @@ extension Anytype_Rpc.Object.ListExport: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListExport, rhs: Anytype_Rpc.Object.ListExport) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -288,56 +240,19 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.path)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.objectIds)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.format)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.zip)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.includeNested)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.includeFiles)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isJson)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.includeArchived)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 11:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.noProgress)
-          }()
-      case 12:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._linksStateFilters)
-          }()
-      case 13:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.includeBacklinks)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.format) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.zip) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.includeNested) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.includeFiles) }()
+      case 7: try { try decoder.decodeSingularBoolField(value: &self.isJson) }()
+      case 9: try { try decoder.decodeSingularBoolField(value: &self.includeArchived) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 11: try { try decoder.decodeSingularBoolField(value: &self.noProgress) }()
+      case 12: try { try decoder.decodeSingularMessageField(value: &self._linksStateFilters) }()
+      case 13: try { try decoder.decodeSingularBoolField(value: &self.includeBacklinks) }()
+      default: break
       }
     }
   }
@@ -377,11 +292,9 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     if self.noProgress != false {
       try visitor.visitSingularBoolField(value: self.noProgress, fieldNumber: 11)
     }
-    try {
-        if let v = self._linksStateFilters {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
-            }
-    }()
+    try { if let v = self._linksStateFilters {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+    } }()
     if self.includeBacklinks != false {
       try visitor.visitSingularBoolField(value: self.includeBacklinks, fieldNumber: 13)
     }
@@ -389,45 +302,19 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListExport.Request, rhs: Anytype_Rpc.Object.ListExport.Request) -> Bool {
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.path != rhs.path {
-        return false
-    }
-    if lhs.objectIds != rhs.objectIds {
-        return false
-    }
-    if lhs.format != rhs.format {
-        return false
-    }
-    if lhs.zip != rhs.zip {
-        return false
-    }
-    if lhs.includeNested != rhs.includeNested {
-        return false
-    }
-    if lhs.includeFiles != rhs.includeFiles {
-        return false
-    }
-    if lhs.isJson != rhs.isJson {
-        return false
-    }
-    if lhs.includeArchived != rhs.includeArchived {
-        return false
-    }
-    if lhs.noProgress != rhs.noProgress {
-        return false
-    }
-    if lhs._linksStateFilters != rhs._linksStateFilters {
-        return false
-    }
-    if lhs.includeBacklinks != rhs.includeBacklinks {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.path != rhs.path {return false}
+    if lhs.objectIds != rhs.objectIds {return false}
+    if lhs.format != rhs.format {return false}
+    if lhs.zip != rhs.zip {return false}
+    if lhs.includeNested != rhs.includeNested {return false}
+    if lhs.includeFiles != rhs.includeFiles {return false}
+    if lhs.isJson != rhs.isJson {return false}
+    if lhs.includeArchived != rhs.includeArchived {return false}
+    if lhs.noProgress != rhs.noProgress {return false}
+    if lhs._linksStateFilters != rhs._linksStateFilters {return false}
+    if lhs.includeBacklinks != rhs.includeBacklinks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -445,16 +332,9 @@ extension Anytype_Rpc.Object.ListExport.StateFilters: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relationsWhiteList)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.removeBlocks)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.relationsWhiteList) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.removeBlocks) }()
+      default: break
       }
     }
   }
@@ -470,15 +350,9 @@ extension Anytype_Rpc.Object.ListExport.StateFilters: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListExport.StateFilters, rhs: Anytype_Rpc.Object.ListExport.StateFilters) -> Bool {
-    if lhs.relationsWhiteList != rhs.relationsWhiteList {
-        return false
-    }
-    if lhs.removeBlocks != rhs.removeBlocks {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.relationsWhiteList != rhs.relationsWhiteList {return false}
+    if lhs.removeBlocks != rhs.removeBlocks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -496,16 +370,9 @@ extension Anytype_Rpc.Object.ListExport.RelationsWhiteList: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.layout)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.allowedRelations)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.allowedRelations) }()
+      default: break
       }
     }
   }
@@ -521,15 +388,9 @@ extension Anytype_Rpc.Object.ListExport.RelationsWhiteList: SwiftProtobuf.Messag
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListExport.RelationsWhiteList, rhs: Anytype_Rpc.Object.ListExport.RelationsWhiteList) -> Bool {
-    if lhs.layout != rhs.layout {
-        return false
-    }
-    if lhs.allowedRelations != rhs.allowedRelations {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.layout != rhs.layout {return false}
+    if lhs.allowedRelations != rhs.allowedRelations {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -549,24 +410,11 @@ extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.path)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.succeed)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.succeed) }()
+      default: break
       }
     }
   }
@@ -576,19 +424,15 @@ extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftPr
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.path.isEmpty {
       try visitor.visitSingularStringField(value: self.path, fieldNumber: 2)
     }
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if self.succeed != 0 {
       try visitor.visitSingularInt32Field(value: self.succeed, fieldNumber: 4)
     }
@@ -596,21 +440,11 @@ extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListExport.Response, rhs: Anytype_Rpc.Object.ListExport.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.path != rhs.path {
-        return false
-    }
-    if lhs.succeed != rhs.succeed {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.path != rhs.path {return false}
+    if lhs.succeed != rhs.succeed {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -628,16 +462,9 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -653,15 +480,9 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListExport.Response.Error, rhs: Anytype_Rpc.Object.ListExport.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -680,8 +501,7 @@ extension Anytype_Rpc.Object.ListExport.Response.Error.Code: SwiftProtobuf._Prot
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -26,39 +26,25 @@ public enum Anytype_Model_ParticipantStatus: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .joining
-    case 1:
-        self = .active
-    case 2:
-        self = .removed
-    case 3:
-        self = .declined
-    case 4:
-        self = .removing
-    case 5:
-        self = .canceled
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .joining
+    case 1: self = .active
+    case 2: self = .removed
+    case 3: self = .declined
+    case 4: self = .removing
+    case 5: self = .canceled
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .joining:
-        return 0
-    case .active:
-        return 1
-    case .removed:
-        return 2
-    case .declined:
-        return 3
-    case .removing:
-        return 4
-    case .canceled:
-        return 5
-    case .UNRECOGNIZED(let i):
-        return i
+    case .joining: return 0
+    case .active: return 1
+    case .removed: return 2
+    case .declined: return 3
+    case .removing: return 4
+    case .canceled: return 5
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -75,8 +61,7 @@ extension Anytype_Model_ParticipantStatus: CaseIterable {
     .canceled,
   ]
 }
-extension Anytype_Model_ParticipantStatus: @unchecked Sendable {
-}
+extension Anytype_Model_ParticipantStatus: @unchecked Sendable {}
 
 extension Anytype_Model_ParticipantStatus: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -95,8 +80,7 @@ extension Anytype_Model_ParticipantStatus: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

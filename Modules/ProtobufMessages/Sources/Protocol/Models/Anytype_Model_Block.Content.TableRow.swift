@@ -19,12 +19,9 @@ extension Anytype_Model_Block.Content {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Model_Block.Content.TableRow: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Model_Block.Content.TableRow: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.TableRow: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".TableRow"
@@ -38,12 +35,8 @@ extension Anytype_Model_Block.Content.TableRow: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isHeader)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.isHeader) }()
+      default: break
       }
     }
   }
@@ -56,12 +49,8 @@ extension Anytype_Model_Block.Content.TableRow: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.TableRow, rhs: Anytype_Model_Block.Content.TableRow) -> Bool {
-    if lhs.isHeader != rhs.isHeader {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.isHeader != rhs.isHeader {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -72,8 +61,7 @@ extension Anytype_Model_Block.Content.TableRow: SwiftProtobuf.Message, SwiftProt
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

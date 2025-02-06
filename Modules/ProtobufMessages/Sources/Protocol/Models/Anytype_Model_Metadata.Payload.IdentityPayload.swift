@@ -19,12 +19,9 @@ extension Anytype_Model_Metadata.Payload {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Model_Metadata.Payload.IdentityPayload: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Model_Metadata.Payload.IdentityPayload: @unchecked Sendable {}
 
 extension Anytype_Model_Metadata.Payload.IdentityPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Metadata.Payload.protoMessageName + ".IdentityPayload"
@@ -38,12 +35,8 @@ extension Anytype_Model_Metadata.Payload.IdentityPayload: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularBytesField(value: &self.profileSymKey)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.profileSymKey) }()
+      default: break
       }
     }
   }
@@ -56,12 +49,8 @@ extension Anytype_Model_Metadata.Payload.IdentityPayload: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Model_Metadata.Payload.IdentityPayload, rhs: Anytype_Model_Metadata.Payload.IdentityPayload) -> Bool {
-    if lhs.profileSymKey != rhs.profileSymKey {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.profileSymKey != rhs.profileSymKey {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -72,8 +61,7 @@ extension Anytype_Model_Metadata.Payload.IdentityPayload: SwiftProtobuf.Message,
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -23,56 +23,35 @@ extension Anytype_Event.Account {
         // methods supported on all messages.
 
         public var config: Anytype_Model_Account.Config {
-          get {
-                  return _config ?? Anytype_Model_Account.Config()
-              }
-          set {
-                  _config = newValue
-              }
+          get {return _config ?? Anytype_Model_Account.Config()}
+          set {_config = newValue}
         }
         /// Returns true if `config` has been explicitly set.
-        public var hasConfig: Bool {
-                return self._config != nil
-            }
+        public var hasConfig: Bool {return self._config != nil}
         /// Clears the value of `config`. Subsequent reads from it will return its default value.
-        public mutating func clearConfig() {
-                self._config = nil
-            }
+        public mutating func clearConfig() {self._config = nil}
 
         public var status: Anytype_Model_Account.Status {
-          get {
-                  return _status ?? Anytype_Model_Account.Status()
-              }
-          set {
-                  _status = newValue
-              }
+          get {return _status ?? Anytype_Model_Account.Status()}
+          set {_status = newValue}
         }
         /// Returns true if `status` has been explicitly set.
-        public var hasStatus: Bool {
-                return self._status != nil
-            }
+        public var hasStatus: Bool {return self._status != nil}
         /// Clears the value of `status`. Subsequent reads from it will return its default value.
-        public mutating func clearStatus() {
-                self._status = nil
-            }
+        public mutating func clearStatus() {self._status = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _config: Anytype_Model_Account.Config? = nil
         fileprivate var _status: Anytype_Model_Account.Status? = nil
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.Account.Config: @unchecked Sendable {
-}
-extension Anytype_Event.Account.Config.Update: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.Account.Config: @unchecked Sendable {}
+extension Anytype_Event.Account.Config.Update: @unchecked Sendable {}
 
 extension Anytype_Event.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".Config"
@@ -88,9 +67,7 @@ extension Anytype_Event.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   public static func ==(lhs: Anytype_Event.Account.Config, rhs: Anytype_Event.Account.Config) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -108,16 +85,9 @@ extension Anytype_Event.Account.Config.Update: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._config)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._status)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._status) }()
+      default: break
       }
     }
   }
@@ -127,29 +97,19 @@ extension Anytype_Event.Account.Config.Update: SwiftProtobuf.Message, SwiftProto
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._config {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._status {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._config {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._status {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Account.Config.Update, rhs: Anytype_Event.Account.Config.Update) -> Bool {
-    if lhs._config != rhs._config {
-        return false
-    }
-    if lhs._status != rhs._status {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._config != rhs._config {return false}
+    if lhs._status != rhs._status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -160,8 +120,7 @@ extension Anytype_Event.Account.Config.Update: SwiftProtobuf.Message, SwiftProto
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

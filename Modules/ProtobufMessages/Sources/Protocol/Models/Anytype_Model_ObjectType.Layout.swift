@@ -47,116 +47,65 @@ extension Anytype_Model_ObjectType {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .basic
-      case 1:
-          self = .profile
-      case 2:
-          self = .todo
-      case 3:
-          self = .set
-      case 4:
-          self = .objectType
-      case 5:
-          self = .relation
-      case 6:
-          self = .file
-      case 7:
-          self = .dashboard
-      case 8:
-          self = .image
-      case 9:
-          self = .note
-      case 10:
-          self = .space
-      case 11:
-          self = .bookmark
-      case 12:
-          self = .relationOptionsList
-      case 13:
-          self = .relationOption
-      case 14:
-          self = .collection
-      case 15:
-          self = .audio
-      case 16:
-          self = .video
-      case 17:
-          self = .date
-      case 18:
-          self = .spaceView
-      case 19:
-          self = .participant
-      case 20:
-          self = .pdf
-      case 21:
-          self = .chat
-      case 22:
-          self = .chatDerived
-      case 23:
-          self = .tag
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .basic
+      case 1: self = .profile
+      case 2: self = .todo
+      case 3: self = .set
+      case 4: self = .objectType
+      case 5: self = .relation
+      case 6: self = .file
+      case 7: self = .dashboard
+      case 8: self = .image
+      case 9: self = .note
+      case 10: self = .space
+      case 11: self = .bookmark
+      case 12: self = .relationOptionsList
+      case 13: self = .relationOption
+      case 14: self = .collection
+      case 15: self = .audio
+      case 16: self = .video
+      case 17: self = .date
+      case 18: self = .spaceView
+      case 19: self = .participant
+      case 20: self = .pdf
+      case 21: self = .chat
+      case 22: self = .chatDerived
+      case 23: self = .tag
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .basic:
-          return 0
-      case .profile:
-          return 1
-      case .todo:
-          return 2
-      case .set:
-          return 3
-      case .objectType:
-          return 4
-      case .relation:
-          return 5
-      case .file:
-          return 6
-      case .dashboard:
-          return 7
-      case .image:
-          return 8
-      case .note:
-          return 9
-      case .space:
-          return 10
-      case .bookmark:
-          return 11
-      case .relationOptionsList:
-          return 12
-      case .relationOption:
-          return 13
-      case .collection:
-          return 14
-      case .audio:
-          return 15
-      case .video:
-          return 16
-      case .date:
-          return 17
-      case .spaceView:
-          return 18
-      case .participant:
-          return 19
-      case .pdf:
-          return 20
-      case .chat:
-          return 21
-      case .chatDerived:
-          return 22
-      case .tag:
-          return 23
-      case .UNRECOGNIZED(let i):
-          return i
+      case .basic: return 0
+      case .profile: return 1
+      case .todo: return 2
+      case .set: return 3
+      case .objectType: return 4
+      case .relation: return 5
+      case .file: return 6
+      case .dashboard: return 7
+      case .image: return 8
+      case .note: return 9
+      case .space: return 10
+      case .bookmark: return 11
+      case .relationOptionsList: return 12
+      case .relationOption: return 13
+      case .collection: return 14
+      case .audio: return 15
+      case .video: return 16
+      case .date: return 17
+      case .spaceView: return 18
+      case .participant: return 19
+      case .pdf: return 20
+      case .chat: return 21
+      case .chatDerived: return 22
+      case .tag: return 23
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_ObjectType.Layout: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -187,8 +136,7 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .tag,
   ]
 }
-extension Anytype_Model_ObjectType.Layout: @unchecked Sendable {
-}
+extension Anytype_Model_ObjectType.Layout: @unchecked Sendable {}
 
 extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -225,8 +173,7 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

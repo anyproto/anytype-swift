@@ -34,8 +34,7 @@ extension Anytype_Event.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       /// Removes document from subscription
@@ -52,8 +51,7 @@ extension Anytype_Event.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       /// Indicates new position of document
@@ -73,8 +71,7 @@ extension Anytype_Event.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Counters {
@@ -96,8 +93,7 @@ extension Anytype_Event.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Groups {
@@ -108,48 +104,31 @@ extension Anytype_Event.Object {
         public var subID: String = String()
 
         public var group: Anytype_Model_Block.Content.Dataview.Group {
-          get {
-                  return _group ?? Anytype_Model_Block.Content.Dataview.Group()
-              }
-          set {
-                  _group = newValue
-              }
+          get {return _group ?? Anytype_Model_Block.Content.Dataview.Group()}
+          set {_group = newValue}
         }
         /// Returns true if `group` has been explicitly set.
-        public var hasGroup: Bool {
-                return self._group != nil
-            }
+        public var hasGroup: Bool {return self._group != nil}
         /// Clears the value of `group`. Subsequent reads from it will return its default value.
-        public mutating func clearGroup() {
-                self._group = nil
-            }
+        public mutating func clearGroup() {self._group = nil}
 
         public var remove: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _group: Anytype_Model_Block.Content.Dataview.Group? = nil
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.Object.Subscription: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Subscription.Add: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Subscription.Remove: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Subscription.Position: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Subscription.Counters: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Subscription.Groups: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.Object.Subscription: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Add: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Remove: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Position: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Counters: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Groups: @unchecked Sendable {}
 
 extension Anytype_Event.Object.Subscription: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Object.protoMessageName + ".Subscription"
@@ -165,9 +144,7 @@ extension Anytype_Event.Object.Subscription: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription, rhs: Anytype_Event.Object.Subscription) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -186,20 +163,10 @@ extension Anytype_Event.Object.Subscription.Add: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.subID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.subID) }()
+      default: break
       }
     }
   }
@@ -218,18 +185,10 @@ extension Anytype_Event.Object.Subscription.Add: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription.Add, rhs: Anytype_Event.Object.Subscription.Add) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.subID != rhs.subID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.subID != rhs.subID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -247,16 +206,9 @@ extension Anytype_Event.Object.Subscription.Remove: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.subID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.subID) }()
+      default: break
       }
     }
   }
@@ -272,15 +224,9 @@ extension Anytype_Event.Object.Subscription.Remove: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription.Remove, rhs: Anytype_Event.Object.Subscription.Remove) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.subID != rhs.subID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.subID != rhs.subID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -299,20 +245,10 @@ extension Anytype_Event.Object.Subscription.Position: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.afterID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.subID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.subID) }()
+      default: break
       }
     }
   }
@@ -331,18 +267,10 @@ extension Anytype_Event.Object.Subscription.Position: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription.Position, rhs: Anytype_Event.Object.Subscription.Position) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.afterID != rhs.afterID {
-        return false
-    }
-    if lhs.subID != rhs.subID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.subID != rhs.subID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -362,24 +290,11 @@ extension Anytype_Event.Object.Subscription.Counters: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.total)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.nextCount)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.prevCount)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.subID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.total) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.nextCount) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.prevCount) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.subID) }()
+      default: break
       }
     }
   }
@@ -401,21 +316,11 @@ extension Anytype_Event.Object.Subscription.Counters: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription.Counters, rhs: Anytype_Event.Object.Subscription.Counters) -> Bool {
-    if lhs.total != rhs.total {
-        return false
-    }
-    if lhs.nextCount != rhs.nextCount {
-        return false
-    }
-    if lhs.prevCount != rhs.prevCount {
-        return false
-    }
-    if lhs.subID != rhs.subID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.total != rhs.total {return false}
+    if lhs.nextCount != rhs.nextCount {return false}
+    if lhs.prevCount != rhs.prevCount {return false}
+    if lhs.subID != rhs.subID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -434,20 +339,10 @@ extension Anytype_Event.Object.Subscription.Groups: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.subID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._group)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.remove)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.subID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._group) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.remove) }()
+      default: break
       }
     }
   }
@@ -460,11 +355,9 @@ extension Anytype_Event.Object.Subscription.Groups: SwiftProtobuf.Message, Swift
     if !self.subID.isEmpty {
       try visitor.visitSingularStringField(value: self.subID, fieldNumber: 1)
     }
-    try {
-        if let v = self._group {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._group {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     if self.remove != false {
       try visitor.visitSingularBoolField(value: self.remove, fieldNumber: 3)
     }
@@ -472,18 +365,10 @@ extension Anytype_Event.Object.Subscription.Groups: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription.Groups, rhs: Anytype_Event.Object.Subscription.Groups) -> Bool {
-    if lhs.subID != rhs.subID {
-        return false
-    }
-    if lhs._group != rhs._group {
-        return false
-    }
-    if lhs.remove != rhs.remove {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.subID != rhs.subID {return false}
+    if lhs._group != rhs._group {return false}
+    if lhs.remove != rhs.remove {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -494,8 +379,7 @@ extension Anytype_Event.Object.Subscription.Groups: SwiftProtobuf.Message, Swift
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -27,21 +27,13 @@ extension Anytype_Rpc.BlockLink {
 
         /// new object details
         public var details: SwiftProtobuf.Google_Protobuf_Struct {
-          get {
-                  return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-              }
-          set {
-                  _details = newValue
-              }
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
         }
         /// Returns true if `details` has been explicitly set.
-        public var hasDetails: Bool {
-                return self._details != nil
-            }
+        public var hasDetails: Bool {return self._details != nil}
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
-        public mutating func clearDetails() {
-                self._details = nil
-            }
+        public mutating func clearDetails() {self._details = nil}
 
         /// optional template id for creating from template
         public var templateID: String = String()
@@ -53,21 +45,13 @@ extension Anytype_Rpc.BlockLink {
         public var objectTypeUniqueKey: String = String()
 
         public var block: Anytype_Model_Block {
-          get {
-                  return _block ?? Anytype_Model_Block()
-              }
-          set {
-                  _block = newValue
-              }
+          get {return _block ?? Anytype_Model_Block()}
+          set {_block = newValue}
         }
         /// Returns true if `block` has been explicitly set.
-        public var hasBlock: Bool {
-                return self._block != nil
-            }
+        public var hasBlock: Bool {return self._block != nil}
         /// Clears the value of `block`. Subsequent reads from it will return its default value.
-        public mutating func clearBlock() {
-                self._block = nil
-            }
+        public mutating func clearBlock() {self._block = nil}
 
         /// link block params
         public var targetID: String = String()
@@ -76,26 +60,17 @@ extension Anytype_Rpc.BlockLink {
 
         /// deprecated link block fields
         public var fields: SwiftProtobuf.Google_Protobuf_Struct {
-          get {
-                  return _fields ?? SwiftProtobuf.Google_Protobuf_Struct()
-              }
-          set {
-                  _fields = newValue
-              }
+          get {return _fields ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_fields = newValue}
         }
         /// Returns true if `fields` has been explicitly set.
-        public var hasFields: Bool {
-                return self._fields != nil
-            }
+        public var hasFields: Bool {return self._fields != nil}
         /// Clears the value of `fields`. Subsequent reads from it will return its default value.
-        public mutating func clearFields() {
-                self._fields = nil
-            }
+        public mutating func clearFields() {self._fields = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
         fileprivate var _block: Anytype_Model_Block? = nil
@@ -108,59 +83,35 @@ extension Anytype_Rpc.BlockLink {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.BlockLink.CreateWithObject.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.BlockLink.CreateWithObject.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.BlockLink.CreateWithObject.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var blockID: String = String()
 
         public var targetID: String = String()
 
         public var event: Anytype_ResponseEvent {
-          get {
-                  return _event ?? Anytype_ResponseEvent()
-              }
-          set {
-                  _event = newValue
-              }
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
         /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {
-                return self._event != nil
-            }
+        public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {
-                self._event = nil
-            }
+        public mutating func clearEvent() {self._event = nil}
 
         public var details: SwiftProtobuf.Google_Protobuf_Struct {
-          get {
-                  return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-              }
-          set {
-                  _details = newValue
-              }
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
         }
         /// Returns true if `details` has been explicitly set.
-        public var hasDetails: Bool {
-                return self._details != nil
-            }
+        public var hasDetails: Bool {return self._details != nil}
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
-        public mutating func clearDetails() {
-                self._details = nil
-            }
+        public mutating func clearDetails() {self._details = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -190,48 +141,36 @@ extension Anytype_Rpc.BlockLink {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.BlockLink.CreateWithObject.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -241,16 +180,11 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: CaseIterab
     .badInput,
   ]
 }
-extension Anytype_Rpc.BlockLink.CreateWithObject: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockLink.CreateWithObject.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockLink.CreateWithObject.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.BlockLink.CreateWithObject: @unchecked Sendable {}
+extension Anytype_Rpc.BlockLink.CreateWithObject.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.BlockLink.CreateWithObject: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockLink.protoMessageName + ".CreateWithObject"
@@ -266,9 +200,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockLink.CreateWithObject, rhs: Anytype_Rpc.BlockLink.CreateWithObject) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -294,48 +226,17 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.targetID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.position)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.templateID)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._fields)
-          }()
-      case 7:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.internalFlags)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._block)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.targetID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.position) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.internalFlags) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
+      case 10: try { try decoder.decodeSingularMessageField(value: &self._block) }()
+      default: break
       }
     }
   }
@@ -351,22 +252,18 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
     if !self.targetID.isEmpty {
       try visitor.visitSingularStringField(value: self.targetID, fieldNumber: 2)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if self.position != .none {
       try visitor.visitSingularEnumField(value: self.position, fieldNumber: 4)
     }
     if !self.templateID.isEmpty {
       try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 5)
     }
-    try {
-        if let v = self._fields {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
+    try { if let v = self._fields {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     if !self.internalFlags.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.internalFlags, fieldNumber: 7)
     }
@@ -376,48 +273,24 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
     if !self.objectTypeUniqueKey.isEmpty {
       try visitor.visitSingularStringField(value: self.objectTypeUniqueKey, fieldNumber: 9)
     }
-    try {
-        if let v = self._block {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-            }
-    }()
+    try { if let v = self._block {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockLink.CreateWithObject.Request, rhs: Anytype_Rpc.BlockLink.CreateWithObject.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.templateID != rhs.templateID {
-        return false
-    }
-    if lhs.internalFlags != rhs.internalFlags {
-        return false
-    }
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {
-        return false
-    }
-    if lhs._block != rhs._block {
-        return false
-    }
-    if lhs.targetID != rhs.targetID {
-        return false
-    }
-    if lhs.position != rhs.position {
-        return false
-    }
-    if lhs._fields != rhs._fields {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.templateID != rhs.templateID {return false}
+    if lhs.internalFlags != rhs.internalFlags {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
+    if lhs._block != rhs._block {return false}
+    if lhs.targetID != rhs.targetID {return false}
+    if lhs.position != rhs.position {return false}
+    if lhs._fields != rhs._fields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -438,28 +311,12 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response: SwiftProtobuf.Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.targetID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.targetID) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      default: break
       }
     }
   }
@@ -469,49 +326,31 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response: SwiftProtobuf.Message
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.blockID.isEmpty {
       try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
     }
     if !self.targetID.isEmpty {
       try visitor.visitSingularStringField(value: self.targetID, fieldNumber: 3)
     }
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockLink.CreateWithObject.Response, rhs: Anytype_Rpc.BlockLink.CreateWithObject.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs.targetID != rhs.targetID {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.targetID != rhs.targetID {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -529,16 +368,9 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: SwiftProtobuf.M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -554,15 +386,9 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: SwiftProtobuf.M
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockLink.CreateWithObject.Response.Error, rhs: Anytype_Rpc.BlockLink.CreateWithObject.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -581,8 +407,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: SwiftProto
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

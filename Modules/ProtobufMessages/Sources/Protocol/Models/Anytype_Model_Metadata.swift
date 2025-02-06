@@ -18,23 +18,17 @@ public struct Anytype_Model_Metadata {
 
   public var identity: Anytype_Model_Metadata.Payload.IdentityPayload {
     get {
-      if case .identity(let v)? = payload {
-          return v
-      }
+      if case .identity(let v)? = payload {return v}
       return Anytype_Model_Metadata.Payload.IdentityPayload()
     }
-    set {
-        payload = .identity(newValue)
-    }
+    set {payload = .identity(newValue)}
   }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_Metadata: @unchecked Sendable {
-}
+extension Anytype_Model_Metadata: @unchecked Sendable {}
 
 extension Anytype_Model_Metadata: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Metadata"
@@ -48,26 +42,20 @@ extension Anytype_Model_Metadata: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-                  var v: Anytype_Model_Metadata.Payload.IdentityPayload?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .identity(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .identity(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try {
+        var v: Anytype_Model_Metadata.Payload.IdentityPayload?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .identity(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .identity(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -77,21 +65,15 @@ extension Anytype_Model_Metadata: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if case .identity(let v)? = self.payload {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if case .identity(let v)? = self.payload {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Metadata, rhs: Anytype_Model_Metadata) -> Bool {
-    if lhs.payload != rhs.payload {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.payload != rhs.payload {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -102,8 +84,7 @@ extension Anytype_Model_Metadata: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

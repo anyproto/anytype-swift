@@ -57,12 +57,9 @@ extension Anytype_Model_Account {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_Account.Info: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_Account.Info: @unchecked Sendable {}
 
 extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Info"
@@ -90,68 +87,22 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.homeObjectID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.archiveObjectID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.profileObjectID)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularStringField(value: &self.deviceID)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularStringField(value: &self.accountSpaceID)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularStringField(value: &self.widgetsID)
-          }()
-      case 11:
-          try {
-              try decoder.decodeSingularStringField(value: &self.marketplaceWorkspaceID)
-          }()
-      case 13:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceViewID)
-          }()
-      case 14:
-          try {
-              try decoder.decodeSingularStringField(value: &self.techSpaceID)
-          }()
-      case 15:
-          try {
-              try decoder.decodeSingularStringField(value: &self.workspaceObjectID)
-          }()
-      case 101:
-          try {
-              try decoder.decodeSingularStringField(value: &self.gatewayURL)
-          }()
-      case 103:
-          try {
-              try decoder.decodeSingularStringField(value: &self.localStoragePath)
-          }()
-      case 104:
-          try {
-              try decoder.decodeSingularStringField(value: &self.timeZone)
-          }()
-      case 105:
-          try {
-              try decoder.decodeSingularStringField(value: &self.analyticsID)
-          }()
-      case 106:
-          try {
-              try decoder.decodeSingularStringField(value: &self.networkID)
-          }()
-      default:
-          break
+      case 2: try { try decoder.decodeSingularStringField(value: &self.homeObjectID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.archiveObjectID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.profileObjectID) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.accountSpaceID) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.widgetsID) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.marketplaceWorkspaceID) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.spaceViewID) }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self.techSpaceID) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self.workspaceObjectID) }()
+      case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
+      case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
+      case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
+      case 105: try { try decoder.decodeSingularStringField(value: &self.analyticsID) }()
+      case 106: try { try decoder.decodeSingularStringField(value: &self.networkID) }()
+      default: break
       }
     }
   }
@@ -206,54 +157,22 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   public static func ==(lhs: Anytype_Model_Account.Info, rhs: Anytype_Model_Account.Info) -> Bool {
-    if lhs.homeObjectID != rhs.homeObjectID {
-        return false
-    }
-    if lhs.archiveObjectID != rhs.archiveObjectID {
-        return false
-    }
-    if lhs.profileObjectID != rhs.profileObjectID {
-        return false
-    }
-    if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {
-        return false
-    }
-    if lhs.workspaceObjectID != rhs.workspaceObjectID {
-        return false
-    }
-    if lhs.deviceID != rhs.deviceID {
-        return false
-    }
-    if lhs.accountSpaceID != rhs.accountSpaceID {
-        return false
-    }
-    if lhs.widgetsID != rhs.widgetsID {
-        return false
-    }
-    if lhs.spaceViewID != rhs.spaceViewID {
-        return false
-    }
-    if lhs.techSpaceID != rhs.techSpaceID {
-        return false
-    }
-    if lhs.gatewayURL != rhs.gatewayURL {
-        return false
-    }
-    if lhs.localStoragePath != rhs.localStoragePath {
-        return false
-    }
-    if lhs.timeZone != rhs.timeZone {
-        return false
-    }
-    if lhs.analyticsID != rhs.analyticsID {
-        return false
-    }
-    if lhs.networkID != rhs.networkID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.homeObjectID != rhs.homeObjectID {return false}
+    if lhs.archiveObjectID != rhs.archiveObjectID {return false}
+    if lhs.profileObjectID != rhs.profileObjectID {return false}
+    if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {return false}
+    if lhs.workspaceObjectID != rhs.workspaceObjectID {return false}
+    if lhs.deviceID != rhs.deviceID {return false}
+    if lhs.accountSpaceID != rhs.accountSpaceID {return false}
+    if lhs.widgetsID != rhs.widgetsID {return false}
+    if lhs.spaceViewID != rhs.spaceViewID {return false}
+    if lhs.techSpaceID != rhs.techSpaceID {return false}
+    if lhs.gatewayURL != rhs.gatewayURL {return false}
+    if lhs.localStoragePath != rhs.localStoragePath {return false}
+    if lhs.timeZone != rhs.timeZone {return false}
+    if lhs.analyticsID != rhs.analyticsID {return false}
+    if lhs.networkID != rhs.networkID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -264,8 +183,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

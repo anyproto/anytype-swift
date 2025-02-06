@@ -33,8 +33,7 @@ extension Anytype_Rpc.Membership {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -43,21 +42,13 @@ extension Anytype_Rpc.Membership {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Membership.GetVerificationEmail.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Membership.GetVerificationEmail.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -94,82 +85,52 @@ extension Anytype_Rpc.Membership {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 3:
-                      self = .notLoggedIn
-              case 4:
-                      self = .paymentNodeError
-              case 5:
-                      self = .cacheError
-              case 6:
-                      self = .emailWrongFormat
-              case 7:
-                      self = .emailAlreadyVerified
-              case 8:
-                      self = .emailAlredySent
-              case 9:
-                      self = .emailFailedToSend
-              case 10:
-                      self = .membershipAlreadyExists
-              case 11:
-                      self = .canNotConnect
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              case 5: self = .cacheError
+              case 6: self = .emailWrongFormat
+              case 7: self = .emailAlreadyVerified
+              case 8: self = .emailAlredySent
+              case 9: self = .emailFailedToSend
+              case 10: self = .membershipAlreadyExists
+              case 11: self = .canNotConnect
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .notLoggedIn:
-                      return 3
-              case .paymentNodeError:
-                      return 4
-              case .cacheError:
-                      return 5
-              case .emailWrongFormat:
-                      return 6
-              case .emailAlreadyVerified:
-                      return 7
-              case .emailAlredySent:
-                      return 8
-              case .emailFailedToSend:
-                      return 9
-              case .membershipAlreadyExists:
-                      return 10
-              case .canNotConnect:
-                      return 11
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .cacheError: return 5
+              case .emailWrongFormat: return 6
+              case .emailAlreadyVerified: return 7
+              case .emailAlredySent: return 8
+              case .emailFailedToSend: return 9
+              case .membershipAlreadyExists: return 10
+              case .canNotConnect: return 11
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -188,16 +149,11 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: CaseI
     .canNotConnect,
   ]
 }
-extension Anytype_Rpc.Membership.GetVerificationEmail: @unchecked Sendable {
-}
-extension Anytype_Rpc.Membership.GetVerificationEmail.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Membership.GetVerificationEmail.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Membership.GetVerificationEmail: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Membership.GetVerificationEmail: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetVerificationEmail"
@@ -213,9 +169,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmail: SwiftProtobuf.Message, Sw
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail, rhs: Anytype_Rpc.Membership.GetVerificationEmail) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -235,24 +189,11 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Request: SwiftProtobuf.Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.email)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.subscribeToNewsletter)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.insiderTipsAndTutorials)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isOnboardingList)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.email) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.subscribeToNewsletter) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.insiderTipsAndTutorials) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isOnboardingList) }()
+      default: break
       }
     }
   }
@@ -274,21 +215,11 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Request: SwiftProtobuf.Mes
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail.Request, rhs: Anytype_Rpc.Membership.GetVerificationEmail.Request) -> Bool {
-    if lhs.email != rhs.email {
-        return false
-    }
-    if lhs.subscribeToNewsletter != rhs.subscribeToNewsletter {
-        return false
-    }
-    if lhs.insiderTipsAndTutorials != rhs.insiderTipsAndTutorials {
-        return false
-    }
-    if lhs.isOnboardingList != rhs.isOnboardingList {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.email != rhs.email {return false}
+    if lhs.subscribeToNewsletter != rhs.subscribeToNewsletter {return false}
+    if lhs.insiderTipsAndTutorials != rhs.insiderTipsAndTutorials {return false}
+    if lhs.isOnboardingList != rhs.isOnboardingList {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -305,12 +236,8 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response: SwiftProtobuf.Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
       }
     }
   }
@@ -320,21 +247,15 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response: SwiftProtobuf.Me
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail.Response, rhs: Anytype_Rpc.Membership.GetVerificationEmail.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -352,16 +273,9 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -377,15 +291,9 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: SwiftProto
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error, rhs: Anytype_Rpc.Membership.GetVerificationEmail.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -413,8 +321,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: Swift
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

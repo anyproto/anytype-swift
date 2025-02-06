@@ -30,32 +30,23 @@ extension Anytype_Rpc.Account {
 
       public init?(rawValue: Int) {
         switch rawValue {
-        case 0:
-            self = .defaultConfig
-        case 1:
-            self = .localOnly
-        case 2:
-            self = .customConfig
-        default:
-            self = .UNRECOGNIZED(rawValue)
+        case 0: self = .defaultConfig
+        case 1: self = .localOnly
+        case 2: self = .customConfig
+        default: self = .UNRECOGNIZED(rawValue)
         }
       }
 
       public var rawValue: Int {
         switch self {
-        case .defaultConfig:
-            return 0
-        case .localOnly:
-            return 1
-        case .customConfig:
-            return 2
-        case .UNRECOGNIZED(let i):
-            return i
+        case .defaultConfig: return 0
+        case .localOnly: return 1
+        case .customConfig: return 2
+        case .UNRECOGNIZED(let i): return i
         }
       }
 
-    }
-}
+    }}
 
 extension Anytype_Rpc.Account.NetworkMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,8 +56,7 @@ extension Anytype_Rpc.Account.NetworkMode: CaseIterable {
     .customConfig,
   ]
 }
-extension Anytype_Rpc.Account.NetworkMode: @unchecked Sendable {
-}
+extension Anytype_Rpc.Account.NetworkMode: @unchecked Sendable {}
 
 extension Anytype_Rpc.Account.NetworkMode: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -82,8 +72,7 @@ extension Anytype_Rpc.Account.NetworkMode: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -97,540 +97,312 @@ extension Anytype_Event.Message {
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch (lhs, rhs) {
-        case (.accountShow, .accountShow):
-            return {
-                      guard case .accountShow(let l) = lhs, case .accountShow(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.accountDetails, .accountDetails):
-            return {
-                      guard case .accountDetails(let l) = lhs, case .accountDetails(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.accountConfigUpdate, .accountConfigUpdate):
-            return {
-                      guard case .accountConfigUpdate(let l) = lhs, case .accountConfigUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.accountUpdate, .accountUpdate):
-            return {
-                      guard case .accountUpdate(let l) = lhs, case .accountUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.accountLinkChallenge, .accountLinkChallenge):
-            return {
-                      guard case .accountLinkChallenge(let l) = lhs, case .accountLinkChallenge(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.accountLinkChallengeHide, .accountLinkChallengeHide):
-            return {
-                      guard case .accountLinkChallengeHide(let l) = lhs, case .accountLinkChallengeHide(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.objectDetailsSet, .objectDetailsSet):
-            return {
-                      guard case .objectDetailsSet(let l) = lhs, case .objectDetailsSet(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.objectDetailsAmend, .objectDetailsAmend):
-            return {
-                      guard case .objectDetailsAmend(let l) = lhs, case .objectDetailsAmend(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.objectDetailsUnset, .objectDetailsUnset):
-            return {
-                      guard case .objectDetailsUnset(let l) = lhs, case .objectDetailsUnset(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.objectRelationsAmend, .objectRelationsAmend):
-            return {
-                      guard case .objectRelationsAmend(let l) = lhs, case .objectRelationsAmend(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.objectRelationsRemove, .objectRelationsRemove):
-            return {
-                      guard case .objectRelationsRemove(let l) = lhs, case .objectRelationsRemove(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.objectRemove, .objectRemove):
-            return {
-                      guard case .objectRemove(let l) = lhs, case .objectRemove(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.objectClose, .objectClose):
-            return {
-                      guard case .objectClose(let l) = lhs, case .objectClose(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.objectRestrictionsSet, .objectRestrictionsSet):
-            return {
-                      guard case .objectRestrictionsSet(let l) = lhs, case .objectRestrictionsSet(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.subscriptionAdd, .subscriptionAdd):
-            return {
-                      guard case .subscriptionAdd(let l) = lhs, case .subscriptionAdd(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.subscriptionRemove, .subscriptionRemove):
-            return {
-                      guard case .subscriptionRemove(let l) = lhs, case .subscriptionRemove(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.subscriptionPosition, .subscriptionPosition):
-            return {
-                      guard case .subscriptionPosition(let l) = lhs, case .subscriptionPosition(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.subscriptionCounters, .subscriptionCounters):
-            return {
-                      guard case .subscriptionCounters(let l) = lhs, case .subscriptionCounters(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.subscriptionGroups, .subscriptionGroups):
-            return {
-                      guard case .subscriptionGroups(let l) = lhs, case .subscriptionGroups(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockAdd, .blockAdd):
-            return {
-                      guard case .blockAdd(let l) = lhs, case .blockAdd(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDelete, .blockDelete):
-            return {
-                      guard case .blockDelete(let l) = lhs, case .blockDelete(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.filesUpload, .filesUpload):
-            return {
-                      guard case .filesUpload(let l) = lhs, case .filesUpload(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.marksInfo, .marksInfo):
-            return {
-                      guard case .marksInfo(let l) = lhs, case .marksInfo(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetFields, .blockSetFields):
-            return {
-                      guard case .blockSetFields(let l) = lhs, case .blockSetFields(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetChildrenIds, .blockSetChildrenIds):
-            return {
-                      guard case .blockSetChildrenIds(let l) = lhs, case .blockSetChildrenIds(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetRestrictions, .blockSetRestrictions):
-            return {
-                      guard case .blockSetRestrictions(let l) = lhs, case .blockSetRestrictions(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetBackgroundColor, .blockSetBackgroundColor):
-            return {
-                      guard case .blockSetBackgroundColor(let l) = lhs, case .blockSetBackgroundColor(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetText, .blockSetText):
-            return {
-                      guard case .blockSetText(let l) = lhs, case .blockSetText(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetFile, .blockSetFile):
-            return {
-                      guard case .blockSetFile(let l) = lhs, case .blockSetFile(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetLink, .blockSetLink):
-            return {
-                      guard case .blockSetLink(let l) = lhs, case .blockSetLink(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetBookmark, .blockSetBookmark):
-            return {
-                      guard case .blockSetBookmark(let l) = lhs, case .blockSetBookmark(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetAlign, .blockSetAlign):
-            return {
-                      guard case .blockSetAlign(let l) = lhs, case .blockSetAlign(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetDiv, .blockSetDiv):
-            return {
-                      guard case .blockSetDiv(let l) = lhs, case .blockSetDiv(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetRelation, .blockSetRelation):
-            return {
-                      guard case .blockSetRelation(let l) = lhs, case .blockSetRelation(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetLatex, .blockSetLatex):
-            return {
-                      guard case .blockSetLatex(let l) = lhs, case .blockSetLatex(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetVerticalAlign, .blockSetVerticalAlign):
-            return {
-                      guard case .blockSetVerticalAlign(let l) = lhs, case .blockSetVerticalAlign(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetTableRow, .blockSetTableRow):
-            return {
-                      guard case .blockSetTableRow(let l) = lhs, case .blockSetTableRow(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockSetWidget, .blockSetWidget):
-            return {
-                      guard case .blockSetWidget(let l) = lhs, case .blockSetWidget(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewViewSet, .blockDataviewViewSet):
-            return {
-                      guard case .blockDataviewViewSet(let l) = lhs, case .blockDataviewViewSet(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewViewDelete, .blockDataviewViewDelete):
-            return {
-                      guard case .blockDataviewViewDelete(let l) = lhs, case .blockDataviewViewDelete(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewViewOrder, .blockDataviewViewOrder):
-            return {
-                      guard case .blockDataviewViewOrder(let l) = lhs, case .blockDataviewViewOrder(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewSourceSet, .blockDataviewSourceSet):
-            return {
-                      guard case .blockDataviewSourceSet(let l) = lhs, case .blockDataviewSourceSet(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataViewGroupOrderUpdate, .blockDataViewGroupOrderUpdate):
-            return {
-                      guard case .blockDataViewGroupOrderUpdate(let l) = lhs, case .blockDataViewGroupOrderUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataViewObjectOrderUpdate, .blockDataViewObjectOrderUpdate):
-            return {
-                      guard case .blockDataViewObjectOrderUpdate(let l) = lhs, case .blockDataViewObjectOrderUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewRelationDelete, .blockDataviewRelationDelete):
-            return {
-                      guard case .blockDataviewRelationDelete(let l) = lhs, case .blockDataviewRelationDelete(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewRelationSet, .blockDataviewRelationSet):
-            return {
-                      guard case .blockDataviewRelationSet(let l) = lhs, case .blockDataviewRelationSet(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewViewUpdate, .blockDataviewViewUpdate):
-            return {
-                      guard case .blockDataviewViewUpdate(let l) = lhs, case .blockDataviewViewUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewTargetObjectIDSet, .blockDataviewTargetObjectIDSet):
-            return {
-                      guard case .blockDataviewTargetObjectIDSet(let l) = lhs, case .blockDataviewTargetObjectIDSet(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewIsCollectionSet, .blockDataviewIsCollectionSet):
-            return {
-                      guard case .blockDataviewIsCollectionSet(let l) = lhs, case .blockDataviewIsCollectionSet(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewOldRelationDelete, .blockDataviewOldRelationDelete):
-            return {
-                      guard case .blockDataviewOldRelationDelete(let l) = lhs, case .blockDataviewOldRelationDelete(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.blockDataviewOldRelationSet, .blockDataviewOldRelationSet):
-            return {
-                      guard case .blockDataviewOldRelationSet(let l) = lhs, case .blockDataviewOldRelationSet(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.userBlockJoin, .userBlockJoin):
-            return {
-                      guard case .userBlockJoin(let l) = lhs, case .userBlockJoin(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.userBlockLeft, .userBlockLeft):
-            return {
-                      guard case .userBlockLeft(let l) = lhs, case .userBlockLeft(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.userBlockSelectRange, .userBlockSelectRange):
-            return {
-                      guard case .userBlockSelectRange(let l) = lhs, case .userBlockSelectRange(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.userBlockTextRange, .userBlockTextRange):
-            return {
-                      guard case .userBlockTextRange(let l) = lhs, case .userBlockTextRange(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.ping, .ping):
-            return {
-                      guard case .ping(let l) = lhs, case .ping(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.processNew, .processNew):
-            return {
-                      guard case .processNew(let l) = lhs, case .processNew(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.processUpdate, .processUpdate):
-            return {
-                      guard case .processUpdate(let l) = lhs, case .processUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.processDone, .processDone):
-            return {
-                      guard case .processDone(let l) = lhs, case .processDone(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.threadStatus, .threadStatus):
-            return {
-                      guard case .threadStatus(let l) = lhs, case .threadStatus(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.fileLimitReached, .fileLimitReached):
-            return {
-                      guard case .fileLimitReached(let l) = lhs, case .fileLimitReached(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.fileSpaceUsage, .fileSpaceUsage):
-            return {
-                      guard case .fileSpaceUsage(let l) = lhs, case .fileSpaceUsage(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.fileLocalUsage, .fileLocalUsage):
-            return {
-                      guard case .fileLocalUsage(let l) = lhs, case .fileLocalUsage(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.fileLimitUpdated, .fileLimitUpdated):
-            return {
-                      guard case .fileLimitUpdated(let l) = lhs, case .fileLimitUpdated(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.notificationSend, .notificationSend):
-            return {
-                      guard case .notificationSend(let l) = lhs, case .notificationSend(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.notificationUpdate, .notificationUpdate):
-            return {
-                      guard case .notificationUpdate(let l) = lhs, case .notificationUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.payloadBroadcast, .payloadBroadcast):
-            return {
-                      guard case .payloadBroadcast(let l) = lhs, case .payloadBroadcast(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.membershipUpdate, .membershipUpdate):
-            return {
-                      guard case .membershipUpdate(let l) = lhs, case .membershipUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.spaceSyncStatusUpdate, .spaceSyncStatusUpdate):
-            return {
-                      guard case .spaceSyncStatusUpdate(let l) = lhs, case .spaceSyncStatusUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.p2PStatusUpdate, .p2PStatusUpdate):
-            return {
-                      guard case .p2PStatusUpdate(let l) = lhs, case .p2PStatusUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.importFinish, .importFinish):
-            return {
-                      guard case .importFinish(let l) = lhs, case .importFinish(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.chatAdd, .chatAdd):
-            return {
-                      guard case .chatAdd(let l) = lhs, case .chatAdd(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.chatUpdate, .chatUpdate):
-            return {
-                      guard case .chatUpdate(let l) = lhs, case .chatUpdate(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.chatUpdateReactions, .chatUpdateReactions):
-            return {
-                      guard case .chatUpdateReactions(let l) = lhs, case .chatUpdateReactions(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        case (.chatDelete, .chatDelete):
-            return {
-                      guard case .chatDelete(let l) = lhs, case .chatDelete(let r) = rhs else {
-                          preconditionFailure()
-                      }
-                      return l == r
-                    }()
-        default:
-            return false
+        case (.accountShow, .accountShow): return {
+          guard case .accountShow(let l) = lhs, case .accountShow(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountDetails, .accountDetails): return {
+          guard case .accountDetails(let l) = lhs, case .accountDetails(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountConfigUpdate, .accountConfigUpdate): return {
+          guard case .accountConfigUpdate(let l) = lhs, case .accountConfigUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountUpdate, .accountUpdate): return {
+          guard case .accountUpdate(let l) = lhs, case .accountUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountLinkChallenge, .accountLinkChallenge): return {
+          guard case .accountLinkChallenge(let l) = lhs, case .accountLinkChallenge(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountLinkChallengeHide, .accountLinkChallengeHide): return {
+          guard case .accountLinkChallengeHide(let l) = lhs, case .accountLinkChallengeHide(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectDetailsSet, .objectDetailsSet): return {
+          guard case .objectDetailsSet(let l) = lhs, case .objectDetailsSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectDetailsAmend, .objectDetailsAmend): return {
+          guard case .objectDetailsAmend(let l) = lhs, case .objectDetailsAmend(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectDetailsUnset, .objectDetailsUnset): return {
+          guard case .objectDetailsUnset(let l) = lhs, case .objectDetailsUnset(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectRelationsAmend, .objectRelationsAmend): return {
+          guard case .objectRelationsAmend(let l) = lhs, case .objectRelationsAmend(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectRelationsRemove, .objectRelationsRemove): return {
+          guard case .objectRelationsRemove(let l) = lhs, case .objectRelationsRemove(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectRemove, .objectRemove): return {
+          guard case .objectRemove(let l) = lhs, case .objectRemove(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectClose, .objectClose): return {
+          guard case .objectClose(let l) = lhs, case .objectClose(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectRestrictionsSet, .objectRestrictionsSet): return {
+          guard case .objectRestrictionsSet(let l) = lhs, case .objectRestrictionsSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.subscriptionAdd, .subscriptionAdd): return {
+          guard case .subscriptionAdd(let l) = lhs, case .subscriptionAdd(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.subscriptionRemove, .subscriptionRemove): return {
+          guard case .subscriptionRemove(let l) = lhs, case .subscriptionRemove(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.subscriptionPosition, .subscriptionPosition): return {
+          guard case .subscriptionPosition(let l) = lhs, case .subscriptionPosition(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.subscriptionCounters, .subscriptionCounters): return {
+          guard case .subscriptionCounters(let l) = lhs, case .subscriptionCounters(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.subscriptionGroups, .subscriptionGroups): return {
+          guard case .subscriptionGroups(let l) = lhs, case .subscriptionGroups(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockAdd, .blockAdd): return {
+          guard case .blockAdd(let l) = lhs, case .blockAdd(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDelete, .blockDelete): return {
+          guard case .blockDelete(let l) = lhs, case .blockDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.filesUpload, .filesUpload): return {
+          guard case .filesUpload(let l) = lhs, case .filesUpload(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.marksInfo, .marksInfo): return {
+          guard case .marksInfo(let l) = lhs, case .marksInfo(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetFields, .blockSetFields): return {
+          guard case .blockSetFields(let l) = lhs, case .blockSetFields(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetChildrenIds, .blockSetChildrenIds): return {
+          guard case .blockSetChildrenIds(let l) = lhs, case .blockSetChildrenIds(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetRestrictions, .blockSetRestrictions): return {
+          guard case .blockSetRestrictions(let l) = lhs, case .blockSetRestrictions(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetBackgroundColor, .blockSetBackgroundColor): return {
+          guard case .blockSetBackgroundColor(let l) = lhs, case .blockSetBackgroundColor(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetText, .blockSetText): return {
+          guard case .blockSetText(let l) = lhs, case .blockSetText(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetFile, .blockSetFile): return {
+          guard case .blockSetFile(let l) = lhs, case .blockSetFile(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetLink, .blockSetLink): return {
+          guard case .blockSetLink(let l) = lhs, case .blockSetLink(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetBookmark, .blockSetBookmark): return {
+          guard case .blockSetBookmark(let l) = lhs, case .blockSetBookmark(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetAlign, .blockSetAlign): return {
+          guard case .blockSetAlign(let l) = lhs, case .blockSetAlign(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetDiv, .blockSetDiv): return {
+          guard case .blockSetDiv(let l) = lhs, case .blockSetDiv(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetRelation, .blockSetRelation): return {
+          guard case .blockSetRelation(let l) = lhs, case .blockSetRelation(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetLatex, .blockSetLatex): return {
+          guard case .blockSetLatex(let l) = lhs, case .blockSetLatex(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetVerticalAlign, .blockSetVerticalAlign): return {
+          guard case .blockSetVerticalAlign(let l) = lhs, case .blockSetVerticalAlign(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetTableRow, .blockSetTableRow): return {
+          guard case .blockSetTableRow(let l) = lhs, case .blockSetTableRow(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetWidget, .blockSetWidget): return {
+          guard case .blockSetWidget(let l) = lhs, case .blockSetWidget(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewViewSet, .blockDataviewViewSet): return {
+          guard case .blockDataviewViewSet(let l) = lhs, case .blockDataviewViewSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewViewDelete, .blockDataviewViewDelete): return {
+          guard case .blockDataviewViewDelete(let l) = lhs, case .blockDataviewViewDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewViewOrder, .blockDataviewViewOrder): return {
+          guard case .blockDataviewViewOrder(let l) = lhs, case .blockDataviewViewOrder(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewSourceSet, .blockDataviewSourceSet): return {
+          guard case .blockDataviewSourceSet(let l) = lhs, case .blockDataviewSourceSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataViewGroupOrderUpdate, .blockDataViewGroupOrderUpdate): return {
+          guard case .blockDataViewGroupOrderUpdate(let l) = lhs, case .blockDataViewGroupOrderUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataViewObjectOrderUpdate, .blockDataViewObjectOrderUpdate): return {
+          guard case .blockDataViewObjectOrderUpdate(let l) = lhs, case .blockDataViewObjectOrderUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewRelationDelete, .blockDataviewRelationDelete): return {
+          guard case .blockDataviewRelationDelete(let l) = lhs, case .blockDataviewRelationDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewRelationSet, .blockDataviewRelationSet): return {
+          guard case .blockDataviewRelationSet(let l) = lhs, case .blockDataviewRelationSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewViewUpdate, .blockDataviewViewUpdate): return {
+          guard case .blockDataviewViewUpdate(let l) = lhs, case .blockDataviewViewUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewTargetObjectIDSet, .blockDataviewTargetObjectIDSet): return {
+          guard case .blockDataviewTargetObjectIDSet(let l) = lhs, case .blockDataviewTargetObjectIDSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewIsCollectionSet, .blockDataviewIsCollectionSet): return {
+          guard case .blockDataviewIsCollectionSet(let l) = lhs, case .blockDataviewIsCollectionSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewOldRelationDelete, .blockDataviewOldRelationDelete): return {
+          guard case .blockDataviewOldRelationDelete(let l) = lhs, case .blockDataviewOldRelationDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewOldRelationSet, .blockDataviewOldRelationSet): return {
+          guard case .blockDataviewOldRelationSet(let l) = lhs, case .blockDataviewOldRelationSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.userBlockJoin, .userBlockJoin): return {
+          guard case .userBlockJoin(let l) = lhs, case .userBlockJoin(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.userBlockLeft, .userBlockLeft): return {
+          guard case .userBlockLeft(let l) = lhs, case .userBlockLeft(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.userBlockSelectRange, .userBlockSelectRange): return {
+          guard case .userBlockSelectRange(let l) = lhs, case .userBlockSelectRange(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.userBlockTextRange, .userBlockTextRange): return {
+          guard case .userBlockTextRange(let l) = lhs, case .userBlockTextRange(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.ping, .ping): return {
+          guard case .ping(let l) = lhs, case .ping(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.processNew, .processNew): return {
+          guard case .processNew(let l) = lhs, case .processNew(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.processUpdate, .processUpdate): return {
+          guard case .processUpdate(let l) = lhs, case .processUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.processDone, .processDone): return {
+          guard case .processDone(let l) = lhs, case .processDone(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.threadStatus, .threadStatus): return {
+          guard case .threadStatus(let l) = lhs, case .threadStatus(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.fileLimitReached, .fileLimitReached): return {
+          guard case .fileLimitReached(let l) = lhs, case .fileLimitReached(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.fileSpaceUsage, .fileSpaceUsage): return {
+          guard case .fileSpaceUsage(let l) = lhs, case .fileSpaceUsage(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.fileLocalUsage, .fileLocalUsage): return {
+          guard case .fileLocalUsage(let l) = lhs, case .fileLocalUsage(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.fileLimitUpdated, .fileLimitUpdated): return {
+          guard case .fileLimitUpdated(let l) = lhs, case .fileLimitUpdated(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.notificationSend, .notificationSend): return {
+          guard case .notificationSend(let l) = lhs, case .notificationSend(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.notificationUpdate, .notificationUpdate): return {
+          guard case .notificationUpdate(let l) = lhs, case .notificationUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.payloadBroadcast, .payloadBroadcast): return {
+          guard case .payloadBroadcast(let l) = lhs, case .payloadBroadcast(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.membershipUpdate, .membershipUpdate): return {
+          guard case .membershipUpdate(let l) = lhs, case .membershipUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.spaceSyncStatusUpdate, .spaceSyncStatusUpdate): return {
+          guard case .spaceSyncStatusUpdate(let l) = lhs, case .spaceSyncStatusUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.p2PStatusUpdate, .p2PStatusUpdate): return {
+          guard case .p2PStatusUpdate(let l) = lhs, case .p2PStatusUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.importFinish, .importFinish): return {
+          guard case .importFinish(let l) = lhs, case .importFinish(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.chatAdd, .chatAdd): return {
+          guard case .chatAdd(let l) = lhs, case .chatAdd(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.chatUpdate, .chatUpdate): return {
+          guard case .chatUpdate(let l) = lhs, case .chatUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.chatUpdateReactions, .chatUpdateReactions): return {
+          guard case .chatUpdateReactions(let l) = lhs, case .chatUpdateReactions(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.chatDelete, .chatDelete): return {
+          guard case .chatDelete(let l) = lhs, case .chatDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        default: return false
         }
       }
     #endif
-    }
-}
-extension Anytype_Event.Message.OneOf_Value: @unchecked Sendable {
-}
+    }}
+extension Anytype_Event.Message.OneOf_Value: @unchecked Sendable {}
 
 // If the compiler emits an error on this type, it is because this file
 // was generated by a version of the `protoc` Swift plug-in that is
@@ -638,8 +410,7 @@ extension Anytype_Event.Message.OneOf_Value: @unchecked Sendable {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

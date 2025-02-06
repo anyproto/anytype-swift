@@ -21,12 +21,9 @@ extension Anytype_Event.File {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.File.SpaceUsage: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.File.SpaceUsage: @unchecked Sendable {}
 
 extension Anytype_Event.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.File.protoMessageName + ".SpaceUsage"
@@ -41,16 +38,9 @@ extension Anytype_Event.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularUInt64Field(value: &self.bytesUsage)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bytesUsage) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      default: break
       }
     }
   }
@@ -66,15 +56,9 @@ extension Anytype_Event.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public static func ==(lhs: Anytype_Event.File.SpaceUsage, rhs: Anytype_Event.File.SpaceUsage) -> Bool {
-    if lhs.bytesUsage != rhs.bytesUsage {
-        return false
-    }
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.bytesUsage != rhs.bytesUsage {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -85,8 +69,7 @@ extension Anytype_Event.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._M
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

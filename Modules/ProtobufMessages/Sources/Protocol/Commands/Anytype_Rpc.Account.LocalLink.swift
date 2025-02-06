@@ -36,8 +36,7 @@ extension Anytype_Rpc.Account {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Response {
@@ -46,21 +45,13 @@ extension Anytype_Rpc.Account {
           // methods supported on all messages.
 
           public var error: Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error {
-            get {
-                    return _error ?? Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error()
-                }
-            set {
-                    _error = newValue
-                }
+            get {return _error ?? Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error()}
+            set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {
-                  return self._error != nil
-              }
+          public var hasError: Bool {return self._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {
-                  self._error = nil
-              }
+          public mutating func clearError() {self._error = nil}
 
           public var challengeID: String = String()
 
@@ -94,52 +85,37 @@ extension Anytype_Rpc.Account {
 
               public init?(rawValue: Int) {
                 switch rawValue {
-                case 0:
-                        self = .null
-                case 1:
-                        self = .unknownError
-                case 2:
-                        self = .badInput
-                case 101:
-                        self = .accountIsNotRunning
-                case 102:
-                        self = .tooManyRequests
-                default:
-                        self = .UNRECOGNIZED(rawValue)
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                case 101: self = .accountIsNotRunning
+                case 102: self = .tooManyRequests
+                default: self = .UNRECOGNIZED(rawValue)
                 }
               }
 
               public var rawValue: Int {
                 switch self {
-                case .null:
-                        return 0
-                case .unknownError:
-                        return 1
-                case .badInput:
-                        return 2
-                case .accountIsNotRunning:
-                        return 101
-                case .tooManyRequests:
-                        return 102
-                case .UNRECOGNIZED(let i):
-                        return i
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .accountIsNotRunning: return 101
+                case .tooManyRequests: return 102
+                case .UNRECOGNIZED(let i): return i
                 }
               }
 
             }
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _error: Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct SolveChallenge {
@@ -160,8 +136,7 @@ extension Anytype_Rpc.Account {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Response {
@@ -170,21 +145,13 @@ extension Anytype_Rpc.Account {
           // methods supported on all messages.
 
           public var error: Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error {
-            get {
-                    return _error ?? Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error()
-                }
-            set {
-                    _error = newValue
-                }
+            get {return _error ?? Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error()}
+            set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {
-                  return self._error != nil
-              }
+          public var hasError: Bool {return self._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {
-                  self._error = nil
-              }
+          public mutating func clearError() {self._error = nil}
 
           /// ephemeral token for the session
           public var sessionToken: String = String()
@@ -222,66 +189,45 @@ extension Anytype_Rpc.Account {
 
               public init?(rawValue: Int) {
                 switch rawValue {
-                case 0:
-                        self = .null
-                case 1:
-                        self = .unknownError
-                case 2:
-                        self = .badInput
-                case 101:
-                        self = .accountIsNotRunning
-                case 102:
-                        self = .invalidChallengeID
-                case 103:
-                        self = .challengeAttemptsExceeded
-                case 104:
-                        self = .incorrectAnswer
-                default:
-                        self = .UNRECOGNIZED(rawValue)
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                case 101: self = .accountIsNotRunning
+                case 102: self = .invalidChallengeID
+                case 103: self = .challengeAttemptsExceeded
+                case 104: self = .incorrectAnswer
+                default: self = .UNRECOGNIZED(rawValue)
                 }
               }
 
               public var rawValue: Int {
                 switch self {
-                case .null:
-                        return 0
-                case .unknownError:
-                        return 1
-                case .badInput:
-                        return 2
-                case .accountIsNotRunning:
-                        return 101
-                case .invalidChallengeID:
-                        return 102
-                case .challengeAttemptsExceeded:
-                        return 103
-                case .incorrectAnswer:
-                        return 104
-                case .UNRECOGNIZED(let i):
-                        return i
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .accountIsNotRunning: return 101
+                case .invalidChallengeID: return 102
+                case .challengeAttemptsExceeded: return 103
+                case .incorrectAnswer: return 104
+                case .UNRECOGNIZED(let i): return i
                 }
               }
 
             }
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _error: Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -306,28 +252,17 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error.Code: Case
     .incorrectAnswer,
   ]
 }
-extension Anytype_Rpc.Account.LocalLink: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.NewChallenge: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error.Code: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.SolveChallenge: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Account.LocalLink: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Account.LocalLink: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".LocalLink"
@@ -343,9 +278,7 @@ extension Anytype_Rpc.Account.LocalLink: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink, rhs: Anytype_Rpc.Account.LocalLink) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -364,9 +297,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.NewChallenge, rhs: Anytype_Rpc.Account.LocalLink.NewChallenge) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -384,16 +315,9 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: SwiftProtobuf.Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.appName)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.scope)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.appName) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.scope) }()
+      default: break
       }
     }
   }
@@ -409,15 +333,9 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: SwiftProtobuf.Mess
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.NewChallenge.Request, rhs: Anytype_Rpc.Account.LocalLink.NewChallenge.Request) -> Bool {
-    if lhs.appName != rhs.appName {
-        return false
-    }
-    if lhs.scope != rhs.scope {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.appName != rhs.appName {return false}
+    if lhs.scope != rhs.scope {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -435,16 +353,9 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: SwiftProtobuf.Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.challengeID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.challengeID) }()
+      default: break
       }
     }
   }
@@ -454,11 +365,9 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: SwiftProtobuf.Mes
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.challengeID.isEmpty {
       try visitor.visitSingularStringField(value: self.challengeID, fieldNumber: 2)
     }
@@ -466,15 +375,9 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: SwiftProtobuf.Mes
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.NewChallenge.Response, rhs: Anytype_Rpc.Account.LocalLink.NewChallenge.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.challengeID != rhs.challengeID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.challengeID != rhs.challengeID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -492,16 +395,9 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -517,15 +413,9 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error, rhs: Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -554,9 +444,7 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.SolveChallenge, rhs: Anytype_Rpc.Account.LocalLink.SolveChallenge) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -574,16 +462,9 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Request: SwiftProtobuf.Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.challengeID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.answer)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.challengeID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.answer) }()
+      default: break
       }
     }
   }
@@ -599,15 +480,9 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Request: SwiftProtobuf.Me
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.SolveChallenge.Request, rhs: Anytype_Rpc.Account.LocalLink.SolveChallenge.Request) -> Bool {
-    if lhs.challengeID != rhs.challengeID {
-        return false
-    }
-    if lhs.answer != rhs.answer {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.challengeID != rhs.challengeID {return false}
+    if lhs.answer != rhs.answer {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -626,20 +501,10 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: SwiftProtobuf.M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.sessionToken)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.appKey)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.sessionToken) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.appKey) }()
+      default: break
       }
     }
   }
@@ -649,11 +514,9 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: SwiftProtobuf.M
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.sessionToken.isEmpty {
       try visitor.visitSingularStringField(value: self.sessionToken, fieldNumber: 2)
     }
@@ -664,18 +527,10 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: SwiftProtobuf.M
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.SolveChallenge.Response, rhs: Anytype_Rpc.Account.LocalLink.SolveChallenge.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.sessionToken != rhs.sessionToken {
-        return false
-    }
-    if lhs.appKey != rhs.appKey {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.sessionToken != rhs.sessionToken {return false}
+    if lhs.appKey != rhs.appKey {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -693,16 +548,9 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -718,15 +566,9 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: SwiftProt
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error, rhs: Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -749,8 +591,7 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error.Code: Swif
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

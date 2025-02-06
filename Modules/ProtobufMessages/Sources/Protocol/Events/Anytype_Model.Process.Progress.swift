@@ -23,12 +23,9 @@ extension Anytype_Model.Process {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Model.Process.Progress: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Model.Process.Progress: @unchecked Sendable {}
 
 extension Anytype_Model.Process.Progress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".Progress"
@@ -44,20 +41,10 @@ extension Anytype_Model.Process.Progress: SwiftProtobuf.Message, SwiftProtobuf._
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.total)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.done)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.message)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.total) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.done) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.message) }()
+      default: break
       }
     }
   }
@@ -76,18 +63,10 @@ extension Anytype_Model.Process.Progress: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   public static func ==(lhs: Anytype_Model.Process.Progress, rhs: Anytype_Model.Process.Progress) -> Bool {
-    if lhs.total != rhs.total {
-        return false
-    }
-    if lhs.done != rhs.done {
-        return false
-    }
-    if lhs.message != rhs.message {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.total != rhs.total {return false}
+    if lhs.done != rhs.done {return false}
+    if lhs.message != rhs.message {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -98,8 +77,7 @@ extension Anytype_Model.Process.Progress: SwiftProtobuf.Message, SwiftProtobuf._
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

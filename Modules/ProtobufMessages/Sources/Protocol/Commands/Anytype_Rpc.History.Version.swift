@@ -29,12 +29,9 @@ extension Anytype_Rpc.History {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Rpc.History.Version: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Rpc.History.Version: @unchecked Sendable {}
 
 extension Anytype_Rpc.History.Version: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.History.protoMessageName + ".Version"
@@ -53,32 +50,13 @@ extension Anytype_Rpc.History.Version: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.previousIds)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.authorID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.authorName)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.time)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.groupID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.previousIds) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.authorID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.authorName) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.time) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.groupID) }()
+      default: break
       }
     }
   }
@@ -106,27 +84,13 @@ extension Anytype_Rpc.History.Version: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public static func ==(lhs: Anytype_Rpc.History.Version, rhs: Anytype_Rpc.History.Version) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.previousIds != rhs.previousIds {
-        return false
-    }
-    if lhs.authorID != rhs.authorID {
-        return false
-    }
-    if lhs.authorName != rhs.authorName {
-        return false
-    }
-    if lhs.time != rhs.time {
-        return false
-    }
-    if lhs.groupID != rhs.groupID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.previousIds != rhs.previousIds {return false}
+    if lhs.authorID != rhs.authorID {return false}
+    if lhs.authorName != rhs.authorName {return false}
+    if lhs.time != rhs.time {return false}
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -137,8 +101,7 @@ extension Anytype_Rpc.History.Version: SwiftProtobuf.Message, SwiftProtobuf._Mes
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

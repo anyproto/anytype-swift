@@ -100,39 +100,25 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .table
-            case 1:
-                    self = .list
-            case 2:
-                    self = .gallery
-            case 3:
-                    self = .kanban
-            case 4:
-                    self = .calendar
-            case 5:
-                    self = .graph
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .table
+            case 1: self = .list
+            case 2: self = .gallery
+            case 3: self = .kanban
+            case 4: self = .calendar
+            case 5: self = .graph
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .table:
-                    return 0
-            case .list:
-                    return 1
-            case .gallery:
-                    return 2
-            case .kanban:
-                    return 3
-            case .calendar:
-                    return 4
-            case .graph:
-                    return 5
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .table: return 0
+            case .list: return 1
+            case .gallery: return 2
+            case .kanban: return 3
+            case .calendar: return 4
+            case .graph: return 5
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
@@ -151,34 +137,25 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .small
-            case 1:
-                    self = .medium
-            case 2:
-                    self = .large
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .small
+            case 1: self = .medium
+            case 2: self = .large
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .small:
-                    return 0
-            case .medium:
-                    return 1
-            case .large:
-                    return 2
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .small: return 0
+            case .medium: return 1
+            case .large: return 2
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Relation {
@@ -230,35 +207,23 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .monthAbbrBeforeDay
-            case 1:
-                    self = .monthAbbrAfterDay
-            case 2:
-                    self = .short
-            case 3:
-                    self = .shortUs
-            case 4:
-                    self = .iso
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .monthAbbrBeforeDay
+            case 1: self = .monthAbbrAfterDay
+            case 2: self = .short
+            case 3: self = .shortUs
+            case 4: self = .iso
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .monthAbbrBeforeDay:
-                    return 0
-            case .monthAbbrAfterDay:
-                    return 1
-            case .short:
-                    return 2
-            case .shortUs:
-                    return 3
-            case .iso:
-                    return 4
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .monthAbbrBeforeDay: return 0
+            case .monthAbbrAfterDay: return 1
+            case .short: return 2
+            case .shortUs: return 3
+            case .iso: return 4
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
@@ -276,23 +241,17 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .format12
-            case 1:
-                    self = .format24
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .format12
+            case 1: self = .format24
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .format12:
-                    return 0
-            case .format24:
-                    return 1
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .format12: return 0
+            case .format24: return 1
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
@@ -322,78 +281,47 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .none
-            case 1:
-                    self = .count
-            case 2:
-                    self = .countValue
-            case 3:
-                    self = .countDistinct
-            case 4:
-                    self = .countEmpty
-            case 5:
-                    self = .countNotEmpty
-            case 6:
-                    self = .percentEmpty
-            case 7:
-                    self = .percentNotEmpty
-            case 8:
-                    self = .mathSum
-            case 9:
-                    self = .mathAverage
-            case 10:
-                    self = .mathMedian
-            case 11:
-                    self = .mathMin
-            case 12:
-                    self = .mathMax
-            case 13:
-                    self = .range
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .none
+            case 1: self = .count
+            case 2: self = .countValue
+            case 3: self = .countDistinct
+            case 4: self = .countEmpty
+            case 5: self = .countNotEmpty
+            case 6: self = .percentEmpty
+            case 7: self = .percentNotEmpty
+            case 8: self = .mathSum
+            case 9: self = .mathAverage
+            case 10: self = .mathMedian
+            case 11: self = .mathMin
+            case 12: self = .mathMax
+            case 13: self = .range
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .none:
-                    return 0
-            case .count:
-                    return 1
-            case .countValue:
-                    return 2
-            case .countDistinct:
-                    return 3
-            case .countEmpty:
-                    return 4
-            case .countNotEmpty:
-                    return 5
-            case .percentEmpty:
-                    return 6
-            case .percentNotEmpty:
-                    return 7
-            case .mathSum:
-                    return 8
-            case .mathAverage:
-                    return 9
-            case .mathMedian:
-                    return 10
-            case .mathMin:
-                    return 11
-            case .mathMax:
-                    return 12
-            case .range:
-                    return 13
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .none: return 0
+            case .count: return 1
+            case .countValue: return 2
+            case .countDistinct: return 3
+            case .countEmpty: return 4
+            case .countNotEmpty: return 5
+            case .percentEmpty: return 6
+            case .percentNotEmpty: return 7
+            case .mathSum: return 8
+            case .mathAverage: return 9
+            case .mathMedian: return 10
+            case .mathMin: return 11
+            case .mathMax: return 12
+            case .range: return 13
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Sort {
@@ -432,27 +360,19 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .asc
-            case 1:
-                    self = .desc
-            case 2:
-                    self = .custom
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .asc
+            case 1: self = .desc
+            case 2: self = .custom
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .asc:
-                    return 0
-            case .desc:
-                    return 1
-            case .custom:
-                    return 2
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .asc: return 0
+            case .desc: return 1
+            case .custom: return 2
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
@@ -471,34 +391,25 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .notSpecified
-            case 1:
-                    self = .start
-            case 2:
-                    self = .end
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .notSpecified
+            case 1: self = .start
+            case 2: self = .end
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .notSpecified:
-                    return 0
-            case .start:
-                    return 1
-            case .end:
-                    return 2
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .notSpecified: return 0
+            case .start: return 1
+            case .end: return 2
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Filter {
@@ -518,21 +429,13 @@ extension Anytype_Model_Block.Content {
         public var condition: Anytype_Model_Block.Content.Dataview.Filter.Condition = .none
 
         public var value: SwiftProtobuf.Google_Protobuf_Value {
-          get {
-                  return _value ?? SwiftProtobuf.Google_Protobuf_Value()
-              }
-          set {
-                  _value = newValue
-              }
+          get {return _value ?? SwiftProtobuf.Google_Protobuf_Value()}
+          set {_value = newValue}
         }
         /// Returns true if `value` has been explicitly set.
-        public var hasValue: Bool {
-                return self._value != nil
-            }
+        public var hasValue: Bool {return self._value != nil}
         /// Clears the value of `value`. Subsequent reads from it will return its default value.
-        public mutating func clearValue() {
-                self._value = nil
-            }
+        public mutating func clearValue() {self._value = nil}
 
         public var quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate
 
@@ -557,27 +460,19 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .no
-            case 1:
-                    self = .or
-            case 2:
-                    self = .and
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .no
+            case 1: self = .or
+            case 2: self = .and
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .no:
-                    return 0
-            case .or:
-                    return 1
-            case .and:
-                    return 2
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .no: return 0
+            case .or: return 1
+            case .and: return 2
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
@@ -615,87 +510,49 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .none
-            case 1:
-                    self = .equal
-            case 2:
-                    self = .notEqual
-            case 3:
-                    self = .greater
-            case 4:
-                    self = .less
-            case 5:
-                    self = .greaterOrEqual
-            case 6:
-                    self = .lessOrEqual
-            case 7:
-                    self = .like
-            case 8:
-                    self = .notLike
-            case 9:
-                    self = .in
-            case 10:
-                    self = .notIn
-            case 11:
-                    self = .empty
-            case 12:
-                    self = .notEmpty
-            case 13:
-                    self = .allIn
-            case 14:
-                    self = .notAllIn
-            case 15:
-                    self = .exactIn
-            case 16:
-                    self = .notExactIn
-            case 17:
-                    self = .exists
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .none
+            case 1: self = .equal
+            case 2: self = .notEqual
+            case 3: self = .greater
+            case 4: self = .less
+            case 5: self = .greaterOrEqual
+            case 6: self = .lessOrEqual
+            case 7: self = .like
+            case 8: self = .notLike
+            case 9: self = .in
+            case 10: self = .notIn
+            case 11: self = .empty
+            case 12: self = .notEmpty
+            case 13: self = .allIn
+            case 14: self = .notAllIn
+            case 15: self = .exactIn
+            case 16: self = .notExactIn
+            case 17: self = .exists
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .none:
-                    return 0
-            case .equal:
-                    return 1
-            case .notEqual:
-                    return 2
-            case .greater:
-                    return 3
-            case .less:
-                    return 4
-            case .greaterOrEqual:
-                    return 5
-            case .lessOrEqual:
-                    return 6
-            case .like:
-                    return 7
-            case .notLike:
-                    return 8
-            case .in:
-                    return 9
-            case .notIn:
-                    return 10
-            case .empty:
-                    return 11
-            case .notEmpty:
-                    return 12
-            case .allIn:
-                    return 13
-            case .notAllIn:
-                    return 14
-            case .exactIn:
-                    return 15
-            case .notExactIn:
-                    return 16
-            case .exists:
-                    return 17
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .none: return 0
+            case .equal: return 1
+            case .notEqual: return 2
+            case .greater: return 3
+            case .less: return 4
+            case .greaterOrEqual: return 5
+            case .lessOrEqual: return 6
+            case .like: return 7
+            case .notLike: return 8
+            case .in: return 9
+            case .notIn: return 10
+            case .empty: return 11
+            case .notEmpty: return 12
+            case .allIn: return 13
+            case .notAllIn: return 14
+            case .exactIn: return 15
+            case .notExactIn: return 16
+            case .exists: return 17
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
@@ -723,70 +580,43 @@ extension Anytype_Model_Block.Content {
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0:
-                    self = .exactDate
-            case 1:
-                    self = .yesterday
-            case 2:
-                    self = .today
-            case 3:
-                    self = .tomorrow
-            case 4:
-                    self = .lastWeek
-            case 5:
-                    self = .currentWeek
-            case 6:
-                    self = .nextWeek
-            case 7:
-                    self = .lastMonth
-            case 8:
-                    self = .currentMonth
-            case 9:
-                    self = .nextMonth
-            case 10:
-                    self = .numberOfDaysAgo
-            case 11:
-                    self = .numberOfDaysNow
-            default:
-                    self = .UNRECOGNIZED(rawValue)
+            case 0: self = .exactDate
+            case 1: self = .yesterday
+            case 2: self = .today
+            case 3: self = .tomorrow
+            case 4: self = .lastWeek
+            case 5: self = .currentWeek
+            case 6: self = .nextWeek
+            case 7: self = .lastMonth
+            case 8: self = .currentMonth
+            case 9: self = .nextMonth
+            case 10: self = .numberOfDaysAgo
+            case 11: self = .numberOfDaysNow
+            default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .exactDate:
-                    return 0
-            case .yesterday:
-                    return 1
-            case .today:
-                    return 2
-            case .tomorrow:
-                    return 3
-            case .lastWeek:
-                    return 4
-            case .currentWeek:
-                    return 5
-            case .nextWeek:
-                    return 6
-            case .lastMonth:
-                    return 7
-            case .currentMonth:
-                    return 8
-            case .nextMonth:
-                    return 9
-            case .numberOfDaysAgo:
-                    return 10
-            case .numberOfDaysNow:
-                    return 11
-            case .UNRECOGNIZED(let i):
-                    return i
+            case .exactDate: return 0
+            case .yesterday: return 1
+            case .today: return 2
+            case .tomorrow: return 3
+            case .lastWeek: return 4
+            case .currentWeek: return 5
+            case .nextWeek: return 6
+            case .lastMonth: return 7
+            case .currentMonth: return 8
+            case .nextMonth: return 9
+            case .numberOfDaysAgo: return 10
+            case .numberOfDaysNow: return 11
+            case .UNRECOGNIZED(let i): return i
             }
           }
 
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
       }
@@ -802,8 +632,7 @@ extension Anytype_Model_Block.Content {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct ViewGroup {
@@ -821,8 +650,7 @@ extension Anytype_Model_Block.Content {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct ObjectOrder {
@@ -838,8 +666,7 @@ extension Anytype_Model_Block.Content {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Group {
@@ -853,50 +680,34 @@ extension Anytype_Model_Block.Content {
 
         public var status: Anytype_Model_Block.Content.Dataview.Status {
           get {
-            if case .status(let v)? = value {
-                    return v
-                }
+            if case .status(let v)? = value {return v}
             return Anytype_Model_Block.Content.Dataview.Status()
           }
-          set {
-                  value = .status(newValue)
-              }
+          set {value = .status(newValue)}
         }
 
         public var tag: Anytype_Model_Block.Content.Dataview.Tag {
           get {
-            if case .tag(let v)? = value {
-                    return v
-                }
+            if case .tag(let v)? = value {return v}
             return Anytype_Model_Block.Content.Dataview.Tag()
           }
-          set {
-                  value = .tag(newValue)
-              }
+          set {value = .tag(newValue)}
         }
 
         public var checkbox: Anytype_Model_Block.Content.Dataview.Checkbox {
           get {
-            if case .checkbox(let v)? = value {
-                    return v
-                }
+            if case .checkbox(let v)? = value {return v}
             return Anytype_Model_Block.Content.Dataview.Checkbox()
           }
-          set {
-                  value = .checkbox(newValue)
-              }
+          set {value = .checkbox(newValue)}
         }
 
         public var date: Anytype_Model_Block.Content.Dataview.Date {
           get {
-            if case .date(let v)? = value {
-                    return v
-                }
+            if case .date(let v)? = value {return v}
             return Anytype_Model_Block.Content.Dataview.Date()
           }
-          set {
-                  value = .date(newValue)
-              }
+          set {value = .date(newValue)}
         }
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -913,43 +724,29 @@ extension Anytype_Model_Block.Content {
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch (lhs, rhs) {
-            case (.status, .status):
-                    return {
-                                  guard case .status(let l) = lhs, case .status(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.tag, .tag):
-                    return {
-                                  guard case .tag(let l) = lhs, case .tag(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.checkbox, .checkbox):
-                    return {
-                                  guard case .checkbox(let l) = lhs, case .checkbox(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.date, .date):
-                    return {
-                                  guard case .date(let l) = lhs, case .date(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            default:
-                    return false
+            case (.status, .status): return {
+              guard case .status(let l) = lhs, case .status(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.tag, .tag): return {
+              guard case .tag(let l) = lhs, case .tag(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.checkbox, .checkbox): return {
+              guard case .checkbox(let l) = lhs, case .checkbox(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.date, .date): return {
+              guard case .date(let l) = lhs, case .date(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            default: return false
             }
           }
         #endif
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Status {
@@ -961,8 +758,7 @@ extension Anytype_Model_Block.Content {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Tag {
@@ -974,8 +770,7 @@ extension Anytype_Model_Block.Content {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Checkbox {
@@ -987,8 +782,7 @@ extension Anytype_Model_Block.Content {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Date {
@@ -998,14 +792,11 @@ extension Anytype_Model_Block.Content {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -1135,54 +926,30 @@ extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: CaseIterable 
     .numberOfDaysNow,
   ]
 }
-extension Anytype_Model_Block.Content.Dataview: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.View: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.View.Size: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Relation: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Sort: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Filter: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Filter.Operator: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Filter.Condition: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.GroupOrder: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.ViewGroup: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.ObjectOrder: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Group: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Group.OneOf_Value: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Status: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Tag: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Checkbox: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Dataview.Date: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Content.Dataview: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.View: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.View.Size: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Relation: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Relation.FormulaType: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Sort: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter.Operator: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter.Condition: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.GroupOrder: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.ViewGroup: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.ObjectOrder: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Group: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Group.OneOf_Value: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Status: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Tag: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Checkbox: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Date: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Dataview"
@@ -1204,44 +971,16 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.source)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.views)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.activeView)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relations)
-          }()
-      case 5:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relationLinks)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.targetObjectID)
-          }()
-      case 12:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.groupOrders)
-          }()
-      case 13:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.objectOrders)
-          }()
-      case 14:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isCollection)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.source) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.views) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.activeView) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
+      case 12: try { try decoder.decodeRepeatedMessageField(value: &self.groupOrders) }()
+      case 13: try { try decoder.decodeRepeatedMessageField(value: &self.objectOrders) }()
+      case 14: try { try decoder.decodeSingularBoolField(value: &self.isCollection) }()
+      default: break
       }
     }
   }
@@ -1278,36 +1017,16 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview, rhs: Anytype_Model_Block.Content.Dataview) -> Bool {
-    if lhs.source != rhs.source {
-        return false
-    }
-    if lhs.views != rhs.views {
-        return false
-    }
-    if lhs.activeView != rhs.activeView {
-        return false
-    }
-    if lhs.relations != rhs.relations {
-        return false
-    }
-    if lhs.groupOrders != rhs.groupOrders {
-        return false
-    }
-    if lhs.objectOrders != rhs.objectOrders {
-        return false
-    }
-    if lhs.relationLinks != rhs.relationLinks {
-        return false
-    }
-    if lhs.targetObjectID != rhs.targetObjectID {
-        return false
-    }
-    if lhs.isCollection != rhs.isCollection {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.source != rhs.source {return false}
+    if lhs.views != rhs.views {return false}
+    if lhs.activeView != rhs.activeView {return false}
+    if lhs.relations != rhs.relations {return false}
+    if lhs.groupOrders != rhs.groupOrders {return false}
+    if lhs.objectOrders != rhs.objectOrders {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
+    if lhs.isCollection != rhs.isCollection {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1338,68 +1057,22 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.sorts)
-          }()
-      case 5:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.filters)
-          }()
-      case 6:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relations)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.coverRelationKey)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.hideIcon)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.cardSize)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.coverFit)
-          }()
-      case 11:
-          try {
-              try decoder.decodeSingularStringField(value: &self.groupRelationKey)
-          }()
-      case 12:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors)
-          }()
-      case 13:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.pageLimit)
-          }()
-      case 14:
-          try {
-              try decoder.decodeSingularStringField(value: &self.defaultTemplateID)
-          }()
-      case 15:
-          try {
-              try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.sorts) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.filters) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.coverRelationKey) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.hideIcon) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.cardSize) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
+      case 13: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID) }()
+      default: break
       }
     }
   }
@@ -1454,54 +1127,22 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.View, rhs: Anytype_Model_Block.Content.Dataview.View) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.sorts != rhs.sorts {
-        return false
-    }
-    if lhs.filters != rhs.filters {
-        return false
-    }
-    if lhs.relations != rhs.relations {
-        return false
-    }
-    if lhs.coverRelationKey != rhs.coverRelationKey {
-        return false
-    }
-    if lhs.hideIcon != rhs.hideIcon {
-        return false
-    }
-    if lhs.cardSize != rhs.cardSize {
-        return false
-    }
-    if lhs.coverFit != rhs.coverFit {
-        return false
-    }
-    if lhs.groupRelationKey != rhs.groupRelationKey {
-        return false
-    }
-    if lhs.groupBackgroundColors != rhs.groupBackgroundColors {
-        return false
-    }
-    if lhs.pageLimit != rhs.pageLimit {
-        return false
-    }
-    if lhs.defaultTemplateID != rhs.defaultTemplateID {
-        return false
-    }
-    if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.sorts != rhs.sorts {return false}
+    if lhs.filters != rhs.filters {return false}
+    if lhs.relations != rhs.relations {return false}
+    if lhs.coverRelationKey != rhs.coverRelationKey {return false}
+    if lhs.hideIcon != rhs.hideIcon {return false}
+    if lhs.cardSize != rhs.cardSize {return false}
+    if lhs.coverFit != rhs.coverFit {return false}
+    if lhs.groupRelationKey != rhs.groupRelationKey {return false}
+    if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
+    if lhs.pageLimit != rhs.pageLimit {return false}
+    if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
+    if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1544,40 +1185,15 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.key)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isVisible)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.width)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.dateIncludeTime)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.timeFormat)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.dateFormat)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.formula)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.align)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.isVisible) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.width) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.dateIncludeTime) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.timeFormat) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.dateFormat) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.formula) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.align) }()
+      default: break
       }
     }
   }
@@ -1611,33 +1227,15 @@ extension Anytype_Model_Block.Content.Dataview.Relation: SwiftProtobuf.Message, 
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Relation, rhs: Anytype_Model_Block.Content.Dataview.Relation) -> Bool {
-    if lhs.key != rhs.key {
-        return false
-    }
-    if lhs.isVisible != rhs.isVisible {
-        return false
-    }
-    if lhs.width != rhs.width {
-        return false
-    }
-    if lhs.dateIncludeTime != rhs.dateIncludeTime {
-        return false
-    }
-    if lhs.timeFormat != rhs.timeFormat {
-        return false
-    }
-    if lhs.dateFormat != rhs.dateFormat {
-        return false
-    }
-    if lhs.formula != rhs.formula {
-        return false
-    }
-    if lhs.align != rhs.align {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.key != rhs.key {return false}
+    if lhs.isVisible != rhs.isVisible {return false}
+    if lhs.width != rhs.width {return false}
+    if lhs.dateIncludeTime != rhs.dateIncludeTime {return false}
+    if lhs.timeFormat != rhs.timeFormat {return false}
+    if lhs.dateFormat != rhs.dateFormat {return false}
+    if lhs.formula != rhs.formula {return false}
+    if lhs.align != rhs.align {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1697,40 +1295,15 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationKey)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.customOrder)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.format)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.includeTime)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.emptyPlacement)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.noCollate)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.customOrder) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.format) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.emptyPlacement) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.noCollate) }()
+      default: break
       }
     }
   }
@@ -1764,33 +1337,15 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Sort, rhs: Anytype_Model_Block.Content.Dataview.Sort) -> Bool {
-    if lhs.relationKey != rhs.relationKey {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.customOrder != rhs.customOrder {
-        return false
-    }
-    if lhs.format != rhs.format {
-        return false
-    }
-    if lhs.includeTime != rhs.includeTime {
-        return false
-    }
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.emptyPlacement != rhs.emptyPlacement {
-        return false
-    }
-    if lhs.noCollate != rhs.noCollate {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.customOrder != rhs.customOrder {return false}
+    if lhs.format != rhs.format {return false}
+    if lhs.includeTime != rhs.includeTime {return false}
+    if lhs.id != rhs.id {return false}
+    if lhs.emptyPlacement != rhs.emptyPlacement {return false}
+    if lhs.noCollate != rhs.noCollate {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1832,48 +1387,17 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.`operator`)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationKey)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.condition)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._value)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationProperty)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.quickOption)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.format)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.includeTime)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 10:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.nestedFilters)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.`operator`) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.condition) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._value) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.relationProperty) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.quickOption) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.format) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 10: try { try decoder.decodeRepeatedMessageField(value: &self.nestedFilters) }()
+      default: break
       }
     }
   }
@@ -1892,11 +1416,9 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if self.condition != .none {
       try visitor.visitSingularEnumField(value: self.condition, fieldNumber: 3)
     }
-    try {
-        if let v = self._value {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
+    try { if let v = self._value {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     if !self.relationProperty.isEmpty {
       try visitor.visitSingularStringField(value: self.relationProperty, fieldNumber: 5)
     }
@@ -1919,39 +1441,17 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Filter, rhs: Anytype_Model_Block.Content.Dataview.Filter) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.`operator` != rhs.`operator` {
-        return false
-    }
-    if lhs.relationKey != rhs.relationKey {
-        return false
-    }
-    if lhs.relationProperty != rhs.relationProperty {
-        return false
-    }
-    if lhs.condition != rhs.condition {
-        return false
-    }
-    if lhs._value != rhs._value {
-        return false
-    }
-    if lhs.quickOption != rhs.quickOption {
-        return false
-    }
-    if lhs.format != rhs.format {
-        return false
-    }
-    if lhs.includeTime != rhs.includeTime {
-        return false
-    }
-    if lhs.nestedFilters != rhs.nestedFilters {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.`operator` != rhs.`operator` {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.relationProperty != rhs.relationProperty {return false}
+    if lhs.condition != rhs.condition {return false}
+    if lhs._value != rhs._value {return false}
+    if lhs.quickOption != rhs.quickOption {return false}
+    if lhs.format != rhs.format {return false}
+    if lhs.includeTime != rhs.includeTime {return false}
+    if lhs.nestedFilters != rhs.nestedFilters {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2017,16 +1517,9 @@ extension Anytype_Model_Block.Content.Dataview.GroupOrder: SwiftProtobuf.Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.viewGroups)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.viewGroups) }()
+      default: break
       }
     }
   }
@@ -2042,15 +1535,9 @@ extension Anytype_Model_Block.Content.Dataview.GroupOrder: SwiftProtobuf.Message
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.GroupOrder, rhs: Anytype_Model_Block.Content.Dataview.GroupOrder) -> Bool {
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs.viewGroups != rhs.viewGroups {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.viewGroups != rhs.viewGroups {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2070,24 +1557,11 @@ extension Anytype_Model_Block.Content.Dataview.ViewGroup: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.groupID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.index)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.hidden)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.backgroundColor)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.index) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.hidden) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.backgroundColor) }()
+      default: break
       }
     }
   }
@@ -2109,21 +1583,11 @@ extension Anytype_Model_Block.Content.Dataview.ViewGroup: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.ViewGroup, rhs: Anytype_Model_Block.Content.Dataview.ViewGroup) -> Bool {
-    if lhs.groupID != rhs.groupID {
-        return false
-    }
-    if lhs.index != rhs.index {
-        return false
-    }
-    if lhs.hidden != rhs.hidden {
-        return false
-    }
-    if lhs.backgroundColor != rhs.backgroundColor {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.index != rhs.index {return false}
+    if lhs.hidden != rhs.hidden {return false}
+    if lhs.backgroundColor != rhs.backgroundColor {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2142,20 +1606,10 @@ extension Anytype_Model_Block.Content.Dataview.ObjectOrder: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.groupID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.objectIds)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
+      default: break
       }
     }
   }
@@ -2174,18 +1628,10 @@ extension Anytype_Model_Block.Content.Dataview.ObjectOrder: SwiftProtobuf.Messag
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.ObjectOrder, rhs: Anytype_Model_Block.Content.Dataview.ObjectOrder) -> Bool {
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs.groupID != rhs.groupID {
-        return false
-    }
-    if lhs.objectIds != rhs.objectIds {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.objectIds != rhs.objectIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2206,84 +1652,60 @@ extension Anytype_Model_Block.Content.Dataview.Group: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-                  var v: Anytype_Model_Block.Content.Dataview.Status?
-                  var hadOneofValue = false
-                  if let current = self.value {
-                    hadOneofValue = true
-                    if case .status(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.value = .status(v)
-                  }
-                }()
-      case 3:
-          try {
-                  var v: Anytype_Model_Block.Content.Dataview.Tag?
-                  var hadOneofValue = false
-                  if let current = self.value {
-                    hadOneofValue = true
-                    if case .tag(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.value = .tag(v)
-                  }
-                }()
-      case 4:
-          try {
-                  var v: Anytype_Model_Block.Content.Dataview.Checkbox?
-                  var hadOneofValue = false
-                  if let current = self.value {
-                    hadOneofValue = true
-                    if case .checkbox(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.value = .checkbox(v)
-                  }
-                }()
-      case 5:
-          try {
-                  var v: Anytype_Model_Block.Content.Dataview.Date?
-                  var hadOneofValue = false
-                  if let current = self.value {
-                    hadOneofValue = true
-                    if case .date(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.value = .date(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try {
+        var v: Anytype_Model_Block.Content.Dataview.Status?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .status(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .status(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Model_Block.Content.Dataview.Tag?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .tag(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .tag(v)
+        }
+      }()
+      case 4: try {
+        var v: Anytype_Model_Block.Content.Dataview.Checkbox?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .checkbox(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .checkbox(v)
+        }
+      }()
+      case 5: try {
+        var v: Anytype_Model_Block.Content.Dataview.Date?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .date(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .date(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -2297,50 +1719,31 @@ extension Anytype_Model_Block.Content.Dataview.Group: SwiftProtobuf.Message, Swi
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
     switch self.value {
-    case .status?:
-        try {
-              guard case .status(let v)? = self.value else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }()
-    case .tag?:
-        try {
-              guard case .tag(let v)? = self.value else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }()
-    case .checkbox?:
-        try {
-              guard case .checkbox(let v)? = self.value else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }()
-    case .date?:
-        try {
-              guard case .date(let v)? = self.value else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }()
-    case nil:
-        break
+    case .status?: try {
+      guard case .status(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .tag?: try {
+      guard case .tag(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .checkbox?: try {
+      guard case .checkbox(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case .date?: try {
+      guard case .date(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    }()
+    case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Group, rhs: Anytype_Model_Block.Content.Dataview.Group) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2357,12 +1760,8 @@ extension Anytype_Model_Block.Content.Dataview.Status: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      default: break
       }
     }
   }
@@ -2375,12 +1774,8 @@ extension Anytype_Model_Block.Content.Dataview.Status: SwiftProtobuf.Message, Sw
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Status, rhs: Anytype_Model_Block.Content.Dataview.Status) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2397,12 +1792,8 @@ extension Anytype_Model_Block.Content.Dataview.Tag: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -2415,12 +1806,8 @@ extension Anytype_Model_Block.Content.Dataview.Tag: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Tag, rhs: Anytype_Model_Block.Content.Dataview.Tag) -> Bool {
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2437,12 +1824,8 @@ extension Anytype_Model_Block.Content.Dataview.Checkbox: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.checked)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.checked) }()
+      default: break
       }
     }
   }
@@ -2455,12 +1838,8 @@ extension Anytype_Model_Block.Content.Dataview.Checkbox: SwiftProtobuf.Message, 
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Checkbox, rhs: Anytype_Model_Block.Content.Dataview.Checkbox) -> Bool {
-    if lhs.checked != rhs.checked {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.checked != rhs.checked {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2479,9 +1858,7 @@ extension Anytype_Model_Block.Content.Dataview.Date: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Date, rhs: Anytype_Model_Block.Content.Dataview.Date) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2492,8 +1869,7 @@ extension Anytype_Model_Block.Content.Dataview.Date: SwiftProtobuf.Message, Swif
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

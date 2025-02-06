@@ -63,71 +63,41 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .longtext
-    case 1:
-        self = .shorttext
-    case 2:
-        self = .number
-    case 3:
-        self = .status
-    case 4:
-        self = .date
-    case 5:
-        self = .file
-    case 6:
-        self = .checkbox
-    case 7:
-        self = .url
-    case 8:
-        self = .email
-    case 9:
-        self = .phone
-    case 10:
-        self = .emoji
-    case 11:
-        self = .tag
-    case 100:
-        self = .object
-    case 101:
-        self = .relations
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .longtext
+    case 1: self = .shorttext
+    case 2: self = .number
+    case 3: self = .status
+    case 4: self = .date
+    case 5: self = .file
+    case 6: self = .checkbox
+    case 7: self = .url
+    case 8: self = .email
+    case 9: self = .phone
+    case 10: self = .emoji
+    case 11: self = .tag
+    case 100: self = .object
+    case 101: self = .relations
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .longtext:
-        return 0
-    case .shorttext:
-        return 1
-    case .number:
-        return 2
-    case .status:
-        return 3
-    case .date:
-        return 4
-    case .file:
-        return 5
-    case .checkbox:
-        return 6
-    case .url:
-        return 7
-    case .email:
-        return 8
-    case .phone:
-        return 9
-    case .emoji:
-        return 10
-    case .tag:
-        return 11
-    case .object:
-        return 100
-    case .relations:
-        return 101
-    case .UNRECOGNIZED(let i):
-        return i
+    case .longtext: return 0
+    case .shorttext: return 1
+    case .number: return 2
+    case .status: return 3
+    case .date: return 4
+    case .file: return 5
+    case .checkbox: return 6
+    case .url: return 7
+    case .email: return 8
+    case .phone: return 9
+    case .emoji: return 10
+    case .tag: return 11
+    case .object: return 100
+    case .relations: return 101
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -152,8 +122,7 @@ extension Anytype_Model_RelationFormat: CaseIterable {
     .relations,
   ]
 }
-extension Anytype_Model_RelationFormat: @unchecked Sendable {
-}
+extension Anytype_Model_RelationFormat: @unchecked Sendable {}
 
 extension Anytype_Model_RelationFormat: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -180,8 +149,7 @@ extension Anytype_Model_RelationFormat: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

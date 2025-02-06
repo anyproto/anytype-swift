@@ -48,8 +48,7 @@ extension Anytype_Rpc.Account {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       ///*
@@ -61,57 +60,33 @@ extension Anytype_Rpc.Account {
 
         /// Error while trying to launch/select an account
         public var error: Anytype_Rpc.Account.Select.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Account.Select.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Account.Select.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         /// Selected account
         public var account: Anytype_Model_Account {
-          get {
-                  return _account ?? Anytype_Model_Account()
-              }
-          set {
-                  _account = newValue
-              }
+          get {return _account ?? Anytype_Model_Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {
-                return self._account != nil
-            }
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {
-                self._account = nil
-            }
+        public mutating func clearAccount() {self._account = nil}
 
         /// deprecated, use account, GO-1926
         public var config: Anytype_Rpc.Account.Config {
-          get {
-                  return _config ?? Anytype_Rpc.Account.Config()
-              }
-          set {
-                  _config = newValue
-              }
+          get {return _config ?? Anytype_Rpc.Account.Config()}
+          set {_config = newValue}
         }
         /// Returns true if `config` has been explicitly set.
-        public var hasConfig: Bool {
-                return self._config != nil
-            }
+        public var hasConfig: Bool {return self._config != nil}
         /// Clears the value of `config`. Subsequent reads from it will return its default value.
-        public mutating func clearConfig() {
-                self._config = nil
-            }
+        public mutating func clearConfig() {self._config = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -158,100 +133,62 @@ extension Anytype_Rpc.Account {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 101:
-                      self = .failedToCreateLocalRepo
-              case 102:
-                      self = .localRepoExistsButCorrupted
-              case 103:
-                      self = .failedToRunNode
-              case 104:
-                      self = .failedToFindAccountInfo
-              case 105:
-                      self = .localRepoNotExistsAndMnemonicNotSet
-              case 106:
-                      self = .failedToStopSearcherNode
-              case 108:
-                      self = .anotherAnytypeProcessIsRunning
-              case 110:
-                      self = .failedToFetchRemoteNodeHasIncompatibleProtoVersion
-              case 111:
-                      self = .accountIsDeleted
-              case 112:
-                      self = .accountLoadIsCanceled
-              case 200:
-                      self = .configFileNotFound
-              case 201:
-                      self = .configFileInvalid
-              case 202:
-                      self = .configFileNetworkIDMismatch
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 101: self = .failedToCreateLocalRepo
+              case 102: self = .localRepoExistsButCorrupted
+              case 103: self = .failedToRunNode
+              case 104: self = .failedToFindAccountInfo
+              case 105: self = .localRepoNotExistsAndMnemonicNotSet
+              case 106: self = .failedToStopSearcherNode
+              case 108: self = .anotherAnytypeProcessIsRunning
+              case 110: self = .failedToFetchRemoteNodeHasIncompatibleProtoVersion
+              case 111: self = .accountIsDeleted
+              case 112: self = .accountLoadIsCanceled
+              case 200: self = .configFileNotFound
+              case 201: self = .configFileInvalid
+              case 202: self = .configFileNetworkIDMismatch
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .failedToCreateLocalRepo:
-                      return 101
-              case .localRepoExistsButCorrupted:
-                      return 102
-              case .failedToRunNode:
-                      return 103
-              case .failedToFindAccountInfo:
-                      return 104
-              case .localRepoNotExistsAndMnemonicNotSet:
-                      return 105
-              case .failedToStopSearcherNode:
-                      return 106
-              case .anotherAnytypeProcessIsRunning:
-                      return 108
-              case .failedToFetchRemoteNodeHasIncompatibleProtoVersion:
-                      return 110
-              case .accountIsDeleted:
-                      return 111
-              case .accountLoadIsCanceled:
-                      return 112
-              case .configFileNotFound:
-                      return 200
-              case .configFileInvalid:
-                      return 201
-              case .configFileNetworkIDMismatch:
-                      return 202
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .failedToCreateLocalRepo: return 101
+              case .localRepoExistsButCorrupted: return 102
+              case .failedToRunNode: return 103
+              case .failedToFindAccountInfo: return 104
+              case .localRepoNotExistsAndMnemonicNotSet: return 105
+              case .failedToStopSearcherNode: return 106
+              case .anotherAnytypeProcessIsRunning: return 108
+              case .failedToFetchRemoteNodeHasIncompatibleProtoVersion: return 110
+              case .accountIsDeleted: return 111
+              case .accountLoadIsCanceled: return 112
+              case .configFileNotFound: return 200
+              case .configFileInvalid: return 201
+              case .configFileNetworkIDMismatch: return 202
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Account.Select.Response.Error? = nil
         fileprivate var _account: Anytype_Model_Account? = nil
         fileprivate var _config: Anytype_Rpc.Account.Config? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Account.Select.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -274,16 +211,11 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: CaseIterable {
     .configFileNetworkIDMismatch,
   ]
 }
-extension Anytype_Rpc.Account.Select: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.Select.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.Select.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.Select.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.Select.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Account.Select: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Account.Select: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Select"
@@ -299,9 +231,7 @@ extension Anytype_Rpc.Account.Select: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Select, rhs: Anytype_Rpc.Account.Select) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -324,36 +254,14 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.rootPath)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.disableLocalNetworkSync)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.networkMode)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.rootPath) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.disableLocalNetworkSync) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.networkMode) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr) }()
+      default: break
       }
     }
   }
@@ -384,30 +292,14 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Select.Request, rhs: Anytype_Rpc.Account.Select.Request) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.rootPath != rhs.rootPath {
-        return false
-    }
-    if lhs.disableLocalNetworkSync != rhs.disableLocalNetworkSync {
-        return false
-    }
-    if lhs.networkMode != rhs.networkMode {
-        return false
-    }
-    if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {
-        return false
-    }
-    if lhs.preferYamuxTransport != rhs.preferYamuxTransport {
-        return false
-    }
-    if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.rootPath != rhs.rootPath {return false}
+    if lhs.disableLocalNetworkSync != rhs.disableLocalNetworkSync {return false}
+    if lhs.networkMode != rhs.networkMode {return false}
+    if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {return false}
+    if lhs.preferYamuxTransport != rhs.preferYamuxTransport {return false}
+    if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -426,20 +318,10 @@ extension Anytype_Rpc.Account.Select.Response: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._account)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._config)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      default: break
       }
     }
   }
@@ -449,37 +331,23 @@ extension Anytype_Rpc.Account.Select.Response: SwiftProtobuf.Message, SwiftProto
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._account {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._config {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._config {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Select.Response, rhs: Anytype_Rpc.Account.Select.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._account != rhs._account {
-        return false
-    }
-    if lhs._config != rhs._config {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._account != rhs._account {return false}
+    if lhs._config != rhs._config {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -497,16 +365,9 @@ extension Anytype_Rpc.Account.Select.Response.Error: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -522,15 +383,9 @@ extension Anytype_Rpc.Account.Select.Response.Error: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Select.Response.Error, rhs: Anytype_Rpc.Account.Select.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -562,8 +417,7 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: SwiftProtobuf._ProtoNa
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

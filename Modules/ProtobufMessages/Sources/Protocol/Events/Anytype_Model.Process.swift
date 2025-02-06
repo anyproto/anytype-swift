@@ -20,21 +20,13 @@ extension Anytype_Model {
     public var state: Anytype_Model.Process.State = .none
 
     public var progress: Anytype_Model.Process.Progress {
-      get {
-              return _progress ?? Anytype_Model.Process.Progress()
-          }
-      set {
-              _progress = newValue
-          }
+      get {return _progress ?? Anytype_Model.Process.Progress()}
+      set {_progress = newValue}
     }
     /// Returns true if `progress` has been explicitly set.
-    public var hasProgress: Bool {
-            return self._progress != nil
-        }
+    public var hasProgress: Bool {return self._progress != nil}
     /// Clears the value of `progress`. Subsequent reads from it will return its default value.
-    public mutating func clearProgress() {
-            self._progress = nil
-        }
+    public mutating func clearProgress() {self._progress = nil}
 
     public var spaceID: String = String()
 
@@ -42,76 +34,53 @@ extension Anytype_Model {
 
     public var dropFiles: Anytype_Model.Process.DropFiles {
       get {
-        if case .dropFiles(let v)? = message {
-                return v
-            }
+        if case .dropFiles(let v)? = message {return v}
         return Anytype_Model.Process.DropFiles()
       }
-      set {
-              message = .dropFiles(newValue)
-          }
+      set {message = .dropFiles(newValue)}
     }
 
     public var `import`: Anytype_Model.Process.Import {
       get {
-        if case .import(let v)? = message {
-                return v
-            }
+        if case .import(let v)? = message {return v}
         return Anytype_Model.Process.Import()
       }
-      set {
-              message = .import(newValue)
-          }
+      set {message = .import(newValue)}
     }
 
     public var export: Anytype_Model.Process.Export {
       get {
-        if case .export(let v)? = message {
-                return v
-            }
+        if case .export(let v)? = message {return v}
         return Anytype_Model.Process.Export()
       }
-      set {
-              message = .export(newValue)
-          }
+      set {message = .export(newValue)}
     }
 
     public var saveFile: Anytype_Model.Process.SaveFile {
       get {
-        if case .saveFile(let v)? = message {
-                return v
-            }
+        if case .saveFile(let v)? = message {return v}
         return Anytype_Model.Process.SaveFile()
       }
-      set {
-              message = .saveFile(newValue)
-          }
+      set {message = .saveFile(newValue)}
     }
 
     public var migration: Anytype_Model.Process.Migration {
       get {
-        if case .migration(let v)? = message {
-                return v
-            }
+        if case .migration(let v)? = message {return v}
         return Anytype_Model.Process.Migration()
       }
-      set {
-              message = .migration(newValue)
-          }
+      set {message = .migration(newValue)}
     }
 
     public var error: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
+    public init() {}
 
     fileprivate var _progress: Anytype_Model.Process.Progress? = nil
-  }
-}
-extension Anytype_Model.Process: @unchecked Sendable {
-}
+  }    }
+extension Anytype_Model.Process: @unchecked Sendable {}
 
 extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model.protoMessageName + ".Process"
@@ -134,118 +103,77 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.state)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._progress)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 6:
-          try {
-                  var v: Anytype_Model.Process.DropFiles?
-                  var hadOneofValue = false
-                  if let current = self.message {
-                    hadOneofValue = true
-                    if case .dropFiles(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.message = .dropFiles(v)
-                  }
-                }()
-      case 7:
-          try {
-                  var v: Anytype_Model.Process.Import?
-                  var hadOneofValue = false
-                  if let current = self.message {
-                    hadOneofValue = true
-                    if case .import(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.message = .import(v)
-                  }
-                }()
-      case 8:
-          try {
-                  var v: Anytype_Model.Process.Export?
-                  var hadOneofValue = false
-                  if let current = self.message {
-                    hadOneofValue = true
-                    if case .export(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.message = .export(v)
-                  }
-                }()
-      case 9:
-          try {
-                  var v: Anytype_Model.Process.SaveFile?
-                  var hadOneofValue = false
-                  if let current = self.message {
-                    hadOneofValue = true
-                    if case .saveFile(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.message = .saveFile(v)
-                  }
-                }()
-      case 10:
-          try {
-                  var v: Anytype_Model.Process.Migration?
-                  var hadOneofValue = false
-                  if let current = self.message {
-                    hadOneofValue = true
-                    if case .migration(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.message = .migration(v)
-                  }
-                }()
-      case 11:
-          try {
-              try decoder.decodeSingularStringField(value: &self.error)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.state) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._progress) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 6: try {
+        var v: Anytype_Model.Process.DropFiles?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .dropFiles(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .dropFiles(v)
+        }
+      }()
+      case 7: try {
+        var v: Anytype_Model.Process.Import?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .import(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .import(v)
+        }
+      }()
+      case 8: try {
+        var v: Anytype_Model.Process.Export?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .export(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .export(v)
+        }
+      }()
+      case 9: try {
+        var v: Anytype_Model.Process.SaveFile?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .saveFile(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .saveFile(v)
+        }
+      }()
+      case 10: try {
+        var v: Anytype_Model.Process.Migration?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .migration(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .migration(v)
+        }
+      }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.error) }()
+      default: break
       }
     }
   }
@@ -261,52 +189,34 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     if self.state != .none {
       try visitor.visitSingularEnumField(value: self.state, fieldNumber: 3)
     }
-    try {
-        if let v = self._progress {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
+    try { if let v = self._progress {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 5)
     }
     switch self.message {
-    case .dropFiles?:
-        try {
-              guard case .dropFiles(let v)? = self.message else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }()
-    case .import?:
-        try {
-              guard case .import(let v)? = self.message else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-            }()
-    case .export?:
-        try {
-              guard case .export(let v)? = self.message else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-            }()
-    case .saveFile?:
-        try {
-              guard case .saveFile(let v)? = self.message else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-            }()
-    case .migration?:
-        try {
-              guard case .migration(let v)? = self.message else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-            }()
-    case nil:
-        break
+    case .dropFiles?: try {
+      guard case .dropFiles(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    }()
+    case .import?: try {
+      guard case .import(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    }()
+    case .export?: try {
+      guard case .export(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    }()
+    case .saveFile?: try {
+      guard case .saveFile(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    }()
+    case .migration?: try {
+      guard case .migration(let v)? = self.message else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    }()
+    case nil: break
     }
     if !self.error.isEmpty {
       try visitor.visitSingularStringField(value: self.error, fieldNumber: 11)
@@ -315,27 +225,13 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   }
 
   public static func ==(lhs: Anytype_Model.Process, rhs: Anytype_Model.Process) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.state != rhs.state {
-        return false
-    }
-    if lhs._progress != rhs._progress {
-        return false
-    }
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.message != rhs.message {
-        return false
-    }
-    if lhs.error != rhs.error {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.state != rhs.state {return false}
+    if lhs._progress != rhs._progress {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.message != rhs.message {return false}
+    if lhs.error != rhs.error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -346,8 +242,7 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

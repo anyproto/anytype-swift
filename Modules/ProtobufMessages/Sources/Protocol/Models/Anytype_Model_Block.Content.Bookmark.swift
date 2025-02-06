@@ -51,40 +51,28 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .empty
-          case 1:
-                  self = .fetching
-          case 2:
-                  self = .done
-          case 3:
-                  self = .error
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .empty
+          case 1: self = .fetching
+          case 2: self = .done
+          case 3: self = .error
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .empty:
-                  return 0
-          case .fetching:
-                  return 1
-          case .done:
-                  return 2
-          case .error:
-                  return 3
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .empty: return 0
+          case .fetching: return 1
+          case .done: return 2
+          case .error: return 3
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Model_Block.Content.Bookmark.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -95,10 +83,8 @@ extension Anytype_Model_Block.Content.Bookmark.State: CaseIterable {
     .error,
   ]
 }
-extension Anytype_Model_Block.Content.Bookmark: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Bookmark.State: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Content.Bookmark: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Bookmark.State: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Bookmark"
@@ -119,40 +105,15 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.url)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.title)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.imageHash)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.faviconHash)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.targetObjectID)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.state)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.title) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.imageHash) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.faviconHash) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.state) }()
+      default: break
       }
     }
   }
@@ -186,33 +147,15 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Bookmark, rhs: Anytype_Model_Block.Content.Bookmark) -> Bool {
-    if lhs.url != rhs.url {
-        return false
-    }
-    if lhs.title != rhs.title {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.imageHash != rhs.imageHash {
-        return false
-    }
-    if lhs.faviconHash != rhs.faviconHash {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.targetObjectID != rhs.targetObjectID {
-        return false
-    }
-    if lhs.state != rhs.state {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.url != rhs.url {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.imageHash != rhs.imageHash {return false}
+    if lhs.faviconHash != rhs.faviconHash {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
+    if lhs.state != rhs.state {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -232,8 +175,7 @@ extension Anytype_Model_Block.Content.Bookmark.State: SwiftProtobuf._ProtoNamePr
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

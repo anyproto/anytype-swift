@@ -26,8 +26,7 @@ extension Anytype_Rpc.Gallery {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -36,38 +35,22 @@ extension Anytype_Rpc.Gallery {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Gallery.DownloadManifest.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Gallery.DownloadManifest.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Gallery.DownloadManifest.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var info: Anytype_Model_ManifestInfo {
-          get {
-                  return _info ?? Anytype_Model_ManifestInfo()
-              }
-          set {
-                  _info = newValue
-              }
+          get {return _info ?? Anytype_Model_ManifestInfo()}
+          set {_info = newValue}
         }
         /// Returns true if `info` has been explicitly set.
-        public var hasInfo: Bool {
-                return self._info != nil
-            }
+        public var hasInfo: Bool {return self._info != nil}
         /// Clears the value of `info`. Subsequent reads from it will return its default value.
-        public mutating func clearInfo() {
-                self._info = nil
-            }
+        public mutating func clearInfo() {self._info = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -95,47 +78,35 @@ extension Anytype_Rpc.Gallery {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Gallery.DownloadManifest.Response.Error? = nil
         fileprivate var _info: Anytype_Model_ManifestInfo? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -145,16 +116,11 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error.Code: CaseIterable
     .badInput,
   ]
 }
-extension Anytype_Rpc.Gallery.DownloadManifest: @unchecked Sendable {
-}
-extension Anytype_Rpc.Gallery.DownloadManifest.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Gallery.DownloadManifest.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Gallery.DownloadManifest: @unchecked Sendable {}
+extension Anytype_Rpc.Gallery.DownloadManifest.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Gallery.DownloadManifest.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Gallery.DownloadManifest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Gallery.protoMessageName + ".DownloadManifest"
@@ -170,9 +136,7 @@ extension Anytype_Rpc.Gallery.DownloadManifest: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Rpc.Gallery.DownloadManifest, rhs: Anytype_Rpc.Gallery.DownloadManifest) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -189,12 +153,8 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Request: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.url)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      default: break
       }
     }
   }
@@ -207,12 +167,8 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Request: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Rpc.Gallery.DownloadManifest.Request, rhs: Anytype_Rpc.Gallery.DownloadManifest.Request) -> Bool {
-    if lhs.url != rhs.url {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.url != rhs.url {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -230,16 +186,9 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._info)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._info) }()
+      default: break
       }
     }
   }
@@ -249,29 +198,19 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response: SwiftProtobuf.Message, 
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._info {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._info {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Gallery.DownloadManifest.Response, rhs: Anytype_Rpc.Gallery.DownloadManifest.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._info != rhs._info {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._info != rhs._info {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -289,16 +228,9 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: SwiftProtobuf.Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -314,15 +246,9 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: SwiftProtobuf.Mes
   }
 
   public static func ==(lhs: Anytype_Rpc.Gallery.DownloadManifest.Response.Error, rhs: Anytype_Rpc.Gallery.DownloadManifest.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -341,8 +267,7 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error.Code: SwiftProtobu
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

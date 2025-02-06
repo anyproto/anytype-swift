@@ -38,26 +38,17 @@ extension Anytype_Rpc.BlockDataview {
           public var viewID: String = String()
 
           public var filter: Anytype_Model_Block.Content.Dataview.Filter {
-            get {
-                    return _filter ?? Anytype_Model_Block.Content.Dataview.Filter()
-                }
-            set {
-                    _filter = newValue
-                }
+            get {return _filter ?? Anytype_Model_Block.Content.Dataview.Filter()}
+            set {_filter = newValue}
           }
           /// Returns true if `filter` has been explicitly set.
-          public var hasFilter: Bool {
-                  return self._filter != nil
-              }
+          public var hasFilter: Bool {return self._filter != nil}
           /// Clears the value of `filter`. Subsequent reads from it will return its default value.
-          public mutating func clearFilter() {
-                  self._filter = nil
-              }
+          public mutating func clearFilter() {self._filter = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _filter: Anytype_Model_Block.Content.Dataview.Filter? = nil
         }
@@ -68,38 +59,22 @@ extension Anytype_Rpc.BlockDataview {
           // methods supported on all messages.
 
           public var error: Anytype_Rpc.BlockDataview.Filter.Add.Response.Error {
-            get {
-                    return _error ?? Anytype_Rpc.BlockDataview.Filter.Add.Response.Error()
-                }
-            set {
-                    _error = newValue
-                }
+            get {return _error ?? Anytype_Rpc.BlockDataview.Filter.Add.Response.Error()}
+            set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {
-                  return self._error != nil
-              }
+          public var hasError: Bool {return self._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {
-                  self._error = nil
-              }
+          public mutating func clearError() {self._error = nil}
 
           public var event: Anytype_ResponseEvent {
-            get {
-                    return _event ?? Anytype_ResponseEvent()
-                }
-            set {
-                    _event = newValue
-                }
+            get {return _event ?? Anytype_ResponseEvent()}
+            set {_event = newValue}
           }
           /// Returns true if `event` has been explicitly set.
-          public var hasEvent: Bool {
-                  return self._event != nil
-              }
+          public var hasEvent: Bool {return self._event != nil}
           /// Clears the value of `event`. Subsequent reads from it will return its default value.
-          public mutating func clearEvent() {
-                  self._event = nil
-              }
+          public mutating func clearEvent() {self._event = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -127,45 +102,34 @@ extension Anytype_Rpc.BlockDataview {
 
               public init?(rawValue: Int) {
                 switch rawValue {
-                case 0:
-                        self = .null
-                case 1:
-                        self = .unknownError
-                case 2:
-                        self = .badInput
-                default:
-                        self = .UNRECOGNIZED(rawValue)
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
                 }
               }
 
               public var rawValue: Int {
                 switch self {
-                case .null:
-                        return 0
-                case .unknownError:
-                        return 1
-                case .badInput:
-                        return 2
-                case .UNRECOGNIZED(let i):
-                        return i
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
                 }
               }
 
             }
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _error: Anytype_Rpc.BlockDataview.Filter.Add.Response.Error? = nil
           fileprivate var _event: Anytype_ResponseEvent? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Remove {
@@ -192,8 +156,7 @@ extension Anytype_Rpc.BlockDataview {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Response {
@@ -202,38 +165,22 @@ extension Anytype_Rpc.BlockDataview {
           // methods supported on all messages.
 
           public var error: Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error {
-            get {
-                    return _error ?? Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error()
-                }
-            set {
-                    _error = newValue
-                }
+            get {return _error ?? Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error()}
+            set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {
-                  return self._error != nil
-              }
+          public var hasError: Bool {return self._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {
-                  self._error = nil
-              }
+          public mutating func clearError() {self._error = nil}
 
           public var event: Anytype_ResponseEvent {
-            get {
-                    return _event ?? Anytype_ResponseEvent()
-                }
-            set {
-                    _event = newValue
-                }
+            get {return _event ?? Anytype_ResponseEvent()}
+            set {_event = newValue}
           }
           /// Returns true if `event` has been explicitly set.
-          public var hasEvent: Bool {
-                  return self._event != nil
-              }
+          public var hasEvent: Bool {return self._event != nil}
           /// Clears the value of `event`. Subsequent reads from it will return its default value.
-          public mutating func clearEvent() {
-                  self._event = nil
-              }
+          public mutating func clearEvent() {self._event = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -261,45 +208,34 @@ extension Anytype_Rpc.BlockDataview {
 
               public init?(rawValue: Int) {
                 switch rawValue {
-                case 0:
-                        self = .null
-                case 1:
-                        self = .unknownError
-                case 2:
-                        self = .badInput
-                default:
-                        self = .UNRECOGNIZED(rawValue)
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
                 }
               }
 
               public var rawValue: Int {
                 switch self {
-                case .null:
-                        return 0
-                case .unknownError:
-                        return 1
-                case .badInput:
-                        return 2
-                case .UNRECOGNIZED(let i):
-                        return i
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
                 }
               }
 
             }
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _error: Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error? = nil
           fileprivate var _event: Anytype_ResponseEvent? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Replace {
@@ -325,26 +261,17 @@ extension Anytype_Rpc.BlockDataview {
           public var id: String = String()
 
           public var filter: Anytype_Model_Block.Content.Dataview.Filter {
-            get {
-                    return _filter ?? Anytype_Model_Block.Content.Dataview.Filter()
-                }
-            set {
-                    _filter = newValue
-                }
+            get {return _filter ?? Anytype_Model_Block.Content.Dataview.Filter()}
+            set {_filter = newValue}
           }
           /// Returns true if `filter` has been explicitly set.
-          public var hasFilter: Bool {
-                  return self._filter != nil
-              }
+          public var hasFilter: Bool {return self._filter != nil}
           /// Clears the value of `filter`. Subsequent reads from it will return its default value.
-          public mutating func clearFilter() {
-                  self._filter = nil
-              }
+          public mutating func clearFilter() {self._filter = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _filter: Anytype_Model_Block.Content.Dataview.Filter? = nil
         }
@@ -355,38 +282,22 @@ extension Anytype_Rpc.BlockDataview {
           // methods supported on all messages.
 
           public var error: Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error {
-            get {
-                    return _error ?? Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error()
-                }
-            set {
-                    _error = newValue
-                }
+            get {return _error ?? Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error()}
+            set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {
-                  return self._error != nil
-              }
+          public var hasError: Bool {return self._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {
-                  self._error = nil
-              }
+          public mutating func clearError() {self._error = nil}
 
           public var event: Anytype_ResponseEvent {
-            get {
-                    return _event ?? Anytype_ResponseEvent()
-                }
-            set {
-                    _event = newValue
-                }
+            get {return _event ?? Anytype_ResponseEvent()}
+            set {_event = newValue}
           }
           /// Returns true if `event` has been explicitly set.
-          public var hasEvent: Bool {
-                  return self._event != nil
-              }
+          public var hasEvent: Bool {return self._event != nil}
           /// Clears the value of `event`. Subsequent reads from it will return its default value.
-          public mutating func clearEvent() {
-                  self._event = nil
-              }
+          public mutating func clearEvent() {self._event = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -414,45 +325,34 @@ extension Anytype_Rpc.BlockDataview {
 
               public init?(rawValue: Int) {
                 switch rawValue {
-                case 0:
-                        self = .null
-                case 1:
-                        self = .unknownError
-                case 2:
-                        self = .badInput
-                default:
-                        self = .UNRECOGNIZED(rawValue)
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
                 }
               }
 
               public var rawValue: Int {
                 switch self {
-                case .null:
-                        return 0
-                case .unknownError:
-                        return 1
-                case .badInput:
-                        return 2
-                case .UNRECOGNIZED(let i):
-                        return i
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
                 }
               }
 
             }
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _error: Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error? = nil
           fileprivate var _event: Anytype_ResponseEvent? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Sort {
@@ -480,8 +380,7 @@ extension Anytype_Rpc.BlockDataview {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Response {
@@ -490,38 +389,22 @@ extension Anytype_Rpc.BlockDataview {
           // methods supported on all messages.
 
           public var error: Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error {
-            get {
-                    return _error ?? Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error()
-                }
-            set {
-                    _error = newValue
-                }
+            get {return _error ?? Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error()}
+            set {_error = newValue}
           }
           /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {
-                  return self._error != nil
-              }
+          public var hasError: Bool {return self._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {
-                  self._error = nil
-              }
+          public mutating func clearError() {self._error = nil}
 
           public var event: Anytype_ResponseEvent {
-            get {
-                    return _event ?? Anytype_ResponseEvent()
-                }
-            set {
-                    _event = newValue
-                }
+            get {return _event ?? Anytype_ResponseEvent()}
+            set {_event = newValue}
           }
           /// Returns true if `event` has been explicitly set.
-          public var hasEvent: Bool {
-                  return self._event != nil
-              }
+          public var hasEvent: Bool {return self._event != nil}
           /// Clears the value of `event`. Subsequent reads from it will return its default value.
-          public mutating func clearEvent() {
-                  self._event = nil
-              }
+          public mutating func clearEvent() {self._event = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -549,51 +432,38 @@ extension Anytype_Rpc.BlockDataview {
 
               public init?(rawValue: Int) {
                 switch rawValue {
-                case 0:
-                        self = .null
-                case 1:
-                        self = .unknownError
-                case 2:
-                        self = .badInput
-                default:
-                        self = .UNRECOGNIZED(rawValue)
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
                 }
               }
 
               public var rawValue: Int {
                 switch self {
-                case .null:
-                        return 0
-                case .unknownError:
-                        return 1
-                case .badInput:
-                        return 2
-                case .UNRECOGNIZED(let i):
-                        return i
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
                 }
               }
 
             }
 
-            public init() {
-                }
+            public init() {}
           }
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _error: Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error? = nil
           fileprivate var _event: Anytype_ResponseEvent? = nil
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -630,48 +500,27 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code: CaseIterabl
     .badInput,
   ]
 }
-extension Anytype_Rpc.BlockDataview.Filter: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Add: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Add.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Add.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Remove: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Remove.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Replace: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Sort: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Sort.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.BlockDataview.Filter: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Add: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Remove: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Replace: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Sort: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.BlockDataview.Filter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".Filter"
@@ -687,9 +536,7 @@ extension Anytype_Rpc.BlockDataview.Filter: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter, rhs: Anytype_Rpc.BlockDataview.Filter) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -708,9 +555,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Add: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Add, rhs: Anytype_Rpc.BlockDataview.Filter.Add) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -730,24 +575,11 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Request: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._filter)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._filter) }()
+      default: break
       }
     }
   }
@@ -766,30 +598,18 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Request: SwiftProtobuf.Message, S
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
-    try {
-        if let v = self._filter {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
+    try { if let v = self._filter {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Add.Request, rhs: Anytype_Rpc.BlockDataview.Filter.Add.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs._filter != rhs._filter {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs._filter != rhs._filter {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -807,16 +627,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -826,29 +639,19 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response: SwiftProtobuf.Message, 
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Add.Response, rhs: Anytype_Rpc.BlockDataview.Filter.Add.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -866,16 +669,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: SwiftProtobuf.Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -891,15 +687,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: SwiftProtobuf.Mes
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Add.Response.Error, rhs: Anytype_Rpc.BlockDataview.Filter.Add.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -926,9 +716,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Remove, rhs: Anytype_Rpc.BlockDataview.Filter.Remove) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -948,24 +736,11 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: SwiftProtobuf.Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -987,21 +762,11 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: SwiftProtobuf.Message
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Remove.Request, rhs: Anytype_Rpc.BlockDataview.Filter.Remove.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1019,16 +784,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -1038,29 +796,19 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response: SwiftProtobuf.Messag
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Remove.Response, rhs: Anytype_Rpc.BlockDataview.Filter.Remove.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1078,16 +826,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -1103,15 +844,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error, rhs: Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1138,9 +873,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Replace, rhs: Anytype_Rpc.BlockDataview.Filter.Replace) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1161,28 +894,12 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._filter)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._filter) }()
+      default: break
       }
     }
   }
@@ -1204,33 +921,19 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: SwiftProtobuf.Messag
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 4)
     }
-    try {
-        if let v = self._filter {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
+    try { if let v = self._filter {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Replace.Request, rhs: Anytype_Rpc.BlockDataview.Filter.Replace.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._filter != rhs._filter {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.id != rhs.id {return false}
+    if lhs._filter != rhs._filter {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1248,16 +951,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: SwiftProtobuf.Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -1267,29 +963,19 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: SwiftProtobuf.Messa
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Replace.Response, rhs: Anytype_Rpc.BlockDataview.Filter.Replace.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1307,16 +993,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -1332,15 +1011,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error, rhs: Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1367,9 +1040,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Sort, rhs: Anytype_Rpc.BlockDataview.Filter.Sort) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1389,24 +1060,11 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.viewID)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.ids)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
       }
     }
   }
@@ -1428,21 +1086,11 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: SwiftProtobuf.Message, 
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Sort.Request, rhs: Anytype_Rpc.BlockDataview.Filter.Sort.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs.viewID != rhs.viewID {
-        return false
-    }
-    if lhs.ids != rhs.ids {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1460,16 +1108,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      default: break
       }
     }
   }
@@ -1479,29 +1120,19 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response: SwiftProtobuf.Message,
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Sort.Response, rhs: Anytype_Rpc.BlockDataview.Filter.Sort.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1519,16 +1150,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: SwiftProtobuf.Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -1544,15 +1168,9 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: SwiftProtobuf.Me
   }
 
   public static func ==(lhs: Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error, rhs: Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1571,8 +1189,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code: SwiftProtob
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

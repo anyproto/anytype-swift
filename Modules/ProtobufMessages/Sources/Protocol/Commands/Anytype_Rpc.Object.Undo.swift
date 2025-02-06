@@ -27,8 +27,7 @@ extension Anytype_Rpc.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -37,74 +36,42 @@ extension Anytype_Rpc.Object {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Object.Undo.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Object.Undo.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Object.Undo.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var event: Anytype_ResponseEvent {
-          get {
-                  return _event ?? Anytype_ResponseEvent()
-              }
-          set {
-                  _event = newValue
-              }
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
         /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {
-                return self._event != nil
-            }
+        public var hasEvent: Bool {return self._event != nil}
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {
-                self._event = nil
-            }
+        public mutating func clearEvent() {self._event = nil}
 
         public var counters: Anytype_Rpc.Object.UndoRedoCounter {
-          get {
-                  return _counters ?? Anytype_Rpc.Object.UndoRedoCounter()
-              }
-          set {
-                  _counters = newValue
-              }
+          get {return _counters ?? Anytype_Rpc.Object.UndoRedoCounter()}
+          set {_counters = newValue}
         }
         /// Returns true if `counters` has been explicitly set.
-        public var hasCounters: Bool {
-                return self._counters != nil
-            }
+        public var hasCounters: Bool {return self._counters != nil}
         /// Clears the value of `counters`. Subsequent reads from it will return its default value.
-        public mutating func clearCounters() {
-                self._counters = nil
-            }
+        public mutating func clearCounters() {self._counters = nil}
 
         public var blockID: String = String()
 
         public var range: Anytype_Model_Range {
-          get {
-                  return _range ?? Anytype_Model_Range()
-              }
-          set {
-                  _range = newValue
-              }
+          get {return _range ?? Anytype_Model_Range()}
+          set {_range = newValue}
         }
         /// Returns true if `range` has been explicitly set.
-        public var hasRange: Bool {
-                return self._range != nil
-            }
+        public var hasRange: Bool {return self._range != nil}
         /// Clears the value of `range`. Subsequent reads from it will return its default value.
-        public mutating func clearRange() {
-                self._range = nil
-            }
+        public mutating func clearRange() {self._range = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -135,42 +102,30 @@ extension Anytype_Rpc.Object {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 3:
-                      self = .canNotMove
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .canNotMove
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .canNotMove:
-                      return 3
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .canNotMove: return 3
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Object.Undo.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
@@ -178,10 +133,8 @@ extension Anytype_Rpc.Object {
         fileprivate var _range: Anytype_Model_Range? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Object.Undo.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -192,16 +145,11 @@ extension Anytype_Rpc.Object.Undo.Response.Error.Code: CaseIterable {
     .canNotMove,
   ]
 }
-extension Anytype_Rpc.Object.Undo: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Undo.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Undo.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Undo.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.Undo.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Object.Undo: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Undo.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Undo.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Undo.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Undo.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object.Undo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".Undo"
@@ -217,9 +165,7 @@ extension Anytype_Rpc.Object.Undo: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Undo, rhs: Anytype_Rpc.Object.Undo) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -236,12 +182,8 @@ extension Anytype_Rpc.Object.Undo.Request: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.contextID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      default: break
       }
     }
   }
@@ -254,12 +196,8 @@ extension Anytype_Rpc.Object.Undo.Request: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Undo.Request, rhs: Anytype_Rpc.Object.Undo.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -280,28 +218,12 @@ extension Anytype_Rpc.Object.Undo.Response: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._event)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._counters)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._range)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._counters) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._range) }()
+      default: break
       }
     }
   }
@@ -311,51 +233,31 @@ extension Anytype_Rpc.Object.Undo.Response: SwiftProtobuf.Message, SwiftProtobuf
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._event {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._counters {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._counters {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if !self.blockID.isEmpty {
       try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 4)
     }
-    try {
-        if let v = self._range {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
+    try { if let v = self._range {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Undo.Response, rhs: Anytype_Rpc.Object.Undo.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._event != rhs._event {
-        return false
-    }
-    if lhs._counters != rhs._counters {
-        return false
-    }
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs._range != rhs._range {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs._counters != rhs._counters {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs._range != rhs._range {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -373,16 +275,9 @@ extension Anytype_Rpc.Object.Undo.Response.Error: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -398,15 +293,9 @@ extension Anytype_Rpc.Object.Undo.Response.Error: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Undo.Response.Error, rhs: Anytype_Rpc.Object.Undo.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -426,8 +315,7 @@ extension Anytype_Rpc.Object.Undo.Response.Error.Code: SwiftProtobuf._ProtoNameP
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

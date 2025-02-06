@@ -28,8 +28,7 @@ extension Anytype_Rpc.Navigation {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -38,38 +37,22 @@ extension Anytype_Rpc.Navigation {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var object: Anytype_Model_ObjectInfoWithLinks {
-          get {
-                  return _object ?? Anytype_Model_ObjectInfoWithLinks()
-              }
-          set {
-                  _object = newValue
-              }
+          get {return _object ?? Anytype_Model_ObjectInfoWithLinks()}
+          set {_object = newValue}
         }
         /// Returns true if `object` has been explicitly set.
-        public var hasObject: Bool {
-                return self._object != nil
-            }
+        public var hasObject: Bool {return self._object != nil}
         /// Clears the value of `object`. Subsequent reads from it will return its default value.
-        public mutating func clearObject() {
-                self._object = nil
-            }
+        public mutating func clearObject() {self._object = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -99,47 +82,35 @@ extension Anytype_Rpc.Navigation {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error? = nil
         fileprivate var _object: Anytype_Model_ObjectInfoWithLinks? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -149,16 +120,11 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code: Cas
     .badInput,
   ]
 }
-extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks: @unchecked Sendable {
-}
-extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Navigation.protoMessageName + ".GetObjectInfoWithLinks"
@@ -174,9 +140,7 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks: SwiftProtobuf.Message, 
   }
 
   public static func ==(lhs: Anytype_Rpc.Navigation.GetObjectInfoWithLinks, rhs: Anytype_Rpc.Navigation.GetObjectInfoWithLinks) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -194,16 +158,9 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Request: SwiftProtobuf.M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.objectID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.context)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.context) }()
+      default: break
       }
     }
   }
@@ -219,15 +176,9 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Request: SwiftProtobuf.M
   }
 
   public static func ==(lhs: Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Request, rhs: Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Request) -> Bool {
-    if lhs.objectID != rhs.objectID {
-        return false
-    }
-    if lhs.context != rhs.context {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs.context != rhs.context {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -245,16 +196,9 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response: SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._object)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._object) }()
+      default: break
       }
     }
   }
@@ -264,29 +208,19 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response: SwiftProtobuf.
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._object {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._object {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response, rhs: Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs._object != rhs._object {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._object != rhs._object {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -304,16 +238,9 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -329,15 +256,9 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: SwiftPro
   }
 
   public static func ==(lhs: Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error, rhs: Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -356,8 +277,7 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code: Swi
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

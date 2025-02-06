@@ -25,38 +25,25 @@ extension Anytype_Event.Object {
         public var id: String = String()
 
         public var restrictions: Anytype_Model_Restrictions {
-          get {
-                  return _restrictions ?? Anytype_Model_Restrictions()
-              }
-          set {
-                  _restrictions = newValue
-              }
+          get {return _restrictions ?? Anytype_Model_Restrictions()}
+          set {_restrictions = newValue}
         }
         /// Returns true if `restrictions` has been explicitly set.
-        public var hasRestrictions: Bool {
-                return self._restrictions != nil
-            }
+        public var hasRestrictions: Bool {return self._restrictions != nil}
         /// Clears the value of `restrictions`. Subsequent reads from it will return its default value.
-        public mutating func clearRestrictions() {
-                self._restrictions = nil
-            }
+        public mutating func clearRestrictions() {self._restrictions = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _restrictions: Anytype_Model_Restrictions? = nil
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.Object.Restrictions: @unchecked Sendable {
-}
-extension Anytype_Event.Object.Restrictions.Set: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.Object.Restrictions: @unchecked Sendable {}
+extension Anytype_Event.Object.Restrictions.Set: @unchecked Sendable {}
 
 extension Anytype_Event.Object.Restrictions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Object.protoMessageName + ".Restrictions"
@@ -72,9 +59,7 @@ extension Anytype_Event.Object.Restrictions: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Object.Restrictions, rhs: Anytype_Event.Object.Restrictions) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -92,16 +77,9 @@ extension Anytype_Event.Object.Restrictions.Set: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._restrictions)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._restrictions) }()
+      default: break
       }
     }
   }
@@ -114,24 +92,16 @@ extension Anytype_Event.Object.Restrictions.Set: SwiftProtobuf.Message, SwiftPro
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._restrictions {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._restrictions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Object.Restrictions.Set, rhs: Anytype_Event.Object.Restrictions.Set) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._restrictions != rhs._restrictions {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._restrictions != rhs._restrictions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -142,8 +112,7 @@ extension Anytype_Event.Object.Restrictions.Set: SwiftProtobuf.Message, SwiftPro
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

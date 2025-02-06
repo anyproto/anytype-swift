@@ -27,36 +27,25 @@ extension Anytype_Model_InternalFlag {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .editorDeleteEmpty
-      case 1:
-          self = .editorSelectType
-      case 2:
-          self = .editorSelectTemplate
-      case 3:
-          self = .collectionDontIndexLinks
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .editorDeleteEmpty
+      case 1: self = .editorSelectType
+      case 2: self = .editorSelectTemplate
+      case 3: self = .collectionDontIndexLinks
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .editorDeleteEmpty:
-          return 0
-      case .editorSelectType:
-          return 1
-      case .editorSelectTemplate:
-          return 2
-      case .collectionDontIndexLinks:
-          return 3
-      case .UNRECOGNIZED(let i):
-          return i
+      case .editorDeleteEmpty: return 0
+      case .editorSelectType: return 1
+      case .editorSelectTemplate: return 2
+      case .collectionDontIndexLinks: return 3
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_InternalFlag.Value: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -67,8 +56,7 @@ extension Anytype_Model_InternalFlag.Value: CaseIterable {
     .collectionDontIndexLinks,
   ]
 }
-extension Anytype_Model_InternalFlag.Value: @unchecked Sendable {
-}
+extension Anytype_Model_InternalFlag.Value: @unchecked Sendable {}
 
 extension Anytype_Model_InternalFlag.Value: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -85,8 +73,7 @@ extension Anytype_Model_InternalFlag.Value: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

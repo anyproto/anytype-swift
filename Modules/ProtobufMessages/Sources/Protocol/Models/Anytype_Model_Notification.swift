@@ -26,122 +26,82 @@ public struct Anytype_Model_Notification {
 
   public var `import`: Anytype_Model_Notification.Import {
     get {
-      if case .import(let v)? = payload {
-          return v
-      }
+      if case .import(let v)? = payload {return v}
       return Anytype_Model_Notification.Import()
     }
-    set {
-        payload = .import(newValue)
-    }
+    set {payload = .import(newValue)}
   }
 
   public var export: Anytype_Model_Notification.Export {
     get {
-      if case .export(let v)? = payload {
-          return v
-      }
+      if case .export(let v)? = payload {return v}
       return Anytype_Model_Notification.Export()
     }
-    set {
-        payload = .export(newValue)
-    }
+    set {payload = .export(newValue)}
   }
 
   public var galleryImport: Anytype_Model_Notification.GalleryImport {
     get {
-      if case .galleryImport(let v)? = payload {
-          return v
-      }
+      if case .galleryImport(let v)? = payload {return v}
       return Anytype_Model_Notification.GalleryImport()
     }
-    set {
-        payload = .galleryImport(newValue)
-    }
+    set {payload = .galleryImport(newValue)}
   }
 
   public var requestToJoin: Anytype_Model_Notification.RequestToJoin {
     get {
-      if case .requestToJoin(let v)? = payload {
-          return v
-      }
+      if case .requestToJoin(let v)? = payload {return v}
       return Anytype_Model_Notification.RequestToJoin()
     }
-    set {
-        payload = .requestToJoin(newValue)
-    }
+    set {payload = .requestToJoin(newValue)}
   }
 
   public var test: Anytype_Model_Notification.Test {
     get {
-      if case .test(let v)? = payload {
-          return v
-      }
+      if case .test(let v)? = payload {return v}
       return Anytype_Model_Notification.Test()
     }
-    set {
-        payload = .test(newValue)
-    }
+    set {payload = .test(newValue)}
   }
 
   public var participantRequestApproved: Anytype_Model_Notification.ParticipantRequestApproved {
     get {
-      if case .participantRequestApproved(let v)? = payload {
-          return v
-      }
+      if case .participantRequestApproved(let v)? = payload {return v}
       return Anytype_Model_Notification.ParticipantRequestApproved()
     }
-    set {
-        payload = .participantRequestApproved(newValue)
-    }
+    set {payload = .participantRequestApproved(newValue)}
   }
 
   public var requestToLeave: Anytype_Model_Notification.RequestToLeave {
     get {
-      if case .requestToLeave(let v)? = payload {
-          return v
-      }
+      if case .requestToLeave(let v)? = payload {return v}
       return Anytype_Model_Notification.RequestToLeave()
     }
-    set {
-        payload = .requestToLeave(newValue)
-    }
+    set {payload = .requestToLeave(newValue)}
   }
 
   public var participantRemove: Anytype_Model_Notification.ParticipantRemove {
     get {
-      if case .participantRemove(let v)? = payload {
-          return v
-      }
+      if case .participantRemove(let v)? = payload {return v}
       return Anytype_Model_Notification.ParticipantRemove()
     }
-    set {
-        payload = .participantRemove(newValue)
-    }
+    set {payload = .participantRemove(newValue)}
   }
 
   public var participantRequestDecline: Anytype_Model_Notification.ParticipantRequestDecline {
     get {
-      if case .participantRequestDecline(let v)? = payload {
-          return v
-      }
+      if case .participantRequestDecline(let v)? = payload {return v}
       return Anytype_Model_Notification.ParticipantRequestDecline()
     }
-    set {
-        payload = .participantRequestDecline(newValue)
-    }
+    set {payload = .participantRequestDecline(newValue)}
   }
 
   public var participantPermissionsChange: Anytype_Model_Notification.ParticipantPermissionsChange {
     get {
-      if case .participantPermissionsChange(let v)? = payload {
-          return v
-      }
+      if case .participantPermissionsChange(let v)? = payload {return v}
       return Anytype_Model_Notification.ParticipantPermissionsChange()
     }
-    set {
-        payload = .participantPermissionsChange(newValue)
-    }
+    set {payload = .participantPermissionsChange(newValue)}
   }
 
   public var space: String = String()
@@ -150,11 +110,9 @@ public struct Anytype_Model_Notification {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_Notification: @unchecked Sendable {
-}
+extension Anytype_Model_Notification: @unchecked Sendable {}
 
 extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Notification"
@@ -183,212 +141,143 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.createTime)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.status)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isLocal)
-          }()
-      case 6:
-          try {
-                  var v: Anytype_Model_Notification.Import?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .import(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .import(v)
-                  }
-                }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.space)
-          }()
-      case 8:
-          try {
-                  var v: Anytype_Model_Notification.Export?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .export(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .export(v)
-                  }
-                }()
-      case 9:
-          try {
-                  var v: Anytype_Model_Notification.GalleryImport?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .galleryImport(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .galleryImport(v)
-                  }
-                }()
-      case 10:
-          try {
-                  var v: Anytype_Model_Notification.RequestToJoin?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .requestToJoin(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .requestToJoin(v)
-                  }
-                }()
-      case 11:
-          try {
-                  var v: Anytype_Model_Notification.Test?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .test(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .test(v)
-                  }
-                }()
-      case 13:
-          try {
-                  var v: Anytype_Model_Notification.ParticipantRequestApproved?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .participantRequestApproved(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .participantRequestApproved(v)
-                  }
-                }()
-      case 14:
-          try {
-              try decoder.decodeSingularStringField(value: &self.aclHeadID)
-          }()
-      case 15:
-          try {
-                  var v: Anytype_Model_Notification.RequestToLeave?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .requestToLeave(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .requestToLeave(v)
-                  }
-                }()
-      case 16:
-          try {
-                  var v: Anytype_Model_Notification.ParticipantRemove?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .participantRemove(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .participantRemove(v)
-                  }
-                }()
-      case 17:
-          try {
-                  var v: Anytype_Model_Notification.ParticipantRequestDecline?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .participantRequestDecline(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .participantRequestDecline(v)
-                  }
-                }()
-      case 18:
-          try {
-                  var v: Anytype_Model_Notification.ParticipantPermissionsChange?
-                  var hadOneofValue = false
-                  if let current = self.payload {
-                    hadOneofValue = true
-                    if case .participantPermissionsChange(let m) = current {
-                        v = m
-                    }
-                  }
-                  try decoder.decodeSingularMessageField(value: &v)
-                  if let v = v {
-                    if hadOneofValue {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.payload = .participantPermissionsChange(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.createTime) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.isLocal) }()
+      case 6: try {
+        var v: Anytype_Model_Notification.Import?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .import(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .import(v)
+        }
+      }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.space) }()
+      case 8: try {
+        var v: Anytype_Model_Notification.Export?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .export(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .export(v)
+        }
+      }()
+      case 9: try {
+        var v: Anytype_Model_Notification.GalleryImport?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .galleryImport(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .galleryImport(v)
+        }
+      }()
+      case 10: try {
+        var v: Anytype_Model_Notification.RequestToJoin?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .requestToJoin(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .requestToJoin(v)
+        }
+      }()
+      case 11: try {
+        var v: Anytype_Model_Notification.Test?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .test(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .test(v)
+        }
+      }()
+      case 13: try {
+        var v: Anytype_Model_Notification.ParticipantRequestApproved?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .participantRequestApproved(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .participantRequestApproved(v)
+        }
+      }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self.aclHeadID) }()
+      case 15: try {
+        var v: Anytype_Model_Notification.RequestToLeave?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .requestToLeave(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .requestToLeave(v)
+        }
+      }()
+      case 16: try {
+        var v: Anytype_Model_Notification.ParticipantRemove?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .participantRemove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .participantRemove(v)
+        }
+      }()
+      case 17: try {
+        var v: Anytype_Model_Notification.ParticipantRequestDecline?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .participantRequestDecline(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .participantRequestDecline(v)
+        }
+      }()
+      case 18: try {
+        var v: Anytype_Model_Notification.ParticipantPermissionsChange?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .participantPermissionsChange(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .participantPermissionsChange(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -410,116 +299,69 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if self.isLocal != false {
       try visitor.visitSingularBoolField(value: self.isLocal, fieldNumber: 5)
     }
-    try {
-        if case .import(let v)? = self.payload {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
+    try { if case .import(let v)? = self.payload {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     if !self.space.isEmpty {
       try visitor.visitSingularStringField(value: self.space, fieldNumber: 7)
     }
     switch self.payload {
-    case .export?:
-        try {
-              guard case .export(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-            }()
-    case .galleryImport?:
-        try {
-              guard case .galleryImport(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-            }()
-    case .requestToJoin?:
-        try {
-              guard case .requestToJoin(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-            }()
-    case .test?:
-        try {
-              guard case .test(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-            }()
-    case .participantRequestApproved?:
-        try {
-              guard case .participantRequestApproved(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
-            }()
-    default:
-        break
+    case .export?: try {
+      guard case .export(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    }()
+    case .galleryImport?: try {
+      guard case .galleryImport(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    }()
+    case .requestToJoin?: try {
+      guard case .requestToJoin(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    }()
+    case .test?: try {
+      guard case .test(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+    }()
+    case .participantRequestApproved?: try {
+      guard case .participantRequestApproved(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+    }()
+    default: break
     }
     if !self.aclHeadID.isEmpty {
       try visitor.visitSingularStringField(value: self.aclHeadID, fieldNumber: 14)
     }
     switch self.payload {
-    case .requestToLeave?:
-        try {
-              guard case .requestToLeave(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
-            }()
-    case .participantRemove?:
-        try {
-              guard case .participantRemove(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
-            }()
-    case .participantRequestDecline?:
-        try {
-              guard case .participantRequestDecline(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
-            }()
-    case .participantPermissionsChange?:
-        try {
-              guard case .participantPermissionsChange(let v)? = self.payload else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
-            }()
-    default:
-        break
+    case .requestToLeave?: try {
+      guard case .requestToLeave(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+    }()
+    case .participantRemove?: try {
+      guard case .participantRemove(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
+    }()
+    case .participantRequestDecline?: try {
+      guard case .participantRequestDecline(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
+    }()
+    case .participantPermissionsChange?: try {
+      guard case .participantPermissionsChange(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
+    }()
+    default: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Notification, rhs: Anytype_Model_Notification) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.createTime != rhs.createTime {
-        return false
-    }
-    if lhs.status != rhs.status {
-        return false
-    }
-    if lhs.isLocal != rhs.isLocal {
-        return false
-    }
-    if lhs.payload != rhs.payload {
-        return false
-    }
-    if lhs.space != rhs.space {
-        return false
-    }
-    if lhs.aclHeadID != rhs.aclHeadID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.createTime != rhs.createTime {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.isLocal != rhs.isLocal {return false}
+    if lhs.payload != rhs.payload {return false}
+    if lhs.space != rhs.space {return false}
+    if lhs.aclHeadID != rhs.aclHeadID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -530,8 +372,7 @@ extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

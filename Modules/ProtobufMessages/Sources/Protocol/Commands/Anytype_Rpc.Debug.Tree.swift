@@ -34,8 +34,7 @@ extension Anytype_Rpc.Debug {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -44,21 +43,13 @@ extension Anytype_Rpc.Debug {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Debug.Tree.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Debug.Tree.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Debug.Tree.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var filename: String = String()
 
@@ -90,46 +81,34 @@ extension Anytype_Rpc.Debug {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Debug.Tree.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Debug.Tree.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -139,16 +118,11 @@ extension Anytype_Rpc.Debug.Tree.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Debug.Tree: @unchecked Sendable {
-}
-extension Anytype_Rpc.Debug.Tree.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Debug.Tree.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Debug.Tree.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Debug.Tree.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Debug.Tree: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Debug.Tree: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".Tree"
@@ -164,9 +138,7 @@ extension Anytype_Rpc.Debug.Tree: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   }
 
   public static func ==(lhs: Anytype_Rpc.Debug.Tree, rhs: Anytype_Rpc.Debug.Tree) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -186,24 +158,11 @@ extension Anytype_Rpc.Debug.Tree.Request: SwiftProtobuf.Message, SwiftProtobuf._
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.treeID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.path)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.unanonymized)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.generateSvg)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.treeID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.unanonymized) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.generateSvg) }()
+      default: break
       }
     }
   }
@@ -225,21 +184,11 @@ extension Anytype_Rpc.Debug.Tree.Request: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   public static func ==(lhs: Anytype_Rpc.Debug.Tree.Request, rhs: Anytype_Rpc.Debug.Tree.Request) -> Bool {
-    if lhs.treeID != rhs.treeID {
-        return false
-    }
-    if lhs.path != rhs.path {
-        return false
-    }
-    if lhs.unanonymized != rhs.unanonymized {
-        return false
-    }
-    if lhs.generateSvg != rhs.generateSvg {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.treeID != rhs.treeID {return false}
+    if lhs.path != rhs.path {return false}
+    if lhs.unanonymized != rhs.unanonymized {return false}
+    if lhs.generateSvg != rhs.generateSvg {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -257,16 +206,9 @@ extension Anytype_Rpc.Debug.Tree.Response: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.filename)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.filename) }()
+      default: break
       }
     }
   }
@@ -276,11 +218,9 @@ extension Anytype_Rpc.Debug.Tree.Response: SwiftProtobuf.Message, SwiftProtobuf.
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.filename.isEmpty {
       try visitor.visitSingularStringField(value: self.filename, fieldNumber: 2)
     }
@@ -288,15 +228,9 @@ extension Anytype_Rpc.Debug.Tree.Response: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Rpc.Debug.Tree.Response, rhs: Anytype_Rpc.Debug.Tree.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.filename != rhs.filename {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.filename != rhs.filename {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -314,16 +248,9 @@ extension Anytype_Rpc.Debug.Tree.Response.Error: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -339,15 +266,9 @@ extension Anytype_Rpc.Debug.Tree.Response.Error: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Rpc.Debug.Tree.Response.Error, rhs: Anytype_Rpc.Debug.Tree.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -366,8 +287,7 @@ extension Anytype_Rpc.Debug.Tree.Response.Error.Code: SwiftProtobuf._ProtoNamePr
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

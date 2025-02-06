@@ -30,8 +30,7 @@ extension Anytype_Rpc.Membership {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -40,21 +39,13 @@ extension Anytype_Rpc.Membership {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Membership.IsNameValid.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Membership.IsNameValid.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Membership.IsNameValid.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -101,90 +92,56 @@ extension Anytype_Rpc.Membership {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 3:
-                      self = .tooShort
-              case 4:
-                      self = .tooLong
-              case 5:
-                      self = .hasInvalidChars
-              case 6:
-                      self = .tierFeaturesNoName
-              case 7:
-                      self = .tierNotFound
-              case 8:
-                      self = .notLoggedIn
-              case 9:
-                      self = .paymentNodeError
-              case 10:
-                      self = .cacheError
-              case 11:
-                      self = .canNotReserve
-              case 12:
-                      self = .canNotConnect
-              case 13:
-                      self = .nameIsReserved
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .tooShort
+              case 4: self = .tooLong
+              case 5: self = .hasInvalidChars
+              case 6: self = .tierFeaturesNoName
+              case 7: self = .tierNotFound
+              case 8: self = .notLoggedIn
+              case 9: self = .paymentNodeError
+              case 10: self = .cacheError
+              case 11: self = .canNotReserve
+              case 12: self = .canNotConnect
+              case 13: self = .nameIsReserved
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .tooShort:
-                      return 3
-              case .tooLong:
-                      return 4
-              case .hasInvalidChars:
-                      return 5
-              case .tierFeaturesNoName:
-                      return 6
-              case .tierNotFound:
-                      return 7
-              case .notLoggedIn:
-                      return 8
-              case .paymentNodeError:
-                      return 9
-              case .cacheError:
-                      return 10
-              case .canNotReserve:
-                      return 11
-              case .canNotConnect:
-                      return 12
-              case .nameIsReserved:
-                      return 13
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .tooShort: return 3
+              case .tooLong: return 4
+              case .hasInvalidChars: return 5
+              case .tierFeaturesNoName: return 6
+              case .tierNotFound: return 7
+              case .notLoggedIn: return 8
+              case .paymentNodeError: return 9
+              case .cacheError: return 10
+              case .canNotReserve: return 11
+              case .canNotConnect: return 12
+              case .nameIsReserved: return 13
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Membership.IsNameValid.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -205,16 +162,11 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: CaseIterable {
     .nameIsReserved,
   ]
 }
-extension Anytype_Rpc.Membership.IsNameValid: @unchecked Sendable {
-}
-extension Anytype_Rpc.Membership.IsNameValid.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Membership.IsNameValid.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Membership.IsNameValid.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Membership.IsNameValid: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Membership.IsNameValid: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".IsNameValid"
@@ -230,9 +182,7 @@ extension Anytype_Rpc.Membership.IsNameValid: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid, rhs: Anytype_Rpc.Membership.IsNameValid) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -251,20 +201,10 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularUInt32Field(value: &self.requestedTier)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.nsName)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.nsNameType)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.requestedTier) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
+      default: break
       }
     }
   }
@@ -283,18 +223,10 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid.Request, rhs: Anytype_Rpc.Membership.IsNameValid.Request) -> Bool {
-    if lhs.requestedTier != rhs.requestedTier {
-        return false
-    }
-    if lhs.nsName != rhs.nsName {
-        return false
-    }
-    if lhs.nsNameType != rhs.nsNameType {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.requestedTier != rhs.requestedTier {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -311,12 +243,8 @@ extension Anytype_Rpc.Membership.IsNameValid.Response: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
       }
     }
   }
@@ -326,21 +254,15 @@ extension Anytype_Rpc.Membership.IsNameValid.Response: SwiftProtobuf.Message, Sw
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid.Response, rhs: Anytype_Rpc.Membership.IsNameValid.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -358,16 +280,9 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: SwiftProtobuf.Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -383,15 +298,9 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: SwiftProtobuf.Messa
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid.Response.Error, rhs: Anytype_Rpc.Membership.IsNameValid.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -421,8 +330,7 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: SwiftProtobuf.
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

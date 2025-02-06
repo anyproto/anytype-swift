@@ -32,51 +32,33 @@ public struct Anytype_Model_ObjectView {
 
   /// object restrictions
   public var restrictions: Anytype_Model_Restrictions {
-    get {
-        return _restrictions ?? Anytype_Model_Restrictions()
-    }
-    set {
-        _restrictions = newValue
-    }
+    get {return _restrictions ?? Anytype_Model_Restrictions()}
+    set {_restrictions = newValue}
   }
   /// Returns true if `restrictions` has been explicitly set.
-  public var hasRestrictions: Bool {
-      return self._restrictions != nil
-  }
+  public var hasRestrictions: Bool {return self._restrictions != nil}
   /// Clears the value of `restrictions`. Subsequent reads from it will return its default value.
-  public mutating func clearRestrictions() {
-      self._restrictions = nil
-  }
+  public mutating func clearRestrictions() {self._restrictions = nil}
 
   public var history: Anytype_Model_ObjectView.HistorySize {
-    get {
-        return _history ?? Anytype_Model_ObjectView.HistorySize()
-    }
-    set {
-        _history = newValue
-    }
+    get {return _history ?? Anytype_Model_ObjectView.HistorySize()}
+    set {_history = newValue}
   }
   /// Returns true if `history` has been explicitly set.
-  public var hasHistory: Bool {
-      return self._history != nil
-  }
+  public var hasHistory: Bool {return self._history != nil}
   /// Clears the value of `history`. Subsequent reads from it will return its default value.
-  public mutating func clearHistory() {
-      self._history = nil
-  }
+  public mutating func clearHistory() {self._history = nil}
 
   public var blockParticipants: [Anytype_Model_ObjectView.BlockParticipant] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 
   fileprivate var _restrictions: Anytype_Model_Restrictions? = nil
   fileprivate var _history: Anytype_Model_ObjectView.HistorySize? = nil
 }
-extension Anytype_Model_ObjectView: @unchecked Sendable {
-}
+extension Anytype_Model_ObjectView: @unchecked Sendable {}
 
 extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ObjectView"
@@ -98,44 +80,16 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.rootID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.blocks)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.details)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.type)
-          }()
-      case 7:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relations)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._restrictions)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._history)
-          }()
-      case 10:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relationLinks)
-          }()
-      case 11:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.blockParticipants)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.rootID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.blocks) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.details) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._restrictions) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._history) }()
+      case 10: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      case 11: try { try decoder.decodeRepeatedMessageField(value: &self.blockParticipants) }()
+      default: break
       }
     }
   }
@@ -160,16 +114,12 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.relations.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 7)
     }
-    try {
-        if let v = self._restrictions {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-            }
-    }()
-    try {
-        if let v = self._history {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-            }
-    }()
+    try { if let v = self._restrictions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._history {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     if !self.relationLinks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 10)
     }
@@ -180,36 +130,16 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 
   public static func ==(lhs: Anytype_Model_ObjectView, rhs: Anytype_Model_ObjectView) -> Bool {
-    if lhs.rootID != rhs.rootID {
-        return false
-    }
-    if lhs.blocks != rhs.blocks {
-        return false
-    }
-    if lhs.details != rhs.details {
-        return false
-    }
-    if lhs.type != rhs.type {
-        return false
-    }
-    if lhs.relations != rhs.relations {
-        return false
-    }
-    if lhs.relationLinks != rhs.relationLinks {
-        return false
-    }
-    if lhs._restrictions != rhs._restrictions {
-        return false
-    }
-    if lhs._history != rhs._history {
-        return false
-    }
-    if lhs.blockParticipants != rhs.blockParticipants {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.rootID != rhs.rootID {return false}
+    if lhs.blocks != rhs.blocks {return false}
+    if lhs.details != rhs.details {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.relations != rhs.relations {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs._restrictions != rhs._restrictions {return false}
+    if lhs._history != rhs._history {return false}
+    if lhs.blockParticipants != rhs.blockParticipants {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -220,8 +150,7 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

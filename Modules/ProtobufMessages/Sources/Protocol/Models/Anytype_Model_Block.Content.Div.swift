@@ -31,32 +31,24 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .line
-          case 1:
-                  self = .dots
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .line
+          case 1: self = .dots
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .line:
-                  return 0
-          case .dots:
-                  return 1
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .line: return 0
+          case .dots: return 1
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,10 +57,8 @@ extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
     .dots,
   ]
 }
-extension Anytype_Model_Block.Content.Div: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Div.Style: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Content.Div: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Div.Style: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.Div: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Div"
@@ -82,12 +72,8 @@ extension Anytype_Model_Block.Content.Div: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.style)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      default: break
       }
     }
   }
@@ -100,12 +86,8 @@ extension Anytype_Model_Block.Content.Div: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Div, rhs: Anytype_Model_Block.Content.Div) -> Bool {
-    if lhs.style != rhs.style {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.style != rhs.style {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -123,8 +105,7 @@ extension Anytype_Model_Block.Content.Div.Style: SwiftProtobuf._ProtoNameProvidi
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

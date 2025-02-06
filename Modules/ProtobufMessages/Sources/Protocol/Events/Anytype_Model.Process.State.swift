@@ -26,40 +26,27 @@ extension Anytype_Model.Process {
 
       public init?(rawValue: Int) {
         switch rawValue {
-        case 0:
-            self = .none
-        case 1:
-            self = .running
-        case 2:
-            self = .done
-        case 3:
-            self = .canceled
-        case 4:
-            self = .error
-        default:
-            self = .UNRECOGNIZED(rawValue)
+        case 0: self = .none
+        case 1: self = .running
+        case 2: self = .done
+        case 3: self = .canceled
+        case 4: self = .error
+        default: self = .UNRECOGNIZED(rawValue)
         }
       }
 
       public var rawValue: Int {
         switch self {
-        case .none:
-            return 0
-        case .running:
-            return 1
-        case .done:
-            return 2
-        case .canceled:
-            return 3
-        case .error:
-            return 4
-        case .UNRECOGNIZED(let i):
-            return i
+        case .none: return 0
+        case .running: return 1
+        case .done: return 2
+        case .canceled: return 3
+        case .error: return 4
+        case .UNRECOGNIZED(let i): return i
         }
       }
 
-    }
-}
+    }}
 
 extension Anytype_Model.Process.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -71,8 +58,7 @@ extension Anytype_Model.Process.State: CaseIterable {
     .error,
   ]
 }
-extension Anytype_Model.Process.State: @unchecked Sendable {
-}
+extension Anytype_Model.Process.State: @unchecked Sendable {}
 
 extension Anytype_Model.Process.State: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -90,8 +76,7 @@ extension Anytype_Model.Process.State: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

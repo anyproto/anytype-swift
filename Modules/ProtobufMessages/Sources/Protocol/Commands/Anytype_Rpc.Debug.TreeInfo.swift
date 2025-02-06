@@ -21,12 +21,9 @@ extension Anytype_Rpc.Debug {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Rpc.Debug.TreeInfo: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Rpc.Debug.TreeInfo: @unchecked Sendable {}
 
 extension Anytype_Rpc.Debug.TreeInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".TreeInfo"
@@ -41,16 +38,9 @@ extension Anytype_Rpc.Debug.TreeInfo: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.treeID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.headIds)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.treeID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.headIds) }()
+      default: break
       }
     }
   }
@@ -66,15 +56,9 @@ extension Anytype_Rpc.Debug.TreeInfo: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   public static func ==(lhs: Anytype_Rpc.Debug.TreeInfo, rhs: Anytype_Rpc.Debug.TreeInfo) -> Bool {
-    if lhs.treeID != rhs.treeID {
-        return false
-    }
-    if lhs.headIds != rhs.headIds {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.treeID != rhs.treeID {return false}
+    if lhs.headIds != rhs.headIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -85,8 +69,7 @@ extension Anytype_Rpc.Debug.TreeInfo: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

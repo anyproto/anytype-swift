@@ -23,12 +23,9 @@ extension Anytype_Event.P2PStatus {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.P2PStatus.Update: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.P2PStatus.Update: @unchecked Sendable {}
 
 extension Anytype_Event.P2PStatus.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.P2PStatus.protoMessageName + ".Update"
@@ -44,20 +41,10 @@ extension Anytype_Event.P2PStatus.Update: SwiftProtobuf.Message, SwiftProtobuf._
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.status)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.devicesCounter)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.devicesCounter) }()
+      default: break
       }
     }
   }
@@ -76,18 +63,10 @@ extension Anytype_Event.P2PStatus.Update: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   public static func ==(lhs: Anytype_Event.P2PStatus.Update, rhs: Anytype_Event.P2PStatus.Update) -> Bool {
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.status != rhs.status {
-        return false
-    }
-    if lhs.devicesCounter != rhs.devicesCounter {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.devicesCounter != rhs.devicesCounter {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -98,8 +77,7 @@ extension Anytype_Event.P2PStatus.Update: SwiftProtobuf.Message, SwiftProtobuf._
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

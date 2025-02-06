@@ -30,8 +30,7 @@ extension Anytype_Rpc.History {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -40,63 +39,35 @@ extension Anytype_Rpc.History {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.History.ShowVersion.Response.Error {
-          get {
-                  return _storage._error ?? Anytype_Rpc.History.ShowVersion.Response.Error()
-              }
-          set {
-                  _uniqueStorage()._error = newValue
-              }
+          get {return _storage._error ?? Anytype_Rpc.History.ShowVersion.Response.Error()}
+          set {_uniqueStorage()._error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return _storage._error != nil
-            }
+        public var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                _uniqueStorage()._error = nil
-            }
+        public mutating func clearError() {_uniqueStorage()._error = nil}
 
         public var objectView: Anytype_Model_ObjectView {
-          get {
-                  return _storage._objectView ?? Anytype_Model_ObjectView()
-              }
-          set {
-                  _uniqueStorage()._objectView = newValue
-              }
+          get {return _storage._objectView ?? Anytype_Model_ObjectView()}
+          set {_uniqueStorage()._objectView = newValue}
         }
         /// Returns true if `objectView` has been explicitly set.
-        public var hasObjectView: Bool {
-                return _storage._objectView != nil
-            }
+        public var hasObjectView: Bool {return _storage._objectView != nil}
         /// Clears the value of `objectView`. Subsequent reads from it will return its default value.
-        public mutating func clearObjectView() {
-                _uniqueStorage()._objectView = nil
-            }
+        public mutating func clearObjectView() {_uniqueStorage()._objectView = nil}
 
         public var version: Anytype_Rpc.History.Version {
-          get {
-                  return _storage._version ?? Anytype_Rpc.History.Version()
-              }
-          set {
-                  _uniqueStorage()._version = newValue
-              }
+          get {return _storage._version ?? Anytype_Rpc.History.Version()}
+          set {_uniqueStorage()._version = newValue}
         }
         /// Returns true if `version` has been explicitly set.
-        public var hasVersion: Bool {
-                return _storage._version != nil
-            }
+        public var hasVersion: Bool {return _storage._version != nil}
         /// Clears the value of `version`. Subsequent reads from it will return its default value.
-        public mutating func clearVersion() {
-                _uniqueStorage()._version = nil
-            }
+        public mutating func clearVersion() {_uniqueStorage()._version = nil}
 
         public var traceID: String {
-          get {
-                  return _storage._traceID
-              }
-          set {
-                  _uniqueStorage()._traceID = newValue
-              }
+          get {return _storage._traceID}
+          set {_uniqueStorage()._traceID = newValue}
         }
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -127,46 +98,34 @@ extension Anytype_Rpc.History {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _storage = _StorageClass.defaultInstance
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.History.ShowVersion.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -176,16 +135,11 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.History.ShowVersion: @unchecked Sendable {
-}
-extension Anytype_Rpc.History.ShowVersion.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.History.ShowVersion.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.History.ShowVersion.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.History.ShowVersion.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.History.ShowVersion: @unchecked Sendable {}
+extension Anytype_Rpc.History.ShowVersion.Request: @unchecked Sendable {}
+extension Anytype_Rpc.History.ShowVersion.Response: @unchecked Sendable {}
+extension Anytype_Rpc.History.ShowVersion.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.History.ShowVersion.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.History.ShowVersion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.History.protoMessageName + ".ShowVersion"
@@ -201,9 +155,7 @@ extension Anytype_Rpc.History.ShowVersion: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Rpc.History.ShowVersion, rhs: Anytype_Rpc.History.ShowVersion) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -222,20 +174,10 @@ extension Anytype_Rpc.History.ShowVersion.Request: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.objectID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.versionID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.traceID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.versionID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
+      default: break
       }
     }
   }
@@ -254,18 +196,10 @@ extension Anytype_Rpc.History.ShowVersion.Request: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Rpc.History.ShowVersion.Request, rhs: Anytype_Rpc.History.ShowVersion.Request) -> Bool {
-    if lhs.objectID != rhs.objectID {
-        return false
-    }
-    if lhs.versionID != rhs.versionID {
-        return false
-    }
-    if lhs.traceID != rhs.traceID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs.versionID != rhs.versionID {return false}
+    if lhs.traceID != rhs.traceID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -287,8 +221,7 @@ extension Anytype_Rpc.History.ShowVersion.Response: SwiftProtobuf.Message, Swift
 
     static let defaultInstance = _StorageClass()
 
-    private init() {
-    }
+    private init() {}
 
     init(copying source: _StorageClass) {
       _error = source._error
@@ -313,24 +246,11 @@ extension Anytype_Rpc.History.ShowVersion.Response: SwiftProtobuf.Message, Swift
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1:
-            try {
-                try decoder.decodeSingularMessageField(value: &_storage._error)
-            }()
-        case 2:
-            try {
-                try decoder.decodeSingularMessageField(value: &_storage._objectView)
-            }()
-        case 3:
-            try {
-                try decoder.decodeSingularMessageField(value: &_storage._version)
-            }()
-        case 4:
-            try {
-                try decoder.decodeSingularStringField(value: &_storage._traceID)
-            }()
-        default:
-            break
+        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._error) }()
+        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._objectView) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._version) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._traceID) }()
+        default: break
         }
       }
     }
@@ -342,21 +262,15 @@ extension Anytype_Rpc.History.ShowVersion.Response: SwiftProtobuf.Message, Swift
       // allocates stack space for every if/case branch local when no optimizations
       // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
       // https://github.com/apple/swift-protobuf/issues/1182
-      try {
-          if let v = _storage._error {
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-                }
-      }()
-      try {
-          if let v = _storage._objectView {
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-                }
-      }()
-      try {
-          if let v = _storage._version {
-                  try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-                }
-      }()
+      try { if let v = _storage._error {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      } }()
+      try { if let v = _storage._objectView {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      } }()
+      try { if let v = _storage._version {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      } }()
       if !_storage._traceID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._traceID, fieldNumber: 4)
       }
@@ -369,27 +283,15 @@ extension Anytype_Rpc.History.ShowVersion.Response: SwiftProtobuf.Message, Swift
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._error != rhs_storage._error {
-            return false
-        }
-        if _storage._objectView != rhs_storage._objectView {
-            return false
-        }
-        if _storage._version != rhs_storage._version {
-            return false
-        }
-        if _storage._traceID != rhs_storage._traceID {
-            return false
-        }
+        if _storage._error != rhs_storage._error {return false}
+        if _storage._objectView != rhs_storage._objectView {return false}
+        if _storage._version != rhs_storage._version {return false}
+        if _storage._traceID != rhs_storage._traceID {return false}
         return true
       }
-      if !storagesAreEqual {
-          return false
-      }
+      if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -407,16 +309,9 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -432,15 +327,9 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Anytype_Rpc.History.ShowVersion.Response.Error, rhs: Anytype_Rpc.History.ShowVersion.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -459,8 +348,7 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error.Code: SwiftProtobuf._Pr
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

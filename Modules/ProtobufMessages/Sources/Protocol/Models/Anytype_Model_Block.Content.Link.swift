@@ -22,21 +22,13 @@ extension Anytype_Model_Block.Content {
       public var style: Anytype_Model_Block.Content.Link.Style = .page
 
       public var fields: SwiftProtobuf.Google_Protobuf_Struct {
-        get {
-                return _fields ?? SwiftProtobuf.Google_Protobuf_Struct()
-            }
-        set {
-                _fields = newValue
-            }
+        get {return _fields ?? SwiftProtobuf.Google_Protobuf_Struct()}
+        set {_fields = newValue}
       }
       /// Returns true if `fields` has been explicitly set.
-      public var hasFields: Bool {
-              return self._fields != nil
-          }
+      public var hasFields: Bool {return self._fields != nil}
       /// Clears the value of `fields`. Subsequent reads from it will return its default value.
-      public mutating func clearFields() {
-              self._fields = nil
-          }
+      public mutating func clearFields() {self._fields = nil}
 
       public var iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone
 
@@ -61,27 +53,19 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .sizeNone
-          case 1:
-                  self = .sizeSmall
-          case 2:
-                  self = .sizeMedium
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .sizeNone
+          case 1: self = .sizeSmall
+          case 2: self = .sizeMedium
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .sizeNone:
-                  return 0
-          case .sizeSmall:
-                  return 1
-          case .sizeMedium:
-                  return 2
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .sizeNone: return 0
+          case .sizeSmall: return 1
+          case .sizeMedium: return 2
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -103,31 +87,21 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .page
-          case 1:
-                  self = .dataview
-          case 2:
-                  self = .dashboard
-          case 3:
-                  self = .archive
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .page
+          case 1: self = .dataview
+          case 2: self = .dashboard
+          case 3: self = .archive
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .page:
-                  return 0
-          case .dataview:
-                  return 1
-          case .dashboard:
-                  return 2
-          case .archive:
-                  return 3
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .page: return 0
+          case .dataview: return 1
+          case .dashboard: return 2
+          case .archive: return 3
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -146,27 +120,19 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .none
-          case 1:
-                  self = .added
-          case 2:
-                  self = .content
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .none
+          case 1: self = .added
+          case 2: self = .content
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .none:
-                  return 0
-          case .added:
-                  return 1
-          case .content:
-                  return 2
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .none: return 0
+          case .added: return 1
+          case .content: return 2
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -185,38 +151,28 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .text
-          case 1:
-                  self = .card
-          case 2:
-                  self = .inline
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .text
+          case 1: self = .card
+          case 2: self = .inline
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .text:
-                  return 0
-          case .card:
-                  return 1
-          case .inline:
-                  return 2
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .text: return 0
+          case .card: return 1
+          case .inline: return 2
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
       }
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
-    }
-}
+    }    }
 
 extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -254,16 +210,11 @@ extension Anytype_Model_Block.Content.Link.CardStyle: CaseIterable {
     .inline,
   ]
 }
-extension Anytype_Model_Block.Content.Link: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Link.IconSize: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Link.Style: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Link.Description: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Link.CardStyle: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Content.Link: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.IconSize: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.Description: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.CardStyle: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Link"
@@ -283,36 +234,14 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.targetBlockID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.style)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._fields)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.iconSize)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.cardStyle)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.description_p)
-          }()
-      case 7:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.relations)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.targetBlockID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.iconSize) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.cardStyle) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.description_p) }()
+      case 7: try { try decoder.decodeRepeatedStringField(value: &self.relations) }()
+      default: break
       }
     }
   }
@@ -328,11 +257,9 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     if self.style != .page {
       try visitor.visitSingularEnumField(value: self.style, fieldNumber: 2)
     }
-    try {
-        if let v = self._fields {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._fields {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if self.iconSize != .sizeNone {
       try visitor.visitSingularEnumField(value: self.iconSize, fieldNumber: 4)
     }
@@ -349,30 +276,14 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Link, rhs: Anytype_Model_Block.Content.Link) -> Bool {
-    if lhs.targetBlockID != rhs.targetBlockID {
-        return false
-    }
-    if lhs.style != rhs.style {
-        return false
-    }
-    if lhs._fields != rhs._fields {
-        return false
-    }
-    if lhs.iconSize != rhs.iconSize {
-        return false
-    }
-    if lhs.cardStyle != rhs.cardStyle {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.relations != rhs.relations {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.targetBlockID != rhs.targetBlockID {return false}
+    if lhs.style != rhs.style {return false}
+    if lhs._fields != rhs._fields {return false}
+    if lhs.iconSize != rhs.iconSize {return false}
+    if lhs.cardStyle != rhs.cardStyle {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.relations != rhs.relations {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -416,8 +327,7 @@ extension Anytype_Model_Block.Content.Link.CardStyle: SwiftProtobuf._ProtoNamePr
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

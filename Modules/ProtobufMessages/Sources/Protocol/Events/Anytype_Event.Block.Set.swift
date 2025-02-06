@@ -25,21 +25,13 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var key: Anytype_Event.Block.Set.Relation.Key {
-          get {
-                  return _key ?? Anytype_Event.Block.Set.Relation.Key()
-              }
-          set {
-                  _key = newValue
-              }
+          get {return _key ?? Anytype_Event.Block.Set.Relation.Key()}
+          set {_key = newValue}
         }
         /// Returns true if `key` has been explicitly set.
-        public var hasKey: Bool {
-                return self._key != nil
-            }
+        public var hasKey: Bool {return self._key != nil}
         /// Clears the value of `key`. Subsequent reads from it will return its default value.
-        public mutating func clearKey() {
-                self._key = nil
-            }
+        public mutating func clearKey() {self._key = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -52,12 +44,10 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _key: Anytype_Event.Block.Set.Relation.Key? = nil
       }
@@ -70,26 +60,17 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var fields: SwiftProtobuf.Google_Protobuf_Struct {
-          get {
-                  return _fields ?? SwiftProtobuf.Google_Protobuf_Struct()
-              }
-          set {
-                  _fields = newValue
-              }
+          get {return _fields ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_fields = newValue}
         }
         /// Returns true if `fields` has been explicitly set.
-        public var hasFields: Bool {
-                return self._fields != nil
-            }
+        public var hasFields: Bool {return self._fields != nil}
         /// Clears the value of `fields`. Subsequent reads from it will return its default value.
-        public mutating func clearFields() {
-                self._fields = nil
-            }
+        public mutating func clearFields() {self._fields = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
@@ -105,8 +86,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Restrictions {
@@ -117,26 +97,17 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var restrictions: Anytype_Model_Block.Restrictions {
-          get {
-                  return _restrictions ?? Anytype_Model_Block.Restrictions()
-              }
-          set {
-                  _restrictions = newValue
-              }
+          get {return _restrictions ?? Anytype_Model_Block.Restrictions()}
+          set {_restrictions = newValue}
         }
         /// Returns true if `restrictions` has been explicitly set.
-        public var hasRestrictions: Bool {
-                return self._restrictions != nil
-            }
+        public var hasRestrictions: Bool {return self._restrictions != nil}
         /// Clears the value of `restrictions`. Subsequent reads from it will return its default value.
-        public mutating func clearRestrictions() {
-                self._restrictions = nil
-            }
+        public mutating func clearRestrictions() {self._restrictions = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _restrictions: Anytype_Model_Block.Restrictions? = nil
       }
@@ -152,8 +123,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Align {
@@ -167,8 +137,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct VerticalAlign {
@@ -182,8 +151,7 @@ extension Anytype_Event.Block {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Text {
@@ -194,123 +162,67 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var text: Anytype_Event.Block.Set.Text.Text {
-          get {
-                  return _text ?? Anytype_Event.Block.Set.Text.Text()
-              }
-          set {
-                  _text = newValue
-              }
+          get {return _text ?? Anytype_Event.Block.Set.Text.Text()}
+          set {_text = newValue}
         }
         /// Returns true if `text` has been explicitly set.
-        public var hasText: Bool {
-                return self._text != nil
-            }
+        public var hasText: Bool {return self._text != nil}
         /// Clears the value of `text`. Subsequent reads from it will return its default value.
-        public mutating func clearText() {
-                self._text = nil
-            }
+        public mutating func clearText() {self._text = nil}
 
         public var style: Anytype_Event.Block.Set.Text.Style {
-          get {
-                  return _style ?? Anytype_Event.Block.Set.Text.Style()
-              }
-          set {
-                  _style = newValue
-              }
+          get {return _style ?? Anytype_Event.Block.Set.Text.Style()}
+          set {_style = newValue}
         }
         /// Returns true if `style` has been explicitly set.
-        public var hasStyle: Bool {
-                return self._style != nil
-            }
+        public var hasStyle: Bool {return self._style != nil}
         /// Clears the value of `style`. Subsequent reads from it will return its default value.
-        public mutating func clearStyle() {
-                self._style = nil
-            }
+        public mutating func clearStyle() {self._style = nil}
 
         public var marks: Anytype_Event.Block.Set.Text.Marks {
-          get {
-                  return _marks ?? Anytype_Event.Block.Set.Text.Marks()
-              }
-          set {
-                  _marks = newValue
-              }
+          get {return _marks ?? Anytype_Event.Block.Set.Text.Marks()}
+          set {_marks = newValue}
         }
         /// Returns true if `marks` has been explicitly set.
-        public var hasMarks: Bool {
-                return self._marks != nil
-            }
+        public var hasMarks: Bool {return self._marks != nil}
         /// Clears the value of `marks`. Subsequent reads from it will return its default value.
-        public mutating func clearMarks() {
-                self._marks = nil
-            }
+        public mutating func clearMarks() {self._marks = nil}
 
         public var checked: Anytype_Event.Block.Set.Text.Checked {
-          get {
-                  return _checked ?? Anytype_Event.Block.Set.Text.Checked()
-              }
-          set {
-                  _checked = newValue
-              }
+          get {return _checked ?? Anytype_Event.Block.Set.Text.Checked()}
+          set {_checked = newValue}
         }
         /// Returns true if `checked` has been explicitly set.
-        public var hasChecked: Bool {
-                return self._checked != nil
-            }
+        public var hasChecked: Bool {return self._checked != nil}
         /// Clears the value of `checked`. Subsequent reads from it will return its default value.
-        public mutating func clearChecked() {
-                self._checked = nil
-            }
+        public mutating func clearChecked() {self._checked = nil}
 
         public var color: Anytype_Event.Block.Set.Text.Color {
-          get {
-                  return _color ?? Anytype_Event.Block.Set.Text.Color()
-              }
-          set {
-                  _color = newValue
-              }
+          get {return _color ?? Anytype_Event.Block.Set.Text.Color()}
+          set {_color = newValue}
         }
         /// Returns true if `color` has been explicitly set.
-        public var hasColor: Bool {
-                return self._color != nil
-            }
+        public var hasColor: Bool {return self._color != nil}
         /// Clears the value of `color`. Subsequent reads from it will return its default value.
-        public mutating func clearColor() {
-                self._color = nil
-            }
+        public mutating func clearColor() {self._color = nil}
 
         public var iconEmoji: Anytype_Event.Block.Set.Text.IconEmoji {
-          get {
-                  return _iconEmoji ?? Anytype_Event.Block.Set.Text.IconEmoji()
-              }
-          set {
-                  _iconEmoji = newValue
-              }
+          get {return _iconEmoji ?? Anytype_Event.Block.Set.Text.IconEmoji()}
+          set {_iconEmoji = newValue}
         }
         /// Returns true if `iconEmoji` has been explicitly set.
-        public var hasIconEmoji: Bool {
-                return self._iconEmoji != nil
-            }
+        public var hasIconEmoji: Bool {return self._iconEmoji != nil}
         /// Clears the value of `iconEmoji`. Subsequent reads from it will return its default value.
-        public mutating func clearIconEmoji() {
-                self._iconEmoji = nil
-            }
+        public mutating func clearIconEmoji() {self._iconEmoji = nil}
 
         public var iconImage: Anytype_Event.Block.Set.Text.IconImage {
-          get {
-                  return _iconImage ?? Anytype_Event.Block.Set.Text.IconImage()
-              }
-          set {
-                  _iconImage = newValue
-              }
+          get {return _iconImage ?? Anytype_Event.Block.Set.Text.IconImage()}
+          set {_iconImage = newValue}
         }
         /// Returns true if `iconImage` has been explicitly set.
-        public var hasIconImage: Bool {
-                return self._iconImage != nil
-            }
+        public var hasIconImage: Bool {return self._iconImage != nil}
         /// Clears the value of `iconImage`. Subsequent reads from it will return its default value.
-        public mutating func clearIconImage() {
-                self._iconImage = nil
-            }
+        public mutating func clearIconImage() {self._iconImage = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -323,8 +235,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Style {
@@ -336,8 +247,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Marks {
@@ -346,26 +256,17 @@ extension Anytype_Event.Block {
           // methods supported on all messages.
 
           public var value: Anytype_Model_Block.Content.Text.Marks {
-            get {
-                    return _value ?? Anytype_Model_Block.Content.Text.Marks()
-                }
-            set {
-                    _value = newValue
-                }
+            get {return _value ?? Anytype_Model_Block.Content.Text.Marks()}
+            set {_value = newValue}
           }
           /// Returns true if `value` has been explicitly set.
-          public var hasValue: Bool {
-                  return self._value != nil
-              }
+          public var hasValue: Bool {return self._value != nil}
           /// Clears the value of `value`. Subsequent reads from it will return its default value.
-          public mutating func clearValue() {
-                  self._value = nil
-              }
+          public mutating func clearValue() {self._value = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _value: Anytype_Model_Block.Content.Text.Marks? = nil
         }
@@ -379,8 +280,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Color {
@@ -392,8 +292,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct IconEmoji {
@@ -405,8 +304,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct IconImage {
@@ -418,12 +316,10 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _text: Anytype_Event.Block.Set.Text.Text? = nil
         fileprivate var _style: Anytype_Event.Block.Set.Text.Style? = nil
@@ -442,38 +338,22 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var text: Anytype_Event.Block.Set.Latex.Text {
-          get {
-                  return _text ?? Anytype_Event.Block.Set.Latex.Text()
-              }
-          set {
-                  _text = newValue
-              }
+          get {return _text ?? Anytype_Event.Block.Set.Latex.Text()}
+          set {_text = newValue}
         }
         /// Returns true if `text` has been explicitly set.
-        public var hasText: Bool {
-                return self._text != nil
-            }
+        public var hasText: Bool {return self._text != nil}
         /// Clears the value of `text`. Subsequent reads from it will return its default value.
-        public mutating func clearText() {
-                self._text = nil
-            }
+        public mutating func clearText() {self._text = nil}
 
         public var processor: Anytype_Event.Block.Set.Latex.Processor {
-          get {
-                  return _processor ?? Anytype_Event.Block.Set.Latex.Processor()
-              }
-          set {
-                  _processor = newValue
-              }
+          get {return _processor ?? Anytype_Event.Block.Set.Latex.Processor()}
+          set {_processor = newValue}
         }
         /// Returns true if `processor` has been explicitly set.
-        public var hasProcessor: Bool {
-                return self._processor != nil
-            }
+        public var hasProcessor: Bool {return self._processor != nil}
         /// Clears the value of `processor`. Subsequent reads from it will return its default value.
-        public mutating func clearProcessor() {
-                self._processor = nil
-            }
+        public mutating func clearProcessor() {self._processor = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -486,8 +366,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Processor {
@@ -499,12 +378,10 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _text: Anytype_Event.Block.Set.Latex.Text? = nil
         fileprivate var _processor: Anytype_Event.Block.Set.Latex.Processor? = nil
@@ -518,21 +395,13 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var style: Anytype_Event.Block.Set.Div.Style {
-          get {
-                  return _style ?? Anytype_Event.Block.Set.Div.Style()
-              }
-          set {
-                  _style = newValue
-              }
+          get {return _style ?? Anytype_Event.Block.Set.Div.Style()}
+          set {_style = newValue}
         }
         /// Returns true if `style` has been explicitly set.
-        public var hasStyle: Bool {
-                return self._style != nil
-            }
+        public var hasStyle: Bool {return self._style != nil}
         /// Clears the value of `style`. Subsequent reads from it will return its default value.
-        public mutating func clearStyle() {
-                self._style = nil
-            }
+        public mutating func clearStyle() {self._style = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -545,12 +414,10 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _style: Anytype_Event.Block.Set.Div.Style? = nil
       }
@@ -563,140 +430,76 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var type: Anytype_Event.Block.Set.File.TypeMessage {
-          get {
-                  return _type ?? Anytype_Event.Block.Set.File.TypeMessage()
-              }
-          set {
-                  _type = newValue
-              }
+          get {return _type ?? Anytype_Event.Block.Set.File.TypeMessage()}
+          set {_type = newValue}
         }
         /// Returns true if `type` has been explicitly set.
-        public var hasType: Bool {
-                return self._type != nil
-            }
+        public var hasType: Bool {return self._type != nil}
         /// Clears the value of `type`. Subsequent reads from it will return its default value.
-        public mutating func clearType() {
-                self._type = nil
-            }
+        public mutating func clearType() {self._type = nil}
 
         public var state: Anytype_Event.Block.Set.File.State {
-          get {
-                  return _state ?? Anytype_Event.Block.Set.File.State()
-              }
-          set {
-                  _state = newValue
-              }
+          get {return _state ?? Anytype_Event.Block.Set.File.State()}
+          set {_state = newValue}
         }
         /// Returns true if `state` has been explicitly set.
-        public var hasState: Bool {
-                return self._state != nil
-            }
+        public var hasState: Bool {return self._state != nil}
         /// Clears the value of `state`. Subsequent reads from it will return its default value.
-        public mutating func clearState() {
-                self._state = nil
-            }
+        public mutating func clearState() {self._state = nil}
 
         public var mime: Anytype_Event.Block.Set.File.Mime {
-          get {
-                  return _mime ?? Anytype_Event.Block.Set.File.Mime()
-              }
-          set {
-                  _mime = newValue
-              }
+          get {return _mime ?? Anytype_Event.Block.Set.File.Mime()}
+          set {_mime = newValue}
         }
         /// Returns true if `mime` has been explicitly set.
-        public var hasMime: Bool {
-                return self._mime != nil
-            }
+        public var hasMime: Bool {return self._mime != nil}
         /// Clears the value of `mime`. Subsequent reads from it will return its default value.
-        public mutating func clearMime() {
-                self._mime = nil
-            }
+        public mutating func clearMime() {self._mime = nil}
 
         public var hash: Anytype_Event.Block.Set.File.Hash {
-          get {
-                  return _hash ?? Anytype_Event.Block.Set.File.Hash()
-              }
-          set {
-                  _hash = newValue
-              }
+          get {return _hash ?? Anytype_Event.Block.Set.File.Hash()}
+          set {_hash = newValue}
         }
         /// Returns true if `hash` has been explicitly set.
-        public var hasHash: Bool {
-                return self._hash != nil
-            }
+        public var hasHash: Bool {return self._hash != nil}
         /// Clears the value of `hash`. Subsequent reads from it will return its default value.
-        public mutating func clearHash() {
-                self._hash = nil
-            }
+        public mutating func clearHash() {self._hash = nil}
 
         public var name: Anytype_Event.Block.Set.File.Name {
-          get {
-                  return _name ?? Anytype_Event.Block.Set.File.Name()
-              }
-          set {
-                  _name = newValue
-              }
+          get {return _name ?? Anytype_Event.Block.Set.File.Name()}
+          set {_name = newValue}
         }
         /// Returns true if `name` has been explicitly set.
-        public var hasName: Bool {
-                return self._name != nil
-            }
+        public var hasName: Bool {return self._name != nil}
         /// Clears the value of `name`. Subsequent reads from it will return its default value.
-        public mutating func clearName() {
-                self._name = nil
-            }
+        public mutating func clearName() {self._name = nil}
 
         public var size: Anytype_Event.Block.Set.File.Size {
-          get {
-                  return _size ?? Anytype_Event.Block.Set.File.Size()
-              }
-          set {
-                  _size = newValue
-              }
+          get {return _size ?? Anytype_Event.Block.Set.File.Size()}
+          set {_size = newValue}
         }
         /// Returns true if `size` has been explicitly set.
-        public var hasSize: Bool {
-                return self._size != nil
-            }
+        public var hasSize: Bool {return self._size != nil}
         /// Clears the value of `size`. Subsequent reads from it will return its default value.
-        public mutating func clearSize() {
-                self._size = nil
-            }
+        public mutating func clearSize() {self._size = nil}
 
         public var style: Anytype_Event.Block.Set.File.Style {
-          get {
-                  return _style ?? Anytype_Event.Block.Set.File.Style()
-              }
-          set {
-                  _style = newValue
-              }
+          get {return _style ?? Anytype_Event.Block.Set.File.Style()}
+          set {_style = newValue}
         }
         /// Returns true if `style` has been explicitly set.
-        public var hasStyle: Bool {
-                return self._style != nil
-            }
+        public var hasStyle: Bool {return self._style != nil}
         /// Clears the value of `style`. Subsequent reads from it will return its default value.
-        public mutating func clearStyle() {
-                self._style = nil
-            }
+        public mutating func clearStyle() {self._style = nil}
 
         public var targetObjectID: Anytype_Event.Block.Set.File.TargetObjectId {
-          get {
-                  return _targetObjectID ?? Anytype_Event.Block.Set.File.TargetObjectId()
-              }
-          set {
-                  _targetObjectID = newValue
-              }
+          get {return _targetObjectID ?? Anytype_Event.Block.Set.File.TargetObjectId()}
+          set {_targetObjectID = newValue}
         }
         /// Returns true if `targetObjectID` has been explicitly set.
-        public var hasTargetObjectID: Bool {
-                return self._targetObjectID != nil
-            }
+        public var hasTargetObjectID: Bool {return self._targetObjectID != nil}
         /// Clears the value of `targetObjectID`. Subsequent reads from it will return its default value.
-        public mutating func clearTargetObjectID() {
-                self._targetObjectID = nil
-            }
+        public mutating func clearTargetObjectID() {self._targetObjectID = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -709,8 +512,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Width {
@@ -722,8 +524,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct State {
@@ -735,8 +536,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct TypeMessage {
@@ -748,8 +548,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Style {
@@ -761,8 +560,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Hash {
@@ -774,8 +572,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Mime {
@@ -787,8 +584,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Size {
@@ -800,8 +596,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct TargetObjectId {
@@ -813,12 +608,10 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _type: Anytype_Event.Block.Set.File.TypeMessage? = nil
         fileprivate var _state: Anytype_Event.Block.Set.File.State? = nil
@@ -838,123 +631,67 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var targetBlockID: Anytype_Event.Block.Set.Link.TargetBlockId {
-          get {
-                  return _targetBlockID ?? Anytype_Event.Block.Set.Link.TargetBlockId()
-              }
-          set {
-                  _targetBlockID = newValue
-              }
+          get {return _targetBlockID ?? Anytype_Event.Block.Set.Link.TargetBlockId()}
+          set {_targetBlockID = newValue}
         }
         /// Returns true if `targetBlockID` has been explicitly set.
-        public var hasTargetBlockID: Bool {
-                return self._targetBlockID != nil
-            }
+        public var hasTargetBlockID: Bool {return self._targetBlockID != nil}
         /// Clears the value of `targetBlockID`. Subsequent reads from it will return its default value.
-        public mutating func clearTargetBlockID() {
-                self._targetBlockID = nil
-            }
+        public mutating func clearTargetBlockID() {self._targetBlockID = nil}
 
         public var style: Anytype_Event.Block.Set.Link.Style {
-          get {
-                  return _style ?? Anytype_Event.Block.Set.Link.Style()
-              }
-          set {
-                  _style = newValue
-              }
+          get {return _style ?? Anytype_Event.Block.Set.Link.Style()}
+          set {_style = newValue}
         }
         /// Returns true if `style` has been explicitly set.
-        public var hasStyle: Bool {
-                return self._style != nil
-            }
+        public var hasStyle: Bool {return self._style != nil}
         /// Clears the value of `style`. Subsequent reads from it will return its default value.
-        public mutating func clearStyle() {
-                self._style = nil
-            }
+        public mutating func clearStyle() {self._style = nil}
 
         public var fields: Anytype_Event.Block.Set.Link.Fields {
-          get {
-                  return _fields ?? Anytype_Event.Block.Set.Link.Fields()
-              }
-          set {
-                  _fields = newValue
-              }
+          get {return _fields ?? Anytype_Event.Block.Set.Link.Fields()}
+          set {_fields = newValue}
         }
         /// Returns true if `fields` has been explicitly set.
-        public var hasFields: Bool {
-                return self._fields != nil
-            }
+        public var hasFields: Bool {return self._fields != nil}
         /// Clears the value of `fields`. Subsequent reads from it will return its default value.
-        public mutating func clearFields() {
-                self._fields = nil
-            }
+        public mutating func clearFields() {self._fields = nil}
 
         public var iconSize: Anytype_Event.Block.Set.Link.IconSize {
-          get {
-                  return _iconSize ?? Anytype_Event.Block.Set.Link.IconSize()
-              }
-          set {
-                  _iconSize = newValue
-              }
+          get {return _iconSize ?? Anytype_Event.Block.Set.Link.IconSize()}
+          set {_iconSize = newValue}
         }
         /// Returns true if `iconSize` has been explicitly set.
-        public var hasIconSize: Bool {
-                return self._iconSize != nil
-            }
+        public var hasIconSize: Bool {return self._iconSize != nil}
         /// Clears the value of `iconSize`. Subsequent reads from it will return its default value.
-        public mutating func clearIconSize() {
-                self._iconSize = nil
-            }
+        public mutating func clearIconSize() {self._iconSize = nil}
 
         public var cardStyle: Anytype_Event.Block.Set.Link.CardStyle {
-          get {
-                  return _cardStyle ?? Anytype_Event.Block.Set.Link.CardStyle()
-              }
-          set {
-                  _cardStyle = newValue
-              }
+          get {return _cardStyle ?? Anytype_Event.Block.Set.Link.CardStyle()}
+          set {_cardStyle = newValue}
         }
         /// Returns true if `cardStyle` has been explicitly set.
-        public var hasCardStyle: Bool {
-                return self._cardStyle != nil
-            }
+        public var hasCardStyle: Bool {return self._cardStyle != nil}
         /// Clears the value of `cardStyle`. Subsequent reads from it will return its default value.
-        public mutating func clearCardStyle() {
-                self._cardStyle = nil
-            }
+        public mutating func clearCardStyle() {self._cardStyle = nil}
 
         public var description_p: Anytype_Event.Block.Set.Link.Description {
-          get {
-                  return _description_p ?? Anytype_Event.Block.Set.Link.Description()
-              }
-          set {
-                  _description_p = newValue
-              }
+          get {return _description_p ?? Anytype_Event.Block.Set.Link.Description()}
+          set {_description_p = newValue}
         }
         /// Returns true if `description_p` has been explicitly set.
-        public var hasDescription_p: Bool {
-                return self._description_p != nil
-            }
+        public var hasDescription_p: Bool {return self._description_p != nil}
         /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
-        public mutating func clearDescription_p() {
-                self._description_p = nil
-            }
+        public mutating func clearDescription_p() {self._description_p = nil}
 
         public var relations: Anytype_Event.Block.Set.Link.Relations {
-          get {
-                  return _relations ?? Anytype_Event.Block.Set.Link.Relations()
-              }
-          set {
-                  _relations = newValue
-              }
+          get {return _relations ?? Anytype_Event.Block.Set.Link.Relations()}
+          set {_relations = newValue}
         }
         /// Returns true if `relations` has been explicitly set.
-        public var hasRelations: Bool {
-                return self._relations != nil
-            }
+        public var hasRelations: Bool {return self._relations != nil}
         /// Clears the value of `relations`. Subsequent reads from it will return its default value.
-        public mutating func clearRelations() {
-                self._relations = nil
-            }
+        public mutating func clearRelations() {self._relations = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -967,8 +704,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Style {
@@ -980,8 +716,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Fields {
@@ -990,26 +725,17 @@ extension Anytype_Event.Block {
           // methods supported on all messages.
 
           public var value: SwiftProtobuf.Google_Protobuf_Struct {
-            get {
-                    return _value ?? SwiftProtobuf.Google_Protobuf_Struct()
-                }
-            set {
-                    _value = newValue
-                }
+            get {return _value ?? SwiftProtobuf.Google_Protobuf_Struct()}
+            set {_value = newValue}
           }
           /// Returns true if `value` has been explicitly set.
-          public var hasValue: Bool {
-                  return self._value != nil
-              }
+          public var hasValue: Bool {return self._value != nil}
           /// Clears the value of `value`. Subsequent reads from it will return its default value.
-          public mutating func clearValue() {
-                  self._value = nil
-              }
+          public mutating func clearValue() {self._value = nil}
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
 
           fileprivate var _value: SwiftProtobuf.Google_Protobuf_Struct? = nil
         }
@@ -1023,8 +749,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct CardStyle {
@@ -1036,8 +761,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Description {
@@ -1049,8 +773,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Relations {
@@ -1062,12 +785,10 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _targetBlockID: Anytype_Event.Block.Set.Link.TargetBlockId? = nil
         fileprivate var _style: Anytype_Event.Block.Set.Link.Style? = nil
@@ -1086,140 +807,76 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var url: Anytype_Event.Block.Set.Bookmark.Url {
-          get {
-                  return _url ?? Anytype_Event.Block.Set.Bookmark.Url()
-              }
-          set {
-                  _url = newValue
-              }
+          get {return _url ?? Anytype_Event.Block.Set.Bookmark.Url()}
+          set {_url = newValue}
         }
         /// Returns true if `url` has been explicitly set.
-        public var hasURL: Bool {
-                return self._url != nil
-            }
+        public var hasURL: Bool {return self._url != nil}
         /// Clears the value of `url`. Subsequent reads from it will return its default value.
-        public mutating func clearURL() {
-                self._url = nil
-            }
+        public mutating func clearURL() {self._url = nil}
 
         public var title: Anytype_Event.Block.Set.Bookmark.Title {
-          get {
-                  return _title ?? Anytype_Event.Block.Set.Bookmark.Title()
-              }
-          set {
-                  _title = newValue
-              }
+          get {return _title ?? Anytype_Event.Block.Set.Bookmark.Title()}
+          set {_title = newValue}
         }
         /// Returns true if `title` has been explicitly set.
-        public var hasTitle: Bool {
-                return self._title != nil
-            }
+        public var hasTitle: Bool {return self._title != nil}
         /// Clears the value of `title`. Subsequent reads from it will return its default value.
-        public mutating func clearTitle() {
-                self._title = nil
-            }
+        public mutating func clearTitle() {self._title = nil}
 
         public var description_p: Anytype_Event.Block.Set.Bookmark.Description {
-          get {
-                  return _description_p ?? Anytype_Event.Block.Set.Bookmark.Description()
-              }
-          set {
-                  _description_p = newValue
-              }
+          get {return _description_p ?? Anytype_Event.Block.Set.Bookmark.Description()}
+          set {_description_p = newValue}
         }
         /// Returns true if `description_p` has been explicitly set.
-        public var hasDescription_p: Bool {
-                return self._description_p != nil
-            }
+        public var hasDescription_p: Bool {return self._description_p != nil}
         /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
-        public mutating func clearDescription_p() {
-                self._description_p = nil
-            }
+        public mutating func clearDescription_p() {self._description_p = nil}
 
         public var imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash {
-          get {
-                  return _imageHash ?? Anytype_Event.Block.Set.Bookmark.ImageHash()
-              }
-          set {
-                  _imageHash = newValue
-              }
+          get {return _imageHash ?? Anytype_Event.Block.Set.Bookmark.ImageHash()}
+          set {_imageHash = newValue}
         }
         /// Returns true if `imageHash` has been explicitly set.
-        public var hasImageHash: Bool {
-                return self._imageHash != nil
-            }
+        public var hasImageHash: Bool {return self._imageHash != nil}
         /// Clears the value of `imageHash`. Subsequent reads from it will return its default value.
-        public mutating func clearImageHash() {
-                self._imageHash = nil
-            }
+        public mutating func clearImageHash() {self._imageHash = nil}
 
         public var faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash {
-          get {
-                  return _faviconHash ?? Anytype_Event.Block.Set.Bookmark.FaviconHash()
-              }
-          set {
-                  _faviconHash = newValue
-              }
+          get {return _faviconHash ?? Anytype_Event.Block.Set.Bookmark.FaviconHash()}
+          set {_faviconHash = newValue}
         }
         /// Returns true if `faviconHash` has been explicitly set.
-        public var hasFaviconHash: Bool {
-                return self._faviconHash != nil
-            }
+        public var hasFaviconHash: Bool {return self._faviconHash != nil}
         /// Clears the value of `faviconHash`. Subsequent reads from it will return its default value.
-        public mutating func clearFaviconHash() {
-                self._faviconHash = nil
-            }
+        public mutating func clearFaviconHash() {self._faviconHash = nil}
 
         public var type: Anytype_Event.Block.Set.Bookmark.TypeMessage {
-          get {
-                  return _type ?? Anytype_Event.Block.Set.Bookmark.TypeMessage()
-              }
-          set {
-                  _type = newValue
-              }
+          get {return _type ?? Anytype_Event.Block.Set.Bookmark.TypeMessage()}
+          set {_type = newValue}
         }
         /// Returns true if `type` has been explicitly set.
-        public var hasType: Bool {
-                return self._type != nil
-            }
+        public var hasType: Bool {return self._type != nil}
         /// Clears the value of `type`. Subsequent reads from it will return its default value.
-        public mutating func clearType() {
-                self._type = nil
-            }
+        public mutating func clearType() {self._type = nil}
 
         public var targetObjectID: Anytype_Event.Block.Set.Bookmark.TargetObjectId {
-          get {
-                  return _targetObjectID ?? Anytype_Event.Block.Set.Bookmark.TargetObjectId()
-              }
-          set {
-                  _targetObjectID = newValue
-              }
+          get {return _targetObjectID ?? Anytype_Event.Block.Set.Bookmark.TargetObjectId()}
+          set {_targetObjectID = newValue}
         }
         /// Returns true if `targetObjectID` has been explicitly set.
-        public var hasTargetObjectID: Bool {
-                return self._targetObjectID != nil
-            }
+        public var hasTargetObjectID: Bool {return self._targetObjectID != nil}
         /// Clears the value of `targetObjectID`. Subsequent reads from it will return its default value.
-        public mutating func clearTargetObjectID() {
-                self._targetObjectID = nil
-            }
+        public mutating func clearTargetObjectID() {self._targetObjectID = nil}
 
         public var state: Anytype_Event.Block.Set.Bookmark.State {
-          get {
-                  return _state ?? Anytype_Event.Block.Set.Bookmark.State()
-              }
-          set {
-                  _state = newValue
-              }
+          get {return _state ?? Anytype_Event.Block.Set.Bookmark.State()}
+          set {_state = newValue}
         }
         /// Returns true if `state` has been explicitly set.
-        public var hasState: Bool {
-                return self._state != nil
-            }
+        public var hasState: Bool {return self._state != nil}
         /// Clears the value of `state`. Subsequent reads from it will return its default value.
-        public mutating func clearState() {
-                self._state = nil
-            }
+        public mutating func clearState() {self._state = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1232,8 +889,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Title {
@@ -1245,8 +901,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Description {
@@ -1258,8 +913,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct ImageHash {
@@ -1271,8 +925,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct FaviconHash {
@@ -1284,8 +937,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct TypeMessage {
@@ -1297,8 +949,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct TargetObjectId {
@@ -1310,8 +961,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct State {
@@ -1323,12 +973,10 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _url: Anytype_Event.Block.Set.Bookmark.Url? = nil
         fileprivate var _title: Anytype_Event.Block.Set.Bookmark.Title? = nil
@@ -1348,21 +996,13 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var isHeader: Anytype_Event.Block.Set.TableRow.IsHeader {
-          get {
-                  return _isHeader ?? Anytype_Event.Block.Set.TableRow.IsHeader()
-              }
-          set {
-                  _isHeader = newValue
-              }
+          get {return _isHeader ?? Anytype_Event.Block.Set.TableRow.IsHeader()}
+          set {_isHeader = newValue}
         }
         /// Returns true if `isHeader` has been explicitly set.
-        public var hasIsHeader: Bool {
-                return self._isHeader != nil
-            }
+        public var hasIsHeader: Bool {return self._isHeader != nil}
         /// Clears the value of `isHeader`. Subsequent reads from it will return its default value.
-        public mutating func clearIsHeader() {
-                self._isHeader = nil
-            }
+        public mutating func clearIsHeader() {self._isHeader = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1375,12 +1015,10 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _isHeader: Anytype_Event.Block.Set.TableRow.IsHeader? = nil
       }
@@ -1393,55 +1031,31 @@ extension Anytype_Event.Block {
         public var id: String = String()
 
         public var layout: Anytype_Event.Block.Set.Widget.Layout {
-          get {
-                  return _layout ?? Anytype_Event.Block.Set.Widget.Layout()
-              }
-          set {
-                  _layout = newValue
-              }
+          get {return _layout ?? Anytype_Event.Block.Set.Widget.Layout()}
+          set {_layout = newValue}
         }
         /// Returns true if `layout` has been explicitly set.
-        public var hasLayout: Bool {
-                return self._layout != nil
-            }
+        public var hasLayout: Bool {return self._layout != nil}
         /// Clears the value of `layout`. Subsequent reads from it will return its default value.
-        public mutating func clearLayout() {
-                self._layout = nil
-            }
+        public mutating func clearLayout() {self._layout = nil}
 
         public var limit: Anytype_Event.Block.Set.Widget.Limit {
-          get {
-                  return _limit ?? Anytype_Event.Block.Set.Widget.Limit()
-              }
-          set {
-                  _limit = newValue
-              }
+          get {return _limit ?? Anytype_Event.Block.Set.Widget.Limit()}
+          set {_limit = newValue}
         }
         /// Returns true if `limit` has been explicitly set.
-        public var hasLimit: Bool {
-                return self._limit != nil
-            }
+        public var hasLimit: Bool {return self._limit != nil}
         /// Clears the value of `limit`. Subsequent reads from it will return its default value.
-        public mutating func clearLimit() {
-                self._limit = nil
-            }
+        public mutating func clearLimit() {self._limit = nil}
 
         public var viewID: Anytype_Event.Block.Set.Widget.ViewId {
-          get {
-                  return _viewID ?? Anytype_Event.Block.Set.Widget.ViewId()
-              }
-          set {
-                  _viewID = newValue
-              }
+          get {return _viewID ?? Anytype_Event.Block.Set.Widget.ViewId()}
+          set {_viewID = newValue}
         }
         /// Returns true if `viewID` has been explicitly set.
-        public var hasViewID: Bool {
-                return self._viewID != nil
-            }
+        public var hasViewID: Bool {return self._viewID != nil}
         /// Clears the value of `viewID`. Subsequent reads from it will return its default value.
-        public mutating func clearViewID() {
-                self._viewID = nil
-            }
+        public mutating func clearViewID() {self._viewID = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1454,8 +1068,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct Limit {
@@ -1467,8 +1080,7 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
         public struct ViewId {
@@ -1480,132 +1092,73 @@ extension Anytype_Event.Block {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _layout: Anytype_Event.Block.Set.Widget.Layout? = nil
         fileprivate var _limit: Anytype_Event.Block.Set.Widget.Limit? = nil
         fileprivate var _viewID: Anytype_Event.Block.Set.Widget.ViewId? = nil
       }
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.Block.Set: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Relation: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Relation.Key: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Fields: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.ChildrenIds: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Restrictions: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.BackgroundColor: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Align: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.VerticalAlign: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Text: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Text.Text: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Text.Style: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Text.Marks: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Text.Checked: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Text.Color: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Text.IconEmoji: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Text.IconImage: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Latex: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Latex.Text: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Latex.Processor: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Div: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Div.Style: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.Name: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.Width: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.State: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.TypeMessage: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.Style: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.Hash: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.Mime: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.Size: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.File.TargetObjectId: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Link: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Link.TargetBlockId: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Link.Style: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Link.Fields: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Link.IconSize: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Link.CardStyle: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Link.Description: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Link.Relations: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark.Url: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark.Title: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark.Description: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark.ImageHash: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark.FaviconHash: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark.TypeMessage: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark.TargetObjectId: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Bookmark.State: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.TableRow: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.TableRow.IsHeader: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Widget: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Widget.Layout: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Widget.Limit: @unchecked Sendable {
-}
-extension Anytype_Event.Block.Set.Widget.ViewId: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.Block.Set: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Relation: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Relation.Key: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Fields: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.ChildrenIds: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Restrictions: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.BackgroundColor: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Align: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.VerticalAlign: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Marks: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Checked: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Color: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.IconEmoji: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.IconImage: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Latex: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Latex.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Latex.Processor: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Div: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Div.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Name: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Width: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.State: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.TypeMessage: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Hash: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Mime: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Size: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.TargetObjectId: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.TargetBlockId: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.Fields: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.IconSize: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.CardStyle: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.Description: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.Relations: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.Url: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.Title: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.Description: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.ImageHash: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.FaviconHash: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.TypeMessage: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.TargetObjectId: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.State: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.TableRow: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.TableRow.IsHeader: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget.Layout: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget.Limit: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget.ViewId: @unchecked Sendable {}
 
 extension Anytype_Event.Block.Set: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.protoMessageName + ".Set"
@@ -1621,9 +1174,7 @@ extension Anytype_Event.Block.Set: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set, rhs: Anytype_Event.Block.Set) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1641,16 +1192,9 @@ extension Anytype_Event.Block.Set.Relation: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._key)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._key) }()
+      default: break
       }
     }
   }
@@ -1663,24 +1207,16 @@ extension Anytype_Event.Block.Set.Relation: SwiftProtobuf.Message, SwiftProtobuf
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._key {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._key {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Relation, rhs: Anytype_Event.Block.Set.Relation) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._key != rhs._key {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._key != rhs._key {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1697,12 +1233,8 @@ extension Anytype_Event.Block.Set.Relation.Key: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -1715,12 +1247,8 @@ extension Anytype_Event.Block.Set.Relation.Key: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Relation.Key, rhs: Anytype_Event.Block.Set.Relation.Key) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1738,16 +1266,9 @@ extension Anytype_Event.Block.Set.Fields: SwiftProtobuf.Message, SwiftProtobuf._
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._fields)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      default: break
       }
     }
   }
@@ -1760,24 +1281,16 @@ extension Anytype_Event.Block.Set.Fields: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._fields {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._fields {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Fields, rhs: Anytype_Event.Block.Set.Fields) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._fields != rhs._fields {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._fields != rhs._fields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1795,16 +1308,9 @@ extension Anytype_Event.Block.Set.ChildrenIds: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.childrenIds)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.childrenIds) }()
+      default: break
       }
     }
   }
@@ -1820,15 +1326,9 @@ extension Anytype_Event.Block.Set.ChildrenIds: SwiftProtobuf.Message, SwiftProto
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.ChildrenIds, rhs: Anytype_Event.Block.Set.ChildrenIds) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.childrenIds != rhs.childrenIds {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.childrenIds != rhs.childrenIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1846,16 +1346,9 @@ extension Anytype_Event.Block.Set.Restrictions: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._restrictions)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._restrictions) }()
+      default: break
       }
     }
   }
@@ -1868,24 +1361,16 @@ extension Anytype_Event.Block.Set.Restrictions: SwiftProtobuf.Message, SwiftProt
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._restrictions {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._restrictions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Restrictions, rhs: Anytype_Event.Block.Set.Restrictions) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._restrictions != rhs._restrictions {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._restrictions != rhs._restrictions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1903,16 +1388,9 @@ extension Anytype_Event.Block.Set.BackgroundColor: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.backgroundColor)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.backgroundColor) }()
+      default: break
       }
     }
   }
@@ -1928,15 +1406,9 @@ extension Anytype_Event.Block.Set.BackgroundColor: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.BackgroundColor, rhs: Anytype_Event.Block.Set.BackgroundColor) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.backgroundColor != rhs.backgroundColor {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.backgroundColor != rhs.backgroundColor {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1954,16 +1426,9 @@ extension Anytype_Event.Block.Set.Align: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.align)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.align) }()
+      default: break
       }
     }
   }
@@ -1979,15 +1444,9 @@ extension Anytype_Event.Block.Set.Align: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Align, rhs: Anytype_Event.Block.Set.Align) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.align != rhs.align {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.align != rhs.align {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2005,16 +1464,9 @@ extension Anytype_Event.Block.Set.VerticalAlign: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.verticalAlign)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.verticalAlign) }()
+      default: break
       }
     }
   }
@@ -2030,15 +1482,9 @@ extension Anytype_Event.Block.Set.VerticalAlign: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.VerticalAlign, rhs: Anytype_Event.Block.Set.VerticalAlign) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.verticalAlign != rhs.verticalAlign {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.verticalAlign != rhs.verticalAlign {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2062,40 +1508,15 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._text)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._style)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._marks)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._checked)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._color)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._iconEmoji)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._iconImage)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._text) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._style) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._marks) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._checked) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._color) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._iconEmoji) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._iconImage) }()
+      default: break
       }
     }
   }
@@ -2108,72 +1529,40 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._text {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._style {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
-    try {
-        if let v = self._marks {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
-    try {
-        if let v = self._checked {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
-    try {
-        if let v = self._color {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
-    try {
-        if let v = self._iconEmoji {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-            }
-    }()
-    try {
-        if let v = self._iconImage {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-            }
-    }()
+    try { if let v = self._text {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._style {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._marks {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._checked {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._color {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._iconEmoji {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._iconImage {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text, rhs: Anytype_Event.Block.Set.Text) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._text != rhs._text {
-        return false
-    }
-    if lhs._style != rhs._style {
-        return false
-    }
-    if lhs._marks != rhs._marks {
-        return false
-    }
-    if lhs._checked != rhs._checked {
-        return false
-    }
-    if lhs._color != rhs._color {
-        return false
-    }
-    if lhs._iconEmoji != rhs._iconEmoji {
-        return false
-    }
-    if lhs._iconImage != rhs._iconImage {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._text != rhs._text {return false}
+    if lhs._style != rhs._style {return false}
+    if lhs._marks != rhs._marks {return false}
+    if lhs._checked != rhs._checked {return false}
+    if lhs._color != rhs._color {return false}
+    if lhs._iconEmoji != rhs._iconEmoji {return false}
+    if lhs._iconImage != rhs._iconImage {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2190,12 +1579,8 @@ extension Anytype_Event.Block.Set.Text.Text: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2208,12 +1593,8 @@ extension Anytype_Event.Block.Set.Text.Text: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.Text, rhs: Anytype_Event.Block.Set.Text.Text) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2230,12 +1611,8 @@ extension Anytype_Event.Block.Set.Text.Style: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2248,12 +1625,8 @@ extension Anytype_Event.Block.Set.Text.Style: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.Style, rhs: Anytype_Event.Block.Set.Text.Style) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2270,12 +1643,8 @@ extension Anytype_Event.Block.Set.Text.Marks: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._value) }()
+      default: break
       }
     }
   }
@@ -2285,21 +1654,15 @@ extension Anytype_Event.Block.Set.Text.Marks: SwiftProtobuf.Message, SwiftProtob
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._value {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._value {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.Marks, rhs: Anytype_Event.Block.Set.Text.Marks) -> Bool {
-    if lhs._value != rhs._value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._value != rhs._value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2316,12 +1679,8 @@ extension Anytype_Event.Block.Set.Text.Checked: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2334,12 +1693,8 @@ extension Anytype_Event.Block.Set.Text.Checked: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.Checked, rhs: Anytype_Event.Block.Set.Text.Checked) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2356,12 +1711,8 @@ extension Anytype_Event.Block.Set.Text.Color: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2374,12 +1725,8 @@ extension Anytype_Event.Block.Set.Text.Color: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.Color, rhs: Anytype_Event.Block.Set.Text.Color) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2396,12 +1743,8 @@ extension Anytype_Event.Block.Set.Text.IconEmoji: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2414,12 +1757,8 @@ extension Anytype_Event.Block.Set.Text.IconEmoji: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.IconEmoji, rhs: Anytype_Event.Block.Set.Text.IconEmoji) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2436,12 +1775,8 @@ extension Anytype_Event.Block.Set.Text.IconImage: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2454,12 +1789,8 @@ extension Anytype_Event.Block.Set.Text.IconImage: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.IconImage, rhs: Anytype_Event.Block.Set.Text.IconImage) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2478,20 +1809,10 @@ extension Anytype_Event.Block.Set.Latex: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._text)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._processor)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._text) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._processor) }()
+      default: break
       }
     }
   }
@@ -2504,32 +1825,20 @@ extension Anytype_Event.Block.Set.Latex: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._text {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._processor {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._text {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._processor {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Latex, rhs: Anytype_Event.Block.Set.Latex) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._text != rhs._text {
-        return false
-    }
-    if lhs._processor != rhs._processor {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._text != rhs._text {return false}
+    if lhs._processor != rhs._processor {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2546,12 +1855,8 @@ extension Anytype_Event.Block.Set.Latex.Text: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2564,12 +1869,8 @@ extension Anytype_Event.Block.Set.Latex.Text: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Latex.Text, rhs: Anytype_Event.Block.Set.Latex.Text) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2586,12 +1887,8 @@ extension Anytype_Event.Block.Set.Latex.Processor: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2604,12 +1901,8 @@ extension Anytype_Event.Block.Set.Latex.Processor: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Latex.Processor, rhs: Anytype_Event.Block.Set.Latex.Processor) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2627,16 +1920,9 @@ extension Anytype_Event.Block.Set.Div: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._style)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._style) }()
+      default: break
       }
     }
   }
@@ -2649,24 +1935,16 @@ extension Anytype_Event.Block.Set.Div: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._style {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._style {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Div, rhs: Anytype_Event.Block.Set.Div) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._style != rhs._style {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._style != rhs._style {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2683,12 +1961,8 @@ extension Anytype_Event.Block.Set.Div.Style: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2701,12 +1975,8 @@ extension Anytype_Event.Block.Set.Div.Style: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Div.Style, rhs: Anytype_Event.Block.Set.Div.Style) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2731,44 +2001,16 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._type)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._state)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._mime)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._hash)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._name)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._size)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._style)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._targetObjectID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._type) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._state) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._mime) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._hash) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._name) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._size) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._style) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._targetObjectID) }()
+      default: break
       }
     }
   }
@@ -2781,80 +2023,44 @@ extension Anytype_Event.Block.Set.File: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._type {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._state {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
-    try {
-        if let v = self._mime {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
-    try {
-        if let v = self._hash {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
-    try {
-        if let v = self._name {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
-    try {
-        if let v = self._size {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-            }
-    }()
-    try {
-        if let v = self._style {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-            }
-    }()
-    try {
-        if let v = self._targetObjectID {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-            }
-    }()
+    try { if let v = self._type {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._state {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._mime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._hash {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._name {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._size {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._style {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._targetObjectID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File, rhs: Anytype_Event.Block.Set.File) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._type != rhs._type {
-        return false
-    }
-    if lhs._state != rhs._state {
-        return false
-    }
-    if lhs._mime != rhs._mime {
-        return false
-    }
-    if lhs._hash != rhs._hash {
-        return false
-    }
-    if lhs._name != rhs._name {
-        return false
-    }
-    if lhs._size != rhs._size {
-        return false
-    }
-    if lhs._style != rhs._style {
-        return false
-    }
-    if lhs._targetObjectID != rhs._targetObjectID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._type != rhs._type {return false}
+    if lhs._state != rhs._state {return false}
+    if lhs._mime != rhs._mime {return false}
+    if lhs._hash != rhs._hash {return false}
+    if lhs._name != rhs._name {return false}
+    if lhs._size != rhs._size {return false}
+    if lhs._style != rhs._style {return false}
+    if lhs._targetObjectID != rhs._targetObjectID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2871,12 +2077,8 @@ extension Anytype_Event.Block.Set.File.Name: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2889,12 +2091,8 @@ extension Anytype_Event.Block.Set.File.Name: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.Name, rhs: Anytype_Event.Block.Set.File.Name) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2911,12 +2109,8 @@ extension Anytype_Event.Block.Set.File.Width: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2929,12 +2123,8 @@ extension Anytype_Event.Block.Set.File.Width: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.Width, rhs: Anytype_Event.Block.Set.File.Width) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2951,12 +2141,8 @@ extension Anytype_Event.Block.Set.File.State: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -2969,12 +2155,8 @@ extension Anytype_Event.Block.Set.File.State: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.State, rhs: Anytype_Event.Block.Set.File.State) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2991,12 +2173,8 @@ extension Anytype_Event.Block.Set.File.TypeMessage: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3009,12 +2187,8 @@ extension Anytype_Event.Block.Set.File.TypeMessage: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.TypeMessage, rhs: Anytype_Event.Block.Set.File.TypeMessage) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3031,12 +2205,8 @@ extension Anytype_Event.Block.Set.File.Style: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3049,12 +2219,8 @@ extension Anytype_Event.Block.Set.File.Style: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.Style, rhs: Anytype_Event.Block.Set.File.Style) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3071,12 +2237,8 @@ extension Anytype_Event.Block.Set.File.Hash: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3089,12 +2251,8 @@ extension Anytype_Event.Block.Set.File.Hash: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.Hash, rhs: Anytype_Event.Block.Set.File.Hash) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3111,12 +2269,8 @@ extension Anytype_Event.Block.Set.File.Mime: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3129,12 +2283,8 @@ extension Anytype_Event.Block.Set.File.Mime: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.Mime, rhs: Anytype_Event.Block.Set.File.Mime) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3151,12 +2301,8 @@ extension Anytype_Event.Block.Set.File.Size: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3169,12 +2315,8 @@ extension Anytype_Event.Block.Set.File.Size: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.Size, rhs: Anytype_Event.Block.Set.File.Size) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3191,12 +2333,8 @@ extension Anytype_Event.Block.Set.File.TargetObjectId: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3209,12 +2347,8 @@ extension Anytype_Event.Block.Set.File.TargetObjectId: SwiftProtobuf.Message, Sw
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.File.TargetObjectId, rhs: Anytype_Event.Block.Set.File.TargetObjectId) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3238,40 +2372,15 @@ extension Anytype_Event.Block.Set.Link: SwiftProtobuf.Message, SwiftProtobuf._Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._targetBlockID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._style)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._fields)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._iconSize)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._cardStyle)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._description_p)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._relations)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._targetBlockID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._style) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._iconSize) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._cardStyle) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._description_p) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._relations) }()
+      default: break
       }
     }
   }
@@ -3284,72 +2393,40 @@ extension Anytype_Event.Block.Set.Link: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._targetBlockID {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._style {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
-    try {
-        if let v = self._fields {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
-    try {
-        if let v = self._iconSize {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
-    try {
-        if let v = self._cardStyle {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
-    try {
-        if let v = self._description_p {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-            }
-    }()
-    try {
-        if let v = self._relations {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-            }
-    }()
+    try { if let v = self._targetBlockID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._style {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._fields {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._iconSize {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._cardStyle {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._description_p {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._relations {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link, rhs: Anytype_Event.Block.Set.Link) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._targetBlockID != rhs._targetBlockID {
-        return false
-    }
-    if lhs._style != rhs._style {
-        return false
-    }
-    if lhs._fields != rhs._fields {
-        return false
-    }
-    if lhs._iconSize != rhs._iconSize {
-        return false
-    }
-    if lhs._cardStyle != rhs._cardStyle {
-        return false
-    }
-    if lhs._description_p != rhs._description_p {
-        return false
-    }
-    if lhs._relations != rhs._relations {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._targetBlockID != rhs._targetBlockID {return false}
+    if lhs._style != rhs._style {return false}
+    if lhs._fields != rhs._fields {return false}
+    if lhs._iconSize != rhs._iconSize {return false}
+    if lhs._cardStyle != rhs._cardStyle {return false}
+    if lhs._description_p != rhs._description_p {return false}
+    if lhs._relations != rhs._relations {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3366,12 +2443,8 @@ extension Anytype_Event.Block.Set.Link.TargetBlockId: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3384,12 +2457,8 @@ extension Anytype_Event.Block.Set.Link.TargetBlockId: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link.TargetBlockId, rhs: Anytype_Event.Block.Set.Link.TargetBlockId) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3406,12 +2475,8 @@ extension Anytype_Event.Block.Set.Link.Style: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3424,12 +2489,8 @@ extension Anytype_Event.Block.Set.Link.Style: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link.Style, rhs: Anytype_Event.Block.Set.Link.Style) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3446,12 +2507,8 @@ extension Anytype_Event.Block.Set.Link.Fields: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._value) }()
+      default: break
       }
     }
   }
@@ -3461,21 +2518,15 @@ extension Anytype_Event.Block.Set.Link.Fields: SwiftProtobuf.Message, SwiftProto
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._value {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._value {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link.Fields, rhs: Anytype_Event.Block.Set.Link.Fields) -> Bool {
-    if lhs._value != rhs._value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._value != rhs._value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3492,12 +2543,8 @@ extension Anytype_Event.Block.Set.Link.IconSize: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3510,12 +2557,8 @@ extension Anytype_Event.Block.Set.Link.IconSize: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link.IconSize, rhs: Anytype_Event.Block.Set.Link.IconSize) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3532,12 +2575,8 @@ extension Anytype_Event.Block.Set.Link.CardStyle: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3550,12 +2589,8 @@ extension Anytype_Event.Block.Set.Link.CardStyle: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link.CardStyle, rhs: Anytype_Event.Block.Set.Link.CardStyle) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3572,12 +2607,8 @@ extension Anytype_Event.Block.Set.Link.Description: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3590,12 +2621,8 @@ extension Anytype_Event.Block.Set.Link.Description: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link.Description, rhs: Anytype_Event.Block.Set.Link.Description) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3612,12 +2639,8 @@ extension Anytype_Event.Block.Set.Link.Relations: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3630,12 +2653,8 @@ extension Anytype_Event.Block.Set.Link.Relations: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link.Relations, rhs: Anytype_Event.Block.Set.Link.Relations) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3660,44 +2679,16 @@ extension Anytype_Event.Block.Set.Bookmark: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._url)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._title)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._description_p)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._imageHash)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._faviconHash)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._type)
-          }()
-      case 8:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._targetObjectID)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._state)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._url) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._title) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._description_p) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._imageHash) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._faviconHash) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._type) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._targetObjectID) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._state) }()
+      default: break
       }
     }
   }
@@ -3710,80 +2701,44 @@ extension Anytype_Event.Block.Set.Bookmark: SwiftProtobuf.Message, SwiftProtobuf
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._url {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._title {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
-    try {
-        if let v = self._description_p {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
-    try {
-        if let v = self._imageHash {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-            }
-    }()
-    try {
-        if let v = self._faviconHash {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
-    try {
-        if let v = self._type {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-            }
-    }()
-    try {
-        if let v = self._targetObjectID {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-            }
-    }()
-    try {
-        if let v = self._state {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-            }
-    }()
+    try { if let v = self._url {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._title {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._description_p {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._imageHash {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._faviconHash {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._type {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._targetObjectID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._state {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark, rhs: Anytype_Event.Block.Set.Bookmark) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._url != rhs._url {
-        return false
-    }
-    if lhs._title != rhs._title {
-        return false
-    }
-    if lhs._description_p != rhs._description_p {
-        return false
-    }
-    if lhs._imageHash != rhs._imageHash {
-        return false
-    }
-    if lhs._faviconHash != rhs._faviconHash {
-        return false
-    }
-    if lhs._type != rhs._type {
-        return false
-    }
-    if lhs._targetObjectID != rhs._targetObjectID {
-        return false
-    }
-    if lhs._state != rhs._state {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._url != rhs._url {return false}
+    if lhs._title != rhs._title {return false}
+    if lhs._description_p != rhs._description_p {return false}
+    if lhs._imageHash != rhs._imageHash {return false}
+    if lhs._faviconHash != rhs._faviconHash {return false}
+    if lhs._type != rhs._type {return false}
+    if lhs._targetObjectID != rhs._targetObjectID {return false}
+    if lhs._state != rhs._state {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3800,12 +2755,8 @@ extension Anytype_Event.Block.Set.Bookmark.Url: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3818,12 +2769,8 @@ extension Anytype_Event.Block.Set.Bookmark.Url: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.Url, rhs: Anytype_Event.Block.Set.Bookmark.Url) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3840,12 +2787,8 @@ extension Anytype_Event.Block.Set.Bookmark.Title: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3858,12 +2801,8 @@ extension Anytype_Event.Block.Set.Bookmark.Title: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.Title, rhs: Anytype_Event.Block.Set.Bookmark.Title) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3880,12 +2819,8 @@ extension Anytype_Event.Block.Set.Bookmark.Description: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3898,12 +2833,8 @@ extension Anytype_Event.Block.Set.Bookmark.Description: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.Description, rhs: Anytype_Event.Block.Set.Bookmark.Description) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3920,12 +2851,8 @@ extension Anytype_Event.Block.Set.Bookmark.ImageHash: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3938,12 +2865,8 @@ extension Anytype_Event.Block.Set.Bookmark.ImageHash: SwiftProtobuf.Message, Swi
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.ImageHash, rhs: Anytype_Event.Block.Set.Bookmark.ImageHash) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3960,12 +2883,8 @@ extension Anytype_Event.Block.Set.Bookmark.FaviconHash: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -3978,12 +2897,8 @@ extension Anytype_Event.Block.Set.Bookmark.FaviconHash: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.FaviconHash, rhs: Anytype_Event.Block.Set.Bookmark.FaviconHash) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4000,12 +2915,8 @@ extension Anytype_Event.Block.Set.Bookmark.TypeMessage: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -4018,12 +2929,8 @@ extension Anytype_Event.Block.Set.Bookmark.TypeMessage: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.TypeMessage, rhs: Anytype_Event.Block.Set.Bookmark.TypeMessage) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4040,12 +2947,8 @@ extension Anytype_Event.Block.Set.Bookmark.TargetObjectId: SwiftProtobuf.Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -4058,12 +2961,8 @@ extension Anytype_Event.Block.Set.Bookmark.TargetObjectId: SwiftProtobuf.Message
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.TargetObjectId, rhs: Anytype_Event.Block.Set.Bookmark.TargetObjectId) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4080,12 +2979,8 @@ extension Anytype_Event.Block.Set.Bookmark.State: SwiftProtobuf.Message, SwiftPr
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -4098,12 +2993,8 @@ extension Anytype_Event.Block.Set.Bookmark.State: SwiftProtobuf.Message, SwiftPr
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.State, rhs: Anytype_Event.Block.Set.Bookmark.State) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4121,16 +3012,9 @@ extension Anytype_Event.Block.Set.TableRow: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._isHeader)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._isHeader) }()
+      default: break
       }
     }
   }
@@ -4143,24 +3027,16 @@ extension Anytype_Event.Block.Set.TableRow: SwiftProtobuf.Message, SwiftProtobuf
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._isHeader {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._isHeader {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.TableRow, rhs: Anytype_Event.Block.Set.TableRow) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._isHeader != rhs._isHeader {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._isHeader != rhs._isHeader {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4177,12 +3053,8 @@ extension Anytype_Event.Block.Set.TableRow.IsHeader: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -4195,12 +3067,8 @@ extension Anytype_Event.Block.Set.TableRow.IsHeader: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.TableRow.IsHeader, rhs: Anytype_Event.Block.Set.TableRow.IsHeader) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4220,24 +3088,11 @@ extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._layout)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._limit)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._viewID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._layout) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._limit) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._viewID) }()
+      default: break
       }
     }
   }
@@ -4250,40 +3105,24 @@ extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    try {
-        if let v = self._layout {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._limit {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
-    try {
-        if let v = self._viewID {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-            }
-    }()
+    try { if let v = self._layout {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._limit {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._viewID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Widget, rhs: Anytype_Event.Block.Set.Widget) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs._layout != rhs._layout {
-        return false
-    }
-    if lhs._limit != rhs._limit {
-        return false
-    }
-    if lhs._viewID != rhs._viewID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs._layout != rhs._layout {return false}
+    if lhs._limit != rhs._limit {return false}
+    if lhs._viewID != rhs._viewID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4300,12 +3139,8 @@ extension Anytype_Event.Block.Set.Widget.Layout: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -4318,12 +3153,8 @@ extension Anytype_Event.Block.Set.Widget.Layout: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Widget.Layout, rhs: Anytype_Event.Block.Set.Widget.Layout) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4340,12 +3171,8 @@ extension Anytype_Event.Block.Set.Widget.Limit: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -4358,12 +3185,8 @@ extension Anytype_Event.Block.Set.Widget.Limit: SwiftProtobuf.Message, SwiftProt
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Widget.Limit, rhs: Anytype_Event.Block.Set.Widget.Limit) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4380,12 +3203,8 @@ extension Anytype_Event.Block.Set.Widget.ViewId: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
       }
     }
   }
@@ -4398,12 +3217,8 @@ extension Anytype_Event.Block.Set.Widget.ViewId: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Widget.ViewId, rhs: Anytype_Event.Block.Set.Widget.ViewId) -> Bool {
-    if lhs.value != rhs.value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4414,8 +3229,7 @@ extension Anytype_Event.Block.Set.Widget.ViewId: SwiftProtobuf.Message, SwiftPro
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -40,11 +40,9 @@ public struct Anytype_Model_ManifestInfo {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_ManifestInfo: @unchecked Sendable {
-}
+extension Anytype_Model_ManifestInfo: @unchecked Sendable {}
 
 extension Anytype_Model_ManifestInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ManifestInfo"
@@ -69,56 +67,19 @@ extension Anytype_Model_ManifestInfo: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.schema)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.author)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.license)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.title)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      case 8:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.screenshots)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularStringField(value: &self.downloadLink)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularInt32Field(value: &self.fileSize)
-          }()
-      case 11:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.categories)
-          }()
-      case 12:
-          try {
-              try decoder.decodeSingularStringField(value: &self.language)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.schema) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.author) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.license) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.title) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 8: try { try decoder.decodeRepeatedStringField(value: &self.screenshots) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.downloadLink) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.fileSize) }()
+      case 11: try { try decoder.decodeRepeatedStringField(value: &self.categories) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.language) }()
+      default: break
       }
     }
   }
@@ -164,45 +125,19 @@ extension Anytype_Model_ManifestInfo: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   public static func ==(lhs: Anytype_Model_ManifestInfo, rhs: Anytype_Model_ManifestInfo) -> Bool {
-    if lhs.schema != rhs.schema {
-        return false
-    }
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.author != rhs.author {
-        return false
-    }
-    if lhs.license != rhs.license {
-        return false
-    }
-    if lhs.title != rhs.title {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.screenshots != rhs.screenshots {
-        return false
-    }
-    if lhs.downloadLink != rhs.downloadLink {
-        return false
-    }
-    if lhs.fileSize != rhs.fileSize {
-        return false
-    }
-    if lhs.categories != rhs.categories {
-        return false
-    }
-    if lhs.language != rhs.language {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.schema != rhs.schema {return false}
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.author != rhs.author {return false}
+    if lhs.license != rhs.license {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.screenshots != rhs.screenshots {return false}
+    if lhs.downloadLink != rhs.downloadLink {return false}
+    if lhs.fileSize != rhs.fileSize {return false}
+    if lhs.categories != rhs.categories {return false}
+    if lhs.language != rhs.language {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -213,8 +148,7 @@ extension Anytype_Model_ManifestInfo: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

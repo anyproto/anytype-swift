@@ -52,11 +52,9 @@ public struct Anytype_Model_ObjectType {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 }
-extension Anytype_Model_ObjectType: @unchecked Sendable {
-}
+extension Anytype_Model_ObjectType: @unchecked Sendable {}
 
 extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ObjectType"
@@ -83,64 +81,21 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.url)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.name)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relationLinks)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.layout)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.iconEmoji)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      case 7:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.hidden)
-          }()
-      case 8:
-          try {
-              try decoder.decodeRepeatedEnumField(value: &self.types)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.isArchived)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.readonly)
-          }()
-      case 11:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.installedByDefault)
-          }()
-      case 12:
-          try {
-              try decoder.decodeSingularStringField(value: &self.key)
-          }()
-      case 13:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.revision)
-          }()
-      case 14:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.restrictObjectCreation)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.iconEmoji) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 7: try { try decoder.decodeSingularBoolField(value: &self.hidden) }()
+      case 8: try { try decoder.decodeRepeatedEnumField(value: &self.types) }()
+      case 9: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.readonly) }()
+      case 11: try { try decoder.decodeSingularBoolField(value: &self.installedByDefault) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 13: try { try decoder.decodeSingularInt64Field(value: &self.revision) }()
+      case 14: try { try decoder.decodeSingularBoolField(value: &self.restrictObjectCreation) }()
+      default: break
       }
     }
   }
@@ -192,51 +147,21 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 
   public static func ==(lhs: Anytype_Model_ObjectType, rhs: Anytype_Model_ObjectType) -> Bool {
-    if lhs.url != rhs.url {
-        return false
-    }
-    if lhs.name != rhs.name {
-        return false
-    }
-    if lhs.relationLinks != rhs.relationLinks {
-        return false
-    }
-    if lhs.layout != rhs.layout {
-        return false
-    }
-    if lhs.iconEmoji != rhs.iconEmoji {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.hidden != rhs.hidden {
-        return false
-    }
-    if lhs.readonly != rhs.readonly {
-        return false
-    }
-    if lhs.types != rhs.types {
-        return false
-    }
-    if lhs.isArchived != rhs.isArchived {
-        return false
-    }
-    if lhs.installedByDefault != rhs.installedByDefault {
-        return false
-    }
-    if lhs.key != rhs.key {
-        return false
-    }
-    if lhs.revision != rhs.revision {
-        return false
-    }
-    if lhs.restrictObjectCreation != rhs.restrictObjectCreation {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.url != rhs.url {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.layout != rhs.layout {return false}
+    if lhs.iconEmoji != rhs.iconEmoji {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.hidden != rhs.hidden {return false}
+    if lhs.readonly != rhs.readonly {return false}
+    if lhs.types != rhs.types {return false}
+    if lhs.isArchived != rhs.isArchived {return false}
+    if lhs.installedByDefault != rhs.installedByDefault {return false}
+    if lhs.key != rhs.key {return false}
+    if lhs.revision != rhs.revision {return false}
+    if lhs.restrictObjectCreation != rhs.restrictObjectCreation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -247,8 +172,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

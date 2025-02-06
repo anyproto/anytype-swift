@@ -30,32 +30,23 @@ extension Anytype_Model_Account.Auth {
 
       public init?(rawValue: Int) {
         switch rawValue {
-        case 0:
-            self = .limited
-        case 1:
-            self = .jsonApi
-        case 2:
-            self = .full
-        default:
-            self = .UNRECOGNIZED(rawValue)
+        case 0: self = .limited
+        case 1: self = .jsonApi
+        case 2: self = .full
+        default: self = .UNRECOGNIZED(rawValue)
         }
       }
 
       public var rawValue: Int {
         switch self {
-        case .limited:
-            return 0
-        case .jsonApi:
-            return 1
-        case .full:
-            return 2
-        case .UNRECOGNIZED(let i):
-            return i
+        case .limited: return 0
+        case .jsonApi: return 1
+        case .full: return 2
+        case .UNRECOGNIZED(let i): return i
         }
       }
 
-    }
-}
+    }}
 
 extension Anytype_Model_Account.Auth.LocalApiScope: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -65,8 +56,7 @@ extension Anytype_Model_Account.Auth.LocalApiScope: CaseIterable {
     .full,
   ]
 }
-extension Anytype_Model_Account.Auth.LocalApiScope: @unchecked Sendable {
-}
+extension Anytype_Model_Account.Auth.LocalApiScope: @unchecked Sendable {}
 
 extension Anytype_Model_Account.Auth.LocalApiScope: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -82,8 +72,7 @@ extension Anytype_Model_Account.Auth.LocalApiScope: SwiftProtobuf._ProtoNameProv
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

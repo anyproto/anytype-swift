@@ -23,19 +23,15 @@ public enum Anytype_Model_NameserviceNameType: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .anyName
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .anyName
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .anyName:
-        return 0
-    case .UNRECOGNIZED(let i):
-        return i
+    case .anyName: return 0
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -47,8 +43,7 @@ extension Anytype_Model_NameserviceNameType: CaseIterable {
     .anyName,
   ]
 }
-extension Anytype_Model_NameserviceNameType: @unchecked Sendable {
-}
+extension Anytype_Model_NameserviceNameType: @unchecked Sendable {}
 
 extension Anytype_Model_NameserviceNameType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -62,8 +57,7 @@ extension Anytype_Model_NameserviceNameType: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

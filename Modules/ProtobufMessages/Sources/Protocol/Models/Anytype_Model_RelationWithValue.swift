@@ -15,49 +15,31 @@ public struct Anytype_Model_RelationWithValue {
   // methods supported on all messages.
 
   public var relation: Anytype_Model_Relation {
-    get {
-        return _relation ?? Anytype_Model_Relation()
-    }
-    set {
-        _relation = newValue
-    }
+    get {return _relation ?? Anytype_Model_Relation()}
+    set {_relation = newValue}
   }
   /// Returns true if `relation` has been explicitly set.
-  public var hasRelation: Bool {
-      return self._relation != nil
-  }
+  public var hasRelation: Bool {return self._relation != nil}
   /// Clears the value of `relation`. Subsequent reads from it will return its default value.
-  public mutating func clearRelation() {
-      self._relation = nil
-  }
+  public mutating func clearRelation() {self._relation = nil}
 
   public var value: SwiftProtobuf.Google_Protobuf_Value {
-    get {
-        return _value ?? SwiftProtobuf.Google_Protobuf_Value()
-    }
-    set {
-        _value = newValue
-    }
+    get {return _value ?? SwiftProtobuf.Google_Protobuf_Value()}
+    set {_value = newValue}
   }
   /// Returns true if `value` has been explicitly set.
-  public var hasValue: Bool {
-      return self._value != nil
-  }
+  public var hasValue: Bool {return self._value != nil}
   /// Clears the value of `value`. Subsequent reads from it will return its default value.
-  public mutating func clearValue() {
-      self._value = nil
-  }
+  public mutating func clearValue() {self._value = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 
   fileprivate var _relation: Anytype_Model_Relation? = nil
   fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
 }
-extension Anytype_Model_RelationWithValue: @unchecked Sendable {
-}
+extension Anytype_Model_RelationWithValue: @unchecked Sendable {}
 
 extension Anytype_Model_RelationWithValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".RelationWithValue"
@@ -72,16 +54,9 @@ extension Anytype_Model_RelationWithValue: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._relation)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._value)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._relation) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._value) }()
+      default: break
       }
     }
   }
@@ -91,29 +66,19 @@ extension Anytype_Model_RelationWithValue: SwiftProtobuf.Message, SwiftProtobuf.
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._relation {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
-    try {
-        if let v = self._value {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._relation {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._value {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_RelationWithValue, rhs: Anytype_Model_RelationWithValue) -> Bool {
-    if lhs._relation != rhs._relation {
-        return false
-    }
-    if lhs._value != rhs._value {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._relation != rhs._relation {return false}
+    if lhs._value != rhs._value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -124,8 +89,7 @@ extension Anytype_Model_RelationWithValue: SwiftProtobuf.Message, SwiftProtobuf.
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

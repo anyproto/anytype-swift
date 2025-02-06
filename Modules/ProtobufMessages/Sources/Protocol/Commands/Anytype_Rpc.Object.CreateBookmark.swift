@@ -23,21 +23,13 @@ extension Anytype_Rpc.Object {
         // methods supported on all messages.
 
         public var details: SwiftProtobuf.Google_Protobuf_Struct {
-          get {
-                  return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-              }
-          set {
-                  _details = newValue
-              }
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
         }
         /// Returns true if `details` has been explicitly set.
-        public var hasDetails: Bool {
-                return self._details != nil
-            }
+        public var hasDetails: Bool {return self._details != nil}
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
-        public mutating func clearDetails() {
-                self._details = nil
-            }
+        public mutating func clearDetails() {self._details = nil}
 
         public var spaceID: String = String()
 
@@ -45,8 +37,7 @@ extension Anytype_Rpc.Object {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
@@ -57,40 +48,24 @@ extension Anytype_Rpc.Object {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Object.CreateBookmark.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Object.CreateBookmark.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Object.CreateBookmark.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var objectID: String = String()
 
         public var details: SwiftProtobuf.Google_Protobuf_Struct {
-          get {
-                  return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-              }
-          set {
-                  _details = newValue
-              }
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
         }
         /// Returns true if `details` has been explicitly set.
-        public var hasDetails: Bool {
-                return self._details != nil
-            }
+        public var hasDetails: Bool {return self._details != nil}
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
-        public mutating func clearDetails() {
-                self._details = nil
-            }
+        public mutating func clearDetails() {self._details = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -120,47 +95,35 @@ extension Anytype_Rpc.Object {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Object.CreateBookmark.Response.Error? = nil
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Object.CreateBookmark.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -170,16 +133,11 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error.Code: CaseIterable {
     .badInput,
   ]
 }
-extension Anytype_Rpc.Object.CreateBookmark: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.CreateBookmark.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.CreateBookmark.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.CreateBookmark.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Object.CreateBookmark.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Object.CreateBookmark: @unchecked Sendable {}
+extension Anytype_Rpc.Object.CreateBookmark.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.CreateBookmark.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.CreateBookmark.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.CreateBookmark.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object.CreateBookmark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".CreateBookmark"
@@ -195,9 +153,7 @@ extension Anytype_Rpc.Object.CreateBookmark: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.CreateBookmark, rhs: Anytype_Rpc.Object.CreateBookmark) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -216,20 +172,10 @@ extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.withChat)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.withChat) }()
+      default: break
       }
     }
   }
@@ -239,11 +185,9 @@ extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, Swif
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
     }
@@ -254,18 +198,10 @@ extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.CreateBookmark.Request, rhs: Anytype_Rpc.Object.CreateBookmark.Request) -> Bool {
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.withChat != rhs.withChat {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._details != rhs._details {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.withChat != rhs.withChat {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -284,20 +220,10 @@ extension Anytype_Rpc.Object.CreateBookmark.Response: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.objectID)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      default: break
       }
     }
   }
@@ -307,35 +233,23 @@ extension Anytype_Rpc.Object.CreateBookmark.Response: SwiftProtobuf.Message, Swi
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.objectID.isEmpty {
       try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 2)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.CreateBookmark.Response, rhs: Anytype_Rpc.Object.CreateBookmark.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.objectID != rhs.objectID {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -353,16 +267,9 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -378,15 +285,9 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error: SwiftProtobuf.Messag
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.CreateBookmark.Response.Error, rhs: Anytype_Rpc.Object.CreateBookmark.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -405,8 +306,7 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error.Code: SwiftProtobuf._
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

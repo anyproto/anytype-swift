@@ -36,80 +36,47 @@ extension Anytype_Model_Import {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .null
-      case 1:
-          self = .unknownError
-      case 2:
-          self = .badInput
-      case 3:
-          self = .internalError
-      case 5:
-          self = .notionNoObjectsInIntegration
-      case 6:
-          self = .importIsCanceled
-      case 7:
-          self = .csvLimitOfRowsOrRelationsExceeded
-      case 8:
-          self = .fileLoadError
-      case 9:
-          self = .insufficientPermissions
-      case 10:
-          self = .htmlWrongHtmlStructure
-      case 11:
-          self = .pbNotAnyblockFormat
-      case 12:
-          self = .notionServerIsUnavailable
-      case 13:
-          self = .notionRateLimitExceeded
-      case 14:
-          self = .fileImportNoObjectsInZipArchive
-      case 17:
-          self = .fileImportNoObjectsInDirectory
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .null
+      case 1: self = .unknownError
+      case 2: self = .badInput
+      case 3: self = .internalError
+      case 5: self = .notionNoObjectsInIntegration
+      case 6: self = .importIsCanceled
+      case 7: self = .csvLimitOfRowsOrRelationsExceeded
+      case 8: self = .fileLoadError
+      case 9: self = .insufficientPermissions
+      case 10: self = .htmlWrongHtmlStructure
+      case 11: self = .pbNotAnyblockFormat
+      case 12: self = .notionServerIsUnavailable
+      case 13: self = .notionRateLimitExceeded
+      case 14: self = .fileImportNoObjectsInZipArchive
+      case 17: self = .fileImportNoObjectsInDirectory
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .null:
-          return 0
-      case .unknownError:
-          return 1
-      case .badInput:
-          return 2
-      case .internalError:
-          return 3
-      case .notionNoObjectsInIntegration:
-          return 5
-      case .importIsCanceled:
-          return 6
-      case .csvLimitOfRowsOrRelationsExceeded:
-          return 7
-      case .fileLoadError:
-          return 8
-      case .insufficientPermissions:
-          return 9
-      case .htmlWrongHtmlStructure:
-          return 10
-      case .pbNotAnyblockFormat:
-          return 11
-      case .notionServerIsUnavailable:
-          return 12
-      case .notionRateLimitExceeded:
-          return 13
-      case .fileImportNoObjectsInZipArchive:
-          return 14
-      case .fileImportNoObjectsInDirectory:
-          return 17
-      case .UNRECOGNIZED(let i):
-          return i
+      case .null: return 0
+      case .unknownError: return 1
+      case .badInput: return 2
+      case .internalError: return 3
+      case .notionNoObjectsInIntegration: return 5
+      case .importIsCanceled: return 6
+      case .csvLimitOfRowsOrRelationsExceeded: return 7
+      case .fileLoadError: return 8
+      case .insufficientPermissions: return 9
+      case .htmlWrongHtmlStructure: return 10
+      case .pbNotAnyblockFormat: return 11
+      case .notionServerIsUnavailable: return 12
+      case .notionRateLimitExceeded: return 13
+      case .fileImportNoObjectsInZipArchive: return 14
+      case .fileImportNoObjectsInDirectory: return 17
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Import.ErrorCode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -131,8 +98,7 @@ extension Anytype_Model_Import.ErrorCode: CaseIterable {
     .insufficientPermissions,
   ]
 }
-extension Anytype_Model_Import.ErrorCode: @unchecked Sendable {
-}
+extension Anytype_Model_Import.ErrorCode: @unchecked Sendable {}
 
 extension Anytype_Model_Import.ErrorCode: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -160,8 +126,7 @@ extension Anytype_Model_Import.ErrorCode: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

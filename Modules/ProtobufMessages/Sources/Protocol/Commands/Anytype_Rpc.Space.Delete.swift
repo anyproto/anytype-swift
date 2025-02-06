@@ -26,8 +26,7 @@ extension Anytype_Rpc.Space {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -36,21 +35,13 @@ extension Anytype_Rpc.Space {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Space.Delete.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Space.Delete.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Space.Delete.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var timestamp: Int64 = 0
 
@@ -85,66 +76,44 @@ extension Anytype_Rpc.Space {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 101:
-                      self = .noSuchSpace
-              case 102:
-                      self = .spaceIsDeleted
-              case 103:
-                      self = .requestFailed
-              case 104:
-                      self = .limitReached
-              case 105:
-                      self = .notShareable
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 101: self = .noSuchSpace
+              case 102: self = .spaceIsDeleted
+              case 103: self = .requestFailed
+              case 104: self = .limitReached
+              case 105: self = .notShareable
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .noSuchSpace:
-                      return 101
-              case .spaceIsDeleted:
-                      return 102
-              case .requestFailed:
-                      return 103
-              case .limitReached:
-                      return 104
-              case .notShareable:
-                      return 105
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .noSuchSpace: return 101
+              case .spaceIsDeleted: return 102
+              case .requestFailed: return 103
+              case .limitReached: return 104
+              case .notShareable: return 105
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Space.Delete.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Space.Delete.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -159,16 +128,11 @@ extension Anytype_Rpc.Space.Delete.Response.Error.Code: CaseIterable {
     .notShareable,
   ]
 }
-extension Anytype_Rpc.Space.Delete: @unchecked Sendable {
-}
-extension Anytype_Rpc.Space.Delete.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Space.Delete.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Space.Delete.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Space.Delete.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Space.Delete: @unchecked Sendable {}
+extension Anytype_Rpc.Space.Delete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Space.Delete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Space.Delete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Space.Delete.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Space.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.protoMessageName + ".Delete"
@@ -184,9 +148,7 @@ extension Anytype_Rpc.Space.Delete: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 
   public static func ==(lhs: Anytype_Rpc.Space.Delete, rhs: Anytype_Rpc.Space.Delete) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -203,12 +165,8 @@ extension Anytype_Rpc.Space.Delete.Request: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      default: break
       }
     }
   }
@@ -221,12 +179,8 @@ extension Anytype_Rpc.Space.Delete.Request: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Rpc.Space.Delete.Request, rhs: Anytype_Rpc.Space.Delete.Request) -> Bool {
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -244,16 +198,9 @@ extension Anytype_Rpc.Space.Delete.Response: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.timestamp)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.timestamp) }()
+      default: break
       }
     }
   }
@@ -263,11 +210,9 @@ extension Anytype_Rpc.Space.Delete.Response: SwiftProtobuf.Message, SwiftProtobu
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if self.timestamp != 0 {
       try visitor.visitSingularInt64Field(value: self.timestamp, fieldNumber: 2)
     }
@@ -275,15 +220,9 @@ extension Anytype_Rpc.Space.Delete.Response: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Rpc.Space.Delete.Response, rhs: Anytype_Rpc.Space.Delete.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.timestamp != rhs.timestamp {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.timestamp != rhs.timestamp {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -301,16 +240,9 @@ extension Anytype_Rpc.Space.Delete.Response.Error: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -326,15 +258,9 @@ extension Anytype_Rpc.Space.Delete.Response.Error: SwiftProtobuf.Message, SwiftP
   }
 
   public static func ==(lhs: Anytype_Rpc.Space.Delete.Response.Error, rhs: Anytype_Rpc.Space.Delete.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -358,8 +284,7 @@ extension Anytype_Rpc.Space.Delete.Response.Error.Code: SwiftProtobuf._ProtoName
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

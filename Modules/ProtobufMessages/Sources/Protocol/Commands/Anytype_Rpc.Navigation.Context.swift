@@ -28,32 +28,23 @@ extension Anytype_Rpc.Navigation {
 
       public init?(rawValue: Int) {
         switch rawValue {
-        case 0:
-            self = .navigation
-        case 1:
-            self = .moveTo
-        case 2:
-            self = .linkTo
-        default:
-            self = .UNRECOGNIZED(rawValue)
+        case 0: self = .navigation
+        case 1: self = .moveTo
+        case 2: self = .linkTo
+        default: self = .UNRECOGNIZED(rawValue)
         }
       }
 
       public var rawValue: Int {
         switch self {
-        case .navigation:
-            return 0
-        case .moveTo:
-            return 1
-        case .linkTo:
-            return 2
-        case .UNRECOGNIZED(let i):
-            return i
+        case .navigation: return 0
+        case .moveTo: return 1
+        case .linkTo: return 2
+        case .UNRECOGNIZED(let i): return i
         }
       }
 
-    }
-}
+    }}
 
 extension Anytype_Rpc.Navigation.Context: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -63,8 +54,7 @@ extension Anytype_Rpc.Navigation.Context: CaseIterable {
     .linkTo,
   ]
 }
-extension Anytype_Rpc.Navigation.Context: @unchecked Sendable {
-}
+extension Anytype_Rpc.Navigation.Context: @unchecked Sendable {}
 
 extension Anytype_Rpc.Navigation.Context: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -80,8 +70,7 @@ extension Anytype_Rpc.Navigation.Context: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

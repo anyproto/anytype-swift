@@ -17,59 +17,35 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   public var blocks: [Anytype_Model_Block] = []
 
   public var details: SwiftProtobuf.Google_Protobuf_Struct {
-    get {
-        return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-    }
-    set {
-        _details = newValue
-    }
+    get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+    set {_details = newValue}
   }
   /// Returns true if `details` has been explicitly set.
-  public var hasDetails: Bool {
-      return self._details != nil
-  }
+  public var hasDetails: Bool {return self._details != nil}
   /// Clears the value of `details`. Subsequent reads from it will return its default value.
-  public mutating func clearDetails() {
-      self._details = nil
-  }
+  public mutating func clearDetails() {self._details = nil}
 
   public var fileKeys: SwiftProtobuf.Google_Protobuf_Struct {
-    get {
-        return _fileKeys ?? SwiftProtobuf.Google_Protobuf_Struct()
-    }
-    set {
-        _fileKeys = newValue
-    }
+    get {return _fileKeys ?? SwiftProtobuf.Google_Protobuf_Struct()}
+    set {_fileKeys = newValue}
   }
   /// Returns true if `fileKeys` has been explicitly set.
-  public var hasFileKeys: Bool {
-      return self._fileKeys != nil
-  }
+  public var hasFileKeys: Bool {return self._fileKeys != nil}
   /// Clears the value of `fileKeys`. Subsequent reads from it will return its default value.
-  public mutating func clearFileKeys() {
-      self._fileKeys = nil
-  }
+  public mutating func clearFileKeys() {self._fileKeys = nil}
 
   public var extraRelations: [Anytype_Model_Relation] = []
 
   public var objectTypes: [String] = []
 
   public var collections: SwiftProtobuf.Google_Protobuf_Struct {
-    get {
-        return _collections ?? SwiftProtobuf.Google_Protobuf_Struct()
-    }
-    set {
-        _collections = newValue
-    }
+    get {return _collections ?? SwiftProtobuf.Google_Protobuf_Struct()}
+    set {_collections = newValue}
   }
   /// Returns true if `collections` has been explicitly set.
-  public var hasCollections: Bool {
-      return self._collections != nil
-  }
+  public var hasCollections: Bool {return self._collections != nil}
   /// Clears the value of `collections`. Subsequent reads from it will return its default value.
-  public mutating func clearCollections() {
-      self._collections = nil
-  }
+  public mutating func clearCollections() {self._collections = nil}
 
   public var removedCollectionKeys: [String] = []
 
@@ -82,34 +58,24 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   public var originalCreatedTimestamp: Int64 = 0
 
   public var fileInfo: Anytype_Model_FileInfo {
-    get {
-        return _fileInfo ?? Anytype_Model_FileInfo()
-    }
-    set {
-        _fileInfo = newValue
-    }
+    get {return _fileInfo ?? Anytype_Model_FileInfo()}
+    set {_fileInfo = newValue}
   }
   /// Returns true if `fileInfo` has been explicitly set.
-  public var hasFileInfo: Bool {
-      return self._fileInfo != nil
-  }
+  public var hasFileInfo: Bool {return self._fileInfo != nil}
   /// Clears the value of `fileInfo`. Subsequent reads from it will return its default value.
-  public mutating func clearFileInfo() {
-      self._fileInfo = nil
-  }
+  public mutating func clearFileInfo() {self._fileInfo = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {
-  }
+  public init() {}
 
   fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _fileKeys: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _collections: SwiftProtobuf.Google_Protobuf_Struct? = nil
   fileprivate var _fileInfo: Anytype_Model_FileInfo? = nil
 }
-extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {
-}
+extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 
 extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SmartBlockSnapshotBase"
@@ -133,52 +99,18 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.blocks)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._fileKeys)
-          }()
-      case 4:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.extraRelations)
-          }()
-      case 5:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.objectTypes)
-          }()
-      case 6:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._collections)
-          }()
-      case 7:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.relationLinks)
-          }()
-      case 8:
-          try {
-              try decoder.decodeRepeatedStringField(value: &self.removedCollectionKeys)
-          }()
-      case 9:
-          try {
-              try decoder.decodeSingularStringField(value: &self.key)
-          }()
-      case 10:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.originalCreatedTimestamp)
-          }()
-      case 11:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._fileInfo)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.blocks) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._fileKeys) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.extraRelations) }()
+      case 5: try { try decoder.decodeRepeatedStringField(value: &self.objectTypes) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._collections) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      case 8: try { try decoder.decodeRepeatedStringField(value: &self.removedCollectionKeys) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 10: try { try decoder.decodeSingularInt64Field(value: &self.originalCreatedTimestamp) }()
+      case 11: try { try decoder.decodeSingularMessageField(value: &self._fileInfo) }()
+      default: break
       }
     }
   }
@@ -191,27 +123,21 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if !self.blocks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.blocks, fieldNumber: 1)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
-    try {
-        if let v = self._fileKeys {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._fileKeys {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if !self.extraRelations.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.extraRelations, fieldNumber: 4)
     }
     if !self.objectTypes.isEmpty {
       try visitor.visitRepeatedStringField(value: self.objectTypes, fieldNumber: 5)
     }
-    try {
-        if let v = self._collections {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-            }
-    }()
+    try { if let v = self._collections {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
     if !self.relationLinks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 7)
     }
@@ -224,51 +150,25 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if self.originalCreatedTimestamp != 0 {
       try visitor.visitSingularInt64Field(value: self.originalCreatedTimestamp, fieldNumber: 10)
     }
-    try {
-        if let v = self._fileInfo {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-            }
-    }()
+    try { if let v = self._fileInfo {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_SmartBlockSnapshotBase, rhs: Anytype_Model_SmartBlockSnapshotBase) -> Bool {
-    if lhs.blocks != rhs.blocks {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs._fileKeys != rhs._fileKeys {
-        return false
-    }
-    if lhs.extraRelations != rhs.extraRelations {
-        return false
-    }
-    if lhs.objectTypes != rhs.objectTypes {
-        return false
-    }
-    if lhs._collections != rhs._collections {
-        return false
-    }
-    if lhs.removedCollectionKeys != rhs.removedCollectionKeys {
-        return false
-    }
-    if lhs.relationLinks != rhs.relationLinks {
-        return false
-    }
-    if lhs.key != rhs.key {
-        return false
-    }
-    if lhs.originalCreatedTimestamp != rhs.originalCreatedTimestamp {
-        return false
-    }
-    if lhs._fileInfo != rhs._fileInfo {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.blocks != rhs.blocks {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs._fileKeys != rhs._fileKeys {return false}
+    if lhs.extraRelations != rhs.extraRelations {return false}
+    if lhs.objectTypes != rhs.objectTypes {return false}
+    if lhs._collections != rhs._collections {return false}
+    if lhs.removedCollectionKeys != rhs.removedCollectionKeys {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.key != rhs.key {return false}
+    if lhs.originalCreatedTimestamp != rhs.originalCreatedTimestamp {return false}
+    if lhs._fileInfo != rhs._fileInfo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -279,8 +179,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

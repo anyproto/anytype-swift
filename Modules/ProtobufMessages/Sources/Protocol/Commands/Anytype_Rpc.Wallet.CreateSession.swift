@@ -27,27 +27,19 @@ extension Anytype_Rpc.Wallet {
         /// cold auth
         public var mnemonic: String {
           get {
-            if case .mnemonic(let v)? = auth {
-                    return v
-                }
+            if case .mnemonic(let v)? = auth {return v}
             return String()
           }
-          set {
-                  auth = .mnemonic(newValue)
-              }
+          set {auth = .mnemonic(newValue)}
         }
 
         /// persistent app key, that can be used to restore session
         public var appKey: String {
           get {
-            if case .appKey(let v)? = auth {
-                    return v
-                }
+            if case .appKey(let v)? = auth {return v}
             return String()
           }
-          set {
-                  auth = .appKey(newValue)
-              }
+          set {auth = .appKey(newValue)}
         }
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -64,29 +56,21 @@ extension Anytype_Rpc.Wallet {
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch (lhs, rhs) {
-            case (.mnemonic, .mnemonic):
-                    return {
-                                  guard case .mnemonic(let l) = lhs, case .mnemonic(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            case (.appKey, .appKey):
-                    return {
-                                  guard case .appKey(let l) = lhs, case .appKey(let r) = rhs else {
-                                      preconditionFailure()
-                                  }
-                                  return l == r
-                                }()
-            default:
-                    return false
+            case (.mnemonic, .mnemonic): return {
+              guard case .mnemonic(let l) = lhs, case .mnemonic(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.appKey, .appKey): return {
+              guard case .appKey(let l) = lhs, case .appKey(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            default: return false
             }
           }
         #endif
         }
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -95,21 +79,13 @@ extension Anytype_Rpc.Wallet {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Wallet.CreateSession.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Wallet.CreateSession.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Wallet.CreateSession.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var token: String = String()
 
@@ -148,50 +124,36 @@ extension Anytype_Rpc.Wallet {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 101:
-                      self = .appTokenNotFoundInTheCurrentAccount
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 101: self = .appTokenNotFoundInTheCurrentAccount
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .appTokenNotFoundInTheCurrentAccount:
-                      return 101
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .appTokenNotFoundInTheCurrentAccount: return 101
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Wallet.CreateSession.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -202,18 +164,12 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: CaseIterable {
     .appTokenNotFoundInTheCurrentAccount,
   ]
 }
-extension Anytype_Rpc.Wallet.CreateSession: @unchecked Sendable {
-}
-extension Anytype_Rpc.Wallet.CreateSession.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Wallet.CreateSession.Request.OneOf_Auth: @unchecked Sendable {
-}
-extension Anytype_Rpc.Wallet.CreateSession.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Wallet.CreateSession.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Wallet.CreateSession: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.CreateSession.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.CreateSession.Request.OneOf_Auth: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.CreateSession.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Wallet.CreateSession: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Wallet.protoMessageName + ".CreateSession"
@@ -229,9 +185,7 @@ extension Anytype_Rpc.Wallet.CreateSession: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Rpc.Wallet.CreateSession, rhs: Anytype_Rpc.Wallet.CreateSession) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -249,30 +203,23 @@ extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-                  var v: String?
-                  try decoder.decodeSingularStringField(value: &v)
-                  if let v = v {
-                    if self.auth != nil {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.auth = .mnemonic(v)
-                  }
-                }()
-      case 2:
-          try {
-                  var v: String?
-                  try decoder.decodeSingularStringField(value: &v)
-                  if let v = v {
-                    if self.auth != nil {
-                        try decoder.handleConflictingOneOf()
-                    }
-                    self.auth = .appKey(v)
-                  }
-                }()
-      default:
-          break
+      case 1: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.auth != nil {try decoder.handleConflictingOneOf()}
+          self.auth = .mnemonic(v)
+        }
+      }()
+      case 2: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.auth != nil {try decoder.handleConflictingOneOf()}
+          self.auth = .appKey(v)
+        }
+      }()
+      default: break
       }
     }
   }
@@ -283,33 +230,22 @@ extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, Swift
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
     switch self.auth {
-    case .mnemonic?:
-        try {
-              guard case .mnemonic(let v)? = self.auth else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-            }()
-    case .appKey?:
-        try {
-              guard case .appKey(let v)? = self.auth else {
-                  preconditionFailure()
-              }
-              try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-            }()
-    case nil:
-        break
+    case .mnemonic?: try {
+      guard case .mnemonic(let v)? = self.auth else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    }()
+    case .appKey?: try {
+      guard case .appKey(let v)? = self.auth else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    }()
+    case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Wallet.CreateSession.Request, rhs: Anytype_Rpc.Wallet.CreateSession.Request) -> Bool {
-    if lhs.auth != rhs.auth {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.auth != rhs.auth {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -329,24 +265,11 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.token)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.appToken)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularStringField(value: &self.accountID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.token) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.appToken) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.accountID) }()
+      default: break
       }
     }
   }
@@ -356,11 +279,9 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     if !self.token.isEmpty {
       try visitor.visitSingularStringField(value: self.token, fieldNumber: 2)
     }
@@ -374,21 +295,11 @@ extension Anytype_Rpc.Wallet.CreateSession.Response: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Rpc.Wallet.CreateSession.Response, rhs: Anytype_Rpc.Wallet.CreateSession.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.token != rhs.token {
-        return false
-    }
-    if lhs.appToken != rhs.appToken {
-        return false
-    }
-    if lhs.accountID != rhs.accountID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.token != rhs.token {return false}
+    if lhs.appToken != rhs.appToken {return false}
+    if lhs.accountID != rhs.accountID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -406,16 +317,9 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error: SwiftProtobuf.Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -431,15 +335,9 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error: SwiftProtobuf.Message
   }
 
   public static func ==(lhs: Anytype_Rpc.Wallet.CreateSession.Response.Error, rhs: Anytype_Rpc.Wallet.CreateSession.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -459,8 +357,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: SwiftProtobuf._P
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -23,27 +23,19 @@ public enum Anytype_Model_FileIndexingStatus: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .notIndexed
-    case 1:
-        self = .indexed
-    case 2:
-        self = .notFound
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .notIndexed
+    case 1: self = .indexed
+    case 2: self = .notFound
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .notIndexed:
-        return 0
-    case .indexed:
-        return 1
-    case .notFound:
-        return 2
-    case .UNRECOGNIZED(let i):
-        return i
+    case .notIndexed: return 0
+    case .indexed: return 1
+    case .notFound: return 2
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -57,8 +49,7 @@ extension Anytype_Model_FileIndexingStatus: CaseIterable {
     .notFound,
   ]
 }
-extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {
-}
+extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
 
 extension Anytype_Model_FileIndexingStatus: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -74,8 +65,7 @@ extension Anytype_Model_FileIndexingStatus: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

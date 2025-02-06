@@ -43,52 +43,33 @@ extension Anytype_Model_Block {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .none
-      case 1:
-          self = .top
-      case 2:
-          self = .bottom
-      case 3:
-          self = .left
-      case 4:
-          self = .right
-      case 5:
-          self = .inner
-      case 6:
-          self = .replace
-      case 7:
-          self = .innerFirst
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .none
+      case 1: self = .top
+      case 2: self = .bottom
+      case 3: self = .left
+      case 4: self = .right
+      case 5: self = .inner
+      case 6: self = .replace
+      case 7: self = .innerFirst
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .none:
-          return 0
-      case .top:
-          return 1
-      case .bottom:
-          return 2
-      case .left:
-          return 3
-      case .right:
-          return 4
-      case .inner:
-          return 5
-      case .replace:
-          return 6
-      case .innerFirst:
-          return 7
-      case .UNRECOGNIZED(let i):
-          return i
+      case .none: return 0
+      case .top: return 1
+      case .bottom: return 2
+      case .left: return 3
+      case .right: return 4
+      case .inner: return 5
+      case .replace: return 6
+      case .innerFirst: return 7
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Block.Position: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -103,8 +84,7 @@ extension Anytype_Model_Block.Position: CaseIterable {
     .innerFirst,
   ]
 }
-extension Anytype_Model_Block.Position: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Position: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Position: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -125,8 +105,7 @@ extension Anytype_Model_Block.Position: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

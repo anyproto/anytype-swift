@@ -27,44 +27,29 @@ extension Anytype_Model_MembershipTierData {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .unknown
-      case 1:
-          self = .unlimited
-      case 2:
-          self = .days
-      case 3:
-          self = .weeks
-      case 4:
-          self = .months
-      case 5:
-          self = .years
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .unknown
+      case 1: self = .unlimited
+      case 2: self = .days
+      case 3: self = .weeks
+      case 4: self = .months
+      case 5: self = .years
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .unknown:
-          return 0
-      case .unlimited:
-          return 1
-      case .days:
-          return 2
-      case .weeks:
-          return 3
-      case .months:
-          return 4
-      case .years:
-          return 5
-      case .UNRECOGNIZED(let i):
-          return i
+      case .unknown: return 0
+      case .unlimited: return 1
+      case .days: return 2
+      case .weeks: return 3
+      case .months: return 4
+      case .years: return 5
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_MembershipTierData.PeriodType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -77,8 +62,7 @@ extension Anytype_Model_MembershipTierData.PeriodType: CaseIterable {
     .years,
   ]
 }
-extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {
-}
+extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
 
 extension Anytype_Model_MembershipTierData.PeriodType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -97,8 +81,7 @@ extension Anytype_Model_MembershipTierData.PeriodType: SwiftProtobuf._ProtoNameP
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

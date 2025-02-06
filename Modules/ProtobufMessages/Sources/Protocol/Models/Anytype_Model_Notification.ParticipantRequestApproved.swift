@@ -23,12 +23,9 @@ extension Anytype_Model_Notification {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_Notification.ParticipantRequestApproved: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_Notification.ParticipantRequestApproved: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.ParticipantRequestApproved: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Notification.protoMessageName + ".ParticipantRequestApproved"
@@ -44,20 +41,10 @@ extension Anytype_Model_Notification.ParticipantRequestApproved: SwiftProtobuf.M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.permissions)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.spaceName)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
+      default: break
       }
     }
   }
@@ -76,18 +63,10 @@ extension Anytype_Model_Notification.ParticipantRequestApproved: SwiftProtobuf.M
   }
 
   public static func ==(lhs: Anytype_Model_Notification.ParticipantRequestApproved, rhs: Anytype_Model_Notification.ParticipantRequestApproved) -> Bool {
-    if lhs.spaceID != rhs.spaceID {
-        return false
-    }
-    if lhs.permissions != rhs.permissions {
-        return false
-    }
-    if lhs.spaceName != rhs.spaceName {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.permissions != rhs.permissions {return false}
+    if lhs.spaceName != rhs.spaceName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -98,8 +77,7 @@ extension Anytype_Model_Notification.ParticipantRequestApproved: SwiftProtobuf.M
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

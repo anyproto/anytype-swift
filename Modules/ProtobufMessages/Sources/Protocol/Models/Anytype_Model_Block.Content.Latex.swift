@@ -54,116 +54,66 @@ extension Anytype_Model_Block.Content {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .latex
-          case 1:
-                  self = .mermaid
-          case 2:
-                  self = .chart
-          case 3:
-                  self = .youtube
-          case 4:
-                  self = .vimeo
-          case 5:
-                  self = .soundcloud
-          case 6:
-                  self = .googleMaps
-          case 7:
-                  self = .miro
-          case 8:
-                  self = .figma
-          case 9:
-                  self = .twitter
-          case 10:
-                  self = .openStreetMap
-          case 11:
-                  self = .reddit
-          case 12:
-                  self = .facebook
-          case 13:
-                  self = .instagram
-          case 14:
-                  self = .telegram
-          case 15:
-                  self = .githubGist
-          case 16:
-                  self = .codepen
-          case 17:
-                  self = .bilibili
-          case 18:
-                  self = .excalidraw
-          case 19:
-                  self = .kroki
-          case 20:
-                  self = .graphviz
-          case 21:
-                  self = .sketchfab
-          case 22:
-                  self = .image
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .latex
+          case 1: self = .mermaid
+          case 2: self = .chart
+          case 3: self = .youtube
+          case 4: self = .vimeo
+          case 5: self = .soundcloud
+          case 6: self = .googleMaps
+          case 7: self = .miro
+          case 8: self = .figma
+          case 9: self = .twitter
+          case 10: self = .openStreetMap
+          case 11: self = .reddit
+          case 12: self = .facebook
+          case 13: self = .instagram
+          case 14: self = .telegram
+          case 15: self = .githubGist
+          case 16: self = .codepen
+          case 17: self = .bilibili
+          case 18: self = .excalidraw
+          case 19: self = .kroki
+          case 20: self = .graphviz
+          case 21: self = .sketchfab
+          case 22: self = .image
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .latex:
-                  return 0
-          case .mermaid:
-                  return 1
-          case .chart:
-                  return 2
-          case .youtube:
-                  return 3
-          case .vimeo:
-                  return 4
-          case .soundcloud:
-                  return 5
-          case .googleMaps:
-                  return 6
-          case .miro:
-                  return 7
-          case .figma:
-                  return 8
-          case .twitter:
-                  return 9
-          case .openStreetMap:
-                  return 10
-          case .reddit:
-                  return 11
-          case .facebook:
-                  return 12
-          case .instagram:
-                  return 13
-          case .telegram:
-                  return 14
-          case .githubGist:
-                  return 15
-          case .codepen:
-                  return 16
-          case .bilibili:
-                  return 17
-          case .excalidraw:
-                  return 18
-          case .kroki:
-                  return 19
-          case .graphviz:
-                  return 20
-          case .sketchfab:
-                  return 21
-          case .image:
-                  return 22
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .latex: return 0
+          case .mermaid: return 1
+          case .chart: return 2
+          case .youtube: return 3
+          case .vimeo: return 4
+          case .soundcloud: return 5
+          case .googleMaps: return 6
+          case .miro: return 7
+          case .figma: return 8
+          case .twitter: return 9
+          case .openStreetMap: return 10
+          case .reddit: return 11
+          case .facebook: return 12
+          case .instagram: return 13
+          case .telegram: return 14
+          case .githubGist: return 15
+          case .codepen: return 16
+          case .bilibili: return 17
+          case .excalidraw: return 18
+          case .kroki: return 19
+          case .graphviz: return 20
+          case .sketchfab: return 21
+          case .image: return 22
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Model_Block.Content.Latex.Processor: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -193,10 +143,8 @@ extension Anytype_Model_Block.Content.Latex.Processor: CaseIterable {
     .image,
   ]
 }
-extension Anytype_Model_Block.Content.Latex: @unchecked Sendable {
-}
-extension Anytype_Model_Block.Content.Latex.Processor: @unchecked Sendable {
-}
+extension Anytype_Model_Block.Content.Latex: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Latex.Processor: @unchecked Sendable {}
 
 extension Anytype_Model_Block.Content.Latex: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Latex"
@@ -211,16 +159,9 @@ extension Anytype_Model_Block.Content.Latex: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.text)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.processor)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.text) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.processor) }()
+      default: break
       }
     }
   }
@@ -236,15 +177,9 @@ extension Anytype_Model_Block.Content.Latex: SwiftProtobuf.Message, SwiftProtobu
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Latex, rhs: Anytype_Model_Block.Content.Latex) -> Bool {
-    if lhs.text != rhs.text {
-        return false
-    }
-    if lhs.processor != rhs.processor {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.text != rhs.text {return false}
+    if lhs.processor != rhs.processor {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -283,8 +218,7 @@ extension Anytype_Model_Block.Content.Latex.Processor: SwiftProtobuf._ProtoNameP
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

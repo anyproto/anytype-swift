@@ -21,12 +21,9 @@ extension Anytype_Model_ObjectView {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_ObjectView.BlockParticipant: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_ObjectView.BlockParticipant: @unchecked Sendable {}
 
 extension Anytype_Model_ObjectView.BlockParticipant: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_ObjectView.protoMessageName + ".BlockParticipant"
@@ -41,16 +38,9 @@ extension Anytype_Model_ObjectView.BlockParticipant: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.blockID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.participantID)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.participantID) }()
+      default: break
       }
     }
   }
@@ -66,15 +56,9 @@ extension Anytype_Model_ObjectView.BlockParticipant: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Model_ObjectView.BlockParticipant, rhs: Anytype_Model_ObjectView.BlockParticipant) -> Bool {
-    if lhs.blockID != rhs.blockID {
-        return false
-    }
-    if lhs.participantID != rhs.participantID {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.participantID != rhs.participantID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -85,8 +69,7 @@ extension Anytype_Model_ObjectView.BlockParticipant: SwiftProtobuf.Message, Swif
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

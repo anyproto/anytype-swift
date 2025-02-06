@@ -24,32 +24,21 @@ extension Anytype_Rpc.Account {
       public var enableSpaces: Bool = false
 
       public var extra: SwiftProtobuf.Google_Protobuf_Struct {
-        get {
-                return _extra ?? SwiftProtobuf.Google_Protobuf_Struct()
-            }
-        set {
-                _extra = newValue
-            }
+        get {return _extra ?? SwiftProtobuf.Google_Protobuf_Struct()}
+        set {_extra = newValue}
       }
       /// Returns true if `extra` has been explicitly set.
-      public var hasExtra: Bool {
-              return self._extra != nil
-          }
+      public var hasExtra: Bool {return self._extra != nil}
       /// Clears the value of `extra`. Subsequent reads from it will return its default value.
-      public mutating func clearExtra() {
-              self._extra = nil
-          }
+      public mutating func clearExtra() {self._extra = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
+      public init() {}
 
       fileprivate var _extra: SwiftProtobuf.Google_Protobuf_Struct? = nil
-    }
-}
-extension Anytype_Rpc.Account.Config: @unchecked Sendable {
-}
+    }    }
+extension Anytype_Rpc.Account.Config: @unchecked Sendable {}
 
 extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Config"
@@ -67,28 +56,12 @@ extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.enableDataview)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.enableDebug)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.enablePrereleaseChannel)
-          }()
-      case 4:
-          try {
-              try decoder.decodeSingularBoolField(value: &self.enableSpaces)
-          }()
-      case 100:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._extra)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.enableDataview) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.enableDebug) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.enablePrereleaseChannel) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.enableSpaces) }()
+      case 100: try { try decoder.decodeSingularMessageField(value: &self._extra) }()
+      default: break
       }
     }
   }
@@ -110,33 +83,19 @@ extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if self.enableSpaces != false {
       try visitor.visitSingularBoolField(value: self.enableSpaces, fieldNumber: 4)
     }
-    try {
-        if let v = self._extra {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
-            }
-    }()
+    try { if let v = self._extra {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Config, rhs: Anytype_Rpc.Account.Config) -> Bool {
-    if lhs.enableDataview != rhs.enableDataview {
-        return false
-    }
-    if lhs.enableDebug != rhs.enableDebug {
-        return false
-    }
-    if lhs.enablePrereleaseChannel != rhs.enablePrereleaseChannel {
-        return false
-    }
-    if lhs.enableSpaces != rhs.enableSpaces {
-        return false
-    }
-    if lhs._extra != rhs._extra {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.enableDataview != rhs.enableDataview {return false}
+    if lhs.enableDebug != rhs.enableDebug {return false}
+    if lhs.enablePrereleaseChannel != rhs.enablePrereleaseChannel {return false}
+    if lhs.enableSpaces != rhs.enableSpaces {return false}
+    if lhs._extra != rhs._extra {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -147,8 +106,7 @@ extension Anytype_Rpc.Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Mess
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

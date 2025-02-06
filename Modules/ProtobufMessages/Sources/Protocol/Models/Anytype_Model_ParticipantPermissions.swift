@@ -24,31 +24,21 @@ public enum Anytype_Model_ParticipantPermissions: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .reader
-    case 1:
-        self = .writer
-    case 2:
-        self = .owner
-    case 3:
-        self = .noPermissions
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .reader
+    case 1: self = .writer
+    case 2: self = .owner
+    case 3: self = .noPermissions
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .reader:
-        return 0
-    case .writer:
-        return 1
-    case .owner:
-        return 2
-    case .noPermissions:
-        return 3
-    case .UNRECOGNIZED(let i):
-        return i
+    case .reader: return 0
+    case .writer: return 1
+    case .owner: return 2
+    case .noPermissions: return 3
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -63,8 +53,7 @@ extension Anytype_Model_ParticipantPermissions: CaseIterable {
     .noPermissions,
   ]
 }
-extension Anytype_Model_ParticipantPermissions: @unchecked Sendable {
-}
+extension Anytype_Model_ParticipantPermissions: @unchecked Sendable {}
 
 extension Anytype_Model_ParticipantPermissions: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -81,8 +70,7 @@ extension Anytype_Model_ParticipantPermissions: SwiftProtobuf._ProtoNameProvidin
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

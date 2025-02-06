@@ -32,32 +32,23 @@ extension Anytype_Model_Membership {
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0:
-          self = .statusNotVerified
-      case 1:
-          self = .statusCodeSent
-      case 2:
-          self = .statusVerified
-      default:
-          self = .UNRECOGNIZED(rawValue)
+      case 0: self = .statusNotVerified
+      case 1: self = .statusCodeSent
+      case 2: self = .statusVerified
+      default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .statusNotVerified:
-          return 0
-      case .statusCodeSent:
-          return 1
-      case .statusVerified:
-          return 2
-      case .UNRECOGNIZED(let i):
-          return i
+      case .statusNotVerified: return 0
+      case .statusCodeSent: return 1
+      case .statusVerified: return 2
+      case .UNRECOGNIZED(let i): return i
       }
     }
 
-  }
-}
+  }}
 
 extension Anytype_Model_Membership.EmailVerificationStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -67,8 +58,7 @@ extension Anytype_Model_Membership.EmailVerificationStatus: CaseIterable {
     .statusVerified,
   ]
 }
-extension Anytype_Model_Membership.EmailVerificationStatus: @unchecked Sendable {
-}
+extension Anytype_Model_Membership.EmailVerificationStatus: @unchecked Sendable {}
 
 extension Anytype_Model_Membership.EmailVerificationStatus: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -84,8 +74,7 @@ extension Anytype_Model_Membership.EmailVerificationStatus: SwiftProtobuf._Proto
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

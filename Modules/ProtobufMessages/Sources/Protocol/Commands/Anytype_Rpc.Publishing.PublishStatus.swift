@@ -27,28 +27,21 @@ extension Anytype_Rpc.Publishing {
 
       public init?(rawValue: Int) {
         switch rawValue {
-        case 0:
-            self = .created
-        case 1:
-            self = .published
-        default:
-            self = .UNRECOGNIZED(rawValue)
+        case 0: self = .created
+        case 1: self = .published
+        default: self = .UNRECOGNIZED(rawValue)
         }
       }
 
       public var rawValue: Int {
         switch self {
-        case .created:
-            return 0
-        case .published:
-            return 1
-        case .UNRECOGNIZED(let i):
-            return i
+        case .created: return 0
+        case .published: return 1
+        case .UNRECOGNIZED(let i): return i
         }
       }
 
-    }
-}
+    }}
 
 extension Anytype_Rpc.Publishing.PublishStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -57,8 +50,7 @@ extension Anytype_Rpc.Publishing.PublishStatus: CaseIterable {
     .published,
   ]
 }
-extension Anytype_Rpc.Publishing.PublishStatus: @unchecked Sendable {
-}
+extension Anytype_Rpc.Publishing.PublishStatus: @unchecked Sendable {}
 
 extension Anytype_Rpc.Publishing.PublishStatus: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -73,8 +65,7 @@ extension Anytype_Rpc.Publishing.PublishStatus: SwiftProtobuf._ProtoNameProvidin
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -23,12 +23,9 @@ extension Anytype_Event.Import {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {
-          }
-    }
-}
-extension Anytype_Event.Import.Finish: @unchecked Sendable {
-}
+      public init() {}
+    }    }
+extension Anytype_Event.Import.Finish: @unchecked Sendable {}
 
 extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Import.protoMessageName + ".Finish"
@@ -44,20 +41,10 @@ extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.rootCollectionID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularInt64Field(value: &self.objectsCount)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.importType)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.rootCollectionID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.objectsCount) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.importType) }()
+      default: break
       }
     }
   }
@@ -76,18 +63,10 @@ extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public static func ==(lhs: Anytype_Event.Import.Finish, rhs: Anytype_Event.Import.Finish) -> Bool {
-    if lhs.rootCollectionID != rhs.rootCollectionID {
-        return false
-    }
-    if lhs.objectsCount != rhs.objectsCount {
-        return false
-    }
-    if lhs.importType != rhs.importType {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.rootCollectionID != rhs.rootCollectionID {return false}
+    if lhs.objectsCount != rhs.objectsCount {return false}
+    if lhs.importType != rhs.importType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -98,8 +77,7 @@ extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._Mes
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

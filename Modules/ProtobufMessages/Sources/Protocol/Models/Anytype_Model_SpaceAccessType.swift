@@ -23,27 +23,19 @@ public enum Anytype_Model_SpaceAccessType: SwiftProtobuf.Enum {
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0:
-        self = .private
-    case 1:
-        self = .personal
-    case 2:
-        self = .shared
-    default:
-        self = .UNRECOGNIZED(rawValue)
+    case 0: self = .private
+    case 1: self = .personal
+    case 2: self = .shared
+    default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .private:
-        return 0
-    case .personal:
-        return 1
-    case .shared:
-        return 2
-    case .UNRECOGNIZED(let i):
-        return i
+    case .private: return 0
+    case .personal: return 1
+    case .shared: return 2
+    case .UNRECOGNIZED(let i): return i
     }
   }
 
@@ -57,8 +49,7 @@ extension Anytype_Model_SpaceAccessType: CaseIterable {
     .shared,
   ]
 }
-extension Anytype_Model_SpaceAccessType: @unchecked Sendable {
-}
+extension Anytype_Model_SpaceAccessType: @unchecked Sendable {}
 
 extension Anytype_Model_SpaceAccessType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -74,8 +65,7 @@ extension Anytype_Model_SpaceAccessType: SwiftProtobuf._ProtoNameProviding {
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

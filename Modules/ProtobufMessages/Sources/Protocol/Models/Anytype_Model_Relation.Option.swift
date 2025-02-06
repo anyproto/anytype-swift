@@ -28,12 +28,9 @@ extension Anytype_Model_Relation {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
-  }
-}
-extension Anytype_Model_Relation.Option: @unchecked Sendable {
-}
+    public init() {}
+  }    }
+extension Anytype_Model_Relation.Option: @unchecked Sendable {}
 
 extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Relation.protoMessageName + ".Option"
@@ -50,24 +47,11 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.id)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.text)
-          }()
-      case 3:
-          try {
-              try decoder.decodeSingularStringField(value: &self.color)
-          }()
-      case 5:
-          try {
-              try decoder.decodeSingularStringField(value: &self.relationKey)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.text) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.color) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      default: break
       }
     }
   }
@@ -89,21 +73,11 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 
   public static func ==(lhs: Anytype_Model_Relation.Option, rhs: Anytype_Model_Relation.Option) -> Bool {
-    if lhs.id != rhs.id {
-        return false
-    }
-    if lhs.text != rhs.text {
-        return false
-    }
-    if lhs.color != rhs.color {
-        return false
-    }
-    if lhs.relationKey != rhs.relationKey {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.id != rhs.id {return false}
+    if lhs.text != rhs.text {return false}
+    if lhs.color != rhs.color {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -114,8 +88,7 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

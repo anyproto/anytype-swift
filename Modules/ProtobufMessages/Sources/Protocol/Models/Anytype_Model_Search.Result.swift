@@ -18,35 +18,24 @@ extension Anytype_Model_Search {
     public var objectID: String = String()
 
     public var details: SwiftProtobuf.Google_Protobuf_Struct {
-      get {
-              return _details ?? SwiftProtobuf.Google_Protobuf_Struct()
-          }
-      set {
-              _details = newValue
-          }
+      get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+      set {_details = newValue}
     }
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool {
-            return self._details != nil
-        }
+    public var hasDetails: Bool {return self._details != nil}
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
-    public mutating func clearDetails() {
-            self._details = nil
-        }
+    public mutating func clearDetails() {self._details = nil}
 
     /// meta information about the search result
     public var meta: [Anytype_Model_Search.Meta] = []
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public init() {
-        }
+    public init() {}
 
     fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
-  }
-}
-extension Anytype_Model_Search.Result: @unchecked Sendable {
-}
+  }    }
+extension Anytype_Model_Search.Result: @unchecked Sendable {}
 
 extension Anytype_Model_Search.Result: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Search.protoMessageName + ".Result"
@@ -62,20 +51,10 @@ extension Anytype_Model_Search.Result: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularStringField(value: &self.objectID)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._details)
-          }()
-      case 3:
-          try {
-              try decoder.decodeRepeatedMessageField(value: &self.meta)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.meta) }()
+      default: break
       }
     }
   }
@@ -88,11 +67,9 @@ extension Anytype_Model_Search.Result: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.objectID.isEmpty {
       try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 1)
     }
-    try {
-        if let v = self._details {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-            }
-    }()
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     if !self.meta.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.meta, fieldNumber: 3)
     }
@@ -100,18 +77,10 @@ extension Anytype_Model_Search.Result: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public static func ==(lhs: Anytype_Model_Search.Result, rhs: Anytype_Model_Search.Result) -> Bool {
-    if lhs.objectID != rhs.objectID {
-        return false
-    }
-    if lhs._details != rhs._details {
-        return false
-    }
-    if lhs.meta != rhs.meta {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.meta != rhs.meta {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -122,8 +91,7 @@ extension Anytype_Model_Search.Result: SwiftProtobuf.Message, SwiftProtobuf._Mes
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 

@@ -55,127 +55,69 @@ extension Anytype_Rpc.Account {
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-                  self = .gmt
-          case 1:
-                  self = .ect
-          case 2:
-                  self = .eet
-          case 3:
-                  self = .eat
-          case 4:
-                  self = .met
-          case 5:
-                  self = .net
-          case 6:
-                  self = .plt
-          case 7:
-                  self = .ist
-          case 8:
-                  self = .bst
-          case 9:
-                  self = .vst
-          case 10:
-                  self = .ctt
-          case 11:
-                  self = .jst
-          case 12:
-                  self = .act
-          case 13:
-                  self = .aet
-          case 14:
-                  self = .sst
-          case 15:
-                  self = .nst
-          case 16:
-                  self = .mit
-          case 17:
-                  self = .hst
-          case 18:
-                  self = .ast
-          case 19:
-                  self = .pst
-          case 20:
-                  self = .mst
-          case 21:
-                  self = .cst
-          case 22:
-                  self = .iet
-          case 23:
-                  self = .prt
-          case 24:
-                  self = .cnt
-          case 25:
-                  self = .bet
-          case 26:
-                  self = .brt
-          case 27:
-                  self = .cat
-          default:
-                  self = .UNRECOGNIZED(rawValue)
+          case 0: self = .gmt
+          case 1: self = .ect
+          case 2: self = .eet
+          case 3: self = .eat
+          case 4: self = .met
+          case 5: self = .net
+          case 6: self = .plt
+          case 7: self = .ist
+          case 8: self = .bst
+          case 9: self = .vst
+          case 10: self = .ctt
+          case 11: self = .jst
+          case 12: self = .act
+          case 13: self = .aet
+          case 14: self = .sst
+          case 15: self = .nst
+          case 16: self = .mit
+          case 17: self = .hst
+          case 18: self = .ast
+          case 19: self = .pst
+          case 20: self = .mst
+          case 21: self = .cst
+          case 22: self = .iet
+          case 23: self = .prt
+          case 24: self = .cnt
+          case 25: self = .bet
+          case 26: self = .brt
+          case 27: self = .cat
+          default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .gmt:
-                  return 0
-          case .ect:
-                  return 1
-          case .eet:
-                  return 2
-          case .eat:
-                  return 3
-          case .met:
-                  return 4
-          case .net:
-                  return 5
-          case .plt:
-                  return 6
-          case .ist:
-                  return 7
-          case .bst:
-                  return 8
-          case .vst:
-                  return 9
-          case .ctt:
-                  return 10
-          case .jst:
-                  return 11
-          case .act:
-                  return 12
-          case .aet:
-                  return 13
-          case .sst:
-                  return 14
-          case .nst:
-                  return 15
-          case .mit:
-                  return 16
-          case .hst:
-                  return 17
-          case .ast:
-                  return 18
-          case .pst:
-                  return 19
-          case .mst:
-                  return 20
-          case .cst:
-                  return 21
-          case .iet:
-                  return 22
-          case .prt:
-                  return 23
-          case .cnt:
-                  return 24
-          case .bet:
-                  return 25
-          case .brt:
-                  return 26
-          case .cat:
-                  return 27
-          case .UNRECOGNIZED(let i):
-                  return i
+          case .gmt: return 0
+          case .ect: return 1
+          case .eet: return 2
+          case .eat: return 3
+          case .met: return 4
+          case .net: return 5
+          case .plt: return 6
+          case .ist: return 7
+          case .bst: return 8
+          case .vst: return 9
+          case .ctt: return 10
+          case .jst: return 11
+          case .act: return 12
+          case .aet: return 13
+          case .sst: return 14
+          case .nst: return 15
+          case .mit: return 16
+          case .hst: return 17
+          case .ast: return 18
+          case .pst: return 19
+          case .mst: return 20
+          case .cst: return 21
+          case .iet: return 22
+          case .prt: return 23
+          case .cnt: return 24
+          case .bet: return 25
+          case .brt: return 26
+          case .cat: return 27
+          case .UNRECOGNIZED(let i): return i
           }
         }
 
@@ -190,8 +132,7 @@ extension Anytype_Rpc.Account {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public init() {
-            }
+        public init() {}
       }
 
       public struct Response {
@@ -200,21 +141,13 @@ extension Anytype_Rpc.Account {
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Account.ConfigUpdate.Response.Error {
-          get {
-                  return _error ?? Anytype_Rpc.Account.ConfigUpdate.Response.Error()
-              }
-          set {
-                  _error = newValue
-              }
+          get {return _error ?? Anytype_Rpc.Account.ConfigUpdate.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {
-                return self._error != nil
-            }
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {
-                self._error = nil
-            }
+        public mutating func clearError() {self._error = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -244,54 +177,38 @@ extension Anytype_Rpc.Account {
 
             public init?(rawValue: Int) {
               switch rawValue {
-              case 0:
-                      self = .null
-              case 1:
-                      self = .unknownError
-              case 2:
-                      self = .badInput
-              case 101:
-                      self = .accountIsNotRunning
-              case 102:
-                      self = .failedToWriteConfig
-              default:
-                      self = .UNRECOGNIZED(rawValue)
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 101: self = .accountIsNotRunning
+              case 102: self = .failedToWriteConfig
+              default: self = .UNRECOGNIZED(rawValue)
               }
             }
 
             public var rawValue: Int {
               switch self {
-              case .null:
-                      return 0
-              case .unknownError:
-                      return 1
-              case .badInput:
-                      return 2
-              case .accountIsNotRunning:
-                      return 101
-              case .failedToWriteConfig:
-                      return 102
-              case .UNRECOGNIZED(let i):
-                      return i
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .accountIsNotRunning: return 101
+              case .failedToWriteConfig: return 102
+              case .UNRECOGNIZED(let i): return i
               }
             }
 
           }
 
-          public init() {
-              }
+          public init() {}
         }
 
-        public init() {
-            }
+        public init() {}
 
         fileprivate var _error: Anytype_Rpc.Account.ConfigUpdate.Response.Error? = nil
       }
 
-      public init() {
-          }
-    }
-}
+      public init() {}
+    }    }
 
 extension Anytype_Rpc.Account.ConfigUpdate.Timezones: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -337,18 +254,12 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: CaseIterable {
     .failedToWriteConfig,
   ]
 }
-extension Anytype_Rpc.Account.ConfigUpdate: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.ConfigUpdate.Timezones: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.ConfigUpdate.Request: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.ConfigUpdate.Response: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: @unchecked Sendable {
-}
-extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: @unchecked Sendable {
-}
+extension Anytype_Rpc.Account.ConfigUpdate: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ConfigUpdate.Timezones: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ConfigUpdate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ConfigUpdate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: @unchecked Sendable {}
 
 extension Anytype_Rpc.Account.ConfigUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".ConfigUpdate"
@@ -364,9 +275,7 @@ extension Anytype_Rpc.Account.ConfigUpdate: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.ConfigUpdate, rhs: Anytype_Rpc.Account.ConfigUpdate) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -416,12 +325,8 @@ extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.ipfsstorageAddr)
-          }()
-      default:
-          break
+      case 2: try { try decoder.decodeSingularStringField(value: &self.ipfsstorageAddr) }()
+      default: break
       }
     }
   }
@@ -434,12 +339,8 @@ extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.ConfigUpdate.Request, rhs: Anytype_Rpc.Account.ConfigUpdate.Request) -> Bool {
-    if lhs.ipfsstorageAddr != rhs.ipfsstorageAddr {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.ipfsstorageAddr != rhs.ipfsstorageAddr {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -456,12 +357,8 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularMessageField(value: &self._error)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
       }
     }
   }
@@ -471,21 +368,15 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response: SwiftProtobuf.Message, Swif
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try {
-        if let v = self._error {
-              try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-            }
-    }()
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.ConfigUpdate.Response, rhs: Anytype_Rpc.Account.ConfigUpdate.Response) -> Bool {
-    if lhs._error != rhs._error {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -503,16 +394,9 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: SwiftProtobuf.Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1:
-          try {
-              try decoder.decodeSingularEnumField(value: &self.code)
-          }()
-      case 2:
-          try {
-              try decoder.decodeSingularStringField(value: &self.description_p)
-          }()
-      default:
-          break
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
       }
     }
   }
@@ -528,15 +412,9 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: SwiftProtobuf.Message
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.ConfigUpdate.Response.Error, rhs: Anytype_Rpc.Account.ConfigUpdate.Response.Error) -> Bool {
-    if lhs.code != rhs.code {
-        return false
-    }
-    if lhs.description_p != rhs.description_p {
-        return false
-    }
-    if lhs.unknownFields != rhs.unknownFields {
-        return false
-    }
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -557,8 +435,7 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: SwiftProtobuf._P
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
 fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {
-  }
+  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
   typealias Version = _2
 }
 
