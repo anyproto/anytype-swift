@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Notification {
+extension Anytype_Model_Notification {
 
   public enum OneOf_Payload: Equatable {
     case `import`(Anytype_Model_Notification.Import)

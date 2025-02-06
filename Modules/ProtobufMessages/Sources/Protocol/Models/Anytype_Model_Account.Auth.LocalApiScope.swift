@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Account.Auth {
+extension Anytype_Model_Account.Auth {
 
     public enum LocalApiScope: SwiftProtobuf.Enum {
       public typealias RawValue = Int

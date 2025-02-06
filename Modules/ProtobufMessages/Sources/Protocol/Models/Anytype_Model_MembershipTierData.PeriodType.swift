@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_MembershipTierData {
+extension Anytype_Model_MembershipTierData {
 
   public enum PeriodType: SwiftProtobuf.Enum {
     public typealias RawValue = Int

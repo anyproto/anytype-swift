@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Membership {
+extension Anytype_Model_Membership {
 
   public enum PaymentMethod: SwiftProtobuf.Enum {
     public typealias RawValue = Int

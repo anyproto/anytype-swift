@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_LinkPreview {
+extension Anytype_Model_LinkPreview {
 
   public enum TypeEnum: SwiftProtobuf.Enum {
     public typealias RawValue = Int

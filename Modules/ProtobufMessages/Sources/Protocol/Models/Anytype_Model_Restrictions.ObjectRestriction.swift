@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Restrictions {
+extension Anytype_Model_Restrictions {
 
   public enum ObjectRestriction: SwiftProtobuf.Enum {
     public typealias RawValue = Int

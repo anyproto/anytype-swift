@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Notification {
+extension Anytype_Model_Notification {
 
   public enum Status: SwiftProtobuf.Enum {
     public typealias RawValue = Int

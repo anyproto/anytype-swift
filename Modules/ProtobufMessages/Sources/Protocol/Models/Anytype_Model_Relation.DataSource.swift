@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Relation {
+extension Anytype_Model_Relation {
 
   public enum DataSource: SwiftProtobuf.Enum {
     public typealias RawValue = Int

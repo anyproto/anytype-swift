@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Export {
+extension Anytype_Model_Export {
 
   public enum Format: SwiftProtobuf.Enum {
     public typealias RawValue = Int

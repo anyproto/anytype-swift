@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_InternalFlag {
+extension Anytype_Model_InternalFlag {
 
   /// Use such a weird construction due to the issue with imported repeated enum type
   /// Look https://github.com/golang/protobuf/issues/1135 for more information.

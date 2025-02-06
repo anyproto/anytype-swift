@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Block {
+extension Anytype_Model_Block {
 
   public enum Align: SwiftProtobuf.Enum {
     public typealias RawValue = Int

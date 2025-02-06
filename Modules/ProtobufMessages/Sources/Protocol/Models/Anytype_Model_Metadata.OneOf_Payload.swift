@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Metadata {
+extension Anytype_Model_Metadata {
 
   public enum OneOf_Payload: Equatable {
     case identity(Anytype_Model_Metadata.Payload.IdentityPayload)

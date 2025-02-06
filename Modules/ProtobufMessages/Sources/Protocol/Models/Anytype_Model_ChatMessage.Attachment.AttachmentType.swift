@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_ChatMessage.Attachment {
+extension Anytype_Model_ChatMessage.Attachment {
 
     public enum AttachmentType: SwiftProtobuf.Enum {
       public typealias RawValue = Int

@@ -9,7 +9,7 @@
 
 import Foundation
 import SwiftProtobuf
-public extension Anytype_Model_Block {
+extension Anytype_Model_Block {
 
   public enum OneOf_Content: Equatable {
     case smartblock(Anytype_Model_Block.Content.Smartblock)
