@@ -1730,7 +1730,7 @@ internal enum Loc {
   }
   internal enum SpaceSettings {
     internal static let deleteButton = Loc.tr("Localizable", "SpaceSettings.DeleteButton", fallback: "Delete space")
-    internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space info")
+    internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space information")
     internal static let leaveButton = Loc.tr("Localizable", "SpaceSettings.LeaveButton", fallback: "Leave")
     internal static let networkId = Loc.tr("Localizable", "SpaceSettings.NetworkId", fallback: "Network ID")
     internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")

@@ -76,29 +76,28 @@ struct NewSpaceSettingsView: View {
     }
     
     private var header: some View {
-        TitleView(title: Loc.SpaceSettings.title)
-            .overlay(alignment: .trailing) {
-                Menu {
-                    Button(Loc.SpaceSettings.info) {
-                        model.onInfoTap()
+        TitleView(title: Loc.SpaceSettings.title) {
+            Menu {
+                Button(Loc.SpaceSettings.info) {
+                    model.onInfoTap()
+                }
+                
+                if model.allowDelete {
+                    Button(Loc.SpaceSettings.deleteButton, role: .destructive) {
+                        model.onDeleteTap()
                     }
-                    
-                    if model.allowDelete {
-                        Button(Loc.SpaceSettings.deleteButton, role: .destructive) {
-                            model.onDeleteTap()
-                        }
+                }
+                if model.allowLeave {
+                    Button(Loc.SpaceSettings.leaveButton, role: .destructive) {
+                        model.onLeaveTap()
                     }
-                    if model.allowLeave {
-                        Button(Loc.SpaceSettings.leaveButton, role: .destructive) {
-                            model.onLeaveTap()
-                        }
-                    }
-               } label: {
-                   Image(systemName: "ellipsis")
-                       .foregroundStyle(Color.Control.active)
-                       .padding()
-               }
+                }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .foregroundStyle(Color.Control.active)
+                    .padding()
             }
+        }
     }
     
     @ViewBuilder
