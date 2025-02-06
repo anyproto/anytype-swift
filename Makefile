@@ -12,12 +12,12 @@ change-github-token:
 	./Scripts/change-token.sh
 
 generate:
+	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
 	sourcery --config ./Modules/AnytypeCore/sourcery.yml
 	sourcery --config ./Anytype/GeneratorConfig/sourcery.yml
 	# We also have code generation in XCode Build phases for main target and widgets
-	make patch-commands-pb
 
 patch-commands-pb:
 	./Scripts/generate_response_extensions.sh ./Modules/ProtobufMessages/Sources/Protocol/commands.pb.swift
