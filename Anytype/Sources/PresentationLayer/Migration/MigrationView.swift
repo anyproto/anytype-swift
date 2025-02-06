@@ -5,6 +5,8 @@ struct MigrationView: View {
     @StateObject private var model: MigrationViewModel
     @Environment(\.dismiss) var dismiss
     
+    @State private var showPublicDebugMenu = false
+    
     init(data: MigrationModuleData) {
         _model = StateObject(wrappedValue: MigrationViewModel(data: data))
     }
@@ -18,6 +20,12 @@ struct MigrationView: View {
                 dismiss()
             }
             .padding(.horizontal, 20)
+            .onTapGesture(count: 5) {
+                showPublicDebugMenu.toggle()
+            }
+            .sheet(isPresented: $showPublicDebugMenu) {
+                PublicDebugMenuView()
+            }
     }
     
     @ViewBuilder
