@@ -1,8 +1,7 @@
 import Amplitude
 import Services
 
-
-actor AnytypeAnalyticsCore {
+final class AnytypeAnalytics: @unchecked Sendable {
 
     private enum Keys {
         static let interfaceLang = "interfaceLang"
@@ -13,7 +12,7 @@ actor AnytypeAnalyticsCore {
     private var isEnabled: Bool = true
     private var eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?
     
-    private static let anytypeAnalytics = AnytypeAnalyticsCore()
+    private static let anytypeAnalytics = AnytypeAnalytics()
 
     private var eventsConfiguration: [String: EventConfigurtion] = [:]
     private var lastEvents: String = ""
@@ -31,8 +30,8 @@ actor AnytypeAnalyticsCore {
         userProperties[Keys.interfaceLang] = Locale.current.language.languageCode?.identifier
     }
 
-    static func instance() -> AnytypeAnalyticsCore {
-        return AnytypeAnalyticsCore.anytypeAnalytics
+    static func instance() -> AnytypeAnalytics {
+        return AnytypeAnalytics.anytypeAnalytics
     }
 
     func setIsEnabled(_ isEnabled: Bool) {
@@ -63,7 +62,7 @@ actor AnytypeAnalyticsCore {
         userProperties[Keys.tier] = tier?.name
     }
     
-    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: @autoclosure () -> [AnyHashable : Any]?) async {
+    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: @autoclosure () -> [AnyHashable : Any]?) {
         var eventProperties = eventProperties() ?? [:]
         let participantSpaceView = participantSpacesStorage.participantSpaceView(spaceId: spaceId)
         
@@ -98,7 +97,7 @@ actor AnytypeAnalyticsCore {
         logEvent(eventType, withEventProperties: nil)
     }
     
-    func logEvent(_ eventType: String, spaceId: String) async {
-        await logEvent(eventType, spaceId: spaceId, withEventProperties: nil)
+    func logEvent(_ eventType: String, spaceId: String) {
+        logEvent(eventType, spaceId: spaceId, withEventProperties: nil)
     }
 }
