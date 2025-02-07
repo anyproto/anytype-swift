@@ -1609,6 +1609,7 @@ internal enum Loc {
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
     internal static let spaceType = Loc.tr("Localizable", "Settings.SpaceType", fallback: "Space type")
     internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
+    internal static let updated = Loc.tr("Localizable", "Settings.Updated", fallback: "Space information updated")
     internal static let vaultAndAccess = Loc.tr("Localizable", "Settings.VaultAndAccess", fallback: "Vault and access")
   }
   internal enum Sharing {

@@ -11,6 +11,7 @@ struct SpaceDetailsView: View {
     var body: some View {
         content
             .navigationBarHidden(true)
+            .snackbar(toastBarData: $model.toastBarData)
             .task { await model.setupSubscriptions() }
     }
     
