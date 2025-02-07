@@ -79,8 +79,9 @@ public extension FeatureDescription {
     
     static let objectTypeWidgets = FeatureDescription(
         title: "Object Type widgets",
-        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: false
+        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
     )
     
     static let openMediaFileInPreview = FeatureDescription(
