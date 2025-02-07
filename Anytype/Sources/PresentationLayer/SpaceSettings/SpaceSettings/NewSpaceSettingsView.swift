@@ -50,21 +50,22 @@ struct NewSpaceSettingsView: View {
                     
                     spaceSection
                     
-                    SectionHeaderView(title: Loc.settings)
-                    
-                    if model.allowRemoteStorage {
-                        SettingsSectionItemView(
-                            name: Loc.SpaceSettings.remoteStorage,
-                            imageAsset: .Settings.fileStorage,
-                            onTap: { model.onStorageTap() }
-                        )
-                    }
+                    SectionHeaderView(title: Loc.preferences)
                     
                     SettingsSectionItemView(
                         name: Loc.personalization,
                         imageAsset: .Settings.personalization,
                         onTap: { model.onPersonalizationTap() }
                     )
+                    
+                    if model.allowRemoteStorage {
+                        SectionHeaderView(title: Loc.Settings.dataManagement)
+                        SettingsSectionItemView(
+                            name: Loc.SpaceSettings.remoteStorage,
+                            imageAsset: .Settings.fileStorage,
+                            onTap: { model.onStorageTap() }
+                        )
+                    }
                 }
             }
             .padding(.horizontal, 20)
@@ -144,7 +145,7 @@ struct NewSpaceSettingsView: View {
     
     @ViewBuilder
     private var spaceSection: some View {
-        SectionHeaderView(title: Loc.Settings.spaceType)
+        SectionHeaderView(title: Loc.collaboration)
         
         switch model.shareSection {
         case .personal:
@@ -172,8 +173,8 @@ struct NewSpaceSettingsView: View {
             case .unshareable:
                 SettingsSectionItemView(
                     name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.share),
-                    onTap: { model.onShareTap() }
+                    decoration: .none,
+                    onTap: {  }
                 )
                 .disabled(true)
             case .shareable:

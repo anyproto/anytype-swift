@@ -73,6 +73,7 @@ internal enum Loc {
   internal static let close = Loc.tr("Localizable", "Close", fallback: "Close")
   internal static let codeBlockSubtitle = Loc.tr("Localizable", "Code block subtitle", fallback: "Capture code snippet")
   internal static let codeSnippet = Loc.tr("Localizable", "Code snippet", fallback: "Code snippet")
+  internal static let collaboration = Loc.tr("Localizable", "Collaboration", fallback: "Collaboration")
   internal static let collection = Loc.tr("Localizable", "Collection", fallback: "Collection")
   internal static let collectionOfObjects = Loc.tr("Localizable", "Collection of objects", fallback: "Collection of objects")
   internal static let collections = Loc.tr("Localizable", "Collections", fallback: "Collections")
@@ -278,6 +279,7 @@ internal enum Loc {
   internal static let pink = Loc.tr("Localizable", "Pink", fallback: "Pink")
   internal static let pinkBackground = Loc.tr("Localizable", "Pink background", fallback: "Pink background")
   internal static let pinned = Loc.tr("Localizable", "Pinned", fallback: "Pinned")
+  internal static let preferences = Loc.tr("Localizable", "Preferences", fallback: "Preferences")
   internal static let preview = Loc.tr("Localizable", "Preview", fallback: "Preview")
   internal static let previewLayout = Loc.tr("Localizable", "Preview layout", fallback: "Preview layout")
   internal static let profile = Loc.tr("Localizable", "Profile", fallback: "Profile")
@@ -1605,6 +1607,7 @@ internal enum Loc {
     }
   }
   internal enum Settings {
+    internal static let dataManagement = Loc.tr("Localizable", "Settings.DataManagement", fallback: "Data Management")
     internal static let editPicture = Loc.tr("Localizable", "Settings.Edit picture", fallback: "Edit picture")
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
     internal static let spaceType = Loc.tr("Localizable", "Settings.SpaceType", fallback: "Space type")
