@@ -6391,6 +6391,9 @@ public struct Anytype_Rpc {
 
         public var withChat: Bool = false
 
+        /// experimental flag to auto-create type widget if missing
+        public var createTypeWidgetIfMissing: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -45330,6 +45333,7 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
     4: .same(proto: "spaceId"),
     5: .same(proto: "objectTypeUniqueKey"),
     6: .same(proto: "withChat"),
+    7: .same(proto: "createTypeWidgetIfMissing"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -45344,6 +45348,7 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
       case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.withChat) }()
+      case 7: try { try decoder.decodeSingularBoolField(value: &self.createTypeWidgetIfMissing) }()
       default: break
       }
     }
@@ -45372,6 +45377,9 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
     if self.withChat != false {
       try visitor.visitSingularBoolField(value: self.withChat, fieldNumber: 6)
     }
+    if self.createTypeWidgetIfMissing != false {
+      try visitor.visitSingularBoolField(value: self.createTypeWidgetIfMissing, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -45382,6 +45390,7 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
     if lhs.withChat != rhs.withChat {return false}
+    if lhs.createTypeWidgetIfMissing != rhs.createTypeWidgetIfMissing {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
