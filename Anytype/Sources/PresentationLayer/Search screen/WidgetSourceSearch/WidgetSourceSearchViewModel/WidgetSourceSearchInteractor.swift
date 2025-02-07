@@ -32,8 +32,7 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     private let widgetObjectId: String
     private let anytypeLibrary = AnytypeWidgetId.availableWidgets.map { $0.librarySource }
     
-    private var widgetTypeIds: [String] = []
-    private var widgetTypeIdsUpdated = false
+    private var widgetTypeIds: [String]?
     
     init(spaceId: String, widgetObjectId: String) {
         self.spaceId = spaceId
@@ -45,7 +44,7 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     func objectSearch(text: String) async throws -> [ObjectDetails] {
         if FeatureFlags.objectTypeWidgets {
             
-            if !widgetTypeIdsUpdated {
+            if widgetTypeIds.isNil {
                 let widgetObject = documentsProvider.document(objectId: widgetObjectId, spaceId: spaceId, mode: .preview)
                 try await widgetObject.open()
                 let sourceIds = widgetObject.children
@@ -54,13 +53,12 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
                 widgetTypeIds = objectTypeProvider.objectTypes(spaceId: spaceId)
                     .filter { sourceIds.contains($0.id) }
                     .map { $0.id }
-                widgetTypeIdsUpdated = true
             }
             
             return try await searchService.searchObjectsWithLayouts(
                 text: text,
                 layouts: DetailsLayout.visibleLayouts + [.objectType],
-                excludedIds: widgetTypeIds,
+                excludedIds: widgetTypeIds ?? [],
                 spaceId: spaceId
             )
         } else {
