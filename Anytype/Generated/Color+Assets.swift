@@ -178,6 +178,14 @@ extension Color {
     
     // MARK: - Background
     enum Background {
+      
+      // MARK: - Chat
+      enum Chat {
+        internal static let bubbleSomeones = Color(asset: Asset.Background.Chat.bubbleSomeones)
+        internal static let bubbleYour = Color(asset: Asset.Background.Chat.bubbleYour)
+        internal static let replySomeones = Color(asset: Asset.Background.Chat.replySomeones)
+        internal static let replyYours = Color(asset: Asset.Background.Chat.replyYours)
+      }
       internal static let highlightedLight = Color(asset: Asset.Background.highlightedLight)
       internal static let highlightedMedium = Color(asset: Asset.Background.highlightedMedium)
       internal static let navigationPanel = Color(asset: Asset.Background.navigationPanel)

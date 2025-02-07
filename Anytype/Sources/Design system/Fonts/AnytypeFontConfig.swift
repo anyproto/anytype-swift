@@ -137,6 +137,14 @@ extension AnytypeFont {
                 lineHeight: 22,
                 kern: -0.24
             )
+        case .chatText:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 17,
+                weight: .regular,
+                lineHeight: 20,
+                kern: -0.41
+            )
         case .uxTitle1Semibold:
             return AnytypeFontConfig(
                 fontName: .inter,

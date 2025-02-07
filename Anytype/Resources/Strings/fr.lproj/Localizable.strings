@@ -642,6 +642,7 @@
 "Deleted" = "Supprimé";
 "Download" = "Télécharger";
 "Open object" = "Ouvrir l'objet";
+"Open as Object" = "Open as Object";
 "Open source" = "Ouvrir la source";
 "Into object" = "En objet";
 "Add below" = "Ajouter en dessous";
@@ -1283,7 +1284,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.Reply.Files" = "Fichiers (%@)";
 "Chat.SendLimitAlert.Title" = "Attendez ! Frappe turbo détectée !";
 "Chat.SendLimitAlert.Message" = "Il semble que vous envoyez des messages à la vitesse de la foudre. Attendez un instant avant le suivant.";
-"Chat.AttachmentsLimit.Alert" = "Vous ne pouvez télécharger que %@ fichiers à la fois";
+"Chat.AttachmentsLimit.Alert" = "Vous ne pouvez télécharger que %@ pièces jointes à la fois";
 "Chat.AttachedObject.Attach" = "Attacher";
 "Chat.CreateObject.Dismiss.Title" = "Êtes-vous sûr de vouloir fermer ce chat ?";
 "Chat.CreateObject.Dismiss.Message" = "Si vous le quittez, tous vos changements seront perdus.";

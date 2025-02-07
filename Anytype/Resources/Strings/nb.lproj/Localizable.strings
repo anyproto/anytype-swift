@@ -642,6 +642,7 @@
 "Deleted" = "Slettet";
 "Download" = "Last ned";
 "Open object" = "Åpne objekt";
+"Open as Object" = "Open as Object";
 "Open source" = "Åpne kilde";
 "Into object" = "Inn i objektet";
 "Add below" = "Legg til under";
@@ -1282,7 +1283,7 @@ Please provide specific details of your needs here.";
 "Chat.Reply.Files" = "Files (%@)";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Attach";
 "Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
 "Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";

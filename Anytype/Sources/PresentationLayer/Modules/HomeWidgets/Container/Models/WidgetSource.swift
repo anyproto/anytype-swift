@@ -38,7 +38,7 @@ extension WidgetSource {
 extension ObjectDetails {
     var availableWidgetLayout: [BlockWidget.Layout] {
         switch editorViewType {
-        case .page:
+        case .page, .bookmark:
            return [.tree, .link]
         case .list, .type:
             return [.view, .compactList, .list, .link]

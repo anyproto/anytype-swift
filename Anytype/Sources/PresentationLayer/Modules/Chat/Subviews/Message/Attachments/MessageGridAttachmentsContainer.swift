@@ -31,7 +31,9 @@ struct MessageGridAttachmentsContainer: View {
             ForEach(objects, id:\.self) { rowObjects in
                 HStack(spacing: spacing) {
                     ForEach(rowObjects, id:\.id) { object in
-                        Group {
+                        Button {
+                            onTapObject(object)
+                        } label: {
                             switch object.layoutValue {
                             case .video:
                                 MessageVideoView(details: object)
@@ -41,14 +43,11 @@ struct MessageGridAttachmentsContainer: View {
                         }
                         .frame(width: rowItemSize(rowItems: rowObjects.count), height: rowItemSize(rowItems: rowObjects.count))
                         .cornerRadius(4)
-                        .onTapGesture {
-                            onTapObject(object)
-                        }
                     }
                 }
             }
         }
-        .cornerRadius(16)
+        .cornerRadius(12)
     }
     
     private func rowItemSize(rowItems: Int) -> CGFloat? {

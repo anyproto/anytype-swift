@@ -6,6 +6,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let chatId: String
     let authorName: String
     let authorIcon: Icon
+    let authorId: String?
     let createDate: String
     let messageString: AttributedString
     let replyModel: MessageReplyModel?

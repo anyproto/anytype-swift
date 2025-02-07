@@ -69,8 +69,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 chatId: chatId,
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
+                authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
-                messageString: messageTextBuilder.makeMessage(content: message.message, isYourMessage: isYourMessage),
+                messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, isYourMessage: isYourMessage),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
@@ -179,7 +180,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             return MessageReplyModel(
                 author: replyAuthor?.title ?? "",
                 description: description,
-                icon: replyAttachment?.objectIconImage,
+                attachmentIcon: replyAttachment?.objectIconImage,
                 isYour: replyAuthor?.identity == yourProfileIdentity
             )
         }
@@ -191,6 +192,12 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         
         guard chatMessage.attachments.isNotEmpty else {
             return nil
+        }
+        
+        if fullMessage.attachments.count == 1,
+           let attachment = fullMessage.attachments.first,
+           attachment.layoutValue.isBookmark {
+            return .bookmark(attachment)
         }
         
         var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(details: $0) }

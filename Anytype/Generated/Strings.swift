@@ -236,6 +236,7 @@ internal enum Loc {
   internal static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
   internal static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
+  internal static let openAsObject = Loc.tr("Localizable", "Open as Object", fallback: "Open as Object")
   internal static let openFile = Loc.tr("Localizable", "Open file", fallback: "Open file")
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
   internal static let openSet = Loc.tr("Localizable", "Open Set", fallback: "Open Set")
@@ -657,7 +658,7 @@ internal enum Loc {
     }
     internal enum AttachmentsLimit {
       internal static func alert(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ files at a time")
+        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ attachments at a time")
       }
     }
     internal enum CreateObject {

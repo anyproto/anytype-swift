@@ -642,6 +642,7 @@
 "Deleted" = "Gelöscht";
 "Download" = "Herunterladen";
 "Open object" = "Objekt öffnen";
+"Open as Object" = "Als Objekt öffnen";
 "Open source" = "Quelle öffnen";
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
@@ -1283,7 +1284,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Reply.Files" = "Dateien (%@)";
 "Chat.SendLimitAlert.Title" = "Moment mal! Turbotippen erkannt!";
 "Chat.SendLimitAlert.Message" = "Sieht so aus, als würdest du Nachrichten in Windeseile verschicken. Warte noch eine Sekunde bis zur nächsten Nachricht.";
-"Chat.AttachmentsLimit.Alert" = "Du kannst nur %@ Dateien auf einmal hochladen";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Anhängen";
 "Chat.CreateObject.Dismiss.Title" = "Möchtest du diesen Bildschirm wirklich schließen?";
 "Chat.CreateObject.Dismiss.Message" = "Wenn du es verlässt, gehen alle deine Änderungen verloren.";

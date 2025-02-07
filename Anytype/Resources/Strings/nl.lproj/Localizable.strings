@@ -642,6 +642,7 @@
 "Deleted" = "Verwijderd";
 "Download" = "Downloaden";
 "Open object" = "Open object";
+"Open as Object" = "Open as Object";
 "Open source" = "Open bron";
 "Into object" = "Naar object";
 "Add below" = "Voeg toe hieronder";
@@ -1284,7 +1285,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.Reply.Files" = "Bestanden (%@)";
 "Chat.SendLimitAlert.Title" = "Wacht even! Turbo typen gedetecteerd!";
 "Chat.SendLimitAlert.Message" = "Het lijkt erop dat je berichten met lichtsnelheid verstuurt. Wacht even voor je volgende bericht.";
-"Chat.AttachmentsLimit.Alert" = "Je kunt slechts %@ bestanden tegelijk uploaden";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Attach";
 "Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
 "Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";

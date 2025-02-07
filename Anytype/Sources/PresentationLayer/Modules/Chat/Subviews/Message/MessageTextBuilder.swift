@@ -4,26 +4,30 @@ import AnytypeCore
 import DeepLinks
 
 protocol MessageTextBuilderProtocol: Sendable {
-    func makeMessage(content: ChatMessageContent, isYourMessage: Bool, font: AnytypeFont) -> AttributedString
+    func makeMessage(content: ChatMessageContent, spaceId: String, isYourMessage: Bool, font: AnytypeFont) -> AttributedString
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String
 }
 
 extension MessageTextBuilderProtocol {
-    func makeMessage(content: ChatMessageContent, isYourMessage: Bool) -> AttributedString {
-        makeMessage(content: content, isYourMessage: isYourMessage, font: .previewTitle1Regular)
+    func makeMessage(content: ChatMessageContent, spaceId: String, isYourMessage: Bool) -> AttributedString {
+        makeMessage(content: content, spaceId: spaceId, isYourMessage: isYourMessage, font: .chatText)
     }
 }
 
 struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     
     private let deepLinkParser: any DeepLinkParserProtocol = Container.shared.deepLinkParser()
-    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     
-    func makeMessage(content: ChatMessageContent, isYourMessage: Bool, font: AnytypeFont) -> AttributedString {
+    func makeMessage(content: ChatMessageContent, spaceId: String, isYourMessage: Bool, font: AnytypeFont) -> AttributedString {
         var message = AttributedString(content.text)
         
         message.font = AnytypeFontBuilder.font(anytypeFont: font)
-        message.foregroundColor = Color.Text.primary
+        message.kern = font.config.kern
+        var paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
+        message.paragraphStyle = paragraphStyle
+        
+        message.foregroundColor = isYourMessage ? Color.Text.white : Color.Text.primary
         
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)
@@ -50,7 +54,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
                 }
             case .object:
                 message[range].underlineStyle = .single
-                if let linkToObject = createLinkToObject(mark.param) {
+                if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
                     message[range].link = linkToObject
                 }
             case .textColor:
@@ -59,6 +63,9 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
                 message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.VeryLight.color(from: $0) }
             case .mention:
                 message[range].underlineStyle = .single
+                if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
+                    message[range].link = linkToObject
+                }
             case .emoji:
                 message.replaceSubrange(range, with: AttributedString(mark.param))
             case .UNRECOGNIZED(let int):
@@ -71,13 +78,10 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     }
     
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String {
-        NSAttributedString(makeMessage(content: content, isYourMessage: true)).string
+        NSAttributedString(makeMessage(content: content, spaceId: "", isYourMessage: true)).string
     }
     
-    private func createLinkToObject(_ objectId: String) -> URL? {
-        guard let spaceId = workspaceStorage.activeWorkspaces.first?.targetSpaceId else {
-            return nil
-        }
+    private func createLinkToObject(_ objectId: String, spaceId: String) -> URL? {
         return deepLinkParser.createUrl(
             deepLink: .object(objectId: objectId, spaceId: spaceId),
             scheme: .main

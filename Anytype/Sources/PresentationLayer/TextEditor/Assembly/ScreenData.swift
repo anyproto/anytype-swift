@@ -8,6 +8,7 @@ enum ScreenType {
     case type
     case participant
     case mediaFile
+    case bookmark
 }
 
 
@@ -15,7 +16,8 @@ enum ScreenData: Hashable, Identifiable {
     case editor(EditorScreenData)
     case alert(AlertScreenData)
     case preview(MediaFileScreenData)
-    
+    case bookmark(BookmarkScreenData)
+        
     var id: Int { hashValue }
 }
 
@@ -28,6 +30,8 @@ extension ScreenData {
             return alertScreenData.objectId
         case .preview:
             return nil
+        case .bookmark(let data):
+            return data.editorScreenData.objectId
         }
     }
     
@@ -39,6 +43,8 @@ extension ScreenData {
             alertScreenData.spaceId
         case .preview(let mediaFileScreenData):
             mediaFileScreenData.spaceId
+        case .bookmark(let data):
+            data.editorScreenData.spaceId
         }
     }
     
@@ -46,7 +52,7 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return editorScreenData
-        case .alert, .preview:
+        case .alert, .preview, .bookmark:
             return nil
         }
     }
@@ -55,7 +61,7 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return FeatureFlags.objectTypeWidgets ? editorScreenData.isSimpleSet : false
-        case .alert, .preview:
+        case .alert, .preview, .bookmark:
             return false
         }
     }

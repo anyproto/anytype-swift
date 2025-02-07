@@ -12,7 +12,7 @@ final class DebugMenuViewModel: ObservableObject {
     @Published var shareUrlFile: URL?
     @Published var showZipPicker = false
     @Published private(set) var flags = [FeatureFlagSection]()
-    
+    @Published var pushToken: StringIdentifiable?
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
     
     @Injected(\.userDefaultsStorage)
@@ -30,6 +30,8 @@ final class DebugMenuViewModel: ObservableObject {
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
+    @Injected(\.pushNotificationService)
+    private var pushNotificationService: any PushNotificationServiceProtocol
     
     var shouldRunDebugProfilerOnNextStartup: Bool {
         get {
@@ -109,6 +111,14 @@ final class DebugMenuViewModel: ObservableObject {
     
     func debugStat() async throws {
         shareUrlFile = try await debugService.debugStat()
+    }
+    
+    func getNotificationToken() {
+        pushNotificationService.requestAccess()
+        Task {
+            try await Task.sleep(seconds: 5)
+            pushToken = pushNotificationService.token()?.identifiable
+        }
     }
     
     // MARK: - Private

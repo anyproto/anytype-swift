@@ -162,6 +162,12 @@ internal enum Asset {
 
   // MARK: - DesignSystem
   internal enum Background {
+    internal enum Chat {
+      static let bubbleSomeones = ColorAsset(name: "Background/Chat/bubbleSomeones")
+      static let bubbleYour = ColorAsset(name: "Background/Chat/bubbleYour")
+      static let replySomeones = ColorAsset(name: "Background/Chat/replySomeones")
+      static let replyYours = ColorAsset(name: "Background/Chat/replyYours")
+    }
     static let highlightedLight = ColorAsset(name: "Background/highlightedLight")
     static let highlightedMedium = ColorAsset(name: "Background/highlightedMedium")
     static let navigationPanel = ColorAsset(name: "Background/navigationPanel")

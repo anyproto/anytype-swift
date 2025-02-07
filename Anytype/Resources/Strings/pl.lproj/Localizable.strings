@@ -642,6 +642,7 @@
 "Deleted" = "Usunięto";
 "Download" = "Pobierz";
 "Open object" = "Otwórz obiekt";
+"Open as Object" = "Open as Object";
 "Open source" = "Otwórz źródło";
 "Into object" = "Do obiektu";
 "Add below" = "Dodaj poniżej";
@@ -1282,7 +1283,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Chat.Reply.Files" = "Files (%@)";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Attach";
 "Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
 "Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";

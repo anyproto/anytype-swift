@@ -643,6 +643,7 @@
 "Deleted" = "已刪除";
 "Download" = "已下載";
 "Open object" = "開啟物件";
+"Open as Object" = "Open as Object";
 "Open source" = "開源";
 "Into object" = "轉為物件";
 "Add below" = "在下方添加";
@@ -1286,7 +1287,7 @@
 "Chat.Reply.Files" = "Files (%@)";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Attach";
 "Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
 "Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";

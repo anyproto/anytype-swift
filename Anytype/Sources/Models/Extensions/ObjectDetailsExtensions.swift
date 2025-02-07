@@ -38,7 +38,7 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: ScreenType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .UNRECOGNIZED, .relation,
+        case .basic, .profile, .todo, .note, .space, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag, .chat, .chatDerived:
             return .page
         case .set, .collection:
@@ -51,6 +51,8 @@ extension BundledRelationsValueProvider {
             return FeatureFlags.memberProfile ? .participant : .page
         case .image, .video, .audio, .file, .pdf:
             return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
+        case .bookmark:
+            return FeatureFlags.openBookmarkAsLink ? .bookmark : .page
         }
     }
     

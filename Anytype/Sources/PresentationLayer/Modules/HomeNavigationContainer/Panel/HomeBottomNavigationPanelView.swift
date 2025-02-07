@@ -83,13 +83,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         
         leftButton
         
-        Button {
-            model.onTapSearch()
-        } label: {
-            Image(asset: .X32.Island.search)
-                .navPanelDynamicForegroundStyle()
-        }
-        
         Image(asset: .X32.Island.addObject)
             .onTapGesture {
                 model.onTapNewObject()
@@ -102,6 +95,13 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
             )
             .disabled(!model.canCreateObject)
+        
+        Button {
+            model.onTapSearch()
+        } label: {
+            Image(asset: .X32.Island.search)
+                .navPanelDynamicForegroundStyle()
+        }
     }
     
     @ViewBuilder
@@ -127,22 +127,29 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 Image(asset: .X32.Island.members)
                     .navPanelDynamicForegroundStyle()
             }
-        case .owner(let disable):
+        case .owner(let enable):
             Button {
                 model.onTapShare()
             } label: {
                 Image(asset: .X32.Island.addMember)
                     .navPanelDynamicForegroundStyle()
             }
-            .disabled(disable)
-        case .chat(let disable):
+            .disabled(!enable)
+        case .chat(let enable):
             Button {
                 model.onTapAddToSpaceLevelChat()
             } label: {
                 Image(asset: .X32.Island.discuss)
                     .navPanelDynamicForegroundStyle()
             }
-            .disabled(disable)
+            .disabled(!enable)
+        case .home:
+            Button {
+                model.onTapHome()
+            } label: {
+                Image(asset: .X32.Island.vault)
+                    .navPanelDynamicForegroundStyle()
+            }
         case .none:
             EmptyView()
         }
