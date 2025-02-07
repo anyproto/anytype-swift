@@ -23,24 +23,46 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     private var searchService: any SearchServiceProtocol
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: any DocumentsProviderProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
+    
     private let spaceId: String
+    private let widgetObjectId: String
     private let anytypeLibrary = AnytypeWidgetId.availableWidgets.map { $0.librarySource }
     
-    init(spaceId: String) {
+    private var widgetTypeIds: [String]?
+    
+    init(spaceId: String, widgetObjectId: String) {
         self.spaceId = spaceId
+        self.widgetObjectId = widgetObjectId
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol
     
     func objectSearch(text: String) async throws -> [ObjectDetails] {
         if FeatureFlags.objectTypeWidgets {
-            try await searchService.searchObjectsWithLayouts(
+            
+            if widgetTypeIds.isNil {
+                let widgetObject = documentsProvider.document(objectId: widgetObjectId, spaceId: spaceId, mode: .preview)
+                try await widgetObject.open()
+                let sourceIds = widgetObject.children
+                    .filter(\.isWidget)
+                    .compactMap { widgetObject.targetObjectIdByLinkFor(widgetBlockId: $0.id) }
+                widgetTypeIds = objectTypeProvider.objectTypes(spaceId: spaceId)
+                    .filter { sourceIds.contains($0.id) }
+                    .map { $0.id }
+            }
+            
+            return try await searchService.searchObjectsWithLayouts(
                 text: text,
                 layouts: DetailsLayout.visibleLayouts + [.objectType],
+                excludedIds: widgetTypeIds ?? [],
                 spaceId: spaceId
             )
         } else {
-            try await searchService.search(text: text, spaceId: spaceId)
+            return try await searchService.search(text: text, spaceId: spaceId)
         }
     }
     

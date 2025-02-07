@@ -16,7 +16,8 @@ struct WidgetChangeSourceSearchView: View {
                  itemCreationMode: .unavailable,
                  internalViewModel: WidgetSourceSearchViewModel(
                      interactor: WidgetSourceSearchInteractor(
-                        spaceId: data.spaceId
+                        spaceId: data.spaceId,
+                        widgetObjectId: data.widgetObjectId
                      ),
                      internalModel: WidgetSourceSearchChangeInternalViewModel(
                         widgetObjectId: data.widgetObjectId,
