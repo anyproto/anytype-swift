@@ -63,6 +63,7 @@
 
 // MARK: - Settings
 "Settings.SpaceName" = "Space name";
+"Settings.Edit picture" = "Edit picture";
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";

@@ -41,7 +41,6 @@ struct NewSpaceSettingsView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            DragIndicator()
             header
             
             ScrollView(showsIndicators: false) {
@@ -73,7 +72,18 @@ struct NewSpaceSettingsView: View {
     }
     
     private var header: some View {
-        TitleView(title: Loc.SpaceSettings.title) {
+        NavigationHeaderContainer(spacing: 20, leftView: {
+            Button {
+                dismiss()
+            } label: {
+                IconView(asset: .X24.close)
+                    .foregroundStyle(Color.Control.active)
+                    .frame(width: 24, height: 24)
+                    .padding()
+            }
+        }, titleView: {
+            EmptyView()
+        }, rightView: {
             Menu {
                 Button(Loc.SpaceSettings.info) {
                     model.onInfoTap()
@@ -90,11 +100,12 @@ struct NewSpaceSettingsView: View {
                     }
                 }
             } label: {
-                Image(systemName: "ellipsis")
+                IconView(asset: .X24.more)
                     .foregroundStyle(Color.Control.active)
+                    .frame(width: 24, height: 24)
                     .padding()
             }
-        }
+        })
     }
     
     private var spaceDetailsButton: some View {
