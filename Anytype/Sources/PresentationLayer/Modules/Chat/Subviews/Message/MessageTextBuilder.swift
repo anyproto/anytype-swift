@@ -10,7 +10,7 @@ protocol MessageTextBuilderProtocol: Sendable {
 
 extension MessageTextBuilderProtocol {
     func makeMessage(content: ChatMessageContent, spaceId: String, isYourMessage: Bool) -> AttributedString {
-        makeMessage(content: content, spaceId: spaceId, isYourMessage: isYourMessage, font: .previewTitle1Regular)
+        makeMessage(content: content, spaceId: spaceId, isYourMessage: isYourMessage, font: .chatText)
     }
 }
 
@@ -22,6 +22,11 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         var message = AttributedString(content.text)
         
         message.font = AnytypeFontBuilder.font(anytypeFont: font)
+        message.kern = font.config.kern
+        var paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
+        message.paragraphStyle = paragraphStyle
+        
         message.foregroundColor = isYourMessage ? Color.Text.white : Color.Text.primary
         
         for mark in content.marks.reversed() {
