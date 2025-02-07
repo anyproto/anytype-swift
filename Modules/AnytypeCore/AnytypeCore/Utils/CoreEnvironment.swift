@@ -1,4 +1,5 @@
 import Foundation
+import AppTarget
 
 // Configurations problem.
 // SPM allow only two configurations: debug and release.
@@ -20,12 +21,13 @@ import Foundation
 // Check it in feature XCode versions. Maybe it will be fixed.
 
 // Temporary solution - setup environment from main target.
+// In the main target, always use #if. This way, the compiler will cut out unused code.
 public enum CoreEnvironment {
     
-    private static let isDebugStorage = AtomicStorage(false)
-    public static var isDebug: Bool  {
-        get { isDebugStorage.value }
-        set { isDebugStorage.value = newValue }
+    private static let targetTypeStorage = AtomicStorage(AppTargetType.debug)
+    public static var targetType: AppTargetType  {
+        get { targetTypeStorage.value }
+        set { targetTypeStorage.value = newValue }
     }
     
     public static var isSimulator: Bool {

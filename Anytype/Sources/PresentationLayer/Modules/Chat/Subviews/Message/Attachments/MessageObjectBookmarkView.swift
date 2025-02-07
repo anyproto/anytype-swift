@@ -16,8 +16,9 @@ struct MessageObjectBookmarkView: View {
         )
         .frame(height: 64)
         .frame(minWidth: 231)
-        .background(Color.Background.secondary)
-        .cornerRadius(18, style: .continuous)
+        .background(Color.Background.primary)
+        .cornerRadius(12, style: .continuous)
+        .border(12, color: Color.Shape.transperentSecondary)
     }
 }
 

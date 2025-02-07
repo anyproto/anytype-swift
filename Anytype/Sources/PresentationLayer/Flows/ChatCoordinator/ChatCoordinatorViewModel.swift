@@ -14,7 +14,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     let chatId: String
     var spaceId: String { info.accountSpaceId }
     
-    @Published var objectToMessageSearchData: BlockObjectSearchData?
+    @Published var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
     @Published var showEmojiData: MessageReactionPickerData?
     @Published var showSyncStatusInfo = false
     @Published var objectIconPickerData: ObjectIconPickerData?
@@ -26,6 +26,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var safariUrl: URL?
     @Published var cameraData: SimpleCameraData?
     @Published var showSpaceSettingsData: AccountInfo?
+    @Published var newLinkedObject: EditorScreenData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -33,15 +34,15 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     var pageNavigation: PageNavigation?
     
-    @Injected(\.legacyNavigationContext)
-    private var navigationContext: any NavigationContextProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     init(data: ChatCoordinatorData) {
         self.chatId = data.chatId
         self.info = data.spaceInfo
     }
     
-    func onLinkObjectSelected(data: BlockObjectSearchData) {
+    func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {
         objectToMessageSearchData = data
     }
     
@@ -59,13 +60,6 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func onObjectSelected(screenData: ScreenData) {
         pageNavigation?.open(screenData)
-    }
-    
-    func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem]) {
-        let previewController = AnytypePreviewController(with: items, initialPreviewItemIndex: startAtIndex)
-        navigationContext.present(previewController) { [weak previewController] in
-            previewController?.didFinishTransition = true
-        }
     }
     
     func onUrlSelected(url: URL) {
@@ -98,5 +92,21 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func onWidgetsSelected() {
         pageNavigation?.pushHome()
+    }
+    
+    func didSelectCreateObject(type: ObjectType) {
+        Task {
+            let object = try await objectActionsService.createObject(
+                name: "",
+                typeUniqueKey: type.uniqueKey,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: false,
+                spaceId: spaceId,
+                origin: .none,
+                templateId: type.defaultTemplateId
+            )
+            newLinkedObject = object.screenData(usecase: .embedded).editorScreenData
+        }
     }
 }

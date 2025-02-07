@@ -257,6 +257,10 @@ extension UIColor.Background {
     static let collectionInfo = ColorCollectionInfo(
         name: "Background",
         colors: .builder {
+            ColorInfo(name: "bubbleSomeones", color: UIColor.Background.Chat.bubbleSomeones)
+            ColorInfo(name: "bubbleYour", color: UIColor.Background.Chat.bubbleYour)
+            ColorInfo(name: "replySomeones", color: UIColor.Background.Chat.replySomeones)
+            ColorInfo(name: "replyYours", color: UIColor.Background.Chat.replyYours)
             ColorInfo(name: "highlightedLight", color: UIColor.Background.highlightedLight)
             ColorInfo(name: "highlightedMedium", color: UIColor.Background.highlightedMedium)
             ColorInfo(name: "navigationPanel", color: UIColor.Background.navigationPanel)

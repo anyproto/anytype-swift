@@ -30,41 +30,18 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let versionHistory = FeatureDescription(
-        title: "Version History - IOS-3058",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: true
-    )
-    
     static let allContent = FeatureDescription(
         title: "All content",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: true
-    )
-    
-    static let userWarningAlerts = FeatureDescription(
-        title: "User warning alerts",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: true
-    )
-    
-    static let dateAsAnObject = FeatureDescription(
-        title: "Date as an object",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
-        defaultValue: true
-    )
-    
-    static let relativeDates = FeatureDescription(
-        title: "Turn on relative date for mentions / relations / widgets and so on (exept Date object inside)",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "8"),
-        defaultValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        defaultValue: false, // improve Global search instead of it
+        debugValue: false
     )
     
     static let homeSpaceLevelChat = FeatureDescription(
         title: "Space-Level Chat",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
     )
     
     static let pinnedSpaces = FeatureDescription(
@@ -88,16 +65,35 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let fullScreenMediaFileByTap = FeatureDescription(
-        title: "Open media / files in fullscreen mode in Chats",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
     static let memberProfile = FeatureDescription(
         title: "Space member profile",
         type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
+        defaultValue: true
+    )
+    
+    static let allContentWidgets = FeatureDescription(
+        title: "All content widgets",
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: false
+    )
+    
+    static let openMediaFileInPreview = FeatureDescription(
+        title: "Open all media files in preview",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let openBookmarkAsLink = FeatureDescription(
+        title: "Open bookmark as link",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let newSettings = FeatureDescription(
+        title: "New settings",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
         defaultValue: true
     )
     

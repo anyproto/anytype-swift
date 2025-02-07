@@ -144,6 +144,7 @@
 "Relations" = "Relaties";
 "History" = "Geschiedenis";
 "Objects" = "Objecten";
+"All" = "Alles";
 "Pages" = "Pagina's";
 "Lists" = "Lijsten";
 "Bookmarks" = "Bladwijzers";
@@ -641,6 +642,7 @@
 "Deleted" = "Verwijderd";
 "Download" = "Downloaden";
 "Open object" = "Open object";
+"Open as Object" = "Open as Object";
 "Open source" = "Open bron";
 "Into object" = "Naar object";
 "Add below" = "Voeg toe hieronder";
@@ -1271,17 +1273,25 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.Reactions.Empty.Title" = "Nog geen reacties";
 "Chat.Reactions.Empty.Subtitle" = "Waarschijnlijk heeft iemand zojuist de reactie verwijderd of was er een technisch probleem";
 "Chat.EditMessage" = "Bewerk bericht";
-"Chat.Actions.Menu.Objects" = "Selecteer bestaand object";
-"Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload bestand";
-"Chat.Actions.Menu.Camera" = "Neem vanaf camera";
+"Chat.Actions.Menu.Pages" = "Pagina's";
+"Chat.Actions.Menu.Lists" = "Lijsten";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "Bestanden";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "Meer";
 "Chat.Participant.Badge" = "(Jij)";
 "Chat.Reply.Images" = "Afbeeldingen (%@)";
 "Chat.Reply.Attachments" = "Bijlagen (%@)";
 "Chat.Reply.Files" = "Bestanden (%@)";
 "Chat.SendLimitAlert.Title" = "Wacht even! Turbo typen gedetecteerd!";
 "Chat.SendLimitAlert.Message" = "Het lijkt erop dat je berichten met lichtsnelheid verstuurt. Wacht even voor je volgende bericht.";
-"Chat.AttachmentsLimit.Alert" = "Je kunt slechts %@ bestanden tegelijk uploaden";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";
@@ -1296,3 +1306,9 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
 // MARK: - Fields
 "Fields.menu" = "Velden menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";

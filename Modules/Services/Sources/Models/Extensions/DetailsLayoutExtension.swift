@@ -9,14 +9,13 @@ public extension DetailsLayout {
     static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
     static let fileAndMediaLayouts = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
     
-    static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant] + dateLayout
+    static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant, .date]
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
     
     private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + fileLayout
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-    private static let dateLayout: [DetailsLayout] = FeatureFlags.dateAsAnObject ? [.date] : []
     private static let fileLayout: [DetailsLayout] = FeatureFlags.primitives ? [.objectType] : []
 }
 

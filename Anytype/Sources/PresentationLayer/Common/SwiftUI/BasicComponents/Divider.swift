@@ -17,10 +17,11 @@ extension View {
     func newDivider(
         leadingPadding: CGFloat = 0,
         trailingPadding: CGFloat = 0,
-        color: Color? = nil
+        color: Color? = nil,
+        alignment: VerticalAlignment = .bottom
     ) -> some View {
         modifier(
-            NewDividerModifier(leadingPadding: leadingPadding, trailingPadding: trailingPadding, color: color)
+            NewDividerModifier(leadingPadding: leadingPadding, trailingPadding: trailingPadding, color: color, alignment: alignment)
         )
     }
 }
@@ -85,6 +86,7 @@ struct NewDividerModifier: ViewModifier {
     let leadingPadding: CGFloat
     let trailingPadding: CGFloat
     let color: Color?
+    let alignment: VerticalAlignment
     
     func body(content: Content) -> some View {
         content
@@ -92,7 +94,7 @@ struct NewDividerModifier: ViewModifier {
                 AnytypeDivider(color: color)
                     .padding(.leading, leadingPadding)
                     .padding(.trailing, trailingPadding),
-                alignment: .bottom
+                alignment: Alignment(horizontal: .center, vertical: alignment)
             )
     }
 }

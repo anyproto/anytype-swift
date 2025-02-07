@@ -178,6 +178,14 @@ extension UIColor {
     
     // MARK: - Background
     enum Background {
+      
+      // MARK: - Chat
+      enum Chat {
+        internal static let bubbleSomeones = UIColor(asset: Asset.Background.Chat.bubbleSomeones)
+        internal static let bubbleYour = UIColor(asset: Asset.Background.Chat.bubbleYour)
+        internal static let replySomeones = UIColor(asset: Asset.Background.Chat.replySomeones)
+        internal static let replyYours = UIColor(asset: Asset.Background.Chat.replyYours)
+      }
       internal static let highlightedLight = UIColor(asset: Asset.Background.highlightedLight)
       internal static let highlightedMedium = UIColor(asset: Asset.Background.highlightedMedium)
       internal static let navigationPanel = UIColor(asset: Asset.Background.navigationPanel)

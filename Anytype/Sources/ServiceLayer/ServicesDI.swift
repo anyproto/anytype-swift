@@ -5,6 +5,7 @@ import SharedContentManager
 import DeepLinks
 import AnytypeCore
 @_exported import Factory
+import AppTarget
 
 extension Container {
         
@@ -229,7 +230,7 @@ extension Container {
     }
     
     var deepLinkParser: Factory<any DeepLinkParserProtocol> {
-        self { DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug) }
+        self { DeepLinkDI.shared.parser(targetType: CoreEnvironment.targetType) }
     }
     
     var universalLinkParser: Factory<any UniversalLinkParserProtocol> {
@@ -359,5 +360,13 @@ extension Container {
     
     var profileStorage: Factory<any ProfileStorageProtocol> {
         self { ProfileStorage() }.singleton
+    }
+    
+    var pushNotificationService: Factory<any PushNotificationServiceProtocol> {
+        self { PushNotificationService() }.singleton
+    }
+    
+    var iconColorService: Factory<any IconColorServiceProtocol> {
+        self { IconColorService() }.shared
     }
 }

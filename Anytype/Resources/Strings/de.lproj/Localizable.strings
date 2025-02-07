@@ -144,6 +144,7 @@
 "Relations" = "Verknüpfungen";
 "History" = "Verlauf";
 "Objects" = "Objekte";
+"All" = "Alle";
 "Pages" = "Seiten";
 "Lists" = "Gruppen";
 "Bookmarks" = "Lesezeichen";
@@ -208,8 +209,8 @@
 "Lets Go" = "Los geht’s";
 "My spaces" = "My Spaces";
 "Open file" = "Datei öffnen";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Set öffnen";
+"Create Set" = "Set erstellen";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Profil bearbeiten";
 
@@ -641,6 +642,7 @@
 "Deleted" = "Gelöscht";
 "Download" = "Herunterladen";
 "Open object" = "Objekt öffnen";
+"Open as Object" = "Als Objekt öffnen";
 "Open source" = "Quelle öffnen";
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
@@ -700,7 +702,7 @@
 "My First Space" = "Mein erster Space";
 "Copy space info" = "Spaceinformationen kopieren";
 "Save" = "Speichern";
-"Set of" = "Set of %@";
+"Set of" = "Set von %@";
 "New set" = "Neues Set";
 "Show" = "Zeigen";
 "Hide" = "Verstecken";
@@ -1270,17 +1272,25 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Reactions.Empty.Title" = "Noch keine Reaktionen";
 "Chat.Reactions.Empty.Subtitle" = "Wahrscheinlich hat jemand gerade die Reaktion entfernt oder es ist ein technisches Problem aufgetreten";
 "Chat.EditMessage" = "Nachricht bearbeiten";
-"Chat.Actions.Menu.Objects" = "Bestehendes Objekt auswählen";
-"Chat.Actions.Menu.Media" = "Medien hochladen";
-"Chat.Actions.Menu.Files" = "Datei hochladen";
-"Chat.Actions.Menu.Camera" = "Von der Kamera nehmen";
+"Chat.Actions.Menu.Pages" = "Seiten";
+"Chat.Actions.Menu.Lists" = "Gruppen";
+"Chat.Actions.Menu.Photos" = "Fotos";
+"Chat.Actions.Menu.Files" = "Dateien";
+"Chat.Actions.Menu.Camera" = "Kamera";
+"Chat.Actions.Menu.More" = "Mehr";
 "Chat.Participant.Badge" = "(Du)";
 "Chat.Reply.Images" = "Bilder (%@)";
 "Chat.Reply.Attachments" = "Anhänge (%@)";
 "Chat.Reply.Files" = "Dateien (%@)";
 "Chat.SendLimitAlert.Title" = "Moment mal! Turbotippen erkannt!";
 "Chat.SendLimitAlert.Message" = "Sieht so aus, als würdest du Nachrichten in Windeseile verschicken. Warte noch eine Sekunde bis zur nächsten Nachricht.";
-"Chat.AttachmentsLimit.Alert" = "Du kannst nur %@ Dateien auf einmal hochladen";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachedObject.Attach" = "Anhängen";
+"Chat.CreateObject.Dismiss.Title" = "Möchtest du diesen Bildschirm wirklich schließen?";
+"Chat.CreateObject.Dismiss.Message" = "Wenn du es verlässt, gehen alle deine Änderungen verloren.";
+"Chat.CreateObject.Dismiss.Ok" = "Ja, schließen";
+"Chat.Attach.Page.title" = "Seite anhängen";
+"Chat.Attach.List.title" = "Liste anhängen";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";
@@ -1295,3 +1305,9 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 
 // MARK: - Fields
 "Fields.menu" = "Fields menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Neue Seite";
+"ObjectSearchWithMeta.Create.Note" = "Neue Notiz";
+"ObjectSearchWithMeta.Create.Set" = "Neues Set";
+"ObjectSearchWithMeta.Create.Collection" = "Neue Sammlung";

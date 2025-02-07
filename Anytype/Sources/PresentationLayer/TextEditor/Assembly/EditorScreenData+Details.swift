@@ -35,8 +35,8 @@ extension EditorListObject {
 }
 
 extension ObjectDetails {
-    func screenData() -> ScreenData {
-        ScreenData(details: self)
+    func screenData(openBookmarkAsObject: Bool = false, usecase: ObjectHeaderEmptyUsecase = .full) -> ScreenData {
+        ScreenData(details: self, openBookmarkAsObject: openBookmarkAsObject, usecase: usecase)
     }
 }
 
@@ -46,7 +46,7 @@ extension EditorScreenData {
    
     var objectId: String? {
         switch self {
-        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .allContent, .date:
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .allContent, .date, .pages, .lists, .media, .bookmarks, .files:
             return nil
         case .page(let object):
             return object.objectId
@@ -70,6 +70,16 @@ extension EditorScreenData {
         case .collections(let spaceId):
             return spaceId
         case .bin(let spaceId):
+            return spaceId
+        case .pages(let spaceId):
+            return spaceId
+        case .lists(let spaceId):
+            return spaceId
+        case .media(let spaceId):
+            return spaceId
+        case .bookmarks(let spaceId):
+            return spaceId
+        case .files(let spaceId):
             return spaceId
         case .allContent(let spaceId):
             return spaceId

@@ -26,9 +26,9 @@ extension WidgetSource {
             return objectDetails.availableWidgetLayout
         case .library(let library):
             switch library {
-            case .favorite, .recent, .recentOpen:
+            case .favorite, .recent, .recentOpen, .pages:
                 return [.compactList, .list, .tree]
-            case .sets, .collections:
+            case .sets, .collections, .lists, .media, .bookmarks, .files:
                 return [.compactList, .list]
             }
         }
@@ -38,13 +38,13 @@ extension WidgetSource {
 extension ObjectDetails {
     var availableWidgetLayout: [BlockWidget.Layout] {
         switch editorViewType {
-        case .page:
+        case .page, .bookmark:
            return [.tree, .link]
         case .list:
             return [.view, .compactList, .list, .link]
         case .date:
             return [.link]
-        case .type, .participant:
+        case .type, .participant, .mediaFile:
             return []
         }
     }

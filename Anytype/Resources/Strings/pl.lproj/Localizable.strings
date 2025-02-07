@@ -144,6 +144,7 @@
 "Relations" = "Relacje";
 "History" = "Historia";
 "Objects" = "Obiekty";
+"All" = "Wszystkie";
 "Pages" = "Pages";
 "Lists" = "Listy";
 "Bookmarks" = "Bookmarks";
@@ -641,6 +642,7 @@
 "Deleted" = "Usunięto";
 "Download" = "Pobierz";
 "Open object" = "Otwórz obiekt";
+"Open as Object" = "Open as Object";
 "Open source" = "Otwórz źródło";
 "Into object" = "Do obiektu";
 "Add below" = "Dodaj poniżej";
@@ -1269,17 +1271,25 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Chat.Reactions.Empty.Title" = "No reactions yet";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 "Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Objects" = "Select existing object";
-"Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload file";
-"Chat.Actions.Menu.Camera" = "Take from camera";
+"Chat.Actions.Menu.Pages" = "Pages";
+"Chat.Actions.Menu.Lists" = "Listy";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "Pliki";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "Więcej";
 "Chat.Participant.Badge" = "(You)";
 "Chat.Reply.Images" = "Images (%@)";
 "Chat.Reply.Attachments" = "Attachments (%@)";
 "Chat.Reply.Files" = "Files (%@)";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
@@ -1294,3 +1304,9 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 
 // MARK: - Fields
 "Fields.menu" = "Fields menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";

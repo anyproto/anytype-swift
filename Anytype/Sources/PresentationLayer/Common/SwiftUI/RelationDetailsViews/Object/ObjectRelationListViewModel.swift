@@ -40,7 +40,11 @@ final class ObjectRelationListViewModel: ObservableObject {
         }
     }
     
-    func onObjectOpen(_ option: ObjectRelationOption) {
+    func onOpenAsObject(_ option: ObjectRelationOption) {
+        output?.onObjectOpen(screenData: option.objectScreenData)
+    }
+    
+    func onOpen(_ option: ObjectRelationOption) {
         output?.onObjectOpen(screenData: option.screenData)
     }
     
@@ -78,7 +82,7 @@ final class ObjectRelationListViewModel: ObservableObject {
                 closeIfNeeded()
             }
         } else {
-            onObjectOpen(option)
+            onOpen(option)
         }
     }
     

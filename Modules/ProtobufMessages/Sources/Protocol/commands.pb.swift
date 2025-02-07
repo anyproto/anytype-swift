@@ -56,7 +56,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -77,7 +77,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -177,7 +178,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -193,7 +194,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -263,7 +265,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -279,7 +281,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -363,7 +366,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -379,7 +382,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -469,7 +473,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -485,7 +489,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -569,7 +574,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -589,7 +594,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -676,7 +682,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -692,7 +698,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -776,7 +783,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -796,7 +803,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -871,7 +879,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -887,7 +895,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -976,7 +985,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1000,7 +1009,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1088,7 +1098,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1104,7 +1114,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1200,7 +1211,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1216,7 +1227,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1310,7 +1322,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1326,7 +1338,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1421,7 +1434,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1437,7 +1450,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1529,7 +1543,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1545,7 +1559,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1637,7 +1652,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1653,7 +1668,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1746,7 +1762,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1764,7 +1780,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1854,7 +1871,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1870,7 +1887,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -1942,7 +1960,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -1958,7 +1976,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -2045,7 +2064,7 @@ public struct Anytype_Rpc {
 
       ///*
       /// Middleware-to-front-end response, that can contain mnemonic of a created account and a NULL error or an empty mnemonic and a non-NULL error
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -2064,7 +2083,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -2155,7 +2175,7 @@ public struct Anytype_Rpc {
 
       ///*
       /// Middleware-to-front-end response, that can contain a NULL error or a non-NULL error
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -2172,7 +2192,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -2257,7 +2278,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -2278,7 +2299,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -2400,7 +2422,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -2424,7 +2446,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -2501,7 +2524,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -2517,7 +2540,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -2723,7 +2747,7 @@ public struct Anytype_Rpc {
 
       ///*
       /// Middleware-to-front-end response for an account creation request, that can contain a NULL error and created account or a non-NULL error and an empty account
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -2760,7 +2784,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -2870,7 +2895,7 @@ public struct Anytype_Rpc {
 
       ///*
       /// Middleware-to-front-end response to an account recover request, that can contain a NULL error and created account or a non-NULL error and an empty account
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -2887,7 +2912,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -2964,7 +2990,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -2990,7 +3016,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -3071,7 +3098,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3097,7 +3124,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -3204,7 +3232,7 @@ public struct Anytype_Rpc {
 
       ///*
       /// Middleware-to-front-end response for an account select request, that can contain a NULL error and selected account or a non-NULL error and an empty account
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3241,7 +3269,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -3364,7 +3393,7 @@ public struct Anytype_Rpc {
 
       ///*
       /// Middleware-to-front-end response for an account stop request
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3381,7 +3410,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -3470,7 +3500,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3486,7 +3516,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -3682,7 +3713,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3698,7 +3729,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -3811,7 +3843,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3831,7 +3863,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -3904,7 +3937,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3920,7 +3953,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -3996,7 +4030,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -4012,7 +4046,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4089,7 +4124,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -4105,7 +4140,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4202,7 +4238,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4220,7 +4256,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -4302,7 +4339,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4324,7 +4361,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -4419,7 +4457,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -4437,7 +4475,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4509,7 +4548,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -4527,7 +4566,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4617,7 +4657,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -4635,7 +4675,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4712,7 +4753,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -4737,7 +4778,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4818,7 +4860,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4845,7 +4887,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -4922,7 +4965,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -4940,7 +4983,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -5014,7 +5058,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -5032,7 +5076,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -5120,7 +5165,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -5136,7 +5181,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -5210,7 +5256,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -5226,7 +5272,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -5303,7 +5350,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -5330,7 +5377,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -5490,7 +5538,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -5508,7 +5556,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -5591,7 +5640,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -5607,7 +5656,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -5685,7 +5735,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -5703,7 +5753,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -5778,7 +5829,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -5803,7 +5854,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -5881,7 +5933,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -5906,7 +5958,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6006,7 +6059,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6031,7 +6084,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6123,7 +6177,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6139,7 +6193,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6224,7 +6279,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6249,7 +6304,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6353,7 +6409,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6389,7 +6445,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6478,7 +6535,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6505,7 +6562,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6591,7 +6649,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6620,7 +6678,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6704,7 +6763,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6731,7 +6790,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6825,7 +6885,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6861,7 +6921,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -6951,7 +7012,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -6978,7 +7039,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7072,7 +7134,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7101,7 +7163,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7176,7 +7239,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7194,7 +7257,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7270,7 +7334,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7286,7 +7350,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7362,7 +7427,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7380,7 +7445,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7454,7 +7520,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7473,7 +7539,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7550,7 +7617,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7589,7 +7656,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7666,7 +7734,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7691,7 +7759,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7766,7 +7835,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7784,7 +7853,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7875,7 +7945,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -7893,7 +7963,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -7992,7 +8063,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8010,7 +8081,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -8151,7 +8223,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8171,7 +8243,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -8278,7 +8351,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8309,7 +8382,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -8403,7 +8477,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8434,7 +8508,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -8509,7 +8584,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8525,7 +8600,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -8609,7 +8685,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8629,7 +8705,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -8716,7 +8793,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8738,7 +8815,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -8812,7 +8890,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8828,7 +8906,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -8902,7 +8981,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -8927,7 +9006,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9004,7 +9084,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9029,7 +9109,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9106,7 +9187,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9122,7 +9203,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9198,7 +9280,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9223,7 +9305,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9298,7 +9381,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9325,7 +9408,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9400,7 +9484,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9425,7 +9509,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9500,7 +9585,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9525,7 +9610,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9600,7 +9686,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9625,7 +9711,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9702,7 +9789,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9718,7 +9805,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9792,7 +9880,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9808,7 +9896,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -9898,7 +9987,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -9943,7 +10032,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10024,7 +10114,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10069,7 +10159,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10149,7 +10240,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10167,7 +10258,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10243,7 +10335,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10268,7 +10360,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10345,7 +10438,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10361,7 +10454,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10437,7 +10531,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10453,7 +10547,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10529,7 +10624,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10554,7 +10649,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10629,7 +10725,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10654,7 +10750,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10774,7 +10871,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10790,7 +10887,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -10865,7 +10963,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -10881,7 +10979,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -11023,7 +11122,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -11052,7 +11151,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -11456,7 +11556,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -11479,7 +11579,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -11573,7 +11674,7 @@ public struct Anytype_Rpc {
             public init() {}
           }
 
-          public struct Response {
+          public struct Response: ResultWithError {
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -11589,7 +11690,8 @@ public struct Anytype_Rpc {
 
             public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-            public struct Error {
+            public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
               // SwiftProtobuf.Message conformance is added in an extension below. See the
               // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
               // methods supported on all messages.
@@ -11680,7 +11782,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -11698,7 +11800,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -11852,7 +11955,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -11877,7 +11980,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -11956,7 +12060,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -11981,7 +12085,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12059,7 +12164,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12084,7 +12189,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12171,7 +12277,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12196,7 +12302,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12271,7 +12378,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12296,7 +12403,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12371,7 +12479,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12396,7 +12504,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12481,7 +12590,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12506,7 +12615,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12581,7 +12691,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12606,7 +12716,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12679,7 +12790,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12697,7 +12808,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12773,7 +12885,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12798,7 +12910,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12875,7 +12988,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -12900,7 +13013,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -12994,7 +13108,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13012,7 +13126,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -13091,7 +13206,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13107,7 +13222,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -13199,7 +13315,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -13215,7 +13331,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13290,7 +13407,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -13315,7 +13432,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13399,7 +13517,7 @@ public struct Anytype_Rpc {
         fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -13431,7 +13549,8 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13544,7 +13663,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -13562,7 +13681,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13641,7 +13761,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -13680,7 +13800,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13756,7 +13877,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -13772,7 +13893,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13852,7 +13974,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -13879,7 +14001,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -13962,7 +14085,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -13978,7 +14101,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14052,7 +14176,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -14070,7 +14194,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14147,7 +14272,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -14167,7 +14292,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14248,7 +14374,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -14268,7 +14394,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14372,7 +14499,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -14399,7 +14526,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14475,7 +14603,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -14493,7 +14621,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14573,7 +14702,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -14598,7 +14727,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14673,7 +14803,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -14720,7 +14850,8 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14793,7 +14924,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -14860,7 +14991,8 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -14986,7 +15118,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15004,7 +15136,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -15082,7 +15215,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15107,7 +15240,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -15193,7 +15327,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15212,7 +15346,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -15289,7 +15424,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15308,7 +15443,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -15383,7 +15519,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15410,7 +15546,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -15488,7 +15625,7 @@ public struct Anytype_Rpc {
       public init() {}
     }
 
-    public struct Response {
+    public struct Response: ResultWithError {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -15513,7 +15650,8 @@ public struct Anytype_Rpc {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public struct Error {
+      public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15597,7 +15735,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15633,7 +15771,8 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -15714,7 +15853,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15732,7 +15871,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -15819,7 +15959,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15844,7 +15984,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -15915,7 +16056,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -15935,7 +16076,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -16053,7 +16195,7 @@ public struct Anytype_Rpc {
         fileprivate var _block: Anytype_Model_Block? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -16080,7 +16222,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -16214,7 +16357,7 @@ public struct Anytype_Rpc {
         fileprivate var _range: Anytype_Model_Range? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -16241,7 +16384,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -16320,7 +16464,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -16345,7 +16489,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -16433,7 +16578,7 @@ public struct Anytype_Rpc {
         fileprivate var _selectedTextRange: Anytype_Model_Range? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -16455,7 +16600,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -16572,7 +16718,7 @@ public struct Anytype_Rpc {
         fileprivate var _selectedTextRange: Anytype_Model_Range? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -16603,7 +16749,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -16691,7 +16838,7 @@ public struct Anytype_Rpc {
         fileprivate var _selectedTextRange: Anytype_Model_Range? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -16722,7 +16869,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -16805,7 +16953,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -16830,7 +16978,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -16907,7 +17056,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -16932,7 +17081,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -17039,7 +17189,7 @@ public struct Anytype_Rpc {
         fileprivate var _block: Anytype_Model_Block? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -17066,7 +17216,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -17164,7 +17315,7 @@ public struct Anytype_Rpc {
         fileprivate var _block: Anytype_Model_Block? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -17191,7 +17342,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -17272,7 +17424,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -17297,7 +17449,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -17385,7 +17538,7 @@ public struct Anytype_Rpc {
         fileprivate var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -17410,7 +17563,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -17490,7 +17644,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -17515,7 +17669,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -17595,7 +17750,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -17620,7 +17775,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -17720,7 +17876,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -17745,7 +17901,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -17833,7 +17990,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -17860,7 +18017,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18135,7 +18293,7 @@ public struct Anytype_Rpc {
         fileprivate var _block: Anytype_Model_Block? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -18162,7 +18320,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18247,7 +18406,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -18272,7 +18431,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18367,7 +18527,7 @@ public struct Anytype_Rpc {
         fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -18394,7 +18554,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18473,7 +18634,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -18498,7 +18659,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18577,7 +18739,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -18602,7 +18764,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18679,7 +18842,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -18706,7 +18869,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18794,7 +18958,7 @@ public struct Anytype_Rpc {
         fileprivate var _range: Anytype_Model_Range? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -18810,7 +18974,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18884,7 +19049,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -18902,7 +19067,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -18990,7 +19156,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -19015,7 +19181,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19094,7 +19261,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -19119,7 +19286,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19229,7 +19397,7 @@ public struct Anytype_Rpc {
         fileprivate var _selectedTextRange: Anytype_Model_Range? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -19254,7 +19422,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19333,7 +19502,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -19358,7 +19527,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19455,7 +19625,7 @@ public struct Anytype_Rpc {
           fileprivate var _range: Anytype_Model_Range? = nil
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19480,7 +19650,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -19562,7 +19733,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -19587,7 +19758,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19666,7 +19838,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -19691,7 +19863,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19773,7 +19946,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -19798,7 +19971,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19877,7 +20051,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -19902,7 +20076,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -19981,7 +20156,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20006,7 +20181,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20094,7 +20270,7 @@ public struct Anytype_Rpc {
         fileprivate var _mark: Anytype_Model_Block.Content.Text.Mark? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20119,7 +20295,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20196,7 +20373,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20221,7 +20398,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20298,7 +20476,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20323,7 +20501,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20420,7 +20599,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20447,7 +20626,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20528,7 +20708,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20553,7 +20733,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20633,7 +20814,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20658,7 +20839,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20736,7 +20918,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20761,7 +20943,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20839,7 +21022,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20864,7 +21047,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -20942,7 +21126,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -20967,7 +21151,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21048,7 +21233,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21073,7 +21258,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21152,7 +21338,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21177,7 +21363,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21256,7 +21443,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21281,7 +21468,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21362,7 +21550,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21387,7 +21575,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21470,7 +21659,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21495,7 +21684,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21578,7 +21768,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21605,7 +21795,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21689,7 +21880,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21714,7 +21905,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21794,7 +21986,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21819,7 +22011,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -21908,7 +22101,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -21933,7 +22126,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22012,7 +22206,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22037,7 +22231,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22124,7 +22319,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22151,7 +22346,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22228,7 +22424,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22253,7 +22449,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22342,7 +22539,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22358,7 +22555,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22436,7 +22634,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22452,7 +22650,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22540,7 +22739,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22556,7 +22755,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22634,7 +22834,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22650,7 +22850,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22782,7 +22983,7 @@ public struct Anytype_Rpc {
         fileprivate var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22820,7 +23021,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -22906,7 +23108,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -22931,7 +23133,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23020,7 +23223,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -23045,7 +23248,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23122,7 +23326,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -23147,7 +23351,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23234,7 +23439,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -23259,7 +23464,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23338,7 +23544,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -23365,7 +23571,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23452,7 +23659,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -23477,7 +23684,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23594,7 +23802,7 @@ public struct Anytype_Rpc {
           fileprivate var _storage = _StorageClass.defaultInstance
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23621,7 +23829,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -23722,7 +23931,7 @@ public struct Anytype_Rpc {
           fileprivate var _storage = _StorageClass.defaultInstance
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23747,7 +23956,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -23829,7 +24039,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23854,7 +24064,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -23939,7 +24150,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -23964,7 +24175,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -24046,7 +24258,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -24071,7 +24283,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -24159,7 +24372,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -24184,7 +24397,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -24262,7 +24476,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -24287,7 +24501,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -24367,7 +24582,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -24392,7 +24607,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -24485,7 +24701,7 @@ public struct Anytype_Rpc {
           fileprivate var _groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder? = nil
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -24510,7 +24726,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -24597,7 +24814,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -24622,7 +24839,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -24705,7 +24923,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -24730,7 +24948,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -24810,7 +25029,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -24841,7 +25060,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -24922,7 +25142,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -24940,7 +25160,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25038,7 +25259,7 @@ public struct Anytype_Rpc {
           fileprivate var _filter: Anytype_Model_Block.Content.Dataview.Filter? = nil
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25063,7 +25284,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -25144,7 +25366,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25169,7 +25391,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -25261,7 +25484,7 @@ public struct Anytype_Rpc {
           fileprivate var _filter: Anytype_Model_Block.Content.Dataview.Filter? = nil
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25286,7 +25509,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -25368,7 +25592,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25393,7 +25617,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -25493,7 +25718,7 @@ public struct Anytype_Rpc {
           fileprivate var _sort: Anytype_Model_Block.Content.Dataview.Sort? = nil
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25518,7 +25743,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -25599,7 +25825,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25624,7 +25850,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -25716,7 +25943,7 @@ public struct Anytype_Rpc {
           fileprivate var _sort: Anytype_Model_Block.Content.Dataview.Sort? = nil
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25741,7 +25968,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -25823,7 +26051,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25848,7 +26076,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -25948,7 +26177,7 @@ public struct Anytype_Rpc {
           fileprivate var _relation: Anytype_Model_Block.Content.Dataview.Relation? = nil
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -25973,7 +26202,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -26054,7 +26284,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -26079,7 +26309,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -26171,7 +26402,7 @@ public struct Anytype_Rpc {
           fileprivate var _relation: Anytype_Model_Block.Content.Dataview.Relation? = nil
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -26196,7 +26427,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -26278,7 +26510,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -26303,7 +26535,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -26393,7 +26626,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -26418,7 +26651,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -26495,7 +26729,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -26520,7 +26754,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -26597,7 +26832,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -26622,7 +26857,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -26699,7 +26935,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -26724,7 +26960,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -26819,7 +27056,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -26837,7 +27074,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -26911,7 +27149,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -26938,7 +27176,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27021,7 +27260,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27039,7 +27278,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27113,7 +27353,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27133,7 +27373,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27207,7 +27448,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27223,7 +27464,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27303,7 +27545,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27330,7 +27572,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27403,7 +27646,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27421,7 +27664,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27491,7 +27735,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27509,7 +27753,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27581,7 +27826,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27599,7 +27844,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27672,7 +27918,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27690,7 +27936,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27763,7 +28010,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27781,7 +28028,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27858,7 +28106,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -27876,7 +28124,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -27978,7 +28227,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28025,7 +28274,8 @@ public struct Anytype_Rpc {
           fileprivate var _change: SwiftProtobuf.Google_Protobuf_Struct? = nil
         }
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28097,7 +28347,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28115,7 +28365,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28209,7 +28460,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28225,7 +28476,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28351,7 +28603,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28367,7 +28619,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28449,7 +28702,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28465,7 +28718,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28535,7 +28789,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28551,7 +28805,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28621,7 +28876,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28637,7 +28892,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28709,7 +28965,8 @@ public struct Anytype_Rpc {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    public struct Error {
+    public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -28789,7 +29046,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28807,7 +29064,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28884,7 +29142,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28900,7 +29158,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -28973,7 +29232,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -28998,7 +29257,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -29094,7 +29354,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -29119,7 +29379,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -29217,7 +29478,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -29233,7 +29494,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -29363,7 +29625,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -29386,7 +29648,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -29493,7 +29756,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -29511,7 +29774,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -29599,7 +29863,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -29615,7 +29879,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -29709,7 +29974,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -29727,7 +29992,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -29818,7 +30084,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -29834,7 +30100,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -29936,7 +30203,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -29952,7 +30219,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30058,7 +30326,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -30076,7 +30344,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30161,7 +30430,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -30177,7 +30446,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30279,7 +30549,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -30315,7 +30585,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30390,7 +30661,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -30413,7 +30684,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30488,7 +30760,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -30511,7 +30783,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30591,7 +30864,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30620,7 +30893,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -30714,7 +30988,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -30739,7 +31013,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30827,7 +31102,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -30843,7 +31118,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -30913,7 +31189,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -30931,7 +31207,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31010,7 +31287,7 @@ public struct Anytype_Rpc {
           public init() {}
         }
 
-        public struct Response {
+        public struct Response: ResultWithError {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31026,7 +31303,8 @@ public struct Anytype_Rpc {
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
+          public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
             // SwiftProtobuf.Message conformance is added in an extension below. See the
             // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
             // methods supported on all messages.
@@ -31125,7 +31403,7 @@ public struct Anytype_Rpc {
         fileprivate var _message: Anytype_Model_ChatMessage? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -31152,7 +31430,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31240,7 +31519,7 @@ public struct Anytype_Rpc {
         fileprivate var _editedMessage: Anytype_Model_ChatMessage? = nil
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -31256,7 +31535,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31334,7 +31614,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -31350,7 +31630,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31426,7 +31707,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -31442,7 +31723,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31524,7 +31806,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -31542,7 +31824,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31618,7 +31901,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -31636,7 +31919,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31714,7 +31998,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -31736,7 +32020,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -31811,7 +32096,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      public struct Response {
+      public struct Response: ResultWithError {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -31827,7 +32112,8 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Error {
+        public struct Error: ResponseError {
+          public var isNull: Bool { code == .null && description_p.isEmpty }
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
