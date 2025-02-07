@@ -3,38 +3,36 @@ import Services
 import AnytypeCore
 import ProtobufMessages
 
-
-@MainActor
-protocol SyncStatusStorageProtocol {
+protocol SyncStatusStorageProtocol: Sendable {
     func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never>
     
-    func startSubscription()
-    func stopSubscriptionAndClean()
+    func startSubscription() async
+    func stopSubscriptionAndClean() async
 }
 
-@MainActor
-final class SyncStatusStorage: SyncStatusStorageProtocol {
-    @Published private var storage = [String: SyncStatusInfo]()
+actor SyncStatusStorage: SyncStatusStorageProtocol, Sendable {
+    
+    private let storage = AtomicPublishedStorage([String: SyncStatusInfo]())
     private var subscription: AnyCancellable?
     
-    nonisolated init() { }
+    init() { }
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never> {
-        $storage
+    nonisolated func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never> {
+        storage.publisher
             .compactMap { $0[spaceId] }
             .eraseToAnyPublisher()
     }
     
-    func startSubscription() {
+    func startSubscription() async {
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
             await self?.handle(events: events)
         }
     }
     
-    func stopSubscriptionAndClean() {
+    func stopSubscriptionAndClean() async {
         anytypeAssert(subscription.isNotNil, "Nil subscription in SyncStatusStorage")
         subscription = nil
-        storage = [:]
+        storage.value = [:]
     }
     
     // MARK: - Private
@@ -43,7 +41,7 @@ final class SyncStatusStorage: SyncStatusStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .spaceSyncStatusUpdate(let update):
-                storage[update.id] = update
+                storage.value[update.id] = update
             default:
                 break
             }
