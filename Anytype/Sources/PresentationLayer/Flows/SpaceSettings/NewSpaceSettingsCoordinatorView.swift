@@ -12,7 +12,7 @@ struct NewSpaceSettingsCoordinatorView: View {
     }
     
     var body: some View {
-        NewSpaceSettingsView(workspaceInfo: model.workspaceInfo, output: model)
+        navigation
         .sheet(isPresented: $model.showRemoteStorage) {
             RemoteStorageView(spaceId: model.accountSpaceId, output: model)
                 .sheet(isPresented: $model.showFiles) {
@@ -45,6 +45,18 @@ struct NewSpaceSettingsCoordinatorView: View {
         }
         .onChange(of: model.dismiss) { _ in
             dismiss()
+        }
+    }
+    
+    private var navigation: some View {
+        NavigationStack(path: $model.path) {
+            NewSpaceSettingsView(workspaceInfo: model.workspaceInfo, output: model)
+                .navigationDestination(for: SpaceSettingsNavigationItem.self) { item in
+                    switch item {
+                    case .spaceDetails:
+                        SpaceDetailsView(info: model.workspaceInfo, output: model)
+                    }
+                }
         }
     }
 }

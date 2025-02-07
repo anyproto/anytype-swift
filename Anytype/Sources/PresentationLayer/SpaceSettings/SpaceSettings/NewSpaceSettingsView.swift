@@ -100,7 +100,7 @@ struct NewSpaceSettingsView: View {
     
     private var spaceDetailsButton: some View {
         Button {
-            // TBD;
+            model.onSpaceDetailsTap()
         } label: {
             HStack(spacing: 0) {
                 if let icon = model.spaceIcon {
@@ -113,7 +113,7 @@ struct NewSpaceSettingsView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText(model.spaceDisplayName, style: .bodySemibold)
                     Spacer.fixedHeight(2)
-                    AnytypeText(model.spaceDescription, style: .uxTitle2Regular)
+                    AnytypeText(model.spaceDisplayDescription, style: .uxTitle2Regular)
                         .foregroundColor(.Text.secondary)
                 }
                 
@@ -123,7 +123,6 @@ struct NewSpaceSettingsView: View {
                 
                 if model.allowEditSpace {
                     IconView(asset: .X24.Arrow.right)
-                        .foregroundStyle(Color.Text.tertiary)
                         .frame(width: 24, height: 24)
                 }
             }
