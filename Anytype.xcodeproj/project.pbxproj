@@ -300,6 +300,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/LaunchScreen.storyboard,
+				"GoogleService-Info.plist",
 			);
 			target = 0303ECFA22D8EDAA005C552B /* Anytype */;
 		};
