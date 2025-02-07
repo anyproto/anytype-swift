@@ -372,6 +372,7 @@ internal enum Loc {
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block", fallback: "Unsupported block")
   internal static let unsupportedDeeplink = Loc.tr("Localizable", "Unsupported deeplink", fallback: "Unsupported deeplink")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value", fallback: "Unsupported value")
+  internal static let untitled = Loc.tr("Localizable", "Untitled", fallback: "Untitled")
   internal static let upgrade = Loc.tr("Localizable", "Upgrade", fallback: "Upgrade")
   internal static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio", fallback: "Upload playable audio")
@@ -593,9 +594,6 @@ internal enum Loc {
     }
   }
   internal enum BlockText {
-    internal enum Content {
-      internal static let placeholder = Loc.tr("Localizable", "BlockText.Content.Placeholder", fallback: "Untitled")
-    }
     internal enum ContentType {
       internal enum Bulleted {
         internal static let placeholder = Loc.tr("Localizable", "BlockText.ContentType.Bulleted.Placeholder", fallback: "Bulleted list item")

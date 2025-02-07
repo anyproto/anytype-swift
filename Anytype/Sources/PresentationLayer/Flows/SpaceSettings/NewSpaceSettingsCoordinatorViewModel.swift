@@ -4,6 +4,10 @@ import Combine
 import AnytypeCore
 import Services
 
+enum SpaceSettingsNavigationItem {
+    case spaceDetails
+}
+
 @MainActor
 final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
@@ -11,6 +15,8 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSetting
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
+    
+    @Published var path = NavigationPath()
     
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false
@@ -30,6 +36,10 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSetting
     }
     
     // MARK: - SpaceSettingsModuleOutput
+    
+    func onSpaceDetailsSelected() {
+        path.append(SpaceSettingsNavigationItem.spaceDetails)
+    }
     
     func onChangeIconSelected() {
         showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
