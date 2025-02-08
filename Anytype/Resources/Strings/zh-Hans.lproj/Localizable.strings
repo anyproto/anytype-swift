@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "链接";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "无标题";
 
-"BlockText.ContentType.Title.Placeholder" = "无标题";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "添加描述";
 "BlockText.ContentType.Toggle.Placeholder" = "切换块";
 "BlockText.ContentType.Bulleted.Placeholder" = "项目符号列表项";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "空间名称";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "无标题";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "已删除的对象";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
 
+"Untitled" = "Untitled";
 "None" = "无";
 "Callout" = "标注";
 "Toggle empty. Tap to create block." = "切换为空。点击以创建块。";
@@ -281,7 +281,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "设置昵称";
 "Auth.JoinFlow.Soul.Description" = "只有被您分享的用户可以查看。这里没有中心化的管理员。";
-"Auth.JoinFlow.Soul.Placeholder" = "无标题";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "进入我的文库";
 
 "Auth.JoinFlow.Vault.Title" = "这是您的文库";
@@ -483,7 +483,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ 天后";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "无标题";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "查询";
@@ -790,7 +790,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "生成副本";
 "SetViewTypesPicker.Settings.Delete.View" = "删除视图";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "新建视图";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "无标题";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "暂不支持";
@@ -932,7 +932,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "空间设置";
 "SpaceSettings.RemoteStorage" = "远程存储";
-"SpaceSettings.Info" = "空间信息";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "网络 ID";
 "SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
