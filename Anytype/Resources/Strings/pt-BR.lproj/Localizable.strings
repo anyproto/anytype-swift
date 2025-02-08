@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Link";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Sem título";
 
-"BlockText.ContentType.Title.Placeholder" = "Sem título";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Adicionar uma descrição";
 "BlockText.ContentType.Toggle.Placeholder" = "Alternar bloco";
 "BlockText.ContentType.Bulleted.Placeholder" = "Item da lista com marcadores";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Nome do espaço";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Sem título";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Objeto excluído";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
 
+"Untitled" = "Untitled";
 "None" = "Nenhum";
 "Callout" = "Chamada";
 "Toggle empty. Tap to create block." = "Clique vazio. Toque para criar um bloco.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Digite seu nome";
 "Auth.JoinFlow.Soul.Description" = "Somente visto por pessoas com quem você compartilha algo. Não há registro central com esses nomes.";
-"Auth.JoinFlow.Soul.Placeholder" = "Sem título";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "Este é o seu cofre";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dias a partir de agora";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Sem título";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Consulta";
@@ -789,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicar";
 "SetViewTypesPicker.Settings.Delete.View" = "Remover exibição";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nova Exibição";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Incompatível";
@@ -932,7 +932,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Configurações do espaço";
 "SpaceSettings.RemoteStorage" = "Armazenamento remoto";
-"SpaceSettings.Info" = "Informações do Espaço";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "ID da rede";
 "SpaceSettings.DeleteAlert.Title" = "Excluir o espaço ‘%@’";
 "SpaceSettings.DeleteAlert.Message" = "Este espaço será excluído irrevogavelmente. Você não pode desfazer esta ação.";
