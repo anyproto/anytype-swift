@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Tautan";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Nirjudul";
 
-"BlockText.ContentType.Title.Placeholder" = "Nirjudul";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Tambahkan deskripsi";
 "BlockText.ContentType.Toggle.Placeholder" = "Balok bukaan";
 "BlockText.ContentType.Bulleted.Placeholder" = "Daftar bertitik";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Nama Ruang";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Nirjudul";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Objek terhapus";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
 
+"Untitled" = "Untitled";
 "None" = "Tidak ada";
 "Callout" = "Berbingkai";
 "Toggle empty. Tap to create block." = "Bukaan kosong. Sentuh untuk membuat balok.";
@@ -281,7 +281,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Siapa namamu?";
 "Auth.JoinFlow.Soul.Description" = "Hanya dapat dilihat oleh orang yang saling berbagi denganmu. Nama ini tidak disimpan secara sentral.";
-"Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "Ini Brankasmu";
@@ -483,7 +483,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ hari dari sekarang";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Nirjudul";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Pertanyaan";
@@ -790,7 +790,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Gandakan";
 "SetViewTypesPicker.Settings.Delete.View" = "Hapus tampilan";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Tampilan baru";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Nirjudul";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Tidak didukung";
@@ -932,7 +932,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
 "SpaceSettings.RemoteStorage" = "Penyimpanan jarak jauh";
-"SpaceSettings.Info" = "Info ruang";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "ID Jaringan";
 "SpaceSettings.DeleteAlert.Title" = "Hapus '%@' ruang";
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
