@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Bağlantı";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Başlıksız";
 
 "BlockText.ContentType.Title.Placeholder" = "Başlıksız";
 "BlockText.ContentType.Description.Placeholder" = "Açıklama ekle";
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Nesne";
 
+"Untitled" = "Başlıksız";
 "None" = "Hiçbiri";
 "Callout" = "Belirteç";
 "Toggle empty. Tap to create block." = "Boş olarak değiştirin. Blok oluşturmak için dokunun.";
