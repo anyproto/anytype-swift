@@ -708,6 +708,8 @@
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaboration";
 "Members" = "Members";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

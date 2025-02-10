@@ -176,6 +176,7 @@ internal enum Loc {
   internal static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version", fallback: "Incompatible version")
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
   internal static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
+  internal static let invite = Loc.tr("Localizable", "Invite", fallback: "Invite")
   internal static func itemsSyncing(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Items syncing", p1, fallback: "Plural format key: \"%#@item@ syncing...\"")
   }
@@ -287,6 +288,7 @@ internal enum Loc {
   internal static let progress = Loc.tr("Localizable", "Progress...", fallback: "Progress...")
   internal static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   internal static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")
+  internal static let qrCode = Loc.tr("Localizable", "QR Code", fallback: "QR Code")
   internal static let random = Loc.tr("Localizable", "Random", fallback: "Random")
   internal static let recent = Loc.tr("Localizable", "Recent", fallback: "Recent")
   internal static let red = Loc.tr("Localizable", "Red", fallback: "Red")

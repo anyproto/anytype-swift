@@ -27,6 +27,10 @@ struct NewSpaceSettingsView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
+            .anytypeShareView(item: $model.shareInviteLink)
+            .anytypeSheet(item: $model.qrInviteLink) {
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+            }
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
                 SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
@@ -46,6 +50,7 @@ struct NewSpaceSettingsView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     spaceDetailsButton
+                    sharing
                     collaboration
                     preferences
                     dataManagement
@@ -124,6 +129,49 @@ struct NewSpaceSettingsView: View {
             .border(16, color: .Shape.primary, lineWidth: 0.5)
         }
         .disabled(!model.allowEditSpace)
+    }
+    
+    @ViewBuilder
+    private var sharing: some View {
+        if model.shareSection.isSharingAvailable {
+            Spacer.fixedHeight(8)
+            
+            HStack(spacing: 8) {
+                Button {
+                    model.onInviteTap()
+                } label: {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Image(asset: .X32.Island.addMember)
+                                .foregroundStyle(Color.Text.primary)
+                                .frame(width: 32, height: 32)
+                            AnytypeText(Loc.invite, style: .caption1Regular)
+                        }
+                        .padding(.vertical, 14)
+                        Spacer()
+                    }
+                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                }
+                
+                Button {
+                    model.onQRCodeTap()
+                } label: {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Image(asset: .X32.qrCode)
+                                .foregroundStyle(Color.Text.primary)
+                                .frame(width: 32, height: 32)
+                            AnytypeText(Loc.qrCode, style: .caption1Regular)
+                        }
+                        .padding(.vertical, 14)
+                        Spacer()
+                    }
+                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                }
+            }
+        }
     }
     
     @ViewBuilder
