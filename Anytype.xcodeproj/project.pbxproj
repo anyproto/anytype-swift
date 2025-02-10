@@ -675,7 +675,7 @@
 				0A005ABB24C60092000520AA /* Embed Frameworks */,
 				663CA3132889A2D6000F2414 /* Git hook register */,
 				C960DFBA28D88618002898AE /* Embed Foundation Extensions */,
-				2E63D9C42D5A302D008A733A /* ShellScript */,
+				2E63D9C42D5A302D008A733A /* Google services setup */,
 			);
 			buildRules = (
 			);
@@ -945,7 +945,7 @@
 			shellPath = /bin/sh;
 			shellScript = "./Tools/SwiftGen/swiftgen config run --config ./Tools/SwiftGen/swiftgen-we.yml\n\n";
 		};
-		2E63D9C42D5A302D008A733A /* ShellScript */ = {
+		2E63D9C42D5A302D008A733A /* Google services setup */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -954,6 +954,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Google services setup";
 			outputFileListPaths = (
 			);
 			outputPaths = (
