@@ -9,6 +9,7 @@ final class SpaceDetailsViewModel: ObservableObject {
     @Published var spaceName = ""
     @Published var spaceDescription = ""
     @Published var spaceIcon: Icon?
+    @Published var toastBarData = ToastBarData.empty
     
     private let info: AccountInfo
     private var dataLoaded = false
@@ -51,6 +52,8 @@ final class SpaceDetailsViewModel: ObservableObject {
                     .description(spaceDescription)
                 ]
             )
+            
+            toastBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
         }
     }
 
