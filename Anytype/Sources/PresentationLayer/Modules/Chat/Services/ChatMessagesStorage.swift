@@ -215,33 +215,11 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
-                // TODO: Add message only if page is visible. Waiting middleware API updates.
-                // Temporary decition
-
-                // Insert if inside in allMessages
                 if let firstMessage = allMessages.values.first, let lastMessage = allMessages.values.last,
-                   firstMessage.orderID < data.orderID, lastMessage.orderID > data.orderID {
+                   firstMessage.orderID <= data.afterOrderID, lastMessage.orderID >= data.afterOrderID {
                     await addNewMessages(messages: [data.message])
                     updates.insert(.messages)
-                    break
                 }
-                
-                // If next
-                let topMeessag = try? await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: data.orderID, limit: 1).first
-                if allMessages.values.last?.id == topMeessag?.id {
-                    await addNewMessages(messages: [data.message])
-                    updates.insert(.messages)
-                    break
-                }
-                
-                // If prev
-                let bottomMessage = try? await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: data.orderID, limit: 1).first
-                if allMessages.values.first?.id == bottomMessage?.id {
-                    await addNewMessages(messages: [data.message])
-                    updates.insert(.messages)
-                    break
-                }
-                
             case let .chatDelete(data):
                 if allMessages[data.id].isNotNil {
                     allMessages.removeAll { $0.key == data.id }
