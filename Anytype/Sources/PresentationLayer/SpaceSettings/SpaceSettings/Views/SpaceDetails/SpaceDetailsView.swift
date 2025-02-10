@@ -4,7 +4,7 @@ import Services
 struct SpaceDetailsView: View {
     @StateObject private var model: SpaceDetailsViewModel
     
-    init(info: AccountInfo, output: any SpaceSettingsModuleOutput) {
+    init(info: AccountInfo, output: any NewSpaceSettingsModuleOutput) {
         _model = StateObject(wrappedValue: SpaceDetailsViewModel(info: info, output: output))
     }
     

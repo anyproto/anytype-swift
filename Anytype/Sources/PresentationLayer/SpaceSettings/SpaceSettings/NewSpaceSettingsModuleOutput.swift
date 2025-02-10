@@ -1,12 +1,13 @@
 import Foundation
 
 @MainActor
-protocol SpaceSettingsModuleOutput: AnyObject {
+protocol NewSpaceSettingsModuleOutput: AnyObject {
     func onSpaceDetailsSelected()
-    
+    func onWallpaperSelected()
+    func onDefaultObjectTypeSelected()
+
     func onChangeIconSelected()
     func onRemoteStorageSelected()
-    func onPersonalizationSelected()
     func onSpaceShareSelected()
     func onSpaceMembersSelected()
 }

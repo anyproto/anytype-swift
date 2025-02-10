@@ -8,7 +8,7 @@ struct NewSpaceSettingsView: View {
     @StateObject private var model: NewSpaceSettingsViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         _model = StateObject(wrappedValue: NewSpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
     }
     
@@ -50,21 +50,20 @@ struct NewSpaceSettingsView: View {
                     
                     spaceSection
                     
-                    SectionHeaderView(title: Loc.settings)
+                    SectionHeaderView(title: Loc.preferences)
+                    RoundedButton(text: "Default Object Type") { model.onDefaultObjectTypeTap() }
+                    Spacer.fixedHeight(8)
+                    RoundedButton(text: "Wallpaper") { model.onWallpaperTap() }
+                    
                     
                     if model.allowRemoteStorage {
+                        SectionHeaderView(title: Loc.Settings.dataManagement)
                         SettingsSectionItemView(
                             name: Loc.SpaceSettings.remoteStorage,
                             imageAsset: .Settings.fileStorage,
                             onTap: { model.onStorageTap() }
                         )
                     }
-                    
-                    SettingsSectionItemView(
-                        name: Loc.personalization,
-                        imageAsset: .Settings.personalization,
-                        onTap: { model.onPersonalizationTap() }
-                    )
                 }
             }
             .padding(.horizontal, 20)
@@ -144,7 +143,7 @@ struct NewSpaceSettingsView: View {
     
     @ViewBuilder
     private var spaceSection: some View {
-        SectionHeaderView(title: Loc.Settings.spaceType)
+        SectionHeaderView(title: Loc.collaboration)
         
         switch model.shareSection {
         case .personal:
@@ -172,8 +171,8 @@ struct NewSpaceSettingsView: View {
             case .unshareable:
                 SettingsSectionItemView(
                     name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.share),
-                    onTap: { model.onShareTap() }
+                    decoration: .none,
+                    onTap: {  }
                 )
                 .disabled(true)
             case .shareable:

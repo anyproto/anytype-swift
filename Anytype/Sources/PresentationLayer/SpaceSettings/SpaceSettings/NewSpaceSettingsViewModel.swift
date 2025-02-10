@@ -26,7 +26,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private let dateFormatter = DateFormatter.relativeDateFormatter
-    private weak var output: (any SpaceSettingsModuleOutput)?
+    private weak var output: (any NewSpaceSettingsModuleOutput)?
     
     // MARK: - State
     
@@ -61,7 +61,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
-    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
     }
@@ -78,12 +78,16 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         output?.onChangeIconSelected()
     }
     
-    func onStorageTap() {
-        output?.onRemoteStorageSelected()
+    func onWallpaperTap() {
+        output?.onWallpaperSelected()
     }
     
-    func onPersonalizationTap() {
-        output?.onPersonalizationSelected()
+    func onDefaultObjectTypeTap() {
+        output?.onDefaultObjectTypeSelected()
+    }
+    
+    func onStorageTap() {
+        output?.onRemoteStorageSelected()
     }
     
     func onDeleteTap() {
