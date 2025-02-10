@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Link";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Bez nazwy";
 
-"BlockText.ContentType.Title.Placeholder" = "Bez nazwy";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Dodaj opis";
 "BlockText.ContentType.Toggle.Placeholder" = "Przełącz blok";
 "BlockText.ContentType.Bulleted.Placeholder" = "Wypunktowana lista";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Nazwa przestrzeni";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Bez nazwy";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Usunięte obiekty";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Obiekt";
 
+"Untitled" = "Untitled";
 "None" = "Brak";
 "Callout" = "Wezwanie";
 "Toggle empty. Tap to create block." = "Przełącz pusty. Dotknij, aby utworzyć blok.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Ustaw swoje imię";
 "Auth.JoinFlow.Soul.Description" = "Widoczne tylko dla osób, z którymi się czymś dzielisz. Nie ma centralnego rejestru tych nazw.";
-"Auth.JoinFlow.Soul.Placeholder" = "Bez nazwy";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "To jest twój sejf";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dni od dziś";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Bez nazwy";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Pytanie";
@@ -789,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplikuj";
 "SetViewTypesPicker.Settings.Delete.View" = "Usuwanie widoku";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nowy widok";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Bez nazwy";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Nieobsługiwane";
@@ -931,7 +931,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Ustawienia przestrzeni";
 "SpaceSettings.RemoteStorage" = "Magazyn zdalny";
-"SpaceSettings.Info" = "Informacje o przestrzeni";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Identyfikator sieci";
 "SpaceSettings.DeleteAlert.Title" = "Usuń spację '%@'";
 "SpaceSettings.DeleteAlert.Message" = "To miejsce zostanie usunięte nieodwołalnie. Tej czynności nie można cofnąć.";

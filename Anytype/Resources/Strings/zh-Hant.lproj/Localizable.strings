@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "連結";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "未命名";
 
-"BlockText.ContentType.Title.Placeholder" = "未命名";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "新增描述";
 "BlockText.ContentType.Toggle.Placeholder" = "摺疊區塊";
 "BlockText.ContentType.Bulleted.Placeholder" = "符號列表內容";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "空間名稱";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "未命名";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "已刪除物件";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "物件";
 
+"Untitled" = "Untitled";
 "None" = "無";
 "Callout" = "引用區塊";
 "Toggle empty. Tap to create block." = "摺疊為空， 點擊以建立區塊。";
@@ -281,7 +281,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "設置您的名字";
 "Auth.JoinFlow.Soul.Description" = "只有被您分享內容的人才能查看。這裡沒有中心化的管理名稱。";
-"Auth.JoinFlow.Soul.Placeholder" = "未命名";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "進入我的帳戶";
 
 "Auth.JoinFlow.Vault.Title" = "這是您的帳戶";
@@ -483,7 +483,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ 天後";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "未命名";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "查詢";
@@ -791,7 +791,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "建立副本";
 "SetViewTypesPicker.Settings.Delete.View" = "刪除檢視";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "新增檢視";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "未命名";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "不支援";
@@ -935,7 +935,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "空間設置";
 "SpaceSettings.RemoteStorage" = "遠端儲存空間";
-"SpaceSettings.Info" = "空間資訊";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "網路 ID";
 "SpaceSettings.DeleteAlert.Title" = "刪除 \"%@\" 空間";
 "SpaceSettings.DeleteAlert.Message" = "此空間將被永久刪除，您無法撤銷此操作！";

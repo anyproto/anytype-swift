@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Lenke";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Uten tittel";
 
-"BlockText.ContentType.Title.Placeholder" = "Uten tittel";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Legg til en beskrivelse";
 "BlockText.ContentType.Toggle.Placeholder" = "Ekspanderbar blokk";
 "BlockText.ContentType.Bulleted.Placeholder" = "Punktliste-element";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Romnavn";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Uten tittel";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Slettet objekt";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
+"Untitled" = "Untitled";
 "None" = "Ingen";
 "Callout" = "Utrop";
 "Toggle empty. Tap to create block." = "Tom ekspanderbar liste. Trykk for å opprette blokk.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
-"Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dager fra nå";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Uten tittel";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Spørring";
@@ -789,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Dupliser";
 "SetViewTypesPicker.Settings.Delete.View" = "Slett visning";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Ny visning";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Uten tittel";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Ikke støttet";
@@ -931,7 +931,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";
 "SpaceSettings.RemoteStorage" = "Fjernlagring";
-"SpaceSettings.Info" = "Rominformasjon";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Nettverks-ID";
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";

@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Tautan";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Nirjudul";
 
 "BlockText.ContentType.Title.Placeholder" = "Nirjudul";
 "BlockText.ContentType.Description.Placeholder" = "Tambahkan deskripsi";
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
 
+"Untitled" = "Nirjudul";
 "None" = "Tidak ada";
 "Callout" = "Berbingkai";
 "Toggle empty. Tap to create block." = "Bukaan kosong. Sentuh untuk membuat balok.";
@@ -643,7 +643,7 @@
 "Deleted" = "Terhapus";
 "Download" = "Unduh";
 "Open object" = "Buka objek";
-"Open as Object" = "Open as Object";
+"Open as Object" = "Buka sebagai Objek";
 "Open source" = "Buka sumber";
 "Into object" = "Di dalam objek";
 "Add below" = "Tambah di bawah";
@@ -932,7 +932,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
 "SpaceSettings.RemoteStorage" = "Penyimpanan jarak jauh";
-"SpaceSettings.Info" = "Info ruang";
+"SpaceSettings.Info" = "Informasi ruang";
 "SpaceSettings.NetworkId" = "ID Jaringan";
 "SpaceSettings.DeleteAlert.Title" = "Hapus '%@' ruang";
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
@@ -1284,7 +1284,7 @@ Please provide specific details of your needs here.";
 "Chat.Reply.Files" = "Berkas (%@)";
 "Chat.SendLimitAlert.Title" = "Bentar-bentar, banter banget!";
 "Chat.SendLimitAlert.Message" = "Sepertinya kamu mengirimkan terlalu banyak pesan. Tunggu sebentar sebelum mengirim pesan lagi.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachmentsLimit.Alert" = "Kamu hanya bisa mengunggah %@ lampiran sekali waktu";
 "Chat.AttachedObject.Attach" = "Lampirkan";
 "Chat.CreateObject.Dismiss.Title" = "Yakin ingin menutup layar ini?";
 "Chat.CreateObject.Dismiss.Message" = "Semua perubahan akan hilang.";
