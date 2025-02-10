@@ -62,6 +62,10 @@ public extension FeatureFlags {
         value(for: .newSettings)
     }
 
+    static var newPlusMenu: Bool {
+        value(for: .newPlusMenu)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -130,6 +134,7 @@ public extension FeatureFlags {
         .openMediaFileInPreview,
         .openBookmarkAsLink,
         .newSettings,
+        .newPlusMenu,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

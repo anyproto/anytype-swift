@@ -97,6 +97,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let newPlusMenu = FeatureDescription(
+        title: "New plus menu",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
