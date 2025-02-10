@@ -8,7 +8,7 @@ struct NewSpaceSettingsView: View {
     @StateObject private var model: NewSpaceSettingsViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         _model = StateObject(wrappedValue: NewSpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
     }
     
@@ -51,12 +51,10 @@ struct NewSpaceSettingsView: View {
                     spaceSection
                     
                     SectionHeaderView(title: Loc.preferences)
+                    RoundedButton(text: "Default Object Type") { model.onDefaultObjectTypeTap() }
+                    Spacer.fixedHeight(8)
+                    RoundedButton(text: "Wallpaper") { model.onWallpaperTap() }
                     
-                    SettingsSectionItemView(
-                        name: Loc.personalization,
-                        imageAsset: .Settings.personalization,
-                        onTap: { model.onPersonalizationTap() }
-                    )
                     
                     if model.allowRemoteStorage {
                         SectionHeaderView(title: Loc.Settings.dataManagement)

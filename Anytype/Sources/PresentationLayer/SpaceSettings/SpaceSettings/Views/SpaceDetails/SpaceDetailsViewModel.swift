@@ -13,14 +13,14 @@ final class SpaceDetailsViewModel: ObservableObject {
     
     private let info: AccountInfo
     private var dataLoaded = false
-    private weak var output: (any SpaceSettingsModuleOutput)?
+    private weak var output: (any NewSpaceSettingsModuleOutput)?
     
     @Injected(\.participantSpacesStorage)
     private var spacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     
-    init(info: AccountInfo, output: any SpaceSettingsModuleOutput) {
+    init(info: AccountInfo, output: any NewSpaceSettingsModuleOutput) {
         self.info = info
         self.output = output
     }
