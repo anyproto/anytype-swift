@@ -142,40 +142,6 @@ struct NewSpaceSettingsView: View {
         .disabled(!model.allowEditSpace)
     }
     
-    private var spaceDetailsButton: some View {
-        Button {
-            model.onSpaceDetailsTap()
-        } label: {
-            HStack(spacing: 0) {
-                if let icon = model.spaceIcon {
-                    IconView(icon: icon)
-                        .frame(width: 56, height: 56)
-                }
-                
-                Spacer.fixedWidth(12)
-                
-                VStack(alignment: .leading, spacing: 0) {
-                    AnytypeText(model.spaceDisplayName, style: .bodySemibold)
-                    Spacer.fixedHeight(2)
-                    AnytypeText(model.spaceDisplayDescription, style: .uxTitle2Regular)
-                        .foregroundColor(.Text.secondary)
-                }
-                
-                Spacer.fixedWidth(12)
-                
-                Spacer()
-                
-                if model.allowEditSpace {
-                    IconView(asset: .X24.Arrow.right)
-                        .frame(width: 24, height: 24)
-                }
-            }
-            .padding(16)
-            .border(16, color: .Shape.primary, lineWidth: 0.5)
-        }
-        .disabled(!model.allowEditSpace)
-    }
-    
     @ViewBuilder
     private var spaceSection: some View {
         SectionHeaderView(title: Loc.Settings.spaceType)
