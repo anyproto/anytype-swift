@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Bağlantı";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Başlıksız";
 
 "BlockText.ContentType.Title.Placeholder" = "Başlıksız";
 "BlockText.ContentType.Description.Placeholder" = "Açıklama ekle";
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Nesne";
 
+"Untitled" = "Başlıksız";
 "None" = "Hiçbiri";
 "Callout" = "Belirteç";
 "Toggle empty. Tap to create block." = "Boş olarak değiştirin. Blok oluşturmak için dokunun.";
@@ -642,6 +642,7 @@
 "Deleted" = "Silindi";
 "Download" = "İndir";
 "Open object" = "Nesne aç";
+"Open as Object" = "Nesne olarak Aç";
 "Open source" = "Açık kaynak";
 "Into object" = "Nesneye dönüştür";
 "Add below" = "Aşağıya ekleyin";
@@ -1284,7 +1285,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.Reply.Files" = "(%@) dosya";
 "Chat.SendLimitAlert.Title" = "Durun! Turbo yazım algılandı!";
 "Chat.SendLimitAlert.Message" = "Görünüşe göre yıldırım hızıyla mesaj gönderiyorsun. Bir sonraki mesajını yollamadan önce bir saniye bekle.";
-"Chat.AttachmentsLimit.Alert" = "Bir seferde yalnızca %@ dosya yükleyebilirsiniz";
+"Chat.AttachmentsLimit.Alert" = "Tek seferde yalnızca %@ ek yükleyebilirsiniz";
 "Chat.AttachedObject.Attach" = "Ekle";
 "Chat.CreateObject.Dismiss.Title" = "Bu ekranı kapatmak istediğinizden emin misiniz?";
 "Chat.CreateObject.Dismiss.Message" = "Eğer çıkarsanız yaptığınız tüm değişiklikler kaybolacaktır.";

@@ -236,6 +236,7 @@ internal enum Loc {
   internal static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
   internal static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
+  internal static let openAsObject = Loc.tr("Localizable", "Open as Object", fallback: "Open as Object")
   internal static let openFile = Loc.tr("Localizable", "Open file", fallback: "Open file")
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
   internal static let openSet = Loc.tr("Localizable", "Open Set", fallback: "Open Set")
@@ -371,6 +372,7 @@ internal enum Loc {
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block", fallback: "Unsupported block")
   internal static let unsupportedDeeplink = Loc.tr("Localizable", "Unsupported deeplink", fallback: "Unsupported deeplink")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value", fallback: "Unsupported value")
+  internal static let untitled = Loc.tr("Localizable", "Untitled", fallback: "Untitled")
   internal static let upgrade = Loc.tr("Localizable", "Upgrade", fallback: "Upgrade")
   internal static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio", fallback: "Upload playable audio")
@@ -592,9 +594,6 @@ internal enum Loc {
     }
   }
   internal enum BlockText {
-    internal enum Content {
-      internal static let placeholder = Loc.tr("Localizable", "BlockText.Content.Placeholder", fallback: "Untitled")
-    }
     internal enum ContentType {
       internal enum Bulleted {
         internal static let placeholder = Loc.tr("Localizable", "BlockText.ContentType.Bulleted.Placeholder", fallback: "Bulleted list item")
@@ -657,7 +656,7 @@ internal enum Loc {
     }
     internal enum AttachmentsLimit {
       internal static func alert(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ files at a time")
+        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ attachments at a time")
       }
     }
     internal enum CreateObject {
@@ -1739,7 +1738,7 @@ internal enum Loc {
   }
   internal enum SpaceSettings {
     internal static let deleteButton = Loc.tr("Localizable", "SpaceSettings.DeleteButton", fallback: "Delete space")
-    internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space info")
+    internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space information")
     internal static let leaveButton = Loc.tr("Localizable", "SpaceSettings.LeaveButton", fallback: "Leave")
     internal static let networkId = Loc.tr("Localizable", "SpaceSettings.NetworkId", fallback: "Network ID")
     internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")

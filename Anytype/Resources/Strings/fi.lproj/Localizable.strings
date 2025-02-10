@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Linkki";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Nimetön";
 
-"BlockText.ContentType.Title.Placeholder" = "Nimetön";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Lisää kuvaus";
 "BlockText.ContentType.Toggle.Placeholder" = "Kytkin pala";
 "BlockText.ContentType.Bulleted.Placeholder" = "Lista kohta";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Tilan nimi";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Nimetön";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Poistettu kohde";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekti";
 
+"Untitled" = "Untitled";
 "None" = "Ei mitään";
 "Callout" = "Nosto";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
-"Auth.JoinFlow.Soul.Placeholder" = "Nimetön";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Nimetön";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -642,6 +642,7 @@
 "Deleted" = "Poistettu";
 "Download" = "Ladataan";
 "Open object" = "Avoin objekti";
+"Open as Object" = "Open as Object";
 "Open source" = "Avoimen lähteen";
 "Into object" = "Objektiin";
 "Add below" = "Lisää alapuolelle";
@@ -788,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Nimetön";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Ei tuettu";
@@ -930,7 +931,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Remote storage";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Network ID";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
@@ -1282,7 +1283,7 @@ Please provide specific details of your needs here.";
 "Chat.Reply.Files" = "Files (%@)";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Attach";
 "Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
 "Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";

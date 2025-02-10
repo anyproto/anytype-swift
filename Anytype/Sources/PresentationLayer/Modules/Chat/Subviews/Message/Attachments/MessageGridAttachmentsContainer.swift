@@ -47,7 +47,7 @@ struct MessageGridAttachmentsContainer: View {
                 }
             }
         }
-        .cornerRadius(16)
+        .cornerRadius(12)
     }
     
     private func rowItemSize(rowItems: Int) -> CGFloat? {

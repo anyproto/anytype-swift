@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Enlace";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Sin título";
 
 "BlockText.ContentType.Title.Placeholder" = "Sin título";
 "BlockText.ContentType.Description.Placeholder" = "Añadir una descripción";
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
 
+"Untitled" = "Sin título";
 "None" = "Ninguno";
 "Callout" = "Globo";
 "Toggle empty. Tap to create block." = "Desplegable vacío. Toca para crear un bloque";
@@ -642,6 +642,7 @@
 "Deleted" = "Eliminado";
 "Download" = "Descargar";
 "Open object" = "Abrir objeto";
+"Open as Object" = "Abrir como objeto";
 "Open source" = "Abrir origen";
 "Into object" = "En objeto";
 "Add below" = "Añadir debajo";
@@ -1282,13 +1283,13 @@ En concreto,
 "Chat.Reply.Files" = "Archivos (%@)";
 "Chat.SendLimitAlert.Title" = "¡Calma! ¡Estás escribiendo muy deprisa!";
 "Chat.SendLimitAlert.Message" = "Parece que estás enviando mensajes a la velocidad de la luz. Espera un poco para el siguiente.";
-"Chat.AttachmentsLimit.Alert" = "No puedes subir más de %@ archivos al mismo tiempo";
+"Chat.AttachmentsLimit.Alert" = "No puedes subir más de %@ adjuntos al mismo tiempo";
 "Chat.AttachedObject.Attach" = "Adjuntar";
 "Chat.CreateObject.Dismiss.Title" = "¿Seguro que quieres cerrar esta pantalla?";
 "Chat.CreateObject.Dismiss.Message" = "Si sales de ella, se perderán todos tus cambios.";
 "Chat.CreateObject.Dismiss.Ok" = "Sí, cerrarla";
-"Chat.Attach.Page.title" = "Attach Page";
-"Chat.Attach.List.title" = "Attach List";
+"Chat.Attach.Page.title" = "Adjuntar página";
+"Chat.Attach.List.title" = "Adjuntar lista";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
@@ -1305,7 +1306,7 @@ En concreto,
 "Fields.menu" = "Menú de campos";
 
 // MARK: - Object Search with meta
-"ObjectSearchWithMeta.Create.Page" = "New Page";
-"ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
-"ObjectSearchWithMeta.Create.Collection" = "New Collection";
+"ObjectSearchWithMeta.Create.Page" = "Nueva página";
+"ObjectSearchWithMeta.Create.Note" = "Nueva nota";
+"ObjectSearchWithMeta.Create.Set" = "Nuevo conjunto";
+"ObjectSearchWithMeta.Create.Collection" = "Nueva colección";

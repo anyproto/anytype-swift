@@ -38,6 +38,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var searchService: any SearchServiceProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.iconColorService)
+    private var iconColorService: any IconColorServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -73,6 +75,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var mesageBlocks: [MessageSectionData] = []
     @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
+    @Published var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
     
     private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
@@ -129,17 +132,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onWidgetsSelected()
     }
     
-    func subscribeOnParticipants() async {
-        for await participants in participantSubscription.participantsPublisher.values {
-            self.participants = participants
-            await updateMessages()
-        }
-    }
-    
-    func subscribeOnPermissions() async {
-        for await canEditMessages in accountParticipantsStorage.canEditPublisher(spaceId: spaceId).values {
-            canEdit = canEditMessages
-        }
+    func startSubscriptions() async {
+        async let permissionsSub: () = subscribeOnPermissions()
+        async let participantsSub: () = subscribeOnParticipants()
+        async let typesSub: () = subscribeOnTypes()
+        async let messageBackgroundSub: () = subscribeOnMessageBackground()
+        
+        (_, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub)
     }
     
     func subscribeOnMessages() async throws {
@@ -152,14 +151,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if prevChatIsEmpty, let message = messages.last {
                 collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
             }
-        }
-    }
-    
-    func subscribeOnTypes() async {
-        for await _ in objectTypeProvider.syncPublisher.values {
-            let objectTypesCreateInChat = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
-            let usedObjecTypesKeys = ObjectSearchWithMetaType.allCases.flatMap(\.objectTypesCreationKeys)
-            self.typesForCreateObject = objectTypesCreateInChat.filter { !usedObjecTypesKeys.contains($0.uniqueKey) }
         }
     }
     
@@ -384,6 +375,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         didSelectAttachment(attachment: details, attachments: data.attachmentsDetails)
     }
     
+    func didSelectAttachment(data: MessageViewData, details: ObjectDetails) {
+        didSelectAttachment(attachment: details, attachments: [])
+    }
+    
     func didSelectReplyTo(message: MessageViewData) {
         withAnimation {
             inputFocused = true
@@ -434,13 +429,40 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
                 linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
                 // Waiting pop transaction and open keyboard.
-                try await Task.sleep(seconds: 0.5)
+                try await Task.sleep(seconds: 1.0)
                 inputFocused = true
             }
         }
     }
     
     // MARK: - Private
+    
+    private func subscribeOnParticipants() async {
+        for await participants in participantSubscription.participantsPublisher.values {
+            self.participants = participants
+            await updateMessages()
+        }
+    }
+    
+    private func subscribeOnPermissions() async {
+        for await canEditMessages in accountParticipantsStorage.canEditPublisher(spaceId: spaceId).values {
+            canEdit = canEditMessages
+        }
+    }
+    
+    private func subscribeOnTypes() async {
+        for await _ in objectTypeProvider.syncPublisher.values {
+            let objectTypesCreateInChat = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
+            let usedObjecTypesKeys = ObjectSearchWithMetaType.allCases.flatMap(\.objectTypesCreationKeys)
+            self.typesForCreateObject = objectTypesCreateInChat.filter { !usedObjecTypesKeys.contains($0.uniqueKey) }
+        }
+    }
+    
+    private func subscribeOnMessageBackground() async {
+        for await color in iconColorService.color(spaceId: spaceId) {
+            messageYourBackgroundColor = color
+        }
+    }
     
     private func updateMessages() async {
         let newMessageBlocks = await chatMessageBuilder.makeMessage(
@@ -514,8 +536,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             let items = reorderedAttachments.compactMap { $0.previewRemoteItem }
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
             output?.onObjectSelected(screenData: .preview(MediaFileScreenData(items: items, startAtIndex: startAtIndex)))
-        } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
-            output?.onUrlSelected(url: url)
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
         }

@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Link";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
 
 "BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Add a description";
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
 
+"Untitled" = "Untitled";
 "None" = "None";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
@@ -642,6 +642,7 @@
 "Deleted" = "Deleted";
 "Download" = "Download";
 "Open object" = "Open object";
+"Open as Object" = "Open as Object";
 "Open source" = "Open source";
 "Into object" = "Into object";
 "Add below" = "Add below";
@@ -930,7 +931,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Remote storage";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Network ID";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
@@ -1282,7 +1283,7 @@ Please provide specific details of your needs here.";
 "Chat.Reply.Files" = "Files (%@)";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
 "Chat.AttachedObject.Attach" = "Attach";
 "Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
 "Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";

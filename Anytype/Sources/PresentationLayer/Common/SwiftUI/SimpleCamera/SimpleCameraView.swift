@@ -15,6 +15,6 @@ struct SimpleCameraView: View {
             sourceType: .camera,
             onMediaTaken: data.onMediaTaken
         )
-        .ignoresSafeArea(edges: .bottom)
+        .ignoresSafeArea()
     }
 }

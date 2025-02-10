@@ -43,6 +43,7 @@ final class ChatCollectionViewCoordinator<
                 self?.itemBuilder?(item)
             }
             .margins(.all, 0)
+            .minSize(height: 0)
         }
     
         let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in

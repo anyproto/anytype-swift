@@ -35,8 +35,8 @@ extension EditorListObject {
 }
 
 extension ObjectDetails {
-    func screenData() -> ScreenData {
-        ScreenData(details: self)
+    func screenData(openBookmarkAsObject: Bool = false, usecase: ObjectHeaderEmptyUsecase = .full) -> ScreenData {
+        ScreenData(details: self, openBookmarkAsObject: openBookmarkAsObject, usecase: usecase)
     }
 }
 

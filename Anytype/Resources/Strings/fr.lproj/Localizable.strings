@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Lien";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Sans titre";
 
 "BlockText.ContentType.Title.Placeholder" = "Sans titre";
 "BlockText.ContentType.Description.Placeholder" = "Ajouter une description";
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objet";
 
+"Untitled" = "Sans titre";
 "None" = "Aucun";
 "Callout" = "Encadré";
 "Toggle empty. Tap to create block." = "Activer/désactiver vide. Touchez pour créer un bloc.";
@@ -642,6 +642,7 @@
 "Deleted" = "Supprimé";
 "Download" = "Télécharger";
 "Open object" = "Ouvrir l'objet";
+"Open as Object" = "Ouvrir en tant qu'objet";
 "Open source" = "Ouvrir la source";
 "Into object" = "En objet";
 "Add below" = "Ajouter en dessous";
@@ -1283,7 +1284,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.Reply.Files" = "Fichiers (%@)";
 "Chat.SendLimitAlert.Title" = "Attendez ! Frappe turbo détectée !";
 "Chat.SendLimitAlert.Message" = "Il semble que vous envoyez des messages à la vitesse de la foudre. Attendez un instant avant le suivant.";
-"Chat.AttachmentsLimit.Alert" = "Vous ne pouvez télécharger que %@ fichiers à la fois";
+"Chat.AttachmentsLimit.Alert" = "Vous ne pouvez télécharger que %@ pièces jointes à la fois";
 "Chat.AttachedObject.Attach" = "Attacher";
 "Chat.CreateObject.Dismiss.Title" = "Êtes-vous sûr de vouloir fermer ce chat ?";
 "Chat.CreateObject.Dismiss.Message" = "Si vous le quittez, tous vos changements seront perdus.";
