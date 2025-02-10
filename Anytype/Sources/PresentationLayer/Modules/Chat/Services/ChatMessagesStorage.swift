@@ -214,6 +214,12 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                     allMessages[data.id]?.reactions = data.reactions
                     updateFullMessages()
                 }
+            case let .chatUpdateReadStatus(data):
+                // TODO: Support
+                break
+            case let .chatStateUpdate(data):
+                // TODO: Support
+                break
             default:
                 break
             }
