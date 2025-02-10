@@ -300,7 +300,9 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/LaunchScreen.storyboard,
-				"GoogleService-Info.plist",
+				"GoogleServices/GoogleService-Info-AnyApp-Release.plist",
+				"GoogleServices/GoogleService-Info-Anytype-Dev.plist",
+				"GoogleServices/GoogleService-Info-Anytype-Release.plist",
 			);
 			target = 0303ECFA22D8EDAA005C552B /* Anytype */;
 		};
@@ -673,6 +675,7 @@
 				0A005ABB24C60092000520AA /* Embed Frameworks */,
 				663CA3132889A2D6000F2414 /* Git hook register */,
 				C960DFBA28D88618002898AE /* Embed Foundation Extensions */,
+				2E63D9C42D5A302D008A733A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -941,6 +944,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Tools/SwiftGen/swiftgen config run --config ./Tools/SwiftGen/swiftgen-we.yml\n\n";
+		};
+		2E63D9C42D5A302D008A733A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Remove existing plist\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n\n# Copy appropriate plist to app bundle\ncp \"${GOOGLE_SERVICE_INFO_PLIST}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n";
 		};
 		663CA3132889A2D6000F2414 /* Git hook register */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1310,6 +1330,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-Anytype-Dev.plist";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1356,6 +1377,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-Anytype-Release.plist";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1524,6 +1546,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-Anytype-Dev.plist";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1665,6 +1688,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-AnyApp-Release.plist";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
