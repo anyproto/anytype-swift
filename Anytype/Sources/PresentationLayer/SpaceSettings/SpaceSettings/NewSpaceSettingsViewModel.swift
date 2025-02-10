@@ -22,6 +22,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
@@ -34,6 +36,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     private var owner: Participant?
+    private var inviteLink: URL?
     
     var spaceDisplayName: String {
         spaceName.isNotEmpty ? spaceName : Loc.untitled
@@ -60,6 +63,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowRemoteStorage = false
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
+    @Published var shareInviteLink: URL?
+    @Published var qrInviteLink: URL?
     
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
@@ -116,6 +121,20 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         membershipUpgradeReason = .numberOfSharedSpaces
     }
     
+    func onInviteTap() {
+        Task {
+            try await generateInviteIfNeeded()
+            shareInviteLink = inviteLink
+        }
+    }
+    
+    func onQRCodeTap() {
+        Task {
+            try await generateInviteIfNeeded()
+            qrInviteLink = inviteLink
+        }
+    }
+    
     func startJoiningTask() async {
         for await participants in participantsSubscription.participantsPublisher.values {
             joiningCount = participants.filter { $0.status == .joining }.count
@@ -169,6 +188,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         } else {
             shareSection = .member
         }
+        
+        Task { try await generateInviteIfNeeded() }
     }
     
     private func buildInfoBlock(details: SpaceView) {
@@ -212,6 +233,13 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             info.append(
                 SettingsInfoModel(title: createdDateDetails.name, subtitle: date)
             )
+        }
+    }
+    
+    private func generateInviteIfNeeded() async throws {
+        if shareSection.isSharingAvailable && inviteLink.isNil {
+            let invite = try await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         }
     }
 }

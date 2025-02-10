@@ -298,6 +298,7 @@ internal extension ImageAsset {
     static let paste = ImageAsset.bundle(name: "x32/Paste")
     static let plus = ImageAsset.bundle(name: "x32/Plus")
     static let properties = ImageAsset.bundle(name: "x32/Properties")
+    static let qrCode = ImageAsset.bundle(name: "x32/QRCode")
     static let remove = ImageAsset.bundle(name: "x32/Remove")
     static let rename = ImageAsset.bundle(name: "x32/Rename")
     static let replace = ImageAsset.bundle(name: "x32/Replace")

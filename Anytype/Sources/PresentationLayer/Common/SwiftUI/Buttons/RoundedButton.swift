@@ -22,7 +22,10 @@ struct RoundedButton: View {
         Button(action: action) {
             HStack(alignment: .center, spacing: 0) {
                 if let icon {
-                    IconView(asset: icon).frame(width: 24, height: 24)
+                    Image(asset: icon)
+                        .renderingMode(.template)
+                        .foregroundStyle(Color.Text.primary)
+                        .frame(width: 24, height: 24)
                     Spacer.fixedWidth(8)
                 }
                 AnytypeText(text, style: .previewTitle1Regular)

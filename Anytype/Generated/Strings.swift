@@ -176,6 +176,7 @@ internal enum Loc {
   internal static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version", fallback: "Incompatible version")
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
   internal static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
+  internal static let invite = Loc.tr("Localizable", "Invite", fallback: "Invite")
   internal static func itemsSyncing(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Items syncing", p1, fallback: "Plural format key: \"%#@item@ syncing...\"")
   }
@@ -287,6 +288,7 @@ internal enum Loc {
   internal static let progress = Loc.tr("Localizable", "Progress...", fallback: "Progress...")
   internal static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   internal static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")
+  internal static let qrCode = Loc.tr("Localizable", "QR Code", fallback: "QR Code")
   internal static let random = Loc.tr("Localizable", "Random", fallback: "Random")
   internal static let recent = Loc.tr("Localizable", "Recent", fallback: "Recent")
   internal static let red = Loc.tr("Localizable", "Red", fallback: "Red")
@@ -963,8 +965,8 @@ internal enum Loc {
     internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
   }
   internal enum FileStorage {
+    internal static let cleanUpFiles = Loc.tr("Localizable", "FileStorage.CleanUpFiles", fallback: "Clean up files files")
     internal static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
-    internal static let manageFiles = Loc.tr("Localizable", "FileStorage.ManageFiles", fallback: "Manage files")
     internal static let offloadTitle = Loc.tr("Localizable", "FileStorage.OffloadTitle", fallback: "Offload files")
     internal static let title = Loc.tr("Localizable", "FileStorage.Title", fallback: "File storage")
     internal enum LimitLegend {
@@ -997,7 +999,7 @@ internal enum Loc {
     }
   }
   internal enum FilesList {
-    internal static let title = Loc.tr("Localizable", "FilesList.Title", fallback: "Synced files")
+    internal static let title = Loc.tr("Localizable", "FilesList.Title", fallback: "Clean up files")
     internal enum ForceDelete {
       internal static let title = Loc.tr("Localizable", "FilesList.ForceDelete.Title", fallback: "Are you sure you want to permanently delete the files?")
     }

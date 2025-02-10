@@ -12,3 +12,15 @@ enum SpaceSettingsShareSection {
     case owner(joiningCount: Int)
     case member
 }
+
+extension SpaceSettingsShareSection {
+    var isSharingAvailable: Bool {
+        
+        switch self {
+        case .personal, .private, .member:
+            false
+        case .owner:
+            true
+        }
+    }
+}
