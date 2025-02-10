@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Ссылка";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Без названия";
 
-"BlockText.ContentType.Title.Placeholder" = "Без названия";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Добавить описание";
 "BlockText.ContentType.Toggle.Placeholder" = "Переключить блокировку";
 "BlockText.ContentType.Bulleted.Placeholder" = "Элемент маркированного списка";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Название пространства";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Без названия";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Удаленный объект";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Объект";
 
+"Untitled" = "Untitled";
 "None" = "Нет";
 "Callout" = "Врезка";
 "Toggle empty. Tap to create block." = "Пусто. Нажмите, чтобы создать блок.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Установите ваше имя";
 "Auth.JoinFlow.Soul.Description" = "Видим только людям, с которыми вы чем-то поделились. Централизованного реестра имен не существует.";
-"Auth.JoinFlow.Soul.Placeholder" = "Без названия";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Войти в мое хранилище";
 
 "Auth.JoinFlow.Vault.Title" = "Это ваше Хранилище";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дней с настоящего времени";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Без названия";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запрос";
@@ -642,6 +642,7 @@
 "Deleted" = "Удалено";
 "Download" = "Скачать";
 "Open object" = "Открыть объект";
+"Open as Object" = "Open as Object";
 "Open source" = "Открыть источник";
 "Into object" = "В объект";
 "Add below" = "Добавить ниже";
@@ -788,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дублировать";
 "SetViewTypesPicker.Settings.Delete.View" = "Удалить вид";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Новый вид";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без названия";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Не поддерживается";
@@ -930,7 +931,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Настройки пространства";
 "SpaceSettings.RemoteStorage" = "Удалённое хранилище";
-"SpaceSettings.Info" = "Информация о пространстве";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "ID сети";
 "SpaceSettings.DeleteAlert.Title" = "Удалить пространство \"%@\"";
 "SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";

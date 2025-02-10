@@ -22,28 +22,40 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private let dateFormatter = DateFormatter.relativeDateFormatter
-    private weak var output: (any SpaceSettingsModuleOutput)?
+    private weak var output: (any NewSpaceSettingsModuleOutput)?
     
     // MARK: - State
     
     let workspaceInfo: AccountInfo
-    private var subscriptions: [AnyCancellable] = []
-    private var dataLoaded = false
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     private var owner: Participant?
+    private var inviteLink: URL?
+    
+    var spaceDisplayName: String {
+        spaceName.isNotEmpty ? spaceName : Loc.untitled
+    }
+    
+    var spaceDisplayDescription: String {
+        spaceDescription.isNotEmpty ? spaceDescription : spaceAccessType
+    }
     
     @Published var spaceName = ""
+    @Published var spaceDescription = ""
     @Published var spaceAccessType = ""
     @Published var spaceIcon: Icon?
+    
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
+    @Published var showInfoView = false
     @Published var dismiss = false
     @Published var allowDelete = false
     @Published var allowLeave = false
@@ -51,22 +63,36 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowRemoteStorage = false
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
+    @Published var shareInviteLink: URL?
+    @Published var qrInviteLink: URL?
     
-    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
+    }
+    
+    func onSpaceDetailsTap() {
+        output?.onSpaceDetailsSelected()
+    }
+    
+    func onInfoTap() {
+        showInfoView.toggle()
     }
     
     func onChangeIconTap() {
         output?.onChangeIconSelected()
     }
     
-    func onStorageTap() {
-        output?.onRemoteStorageSelected()
+    func onWallpaperTap() {
+        output?.onWallpaperSelected()
     }
     
-    func onPersonalizationTap() {
-        output?.onPersonalizationSelected()
+    func onDefaultObjectTypeTap() {
+        output?.onDefaultObjectTypeSelected()
+    }
+    
+    func onStorageTap() {
+        output?.onRemoteStorageSelected()
     }
     
     func onDeleteTap() {
@@ -95,6 +121,20 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         membershipUpgradeReason = .numberOfSharedSpaces
     }
     
+    func onInviteTap() {
+        Task {
+            try await generateInviteIfNeeded()
+            shareInviteLink = inviteLink
+        }
+    }
+    
+    func onQRCodeTap() {
+        Task {
+            try await generateInviteIfNeeded()
+            qrInviteLink = inviteLink
+        }
+    }
+    
     func startJoiningTask() async {
         for await participants in participantsSubscription.participantsPublisher.values {
             joiningCount = participants.filter { $0.status == .joining }.count
@@ -119,6 +159,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
+        spaceName = spaceView.name
+        spaceDescription = spaceView.description
         allowDelete = participantSpaceView.canBeDeleted
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
@@ -147,16 +189,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             shareSection = .member
         }
         
-        if !dataLoaded {
-            spaceName = spaceView.name
-            dataLoaded = true
-            $spaceName
-                .delay(for: 0.3, scheduler: DispatchQueue.main)
-                .sink { [weak self] name in
-                    self?.updateSpaceName(name: name)
-                }
-                .store(in: &subscriptions)
-        }
+        Task { try await generateInviteIfNeeded() }
     }
     
     private func buildInfoBlock(details: SpaceView) {
@@ -203,12 +236,10 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
     }
     
-    private func updateSpaceName(name: String) {
-        Task {
-            try await workspaceService.workspaceSetDetails(
-                spaceId: workspaceInfo.accountSpaceId,
-                details: [.name(name)]
-            )
+    private func generateInviteIfNeeded() async throws {
+        if shareSection.isSharingAvailable && inviteLink.isNil {
+            let invite = try await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         }
     }
 }

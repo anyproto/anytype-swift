@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "ଲିଙ୍କ";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
 
-"BlockText.ContentType.Title.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "ଏକ ବର୍ଣ୍ଣନା ଯୋଡନ୍ତୁ";
 "BlockText.ContentType.Toggle.Placeholder" = "ଟଗଲ ବ୍ଲକ";
 "BlockText.ContentType.Bulleted.Placeholder" = "ବୁଲେଟ୍ ତାଲିକା ଆଇଟମ୍";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "ବିଲୋପ ହୋଇଥିବା ଅବଜେକ୍ଟ";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "ଅବଜେକ୍ଟ";
 
+"Untitled" = "Untitled";
 "None" = "କିଛି ନାହିଁ";
 "Callout" = "କଲ୍ ଆଉଟ୍";
 "Toggle empty. Tap to create block." = "ଖାଲି ଟୋଗଲ୍ କରନ୍ତୁ | ବ୍ଲକ ସୃଷ୍ଟି କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ |";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "ଆପଣଙ୍କ ନାମ ସେଟ୍ କରନ୍ତୁ";
 "Auth.JoinFlow.Soul.Description" = "କେବଳ ସେହି ଲୋକମାନଙ୍କ ଦ୍ୱାରା ଦେଖନ୍ତି ଯେଉଁମାନଙ୍କ ସହିତ ଆପଣ କିଛି ଅଂଶୀଦାର କରନ୍ତି । ଏହି ନାମଗୁଡ଼ିକର କୌଣସି କେନ୍ଦ୍ରୀୟ ପଞ୍ଜୀକରଣ ନାହିଁ।";
-"Auth.JoinFlow.Soul.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "ଏହା ହେଉଛି ଆପଣଙ୍କ ଭଲ୍ଟ";
@@ -484,7 +484,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -644,6 +644,7 @@
 "Deleted" = "Deleted";
 "Download" = "Download";
 "Open object" = "Open object";
+"Open as Object" = "Open as Object";
 "Open source" = "Open source";
 "Into object" = "Into object";
 "Add below" = "Add below";
@@ -790,7 +791,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "ନକଲ";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "ଶୀର୍ଷକ ନଥିବା";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -932,7 +933,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Remote storage";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Network ID";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";

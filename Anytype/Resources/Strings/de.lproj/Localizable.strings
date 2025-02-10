@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Link";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Unbenannt";
 
-"BlockText.ContentType.Title.Placeholder" = "Unbenannt";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Beschreibung hinzufügen";
 "BlockText.ContentType.Toggle.Placeholder" = "Block wechseln";
 "BlockText.ContentType.Bulleted.Placeholder" = "Aufzählung";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Unbenannt";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Gelöschtes Objekt";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
+"Untitled" = "Untitled";
 "None" = "Keine";
 "Callout" = "Textbox";
 "Toggle empty. Tap to create block." = "Tippen um Block zu erstellen.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Deinen Namen festlegen";
 "Auth.JoinFlow.Soul.Description" = "Nur von Leuten gesehen, mit denen du etwas teilst. Es gibt kein zentrales Register dieser Namen.";
-"Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Meinen Schlüssel holen";
 
 "Auth.JoinFlow.Vault.Title" = "Dies ist dein Tresor";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "in %@ Tagen";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Unbenannt";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Abfrage";
@@ -642,6 +642,7 @@
 "Deleted" = "Gelöscht";
 "Download" = "Herunterladen";
 "Open object" = "Objekt öffnen";
+"Open as Object" = "Als Objekt öffnen";
 "Open source" = "Quelle öffnen";
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
@@ -788,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplizieren";
 "SetViewTypesPicker.Settings.Delete.View" = "Ansicht löschen";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Neue Ansicht";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Unbenannt";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Nicht unterstützt";
@@ -931,7 +932,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space-Einstellungen";
 "SpaceSettings.RemoteStorage" = "Externer Speicher";
-"SpaceSettings.Info" = "Space-Info";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Netzwerk-ID";
 "SpaceSettings.DeleteAlert.Title" = "Space '%@' löschen";
 "SpaceSettings.DeleteAlert.Message" = "Dieser Space wird unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";

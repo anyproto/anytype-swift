@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Enlace";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Sin título";
 
 "BlockText.ContentType.Title.Placeholder" = "Sin título";
 "BlockText.ContentType.Description.Placeholder" = "Añadir una descripción";
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
 
+"Untitled" = "Sin título";
 "None" = "Ninguno";
 "Callout" = "Globo";
 "Toggle empty. Tap to create block." = "Desplegable vacío. Toca para crear un bloque";
@@ -642,6 +642,7 @@
 "Deleted" = "Eliminado";
 "Download" = "Descargar";
 "Open object" = "Abrir objeto";
+"Open as Object" = "Abrir como objeto";
 "Open source" = "Abrir origen";
 "Into object" = "En objeto";
 "Add below" = "Añadir debajo";

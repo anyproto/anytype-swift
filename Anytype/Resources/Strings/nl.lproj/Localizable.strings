@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Koppeling";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Naamloos";
 
-"BlockText.ContentType.Title.Placeholder" = "Naamloos";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Voeg een beschrijving toe";
 "BlockText.ContentType.Toggle.Placeholder" = "Open/sluit blok";
 "BlockText.ContentType.Bulleted.Placeholder" = "Onderdeel van lijst met opsommingstekens";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Naam ruimte";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Naamloos";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Verwijderd object";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Object";
 
+"Untitled" = "Untitled";
 "None" = "Geen";
 "Callout" = "Toelichting";
 "Toggle empty. Tap to create block." = "Uitvouwbare lijst is leeg. Tik om nieuw blok te maken.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Voer jouw naam in";
 "Auth.JoinFlow.Soul.Description" = "Alleen zichtbaar voor mensen met wie je iets deelt. Er is geen centraal register van deze namen.";
-"Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "Dit is jouw kluis";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dagen vanaf nu";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Naamloos";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Vraag";
@@ -642,6 +642,7 @@
 "Deleted" = "Verwijderd";
 "Download" = "Downloaden";
 "Open object" = "Open object";
+"Open as Object" = "Open as Object";
 "Open source" = "Open bron";
 "Into object" = "Naar object";
 "Add below" = "Voeg toe hieronder";
@@ -788,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Dupliceer";
 "SetViewTypesPicker.Settings.Delete.View" = "Verwijder weergave";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nieuwe weergave";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Naamloos";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Niet ondersteund";
@@ -931,7 +932,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Ruimte instellingen";
 "SpaceSettings.RemoteStorage" = "Externe opslag";
-"SpaceSettings.Info" = "Ruimte informatie";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Netwerk ID";
 "SpaceSettings.DeleteAlert.Title" = "Verwijder '%@' ruimte";
 "SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";

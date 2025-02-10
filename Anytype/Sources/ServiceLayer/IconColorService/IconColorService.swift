@@ -47,7 +47,7 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
                 guard let url = ImageMetadata(id: imageId, width: .width(10)).contentUrl else {
                     throw CommonError.undefined
                 }
-                let image = try await KingfisherManager.shared.retrieveImageAsync(with: url).image
+                let image = try await KingfisherManager.shared.retrieveImage(with: .network(url)).image
                 let color = try image.averageColor()
                 return optimizeColor(color).suColor
             case .name(_, let iconOption):

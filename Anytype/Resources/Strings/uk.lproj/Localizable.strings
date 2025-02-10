@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Посилання";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Без назви";
 
-"BlockText.ContentType.Title.Placeholder" = "Без назви";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Додати опис";
 "BlockText.ContentType.Toggle.Placeholder" = "Перемкнути блок";
 "BlockText.ContentType.Bulleted.Placeholder" = "Елемент маркованого списку";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Назва простору";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Без назви";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Видалений об'єкт";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
 
+"Untitled" = "Untitled";
 "None" = "Нічого";
 "Callout" = "Винесення";
 "Toggle empty. Tap to create block." = "Пусто. Натисніть, щоб створити блок.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
-"Auth.JoinFlow.Soul.Placeholder" = "Без назви";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Enter my Vault";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ днів з цього моменту";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Без назви";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запит";
@@ -642,6 +642,7 @@
 "Deleted" = "Видалено";
 "Download" = "Завантажити";
 "Open object" = "Відкрити об'єкт";
+"Open as Object" = "Open as Object";
 "Open source" = "Відкрити джерело";
 "Into object" = "В об'єкт";
 "Add below" = "Додати знизу";
@@ -788,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дублювати";
 "SetViewTypesPicker.Settings.Delete.View" = "Видалити подання";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Нове подання";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без назви";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -931,7 +932,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Параметри простору";
 "SpaceSettings.RemoteStorage" = "Віддалене сховище";
-"SpaceSettings.Info" = "Інформація про простір";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Ідентифікатор мережі";
 "SpaceSettings.DeleteAlert.Title" = "Видалити ‘%@’ простір";
 "SpaceSettings.DeleteAlert.Message" = "Цей простір буде видалено безповоротно. Ви не можете скасувати цю дію.";

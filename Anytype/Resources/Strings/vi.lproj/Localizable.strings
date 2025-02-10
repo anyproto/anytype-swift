@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Liên kết";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Không tên";
 
-"BlockText.ContentType.Title.Placeholder" = "Không tên";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Thêm mô tả";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Mục trong danh sách gạch đầu dòng";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Tên Không gian";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Không tên";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Đối tượng đã xoá";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Đối tượng";
 
+"Untitled" = "Untitled";
 "None" = "Không";
 "Callout" = "Chú thích";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
@@ -281,7 +281,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Đặt tên của bạn";
 "Auth.JoinFlow.Soul.Description" = "Chỉ có thể thấy bởi những người mà bạn đã chia sẻ thứ gì đó cho. Không hề có một trung tâm ghi những cái tên này.";
-"Auth.JoinFlow.Soul.Placeholder" = "Không tên";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "Đây là Két của bạn";
@@ -483,7 +483,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Không tên";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Truy vấn";
@@ -643,6 +643,7 @@
 "Deleted" = "Đã xoá";
 "Download" = "Tải về";
 "Open object" = "Mở đối tượng";
+"Open as Object" = "Open as Object";
 "Open source" = "Mở nguồn";
 "Into object" = "Vào đối tượng";
 "Add below" = "Thêm ở phía dưới";
@@ -789,7 +790,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Nhân đôi";
 "SetViewTypesPicker.Settings.Delete.View" = "Xoá chế độ xem";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Chế độ xem mới";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Không tên";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Không được hỗ trợ";
@@ -931,7 +932,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Cài đặt không gian";
 "SpaceSettings.RemoteStorage" = "Bộ nhớ ngoài";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "ID Mạng";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "Không gian này sẽ bị xoá mà không hoàn lại được. Bạn không thể hoàn tác thao tác này.";

@@ -4,16 +4,21 @@ import Combine
 import AnytypeCore
 import Services
 
-@MainActor
-final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
+enum SpaceSettingsNavigationItem {
+    case spaceDetails
+}
 
+@MainActor
+final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
+    
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
     
+    @Published var path = NavigationPath()
+    
     @Published var showRemoteStorage = false
-    @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
     @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersData?
@@ -31,16 +36,24 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSetting
     
     // MARK: - SpaceSettingsModuleOutput
     
+    func onSpaceDetailsSelected() {
+        path.append(SpaceSettingsNavigationItem.spaceDetails)
+    }
+    
+    func onWallpaperSelected() {
+        showWallpaperPicker.toggle()
+    }
+    
+    func onDefaultObjectTypeSelected() {
+        showObjectTypeSearch.toggle()
+    }
+    
     func onChangeIconSelected() {
         showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
     }
     
     func onRemoteStorageSelected() {
         showRemoteStorage.toggle()
-    }
-    
-    func onPersonalizationSelected() {
-        showPersonalization.toggle()
     }
     
     func onSpaceShareSelected() {

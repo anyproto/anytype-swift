@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Ligação";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Sem título";
 
-"BlockText.ContentType.Title.Placeholder" = "Sem título";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Adicione uma descrição";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Item da lista com marcadores";
@@ -66,7 +65,7 @@
 "Settings.SpaceName" = "Nome do espaço";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Sem título";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Objeto eliminado";
 
 // MARK: - Relation
@@ -128,6 +127,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
 
+"Untitled" = "Untitled";
 "None" = "Nenhum";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Caixa de seleção vazia. Toque para criar bloco.";
@@ -280,7 +280,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Definir seu nome";
 "Auth.JoinFlow.Soul.Description" = "Somente visto por pessoas com quem você compartilha algo. Não há registro central com esses nomes.";
-"Auth.JoinFlow.Soul.Placeholder" = "Sem título";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "Este é o seu Cofre";
@@ -482,7 +482,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Sem título";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -642,6 +642,7 @@
 "Deleted" = "Deleted";
 "Download" = "Download";
 "Open object" = "Open object";
+"Open as Object" = "Open as Object";
 "Open source" = "Open source";
 "Into object" = "Into object";
 "Add below" = "Add below";
@@ -788,7 +789,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicar";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -930,7 +931,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Remote storage";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Network ID";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "Estes objetos serão excluídos irrevogavelmente. Você não pode desfazer esta ação.";

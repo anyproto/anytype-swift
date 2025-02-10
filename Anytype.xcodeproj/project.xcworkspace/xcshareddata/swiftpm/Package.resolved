@@ -1,5 +1,5 @@
 {
-  "originHash" : "97e0f9d883496bf3b0a858bc8223570503bb06abe2de7861e1ab6d147928fc1f",
+  "originHash" : "02cc1ad771f278a4652f0067da032c098c108418d179c08779e921893f66c4d6",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -40,7 +40,7 @@
     {
       "identity" : "cache",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hyperoslo/Cache",
+      "location" : "https://github.com/hyperoslo/Cache.git",
       "state" : {
         "revision" : "24e47109e31b2031cb26e25cc1b81b607496066c",
         "version" : "7.4.0"
@@ -159,8 +159,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/onevcat/Kingfisher",
       "state" : {
-        "revision" : "5b92f029fab2cce44386d28588098b5be0824ef5",
-        "version" : "7.11.0"
+        "revision" : "3db26ab625d194c38e68c1a40e43d1bc12743fe0",
+        "version" : "8.2.0"
       }
     },
     {

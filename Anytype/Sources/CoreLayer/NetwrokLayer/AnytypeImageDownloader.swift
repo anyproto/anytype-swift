@@ -26,7 +26,7 @@ final class AnytypeImageDownloader {
     
     static func retrieveImage(with url: URL) async -> UIImage? {
         do {
-            return try await KingfisherManager.shared.retrieveImageAsync(with: url).image
+            return try await KingfisherManager.shared.retrieveImage(with: .network(url)).image
         } catch is CancellationError {
             return nil
         } catch let error as KingfisherError where error.isInvalidResponseStatusCode(404) {
