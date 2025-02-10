@@ -45,25 +45,10 @@ struct NewSpaceSettingsView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    
                     spaceDetailsButton
-                    
-                    spaceSection
-                    
-                    SectionHeaderView(title: Loc.preferences)
-                    RoundedButton(text: "Default Object Type") { model.onDefaultObjectTypeTap() }
-                    Spacer.fixedHeight(8)
-                    RoundedButton(text: "Wallpaper") { model.onWallpaperTap() }
-                    
-                    
-                    if model.allowRemoteStorage {
-                        SectionHeaderView(title: Loc.Settings.dataManagement)
-                        SettingsSectionItemView(
-                            name: Loc.SpaceSettings.remoteStorage,
-                            imageAsset: .Settings.fileStorage,
-                            onTap: { model.onStorageTap() }
-                        )
-                    }
+                    collaboration
+                    preferences
+                    dataManagement
                 }
             }
             .padding(.horizontal, 20)
@@ -142,7 +127,7 @@ struct NewSpaceSettingsView: View {
     }
     
     @ViewBuilder
-    private var spaceSection: some View {
+    private var collaboration: some View {
         SectionHeaderView(title: Loc.collaboration)
         
         switch model.shareSection {
@@ -199,6 +184,26 @@ struct NewSpaceSettingsView: View {
                     }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var preferences: some View {
+        SectionHeaderView(title: Loc.preferences)
+        RoundedButton(text: "Default Object Type") { model.onDefaultObjectTypeTap() }
+        Spacer.fixedHeight(8)
+        RoundedButton(text: "Wallpaper") { model.onWallpaperTap() }
+    }
+    
+    @ViewBuilder
+    private var dataManagement: some View {
+        if model.allowRemoteStorage {
+            SectionHeaderView(title: Loc.Settings.dataManagement)
+            SettingsSectionItemView(
+                name: Loc.SpaceSettings.remoteStorage,
+                imageAsset: .Settings.fileStorage,
+                onTap: { model.onStorageTap() }
+            )
         }
     }
 }
