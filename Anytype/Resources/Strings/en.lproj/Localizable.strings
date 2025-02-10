@@ -894,14 +894,14 @@
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
 
 // MARK: - Widget object list
