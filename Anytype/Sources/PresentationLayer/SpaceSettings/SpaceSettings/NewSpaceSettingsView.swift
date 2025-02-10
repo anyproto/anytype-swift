@@ -170,20 +170,16 @@ struct NewSpaceSettingsView: View {
     @ViewBuilder
     private var preferences: some View {
         SectionHeaderView(title: Loc.preferences)
-        RoundedButton(text: "Default Object Type") { model.onDefaultObjectTypeTap() }
+        RoundedButton(text: Loc.defaultObjectType) { model.onDefaultObjectTypeTap() }
         Spacer.fixedHeight(8)
-        RoundedButton(text: "Wallpaper") { model.onWallpaperTap() }
+        RoundedButton(text: Loc.wallpaper) { model.onWallpaperTap() }
     }
     
     @ViewBuilder
     private var dataManagement: some View {
         if model.allowRemoteStorage {
             SectionHeaderView(title: Loc.Settings.dataManagement)
-            SettingsSectionItemView(
-                name: Loc.SpaceSettings.remoteStorage,
-                imageAsset: .Settings.fileStorage,
-                onTap: { model.onStorageTap() }
-            )
+            RoundedButton(text: Loc.SpaceSettings.remoteStorage) { model.onStorageTap() }
         }
     }
 }
