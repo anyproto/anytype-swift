@@ -198,6 +198,7 @@ internal enum Loc {
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   internal static let managePayment = Loc.tr("Localizable", "Manage payment", fallback: "Manage payment")
   internal static let media = Loc.tr("Localizable", "Media", fallback: "Media")
+  internal static let members = Loc.tr("Localizable", "Members", fallback: "Members")
   internal static let membership = Loc.tr("Localizable", "Membership", fallback: "Membership")
   internal static func minXCharacters(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Min X characters", String(describing: p1), fallback: "Min %@ characters")

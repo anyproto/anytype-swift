@@ -128,25 +128,18 @@ struct NewSpaceSettingsView: View {
     
     @ViewBuilder
     private var collaboration: some View {
-        SectionHeaderView(title: Loc.collaboration)
         
         switch model.shareSection {
         case .personal:
-            SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
+            EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
         case .owner(let joiningCount):
-            SettingsSectionItemView(
-                name: model.spaceAccessType,
-                decoration: .arrow(text: joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage),
-                onTap: { model.onShareTap() }
-            )
+            SectionHeaderView(title: Loc.collaboration)
+            RoundedButton(text: Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : nil) { model.onShareTap() }
         case .member:
-            SettingsSectionItemView(
-                name: model.spaceAccessType,
-                decoration: .arrow(text: Loc.SpaceShare.members),
-                onTap: { model.onMembersTap() }
-            )
+            SectionHeaderView(title: Loc.collaboration)
+            RoundedButton(text: Loc.members, icon: .X24.member) { model.onMembersTap() }
         }
     }
     
@@ -154,28 +147,15 @@ struct NewSpaceSettingsView: View {
         Group {
             switch state {
             case .unshareable:
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .none,
-                    onTap: {  }
-                )
-                .disabled(true)
+                EmptyView()
             case .shareable:
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.share),
-                    onTap: { model.onShareTap() }
-                )
+                SectionHeaderView(title: Loc.collaboration)
+                RoundedButton(text: Loc.share, icon: .X24.member) { model.onShareTap() }
             case .reachedSharesLimit(let limit):
+                SectionHeaderView(title: Loc.collaboration)
                 VStack(alignment: .leading, spacing: 0) {
-                    SettingsSectionItemView(
-                        name: model.spaceAccessType,
-                        decoration: .arrow(text: Loc.share),
-                        showDivider: false,
-                        onTap: { model.onShareTap() }
-                    )
-                    .disabled(true)
-                    
+                    RoundedButton(text: Loc.share, icon: .X24.member) { }
+                        .disabled(true)
                     AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
                         .foregroundColor(.Text.primary)
                     Spacer.fixedHeight(10)
