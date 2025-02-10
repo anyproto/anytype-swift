@@ -45,25 +45,10 @@ struct NewSpaceSettingsView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    
                     spaceDetailsButton
-                    
-                    spaceSection
-                    
-                    SectionHeaderView(title: Loc.preferences)
-                    RoundedButton(text: "Default Object Type") { model.onDefaultObjectTypeTap() }
-                    Spacer.fixedHeight(8)
-                    RoundedButton(text: "Wallpaper") { model.onWallpaperTap() }
-                    
-                    
-                    if model.allowRemoteStorage {
-                        SectionHeaderView(title: Loc.Settings.dataManagement)
-                        SettingsSectionItemView(
-                            name: Loc.SpaceSettings.remoteStorage,
-                            imageAsset: .Settings.fileStorage,
-                            onTap: { model.onStorageTap() }
-                        )
-                    }
+                    collaboration
+                    preferences
+                    dataManagement
                 }
             }
             .padding(.horizontal, 20)
@@ -142,26 +127,19 @@ struct NewSpaceSettingsView: View {
     }
     
     @ViewBuilder
-    private var spaceSection: some View {
-        SectionHeaderView(title: Loc.collaboration)
+    private var collaboration: some View {
         
         switch model.shareSection {
         case .personal:
-            SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
+            EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
         case .owner(let joiningCount):
-            SettingsSectionItemView(
-                name: model.spaceAccessType,
-                decoration: .arrow(text: joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage),
-                onTap: { model.onShareTap() }
-            )
+            SectionHeaderView(title: Loc.collaboration)
+            RoundedButton(text: Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : nil) { model.onShareTap() }
         case .member:
-            SettingsSectionItemView(
-                name: model.spaceAccessType,
-                decoration: .arrow(text: Loc.SpaceShare.members),
-                onTap: { model.onMembersTap() }
-            )
+            SectionHeaderView(title: Loc.collaboration)
+            RoundedButton(text: Loc.members, icon: .X24.member) { model.onMembersTap() }
         }
     }
     
@@ -169,28 +147,15 @@ struct NewSpaceSettingsView: View {
         Group {
             switch state {
             case .unshareable:
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .none,
-                    onTap: {  }
-                )
-                .disabled(true)
+                EmptyView()
             case .shareable:
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.share),
-                    onTap: { model.onShareTap() }
-                )
+                SectionHeaderView(title: Loc.collaboration)
+                RoundedButton(text: Loc.share, icon: .X24.member) { model.onShareTap() }
             case .reachedSharesLimit(let limit):
+                SectionHeaderView(title: Loc.collaboration)
                 VStack(alignment: .leading, spacing: 0) {
-                    SettingsSectionItemView(
-                        name: model.spaceAccessType,
-                        decoration: .arrow(text: Loc.share),
-                        showDivider: false,
-                        onTap: { model.onShareTap() }
-                    )
-                    .disabled(true)
-                    
+                    RoundedButton(text: Loc.share, icon: .X24.member) { }
+                        .disabled(true)
                     AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
                         .foregroundColor(.Text.primary)
                     Spacer.fixedHeight(10)
@@ -199,6 +164,22 @@ struct NewSpaceSettingsView: View {
                     }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var preferences: some View {
+        SectionHeaderView(title: Loc.preferences)
+        RoundedButton(text: Loc.defaultObjectType) { model.onDefaultObjectTypeTap() }
+        Spacer.fixedHeight(8)
+        RoundedButton(text: Loc.wallpaper) { model.onWallpaperTap() }
+    }
+    
+    @ViewBuilder
+    private var dataManagement: some View {
+        if model.allowRemoteStorage {
+            SectionHeaderView(title: Loc.Settings.dataManagement)
+            RoundedButton(text: Loc.SpaceSettings.remoteStorage) { model.onStorageTap() }
         }
     }
 }
