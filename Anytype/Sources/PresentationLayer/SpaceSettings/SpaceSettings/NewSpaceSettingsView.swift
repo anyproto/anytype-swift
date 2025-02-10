@@ -142,7 +142,7 @@ struct NewSpaceSettingsView: View {
                 } label: {
                     HStack {
                         Spacer()
-                        VStack {
+                        VStack(spacing: 0) {
                             Image(asset: .X32.Island.addMember)
                                 .foregroundStyle(Color.Text.primary)
                                 .frame(width: 32, height: 32)
@@ -159,7 +159,7 @@ struct NewSpaceSettingsView: View {
                 } label: {
                     HStack {
                         Spacer()
-                        VStack {
+                        VStack(spacing: 0) {
                             Image(asset: .X32.qrCode)
                                 .foregroundStyle(Color.Text.primary)
                                 .frame(width: 32, height: 32)
