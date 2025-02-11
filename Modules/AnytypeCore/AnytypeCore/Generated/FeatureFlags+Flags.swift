@@ -62,6 +62,10 @@ public extension FeatureFlags {
         value(for: .newSettings)
     }
 
+    static var newPlusMenu: Bool {
+        value(for: .newPlusMenu)
+    }
+
     static var firebasePushMessages: Bool {
         value(for: .firebasePushMessages)
     }
@@ -134,6 +138,7 @@ public extension FeatureFlags {
         .openMediaFileInPreview,
         .openBookmarkAsLink,
         .newSettings,
+        .newPlusMenu,
         .firebasePushMessages,
         .rainbowViews,
         .showAlertOnAssert,
