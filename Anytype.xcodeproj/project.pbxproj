@@ -2255,10 +2255,10 @@
 		};
 		2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.8.1;
+				kind = exactVersion;
+				version = 11.8.1;
 			};
 		};
 		2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
