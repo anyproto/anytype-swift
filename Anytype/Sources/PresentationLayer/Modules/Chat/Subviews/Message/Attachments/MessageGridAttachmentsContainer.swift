@@ -33,7 +33,7 @@ struct MessageGridAttachmentsContainer: View {
                 }
                 .cornerRadius(4)
             }
-            .cornerRadius(12)
         }
+        .cornerRadius(12)
     }
 }
