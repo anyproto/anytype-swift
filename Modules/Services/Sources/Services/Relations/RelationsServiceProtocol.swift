@@ -20,8 +20,14 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func removeRelationOptions(ids: [String]) async throws
     
     // New api
-    func updateTypeRelations(typeId: String, recommendedRelationIds: [ObjectId], recommendedFeaturedRelationsIds: [ObjectId]) async throws
+    func updateTypeRelations(
+        typeId: String,
+        recommendedRelationIds: [ObjectId],
+        recommendedFeaturedRelationsIds: [ObjectId],
+        recommendedHiddenRelationsIds: [ObjectId]
+    ) async throws
     func updateRecommendedRelations(typeId: String, relationIds: [ObjectId]) async throws
     func updateRecommendedFeaturedRelations(typeId: String, relationIds: [ObjectId]) async throws
+    func updateRecommendedHiddenRelations(typeId: String, relationIds: [ObjectId]) async throws
     func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String]
 }

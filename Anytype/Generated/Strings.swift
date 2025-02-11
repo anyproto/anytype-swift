@@ -165,6 +165,7 @@ internal enum Loc {
   internal static let grey = Loc.tr("Localizable", "Grey", fallback: "Grey")
   internal static let greyBackground = Loc.tr("Localizable", "Grey background", fallback: "Grey background")
   internal static let header = Loc.tr("Localizable", "Header", fallback: "Header")
+  internal static let hidden = Loc.tr("Localizable", "Hidden", fallback: "Hidden")
   internal static let hide = Loc.tr("Localizable", "Hide", fallback: "Hide")
   internal static let hideTypes = Loc.tr("Localizable", "Hide types", fallback: "Hide types")
   internal static let highlight = Loc.tr("Localizable", "Highlight", fallback: "Highlight")

@@ -39,6 +39,7 @@ struct TypeFieldsRelationRow: Identifiable, Equatable {
 enum TypeFieldsSectionRow: String, Identifiable, Equatable {
     case header
     case fieldsMenu
+    case hidden
     
     var id: String { self.rawValue }
     
@@ -46,14 +47,15 @@ enum TypeFieldsSectionRow: String, Identifiable, Equatable {
         switch self {
         case .header: return Loc.header
         case .fieldsMenu: return Loc.Fields.menu
+        case .hidden: return Loc.hidden
         }
     }
     
-    var isHeader: Bool {
+    var isFeatured: Bool {
         switch self {
         case .header:
             true
-        case .fieldsMenu:
+        case .fieldsMenu, .hidden:
             false
         }
     }

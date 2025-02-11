@@ -623,6 +623,7 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
+"Hidden" = "Hidden";
 "In this object" = "In this object";
 "Other relations" = "Other fields";
 "Collection of objects" = "Collection of objects";
