@@ -42,17 +42,41 @@ struct HomeWidgetSubmoduleView: View {
         case (.recentOpen, .compactList):
             RecentOpenCompactListWidgetSubmoduleView(data: widgetData)
         case (.sets, .tree):
-            SetsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                SetsCompactListWidgetSubmoduleView(data: widgetData)
+            }
         case (.sets, .list):
-            SetsListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                SetsListWidgetSubmoduleView(data: widgetData)
+            }
         case (.sets, .compactList):
-            SetsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                SetsCompactListWidgetSubmoduleView(data: widgetData)
+            }
         case (.collections, .tree):
-            CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            }
         case (.collections, .list):
-            CollectionsListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                CollectionsListWidgetSubmoduleView(data: widgetData)
+            }
         case (.collections, .compactList):
-            CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            }
         case (.pages, .tree):
             if FeatureFlags.allContentWidgets {
                 PagesTreeWidgetSubmoduleView(data: widgetData)
