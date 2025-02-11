@@ -204,6 +204,7 @@ internal extension ImageAsset {
     static let sharing = ImageAsset.bundle(name: "x24/Sharing")
     static let spaceSettings = ImageAsset.bundle(name: "x24/Space settings")
     static let status = ImageAsset.bundle(name: "x24/Status")
+    static let storage = ImageAsset.bundle(name: "x24/Storage")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
     static let text = ImageAsset.bundle(name: "x24/Text")
     static let tick = ImageAsset.bundle(name: "x24/Tick")

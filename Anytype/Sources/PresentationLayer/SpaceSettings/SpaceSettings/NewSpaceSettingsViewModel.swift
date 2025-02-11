@@ -24,10 +24,13 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var mailUrlBuilder: any MailUrlBuilderProtocol
     @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
+    @Injected(\.fileLimitsStorage)
+    private var fileLimitsStorage: any FileLimitsStorageProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private let dateFormatter = DateFormatter.relativeDateFormatter
+    private let storageInfoBuilder = SegmentInfoBuilder()
     private weak var output: (any NewSpaceSettingsModuleOutput)?
     
     // MARK: - State
@@ -65,6 +68,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
+    @Published var storageInfo = RemoteStorageSegmentInfo()
     
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
@@ -135,7 +139,22 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
     }
     
-    func startJoiningTask() async {
+    // MARK: - Subscriptions
+    
+    func startSubscriptions() async {
+        async let storageTask: () = startStorageTask()
+        async let joiningTask: () = startJoiningTask()
+        async let participantTask: () = startParticipantTask()
+        (_,_,_) = await (storageTask, joiningTask, participantTask)
+    }
+    
+    private func startStorageTask() async {
+        for await nodeUsage in fileLimitsStorage.nodeUsage.values {
+            storageInfo = storageInfoBuilder.build(spaceId: workspaceInfo.accountSpaceId, nodeUsage: nodeUsage)
+        }
+    }
+    
+    private func startJoiningTask() async {
         for await participants in participantsSubscription.participantsPublisher.values {
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
@@ -143,7 +162,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
     }
     
-    func startParticipantTask() async {
+    private func startParticipantTask() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
             self.participantSpaceView = participantSpaceView
             updateViewState()

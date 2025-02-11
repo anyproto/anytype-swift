@@ -19,10 +19,7 @@ struct NewSpaceSettingsView: View {
                 model.onAppear()
             }
             .task {
-                await model.startJoiningTask()
-            }
-            .task {
-                await model.startParticipantTask()
+                await model.startSubscriptions()
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
@@ -142,7 +139,7 @@ struct NewSpaceSettingsView: View {
                 } label: {
                     HStack {
                         Spacer()
-                        VStack {
+                        VStack(spacing: 0) {
                             Image(asset: .X32.Island.addMember)
                                 .foregroundStyle(Color.Text.primary)
                                 .frame(width: 32, height: 32)
@@ -159,7 +156,7 @@ struct NewSpaceSettingsView: View {
                 } label: {
                     HStack {
                         Spacer()
-                        VStack {
+                        VStack(spacing: 0) {
                             Image(asset: .X32.qrCode)
                                 .foregroundStyle(Color.Text.primary)
                                 .frame(width: 32, height: 32)
@@ -227,7 +224,27 @@ struct NewSpaceSettingsView: View {
     private var dataManagement: some View {
         if model.allowRemoteStorage {
             SectionHeaderView(title: Loc.Settings.dataManagement)
-            RoundedButton(text: Loc.SpaceSettings.remoteStorage) { model.onStorageTap() }
+            Button {
+                model.onStorageTap()
+            } label: {
+                VStack(spacing: 0) {
+                    HStack(alignment: .center, spacing: 0) {
+                        Image(asset: .X24.storage)
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.Text.primary)
+                            .frame(width: 24, height: 24)
+                        Spacer.fixedWidth(8)
+                        AnytypeText(Loc.SpaceSettings.remoteStorage, style: .previewTitle1Regular)
+                        Spacer()
+                        IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+                    }
+                    .padding(20)
+                    
+                    RemoteStorageSegment(model: model.storageInfo, showLegend: false).padding(.horizontal, 16)
+                    Spacer.fixedHeight(16)
+                }
+                .border(12, color: .Shape.primary, lineWidth: 0.5)
+            }
         }
     }
 }
