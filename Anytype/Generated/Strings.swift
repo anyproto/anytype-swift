@@ -634,7 +634,6 @@ internal enum Loc {
   }
   internal enum Chat {
     internal static let editMessage = Loc.tr("Localizable", "Chat.EditMessage", fallback: "Edit Message")
-    internal static let readOnly = Loc.tr("Localizable", "Chat.ReadOnly", fallback: "Only editors can send messages. Contact the owner to request access.")
     internal static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
     }

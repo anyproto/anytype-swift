@@ -54,13 +54,10 @@ struct ChatView: View {
         .homeBottomPanelHidden(true)
     }
     
+    @ViewBuilder
     private var bottomPanel: some View {
-        Group {
-            if model.canEdit {
-                inputPanel
-            } else {
-                ChatReadOnlyBottomView()
-            }
+        if model.canEdit {
+            inputPanel
         }
     }
     
