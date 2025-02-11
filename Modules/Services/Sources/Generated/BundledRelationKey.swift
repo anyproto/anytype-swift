@@ -272,6 +272,9 @@ public enum BundledRelationKey: String, Sendable {
     /// Space access type, see enum model.SpaceAccessType
     case spaceAccessType = "spaceAccessType"
 
+    /// Space UX type, see enum model.SpaceUxType
+    case spaceUxType = "spaceUxType"
+
     /// File path or url with original object
     case sourceFilePath = "sourceFilePath"
 

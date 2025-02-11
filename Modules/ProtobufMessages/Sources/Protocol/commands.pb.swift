@@ -14443,6 +14443,9 @@ public struct Anytype_Rpc {
 
         public var imageKind: Anytype_Model_ImageKind = .basic
 
+        /// experimental flag to auto-create type widget if missing
+        public var createTypeWidgetIfMissing: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -57188,6 +57191,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     7: .same(proto: "details"),
     8: .same(proto: "origin"),
     9: .same(proto: "imageKind"),
+    10: .same(proto: "createTypeWidgetIfMissing"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -57205,6 +57209,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 7: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.origin) }()
       case 9: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.createTypeWidgetIfMissing) }()
       default: break
       }
     }
@@ -57242,6 +57247,9 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if self.imageKind != .basic {
       try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 9)
     }
+    if self.createTypeWidgetIfMissing != false {
+      try visitor.visitSingularBoolField(value: self.createTypeWidgetIfMissing, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -57255,6 +57263,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs._details != rhs._details {return false}
     if lhs.origin != rhs.origin {return false}
     if lhs.imageKind != rhs.imageKind {return false}
+    if lhs.createTypeWidgetIfMissing != rhs.createTypeWidgetIfMissing {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

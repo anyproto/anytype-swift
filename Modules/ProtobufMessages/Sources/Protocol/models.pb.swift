@@ -611,6 +611,56 @@ extension Anytype_Model_SpaceAccessType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// chat-first UX
+  case chat // = 0
+
+  /// objects-first UX
+  case data // = 1
+
+  /// stream UX (chat with limited amount of owners)
+  case stream // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .chat
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .chat
+    case 1: self = .data
+    case 2: self = .stream
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .chat: return 0
+    case .data: return 1
+    case .stream: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_SpaceUxType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_SpaceUxType] = [
+    .chat,
+    .data,
+    .stream,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
   public typealias RawValue = Int
   case basic // = 0
@@ -6201,6 +6251,7 @@ extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
 extension Anytype_Model_ParticipantPermissions: @unchecked Sendable {}
 extension Anytype_Model_ParticipantStatus: @unchecked Sendable {}
 extension Anytype_Model_SpaceAccessType: @unchecked Sendable {}
+extension Anytype_Model_SpaceUxType: @unchecked Sendable {}
 extension Anytype_Model_ImageKind: @unchecked Sendable {}
 extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
 extension Anytype_Model_SpaceShareableStatus: @unchecked Sendable {}
@@ -6469,6 +6520,14 @@ extension Anytype_Model_SpaceAccessType: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "Private"),
     1: .same(proto: "Personal"),
     2: .same(proto: "Shared"),
+  ]
+}
+
+extension Anytype_Model_SpaceUxType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Chat"),
+    1: .same(proto: "Data"),
+    2: .same(proto: "Stream"),
   ]
 }
 
