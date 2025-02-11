@@ -19,6 +19,7 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
             SpaceView(
                 id: "1",
                 name: "ABC",
+                description: "desc",
                 objectIconImage: .object(.space(.name(name: "test", iconOption: 1))),
                 targetSpaceId: "",
                 createdDate: nil,

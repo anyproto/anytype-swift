@@ -10,7 +10,6 @@ struct SpaceHubNavigationItem: Hashable { }
 @MainActor
 final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceManager = false
-    @Published var showSpaceShareTip = false
     @Published var showObjectIsNotAvailableAlert = false
     @Published var profileData: ObjectInfo?
     @Published var userWarningAlert: UserWarningAlert?
@@ -345,8 +344,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
         case let .object(objectId, spaceId, cid, key):
             await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
-        case .spaceShareTip:
-            showSpaceShareTip = true
         case .membership(let tierId):
             guard accountManager.account.allowMembership else { return }
             membershipTierId = tierId.identifiable

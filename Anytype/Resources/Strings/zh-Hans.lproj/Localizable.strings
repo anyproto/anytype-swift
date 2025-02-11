@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "链接";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "无标题";
 
-"BlockText.ContentType.Title.Placeholder" = "无标题";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "添加描述";
 "BlockText.ContentType.Toggle.Placeholder" = "切换块";
 "BlockText.ContentType.Bulleted.Placeholder" = "项目符号列表项";
@@ -62,11 +61,8 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "卡片";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "正文";
 
-// MARK: - Settings
-"Settings.SpaceName" = "空间名称";
-
 // MARK: - Object
-"Object.Title.Placeholder" = "无标题";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "已删除的对象";
 
 // MARK: - Relation
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
 
+"Untitled" = "Untitled";
 "None" = "无";
 "Callout" = "标注";
 "Toggle empty. Tap to create block." = "切换为空。点击以创建块。";
@@ -281,7 +278,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "设置昵称";
 "Auth.JoinFlow.Soul.Description" = "只有被您分享的用户可以查看。这里没有中心化的管理员。";
-"Auth.JoinFlow.Soul.Placeholder" = "无标题";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "进入我的文库";
 
 "Auth.JoinFlow.Vault.Title" = "这是您的文库";
@@ -483,7 +480,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ 天后";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "无标题";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "查询";
@@ -664,6 +661,7 @@
 "Link to" = "链接到";
 "Unknown" = "未知";
 "Settings" = "设置";
+"Preferences" = "Preferences";
 "Views" = "视图";
 "Filter" = "筛选";
 "Sort" = "排序";
@@ -709,6 +707,10 @@
 "Hide" = "隐藏";
 "Apply" = "应用";
 "Leave a space" = "离开空间";
+"Collaboration" = "Collaboration";
+"Members" = "参与的人";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -790,7 +792,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "生成副本";
 "SetViewTypesPicker.Settings.Delete.View" = "删除视图";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "新建视图";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "无标题";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "暂不支持";
@@ -880,6 +882,10 @@
 "Settings.SpaceName" = "空间名称";
 "Settings.SpaceType" = "空间类型";
 "Settings.VaultAndAccess" = "文库与访问权限";
+"Settings.SpaceName" = "空间名称";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "文件存储";
@@ -891,14 +897,14 @@
 "FileStorage.Local.Instruction" = "为了节省本地设备上的空间，您可以将所有文件卸载到我们的加密备份节点。打开文件时，文件将被重新加载。";
 "FileStorage.Local.Used" = "%@ 已使用";
 "FileStorage.OffloadTitle" = "卸载文件";
-"FileStorage.ManageFiles" = "管理文件";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "您超出了上传的文件限制";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "其他空间 | %@";
 "FileStorage.LimitLegend.Free" = "可用空间 | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "已同步的文件";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "是否确定要永久删除文件?";
 
 // MARK: - Widget object list
@@ -932,7 +938,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "空间设置";
 "SpaceSettings.RemoteStorage" = "远程存储";
-"SpaceSettings.Info" = "空间信息";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "网络 ID";
 "SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";

@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Lenke";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Uten tittel";
 
-"BlockText.ContentType.Title.Placeholder" = "Uten tittel";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Legg til en beskrivelse";
 "BlockText.ContentType.Toggle.Placeholder" = "Ekspanderbar blokk";
 "BlockText.ContentType.Bulleted.Placeholder" = "Punktliste-element";
@@ -62,11 +61,8 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Kort";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Romnavn";
-
 // MARK: - Object
-"Object.Title.Placeholder" = "Uten tittel";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Slettet objekt";
 
 // MARK: - Relation
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
+"Untitled" = "Untitled";
 "None" = "Ingen";
 "Callout" = "Utrop";
 "Toggle empty. Tap to create block." = "Tom ekspanderbar liste. Trykk for å opprette blokk.";
@@ -280,7 +277,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
-"Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
@@ -482,7 +479,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dager fra nå";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Uten tittel";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Spørring";
@@ -663,6 +660,7 @@
 "Link to" = "Koble til";
 "Unknown" = "Ukjent";
 "Settings" = "Innstillinger";
+"Preferences" = "Preferences";
 "Views" = "Visninger";
 "Filter" = "Filter";
 "Sort" = "Sorter";
@@ -708,6 +706,10 @@
 "Hide" = "Skjul";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Medlemmer";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Er du sikker på at du vil slette hvelvet ditt?";
@@ -789,7 +791,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Dupliser";
 "SetViewTypesPicker.Settings.Delete.View" = "Slett visning";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Ny visning";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Uten tittel";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Ikke støttet";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Romnavn";
 "Settings.SpaceType" = "Rom-type";
 "Settings.VaultAndAccess" = "Hvelv og tilgang";
+"Settings.SpaceName" = "Romnavn";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Fillagring";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "For å spare plass på den lokale enheten din, kan du slette alle lokale filer og beholde dem på vår krypterte sikkerhetskopi-node. Filene vil bli lastet ned igjen når du åpner dem.";
 "FileStorage.Local.Used" = "%@ brukt";
 "FileStorage.OffloadTitle" = "Slett lokale filer";
-"FileStorage.ManageFiles" = "Administrer filer";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Du overskred filopplastingsgrensen";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Andre rom | %@";
 "FileStorage.LimitLegend.Free" = "Ledig | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synkroniserte filer";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Er du sikker på at du vil slette denne filene permanent?";
 
 // MARK: - Widget object list
@@ -931,7 +937,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";
 "SpaceSettings.RemoteStorage" = "Fjernlagring";
-"SpaceSettings.Info" = "Rominformasjon";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Nettverks-ID";
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";

@@ -429,7 +429,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
                 linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
                 // Waiting pop transaction and open keyboard.
-                try await Task.sleep(seconds: 0.5)
+                try await Task.sleep(seconds: 1.0)
                 inputFocused = true
             }
         }

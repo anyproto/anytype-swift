@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Ligação";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Sem título";
 
-"BlockText.ContentType.Title.Placeholder" = "Sem título";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Adicione uma descrição";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Item da lista com marcadores";
@@ -62,11 +61,8 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Cartão";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nome do espaço";
-
 // MARK: - Object
-"Object.Title.Placeholder" = "Sem título";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Objeto eliminado";
 
 // MARK: - Relation
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
 
+"Untitled" = "Untitled";
 "None" = "Nenhum";
 "Callout" = "Callout";
 "Toggle empty. Tap to create block." = "Caixa de seleção vazia. Toque para criar bloco.";
@@ -280,7 +277,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Definir seu nome";
 "Auth.JoinFlow.Soul.Description" = "Somente visto por pessoas com quem você compartilha algo. Não há registro central com esses nomes.";
-"Auth.JoinFlow.Soul.Placeholder" = "Sem título";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "Este é o seu Cofre";
@@ -482,7 +479,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Sem título";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -663,6 +660,7 @@
 "Link to" = "Link to";
 "Unknown" = "Unknown";
 "Settings" = "Configurações";
+"Preferences" = "Preferences";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -708,6 +706,10 @@
 "Hide" = "Hide";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Members";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Tem certeza que deseja excluir o seu cofre?";
@@ -789,7 +791,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicar";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Sem título";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Nome do espaço";
 "Settings.SpaceType" = "Space type";
 "Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceName" = "Nome do espaço";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Para economizar espaço no seu dispositivo local, você pode descarregar todos os seus arquivos no nosso servidor de backup criptografado. Os arquivos serão carregados de volta quando você os abrir.";
 "FileStorage.Local.Used" = "%@ used";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Livre %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Tem a certeza de que pretende eliminar permanentemente este ficheiro?";
 
 // MARK: - Widget object list
@@ -931,7 +937,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Remote storage";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Network ID";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "Estes objetos serão excluídos irrevogavelmente. Você não pode desfazer esta ação.";
