@@ -28,6 +28,7 @@ final class FileService: FileServiceProtocol {
             $0.style = .auto
             $0.spaceID = spaceId
             $0.origin = origin
+            $0.createTypeWidgetIfMissing = FeatureFlags.objectTypeWidgets
         }).invoke()
         return FileDetails(objectDetails: try ObjectDetails(protobufStruct: result.details))
     }
