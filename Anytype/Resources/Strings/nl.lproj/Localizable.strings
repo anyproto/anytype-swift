@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Kaart";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Naam ruimte";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Verwijderd object";
@@ -663,6 +660,7 @@
 "Link to" = "Link naar";
 "Unknown" = "Onbekend";
 "Settings" = "Instellingen";
+"Preferences" = "Preferences";
 "Views" = "Weergaven";
 "Filter" = "Filter";
 "Sort" = "Sorteer";
@@ -708,6 +706,10 @@
 "Hide" = "Verberg";
 "Apply" = "Pas toe";
 "Leave a space" = "Verlaat een ruimte";
+"Collaboration" = "Collaboration";
+"Members" = "Leden";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";
@@ -880,6 +882,10 @@
 "Settings.SpaceName" = "Naam ruimte";
 "Settings.SpaceType" = "Ruimte type";
 "Settings.VaultAndAccess" = "Kluis en toegang";
+"Settings.SpaceName" = "Naam ruimte";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Bestandsopslag";
@@ -891,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Om ruimte op jouw lokale apparaat te besparen, kun je al jouw bestanden naar onze versleutelde back-up node verplaatsen. De bestanden worden opnieuw geladen wanneer je ze opent.";
 "FileStorage.Local.Used" = "%@ gebruikt";
 "FileStorage.OffloadTitle" = "Offload bestanden";
-"FileStorage.ManageFiles" = "Beheer bestanden";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Je hebt de upload bestandslimiet overschreden";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Andere ruimten | %@";
 "FileStorage.LimitLegend.Free" = "Maak vrij |  %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Gesynchroniseerde bestanden";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Weet je zeker dat je de bestanden permanent wilt verwijderen?";
 
 // MARK: - Widget object list

@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Tarjeta";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nombre del espacio";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Sin título";
 "Object.Deleted.Placeholder" = "Objeto eliminado";
@@ -663,6 +660,7 @@
 "Link to" = "Conectar a";
 "Unknown" = "Desconocido";
 "Settings" = "Ajustes";
+"Preferences" = "Preferences";
 "Views" = "Vistas";
 "Filter" = "Filtrar";
 "Sort" = "Ordenar";
@@ -708,6 +706,10 @@
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
 "Leave a space" = "Abandonar un espacio";
+"Collaboration" = "Collaboration";
+"Members" = "Miembros";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Nombre del espacio";
 "Settings.SpaceType" = "Tipo de espacio";
 "Settings.VaultAndAccess" = "Arca y acceso";
+"Settings.SpaceName" = "Nombre del espacio";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Almacenamiento de archivos";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Para ahorrar espacio en tu dispositivo local, puedes guardar todos tus archivos en nuestro nodo de respaldo cifrado. Los archivos se cargarán de nuevo cuando los abras.";
 "FileStorage.Local.Used" = "%@ utilizados";
 "FileStorage.OffloadTitle" = "Guardar en el nodo";
-"FileStorage.ManageFiles" = "Gestionar archivos";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Has superado el límite de carga de archivos";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Otros espacios | %@";
 "FileStorage.LimitLegend.Free" = "Libre | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Archivos sincronizados";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "¿Seguro que deseas eliminar definitivamente los archivos?";
 
 // MARK: - Widget object list
