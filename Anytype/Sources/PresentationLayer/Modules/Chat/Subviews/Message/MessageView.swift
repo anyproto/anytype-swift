@@ -39,7 +39,6 @@ struct MessageView: View {
             bubble
             reactions
         }
-        .frame(maxWidth: 350) // For iPad
     }
     
     @ViewBuilder
