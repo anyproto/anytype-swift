@@ -53,6 +53,7 @@
 		2ADB57862CB6B6FE00BFC386 /* Cache in Frameworks */ = {isa = PBXBuildFile; productRef = 2ADB57852CB6B6FE00BFC386 /* Cache */; };
 		2ADD66782CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD66772CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift */; };
 		2E29780E2CB6B8170017204D /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
+		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
 		2E8165BB2CB6B9830037D0BF /* LocalizableWidget.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ACE06512B7CD96D009AA7B6 /* LocalizableWidget.strings */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
@@ -299,6 +300,9 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/LaunchScreen.storyboard,
+				"GoogleServices/GoogleService-Info-AnyApp-Release.plist",
+				"GoogleServices/GoogleService-Info-Anytype-Dev.plist",
+				"GoogleServices/GoogleService-Info-Anytype-Release.plist",
 			);
 			target = 0303ECFA22D8EDAA005C552B /* Anytype */;
 		};
@@ -344,6 +348,7 @@
 				2A41A6782B84E57B00EAE6E6 /* DeepLinks in Frameworks */,
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
 				2A6ED16C285B44DB00AAA21C /* ProtobufMessages in Frameworks */,
+				2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */,
 				2A6ED166285B44DB00AAA21C /* AnytypeCore in Frameworks */,
 				538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */,
 				C9433E54293EA5EF001662EA /* SwiftEntryKit in Frameworks */,
@@ -670,6 +675,7 @@
 				0A005ABB24C60092000520AA /* Embed Frameworks */,
 				663CA3132889A2D6000F2414 /* Git hook register */,
 				C960DFBA28D88618002898AE /* Embed Foundation Extensions */,
+				2E63D9C42D5A302D008A733A /* Google services setup */,
 			);
 			buildRules = (
 			);
@@ -714,6 +720,7 @@
 				2A10D84F2C53A6C90088BB46 /* WrappingHStack */,
 				2ADB57852CB6B6FE00BFC386 /* Cache */,
 				7434DAC22D3916FF00E18A0C /* AppTarget */,
+				2E63D9B62D56520C008A733A /* FirebaseMessaging */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -862,6 +869,7 @@
 				3D24B09A2C1A2B6300795BAA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				2A10D84E2C53A5F00088BB46 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */,
+				2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 52;
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
@@ -936,6 +944,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Tools/SwiftGen/swiftgen config run --config ./Tools/SwiftGen/swiftgen-we.yml\n\n";
+		};
+		2E63D9C42D5A302D008A733A /* Google services setup */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Google services setup";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Remove existing plist\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n\n# Copy appropriate plist to app bundle\ncp \"${GOOGLE_SERVICE_INFO_PLIST}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n";
 		};
 		663CA3132889A2D6000F2414 /* Git hook register */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1305,6 +1331,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-Anytype-Dev.plist";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1351,6 +1378,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-Anytype-Release.plist";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1519,6 +1547,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-Anytype-Dev.plist";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1660,6 +1689,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-AnyApp-Release.plist";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -2223,6 +2253,14 @@
 				version = 7.4.0;
 			};
 		};
+		2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.1;
+			};
+		};
 		2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
@@ -2390,6 +2428,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */;
 			productName = Cache;
+		};
+		2E63D9B62D56520C008A733A /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		2EEE411D2C1080AD000AB88B /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;
