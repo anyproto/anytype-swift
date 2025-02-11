@@ -3,10 +3,12 @@ import AnytypeCore
 
 extension AnytypeWidgetId {
     static var availableWidgets: [AnytypeWidgetId] {
+        let widgets: [AnytypeWidgetId]
         if FeatureFlags.allContentWidgets {
-            AnytypeWidgetId.allCases
+            widgets = AnytypeWidgetId.allCases
         } else {
-            [.favorite, .sets, .collections, .recent, .recentOpen]
+            widgets = [.favorite, .sets, .collections, .recent, .recentOpen]
         }
+        return FeatureFlags.objectTypeWidgets ? widgets.filter { $0 != .collections && $0 != .sets } : widgets
     }
 }
