@@ -104,6 +104,13 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let firebasePushMessages = FeatureDescription(
+        title: "Firebase push messages",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

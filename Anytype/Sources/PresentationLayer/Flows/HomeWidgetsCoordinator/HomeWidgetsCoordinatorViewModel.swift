@@ -14,6 +14,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     @Published var showChangeTypeData: WidgetTypeChangeData?
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettingsData: AccountInfo?
+    @Published var newShowSpaceSettingsData: AccountInfo?
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -38,7 +39,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     // MARK: - HomeWidgetsModuleOutput
     
     func onSpaceSelected() {
-        showSpaceSettingsData = spaceInfo
+        if FeatureFlags.newSettings {
+            newShowSpaceSettingsData = spaceInfo
+        } else {
+            showSpaceSettingsData = spaceInfo
+        }
     }
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {

@@ -12,39 +12,33 @@ protocol LoginStateServiceProtocol: AnyObject, Sendable {
 }
 
 final class LoginStateService: LoginStateServiceProtocol, Sendable {
-    var isFirstLaunchAfterRegistration: Bool = false
-    var isFirstLaunchAfterAuthorization: Bool = false
     
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.middlewareConfigurationProvider)
-    private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
-    @Injected(\.blockWidgetExpandedService)
-    private var blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol
-    @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage: any MembershipStatusStorageProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.storeKitService)
-    private var storeKitService: any StoreKitServiceProtocol
-    @Injected(\.syncStatusStorage)
-    private var syncStatusStorage: any SyncStatusStorageProtocol
-    @Injected(\.p2pStatusStorage)
-    private var p2pStatusStorage: any P2PStatusStorageProtocol
-    @Injected(\.networkConnectionStatusDaemon)
-    private var networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.spaceSetupManager)
-    private var spaceSetupManager: any SpaceSetupManagerProtocol
-    @Injected(\.profileStorage)
-    private var profileStorage: any ProfileStorageProtocol
+    private let isFirstLaunchAfterRegistrationStorage = AtomicStorage(false)
+    private let isFirstLaunchAfterAuthorizationStorage = AtomicStorage(false)
+    
+    var isFirstLaunchAfterRegistration: Bool {
+        isFirstLaunchAfterRegistrationStorage.value
+    }
+    
+    var isFirstLaunchAfterAuthorization: Bool {
+        isFirstLaunchAfterAuthorizationStorage.value
+    }
+    
+    private let objectTypeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
+    private let middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol = Container.shared.middlewareConfigurationProvider()
+    private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol = Container.shared.blockWidgetExpandedService()
+    private let membershipStatusStorage: any MembershipStatusStorageProtocol = Container.shared.membershipStatusStorage()
+    private let relationDetailsStorage: any RelationDetailsStorageProtocol = Container.shared.relationDetailsStorage()
+    private let workspacesStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
+    private let participantSpacesStorage: any ParticipantSpacesStorageProtocol = Container.shared.participantSpacesStorage()
+    private let storeKitService: any StoreKitServiceProtocol = Container.shared.storeKitService()
+    private let syncStatusStorage: any SyncStatusStorageProtocol = Container.shared.syncStatusStorage()
+    private let p2pStatusStorage: any P2PStatusStorageProtocol = Container.shared.p2pStatusStorage()
+    private let networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol = Container.shared.networkConnectionStatusDaemon()
+    private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let spaceSetupManager: any SpaceSetupManagerProtocol = Container.shared.spaceSetupManager()
+    private let profileStorage: any ProfileStorageProtocol = Container.shared.profileStorage()
     
     // MARK: - LoginStateServiceProtocol
     
@@ -56,12 +50,12 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     }
     
     func setupStateAfterAuth() {
-        isFirstLaunchAfterAuthorization = true
+        isFirstLaunchAfterAuthorizationStorage.value = true
         if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
     }
     
     func setupStateAfterRegistration(account: AccountData) async {
-        isFirstLaunchAfterRegistration = true
+        isFirstLaunchAfterRegistrationStorage.value = true
         if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = true }
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
