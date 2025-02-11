@@ -4,6 +4,7 @@ import ProtobufMessages
 import SwiftProtobuf
 
 class MockRelationsService: RelationsServiceProtocol {
+    
     // Last call data storage
     var lastAddFeaturedRelation: (objectId: String, relationKey: String)?
     var lastRemoveFeaturedRelation: (objectId: String, relationKey: String)?
@@ -119,7 +120,11 @@ class MockRelationsService: RelationsServiceProtocol {
         }
     }
     
-    func updateTypeRelations(typeId: String, recommendedRelationIds: [ObjectId], recommendedFeaturedRelationsIds: [ObjectId]) async throws {
+    func updateRecommendedHiddenRelations(typeId: String, relationIds: [Services.ObjectId]) async throws {
+        
+    }
+    
+    func updateTypeRelations(typeId: String, recommendedRelationIds: [Services.ObjectId], recommendedFeaturedRelationsIds: [Services.ObjectId], recommendedHiddenRelationsIds: [Services.ObjectId]) async throws {
         lastUpdateTypeRelations = (typeId, recommendedRelationIds, recommendedFeaturedRelationsIds)
         if let error = updateTypeRelationsError {
             throw error

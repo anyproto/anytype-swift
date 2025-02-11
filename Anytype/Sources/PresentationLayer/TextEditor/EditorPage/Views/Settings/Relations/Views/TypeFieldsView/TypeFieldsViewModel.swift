@@ -58,6 +58,7 @@ final class TypeFieldsViewModel: ObservableObject {
             let newRows = fieldsDataBuilder.build(
                 relations: relations.sidebarRelations,
                 featured: relations.featuredRelations,
+                hidden: relations.hiddenRelations,
                 systemConflictedRelations: systemConflictRelations
             )
             
@@ -98,7 +99,7 @@ final class TypeFieldsViewModel: ObservableObject {
             objectId: document.objectId,
             spaceId: document.spaceId,
             excludedRelationsIds: relationRows.compactMap(\.relationId),
-            target: .type(isFeatured: section.isHeader),
+            target: .type(isFeatured: section.isFeatured),
             onRelationSelect: { [spaceId = document.spaceId] details, isNew in
                 AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
                     format: details.format, isNew: isNew, type: .type, key: details.analyticsKey, spaceId: spaceId
@@ -148,6 +149,8 @@ final class TypeFieldsViewModel: ObservableObject {
         
         systemConflictRelations = allConflictRelations
             .filter { BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
+            .filter { !parsedRelations.hiddenRelations.map(\.key).contains($0.key) }
+            .filter { $0.key != BundledRelationKey.description.rawValue }
             .compactMap {
                 relationsBuilder.relation(
                     relationDetails: $0,
@@ -161,6 +164,7 @@ final class TypeFieldsViewModel: ObservableObject {
         let newRows = fieldsDataBuilder.build(
             relations: parsedRelations.sidebarRelations,
             featured: parsedRelations.featuredRelations,
+            hidden: parsedRelations.hiddenRelations,
             systemConflictedRelations: systemConflictRelations
         )
         

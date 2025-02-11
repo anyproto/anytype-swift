@@ -141,7 +141,24 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
     
-    func updateTypeRelations(typeId: String, recommendedRelationIds: [ObjectId], recommendedFeaturedRelationsIds: [ObjectId]) async throws {
+    func updateRecommendedHiddenRelations(typeId: String, relationIds: [ObjectId]) async throws {
+        try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = typeId
+            $0.details = [
+                Anytype_Model_Detail.with {
+                    $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
+                    $0.value = relationIds.protobufValue
+                }
+            ]
+        }).invoke()
+    }
+    
+    func updateTypeRelations(
+        typeId: String,
+        recommendedRelationIds: [ObjectId],
+        recommendedFeaturedRelationsIds: [ObjectId],
+        recommendedHiddenRelationsIds: [ObjectId]
+    ) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = typeId
             $0.details = [
@@ -152,6 +169,10 @@ final class RelationsService: RelationsServiceProtocol {
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.recommendedFeaturedRelations.rawValue
                     $0.value = recommendedFeaturedRelationsIds.protobufValue
+                },
+                Anytype_Model_Detail.with {
+                    $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
+                    $0.value = recommendedHiddenRelationsIds.protobufValue
                 }
             ]
         }).invoke()
