@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Карточка";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Название пространства";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Удаленный объект";
@@ -663,6 +660,7 @@
 "Link to" = "Связать с";
 "Unknown" = "Неизвестно";
 "Settings" = "Настройки";
+"Preferences" = "Preferences";
 "Views" = "Представления";
 "Filter" = "Фильтр";
 "Sort" = "Сортировка";
@@ -708,6 +706,10 @@
 "Hide" = "Скрыть";
 "Apply" = "Применить";
 "Leave a space" = "Покинуть пространство";
+"Collaboration" = "Collaboration";
+"Members" = "Участники";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Название пространства";
 "Settings.SpaceType" = "Тип пространства";
 "Settings.VaultAndAccess" = "Хранилище и доступ";
+"Settings.SpaceName" = "Название пространства";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файловое хранилище";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Чтобы сохранить место на вашем локальном устройстве, вы можете выгрузить все ваши файлы в наш зашифрованный узел резервного копирования. Файлы будут загружены обратно, когда вы откроете их.";
 "FileStorage.Local.Used" = "%@ использовано";
 "FileStorage.OffloadTitle" = "Выгрузить файлы";
-"FileStorage.ManageFiles" = "Управление файлами";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Вы превысили лимит загрузки файлов";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Другие пространства | %@";
 "FileStorage.LimitLegend.Free" = "Освободить | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Синхронизированные файлы";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Вы действительно хотите безвозвратно удалить этот файл?";
 
 // MARK: - Widget object list

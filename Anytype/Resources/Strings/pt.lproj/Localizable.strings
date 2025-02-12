@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Cartão";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nome do espaço";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Objeto eliminado";
@@ -663,6 +660,7 @@
 "Link to" = "Link to";
 "Unknown" = "Unknown";
 "Settings" = "Configurações";
+"Preferences" = "Preferences";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -708,6 +706,10 @@
 "Hide" = "Hide";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Members";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Tem certeza que deseja excluir o seu cofre?";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Nome do espaço";
 "Settings.SpaceType" = "Space type";
 "Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceName" = "Nome do espaço";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Para economizar espaço no seu dispositivo local, você pode descarregar todos os seus arquivos no nosso servidor de backup criptografado. Os arquivos serão carregados de volta quando você os abrir.";
 "FileStorage.Local.Used" = "%@ used";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Livre %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Tem a certeza de que pretende eliminar permanentemente este ficheiro?";
 
 // MARK: - Widget object list

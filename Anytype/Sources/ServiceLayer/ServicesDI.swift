@@ -362,10 +362,6 @@ extension Container {
         self { ProfileStorage() }.singleton
     }
     
-    var pushNotificationService: Factory<any PushNotificationServiceProtocol> {
-        self { PushNotificationService() }.singleton
-    }
-    
     var iconColorService: Factory<any IconColorServiceProtocol> {
         self { IconColorService() }.shared
     }

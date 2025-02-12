@@ -2,18 +2,14 @@ import Combine
 import Foundation
 import AnytypeCore
 
-@MainActor
-protocol CustomSpaceOrderBuilderProtocol {
+protocol CustomSpaceOrderBuilderProtocol: Sendable {
     func updateSpacesList(spaces: [SpaceView]) -> [SpaceView]
     func move(space: SpaceView, after: SpaceView, allSpaces: [SpaceView]) -> [SpaceView]
 }
 
-@MainActor
-final class CustomSpaceOrderBuilder: CustomSpaceOrderBuilderProtocol {
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
+final class CustomSpaceOrderBuilder: CustomSpaceOrderBuilderProtocol, Sendable {
+    private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
 
     private var spacesOrder: [String] {
         get { userDefaults.getSpacesOrder(accountId: accountManager.account.id) }

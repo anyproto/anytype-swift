@@ -38,7 +38,7 @@ struct RemoteStorageView: View {
                     Spacer.fixedHeight(8)
                     RemoteStorageSegment(model: model.segmentInfo)
                     Spacer.fixedHeight(16)
-                    StandardButton(Loc.FileStorage.manageFiles, style: .secondarySmall) {
+                    StandardButton(Loc.FileStorage.cleanUpFiles, style: .secondarySmall) {
                         model.onTapManageFiles()
                     }
                 }

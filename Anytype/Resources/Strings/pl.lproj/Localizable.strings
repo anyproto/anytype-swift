@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Karta";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nazwa przestrzeni";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Usunięte obiekty";
@@ -663,6 +660,7 @@
 "Link to" = "Łącze do";
 "Unknown" = "Nieznany";
 "Settings" = "Ustawienia";
+"Preferences" = "Preferences";
 "Views" = "Odsłon";
 "Filter" = "Filtr";
 "Sort" = "Sortuj";
@@ -708,6 +706,10 @@
 "Hide" = "Ukryj";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Czlonkowie";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Nazwa przestrzeni";
 "Settings.SpaceType" = "Typ przestrzeni";
 "Settings.VaultAndAccess" = "Sejf i dostęp";
+"Settings.SpaceName" = "Nazwa przestrzeni";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Przechowywanie plików";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Żeby zaoszczędzić miejsce na lokalnym dysku, możesz przenieść wszystkie swoje pliki do naszego zaszyfrowanego węzła kopii zapasowych. Pliki zostaną ponownie załadowane, gdy je otworzysz.";
 "FileStorage.Local.Used" = "%@ używany";
 "FileStorage.OffloadTitle" = "Odciążanie plików";
-"FileStorage.ManageFiles" = "Zarządzaj plikami";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Przekroczono limit przesyłania plików";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Inne przestrzenie | %@";
 "FileStorage.LimitLegend.Free" = "Darmowy | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Zsynchronizowane pliki";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Czy na pewno chcesz trwale usunąć pliki?";
 
 // MARK: - Widget object list

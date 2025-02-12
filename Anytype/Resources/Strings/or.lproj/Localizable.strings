@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "କାର୍ଡ଼";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "ଲେଖା";
 
-// MARK: - Settings
-"Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "ବିଲୋପ ହୋଇଥିବା ଅବଜେକ୍ଟ";
@@ -665,6 +662,7 @@
 "Link to" = "ଲିଙ୍କ୍ କରନ୍ତୁ";
 "Unknown" = "Unknown";
 "Settings" = "ସେଟିଂସମୂହ";
+"Preferences" = "Preferences";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -710,6 +708,10 @@
 "Hide" = "Hide";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Members";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -881,6 +883,10 @@
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
 "Settings.SpaceType" = "Space type";
 "Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
@@ -892,14 +898,14 @@
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
 
 // MARK: - Widget object list
