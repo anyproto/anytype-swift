@@ -3,39 +3,36 @@ import Services
 import AnytypeCore
 import ProtobufMessages
 
-
-@MainActor
-protocol P2PStatusStorageProtocol {
+protocol P2PStatusStorageProtocol: Sendable {
     func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo, Never>
     
-    func startSubscription()
-    func stopSubscriptionAndClean()
+    func startSubscription() async
+    func stopSubscriptionAndClean() async
 }
 
-@MainActor
-final class P2PStatusStorage: P2PStatusStorageProtocol {
-    @Published private var storage = [String: P2PStatusInfo]()
+actor P2PStatusStorage: P2PStatusStorageProtocol, Sendable {
+    
+    private let storage = AtomicPublishedStorage([String: P2PStatusInfo]())
     private var subscription: AnyCancellable?
     
+    init() { }
     
-    nonisolated init() { }
-    
-    func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo, Never> {
-        $storage
+    nonisolated func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo, Never> {
+        storage.publisher
             .compactMap { $0[spaceId] }
             .eraseToAnyPublisher()
     }
     
-    func startSubscription() {
+    func startSubscription() async {
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
             await self?.handle(events: events)
         }
     }
     
-    func stopSubscriptionAndClean() {
+    func stopSubscriptionAndClean() async {
         anytypeAssert(subscription.isNotNil, "Nil subscription in P2PStatusStorage")
         subscription = nil
-        storage = [:]
+        storage.value = [:]
     }
     
     // MARK: - Private
@@ -44,7 +41,7 @@ final class P2PStatusStorage: P2PStatusStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .p2PStatusUpdate(let update):
-                storage[update.spaceID] = update
+                storage.value[update.spaceID] = update
             default:
                 break
             }

@@ -76,9 +76,9 @@ struct ChatInput: View {
         ZStack(alignment: .topLeading) {
             if text.string.isEmpty {
                 Text(Loc.Message.Input.emptyPlaceholder)
-                    .anytypeStyle(.bodyRegular)
+                    .anytypeStyle(.chatText)
                     .foregroundColor(.Text.tertiary)
-                    .padding(.top, 15)
+                    .padding(.top, 18)
                     .allowsHitTesting(false)
                     .lineLimit(1)
             }

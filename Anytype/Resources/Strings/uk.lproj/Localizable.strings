@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Посилання";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Без назви";
 
-"BlockText.ContentType.Title.Placeholder" = "Без назви";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Додати опис";
 "BlockText.ContentType.Toggle.Placeholder" = "Перемкнути блок";
 "BlockText.ContentType.Bulleted.Placeholder" = "Елемент маркованого списку";
@@ -62,11 +61,8 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Картка";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Назва простору";
-
 // MARK: - Object
-"Object.Title.Placeholder" = "Без назви";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Видалений об'єкт";
 
 // MARK: - Relation
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
 
+"Untitled" = "Untitled";
 "None" = "Нічого";
 "Callout" = "Винесення";
 "Toggle empty. Tap to create block." = "Пусто. Натисніть, щоб створити блок.";
@@ -280,7 +277,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
-"Auth.JoinFlow.Soul.Placeholder" = "Без назви";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Enter my Vault";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
@@ -482,7 +479,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ днів з цього моменту";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Без назви";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запит";
@@ -642,6 +639,7 @@
 "Deleted" = "Видалено";
 "Download" = "Завантажити";
 "Open object" = "Відкрити об'єкт";
+"Open as Object" = "Open as Object";
 "Open source" = "Відкрити джерело";
 "Into object" = "В об'єкт";
 "Add below" = "Додати знизу";
@@ -662,6 +660,7 @@
 "Link to" = "Зв'язати з";
 "Unknown" = "Невідомо";
 "Settings" = "Налаштування";
+"Preferences" = "Preferences";
 "Views" = "Вигляди";
 "Filter" = "Фільтр";
 "Sort" = "Упорядкувати";
@@ -707,6 +706,10 @@
 "Hide" = "Hide";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Members";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -788,7 +791,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дублювати";
 "SetViewTypesPicker.Settings.Delete.View" = "Видалити подання";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Нове подання";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без назви";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -879,6 +882,10 @@
 "Settings.SpaceName" = "Назва простору";
 "Settings.SpaceType" = "Space type";
 "Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceName" = "Назва простору";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файлове сховище";
@@ -890,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Щоб заощадити місце на вашому локальному пристрої, ви можете вивантажити всі ваші файли на наш зашифрований вузол резервного копіювання. Файли будуть завантажені назад, коли ви їх відкриєте.";
 "FileStorage.Local.Used" = "%@ використано";
 "FileStorage.OffloadTitle" = "Вивантажити файли";
-"FileStorage.ManageFiles" = "Керування файлами";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Перевищено ліміт завантаження файлів";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Синхронізовані файли";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Ви впевнені, що хочете остаточно видалити ці файли?";
 
 // MARK: - Widget object list
@@ -931,7 +938,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Параметри простору";
 "SpaceSettings.RemoteStorage" = "Віддалене сховище";
-"SpaceSettings.Info" = "Інформація про простір";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Ідентифікатор мережі";
 "SpaceSettings.DeleteAlert.Title" = "Видалити ‘%@’ простір";
 "SpaceSettings.DeleteAlert.Message" = "Цей простір буде видалено безповоротно. Ви не можете скасувати цю дію.";

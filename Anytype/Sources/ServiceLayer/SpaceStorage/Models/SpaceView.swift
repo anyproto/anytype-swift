@@ -5,6 +5,7 @@ import AnytypeCore
 struct SpaceView: Identifiable, Equatable {
     let id: String
     let name: String
+    let description: String
     let objectIconImage: Icon
     let targetSpaceId: String
     let createdDate: Date?
@@ -21,6 +22,7 @@ extension SpaceView: DetailsModel {
     init(details: ObjectDetails) {
         self.id = details.id
         self.name = details.name
+        self.description = details.description
         self.objectIconImage = details.objectIconImage
         self.targetSpaceId = details.targetSpaceId
         self.createdDate = details.createdDate
@@ -36,6 +38,7 @@ extension SpaceView: DetailsModel {
     static let subscriptionKeys: [BundledRelationKey] = .builder {
         BundledRelationKey.id
         BundledRelationKey.name
+        BundledRelationKey.description
         BundledRelationKey.objectIconImageKeys
         BundledRelationKey.targetSpaceId
         BundledRelationKey.createdDate

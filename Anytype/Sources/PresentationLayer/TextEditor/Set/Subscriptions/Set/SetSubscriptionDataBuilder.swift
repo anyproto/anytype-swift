@@ -60,6 +60,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
             BundledRelationKey.relationOptionColor
             BundledRelationKey.objectIconImageKeys
             BundledRelationKey.spaceId
+            BundledRelationKey.source
         }.uniqued().map(\.rawValue)
         
         keys.append(contentsOf: data.options.map { $0.key })

@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Enlace";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Sin título";
 
 "BlockText.ContentType.Title.Placeholder" = "Sin título";
 "BlockText.ContentType.Description.Placeholder" = "Añadir una descripción";
@@ -61,9 +60,6 @@
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Tarjeta";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
-
-// MARK: - Settings
-"Settings.SpaceName" = "Nombre del espacio";
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Sin título";
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
 
+"Untitled" = "Sin título";
 "None" = "Ninguno";
 "Callout" = "Globo";
 "Toggle empty. Tap to create block." = "Desplegable vacío. Toca para crear un bloque";
@@ -642,6 +639,7 @@
 "Deleted" = "Eliminado";
 "Download" = "Descargar";
 "Open object" = "Abrir objeto";
+"Open as Object" = "Abrir como objeto";
 "Open source" = "Abrir origen";
 "Into object" = "En objeto";
 "Add below" = "Añadir debajo";
@@ -662,6 +660,7 @@
 "Link to" = "Conectar a";
 "Unknown" = "Desconocido";
 "Settings" = "Ajustes";
+"Preferences" = "Preferences";
 "Views" = "Vistas";
 "Filter" = "Filtrar";
 "Sort" = "Ordenar";
@@ -707,6 +706,10 @@
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
 "Leave a space" = "Abandonar un espacio";
+"Collaboration" = "Collaboration";
+"Members" = "Miembros";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -878,6 +881,10 @@
 "Settings.SpaceName" = "Nombre del espacio";
 "Settings.SpaceType" = "Tipo de espacio";
 "Settings.VaultAndAccess" = "Arca y acceso";
+"Settings.SpaceName" = "Nombre del espacio";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Almacenamiento de archivos";
@@ -889,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Para ahorrar espacio en tu dispositivo local, puedes guardar todos tus archivos en nuestro nodo de respaldo cifrado. Los archivos se cargarán de nuevo cuando los abras.";
 "FileStorage.Local.Used" = "%@ utilizados";
 "FileStorage.OffloadTitle" = "Guardar en el nodo";
-"FileStorage.ManageFiles" = "Gestionar archivos";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Has superado el límite de carga de archivos";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Otros espacios | %@";
 "FileStorage.LimitLegend.Free" = "Libre | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Archivos sincronizados";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "¿Seguro que deseas eliminar definitivamente los archivos?";
 
 // MARK: - Widget object list
@@ -1282,7 +1289,7 @@ En concreto,
 "Chat.Reply.Files" = "Archivos (%@)";
 "Chat.SendLimitAlert.Title" = "¡Calma! ¡Estás escribiendo muy deprisa!";
 "Chat.SendLimitAlert.Message" = "Parece que estás enviando mensajes a la velocidad de la luz. Espera un poco para el siguiente.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachmentsLimit.Alert" = "No puedes subir más de %@ adjuntos al mismo tiempo";
 "Chat.AttachedObject.Attach" = "Adjuntar";
 "Chat.CreateObject.Dismiss.Title" = "¿Seguro que quieres cerrar esta pantalla?";
 "Chat.CreateObject.Dismiss.Message" = "Si sales de ella, se perderán todos tus cambios.";

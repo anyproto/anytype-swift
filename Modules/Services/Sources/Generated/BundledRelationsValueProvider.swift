@@ -326,7 +326,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var iconEmoji: Emoji? {
         return value(for: BundledRelationKey.iconEmoji.rawValue)
     }
-    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image. Value stored in coverId
+    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image, 5 - unsplash image. Value stored in coverId
     var coverType: Int? {
         return value(for: BundledRelationKey.coverType.rawValue)
     }

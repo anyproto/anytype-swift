@@ -19,7 +19,6 @@ struct SpaceHubCoordinatorView: View {
         
             .task { await model.setup() }
             
-            .handleSpaceShareTip()
             .handleSharingTip()
             .handleSpaceHubTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
@@ -33,9 +32,6 @@ struct SpaceHubCoordinatorView: View {
             }
             .sheet(isPresented: $model.showSpaceManager) {
                 SpacesManagerView()
-            }
-            .sheet(isPresented: $model.showSpaceShareTip) {
-                SpaceShareTipView()
             }
             .sheet(item: $model.membershipTierId) { tierId in
                 MembershipCoordinator(initialTierId: tierId.value)
@@ -68,6 +64,9 @@ struct SpaceHubCoordinatorView: View {
             }
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
+            }
+            .safariBookmarkObject($model.bookmarkScreenData) {
+                model.onOpenBookmarkAsObject($0)
             }
     }
     

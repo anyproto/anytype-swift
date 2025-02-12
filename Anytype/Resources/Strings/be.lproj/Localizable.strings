@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Спасылка";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Бяз назвы";
 
-"BlockText.ContentType.Title.Placeholder" = "Бяз назвы";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Дадаць апісанне";
 "BlockText.ContentType.Toggle.Placeholder" = "Пераключыць блакіраванне";
 "BlockText.ContentType.Bulleted.Placeholder" = "Элемент маркіраванага спісу";
@@ -62,11 +61,8 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Картка";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Тэкст";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Назва прасторы";
-
 // MARK: - Object
-"Object.Title.Placeholder" = "Бяз назвы";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Выдаліць аб'ект";
 
 // MARK: - Relation
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Аб'ект";
 
+"Untitled" = "Untitled";
 "None" = "Няма";
 "Callout" = "Зноска";
 "Toggle empty. Tap to create block." = "Пуста. Націсніце, каб стварыць блок.";
@@ -280,7 +277,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Увядзіце сваё імя";
 "Auth.JoinFlow.Soul.Description" = "Бачна толькі людзям, з якімі вы чымсьці падзяліліся. Адзінага спісу такіх імёнаў не існуе.";
-"Auth.JoinFlow.Soul.Placeholder" = "Бяз назвы";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Увайсці ў Сховішча";
 
 "Auth.JoinFlow.Vault.Title" = "Гэта тваё Сховішча";
@@ -482,7 +479,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дзён таму";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Бяз назвы";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запыт";
@@ -642,6 +639,7 @@
 "Deleted" = "Выдалена";
 "Download" = "Спампаваць";
 "Open object" = "Адкрыць аб'ект";
+"Open as Object" = "Open as Object";
 "Open source" = "Адкрыць крыніцу";
 "Into object" = "У аб'ект";
 "Add below" = "Дадаць ніжэй";
@@ -662,6 +660,7 @@
 "Link to" = "Спасылка на";
 "Unknown" = "Невядомы";
 "Settings" = "Налады";
+"Preferences" = "Preferences";
 "Views" = "Выгляды";
 "Filter" = "Фільтр";
 "Sort" = "Сартаваць";
@@ -708,6 +707,10 @@
 "Hide" = "Схаваць";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Удзельнікі";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
@@ -789,7 +792,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дубляваць";
 "SetViewTypesPicker.Settings.Delete.View" = "Выдаліць выгляд";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Новы выгляд";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Бяз назвы";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Не падтрымліваецца";
@@ -879,6 +882,10 @@
 "Settings.SpaceName" = "Назва прасторы";
 "Settings.SpaceType" = "Тып прасторы";
 "Settings.VaultAndAccess" = "Сховішча і доступ";
+"Settings.SpaceName" = "Назва прасторы";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файлавае сховішча";
@@ -890,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Каб зэканоміць месца на лакальнай прыладзе, вы можаце загрузіць усе свае файлы ў наш зашыфраваны вузел рэзервовага капіявання. Файлы будуць загружаны назад, калі вы іх адкрыеце.";
 "FileStorage.Local.Used" = "%@ выкарыстана";
 "FileStorage.OffloadTitle" = "Выгрузіць файлы";
-"FileStorage.ManageFiles" = "Кіраванне файламі";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Вы перавысілі ліміт загрузкі файлаў";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Іншыя прасторы | %@";
 "FileStorage.LimitLegend.Free" = "Бясплатна | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Сінхранізаваныя файлы";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Вы сапраўды хочаце незваротна выдаліць гэтыя файлы?";
 
 // MARK: - Widget object list
@@ -931,7 +938,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Налады прасторы";
 "SpaceSettings.RemoteStorage" = "Аддаленае сховішча";
-"SpaceSettings.Info" = "Інфармацыя аб прасторы";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Ідэнтыфікатар сеткі";
 "SpaceSettings.DeleteAlert.Title" = "Выдаліць прастору ‘%@’";
 "SpaceSettings.DeleteAlert.Message" = "Гэтыя прасторы будуць выдалены беззваротна. Вы не зможаце адмяніць гэта дзеянне.";

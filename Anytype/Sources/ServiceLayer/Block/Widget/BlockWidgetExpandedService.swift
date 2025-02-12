@@ -1,17 +1,20 @@
 import Foundation
 import AnytypeCore
 
-protocol BlockWidgetExpandedServiceProtocol: AnyObject {
+protocol BlockWidgetExpandedServiceProtocol: AnyObject, Sendable {
     func isExpanded(widgetBlockId: String) -> Bool
     func setState(widgetBlockId: String, isExpanded: Bool)
     func deleteState(widgetBlockId: String)
     func clearData()
 }
 
-final class BlockWidgetExpandedService: BlockWidgetExpandedServiceProtocol {
+final class BlockWidgetExpandedService: BlockWidgetExpandedServiceProtocol, Sendable {
     
-    @UserDefault("widgetCollapsedIdsList", defaultValue: [])
-    private var collapsedIds: Set<String>
+    private let collapsedIdsStorage = UserDefaultStorage(key: "widgetCollapsedIds", defaultValue: Set<String>())
+    private var collapsedIds: Set<String> {
+        get { collapsedIdsStorage.value }
+        set { collapsedIdsStorage.value = newValue }
+    }
     
     // MARK: - BlockWidgetExpandedServiceProtocol
     

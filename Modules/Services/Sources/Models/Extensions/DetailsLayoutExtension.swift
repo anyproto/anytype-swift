@@ -12,7 +12,10 @@ public extension DetailsLayout {
     static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant, .date]
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
     
+    static let supportedForCreation: [DetailsLayout] = supportedForCreationInSets + [.set, .collection]
+    
     private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + [.objectType]
+
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]

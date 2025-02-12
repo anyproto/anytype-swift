@@ -119,8 +119,8 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 coverFit: activeView.coverFit,
                 coverType: coverType(item.details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: storage),
                 minHeight: minHeight,
-                onItemTap: {
-                    onItemTap(item.details)
+                onItemTap: { [details = item.details] in
+                    onItemTap(details)
                 }
             )
         }

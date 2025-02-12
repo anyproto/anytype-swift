@@ -39,9 +39,9 @@ public extension FeatureDescription {
     
     static let homeSpaceLevelChat = FeatureDescription(
         title: "Space-Level Chat",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
     )
     
     static let pinnedSpaces = FeatureDescription(
@@ -79,8 +79,36 @@ public extension FeatureDescription {
     
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: false
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let openBookmarkAsLink = FeatureDescription(
+        title: "Open bookmark as link",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let newSettings = FeatureDescription(
+        title: "New settings",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
+        defaultValue: true
+    )
+    
+    static let newPlusMenu = FeatureDescription(
+        title: "New plus menu",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let firebasePushMessages = FeatureDescription(
+        title: "Firebase push messages",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

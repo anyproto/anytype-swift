@@ -4,7 +4,6 @@ import SwiftUI
 struct MessageView: View {
     
     private enum Constants {
-        static let attachmentsSize: CGFloat = 250
         static let attachmentsPadding: CGFloat = 4
     }
     
@@ -24,7 +23,7 @@ struct MessageView: View {
     }
     
     var body: some View {
-        HStack(alignment: .bottom, spacing: 8) {
+        HStack(alignment: .bottom, spacing: 6) {
             leadingView
             content
             trailingView
@@ -71,29 +70,28 @@ struct MessageView: View {
             if !data.messageString.isEmpty {
                 
                 if data.linkedObjects.isNil {
-                    Spacer.fixedHeight(12)
+                    Spacer.fixedHeight(8)
                 } else {
                     Spacer.fixedHeight(4)
                 }
                 
                 // Add spacing for date
                 (Text(data.messageString) + createDateTextForSpacing)
-                    .anytypeStyle(.previewTitle1Regular)
+                    .anytypeStyle(.chatText)
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 12)
+                    .padding(.bottom, 8)
             }
         }
         .overlay(alignment: .bottomTrailing) {
             if !data.messageString.isEmpty {
                 createDate
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 12)
+                    .padding(.bottom, 8)
             }
         }
-        .frame(width: fixedBubbleWidth)
         .background(messageBackgorundColor)
-        .cornerRadius(20, style: .continuous)
-        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20, style: .circular))
+        .cornerRadius(16, style: .continuous)
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
         .contextMenu {
             contextMenu
         }
@@ -107,23 +105,19 @@ struct MessageView: View {
                 MessageListAttachmentsViewContainer(objects: items) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
-                .frame(width: Constants.attachmentsSize)
                 .padding(Constants.attachmentsPadding)
             case .grid(let items):
-                MessageGridAttachmentsContainer(objects: items, oneSide: Constants.attachmentsSize, spacing: 4) {
+                MessageGridAttachmentsContainer(objects: items, spacing: 4) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
                 .padding(Constants.attachmentsPadding)
             case .bookmark(let item):
-                MessageObjectBigBookmarkView(details: item)
-                    .frame(width: Constants.attachmentsSize)
-                    .padding(Constants.attachmentsPadding)
+                MessageObjectBigBookmarkView(details: item) {
+                    output?.didSelectAttachment(data: data, details: $0)
+                }
+                .padding(Constants.attachmentsPadding)
             }
         }
-    }
-    
-    private var fixedBubbleWidth: CGFloat? {
-        data.linkedObjects.isNotNil ? Constants.attachmentsSize + Constants.attachmentsPadding * 2 : nil
     }
     
     private var createDate: some View {
@@ -198,12 +192,7 @@ struct MessageView: View {
     
     @ViewBuilder
     private var horizontalBubbleSpacing: some View {
-        switch data.authorIconMode {
-        case .show, .empty:
-            Spacer(minLength: 32)
-        case .hidden:
-            Spacer(minLength: 64)
-        }
+        Spacer(minLength: 26)
     }
     
     @ViewBuilder

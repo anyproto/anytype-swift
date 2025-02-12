@@ -1,5 +1,6 @@
 import UIKit
 import AnytypeCore
+import FirebaseMessaging
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -10,8 +11,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
-    @Injected(\.pushNotificationService)
-    private var pushNotificationService: any PushNotificationServiceProtocol
     
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -51,6 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        pushNotificationService.setToken(data: deviceToken)
+        Messaging.messaging().apnsToken = deviceToken
     }
 }

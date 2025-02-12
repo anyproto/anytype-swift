@@ -9,6 +9,7 @@ struct MessageObjectBigBookmarkView: View {
     let title: String
     let description: String
     let pictureId: String
+    let onTapObject: () -> Void
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -48,17 +49,23 @@ struct MessageObjectBigBookmarkView: View {
         .frame(height: 104)
         .padding(.horizontal, 16)
         .background(Color.Background.primary)
-        .cornerRadius(16, style: .continuous)
-        .border(16, color: Color.Shape.transperentSecondary)
+        .cornerRadius(12, style: .continuous)
+        .border(12, color: Color.Shape.transperentSecondary)
+        .onTapGesture {
+            onTapObject()
+        }
     }
 }
 
 extension MessageObjectBigBookmarkView {
-    init(details: ObjectDetails) {
+    init(details: ObjectDetails, onTapObject: @escaping (_ details: ObjectDetails) -> Void) {
         self.icon = details.objectIconImage
         self.source = details.source?.url
         self.title = details.name
         self.description = details.description
         self.pictureId = details.picture
+        self.onTapObject = {
+            onTapObject(details)
+        }
     }
 }

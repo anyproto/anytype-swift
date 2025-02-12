@@ -9,6 +9,7 @@ extension SpaceView {
         SpaceView(
             id: id,
             name: "Name \(id)",
+            description: "Desciption \(id)",
             objectIconImage: .object(.space(.mock)),
             targetSpaceId: "Target\(id)",
             createdDate: .yesterday,

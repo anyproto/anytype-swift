@@ -73,7 +73,7 @@ struct ObjectTypeView: View {
                 IconView(icon: model.details?.objectIconImage).frame(width: 32, height: 32)
             }).disabled(!model.canEditDetails)
             if model.canEditDetails {
-                TextField(Loc.BlockText.Content.placeholder, text: $model.typeName)
+                TextField(Loc.untitled, text: $model.typeName)
                     .foregroundColor(.Text.primary)
                     .font(AnytypeFontBuilder.font(anytypeFont: .title))
             } else {
