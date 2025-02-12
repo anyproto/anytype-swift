@@ -16,7 +16,7 @@ enum ScreenData: Hashable, Identifiable {
     case alert(AlertScreenData)
     case preview(MediaFileScreenData)
     case bookmark(BookmarkScreenData)
-    case settings(AccountInfo)
+    case settings(SettingsScreenData)
         
     var id: Int { hashValue }
 }
@@ -46,7 +46,7 @@ extension ScreenData {
         case .bookmark(let data):
             data.editorScreenData.spaceId
         case .settings(let data):
-            data.accountSpaceId
+            data.spaceId
         }
     }
     

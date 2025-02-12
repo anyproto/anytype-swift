@@ -39,7 +39,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     func onSpaceSelected() {
         if FeatureFlags.newSettings {
-            pageNavigation?.open(.settings(spaceInfo))
+            pageNavigation?.open(.settings(.mainScreen(info: spaceInfo)))
         } else {
             showSpaceSettingsData = spaceInfo
         }

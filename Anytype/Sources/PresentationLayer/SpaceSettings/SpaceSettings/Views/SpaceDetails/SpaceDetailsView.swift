@@ -4,15 +4,18 @@ import Services
 struct SpaceDetailsView: View {
     @StateObject private var model: SpaceDetailsViewModel
     
-    init(info: AccountInfo, output: any NewSpaceSettingsModuleOutput) {
-        _model = StateObject(wrappedValue: SpaceDetailsViewModel(info: info, output: output))
+    init(info: AccountInfo) {
+        _model = StateObject(wrappedValue: SpaceDetailsViewModel(info: info))
     }
     
     var body: some View {
         content
             .navigationBarHidden(true)
-            .snackbar(toastBarData: $model.toastBarData)
             .task { await model.setupSubscriptions() }
+            .snackbar(toastBarData: $model.toastBarData)
+            .sheet(item: $model.showIconPickerSpaceId) {
+                SpaceObjectIconPickerView(spaceId: $0.value)
+            }
     }
     
     private var content: some View {
