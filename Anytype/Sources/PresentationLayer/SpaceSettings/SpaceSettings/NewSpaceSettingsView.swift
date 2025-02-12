@@ -14,6 +14,7 @@ struct NewSpaceSettingsView: View {
     
     var body: some View {
         content
+            .homeBottomPanelHidden(true)
             .snackbar(toastBarData: $model.snackBarData)
             .onAppear {
                 model.onAppear()

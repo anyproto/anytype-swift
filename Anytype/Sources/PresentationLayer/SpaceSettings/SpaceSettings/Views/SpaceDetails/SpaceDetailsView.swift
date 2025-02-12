@@ -11,6 +11,7 @@ struct SpaceDetailsView: View {
     var body: some View {
         content
             .navigationBarHidden(true)
+            .homeBottomPanelHidden(true)
             .task { await model.setupSubscriptions() }
             .snackbar(toastBarData: $model.toastBarData)
             .sheet(item: $model.showIconPickerSpaceId) {
