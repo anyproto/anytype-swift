@@ -1269,7 +1269,6 @@ Please provide specific details of your needs here.";
 "AllContent.Search.Empty.State.subtitle" = "Coba cari dengan kata kunci yang lain.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Hanya penyunting yang dapat mengirim pesan. Hubungi pemilik ruang untuk meminta akses.";
 "Chat.ReplyTo" = "Balas %@";
 "Chat.Empty.Title" = "Belum ada pesan di sini …";
 "Chat.Empty.Description" = "Tulis pesan untuk memulai obrolan";
