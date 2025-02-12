@@ -1270,7 +1270,6 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "AllContent.Search.Empty.State.subtitle" = "Probeer te zoeken met andere trefwoorden.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Alleen bewerkers kunnen berichten verzenden. Contacteer de eigenaar om toegang te krijgen.";
 "Chat.ReplyTo" = "Antwoord op %@";
 "Chat.Empty.Title" = "Nog geen berichten hier...";
 "Chat.Empty.Description" = "Schrijf een eerste om een gesprek te beginnen";
