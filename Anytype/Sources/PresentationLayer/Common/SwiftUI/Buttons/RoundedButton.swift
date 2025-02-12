@@ -1,7 +1,15 @@
 import SwiftUI
+import Services
+
 
 enum RoundedButtonDecoration {
     case badge(Int)
+    case objectType(ObjectType)
+    
+    init?(objectType: ObjectType?) {
+        guard let objectType else { return nil }
+        self = .objectType(objectType)
+    }
 }
 
 struct RoundedButton: View {
@@ -31,6 +39,7 @@ struct RoundedButton: View {
                 AnytypeText(text, style: .previewTitle1Regular)
                 Spacer()
                 decorationView
+                Spacer.fixedWidth(8)
                 IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
             }
             .padding(20)
@@ -46,6 +55,11 @@ struct RoundedButton: View {
                 .foregroundColor(.Control.white)
                 .padding(.horizontal, 5)
                 .background(Capsule().fill(Color.Control.transparentActive))
+        case let .objectType(objectType):
+            HStack(spacing: 8) {
+                IconView(objectType: objectType).frame(width: 20, height: 20)
+                AnytypeText(objectType.name, style: .previewTitle1Regular)
+            }
         case .none:
             EmptyView()
         }

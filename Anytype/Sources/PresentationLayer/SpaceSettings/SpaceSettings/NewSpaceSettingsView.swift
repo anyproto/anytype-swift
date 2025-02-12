@@ -215,7 +215,10 @@ struct NewSpaceSettingsView: View {
     @ViewBuilder
     private var preferences: some View {
         SectionHeaderView(title: Loc.preferences)
-        RoundedButton(text: Loc.defaultObjectType) { model.onDefaultObjectTypeTap() }
+        RoundedButton(
+            text: Loc.defaultObjectType,
+            decoration: .init(objectType: model.defaultObjectType)
+        ) { model.onDefaultObjectTypeTap() }
         Spacer.fixedHeight(8)
         RoundedButton(text: Loc.wallpaper) { model.onWallpaperTap() }
     }

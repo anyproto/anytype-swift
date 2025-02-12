@@ -26,6 +26,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
@@ -69,6 +71,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
     @Published var storageInfo = RemoteStorageSegmentInfo()
+    @Published var defaultObjectType: ObjectType?
     
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
@@ -145,7 +148,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         async let storageTask: () = startStorageTask()
         async let joiningTask: () = startJoiningTask()
         async let participantTask: () = startParticipantTask()
-        (_,_,_) = await (storageTask, joiningTask, participantTask)
+        async let defaultTypeTask: () = startDefaultTypeTask()
+        (_,_,_, _) = await (storageTask, joiningTask, participantTask, defaultTypeTask)
     }
     
     private func startStorageTask() async {
@@ -166,6 +170,12 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
             self.participantSpaceView = participantSpaceView
             updateViewState()
+        }
+    }
+    
+    private func startDefaultTypeTask() async {
+        for await defaultObjectType in objectTypeProvider.defaultObjectTypePublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            self.defaultObjectType = defaultObjectType
         }
     }
     

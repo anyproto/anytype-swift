@@ -36,7 +36,7 @@ struct RemoteStorageSegment: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            SegmentLine(items: segmentLineItems)
+            SegmentLine(items: segmentLineItems).padding(.trailing, 16)
             if showLegend {
                 Spacer.fixedHeight(16)
                 SegmentLegend(items: segmentLegendItems)
