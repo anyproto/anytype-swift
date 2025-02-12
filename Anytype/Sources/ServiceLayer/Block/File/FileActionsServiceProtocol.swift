@@ -10,16 +10,18 @@ enum FileUploadingSource {
     case itemProvider(NSItemProvider)
 }
 
-struct FileData {
+struct FileData: Equatable {
     let path: String
     let type: UTType
+    let sizeInBytes: Int?
     let isTemporary: Bool
 }
 
-protocol FileActionsServiceProtocol {
+protocol FileActionsServiceProtocol: Sendable {
     
     func createFileData(source: FileUploadingSource) async throws -> FileData
     func createFileData(photoItem: PhotosPickerItem) async throws -> FileData
+    func createFileData(image: UIImage, type: String) throws -> FileData
     func createFileData(fileUrl: URL) throws -> FileData
     
     func uploadDataAt(data: FileData, contextID: String, blockID: String) async throws

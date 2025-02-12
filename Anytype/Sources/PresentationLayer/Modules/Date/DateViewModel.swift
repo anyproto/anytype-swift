@@ -40,6 +40,7 @@ final class DateViewModel: ObservableObject {
     @Published var relationItems = [RelationItemData]()
     @Published var state = DateModuleState()
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
+    @Published var scrollToRelationId: String? = nil
     @Published private var participantCanEdit = false
     
     init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
@@ -108,6 +109,7 @@ final class DateViewModel: ObservableObject {
         let items = relationItems.map { item in
             SimpleSearchListItem(icon: item.icon, title: item.title) { [weak self] in
                 self?.state.selectedRelation = item.details
+                self?.scrollToRelationId = item.id
             }
         }
         output?.onSearchListTap(items: items)
@@ -156,6 +158,11 @@ final class DateViewModel: ObservableObject {
     
     func onDelete(objectId: String) {
         setArchive(objectId: objectId)
+    }
+    
+    func resetScrollToRelationIdIfNeeded(id: String) {
+        guard scrollToRelationId == id else { return }
+        scrollToRelationId = nil
     }
     
     // MARK: - Object updates / subscriptions
@@ -238,7 +245,7 @@ final class DateViewModel: ObservableObject {
                 type: details.objectType.name,
                 canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive,
                 onTap: { [weak self] in
-                    self?.output?.onObjectTap(data: details.editorScreenData())
+                    self?.output?.onObjectTap(data: details.screenData())
                 }
             )
         }
@@ -327,6 +334,7 @@ final class DateViewModel: ObservableObject {
         let isMention = details.key == BundledRelationKey.mentions.rawValue
         let icon: Icon? = isMention ? .asset(.X24.mention) : nil
         return RelationItemData(
+            id: details.id,
             icon: icon,
             title: details.name,
             details: details

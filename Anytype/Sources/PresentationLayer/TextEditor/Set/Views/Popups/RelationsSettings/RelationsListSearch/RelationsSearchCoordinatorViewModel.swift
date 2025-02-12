@@ -2,9 +2,9 @@ import SwiftUI
 import Services
 
 @MainActor
-final class RelationsSearchCoordinatorViewModel: ObservableObject, NewRelationCoordinatorViewOutput {
+final class RelationsSearchCoordinatorViewModel: ObservableObject, RelationInfoCoordinatorViewOutput {
     
-    @Published var newRelationData: NewRelationData?
+    @Published var newRelationData: RelationInfoData?
     @Published var toastData: ToastBarData = .empty
     @Published var dismiss = false
     
@@ -15,10 +15,12 @@ final class RelationsSearchCoordinatorViewModel: ObservableObject, NewRelationCo
     }
     
     func onShowCreateNewRelation(name: String) {
-        newRelationData = NewRelationData(
+        newRelationData = RelationInfoData(
             name: name,
-            document: data.document,
-            target: data.target
+            objectId: data.objectId,
+            spaceId: data.spaceId,
+            target: data.target,
+            mode: .create
         )
     }
     
@@ -28,9 +30,9 @@ final class RelationsSearchCoordinatorViewModel: ObservableObject, NewRelationCo
         dismiss.toggle()
     }
     
-    // MARK: - NewRelationCoordinatorViewOutput
+    // MARK: - RelationInfoCoordinatorViewOutput
     
-    func didCreateRelation(_ relation: RelationDetails) {
+    func didPressConfirm(_ relation: RelationDetails) {
         data.onRelationSelect(relation, true)
         dismiss.toggle()
     }

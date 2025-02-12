@@ -9,7 +9,7 @@ protocol RecentSubscriptionServiceProtocol: AnyObject {
         spaceId: String,
         type: RecentWidgetType,
         objectLimit: Int?,
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
     ) async
     func stopSubscription() async
 }
@@ -37,7 +37,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         spaceId: String,
         type: RecentWidgetType,
         objectLimit: Int?,
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
     ) async {
         
         let sort = makeSort(type: type)
@@ -69,7 +69,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items)
+            await update(data.items)
         }
     }
     

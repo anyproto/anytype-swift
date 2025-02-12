@@ -3,18 +3,16 @@ import AnytypeCore
 import StoreKit
 
 
-protocol MembershipMetadataProviderProtocol {
+protocol MembershipMetadataProviderProtocol: Sendable {
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState
     
     func purchaseType(status: MembershipStatus) async -> MembershipPurchaseType
     func purchaseAvailablitiy(tier: MembershipTier, status: MembershipStatus) async -> MembershipPurchaseAvailablitiy
 }
 
-final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
-    @Injected(\.membershipStatusStorage)
-    private var storage: any MembershipStatusStorageProtocol
-    @Injected(\.storeKitService)
-    private var storeKitService: any StoreKitServiceProtocol
+final class MembershipMetadataProvider: MembershipMetadataProviderProtocol, Sendable {
+    private let storage: any MembershipStatusStorageProtocol = Container.shared.membershipStatusStorage()
+    private let storeKitService: any StoreKitServiceProtocol = Container.shared.storeKitService()
     
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState {
         let status = await storage.currentStatus

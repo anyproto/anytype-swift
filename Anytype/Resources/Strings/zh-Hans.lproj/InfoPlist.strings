@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "面容 ID 用于检索安全存储在钥匙串中的密钥";
-"NSCameraUsageDescription" = "使用摄像头扫描二维码，以获得安全便捷的登录体验";
+"NSCameraUsageDescription" = "允许摄像头权限以扫描二维码，拍照并将它贴到消息中";
 "NSLocalNetworkUsageDescription" = "本地网络访问用于直接在附近的设备之间同步数据";
 "NSPhotoLibraryAddUsageDescription" = "需要访问权限才能将所选图像保存到您的文库中";
+"NSMicrophoneUsageDescription" = "允许麦克风权限以录制视频并将其贴到消息中";

@@ -55,7 +55,6 @@
 		2E29780E2CB6B8170017204D /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
 		2E8165BB2CB6B9830037D0BF /* LocalizableWidget.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ACE06512B7CD96D009AA7B6 /* LocalizableWidget.strings */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
-		3D0D65942C789543001F9781 /* CustomSpaceOrderBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D65932C789543001F9781 /* CustomSpaceOrderBuilderTests.swift */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */; };
 		3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */; };
@@ -77,6 +76,7 @@
 		538ABD4E284F9F88000D3CCC /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4D284F9F88000D3CCC /* Collections */; };
 		538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4F284F9F88000D3CCC /* DequeModule */; };
 		538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD51284F9F88000D3CCC /* OrderedCollections */; };
+		74AD8EC52D12F2FD000EDFBE /* ChatMessageLimitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD8EC42D12F2FD000EDFBE /* ChatMessageLimitsTests.swift */; };
 		862D559A2A8F78330018103F /* AnytypeShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */; };
 		86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */; };
@@ -254,7 +254,6 @@
 		2E9422032C19E15600AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		2E9422042C19E15A00AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		2E9422052C19E16200AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LocalizableWidget.strings"; sourceTree = "<group>"; };
-		3D0D65932C789543001F9781 /* CustomSpaceOrderBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomSpaceOrderBuilderTests.swift; path = AnyTypeTests/Services/CustomSpaceOrderBuilderTests.swift; sourceTree = SOURCE_ROOT; };
 		3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoContainerMock.swift; path = AnyTypeTests/Markdown/Mocks/InfoContainerMock.swift; sourceTree = SOURCE_ROOT; };
 		3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockActionServiceMock.swift; sourceTree = SOURCE_ROOT; };
 		3D372A2C2CB56E1400762DA9 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -274,6 +273,7 @@
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		3DE5975E2C78BDE800883AF8 /* UserDefaultsStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsStorageMock.swift; path = AnyTypeTests/Markdown/Mocks/UserDefaultsStorageMock.swift; sourceTree = SOURCE_ROOT; };
 		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
+		74AD8EC42D12F2FD000EDFBE /* ChatMessageLimitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatMessageLimitsTests.swift; path = AnyTypeTests/Services/ChatMessageLimitsTests.swift; sourceTree = SOURCE_ROOT; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmojiTests.swift; path = AnyTypeTests/Emoji/EmojiTests.swift; sourceTree = SOURCE_ROOT; };
 		86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "XCTests+Eventually.swift"; path = "AnyTypeTests/Extensions/XCTests+Eventually.swift"; sourceTree = SOURCE_ROOT; };
@@ -481,8 +481,8 @@
 			isa = PBXGroup;
 			children = (
 				2A298E3F2BC91E6A00F1194C /* UniversalLinkParserTests.swift */,
-				3D0D65932C789543001F9781 /* CustomSpaceOrderBuilderTests.swift */,
 				2ADD66772CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift */,
+				74AD8EC42D12F2FD000EDFBE /* ChatMessageLimitsTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -791,7 +791,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1610;
 				ORGANIZATIONNAME = Anytype;
 				TargetAttributes = {
 					0303ECFA22D8EDAA005C552B = {
@@ -982,7 +982,7 @@
 				3D7F718927A1B0D4003FE893 /* EditorSetMarkdownHelpertests.swift in Sources */,
 				EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */,
 				8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */,
-				3D0D65942C789543001F9781 /* CustomSpaceOrderBuilderTests.swift in Sources */,
+				74AD8EC52D12F2FD000EDFBE /* ChatMessageLimitsTests.swift in Sources */,
 				3DE5975F2C78BDE800883AF8 /* UserDefaultsStorageMock.swift in Sources */,
 				2AA161412B76718A00935919 /* HomePathTests.swift in Sources */,
 				2ADD66782CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift in Sources */,
@@ -1196,8 +1196,15 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
 				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
 				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1255,8 +1262,15 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
 				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
 				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1272,7 +1286,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -1290,7 +1304,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -1318,7 +1332,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -1336,7 +1350,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
@@ -1367,7 +1381,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1394,7 +1408,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1463,8 +1477,15 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
 				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
 				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1480,7 +1501,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -1498,7 +1519,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -1529,7 +1550,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1550,7 +1571,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1563,7 +1584,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1593,7 +1614,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1606,7 +1627,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1637,7 +1658,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1650,7 +1671,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1682,7 +1703,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1695,7 +1716,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1727,7 +1748,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1740,7 +1761,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1772,7 +1793,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1785,7 +1806,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.34.0;
+				MARKETING_VERSION = 0.35.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

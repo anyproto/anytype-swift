@@ -16,7 +16,7 @@ protocol EditorRouterProtocol:
 {
     func showAlert(alertModel: AlertModel)
     func showObject(objectId: String)
-    func showEditorScreen(data: EditorScreenData)
+    func showEditorScreen(data: ScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
@@ -54,7 +54,7 @@ protocol EditorRouterProtocol:
     )
     
     func showRelationValueEditingView(key: String)
-    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
+    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
     func showWaitingView(text: String)

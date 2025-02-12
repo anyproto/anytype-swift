@@ -19,7 +19,7 @@ protocol SetContentViewDataBuilderProtocol: AnyObject {
         canEditIcon: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
-        onItemTap: @escaping @MainActor (ObjectDetails) -> Void
+        onItemTap: @escaping @Sendable @MainActor (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration]
 }
 
@@ -84,7 +84,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         canEditIcon: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
-        onItemTap: @escaping @MainActor (ObjectDetails) -> Void
+        onItemTap: @escaping @Sendable @MainActor (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
         let relationsDetails = sortedRelations(

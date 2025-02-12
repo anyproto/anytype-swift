@@ -6,7 +6,7 @@ struct CreateWidgetCoordinatorView: View {
     @StateObject private var model: CreateWidgetCoordinatorViewModel
     @Environment(\.presentationMode) @Binding private var presentationMode
     
-    init(data: CreateWidgetCoordinatorModel, onOpenObject: @escaping (_ openObject: EditorScreenData?) -> Void) {
+    init(data: CreateWidgetCoordinatorModel, onOpenObject: @escaping (_ openObject: ScreenData?) -> Void) {
         self._model = StateObject(wrappedValue: CreateWidgetCoordinatorViewModel(data: data, onOpenObject: onOpenObject))
     }
     

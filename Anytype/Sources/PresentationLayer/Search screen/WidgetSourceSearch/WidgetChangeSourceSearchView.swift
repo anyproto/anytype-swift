@@ -4,7 +4,7 @@ import SwiftUI
 struct WidgetChangeSourceSearchView: View {
     
     let data: WidgetChangeSourceSearchModuleModel
-    let onFinish: (_ openObject: EditorScreenData?) -> Void
+    let onFinish: (_ openObject: ScreenData?) -> Void
     
     var body: some View {
         // TODO: Migrate from LegacySearchView

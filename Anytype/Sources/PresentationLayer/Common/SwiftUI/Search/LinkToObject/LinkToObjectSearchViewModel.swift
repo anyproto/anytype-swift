@@ -24,7 +24,7 @@ final class LinkToObjectSearchViewModel: ObservableObject {
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     
     private let data: LinkToObjectSearchModuleData
-    private let showEditorScreen: (_ data: EditorScreenData) -> Void
+    private let showEditorScreen: (_ data: ScreenData) -> Void
     
     let descriptionTextColor: Color = .Text.primary
     let shouldShowCallout: Bool = true
@@ -32,7 +32,7 @@ final class LinkToObjectSearchViewModel: ObservableObject {
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     @Published var openUrl: URL?
     
-    init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: EditorScreenData) -> Void) {
+    init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: ScreenData) -> Void) {
         self.data = data
         self.showEditorScreen = showEditorScreen
     }
@@ -71,7 +71,7 @@ final class LinkToObjectSearchViewModel: ObservableObject {
             openUrl = url
         case let .openObject(details):
             data.willShowNextScreen?()
-            showEditorScreen(details.editorScreenData())
+            showEditorScreen(details.screenData())
         case .removeLink:
             data.removeLink()
         case let .copyLink(url):

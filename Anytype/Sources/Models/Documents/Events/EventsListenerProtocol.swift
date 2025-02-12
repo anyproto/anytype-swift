@@ -10,7 +10,7 @@ import Foundation
 
 protocol EventsListenerProtocol: AnyObject {
     
-    func setOnUpdateReceice(_ closure: @escaping ([DocumentUpdate]) -> Void)
+    func setOnUpdateReceice(_ closure: @escaping @Sendable ([DocumentUpdate]) -> Void)
     
     func startListening()
     

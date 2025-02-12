@@ -66,13 +66,13 @@ final class SlashMenuActionHandler {
                     )
                     .flatMap { objectId in
                         AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, spaceId: object.spaceId, route: .powertool)
-                        router.showEditorScreen(data: editorScreenData(objectId: objectId, objectDetails: object))
+                        router.showEditorScreen(data: .editor(editorScreenData(objectId: objectId, objectDetails: object)))
                     }
             }
         case let .relations(action):
             switch action {
             case .newRealtion:
-                router.showAddNewRelationView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
+                router.showAddRelationInfoView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
                     self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
                     
                     AnytypeAnalytics.instance().logAddExistingOrCreateRelation(

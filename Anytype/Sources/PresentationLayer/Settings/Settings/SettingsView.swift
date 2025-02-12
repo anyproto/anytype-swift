@@ -82,6 +82,9 @@ struct SettingsView: View {
         .sheet(isPresented: $model.showDebugMenu) {
             PublicDebugMenuView()
         }
+        .task {
+            await model.startSubscriptions()
+        }
     }
 }
 

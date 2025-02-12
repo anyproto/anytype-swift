@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-final class SingleObjectSubscriptionServiceMock: SingleObjectSubscriptionServiceProtocol {
+final class SingleObjectSubscriptionServiceMock: SingleObjectSubscriptionServiceProtocol, @unchecked Sendable {
     
     static let shared = SingleObjectSubscriptionServiceMock()
     
@@ -12,10 +12,10 @@ final class SingleObjectSubscriptionServiceMock: SingleObjectSubscriptionService
         spaceId: String,
         objectId: String,
         additionalKeys: [BundledRelationKey],
-        dataHandler: @escaping (ObjectDetails) -> Void
+        dataHandler: @escaping @Sendable (ObjectDetails) async -> Void
     ) async {
         if let objectDetails {
-            dataHandler(objectDetails)
+            await dataHandler(objectDetails)
         }
     }
     

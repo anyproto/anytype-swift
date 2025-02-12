@@ -4,7 +4,7 @@ import Services
 
 @MainActor
 protocol ObjectRelationListCoordinatorModuleOutput: AnyObject {
-    func onObjectOpen(screenData: EditorScreenData)
+    func onObjectOpen(screenData: ScreenData)
 }
 
 @MainActor
@@ -38,7 +38,7 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
         dismiss.toggle()
     }
     
-    func onObjectOpen(screenData: EditorScreenData?) {
+    func onObjectOpen(screenData: ScreenData?) {
         guard let screenData else { return }
         output?.onObjectOpen(screenData: screenData)
         onClose()

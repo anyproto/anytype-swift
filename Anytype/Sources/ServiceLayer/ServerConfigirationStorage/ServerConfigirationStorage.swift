@@ -1,10 +1,11 @@
 import Foundation
 import AnytypeCore
-import Combine
+@preconcurrency import Combine
 
-protocol ServerConfigurationStorageProtocol: AnyObject {
+protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
     var installedConfigurationsPublisher: AnyPublisher<Void, Never> { get }
     func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws
+    func addConfiguration(fileBase64Content: String, setupAsCurrent: Bool) throws
     func setupCurrentConfiguration(config: NetworkServerConfig)
     func configurations() -> [NetworkServerConfig]
     func currentConfiguration() -> NetworkServerConfig
@@ -12,19 +13,21 @@ protocol ServerConfigurationStorageProtocol: AnyObject {
     func installedConfigurations() -> [NetworkServerConfig]
 }
 
-final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
+final class ServerConfigurationStorage: ServerConfigurationStorageProtocol, Sendable {
 
     enum ServerError: Error {
         case badExtension
         case accessError
+        case badEncoding
     }
     
-    @UserDefault("serverConfig", defaultValue: .anytype)
-    private var serverConfig: NetworkServerConfig
+    private let serverConfig = UserDefaultStorage<NetworkServerConfig>(key: "serverConfig", defaultValue: .anytype)
     
     private enum Constants {
-        static var configStorageFolder = "Servers"
-        static var pathExtension = "yml"
+        static let configStorageFolder = "Servers"
+        static let pathExtension = "yml"
+        
+        static let deeplinkProvidedConfigName = "DeeplinkProvidedConfig.yml"
     }
     
     private let storagePath: URL
@@ -67,10 +70,29 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
         }
     }
     
+    func addConfiguration(fileBase64Content: String, setupAsCurrent: Bool) throws {
+        do {
+            guard let yamlString = fileBase64Content.decodedBase64(), let data = yamlString.data(using: .utf8) else { throw ServerError.badEncoding }
+            
+            try? FileManager.default.createDirectory(at: storagePath, withIntermediateDirectories: false)
+            let destination = storagePath.appendingPathComponent(Constants.deeplinkProvidedConfigName)
+            try? FileManager.default.removeItem(at: destination)
+            try data.write(to: destination)
+            
+            if setupAsCurrent {
+                setupCurrentConfiguration(config: .file(Constants.deeplinkProvidedConfigName))
+            }
+            installedConfigurationsSubject.send(())
+        } catch {
+            anytypeAssertionFailure("Add configuration error", info: ["error": error.localizedDescription])
+            throw error
+        }
+    }
+    
     func setupCurrentConfiguration(config: NetworkServerConfig) {
         let configs = configurations()
-        if configs.contains(serverConfig) {
-            serverConfig = config
+        if configs.contains(serverConfig.value) {
+            serverConfig.value = config
         }
     }
     
@@ -87,12 +109,12 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     }
     
     func currentConfiguration() -> NetworkServerConfig {
-        return serverConfig
+        return serverConfig.value
     }
     
     func currentConfigurationPath() -> URL? {
         guard let items = try? FileManager.default.contentsOfDirectory(at: storagePath, includingPropertiesForKeys: nil) else { return nil }
-        return items.first { .file($0.lastPathComponent) == serverConfig }
+        return items.first { .file($0.lastPathComponent) == serverConfig.value }
     }
     
     // MARK: - Private func
@@ -105,8 +127,8 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol {
     
     private func validateServerFile() {
         let configs = configurations()
-        if !configs.contains(serverConfig) {
-            self.serverConfig = .anytype
+        if !configs.contains(serverConfig.value) {
+            self.serverConfig.value = .anytype
         }
     }
 }

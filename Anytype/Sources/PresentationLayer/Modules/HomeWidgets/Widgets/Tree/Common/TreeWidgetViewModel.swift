@@ -164,7 +164,7 @@ final class TreeWidgetViewModel: ObservableObject {
                     self?.onTapCollapse(model: model)
                 },
                 tapObject: { [weak self] _ in
-                    self?.output?.onObjectSelected(screenData: details.editorScreenData())
+                    self?.output?.onObjectSelected(screenData: details.screenData())
                 }
             )
             
@@ -189,7 +189,7 @@ private extension ObjectDetails {
             return links.isEmpty || !canBeExpanded ? .icon(asset: .X18.objectWithoutIcon) : .arrow(expanded: isExpanded)
         case .list:
             return .icon(asset: .X18.list)
-        case .date, .type:
+        case .date, .type, .participant:
             return .icon(asset: .X18.objectWithoutIcon)
         }
     }

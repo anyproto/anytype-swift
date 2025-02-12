@@ -300,6 +300,7 @@ extension Container {
         self { ParticipantsSubscriptionProvider() }.singleton
     }
     
+    @MainActor
     var participantSubscription: ParameterFactory<String, any ParticipantsSubscriptionProtocol> {
         self { Container.shared.participantSubscriptionProvider().subscription(spaceId: $0) }
     }
@@ -354,5 +355,9 @@ extension Container {
     
     var mentionTextUpdateHandler: Factory<any MentionTextUpdateHandlerProtocol> {
         self { MentionTextUpdateHandler() }
+    }
+    
+    var profileStorage: Factory<any ProfileStorageProtocol> {
+        self { ProfileStorage() }.singleton
     }
 }

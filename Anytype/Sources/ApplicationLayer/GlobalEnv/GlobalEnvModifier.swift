@@ -6,6 +6,8 @@ private struct GlobalEnvModifier: ViewModifier {
     @State private var windowHolder = WindowHolder(window: nil)
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.legacyViewControllerProvider)
+    private var viewControllerProvider: any ViewControllerProviderProtocol
     
     func body(content: Content) -> some View {
         content
@@ -15,7 +17,7 @@ private struct GlobalEnvModifier: ViewModifier {
             .setAppInterfaceStyleEnv(window: windowHolder.window)
             // Legacy :(
             .onChange(of: windowHolder) { newValue in
-                ViewControllerProvider.shared.sceneWindow = newValue.window
+                viewControllerProvider.setSceneWindow(newValue.window)
                 newValue.window?.overrideUserInterfaceStyle = userDefaults.userInterfaceStyle
             }
             .onAppear {

@@ -12,7 +12,7 @@ struct WidgetObjectListView: View {
                 if model.isSheet {
                     DragIndicator()
                 }
-                TitleView(title: model.title) {
+                PageNavigationHeader(title: model.title) {
                     editButton
                 }
                 SearchBar(text: $searchText, focused: false, placeholder: Loc.search)

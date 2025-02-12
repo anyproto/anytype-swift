@@ -1,7 +1,6 @@
 import UIKit
 
 private enum SlashMenuConstants {
-    static let cellReuseId = NSStringFromClass(UITableViewCell.self)
     static let cellHeight: CGFloat = 56
     static let dividerCellhHeight: CGFloat = 35
     static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 16)
@@ -64,18 +63,14 @@ extension SlashMenuViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath)
-        cell.accessoryType = .none
-
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = .Background.highlightedMedium
-        cell.selectedBackgroundView = bgColorView
-
+        var cell = UITableViewCell()
+        
         let item = cellData[indexPath.row]
         switch item {
         case let .action(action):
             switch action.displayData {
             case let .titleSubtitleDisplayData(displayData):
+                cell = tableView.dequeueReusableCell(withIdentifier: Constants.titleSubtitleReuseCellId, for: indexPath)
                 if case .relations = action {
                     cell.separatorInset = SlashMenuConstants.relationSeparatorInsets
                 } else {
@@ -83,17 +78,25 @@ extension SlashMenuViewController: UITableViewDataSource {
                 }
                 cell.contentConfiguration = configurationFactory.configuration(displayData: displayData)
             case let .relationDisplayData(relation):
+                cell = tableView.dequeueReusableCell(withIdentifier: Constants.relationReuseCellId, for: indexPath)
                 cell.separatorInset = SlashMenuConstants.relationSeparatorInsets
                 cell.contentConfiguration = configurationFactory.configuration(relation: relation)
             }
         case let .menu(itemType, children):
+            cell = tableView.dequeueReusableCell(withIdentifier: Constants.titleSubtitleReuseCellId, for: indexPath)
             cell.accessoryType = children.isEmpty ? .none : .disclosureIndicator
             cell.separatorInset = SlashMenuConstants.separatorInsets
             cell.contentConfiguration = configurationFactory.configuration(displayData: itemType.displayData)
         case let .header(title):
+            cell = tableView.dequeueReusableCell(withIdentifier: Constants.headerReuseCellId, for: indexPath)
             cell.separatorInset = SlashMenuConstants.dividerSeparatorInsets
             cell.contentConfiguration = configurationFactory.dividerConfiguration(title: title)
         }
+        
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = .Background.highlightedMedium
+        cell.selectedBackgroundView = bgColorView
+        cell.accessoryType = .none
 
         return cell
     }

@@ -14,6 +14,7 @@ enum SpaceJoinDataState {
     case invite
     case alreadyJoined
     case inviteNotFound
+    case spaceDeleted
 }
 
 @MainActor
@@ -123,8 +124,11 @@ final class SpaceJoinViewModel: ObservableObject {
             } else {
                 dataState = .invite
             }
-        } catch let error as SpaceInviteViewError where error.code == .inviteNotFound || error.code == .spaceIsDeleted {
+        } catch let error as SpaceInviteViewError where error.code == .inviteNotFound {
             dataState = .inviteNotFound
+            state = .data
+        } catch let error as SpaceInviteViewError where error.code == .spaceIsDeleted {
+            dataState = .spaceDeleted
             state = .data
         } catch {
             errorMessage = error.localizedDescription

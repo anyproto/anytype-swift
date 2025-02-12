@@ -11,7 +11,7 @@ struct SpaceLeaveAlert: View {
     
     var body: some View {
         BottomAlertView(
-            title: Loc.SpaceSettings.LeaveAlert.title,
+            title: Loc.leaveASpace,
             message: Loc.SpaceSettings.LeaveAlert.message(model.spaceName)
         ) {
             BottomAlertButton(text: Loc.SpaceSettings.leaveButton, style: .warning) {

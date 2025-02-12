@@ -6,6 +6,7 @@ import SwiftUI
 enum LastOpenedScreen: Codable {
     case editor(EditorScreenData)
     case widgets(spaceId: String)
+    case chat(spaceId: String)
     
     var spaceId: String {
         switch self {
@@ -13,11 +14,13 @@ enum LastOpenedScreen: Codable {
             data.spaceId
         case .widgets(let spaceId):
             spaceId
+        case .chat(let spaceId):
+            spaceId
         }
     }
 }
 
-protocol UserDefaultsStorageProtocol {
+protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var showUnstableMiddlewareError: Bool { get set }
     var usersId: String { get set }
     var currentVersionOverride: String { get set }
@@ -40,7 +43,7 @@ protocol UserDefaultsStorageProtocol {
     func cleanStateAfterLogout()
 }
 
-final class UserDefaultsStorage: UserDefaultsStorageProtocol {
+final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendable {
     @UserDefault("showUnstableMiddlewareError", defaultValue: true)
     var showUnstableMiddlewareError: Bool
     
@@ -69,6 +72,8 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     @UserDefault("UserData.LastOpenedScreen.NewKey", defaultValue: nil)
     var lastOpenedScreen: LastOpenedScreen?
     
+    @UserDefault("serverConfig", defaultValue: .anytype)
+    private var serverConfig: NetworkServerConfig
     
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)
@@ -114,7 +119,7 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     // MARK: - Spaces order
     @UserDefault("SpaceOrderStorage.CustomSpaceOrder", defaultValue: [:])
     private var spacesOrder: [String: [String]]
-    
+
     func saveSpacesOrder(accountId: String, spaces: [String]) {
         spacesOrder[accountId] = spaces
     }

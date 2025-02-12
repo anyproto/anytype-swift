@@ -5,6 +5,8 @@ fileprivate struct SortedItem<ChildTaskResult> {
     let content: ChildTaskResult
 }
 
+extension SortedItem: Sendable where ChildTaskResult: Sendable {}
+
 public struct SortedTaskGroup<ChildTaskResult> where ChildTaskResult : Sendable {
     
     private var index: Int = 0

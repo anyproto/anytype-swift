@@ -1,15 +1,14 @@
 import Services
-import Foundation
+@preconcurrency import Foundation
 import Combine
+import AnytypeCore
 
-final class PasteboardBlockService: PasteboardBlockServiceProtocol {
+final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
     
-    @Injected(\.pasteboardHelper)
-    private var pasteboardHelper: any PasteboardHelperProtocol
-    @Injected(\.pasteboardMiddleService)
-    private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
+    private let pasteboardHelper: any PasteboardHelperProtocol = Container.shared.pasteboardHelper()
+    private let pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol = Container.shared.pasteboardMiddleService()
     
-    private var tasks = [AnyCancellable]()
+    private let tasks = SynchronizedArray<AnyCancellable>()
     
     var hasValidURL: Bool {
         pasteboardHelper.hasValidURL
@@ -25,7 +24,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         let context = PasteboardActionContext.focused(blockId: focusedBlockId, range: range)
         paste(objectId: objectId, spaceId: spaceId, context: context, handleLongOperation: handleLongOperation, completion: completion)
@@ -36,7 +35,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
         spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         let context = PasteboardActionContext.selected(blockIds: selectedBlockIds)
         paste(objectId: objectId, spaceId: spaceId, context: context, handleLongOperation: handleLongOperation, completion: completion)
@@ -47,7 +46,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
         spaceId: String,
         context: PasteboardActionContext,
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         
         let workItem = DispatchWorkItem {
@@ -55,7 +54,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.longOperationTime, execute: workItem)
         
-        let task = PasteboardTask(
+        let pasteboardTask = PasteboardTask(
             objectId: objectId,
             spaceId: spaceId,
             pasteboardHelper: pasteboardHelper,
@@ -63,8 +62,8 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
             context: context
         )
         
-        Task {
-            let pasteResult = try? await task.start()
+        let task = Task { @Sendable in
+            let pasteResult = try? await pasteboardTask.start()
             
             DispatchQueue.main.async {
                 workItem.cancel()
@@ -72,7 +71,8 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
             }
         }
         .cancellable()
-        .store(in: &tasks)
+        
+        tasks.append(task)
     }
     
     func copy(

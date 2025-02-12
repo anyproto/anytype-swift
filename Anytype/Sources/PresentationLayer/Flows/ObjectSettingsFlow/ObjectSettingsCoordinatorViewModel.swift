@@ -65,7 +65,7 @@ final class ObjectSettingsCoordinatorViewModel:
         )
     }
     
-    func openPageAction(screenData: EditorScreenData) {
+    func openPageAction(screenData: ScreenData) {
         output?.showEditorScreen(data: screenData)
     }
     
@@ -86,7 +86,7 @@ final class ObjectSettingsCoordinatorViewModel:
         output?.closeEditor()
     }
     
-    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+    func didCreateLinkToItself(selfName: String, data: ScreenData) {
         output?.didCreateLinkToItself(selfName: selfName, data: data)
     }
     
@@ -100,7 +100,7 @@ final class ObjectSettingsCoordinatorViewModel:
     
     // MARK: - RelationValueCoordinatorOutput
     
-    func showEditorScreen(data: EditorScreenData) {
+    func showEditorScreen(data: ScreenData) {
         Task { @MainActor in
             dismiss.toggle()
             output?.showEditorScreen(data: data)

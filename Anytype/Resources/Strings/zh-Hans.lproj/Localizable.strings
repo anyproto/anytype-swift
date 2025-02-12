@@ -74,7 +74,7 @@
 "Create relation" = "创建关联 ‘%@’";
 "Relation.View.Hint.Empty" = "空的";
 "Relation.MyRelations" = "我的关联";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "已创建关联 “%@”";
 "Relation.Deleted" = "已删除的关联";
 "Relation.From.Type" = "来自 %@ 类型";
 "Relation.EmptyState.title" = "无选项";
@@ -104,8 +104,6 @@
 "Relation.Format.Phone.Title" = "电话号码";
 
 "Relation.Search.View.Placeholder" = "搜索或创建新关系";
-
-"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -152,7 +150,7 @@
 "Files" = "文件";
 "Media" = "媒体";
 "Lists" = "分组";
-"Dates" = "Dates";
+"Dates" = "日期";
 "Pinned" = "固定";
 "Delete" = "删除";
 "Export" = "导出";
@@ -164,6 +162,7 @@
 "Move" = "移动";
 "Move to" = "移至";
 "Back" = "返回";
+"Pin" = "钉住";
 "Unpin" = "取消固定";
 "Pin on top" = "置顶";
 "File block subtitle" = "以原始状态存储文件";
@@ -191,7 +190,7 @@
 "Blue background" = "星蓝色背景";
 "Green background" = "浮萍绿背景";
 "Create new object" = "创建新对象";
-"Create new object with name" = "Create new object \"%@\"";
+"Create new object with name" = "创建对象 “%@”";
 "Cancel" = "取消";
 "Paste or type URL" = "粘贴或输入URL网址";
 "No items match filter" = "没有与筛选匹配的项目";
@@ -208,9 +207,11 @@
 "Agreement Disclamer" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Lets Go" = "让我们开始！";
 "My spaces" = "我的空间";
-"Open file" = "Open file";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open file" = "打开文件";
+"Open Set" = "打开集合";
+"Create Set" = "创建集合";
+"Unsupported deeplink" = "不支持的深度链接";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "收藏夹";
@@ -326,7 +327,7 @@
 "Choose layout type" = "选择布局类型";
 
 "Templates" = "模板";
-"Header" = "Header";
+"Header" = "标题";
 
 "Undo typing" = "撤消输入";
 "Undo" = "撤消";
@@ -580,6 +581,7 @@
 "Types" = "类型";
 "No name" = "无名称";
 "New relation" = "新增关联";
+"Edit field" = "Edit field";
 "Non-existent object" = "对象不存在";
 
 "Select all" = "全选";
@@ -698,12 +700,13 @@
 "Blurred icon" = "模糊\n 图标";
 "My First Space" = "我的第一个空间";
 "Copy space info" = "复制空间信息";
-"Save" = "Save";
-"Set of" = "Set of %@";
+"Save" = "保存";
+"Set of" = "%@ 集";
 "New set" = "新建集合";
 "Show" = "显示";
 "Hide" = "隐藏";
-"Apply" = "Apply";
+"Apply" = "应用";
+"Leave a space" = "离开空间";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您确定要删除您的文库吗？";
@@ -722,9 +725,9 @@
 "ObjectType.SearchOrInstall" = "搜索或安装新类型";
 "ObjectType.Search" = "搜索类型";
 "ObjectType.MyTypes" = "我的类型";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "已创建类型 “%@”";
 "ObjectType.DeletedName" = "删除类型";
-"ObjectType.editingType" = "You're editing type";
+"ObjectType.editingType" = "您正在编辑类型";
 
 // MARK: - QuickAction
 "QuickAction.create" = "创建 %@";
@@ -934,7 +937,6 @@
 "SpaceSettings.DeleteButton" = "删除空间";
 "SpaceSettings.Share" = "分享";
 "SpaceSettings.LeaveButton" = "离开";
-"SpaceSettings.LeaveAlert.Title" = "离开空间";
 "SpaceSettings.LeaveAlert.Message" = "%@ 空间将被从您的设备中删除，您将无法再访问它";
 "SpaceSettings.LeaveAlert.Toast" = "你离开了 %@。";
 
@@ -958,7 +960,7 @@
 "SpaceShare.Action.ViewRequest" = "查看请求";
 "SpaceShare.Action.Approve" = "接受";
 "SpaceShare.DeleteSharingLink.Title" = "删除链接";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
+"SpaceShare.DeleteSharingLink.Message" = "新成员将无法加入空间。您可以随时生成一个新链接。";
 "SpaceShare.Approve.Toast" = "您批准了 %@ 的请求。";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
 "SpaceShare.ViewRequest.ViewAccess" = "添加为查看者";
@@ -975,6 +977,9 @@
 "SpaceShare.Join.InviteNotFound" = "这个链接似乎无法工作";
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "当空间所有者批准你的请求后，你将收到通知。";
+"SpaceShare.Join.ObjectIsNotAvailable" = "对象不可用。请所有者分享一下。";
+"SpaceShare.Join.SpaceDeleted" = "您尝试访问的空间已被删除";
+
 "SpaceShare.YouSuffix" = "%@ （您）";
 "SpaceShare.ManageSpaces" = "管理空间";
 "SpaceShare.AccessChanged" = "访问权限现已更改。";
@@ -1055,8 +1060,8 @@
 "SpaceHub.Tip.Text1" = "库是您所有空间的新的主页。创建、加入或共享空间 - 一切都安全地存放在这里。";
 
 // MARK: - Space switcher tip
-"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
-"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
+"ReturnToWidgets.Tip.Title" = "长按返回小部件";
+"ReturnToWidgets.Tip.Text" = "长按返回按钮返回小部件，而不是重复点击。";
 
 // MARK: - Initial
 
@@ -1234,12 +1239,13 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
-"Message.Action.Reply" = "Reply";
+"Message.Action.Reply" = "回复";
 "Message.Input.EmptyPlaceholder" = "写一段话…";
-"Message.ChatTitle.Placeholder" = "Untitled Chat";
+"Message.ChatTitle.Placeholder" = "未命名对话";
 
 // MARK: - Date
-"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Object.Empty.State.title" = "此日期暂无任何内容";
+"Date.Open.Action.title" = "打开选定日期";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "排序方式";
@@ -1256,12 +1262,26 @@
 "AllContent.Search.Empty.State.subtitle" = "尝试使用不同的关键字搜索";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
-"Chat.ReplyTo" = "Reply to %@";
-"Chat.Empty.Title" = "No messages here yet...";
-"Chat.Empty.Description" = "Write a first one to start a conversation";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.ReadOnly" = "只有编辑者可以发送消息。请联系所有者请求访问权限。";
+"Chat.ReplyTo" = "回复 %@";
+"Chat.Empty.Title" = "暂时还没有消息…";
+"Chat.Empty.Description" = "发一条消息来开始对话";
+"Chat.DeleteMessage.Title" = "删除此消息？";
+"Chat.DeleteMessage.Description" = "确认后无法恢复";
+"Chat.Reactions.Empty.Title" = "暂无回应";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.EditMessage" = "编辑消息";
+"Chat.Actions.Menu.Objects" = "选择现有对象";
+"Chat.Actions.Menu.Media" = "上传媒体文件";
+"Chat.Actions.Menu.Files" = "上传文件";
+"Chat.Actions.Menu.Camera" = "从相机中获取";
+"Chat.Participant.Badge" = "(您)";
+"Chat.Reply.Images" = "图像 (%@)";
+"Chat.Reply.Attachments" = "附件 (%@)";
+"Chat.Reply.Files" = "文件 (%@)";
+"Chat.SendLimitAlert.Title" = "等等！输入得太快了！";
+"Chat.SendLimitAlert.Message" = "闪电的速度似乎都没你发消息快。发下一条消息前先缓缓。";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
@@ -1271,8 +1291,8 @@
 // MARK: - Empty view
 "EmptyView.Default.title" = "这里是空的";
 "EmptyView.Default.subtitle" = "创建您的第一个对象以开始操作。";
-"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.title" = "您的回收站是空的。";
 "EmptyView.Bin.subtitle" = "看起来您已经整理得井井有条了！";
 
 // MARK: - Fields
-"Fields.menu" = "Fields menu";
+"Fields.menu" = "字段菜单";

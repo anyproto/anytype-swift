@@ -3,7 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
-final class SetDocument: SetDocumentProtocol {
+final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     
     let document: any BaseDocumentProtocol
     
@@ -239,7 +239,7 @@ final class SetDocument: SetDocumentProtocol {
         }
         .store(in: &subscriptions)
         
-        await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
+        accountParticipantsStorage.canEditPublisher(spaceId: spaceId).receiveOnMain().sink { [weak self] canEdit in
             self?.participantIsEditor = canEdit
             self?.updateData()
         }.store(in: &subscriptions)

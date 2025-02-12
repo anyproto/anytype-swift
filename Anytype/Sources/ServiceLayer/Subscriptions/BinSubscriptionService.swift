@@ -8,7 +8,7 @@ protocol BinSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
         objectLimit: Int?,
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
     ) async
     func stopSubscription() async
 }
@@ -32,7 +32,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     func startSubscription(
         spaceId: String,
         objectLimit: Int?,
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
     ) async {
         
         let sort = SearchHelper.sort(
@@ -57,7 +57,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items)
+            await update(data.items)
         }
     }
     

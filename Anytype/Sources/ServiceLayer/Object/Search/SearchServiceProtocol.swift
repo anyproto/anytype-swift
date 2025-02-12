@@ -1,7 +1,7 @@
 import Services
 
 
-protocol SearchServiceProtocol: AnyObject {
+protocol SearchServiceProtocol: AnyObject, Sendable {
     func search(text: String, spaceId: String) async throws -> [ObjectDetails]
     func searchFiles(text: String, excludedFileIds: [String],  spaceId: String) async throws -> [ObjectDetails]
     func searchImages(spaceId: String) async throws -> [ObjectDetails]

@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
-"NSCameraUsageDescription" = "Fotilo estas uzata por skani QR-kodojn por sekura kaj oportuna ensaluta sperto";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "Loka reta aliro estas uzata por sinkronigi datumojn rekte inter viaj proksimaj aparatoj";
 "NSPhotoLibraryAddUsageDescription" = "Aliro necesas por konservi elektitajn bildojn al via biblioteko";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

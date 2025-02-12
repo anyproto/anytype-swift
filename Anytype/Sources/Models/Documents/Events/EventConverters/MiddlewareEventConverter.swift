@@ -6,7 +6,6 @@ import Foundation
 
 final class MiddlewareEventConverter {
     private let infoContainer: any InfoContainerProtocol
-    private let relationKeysStorage: any RelationKeysStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
     private let restrictionsContainer: ObjectRestrictionsContainer
     
@@ -14,13 +13,11 @@ final class MiddlewareEventConverter {
     
     init(
         infoContainer: some InfoContainerProtocol,
-        relationKeysStorage: some RelationKeysStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.infoContainer = infoContainer
-        self.relationKeysStorage = relationKeysStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
         self.restrictionsContainer = restrictionsContainer
@@ -90,14 +87,6 @@ final class MiddlewareEventConverter {
         case let .objectDetailsUnset(data):
             guard let details = detailsStorage.unset(data: data) else { return nil }
             return .details(id: details.id)
-            
-        case .objectRelationsAmend(let data):
-            relationKeysStorage.ammend(data: data)
-            return .relationLinks
-            
-        case .objectRelationsRemove(let data):
-            relationKeysStorage.remove(data: data)
-            return .relationLinks
             
         case let .blockSetFile(data):
             infoContainer.setFile(data: data)
@@ -208,9 +197,10 @@ final class MiddlewareEventConverter {
                 .chatAdd,
                 .chatDelete,
                 .chatUpdate,
-                .chatUpdateReactions:
-            return nil
-        case .chatAdd, .chatUpdate, .chatUpdateReactions, .chatDelete:
+                .chatUpdateReactions,
+                .objectRelationsAmend, // deprecated: will be removed in next release
+                .objectRelationsRemove, // deprecated: will be removed in next release
+                .accountLinkChallengeHide:
             return nil
         }
     }

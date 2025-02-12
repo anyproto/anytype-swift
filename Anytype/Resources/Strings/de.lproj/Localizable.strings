@@ -74,7 +74,7 @@
 "Create relation" = "Relation \"%@\" erstellen";
 "Relation.View.Hint.Empty" = "leer";
 "Relation.MyRelations" = "Meine Relationen";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "Relation ‚%@‘ wurde erstellt";
 "Relation.Deleted" = "Gelöschte Relation";
 "Relation.From.Type" = "Vom Typ \"%@\"";
 "Relation.EmptyState.title" = "Keine Optionen";
@@ -104,8 +104,6 @@
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
 "Relation.Search.View.Placeholder" = "Suche oder erstelle eine neue Relation";
-
-"Relation.Mention.title" = "Erwähnt in";
 
 // Origin Relation
 
@@ -164,6 +162,7 @@
 "Move" = "Verschieben";
 "Move to" = "Verschieben nach";
 "Back" = "Zurück";
+"Pin" = "Pin";
 "Unpin" = "Loslösen";
 "Pin on top" = "Oben anheften";
 "File block subtitle" = "Datei im Originalzustand speichern";
@@ -211,6 +210,8 @@
 "Open file" = "Datei öffnen";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
+"Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Profil bearbeiten";
 
 // Home
 "Favorites" = "Favoriten";
@@ -325,7 +326,7 @@
 "Choose layout type" = "Wähle einen Ansichtstyp";
 
 "Templates" = "Vorlagen";
-"Header" = "Header";
+"Header" = "Überschrift";
 
 "Undo typing" = "Eingabe widerrufen";
 "Undo" = "Rückgängig";
@@ -579,6 +580,7 @@
 "Types" = "Typen";
 "No name" = "Kein Name";
 "New relation" = "Neue Relation";
+"Edit field" = "Feld bearbeiten";
 "Non-existent object" = "Nicht existentes Objekt";
 
 "Select all" = "Alles auswählen";
@@ -703,6 +705,7 @@
 "Show" = "Zeigen";
 "Hide" = "Verstecken";
 "Apply" = "Anwenden";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
@@ -721,7 +724,7 @@
 "ObjectType.SearchOrInstall" = "Suche oder installiere einen neuen Typen";
 "ObjectType.Search" = "Nach Typ suchen";
 "ObjectType.MyTypes" = "Meine Typen";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "Typ ‚%@‘ wurde erstellt";
 "ObjectType.DeletedName" = "Gelöschter Typ";
 "ObjectType.editingType" = "You're editing type";
 
@@ -934,7 +937,6 @@
 "SpaceSettings.DeleteButton" = "Space löschen";
 "SpaceSettings.Share" = "Teilen";
 "SpaceSettings.LeaveButton" = "Verlassen";
-"SpaceSettings.LeaveAlert.Title" = "Space verlassen";
 "SpaceSettings.LeaveAlert.Message" = "%@ Space wird von deinen Geräten entfernt und du hast dann keinen Zugriff mehr darauf";
 "SpaceSettings.LeaveAlert.Toast" = "Du hast die %@ verlassen.";
 
@@ -976,6 +978,9 @@
 "SpaceShare.Join.InviteNotFound" = "Dieser Link scheint nicht zu funktionieren";
 "SpaceShare.JoinConfirmation.Title" = "Anfrage gesendet";
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Objekt ist nicht verfügbar. Bitte den Eigentümer, es zu teilen.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
+
 "SpaceShare.YouSuffix" = "%@ (du)";
 "SpaceShare.ManageSpaces" = "Spaces verwalten";
 "SpaceShare.AccessChanged" = "Zugriffsrechte wurden geändert.";
@@ -1239,6 +1244,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Für dieses Datum ist hier noch nichts eingetragen";
+"Date.Open.Action.title" = "Ausgewähltes Datum öffnen";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sortiere nach";
@@ -1259,8 +1265,22 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.ReplyTo" = "Auf %@ antworten";
 "Chat.Empty.Title" = "Noch keine Nachrichten hier...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
-"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.DeleteMessage.Title" = "Diese Nachricht löschen?";
+"Chat.DeleteMessage.Description" = "Sie kann nach der Bestätigung nicht wiederhergestellt werden";
+"Chat.Reactions.Empty.Title" = "Noch keine Reaktionen";
+"Chat.Reactions.Empty.Subtitle" = "Wahrscheinlich hat jemand gerade die Reaktion entfernt oder es ist ein technisches Problem aufgetreten";
+"Chat.EditMessage" = "Nachricht bearbeiten";
+"Chat.Actions.Menu.Objects" = "Bestehendes Objekt auswählen";
+"Chat.Actions.Menu.Media" = "Medien hochladen";
+"Chat.Actions.Menu.Files" = "Datei hochladen";
+"Chat.Actions.Menu.Camera" = "Von der Kamera nehmen";
+"Chat.Participant.Badge" = "(Du)";
+"Chat.Reply.Images" = "Bilder (%@)";
+"Chat.Reply.Attachments" = "Anhänge (%@)";
+"Chat.Reply.Files" = "Dateien (%@)";
+"Chat.SendLimitAlert.Title" = "Moment mal! Turbotippen erkannt!";
+"Chat.SendLimitAlert.Message" = "Sieht so aus, als würdest du Nachrichten in Windeseile verschicken. Warte noch eine Sekunde bis zur nächsten Nachricht.";
+"Chat.AttachmentsLimit.Alert" = "Du kannst nur %@ Dateien auf einmal hochladen";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";

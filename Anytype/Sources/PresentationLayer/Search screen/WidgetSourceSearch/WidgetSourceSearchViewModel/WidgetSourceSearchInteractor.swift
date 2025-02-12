@@ -9,12 +9,14 @@ struct WidgetAnytypeLibrarySource: Hashable {
     let icon: Icon
 }
 
+@MainActor
 protocol WidgetSourceSearchInteractorProtocol: AnyObject {
     func objectSearch(text: String) async throws -> [ObjectDetails]
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource]
     func createNewObject(name: String) async throws -> ObjectDetails
 }
 
+@MainActor
 final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     @Injected(\.searchService)

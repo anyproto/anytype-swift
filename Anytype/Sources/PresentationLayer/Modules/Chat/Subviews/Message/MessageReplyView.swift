@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct MessageReplyModel {
+struct MessageReplyModel: Equatable, Hashable {
     let author: String
     let description: String
     let icon: Icon?
@@ -15,7 +15,7 @@ struct MessageReplyView: View {
     var body: some View {
         HStack(spacing: 8) {
             Group {
-                model.isYour ? Color.Control.navPanelIcon : Color.Dark.grey
+                model.isYour ? Color.Control.transparentActive : Color.Dark.grey
             }
             .frame(width: 4)
             
@@ -33,7 +33,7 @@ struct MessageReplyView: View {
             .lineLimit(1)
             Spacer(minLength: 12)
         }
-        .background(model.isYour ? Color.Control.navPanelIcon : Color.Light.grey)
+        .background(model.isYour ? Color.Control.transparentActive : Color.Light.grey)
         .frame(height: 52)
         .cornerRadius(16)
     }

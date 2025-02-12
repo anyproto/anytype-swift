@@ -5,7 +5,6 @@ import AudioToolbox
 struct AuthView: View {
     
     @StateObject private var model: AuthViewModel
-    @State private var safariUrl: URL?
     
     init(output: (any AuthViewModelOutput)?) {
         _model = StateObject(wrappedValue: AuthViewModel(output: output))
@@ -38,7 +37,6 @@ struct AuthView: View {
         }
         .disablePresentationBackground()
         .fitIPadToReadableContentGuide()
-        .safariSheet(url: $safariUrl, preferredColorScheme: .dark)
     }
     
     private var greetings: some View {
@@ -63,10 +61,6 @@ struct AuthView: View {
             .accentColor(.Auth.inputText)
             .multilineTextAlignment(.center)
             .padding(.horizontal, UIDevice.isPad ? 85 : 38)
-            .environment(\.openURL, OpenURLAction { url in
-                safariUrl = url
-                return .handled
-            })
         }
     }
     
@@ -95,7 +89,9 @@ struct AuthView: View {
                 }
             )
             .colorScheme(.light)
-            .addEmptyNavigationLink(destination: model.onJoinAction(), isActive: $model.showJoinFlow)
+            .navigationDestination(isPresented: $model.showJoinFlow) {
+                model.onJoinAction()
+            }
             
             StandardButton(
                 Loc.Auth.logIn,
@@ -104,7 +100,9 @@ struct AuthView: View {
                     model.onLoginButtonTap()
                 }
             )
-            .addEmptyNavigationLink(destination: model.onLoginAction(), isActive: $model.showLoginFlow)
+            .navigationDestination(isPresented: $model.showLoginFlow) {
+                model.onLoginAction()
+            }
         }
     }
     
@@ -118,10 +116,6 @@ struct AuthView: View {
         .multilineTextAlignment(.center)
         .padding(.horizontal, 38)
         .accentColor(.Auth.body)
-        .environment(\.openURL, OpenURLAction { url in
-            safariUrl = url
-            return .handled
-        })
     }
 }
 

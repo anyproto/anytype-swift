@@ -1,15 +1,15 @@
 import Foundation
-import Combine
+@preconcurrency import Combine
 import ProtobufMessages
 import AnytypeCore
 
-public protocol NotificationsSubscriptionServiceProtocol: AnyObject {
-    func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable
+public protocol NotificationsSubscriptionServiceProtocol: AnyObject, Sendable {
+    func addHandler(handler: @escaping @Sendable (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable
 }
 
 actor NotificationsSubscriptionService: ServiceEventsHandlerProtocol, NotificationsSubscriptionServiceProtocol {
     
-    private var handleStorage = HandlerStorage<(_ events: [NotificationEvent]) async -> Void>()
+    private var handleStorage = HandlerStorage<@Sendable (_ events: [NotificationEvent]) async -> Void>()
     
     init() {
         ServiceMessageHandlerAdapter.shared.addHandler(handler: self)
@@ -17,7 +17,7 @@ actor NotificationsSubscriptionService: ServiceEventsHandlerProtocol, Notificati
     
     // MARK: - NotificationsSubscriptionServiceProtocol
     
-    public func addHandler(handler: @escaping (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable {
+    public func addHandler(handler: @escaping @Sendable (_ events: [NotificationEvent]) async -> Void) async -> AnyCancellable {
         await handleStorage.addHandler(handler: handler)
     }
     

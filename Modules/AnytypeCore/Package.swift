@@ -1,10 +1,10 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.0
 import PackageDescription
 
 let package = Package(
     name: "AnytypeCore",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v16),
     ],
     products: [
         .library(
@@ -13,7 +13,7 @@ let package = Package(
             targets: ["AnytypeCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
+        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.28.2"),
         .package(path: "../Logger")
     ],
     targets: [
@@ -23,7 +23,10 @@ let package = Package(
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 "Logger"
             ],
-            path: "AnytypeCore"
+            path: "AnytypeCore",
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
         )
     ]
 )

@@ -1,15 +1,14 @@
 import Foundation
 import Services
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 
-protocol ObjectsListSubscriptionServiceProtocol: AnyObject {
+protocol ObjectsListSubscriptionServiceProtocol: AnyObject, Sendable {
     func startSubscription(
         objectTypeId: String,
         spaceId: String,
-        sort: AllContentSort,
-        update: @escaping ([ObjectDetails], Int) -> Void
-    ) async
+        sort: AllContentSort
+    ) async -> AnyPublisher<SubscriptionStorageState, Never>
     func stopSubscription() async
 }
 
@@ -25,9 +24,8 @@ actor ObjectsListSubscriptionService: ObjectsListSubscriptionServiceProtocol {
     func startSubscription(
         objectTypeId: String,
         spaceId: String,
-        sort: AllContentSort,
-        update: @escaping ([ObjectDetails], Int) -> Void
-    ) async {
+        sort: AllContentSort
+    ) async -> AnyPublisher<SubscriptionStorageState, Never>{
         let sort = SearchHelper.sort(
             relation: sort.relation.key,
             type: sort.type
@@ -53,9 +51,8 @@ actor ObjectsListSubscriptionService: ObjectsListSubscriptionServiceProtocol {
             )
         )
         
-        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items, data.nextCount)
-        }
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData)
+        return subscriptionStorage.statePublisher
     }
     
     func stopSubscription() async {

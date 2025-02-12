@@ -2,17 +2,17 @@ import Foundation
 import UIKit
 import AnytypeCore
 
-public protocol SharedContentManagerProtocol: AnyObject {
+public protocol SharedContentManagerProtocol: AnyObject, Sendable {
     func importAndSaveItem(item: SafeSendable<NSExtensionItem>) async -> SharedContent
-    func saveSharedContent(content: SharedContent) throws
-    func getSharedContent() throws -> SharedContent
-    func clearSharedContent() throws
+    func saveSharedContent(content: SharedContent) async throws
+    func getSharedContent() async throws -> SharedContent
+    func clearSharedContent() async throws
 }
 
-final class SharedContentManager: SharedContentManagerProtocol {
-    private lazy var encoder = JSONEncoder()
-    private lazy var decoder = JSONDecoder()
-    private lazy var userDefaults = UserDefaults(suiteName: TargetsConstants.appGroup)
+actor SharedContentManager: SharedContentManagerProtocol {
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
+    private let userDefaults = UserDefaults(suiteName: TargetsConstants.appGroup)
     
     private let sharedFileStorage: SharedFileStorageProtocol
     private let sharedContentImporter: SharedContentImporterProtocol
@@ -26,7 +26,7 @@ final class SharedContentManager: SharedContentManagerProtocol {
         let item = safeItem.value
         try? clearSharedContent()
         let attachments = item.attachments ?? []
-        let sharedContentItems = await sharedContentImporter.importData(items: item.attachments ?? [])
+        let sharedContentItems = await sharedContentImporter.importData(items: SafeSendable(value: item.attachments ?? []))
         let sortedItems = sharedContentItems.filter { $0.isText } + sharedContentItems.filter { !$0.isText }
             
         let debugInfo = SharedContentDebugInfo(

@@ -5,8 +5,8 @@ struct SpaceMembersView: View {
     
     @StateObject private var model: SpaceMembersViewModel
     
-    init(spaceId: String) {
-        _model = StateObject(wrappedValue: SpaceMembersViewModel(spaceId: spaceId))
+    init(data: SpaceMembersData) {
+        _model = StateObject(wrappedValue: SpaceMembersViewModel(data: data))
     }
     
     var body: some View {
@@ -28,6 +28,9 @@ struct SpaceMembersView: View {
         }
         .onAppear {
             model.onAppear()
+        }
+        .anytypeSheet(item: $model.participantInfo) {
+            ProfileView(info: $0)
         }
     }
 }

@@ -8,7 +8,7 @@ protocol CollectionsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
         objectLimit: Int?,
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
     ) async
     func stopSubscription() async
 }
@@ -34,7 +34,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
     func startSubscription(
         spaceId: String,
         objectLimit: Int?,
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
     ) async {
         
         let sort = SearchHelper.sort(
@@ -60,7 +60,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items)
+            await update(data.items)
         }
     }
     

@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID выкарыстоўваецца для атрымання ключа, які надзейна захоўваецца ў звязку ключоў.";
-"NSCameraUsageDescription" = "Камера выкарыстоўваецца для сканіравання QR-кодаў для бяспечнага і зручнага ўваходу ў сістэму";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "Доступ да лакальнай сеткі выкарыстоўваецца для прамой сінхранізацыі даных паміж бліжэйшымі прыладамі.";
 "NSPhotoLibraryAddUsageDescription" = "Доступ неабходны для захавання выбраных відарысаў у вашай бібліятэцы";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

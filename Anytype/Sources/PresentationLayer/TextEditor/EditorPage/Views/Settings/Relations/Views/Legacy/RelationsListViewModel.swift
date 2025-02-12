@@ -96,7 +96,7 @@ extension RelationsListViewModel {
         }
     }
     
-    func showAddNewRelationView() {
+    func showAddRelationInfoView() {
         output?.addNewRelationAction(document: document)
     }
     

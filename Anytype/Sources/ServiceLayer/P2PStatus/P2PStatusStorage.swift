@@ -28,7 +28,7 @@ final class P2PStatusStorage: P2PStatusStorageProtocol {
     
     func startSubscription() {
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            self?.handle(events: events)
+            await self?.handle(events: events)
         }
     }
     

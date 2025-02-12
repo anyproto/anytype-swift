@@ -2,14 +2,14 @@ import Foundation
 import SwiftUI
 import AnytypeCore
 
-protocol SpaceSetupManagerProtocol: AnyObject {
+protocol SpaceSetupManagerProtocol: AnyObject, Sendable {
     func setActiveSpace(sceneId: String, spaceId: String) async throws
     func registerSpaceSetter(sceneId: String, setter: any ActiveSpaceSetterProtocol) async
     
     func cleanupState() async
 }
 
-actor SpaceSetupManager: SpaceSetupManagerProtocol {
+actor SpaceSetupManager: SpaceSetupManagerProtocol, Sendable {
     
     private struct WeakValue {
         weak var setter: (any ActiveSpaceSetterProtocol)?

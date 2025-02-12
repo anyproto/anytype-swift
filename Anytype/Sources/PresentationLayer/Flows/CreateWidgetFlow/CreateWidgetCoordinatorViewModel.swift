@@ -8,7 +8,7 @@ final class CreateWidgetCoordinatorViewModel: ObservableObject {
     // MARK: - DI
     
     private let data: CreateWidgetCoordinatorModel
-    private let onOpenObject: (_ openObject: EditorScreenData?) -> Void
+    private let onOpenObject: (_ openObject: ScreenData?) -> Void
     
     // MARK: - State
     
@@ -23,12 +23,12 @@ final class CreateWidgetCoordinatorViewModel: ObservableObject {
     
     @Published var dismiss: Bool = false
     
-    init(data: CreateWidgetCoordinatorModel, onOpenObject: @escaping (_ openObject: EditorScreenData?) -> Void) {
+    init(data: CreateWidgetCoordinatorModel, onOpenObject: @escaping (_ openObject: ScreenData?) -> Void) {
         self.data = data
         self.onOpenObject = onOpenObject
     }
     
-    func onSelectSource(source: WidgetSource, openObject: EditorScreenData?) {
+    func onSelectSource(source: WidgetSource, openObject: ScreenData?) {
         onOpenObject(openObject)
         dismiss.toggle()
     }

@@ -5,7 +5,7 @@ extension Container {
     
     // Registry in scene delegate
     var legacyViewControllerProvider: Factory<any ViewControllerProviderProtocol> {
-        self { ViewControllerProvider.shared }.singleton
+        self { ViewControllerProvider() }.singleton
     }
     
     var legacyToastPresenter: Factory<any ToastPresenterProtocol> {

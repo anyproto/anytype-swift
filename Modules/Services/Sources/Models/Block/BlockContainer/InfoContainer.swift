@@ -2,9 +2,9 @@ import Foundation
 import Combine
 import AnytypeCore
 
-public final class InfoContainer: InfoContainerProtocol {
+public final class InfoContainer: InfoContainerProtocol, Sendable {
     
-    private var models = SynchronizedDictionary<String, BlockInformation>()
+    private let models = SynchronizedDictionary<String, BlockInformation>()
     public init() {}
     
     public func children(of id: String) -> [BlockInformation] {

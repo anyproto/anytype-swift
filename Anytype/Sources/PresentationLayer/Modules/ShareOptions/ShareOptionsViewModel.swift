@@ -44,7 +44,9 @@ final class ShareOptionsViewModel: ObservableObject {
     ) {
         self.spaceId = spaceId
         self.output = output
-        setupData()
+        Task {
+            await setupData()
+        }
         if #available(iOS 17.0, *) {
             SharingTip().invalidate(reason: .actionPerformed)
         }
@@ -66,8 +68,10 @@ final class ShareOptionsViewModel: ObservableObject {
     }
     
     func onTapCancel() {
-        try? contentManager.clearSharedContent()
-        dismiss.toggle()
+        Task {
+            try? await contentManager.clearSharedContent()
+            dismiss.toggle()
+        }
     }
     
     func onTapSave() {
@@ -83,9 +87,9 @@ final class ShareOptionsViewModel: ObservableObject {
         
         Task {
             saveInProgress = true
-            let content = try contentManager.getSharedContent()
+            let content = try await contentManager.getSharedContent()
             try await interactor.saveContent(saveOptions: saveOptions, content: content)
-            try contentManager.clearSharedContent()
+            try await contentManager.clearSharedContent()
             dismiss.toggle()
         }
     }
@@ -116,9 +120,9 @@ final class ShareOptionsViewModel: ObservableObject {
     }
     // MARK: - Private
     
-    private func setupData() {
-        guard let content = try? contentManager.getSharedContent() else {
-            try? contentManager.clearSharedContent()
+    private func setupData() async {
+        guard let content = try? await contentManager.getSharedContent() else {
+            try? await contentManager.clearSharedContent()
             return
         }
         

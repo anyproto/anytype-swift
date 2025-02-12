@@ -4,24 +4,18 @@ import SharedContentManager
 import AnytypeCore
 
 
-protocol ShareOptionsInteractorProtocol: AnyObject {
+protocol ShareOptionsInteractorProtocol: AnyObject, Sendable {
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws
 }
 
 final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
-    @Injected(\.blockService)
-    private var blockService: any BlockServiceProtocol
-    @Injected(\.bookmarkService)
-    private var bookmarkService: any BookmarkServiceProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.fileActionsService)
-    private var fileService: any FileActionsServiceProtocol
-    @Injected(\.pasteboardMiddleService)
-    private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
+    private let blockService: any BlockServiceProtocol = Container.shared.blockService()
+    private let bookmarkService: any BookmarkServiceProtocol = Container.shared.bookmarkService()
+    private let objectActionsService: any ObjectActionsServiceProtocol = Container.shared.objectActionsService()
+    private let fileService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
+    private let pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol = Container.shared.pasteboardMiddleService()
+    private let objectTypeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
     
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
         switch saveOptions {
@@ -134,7 +128,8 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createFileObject(url: URL, spaceId: String) async throws -> FileDetails {
-        let data = FileData(path: url.relativePath, type: .data, isTemporary: false)
+        let resources = try url.resourceValues(forKeys: [.fileSizeKey])
+        let data = FileData(path: url.relativePath, type: .data, sizeInBytes: resources.fileSize, isTemporary: false)
         let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
         
         AnytypeAnalytics.instance().logCreateObject(
@@ -175,9 +170,10 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
     private func createFileBlock(fileURL: URL, addToObject: ObjectDetails, logAnalytics: Bool) async throws {
         let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
+        let resources = try fileURL.resourceValues(forKeys: [.fileSizeKey])
         let fileDetails = try await fileService.uploadFileObject(
             spaceId: addToObject.spaceId,
-            data: FileData(path: fileURL.relativePath, type: .data, isTemporary: false),
+            data: FileData(path: fileURL.relativePath, type: .data, sizeInBytes: resources.fileSize, isTemporary: false),
             origin: .sharingExtension
         )
         let blockInformation = BlockInformation.file(fileDetails: fileDetails)

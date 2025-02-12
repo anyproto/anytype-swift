@@ -1,9 +1,9 @@
 import UIKit
 import Services
 import AnytypeCore
-import Combine
+@preconcurrency import Combine
 
-protocol ObjectHeaderUploadingServiceProtocol: AnyObject {
+protocol ObjectHeaderUploadingServiceProtocol: AnyObject, Sendable {
     
     func coverUploadPublisher(objectId: String, spaceId: String) -> AnyPublisher<ObjectHeaderUpdate, Never>
     
@@ -16,16 +16,13 @@ protocol ObjectHeaderUploadingServiceProtocol: AnyObject {
     func handleIconAction(objectId: String, spaceId: String, action: ObjectIconPickerAction) async throws
 }
 
-final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
+final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, Sendable {
     
-    @Injected(\.detailsService)
-    private var detailsService: any DetailsServiceProtocol
-    @Injected(\.fileActionsService)
-    private var fileService: any FileActionsServiceProtocol
-    @Injected(\.unsplashService)
-    private var unsplashService: any UnsplashServiceProtocol
+    private let detailsService: any DetailsServiceProtocol = Container.shared.detailsService()
+    private let fileService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
+    private let unsplashService: any UnsplashServiceProtocol = Container.shared.unsplashService()
     
-    private var coverUploadSubject = PassthroughSubject<(objectId: String, spaceId: String, update: ObjectHeaderUpdate), Never>()
+    private let coverUploadSubject = PassthroughSubject<(objectId: String, spaceId: String, update: ObjectHeaderUpdate), Never>()
     
     func coverUploadPublisher(objectId: String, spaceId: String) -> AnyPublisher<ObjectHeaderUpdate, Never> {
         coverUploadSubject.filter { $0.objectId == objectId && $0.spaceId == spaceId }.map { $0.update }.eraseToAnyPublisher()

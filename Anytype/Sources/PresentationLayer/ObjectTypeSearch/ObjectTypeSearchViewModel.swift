@@ -40,10 +40,6 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         self.settings = settings
         self.spaceId = spaceId
         self.onSelect = onSelect
-        
-        pasteboardHelper.startSubscription { [weak self] in
-            self?.updatePasteButton()
-        }
     }
     
     
@@ -57,6 +53,12 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func subscribeOnParticipant() async {
         for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
             participantCanEdit = participant.canEdit
+        }
+    }
+    
+    func handlePasteboard() async {
+        for await _ in pasteboardHelper.pasteboardChangePublisher().values {
+            updatePasteButton()
         }
     }
     

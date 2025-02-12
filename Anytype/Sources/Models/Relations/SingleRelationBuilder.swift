@@ -376,7 +376,7 @@ private extension SingleRelationBuilder {
                         type: "",
                         isArchived: true,
                         isDeleted: true,
-                        editorScreenData: objectDetail.editorScreenData()
+                        editorScreenData: objectDetail.screenData()
                     )
                 }
                 
@@ -387,7 +387,7 @@ private extension SingleRelationBuilder {
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted,
-                    editorScreenData: objectDetail.editorScreenData()
+                    editorScreenData: objectDetail.screenData()
                 )
             }
             
@@ -427,7 +427,7 @@ private extension SingleRelationBuilder {
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImage,
                     title: objectDetail.title,
-                    editorScreenData: objectDetail.editorScreenData()
+                    editorScreenData: objectDetail.screenData()
                 )
             }
             

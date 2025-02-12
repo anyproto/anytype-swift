@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Search or create a new relation";
 
-"Relation.Mention.title" = "Mentioned in";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";
@@ -164,6 +162,7 @@
 "Move" = "நகர்த்து";
 "Move to" = "இதற்கு நகர்த்து";
 "Back" = "பின்";
+"Pin" = "Pin";
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
@@ -211,6 +210,7 @@
 "Open file" = "Open file";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
+"Unsupported deeplink" = "Unsupported deeplink";
 
 // Home
 "Favorites" = "Favorites";
@@ -703,6 +703,7 @@
 "Show" = "காட்டு";
 "Hide" = "மறை";
 "Apply" = "Apply";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -933,7 +934,6 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Share" = "Share";
 "SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
@@ -974,6 +974,9 @@
 "SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
+
 "SpaceShare.YouSuffix" = "%@ (you)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";
@@ -1238,6 +1241,7 @@ Please provide specific details of your needs here.";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Open.Action.title" = "Open selected date";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1258,8 +1262,22 @@ Please provide specific details of your needs here.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.DeleteMessage.Title" = "Delete this message?";
+"Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
 "Chat.Reactions.Empty.Title" = "No reactions yet";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.EditMessage" = "Edit Message";
+"Chat.Actions.Menu.Objects" = "Select existing object";
+"Chat.Actions.Menu.Media" = "Upload media";
+"Chat.Actions.Menu.Files" = "Upload file";
+"Chat.Actions.Menu.Camera" = "Take from camera";
+"Chat.Participant.Badge" = "(You)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
+"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
+"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

@@ -26,6 +26,7 @@ public extension DetailsLayout {
     var isVisible: Bool { DetailsLayout.visibleLayouts.contains(self) }
     var isVisibleOrFile: Bool { DetailsLayout.visibleLayoutsWithFiles.contains(self) }
     var isEditorLayout: Bool { DetailsLayout.editorLayouts.contains(self) }
+    var isFile: Bool { Self.fileLayouts.contains(self) }
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
     var isSupportedForCreationInSets: Bool { Self.supportedForCreationInSets.contains(self) }
     var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
@@ -36,6 +37,7 @@ public extension DetailsLayout {
     var isImage: Bool { self == .image }
     var isParticipant: Bool { self == .participant }
     var isDate: Bool { self == .date }
+    var isBookmark: Bool { self == .bookmark }
     
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }

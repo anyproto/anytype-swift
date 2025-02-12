@@ -62,11 +62,11 @@ struct LegacySearchView: View {
     
     private func rowViews(rows: [ListRowConfiguration]) -> some View {
         ForEach(rows) { row in
-            Button {
-                viewModel.didSelectRow(with: row.id)
-            } label: {
-                row.makeView()
-            }
+            row.makeView()
+                .fixTappableArea()
+                .onTapGesture {
+                    viewModel.didSelectRow(with: row.id)
+                }
         }
     }
     

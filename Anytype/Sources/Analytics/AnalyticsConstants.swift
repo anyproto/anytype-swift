@@ -248,6 +248,7 @@ enum SelectNetworkType: String {
 
 enum SelectNetworkRoute: String {
     case onboarding = "Onboarding"
+    case deeplink = "Deeplink"
 }
 
 enum ClickOnboardingTooltipType: String {
@@ -330,4 +331,14 @@ enum StyleObjectType: String {
 
 enum ObjectListSortRoute: String {
     case screenDate = "ScreenDate"
+}
+
+enum SettingsSpaceMembersRoute: String {
+    case settings = "Settings"
+    case navigation = "Navigation"
+}
+
+enum SettingsSpaceShareRoute: String {
+    case settings = "Settings"
+    case navigation = "Navigation"
 }

@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID est utilisé pour retrouver votre clé stockée de façon sécurisée dans le trousseau";
-"NSCameraUsageDescription" = "L'appareil photo est utilisé pour scanner des QR codes pour une connexion pratique et sécurisée";
+"NSCameraUsageDescription" = "Autoriser l'accès à l'appareil photo pour scanner des codes QR, capturer des photos et les joindre aux messages";
 "NSLocalNetworkUsageDescription" = "L'accès au réseau local est utilisé pour synchroniser les données directement entre vos appareils";
 "NSPhotoLibraryAddUsageDescription" = "L'accès est nécessaire pour enregistrer les images sélectionnées dans votre galerie";
+"NSMicrophoneUsageDescription" = "Autoriser l'accès au microphone pour enregistrer des vidéos et les joindre aux messages";

@@ -3,7 +3,7 @@ import Combine
 import AnytypeCore
 import UIKit
 
-
+@MainActor
 final class FileDownloadingViewModel: NSObject, ObservableObject {
     
     @Published private(set) var isErrorOccured: Bool = false
@@ -45,37 +45,44 @@ extension FileDownloadingViewModel {
 
 extension FileDownloadingViewModel: URLSessionDownloadDelegate {
     
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: (any Error)?) {
-        handleError(message: error?.localizedDescription)
+    nonisolated func urlSession(_ session: URLSession, didBecomeInvalidWithError error: (any Error)?) {
+        MainActor.assumeIsolated {
+            handleError(message: error?.localizedDescription)
+        }
     }
     
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
-        guard
-            let error = error as? URLError,
-            error.code != .cancelled
-        else { return }
-        
-        handleError(message: error.localizedDescription)
+    nonisolated func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
+        MainActor.assumeIsolated {
+            guard
+                let error = error as? URLError,
+                error.code != .cancelled
+            else { return }
+            
+            handleError(message: error.localizedDescription)
+        }
     }
     
-    func urlSession(
+    nonisolated func urlSession(
         _ session: URLSession,
         downloadTask: URLSessionDownloadTask,
         didFinishDownloadingTo location: URL
     ) {
-        handleDownloadTaskCompletion(url: location, response: downloadTask.response)
+        MainActor.assumeIsolated {
+            handleDownloadTaskCompletion(url: location, response: downloadTask.response)
+        }
     }
     
-    
-    func urlSession(
+    nonisolated func urlSession(
         _ session: URLSession,
         downloadTask: URLSessionDownloadTask,
         didWriteData bytesWritten: Int64,
         totalBytesWritten: Int64,
         totalBytesExpectedToWrite: Int64
     ) {
-        self.bytesLoaded = Double(totalBytesWritten)
-        self.bytesExpected = Double(totalBytesExpectedToWrite)
+        MainActor.assumeIsolated {
+            self.bytesLoaded = Double(totalBytesWritten)
+            self.bytesExpected = Double(totalBytesExpectedToWrite)
+        }
     }
     
 }

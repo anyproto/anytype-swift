@@ -26,16 +26,16 @@ extension ParticipantSpaceViewData {
         permissions.canLeave
     }
     
-    var canBeDelete: Bool {
-        permissions.canBeDelete
+    var canBeDeleted: Bool {
+        permissions.canBeDeleted
     }
     
     var canCancelJoinRequest: Bool {
         permissions.canCancelJoinRequest
     }
     
-    var canBeArchive: Bool {
-        permissions.canBeArchive
+    var canBeArchived: Bool {
+        permissions.canBeArchived
     }
     
     var isOwner: Bool {

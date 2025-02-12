@@ -105,8 +105,6 @@
 
 "Relation.Search.View.Placeholder" = "Szukaj lub utwórz nową relację";
 
-"Relation.Mention.title" = "Mentioned in";
-
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Schowek";
@@ -164,6 +162,7 @@
 "Move" = "Przenieś";
 "Move to" = "Przenieś do";
 "Back" = "Wstecz";
+"Pin" = "Pin";
 "Unpin" = "Odepnij";
 "Pin on top" = "Przypnij na górze";
 "File block subtitle" = "Zachowaj plik w oryginalnym formacie";
@@ -211,6 +210,8 @@
 "Open file" = "Open file";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
+"Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "Ulubione";
@@ -579,6 +580,7 @@
 "Types" = "Typy";
 "No name" = "Brak nazwy";
 "New relation" = "Nowa relacja";
+"Edit field" = "Edit field";
 "Non-existent object" = "Nieistniejący obiekt";
 
 "Select all" = "Zaznacz wszystko";
@@ -703,6 +705,7 @@
 "Show" = "Pokaż";
 "Hide" = "Ukryj";
 "Apply" = "Apply";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";
@@ -933,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "Usuwanie spacji";
 "SpaceSettings.Share" = "Udostępnij";
 "SpaceSettings.LeaveButton" = "Pozostaw";
-"SpaceSettings.LeaveAlert.Title" = "Zostaw spację";
 "SpaceSettings.LeaveAlert.Message" = "%@ miejsce zostanie usunięte z Twoich urządzeń i nie będziesz już mieć do niego dostępu.";
 "SpaceSettings.LeaveAlert.Toast" = "Opuściłeś %@.";
 
@@ -974,6 +976,9 @@
 "SpaceShare.Join.InviteNotFound" = "Ten link nie wygląda na działający";
 "SpaceShare.JoinConfirmation.Title" = "Zadanie wysłane";
 "SpaceShare.JoinConfirmation.Message" = "Otrzymasz powiadomienie, gdy właściciel pokoju zatwierdzi Twoją prośbę.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
+
 "SpaceShare.YouSuffix" = "%@ (Państwo)";
 "SpaceShare.ManageSpaces" = "Zarządzanie przestrzeniami";
 "SpaceShare.AccessChanged" = "Zmieniono prawa dostępu.";
@@ -1238,6 +1243,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Open.Action.title" = "Open selected date";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sortuj wg";
@@ -1258,8 +1264,22 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.DeleteMessage.Title" = "Delete this message?";
+"Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
 "Chat.Reactions.Empty.Title" = "No reactions yet";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.EditMessage" = "Edit Message";
+"Chat.Actions.Menu.Objects" = "Select existing object";
+"Chat.Actions.Menu.Media" = "Upload media";
+"Chat.Actions.Menu.Files" = "Upload file";
+"Chat.Actions.Menu.Camera" = "Take from camera";
+"Chat.Participant.Badge" = "(You)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
+"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
+"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

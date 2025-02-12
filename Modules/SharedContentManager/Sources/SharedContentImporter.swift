@@ -8,8 +8,8 @@ enum ShareExtensionError: Error {
     case copyFailure
 }
 
-public protocol SharedContentImporterProtocol: AnyObject {
-    func importData(items: [NSItemProvider]) async -> [SharedContentItem]
+public protocol SharedContentImporterProtocol: AnyObject, Sendable {
+    func importData(items: SafeSendable<[NSItemProvider]>) async -> [SharedContentItem]
 }
 
 final class SharedContentImporter: SharedContentImporterProtocol {
@@ -22,11 +22,7 @@ final class SharedContentImporter: SharedContentImporterProtocol {
     
     private let sharedFileStorage: SharedFileStorageProtocol
     
-    private let formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
-        return formatter
-    }()
+    private let formatter = DateFormatter.photoDateTimeFormatter
     
     init(sharedFileStorage: SharedFileStorageProtocol) {
         self.sharedFileStorage = sharedFileStorage
@@ -34,7 +30,8 @@ final class SharedContentImporter: SharedContentImporterProtocol {
     
     // MARK: - SharedContentImporterProtocol
     
-    func importData(items: [NSItemProvider]) async -> [SharedContentItem] {
+    func importData(items: SafeSendable<[NSItemProvider]>) async -> [SharedContentItem] {
+        let items = items.value
         let importDate = Date()
         return await withSortedTaskGroup(of: SharedContentItem?.self, returning: [SharedContentItem].self) { taskGroup in
             items.enumerated().forEach { index, itemProvider in

@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .allContent)
     }
 
-    static var spaceHubParallax: Bool {
-        value(for: .spaceHubParallax)
-    }
-
     static var userWarningAlerts: Bool {
         value(for: .userWarningAlerts)
     }
@@ -50,8 +46,24 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
+    static var pinnedSpaces: Bool {
+        value(for: .pinnedSpaces)
+    }
+
+    static var newSpacesLoading: Bool {
+        value(for: .newSpacesLoading)
+    }
+
     static var primitives: Bool {
         value(for: .primitives)
+    }
+
+    static var fullScreenMediaFileByTap: Bool {
+        value(for: .fullScreenMediaFileByTap)
+    }
+
+    static var memberProfile: Bool {
+        value(for: .memberProfile)
     }
 
     static var rainbowViews: Bool {
@@ -114,12 +126,15 @@ public extension FeatureFlags {
         .hideCoCreator,
         .versionHistory,
         .allContent,
-        .spaceHubParallax,
         .userWarningAlerts,
         .dateAsAnObject,
         .relativeDates,
         .homeSpaceLevelChat,
+        .pinnedSpaces,
+        .newSpacesLoading,
         .primitives,
+        .fullScreenMediaFileByTap,
+        .memberProfile,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

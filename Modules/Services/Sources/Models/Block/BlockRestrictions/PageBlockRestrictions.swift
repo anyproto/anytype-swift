@@ -1,3 +1,5 @@
+@preconcurrency import ProtobufMessages
+
 struct PageBlockRestrictions: BlockRestrictions {
     
     let canApplyBold = false

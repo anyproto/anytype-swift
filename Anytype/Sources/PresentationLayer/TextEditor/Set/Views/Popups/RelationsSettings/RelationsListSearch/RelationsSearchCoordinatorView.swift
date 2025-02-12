@@ -21,11 +21,12 @@ struct RelationsSearchCoordinatorView: View {
                     model.onShowCreateNewRelation(name: name)
                 }),
                 internalViewModel: RelationsSearchViewModel(
-                    document: model.data.document,
+                    objectId: model.data.objectId,
+                    spaceId: model.data.spaceId,
                     excludedRelationsIds: model.data.excludedRelationsIds,
                     target: model.data.target,
                     interactor: RelationsSearchInteractor(
-                        relationsInteractor: RelationsInteractor(objectId: model.data.document.objectId)
+                        relationsInteractor: RelationsInteractor(objectId: model.data.objectId)
                     ),
                     onSelect: {
                         model.onSelectRelation($0)
@@ -34,7 +35,7 @@ struct RelationsSearchCoordinatorView: View {
             )
         )
         .sheet(item: $model.newRelationData) {
-            NewRelationCoordinatorView(
+            RelationInfoCoordinatorView(
                 data: $0,
                 output: model
             )

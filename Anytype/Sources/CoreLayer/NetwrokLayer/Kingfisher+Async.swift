@@ -63,7 +63,9 @@ extension KingfisherWrapper where Base: KFCrossPlatformImageView {
                     placeholder: placeholder,
                     options: options,
                     progressBlock: progressBlock,
-                    completionHandler: continuation.resume(with:)
+                    completionHandler: {
+                        continuation.resume(with: $0)
+                    }
                 )
             }
         } onCancel: { [downloadTask] in

@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "କି'ଚେନ୍ ରେ ସୁରକ୍ଷିତ ଭାବରେ ଷ୍ଟୋର୍ ହୋଇଥିବା ଆପଣଙ୍କ କି ପୁନରୁଦ୍ଧାର କରିବାକୁ ଫେସ୍ ଆଇଡି ବ୍ୟବହାର କରାଯାଏ";
-"NSCameraUsageDescription" = "ଏକ ସୁରକ୍ଷିତ ଏବଂ ସୁବିଧାଜନକ ଲଗଇନ୍ ଅନୁଭୂତି ପାଇଁ QR କୋଡ୍ ସ୍କାନ୍ କରିବାକୁ କ୍ୟାମେରା ବ୍ୟବହୃତ ହୁଏ";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "ଆପଣଙ୍କ ନିକଟସ୍ଥ ଡିଭାଇସ୍ ମଧ୍ୟରେ ସିଧାସଳଖ ଡାଟା ସିଙ୍କ୍ରୋନାଇଜ୍ କରିବାକୁ ସ୍ଥାନୀୟ ନେଟୱାର୍କ୍ ଆକସେସ୍ ବ୍ୟବହୃତ ହୁଏ";
 "NSPhotoLibraryAddUsageDescription" = "ଆପଣଙ୍କ ଲାଇବ୍ରେରୀକୁ ଚୟନିତ ଫଟୋଗୁଡିକ ସଞ୍ଚୟ କରିବାକୁ ଆକସେସ୍ ଆବଶ୍ୟକ";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

@@ -16,7 +16,7 @@ public struct {{service.name}} {
         return Invocation(messageName: "{{rpc.name}}", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.Service{{rpc.name}}(requestData) ?? Data()
-            return try {{response}}(serializedData: responseData)
+            return try {{response}}(serializedBytes: responseData)
         }
     }
 

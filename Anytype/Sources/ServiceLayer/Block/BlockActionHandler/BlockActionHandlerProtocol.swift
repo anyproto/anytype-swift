@@ -2,7 +2,8 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol BlockActionHandlerProtocol: AnyObject {
+@MainActor
+protocol BlockActionHandlerProtocol: AnyObject, Sendable {
     func turnInto(_ style: BlockText.Style, blockId: String) async throws
     @discardableResult
     func turnIntoObject(blockId: String) async throws -> String?

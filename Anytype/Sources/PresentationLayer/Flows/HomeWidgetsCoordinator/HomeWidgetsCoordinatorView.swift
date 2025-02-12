@@ -2,13 +2,17 @@ import SwiftUI
 import AnytypeCore
 import Services
 
+struct HomeWidgetData: Hashable {
+    let info: AccountInfo
+}
+
 struct HomeWidgetsCoordinatorView: View {
     
     @StateObject private var model: HomeWidgetsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     
-    init(spaceInfo: AccountInfo) {
-        self._model = StateObject(wrappedValue: HomeWidgetsCoordinatorViewModel(spaceInfo: spaceInfo))
+    init(data: HomeWidgetData) {
+        self._model = StateObject(wrappedValue: HomeWidgetsCoordinatorViewModel(data: data))
     }
     
     var body: some View {

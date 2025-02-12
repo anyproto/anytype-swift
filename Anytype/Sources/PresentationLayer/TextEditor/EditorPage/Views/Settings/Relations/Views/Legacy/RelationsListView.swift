@@ -53,7 +53,7 @@ struct RelationsListView: View {
     
     private var createNewRelationButton: some View {
         Button {
-            viewModel.showAddNewRelationView()
+            viewModel.showAddRelationInfoView()
         } label: {
             Image(asset: .X32.plus)
                 .foregroundColor(.Control.active)

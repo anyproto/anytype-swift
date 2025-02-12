@@ -4,7 +4,7 @@ import AnytypeCore
 
 @MainActor
 protocol RelationValueCoordinatorOutput: AnyObject {
-    func showEditorScreen(data: EditorScreenData)
+    func showEditorScreen(data: ScreenData)
 }
 
 @MainActor
@@ -232,7 +232,7 @@ final class RelationValueCoordinatorViewModel:
     
     // MARK: - ObjectRelationListCoordinatorModuleOutput
     
-    func onObjectOpen(screenData: EditorScreenData) {
+    func onObjectOpen(screenData: ScreenData) {
         output?.showEditorScreen(data: screenData)
     }
     

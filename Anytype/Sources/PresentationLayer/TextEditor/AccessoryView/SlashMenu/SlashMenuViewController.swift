@@ -5,8 +5,6 @@ final class SlashMenuViewController: UIViewController {
     let viewModel: SlashMenuViewModel
     let dismissHandler: (() -> Void)?
     
-    let cellReuseId = NSStringFromClass(UITableViewCell.self)
-    
     var cellData: [SlashMenuCellData] = [] {
         didSet {
             tableView.reloadData()
@@ -56,7 +54,9 @@ final class SlashMenuViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.titleSubtitleReuseCellId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.relationReuseCellId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.headerReuseCellId)
         
         tableView.backgroundView = emptyView
         emptyView.isHidden = true
@@ -86,5 +86,14 @@ final class SlashMenuViewController: UIViewController {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension SlashMenuViewController {
+    
+    enum Constants {
+        static let titleSubtitleReuseCellId = "TitleSubtitleReuseCellId"
+        static let relationReuseCellId = "RelationReuseCellId"
+        static let headerReuseCellId = "HeaderReuseCellId"
     }
 }

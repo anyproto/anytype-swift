@@ -59,9 +59,9 @@ struct SpacesManagerRowView: View {
     
     @ViewBuilder
     private var menu: some View {
-        if model.canBeDelete || model.canLeave || model.canCancelJoinRequest || model.canStopSharing || model.canBeArchive {
+        if model.canBeDeleted || model.canLeave || model.canCancelJoinRequest || model.canStopSharing || model.canBeArchived {
             Menu {
-                if model.canBeDelete {
+                if model.canBeDeleted {
                     AsyncButton(Loc.delete, role: .destructive, action: onDelete)
                 }
                 if model.canLeave {
@@ -73,7 +73,7 @@ struct SpacesManagerRowView: View {
                 if model.canStopSharing {
                     AsyncButton(Loc.SpaceShare.StopSharing.action, role: .destructive, action: onStopSharing)
                 }
-                if model.canBeArchive {
+                if model.canBeArchived {
                     AsyncButton(Loc.export, action: onArchive)
                 }
             } label: {

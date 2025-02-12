@@ -60,6 +60,7 @@ public extension BundledRelationKey {
             BundledRelationKey.isArchived
             BundledRelationKey.isDeleted
             BundledRelationKey.isFavorite
+            BundledRelationKey.restrictions
             // Complex keys
             BundledRelationKey.objectIconImageKeys
             BundledRelationKey.titleKeys

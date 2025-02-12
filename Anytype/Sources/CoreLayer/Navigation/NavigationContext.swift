@@ -61,6 +61,7 @@ extension NavigationContextProtocol {
     }
 }
 
+@MainActor
 final class NavigationContext: NavigationContextProtocol {
     
     @Injected(\.legacyViewControllerProvider)

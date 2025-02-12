@@ -74,7 +74,7 @@
 "Create relation" = "Создать свойство ‘%@’";
 "Relation.View.Hint.Empty" = "пусто";
 "Relation.MyRelations" = "Мои свойства";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "Связь %@ была создана";
 "Relation.Deleted" = "Удалённое свойство";
 "Relation.From.Type" = "Из типа %@";
 "Relation.EmptyState.title" = "Опций нет";
@@ -104,8 +104,6 @@
 "Relation.Format.Phone.Title" = "Номер телефона";
 
 "Relation.Search.View.Placeholder" = "Найти или создать новую связь";
-
-"Relation.Mention.title" = "Mentioned in";
 
 // Origin Relation
 
@@ -164,6 +162,7 @@
 "Move" = "Переместить";
 "Move to" = "Переместить в";
 "Back" = "Назад";
+"Pin" = "Закрепить";
 "Unpin" = "Открепить";
 "Pin on top" = "Закрепить сверху";
 "File block subtitle" = "Сохранить файл в исходном состоянии";
@@ -211,6 +210,8 @@
 "Open file" = "Открыть файл";
 "Open Set" = "Открыть набор";
 "Create Set" = "Создать Набор";
+"Unsupported deeplink" = "Неподдерживаемая ссылка";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "Избранное";
@@ -579,6 +580,7 @@
 "Types" = "Типы";
 "No name" = "Без названия";
 "New relation" = "Новое свойство";
+"Edit field" = "Edit field";
 "Non-existent object" = "Несуществующий объект";
 
 "Select all" = "Выбрать все";
@@ -702,7 +704,8 @@
 "New set" = "Новый набор";
 "Show" = "Показать";
 "Hide" = "Скрыть";
-"Apply" = "Apply";
+"Apply" = "Применить";
+"Leave a space" = "Покинуть пространство";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -721,7 +724,7 @@
 "ObjectType.SearchOrInstall" = "Искать или создать новый тип";
 "ObjectType.Search" = "Поиск типа";
 "ObjectType.MyTypes" = "Мои типы";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "Тип ‘%@был создан";
 "ObjectType.DeletedName" = "Удаленный тип";
 "ObjectType.editingType" = "Вы редактировали тип";
 
@@ -933,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "Удалить пространство";
 "SpaceSettings.Share" = "Поделиться";
 "SpaceSettings.LeaveButton" = "Покинуть";
-"SpaceSettings.LeaveAlert.Title" = "Покинуть пространство";
 "SpaceSettings.LeaveAlert.Message" = "%@ пространство будет удалено с ваших устройств и у вас больше не будет к ним доступа ";
 "SpaceSettings.LeaveAlert.Toast" = "Вы покинули %@.";
 
@@ -974,6 +976,9 @@
 "SpaceShare.Join.InviteNotFound" = "Эта ссылка, похоже, не работает";
 "SpaceShare.JoinConfirmation.Title" = "Запрос отправлен";
 "SpaceShare.JoinConfirmation.Message" = "Вы получите уведомление, когда владелец сообщества одобрит ваш запрос.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Объект не доступен. Попросите владельца поделиться им.";
+"SpaceShare.Join.SpaceDeleted" = "Пространство, к которому вы пытаетесь получить доступ, было удалено";
+
 "SpaceShare.YouSuffix" = "%@ (вы)";
 "SpaceShare.ManageSpaces" = "Управление пространствами";
 "SpaceShare.AccessChanged" = "Права доступа были изменены.";
@@ -1240,7 +1245,8 @@
 "Message.ChatTitle.Placeholder" = "Чат без названия";
 
 // MARK: - Date
-"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Object.Empty.State.title" = "Здесь пока ничего нет для этой даты";
+"Date.Open.Action.title" = "Открыть выбранную дату";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Сортировать по";
@@ -1261,8 +1267,22 @@
 "Chat.ReplyTo" = "Ответить %@";
 "Chat.Empty.Title" = "Здесь пока нет сообщений...";
 "Chat.Empty.Description" = "Напишите первый, чтобы начать диалог";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
-"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.DeleteMessage.Title" = "Удалить это сообщение?";
+"Chat.DeleteMessage.Description" = "Его нельзя восстановить после подтверждения";
+"Chat.Reactions.Empty.Title" = "Пока нет реакций";
+"Chat.Reactions.Empty.Subtitle" = "Возможно, кто-то только что удалил реакцию или случился технический сбой";
+"Chat.EditMessage" = "Редактировать сообщение";
+"Chat.Actions.Menu.Objects" = "Выберите существующий объект";
+"Chat.Actions.Menu.Media" = "Загрузить медиафайл";
+"Chat.Actions.Menu.Files" = "Загрузить файл";
+"Chat.Actions.Menu.Camera" = "Снять на камеру";
+"Chat.Participant.Badge" = "(Вы)";
+"Chat.Reply.Images" = "Изображения (%@)";
+"Chat.Reply.Attachments" = "Вложения (%@)";
+"Chat.Reply.Files" = "Файлы (%@)";
+"Chat.SendLimitAlert.Title" = "Удерживаем! Обнаружен Turbo typing!";
+"Chat.SendLimitAlert.Message" = "Похоже, вы отправляете сообщения со скоростью молнии. Дайте секунду перед следующим.";
+"Chat.AttachmentsLimit.Alert" = "Вы можете загружать только %@ файлов за раз";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
@@ -1272,7 +1292,7 @@
 // MARK: - Empty view
 "EmptyView.Default.title" = "Здесь пусто.";
 "EmptyView.Default.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
-"EmptyView.Bin.title" = "Your bin is empty.";
+"EmptyView.Bin.title" = "Ваша корзина пуста.";
 "EmptyView.Bin.subtitle" = "Похоже, у вас всё аккуратно и организовано!";
 
 // MARK: - Fields

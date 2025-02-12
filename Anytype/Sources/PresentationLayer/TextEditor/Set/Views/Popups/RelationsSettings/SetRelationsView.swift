@@ -44,7 +44,7 @@ struct SetRelationsView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     withAnimation { editMode = .inactive }
-                    model.showAddNewRelationView()
+                    model.showAddRelationInfoView()
                 }) {
                     Image(asset: .X32.plus).foregroundColor(.Control.active)
                 }

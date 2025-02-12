@@ -6,6 +6,7 @@ struct BlockFocus {
     let position: BlockFocusPosition
 }
 
+@MainActor
 final class EditorCursorManager {
     private let focusSubjectHolder: FocusSubjectsHolder
     private var currentType: String?

@@ -4,16 +4,12 @@ import Services
 import AnytypeCore
 
 
-final class TypesService: TypesServiceProtocol {
+final class TypesService: TypesServiceProtocol, Sendable {
     
-    @Injected(\.searchMiddleService)
-    private var searchMiddleService: any SearchMiddleServiceProtocol
-    @Injected(\.objectActionsService)
-    private var actionsService: any ObjectActionsServiceProtocol
-    @Injected(\.typesPinsStorage)
-    private var pinsStorage: any TypesPinStorageProtocol
-    @Injected(\.objectTypeProvider)
-    private var typeProvider: any ObjectTypeProviderProtocol
+    private let searchMiddleService: any SearchMiddleServiceProtocol = Container.shared.searchMiddleService()
+    private let actionsService: any ObjectActionsServiceProtocol = Container.shared.objectActionsService()
+    private let pinsStorage: any TypesPinStorageProtocol = Container.shared.typesPinsStorage()
+    private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
     
     func createType(name: String, spaceId: String) async throws -> ObjectType {
         let details = Google_Protobuf_Struct(

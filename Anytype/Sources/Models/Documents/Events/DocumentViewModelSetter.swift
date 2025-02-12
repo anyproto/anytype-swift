@@ -12,18 +12,15 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     private var mentionTextUpdateHandler: any MentionTextUpdateHandlerProtocol
     
     private let detailsStorage: ObjectDetailsStorage
-    private let relationKeysStorage: any RelationKeysStorageProtocol
     private let restrictionsContainer: ObjectRestrictionsContainer
     private let infoContainer: any InfoContainerProtocol
     
     init(
         detailsStorage: ObjectDetailsStorage,
-        relationKeysStorage: some RelationKeysStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         infoContainer: some InfoContainerProtocol
     ) {
         self.detailsStorage = detailsStorage
-        self.relationKeysStorage = relationKeysStorage
         self.restrictionsContainer = restrictionsContainer
         self.infoContainer = infoContainer
     }
@@ -50,12 +47,10 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
         
         parsedDetails.forEach { detailsStorage.add(details: $0) }
         
-        let relationKeys = data.relationLinks.map { $0.key }
-        relationKeysStorage.set(relationKeys: relationKeys)
         
         let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
         
-        restrictionsContainer.restrinctions = restrinctions
+        restrictionsContainer.restrictions = restrinctions
         
         if FeatureFlags.relativeDates {
             mentionTextUpdateHandler.updateMentionsTextsIfNeeded(

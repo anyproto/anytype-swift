@@ -6,7 +6,7 @@ struct GalleryWidgetRowModel {
     let title: String
     let icon: Icon?
     let cover: ObjectHeaderCoverType?
-    let onTap: () -> Void
+    let onTap: @MainActor () -> Void
 }
 
 struct GalleryWidgetRow: View {

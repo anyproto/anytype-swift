@@ -2,7 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
-enum WidgetSource: Equatable, Hashable {
+enum WidgetSource: Equatable, Hashable, Sendable {
     case object(ObjectDetails)
     case library(AnytypeWidgetId)
 }
@@ -44,7 +44,7 @@ extension ObjectDetails {
             return [.view, .compactList, .list, .link]
         case .date:
             return [.link]
-        case .type:
+        case .type, .participant:
             return []
         }
     }

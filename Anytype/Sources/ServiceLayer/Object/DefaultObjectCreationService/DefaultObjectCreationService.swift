@@ -3,7 +3,7 @@ import SwiftProtobuf
 import Services
 import AnytypeCore
 
-protocol DefaultObjectCreationServiceProtocol: AnyObject {
+protocol DefaultObjectCreationServiceProtocol: AnyObject, Sendable {
     func createDefaultObject(
         name: String,
         shouldDeleteEmptyObject: Bool,
@@ -12,12 +12,10 @@ protocol DefaultObjectCreationServiceProtocol: AnyObject {
 }
 
 
-final class DefaultObjectCreationService: DefaultObjectCreationServiceProtocol {
+final class DefaultObjectCreationService: DefaultObjectCreationServiceProtocol, Sendable {
     
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectActionsService)
-    private var objectService: any ObjectActionsServiceProtocol
+    private let objectTypeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
+    private let objectService: any ObjectActionsServiceProtocol = Container.shared.objectActionsService()
     
     func createDefaultObject(
         name: String,

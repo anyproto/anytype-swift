@@ -2,7 +2,7 @@ import Foundation
 import Services
 import Combine
 
-protocol ObjectTypeProviderProtocol: AnyObject {
+protocol ObjectTypeProviderProtocol: AnyObject, Sendable {
 
     var syncPublisher: AnyPublisher<Void, Never> { get }
     

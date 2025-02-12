@@ -27,7 +27,6 @@ actor EventsListener: EventsListenerProtocol {
     init(
         objectId: String,
         infoContainer: some InfoContainerProtocol,
-        relationKeysStorage: some RelationKeysStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         detailsStorage: ObjectDetailsStorage
     ) {
@@ -40,7 +39,6 @@ actor EventsListener: EventsListenerProtocol {
         )
         self.middlewareConverter = MiddlewareEventConverter(
             infoContainer: infoContainer,
-            relationKeysStorage: relationKeysStorage,
             informationCreator: informationCreator,
             detailsStorage: detailsStorage,
             restrictionsContainer: restrictionsContainer
@@ -72,7 +70,7 @@ actor EventsListener: EventsListenerProtocol {
     }
     
     nonisolated
-    func setOnUpdateReceice(_ closure: @escaping ([DocumentUpdate]) -> Void) {
+    func setOnUpdateReceice(_ closure: @escaping @Sendable ([DocumentUpdate]) -> Void) {
         Task {
             await setOnUpdateReceiceInternal(closure)
         }

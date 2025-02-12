@@ -2,7 +2,7 @@ import Services
 import Combine
 import AnytypeCore
 
-protocol BaseDocumentProtocol: AnyObject {
+protocol BaseDocumentProtocol: AnyObject, Sendable {
     var infoContainer: any InfoContainerProtocol { get }
     var detailsStorage: ObjectDetailsStorage { get }
     var children: [BlockInformation] { get }

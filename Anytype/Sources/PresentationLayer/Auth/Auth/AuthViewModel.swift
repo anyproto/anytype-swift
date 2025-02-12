@@ -1,4 +1,10 @@
 import SwiftUI
+import Combine
+
+
+enum AuthViewModelError: Error {
+    case unsupportedAppAction
+}
 
 @MainActor
 final class AuthViewModel: ObservableObject {
@@ -12,6 +18,13 @@ final class AuthViewModel: ObservableObject {
     // MARK: - Private
     private weak var output: (any AuthViewModelOutput)?
     
+    @Injected(\.serverConfigurationStorage)
+    private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
+    @Injected(\.appActionStorage)
+    private var appActionsStorage: AppActionStorage
+    
+    private var subscription: AnyCancellable?
+    
     init(output: (any AuthViewModelOutput)?) {
         self.output = output
     }
@@ -20,7 +33,18 @@ final class AuthViewModel: ObservableObject {
     
     func onAppear() {
         changeContentOpacity(false)
+        startSubscriptions()
         AnytypeAnalytics.instance().logMainAuthScreenShow()
+    }
+    
+    private func startSubscriptions() {
+        subscription = appActionsStorage.$action.receiveOnMain().sink { [weak self] action in
+            guard let action, let self else { return }
+            
+            if (try? handleAppAction(action: action)).isNotNil {
+                appActionsStorage.action = nil
+            }
+        }
     }
     
     func videoUrl() -> URL? {
@@ -60,5 +84,25 @@ final class AuthViewModel: ObservableObject {
         withAnimation(.fastSpring) {
             opacity = hide ? 0 : 1
         }
+    }
+    
+    private func handleAppAction(action: AppAction) throws {
+        switch action {
+        case .createObjectFromQuickAction:
+            throw AuthViewModelError.unsupportedAppAction
+        case .deepLink(let deeplink):
+            switch deeplink {
+            case .networkConfig(let config):
+                try updateNetworkConfig(config)
+            case .createObjectFromWidget, .showSharingExtension, .galleryImport, .invite, .object, .membership:
+                throw AuthViewModelError.unsupportedAppAction
+            }
+        }
+    }
+    
+    private func updateNetworkConfig(_ config: String) throws {
+        try serverConfigurationStorage.addConfiguration(fileBase64Content: config, setupAsCurrent: true)
+        AnytypeAnalytics.instance().logUploadNetworkConfiguration()
+        AnytypeAnalytics.instance().logSelectNetwork(type: .selfHost, route: .deeplink)
     }
 }

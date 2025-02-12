@@ -6,8 +6,8 @@ struct SpaceShareView: View {
     
     @StateObject private var model: SpaceShareViewModel
     
-    init(workspaceInfo: AccountInfo, onMoreInfo: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: SpaceShareViewModel(workspaceInfo: workspaceInfo, onMoreInfo: onMoreInfo))
+    init(data: SpaceShareData, onMoreInfo: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: SpaceShareViewModel(data: data, onMoreInfo: onMoreInfo))
     }
     
     var body: some View {
@@ -46,6 +46,9 @@ struct SpaceShareView: View {
             }
             .anytypeSheet(item: $model.qrCodeInviteLink) {
                 QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+            }
+            .anytypeSheet(item: $model.participantInfo) {
+                ProfileView(info: $0)
             }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .ignoresSafeArea()

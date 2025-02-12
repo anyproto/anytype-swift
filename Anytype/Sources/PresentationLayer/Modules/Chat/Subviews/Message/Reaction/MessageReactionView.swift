@@ -34,8 +34,8 @@ struct MessageReactionView: View {
             .cornerRadius(20, style: .continuous)
             .border(20, color: model.selected ? Color.System.amber125 : Color.clear, lineWidth: 1)
         }
-        .highPriorityGesture(
-            LongPressGesture(minimumDuration: 0.3)
+        .simultaneousGesture(
+            LongPressGesture(minimumDuration: 0.25)
                 .onEnded { _ in
                     onLongTap()
                 }

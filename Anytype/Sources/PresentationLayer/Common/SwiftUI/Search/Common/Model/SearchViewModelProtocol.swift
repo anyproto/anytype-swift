@@ -16,7 +16,7 @@ protocol SearchDataProtocol: Identifiable {
     
     var verticalInset: CGFloat { get }
     
-    var editorScreenData: EditorScreenData { get }
+    var screenData: ScreenData { get }
 }
 
 struct SearchDataSection<SearchData: SearchDataProtocol>: Identifiable {

@@ -1,6 +1,6 @@
 import SwiftUI
 import Services
-
+@preconcurrency import Combine
 
 @MainActor
 final class ObjectTypeObjectsListViewModel: ObservableObject {
@@ -30,19 +30,21 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
     }
     
     func startListSubscription() async {
-        await listService.startSubscription(objectTypeId: document.objectId, spaceId: document.spaceId, sort: sort) { details, numberOfObjectsLeft in
-            self.rows = details.map { details in
+        let publisher = await listService.startSubscription(objectTypeId: document.objectId, spaceId: document.spaceId, sort: sort)
+        for await state in publisher.values {
+            rows = state.items.map { details in
                 WidgetObjectListRowModel(details: details, canArchive: false) { [weak self] in
                     self?.output?.onOpenObjectTap(objectId: details.id)
                 }
             }
-            self.numberOfObjectsLeft = numberOfObjectsLeft
+            numberOfObjectsLeft = state.nextCount
         }
     }
     
     func startSetSubscription() async {
-        await setService.startSubscription(typeId: document.objectId, spaceId: document.spaceId) { [weak self] details in
-            self?.detailsOfSet = details
+        let publisher = await setService.startSubscription(typeId: document.objectId, spaceId: document.spaceId)
+        for await details in publisher.values {
+            detailsOfSet = details
         }
     }
     

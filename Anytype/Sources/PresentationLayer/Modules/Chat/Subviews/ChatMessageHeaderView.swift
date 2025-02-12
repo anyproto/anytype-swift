@@ -6,7 +6,7 @@ struct ChatMessageHeaderView: View {
     var body: some View {
         Text(text)
             .anytypeStyle(.caption1Medium)
-            .foregroundColor(.Control.navPanelIcon)
+            .foregroundColor(.Control.transparentActive)
             .frame(height: 50)
     }
 }

@@ -19,7 +19,6 @@ struct SpaceHubCoordinatorView: View {
         
             .task { await model.setup() }
             
-            .handleSpaceShareTip()
             .handleSharingTip()
             .handleSpaceHubTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
@@ -34,14 +33,8 @@ struct SpaceHubCoordinatorView: View {
             .sheet(isPresented: $model.showSpaceManager) {
                 SpacesManagerView()
             }
-            .sheet(isPresented: $model.showSpaceShareTip) {
-                SpaceShareTipView()
-            }
             .sheet(item: $model.membershipTierId) { tierId in
                 MembershipCoordinator(initialTierId: tierId.value)
-            }
-            .sheet(item: $model.showSpaceSwitchData) {
-                SpaceSwitchCoordinatorView(data: $0)
             }
             .sheet(item: $model.membershipNameFinalizationData) {
                 MembershipNameFinalizationView(tier: $0)
@@ -60,6 +53,18 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.userWarningAlert, dismissOnBackgroundView: false) {
                 UserWarningAlertCoordinatorView(alert: $0)
             }
+            .anytypeSheet(isPresented: $model.showObjectIsNotAvailableAlert) {
+                ObjectIsNotAvailableAlert()
+            }
+            .sheet(item: $model.showSpaceShareData) {
+                SpaceShareCoordinatorView(data: $0)
+            }
+            .sheet(item: $model.showSpaceMembersData) {
+                SpaceMembersView(data: $0)
+            }
+            .anytypeSheet(item: $model.profileData) {
+                ProfileView(info: $0)
+            }
     }
     
     private var content: some View {  
@@ -70,14 +75,17 @@ struct SpaceHubCoordinatorView: View {
                 path: $model.navigationPath,
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
-                        builder.appendBuilder(for: AccountInfo.self) { info in
-                            HomeTabBarCoordinatorView(spaceInfo: info)
+                        builder.appendBuilder(for: HomeWidgetData.self) { data in
+                            HomeWidgetsCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
                             SpaceHubView(sceneId: model.sceneId)
+                        }
+                        builder.appendBuilder(for: ChatCoordinatorData.self) {
+                            ChatCoordinatorView(data: $0)
                         }
                     }
                 },
@@ -90,6 +98,7 @@ struct SpaceHubCoordinatorView: View {
         }
         .animation(.easeInOut, value: model.spaceInfo)
         .environment(\.pageNavigation, model.pageNavigation)
+        .environment(\.chatActionProvider, $model.chatProvider)
     }
 }
 

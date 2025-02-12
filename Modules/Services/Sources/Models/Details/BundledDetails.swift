@@ -3,7 +3,7 @@ import AnytypeCore
 import ProtobufMessages
 import SwiftProtobuf
 
-public enum BundledDetails {
+public enum BundledDetails: Sendable {
     case name(String)
     case iconEmoji(String)
     case iconObjectId(String)

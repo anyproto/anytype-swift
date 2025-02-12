@@ -36,9 +36,9 @@ extension BundledRelationsValueProvider {
         return parsedType ?? ObjectTypeProvider.shared.deletedObjectType(id: type)
     }
     
-    var editorViewType: EditorViewType {
+    var editorViewType: ScreenType {
         switch layoutValue {
-        case .basic, .profile, .participant, .todo, .note, .bookmark, .space, .file, .image, .UNRECOGNIZED, .relation,
+        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView, .tag, .chat, .chatDerived:
             return .page
         case .set, .collection:
@@ -47,6 +47,8 @@ extension BundledRelationsValueProvider {
             return FeatureFlags.dateAsAnObject ? .date : .page
         case .objectType:
             return .type
+        case .participant:
+            return FeatureFlags.memberProfile ? .participant : .page
         }
     }
     

@@ -3,7 +3,7 @@ import Combine
 import AnytypeCore
 import Services
 
-protocol MiddlewareConfigurationProviderProtocol: AnyObject {
+protocol MiddlewareConfigurationProviderProtocol: AnyObject, Sendable {
     var configuration: MiddlewareConfiguration { get }
     func removeCachedConfiguration()
     func setupConfiguration(account: AccountData)
@@ -14,12 +14,11 @@ protocol MiddlewareConfigurationProviderProtocol: AnyObject {
 final class MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol {
     
     // MARK: - Private variables
-    private var cachedConfiguration: MiddlewareConfiguration?
-    @Injected(\.middlewareConfigurationService)
-    private var middlewareConfigurationService: any MiddlewareConfigurationServiceProtocol
+    private let storage = AtomicStorage<MiddlewareConfiguration?>(nil)
+    private let middlewareConfigurationService: any MiddlewareConfigurationServiceProtocol = Container.shared.middlewareConfigurationService()
 
     var configuration: MiddlewareConfiguration {
-        if let configuration = cachedConfiguration {
+        if let configuration = storage.value {
             return configuration
         }
         
@@ -29,11 +28,11 @@ final class MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProt
     }
     
     func removeCachedConfiguration() {
-        cachedConfiguration = nil
+        storage.value = nil
     }
     
     func setupConfiguration(account: AccountData) {
-        cachedConfiguration = MiddlewareConfiguration(info: account.info)
+        storage.value = MiddlewareConfiguration(info: account.info)
     }
     
     func libraryVersion() async throws -> String {

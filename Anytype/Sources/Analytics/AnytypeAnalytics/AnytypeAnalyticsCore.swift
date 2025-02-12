@@ -27,7 +27,7 @@ actor AnytypeAnalyticsCore {
         if let trackingOptions = AMPTrackingOptions().disableIDFA().disableIPAddress() {
             Amplitude.instance().setTrackingOptions(trackingOptions)
         }
-        
+        Amplitude.instance().setServerUrl("https://amplitude.anytype.io")
         userProperties[Keys.interfaceLang] = Locale.current.language.languageCode?.identifier
     }
 
@@ -63,9 +63,9 @@ actor AnytypeAnalyticsCore {
         userProperties[Keys.tier] = tier?.name
     }
     
-    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [AnyHashable : Any]?) async {
-        var eventProperties = eventProperties ?? [:]
-        let participantSpaceView = await participantSpacesStorage.participantSpaceView(spaceId: spaceId)
+    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: @autoclosure () -> [AnyHashable : Any]?) async {
+        var eventProperties = eventProperties() ?? [:]
+        let participantSpaceView = participantSpacesStorage.participantSpaceView(spaceId: spaceId)
         
         if let permissions = participantSpaceView?.participant?.permission.analyticsType {
             eventProperties[AnalyticsEventsPropertiesKey.permissions] = permissions.rawValue
@@ -78,8 +78,8 @@ actor AnytypeAnalyticsCore {
         logEvent(eventType, withEventProperties: eventProperties)
     }
     
-    func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any]?) {
-        
+    func logEvent(_ eventType: String, withEventProperties eventProperties: @autoclosure () -> [AnyHashable : Any]?) {
+        let eventProperties = eventProperties()
         let eventConfiguration = eventsConfiguration[eventType]
 
         if case .notInRow = eventConfiguration?.threshold, lastEvents == eventType {

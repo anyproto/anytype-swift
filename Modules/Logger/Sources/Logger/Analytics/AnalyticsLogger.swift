@@ -1,6 +1,6 @@
 import Logging
 
-public final class AnalyticsLogger {
+public final class AnalyticsLogger: Sendable {
 
     public static let shared = AnalyticsLogger()
     

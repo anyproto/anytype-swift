@@ -39,17 +39,9 @@ struct AllContentView: View {
     }
     
     private var navigationBar: some View {
-        HStack(alignment: .center, spacing: 0) {
-            Spacer()
-            AnytypeText(model.state.mode.title, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
-            Spacer()
-        }
-        .overlay(alignment: .trailing) {
+        PageNavigationHeader(title: model.state.mode.title) {
             settingsMenu
         }
-        .frame(height: 48)
-        .padding(.horizontal, 16)
     }
     
     private var settingsMenu: some View {

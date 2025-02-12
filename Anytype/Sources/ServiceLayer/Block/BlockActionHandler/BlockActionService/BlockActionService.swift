@@ -5,6 +5,7 @@ import Logger
 import ProtobufMessages
 import AnytypeCore
 
+@MainActor
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: String
     private let cursorManager: EditorCursorManager

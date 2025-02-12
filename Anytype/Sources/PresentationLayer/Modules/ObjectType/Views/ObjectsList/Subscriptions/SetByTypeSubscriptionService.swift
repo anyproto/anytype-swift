@@ -1,14 +1,13 @@
 import Foundation
 import Services
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 
-protocol SetByTypeSubscriptionServiceProtocol: AnyObject {
+protocol SetByTypeSubscriptionServiceProtocol: AnyObject, Sendable {
     func startSubscription(
         typeId: String,
-        spaceId: String,
-        update: @escaping (ObjectDetails?) -> Void
-    ) async
+        spaceId: String
+    ) async -> AnyPublisher<ObjectDetails?, Never>
     func stopSubscription() async
 }
 
@@ -23,9 +22,8 @@ actor SetByTypeSubscriptionService: SetByTypeSubscriptionServiceProtocol {
     
     func startSubscription(
         typeId: String,
-        spaceId: String,
-        update: @escaping (ObjectDetails?) -> Void
-    ) async {
+        spaceId: String
+    ) async -> AnyPublisher<ObjectDetails?, Never> {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.createdDate,
             type: .desc
@@ -47,9 +45,8 @@ actor SetByTypeSubscriptionService: SetByTypeSubscriptionServiceProtocol {
             )
         )
         
-        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items.first)
-        }
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData)
+        return subscriptionStorage.statePublisher.map { $0.items.first }.eraseToAnyPublisher()
     }
     
     func stopSubscription() async {

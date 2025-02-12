@@ -1,12 +1,19 @@
 import Foundation
 import Services
-import Combine
+@preconcurrency import Combine
 import UIKit
 import AnytypeCore
 import Services
 
 @MainActor
 final class HomeBottomNavigationPanelViewModel: ObservableObject {
+    
+    enum LeftButtonMode {
+        case member
+        case owner(_ enable: Bool)
+        case chat(_ enable: Bool)
+        case home
+    }
     
     // MARK: - Private properties
     private let info: AccountInfo
@@ -17,19 +24,23 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.processSubscriptionService)
     private var processSubscriptionService: any ProcessSubscriptionServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
         
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
     
     private var activeProcess: Process?
     private var subscriptions: [AnyCancellable] = []
+    private var chatLinkData: ChatLinkObject?
+    private var isWidgetsScreen: Bool = false
+    private var participantSpaceView: ParticipantSpaceViewData?
     
     // MARK: - Public properties
     
     @Published var profileIcon: Icon?
     @Published var progress: Double? = nil
+    @Published var leftButtonMode: LeftButtonMode?
     @Published var canCreateObject: Bool = false
     
     init(
@@ -58,29 +69,64 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onSearchSelected()
     }
     
-    func onTapHome() {
-        output?.onWidgetsSelected()
-    }
-    
-    func onTapProfile() {
-        output?.onProfileSelected()
-    }
-    
     func onPlusButtonLongtap() {
         output?.onPickTypeForNewObjectSelected()
     }
     
-    func onSpaceHubTap() {
-        output?.onSpaceHubSelected()
-    }
-    
     func onAppear() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
-            canCreateObject = canEdit
+        for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
+            participantSpaceView = data
+            updateState()
         }
     }
-        
+    
+    func updateVisibleScreen(data: AnyHashable) {
+        chatLinkData = (data as? EditorScreenData)?.chatLinkFromPanel
+        isWidgetsScreen = (data as? HomeWidgetData) != nil
+        updateState()
+    }
+    
+    func onTapMembers() {
+        output?.onMembersSelected()
+    }
+    
+    func onTapShare() {
+        output?.onShareSelected()
+    }
+    
+    func onTapAddToSpaceLevelChat() {
+        guard let chatLinkData else { return }
+        output?.onAddAttachmentToSpaceLevelChat(attachment: chatLinkData)
+    }
+    
+    func onTapHome() {
+        output?.popToFirstInSpace()
+    }
+    
     // MARK: - Private
+    
+    private func updateState() {
+        guard let participantSpaceView else { return }
+        
+        let canLinkToChat = chatLinkData.isNotNil && participantSpaceView.spaceView.showChat
+        
+        if canLinkToChat {
+            leftButtonMode = .chat(participantSpaceView.permissions.canEdit)
+        } else if isWidgetsScreen {
+            if participantSpaceView.isOwner {
+                let limitAllowSharing = participantSpacesStorage.spaceSharingInfo?.limitsAllowSharing ?? false
+                let canBeShared = participantSpaceView.permissions.canBeShared
+                let isShared = participantSpaceView.spaceView.isShared
+                leftButtonMode = .owner(isShared || (limitAllowSharing && canBeShared))
+            } else {
+                leftButtonMode = .member
+            }
+        } else {
+            leftButtonMode = .home
+        }
+        
+        canCreateObject = participantSpaceView.permissions.canEdit
+    }
     
     private func setupDataSubscription() {
         Task {
@@ -89,11 +135,11 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                 spaceId: info.techSpaceId,
                 objectId: info.profileObjectID
             ) { [weak self] details in
-                self?.handleProfileDetails(details: details)
+                await self?.handleProfileDetails(details: details)
             }
             
             await processSubscriptionService.addHandler { [weak self] events in
-                self?.handleProcesses(events: events)
+                await self?.handleProcesses(events: events)
             }.store(in: &subscriptions)
         }
     }
@@ -107,7 +153,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
             guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: info.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .navigation)
             
-            output?.onCreateObjectSelected(screenData: details.editorScreenData())
+            output?.onCreateObjectSelected(screenData: details.screenData())
         }
     }
     

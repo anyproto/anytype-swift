@@ -390,7 +390,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func setupGroupsSubscription(forceUpdate: Bool) async throws {
         let data = setGroupSubscriptionDataBuilder.groupsData(setDocument)
-        let hasGroupDiff = groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data)
+        let hasGroupDiff = await groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data)
         if hasGroupDiff {
             try await groupsSubscriptionsHandler.stopAllSubscriptions()
             groups = try await startGroupsSubscription(with: data)
@@ -435,7 +435,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func startSubscriptionsByGroups() async {
-        await sortedVisibleGroups().asyncForEach { group in
+        for group in sortedVisibleGroups() {
             let groupFilter = group.filter(with: self.activeView.groupRelationKey)
             let subscriptionId = group.id
             setupPaginationDataIfNeeded(groupId: group.id)
@@ -478,8 +478,7 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionStorages[data.identifier] = subscription
 
         try? await subscription.startOrUpdateSubscription(data: data) { [weak self] state in
-            guard let self else { return }
-            updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
+            await self?.updateData(with: subscriptionId, numberOfRowsPerPage: numberOfRowsPerPage, state: state)
         }
     }
 
@@ -721,7 +720,6 @@ extension EditorSetViewModel {
         guard setDocument.setPermissions.canTurnSetIntoCollection else { return }
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
-            try await setDocument.close()
             output?.replaceEditorScreen(data: .list(EditorListObject(objectId: objectId, spaceId: setDocument.spaceId)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
@@ -766,7 +764,7 @@ extension EditorSetViewModel {
     }
     
     private func openObject(details: ObjectDetails) {
-        output?.showEditorScreen(data: details.editorScreenData())
+        output?.showEditorScreen(data: details.screenData())
     }
 }
 

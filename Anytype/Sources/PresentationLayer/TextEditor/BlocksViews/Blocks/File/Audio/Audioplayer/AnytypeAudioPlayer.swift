@@ -2,7 +2,7 @@ import AVKit
 import MediaPlayer
 import AnytypeCore
 
-
+@MainActor
 final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
     @objc let audioPlayer: AVPlayer
     weak var delegate: (any AnytypeAudioPlayerDelegate)?
@@ -135,11 +135,13 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
         updatePlayingInfo()
     }
 
-    func setTrackTime(value: Double, completion: @escaping () -> Void) {
+    func setTrackTime(value: Double, completion: @escaping @Sendable @MainActor () -> Void) {
         let seekTime = CMTime(seconds: value, preferredTimescale: 10)
         audioPlayer.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] _ in
-            completion()
-            self?.updatePlayingInfo()
+            Task { @MainActor in
+                completion()
+                self?.updatePlayingInfo()
+            }
         }
     }
 }
@@ -167,9 +169,10 @@ private extension AnytypeAudioPlayer {
             forInterval: interval,
             queue: .main
         ) { [weak self] time in
-            guard let self = self else { return }
-
-            self.delegate?.trackTimeDidChange(timeInSeconds: time.seconds)
+            MainActor.assumeIsolated {
+                guard let self = self else { return }
+                self.delegate?.trackTimeDidChange(timeInSeconds: time.seconds)
+            }
         }
     }
 

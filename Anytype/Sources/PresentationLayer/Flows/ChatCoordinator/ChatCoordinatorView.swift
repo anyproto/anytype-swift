@@ -40,6 +40,10 @@ struct ChatCoordinatorView: View {
             ) { result in
                 model.fileImporterFinished(result: result)
             }
+            .safariSheet(url: $model.safariUrl)
+            .fullScreenCover(item: $model.cameraData) {
+                SimpleCameraView(data: $0)
+            }
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()
             }

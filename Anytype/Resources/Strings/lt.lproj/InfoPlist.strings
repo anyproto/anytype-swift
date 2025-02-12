@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
-"NSCameraUsageDescription" = "Kamera yra naudojama skenuojant QR kodus, kad būtų saugi ir patogi prisijungimo patirtis";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "Vietinio ryšio prieiga yra naudojama, kad duomenys sinchronizuotųsi tiesiogiai tarp tavo netoliese esančių įrenginių";
 "NSPhotoLibraryAddUsageDescription" = "Prieiga yra naudojama, kad išsaugotum pasirinktus vaizdus į savo biblioteką";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

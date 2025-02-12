@@ -2,15 +2,14 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol ChatInputConverterProtocol: AnyObject {
+protocol ChatInputConverterProtocol: AnyObject, Sendable {
     func convert(message: NSAttributedString) -> ChatMessageContent
     func convert(content: ChatMessageContent, spaceId: String) async -> SafeNSAttributedString
 }
 
-final class ChatInputConverter: ChatInputConverterProtocol {
+final class ChatInputConverter: ChatInputConverterProtocol, Sendable {
     
-    @Injected(\.mentionObjectsService)
-    private var mentionObjectsService: any MentionObjectsServiceProtocol
+    private let mentionObjectsService: any MentionObjectsServiceProtocol = Container.shared.mentionObjectsService()
     
     func convert(message: NSAttributedString) -> ChatMessageContent {
         
@@ -73,7 +72,7 @@ final class ChatInputConverter: ChatInputConverterProtocol {
     }
     
     func convert(content: ChatMessageContent, spaceId: String) async -> SafeNSAttributedString {
-        var message = NSMutableAttributedString(string: content.text)
+        let message = NSMutableAttributedString(string: content.text)
         
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)

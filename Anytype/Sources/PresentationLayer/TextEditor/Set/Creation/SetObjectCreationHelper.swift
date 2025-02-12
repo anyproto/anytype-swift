@@ -5,24 +5,19 @@ struct SetObjectCreationResult {
     let titleInputType: CreateObjectTitleInputType
 }
 
-protocol SetObjectCreationHelperProtocol {
+protocol SetObjectCreationHelperProtocol: Sendable {
     func createObject(
         for setDocument: some SetDocumentProtocol, setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult
 }
 
-final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
+final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
     
-    @Injected(\.dataviewService)
-    private var dataviewService: any DataviewServiceProtocol
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.setPrefilledFieldsBuilder)
-    private var prefilledFieldsBuilder: any SetPrefilledFieldsBuilderProtocol
-    @Injected(\.blockService)
-    private var blockService: any BlockServiceProtocol
+    private let dataviewService: any DataviewServiceProtocol = Container.shared.dataviewService()
+    private let objectTypeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
+    private let objectActionsService: any ObjectActionsServiceProtocol = Container.shared.objectActionsService()
+    private let prefilledFieldsBuilder: any SetPrefilledFieldsBuilderProtocol = Container.shared.setPrefilledFieldsBuilder()
+    private let blockService: any BlockServiceProtocol = Container.shared.blockService()
     
     // MARK: - SetObjectCreationHelperProtocol
     

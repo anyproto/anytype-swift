@@ -2,6 +2,7 @@ import Foundation
 import AnytypeCore
 
 protocol ParticipantsSubscriptionProviderProtocol: AnyObject {
+    @MainActor
     func subscription(spaceId: String) -> any ParticipantsSubscriptionProtocol
 }
 
@@ -11,7 +12,7 @@ final class ParticipantsSubscriptionProvider: ParticipantsSubscriptionProviderPr
     private var cache = [String: Weak<ParticipantsSubscription>]()
     
     // MARK: - ParticipantsSubscriptionProviderProtocol
-    
+    @MainActor
     func subscription(spaceId: String) -> any ParticipantsSubscriptionProtocol {
         
         lock.lock()

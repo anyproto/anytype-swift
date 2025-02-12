@@ -26,7 +26,7 @@ public extension FeatureDescription {
     
     static let hideCoCreator = FeatureDescription(
         title: "Hide CoCreator tier",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "On demand"),
         defaultValue: true
     )
     
@@ -40,13 +40,6 @@ public extension FeatureDescription {
         title: "All content",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
         defaultValue: true
-    )
-    
-    static let spaceHubParallax = FeatureDescription(
-        title: "Parallax on Space hub screen",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
     )
     
     static let userWarningAlerts = FeatureDescription(
@@ -69,16 +62,43 @@ public extension FeatureDescription {
     
     static let homeSpaceLevelChat = FeatureDescription(
         title: "Space-Level Chat",
-        type: .feature(author: "m@anytype.io", releaseVersion: "9"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let pinnedSpaces = FeatureDescription(
+        title: "Pinned Spaces",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let newSpacesLoading = FeatureDescription(
+        title: "Spaces loading indicator",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         defaultValue: false,
         debugValue: false
     )
     
     static let primitives = FeatureDescription(
         title: "New Primitives",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let fullScreenMediaFileByTap = FeatureDescription(
+        title: "Open media / files in fullscreen mode in Chats",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
+    static let memberProfile = FeatureDescription(
+        title: "Space member profile",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
+        defaultValue: true
     )
     
     // MARK: - Debug

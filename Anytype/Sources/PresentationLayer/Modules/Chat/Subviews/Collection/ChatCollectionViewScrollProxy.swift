@@ -19,15 +19,15 @@ enum ChatCollectionScrollPosition: Equatable {
 }
 
 enum ChatCollectionScrollOperation: Equatable {
-    case scrollTo(_ itemId: String, _ position: ChatCollectionScrollPosition)
+    case scrollTo(_ itemId: String, _ position: ChatCollectionScrollPosition, _ animated: Bool)
 }
 
 struct ChatCollectionScrollProxy: Equatable {
     private(set) var operationId = UUID()
     private(set) var scrollOperation: ChatCollectionScrollOperation?
     
-    mutating func scrollTo(itemId: String, position: ChatCollectionScrollPosition = .center) {
+    mutating func scrollTo(itemId: String, position: ChatCollectionScrollPosition = .center, animated: Bool = true) {
         operationId = UUID()
-        scrollOperation = .scrollTo(itemId, position)
+        scrollOperation = .scrollTo(itemId, position, animated)
     }
 }

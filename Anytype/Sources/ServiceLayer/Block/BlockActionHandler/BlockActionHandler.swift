@@ -4,7 +4,8 @@ import Combine
 import AnytypeCore
 import ProtobufMessages
 
-final class BlockActionHandler: BlockActionHandlerProtocol {
+@MainActor
+final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     private let document: any BaseDocumentProtocol
     
     private let service: any BlockActionServiceProtocol

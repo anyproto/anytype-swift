@@ -56,7 +56,7 @@ struct ObjectRelationOptionView: View {
             isDeleted: false,
             disableDeletion: false,
             disableDuplication: false,
-            editorScreenData: nil
+            screenData: nil
         )
     )
 }

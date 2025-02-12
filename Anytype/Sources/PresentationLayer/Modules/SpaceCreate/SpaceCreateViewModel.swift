@@ -20,7 +20,7 @@ final class SpaceCreateViewModel: ObservableObject {
     // MARK: - State
     
     @Published var spaceName: String = ""
-    let spaceIconOption = IconColorStorage.randomOption
+    let spaceIconOption = IconColorStorage.randomOption()
     var spaceIcon: Icon { .object(.space(.name(name: spaceName, iconOption: spaceIconOption))) }
     @Published var spaceAccessType: SpaceAccessType = .private
     @Published var createLoadingState: Bool = false

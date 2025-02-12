@@ -24,6 +24,24 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
 }
 
 final class DebugService: ObservableObject, DebugServiceProtocol {
+    
+    @MainActor
+    private final class Storage {
+        
+        @Published var debugRunProfilerData = DebugRunProfilerState.empty
+
+        @MainActor @UserDefault("ShouldRunDebugProfilerOnNextStartup", defaultValue: false)
+        var shouldRunDebugProfilerOnNextStartup: Bool
+
+        func setDebugRunProfilerData(_ state: DebugRunProfilerState) {
+            debugRunProfilerData = state
+        }
+        
+        nonisolated init() {}
+    }
+    
+    private let storage = Storage()
+    
     public func exportLocalStore() async throws -> String {
         let tempDirString = FileManager.default.createTempDirectory().path
         
@@ -61,12 +79,13 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     
     // MARK: - Profiling
     
-    @MainActor
-    @Published private var _debugRunProfilerData = DebugRunProfilerState.empty
-    var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { $_debugRunProfilerData.eraseToAnyPublisher() }
+    var debugRunProfilerData: AnyPublisher<DebugRunProfilerState, Never> { storage.$debugRunProfilerData.eraseToAnyPublisher() }
     
-    @MainActor @UserDefault("ShouldRunDebugProfilerOnNextStartup", defaultValue: false)
-    var shouldRunDebugProfilerOnNextStartup: Bool
+    @MainActor
+    var shouldRunDebugProfilerOnNextStartup: Bool {
+        get { storage.shouldRunDebugProfilerOnNextStartup }
+        set { storage.shouldRunDebugProfilerOnNextStartup = newValue }
+    }
     
     func startDebugRunProfilerOnStartupIfNeeded() {
         if shouldRunDebugProfilerOnNextStartup {
@@ -77,20 +96,16 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
     
     func startDebugRunProfiler() {
         Task {
-            Task { @MainActor in
-                _debugRunProfilerData = .inProgress
-            }
+            await storage.setDebugRunProfilerData(.inProgress)
             
             let path = try await ClientCommands.debugRunProfiler(.with {
                 $0.durationInSeconds = 60
             }).invoke().path
 
-            Task { @MainActor in
-                if let url = URL(string: path) {
-                    _debugRunProfilerData = .done(url: url)
-                } else {
-                    _debugRunProfilerData = .empty
-                }
+            if let url = URL(string: path) {
+                await storage.setDebugRunProfilerData(.done(url: url))
+            } else {
+                await storage.setDebugRunProfilerData(.empty)
             }
         }
     }

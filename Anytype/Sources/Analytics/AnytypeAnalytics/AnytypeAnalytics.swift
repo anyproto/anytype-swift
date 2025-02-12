@@ -1,7 +1,6 @@
 import Foundation
 import Services
 
-
 final class AnytypeAnalytics: Sendable {
     
     private static let anytypeAnalytics = AnytypeAnalytics()
@@ -16,7 +15,7 @@ final class AnytypeAnalytics: Sendable {
         }
     }
     
-    func setEventHandler(_ eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?) {
+    func setEventHandler(_ eventHandler: (@Sendable (_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?) {
         Task {
             await AnytypeAnalyticsCore.instance().setEventHandler(eventHandler)
         }

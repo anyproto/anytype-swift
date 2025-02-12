@@ -40,8 +40,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     // MARK: - EditorPageModuleOutput
     
-    func showEditorScreen(data: EditorScreenData) {
-        pageNavigation?.push(data)
+    func showEditorScreen(data: ScreenData) {
+        pageNavigation?.open(data)
     }
     
     func replaceEditorScreen(data: EditorScreenData) {
@@ -96,9 +96,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         toastBarData = ToastBarData(text: Loc.VersionHistory.Toast.message(text), showSnackBar: true, messageType: .none)
     }
     
-    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         relationsSearchData = RelationsSearchData(
-            document: document,
+            objectId: document.objectId,
+            spaceId: document.spaceId,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
             target: .object, 
             onRelationSelect: onSelect

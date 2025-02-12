@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID wordt gebruikt om jouw herstelzin veilig op te halen uit de sleutelhanger";
-"NSCameraUsageDescription" = "Camera wordt gebruikt om QR-codes te scannen voor een veilige en handige inlogervaring";
+"NSCameraUsageDescription" = "Sta toegang tot de camera toe om QR-codes te scannen, foto's te nemen en ze aan berichten toe te voegen";
 "NSLocalNetworkUsageDescription" = "Het lokale netwerk wordt gebruikt om data direct tussen apparaten in de buurt te synchroniseren.";
 "NSPhotoLibraryAddUsageDescription" = "Toegang is nodig om geselecteerde foto's op te slaan in de bibliotheek.";
+"NSMicrophoneUsageDescription" = "Sta toegang toe tot de microfoon om video's op te nemen en ze aan berichten te koppelen";

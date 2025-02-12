@@ -3,16 +3,15 @@ import Services
 import Combine
 import AnytypeCore
 
-protocol SubscriptionStorageProviderProtocol: AnyObject {
+protocol SubscriptionStorageProviderProtocol: AnyObject, Sendable {
     func createSubscriptionStorage(subId: String) -> any SubscriptionStorageProtocol
 }
 
-final class SubscriptionStorageProvider: SubscriptionStorageProviderProtocol {
+final class SubscriptionStorageProvider: SubscriptionStorageProviderProtocol, @unchecked Sendable {
     
     // MARK: - Private properties
     
-    @Injected(\.subscriptionToggler)
-    private var toggler: any SubscriptionTogglerProtocol
+    private let toggler: any SubscriptionTogglerProtocol = Container.shared.subscriptionToggler()
     
     private let lock = NSLock()
     // NSMapTable<NSString, SubscriptionStorage>.strongToWeakObjects() crashed on objc_loadWeakRetained method for iphone se 1 gen ios 15

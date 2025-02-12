@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Pulse",
       "state" : {
-        "branch" : "4.1.0",
-        "revision" : "43d63c60679fbb1685f836f9de83b3b629ac0090"
+        "branch" : "5.1.2",
+        "revision" : "c102aaa266ac69a26d08ee6861da710283988e3b"
       }
     },
     {
@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf",
       "state" : {
-        "branch" : "1.21.0",
-        "revision" : "0af9125c4eae12a4973fb66574c53a54962a9e1e"
+        "branch" : "1.28.2",
+        "revision" : "ebc7251dd5b37f627c93698e4374084d98409633"
       }
     },
     {

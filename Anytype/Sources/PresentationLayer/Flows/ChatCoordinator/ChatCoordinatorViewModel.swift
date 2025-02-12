@@ -1,18 +1,18 @@
 import Foundation
 import PhotosUI
 import SwiftUI
+import Services
 
-
-struct ChatCoordinatorData: Hashable, Codable {
+struct ChatCoordinatorData: Hashable {
     let chatId: String
-    let spaceId: String
+    let spaceInfo: AccountInfo
 }
 
 @MainActor
 final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     let chatId: String
-    let spaceId: String
+    var spaceId: String { info.accountSpaceId }
     
     @Published var objectToMessageSearchData: BlockObjectSearchData?
     @Published var showEmojiData: MessageReactionPickerData?
@@ -23,15 +23,22 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var showPhotosPicker = false
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var participantsReactionData: MessageParticipantsReactionData?
+    @Published var safariUrl: URL?
+    @Published var cameraData: SimpleCameraData?
+    @Published var showSpaceSettingsData: AccountInfo?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
+    private let info: AccountInfo
     
     var pageNavigation: PageNavigation?
     
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: any NavigationContextProtocol
+    
     init(data: ChatCoordinatorData) {
         self.chatId = data.chatId
-        self.spaceId = data.spaceId
+        self.info = data.spaceInfo
     }
     
     func onLinkObjectSelected(data: BlockObjectSearchData) {
@@ -50,8 +57,19 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         linkToObjectData = data
     }
     
-    func onObjectSelected(screenData: EditorScreenData) {
-        pageNavigation?.push(screenData)
+    func onObjectSelected(screenData: ScreenData) {
+        pageNavigation?.open(screenData)
+    }
+    
+    func onMediaFileSelected(startAtIndex: Int, items: [any PreviewRemoteItem]) {
+        let previewController = AnytypePreviewController(with: items, initialPreviewItemIndex: startAtIndex)
+        navigationContext.present(previewController) { [weak previewController] in
+            previewController?.didFinishTransition = true
+        }
+    }
+    
+    func onUrlSelected(url: URL) {
+        safariUrl = url
     }
     
     func onPhotosPickerSelected(data: ChatPhotosPickerData) {
@@ -65,6 +83,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         filesPickerData = data
     }
     
+    func onShowCameraSelected(data: SimpleCameraData) {
+        cameraData = data
+    }
+    
     func photosPickerFinished() {
         guard photosItems != photosPickerData?.selectedItems else { return }
         photosPickerData?.handler(photosItems)
@@ -72,5 +94,9 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func fileImporterFinished(result: Result<[URL], any Error>) {
         filesPickerData?.handler(result)
+    }
+    
+    func onWidgetsSelected() {
+        pageNavigation?.pushHome()
     }
 }

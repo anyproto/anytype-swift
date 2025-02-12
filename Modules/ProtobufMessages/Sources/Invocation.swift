@@ -2,15 +2,14 @@ import Foundation
 import Combine
 import SwiftProtobuf
 
-public struct Invocation<Request, Response> where Request: Message,
-                                            Response: ResultWithError,
-                                            Response: Message {
+public struct Invocation<Request, Response>: Sendable where Request: Message & Sendable,
+                                                  Response: ResultWithError & Message & Sendable {
     
     private let messageName: String
     private let request: Request
-    private let invokeTask: (Request) throws -> Response
+    private let invokeTask: @Sendable (Request) throws -> Response
     
-    init(messageName: String, request: Request, invokeTask: @escaping (Request) throws -> Response) {
+    init(messageName: String, request: Request, invokeTask: @escaping @Sendable (Request) throws -> Response) {
         self.messageName = messageName
         self.request = request
         self.invokeTask = invokeTask

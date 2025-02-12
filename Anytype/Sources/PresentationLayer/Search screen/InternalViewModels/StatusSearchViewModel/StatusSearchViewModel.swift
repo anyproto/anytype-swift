@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 
+@MainActor
 final class StatusSearchViewModel {
     
     let selectionMode: LegacySearchViewModel.SelectionMode

@@ -74,7 +74,7 @@
 "Create relation" = "Crear relación ‘%@’";
 "Relation.View.Hint.Empty" = "vacío";
 "Relation.MyRelations" = "Mis relaciones";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "Se ha creado la relación «%@».";
 "Relation.Deleted" = "Relación eliminada";
 "Relation.From.Type" = "Del tipo %@";
 "Relation.EmptyState.title" = "Sin opciones";
@@ -104,8 +104,6 @@
 "Relation.Format.Phone.Title" = "Número de teléfono";
 
 "Relation.Search.View.Placeholder" = "Busca una relación o créala";
-
-"Relation.Mention.title" = "Con mención en";
 
 // Origin Relation
 
@@ -164,6 +162,7 @@
 "Move" = "Mover";
 "Move to" = "Mover a";
 "Back" = "Atrás";
+"Pin" = "Pin";
 "Unpin" = "Desanclar";
 "Pin on top" = "Anclar al principio";
 "File block subtitle" = "Almacenar el archivo en su estado original";
@@ -211,6 +210,8 @@
 "Open file" = "Abrir archivo";
 "Open Set" = "Abrir conjunto";
 "Create Set" = "Crear conjunto";
+"Unsupported deeplink" = "Enlace no compatible";
+"Edit Profile" = "Editar perfil";
 
 // Home
 "Favorites" = "Favoritos";
@@ -579,6 +580,7 @@
 "Types" = "Tipos";
 "No name" = "Sin nombre";
 "New relation" = "Nueva relación";
+"Edit field" = "Editar campo";
 "Non-existent object" = "Objeto inexistente";
 
 "Select all" = "Seleccionar todo";
@@ -703,6 +705,7 @@
 "Show" = "Mostrar";
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
+"Leave a space" = "Abandonar un espacio";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -721,7 +724,7 @@
 "ObjectType.SearchOrInstall" = "Buscar o instalar un nuevo tipo";
 "ObjectType.Search" = "Buscar un tipo";
 "ObjectType.MyTypes" = "Mis tipos";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "Se ha creado el tipo «%@».";
 "ObjectType.DeletedName" = "Tipo eliminado";
 "ObjectType.editingType" = "Estás editando el tipo";
 
@@ -933,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "Eliminar espacio";
 "SpaceSettings.Share" = "Compartir";
 "SpaceSettings.LeaveButton" = "Abandonar";
-"SpaceSettings.LeaveAlert.Title" = "Abandonar un espacio";
 "SpaceSettings.LeaveAlert.Message" = "El espacio %@ se eliminará de tus dispositivos y perderás el acceso a él.";
 "SpaceSettings.LeaveAlert.Toast" = "Has abandonado %@.";
 
@@ -974,6 +976,9 @@
 "SpaceShare.Join.InviteNotFound" = "Este enlace no parece funcionar";
 "SpaceShare.JoinConfirmation.Title" = "Solicitud enviada";
 "SpaceShare.JoinConfirmation.Message" = "Recibirás una notificación cuando el propietario del espacio apruebe tu solicitud.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Ese objeto no está disponible. Pide a su propietario que lo comparta.";
+"SpaceShare.Join.SpaceDeleted" = "El espacio al que intentas acceder se ha eliminado";
+
 "SpaceShare.YouSuffix" = "%@ (tú)";
 "SpaceShare.ManageSpaces" = "Gestionar espacios";
 "SpaceShare.AccessChanged" = "Se han cambiado los derechos de acceso.";
@@ -1238,6 +1243,7 @@ En concreto,
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Aún no hay nada aquí para esta fecha";
+"Date.Open.Action.title" = "Abrir fecha seleccionada";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Ordenar por";
@@ -1258,8 +1264,22 @@ En concreto,
 "Chat.ReplyTo" = "Responder a %@";
 "Chat.Empty.Title" = "Aún no hay mensajes…";
 "Chat.Empty.Description" = "Escribe el primero para iniciar una conversación.";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
-"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.DeleteMessage.Title" = "¿Eliminar este mensaje?";
+"Chat.DeleteMessage.Description" = "Después de confirmar esto, no podrás restaurarlo.";
+"Chat.Reactions.Empty.Title" = "Aún no hay reacciones";
+"Chat.Reactions.Empty.Subtitle" = "Puede que se haya eliminado la reacción o se haya producido un error técnico";
+"Chat.EditMessage" = "Editar mensaje";
+"Chat.Actions.Menu.Objects" = "Seleccionar objeto existente";
+"Chat.Actions.Menu.Media" = "Subir medios";
+"Chat.Actions.Menu.Files" = "Subir archivo";
+"Chat.Actions.Menu.Camera" = "Tomar con la cámara";
+"Chat.Participant.Badge" = "(Tú)";
+"Chat.Reply.Images" = "Imágenes (%@)";
+"Chat.Reply.Attachments" = "Archivos adjuntos (%@)";
+"Chat.Reply.Files" = "Archivos (%@)";
+"Chat.SendLimitAlert.Title" = "¡Calma! ¡Estás escribiendo muy deprisa!";
+"Chat.SendLimitAlert.Message" = "Parece que estás enviando mensajes a la velocidad de la luz. Espera un poco para el siguiente.";
+"Chat.AttachmentsLimit.Alert" = "No puedes subir más de %@ archivos al mismo tiempo";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";

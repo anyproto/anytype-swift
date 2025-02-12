@@ -6,7 +6,7 @@ enum SetDocumentUpdate {
     case syncStatus(DocumentSyncStatusData)
 }
 
-protocol SetDocumentProtocol: AnyObject {
+protocol SetDocumentProtocol: AnyObject, Sendable {
     var document: any BaseDocumentProtocol { get }
     var objectId: String { get }
     var spaceId: String { get }

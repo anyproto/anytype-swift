@@ -5,9 +5,10 @@ import PhotosUI
 import AnytypeCore
 import Collections
 import UIKit
+@preconcurrency import Combine
 
 @MainActor
-final class ChatViewModel: ObservableObject, MessageModuleOutput {
+final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProviderHandler {
     
     // MARK: - DI
     
@@ -29,6 +30,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private var chatService: any ChatServiceProtocol
     @Injected(\.chatInputConverter)
     private var chatInputConverter: any ChatInputConverterProtocol
+    @Injected(\.chatMessageLimits)
+    private var chatMessageLimits: any ChatMessageLimitsProtocol
+    @Injected(\.messageTextBuilder)
+    private var messageTextBuilder: any MessageTextBuilderProtocol
+    @Injected(\.searchService)
+    private var searchService: any SearchServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -41,6 +48,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     
     @Published var dataLoaded = false
     @Published var canEdit = false
+    var keyboardDismiss: KeyboardDismiss?
     
     // Input Message
     
@@ -51,17 +59,19 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     @Published var attachmentsDownloading: Bool = false
     @Published var replyToMessage: ChatInputReplyModel?
     @Published var editMessage: ChatMessage?
-    
+    @Published var sendMessageTaskInProgress: Bool = false
+    @Published var messageTextLimit: String?
+    @Published var textLimitReached = false
     private var photosItems: [PhotosPickerItem] = []
     
     // List
     
     @Published var mentionSearchState = ChatTextMention.finish
     @Published var mesageBlocks: [MessageSectionData] = []
-    @Published var mentionObjects: [MentionObject] = []
+    @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
     
-    private var messages: [ChatMessage] = []
+    private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
@@ -69,13 +79,15 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     // Alerts
     
     @Published var deleteMessageConfirmation: MessageViewData?
-        
+    @Published var showSendLimitAlert = false
+    @Published var toastBarData: ToastBarData = .empty
+    
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
         self.chatId = chatId
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
-        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId, chatStorage: chatStorage)
+        self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
     }
     
     func onTapAddObjectToMessage() {
@@ -85,7 +97,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
             excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
             excludedLayouts: [],
             onSelect: { [weak self] details in
-                self?.linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                guard let self else { return }
+                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                } else {
+                    showFileLimitAlert()
+                }
             }
         )
         output?.onLinkObjectSelected(data: data)
@@ -106,6 +123,17 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         output?.onFilePickerSelected(data: data)
     }
     
+    func onTapCamera() {
+        let data = SimpleCameraData(onMediaTaken: { [weak self] media in
+            self?.handleCameraMedia(media)
+        })
+        output?.onShowCameraSelected(data: data)
+    }
+    
+    func onTapWidgets() {
+        output?.onWidgetsSelected()
+    }
+    
     func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants
@@ -122,35 +150,49 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
         for await messages in await chatStorage.messagesPublisher.values {
+            let prevChatIsEmpty = self.messages.isEmpty
             self.messages = messages
             self.dataLoaded = true
             await updateMessages()
+            if prevChatIsEmpty, let message = messages.last {
+                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+            }
         }
     }
     
     func onTapSendMessage() {
-        Task {
-            if let editMessage {
-                try await chatActionService.updateMessage(
-                    chatId: chatId,
-                    spaceId: spaceId,
-                    messageId: editMessage.id,
-                    message: message.sendable(),
-                    linkedObjects: linkedObjects,
-                    replyToMessageId: replyToMessage?.id
-                )
-            } else {
-                let messageId = try await chatActionService.createMessage(
-                    chatId: chatId,
-                    spaceId: spaceId,
-                    message: message.sendable(),
-                    linkedObjects: linkedObjects,
-                    replyToMessageId: replyToMessage?.id
-                )
-                collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom)
-            }
+        sendMessageTaskInProgress = true
+    }
+    
+    func sendMessageTask() async throws {
+        guard sendMessageTaskInProgress else { return }
+        mentionSearchState = .finish
+        if let editMessage {
+            try await chatActionService.updateMessage(
+                chatId: chatId,
+                spaceId: spaceId,
+                messageId: editMessage.id,
+                message: message.sendable(),
+                linkedObjects: linkedObjects,
+                replyToMessageId: replyToMessage?.id
+            )
             clearInput()
+        } else if chatMessageLimits.canSendMessage() {
+            let messageId = try await chatActionService.createMessage(
+                chatId: chatId,
+                spaceId: spaceId,
+                message: message.sendable(),
+                linkedObjects: linkedObjects,
+                replyToMessageId: replyToMessage?.id
+            )
+            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
+            chatMessageLimits.markSentMessage()
+            clearInput()
+        } else {
+            keyboardDismiss?()
+            showSendLimitAlert = true
         }
+        sendMessageTaskInProgress = false
     }
     
     func onTapRemoveLinkedObject(linkedObject: ChatLinkedObject) {
@@ -160,16 +202,21 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         }
     }
     
-    func scrollToBottom() async {
+    func scrollToTop() async {
         try? await chatStorage.loadNextPage()
+    }
+    
+    func scrollToBottom() async {
+        try? await chatStorage.loadPrevPage()
     }
     
     func updateMentionState() async throws {
         switch mentionSearchState {
         case let .search(searchText, _):
-            mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [], limitLayout: [.participant])
+            let mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [], limitLayout: [.participant])
+            mentionObjectsModels = handledMentionObjects(mentionObjects)
         case .finish:
-            mentionObjects = []
+            mentionObjectsModels = []
         }
     }
     
@@ -185,9 +232,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     }
     
     func didSelectObject(linkedObject: ChatLinkedObject) {
-        guard let details = linkedObject.uploadedObject else { return }
-        let screenData = details.editorScreenData
-        output?.onObjectSelected(screenData: screenData)
+        Task {
+            let ids = linkedObjects.compactMap { $0.uploadedObject?.id }
+            let attachments = await chatStorage.attachments(ids: ids)
+            
+            guard let selectedAttachment = attachments.first(where: { $0.id == linkedObject.uploadedObject?.id }) else { return }
+            
+            didSelectAttachment(attachment: selectedAttachment, attachments: attachments)
+        }
     }
     
     func onTapLinkTo(range: NSRange) {
@@ -242,9 +294,18 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         
         // Remove old
         linkedObjects.removeAll { removeIds.contains($0.id) }
-        // Add new in loading state
-        let newItems = photosItems.filter { addIds.contains($0.hashValue) }
+        var newItems = photosItems.filter { addIds.contains($0.hashValue) }
         
+        // Remove over limit
+        let availableItemsCount = chatMessageLimits.countAttachmentsCanBeAdded(current: linkedObjects.count)
+        if availableItemsCount < newItems.count {
+            let deletedIds = newItems[availableItemsCount..<newItems.count]
+            newItems.removeLast(newItems.count - availableItemsCount)
+            photosItems.removeAll { deletedIds.contains($0) }
+            showFileLimitAlert()
+        }
+        
+        // Add new in loading state
         let newLinkedObjects = newItems.map {
             ChatLinkedObject.localPhotosFile(
                 ChatLocalPhotosFile(data: nil, photosPickerItemHash: $0.hashValue)
@@ -275,28 +336,55 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
     }
     
+    func visibleRangeChanged(fromId: String, toId: String) {
+        Task {
+            await chatStorage.updateVisibleRange(starMessageId: fromId, endMessageId: toId)
+        }
+    }
+    
+    func messageDidChanged() {
+        textLimitReached = chatMessageLimits.textIsLimited(text: message)
+        messageTextLimit = chatMessageLimits.textIsWarinig(text: message) ? "\(message.string.count) / \(chatMessageLimits.textLimit)" : nil
+    }
+    
+    func configureProvider(_ provider: Binding<ChatActionProvider>) {
+        provider.wrappedValue.handler = self
+    }
+    
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
         output?.didSelectAddReaction(messageId: messageId)
     }
     
-    func didLongTapOnReaction(data: MessageParticipantsReactionData) {
-        output?.didLongTapOnReaction(data: data)
+    func didTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) async throws {
+        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: reaction.emoji)
     }
     
-    func didSelectObject(details: MessageAttachmentDetails) {
-        let screenData = details.editorScreenData
-        output?.onObjectSelected(screenData: screenData)
+    func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {
+        let participantsIds = data.message.reactions.reactions[reaction.emoji]?.ids ?? []
+        output?.didLongTapOnReaction(
+            data: MessageParticipantsReactionData(
+                spaceId: data.spaceId,
+                emoji: reaction.emoji,
+                participantsIds: participantsIds
+            )
+        )
+    }
+    
+    func didSelectAttachment(data: MessageViewData, details: MessageAttachmentDetails) {
+        guard let details = data.attachmentsDetails.first(where: { $0.id == details.id }) else { return }
+        didSelectAttachment(attachment: details, attachments: data.attachmentsDetails)
     }
     
     func didSelectReplyTo(message: MessageViewData) {
         withAnimation {
+            inputFocused = true
             replyToMessage = ChatInputReplyModel(
                 id: message.message.id,
-                title: Loc.Chat.replyTo(message.participant?.title ?? ""),
+                title: Loc.Chat.replyTo(message.authorName),
                 // Without style. Request from designers.
-                description: MessageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
+                description: messageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
                 icon: message.attachmentsDetails.first?.objectIconImage
             )
         }
@@ -318,13 +406,33 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         clearInput()
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
-        linkedObjects = await chatStorage.attachments(message: messageToEdit.message).map { .uploadedObject($0) }
+        let attachments = await chatStorage.attachments(message: messageToEdit.message)
+        let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }.sorted { $0.id > $1.id }
+        linkedObjects = messageAttachments.map { .uploadedObject($0) }
+    }
+    
+    // MARK: - ChatActionProviderHandler
+    
+    func createChatWithAttachment(_ attachment: ChatLinkObject) {
+        Task {
+            let results = try await searchService.searchObjects(spaceId: attachment.spaceId, objectIds: [attachment.objectId])
+            guard let first = results.first else { return }
+            clearInput()
+            linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
+            // Waiting pop transaction and open keyboard.
+            try await Task.sleep(seconds: 0.5)
+            inputFocused = true
+        }
     }
     
     // MARK: - Private
     
     private func updateMessages() async {
-        let newMessageBlocks = await chatMessageBuilder.makeMessage(messages: messages, participants: participants)
+        let newMessageBlocks = await chatMessageBuilder.makeMessage(
+            messages: messages,
+            participants: participants,
+            limits: chatMessageLimits
+        )
         guard newMessageBlocks != mesageBlocks else { return }
         mesageBlocks = newMessageBlocks
     }
@@ -332,7 +440,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
     private func handleFilePicker(result: Result<[URL], any Error>) {
         switch result {
         case .success(let files):
-            files.forEach { file in
+            for file in files {
+                if !chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    showFileLimitAlert()
+                    return
+                }
                 let gotAccess = file.startAccessingSecurityScopedResource()
                 guard gotAccess else { return }
                 
@@ -347,11 +459,67 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput {
         }
     }
     
+    private func handleCameraMedia(_ media: ImagePickerMediaType) {
+        if !chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+            showFileLimitAlert()
+            return
+        }
+        switch media {
+        case .image(let image, let type):
+            if let fileData = try? fileActionsService.createFileData(image: image, type: type) {
+                linkedObjects.append(.localBinaryFile(fileData))
+            }
+        case .video(let file):
+            if let fileData = try? fileActionsService.createFileData(fileUrl: file) {
+                linkedObjects.append(.localBinaryFile(fileData))
+            }
+        }
+    }
+    
     private func clearInput() {
         message = NSAttributedString()
         linkedObjects = []
         photosItems = []
+        photosItemsTask = UUID()
         replyToMessage = nil
         editMessage = nil
+    }
+    
+    private func handledMentionObjects(_ mentionObjects: [MentionObject]) -> [MentionObjectModel] {
+        let isYourIdentityProfileLink = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }?.identityProfileLink
+        return mentionObjects.map { mentionObject in
+            let titleBadge = mentionObject.details.identityProfileLink == isYourIdentityProfileLink ? Loc.Chat.Participant.badge : nil
+            return MentionObjectModel(object: mentionObject, titleBadge: titleBadge)
+        }
+    }
+    
+    private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
+        if FeatureFlags.fullScreenMediaFileByTap, attachment.layoutValue.isFileOrMedia {
+            let reorderedAttachments = attachments.sorted { $0.id > $1.id }
+            let items = buildPreviewRemoteItemFromAttachments(reorderedAttachments)
+            let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
+            output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
+        } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
+            output?.onUrlSelected(url: url)
+        } else {
+            output?.onObjectSelected(screenData: attachment.screenData())
+        }
+    }
+    
+    private func buildPreviewRemoteItemFromAttachments(_ attachments: [ObjectDetails]) -> [any PreviewRemoteItem] {
+        attachments.compactMap { details in
+            guard details.layoutValue.isFileOrMedia else { return nil }
+            let fileDetails = FileDetails(objectDetails: details)
+            switch fileDetails.fileContentType {
+            case .image:
+                return ImagePreviewMedia(fileDetails: fileDetails)
+            case .file, .audio, .video, .none:
+                return FilePreviewMedia(fileDetails: fileDetails)
+            }
+        }
+    }
+    
+    private func showFileLimitAlert() {
+        toastBarData = ToastBarData(text: Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), showSnackBar: true, messageType: .failure)
     }
 }

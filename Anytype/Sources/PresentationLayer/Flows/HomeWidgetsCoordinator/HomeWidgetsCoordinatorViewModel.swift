@@ -18,20 +18,20 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     
-    init(spaceInfo: AccountInfo) {
-        self.spaceInfo = spaceInfo
+    init(data: HomeWidgetData) {
+        self.spaceInfo = data.info
     }
     
-    func onFinishCreateSource(screenData: EditorScreenData?) {
+    func onFinishCreateSource(screenData: ScreenData?) {
         if let screenData {
-            pageNavigation?.push(screenData)
+            pageNavigation?.open(screenData)
         }
     }
     
-    func onFinishChangeSource(screenData: EditorScreenData?) {
+    func onFinishChangeSource(screenData: ScreenData?) {
         showChangeSourceData = nil
         if let screenData {
-            pageNavigation?.push(screenData)
+            pageNavigation?.open(screenData)
         }
     }
     
@@ -50,8 +50,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
         )
     }
     
-    func onObjectSelected(screenData: EditorScreenData) {
-        pageNavigation?.push(screenData)
+    func onObjectSelected(screenData: ScreenData) {
+        pageNavigation?.open(screenData)
     }
     
     func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
@@ -90,7 +90,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     // MARK: - SetObjectCreationCoordinatorOutput
     
-    func showEditorScreen(data: EditorScreenData) {
-        pageNavigation?.push(data)
+    func showEditorScreen(data: ScreenData) {
+        pageNavigation?.open(data)
     }
 }

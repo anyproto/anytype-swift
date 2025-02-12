@@ -1,6 +1,7 @@
 import Foundation
 import Services
 
+@MainActor
 protocol WidgetSourceSearchInternalViewModelProtocol: AnyObject {
-    func onSelect(source: WidgetSource, openObject: EditorScreenData?)
+    func onSelect(source: WidgetSource, openObject: ScreenData?)
 }

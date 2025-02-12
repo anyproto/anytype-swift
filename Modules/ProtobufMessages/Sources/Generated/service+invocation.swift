@@ -10,7 +10,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AppGetVersion", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAppGetVersion(requestData) ?? Data()
-            return try Anytype_Rpc.App.GetVersion.Response(serializedData: responseData)
+            return try Anytype_Rpc.App.GetVersion.Response(serializedBytes: responseData)
         }
     }
 
@@ -20,7 +20,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AppSetDeviceState", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAppSetDeviceState(requestData) ?? Data()
-            return try Anytype_Rpc.App.SetDeviceState.Response(serializedData: responseData)
+            return try Anytype_Rpc.App.SetDeviceState.Response(serializedBytes: responseData)
         }
     }
 
@@ -30,7 +30,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AppShutdown", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAppShutdown(requestData) ?? Data()
-            return try Anytype_Rpc.App.Shutdown.Response(serializedData: responseData)
+            return try Anytype_Rpc.App.Shutdown.Response(serializedBytes: responseData)
         }
     }
 
@@ -40,7 +40,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WalletCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWalletCreate(requestData) ?? Data()
-            return try Anytype_Rpc.Wallet.Create.Response(serializedData: responseData)
+            return try Anytype_Rpc.Wallet.Create.Response(serializedBytes: responseData)
         }
     }
 
@@ -50,7 +50,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WalletRecover", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWalletRecover(requestData) ?? Data()
-            return try Anytype_Rpc.Wallet.Recover.Response(serializedData: responseData)
+            return try Anytype_Rpc.Wallet.Recover.Response(serializedBytes: responseData)
         }
     }
 
@@ -60,7 +60,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WalletConvert", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWalletConvert(requestData) ?? Data()
-            return try Anytype_Rpc.Wallet.Convert.Response(serializedData: responseData)
+            return try Anytype_Rpc.Wallet.Convert.Response(serializedBytes: responseData)
         }
     }
 
@@ -70,7 +70,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountLocalLinkNewChallenge", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountLocalLinkNewChallenge(requestData) ?? Data()
-            return try Anytype_Rpc.Account.LocalLink.NewChallenge.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.LocalLink.NewChallenge.Response(serializedBytes: responseData)
         }
     }
 
@@ -80,7 +80,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountLocalLinkSolveChallenge", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountLocalLinkSolveChallenge(requestData) ?? Data()
-            return try Anytype_Rpc.Account.LocalLink.SolveChallenge.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.LocalLink.SolveChallenge.Response(serializedBytes: responseData)
         }
     }
 
@@ -90,7 +90,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WalletCreateSession", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWalletCreateSession(requestData) ?? Data()
-            return try Anytype_Rpc.Wallet.CreateSession.Response(serializedData: responseData)
+            return try Anytype_Rpc.Wallet.CreateSession.Response(serializedBytes: responseData)
         }
     }
 
@@ -100,7 +100,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WalletCloseSession", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWalletCloseSession(requestData) ?? Data()
-            return try Anytype_Rpc.Wallet.CloseSession.Response(serializedData: responseData)
+            return try Anytype_Rpc.Wallet.CloseSession.Response(serializedBytes: responseData)
         }
     }
 
@@ -110,7 +110,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceCreate(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.Create.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.Create.Response(serializedBytes: responseData)
         }
     }
 
@@ -120,7 +120,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceOpen", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceOpen(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.Open.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.Open.Response(serializedBytes: responseData)
         }
     }
 
@@ -130,7 +130,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceObjectAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceObjectAdd(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.Object.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.Object.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -140,7 +140,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceObjectListAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceObjectListAdd(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.Object.ListAdd.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.Object.ListAdd.Response(serializedBytes: responseData)
         }
     }
 
@@ -150,7 +150,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceObjectListRemove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceObjectListRemove(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.Object.ListRemove.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.Object.ListRemove.Response(serializedBytes: responseData)
         }
     }
 
@@ -160,7 +160,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceSelect", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceSelect(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.Select.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.Select.Response(serializedBytes: responseData)
         }
     }
 
@@ -170,7 +170,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceGetCurrent", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceGetCurrent(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.GetCurrent.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.GetCurrent.Response(serializedBytes: responseData)
         }
     }
 
@@ -180,7 +180,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceGetAll", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceGetAll(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.GetAll.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.GetAll.Response(serializedBytes: responseData)
         }
     }
 
@@ -190,7 +190,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceSetInfo", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceSetInfo(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.SetInfo.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.SetInfo.Response(serializedBytes: responseData)
         }
     }
 
@@ -200,7 +200,7 @@ public struct ClientCommands {
         return Invocation(messageName: "WorkspaceExport", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceWorkspaceExport(requestData) ?? Data()
-            return try Anytype_Rpc.Workspace.Export.Response(serializedData: responseData)
+            return try Anytype_Rpc.Workspace.Export.Response(serializedBytes: responseData)
         }
     }
 
@@ -210,7 +210,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountRecover", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountRecover(requestData) ?? Data()
-            return try Anytype_Rpc.Account.Recover.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.Recover.Response(serializedBytes: responseData)
         }
     }
 
@@ -220,7 +220,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountCreate(requestData) ?? Data()
-            return try Anytype_Rpc.Account.Create.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.Create.Response(serializedBytes: responseData)
         }
     }
 
@@ -230,7 +230,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountDelete(requestData) ?? Data()
-            return try Anytype_Rpc.Account.Delete.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.Delete.Response(serializedBytes: responseData)
         }
     }
 
@@ -240,7 +240,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountRevertDeletion", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountRevertDeletion(requestData) ?? Data()
-            return try Anytype_Rpc.Account.RevertDeletion.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.RevertDeletion.Response(serializedBytes: responseData)
         }
     }
 
@@ -250,7 +250,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountSelect", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountSelect(requestData) ?? Data()
-            return try Anytype_Rpc.Account.Select.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.Select.Response(serializedBytes: responseData)
         }
     }
 
@@ -260,7 +260,17 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountEnableLocalNetworkSync", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountEnableLocalNetworkSync(requestData) ?? Data()
-            return try Anytype_Rpc.Account.EnableLocalNetworkSync.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.EnableLocalNetworkSync.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func accountChangeJsonApiAddr(
+        _ request: Anytype_Rpc.Account.ChangeJsonApiAddr.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.ChangeJsonApiAddr.Request, Anytype_Rpc.Account.ChangeJsonApiAddr.Response> {
+        return Invocation(messageName: "AccountChangeJsonApiAddr", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountChangeJsonApiAddr(requestData) ?? Data()
+            return try Anytype_Rpc.Account.ChangeJsonApiAddr.Response(serializedBytes: responseData)
         }
     }
 
@@ -270,7 +280,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountStop", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountStop(requestData) ?? Data()
-            return try Anytype_Rpc.Account.Stop.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.Stop.Response(serializedBytes: responseData)
         }
     }
 
@@ -280,7 +290,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountMove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountMove(requestData) ?? Data()
-            return try Anytype_Rpc.Account.Move.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.Move.Response(serializedBytes: responseData)
         }
     }
 
@@ -290,7 +300,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountConfigUpdate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountConfigUpdate(requestData) ?? Data()
-            return try Anytype_Rpc.Account.ConfigUpdate.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.ConfigUpdate.Response(serializedBytes: responseData)
         }
     }
 
@@ -300,7 +310,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountRecoverFromLegacyExport", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountRecoverFromLegacyExport(requestData) ?? Data()
-            return try Anytype_Rpc.Account.RecoverFromLegacyExport.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.RecoverFromLegacyExport.Response(serializedBytes: responseData)
         }
     }
 
@@ -310,7 +320,7 @@ public struct ClientCommands {
         return Invocation(messageName: "AccountChangeNetworkConfigAndRestart", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceAccountChangeNetworkConfigAndRestart(requestData) ?? Data()
-            return try Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response(serializedData: responseData)
+            return try Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response(serializedBytes: responseData)
         }
     }
 
@@ -320,7 +330,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceDelete(requestData) ?? Data()
-            return try Anytype_Rpc.Space.Delete.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.Delete.Response(serializedBytes: responseData)
         }
     }
 
@@ -330,7 +340,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceInviteGenerate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceInviteGenerate(requestData) ?? Data()
-            return try Anytype_Rpc.Space.InviteGenerate.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.InviteGenerate.Response(serializedBytes: responseData)
         }
     }
 
@@ -340,7 +350,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceInviteGetCurrent", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceInviteGetCurrent(requestData) ?? Data()
-            return try Anytype_Rpc.Space.InviteGetCurrent.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.InviteGetCurrent.Response(serializedBytes: responseData)
         }
     }
 
@@ -350,7 +360,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceInviteRevoke", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceInviteRevoke(requestData) ?? Data()
-            return try Anytype_Rpc.Space.InviteRevoke.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.InviteRevoke.Response(serializedBytes: responseData)
         }
     }
 
@@ -360,7 +370,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceInviteView", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceInviteView(requestData) ?? Data()
-            return try Anytype_Rpc.Space.InviteView.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.InviteView.Response(serializedBytes: responseData)
         }
     }
 
@@ -370,7 +380,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceJoin", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceJoin(requestData) ?? Data()
-            return try Anytype_Rpc.Space.Join.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.Join.Response(serializedBytes: responseData)
         }
     }
 
@@ -380,7 +390,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceJoinCancel", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceJoinCancel(requestData) ?? Data()
-            return try Anytype_Rpc.Space.JoinCancel.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.JoinCancel.Response(serializedBytes: responseData)
         }
     }
 
@@ -390,7 +400,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceStopSharing", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceStopSharing(requestData) ?? Data()
-            return try Anytype_Rpc.Space.StopSharing.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.StopSharing.Response(serializedBytes: responseData)
         }
     }
 
@@ -400,7 +410,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceRequestApprove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceRequestApprove(requestData) ?? Data()
-            return try Anytype_Rpc.Space.RequestApprove.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.RequestApprove.Response(serializedBytes: responseData)
         }
     }
 
@@ -410,7 +420,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceRequestDecline", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceRequestDecline(requestData) ?? Data()
-            return try Anytype_Rpc.Space.RequestDecline.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.RequestDecline.Response(serializedBytes: responseData)
         }
     }
 
@@ -420,7 +430,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceLeaveApprove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceLeaveApprove(requestData) ?? Data()
-            return try Anytype_Rpc.Space.LeaveApprove.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.LeaveApprove.Response(serializedBytes: responseData)
         }
     }
 
@@ -430,7 +440,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceMakeShareable", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceMakeShareable(requestData) ?? Data()
-            return try Anytype_Rpc.Space.MakeShareable.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.MakeShareable.Response(serializedBytes: responseData)
         }
     }
 
@@ -440,7 +450,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceParticipantRemove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceParticipantRemove(requestData) ?? Data()
-            return try Anytype_Rpc.Space.ParticipantRemove.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.ParticipantRemove.Response(serializedBytes: responseData)
         }
     }
 
@@ -450,7 +460,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceParticipantPermissionsChange", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceParticipantPermissionsChange(requestData) ?? Data()
-            return try Anytype_Rpc.Space.ParticipantPermissionsChange.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.ParticipantPermissionsChange.Response(serializedBytes: responseData)
         }
     }
 
@@ -460,7 +470,7 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceSetOrder", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceSetOrder(requestData) ?? Data()
-            return try Anytype_Rpc.Space.SetOrder.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.SetOrder.Response(serializedBytes: responseData)
         }
     }
 
@@ -470,7 +480,57 @@ public struct ClientCommands {
         return Invocation(messageName: "SpaceUnsetOrder", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceUnsetOrder(requestData) ?? Data()
-            return try Anytype_Rpc.Space.UnsetOrder.Response(serializedData: responseData)
+            return try Anytype_Rpc.Space.UnsetOrder.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingCreate(
+        _ request: Anytype_Rpc.Publishing.Create.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.Create.Request, Anytype_Rpc.Publishing.Create.Response> {
+        return Invocation(messageName: "PublishingCreate", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingCreate(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.Create.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingRemove(
+        _ request: Anytype_Rpc.Publishing.Remove.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.Remove.Request, Anytype_Rpc.Publishing.Remove.Response> {
+        return Invocation(messageName: "PublishingRemove", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingRemove(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.Remove.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingList(
+        _ request: Anytype_Rpc.Publishing.List.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.List.Request, Anytype_Rpc.Publishing.List.Response> {
+        return Invocation(messageName: "PublishingList", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingList(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.List.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingResolveUri(
+        _ request: Anytype_Rpc.Publishing.ResolveUri.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.ResolveUri.Request, Anytype_Rpc.Publishing.ResolveUri.Response> {
+        return Invocation(messageName: "PublishingResolveUri", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingResolveUri(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.ResolveUri.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func publishingGetStatus(
+        _ request: Anytype_Rpc.Publishing.GetStatus.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Publishing.GetStatus.Request, Anytype_Rpc.Publishing.GetStatus.Response> {
+        return Invocation(messageName: "PublishingGetStatus", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePublishingGetStatus(requestData) ?? Data()
+            return try Anytype_Rpc.Publishing.GetStatus.Response(serializedBytes: responseData)
         }
     }
 
@@ -480,7 +540,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectOpen", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectOpen(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Open.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Open.Response(serializedBytes: responseData)
         }
     }
 
@@ -490,7 +550,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectClose", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectClose(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Close.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Close.Response(serializedBytes: responseData)
         }
     }
 
@@ -500,7 +560,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectShow", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectShow(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Show.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Show.Response(serializedBytes: responseData)
         }
     }
 
@@ -510,7 +570,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCreate(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Create.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Create.Response(serializedBytes: responseData)
         }
     }
 
@@ -520,7 +580,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCreateBookmark", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCreateBookmark(requestData) ?? Data()
-            return try Anytype_Rpc.Object.CreateBookmark.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.CreateBookmark.Response(serializedBytes: responseData)
         }
     }
 
@@ -530,7 +590,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCreateFromUrl", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCreateFromUrl(requestData) ?? Data()
-            return try Anytype_Rpc.Object.CreateFromUrl.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.CreateFromUrl.Response(serializedBytes: responseData)
         }
     }
 
@@ -540,7 +600,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCreateSet", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCreateSet(requestData) ?? Data()
-            return try Anytype_Rpc.Object.CreateSet.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.CreateSet.Response(serializedBytes: responseData)
         }
     }
 
@@ -550,7 +610,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectGraph", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectGraph(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Graph.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Graph.Response(serializedBytes: responseData)
         }
     }
 
@@ -560,7 +620,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSearch", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSearch(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Search.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Search.Response(serializedBytes: responseData)
         }
     }
 
@@ -570,7 +630,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSearchWithMeta", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSearchWithMeta(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SearchWithMeta.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SearchWithMeta.Response(serializedBytes: responseData)
         }
     }
 
@@ -580,7 +640,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSearchSubscribe", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSearchSubscribe(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SearchSubscribe.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SearchSubscribe.Response(serializedBytes: responseData)
         }
     }
 
@@ -590,7 +650,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCrossSpaceSearchSubscribe", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCrossSpaceSearchSubscribe(requestData) ?? Data()
-            return try Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response(serializedBytes: responseData)
         }
     }
 
@@ -600,7 +660,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCrossSpaceSearchUnsubscribe", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCrossSpaceSearchUnsubscribe(requestData) ?? Data()
-            return try Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response(serializedBytes: responseData)
         }
     }
 
@@ -610,7 +670,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSubscribeIds", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSubscribeIds(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SubscribeIds.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SubscribeIds.Response(serializedBytes: responseData)
         }
     }
 
@@ -620,7 +680,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectGroupsSubscribe", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectGroupsSubscribe(requestData) ?? Data()
-            return try Anytype_Rpc.Object.GroupsSubscribe.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.GroupsSubscribe.Response(serializedBytes: responseData)
         }
     }
 
@@ -630,7 +690,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSearchUnsubscribe", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSearchUnsubscribe(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SearchUnsubscribe.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SearchUnsubscribe.Response(serializedBytes: responseData)
         }
     }
 
@@ -640,7 +700,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSetDetails", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetDetails(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SetDetails.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SetDetails.Response(serializedBytes: responseData)
         }
     }
 
@@ -650,7 +710,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectDuplicate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectDuplicate(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Duplicate.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Duplicate.Response(serializedBytes: responseData)
         }
     }
 
@@ -660,7 +720,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSetObjectType", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetObjectType(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SetObjectType.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SetObjectType.Response(serializedBytes: responseData)
         }
     }
 
@@ -670,7 +730,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSetLayout", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetLayout(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SetLayout.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SetLayout.Response(serializedBytes: responseData)
         }
     }
 
@@ -680,7 +740,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSetInternalFlags", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetInternalFlags(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SetInternalFlags.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SetInternalFlags.Response(serializedBytes: responseData)
         }
     }
 
@@ -690,7 +750,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSetIsFavorite", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetIsFavorite(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SetIsFavorite.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SetIsFavorite.Response(serializedBytes: responseData)
         }
     }
 
@@ -700,7 +760,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSetIsArchived", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetIsArchived(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SetIsArchived.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SetIsArchived.Response(serializedBytes: responseData)
         }
     }
 
@@ -710,7 +770,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectSetSource", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectSetSource(requestData) ?? Data()
-            return try Anytype_Rpc.Object.SetSource.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.SetSource.Response(serializedBytes: responseData)
         }
     }
 
@@ -720,7 +780,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectWorkspaceSetDashboard", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectWorkspaceSetDashboard(requestData) ?? Data()
-            return try Anytype_Rpc.Object.WorkspaceSetDashboard.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.WorkspaceSetDashboard.Response(serializedBytes: responseData)
         }
     }
 
@@ -730,7 +790,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectListDuplicate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListDuplicate(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ListDuplicate.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ListDuplicate.Response(serializedBytes: responseData)
         }
     }
 
@@ -740,7 +800,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectListDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListDelete(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ListDelete.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ListDelete.Response(serializedBytes: responseData)
         }
     }
 
@@ -750,7 +810,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectListSetIsArchived", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListSetIsArchived(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ListSetIsArchived.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ListSetIsArchived.Response(serializedBytes: responseData)
         }
     }
 
@@ -760,7 +820,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectListSetIsFavorite", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListSetIsFavorite(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ListSetIsFavorite.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ListSetIsFavorite.Response(serializedBytes: responseData)
         }
     }
 
@@ -770,7 +830,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectListSetObjectType", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListSetObjectType(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ListSetObjectType.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ListSetObjectType.Response(serializedBytes: responseData)
         }
     }
 
@@ -780,7 +840,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectListSetDetails", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListSetDetails(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ListSetDetails.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ListSetDetails.Response(serializedBytes: responseData)
         }
     }
 
@@ -790,7 +850,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectListModifyDetailValues", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListModifyDetailValues(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ListModifyDetailValues.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ListModifyDetailValues.Response(serializedBytes: responseData)
         }
     }
 
@@ -800,7 +860,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectApplyTemplate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectApplyTemplate(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ApplyTemplate.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ApplyTemplate.Response(serializedBytes: responseData)
         }
     }
 
@@ -810,7 +870,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectToSet", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectToSet(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ToSet.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ToSet.Response(serializedBytes: responseData)
         }
     }
 
@@ -820,7 +880,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectToCollection", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectToCollection(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ToCollection.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ToCollection.Response(serializedBytes: responseData)
         }
     }
 
@@ -830,7 +890,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectShareByLink", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectShareByLink(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ShareByLink.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ShareByLink.Response(serializedBytes: responseData)
         }
     }
 
@@ -840,7 +900,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectUndo", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectUndo(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Undo.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Undo.Response(serializedBytes: responseData)
         }
     }
 
@@ -850,7 +910,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectRedo", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectRedo(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Redo.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Redo.Response(serializedBytes: responseData)
         }
     }
 
@@ -860,7 +920,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectListExport", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListExport(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ListExport.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ListExport.Response(serializedBytes: responseData)
         }
     }
 
@@ -870,7 +930,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectBookmarkFetch", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectBookmarkFetch(requestData) ?? Data()
-            return try Anytype_Rpc.Object.BookmarkFetch.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.BookmarkFetch.Response(serializedBytes: responseData)
         }
     }
 
@@ -880,7 +940,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectToBookmark", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectToBookmark(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ToBookmark.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ToBookmark.Response(serializedBytes: responseData)
         }
     }
 
@@ -890,7 +950,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectImport", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectImport(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Import.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Import.Response(serializedBytes: responseData)
         }
     }
 
@@ -900,7 +960,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectImportList", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectImportList(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ImportList.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ImportList.Response(serializedBytes: responseData)
         }
     }
 
@@ -910,7 +970,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectImportNotionValidateToken", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectImportNotionValidateToken(requestData) ?? Data()
-            return try Anytype_Rpc.Object.Import.Notion.ValidateToken.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.Import.Notion.ValidateToken.Response(serializedBytes: responseData)
         }
     }
 
@@ -920,7 +980,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectImportUseCase", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectImportUseCase(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ImportUseCase.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ImportUseCase.Response(serializedBytes: responseData)
         }
     }
 
@@ -930,7 +990,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectImportExperience", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectImportExperience(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ImportExperience.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ImportExperience.Response(serializedBytes: responseData)
         }
     }
 
@@ -940,7 +1000,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectDateByTimestamp", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectDateByTimestamp(requestData) ?? Data()
-            return try Anytype_Rpc.Object.DateByTimestamp.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.DateByTimestamp.Response(serializedBytes: responseData)
         }
     }
 
@@ -950,7 +1010,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCollectionAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCollectionAdd(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectCollection.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectCollection.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -960,7 +1020,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCollectionRemove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCollectionRemove(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectCollection.Remove.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectCollection.Remove.Response(serializedBytes: responseData)
         }
     }
 
@@ -970,7 +1030,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCollectionSort", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCollectionSort(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectCollection.Sort.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectCollection.Sort.Response(serializedBytes: responseData)
         }
     }
 
@@ -980,7 +1040,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCreateRelation", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCreateRelation(requestData) ?? Data()
-            return try Anytype_Rpc.Object.CreateRelation.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.CreateRelation.Response(serializedBytes: responseData)
         }
     }
 
@@ -990,7 +1050,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCreateRelationOption", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCreateRelationOption(requestData) ?? Data()
-            return try Anytype_Rpc.Object.CreateRelationOption.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.CreateRelationOption.Response(serializedBytes: responseData)
         }
     }
 
@@ -1000,7 +1060,7 @@ public struct ClientCommands {
         return Invocation(messageName: "RelationListRemoveOption", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceRelationListRemoveOption(requestData) ?? Data()
-            return try Anytype_Rpc.Relation.ListRemoveOption.Response(serializedData: responseData)
+            return try Anytype_Rpc.Relation.ListRemoveOption.Response(serializedBytes: responseData)
         }
     }
 
@@ -1010,7 +1070,7 @@ public struct ClientCommands {
         return Invocation(messageName: "RelationOptions", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceRelationOptions(requestData) ?? Data()
-            return try Anytype_Rpc.Relation.Options.Response(serializedData: responseData)
+            return try Anytype_Rpc.Relation.Options.Response(serializedBytes: responseData)
         }
     }
 
@@ -1020,7 +1080,7 @@ public struct ClientCommands {
         return Invocation(messageName: "RelationListWithValue", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceRelationListWithValue(requestData) ?? Data()
-            return try Anytype_Rpc.Relation.ListWithValue.Response(serializedData: responseData)
+            return try Anytype_Rpc.Relation.ListWithValue.Response(serializedBytes: responseData)
         }
     }
 
@@ -1030,7 +1090,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectRelationAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectRelationAdd(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectRelation.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectRelation.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -1040,7 +1100,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectRelationDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectRelationDelete(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectRelation.Delete.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectRelation.Delete.Response(serializedBytes: responseData)
         }
     }
 
@@ -1050,7 +1110,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectRelationAddFeatured", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectRelationAddFeatured(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectRelation.AddFeatured.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectRelation.AddFeatured.Response(serializedBytes: responseData)
         }
     }
 
@@ -1060,7 +1120,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectRelationRemoveFeatured", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectRelationRemoveFeatured(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectRelation.RemoveFeatured.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectRelation.RemoveFeatured.Response(serializedBytes: responseData)
         }
     }
 
@@ -1070,7 +1130,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectRelationListAvailable", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectRelationListAvailable(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectRelation.ListAvailable.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectRelation.ListAvailable.Response(serializedBytes: responseData)
         }
     }
 
@@ -1080,7 +1140,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectCreateObjectType", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectCreateObjectType(requestData) ?? Data()
-            return try Anytype_Rpc.Object.CreateObjectType.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.CreateObjectType.Response(serializedBytes: responseData)
         }
     }
 
@@ -1090,7 +1150,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectTypeRelationAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectTypeRelationAdd(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectType.Relation.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectType.Relation.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -1100,7 +1160,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectTypeRelationRemove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectTypeRelationRemove(requestData) ?? Data()
-            return try Anytype_Rpc.ObjectType.Relation.Remove.Response(serializedData: responseData)
+            return try Anytype_Rpc.ObjectType.Relation.Remove.Response(serializedBytes: responseData)
         }
     }
 
@@ -1110,7 +1170,7 @@ public struct ClientCommands {
         return Invocation(messageName: "HistoryShowVersion", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceHistoryShowVersion(requestData) ?? Data()
-            return try Anytype_Rpc.History.ShowVersion.Response(serializedData: responseData)
+            return try Anytype_Rpc.History.ShowVersion.Response(serializedBytes: responseData)
         }
     }
 
@@ -1120,7 +1180,7 @@ public struct ClientCommands {
         return Invocation(messageName: "HistoryGetVersions", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceHistoryGetVersions(requestData) ?? Data()
-            return try Anytype_Rpc.History.GetVersions.Response(serializedData: responseData)
+            return try Anytype_Rpc.History.GetVersions.Response(serializedBytes: responseData)
         }
     }
 
@@ -1130,7 +1190,7 @@ public struct ClientCommands {
         return Invocation(messageName: "HistorySetVersion", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceHistorySetVersion(requestData) ?? Data()
-            return try Anytype_Rpc.History.SetVersion.Response(serializedData: responseData)
+            return try Anytype_Rpc.History.SetVersion.Response(serializedBytes: responseData)
         }
     }
 
@@ -1140,7 +1200,7 @@ public struct ClientCommands {
         return Invocation(messageName: "HistoryDiffVersions", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceHistoryDiffVersions(requestData) ?? Data()
-            return try Anytype_Rpc.History.DiffVersions.Response(serializedData: responseData)
+            return try Anytype_Rpc.History.DiffVersions.Response(serializedBytes: responseData)
         }
     }
 
@@ -1150,7 +1210,7 @@ public struct ClientCommands {
         return Invocation(messageName: "FileSpaceOffload", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileSpaceOffload(requestData) ?? Data()
-            return try Anytype_Rpc.File.SpaceOffload.Response(serializedData: responseData)
+            return try Anytype_Rpc.File.SpaceOffload.Response(serializedBytes: responseData)
         }
     }
 
@@ -1160,7 +1220,7 @@ public struct ClientCommands {
         return Invocation(messageName: "FileReconcile", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileReconcile(requestData) ?? Data()
-            return try Anytype_Rpc.File.Reconcile.Response(serializedData: responseData)
+            return try Anytype_Rpc.File.Reconcile.Response(serializedBytes: responseData)
         }
     }
 
@@ -1170,7 +1230,7 @@ public struct ClientCommands {
         return Invocation(messageName: "FileListOffload", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileListOffload(requestData) ?? Data()
-            return try Anytype_Rpc.File.ListOffload.Response(serializedData: responseData)
+            return try Anytype_Rpc.File.ListOffload.Response(serializedBytes: responseData)
         }
     }
 
@@ -1180,7 +1240,7 @@ public struct ClientCommands {
         return Invocation(messageName: "FileUpload", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileUpload(requestData) ?? Data()
-            return try Anytype_Rpc.File.Upload.Response(serializedData: responseData)
+            return try Anytype_Rpc.File.Upload.Response(serializedBytes: responseData)
         }
     }
 
@@ -1190,7 +1250,7 @@ public struct ClientCommands {
         return Invocation(messageName: "FileDownload", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileDownload(requestData) ?? Data()
-            return try Anytype_Rpc.File.Download.Response(serializedData: responseData)
+            return try Anytype_Rpc.File.Download.Response(serializedBytes: responseData)
         }
     }
 
@@ -1200,7 +1260,7 @@ public struct ClientCommands {
         return Invocation(messageName: "FileDrop", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileDrop(requestData) ?? Data()
-            return try Anytype_Rpc.File.Drop.Response(serializedData: responseData)
+            return try Anytype_Rpc.File.Drop.Response(serializedBytes: responseData)
         }
     }
 
@@ -1210,7 +1270,7 @@ public struct ClientCommands {
         return Invocation(messageName: "FileSpaceUsage", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileSpaceUsage(requestData) ?? Data()
-            return try Anytype_Rpc.File.SpaceUsage.Response(serializedData: responseData)
+            return try Anytype_Rpc.File.SpaceUsage.Response(serializedBytes: responseData)
         }
     }
 
@@ -1220,7 +1280,7 @@ public struct ClientCommands {
         return Invocation(messageName: "FileNodeUsage", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileNodeUsage(requestData) ?? Data()
-            return try Anytype_Rpc.File.NodeUsage.Response(serializedData: responseData)
+            return try Anytype_Rpc.File.NodeUsage.Response(serializedBytes: responseData)
         }
     }
 
@@ -1230,7 +1290,7 @@ public struct ClientCommands {
         return Invocation(messageName: "NavigationListObjects", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNavigationListObjects(requestData) ?? Data()
-            return try Anytype_Rpc.Navigation.ListObjects.Response(serializedData: responseData)
+            return try Anytype_Rpc.Navigation.ListObjects.Response(serializedBytes: responseData)
         }
     }
 
@@ -1240,7 +1300,7 @@ public struct ClientCommands {
         return Invocation(messageName: "NavigationGetObjectInfoWithLinks", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNavigationGetObjectInfoWithLinks(requestData) ?? Data()
-            return try Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response(serializedData: responseData)
+            return try Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response(serializedBytes: responseData)
         }
     }
 
@@ -1250,7 +1310,7 @@ public struct ClientCommands {
         return Invocation(messageName: "TemplateCreateFromObject", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceTemplateCreateFromObject(requestData) ?? Data()
-            return try Anytype_Rpc.Template.CreateFromObject.Response(serializedData: responseData)
+            return try Anytype_Rpc.Template.CreateFromObject.Response(serializedBytes: responseData)
         }
     }
 
@@ -1260,7 +1320,7 @@ public struct ClientCommands {
         return Invocation(messageName: "TemplateClone", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceTemplateClone(requestData) ?? Data()
-            return try Anytype_Rpc.Template.Clone.Response(serializedData: responseData)
+            return try Anytype_Rpc.Template.Clone.Response(serializedBytes: responseData)
         }
     }
 
@@ -1270,7 +1330,7 @@ public struct ClientCommands {
         return Invocation(messageName: "TemplateExportAll", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceTemplateExportAll(requestData) ?? Data()
-            return try Anytype_Rpc.Template.ExportAll.Response(serializedData: responseData)
+            return try Anytype_Rpc.Template.ExportAll.Response(serializedBytes: responseData)
         }
     }
 
@@ -1280,7 +1340,7 @@ public struct ClientCommands {
         return Invocation(messageName: "LinkPreview", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceLinkPreview(requestData) ?? Data()
-            return try Anytype_Rpc.LinkPreview.Response(serializedData: responseData)
+            return try Anytype_Rpc.LinkPreview.Response(serializedBytes: responseData)
         }
     }
 
@@ -1290,7 +1350,7 @@ public struct ClientCommands {
         return Invocation(messageName: "UnsplashSearch", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceUnsplashSearch(requestData) ?? Data()
-            return try Anytype_Rpc.Unsplash.Search.Response(serializedData: responseData)
+            return try Anytype_Rpc.Unsplash.Search.Response(serializedBytes: responseData)
         }
     }
 
@@ -1300,7 +1360,7 @@ public struct ClientCommands {
         return Invocation(messageName: "UnsplashDownload", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceUnsplashDownload(requestData) ?? Data()
-            return try Anytype_Rpc.Unsplash.Download.Response(serializedData: responseData)
+            return try Anytype_Rpc.Unsplash.Download.Response(serializedBytes: responseData)
         }
     }
 
@@ -1310,7 +1370,7 @@ public struct ClientCommands {
         return Invocation(messageName: "GalleryDownloadManifest", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceGalleryDownloadManifest(requestData) ?? Data()
-            return try Anytype_Rpc.Gallery.DownloadManifest.Response(serializedData: responseData)
+            return try Anytype_Rpc.Gallery.DownloadManifest.Response(serializedBytes: responseData)
         }
     }
 
@@ -1320,7 +1380,7 @@ public struct ClientCommands {
         return Invocation(messageName: "GalleryDownloadIndex", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceGalleryDownloadIndex(requestData) ?? Data()
-            return try Anytype_Rpc.Gallery.DownloadIndex.Response(serializedData: responseData)
+            return try Anytype_Rpc.Gallery.DownloadIndex.Response(serializedBytes: responseData)
         }
     }
 
@@ -1330,7 +1390,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockUpload", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockUpload(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Upload.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Upload.Response(serializedBytes: responseData)
         }
     }
 
@@ -1340,7 +1400,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockReplace", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockReplace(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Replace.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Replace.Response(serializedBytes: responseData)
         }
     }
 
@@ -1350,7 +1410,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockCreate(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Create.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Create.Response(serializedBytes: responseData)
         }
     }
 
@@ -1360,7 +1420,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockSplit", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockSplit(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Split.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Split.Response(serializedBytes: responseData)
         }
     }
 
@@ -1370,7 +1430,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockMerge", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockMerge(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Merge.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Merge.Response(serializedBytes: responseData)
         }
     }
 
@@ -1380,7 +1440,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockCopy", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockCopy(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Copy.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Copy.Response(serializedBytes: responseData)
         }
     }
 
@@ -1390,7 +1450,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockPaste", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockPaste(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Paste.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Paste.Response(serializedBytes: responseData)
         }
     }
 
@@ -1400,7 +1460,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockCut", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockCut(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Cut.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Cut.Response(serializedBytes: responseData)
         }
     }
 
@@ -1410,7 +1470,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockSetFields", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockSetFields(requestData) ?? Data()
-            return try Anytype_Rpc.Block.SetFields.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.SetFields.Response(serializedBytes: responseData)
         }
     }
 
@@ -1420,7 +1480,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockExport", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockExport(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Export.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Export.Response(serializedBytes: responseData)
         }
     }
 
@@ -1430,7 +1490,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockSetCarriage", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockSetCarriage(requestData) ?? Data()
-            return try Anytype_Rpc.Block.SetCarriage.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.SetCarriage.Response(serializedBytes: responseData)
         }
     }
 
@@ -1440,7 +1500,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockPreview", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockPreview(requestData) ?? Data()
-            return try Anytype_Rpc.Block.Preview.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.Preview.Response(serializedBytes: responseData)
         }
     }
 
@@ -1450,7 +1510,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListDelete(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListDelete.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListDelete.Response(serializedBytes: responseData)
         }
     }
 
@@ -1460,7 +1520,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListMoveToExistingObject", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListMoveToExistingObject(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListMoveToExistingObject.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListMoveToExistingObject.Response(serializedBytes: responseData)
         }
     }
 
@@ -1470,7 +1530,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListMoveToNewObject", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListMoveToNewObject(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListMoveToNewObject.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListMoveToNewObject.Response(serializedBytes: responseData)
         }
     }
 
@@ -1480,7 +1540,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListConvertToObjects", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListConvertToObjects(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListConvertToObjects.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListConvertToObjects.Response(serializedBytes: responseData)
         }
     }
 
@@ -1490,7 +1550,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListSetFields", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListSetFields(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListSetFields.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListSetFields.Response(serializedBytes: responseData)
         }
     }
 
@@ -1500,7 +1560,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListDuplicate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListDuplicate(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListDuplicate.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListDuplicate.Response(serializedBytes: responseData)
         }
     }
 
@@ -1510,7 +1570,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListSetBackgroundColor", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListSetBackgroundColor(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListSetBackgroundColor.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListSetBackgroundColor.Response(serializedBytes: responseData)
         }
     }
 
@@ -1520,7 +1580,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListSetAlign", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListSetAlign(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListSetAlign.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListSetAlign.Response(serializedBytes: responseData)
         }
     }
 
@@ -1530,7 +1590,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListSetVerticalAlign", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListSetVerticalAlign(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListSetVerticalAlign.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListSetVerticalAlign.Response(serializedBytes: responseData)
         }
     }
 
@@ -1540,7 +1600,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockListTurnInto", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockListTurnInto(requestData) ?? Data()
-            return try Anytype_Rpc.Block.ListTurnInto.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.ListTurnInto.Response(serializedBytes: responseData)
         }
     }
 
@@ -1550,7 +1610,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextSetText", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextSetText(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.SetText.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.SetText.Response(serializedBytes: responseData)
         }
     }
 
@@ -1560,7 +1620,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextSetColor", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextSetColor(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.SetColor.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.SetColor.Response(serializedBytes: responseData)
         }
     }
 
@@ -1570,7 +1630,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextSetStyle", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextSetStyle(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.SetStyle.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.SetStyle.Response(serializedBytes: responseData)
         }
     }
 
@@ -1580,7 +1640,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextSetChecked", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextSetChecked(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.SetChecked.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.SetChecked.Response(serializedBytes: responseData)
         }
     }
 
@@ -1590,7 +1650,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextSetIcon", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextSetIcon(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.SetIcon.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.SetIcon.Response(serializedBytes: responseData)
         }
     }
 
@@ -1600,7 +1660,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextListSetColor", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextListSetColor(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.ListSetColor.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.ListSetColor.Response(serializedBytes: responseData)
         }
     }
 
@@ -1610,7 +1670,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextListSetMark", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextListSetMark(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.ListSetMark.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.ListSetMark.Response(serializedBytes: responseData)
         }
     }
 
@@ -1620,7 +1680,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextListSetStyle", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextListSetStyle(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.ListSetStyle.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.ListSetStyle.Response(serializedBytes: responseData)
         }
     }
 
@@ -1630,7 +1690,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextListClearStyle", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextListClearStyle(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.ListClearStyle.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.ListClearStyle.Response(serializedBytes: responseData)
         }
     }
 
@@ -1640,7 +1700,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTextListClearContent", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTextListClearContent(requestData) ?? Data()
-            return try Anytype_Rpc.BlockText.ListClearContent.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockText.ListClearContent.Response(serializedBytes: responseData)
         }
     }
 
@@ -1650,7 +1710,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockFileSetName", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockFileSetName(requestData) ?? Data()
-            return try Anytype_Rpc.BlockFile.SetName.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockFile.SetName.Response(serializedBytes: responseData)
         }
     }
 
@@ -1660,7 +1720,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockFileSetTargetObjectId", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockFileSetTargetObjectId(requestData) ?? Data()
-            return try Anytype_Rpc.BlockFile.SetTargetObjectId.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockFile.SetTargetObjectId.Response(serializedBytes: responseData)
         }
     }
 
@@ -1670,7 +1730,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockImageSetName", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockImageSetName(requestData) ?? Data()
-            return try Anytype_Rpc.BlockImage.SetName.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockImage.SetName.Response(serializedBytes: responseData)
         }
     }
 
@@ -1680,7 +1740,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockVideoSetName", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockVideoSetName(requestData) ?? Data()
-            return try Anytype_Rpc.BlockVideo.SetName.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockVideo.SetName.Response(serializedBytes: responseData)
         }
     }
 
@@ -1690,7 +1750,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockFileCreateAndUpload", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockFileCreateAndUpload(requestData) ?? Data()
-            return try Anytype_Rpc.BlockFile.CreateAndUpload.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockFile.CreateAndUpload.Response(serializedBytes: responseData)
         }
     }
 
@@ -1700,7 +1760,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockFileListSetStyle", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockFileListSetStyle(requestData) ?? Data()
-            return try Anytype_Rpc.BlockFile.ListSetStyle.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockFile.ListSetStyle.Response(serializedBytes: responseData)
         }
     }
 
@@ -1710,7 +1770,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewCreate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.View.Create.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.View.Create.Response(serializedBytes: responseData)
         }
     }
 
@@ -1720,7 +1780,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewDelete(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.View.Delete.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.View.Delete.Response(serializedBytes: responseData)
         }
     }
 
@@ -1730,7 +1790,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewUpdate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewUpdate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.View.Update.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.View.Update.Response(serializedBytes: responseData)
         }
     }
 
@@ -1740,7 +1800,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewSetActive", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewSetActive(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.View.SetActive.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.View.SetActive.Response(serializedBytes: responseData)
         }
     }
 
@@ -1750,7 +1810,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewSetPosition", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewSetPosition(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.View.SetPosition.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.View.SetPosition.Response(serializedBytes: responseData)
         }
     }
 
@@ -1760,7 +1820,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewSetSource", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewSetSource(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.SetSource.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.SetSource.Response(serializedBytes: responseData)
         }
     }
 
@@ -1770,7 +1830,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewRelationAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewRelationAdd(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Relation.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Relation.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -1780,7 +1840,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewRelationDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewRelationDelete(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Relation.Delete.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Relation.Delete.Response(serializedBytes: responseData)
         }
     }
 
@@ -1790,7 +1850,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewGroupOrderUpdate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewGroupOrderUpdate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.GroupOrder.Update.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.GroupOrder.Update.Response(serializedBytes: responseData)
         }
     }
 
@@ -1800,7 +1860,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewObjectOrderUpdate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewObjectOrderUpdate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response(serializedBytes: responseData)
         }
     }
 
@@ -1810,7 +1870,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewObjectOrderMove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewObjectOrderMove(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response(serializedBytes: responseData)
         }
     }
 
@@ -1820,7 +1880,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewCreateFromExistingObject", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewCreateFromExistingObject(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response(serializedBytes: responseData)
         }
     }
 
@@ -1830,7 +1890,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewFilterAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewFilterAdd(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Filter.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Filter.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -1840,7 +1900,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewFilterRemove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewFilterRemove(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Filter.Remove.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Filter.Remove.Response(serializedBytes: responseData)
         }
     }
 
@@ -1850,7 +1910,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewFilterReplace", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewFilterReplace(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Filter.Replace.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Filter.Replace.Response(serializedBytes: responseData)
         }
     }
 
@@ -1860,7 +1920,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewFilterSort", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewFilterSort(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Filter.Sort.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Filter.Sort.Response(serializedBytes: responseData)
         }
     }
 
@@ -1870,7 +1930,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewSortAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewSortAdd(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Sort.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Sort.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -1880,7 +1940,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewSortRemove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewSortRemove(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Sort.Remove.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Sort.Remove.Response(serializedBytes: responseData)
         }
     }
 
@@ -1890,7 +1950,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewSortReplace", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewSortReplace(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Sort.Replace.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Sort.Replace.Response(serializedBytes: responseData)
         }
     }
 
@@ -1900,7 +1960,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewSortSort", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewSortSort(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.Sort.SSort.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.Sort.SSort.Response(serializedBytes: responseData)
         }
     }
 
@@ -1910,7 +1970,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewRelationAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewRelationAdd(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.ViewRelation.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.ViewRelation.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -1920,7 +1980,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewRelationRemove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewRelationRemove(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response(serializedBytes: responseData)
         }
     }
 
@@ -1930,7 +1990,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewRelationReplace", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewRelationReplace(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response(serializedBytes: responseData)
         }
     }
 
@@ -1940,7 +2000,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDataviewViewRelationSort", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewViewRelationSort(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response(serializedBytes: responseData)
         }
     }
 
@@ -1950,7 +2010,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableCreate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.Create.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.Create.Response(serializedBytes: responseData)
         }
     }
 
@@ -1960,7 +2020,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableExpand", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableExpand(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.Expand.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.Expand.Response(serializedBytes: responseData)
         }
     }
 
@@ -1970,7 +2030,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableRowCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableRowCreate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.RowCreate.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.RowCreate.Response(serializedBytes: responseData)
         }
     }
 
@@ -1980,7 +2040,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableRowDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableRowDelete(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.RowDelete.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.RowDelete.Response(serializedBytes: responseData)
         }
     }
 
@@ -1990,7 +2050,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableRowDuplicate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableRowDuplicate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.RowDuplicate.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.RowDuplicate.Response(serializedBytes: responseData)
         }
     }
 
@@ -2000,7 +2060,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableRowSetHeader", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableRowSetHeader(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.RowSetHeader.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.RowSetHeader.Response(serializedBytes: responseData)
         }
     }
 
@@ -2010,7 +2070,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableColumnCreate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableColumnCreate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.ColumnCreate.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.ColumnCreate.Response(serializedBytes: responseData)
         }
     }
 
@@ -2020,7 +2080,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableColumnMove", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableColumnMove(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.ColumnMove.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.ColumnMove.Response(serializedBytes: responseData)
         }
     }
 
@@ -2030,7 +2090,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableColumnDelete", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableColumnDelete(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.ColumnDelete.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.ColumnDelete.Response(serializedBytes: responseData)
         }
     }
 
@@ -2040,7 +2100,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableColumnDuplicate", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableColumnDuplicate(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.ColumnDuplicate.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.ColumnDuplicate.Response(serializedBytes: responseData)
         }
     }
 
@@ -2050,7 +2110,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableRowListFill", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableRowListFill(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.RowListFill.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.RowListFill.Response(serializedBytes: responseData)
         }
     }
 
@@ -2060,7 +2120,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableRowListClean", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableRowListClean(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.RowListClean.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.RowListClean.Response(serializedBytes: responseData)
         }
     }
 
@@ -2070,7 +2130,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableColumnListFill", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableColumnListFill(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.ColumnListFill.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.ColumnListFill.Response(serializedBytes: responseData)
         }
     }
 
@@ -2080,7 +2140,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockTableSort", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockTableSort(requestData) ?? Data()
-            return try Anytype_Rpc.BlockTable.Sort.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockTable.Sort.Response(serializedBytes: responseData)
         }
     }
 
@@ -2090,7 +2150,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockCreateWidget", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockCreateWidget(requestData) ?? Data()
-            return try Anytype_Rpc.Block.CreateWidget.Response(serializedData: responseData)
+            return try Anytype_Rpc.Block.CreateWidget.Response(serializedBytes: responseData)
         }
     }
 
@@ -2100,7 +2160,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockWidgetSetTargetId", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockWidgetSetTargetId(requestData) ?? Data()
-            return try Anytype_Rpc.BlockWidget.SetTargetId.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockWidget.SetTargetId.Response(serializedBytes: responseData)
         }
     }
 
@@ -2110,7 +2170,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockWidgetSetLayout", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockWidgetSetLayout(requestData) ?? Data()
-            return try Anytype_Rpc.BlockWidget.SetLayout.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockWidget.SetLayout.Response(serializedBytes: responseData)
         }
     }
 
@@ -2120,7 +2180,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockWidgetSetLimit", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockWidgetSetLimit(requestData) ?? Data()
-            return try Anytype_Rpc.BlockWidget.SetLimit.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockWidget.SetLimit.Response(serializedBytes: responseData)
         }
     }
 
@@ -2130,7 +2190,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockWidgetSetViewId", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockWidgetSetViewId(requestData) ?? Data()
-            return try Anytype_Rpc.BlockWidget.SetViewId.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockWidget.SetViewId.Response(serializedBytes: responseData)
         }
     }
 
@@ -2140,7 +2200,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockLinkCreateWithObject", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockLinkCreateWithObject(requestData) ?? Data()
-            return try Anytype_Rpc.BlockLink.CreateWithObject.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockLink.CreateWithObject.Response(serializedBytes: responseData)
         }
     }
 
@@ -2150,7 +2210,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockLinkListSetAppearance", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockLinkListSetAppearance(requestData) ?? Data()
-            return try Anytype_Rpc.BlockLink.ListSetAppearance.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockLink.ListSetAppearance.Response(serializedBytes: responseData)
         }
     }
 
@@ -2160,7 +2220,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockBookmarkFetch", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockBookmarkFetch(requestData) ?? Data()
-            return try Anytype_Rpc.BlockBookmark.Fetch.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockBookmark.Fetch.Response(serializedBytes: responseData)
         }
     }
 
@@ -2170,7 +2230,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockBookmarkCreateAndFetch", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockBookmarkCreateAndFetch(requestData) ?? Data()
-            return try Anytype_Rpc.BlockBookmark.CreateAndFetch.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockBookmark.CreateAndFetch.Response(serializedBytes: responseData)
         }
     }
 
@@ -2180,7 +2240,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockRelationSetKey", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockRelationSetKey(requestData) ?? Data()
-            return try Anytype_Rpc.BlockRelation.SetKey.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockRelation.SetKey.Response(serializedBytes: responseData)
         }
     }
 
@@ -2190,7 +2250,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockRelationAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockRelationAdd(requestData) ?? Data()
-            return try Anytype_Rpc.BlockRelation.Add.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockRelation.Add.Response(serializedBytes: responseData)
         }
     }
 
@@ -2200,7 +2260,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockDivListSetStyle", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDivListSetStyle(requestData) ?? Data()
-            return try Anytype_Rpc.BlockDiv.ListSetStyle.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockDiv.ListSetStyle.Response(serializedBytes: responseData)
         }
     }
 
@@ -2210,7 +2270,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BlockLatexSetText", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockLatexSetText(requestData) ?? Data()
-            return try Anytype_Rpc.BlockLatex.SetText.Response(serializedData: responseData)
+            return try Anytype_Rpc.BlockLatex.SetText.Response(serializedBytes: responseData)
         }
     }
 
@@ -2220,7 +2280,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ProcessCancel", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceProcessCancel(requestData) ?? Data()
-            return try Anytype_Rpc.Process.Cancel.Response(serializedData: responseData)
+            return try Anytype_Rpc.Process.Cancel.Response(serializedBytes: responseData)
         }
     }
 
@@ -2230,7 +2290,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ProcessSubscribe", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceProcessSubscribe(requestData) ?? Data()
-            return try Anytype_Rpc.Process.Subscribe.Response(serializedData: responseData)
+            return try Anytype_Rpc.Process.Subscribe.Response(serializedBytes: responseData)
         }
     }
 
@@ -2240,7 +2300,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ProcessUnsubscribe", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceProcessUnsubscribe(requestData) ?? Data()
-            return try Anytype_Rpc.Process.Unsubscribe.Response(serializedData: responseData)
+            return try Anytype_Rpc.Process.Unsubscribe.Response(serializedBytes: responseData)
         }
     }
 
@@ -2250,7 +2310,7 @@ public struct ClientCommands {
         return Invocation(messageName: "LogSend", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceLogSend(requestData) ?? Data()
-            return try Anytype_Rpc.Log.Send.Response(serializedData: responseData)
+            return try Anytype_Rpc.Log.Send.Response(serializedBytes: responseData)
         }
     }
 
@@ -2260,7 +2320,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugStat", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugStat(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.Stat.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.Stat.Response(serializedBytes: responseData)
         }
     }
 
@@ -2270,7 +2330,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugTree", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugTree(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.Tree.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.Tree.Response(serializedBytes: responseData)
         }
     }
 
@@ -2280,7 +2340,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugTreeHeads", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugTreeHeads(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.TreeHeads.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.TreeHeads.Response(serializedBytes: responseData)
         }
     }
 
@@ -2290,7 +2350,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugSpaceSummary", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugSpaceSummary(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.SpaceSummary.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.SpaceSummary.Response(serializedBytes: responseData)
         }
     }
 
@@ -2300,7 +2360,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugStackGoroutines", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugStackGoroutines(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.StackGoroutines.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.StackGoroutines.Response(serializedBytes: responseData)
         }
     }
 
@@ -2310,7 +2370,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugExportLocalstore", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugExportLocalstore(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.ExportLocalstore.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.ExportLocalstore.Response(serializedBytes: responseData)
         }
     }
 
@@ -2320,7 +2380,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugPing", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugPing(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.Ping.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.Ping.Response(serializedBytes: responseData)
         }
     }
 
@@ -2330,7 +2390,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugSubscriptions", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugSubscriptions(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.Subscriptions.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.Subscriptions.Response(serializedBytes: responseData)
         }
     }
 
@@ -2340,7 +2400,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugOpenedObjects", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugOpenedObjects(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.OpenedObjects.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.OpenedObjects.Response(serializedBytes: responseData)
         }
     }
 
@@ -2350,7 +2410,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugRunProfiler", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugRunProfiler(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.RunProfiler.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.RunProfiler.Response(serializedBytes: responseData)
         }
     }
 
@@ -2360,7 +2420,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugAccountSelectTrace", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugAccountSelectTrace(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.AccountSelectTrace.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.AccountSelectTrace.Response(serializedBytes: responseData)
         }
     }
 
@@ -2370,7 +2430,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugAnystoreObjectChanges", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugAnystoreObjectChanges(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.AnystoreObjectChanges.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.AnystoreObjectChanges.Response(serializedBytes: responseData)
         }
     }
 
@@ -2380,7 +2440,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugNetCheck", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugNetCheck(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.NetCheck.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.NetCheck.Response(serializedBytes: responseData)
         }
     }
 
@@ -2390,7 +2450,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DebugExportLog", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugExportLog(requestData) ?? Data()
-            return try Anytype_Rpc.Debug.ExportLog.Response(serializedData: responseData)
+            return try Anytype_Rpc.Debug.ExportLog.Response(serializedBytes: responseData)
         }
     }
 
@@ -2400,7 +2460,7 @@ public struct ClientCommands {
         return Invocation(messageName: "InitialSetParameters", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceInitialSetParameters(requestData) ?? Data()
-            return try Anytype_Rpc.Initial.SetParameters.Response(serializedData: responseData)
+            return try Anytype_Rpc.Initial.SetParameters.Response(serializedBytes: responseData)
         }
     }
 
@@ -2410,7 +2470,7 @@ public struct ClientCommands {
         return Invocation(messageName: "NotificationList", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNotificationList(requestData) ?? Data()
-            return try Anytype_Rpc.Notification.List.Response(serializedData: responseData)
+            return try Anytype_Rpc.Notification.List.Response(serializedBytes: responseData)
         }
     }
 
@@ -2420,7 +2480,7 @@ public struct ClientCommands {
         return Invocation(messageName: "NotificationReply", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNotificationReply(requestData) ?? Data()
-            return try Anytype_Rpc.Notification.Reply.Response(serializedData: responseData)
+            return try Anytype_Rpc.Notification.Reply.Response(serializedBytes: responseData)
         }
     }
 
@@ -2430,7 +2490,7 @@ public struct ClientCommands {
         return Invocation(messageName: "NotificationTest", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNotificationTest(requestData) ?? Data()
-            return try Anytype_Rpc.Notification.Test.Response(serializedData: responseData)
+            return try Anytype_Rpc.Notification.Test.Response(serializedBytes: responseData)
         }
     }
 
@@ -2440,7 +2500,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipGetStatus", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipGetStatus(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.GetStatus.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.GetStatus.Response(serializedBytes: responseData)
         }
     }
 
@@ -2450,7 +2510,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipIsNameValid", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipIsNameValid(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.IsNameValid.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.IsNameValid.Response(serializedBytes: responseData)
         }
     }
 
@@ -2460,7 +2520,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipRegisterPaymentRequest", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipRegisterPaymentRequest(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.RegisterPaymentRequest.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.RegisterPaymentRequest.Response(serializedBytes: responseData)
         }
     }
 
@@ -2470,7 +2530,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipGetPortalLinkUrl", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipGetPortalLinkUrl(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.GetPortalLinkUrl.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.GetPortalLinkUrl.Response(serializedBytes: responseData)
         }
     }
 
@@ -2480,7 +2540,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipGetVerificationEmailStatus", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipGetVerificationEmailStatus(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.GetVerificationEmailStatus.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.GetVerificationEmailStatus.Response(serializedBytes: responseData)
         }
     }
 
@@ -2490,7 +2550,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipGetVerificationEmail", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipGetVerificationEmail(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.GetVerificationEmail.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.GetVerificationEmail.Response(serializedBytes: responseData)
         }
     }
 
@@ -2500,7 +2560,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipVerifyEmailCode", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipVerifyEmailCode(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.VerifyEmailCode.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.VerifyEmailCode.Response(serializedBytes: responseData)
         }
     }
 
@@ -2510,7 +2570,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipFinalize", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipFinalize(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.Finalize.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.Finalize.Response(serializedBytes: responseData)
         }
     }
 
@@ -2520,7 +2580,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipGetTiers", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipGetTiers(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.GetTiers.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.GetTiers.Response(serializedBytes: responseData)
         }
     }
 
@@ -2530,7 +2590,7 @@ public struct ClientCommands {
         return Invocation(messageName: "MembershipVerifyAppStoreReceipt", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipVerifyAppStoreReceipt(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response(serializedBytes: responseData)
         }
     }
 
@@ -2540,7 +2600,7 @@ public struct ClientCommands {
         return Invocation(messageName: "NameServiceUserAccountGet", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNameServiceUserAccountGet(requestData) ?? Data()
-            return try Anytype_Rpc.NameService.UserAccount.Get.Response(serializedData: responseData)
+            return try Anytype_Rpc.NameService.UserAccount.Get.Response(serializedBytes: responseData)
         }
     }
 
@@ -2550,7 +2610,7 @@ public struct ClientCommands {
         return Invocation(messageName: "NameServiceResolveName", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNameServiceResolveName(requestData) ?? Data()
-            return try Anytype_Rpc.NameService.ResolveName.Response(serializedData: responseData)
+            return try Anytype_Rpc.NameService.ResolveName.Response(serializedBytes: responseData)
         }
     }
 
@@ -2560,7 +2620,7 @@ public struct ClientCommands {
         return Invocation(messageName: "NameServiceResolveAnyId", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceNameServiceResolveAnyId(requestData) ?? Data()
-            return try Anytype_Rpc.NameService.ResolveAnyId.Response(serializedData: responseData)
+            return try Anytype_Rpc.NameService.ResolveAnyId.Response(serializedBytes: responseData)
         }
     }
 
@@ -2570,7 +2630,7 @@ public struct ClientCommands {
         return Invocation(messageName: "BroadcastPayloadEvent", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBroadcastPayloadEvent(requestData) ?? Data()
-            return try Anytype_Rpc.Broadcast.PayloadEvent.Response(serializedData: responseData)
+            return try Anytype_Rpc.Broadcast.PayloadEvent.Response(serializedBytes: responseData)
         }
     }
 
@@ -2580,7 +2640,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DeviceSetName", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDeviceSetName(requestData) ?? Data()
-            return try Anytype_Rpc.Device.SetName.Response(serializedData: responseData)
+            return try Anytype_Rpc.Device.SetName.Response(serializedBytes: responseData)
         }
     }
 
@@ -2590,7 +2650,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DeviceList", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDeviceList(requestData) ?? Data()
-            return try Anytype_Rpc.Device.List.Response(serializedData: responseData)
+            return try Anytype_Rpc.Device.List.Response(serializedBytes: responseData)
         }
     }
 
@@ -2600,7 +2660,7 @@ public struct ClientCommands {
         return Invocation(messageName: "DeviceNetworkStateSet", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDeviceNetworkStateSet(requestData) ?? Data()
-            return try Anytype_Rpc.Device.NetworkState.Set.Response(serializedData: responseData)
+            return try Anytype_Rpc.Device.NetworkState.Set.Response(serializedBytes: responseData)
         }
     }
 
@@ -2610,7 +2670,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ChatAddMessage", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatAddMessage(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.AddMessage.Response(serializedData: responseData)
+            return try Anytype_Rpc.Chat.AddMessage.Response(serializedBytes: responseData)
         }
     }
 
@@ -2620,7 +2680,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ChatEditMessageContent", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatEditMessageContent(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.EditMessageContent.Response(serializedData: responseData)
+            return try Anytype_Rpc.Chat.EditMessageContent.Response(serializedBytes: responseData)
         }
     }
 
@@ -2630,7 +2690,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ChatToggleMessageReaction", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatToggleMessageReaction(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.ToggleMessageReaction.Response(serializedData: responseData)
+            return try Anytype_Rpc.Chat.ToggleMessageReaction.Response(serializedBytes: responseData)
         }
     }
 
@@ -2640,7 +2700,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ChatDeleteMessage", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatDeleteMessage(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.DeleteMessage.Response(serializedData: responseData)
+            return try Anytype_Rpc.Chat.DeleteMessage.Response(serializedBytes: responseData)
         }
     }
 
@@ -2650,7 +2710,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ChatGetMessages", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatGetMessages(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.GetMessages.Response(serializedData: responseData)
+            return try Anytype_Rpc.Chat.GetMessages.Response(serializedBytes: responseData)
         }
     }
 
@@ -2660,7 +2720,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ChatGetMessagesByIds", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatGetMessagesByIds(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.GetMessagesByIds.Response(serializedData: responseData)
+            return try Anytype_Rpc.Chat.GetMessagesByIds.Response(serializedBytes: responseData)
         }
     }
 
@@ -2670,7 +2730,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ChatSubscribeLastMessages", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatSubscribeLastMessages(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.SubscribeLastMessages.Response(serializedData: responseData)
+            return try Anytype_Rpc.Chat.SubscribeLastMessages.Response(serializedBytes: responseData)
         }
     }
 
@@ -2680,7 +2740,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ChatUnsubscribe", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatUnsubscribe(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.Unsubscribe.Response(serializedData: responseData)
+            return try Anytype_Rpc.Chat.Unsubscribe.Response(serializedBytes: responseData)
         }
     }
 
@@ -2690,7 +2750,7 @@ public struct ClientCommands {
         return Invocation(messageName: "ObjectChatAdd", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectChatAdd(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ChatAdd.Response(serializedData: responseData)
+            return try Anytype_Rpc.Object.ChatAdd.Response(serializedBytes: responseData)
         }
     }
 

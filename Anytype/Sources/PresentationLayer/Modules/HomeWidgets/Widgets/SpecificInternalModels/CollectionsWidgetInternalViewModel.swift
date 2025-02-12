@@ -51,8 +51,8 @@ final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternal
     
     func startHeaderSubscription() {}
     
-    func screenData() -> EditorScreenData? {
-        return .collections(spaceId: spaceId)
+    func screenData() -> ScreenData? {
+        return .editor(.collections(spaceId: spaceId))
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
@@ -72,7 +72,7 @@ final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternal
                 templateId: nil
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
-            output?.onObjectSelected(screenData: details.editorScreenData())
+            output?.onObjectSelected(screenData: details.screenData())
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }

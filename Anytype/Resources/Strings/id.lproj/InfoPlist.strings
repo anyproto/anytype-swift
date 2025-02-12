@@ -1,5 +1,6 @@
 "NSFaceIDUsageDescription" = "Face ID digunakan untuk mengambil Frasa Pemulihan yang tersimpan di dalam rantai kunci
 ";
-"NSCameraUsageDescription" = "Kamera digunakan untuk memindai Kode QR untuk pengalaman login yang aman dan nyaman";
+"NSCameraUsageDescription" = "Izinkan akses kamera untuk memindai kode QR, menangkap foto, dan menambahkannya ke dalam pesan";
 "NSLocalNetworkUsageDescription" = "Akses jaringan lokal digunakan untuk meniyinkronkan data langsung di antara perangkat terdekat Anda";
 "NSPhotoLibraryAddUsageDescription" = "Izin diperlukan untuk menyimpan gambar ke perpustakaan Anda";
+"NSMicrophoneUsageDescription" = "Izinkan akses mikrofon untuk merekam video dan menambahkannya ke dalam pesan";

@@ -4,9 +4,9 @@ import SwiftProtobuf
 import ProtobufMessages
 import Combine
 
-public final class ObjectDetailsStorage {
+public final class ObjectDetailsStorage: Sendable {
     
-    fileprivate var storage = SynchronizedDictionary<String, ObjectDetails>()
+    private let storage = SynchronizedDictionary<String, ObjectDetails>()
     
     public init() {}
         

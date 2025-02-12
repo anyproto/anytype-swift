@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
-"NSCameraUsageDescription" = "Camera foto este utilizată pentru a scana codurile QR pentru o experiență sigură și convenabilă de conectare";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "Accesul la rețeaua locală este utilizat pentru a sincroniza datele direct între dispozitivele din apropiere";
 "NSPhotoLibraryAddUsageDescription" = "Accesul este necesar pentru a salva imaginile selectate în biblioteca ta";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

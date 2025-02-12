@@ -41,7 +41,7 @@ final class ObjectRelationListViewModel: ObservableObject {
     }
     
     func onObjectOpen(_ option: ObjectRelationOption) {
-        output?.onObjectOpen(screenData: option.editorScreenData)
+        output?.onObjectOpen(screenData: option.screenData)
     }
     
     func onObjectDuplicate(_ option: ObjectRelationOption) {

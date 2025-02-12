@@ -3,11 +3,12 @@ import Foundation
 @MainActor
 protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onSearchSelected()
-    func onCreateObjectSelected(screenData: EditorScreenData)
-    func onProfileSelected()
-    func onWidgetsSelected()
+    func onCreateObjectSelected(screenData: ScreenData)
     func onForwardSelected()
     func onBackwardSelected()
     func onPickTypeForNewObjectSelected()
-    func onSpaceHubSelected()
+    func onMembersSelected()
+    func onShareSelected()
+    func popToFirstInSpace()
+    func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject)
 }

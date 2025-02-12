@@ -41,7 +41,7 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                 dismiss.toggle()
                 try await galleryService.importExperience(spaceId: spaceId, isNewSpace: false, title: manifest.title, url: manifest.downloadLink)
             case .newSpace:
-                let spaceId = try await workspaceService.createSpace(name: manifest.title, iconOption: IconColorStorage.randomOption, accessType: .personal, useCase: .none, withChat: FeatureFlags.homeSpaceLevelChat)
+                let spaceId = try await workspaceService.createSpace(name: manifest.title, iconOption: IconColorStorage.randomOption(), accessType: .personal, useCase: .none, withChat: FeatureFlags.homeSpaceLevelChat)
                 AnytypeAnalytics.instance().logCreateSpace(route: .gallery)
                 dismiss.toggle()
                 try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)

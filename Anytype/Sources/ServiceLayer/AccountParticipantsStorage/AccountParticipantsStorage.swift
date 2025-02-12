@@ -1,9 +1,9 @@
 import Foundation
 import Services
 import Combine
+import AnytypeCore
 
-@MainActor
-protocol AccountParticipantsStorageProtocol: AnyObject {
+protocol AccountParticipantsStorageProtocol: AnyObject, Sendable {
     var participants: [Participant] { get }
     var participantsPublisher: AnyPublisher<[Participant], Never> { get }
     func startSubscription() async
@@ -24,8 +24,7 @@ extension AccountParticipantsStorageProtocol {
     }
 }
 
-@MainActor
-final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
+final class AccountParticipantsStorage: AccountParticipantsStorageProtocol, Sendable {
     
     private enum Constants {
         static let subscriptionIdPrefix = "SubscriptionId.AccountParticipant-"
@@ -33,17 +32,16 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     
     // MARK: - DI
     
-    private lazy var multispaceSubscriptionHelper = MultispaceSubscriptionHelper<Participant>(
+    private let multispaceSubscriptionHelper = MultispaceSubscriptionHelper<Participant>(
         subIdPrefix: Constants.subscriptionIdPrefix,
         subscriptionBuilder: AcountParticipantSubscriptionBuilder()
     )
+    private let storage = AtomicPublishedStorage<[Participant]>([])
     
     // MARK: - State
     
-    @Published private(set) var participants: [Participant] = []
-    var participantsPublisher: AnyPublisher<[Participant], Never> { $participants.eraseToAnyPublisher() }
-    
-    nonisolated init() {}
+    var participants: [Participant] { storage.value }
+    var participantsPublisher: AnyPublisher<[Participant], Never> { storage.publisher.removeDuplicates().eraseToAnyPublisher() }
     
     func startSubscription() async {
         await multispaceSubscriptionHelper.startSubscription { [weak self] in
@@ -53,12 +51,12 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     
     func stopSubscription() async {
         await multispaceSubscriptionHelper.stopSubscription()
-        participants.removeAll()
+        storage.value.removeAll()
     }
     
     // MARK: - Private
     
     private func updatePartiipants() {
-        participants = multispaceSubscriptionHelper.data.values.flatMap { $0 }
+        storage.value = multispaceSubscriptionHelper.data.values.flatMap { $0 }
     }
 }

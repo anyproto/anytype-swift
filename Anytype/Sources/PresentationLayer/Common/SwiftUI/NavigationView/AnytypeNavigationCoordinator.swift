@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-final class AnytypeNavigationCoordinator: NSObject, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
+final class AnytypeNavigationCoordinator: NSObject, UINavigationControllerDelegate {
     
     @Binding private(set) var path: [AnyHashable]
     @Binding private(set) var pathChanging: Bool
@@ -40,13 +40,6 @@ final class AnytypeNavigationCoordinator: NSObject, UINavigationControllerDelega
             }
         }
         
-        navigationController.interactivePopGestureRecognizer?.delegate = self
         pathChanging = false
-    }
-    
-    // MARK: - Gesture
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return currentViewControllers.count > 1
     }
 }

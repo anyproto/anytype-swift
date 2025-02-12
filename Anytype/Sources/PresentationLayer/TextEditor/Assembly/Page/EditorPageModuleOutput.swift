@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
-    func showEditorScreen(data: EditorScreenData)
+    func showEditorScreen(data: ScreenData)
     func replaceEditorScreen(data: EditorScreenData)
     func closeEditor()
     func onSelectCodeLanguage(objectId: String, spaceId: String, blockId: String)
@@ -16,7 +16,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func versionRestored(_ text: String)
     func openUrl(_ url: URL)
     func showSyncStatusInfo(spaceId: String)
-    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
+    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
     func showObectSettings(output: any ObjectSettingsCoordinatorOutput)
     
     // TODO: Refactoring templates. Delete it

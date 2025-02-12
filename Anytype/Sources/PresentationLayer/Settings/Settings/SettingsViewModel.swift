@@ -16,6 +16,8 @@ final class SettingsViewModel: ObservableObject {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
+    @Injected(\.profileStorage)
+    private var profileStorage: any ProfileStorageProtocol
     
     private weak var output: (any SettingsModuleOutput)?
     
@@ -38,10 +40,6 @@ final class SettingsViewModel: ObservableObject {
         
         accountManager = Container.shared.accountManager.resolve()
         isInProdOrStagingNetwork = accountManager.account.isInProdOrStagingNetwork
-        
-        Task {
-            await setupSubscription()
-        }
     }
     
     func onAppear() {
@@ -80,25 +78,31 @@ final class SettingsViewModel: ObservableObject {
         output?.onMembershipSelected()
     }
     
+    func startSubscriptions() async {
+        async let membershipSub: () = membershipSubscriotion()
+        async let profileSub: () = profileSubscription()
+        _ = await (membershipSub, profileSub)
+    }
+    
     // MARK: - Private
     
-    private func setupSubscription() async {
-        membershipStatusStorage.statusPublisher.assign(to: &$membership)
-        
-        await subscriptionService.startSubscription(
-            subId: subAccountId,
-            spaceId: accountManager.account.info.techSpaceId,
-            objectId: accountManager.account.info.profileObjectID
-        ) { [weak self] details in
-            self?.handleProfileDetails(details: details)
+    private func membershipSubscriotion() async {
+        for await newMembership in membershipStatusStorage.statusPublisher.values {
+            membership = newMembership
         }
     }
     
-    private func handleProfileDetails(details: ObjectDetails) {
-        profileIcon = details.objectIconImage
+    private func profileSubscription() async {
+        for await profile in profileStorage.profilePublisher.values {
+            handleProfileDetails(profile: profile)
+        }
+    }
+    
+    private func handleProfileDetails(profile: Profile) {
+        profileIcon = profile.icon
         
         if !profileDataLoaded {
-            profileName = details.name
+            profileName = profile.name
             profileDataLoaded = true
             $profileName
                 .delay(for: 0.3, scheduler: DispatchQueue.main)

@@ -17,7 +17,8 @@ extension SpaceView {
             spaceAccessType: .private,
             readersLimit: nil,
             writersLimit: nil,
-            chatId: nil
+            chatId: "",
+            isPinned: false
         )
     }
 }

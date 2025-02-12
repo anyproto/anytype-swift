@@ -303,7 +303,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                                     objectId: targetDocument.objectId,
                                     spaceId: targetDocument.spaceId,
                                     tapHandler: { [weak self] in
-                                        self?.router.showEditorScreen(data: details.editorScreenData())
+                                        self?.router.showEditorScreen(data: details.screenData())
                                     }
                                 )
                             }
@@ -409,7 +409,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             objectId: collectionId,
             spaceId: spaceId,
             tapHandler: { [weak self] in
-                self?.router.showEditorScreen(data: details.editorScreenData())
+                self?.router.showEditorScreen(data: details.screenData())
             }
         )
     }
@@ -452,7 +452,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                             objectId: details.id,
                             spaceId: details.spaceId,
                             tapHandler: { [weak self] in
-                                self?.router.showEditorScreen(data: details.editorScreenData())
+                                self?.router.showEditorScreen(data: details.screenData())
                             }
                         )
                     }

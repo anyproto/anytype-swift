@@ -79,10 +79,3 @@ struct EditorTypeObject: Hashable, Codable, Identifiable {
     
     var id: String { spaceId + objectId } 
 }
-
-enum EditorViewType {
-    case page
-    case list
-    case date
-    case type
-}

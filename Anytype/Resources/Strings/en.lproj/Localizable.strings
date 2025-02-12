@@ -162,6 +162,7 @@
 "Move" = "Move";
 "Move to" = "Move to";
 "Back" = "Back";
+"Pin" = "Pin";
 "Unpin" = "Unpin";
 "Pin on top" = "Pin on top";
 "File block subtitle" = "Store file in original state";
@@ -209,6 +210,8 @@
 "Open file"= "Open file";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
+"Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "Favorites";
@@ -577,6 +580,7 @@
 "Types" = "Types";
 "No name" = "No name";
 "New relation" = "New relation";
+"Edit field" = "Edit field";
 "Non-existent object" = "Non-existent object";
 
 "Select all" = "Select all";
@@ -701,6 +705,7 @@
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "Apply";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -931,7 +936,6 @@
 "SpaceSettings.DeleteButton" = "Delete space";
 "SpaceSettings.Share" = "Share";
 "SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
@@ -972,6 +976,9 @@
 "SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
+
 "SpaceShare.YouSuffix" = "%@ (you)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";
@@ -1265,6 +1272,14 @@ Please provide specific details of your needs here.";
 "Chat.Actions.Menu.Objects" = "Select existing object";
 "Chat.Actions.Menu.Media" = "Upload media";
 "Chat.Actions.Menu.Files" = "Upload file";
+"Chat.Actions.Menu.Camera" = "Take from camera";
+"Chat.Participant.Badge" = "(You)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
+"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
+"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";

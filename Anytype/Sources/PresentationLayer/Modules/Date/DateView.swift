@@ -30,26 +30,24 @@ struct DateView: View {
     }
     
     private var navigationBar: some View {
-        HStack(alignment: .center, spacing: 14) {
-            SwiftUIEditorSyncStatusItem(
-                statusData: model.syncStatusData,
-                itemState: .initial,
-                onTap: {
-                    model.onSyncStatusTap()
-                }
-            )
-            .frame(width: 28, height: 28)
-            
-            Spacer()
-            
-            Image(asset: .X24.calendar)
-                .foregroundColor(.Control.active)
-                .onTapGesture {
-                    model.onCalendarTap()
-                }
+        PageNavigationHeader(title: "") {
+            HStack(alignment: .center, spacing: 12) {
+                SwiftUIEditorSyncStatusItem(
+                    statusData: model.syncStatusData,
+                    itemState: .initial,
+                    onTap: {
+                        model.onSyncStatusTap()
+                    }
+                )
+                .frame(width: 28, height: 28)
+                
+                Image(asset: .X24.calendar)
+                    .foregroundColor(.Control.active)
+                    .onTapGesture {
+                        model.onCalendarTap()
+                    }
+            }
         }
-        .padding(.horizontal, 12)
-        .frame(height: 48)
     }
     
     private var titleView: some View {
@@ -128,16 +126,21 @@ struct DateView: View {
     }
     
     private var relations: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 8) {
-                relationsListButton
-                ForEach(model.relationItems) { item in
-                    relationView(item: item)
+        ScrollViewReader { reader in
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 8) {
+                    relationsListButton
+                    ForEach(model.relationItems) { item in
+                        relationView(item: item)
+                    }
                 }
+                .frame(height: 40)
+                .padding(.horizontal, 16)
             }
-            .frame(height: 40)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 1)
+            .scrollIndicators(.hidden)
+            .onChange(of: model.scrollToRelationId) { id in
+                reader.scrollTo(id, anchor: .center)
+            }
         }
     }
     
@@ -157,6 +160,10 @@ struct DateView: View {
         .background(model.state.selectedRelation == item.details ? Color.Shape.transperentSecondary : .clear)
         .cornerRadius(10, style: .continuous)
         .border(10, color: Color.Shape.primary)
+        .id(item.id)
+        .onAppear {
+            model.resetScrollToRelationIdIfNeeded(id: item.id)
+        }
     }
     
     private var list: some View {

@@ -1,7 +1,7 @@
 import SwiftUI
 import Services
 import AnytypeCore
-
+@preconcurrency import Combine
 
 @MainActor
 final class ObjectTypeViewModel: ObservableObject {
@@ -116,8 +116,8 @@ final class ObjectTypeViewModel: ObservableObject {
     }
     
     func subscribeOnTemplates() async {
-        await templatesSubscription.startSubscription(objectType: document.objectId, spaceId: document.spaceId) { [weak self] rawTemplates in
-            guard let self else { return }
+        let publisher = await templatesSubscription.startSubscription(objectType: document.objectId, spaceId: document.spaceId, update: nil)
+        for await rawTemplates in publisher.values {
             self.rawTemplates = rawTemplates
             buildTemplates()
         }

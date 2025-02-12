@@ -29,7 +29,7 @@ final class IconColorStorage {
         return color
     }
     
-    static var randomOption: Int {
+    static func randomOption() -> Int {
         Int.random(in: 1...allColors.count)
     }
 }

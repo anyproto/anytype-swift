@@ -2,19 +2,14 @@ import Foundation
 import SwiftUI
 
 struct MessageView: View {
-    let data: MessageViewData
-    weak var output: (any MessageModuleOutput)?
     
-    var body: some View {
-        MessageInternalView(data: data, output: output)
-            .id(data.message.id)
+    private enum Constants {
+        static let gridSize: CGFloat = 250
+        static let gridPadding: CGFloat = 4
     }
-}
-
-private struct MessageInternalView: View {
-        
+    
     private let data: MessageViewData
-    @StateObject private var model: MessageViewModel
+    private weak var output: (any MessageModuleOutput)?
     
     @State private var contentSize: CGSize = .zero
     @State private var headerSize: CGSize = .zero
@@ -24,7 +19,7 @@ private struct MessageInternalView: View {
         output: (any MessageModuleOutput)? = nil
     ) {
         self.data = data
-        self._model = StateObject(wrappedValue: MessageViewModel(data: data, output: output))
+        self.output = output
     }
     
     var body: some View {
@@ -34,76 +29,70 @@ private struct MessageInternalView: View {
             trailingView
         }
         .padding(.horizontal, 12)
-        .onChange(of: data) {
-            model.update(data: $0)
-        }
-        .onAppear {
-            model.onAppear()
-        }
-        .onDisappear {
-            model.onDisappear()
-        }
-        .padding(.bottom, model.nextSpacing.height)
+        .padding(.bottom, data.nextSpacing.height)
     }
     
     private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
                 
-            if let reply = model.reply {
+            if let reply = data.replyModel {
                 MessageReplyView(model: reply)
                     .padding(4)
                     .onTapGesture {
-                        model.onTapReplyMessage()
+                        output?.didSelectReplyMessage(message: data)
                     }
             }
             
-            if !model.message.isEmpty {
-                if !model.showHeader && model.reply.isNil {
+            if !data.messageString.isEmpty {
+                if !data.showHeader && data.replyModel.isNil {
                     Spacer.fixedHeight(12)
                 }
-                Text(model.message)
+                Text(data.messageString)
                     .anytypeStyle(.previewTitle1Regular)
-                    .foregroundColor(textColor)
                     .padding(.horizontal, 12)
             }
             
-            if let objects = model.linkedObjects {
+            if let objects = data.linkedObjects {
                 switch objects {
                 case .list(let items):
                     MessageListAttachmentsViewContainer(objects: items) {
-                        model.onTapObject(details: $0)
+                        output?.didSelectAttachment(data: data, details: $0)
                     }
                     .padding(4)
                 case .grid(let items):
-                    MessageGridAttachmentsContainer(objects: items) {
-                        model.onTapObject(details: $0)
+                    MessageGridAttachmentsContainer(objects: items, oneSide: Constants.gridSize, spacing: 4) {
+                        output?.didSelectAttachment(data: data, details: $0)
                     }
-                    .padding(4)
+                    .padding(Constants.gridPadding)
                 }
             }
             
-            if model.reactions.isNotEmpty {
+            if data.reactions.isNotEmpty {
                 MessageReactionList(
-                    rows: model.reactions,
-                    isYourMessage: model.isYourMessage,
+                    rows: data.reactions,
+                    canAddReaction: data.canAddReaction,
+                    isYourMessage: data.isYourMessage,
                     onTapRow: { reaction in
-                        try await model.onTapReaction(reaction)
+                        try await output?.didTapOnReaction(data: data, reaction: reaction)
                     },
                     onLongTapRow: { reaction in
-                        model.onLongTapReaction(reaction)
+                        output?.didLongTapOnReaction(data: data, reaction: reaction)
                     },
                     onTapAdd: {
-                        model.onTapAddReaction()
+                        output?.didSelectAddReaction(messageId: data.message.id)
                     }
                 )
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
             }
             
-            if model.reactions.isEmpty && model.linkedObjects == nil {
+            if data.reactions.isEmpty && data.linkedObjects == nil {
                 Spacer.fixedHeight(12)
             }
+        }
+        .if(data.linkedObjects?.isGrid ?? false) {
+            $0.frame(width: Constants.gridSize + Constants.gridPadding * 2)
         }
         .readSize {
             contentSize = $0
@@ -118,7 +107,7 @@ private struct MessageInternalView: View {
     
     @ViewBuilder
     private var leadingView: some View {
-        if model.isYourMessage {
+        if data.isYourMessage {
             horizontalBubbleSpacing
         } else {
             authorIcon
@@ -127,7 +116,7 @@ private struct MessageInternalView: View {
     
     @ViewBuilder
     private var trailingView: some View {
-        if model.isYourMessage {
+        if data.isYourMessage {
             authorIcon
         } else {
             horizontalBubbleSpacing
@@ -136,9 +125,9 @@ private struct MessageInternalView: View {
     
     @ViewBuilder
     private var authorIcon: some View {
-        switch model.authorMode {
+        switch data.authorMode {
         case .show:
-            IconView(icon: model.authorIcon)
+            IconView(icon: data.authorIcon)
                 .frame(width: 32, height: 32)
         case .empty:
             Spacer.fixedWidth(32)
@@ -149,7 +138,7 @@ private struct MessageInternalView: View {
     
     @ViewBuilder
     private var horizontalBubbleSpacing: some View {
-        switch model.authorMode {
+        switch data.authorMode {
         case .show, .empty:
             Spacer(minLength: 32)
         case .hidden:
@@ -159,19 +148,21 @@ private struct MessageInternalView: View {
     
     @ViewBuilder
     private var header: some View {
-        if model.showHeader {
+        if data.showHeader {
             HStack(spacing: 10) {
-                Text(model.author)
+                Text(data.authorName)
                     .anytypeStyle(.previewTitle2Medium)
                     .foregroundColor(textColor)
                     .lineLimit(1)
             
-                Text(model.date)
+                Text(data.createDate)
                     .anytypeStyle(.caption1Regular)
                     .foregroundColor(timeColor)
                     .lineLimit(1)
                     .offset(x: contentSize.width - headerSize.width)
             }
+            // Height is required for prevent change cell height if participant not loaded. For empty text
+            .frame(height: 20)
             .padding(.horizontal, 12)
             .padding(.top, 12)
             .readSize {
@@ -182,31 +173,33 @@ private struct MessageInternalView: View {
     
     @ViewBuilder
     private var contextMenu: some View {
-        Button {
-            model.onTapAddReaction()
-        } label: {
-            Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+        if data.canAddReaction {
+            Button {
+                output?.didSelectAddReaction(messageId: data.message.id)
+            } label: {
+                Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+            }
         }
         
         Divider()
         
         Button {
-            model.onTapReplyTo()
+            output?.didSelectReplyTo(message: data)
         } label: {
             Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
         }
         
-        if model.canEdit {
+        if data.canEdit {
             AsyncButton {
-                await model.onTapEdit()
+                await output?.didSelectEditMessage(message: data)
             } label: {
                 Label(Loc.edit, systemImage: "pencil")
             }
         }
         
-        if model.canDelete {
+        if data.canDelete {
             Button(role: .destructive) {
-                model.onTapDelete()
+                output?.didSelectDeleteMessage(message: data)
             } label: {
                 Label(Loc.delete, systemImage: "trash")
             }
@@ -214,14 +207,14 @@ private struct MessageInternalView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return model.isYourMessage ? .Control.navPanelIcon : .Background.navigationPanel
+        return data.isYourMessage ? .Control.transparentActive : .Background.navigationPanel
     }
     
     private var textColor: Color {
-        return model.isYourMessage ? .Text.white : .Text.primary
+        return MessageTextBuilder.textColor(data.isYourMessage)
     }
     
     private var timeColor: Color {
-        return model.isYourMessage ? .Text.white : .Text.secondary
+        return data.isYourMessage ? .Text.white : .Text.secondary
     }
 }

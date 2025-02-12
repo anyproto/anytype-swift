@@ -99,19 +99,16 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     
     private func createBaseDocument(objectId: String, spaceId: String, mode: DocumentMode) -> some BaseDocumentProtocol {
         let infoContainer = InfoContainer()
-        let relationKeysStorage = RelationKeysStorage()
         let restrictionsContainer = ObjectRestrictionsContainer()
         let detailsStorage = ObjectDetailsStorage()
         let viewModelSetter = DocumentViewModelSetter(
             detailsStorage: detailsStorage,
-            relationKeysStorage: relationKeysStorage,
             restrictionsContainer: restrictionsContainer,
             infoContainer: infoContainer
         )
         let eventsListener = EventsListener(
             objectId: objectId,
             infoContainer: infoContainer,
-            relationKeysStorage: relationKeysStorage,
             restrictionsContainer: restrictionsContainer,
             detailsStorage: detailsStorage
         )
@@ -126,7 +123,6 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             eventsListener: eventsListener,
             viewModelSetter: viewModelSetter,
             infoContainer: infoContainer,
-            relationKeysStorage: relationKeysStorage,
             restrictionsContainer: restrictionsContainer,
             detailsStorage: detailsStorage
         )

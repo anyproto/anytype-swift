@@ -6,7 +6,6 @@ import StoreKit
 struct MembershipNameSheetView: View {    
     @StateObject private var model: MembershipNameSheetViewModel
     @State private var name = ""
-    @State private var openUrl: URL?
     
     init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
         _model = StateObject(
@@ -38,7 +37,6 @@ struct MembershipNameSheetView: View {
         }
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
-        .openUrl(url: $openUrl)
     }
     
     var info: some View {
@@ -94,9 +92,5 @@ struct MembershipNameSheetView: View {
         .accentColor(.Text.secondary)
         .multilineTextAlignment(.center)
         .padding(.horizontal, 38)
-        .environment(\.openURL, OpenURLAction { url in
-            openUrl = url
-            return .handled
-        })
     }
 }

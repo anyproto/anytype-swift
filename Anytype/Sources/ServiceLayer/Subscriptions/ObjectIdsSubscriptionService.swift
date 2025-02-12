@@ -3,18 +3,16 @@ import Services
 import Combine
 import AnytypeCore
 
-@MainActor
-protocol ObjectIdsSubscriptionServiceProtocol: AnyObject {
+protocol ObjectIdsSubscriptionServiceProtocol: AnyObject, Sendable  {
     func startSubscription(
         spaceId: String,
         objectIds: [String],
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @Sendable ([ObjectDetails]) async -> Void
     ) async
     func stopSubscription() async
 }
 
-@MainActor
-final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
+actor ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
     
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
@@ -24,25 +22,29 @@ final class ObjectIdsSubscriptionService: ObjectIdsSubscriptionServiceProtocol {
     
     private let subscriptionId = "ObjectIdsSubscriptionService-\(UUID().uuidString)"
     
-    nonisolated init() {}
-    
     func startSubscription(
         spaceId: String,
         objectIds: [String],
-        update: @escaping ([ObjectDetails]) -> Void
+        update: @escaping @Sendable ([ObjectDetails]) async -> Void
     ) async {
+        
+        let keys: [BundledRelationKey] = .builder {
+            BundledRelationKey.objectListKeys
+            BundledRelationKey.sizeInBytes
+            BundledRelationKey.source
+        }.uniqued()
         
         let searchData: SubscriptionData = .objects(
             SubscriptionData.Object(
                 identifier: subscriptionId,
                 spaceId: spaceId,
                 objectIds: objectIds,
-                keys: (BundledRelationKey.objectListKeys).uniqued().map { $0.rawValue }
+                keys: keys.map { $0.rawValue }
             )
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items)
+            await update(data.items)
         }
     }
     

@@ -126,6 +126,8 @@ internal enum Loc {
   internal static let duplicate = Loc.tr("Localizable", "Duplicate", fallback: "Duplicate")
   internal static let eMail = Loc.tr("Localizable", "E-mail", fallback: "E-mail")
   internal static let edit = Loc.tr("Localizable", "Edit", fallback: "Edit")
+  internal static let editField = Loc.tr("Localizable", "Edit field", fallback: "Edit field")
+  internal static let editProfile = Loc.tr("Localizable", "Edit Profile", fallback: "Edit Profile")
   internal static let emailSuccessfullyValidated = Loc.tr("Localizable", "Email successfully validated", fallback: "Email successfully validated")
   internal static let emoji = Loc.tr("Localizable", "Emoji", fallback: "Emoji")
   internal static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")
@@ -179,6 +181,7 @@ internal enum Loc {
   internal static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   internal static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
   internal static let learnMore = Loc.tr("Localizable", "Learn more", fallback: "Learn more")
+  internal static let leaveASpace = Loc.tr("Localizable", "Leave a space", fallback: "Leave a space")
   internal static let letsGo = Loc.tr("Localizable", "Lets Go", fallback: "Let’s Go")
   internal static let limitObjectTypes = Loc.tr("Localizable", "Limit object types", fallback: "Limit object types")
   internal static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
@@ -268,6 +271,7 @@ internal enum Loc {
   }
   internal static let personalization = Loc.tr("Localizable", "Personalization", fallback: "Personalization")
   internal static let picture = Loc.tr("Localizable", "Picture", fallback: "Picture")
+  internal static let pin = Loc.tr("Localizable", "Pin", fallback: "Pin")
   internal static let pinOnTop = Loc.tr("Localizable", "Pin on top", fallback: "Pin on top")
   internal static let pink = Loc.tr("Localizable", "Pink", fallback: "Pink")
   internal static let pinkBackground = Loc.tr("Localizable", "Pink background", fallback: "Pink background")
@@ -364,6 +368,7 @@ internal enum Loc {
   internal static let unsplash = Loc.tr("Localizable", "Unsplash", fallback: "Unsplash")
   internal static let unsupported = Loc.tr("Localizable", "Unsupported", fallback: "Unsupported")
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block", fallback: "Unsupported block")
+  internal static let unsupportedDeeplink = Loc.tr("Localizable", "Unsupported deeplink", fallback: "Unsupported deeplink")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value", fallback: "Unsupported value")
   internal static let upgrade = Loc.tr("Localizable", "Upgrade", fallback: "Upgrade")
   internal static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
@@ -630,9 +635,15 @@ internal enum Loc {
     }
     internal enum Actions {
       internal enum Menu {
+        internal static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Take from camera")
         internal static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Upload file")
         internal static let media = Loc.tr("Localizable", "Chat.Actions.Menu.Media", fallback: "Upload media")
         internal static let objects = Loc.tr("Localizable", "Chat.Actions.Menu.Objects", fallback: "Select existing object")
+      }
+    }
+    internal enum AttachmentsLimit {
+      internal static func alert(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ files at a time")
       }
     }
     internal enum DeleteMessage {
@@ -643,11 +654,29 @@ internal enum Loc {
       internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Write a first one to start a conversation")
       internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages here yet...")
     }
+    internal enum Participant {
+      internal static let badge = Loc.tr("Localizable", "Chat.Participant.Badge", fallback: "(You)")
+    }
     internal enum Reactions {
       internal enum Empty {
         internal static let subtitle = Loc.tr("Localizable", "Chat.Reactions.Empty.Subtitle", fallback: "Probably someone has just removed the reaction or technical issue happened")
         internal static let title = Loc.tr("Localizable", "Chat.Reactions.Empty.Title", fallback: "No reactions yet")
       }
+    }
+    internal enum Reply {
+      internal static func attachments(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Attachments", String(describing: p1), fallback: "Attachments (%@)")
+      }
+      internal static func files(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Files", String(describing: p1), fallback: "Files (%@)")
+      }
+      internal static func images(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Chat.Reply.Images", String(describing: p1), fallback: "Images (%@)")
+      }
+    }
+    internal enum SendLimitAlert {
+      internal static let message = Loc.tr("Localizable", "Chat.SendLimitAlert.Message", fallback: "Looks like you're sending messages at lightning speed. Give it a sec before your next one.")
+      internal static let title = Loc.tr("Localizable", "Chat.SendLimitAlert.Title", fallback: "Hold up! Turbo typing detected!")
     }
   }
   internal enum ClearCache {
@@ -1687,7 +1716,6 @@ internal enum Loc {
       internal static func message(_ p1: Any) -> String {
         return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Message", String(describing: p1), fallback: "%@ space will be removed from your devices and you will no longer have access to it")
       }
-      internal static let title = Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Title", fallback: "Leave a space")
       internal static func toast(_ p1: Any) -> String {
         return Loc.tr("Localizable", "SpaceSettings.LeaveAlert.Toast", String(describing: p1), fallback: "You left the %@.")
       }
@@ -1751,6 +1779,8 @@ internal enum Loc {
       internal static func message(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "SpaceShare.Join.Message", String(describing: p1), String(describing: p2), fallback: "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.")
       }
+      internal static let objectIsNotAvailable = Loc.tr("Localizable", "SpaceShare.Join.ObjectIsNotAvailable", fallback: "Object is not available. Ask the owner to share it.")
+      internal static let spaceDeleted = Loc.tr("Localizable", "SpaceShare.Join.SpaceDeleted", fallback: "The space you try to access has been deleted")
       internal static let title = Loc.tr("Localizable", "SpaceShare.Join.Title", fallback: "Join a space")
     }
     internal enum JoinConfirmation {

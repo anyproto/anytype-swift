@@ -2,16 +2,25 @@ import ProtobufMessages
 import SwiftProtobuf
 import Foundation
 
+public typealias EmptyPlacement = Anytype_Model_Block.Content.Dataview.Sort.EmptyType
+
 public class SearchHelper {
-    public static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
-        sort(relationKey: relation.rawValue, type: type)
+    public static func sort(
+        relation: BundledRelationKey,
+        type: DataviewSort.TypeEnum,
+        noCollate: Bool = false,
+        emptyPlacement: EmptyPlacement? = nil
+    ) -> DataviewSort {
+        sort(relationKey: relation.rawValue, type: type, noCollate: noCollate, emptyPlacement: emptyPlacement)
     }
     
-    public static func sort(relationKey: String, type: DataviewSort.TypeEnum) -> DataviewSort {
+    public static func sort(relationKey: String, type: DataviewSort.TypeEnum, noCollate: Bool = false, emptyPlacement: EmptyPlacement? = nil) -> DataviewSort {
         var sort = DataviewSort()
         sort.relationKey = relationKey
         sort.type = type
-        
+        sort.noCollate = noCollate // https://linear.app/anytype/issue/IOS-3813/add-nocollate-parameter-to-sort-model-for-spaceorder
+        if let emptyPlacement { sort.emptyPlacement = emptyPlacement }
+         
         return sort
     }
     

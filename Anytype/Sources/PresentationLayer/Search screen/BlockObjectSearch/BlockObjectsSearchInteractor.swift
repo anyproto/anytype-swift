@@ -1,6 +1,7 @@
 import Foundation
 import Services
 
+@MainActor
 final class BlockObjectsSearchInteractor {
     
     @Injected(\.searchService)

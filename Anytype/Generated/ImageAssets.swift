@@ -162,6 +162,7 @@ internal extension ImageAsset {
       static let up = ImageAsset.bundle(name: "x24/Arrow/Up")
     }
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
+    static let back = ImageAsset.bundle(name: "x24/Back")
     static let blur = ImageAsset.bundle(name: "x24/Blur")
     static let burger = ImageAsset.bundle(name: "x24/Burger")
     static let calendar = ImageAsset.bundle(name: "x24/Calendar")
@@ -189,6 +190,7 @@ internal extension ImageAsset {
     static let openToEdit = ImageAsset.bundle(name: "x24/Open to Edit")
     static let `open` = ImageAsset.bundle(name: "x24/Open")
     static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
+    static let pin = ImageAsset.bundle(name: "x24/Pin")
     static let plus = ImageAsset.bundle(name: "x24/Plus")
     static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
     static let reaction = ImageAsset.bundle(name: "x24/Reaction")
@@ -199,6 +201,7 @@ internal extension ImageAsset {
     static let select = ImageAsset.bundle(name: "x24/Select")
     static let settings = ImageAsset.bundle(name: "x24/Settings")
     static let sharing = ImageAsset.bundle(name: "x24/Sharing")
+    static let spaceSettings = ImageAsset.bundle(name: "x24/Space settings")
     static let status = ImageAsset.bundle(name: "x24/Status")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
     static let text = ImageAsset.bundle(name: "x24/Text")
@@ -250,6 +253,7 @@ internal extension ImageAsset {
     static let download = ImageAsset.bundle(name: "x32/Download")
     static let dragDrop = ImageAsset.bundle(name: "x32/Drag & Drop")
     static let duplicate = ImageAsset.bundle(name: "x32/Duplicate")
+    static let edit = ImageAsset.bundle(name: "x32/Edit")
     static let empty = ImageAsset.bundle(name: "x32/Empty")
     static let export = ImageAsset.bundle(name: "x32/Export")
     enum Favorite {
@@ -265,9 +269,13 @@ internal extension ImageAsset {
       static let `right` = ImageAsset.bundle(name: "x32/Insert/Right")
     }
     enum Island {
+      static let discuss = ImageAsset.bundle(name: "x32/Island/Discuss")
       static let vault = ImageAsset.bundle(name: "x32/Island/Vault")
+      static let addMember = ImageAsset.bundle(name: "x32/Island/add member")
+      static let addObject = ImageAsset.bundle(name: "x32/Island/add object")
       static let add = ImageAsset.bundle(name: "x32/Island/add")
       static let back = ImageAsset.bundle(name: "x32/Island/back")
+      static let members = ImageAsset.bundle(name: "x32/Island/members")
       static let search = ImageAsset.bundle(name: "x32/Island/search")
     }
     static let linkTo = ImageAsset.bundle(name: "x32/Link to")
@@ -450,11 +458,6 @@ internal extension ImageAsset {
     static let backgroundsLight = ImageAsset.bundle(name: "SpaceHubTip/backgrounds_light")
     static let vaultImmersive = ImageAsset.bundle(name: "SpaceHubTip/vault_immersive")
     static let vaultMove = ImageAsset.bundle(name: "SpaceHubTip/vault_move")
-  }
-  enum SpaceShareTip {
-    static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
-    static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
-    static let step3 = ImageAsset.bundle(name: "SpaceShareTip/step3")
   }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")

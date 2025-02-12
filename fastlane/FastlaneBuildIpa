@@ -1,0 +1,44 @@
+default_platform(:ios)
+
+platform :ios do
+
+  lane :build_ipa_dev do
+    build_ipa(
+      release: false
+    )
+  end
+
+  lane :build_ipa_release do
+    build_ipa(
+      release: true
+    )
+  end
+
+  private_lane :build_ipa do |options| 
+    
+    if is_ci
+        setup_ci
+    end
+
+    config = options[:release] ? ENV["APP_CONF_RELEASE"] : ENV["APP_CONF_DEVELOP"]
+
+    build_app(
+        scheme: ENV["APP_TARGET"],
+        configuration: config,
+        destination: "generic/platform=iOS Simulator",
+        skip_codesigning: true,
+        skip_package_ipa: true,
+        skip_archive: true,
+        derived_data_path: "./build/DerivedData",
+        output_directory: "./build"
+    )
+
+    appName = options[:release] ? "Anytype" : "Anytype\\ Dev"
+
+    Dir.chdir("..") do
+        sh "mkdir -p ./build/result"
+        sh "cp -R ./build/DerivedData/Build/Products/#{config}-iphonesimulator/#{appName}.app/ ./build/result/#{appName}.app"
+    end
+  end
+
+end

@@ -62,9 +62,9 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
         await updateLinksSubscriptions()
     }
     
-    func screenData() -> EditorScreenData? {
+    func screenData() -> ScreenData? {
         guard let linkedObjectDetails else { return nil }
-        return linkedObjectDetails.editorScreenData()
+        return linkedObjectDetails.screenData()
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
@@ -87,7 +87,7 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
                 info: info,
                 position: .bottom
             )
-            output?.onObjectSelected(screenData: details.editorScreenData())
+            output?.onObjectSelected(screenData: details.screenData())
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }

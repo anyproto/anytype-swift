@@ -2,7 +2,7 @@ import Services
 import UIKit
 import AnytypeCore
 
-protocol ChatActionServiceProtocol: AnyObject {
+protocol ChatActionServiceProtocol: AnyObject, Sendable {
     func createMessage(
         chatId: String,
         spaceId: String,
@@ -21,14 +21,11 @@ protocol ChatActionServiceProtocol: AnyObject {
     ) async throws
 }
 
-final class ChatActionService: ChatActionServiceProtocol {
+final class ChatActionService: ChatActionServiceProtocol, Sendable {
     
-    @Injected(\.chatInputConverter)
-    private var chatInputConverter: any ChatInputConverterProtocol
-    @Injected(\.fileActionsService)
-    private var fileActionsService: any FileActionsServiceProtocol
-    @Injected(\.chatService)
-    private var chatService: any ChatServiceProtocol
+    private let chatInputConverter: any ChatInputConverterProtocol = Container.shared.chatInputConverter()
+    private let fileActionsService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
+    private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     
     func createMessage(
         chatId: String,
@@ -72,7 +69,6 @@ final class ChatActionService: ChatActionServiceProtocol {
             case .uploadedObject(let objectDetails):
                 var attachment = ChatMessageAttachment()
                 attachment.target = objectDetails.id
-                attachment.type = .link
                 chatMessage.attachments.append(attachment)
             case .localPhotosFile(let chatLocalFile):
                 guard let data = chatLocalFile.data else { continue }
@@ -93,7 +89,6 @@ final class ChatActionService: ChatActionServiceProtocol {
         let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
         var attachment = ChatMessageAttachment()
         attachment.target = fileDetails.id
-        attachment.type = .link
         return attachment
     }
 }

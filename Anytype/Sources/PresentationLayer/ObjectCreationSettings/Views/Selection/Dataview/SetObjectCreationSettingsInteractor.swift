@@ -1,4 +1,4 @@
-import Combine
+@preconcurrency import Combine
 import Services
 import AnytypeCore
 
@@ -176,10 +176,13 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private func loadTemplates() {
         Task {
             await templatesSubscription.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] details in
-                guard let self else { return }
-                templatesDetails = details
-                updateTypeDefaultTemplateId()
+                await self?.handleTemplates(details: details)
             }
         }
+    }
+    
+    private func handleTemplates(details: [ObjectDetails]) {
+        templatesDetails = details
+        updateTypeDefaultTemplateId()
     }
 }

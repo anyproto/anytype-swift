@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
-"NSCameraUsageDescription" = "একটি নিরাপদ এবং সুবিধাজনক লগইন অভিজ্ঞতার জন্য QR কোড স্ক্যান করতে ক্যামেরা ব্যবহার করা হয়";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "আপনার কাছাকাছি ডিভাইসগুলির মধ্যে সরাসরি তথ্য সিঙ্ক্রোনাইজ করতে স্থানীয় নেটওয়ার্ক অ্যাক্সেস ব্যবহার করা হয়";
 "NSPhotoLibraryAddUsageDescription" = "আপনার লাইব্রেরিতে নির্বাচিত ছবি সংরক্ষণ করতে প্রবেশের অনুমতি প্রয়োজন";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

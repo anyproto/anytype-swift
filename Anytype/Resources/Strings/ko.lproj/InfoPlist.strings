@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID는 키 체인에 안전하게 저장된 키를 검색하는데 사용됩니다.";
-"NSCameraUsageDescription" = "안전하고 편리한 로그인 환경을 위해 카메라를 사용하여 QR 코드를 스캔합니다.";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "로컬 네트워크 액세스는 주변 장치 간에 데이터를 직접 동기화하는데 사용됩니다.";
 "NSPhotoLibraryAddUsageDescription" = "라이브러리에 선택한 이미지를 저장하려면 액세스 권한이 필요합니다.";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

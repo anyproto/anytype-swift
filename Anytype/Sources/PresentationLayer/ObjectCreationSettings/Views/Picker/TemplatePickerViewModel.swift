@@ -1,5 +1,5 @@
 import Services
-import Combine
+@preconcurrency import Combine
 import SwiftUI
 
 @MainActor
@@ -65,7 +65,6 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
         self.data = data
         self.output = output
         self.options = buildBlankOptions()
-        self.loadTemplates()
     }
 
     func onApplyButton() {
@@ -99,6 +98,19 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
         return items[index]
     }
     
+    func startTemplateSubscription() async {
+        guard let typeId = data.typeId else { return }
+        let publisher = await templatesSubscriptionService.startSubscription(
+            objectType: typeId,
+            spaceId: data.spaceId,
+            update: nil
+        )
+        for await templates in publisher.values {
+            updateItems(with: templates)
+            setupDefaultItem()
+        }
+    }
+    
     private func buildBlankOptions() -> [SelectionOptionsItemViewModel] {
         BlankTemplateSetting.allCases.map { setting in
             SelectionOptionsItemViewModel(
@@ -109,20 +121,6 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
                     self?.output?.setAsDefaultBlankTemplate()
                 }
             )
-        }
-    }
-    
-    private func loadTemplates() {
-        guard let typeId = data.typeId else { return }
-        
-        Task {
-            await templatesSubscriptionService.startSubscription(
-                objectType: typeId,
-                spaceId: data.spaceId
-            ) { [weak self] templates in
-                self?.updateItems(with: templates)
-                self?.setupDefaultItem()
-            }
         }
     }
     

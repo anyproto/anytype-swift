@@ -10,7 +10,7 @@ protocol AllContentSubscriptionServiceProtocol: AnyObject {
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
         limit: Int,
-        update: @escaping ([ObjectDetails], Int) -> Void
+        update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async
     func stopSubscription() async
 }
@@ -34,7 +34,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
         limit: Int,
-        update: @escaping ([ObjectDetails], Int) -> Void
+        update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async {
         
         let filters: [DataviewFilter] = .builder {
@@ -66,7 +66,7 @@ final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            update(data.items, data.prevCount)
+            await update(data.items, data.prevCount)
         }
     }
     

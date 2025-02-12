@@ -1,10 +1,9 @@
 import Foundation
 import Combine
 import Services
+import AnytypeCore
 
-
-@MainActor
-protocol ParticipantSpacesStorageProtocol: AnyObject {
+protocol ParticipantSpacesStorageProtocol: AnyObject, Sendable {
     var allParticipantSpaces: [ParticipantSpaceViewData] { get }
     var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> { get }
     var spaceSharingInfo: SpaceSharingInfo? { get }
@@ -20,7 +19,9 @@ extension ParticipantSpacesStorageProtocol {
     }
     
     var activeParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> {
-        allParticipantSpacesPublisher.map { $0.filter(\.spaceView.isActive) }
+        allParticipantSpacesPublisher.map {
+            $0.filter { $0.spaceView.isActive || $0.spaceView.isJoining }
+        }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
@@ -45,66 +46,50 @@ extension ParticipantSpacesStorageProtocol {
     }
 }
 
-@MainActor
 final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     
     // MARK: - DI
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.serverConfigurationStorage)
-    private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
-    @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
+    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
+    private let serverConfigurationStorage: any ServerConfigurationStorageProtocol = Container.shared.serverConfigurationStorage()
+    private let profileStorage: any ProfileStorageProtocol = Container.shared.profileStorage()
     
-    private var subscriptions: [AnyCancellable] = []
-    private let subId = "ParticipantSpacesStorage-\(UUID().uuidString)"
+    private let subscription = AtomicStorage<AnyCancellable?>(nil)
     
-    private var sharedSpacesLimit: Int?
-    
-    // MARK: - State
+    private let allParticipantSpacesStorage = AtomicPublishedStorage<[ParticipantSpaceViewData]>([])
 
-    @Published private(set) var allParticipantSpaces: [ParticipantSpaceViewData] = []
-    var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> { $allParticipantSpaces.eraseToAnyPublisher() }
+    // MARK: - Public
+    
+    var allParticipantSpaces: [ParticipantSpaceViewData] { allParticipantSpacesStorage.value }
+    var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> {
+        allParticipantSpacesStorage.publisher.removeDuplicates().eraseToAnyPublisher()
+    }
     
     nonisolated init() {}
     
     var spaceSharingInfo: SpaceSharingInfo? {
-        guard let sharedSpacesLimit else { return nil }
+        guard let sharedSpacesLimit = profileStorage.profile.sharedSpacesLimit else { return nil }
         let sharedSpacesCount = allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count
         return SpaceSharingInfo(sharedSpacesLimit: sharedSpacesLimit, sharedSpacesCount: sharedSpacesCount)
     }
     
     func startSubscription() async {
-        Publishers.CombineLatest(workspaceStorage.allWorkspsacesPublisher, accountParticipantsStorage.participantsPublisher)
+        subscription.value = Publishers.CombineLatest(workspaceStorage.allWorkspsacesPublisher, accountParticipantsStorage.participantsPublisher)
             .sink { [weak self] spaces, participants in
                 self?.updateData(spaces: spaces, participants: participants)
             }
-            .store(in: &subscriptions)
-        
-        await subscriptionService.startSubscription(
-            subId: subId,
-            spaceId: accountManager.account.info.techSpaceId,
-            objectId: accountManager.account.info.profileObjectID,
-            additionalKeys: [.sharedSpacesLimit]
-        ) { [weak self] details in
-            self?.sharedSpacesLimit = details.sharedSpacesLimit
-        }
     }
     
     func stopSubscription() async {
-        subscriptions.removeAll()
-        await subscriptionService.stopSubscription(subId: subId)
+        subscription.value?.cancel()
+        subscription.value = nil
     }
     
     // MARK: - Private
     
     private func updateData(spaces: [SpaceView], participants: [Participant]) {
-        allParticipantSpaces = spaces.compactMap { space in
+        allParticipantSpacesStorage.value = spaces.compactMap { space in
             let participant = participants.first(where:  { $0.spaceId == space.targetSpaceId })
             let permissions = SpacePermissions(
                 spaceView: space,

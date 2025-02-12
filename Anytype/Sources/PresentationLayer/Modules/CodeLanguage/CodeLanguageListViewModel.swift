@@ -9,6 +9,7 @@ struct CodeLanguageListData: Identifiable, Hashable {
     var id: Int { hashValue }
 }
 
+@MainActor
 final class CodeLanguageListViewModel: ObservableObject {
     
     // MARK: - DI

@@ -35,10 +35,10 @@ struct SpaceSettingsCoordinatorView: View {
                 }
         }
         .sheet(item: $model.showSpaceShareData) {
-            SpaceShareCoordinatorView(workspaceInfo: $0)
+            SpaceShareCoordinatorView(data: $0)
         }
-        .sheet(item: $model.showSpaceMembersDataSpaceId) {
-            SpaceMembersView(spaceId: $0.value)
+        .sheet(item: $model.showSpaceMembersData) {
+            SpaceMembersView(data: $0)
         }
         .sheet(item: $model.showIconPickerSpaceId) {
             SpaceObjectIconPickerView(spaceId: $0.value)

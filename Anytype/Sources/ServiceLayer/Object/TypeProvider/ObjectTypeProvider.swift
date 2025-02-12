@@ -7,7 +7,7 @@ enum ObjectTypeError: Error {
     case objectTypeNotFound
 }
 
-final class ObjectTypeProvider: ObjectTypeProviderProtocol {
+final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
     
     private enum Constants {
         static let subscriptionIdPrefix = "SubscriptionId.ObjectType-"
@@ -19,30 +19,27 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     // MARK: - DI
     
-    @Injected(\.objectTypeSubscriptionDataBuilder)
-    private var subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol
-    private var userDefaults: any UserDefaultsStorageProtocol
-    
-    private lazy var multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<ObjectType>(
-        subIdPrefix: Constants.subscriptionIdPrefix,
-        subscriptionBuilder: subscriptionBuilder
-    )
+    private let subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.objectTypeSubscriptionDataBuilder()
+    private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let multispaceSubscriptionHelper: MultispaceOneActiveSubscriptionHelper<ObjectType>
     
     // MARK: - Private variables
         
-    private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
+    private let searchTypesById = SynchronizedDictionary<String, ObjectType>()
     
     @Published private var defaultObjectTypes: [String: String] {
         didSet {
             userDefaults.defaultObjectTypes = defaultObjectTypes
         }
     }
-    @Published var sync: () = ()
-    var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
+    private let sync = AtomicPublishedStorage<Void>(())
+    var syncPublisher: AnyPublisher<Void, Never> { sync.publisher.eraseToAnyPublisher() }
 
     private init() {
-        let userDefaults = Container.shared.userDefaultsStorage()
-        self.userDefaults = userDefaults
+        multispaceSubscriptionHelper = MultispaceOneActiveSubscriptionHelper<ObjectType>(
+            subIdPrefix: Constants.subscriptionIdPrefix,
+            subscriptionBuilder: subscriptionBuilder
+        )
         defaultObjectTypes = userDefaults.defaultObjectTypes
     }
     
@@ -123,7 +120,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     func startSubscription(spaceId: String) async {
         await multispaceSubscriptionHelper.startSubscription(spaceId: spaceId) { [weak self] in
             self?.updateAllCache()
-            self?.sync = ()
+            self?.sync.value = ()
         }
     }
     

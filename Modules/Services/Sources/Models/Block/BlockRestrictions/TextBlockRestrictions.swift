@@ -1,3 +1,5 @@
+@preconcurrency import ProtobufMessages
+
 struct TextBlockRestrictions: BlockRestrictions {
     let canApplyBold = true
     let canApplyItalic = true

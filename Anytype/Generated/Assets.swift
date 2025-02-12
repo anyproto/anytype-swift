@@ -174,7 +174,8 @@ internal enum Asset {
     static let active = ColorAsset(name: "Control/active")
     static let button = ColorAsset(name: "Control/button")
     static let inactive = ColorAsset(name: "Control/inactive")
-    static let navPanelIcon = ColorAsset(name: "Control/navPanelIcon")
+    static let transparentActive = ColorAsset(name: "Control/transparentActive")
+    static let transparentInactive = ColorAsset(name: "Control/transparentInactive")
     static let white = ColorAsset(name: "Control/white")
   }
   internal enum Shape {

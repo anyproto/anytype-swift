@@ -5,7 +5,7 @@ import Services
 
 // Used in SpaceSetupManager
 @MainActor
-protocol ActiveSpaceSetterProtocol: AnyObject {
+protocol ActiveSpaceSetterProtocol: AnyObject, Sendable {
     func setActiveSpace(spaceId: String?) async throws
 }
 

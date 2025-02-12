@@ -51,7 +51,7 @@ extension SpaceView: SearchDataProtocol {
     var typeId: String { "" }
     var shouldShowCallout: Bool { false }
     var verticalInset: CGFloat { 0 }
-    var editorScreenData: EditorScreenData { .recentOpen(spaceId: targetSpaceId) }
+    var screenData: ScreenData { .editor(.recentOpen(spaceId: targetSpaceId)) }
     var shouldShowDescription: Bool { false }
     var descriptionTextColor: Color { Color.Text.primary }
     var descriptionFont: AnytypeFont { .relation3Regular}

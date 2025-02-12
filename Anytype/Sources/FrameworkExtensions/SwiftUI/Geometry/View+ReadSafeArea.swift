@@ -25,7 +25,7 @@ private struct SafeAreaCatcher: View {
 }
 
 private struct SafeAreaCatcherKey: PreferenceKey {
-    static var defaultValue = EdgeInsets()
+    static let defaultValue = EdgeInsets()
     static func reduce(value: inout EdgeInsets, nextValue: () -> EdgeInsets) {
         value = nextValue()
     }

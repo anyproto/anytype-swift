@@ -3,6 +3,7 @@ import UIKit
 import AnytypeCore
 import Combine
 
+@MainActor
 final class SlashMenuViewModel: ObservableObject {
     var onSlashAction: ((SlashAction) -> Void)?
     @Published private(set) var detailsMenuItems = [SlashMenuCellData]()

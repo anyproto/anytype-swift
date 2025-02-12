@@ -274,7 +274,8 @@ extension UIColor.Control {
             ColorInfo(name: "active", color: UIColor.Control.active)
             ColorInfo(name: "button", color: UIColor.Control.button)
             ColorInfo(name: "inactive", color: UIColor.Control.inactive)
-            ColorInfo(name: "navPanelIcon", color: UIColor.Control.navPanelIcon)
+            ColorInfo(name: "transparentActive", color: UIColor.Control.transparentActive)
+            ColorInfo(name: "transparentInactive", color: UIColor.Control.transparentInactive)
             ColorInfo(name: "white", color: UIColor.Control.white)
         }
     )

@@ -9,7 +9,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
     let document: any BaseDocumentProtocol
     
     private let showFailureToast: (_ message: String) -> ()
-    private let openSet: (EditorScreenData) -> ()
+    private let openSet: (ScreenData) -> ()
     private weak var reloadable: (any EditorCollectionReloadable)?
     private var targetDetails: ObjectDetails?
     
@@ -32,7 +32,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
         document: some BaseDocumentProtocol,
         reloadable: (any EditorCollectionReloadable)?,
         showFailureToast: @escaping (_ message: String) -> (),
-        openSet: @escaping (EditorScreenData) -> ()
+        openSet: @escaping (ScreenData) -> ()
     ) {
         self.blockInformationProvider = blockInformationProvider
         self.document = document
@@ -97,17 +97,17 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
         
         if FeatureFlags.fullInlineSetImpl, let pageId = info.configurationData.parentId {
             openSet(
-                .list(
+                .editor(.list(
                     EditorListObject(
                         objectId: pageId,
                         spaceId: objectDetails.spaceId,
                         inline: EditorInlineSetObject(blockId: info.id, targetObjectID: objectDetails.id)
                     )
-                )
+                ))
             )
         } else if !FeatureFlags.fullInlineSetImpl {
             openSet(
-                objectDetails.editorScreenData()
+                objectDetails.screenData()
             )
         }
     }

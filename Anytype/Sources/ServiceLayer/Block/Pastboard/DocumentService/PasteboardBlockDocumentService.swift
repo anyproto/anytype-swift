@@ -4,10 +4,9 @@ import Combine
 
 
 // Convenience wrapper of PasteboardBlockService
-final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtocol {
+final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtocol, Sendable {
     
-    @Injected(\.pasteboardBlockService)
-    private var service: any PasteboardBlockServiceProtocol
+    private let service: any PasteboardBlockServiceProtocol = Container.shared.pasteboardBlockService()
     
     var hasValidURL: Bool {
         service.hasValidURL
@@ -19,7 +18,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         service.pasteInsideBlock(
             objectId: objectId,
@@ -36,7 +35,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
         spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         service.pasteInSelectedBlocks(
             objectId: objectId,

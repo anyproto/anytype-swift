@@ -1,7 +1,7 @@
 import Services
 import Foundation
 
-protocol PasteboardBlockDocumentServiceProtocol: AnyObject {
+protocol PasteboardBlockDocumentServiceProtocol: AnyObject, Sendable {
     var hasValidURL: Bool { get }
     
     func pasteInsideBlock(
@@ -10,14 +10,14 @@ protocol PasteboardBlockDocumentServiceProtocol: AnyObject {
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation: @escaping () -> Void,
-        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     )
     func pasteInSelectedBlocks(
         objectId: String,
         spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     )
     
     func copy(document: some BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws

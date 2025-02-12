@@ -21,9 +21,10 @@ struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
     let moduleSetup: (_ builder: AnytypeDestinationBuilderHolder) -> Void
 
     func makeUIViewController(context: Context) -> UINavigationController {
-        let controller =  UINavigationController()
+        let controller =  FullScreenSwipeNavigationController()
         controller.setNavigationBarHidden(true, animated: false)
         controller.delegate = context.coordinator
+        
         moduleSetup(context.coordinator.builder)
         return controller
     }

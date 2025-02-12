@@ -64,6 +64,8 @@
 	<string>Network access. Non-localized value</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Photo Library access. Non-localized value</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access. Non-localized value</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>ConfigurationIntent</string>

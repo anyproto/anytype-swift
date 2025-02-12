@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import Combine
+@preconcurrency import Combine
 import os
 import Services
 import AnytypeCore
@@ -190,12 +190,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
                 return
             }
             
-            await templatesSubscriptionService.startSubscription(
+            _ = await templatesSubscriptionService.startSubscription(
                 objectType: details.type,
                 spaceId: document.spaceId
             ) { [weak self] details in
-                guard let self else { return }
-                viewInput?.update(details: document.details, templatesCount: details.count)
+                await self?.handleTemplateSubscription(details: details)
             }
         }
     }
@@ -211,6 +210,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     func tapOnEmptyPlace() {
         actionHandler.createEmptyBlock(parentId: document.objectId, spaceId: document.spaceId)
+    }
+    
+    private func handleTemplateSubscription(details: [ObjectDetails]) {
+        viewInput?.update(details: document.details, templatesCount: details.count)
     }
 }
 
@@ -321,7 +324,7 @@ extension EditorPageViewModel {
 
 // MARK: - Debug
 
-extension EditorPageViewModel: CustomDebugStringConvertible {
+extension EditorPageViewModel: @preconcurrency CustomDebugStringConvertible {
     var debugDescription: String {
         "\(Unmanaged.passUnretained(self).toOpaque()) -> \(String(reflecting: Self.self)) -> \(String(describing: document.objectId))"
     }

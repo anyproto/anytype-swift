@@ -2,7 +2,7 @@ import UIKit
 
 
 /// Protocol provides local paths where user data stored
-protocol LocalRepoServiceProtocol {
+protocol LocalRepoServiceProtocol: Sendable {
     /// Returns local path to middleware files
     var middlewareRepoPath: String { get }
     
@@ -14,7 +14,7 @@ protocol LocalRepoServiceProtocol {
 }
 
 
-class LocalRepoService: LocalRepoServiceProtocol {
+final class LocalRepoService: LocalRepoServiceProtocol, Sendable {
     
     var middlewareRepoPath: String {
         return middlewareRepoURL.path

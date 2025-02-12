@@ -98,9 +98,9 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     
     func closeEditor() {}
     
-    func showEditorScreen(data: EditorScreenData) {}
+    func showEditorScreen(data: ScreenData) {}
     
-    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {}
+    func didCreateLinkToItself(selfName: String, data: ScreenData) {}
     
     func didCreateTemplate(templateId: String) {}
     

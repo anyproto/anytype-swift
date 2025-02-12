@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import Services
+import SwiftUI
 
 @MainActor
 final class EditorNavigationBarHelper {
@@ -16,7 +17,9 @@ final class EditorNavigationBarHelper {
 
     private let settingsItem: UIEditorBarButtonItem
     private let syncStatusItem: EditorSyncStatusItem
-
+    private let rightContanerForEditing: UIView
+    private let backButton: UIView
+    
     private var contentOffsetObservation: NSKeyValueObservation?
     
     private var isObjectHeaderWithCover = false
@@ -68,6 +71,11 @@ final class EditorNavigationBarHelper {
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)
         
+        self.rightContanerForEditing = UIView()
+        
+        self.backButton = UIHostingController(rootView: PageNavigationBackButton()).view
+        self.backButton.backgroundColor = .clear
+        
         // Select all button
         var selectAllConfig = UIButton.Configuration.plain()
         selectAllConfig.baseForegroundColor = .Control.active
@@ -81,6 +89,14 @@ final class EditorNavigationBarHelper {
             ),
             for: .touchUpInside
         )
+        
+        self.rightContanerForEditing.layoutUsing.stack {
+            $0.hStack(
+                spacing: 12,
+                syncStatusItem,
+                settingsItem
+            )
+        }
     }
     
 }
@@ -103,7 +119,9 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             \.contentOffset,
             options: .new
         ) { [weak self] scrollView, _ in
-            self?.updateNavigationBarAppearanceBasedOnContentOffset(scrollView.contentOffset.y + scrollView.contentInset.top)
+            MainActor.assumeIsolated {
+                self?.updateNavigationBarAppearanceBasedOnContentOffset(scrollView.contentOffset.y + scrollView.contentInset.top)
+            }
         }
     }
     
@@ -159,11 +177,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         switch state {
         case .editing:
             navigationBarView.titleView = navigationBarTitleView
-            navigationBarView.rightButton = settingsItem
-            navigationBarView.leftButton = syncStatusItem
+            navigationBarView.rightButton = rightContanerForEditing
+            navigationBarView.leftButton = backButton
             lastMode.map { navigationBarTitleView.configure(model: $0) }
             navigationBarTitleView.setIsReadonly(nil)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
+            settingsItem.isHidden = false
         case .selecting(let blocks, let allSelected):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
@@ -182,11 +201,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarTitleView.setIsReadonly(nil)
         case .readonly:
             navigationBarView.titleView = navigationBarTitleView
-            navigationBarView.rightButton = settingsItem
-            navigationBarView.leftButton = syncStatusItem
+            navigationBarView.rightButton = rightContanerForEditing
+            navigationBarView.leftButton = backButton
             lastMode.map { navigationBarTitleView.configure(model: $0) }
             navigationBarTitleView.setIsReadonly(readonlyReason)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
+            settingsItem.isHidden = false
         case let .simpleTablesSelection(_, selectedBlocks, _):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
@@ -198,9 +218,10 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarTitleView.setIsReadonly(nil)
         case .loading:
             navigationBarView.titleView = navigationBarTitleView
-            navigationBarView.rightButton = nil
-            navigationBarView.leftButton = syncStatusItem
+            navigationBarView.rightButton = rightContanerForEditing
+            navigationBarView.leftButton = backButton
             navigationBarTitleView.setIsReadonly(nil)
+            settingsItem.isHidden = true
         }
     }
 }

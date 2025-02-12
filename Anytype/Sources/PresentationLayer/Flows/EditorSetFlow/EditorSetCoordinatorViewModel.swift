@@ -54,8 +54,8 @@ final class EditorSetCoordinatorViewModel:
     
     // MARK: - EditorSetModuleOutput
     
-    func showEditorScreen(data: EditorScreenData) {
-        pageNavigation?.push(data)
+    func showEditorScreen(data: ScreenData) {
+        pageNavigation?.open(data)
     }
     
     func replaceEditorScreen(data: EditorScreenData) {
@@ -187,7 +187,7 @@ final class EditorSetCoordinatorViewModel:
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     
-    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+    func didCreateLinkToItself(selfName: String, data: ScreenData) {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId, spaceId: data.spaceId) { [weak self] in

@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 struct SpaceView: Identifiable, Equatable {
     let id: String
@@ -12,7 +13,8 @@ struct SpaceView: Identifiable, Equatable {
     let spaceAccessType: SpaceAccessType?
     let readersLimit: Int?
     let writersLimit: Int?
-    let chatId: String?
+    let chatId: String
+    let isPinned: Bool
 }
 
 extension SpaceView: DetailsModel {
@@ -28,9 +30,10 @@ extension SpaceView: DetailsModel {
         self.readersLimit = details.readersLimit
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
+        self.isPinned = details.spaceOrder.isNotEmpty
     }
     
-    static var subscriptionKeys: [BundledRelationKey] = .builder {
+    static let subscriptionKeys: [BundledRelationKey] = .builder {
         BundledRelationKey.id
         BundledRelationKey.name
         BundledRelationKey.objectIconImageKeys
@@ -43,6 +46,7 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.writersLimit
         BundledRelationKey.sharedSpacesLimit
         BundledRelationKey.chatId
+        BundledRelationKey.spaceOrder
     }
 }
 
@@ -57,11 +61,28 @@ extension SpaceView {
     }
     
     var isActive: Bool {
-        localStatus == .ok && accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+        let spaceIsNotDeleted = accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+        let spaceIsNotJoining = accountStatus != .spaceJoining
+        return localStatus == .ok && spaceIsNotDeleted && spaceIsNotJoining
+    }
+    
+    var isJoining: Bool {
+        accountStatus == .spaceJoining
     }
     
     var isLoading: Bool {
-        localStatus == .loading && accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+        let spaceIsLoading = localStatus == .loading || localStatus == .unknown
+        let spaceIsNotDeleted = accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
+        let spaceIsNotJoining = accountStatus != .spaceJoining
+        return spaceIsLoading && spaceIsNotDeleted && spaceIsNotJoining
+    }
+    
+    var hasChat: Bool {
+        chatId.isNotEmpty
+    }
+    
+    var showChat: Bool {
+        hasChat && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {

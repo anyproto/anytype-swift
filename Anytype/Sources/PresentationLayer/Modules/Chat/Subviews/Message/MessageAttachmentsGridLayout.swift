@@ -1,11 +1,11 @@
 import Foundation
 import Factory
 
-protocol MessageAttachmentsGridLayoutBuilderProtocol {
+protocol MessageAttachmentsGridLayoutBuilderProtocol: Sendable {
     func makeGridRows(countItems: Int) -> [Int]
 }
 
-final class MessageAttachmentsGridLayoutBuilder: MessageAttachmentsGridLayoutBuilderProtocol {
+final class MessageAttachmentsGridLayoutBuilder: MessageAttachmentsGridLayoutBuilderProtocol, Sendable {
     func makeGridRows(countItems: Int) -> [Int] {
         
         var items = countItems

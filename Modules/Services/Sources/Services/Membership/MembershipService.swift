@@ -34,8 +34,7 @@ public extension MembershipServiceProtocol {
 
 final class MembershipService: MembershipServiceProtocol {
     
-    @Injected(\.membershipModelBuilder)
-    private var builder: any MembershipModelBuilderProtocol
+    private let builder: any MembershipModelBuilderProtocol = Container.shared.membershipModelBuilder()
     
     public func getMembership(noCache: Bool) async throws -> MembershipStatus {
         let status = try await ClientCommands.membershipGetStatus(.with {

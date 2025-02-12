@@ -1,7 +1,7 @@
 import Foundation
 import AnytypeCore
 
-public enum MarkupType: Equatable, Hashable, CaseIterable {
+public enum MarkupType: Equatable, Hashable, CaseIterable, Sendable {
     case bold
     case italic
     case keyboard

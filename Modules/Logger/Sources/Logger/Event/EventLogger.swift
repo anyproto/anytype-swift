@@ -1,10 +1,11 @@
 import Foundation
 import Logging
 import Pulse
+import PulseProxy
 
-public final class EventLogger {
+public final class EventLogger: Sendable {
     
-    public static var `default` = EventLogger(category: .default)
+    public static let `default` = EventLogger(category: .default)
     
     private let category: String
     private let loggerStore: LoggerStore
@@ -15,7 +16,7 @@ public final class EventLogger {
     }
     
     public static func setupLgger() {
-        Experimental.URLSessionProxy.shared.isEnabled = true
+        NetworkLogger.enableProxy()
     }
     
     public func log(
@@ -37,6 +38,7 @@ public final class EventLogger {
         )
     }
     
+    @MainActor
     public static func disableRemoteLogger() {
         RemoteLogger.shared.disable()
     }

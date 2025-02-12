@@ -10,8 +10,6 @@ final class RemoteStorageViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
-    @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
     @Injected(\.participantSpacesStorage)

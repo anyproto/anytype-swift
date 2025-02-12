@@ -46,6 +46,9 @@ struct ObjectTypeSearchView: View {
         .task {
             await viewModel.subscribeOnParticipant()
         }
+        .task {
+            await viewModel.handlePasteboard()
+        }
     }
     
     private var pasteButton: some View {

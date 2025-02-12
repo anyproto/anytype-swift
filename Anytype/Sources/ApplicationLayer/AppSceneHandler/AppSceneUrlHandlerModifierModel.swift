@@ -13,17 +13,30 @@ final class AppSceneUrlHandlerModifierModel: ObservableObject {
     @Injected(\.deepLinkParser)
     private var deepLinkParser: any DeepLinkParserProtocol
     
+    @Published var safariUrl: URL?
+    
     func onOpenURL(_ url: URL) -> Bool {
-        if let deepLink = deepLinkParser.parse(url: url) {
+        let urlWithScheme = url.urlByAddingHttpIfSchemeIsEmpty()
+        
+        if let deepLink = deepLinkParser.parse(url: urlWithScheme) {
             appActionStorage.action = .deepLink(deepLink)
             return true
         }
         
-        if let link = universalLinkParser.parse(url: url) {
+        if let link = universalLinkParser.parse(url: urlWithScheme) {
             appActionStorage.action = .deepLink(link.toDeepLink())
             return true
         }
         
+        if urlWithScheme.host() == AppLinks.storeHost {
+            return false
+        }
+        
+        if urlWithScheme.containsHttpProtocol {
+            safariUrl = urlWithScheme
+            return true
+        }
+       
         return false
     }
 }

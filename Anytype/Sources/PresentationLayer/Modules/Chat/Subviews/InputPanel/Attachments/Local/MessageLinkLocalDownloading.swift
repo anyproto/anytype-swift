@@ -6,8 +6,8 @@ struct MessageLinkLocalDownloading: View {
     
     var body: some View {
         ZStack {
-            DotsView()
-                .frame(width: 40, height: 6)
+            CircleLoadingView()
+                .frame(width: 32, height: 32)
         }
         .frame(width: 72, height: 72)
         .background(Color.Background.secondary)

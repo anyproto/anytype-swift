@@ -1,11 +1,11 @@
 import Services
 import SwiftProtobuf
 
-protocol SetPrefilledFieldsBuilderProtocol {
+protocol SetPrefilledFieldsBuilderProtocol: Sendable {
     func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [RelationDetails]) -> ObjectDetails
 }
 
-final class SetPrefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol {
+final class SetPrefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol, Sendable {
     
     private let prefilledConditions: [DataviewFilter.Condition] = [.allIn, .equal, .in]
     

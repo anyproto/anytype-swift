@@ -1,7 +1,7 @@
 import Foundation
 import AnytypeCore
 
-protocol AppVersionUpdateServiceProtocol: AnyObject {
+protocol AppVersionUpdateServiceProtocol: AnyObject, Sendable {
     func prepareData()
     func newVersionIsAvailable() async throws -> Bool
 }
@@ -35,7 +35,7 @@ actor AppVersionUpdateService: AppVersionUpdateServiceProtocol {
     private func updateData() async throws {
         vesionChecked = true
         
-        guard let appVersion = await appVersionTracker.currentVersion() else { return }
+        guard let appVersion = appVersionTracker.currentVersion() else { return }
         
         guard let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(AppId.production)") else { return }
         

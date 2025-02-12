@@ -2,12 +2,12 @@ import Foundation
 import Sentry
 
 @MainActor
-protocol AppErrorLoggerConfigurationProtocol: AnyObject {
+protocol AppErrorLoggerConfigurationProtocol: AnyObject, Sendable {
     func setUserId(_ userId: String)
 }
 
 @MainActor
-final class AppErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol {
+final class AppErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol, Sendable {
     
     nonisolated init() {}
     

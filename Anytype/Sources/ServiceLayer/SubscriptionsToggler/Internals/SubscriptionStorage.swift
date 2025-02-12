@@ -1,14 +1,14 @@
 import Foundation
 import Services
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 
-protocol SubscriptionStorageProtocol: AnyObject {
+protocol SubscriptionStorageProtocol: AnyObject, Sendable {
     var subId: String { get }
     var detailsStorage: ObjectDetailsStorage { get }
     
     var statePublisher: AnyPublisher<SubscriptionStorageState, Never> { get }
-    func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping (_ state: SubscriptionStorageState) -> Void) async throws
+    func startOrUpdateSubscription(data: SubscriptionData, update: @escaping @Sendable (_ state: SubscriptionStorageState) async -> Void) async throws
     func startOrUpdateSubscription(data: SubscriptionData) async throws
     func stopSubscription() async throws
 }
@@ -26,7 +26,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     private var subscription: AnyCancellable?
     
     private var data: SubscriptionData?
-    private var update: (@MainActor (_ data: SubscriptionStorageState) -> Void)?
+    private var update: (@Sendable (_ data: SubscriptionStorageState) async -> Void)?
     
     private var orderIds: [String] = []
     private var state = SubscriptionStorageState(total: 0, nextCount: 0, prevCount: 0, items: [])
@@ -52,7 +52,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         try await startOrUpdateSubscription(data: data, update: { _ in })
     }
     
-    func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping (_ state: SubscriptionStorageState) -> Void) async throws {
+    func startOrUpdateSubscription(data: SubscriptionData, update: @escaping @Sendable (_ state: SubscriptionStorageState) async -> Void) async throws {
         guard subId == data.identifier else {
             anytypeAssertionFailure("Ids should be equals", info: ["old id": subId, "new id": data.identifier])
             return

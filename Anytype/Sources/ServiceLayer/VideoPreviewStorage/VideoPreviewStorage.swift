@@ -3,7 +3,7 @@ import Cache
 import UIKit
 import AVKit
 
-protocol VideoPreviewStorageProtocol {
+protocol VideoPreviewStorageProtocol: Sendable {
     func preview(url: URL, size: CGSize) async throws -> UIImage
 }
 

@@ -1,6 +1,7 @@
 import Foundation
 import Lib
 import SwiftProtobuf
+import os
 
 /// Adapts interface of private framework.
 public protocol ServiceEventsHandlerProtocol: AnyObject {
@@ -16,8 +17,10 @@ public protocol ServiceEventsHandlerProtocol: AnyObject {
 /// - Subscribes as event handler to library events stream.
 /// - Transfer events from library to a value.
 ///
-public class ServiceMessageHandlerAdapter {
+public class ServiceMessageHandlerAdapter: @unchecked Sendable {
     
+    private let lock = OSAllocatedUnfairLock()
+
     private var handlers: [WeakHandler] = []
     private var listener: ServiceMessageHandler?
     
@@ -28,11 +31,15 @@ public class ServiceMessageHandlerAdapter {
     }
     
     public func addHandler(handler: ServiceEventsHandlerProtocol) {
+        lock.lock()
+        defer { lock.unlock() }
         handlers.removeAll { $0.value == nil }
         handlers.append(WeakHandler(handler))
     }
     
     private func listen() {
+        lock.lock()
+        defer { lock.unlock() }
         listener = ServiceMessageHandler { [weak self] event in
             guard let self else { return }
             for handler in handlers {
@@ -44,22 +51,22 @@ public class ServiceMessageHandlerAdapter {
 }
 
 /// Private `ServiceMessageHandlerProtocol` adoption.
-fileprivate class ServiceMessageHandler: NSObject, ServiceMessageHandlerProtocol {
+fileprivate final class ServiceMessageHandler: NSObject, Sendable, ServiceMessageHandlerProtocol {
     
-    var handler: (_ event: Anytype_Event) async -> Void
+    let handler: @Sendable (_ event: Anytype_Event) async -> Void
     
-    init(handler: @escaping (_: Anytype_Event) async -> Void) {
+    init(handler: @escaping @Sendable (_: Anytype_Event) async -> Void) {
         self.handler = handler
     }
     
     public func handle(_ data: Data?) {
         Task {
             guard let data = data,
-                  let event = try? Anytype_Event(serializedData: data)
+                  let event = try? Anytype_Event(serializedBytes: data)
             else { return }
             
             log(event: event)
-            await self.handler(event)
+            await handler(event)
         }
     }
     

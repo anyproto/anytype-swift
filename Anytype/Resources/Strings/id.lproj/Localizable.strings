@@ -74,7 +74,7 @@
 "Create relation" = "Buat relasi ‘%@’";
 "Relation.View.Hint.Empty" = "kosong";
 "Relation.MyRelations" = "Relasiku";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "Relasi '%@' telah dibuat";
 "Relation.Deleted" = "Relasi terhapus";
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.EmptyState.title" = "Tidak ada opsi";
@@ -104,8 +104,6 @@
 "Relation.Format.Phone.Title" = "Nomor telepon";
 
 "Relation.Search.View.Placeholder" = "Telusuri atau buat relasi baru";
-
-"Relation.Mention.title" = "Disebut di";
 
 // Origin Relation
 
@@ -164,6 +162,7 @@
 "Move" = "Pindahkan";
 "Move to" = "Pindahkan ke";
 "Back" = "Kembali";
+"Pin" = "Pin";
 "Unpin" = "Lepas sematan";
 "Pin on top" = "Sematkan di atas";
 "File block subtitle" = "Simpan berkas sebagaimana aslinya";
@@ -211,6 +210,8 @@
 "Open file" = "Buka berkas";
 "Open Set" = "Buka Set";
 "Create Set" = "Buat Set";
+"Unsupported deeplink" = "Unsupported deeplink";
+"Edit Profile" = "Edit Profile";
 
 // Home
 "Favorites" = "Favorit";
@@ -580,6 +581,7 @@
 "Types" = "Tipe";
 "No name" = "Tanpa nama";
 "New relation" = "Relasi baru";
+"Edit field" = "Edit field";
 "Non-existent object" = "Objek tidak ada";
 
 "Select all" = "Pilih semua";
@@ -704,6 +706,7 @@
 "Show" = "Tampilkan";
 "Hide" = "Sembunyikan";
 "Apply" = "Terapkan";
+"Leave a space" = "Leave a space";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
@@ -722,7 +725,7 @@
 "ObjectType.SearchOrInstall" = "Telusuri atau buat tipe baru";
 "ObjectType.Search" = "Telusuri Tipe";
 "ObjectType.MyTypes" = "Tipeku";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.AddedToLibrary" = "Tipe '%@' telah dibuat";
 "ObjectType.DeletedName" = "Tipe yang terhapus";
 "ObjectType.editingType" = "You're editing type";
 
@@ -934,7 +937,6 @@
 "SpaceSettings.DeleteButton" = "Hapus ruang";
 "SpaceSettings.Share" = "Bagikan";
 "SpaceSettings.LeaveButton" = "Keluar";
-"SpaceSettings.LeaveAlert.Title" = "Tinggalkan ruang";
 "SpaceSettings.LeaveAlert.Message" = "Ruang %@ akan dihapus dari perangkat-perangkatmu dan kamu tidak akan bisa mengaksesnya lagi.";
 "SpaceSettings.LeaveAlert.Toast" = "Kamu keluar dari %@.";
 
@@ -975,6 +977,9 @@
 "SpaceShare.Join.InviteNotFound" = "Sepertinya tautan ini tidak bisa digunakan";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
+"SpaceShare.Join.ObjectIsNotAvailable" = "Objek tidak tersedia. Mintalah pemiliknya untuk membagikannya.";
+"SpaceShare.Join.SpaceDeleted" = "Ruang yang ingin kamu akses sudah dihapus";
+
 "SpaceShare.YouSuffix" = "%@ (kamu)";
 "SpaceShare.ManageSpaces" = "Kelola Ruang";
 "SpaceShare.AccessChanged" = "Hak akses telah diubah.";
@@ -1239,6 +1244,7 @@ Please provide specific details of your needs here.";
 
 // MARK: - Date
 "Date.Object.Empty.State.title" = "Belum ada apa-apa untuk tanggal ini";
+"Date.Open.Action.title" = "Buka tanggal terpilih";
 
 // MARK: - All Content
 "AllContent.Settings.Sort.Title" = "Sort by";
@@ -1259,8 +1265,22 @@ Please provide specific details of your needs here.";
 "Chat.ReplyTo" = "Balas %@";
 "Chat.Empty.Title" = "Belum ada pesan di sini …";
 "Chat.Empty.Description" = "Tulis pesan untuk memulai obrolan";
-"Chat.Reactions.Empty.Title" = "No reactions yet";
-"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.DeleteMessage.Title" = "Hapus pesan ini?";
+"Chat.DeleteMessage.Description" = "Pesan tak dapat dikembalikan lagi";
+"Chat.Reactions.Empty.Title" = "Belum ada reaksi";
+"Chat.Reactions.Empty.Subtitle" = "Mungkin seseorang menghapus reaksinya atau ada masalah teknis";
+"Chat.EditMessage" = "Sunting Pesan";
+"Chat.Actions.Menu.Objects" = "Pilih objek yang sudah ada";
+"Chat.Actions.Menu.Media" = "Unggah media";
+"Chat.Actions.Menu.Files" = "Unggah berkas";
+"Chat.Actions.Menu.Camera" = "Ambil dari kamera";
+"Chat.Participant.Badge" = "(Kamu)";
+"Chat.Reply.Images" = "Gambar (%@)";
+"Chat.Reply.Attachments" = "Lampiran (%@)";
+"Chat.Reply.Files" = "Berkas (%@)";
+"Chat.SendLimitAlert.Title" = "Bentar-bentar, banter banget!";
+"Chat.SendLimitAlert.Message" = "Sepertinya kamu mengirimkan terlalu banyak pesan. Tunggu sebentar sebelum mengirim pesan lagi.";
+"Chat.AttachmentsLimit.Alert" = "Kamu hanya bisa mengunggah %@ berkas pada waktu yang sama";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";

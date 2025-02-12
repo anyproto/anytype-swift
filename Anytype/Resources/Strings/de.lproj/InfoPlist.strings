@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID wird verwendet, um deinen Schlüssel abzurufen, der sicher im Schlüsselbund gespeichert ist";
-"NSCameraUsageDescription" = "Die Kamera wird zum Scannen von QR-Codes verwendet, für eine sichere und benutzerfreundliche Anmeldung";
+"NSCameraUsageDescription" = "Erlaube den Zugriff auf die Kamera, um QR-Codes zu scannen, Fotos aufzunehmen und sie an Nachrichten anzuhängen";
 "NSLocalNetworkUsageDescription" = "Lokaler Netzwerkzugriff wird verwendet, um Daten direkt zwischen deinen Geräten in der Nähe zu synchronisieren";
 "NSPhotoLibraryAddUsageDescription" = "Zugriff ist erforderlich, um die ausgewählte Bilder in deiner Bibliothek zu speichern";
+"NSMicrophoneUsageDescription" = "Erlaube den Zugriff auf das Mikrofon, um Videos aufzunehmen und sie an Nachrichten anzuhängen";

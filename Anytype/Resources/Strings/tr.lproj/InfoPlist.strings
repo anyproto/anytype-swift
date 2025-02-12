@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID, Keychain'de güvenli bir şekilde saklanan Kurtarma Anahtarınızı almak için kullanılır";
-"NSCameraUsageDescription" = "Kamera güvenli ve rahat bir oturum açma deneyimi için QR kodlarını taramakta kullanılır.";
+"NSCameraUsageDescription" = "QR kodlarını taramak, fotoğraf çekmek ve bunları mesajlara eklemek için kamera erişimine izin verin";
 "NSLocalNetworkUsageDescription" = "Yerel ağ erişimi yakındaki cihazlarınız arasında doğrudan veri senkronizasyonu yapmak için kullanılır";
 "NSPhotoLibraryAddUsageDescription" = "Seçilen resimleri kitaplığınıza kaydetmek için erişim gerekiyor";
+"NSMicrophoneUsageDescription" = "Video kaydetmek ve mesajlara eklemek için mikrofon erişimine izin verin";

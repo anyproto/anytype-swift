@@ -6,10 +6,10 @@ import Services
 final class SpaceShareCoordinatorViewModel: ObservableObject {
     
     @Published var showMoreInfo = false
-    let workspaceInfo: AccountInfo
+    let data: SpaceShareData
     
-    init(workspaceInfo: AccountInfo) {
-        self.workspaceInfo = workspaceInfo
+    init(data: SpaceShareData) {
+        self.data = data
     }
     
     func onMoreInfoSelected() {

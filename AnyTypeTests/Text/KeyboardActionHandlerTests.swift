@@ -3,6 +3,7 @@ import XCTest
 @testable import Services
 @testable import AnytypeCore
 
+@MainActor
 class KeyboardActionHandlerTests: XCTestCase {
     private var handler: KeyboardActionHandler!
     private var service: BlockActionServiceMock!
@@ -13,11 +14,12 @@ class KeyboardActionHandlerTests: XCTestCase {
     
     @MainActor 
     override func setUpWithError() throws {
-        Container.shared.blockService.register { [weak self] in self!.blockService }
+        let blockServiceMock = BlockServiceMock()
+        Container.shared.blockService.register { blockServiceMock }
         
         service = BlockActionServiceMock()
         toggleStorage = ToggleStorage()
-        blockService = BlockServiceMock()
+        blockService = blockServiceMock
         infoContainer = InfoContainerMock()
         handler = KeyboardActionHandler(
             documentId: "",
@@ -612,7 +614,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
 
         try await handler.handle(info: info, textView: textView, action: .delete)
-        eventually()
+
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id")
     }
@@ -622,7 +624,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
 
         try await handler.handle(info: info, textView: textView, action: .delete)
-        eventually()
+
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id")
     }
@@ -713,7 +715,6 @@ class KeyboardActionHandlerTests: XCTestCase {
         
         try await handler.handle(info: info2, textView: textView, action: .delete)
         
-        eventually()
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id2")
     }
@@ -725,7 +726,6 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
         try await handler.handle(info: info, textView: textView, action: .delete)
         
-        eventually()
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id")
     }
@@ -738,7 +738,6 @@ class KeyboardActionHandlerTests: XCTestCase {
 
         try await handler.handle(info: info, textView: textView, action: .delete)
         
-        eventually()
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id")
     }
@@ -751,7 +750,6 @@ class KeyboardActionHandlerTests: XCTestCase {
         
         try await handler.handle(info: child, textView: textView, action: .delete)
         
-        eventually()
         XCTAssertEqual(blockService.moveNumberOfCalls, 1)
         XCTAssertEqual(blockService.moveBlockId, "childId")
         XCTAssertEqual(blockService.moveTargetId, "parentId")
@@ -767,7 +765,6 @@ class KeyboardActionHandlerTests: XCTestCase {
         // when
         try await handler.handle(info: child2, textView: textView, action: .delete)
         
-        eventually()
         XCTAssertEqual(blockService.moveNumberOfCalls, 1)
         XCTAssertEqual(blockService.moveBlockId, "childId2")
         XCTAssertEqual(blockService.moveTargetId, "parentId")
@@ -784,7 +781,6 @@ class KeyboardActionHandlerTests: XCTestCase {
         // when
         try await handler.handle(info: child1, textView: textView, action: .delete)
         
-        eventually()
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "childId1")
     }
@@ -807,14 +803,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         // when
         try await handler.handle(info: child, textView: textView, action: .delete)
         
-        eventually()
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "childId")
     }
     
     // MARK: - Private
     private func validateTurnInto() {
-        eventually()
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle, .text)
         XCTAssertEqual(service.turnIntoBlockId, "id")

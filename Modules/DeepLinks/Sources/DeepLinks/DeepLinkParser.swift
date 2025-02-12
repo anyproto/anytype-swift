@@ -1,22 +1,21 @@
 import Foundation
 
 
-public protocol DeepLinkParserProtocol: AnyObject {
+public protocol DeepLinkParserProtocol: AnyObject, Sendable {
     func parse(url: URL) -> DeepLink?
     func createUrl(deepLink: DeepLink, scheme: DeepLinkScheme) -> URL?
 }
 
-final class DeepLinkParser: DeepLinkParserProtocol {
+final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
 
     private enum LinkPaths {
         static let createObjectWidget = "create-object-widget"
         static let sharingExtenstion = "sharing-extension"
-        static let spaceSelection = "space-selection"
         static let galleryImport = "main/import"
         static let invite = "invite"
         static let object = "object"
-        static let spaceShareTip = "spaceShareTip"
         static let membership = "membership"
+        static let networkConfig = "networkConfig"
     }
 
     private let isDebug: Bool
@@ -56,8 +55,6 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             return .createObjectFromWidget
         case LinkPaths.sharingExtenstion:
             return .showSharingExtension
-        case LinkPaths.spaceSelection:
-            return .spaceSelection
         case LinkPaths.galleryImport:
             guard let type = queryItems.stringValue(key: "type"),
                   let source = queryItems.stringValue(key: "source") else { return nil }
@@ -72,11 +69,12 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             let cid = queryItems.stringValue(key: "cid")
             let key = queryItems.stringValue(key: "key")
             return .object(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
-        case LinkPaths.spaceShareTip:
-            return .spaceShareTip
         case LinkPaths.membership:
             guard let tier = queryItems.intValue(key: "tier") else { return nil }
             return .membership(tierId: tier)
+        case LinkPaths.networkConfig:
+            guard let config = queryItems.stringValue(key: "config") else { return nil }
+            return .networkConfig(config: config)
         default:
             return nil
         }
@@ -91,8 +89,6 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             return URL(string: host + LinkPaths.createObjectWidget)
         case .showSharingExtension:
             return URL(string: host + LinkPaths.sharingExtenstion)
-        case .spaceSelection:
-            return URL(string: host + LinkPaths.spaceSelection)
         case .galleryImport(let type, let source):
             guard var components = URLComponents(string: host + LinkPaths.galleryImport) else { return nil }
             components.queryItems = [
@@ -118,12 +114,17 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             ]
             
             return components.url
-        case .spaceShareTip:
-            return URL(string: host + LinkPaths.spaceShareTip)
         case .membership(let tierId):
             guard var components = URLComponents(string: host + LinkPaths.membership) else { return nil }
             components.queryItems = [
                 URLQueryItem(name: "tier", value: String(tierId)),
+            ]
+            
+            return components.url
+        case .networkConfig(let config):
+            guard var components = URLComponents(string: host + LinkPaths.networkConfig) else { return nil }
+            components.queryItems = [
+                URLQueryItem(name: "config", value: config)
             ]
             
             return components.url

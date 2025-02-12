@@ -7,7 +7,7 @@ import UniformTypeIdentifiers
 import PhotosUI
 import SwiftUI
 
-final class FileActionsService: FileActionsServiceProtocol {
+final class FileActionsService: FileActionsServiceProtocol, Sendable {
     
     private enum FileServiceError: Error {
         case undefiled
@@ -45,22 +45,23 @@ final class FileActionsService: FileActionsServiceProtocol {
         ]
     }
     
-    // Clear file cache once for app launch
-    private static var cacheCleared: Bool = false
-    @Injected(\.fileService)
-    private var fileService: any FileServiceProtocol
+    // Clear file cache once for app launch. Should be as singletone in DI.
+    private let cacheCleared = AtomicStorage(false)
+    private let fileService: any FileServiceProtocol = Container.shared.fileService()
+    
+    private let dateTimeFormatter = DateFormatter.photoDateTimeFormatter
     
     init() {
-        if !FileActionsService.cacheCleared {
+        if !cacheCleared.value {
             clearFileCache()
-            FileActionsService.cacheCleared = true
+            cacheCleared.value = true
         }
     }
     
     func createFileData(source: FileUploadingSource) async throws -> FileData {
         switch source {
         case .path(let path):
-            return FileData(path: path, type: .data, isTemporary: false)
+            return FileData(path: path, type: .data, sizeInBytes: nil, isTemporary: false)
         case .itemProvider(let itemProvider):
             let typeIdentifier = itemProvider.registeredTypeIdentifiers.compactMap { typeId in
                 Constants.supportedUploadedTypes.first { $0.identifier == typeId }
@@ -69,7 +70,8 @@ final class FileActionsService: FileActionsServiceProtocol {
                 throw FileServiceError.undefiled
             }
             let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: typeIdentifier.identifier, directory: tempDirectoryPath())
-            return FileData(path: url.relativePath, type: typeIdentifier, isTemporary: true)
+            let resources = try url.resourceValues(forKeys: [.fileSizeKey])
+            return FileData(path: url.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
         }
     }
  
@@ -90,7 +92,35 @@ final class FileActionsService: FileActionsServiceProtocol {
             let newFilePath = newPath.appendingPathComponent(data.url.lastPathComponent, isDirectory: false)
             try FileManager.default.moveItem(at: data.url, to: newFilePath)
             
-            return FileData(path: newFilePath.relativePath, type: typeIdentifier, isTemporary: true)
+            let resources = try newFilePath.resourceValues(forKeys: [.fileSizeKey])
+            return FileData(path: newFilePath.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
+        } catch {
+            anytypeAssertionFailure(error.localizedDescription)
+            throw error
+        }
+    }
+    
+    func createFileData(image: UIImage, type: String) throws -> FileData {
+        do {
+            guard let typeIdentifier = UTType(type), Constants.supportedUploadedTypes.contains(typeIdentifier) else {
+                throw FileServiceError.undefiled
+            }
+            guard let data = image.jpegData(compressionQuality: 1) else {
+                throw FileServiceError.undefiled
+            }
+            
+            let path = tempDirectoryPath().appendingPathComponent(UUID().uuidString, isDirectory: true)
+            try FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
+            
+            let nowDateString = dateTimeFormatter.string(from: Date())
+            let imageName = "IMG_\(nowDateString).jpg"
+            let newFilePath = path.appendingPathComponent(imageName, isDirectory: false)
+            
+            try data.write(to: newFilePath)
+            
+            let resources = try newFilePath.resourceValues(forKeys: [.fileSizeKey])
+            
+            return FileData(path: newFilePath.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
             throw error
@@ -105,7 +135,9 @@ final class FileActionsService: FileActionsServiceProtocol {
             let newFilePath = newPath.appendingPathComponent(fileUrl.lastPathComponent, isDirectory: false)
             try FileManager.default.copyItem(at: fileUrl, to: newFilePath)
             
-            return FileData(path: newFilePath.relativePath, type: getUTType(for: newFilePath) ?? .data, isTemporary: true)
+            let resources = try fileUrl.resourceValues(forKeys: [.fileSizeKey])
+            
+            return FileData(path: newFilePath.relativePath, type: getUTType(for: newFilePath) ?? .data, sizeInBytes: resources.fileSize, isTemporary: true)
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
             throw error

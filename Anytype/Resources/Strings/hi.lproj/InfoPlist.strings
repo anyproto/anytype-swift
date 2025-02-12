@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "फेस आईडी का उपयोग आपके की रिकवरी फ्रेज़ को सुरक्षित रूप से कीचेन में संग्रहित करके पुनः प्राप्त करने के लिए किया जाता है।";
-"NSCameraUsageDescription" = "कैमरे का उपयोग QR कोड स्कैन करके एक सुरक्षित और सुविधाजनक लॉग इन अनुभव के लिए किया जाता है।";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "लोकल नेटवर्क एक्सेस का उपयोग सीधे आपके नज़दीकी उपकरणों के बीच डेटा सिंक्रनाइज़ करने के लिए किया जाता है।";
 "NSPhotoLibraryAddUsageDescription" = "आपकी लाइब्रेरी में चयन की गई इमेज को सेव करने के लिए एक्सेस की आवश्यकता है।";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

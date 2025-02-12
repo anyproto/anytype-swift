@@ -26,7 +26,7 @@ final class BinLinkWidgetViewModel: ObservableObject {
     
     func onHeaderTap() {
         AnytypeAnalytics.instance().logSelectHomeTab(source: .bin)
-        output?.onObjectSelected(screenData: .bin(spaceId: spaceId))
+        output?.onObjectSelected(screenData: .editor(.bin(spaceId: spaceId)))
     }
     
     func onEmptyBinTap() async throws {

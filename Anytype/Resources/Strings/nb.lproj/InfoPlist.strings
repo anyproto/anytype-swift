@@ -1,4 +1,5 @@
 "NSFaceIDUsageDescription" = "Face ID brukes til å hente din nøkkel som er sikkert lagret i nøkkelringen";
-"NSCameraUsageDescription" = "Kameraet brukes til å skanne QR-koder for en sikker og hensiktsmessig innloggingsopplevelse";
+"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
 "NSLocalNetworkUsageDescription" = "Lokal nettverkstilgang brukes til å synkronisere data direkte mellom dine enheter i nærheten";
 "NSPhotoLibraryAddUsageDescription" = "Tilgang er nødvendig for å lagre valgte bilder i biblioteket ditt";
+"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";

@@ -1,7 +1,7 @@
 import AnytypeCore
 import Services
 
-protocol LoginStateServiceProtocol: AnyObject {
+protocol LoginStateServiceProtocol: AnyObject, Sendable {
     var isFirstLaunchAfterRegistration: Bool { get }
     var isFirstLaunchAfterAuthorization: Bool { get }
     func setupStateAfterLoginOrAuth(account: AccountData) async
@@ -11,7 +11,7 @@ protocol LoginStateServiceProtocol: AnyObject {
     func setupStateBeforeLoginOrAuth() async
 }
 
-final class LoginStateService: LoginStateServiceProtocol {
+final class LoginStateService: LoginStateServiceProtocol, Sendable {
     var isFirstLaunchAfterRegistration: Bool = false
     var isFirstLaunchAfterAuthorization: Bool = false
     
@@ -43,6 +43,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
+    @Injected(\.profileStorage)
+    private var profileStorage: any ProfileStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     
@@ -85,7 +87,8 @@ final class LoginStateService: LoginStateServiceProtocol {
         await accountParticipantsStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
-        storeKitService.startListenForTransactions()
+        await storeKitService.startListenForTransactions()
+        await profileStorage.startSubscription()
         
         Task {
             // Time-heavy operation
@@ -103,6 +106,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await syncStatusStorage.stopSubscriptionAndClean()
         await p2pStatusStorage.stopSubscriptionAndClean()
         await networkConnectionStatusDaemon.stop()
-        storeKitService.stopListenForTransactions()
+        await storeKitService.stopListenForTransactions()
+        await profileStorage.stopSubscription()
     }
 }

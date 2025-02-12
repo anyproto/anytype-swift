@@ -31,7 +31,10 @@ final class MentionsViewController: UITableViewController {
     
     private func setup() {
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.createNewCellReuseId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.mentionCellReuseId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.headerCellReuseId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.selectDateCellReuseId)
         tableView.tableFooterView = UIView(frame: .zero)
     }
     
@@ -61,20 +64,24 @@ final class MentionsViewController: UITableViewController {
     
     private func makeDataSource() -> UITableViewDiffableDataSource<MentionSection, MentionDisplayData> {
         UITableViewDiffableDataSource<MentionSection, MentionDisplayData>(tableView: tableView) { [weak self] tableView, indexPath, displayData -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellReuseId, for: indexPath)
+            var cell: UITableViewCell?
             switch displayData {
             case let .createNewObject(objectName):
-                cell.separatorInset = Constants.separatorInsets
-                cell.contentConfiguration = self?.createNewObjectContentConfiguration(objectName: objectName)
+                cell = tableView.dequeueReusableCell(withIdentifier: Constants.createNewCellReuseId, for: indexPath)
+                cell?.separatorInset = Constants.separatorInsets
+                cell?.contentConfiguration = self?.createNewObjectContentConfiguration(objectName: objectName)
             case let .mention(mention):
-                cell.separatorInset = Constants.separatorInsets
-                cell.contentConfiguration = self?.confguration(for: mention)
+                cell = tableView.dequeueReusableCell(withIdentifier: Constants.mentionCellReuseId, for: indexPath)
+                cell?.separatorInset = Constants.separatorInsets
+                cell?.contentConfiguration = self?.confguration(for: mention)
             case let .header(title):
-                cell.separatorInset = Constants.headerSeparatorInsets
-                cell.contentConfiguration = self?.header(title: title)
+                cell = tableView.dequeueReusableCell(withIdentifier: Constants.headerCellReuseId, for: indexPath)
+                cell?.separatorInset = Constants.headerSeparatorInsets
+                cell?.contentConfiguration = self?.header(title: title)
             case .selectDate:
-                cell.separatorInset = Constants.separatorInsets
-                cell.contentConfiguration = self?.confguration(title: Loc.selectDate, icon: .object(.empty(.date)))
+                cell = tableView.dequeueReusableCell(withIdentifier: Constants.selectDateCellReuseId, for: indexPath)
+                cell?.separatorInset = Constants.separatorInsets
+                cell?.contentConfiguration = self?.confguration(title: Loc.selectDate, icon: .object(.empty(.date)))
             }
             return cell
         }
@@ -133,7 +140,10 @@ final class MentionsViewController: UITableViewController {
     
     // MARK: - Constants
     private enum Constants {
-        static let cellReuseId = NSStringFromClass(UITableViewCell.self)
+        static let createNewCellReuseId = "CreateNewCellReuseId"
+        static let mentionCellReuseId = "MentionCellReuseId"
+        static let headerCellReuseId = "HeaderCellReuseId"
+        static let selectDateCellReuseId = "SelectDateCellReuseId"
         static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 20)
         static let headerSeparatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
         static let cellHeight: CGFloat = 56

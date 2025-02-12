@@ -1,20 +1,18 @@
 import Foundation
 import Services
 
-protocol RelationsInteractorProtocol {
+protocol RelationsInteractorProtocol: Sendable {
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
     func addRelationToObject(relation: RelationDetails) async throws
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws
 }
 
-final class RelationsInteractor: RelationsInteractorProtocol {
+final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
     
     private let objectId: String
     
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
-    @Injected(\.dataviewService)
-    private var dataviewService: any DataviewServiceProtocol
+    private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
+    private let dataviewService: any DataviewServiceProtocol = Container.shared.dataviewService()
     
     init(objectId: String) {
         self.objectId = objectId

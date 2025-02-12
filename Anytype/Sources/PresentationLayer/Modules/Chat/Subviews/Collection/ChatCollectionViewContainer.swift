@@ -1,32 +1,27 @@
 import SwiftUI
 import UIKit
 
-final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
+final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIViewController {
     
     let collectionView: UICollectionView
     let bottomPanel: UIHostingController<BottomPanel>
+    let emptyView: UIHostingController<EmptyView>
     
-    private let topBlurEffectView = HomeBlurEffectUIView()
     private let bottomBlurEffectView = HomeBlurEffectUIView()
-    private var topHeightConstraint: NSLayoutConstraint?
     private var bottomTopConstraint: NSLayoutConstraint?
     
-    var contentInset: UIEdgeInsets = .zero { didSet { updateInsets() } }
+    var contentInset: UIEdgeInsets = .zero { didSet { updateInsets(animatedIfNear: false) } }
     
-    private var keyboardHeight: CGFloat = 0 { didSet { updateInsets() } }
-    private var bottomPanelHeight: CGFloat = 0 {
-        didSet {
-            updateInsets()
-            updateKeyboardOffset()
-        }
-    }
+    private var keyboardHeight: CGFloat = 0
+    private var bottomPanelHeight: CGFloat = 0
     
     private var keyboardListener: KeyboardEventsListnerHelper?
     private var restoreZeroScrollViewOffset = false
     
-    init(collectionView: UICollectionView, bottomPanel: UIHostingController<BottomPanel>) {
+    init(collectionView: UICollectionView, bottomPanel: UIHostingController<BottomPanel>, emptyView: UIHostingController<EmptyView>) {
         self.collectionView = collectionView
         self.bottomPanel = bottomPanel
+        self.emptyView = emptyView
         super.init(nibName: nil, bundle: nil)
         
         bottomBlurEffectView.direction = .bottomToTop
@@ -37,11 +32,12 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
                 event.animate { [weak self] in
                     guard let self, let endFrame = event.endFrame else { return }
                     
-                    let nearZero = contentOffsetIsNearZero()
+                    let nearBottom = contentOffsetIsNearBottom()
                     let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
                     keyboardHeight = keyboardFrameInView.height
-                    if nearZero {
-                        setZeroContentOffset()
+                    updateInsets()
+                    if nearBottom {
+                        setBottomContentOffset()
                     }
                 }
             },
@@ -51,6 +47,7 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
                     guard let self, let endFrame = event.endFrame else { return }
                     let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
                     keyboardHeight = keyboardFrameInView.height
+                    updateInsets()
                 }
             },
             willHideAction: { [weak self] event in
@@ -59,6 +56,7 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
                     guard let self, let endFrame = event.endFrame else { return }
                     let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
                     keyboardHeight = keyboardFrameInView.height
+                    updateInsets()
                 }
             }
         )
@@ -76,15 +74,16 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
         // The NSLayoutConstraint for the collection should not be invalidated, making this behavior very unusual.
         // Wrapping the collection in a container resolves this issue.
         let collectionViewContainer = UIView()
+        
+        collectionViewContainer.addSubview(emptyView.view) {
+            $0.pinToSuperview()
+        }
+        
         collectionViewContainer.addSubview(collectionView) {
             $0.pinToSuperview()
         }
         view.addSubview(collectionViewContainer) {
             $0.pinToSuperview()
-        }
-        
-        view.addSubview(topBlurEffectView) {
-            $0.pinToSuperview(excluding: [.bottom])
         }
         
         view.addSubview(bottomBlurEffectView) {
@@ -97,9 +96,6 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
             $0.bottom.equal(to: view.keyboardLayoutGuide.topAnchor)
         }
         bottomPanel.didMove(toParent: self)
-        
-        topHeightConstraint = topBlurEffectView.heightAnchor.constraint(equalToConstant: 0)
-        topHeightConstraint?.isActive = true
         
         bottomTopConstraint = bottomBlurEffectView.topAnchor.constraint(equalTo: bottomPanel.view.topAnchor, constant: 0)
         bottomTopConstraint?.isActive = true
@@ -114,31 +110,31 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
         super.viewDidLayoutSubviews()
         
         if bottomPanelHeight != bottomPanel.view.frame.height {
+            let oldBottomPanelHeight = bottomPanelHeight
             bottomPanelHeight = bottomPanel.view.frame.height
+            updateInsets(animatedIfNear: oldBottomPanelHeight != 0)
+            updateKeyboardOffset()
         }
     }
     
-    private func updateInsets() {
+    private func updateInsets(animatedIfNear: Bool = true) {
         let keyboardHeightWithoutInsets = max((keyboardHeight - view.safeAreaInsets.bottom), 0)
         let newBottomInset = keyboardHeightWithoutInsets + bottomPanelHeight + contentInset.bottom
-        // The safe area is rotated because the collection is rotated.
-        let safeAreaDiff = collectionView.safeAreaInsets.top - collectionView.safeAreaInsets.bottom
         
         let newInsets = UIEdgeInsets(
-            top: newBottomInset - safeAreaDiff,
+            top: contentInset.top,
             left: contentInset.left,
-            bottom: contentInset.top + safeAreaDiff,
+            bottom: newBottomInset,
             right: contentInset.right
         )
         
-        let nearZero = contentOffsetIsNearZero()
+        let nearBottom = contentOffsetIsNearBottom()
         
-        if nearZero {
+        if nearBottom && animatedIfNear {
             UIView.animate(withDuration: 0.3) { [weak self] in
-                
                 self?.collectionView.contentInset = newInsets
                 self?.collectionView.scrollIndicatorInsets = newInsets
-                self?.setZeroContentOffset()
+                self?.setBottomContentOffset()
             }
         } else {
             
@@ -146,7 +142,6 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
             collectionView.scrollIndicatorInsets = newInsets
         }
         
-        topHeightConstraint?.constant = contentInset.top + view.safeAreaInsets.top
         bottomTopConstraint?.constant = -contentInset.bottom
     }
     
@@ -156,11 +151,11 @@ final class ChatCollectionViewContainer<BottomPanel: View>: UIViewController {
         }
     }
     
-    private func contentOffsetIsNearZero() -> Bool {
-        return collectionView.adjustedContentInset.top + collectionView.contentOffset.y < 40
+    private func contentOffsetIsNearBottom() -> Bool {
+        return collectionView.bottomOffset.y - collectionView.contentOffset.y < 40
     }
     
-    private func setZeroContentOffset() {
-        collectionView.contentOffset = CGPoint(x: 0, y: -collectionView.adjustedContentInset.top)
+    private func setBottomContentOffset() {
+        collectionView.contentOffset = collectionView.bottomOffset
     }
 }

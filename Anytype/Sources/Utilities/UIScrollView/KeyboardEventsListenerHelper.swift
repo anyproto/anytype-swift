@@ -1,6 +1,8 @@
 import UIKit
 import AnytypeCore
 
+extension Notification: @unchecked @retroactive Sendable {}
+
 @MainActor
 class KeyboardEventsListnerHelper {
     
@@ -74,14 +76,16 @@ class KeyboardEventsListnerHelper {
         allowedStates: [KeyboardState],
         newState: KeyboardState,
         originalAction: Action?
-    ) -> (Notification) -> Void {
+    ) -> @Sendable (Notification) -> Void {
         return { [weak self] notification in
-            guard let self = self else { return }
-            if allowedStates.contains(self.keyboardState) {
-                if let event = KeyboardEvent(withUserInfo: notification.userInfo) {
-                    originalAction?(event)
+            MainActor.assumeIsolated {
+                guard let self = self else { return }
+                if allowedStates.contains(self.keyboardState) {
+                    if let event = KeyboardEvent(withUserInfo: notification.userInfo) {
+                        originalAction?(event)
+                    }
+                    self.keyboardState = newState
                 }
-                self.keyboardState = newState
             }
         }
     }

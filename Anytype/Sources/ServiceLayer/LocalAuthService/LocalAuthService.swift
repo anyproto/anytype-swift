@@ -1,6 +1,6 @@
 import LocalAuthentication
 
-protocol LocalAuthServiceProtocol {
+protocol LocalAuthServiceProtocol: Sendable {
     func auth(reason: String) async throws
 }
 
@@ -8,7 +8,7 @@ enum LocalAuthServiceError: Error {
     case commonError
 }
 
-final class LocalAuthService: LocalAuthServiceProtocol {
+final class LocalAuthService: LocalAuthServiceProtocol, Sendable {
     func auth(reason: String) async throws {
         let permissionContext = LAContext()
         permissionContext.localizedCancelTitle = Loc.cancel

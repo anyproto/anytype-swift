@@ -103,7 +103,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
-        let screenData = EditorScreenData(details: details, activeViewId: activeViewId)
+        let screenData = ScreenData(details: details, activeViewId: activeViewId)
         AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
         output?.onObjectSelected(screenData: screenData)
     }
@@ -181,7 +181,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
-            self?.updateRowDetails(details: data.items)
+            await self?.updateRowDetails(details: data.items)
         }
     }
     
@@ -253,7 +253,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
             onItemTap: { [weak self] in
-                self?.output?.onObjectSelected(screenData: $0.editorScreenData())
+                self?.output?.onObjectSelected(screenData: $0.screenData())
             }
         )
         updateRows(rowDetails: rowDetails)

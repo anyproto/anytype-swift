@@ -1,7 +1,7 @@
 import Services
 import AnytypeCore
 
-protocol DetailsServiceProtocol {
+protocol DetailsServiceProtocol: Sendable {
         
     func updateBundledDetails(objectId: String, bundledDetails: [BundledDetails]) async throws
     func setLayout(objectId: String, detailsLayout: DetailsLayout) async throws

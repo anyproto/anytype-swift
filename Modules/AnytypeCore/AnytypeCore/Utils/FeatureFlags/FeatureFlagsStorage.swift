@@ -6,8 +6,11 @@
 //
 
 /// User defaults store
-public struct FeatureFlagsStorage {
+public struct FeatureFlagsStorage: Sendable {
     // MARK: - Feature flags
-    @UserDefault("FeatureFlags", defaultValue: [:])
-    static var featureFlags: [String: Bool]
+    private static let storage = UserDefaultStorage(key: "FeatureFlags", defaultValue: [String: Bool]())
+    static var featureFlags: [String: Bool] {
+        get { storage.value }
+        set { storage.value = newValue }
+    }
 }

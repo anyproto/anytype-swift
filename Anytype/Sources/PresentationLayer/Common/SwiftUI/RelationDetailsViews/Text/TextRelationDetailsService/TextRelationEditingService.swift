@@ -1,14 +1,13 @@
 import Foundation
 import Services
 
-protocol TextRelationEditingServiceProtocol: AnyObject {
+protocol TextRelationEditingServiceProtocol: AnyObject, Sendable {
     func saveRelation(objectId: String, value: String, key: String, textType: TextRelationViewType)
 }
 
-final class TextRelationEditingService: TextRelationEditingServiceProtocol {
+final class TextRelationEditingService: TextRelationEditingServiceProtocol, Sendable {
 
-    @Injected(\.relationsService)
-    private var service: any RelationsServiceProtocol
+    private let service: any RelationsServiceProtocol = Container.shared.relationsService()
     
     private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     

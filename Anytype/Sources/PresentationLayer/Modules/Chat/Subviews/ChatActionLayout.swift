@@ -1,5 +1,9 @@
 import SwiftUI
 
+struct ChatActionOverlayState {
+    fileprivate var offset: CGFloat = 0
+}
+
 private struct ChatActionAlignmentGuide: AlignmentID {
     static func defaultValue(in context: ViewDimensions) -> CGFloat {
         context[VerticalAlignment.bottom]
@@ -16,7 +20,7 @@ private extension Alignment {
 
 private struct ChatActionViewModifier<OverlayContent: View>: ViewModifier {
     
-    @Binding var offset: CGFloat
+    @Binding var state: ChatActionOverlayState
     @ViewBuilder let overlayView: OverlayContent
     
     @State private var currentOffset: CGFloat = 0
@@ -27,7 +31,7 @@ private struct ChatActionViewModifier<OverlayContent: View>: ViewModifier {
             .readFrame {
                 currentOffset = $0.minY
             }
-            .alignmentGuide(.chatAction) { $0[.top] + (offset - currentOffset) }
+            .alignmentGuide(.chatAction) { $0[.top] + (state.offset - currentOffset) }
             .overlay(alignment: .chatAction) {
                 overlayView
             }
@@ -36,22 +40,22 @@ private struct ChatActionViewModifier<OverlayContent: View>: ViewModifier {
 
 private struct ChatActionStateTopProvider: ViewModifier {
     
-    @Binding var offset: CGFloat
+    @Binding var state: ChatActionOverlayState
     
     func body(content: Content) -> some View {
         content
             .readFrame {
-                offset = $0.minY
+                state.offset = $0.minY
             }
     }
 }
 
 extension View {
-    func chatActionOverlay<OverlayContent: View>(state: Binding<CGFloat>, @ViewBuilder overlayView: () -> OverlayContent) -> some View {
-        modifier(ChatActionViewModifier(offset: state, overlayView: overlayView))
+    func chatActionOverlay<OverlayContent: View>(state: Binding<ChatActionOverlayState>, @ViewBuilder overlayView: () -> OverlayContent) -> some View {
+        modifier(ChatActionViewModifier(state: state, overlayView: overlayView))
     }
     
-    func chatActionStateTopProvider(state: Binding<CGFloat>) -> some View {
-        modifier(ChatActionStateTopProvider(offset: state))
+    func chatActionStateTopProvider(state: Binding<ChatActionOverlayState>) -> some View {
+        modifier(ChatActionStateTopProvider(state: state))
     }
 }

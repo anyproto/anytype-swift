@@ -21,6 +21,7 @@ struct ObjectCoverPickerData: Identifiable {
     var id: String { document.objectId }
 }
 
+@MainActor
 final class ObjectCoverPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
