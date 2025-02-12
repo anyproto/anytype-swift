@@ -31,7 +31,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     
     func startSubscription() async {
         _status =  (try? await membershipService.getMembership(noCache: true)) ?? .empty
-        await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
+        AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
         
         setupSubscription()
     }
@@ -39,7 +39,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     func stopSubscriptionAndClean() async {
         subscription = nil
         _status = .empty
-        await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
+        AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
     }
     
     // MARK: - Private
@@ -62,7 +62,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
                     _status = try builder.buildMembershipStatus(membership: update.data, allTiers: allTiers)
                     _status.tier.flatMap { AnytypeAnalytics.instance().logChangePlan(tier: $0) }
                     
-                    await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
+                    AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
                 }
             default:
                 break

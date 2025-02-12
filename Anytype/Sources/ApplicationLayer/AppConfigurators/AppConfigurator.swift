@@ -17,7 +17,8 @@ final class AppConfigurator {
         iCloudBackupConfigurator(),
         ViewProvidersConfigurator(),
         TipsConfiguration(),
-        GlobalServicesConfiguration()
+        GlobalServicesConfiguration(),
+        FirebaseConfigurator()
     ]
 
     func configure() {

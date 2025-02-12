@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+@MainActor
 protocol DownloadableImageViewWrapperProtocol {
     
     @discardableResult

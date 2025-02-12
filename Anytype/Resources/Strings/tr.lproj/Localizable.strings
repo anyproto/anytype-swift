@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Kart";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Metin";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Alan ismi";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Başlıksız";
 "Object.Deleted.Placeholder" = "Silinen nesne";
@@ -207,7 +204,7 @@
 "Join" = "Katıl";
 "Agreement Disclamer" = "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz";
 "Lets Go" = "Haydi Başlayalım";
-"My spaces" = "Benim Alanlarım";
+"My spaces" = "Alanlarım";
 "Open file" = "Dosya aç";
 "Open Set" = "Set aç";
 "Create Set" = "Set oluştur";
@@ -663,6 +660,7 @@
 "Link to" = "Şuna bağla";
 "Unknown" = "Bilinmeyen";
 "Settings" = "Ayarlar";
+"Preferences" = "Tercihler";
 "Views" = "Görüntülenmeler";
 "Filter" = "Filtre";
 "Sort" = "Sırala";
@@ -708,6 +706,10 @@
 "Hide" = "Gizle";
 "Apply" = "Uygula";
 "Leave a space" = "Bir boşluk bırak";
+"Collaboration" = "İş Birliği";
+"Members" = "Üyeler";
+"Invite" = "Davet et";
+"QR Code" = "Karekod";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
@@ -880,6 +882,10 @@
 "Settings.SpaceName" = "Alan ismi";
 "Settings.SpaceType" = "Alan türü";
 "Settings.VaultAndAccess" = "Kasa ve erişim";
+"Settings.SpaceName" = "Alan ismi";
+"Settings.Edit picture" = "Resmi düzenle";
+"Settings.Updated" = "Alan bilgisi güncellendi";
+"Settings.DataManagement" = "Veri Yönetimi";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Dosya depolama alanı";
@@ -891,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Yerel cihazınızda yer kazanmak için tüm dosyalarınızı şifrelenmiş yedekleme düğümümüze aktarabilirsiniz.  Dosyaları açtığınızda geri yüklenecektir.";
 "FileStorage.Local.Used" = "Kullanılan %@";
 "FileStorage.OffloadTitle" = "Dosyaları boşalt";
-"FileStorage.ManageFiles" = "Dosyaları yönet";
+"FileStorage.CleanUpFiles" = "Dosyaları temizle";
 "FileStorage.LimitError" = "Dosya yükleme limitini aştın";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Diğer alanlar | %@";
 "FileStorage.LimitLegend.Free" = "Boş | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Senkronize edilmiş dosyalar";
+"FilesList.Title" = "Dosyaları temizle";
 "FilesList.ForceDelete.Title" = "Dosyaları kalıcı olarak silmek istediğinizden emin misiniz?";
 
 // MARK: - Widget object list

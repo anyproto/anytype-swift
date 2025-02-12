@@ -654,12 +654,30 @@ public struct Anytype_Event {
       set {_uniqueStorage()._value = .chatUpdateReactions(newValue)}
     }
 
+    /// received to update per-message read status (if needed to highlight the unread messages in the UI)
+    public var chatUpdateReadStatus: Anytype_Event.Chat.UpdateReadStatus {
+      get {
+        if case .chatUpdateReadStatus(let v)? = _storage._value {return v}
+        return Anytype_Event.Chat.UpdateReadStatus()
+      }
+      set {_uniqueStorage()._value = .chatUpdateReadStatus(newValue)}
+    }
+
     public var chatDelete: Anytype_Event.Chat.Delete {
       get {
         if case .chatDelete(let v)? = _storage._value {return v}
         return Anytype_Event.Chat.Delete()
       }
       set {_uniqueStorage()._value = .chatDelete(newValue)}
+    }
+
+    /// in case new unread messages received or chat state changed (e.g. message read on another device)
+    public var chatStateUpdate: Anytype_Event.Chat.UpdateState {
+      get {
+        if case .chatStateUpdate(let v)? = _storage._value {return v}
+        return Anytype_Event.Chat.UpdateState()
+      }
+      set {_uniqueStorage()._value = .chatStateUpdate(newValue)}
     }
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -742,7 +760,11 @@ public struct Anytype_Event {
       case chatAdd(Anytype_Event.Chat.Add)
       case chatUpdate(Anytype_Event.Chat.Update)
       case chatUpdateReactions(Anytype_Event.Chat.UpdateReactions)
+      /// received to update per-message read status (if needed to highlight the unread messages in the UI)
+      case chatUpdateReadStatus(Anytype_Event.Chat.UpdateReadStatus)
       case chatDelete(Anytype_Event.Chat.Delete)
+      /// in case new unread messages received or chat state changed (e.g. message read on another device)
+      case chatStateUpdate(Anytype_Event.Chat.UpdateState)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -1046,8 +1068,16 @@ public struct Anytype_Event {
           guard case .chatUpdateReactions(let l) = lhs, case .chatUpdateReactions(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
+        case (.chatUpdateReadStatus, .chatUpdateReadStatus): return {
+          guard case .chatUpdateReadStatus(let l) = lhs, case .chatUpdateReadStatus(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
         case (.chatDelete, .chatDelete): return {
           guard case .chatDelete(let l) = lhs, case .chatDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.chatStateUpdate, .chatStateUpdate): return {
+          guard case .chatStateUpdate(let l) = lhs, case .chatStateUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -1075,6 +1105,7 @@ public struct Anytype_Event {
 
       public var id: String = String()
 
+      /// orderId of the message, used for sorting
       public var orderID: String = String()
 
       public var message: Anytype_Model_ChatMessage {
@@ -1100,9 +1131,21 @@ public struct Anytype_Event {
 
       public var id: String = String()
 
+      /// Chat state. dbState should be persisted after rendered
+      public var state: Anytype_Model_ChatState {
+        get {return _state ?? Anytype_Model_ChatState()}
+        set {_state = newValue}
+      }
+      /// Returns true if `state` has been explicitly set.
+      public var hasState: Bool {return self._state != nil}
+      /// Clears the value of `state`. Subsequent reads from it will return its default value.
+      public mutating func clearState() {self._state = nil}
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
+
+      fileprivate var _state: Anytype_Model_ChatState? = nil
     }
 
     public struct Update {
@@ -1149,6 +1192,41 @@ public struct Anytype_Event {
       public init() {}
 
       fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
+    }
+
+    public struct UpdateReadStatus {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var ids: [String] = []
+
+      public var isRead: Bool = false
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct UpdateState {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var state: Anytype_Model_ChatState {
+        get {return _state ?? Anytype_Model_ChatState()}
+        set {_state = newValue}
+      }
+      /// Returns true if `state` has been explicitly set.
+      public var hasState: Bool {return self._state != nil}
+      /// Clears the value of `state`. Subsequent reads from it will return its default value.
+      public mutating func clearState() {self._state = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _state: Anytype_Model_ChatState? = nil
     }
 
     public init() {}
@@ -5510,6 +5588,8 @@ extension Anytype_Event.Chat.Add: @unchecked Sendable {}
 extension Anytype_Event.Chat.Delete: @unchecked Sendable {}
 extension Anytype_Event.Chat.Update: @unchecked Sendable {}
 extension Anytype_Event.Chat.UpdateReactions: @unchecked Sendable {}
+extension Anytype_Event.Chat.UpdateReadStatus: @unchecked Sendable {}
+extension Anytype_Event.Chat.UpdateState: @unchecked Sendable {}
 extension Anytype_Event.Account: @unchecked Sendable {}
 extension Anytype_Event.Account.Show: @unchecked Sendable {}
 extension Anytype_Event.Account.Details: @unchecked Sendable {}
@@ -5861,7 +5941,9 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     128: .same(proto: "chatAdd"),
     129: .same(proto: "chatUpdate"),
     130: .same(proto: "chatUpdateReactions"),
+    134: .same(proto: "chatUpdateReadStatus"),
     131: .same(proto: "chatDelete"),
+    133: .same(proto: "chatStateUpdate"),
   ]
 
   fileprivate class _StorageClass {
@@ -6804,6 +6886,32 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
         }()
         case 132: try { try decoder.decodeSingularStringField(value: &_storage._spaceID) }()
+        case 133: try {
+          var v: Anytype_Event.Chat.UpdateState?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatStateUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatStateUpdate(v)
+          }
+        }()
+        case 134: try {
+          var v: Anytype_Event.Chat.UpdateReadStatus?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatUpdateReadStatus(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatUpdateReadStatus(v)
+          }
+        }()
         case 201: try {
           var v: Anytype_Event.Account.Details?
           var hadOneofValue = false
@@ -7168,6 +7276,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try visitor.visitSingularStringField(value: _storage._spaceID, fieldNumber: 132)
       }
       switch _storage._value {
+      case .chatStateUpdate?: try {
+        guard case .chatStateUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 133)
+      }()
+      case .chatUpdateReadStatus?: try {
+        guard case .chatUpdateReadStatus(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 134)
+      }()
       case .accountDetails?: try {
         guard case .accountDetails(let v)? = _storage._value else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 201)
@@ -7281,6 +7397,7 @@ extension Anytype_Event.Chat.Delete: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".Delete"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
+    2: .same(proto: "state"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7290,20 +7407,29 @@ extension Anytype_Event.Chat.Delete: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._state) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
+    try { if let v = self._state {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Chat.Delete, rhs: Anytype_Event.Chat.Delete) -> Bool {
     if lhs.id != rhs.id {return false}
+    if lhs._state != rhs._state {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7388,6 +7514,80 @@ extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtob
   public static func ==(lhs: Anytype_Event.Chat.UpdateReactions, rhs: Anytype_Event.Chat.UpdateReactions) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._reactions != rhs._reactions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Chat.UpdateReadStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateReadStatus"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ids"),
+    2: .same(proto: "isRead"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.isRead) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
+    }
+    if self.isRead != false {
+      try visitor.visitSingularBoolField(value: self.isRead, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Chat.UpdateReadStatus, rhs: Anytype_Event.Chat.UpdateReadStatus) -> Bool {
+    if lhs.ids != rhs.ids {return false}
+    if lhs.isRead != rhs.isRead {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Chat.UpdateState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateState"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "state"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._state) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._state {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Chat.UpdateState, rhs: Anytype_Event.Chat.UpdateState) -> Bool {
+    if lhs._state != rhs._state {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

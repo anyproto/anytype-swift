@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Картка";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Тэкст";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Назва прасторы";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Выдаліць аб'ект";
@@ -663,6 +660,7 @@
 "Link to" = "Спасылка на";
 "Unknown" = "Невядомы";
 "Settings" = "Налады";
+"Preferences" = "Preferences";
 "Views" = "Выгляды";
 "Filter" = "Фільтр";
 "Sort" = "Сартаваць";
@@ -709,6 +707,10 @@
 "Hide" = "Схаваць";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Удзельнікі";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
@@ -880,6 +882,10 @@
 "Settings.SpaceName" = "Назва прасторы";
 "Settings.SpaceType" = "Тып прасторы";
 "Settings.VaultAndAccess" = "Сховішча і доступ";
+"Settings.SpaceName" = "Назва прасторы";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файлавае сховішча";
@@ -891,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Каб зэканоміць месца на лакальнай прыладзе, вы можаце загрузіць усе свае файлы ў наш зашыфраваны вузел рэзервовага капіявання. Файлы будуць загружаны назад, калі вы іх адкрыеце.";
 "FileStorage.Local.Used" = "%@ выкарыстана";
 "FileStorage.OffloadTitle" = "Выгрузіць файлы";
-"FileStorage.ManageFiles" = "Кіраванне файламі";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Вы перавысілі ліміт загрузкі файлаў";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Іншыя прасторы | %@";
 "FileStorage.LimitLegend.Free" = "Бясплатна | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Сінхранізаваныя файлы";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Вы сапраўды хочаце незваротна выдаліць гэтыя файлы?";
 
 // MARK: - Widget object list

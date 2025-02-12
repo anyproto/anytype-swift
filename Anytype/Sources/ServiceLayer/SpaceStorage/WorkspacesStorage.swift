@@ -70,7 +70,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
             
             var spaces = data.items.map { SpaceView(details: $0) }
             if !FeatureFlags.pinnedSpaces {
-                spaces = await customOrderBuilder.updateSpacesList(spaces: spaces)
+                spaces = customOrderBuilder.updateSpacesList(spaces: spaces)
             }
             
             allWorkspacesStorage.value = spaces
@@ -89,8 +89,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         return allWorkspacesStorage.value.first(where: { $0.targetSpaceId == spaceId })
     }
     
-    func move(space: SpaceView, after: SpaceView) async {
-        allWorkspacesStorage.value = await customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
+    func move(space: SpaceView, after: SpaceView) {
+        allWorkspacesStorage.value = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
     }
     
     func workspaceInfo(spaceId: String) -> AccountInfo? {

@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Carte";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texte";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nom de l'espace";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Sans titre";
 "Object.Deleted.Placeholder" = "Objet supprimé";
@@ -663,6 +660,7 @@
 "Link to" = "Lien vers";
 "Unknown" = "Inconnu";
 "Settings" = "Paramètres";
+"Preferences" = "Preferences";
 "Views" = "Vues";
 "Filter" = "Filtre";
 "Sort" = "Trier";
@@ -708,6 +706,10 @@
 "Hide" = "Masquer";
 "Apply" = "Appliquer";
 "Leave a space" = "Quitter l'espace";
+"Collaboration" = "Collaboration";
+"Members" = "Membres";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Nom de l'espace";
 "Settings.SpaceType" = "Type d'espace";
 "Settings.VaultAndAccess" = "Coffre et accès";
+"Settings.SpaceName" = "Nom de l'espace";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Stockage des fichiers";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Afin d'économiser de l'espace sur votre appareil, vous pouvez décharger tous vos fichiers vers notre nœud de sauvegarde chiffré. Les fichiers seront rechargés lorsque vous les ouvrirez.";
 "FileStorage.Local.Used" = "%@ utilisé";
 "FileStorage.OffloadTitle" = "Décharger les fichiers";
-"FileStorage.ManageFiles" = "Gérer les fichiers";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Vous avez dépassé la limite d'envoi de fichiers";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Autres espaces | %@";
 "FileStorage.LimitLegend.Free" = "Gratuit | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Fichiers synchronisés";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Êtes-vous sûr de vouloir supprimer définitivement les fichiers ?";
 
 // MARK: - Widget object list

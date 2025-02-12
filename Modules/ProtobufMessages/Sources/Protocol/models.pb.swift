@@ -6028,6 +6028,58 @@ public struct Anytype_Model_DeviceInfo {
   public init() {}
 }
 
+public struct Anytype_Model_ChatState {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// unread messages
+  public var messages: Anytype_Model_ChatState.UnreadState {
+    get {return _messages ?? Anytype_Model_ChatState.UnreadState()}
+    set {_messages = newValue}
+  }
+  /// Returns true if `messages` has been explicitly set.
+  public var hasMessages: Bool {return self._messages != nil}
+  /// Clears the value of `messages`. Subsequent reads from it will return its default value.
+  public mutating func clearMessages() {self._messages = nil}
+
+  /// unread mentions
+  public var mentions: Anytype_Model_ChatState.UnreadState {
+    get {return _mentions ?? Anytype_Model_ChatState.UnreadState()}
+    set {_mentions = newValue}
+  }
+  /// Returns true if `mentions` has been explicitly set.
+  public var hasMentions: Bool {return self._mentions != nil}
+  /// Clears the value of `mentions`. Subsequent reads from it will return its default value.
+  public mutating func clearMentions() {self._mentions = nil}
+
+  /// reflects the state of the chat db at the moment of sending response/event that includes this state
+  public var dbTimestamp: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public struct UnreadState {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// oldest(in the lex sorting) unread message order id. Client should ALWAYS scroll through unread messages from the oldest to the newest
+    public var oldestOrderID: String = String()
+
+    /// total number of unread messages
+    public var counter: Int32 = 0
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public init() {}
+
+  fileprivate var _messages: Anytype_Model_ChatState.UnreadState? = nil
+  fileprivate var _mentions: Anytype_Model_ChatState.UnreadState? = nil
+}
+
 public struct Anytype_Model_ChatMessage {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -6045,6 +6097,9 @@ public struct Anytype_Model_ChatMessage {
   public var createdAt: Int64 = 0
 
   public var modifiedAt: Int64 = 0
+
+  /// Message received and added to db at
+  public var addedAt: Int64 = 0
 
   /// Identifier for the message being replied to
   public var replyToMessageID: String = String()
@@ -6071,6 +6126,9 @@ public struct Anytype_Model_ChatMessage {
   public var hasReactions: Bool {return self._reactions != nil}
   /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
   public mutating func clearReactions() {self._reactions = nil}
+
+  /// Message read status
+  public var read: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -6347,6 +6405,8 @@ extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
 extension Anytype_Model_Detail: @unchecked Sendable {}
 extension Anytype_Model_DeviceInfo: @unchecked Sendable {}
+extension Anytype_Model_ChatState: @unchecked Sendable {}
+extension Anytype_Model_ChatState.UnreadState: @unchecked Sendable {}
 extension Anytype_Model_ChatMessage: @unchecked Sendable {}
 extension Anytype_Model_ChatMessage.MessageContent: @unchecked Sendable {}
 extension Anytype_Model_ChatMessage.Attachment: @unchecked Sendable {}
@@ -12376,6 +12436,92 @@ extension Anytype_Model_DeviceInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 }
 
+extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ChatState"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "messages"),
+    2: .same(proto: "mentions"),
+    3: .same(proto: "dbTimestamp"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._messages) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._mentions) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.dbTimestamp) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._messages {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._mentions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if self.dbTimestamp != 0 {
+      try visitor.visitSingularInt64Field(value: self.dbTimestamp, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatState, rhs: Anytype_Model_ChatState) -> Bool {
+    if lhs._messages != rhs._messages {return false}
+    if lhs._mentions != rhs._mentions {return false}
+    if lhs.dbTimestamp != rhs.dbTimestamp {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatState.UnreadState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatState.protoMessageName + ".UnreadState"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "oldestOrderId"),
+    2: .same(proto: "counter"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.oldestOrderID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.counter) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.oldestOrderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.oldestOrderID, fieldNumber: 1)
+    }
+    if self.counter != 0 {
+      try visitor.visitSingularInt32Field(value: self.counter, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatState.UnreadState, rhs: Anytype_Model_ChatState.UnreadState) -> Bool {
+    if lhs.oldestOrderID != rhs.oldestOrderID {return false}
+    if lhs.counter != rhs.counter {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ChatMessage"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -12384,10 +12530,12 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     3: .same(proto: "creator"),
     4: .same(proto: "createdAt"),
     9: .same(proto: "modifiedAt"),
+    11: .same(proto: "addedAt"),
     5: .same(proto: "replyToMessageId"),
     6: .same(proto: "message"),
     7: .same(proto: "attachments"),
     8: .same(proto: "reactions"),
+    10: .same(proto: "read"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -12405,6 +12553,8 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
       case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
       case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.read) }()
+      case 11: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
       default: break
       }
     }
@@ -12442,6 +12592,12 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if self.modifiedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.modifiedAt, fieldNumber: 9)
     }
+    if self.read != false {
+      try visitor.visitSingularBoolField(value: self.read, fieldNumber: 10)
+    }
+    if self.addedAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.addedAt, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -12451,10 +12607,12 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.creator != rhs.creator {return false}
     if lhs.createdAt != rhs.createdAt {return false}
     if lhs.modifiedAt != rhs.modifiedAt {return false}
+    if lhs.addedAt != rhs.addedAt {return false}
     if lhs.replyToMessageID != rhs.replyToMessageID {return false}
     if lhs._message != rhs._message {return false}
     if lhs.attachments != rhs.attachments {return false}
     if lhs._reactions != rhs._reactions {return false}
+    if lhs.read != rhs.read {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

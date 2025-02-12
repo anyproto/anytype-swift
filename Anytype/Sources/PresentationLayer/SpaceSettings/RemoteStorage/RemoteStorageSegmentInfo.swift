@@ -14,10 +14,14 @@ struct RemoteStorageSegmentInfo {
 
 struct RemoteStorageSegment: View {
     
-    var segmentLineItems: [SegmentLineItem]
-    var segmentLegendItems: [SegmentLegendItem]
+    let segmentLineItems: [SegmentLineItem]
+    let segmentLegendItems: [SegmentLegendItem]
     
-    init(model: RemoteStorageSegmentInfo) {
+    let showLegend: Bool
+    
+    init(model: RemoteStorageSegmentInfo, showLegend: Bool = true) {
+        self.showLegend = showLegend
+        
         segmentLineItems = .builder {
             model.currentUsage.map { SegmentLineItem(color: .System.amber125, value: $0) }
             model.otherUsages.map { SegmentLineItem(color: .System.amber50, value: $0) }
@@ -32,9 +36,11 @@ struct RemoteStorageSegment: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            SegmentLine(items: segmentLineItems)
-            Spacer.fixedHeight(16)
-            SegmentLegend(items: segmentLegendItems)
+            SegmentLine(items: segmentLineItems).padding(.trailing, 16)
+            if showLegend {
+                Spacer.fixedHeight(16)
+                SegmentLegend(items: segmentLegendItems)
+            }
         }
     }
 }

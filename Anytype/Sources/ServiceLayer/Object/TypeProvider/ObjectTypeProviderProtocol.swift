@@ -24,4 +24,11 @@ extension ObjectTypeProviderProtocol {
     func analyticsType(id: String) -> AnalyticsObjectType {
         (try? objectType(id: id))?.analyticsType ?? .custom
     }
+    
+    func objectTypesPublisher(spaceId: String) -> AnyPublisher<[ObjectType], Never> {
+        syncPublisher
+            .compactMap { [weak self] in self?.objectTypes(spaceId: spaceId) }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }

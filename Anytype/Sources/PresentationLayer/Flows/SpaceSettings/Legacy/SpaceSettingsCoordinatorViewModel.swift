@@ -31,10 +31,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     // MARK: - SpaceSettingsModuleOutput
     
-    func onSpaceDetailsSelected() {
-        anytypeAssertionFailure("\(#function) not supported in legacy module")
-    }
-    
     func onChangeIconSelected() {
         showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
     }

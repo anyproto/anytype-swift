@@ -23,7 +23,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         
         message.font = AnytypeFontBuilder.font(anytypeFont: font)
         message.kern = font.config.kern
-        var paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
         message.paragraphStyle = paragraphStyle
         

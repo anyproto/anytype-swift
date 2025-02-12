@@ -22,6 +22,7 @@ final class RemoteStorageViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
     
+    private let segmentInfoBuilder = SegmentInfoBuilder()
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
     
     private var nodeUsage: NodeUsageInfo?
@@ -88,32 +89,6 @@ final class RemoteStorageViewModel: ObservableObject {
         let percentToShowGetMoreButton = 0.7
         showGetMoreSpaceButton = percentUsage >= percentToShowGetMoreButton
         
-        var segmentInfo = RemoteStorageSegmentInfo()
-        
-        if let spaceView = workspaceStorage.spaceView(spaceId: spaceId) {
-            let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceId })?.bytesUsage ?? 0
-            segmentInfo.currentUsage = Double(spaceBytesUsage) / Double(bytesLimit)
-            segmentInfo.currentLegend = Loc.FileStorage.LimitLegend.current(spaceView.title, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
-        }
-       
-        let otherSpaces = participantSpacesStorage.activeParticipantSpaces
-            .filter(\.isOwner)
-            .map(\.spaceView)
-            .filter { $0.targetSpaceId != spaceId }
-        
-        if otherSpaces.isNotEmpty {
-            segmentInfo.otherUsages = otherSpaces.map { spaceView in
-                let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceView.targetSpaceId })?.bytesUsage ?? 0
-                return  Double(spaceBytesUsage) / Double(bytesLimit)
-            }
-            
-            let otherUsageBytes = nodeUsage.spaces.filter { $0.spaceID != spaceId }.reduce(Int64(0), { $0 + $1.bytesUsage })
-            segmentInfo.otherLegend = Loc.FileStorage.LimitLegend.other(byteCountFormatter.string(fromByteCount: otherUsageBytes))
-        }
-        
-        segmentInfo.free = Double(nodeUsage.node.bytesLeft) / Double(bytesLimit)
-        segmentInfo.freeLegend = Loc.FileStorage.LimitLegend.free(byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLeft))
-        
-        self.segmentInfo = segmentInfo
+        self.segmentInfo = segmentInfoBuilder.build(spaceId: spaceId, nodeUsage: nodeUsage)
     }
 }
