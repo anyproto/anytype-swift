@@ -111,6 +111,13 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let spaceUxTypes = FeatureDescription(
+        title: "Space UX Types",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
     static let firebasePushMessages = FeatureDescription(
         title: "Firebase push messages",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),

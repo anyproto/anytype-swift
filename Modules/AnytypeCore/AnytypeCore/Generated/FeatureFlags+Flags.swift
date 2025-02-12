@@ -70,6 +70,10 @@ public extension FeatureFlags {
         value(for: .newPlusMenu)
     }
 
+    static var spaceUxTypes: Bool {
+        value(for: .spaceUxTypes)
+    }
+
     static var firebasePushMessages: Bool {
         value(for: .firebasePushMessages)
     }
@@ -144,6 +148,7 @@ public extension FeatureFlags {
         .openBookmarkAsLink,
         .newSettings,
         .newPlusMenu,
+        .spaceUxTypes,
         .firebasePushMessages,
         .rainbowViews,
         .showAlertOnAssert,

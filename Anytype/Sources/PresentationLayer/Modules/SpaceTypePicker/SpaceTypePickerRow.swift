@@ -13,7 +13,7 @@ struct SpaceTypePickerRow: View {
         } label: {
             HStack(spacing: 12) {
                 Image(asset: icon)
-                VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 0) {
                     Text(title)
                         .anytypeStyle(.uxTitle1Semibold)
                         .foregroundStyle(Color.Text.primary)
@@ -21,6 +21,7 @@ struct SpaceTypePickerRow: View {
                         .anytypeStyle(.caption1Regular)
                         .foregroundStyle(Color.Text.secondary)
                 }
+                Spacer()
             }
             .lineLimit(1)
             .padding(.vertical, 8)

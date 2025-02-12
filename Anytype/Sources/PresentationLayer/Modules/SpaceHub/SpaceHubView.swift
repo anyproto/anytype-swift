@@ -7,18 +7,15 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
-    init(sceneId: String) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId))
+    init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId, output: output))
     }
     
     var body: some View {
         content
             .onAppear { model.onAppear() }
             .task { await model.startSubscriptions() }
-        
-            .sheet(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(sceneId: model.sceneId, output: model)
-            }
+            
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
             }
@@ -57,7 +54,7 @@ struct SpaceHubView: View {
     
     private var plusButton: some View {
         Button {
-            model.showSpaceCreate.toggle()
+            model.onTapCreateSpace()
         } label: {
             HStack(alignment: .center) {
                 Spacer()
@@ -97,7 +94,7 @@ struct SpaceHubView: View {
             $0.overlay(alignment: .trailing) {
                 Button(
                     action: {
-                        model.showSpaceCreate = true
+                        model.onTapCreateSpace()
                     },
                     label: {
                         Image(asset: .X32.plus)
@@ -209,5 +206,5 @@ struct SpaceHubView: View {
 }
 
 #Preview {
-    SpaceHubView(sceneId: "1337")
+    SpaceHubView(sceneId: "1337", output: nil)
 }

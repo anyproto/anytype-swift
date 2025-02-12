@@ -24,7 +24,6 @@ internal extension ImageAsset {
     static let sadMail = ImageAsset.bundle(name: "BottomAlert/sadMail")
     static let update = ImageAsset.bundle(name: "BottomAlert/update")
   }
-  static let chat = ImageAsset.bundle(name: "Chat")
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   static let backArrow = ImageAsset.bundle(name: "backArrow")
@@ -424,8 +423,6 @@ internal extension ImageAsset {
   enum Format {
     static let unknown = ImageAsset.bundle(name: "format/unknown")
   }
-  static let space = ImageAsset.bundle(name: "Space")
-  static let stream = ImageAsset.bundle(name: "Stream")
   enum StyleBottomSheet {
     static let bullet = ImageAsset.bundle(name: "StyleBottomSheet/bullet")
     static let checkbox = ImageAsset.bundle(name: "StyleBottomSheet/checkbox")
