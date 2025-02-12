@@ -52,6 +52,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     private var subscriptions = [AnyCancellable]()
     @Atomic
     private var parsedRelationDependedDetailsEvents = [DocumentUpdate]()
+    private var openTask: Task<Void, any Error>?
     
     // MARK: - Sync Handle
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
@@ -106,8 +107,13 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         switch mode {
         case .handling:
             guard !isOpened else { return }
-            let model = try await objectLifecycleService.open(contextId: objectId, spaceId: spaceId)
-            setupView(model)
+            if openTask.isNil {
+                openTask = Task { [weak self, objectId, spaceId, objectLifecycleService] in
+                    let model = try await objectLifecycleService.open(contextId: objectId, spaceId: spaceId)
+                    self?.setupView(model)
+                }
+            }
+            try await openTask?.value
         case .preview:
             try await updateDocumentPreview()
         case .version(let versionId):

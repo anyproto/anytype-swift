@@ -1,5 +1,4 @@
 import Foundation
-import AnytypeCore
 import ProtobufMessages
 
 extension BundledRelationsValueProvider {
@@ -41,7 +40,7 @@ extension BundledRelationsValueProvider {
             title = snippet
         } else if layoutValue.isFileOrMedia {
             title = FileDetails.formattedFileName(name, fileExt: fileExt)
-        } else if FeatureFlags.relativeDates, layoutValue.isDate, let timestamp {
+        } else if layoutValue.isDate, let timestamp {
             title = DateFormatter.relativeDateFormatter.string(from: timestamp)
         } else {
             title = name
@@ -94,5 +93,9 @@ extension BundledRelationsValueProvider {
     
     public var restrictionsValue: [ObjectRestriction] {
         restrictions.compactMap { ObjectRestriction(rawValue: $0) }
+    }
+    
+    public var internalFlagsValue: [InternalFlag] {
+        internalFlags.compactMap { InternalFlag(rawValue: $0) }
     }
 }

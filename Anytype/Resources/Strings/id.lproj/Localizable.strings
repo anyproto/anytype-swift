@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Tautan";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Nirjudul";
 
 "BlockText.ContentType.Title.Placeholder" = "Nirjudul";
 "BlockText.ContentType.Description.Placeholder" = "Tambahkan deskripsi";
@@ -61,9 +60,6 @@
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Kartu";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Teks";
-
-// MARK: - Settings
-"Settings.SpaceName" = "Nama Ruang";
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Nirjudul";
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objek";
 
+"Untitled" = "Nirjudul";
 "None" = "Tidak ada";
 "Callout" = "Berbingkai";
 "Toggle empty. Tap to create block." = "Bukaan kosong. Sentuh untuk membuat balok.";
@@ -144,6 +141,7 @@
 "Relations" = "Relasi";
 "History" = "History";
 "Objects" = "Objek";
+"All" = "Semua";
 "Pages" = "Halaman";
 "Lists" = "Grup";
 "Bookmarks" = "Markah";
@@ -211,7 +209,7 @@
 "Open Set" = "Buka Set";
 "Create Set" = "Buat Set";
 "Unsupported deeplink" = "Unsupported deeplink";
-"Edit Profile" = "Edit Profile";
+"Edit Profile" = "Sunting Profil";
 
 // Home
 "Favorites" = "Favorit";
@@ -642,6 +640,7 @@
 "Deleted" = "Terhapus";
 "Download" = "Unduh";
 "Open object" = "Buka objek";
+"Open as Object" = "Buka sebagai Objek";
 "Open source" = "Buka sumber";
 "Into object" = "Di dalam objek";
 "Add below" = "Tambah di bawah";
@@ -662,6 +661,7 @@
 "Link to" = "Tautkan ke";
 "Unknown" = "Tidak diketahui";
 "Settings" = "Setelan";
+"Preferences" = "Preferences";
 "Views" = "Tampilan";
 "Filter" = "Saringan";
 "Sort" = "Urutkan";
@@ -707,6 +707,10 @@
 "Hide" = "Sembunyikan";
 "Apply" = "Terapkan";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Anggota";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
@@ -878,6 +882,10 @@
 "Settings.SpaceName" = "Nama Ruang";
 "Settings.SpaceType" = "Tipe ruang";
 "Settings.VaultAndAccess" = "Brankas dan akses";
+"Settings.SpaceName" = "Nama Ruang";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Penyimpanan berkas";
@@ -889,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Untuk menghemat penyimpanan ruang pada perangkat lokal, anda dapat melepaskan semua berkas ke simpul cadangan terenkripsi kami. Berkas - berkas akan diunduh kembali saat kamu membuka mereka. ";
 "FileStorage.Local.Used" = "%@ digunakan";
 "FileStorage.OffloadTitle" = "Melepaskan berkas";
-"FileStorage.ManageFiles" = "Mengatur berkas";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Kamu melewati batas unggah berkas";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Ruang lain | %@";
 "FileStorage.LimitLegend.Free" = "Bebas | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Berkas tersinkronkan";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Apakah kamu yakin ingin menghapus berkas secara permanen?";
 
 // MARK: - Widget object list
@@ -930,7 +938,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Setelan ruang";
 "SpaceSettings.RemoteStorage" = "Penyimpanan jarak jauh";
-"SpaceSettings.Info" = "Info ruang";
+"SpaceSettings.Info" = "Informasi ruang";
 "SpaceSettings.NetworkId" = "ID Jaringan";
 "SpaceSettings.DeleteAlert.Title" = "Hapus '%@' ruang";
 "SpaceSettings.DeleteAlert.Message" = "Ruang ini akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
@@ -1261,7 +1269,6 @@ Please provide specific details of your needs here.";
 "AllContent.Search.Empty.State.subtitle" = "Coba cari dengan kata kunci yang lain.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Hanya penyunting yang dapat mengirim pesan. Hubungi pemilik ruang untuk meminta akses.";
 "Chat.ReplyTo" = "Balas %@";
 "Chat.Empty.Title" = "Belum ada pesan di sini …";
 "Chat.Empty.Description" = "Tulis pesan untuk memulai obrolan";
@@ -1270,17 +1277,25 @@ Please provide specific details of your needs here.";
 "Chat.Reactions.Empty.Title" = "Belum ada reaksi";
 "Chat.Reactions.Empty.Subtitle" = "Mungkin seseorang menghapus reaksinya atau ada masalah teknis";
 "Chat.EditMessage" = "Sunting Pesan";
-"Chat.Actions.Menu.Objects" = "Pilih objek yang sudah ada";
-"Chat.Actions.Menu.Media" = "Unggah media";
-"Chat.Actions.Menu.Files" = "Unggah berkas";
-"Chat.Actions.Menu.Camera" = "Ambil dari kamera";
+"Chat.Actions.Menu.Pages" = "Halaman";
+"Chat.Actions.Menu.Lists" = "Grup";
+"Chat.Actions.Menu.Photos" = "Foto";
+"Chat.Actions.Menu.Files" = "Berkas";
+"Chat.Actions.Menu.Camera" = "Kamera";
+"Chat.Actions.Menu.More" = "Lainnya";
 "Chat.Participant.Badge" = "(Kamu)";
 "Chat.Reply.Images" = "Gambar (%@)";
 "Chat.Reply.Attachments" = "Lampiran (%@)";
 "Chat.Reply.Files" = "Berkas (%@)";
 "Chat.SendLimitAlert.Title" = "Bentar-bentar, banter banget!";
 "Chat.SendLimitAlert.Message" = "Sepertinya kamu mengirimkan terlalu banyak pesan. Tunggu sebentar sebelum mengirim pesan lagi.";
-"Chat.AttachmentsLimit.Alert" = "Kamu hanya bisa mengunggah %@ berkas pada waktu yang sama";
+"Chat.AttachmentsLimit.Alert" = "Kamu hanya bisa mengunggah %@ lampiran sekali waktu";
+"Chat.AttachedObject.Attach" = "Lampirkan";
+"Chat.CreateObject.Dismiss.Title" = "Yakin ingin menutup layar ini?";
+"Chat.CreateObject.Dismiss.Message" = "Semua perubahan akan hilang.";
+"Chat.CreateObject.Dismiss.Ok" = "Ya, tutup";
+"Chat.Attach.Page.title" = "Lampirkan Halaman";
+"Chat.Attach.List.title" = "Lampirkan Daftar";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
@@ -1295,3 +1310,9 @@ Please provide specific details of your needs here.";
 
 // MARK: - Fields
 "Fields.menu" = "Fields menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Halaman Baru";
+"ObjectSearchWithMeta.Create.Note" = "Catatan Baru";
+"ObjectSearchWithMeta.Create.Set" = "Set Baru";
+"ObjectSearchWithMeta.Create.Collection" = "Koleksi Baru";

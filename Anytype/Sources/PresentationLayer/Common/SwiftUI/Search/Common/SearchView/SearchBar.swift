@@ -4,6 +4,7 @@ struct SearchBar: View {
     @Binding var text: String
     let focused: Bool
     var placeholder: String = Loc.search
+    var shouldShowDivider = true
 
     var body: some View {
         Group {
@@ -21,29 +22,26 @@ struct SearchBar: View {
         .padding(.horizontal, 25)
         .background(Color.Background.highlightedMedium)
         .cornerRadius(10)
-        .overlay(overlay)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .divider()
-    }
-    
-    private var overlay: some View {
-        HStack() {
+        .overlay(alignment: .leading) {
             Image(asset: .X18.search)
                 .foregroundColor(.Control.active)
                 .padding(.leading, 9)
-            
-            Spacer()
-            
-            if !text.isEmpty {
-                Button(action: { text = "" }) {
-                    Image(asset: .multiplyCircleFill)
-                        .renderingMode(.template)
-                        .foregroundColor(.Control.active)
-                        .padding(.trailing, 8)
+        }
+        .overlay(alignment: .trailing) {
+            Image(asset: .multiplyCircleFill)
+                .renderingMode(.template)
+                .foregroundColor(.Control.active)
+                .padding(.trailing, 8)
+                .opacity(text.isEmpty ? 0 : 1)
+                .fixTappableArea()
+                .onTapGesture {
+                    text = ""
                 }
-            }
-            
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .if(shouldShowDivider) {
+            $0.divider()
         }
     }
 }

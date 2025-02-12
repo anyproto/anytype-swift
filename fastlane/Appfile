@@ -5,7 +5,7 @@ team_id("J3NXTX3T5S")
 itc_team_id("126402070") 
 
 # Dev
-for_lane :dev do
+for_lane :release_dev do
 	apple_id(ENV["APPLE_ID"]) 
 	app_identifier(ENV["APP_ID_DEVELOP"]) 
 end
@@ -20,7 +20,12 @@ for_lane :branch_build do
 end
 
 # Release
-for_lane :release do
+for_lane :release_anytype do
 	apple_id(ENV["APPLE_ID"]) 
-	app_identifier(ENV["APP_ID_RELEASE"]) 
+	app_identifier(ENV["APP_ID_RELEASE_ANYTYPE"]) 
+end
+
+for_lane :release_anyapp do
+	apple_id(ENV["APPLE_ID"]) 
+	app_identifier(ENV["APP_ID_RELEASE_ANYAPP"]) 
 end

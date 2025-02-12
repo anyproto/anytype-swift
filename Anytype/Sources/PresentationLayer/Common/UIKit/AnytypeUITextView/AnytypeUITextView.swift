@@ -2,6 +2,10 @@ import Foundation
 import SwiftUI
 import UIKit
 
+protocol AnytypeUITextViewDelegate: AnyObject {
+    func textViewPasteAction(_ textView: AnytypeUITextView, sender: Any?)
+}
+
 // Text view providing common additional logic:
 // - Some of the text may not be editable
 final class AnytypeUITextView: UITextView {
@@ -13,6 +17,8 @@ final class AnytypeUITextView: UITextView {
     }
     
     var notEditableAttributes = [NSAttributedString.Key]()
+    
+    weak var anytypeDelegate: (any AnytypeUITextViewDelegate)?
     
     override func closestPosition(to point: CGPoint) -> UITextPosition? {
         let newPosition = super.closestPosition(to: point)
@@ -94,5 +100,13 @@ final class AnytypeUITextView: UITextView {
         }
         
         return newPosition
+    }
+    
+    override func paste(_ sender: Any?) {
+        if let anytypeDelegate {
+            anytypeDelegate.textViewPasteAction(self, sender: sender)
+        } else {
+            super.paste(sender)
+        }
     }
 }

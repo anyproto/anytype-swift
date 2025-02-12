@@ -15,6 +15,11 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         case home
     }
     
+    private enum Constants {
+        static let favoriteTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .collection, .task, .set]
+        
+    }
+    
     // MARK: - Private properties
     private let info: AccountInfo
     
@@ -26,7 +31,11 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var processSubscriptionService: any ProcessSubscriptionServiceProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-        
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
+    
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
     
@@ -42,6 +51,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     @Published var progress: Double? = nil
     @Published var leftButtonMode: LeftButtonMode?
     @Published var canCreateObject: Bool = false
+    @Published var favoritesObjectTypes: [ObjectType] = []
+    @Published var otherObjectTypes: [ObjectType] = []
     
     init(
         info: AccountInfo,
@@ -73,15 +84,15 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onPickTypeForNewObjectSelected()
     }
     
-    func onAppear() async {
-        for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
-            participantSpaceView = data
-            updateState()
-        }
+    func startSubscriptions() async {
+        async let participantSub: () = participantSubscription()
+        async let typesSub: () = typesSubscription()
+        
+        (_, _) = await (participantSub, typesSub)
     }
     
     func updateVisibleScreen(data: AnyHashable) {
-        chatLinkData = (data as? EditorScreenData)?.chatLinkFromPanel
+        chatLinkData = (data as? EditorScreenData)?.chatLink
         isWidgetsScreen = (data as? HomeWidgetData) != nil
         updateState()
     }
@@ -103,7 +114,48 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.popToFirstInSpace()
     }
     
+    func onTapCreateObject(type: ObjectType) {
+        Task { @MainActor in
+            let details = try await objectActionsService.createObject(
+                name: "",
+                typeUniqueKey: type.uniqueKey,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: true,
+                shouldSelectTemplate: true,
+                spaceId: info.accountSpaceId,
+                origin: .none,
+                templateId: type.defaultTemplateId
+            )
+            
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .navigation)
+            
+            output?.onCreateObjectSelected(screenData: details.screenData())
+        }
+    }
+    
     // MARK: - Private
+    
+    private func participantSubscription() async {
+        for await data in participantSpacesStorage.participantSpaceViewPublisher(spaceId: info.accountSpaceId).values {
+            participantSpaceView = data
+            updateState()
+        }
+    }
+    
+    private func typesSubscription() async {
+        for await types in objectTypeProvider.objectTypesPublisher(spaceId: info.accountSpaceId).values {
+            let types = types.filter { type in
+                DetailsLayout.supportedForCreation.contains { $0 == type.recommendedLayout }
+                && !type.isTemplateType
+            }
+            
+            favoritesObjectTypes = types
+                .filter { Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
+                .reordered(by: Constants.favoriteTypesUniqueKeys.map(\.value), transform: \.uniqueKey.value)
+            
+            otherObjectTypes = types.filter { !Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
+        }
+    }
     
     private func updateState() {
         guard let participantSpaceView else { return }

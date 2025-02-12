@@ -1,5 +1,5 @@
 import Foundation
-
+import AppTarget
 
 public protocol DeepLinkParserProtocol: AnyObject, Sendable {
     func parse(url: URL) -> DeepLink?
@@ -18,10 +18,10 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
         static let networkConfig = "networkConfig"
     }
 
-    private let isDebug: Bool
+    private let targetType: AppTargetType
     
-    init(isDebug: Bool) {
-        self.isDebug = isDebug
+    init(targetType: AppTargetType) {
+        self.targetType = targetType
     }
     
     public func parse(url: URL) -> DeepLink? {
@@ -40,10 +40,10 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
         
         // Check and remove schema
         
-        if urlString.hasPrefix(DeepLinkScheme.buildSpecific.host(isDebug: isDebug)) {
-            urlString = String(urlString.dropFirst(DeepLinkScheme.buildSpecific.host(isDebug: isDebug).count))
-        } else if urlString.hasPrefix(DeepLinkScheme.main.host(isDebug: isDebug)) {
-            urlString = String(urlString.dropFirst(DeepLinkScheme.main.host(isDebug: isDebug).count))
+        if urlString.hasPrefix(DeepLinkScheme.buildSpecific.host(targetType: targetType)) {
+            urlString = String(urlString.dropFirst(DeepLinkScheme.buildSpecific.host(targetType: targetType).count))
+        } else if urlString.hasPrefix(DeepLinkScheme.main.host(targetType: targetType)) {
+            urlString = String(urlString.dropFirst(DeepLinkScheme.main.host(targetType: targetType).count))
         } else {
             return nil
         }
@@ -82,7 +82,7 @@ final class DeepLinkParser: DeepLinkParserProtocol, Sendable {
     
     public func createUrl(deepLink: DeepLink, scheme: DeepLinkScheme) -> URL? {
         
-        let host = scheme.host(isDebug: isDebug)
+        let host = scheme.host(targetType: targetType)
         
         switch deepLink {
         case .createObjectFromWidget:

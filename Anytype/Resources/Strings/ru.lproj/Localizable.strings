@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Ссылка";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Без названия";
 
-"BlockText.ContentType.Title.Placeholder" = "Без названия";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Добавить описание";
 "BlockText.ContentType.Toggle.Placeholder" = "Переключить блокировку";
 "BlockText.ContentType.Bulleted.Placeholder" = "Элемент маркированного списка";
@@ -62,11 +61,8 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Карточка";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Название пространства";
-
 // MARK: - Object
-"Object.Title.Placeholder" = "Без названия";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Удаленный объект";
 
 // MARK: - Relation
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Объект";
 
+"Untitled" = "Untitled";
 "None" = "Нет";
 "Callout" = "Врезка";
 "Toggle empty. Tap to create block." = "Пусто. Нажмите, чтобы создать блок.";
@@ -144,6 +141,7 @@
 "Relations" = "Свойства";
 "History" = "История";
 "Objects" = "Объекты";
+"All" = "Все";
 "Pages" = "Страницы";
 "Lists" = "Списки";
 "Bookmarks" = "Закладки";
@@ -211,7 +209,7 @@
 "Open Set" = "Открыть набор";
 "Create Set" = "Создать Набор";
 "Unsupported deeplink" = "Неподдерживаемая ссылка";
-"Edit Profile" = "Edit Profile";
+"Edit Profile" = "Редактировать профиль";
 
 // Home
 "Favorites" = "Избранное";
@@ -279,7 +277,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Установите ваше имя";
 "Auth.JoinFlow.Soul.Description" = "Видим только людям, с которыми вы чем-то поделились. Централизованного реестра имен не существует.";
-"Auth.JoinFlow.Soul.Placeholder" = "Без названия";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Войти в мое хранилище";
 
 "Auth.JoinFlow.Vault.Title" = "Это ваше Хранилище";
@@ -481,7 +479,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дней с настоящего времени";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Без названия";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запрос";
@@ -580,7 +578,7 @@
 "Types" = "Типы";
 "No name" = "Без названия";
 "New relation" = "Новое свойство";
-"Edit field" = "Edit field";
+"Edit field" = "Редактировать поле";
 "Non-existent object" = "Несуществующий объект";
 
 "Select all" = "Выбрать все";
@@ -641,6 +639,7 @@
 "Deleted" = "Удалено";
 "Download" = "Скачать";
 "Open object" = "Открыть объект";
+"Open as Object" = "Open as Object";
 "Open source" = "Открыть источник";
 "Into object" = "В объект";
 "Add below" = "Добавить ниже";
@@ -661,6 +660,7 @@
 "Link to" = "Связать с";
 "Unknown" = "Неизвестно";
 "Settings" = "Настройки";
+"Preferences" = "Preferences";
 "Views" = "Представления";
 "Filter" = "Фильтр";
 "Sort" = "Сортировка";
@@ -706,6 +706,10 @@
 "Hide" = "Скрыть";
 "Apply" = "Применить";
 "Leave a space" = "Покинуть пространство";
+"Collaboration" = "Collaboration";
+"Members" = "Участники";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -787,7 +791,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дублировать";
 "SetViewTypesPicker.Settings.Delete.View" = "Удалить вид";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Новый вид";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без названия";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Не поддерживается";
@@ -877,6 +881,10 @@
 "Settings.SpaceName" = "Название пространства";
 "Settings.SpaceType" = "Тип пространства";
 "Settings.VaultAndAccess" = "Хранилище и доступ";
+"Settings.SpaceName" = "Название пространства";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файловое хранилище";
@@ -888,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Чтобы сохранить место на вашем локальном устройстве, вы можете выгрузить все ваши файлы в наш зашифрованный узел резервного копирования. Файлы будут загружены обратно, когда вы откроете их.";
 "FileStorage.Local.Used" = "%@ использовано";
 "FileStorage.OffloadTitle" = "Выгрузить файлы";
-"FileStorage.ManageFiles" = "Управление файлами";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Вы превысили лимит загрузки файлов";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Другие пространства | %@";
 "FileStorage.LimitLegend.Free" = "Освободить | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Синхронизированные файлы";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Вы действительно хотите безвозвратно удалить этот файл?";
 
 // MARK: - Widget object list
@@ -929,7 +937,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Настройки пространства";
 "SpaceSettings.RemoteStorage" = "Удалённое хранилище";
-"SpaceSettings.Info" = "Информация о пространстве";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "ID сети";
 "SpaceSettings.DeleteAlert.Title" = "Удалить пространство \"%@\"";
 "SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";
@@ -1263,7 +1271,6 @@
 "AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Только редакторы могут отправлять сообщения. Свяжитесь с владельцем для запроса доступа.";
 "Chat.ReplyTo" = "Ответить %@";
 "Chat.Empty.Title" = "Здесь пока нет сообщений...";
 "Chat.Empty.Description" = "Напишите первый, чтобы начать диалог";
@@ -1272,17 +1279,25 @@
 "Chat.Reactions.Empty.Title" = "Пока нет реакций";
 "Chat.Reactions.Empty.Subtitle" = "Возможно, кто-то только что удалил реакцию или случился технический сбой";
 "Chat.EditMessage" = "Редактировать сообщение";
-"Chat.Actions.Menu.Objects" = "Выберите существующий объект";
-"Chat.Actions.Menu.Media" = "Загрузить медиафайл";
-"Chat.Actions.Menu.Files" = "Загрузить файл";
-"Chat.Actions.Menu.Camera" = "Снять на камеру";
+"Chat.Actions.Menu.Pages" = "Страницы";
+"Chat.Actions.Menu.Lists" = "Списки";
+"Chat.Actions.Menu.Photos" = "Фото";
+"Chat.Actions.Menu.Files" = "Files";
+"Chat.Actions.Menu.Camera" = "Камера";
+"Chat.Actions.Menu.More" = "Ещё";
 "Chat.Participant.Badge" = "(Вы)";
 "Chat.Reply.Images" = "Изображения (%@)";
 "Chat.Reply.Attachments" = "Вложения (%@)";
 "Chat.Reply.Files" = "Файлы (%@)";
 "Chat.SendLimitAlert.Title" = "Удерживаем! Обнаружен Turbo typing!";
 "Chat.SendLimitAlert.Message" = "Похоже, вы отправляете сообщения со скоростью молнии. Дайте секунду перед следующим.";
-"Chat.AttachmentsLimit.Alert" = "Вы можете загружать только %@ файлов за раз";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachedObject.Attach" = "Прикрепить";
+"Chat.CreateObject.Dismiss.Title" = "Вы уверены, что хотите закрыть этот экран?";
+"Chat.CreateObject.Dismiss.Message" = "Если вы покинете, все ваши изменения будут потеряны.";
+"Chat.CreateObject.Dismiss.Ok" = "Да, закрыть";
+"Chat.Attach.Page.title" = "Прикрепить страницу";
+"Chat.Attach.List.title" = "Прикрепить список";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
@@ -1297,3 +1312,9 @@
 
 // MARK: - Fields
 "Fields.menu" = "Меню полей";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Новая страница";
+"ObjectSearchWithMeta.Create.Note" = "Новая заметка";
+"ObjectSearchWithMeta.Create.Set" = "Новый Набор";
+"ObjectSearchWithMeta.Create.Collection" = "Новая коллекция";

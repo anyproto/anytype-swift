@@ -36,5 +36,8 @@ struct HomeWidgetsCoordinatorView: View {
             .sheet(item: $model.showSpaceSettingsData) {
                 SpaceSettingsCoordinatorView(workspaceInfo: $0)
             }
+            .fullScreenCover(item: $model.newShowSpaceSettingsData) {
+                NewSpaceSettingsCoordinatorView(workspaceInfo: $0)
+            }
     }
 }

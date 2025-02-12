@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Link";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Unbenannt";
 
 "BlockText.ContentType.Title.Placeholder" = "Unbenannt";
 "BlockText.ContentType.Description.Placeholder" = "Beschreibung hinzufügen";
@@ -61,9 +60,6 @@
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Karte";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
-
-// MARK: - Settings
-"Settings.SpaceName" = "Space-Name";
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Unbenannt";
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
 
+"Untitled" = "Unbenannt";
 "None" = "Keine";
 "Callout" = "Textbox";
 "Toggle empty. Tap to create block." = "Tippen um Block zu erstellen.";
@@ -144,6 +141,7 @@
 "Relations" = "Verknüpfungen";
 "History" = "Verlauf";
 "Objects" = "Objekte";
+"All" = "Alle";
 "Pages" = "Seiten";
 "Lists" = "Gruppen";
 "Bookmarks" = "Lesezeichen";
@@ -208,8 +206,8 @@
 "Lets Go" = "Los geht’s";
 "My spaces" = "My Spaces";
 "Open file" = "Datei öffnen";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Set öffnen";
+"Create Set" = "Set erstellen";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Profil bearbeiten";
 
@@ -641,6 +639,7 @@
 "Deleted" = "Gelöscht";
 "Download" = "Herunterladen";
 "Open object" = "Objekt öffnen";
+"Open as Object" = "Als Objekt öffnen";
 "Open source" = "Quelle öffnen";
 "Into object" = "In ein Objekt";
 "Add below" = "Unten hinzufügen";
@@ -661,6 +660,7 @@
 "Link to" = "Link zu";
 "Unknown" = "Unbekannt";
 "Settings" = "Einstellungen";
+"Preferences" = "Einstellungen";
 "Views" = "Ansichten";
 "Filter" = "Filter";
 "Sort" = "Sortierung";
@@ -700,12 +700,16 @@
 "My First Space" = "Mein erster Space";
 "Copy space info" = "Spaceinformationen kopieren";
 "Save" = "Speichern";
-"Set of" = "Set of %@";
+"Set of" = "Set von %@";
 "New set" = "Neues Set";
 "Show" = "Zeigen";
 "Hide" = "Verstecken";
 "Apply" = "Anwenden";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Zusammenarbeit";
+"Members" = "Mitglieder";
+"Invite" = "Einladen";
+"QR Code" = "QR-Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
@@ -878,6 +882,10 @@
 "Settings.SpaceName" = "Space-Name";
 "Settings.SpaceType" = "Space Typ";
 "Settings.VaultAndAccess" = "Tresor und Zugriff";
+"Settings.SpaceName" = "Space-Name";
+"Settings.Edit picture" = "Bild bearbeiten";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Datenverwaltung";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Dateispeicher";
@@ -889,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Um Platz auf deinem Gerät zu sparen, können alle deine Dateien auf unseren verschlüsselten Backup-Knoten ausgelagert werden. Die Dateien werden beim Öffnen dann wieder heruntergeladen.";
 "FileStorage.Local.Used" = "%@ verwendet";
 "FileStorage.OffloadTitle" = "Dateien abladen";
-"FileStorage.ManageFiles" = "Dateien verwalten";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Sie haben das Uploadlimit überschritten";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Andere Spaces | %@";
 "FileStorage.LimitLegend.Free" = "Kostenlos | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synchronisierte Dateien";
+"FilesList.Title" = "Dateien bereinigen";
 "FilesList.ForceDelete.Title" = "Möchten Sie die Dateien wirklich unwiderruflich löschen?";
 
 // MARK: - Widget object list
@@ -930,7 +938,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Space-Einstellungen";
 "SpaceSettings.RemoteStorage" = "Externer Speicher";
-"SpaceSettings.Info" = "Space-Info";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Netzwerk-ID";
 "SpaceSettings.DeleteAlert.Title" = "Space '%@' löschen";
 "SpaceSettings.DeleteAlert.Message" = "Dieser Space wird unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
@@ -1261,7 +1269,6 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "AllContent.Search.Empty.State.subtitle" = "Versuche mit anderen Schlüsselwörtern zu suchen.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Nur Bearbeiter können Nachrichten versenden. Kontaktiere den Eigentümer und frage Zugriff an.";
 "Chat.ReplyTo" = "Auf %@ antworten";
 "Chat.Empty.Title" = "Noch keine Nachrichten hier...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
@@ -1270,17 +1277,25 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Reactions.Empty.Title" = "Noch keine Reaktionen";
 "Chat.Reactions.Empty.Subtitle" = "Wahrscheinlich hat jemand gerade die Reaktion entfernt oder es ist ein technisches Problem aufgetreten";
 "Chat.EditMessage" = "Nachricht bearbeiten";
-"Chat.Actions.Menu.Objects" = "Bestehendes Objekt auswählen";
-"Chat.Actions.Menu.Media" = "Medien hochladen";
-"Chat.Actions.Menu.Files" = "Datei hochladen";
-"Chat.Actions.Menu.Camera" = "Von der Kamera nehmen";
+"Chat.Actions.Menu.Pages" = "Seiten";
+"Chat.Actions.Menu.Lists" = "Gruppen";
+"Chat.Actions.Menu.Photos" = "Fotos";
+"Chat.Actions.Menu.Files" = "Dateien";
+"Chat.Actions.Menu.Camera" = "Kamera";
+"Chat.Actions.Menu.More" = "Mehr";
 "Chat.Participant.Badge" = "(Du)";
 "Chat.Reply.Images" = "Bilder (%@)";
 "Chat.Reply.Attachments" = "Anhänge (%@)";
 "Chat.Reply.Files" = "Dateien (%@)";
 "Chat.SendLimitAlert.Title" = "Moment mal! Turbotippen erkannt!";
 "Chat.SendLimitAlert.Message" = "Sieht so aus, als würdest du Nachrichten in Windeseile verschicken. Warte noch eine Sekunde bis zur nächsten Nachricht.";
-"Chat.AttachmentsLimit.Alert" = "Du kannst nur %@ Dateien auf einmal hochladen";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachedObject.Attach" = "Anhängen";
+"Chat.CreateObject.Dismiss.Title" = "Möchtest du diesen Bildschirm wirklich schließen?";
+"Chat.CreateObject.Dismiss.Message" = "Wenn du es verlässt, gehen alle deine Änderungen verloren.";
+"Chat.CreateObject.Dismiss.Ok" = "Ja, schließen";
+"Chat.Attach.Page.title" = "Seite anhängen";
+"Chat.Attach.List.title" = "Liste anhängen";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";
@@ -1295,3 +1310,9 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 
 // MARK: - Fields
 "Fields.menu" = "Fields menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Neue Seite";
+"ObjectSearchWithMeta.Create.Note" = "Neue Notiz";
+"ObjectSearchWithMeta.Create.Set" = "Neues Set";
+"ObjectSearchWithMeta.Create.Collection" = "Neue Sammlung";

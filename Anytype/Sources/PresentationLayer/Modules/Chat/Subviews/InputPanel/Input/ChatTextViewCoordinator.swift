@@ -1,9 +1,10 @@
 import Foundation
+import UniformTypeIdentifiers
 import UIKit
 import SwiftUI
 import Services
 
-final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContentStorageDelegate {
+final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContentStorageDelegate, AnytypeUITextViewDelegate {
     
     private enum Mode {
         case text
@@ -27,6 +28,8 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     private var mode: Mode = .text
     private var triggerSymbolPosition: UITextPosition?
     private var lastApplyedEditingState: Bool?
+    @Injected(\.chatPasteboardHelper)
+    private var chatPasteboardHelper: any ChatPasteboardHelperProtocol
     
     init(
         text: Binding<NSAttributedString>,
@@ -169,6 +172,21 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             }
             return result
         }
+    }
+    
+    // MARK: - AnytypeUITextViewDelegate
+    
+    func textViewPasteAction(_ textView: AnytypeUITextView, sender: Any?) {
+        
+        if let pasteStr = chatPasteboardHelper.attributedString() {
+            let newStr = NSMutableAttributedString(attributedString: textView.attributedText)
+            let newSelectedRange = NSRange(location: textView.selectedRange.location + pasteStr.length, length: 0)
+            newStr.replaceCharacters(in: textView.selectedRange, with: pasteStr)
+            textView.attributedText = newStr
+            textView.selectedRange = newSelectedRange
+        }
+        
+        textViewDidChange(textView)
     }
     
     // MARK: - Private

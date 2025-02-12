@@ -1,5 +1,6 @@
 import UIKit
 import AnytypeCore
+import FirebaseMessaging
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -46,5 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         config.delegateClass = SceneDelegate.self
         return config
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
 }

@@ -40,7 +40,6 @@
 "TextStyle.Link.Title" = "Lien";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Sans titre";
 
 "BlockText.ContentType.Title.Placeholder" = "Sans titre";
 "BlockText.ContentType.Description.Placeholder" = "Ajouter une description";
@@ -61,9 +60,6 @@
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Carte";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texte";
-
-// MARK: - Settings
-"Settings.SpaceName" = "Nom de l'espace";
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Sans titre";
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objet";
 
+"Untitled" = "Sans titre";
 "None" = "Aucun";
 "Callout" = "Encadré";
 "Toggle empty. Tap to create block." = "Activer/désactiver vide. Touchez pour créer un bloc.";
@@ -144,6 +141,7 @@
 "Relations" = "Relations";
 "History" = "Historique";
 "Objects" = "Objets";
+"All" = "Tout";
 "Pages" = "Pages";
 "Lists" = "Groupes";
 "Bookmarks" = "Signets";
@@ -641,6 +639,7 @@
 "Deleted" = "Supprimé";
 "Download" = "Télécharger";
 "Open object" = "Ouvrir l'objet";
+"Open as Object" = "Ouvrir en tant qu'objet";
 "Open source" = "Ouvrir la source";
 "Into object" = "En objet";
 "Add below" = "Ajouter en dessous";
@@ -661,6 +660,7 @@
 "Link to" = "Lien vers";
 "Unknown" = "Inconnu";
 "Settings" = "Paramètres";
+"Preferences" = "Preferences";
 "Views" = "Vues";
 "Filter" = "Filtre";
 "Sort" = "Trier";
@@ -706,6 +706,10 @@
 "Hide" = "Masquer";
 "Apply" = "Appliquer";
 "Leave a space" = "Quitter l'espace";
+"Collaboration" = "Collaboration";
+"Members" = "Membres";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -877,6 +881,10 @@
 "Settings.SpaceName" = "Nom de l'espace";
 "Settings.SpaceType" = "Type d'espace";
 "Settings.VaultAndAccess" = "Coffre et accès";
+"Settings.SpaceName" = "Nom de l'espace";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Stockage des fichiers";
@@ -888,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Afin d'économiser de l'espace sur votre appareil, vous pouvez décharger tous vos fichiers vers notre nœud de sauvegarde chiffré. Les fichiers seront rechargés lorsque vous les ouvrirez.";
 "FileStorage.Local.Used" = "%@ utilisé";
 "FileStorage.OffloadTitle" = "Décharger les fichiers";
-"FileStorage.ManageFiles" = "Gérer les fichiers";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Vous avez dépassé la limite d'envoi de fichiers";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Autres espaces | %@";
 "FileStorage.LimitLegend.Free" = "Gratuit | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Fichiers synchronisés";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Êtes-vous sûr de vouloir supprimer définitivement les fichiers ?";
 
 // MARK: - Widget object list
@@ -1261,7 +1269,6 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "AllContent.Search.Empty.State.subtitle" = "Essayez de rechercher avec différents mots-clés.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Seuls les éditeurs peuvent envoyer des messages. Contactez le propriétaire pour demander l'accès.";
 "Chat.ReplyTo" = "Réponse à %@";
 "Chat.Empty.Title" = "Aucun message pour l'instant...";
 "Chat.Empty.Description" = "Écrivez une première pour démarrer une conversation";
@@ -1270,17 +1277,25 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.Reactions.Empty.Title" = "Aucune réaction pour l'instant";
 "Chat.Reactions.Empty.Subtitle" = "Probablement quelqu'un vient de supprimer la réaction ou un problème technique est survenu";
 "Chat.EditMessage" = "Modifier le message";
-"Chat.Actions.Menu.Objects" = "Sélectionner l'objet existant";
-"Chat.Actions.Menu.Media" = "Télécharger des médias";
-"Chat.Actions.Menu.Files" = "Télécharger un fichier";
-"Chat.Actions.Menu.Camera" = "Depuis l’appareil photo";
+"Chat.Actions.Menu.Pages" = "Pages";
+"Chat.Actions.Menu.Lists" = "Groupes";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "Fichiers";
+"Chat.Actions.Menu.Camera" = "Caméra";
+"Chat.Actions.Menu.More" = "Plus";
 "Chat.Participant.Badge" = "(Vous)";
 "Chat.Reply.Images" = "Images (%@)";
 "Chat.Reply.Attachments" = "Pièces jointes (%@)";
 "Chat.Reply.Files" = "Fichiers (%@)";
 "Chat.SendLimitAlert.Title" = "Attendez ! Frappe turbo détectée !";
 "Chat.SendLimitAlert.Message" = "Il semble que vous envoyez des messages à la vitesse de la foudre. Attendez un instant avant le suivant.";
-"Chat.AttachmentsLimit.Alert" = "Vous ne pouvez télécharger que %@ fichiers à la fois";
+"Chat.AttachmentsLimit.Alert" = "Vous ne pouvez télécharger que %@ pièces jointes à la fois";
+"Chat.AttachedObject.Attach" = "Attacher";
+"Chat.CreateObject.Dismiss.Title" = "Êtes-vous sûr de vouloir fermer ce chat ?";
+"Chat.CreateObject.Dismiss.Message" = "Si vous le quittez, tous vos changements seront perdus.";
+"Chat.CreateObject.Dismiss.Ok" = "Oui, fermer";
+"Chat.Attach.Page.title" = "Joindre une page";
+"Chat.Attach.List.title" = "Joindre une liste";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";
@@ -1295,3 +1310,9 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 // MARK: - Fields
 "Fields.menu" = "Menu des champs";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Nouvelle page";
+"ObjectSearchWithMeta.Create.Note" = "Nouvelle note";
+"ObjectSearchWithMeta.Create.Set" = "Nouvel ensemble";
+"ObjectSearchWithMeta.Create.Collection" = "Nouvelle collection";

@@ -3,6 +3,7 @@ import UIKit
 import AnytypeCore
 import Services
 import ZIPFoundation
+import FirebaseMessaging
 
 
 @MainActor
@@ -12,7 +13,7 @@ final class DebugMenuViewModel: ObservableObject {
     @Published var shareUrlFile: URL?
     @Published var showZipPicker = false
     @Published private(set) var flags = [FeatureFlagSection]()
-    
+    @Published var pushToken: StringIdentifiable?
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
     
     @Injected(\.userDefaultsStorage)
@@ -109,6 +110,13 @@ final class DebugMenuViewModel: ObservableObject {
     
     func debugStat() async throws {
         shareUrlFile = try await debugService.debugStat()
+    }
+    
+    func getNotificationToken() {
+        Messaging.messaging().token { [weak self] token, error in
+            guard let self, let token else { return }
+            pushToken = token.identifiable
+        }
     }
     
     // MARK: - Private

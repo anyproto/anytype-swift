@@ -12,7 +12,6 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     }
     
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
-    private let gridLayoutBuilder: any MessageAttachmentsGridLayoutBuilderProtocol = Container.shared.messageAttachmentsGridLayoutBuilder()
     private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
     
     private let spaceId: String
@@ -69,12 +68,14 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 chatId: chatId,
                 authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
+                authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
-                messageString: messageTextBuilder.makeMessage(content: message.message, isYourMessage: isYourMessage),
+                messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, isYourMessage: isYourMessage),
                 replyModel: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
-                    isYourMessage: isYourMessage)
+                    yourProfileIdentity: yourProfileIdentity
+                )
                 ,
                 isYourMessage: isYourMessage,
                 linkedObjects: mapAttachments(fullMessage: fullMessage),
@@ -86,8 +87,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 ),
                 canAddReaction: limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
                 nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
-                authorMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
-                showHeader: firstForCurrentUser || prevDateIntervalIsBig,
+                authorIconMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
+                showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage,
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 message: message,
@@ -153,7 +154,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
     }
     
-    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], isYourMessage: Bool) -> MessageReplyModel? {
+    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], yourProfileIdentity: String?) -> MessageReplyModel? {
         if let replyChat = fullMessage.reply {
             let replyAuthor = participants.first { $0.identity == fullMessage.reply?.creator }
             let replyAttachment = fullMessage.replyAttachments.first
@@ -178,8 +179,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             return MessageReplyModel(
                 author: replyAuthor?.title ?? "",
                 description: description,
-                icon: replyAttachment?.objectIconImage,
-                isYour: isYourMessage
+                attachmentIcon: replyAttachment?.objectIconImage,
+                isYour: replyAuthor?.identity == yourProfileIdentity
             )
         }
         return nil
@@ -190,6 +191,12 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         
         guard chatMessage.attachments.isNotEmpty else {
             return nil
+        }
+        
+        if fullMessage.attachments.count == 1,
+           let attachment = fullMessage.attachments.first,
+           attachment.layoutValue.isBookmark {
+            return .bookmark(attachment)
         }
         
         var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(details: $0) }
@@ -208,15 +215,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         if containsNotOnlyMediaFiles {
             return .list(linkedObjectsDetails)
         } else {
-            let gridItems = gridLayoutBuilder.makeGridRows(countItems: linkedObjectsDetails.count)
-            var prevIndex = 0
-            let items = gridItems.map { itemsCount in
-                let nextIndex = prevIndex + itemsCount
-                let items = linkedObjectsDetails[prevIndex..<nextIndex]
-                prevIndex = nextIndex
-                return Array(items)
-            }
-            return .grid(items)
+            return .grid(linkedObjectsDetails)
         }
     }
 }

@@ -22,24 +22,8 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var versionHistory: Bool {
-        value(for: .versionHistory)
-    }
-
     static var allContent: Bool {
         value(for: .allContent)
-    }
-
-    static var userWarningAlerts: Bool {
-        value(for: .userWarningAlerts)
-    }
-
-    static var dateAsAnObject: Bool {
-        value(for: .dateAsAnObject)
-    }
-
-    static var relativeDates: Bool {
-        value(for: .relativeDates)
     }
 
     static var homeSpaceLevelChat: Bool {
@@ -58,12 +42,32 @@ public extension FeatureFlags {
         value(for: .primitives)
     }
 
-    static var fullScreenMediaFileByTap: Bool {
-        value(for: .fullScreenMediaFileByTap)
-    }
-
     static var memberProfile: Bool {
         value(for: .memberProfile)
+    }
+
+    static var allContentWidgets: Bool {
+        value(for: .allContentWidgets)
+    }
+
+    static var openMediaFileInPreview: Bool {
+        value(for: .openMediaFileInPreview)
+    }
+
+    static var openBookmarkAsLink: Bool {
+        value(for: .openBookmarkAsLink)
+    }
+
+    static var newSettings: Bool {
+        value(for: .newSettings)
+    }
+
+    static var newPlusMenu: Bool {
+        value(for: .newPlusMenu)
+    }
+
+    static var firebasePushMessages: Bool {
+        value(for: .firebasePushMessages)
     }
 
     static var rainbowViews: Bool {
@@ -124,17 +128,18 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .versionHistory,
         .allContent,
-        .userWarningAlerts,
-        .dateAsAnObject,
-        .relativeDates,
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .newSpacesLoading,
         .primitives,
-        .fullScreenMediaFileByTap,
         .memberProfile,
+        .allContentWidgets,
+        .openMediaFileInPreview,
+        .openBookmarkAsLink,
+        .newSettings,
+        .newPlusMenu,
+        .firebasePushMessages,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -46,7 +46,6 @@ final class SpaceSearchViewModel: ObservableObject {
 
 extension SpaceView: SearchDataProtocol {
     var iconImage: Icon? { objectIconImage }
-    var description: String { "" }
     var callout: String { "" }
     var typeId: String { "" }
     var shouldShowCallout: Bool { false }

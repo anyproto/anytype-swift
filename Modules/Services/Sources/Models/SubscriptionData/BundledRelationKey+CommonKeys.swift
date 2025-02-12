@@ -64,6 +64,8 @@ public extension BundledRelationKey {
             // Complex keys
             BundledRelationKey.objectIconImageKeys
             BundledRelationKey.titleKeys
+            // Open bookmark in whole app
+            BundledRelationKey.source
         }.uniqued()
     }
 }

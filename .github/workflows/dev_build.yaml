@@ -49,11 +49,14 @@ jobs:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
+      - name: Bump Version
+        run: bundle exec fastlane increment_build_and_push
+      
       - name: Build and upload to Testflight
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
-          bundle exec fastlane dev
+          bundle exec fastlane release_dev
         env:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}

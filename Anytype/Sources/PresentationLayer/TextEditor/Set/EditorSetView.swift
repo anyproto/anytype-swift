@@ -5,7 +5,9 @@ struct EditorSetView: View {
     @StateObject private var model: EditorSetViewModel
 
     @State private var headerMinimizedSize = CGSize.zero
+    @State private var tableHeaderFullSize = CGSize.zero
     @State private var tableHeaderSize = CGSize.zero
+    @State private var safeAreaInsets = EdgeInsets()
     @State private var offset = CGPoint.zero
     @Environment(\.dismiss) private var dismiss
     
@@ -16,7 +18,7 @@ struct EditorSetView: View {
     var body: some View {
         Group {
             if model.loadingDocument {
-                EmptyView()
+                Spacer()
             } else {
                 content
             }
@@ -42,25 +44,31 @@ struct EditorSetView: View {
     }
     
     private var content: some View {
-        contentView
-            .overlay(
-                ZStack(alignment: .topLeading, content: {
-                    SetFullHeader(model: model)
-                        .readSize { tableHeaderSize = $0 }
-                        .offset(x: 0, y: offset.y)
-                    if model.showHeader {
-                        SetMinimizedHeader(
-                            model: model,
-                            headerSize: tableHeaderSize,
-                            tableViewOffset: offset,
-                            headerMinimizedSize: $headerMinimizedSize
-                        )
-                    }
-                })
-                , alignment: .topLeading
-            )
-            .ignoresSafeArea(edges: .top)
-            .keyboardToolbar()
+        ZStack(alignment: .top) {
+            contentView
+                .keyboardToolbar()
+            
+            SetFullHeader(model: model)
+                .readSize {
+                    tableHeaderFullSize = $0
+                    updateHeaderSize()
+                }
+                .offset(x: 0, y: offset.y)
+                .ignoresSafeArea(edges: .top)
+            
+            if model.showHeader {
+                SetMinimizedHeader(
+                    model: model,
+                    headerSize: tableHeaderSize,
+                    tableViewOffset: offset,
+                    headerMinimizedSize: $headerMinimizedSize
+                )
+            }
+        }
+        .readSafeArea {
+            safeAreaInsets = $0
+            updateHeaderSize()
+        }
     }
     
     @ViewBuilder
@@ -123,5 +131,9 @@ struct EditorSetView: View {
     private var headerSettingsView: some View {
         SetHeaderSettingsView(model: model.headerSettingsViewModel)
             .frame(width: tableHeaderSize.width)
+    }
+    
+    private func updateHeaderSize() {
+        tableHeaderSize = CGSize(width: tableHeaderFullSize.width, height: tableHeaderFullSize.height - safeAreaInsets.top)
     }
 }

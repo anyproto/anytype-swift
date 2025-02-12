@@ -497,7 +497,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logOpenAsObject()
-            router.showObject(objectId: bookmark.targetObjectID)
+            router.showObject(objectId: bookmark.targetObjectID, forceOpenObject: true)
         case .openSource:
             anytypeAssert(
                 elements.count == 1,

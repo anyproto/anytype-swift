@@ -65,6 +65,9 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
             }
+            .safariBookmarkObject($model.bookmarkScreenData) {
+                model.onOpenBookmarkAsObject($0)
+            }
     }
     
     private var content: some View {  
@@ -97,8 +100,8 @@ struct SpaceHubCoordinatorView: View {
             )
         }
         .animation(.easeInOut, value: model.spaceInfo)
-        .environment(\.pageNavigation, model.pageNavigation)
-        .environment(\.chatActionProvider, $model.chatProvider)
+        .pageNavigation(model.pageNavigation)
+        .chatActionProvider($model.chatProvider)
     }
 }
 

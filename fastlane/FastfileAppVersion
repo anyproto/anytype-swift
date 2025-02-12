@@ -62,4 +62,36 @@ platform :ios do
 
   end
 
+  lane :increment_build_and_push do |options|
+
+    xcodeproj = ENV["APP_PROJECT"]
+    current_branch = git_branch
+    temp_branch = "#{current_branch}-temp"
+    
+    ensure_git_status_clean(
+      show_uncommitted_changes: true,
+      show_diff: true
+    )
+
+    sh("git checkout -b " + temp_branch)
+
+    build_number = increment_build_number(xcodeproj: xcodeproj, skip_info_plist: true)
+    version = get_version_number(xcodeproj: xcodeproj, target: ENV["APP_TARGET"])
+    
+    commit_version_bump(
+      message: "Bump version #{version}(#{build_number})",
+      xcodeproj: xcodeproj,
+      no_verify: true
+    )
+
+    sh("git checkout " + current_branch)
+
+    git_pull
+
+    sh("git merge --ff --no-verify " + temp_branch)
+    sh("git branch -d " + temp_branch)
+
+    push_to_git_remote(no_verify: true)
+  end
+
 end

@@ -36,10 +36,7 @@ struct ChatView: View {
             }
         }
         .task {
-            await model.subscribeOnPermissions()
-        }
-        .task {
-            await model.subscribeOnParticipants()
+            await model.startSubscriptions()
         }
         .throwingTask {
             try await model.subscribeOnMessages()
@@ -57,13 +54,10 @@ struct ChatView: View {
         .homeBottomPanelHidden(true)
     }
     
+    @ViewBuilder
     private var bottomPanel: some View {
-        Group {
-            if model.canEdit {
-                inputPanel
-            } else {
-                ChatReadOnlyBottomView()
-            }
+        if model.canEdit {
+            inputPanel
         }
     }
     
@@ -94,20 +88,33 @@ struct ChatView: View {
                 mention: $model.mentionSearchState,
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
-                disableAddButton: model.sendMessageTaskInProgress
-            ) {
-                model.onTapAddObjectToMessage()
-            } onTapAddMedia: {
-                model.onTapAddMediaToMessage()
-            } onTapAddFiles: {
-                model.onTapAddFilesToMessage()
-            } onTapCamera: {
-                model.onTapCamera()
-            } onTapSend: {
-                model.onTapSendMessage()
-            } onTapLinkTo: { range in
-                model.onTapLinkTo(range: range)
-            }
+                disableAddButton: model.sendMessageTaskInProgress,
+                createObjectTypes: model.typesForCreateObject,
+                onTapAddPage: {
+                    model.onTapAddPageToMessage()
+                },
+                onTapAddList: {
+                    model.onTapAddListToMessage()
+                },
+                onTapAddMedia: {
+                    model.onTapAddMediaToMessage()
+                },
+                onTapAddFiles: {
+                    model.onTapAddFilesToMessage()
+                },
+                onTapCamera: {
+                    model.onTapCamera()
+                },
+                onTapCreateObject: {
+                    model.onTapCreateObject(type: $0)
+                },
+                onTapSend: {
+                    model.onTapSendMessage()
+                },
+                onTapLinkTo: { range in
+                    model.onTapLinkTo(range: range)
+                }
+            )
             .overlay(alignment: .top) {
                 if let messageTextLimit = model.messageTextLimit {
                     Text(messageTextLimit)
@@ -162,5 +169,6 @@ struct ChatView: View {
         } handleVisibleRange: { fromId, toId in
             model.visibleRangeChanged(fromId: fromId, toId: toId)
         }
+        .messageYourBackgroundColor(model.messageYourBackgroundColor)
     }
 }

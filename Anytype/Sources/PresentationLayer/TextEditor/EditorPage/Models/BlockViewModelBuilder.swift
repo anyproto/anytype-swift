@@ -104,11 +104,10 @@ final class BlockViewModelBuilder {
         
         let model = OpenFileBlockViewModel(
             info: .file(fileDetails: FileDetails(objectDetails: details)),
-            handler: handler,
             documentId: document.objectId,
             spaceId: document.spaceId
-        ) { [weak router] fileContext in
-            router?.openImage(fileContext)
+        ) { [weak router] data in
+            router?.showEditorScreen(data: data)
         }
         
         return EditorItem.block(model)
@@ -242,21 +241,13 @@ final class BlockViewModelBuilder {
             case .file, .none:
                 return BlockFileViewModel(
                     informationProvider: blockInformationProvider,
-                    handler: handler,
                     documentId: documentId,
                     spaceId: spaceId,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
-                    onFileOpen: { [weak router] fileContext in
-                        switch fileContext.previewItem.fileDetails.fileContentType {
-                        case .video, .image:
-                            router?.openImage(fileContext)
-                        case .audio, .file:
-                            router?.showObject(objectId: fileContext.previewItem.fileDetails.id)
-                        case .none:
-                            return
-                        }
+                    onFileOpen: { [weak router] data in
+                        router?.showEditorScreen(data: data)
                     }
                 )
             case .image:
@@ -264,11 +255,12 @@ final class BlockViewModelBuilder {
                     documentId: documentId,
                     spaceId: spaceId,
                     blockInformationProvider: blockInformationProvider,
-                    handler: handler,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     },
-                    onImageOpen: router.openImage
+                    onImageOpen: { [weak router] data in
+                        router?.showEditorScreen(data: data)
+                    }
                 )
             case .video:
                 return VideoBlockViewModel(

@@ -40,4 +40,17 @@ extension UIColor {
     var light: UIColor {
         resolvedColor(with: .init(userInterfaceStyle: .light))
     }
+    
+    convenience init(light: UIColor, dark: UIColor) {
+        self.init(dynamicProvider: {
+            switch $0.userInterfaceStyle {
+            case .light, .unspecified:
+                return light
+            case .dark:
+                return dark
+            @unknown default:
+                return light
+            }
+        })
+    }
 }

@@ -27,8 +27,8 @@ final class SettingsViewModel: ObservableObject {
     private var profileDataLoaded: Bool = false
     private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
     
-    private let isInProdOrStagingNetwork: Bool
-    var canShowMemberhip: Bool { isInProdOrStagingNetwork }
+    private let allowMembership: Bool
+    var canShowMemberhip: Bool { allowMembership }
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
@@ -39,7 +39,7 @@ final class SettingsViewModel: ObservableObject {
         self.output = output
         
         accountManager = Container.shared.accountManager.resolve()
-        isInProdOrStagingNetwork = accountManager.account.isInProdOrStagingNetwork
+        allowMembership = accountManager.account.allowMembership
     }
     
     func onAppear() {

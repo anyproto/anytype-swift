@@ -40,9 +40,8 @@
 "TextStyle.Link.Title" = "Посилання";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Без назви";
 
-"BlockText.ContentType.Title.Placeholder" = "Без назви";
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
 "BlockText.ContentType.Description.Placeholder" = "Додати опис";
 "BlockText.ContentType.Toggle.Placeholder" = "Перемкнути блок";
 "BlockText.ContentType.Bulleted.Placeholder" = "Елемент маркованого списку";
@@ -62,11 +61,8 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Картка";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Назва простору";
-
 // MARK: - Object
-"Object.Title.Placeholder" = "Без назви";
+"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Видалений об'єкт";
 
 // MARK: - Relation
@@ -128,6 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
 
+"Untitled" = "Untitled";
 "None" = "Нічого";
 "Callout" = "Винесення";
 "Toggle empty. Tap to create block." = "Пусто. Натисніть, щоб створити блок.";
@@ -144,6 +141,7 @@
 "Relations" = "Відносини";
 "History" = "History";
 "Objects" = "Об'єкти";
+"All" = "Все";
 "Pages" = "Pages";
 "Lists" = "Groups";
 "Bookmarks" = "Bookmarks";
@@ -279,7 +277,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
-"Auth.JoinFlow.Soul.Placeholder" = "Без назви";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
 "Auth.JoinFlow.Soul.Button" = "Enter my Vault";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
@@ -481,7 +479,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ днів з цього моменту";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Без назви";
+"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запит";
@@ -641,6 +639,7 @@
 "Deleted" = "Видалено";
 "Download" = "Завантажити";
 "Open object" = "Відкрити об'єкт";
+"Open as Object" = "Open as Object";
 "Open source" = "Відкрити джерело";
 "Into object" = "В об'єкт";
 "Add below" = "Додати знизу";
@@ -661,6 +660,7 @@
 "Link to" = "Зв'язати з";
 "Unknown" = "Невідомо";
 "Settings" = "Налаштування";
+"Preferences" = "Preferences";
 "Views" = "Вигляди";
 "Filter" = "Фільтр";
 "Sort" = "Упорядкувати";
@@ -706,6 +706,10 @@
 "Hide" = "Hide";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Members";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -787,7 +791,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дублювати";
 "SetViewTypesPicker.Settings.Delete.View" = "Видалити подання";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Нове подання";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без назви";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -878,6 +882,10 @@
 "Settings.SpaceName" = "Назва простору";
 "Settings.SpaceType" = "Space type";
 "Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceName" = "Назва простору";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файлове сховище";
@@ -889,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Щоб заощадити місце на вашому локальному пристрої, ви можете вивантажити всі ваші файли на наш зашифрований вузол резервного копіювання. Файли будуть завантажені назад, коли ви їх відкриєте.";
 "FileStorage.Local.Used" = "%@ використано";
 "FileStorage.OffloadTitle" = "Вивантажити файли";
-"FileStorage.ManageFiles" = "Керування файлами";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Перевищено ліміт завантаження файлів";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Синхронізовані файли";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Ви впевнені, що хочете остаточно видалити ці файли?";
 
 // MARK: - Widget object list
@@ -930,7 +938,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Параметри простору";
 "SpaceSettings.RemoteStorage" = "Віддалене сховище";
-"SpaceSettings.Info" = "Інформація про простір";
+"SpaceSettings.Info" = "Space information";
 "SpaceSettings.NetworkId" = "Ідентифікатор мережі";
 "SpaceSettings.DeleteAlert.Title" = "Видалити ‘%@’ простір";
 "SpaceSettings.DeleteAlert.Message" = "Цей простір буде видалено безповоротно. Ви не можете скасувати цю дію.";
@@ -1261,7 +1269,6 @@ Please provide specific details of your needs here.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";
@@ -1270,17 +1277,25 @@ Please provide specific details of your needs here.";
 "Chat.Reactions.Empty.Title" = "No reactions yet";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 "Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Objects" = "Select existing object";
-"Chat.Actions.Menu.Media" = "Upload media";
-"Chat.Actions.Menu.Files" = "Upload file";
-"Chat.Actions.Menu.Camera" = "Take from camera";
+"Chat.Actions.Menu.Pages" = "Pages";
+"Chat.Actions.Menu.Lists" = "Groups";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "Files";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "More";
 "Chat.Participant.Badge" = "(You)";
 "Chat.Reply.Images" = "Images (%@)";
 "Chat.Reply.Attachments" = "Attachments (%@)";
 "Chat.Reply.Files" = "Files (%@)";
 "Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
 "Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ files at a time";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
@@ -1295,3 +1310,9 @@ Please provide specific details of your needs here.";
 
 // MARK: - Fields
 "Fields.menu" = "Fields menu";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";

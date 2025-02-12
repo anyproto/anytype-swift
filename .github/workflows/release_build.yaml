@@ -6,6 +6,17 @@ permissions:
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      build_anytype_app:
+        description: "Build Anytype Release"
+        required: false
+        default: "true"
+        type: boolean
+      build_any_app:
+        description: "Build Any App Release"
+        required: false
+        default: "true"
+        type: boolean
 
 jobs:
   main:
@@ -49,11 +60,34 @@ jobs:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
-      - name: Build and upload to Testflight
+      - name: Bump Version
+        run: bundle exec fastlane increment_build_and_push
+
+      - name: Build and upload Anytype to Testflight
+        if: ${{ inputs.build_anytype_app == true }}
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
-          bundle exec fastlane release
+          bundle exec fastlane release_anytype
+        env:
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
+          AMPLITUDE_API_KEY: ${{ secrets.AMPLITUDE_API_KEY }}
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
+          FASTLANE_XCODE_LIST_TIMEOUT: 900
+
+      - name: Build and upload Any App to Testflight
+        if: ${{ inputs.build_any_app == true }}
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+          bundle exec fastlane release_anyapp
         env:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
