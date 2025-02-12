@@ -65,28 +65,23 @@ struct MessageView: View {
     private var bubble: some View {
         VStack(alignment: .leading, spacing: 0) {
             
-            linkedObjects
+            linkedObjectsForTop
             
             if !data.messageString.isEmpty {
-                
-                if data.linkedObjects.isNil {
-                    Spacer.fixedHeight(8)
-                } else {
-                    Spacer.fixedHeight(4)
-                }
-                
                 // Add spacing for date
                 (Text(data.messageString) + createDateTextForSpacing)
                     .anytypeStyle(.chatText)
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 8)
+                    .alignmentGuide(.timeVerticalAlignment) { $0[.bottom] }
+                    .padding(.vertical, 4)
             }
+            
+            linkedObjectsForBottom
         }
-        .overlay(alignment: .bottomTrailing) {
+        .overlay(alignment: Alignment(horizontal: .trailing, vertical: .timeVerticalAlignment)) {
             if !data.messageString.isEmpty {
                 createDate
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 8)
             }
         }
         .background(messageBackgorundColor)
@@ -98,14 +93,15 @@ struct MessageView: View {
     }
     
     @ViewBuilder
-    private var linkedObjects: some View {
+    private var linkedObjectsForTop: some View {
         if let objects = data.linkedObjects {
             switch objects {
-            case .list(let items):
-                MessageListAttachmentsViewContainer(objects: items) {
-                    output?.didSelectAttachment(data: data, details: $0)
+            case .list:
+                if !data.messageString.isEmpty {
+                    Spacer.fixedHeight(4)
+                } else {
+                    EmptyView()
                 }
-                .padding(Constants.attachmentsPadding)
             case .grid(let items):
                 MessageGridAttachmentsContainer(objects: items, spacing: 4) {
                     output?.didSelectAttachment(data: data, details: $0)
@@ -116,6 +112,25 @@ struct MessageView: View {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
                 .padding(Constants.attachmentsPadding)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var linkedObjectsForBottom: some View {
+        if let objects = data.linkedObjects {
+            switch objects {
+            case .list(let items):
+                MessageListAttachmentsViewContainer(objects: items) {
+                    output?.didSelectAttachment(data: data, details: $0)
+                }
+                .padding(Constants.attachmentsPadding)
+            case .grid, .bookmark:
+                if !data.messageString.isEmpty {
+                    Spacer.fixedHeight(4)
+                } else {
+                    EmptyView()
+                }
             }
         }
     }
@@ -237,4 +252,14 @@ struct MessageView: View {
     private var messageTimeColor: Color {
         return data.isYourMessage ? Color.Background.Chat.replySomeones : Color.Control.transparentActive
     }
+}
+
+private struct TimeVerticalAlignment: AlignmentID {
+    static func defaultValue(in context: ViewDimensions) -> CGFloat {
+        return context[.bottom]
+    }
+}
+
+private extension VerticalAlignment {
+    static let timeVerticalAlignment = VerticalAlignment(TimeVerticalAlignment.self)
 }
