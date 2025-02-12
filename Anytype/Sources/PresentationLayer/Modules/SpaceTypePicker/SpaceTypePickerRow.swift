@@ -5,18 +5,27 @@ struct SpaceTypePickerRow: View {
     let icon: ImageAsset
     let title: String
     let subtitle: String
+    let onTap: () -> Void
     
     var body: some View {
-        HStack(spacing: 12) {
-            Image(asset: icon)
-            VStack(spacing: 0) {
-                Text(title)
-                    .anytypeStyle(.uxTitle1Semibold)
-                    .foregroundStyle(Color.Text.primary)
-                Text(subtitle)
-                    .anytypeStyle(.uxTitle1Semibold)
-                    .foregroundStyle(Color.Control.transparentActive)
+        Button {
+            onTap()
+        } label: {
+            HStack(spacing: 12) {
+                Image(asset: icon)
+                VStack(spacing: 0) {
+                    Text(title)
+                        .anytypeStyle(.uxTitle1Semibold)
+                        .foregroundStyle(Color.Text.primary)
+                    Text(subtitle)
+                        .anytypeStyle(.caption1Regular)
+                        .foregroundStyle(Color.Text.secondary)
+                }
             }
+            .lineLimit(1)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 16)
+            .fixTappableArea()
         }
     }
 }

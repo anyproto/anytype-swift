@@ -24,12 +24,18 @@ internal extension ImageAsset {
     static let sadMail = ImageAsset.bundle(name: "BottomAlert/sadMail")
     static let update = ImageAsset.bundle(name: "BottomAlert/update")
   }
+  static let chat = ImageAsset.bundle(name: "Chat")
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   static let backArrow = ImageAsset.bundle(name: "backArrow")
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  enum Channel {
+    static let chat = ImageAsset.bundle(name: "Channel/Chat")
+    static let space = ImageAsset.bundle(name: "Channel/Space")
+    static let stream = ImageAsset.bundle(name: "Channel/Stream")
+  }
   enum Chat {
     enum SendMessage {
       static let active = ImageAsset.bundle(name: "Chat/SendMessage/active")
@@ -418,6 +424,8 @@ internal extension ImageAsset {
   enum Format {
     static let unknown = ImageAsset.bundle(name: "format/unknown")
   }
+  static let space = ImageAsset.bundle(name: "Space")
+  static let stream = ImageAsset.bundle(name: "Stream")
   enum StyleBottomSheet {
     static let bullet = ImageAsset.bundle(name: "StyleBottomSheet/bullet")
     static let checkbox = ImageAsset.bundle(name: "StyleBottomSheet/checkbox")
