@@ -90,7 +90,10 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)
                         }
-                    }
+                        builder.appendBuilder(for: AccountInfo.self) {
+                            NewSpaceSettingsCoordinatorView(workspaceInfo: $0)
+                        }
+                     }
                 },
                 bottomPanel: {
                     if let spaceInfo = model.spaceInfo {
