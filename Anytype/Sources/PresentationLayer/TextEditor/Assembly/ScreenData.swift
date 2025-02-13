@@ -64,7 +64,7 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return FeatureFlags.objectTypeWidgets ? editorScreenData.isSimpleSet : false
-        case .alert, .preview, .bookmark:
+        case .alert, .preview, .bookmark, .settings:
             return false
         }
     }
