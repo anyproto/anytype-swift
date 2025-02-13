@@ -661,7 +661,7 @@
 "Link to" = "Tautkan ke";
 "Unknown" = "Tidak diketahui";
 "Settings" = "Setelan";
-"Preferences" = "Preferences";
+"Preferences" = "Preferensi";
 "Views" = "Tampilan";
 "Filter" = "Saringan";
 "Sort" = "Urutkan";
@@ -707,10 +707,10 @@
 "Hide" = "Sembunyikan";
 "Apply" = "Terapkan";
 "Leave a space" = "Leave a space";
-"Collaboration" = "Collaboration";
+"Collaboration" = "Kolaborasi";
 "Members" = "Anggota";
-"Invite" = "Invite";
-"QR Code" = "QR Code";
+"Invite" = "Undang";
+"QR Code" = "Kode QR";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
@@ -883,9 +883,9 @@
 "Settings.SpaceType" = "Tipe ruang";
 "Settings.VaultAndAccess" = "Brankas dan akses";
 "Settings.SpaceName" = "Nama Ruang";
-"Settings.Edit picture" = "Edit picture";
-"Settings.Updated" = "Space information updated";
-"Settings.DataManagement" = "Data Management";
+"Settings.Edit picture" = "Sunting gambar";
+"Settings.Updated" = "Informasi ruang diperbarui";
+"Settings.DataManagement" = "Manajemen Data";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Penyimpanan berkas";
@@ -904,7 +904,7 @@
 "FileStorage.LimitLegend.Free" = "Bebas | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Clean up files";
+"FilesList.Title" = "Bersihkan berkas";
 "FilesList.ForceDelete.Title" = "Apakah kamu yakin ingin menghapus berkas secara permanen?";
 
 // MARK: - Widget object list
