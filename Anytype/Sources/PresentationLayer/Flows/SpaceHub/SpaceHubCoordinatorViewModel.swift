@@ -194,6 +194,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func onSpaceTypeSelected(_ type: SpaceUxType) {
+        // After dismiss spaceCreateData, alert will appear again. Fix it.
+        showSpaceTypeForCreate = false
         spaceCreateData = SpaceCreateData(sceneId: sceneId, spaceUxType: type)
     }
     

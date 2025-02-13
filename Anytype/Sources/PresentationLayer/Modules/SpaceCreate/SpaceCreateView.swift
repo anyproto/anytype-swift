@@ -39,6 +39,7 @@ struct SpaceCreateView: View {
             dismiss()
         }
         .ignoreSafeAreaKeyboardLegacy()
+        .background(Color.Background.primary)
     }
 }
 
