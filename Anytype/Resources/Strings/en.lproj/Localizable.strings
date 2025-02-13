@@ -848,6 +848,7 @@
 "Widgets.Library.RecentlyOpened.Name" = "Recently opened";
 "Widgets.Library.RecentlyOpened.Description" = "On this device";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Suggested" = "Suggested";
 "Widgets.Source.Library" = "Default sets";
 "Widgets.Source.Objects" = "Your objects";
 
