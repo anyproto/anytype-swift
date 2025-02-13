@@ -6,6 +6,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private let appMetricsTracker = AppMetricsTracker()
     private lazy var configurator = AppConfigurator()
+    private let exit1Report = Exit1Report()
     
     @Injected(\.quickActionShortcutBuilder)
     private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Fix SIGPIPE crashes
         signal(SIGPIPE, SIG_IGN)
+        
+        exit1Report.startReportSession()
         
         configurator.configure()
         
@@ -52,4 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        exit1Report.stopReportSession()
+    }
+
 }
