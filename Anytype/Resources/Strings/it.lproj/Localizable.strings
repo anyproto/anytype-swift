@@ -1268,7 +1268,6 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "AllContent.Search.Empty.State.subtitle" = "Prova a cercare con parole chiave diverse.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Solo gli editor possono inviare messaggi. Contatta il proprietario per richiedere l'accesso.";
 "Chat.ReplyTo" = "Rispondi a %@";
 "Chat.Empty.Title" = "Ancora nessun messaggio qui...";
 "Chat.Empty.Description" = "Scrivi un primo messaggio per iniziare una conversazione";

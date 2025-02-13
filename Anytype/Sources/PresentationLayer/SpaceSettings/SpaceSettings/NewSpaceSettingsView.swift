@@ -14,6 +14,7 @@ struct NewSpaceSettingsView: View {
     
     var body: some View {
         content
+            .homeBottomPanelHidden(true)
             .snackbar(toastBarData: $model.snackBarData)
             .onAppear {
                 model.onAppear()
@@ -58,18 +59,7 @@ struct NewSpaceSettingsView: View {
     }
     
     private var header: some View {
-        NavigationHeaderContainer(spacing: 20, leftView: {
-            Button {
-                dismiss()
-            } label: {
-                IconView(asset: .X24.close)
-                    .foregroundStyle(Color.Control.active)
-                    .frame(width: 24, height: 24)
-                    .padding()
-            }
-        }, titleView: {
-            EmptyView()
-        }, rightView: {
+        PageNavigationHeader(title: "", rightView: {
             Menu {
                 Button(Loc.SpaceSettings.info) {
                     model.onInfoTap()

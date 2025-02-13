@@ -6,7 +6,6 @@ protocol NewSpaceSettingsModuleOutput: AnyObject {
     func onWallpaperSelected()
     func onDefaultObjectTypeSelected()
 
-    func onChangeIconSelected()
     func onRemoteStorageSelected()
     func onSpaceShareSelected()
     func onSpaceMembersSelected()

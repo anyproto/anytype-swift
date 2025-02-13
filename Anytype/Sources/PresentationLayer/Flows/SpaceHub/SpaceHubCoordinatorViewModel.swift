@@ -261,6 +261,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .bookmark(let data):
             await dismissAllPresented?()
             bookmarkScreenData = data
+        case .settings(let data):
+            navigationPath.push(data)
         case nil:
             return
         }

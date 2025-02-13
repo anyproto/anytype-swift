@@ -1268,7 +1268,6 @@ En concreto,
 "AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Solo pueden enviar mensajes los editores. Solicita acceso a la persona que ha creado esto.";
 "Chat.ReplyTo" = "Responder a %@";
 "Chat.Empty.Title" = "Aún no hay mensajes…";
 "Chat.Empty.Description" = "Escribe el primero para iniciar una conversación.";
