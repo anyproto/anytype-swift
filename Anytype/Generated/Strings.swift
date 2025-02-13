@@ -1715,16 +1715,6 @@ internal enum Loc {
   internal enum SpaceCreate {
     internal static let title = Loc.tr("Localizable", "SpaceCreate.Title", fallback: "Create a space")
   }
-  internal enum SpaceHub {
-    internal enum Tip {
-      internal static let text1 = Loc.tr("Localizable", "SpaceHub.Tip.Text1", fallback: "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.")
-      internal static let text2 = Loc.tr("Localizable", "SpaceHub.Tip.Text2", fallback: "You can now easily reorder your Spaces using drag and drop and navigate them more easily.")
-      internal static let text3 = Loc.tr("Localizable", "SpaceHub.Tip.Text3", fallback: "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.")
-      internal static let title1 = Loc.tr("Localizable", "SpaceHub.Tip.Title1", fallback: "Welcome to the Vault")
-      internal static let title2 = Loc.tr("Localizable", "SpaceHub.Tip.Title2", fallback: "Simple & Flexible")
-      internal static let title3 = Loc.tr("Localizable", "SpaceHub.Tip.Title3", fallback: "Dynamic Backgrounds")
-    }
-  }
   internal enum SpaceManager {
     internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest", fallback: "Cancel Join Request")
     internal static let doNotCancel = Loc.tr("Localizable", "SpaceManager.DoNotCancel", fallback: "Do Not Cancel")
