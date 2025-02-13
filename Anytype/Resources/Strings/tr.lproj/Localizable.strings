@@ -1270,7 +1270,6 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "AllContent.Search.Empty.State.subtitle" = "Farklı anahtar kelimelerle aramayı deneyin.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Sadece editörler mesaj gönderebilir. Erişim talep etmek için lütfen alan sahibiyle iletişime geçin.";
 "Chat.ReplyTo" = "Yanıtla: %@";
 "Chat.Empty.Title" = "Burada henüz mesaj yok...";
 "Chat.Empty.Description" = "Bir konuşma başlatmak için ilk mesajı siz yazın";

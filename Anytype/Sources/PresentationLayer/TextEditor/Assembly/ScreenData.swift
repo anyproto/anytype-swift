@@ -17,6 +17,7 @@ enum ScreenData: Hashable, Identifiable {
     case alert(AlertScreenData)
     case preview(MediaFileScreenData)
     case bookmark(BookmarkScreenData)
+    case settings(SettingsScreenData)
         
     var id: Int { hashValue }
 }
@@ -28,10 +29,10 @@ extension ScreenData {
             return editorScreenData.objectId
         case .alert(let alertScreenData):
             return alertScreenData.objectId
-        case .preview:
-            return nil
         case .bookmark(let data):
             return data.editorScreenData.objectId
+        case .preview, .settings:
+            return nil
         }
     }
     
@@ -45,6 +46,8 @@ extension ScreenData {
             mediaFileScreenData.spaceId
         case .bookmark(let data):
             data.editorScreenData.spaceId
+        case .settings(let data):
+            data.spaceId
         }
     }
     
@@ -52,7 +55,7 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return editorScreenData
-        case .alert, .preview, .bookmark:
+        case .alert, .preview, .bookmark, .settings:
             return nil
         }
     }

@@ -660,7 +660,7 @@
 "Link to" = "Lien vers";
 "Unknown" = "Inconnu";
 "Settings" = "Paramètres";
-"Preferences" = "Preferences";
+"Preferences" = "Préférences";
 "Views" = "Vues";
 "Filter" = "Filtre";
 "Sort" = "Trier";
@@ -708,8 +708,8 @@
 "Leave a space" = "Quitter l'espace";
 "Collaboration" = "Collaboration";
 "Members" = "Membres";
-"Invite" = "Invite";
-"QR Code" = "QR Code";
+"Invite" = "Inviter";
+"QR Code" = "Code QR";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -882,9 +882,9 @@
 "Settings.SpaceType" = "Type d'espace";
 "Settings.VaultAndAccess" = "Coffre et accès";
 "Settings.SpaceName" = "Nom de l'espace";
-"Settings.Edit picture" = "Edit picture";
-"Settings.Updated" = "Space information updated";
-"Settings.DataManagement" = "Data Management";
+"Settings.Edit picture" = "Modifier l'image";
+"Settings.Updated" = "Informations sur l'espace mises à jour";
+"Settings.DataManagement" = "Gestion de données";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Stockage des fichiers";
@@ -903,7 +903,7 @@
 "FileStorage.LimitLegend.Free" = "Gratuit | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Clean up files";
+"FilesList.Title" = "Nettoyer les fichiers";
 "FilesList.ForceDelete.Title" = "Êtes-vous sûr de vouloir supprimer définitivement les fichiers ?";
 
 // MARK: - Widget object list
@@ -1269,7 +1269,6 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "AllContent.Search.Empty.State.subtitle" = "Essayez de rechercher avec différents mots-clés.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Seuls les éditeurs peuvent envoyer des messages. Contactez le propriétaire pour demander l'accès.";
 "Chat.ReplyTo" = "Réponse à %@";
 "Chat.Empty.Title" = "Aucun message pour l'instant...";
 "Chat.Empty.Description" = "Écrivez une première pour démarrer une conversation";

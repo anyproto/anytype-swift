@@ -1270,7 +1270,6 @@
 "AllContent.Search.Empty.State.subtitle" = "尝试使用不同的关键字搜索";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "只有编辑者可以发送消息。请联系所有者请求访问权限。";
 "Chat.ReplyTo" = "回复 %@";
 "Chat.Empty.Title" = "暂时还没有消息…";
 "Chat.Empty.Description" = "发一条消息来开始对话";

@@ -151,7 +151,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-            guard let data = objectDetails.screenData(usecase: .embedded).editorScreenData else { return }
+            guard let data = objectDetails.screenData().editorScreenData else { return }
             output?.onOpenObject(data: data)
         }
     }
