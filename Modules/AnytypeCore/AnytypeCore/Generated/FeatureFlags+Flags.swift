@@ -78,6 +78,10 @@ public extension FeatureFlags {
         value(for: .firebasePushMessages)
     }
 
+    static var aiToolInSet: Bool {
+        value(for: .aiToolInSet)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -150,6 +154,7 @@ public extension FeatureFlags {
         .newPlusMenu,
         .spaceUxTypes,
         .firebasePushMessages,
+        .aiToolInSet,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
