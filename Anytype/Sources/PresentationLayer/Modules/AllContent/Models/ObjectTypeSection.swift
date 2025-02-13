@@ -11,7 +11,7 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
     case types
     
     static var searchSupportedSection: [ObjectTypeSection] {
-        if FeatureFlags.primitives {
+        if FeatureFlags.primitives && !FeatureFlags.newSettings {
             return allCases
         } else {
             return allCases.filter { $0 != .types }

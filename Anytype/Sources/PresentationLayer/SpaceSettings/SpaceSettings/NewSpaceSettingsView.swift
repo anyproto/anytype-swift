@@ -50,6 +50,7 @@ struct NewSpaceSettingsView: View {
                     spaceDetailsButton
                     sharing
                     collaboration
+                    contentModel
                     preferences
                     dataManagement
                 }
@@ -59,7 +60,7 @@ struct NewSpaceSettingsView: View {
     }
     
     private var header: some View {
-        PageNavigationHeader(title: "", rightView: {
+        PageNavigationHeader(title: "") {
             Menu {
                 Button(Loc.SpaceSettings.info) {
                     model.onInfoTap()
@@ -81,7 +82,7 @@ struct NewSpaceSettingsView: View {
                     .frame(width: 24, height: 24)
                     .padding()
             }
-        })
+        }
     }
     
     private var spaceDetailsButton: some View {
@@ -200,6 +201,15 @@ struct NewSpaceSettingsView: View {
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    private var contentModel: some View {
+        SectionHeaderView(title: Loc.contentModel)
+        RoundedButton(
+            text: Loc.objectTypes,
+            icon: .X24.objectType
+        ) { model.onObjectTypesTap() }
     }
     
     @ViewBuilder

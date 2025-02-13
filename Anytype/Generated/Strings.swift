@@ -81,6 +81,7 @@ internal enum Loc {
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
   internal static let confirm = Loc.tr("Localizable", "Confirm", fallback: "Confirm")
   internal static let connecting = Loc.tr("Localizable", "Connecting", fallback: "Connecting...")
+  internal static let contentModel = Loc.tr("Localizable", "Content Model", fallback: "Content Model")
   internal static let copied = Loc.tr("Localizable", "Copied", fallback: "Copied")
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
@@ -238,6 +239,7 @@ internal enum Loc {
   internal static func objectSelected(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Object selected", p1, fallback: "Plural format key: \"%#@object@ selected\"")
   }
+  internal static let objectTypes = Loc.tr("Localizable", "Object Types", fallback: "Object Types")
   internal static let objects = Loc.tr("Localizable", "Objects", fallback: "Objects")
   internal static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
   internal static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
