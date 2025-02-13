@@ -400,6 +400,11 @@ internal enum Loc {
   internal static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   internal static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
   internal static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
+  internal enum AITool {
+    internal static let button = Loc.tr("Localizable", "AITool.button", fallback: "Generate")
+    internal static let placeholder = Loc.tr("Localizable", "AITool.placeholder", fallback: "For example, Summarise")
+    internal static let title = Loc.tr("Localizable", "AITool.title", fallback: "Ask AI")
+  }
   internal enum About {
     internal static func analyticsId(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.analyticsId", String(describing: p1), fallback: "Analytics ID: %@")

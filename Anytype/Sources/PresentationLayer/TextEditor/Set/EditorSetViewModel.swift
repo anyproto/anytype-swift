@@ -29,7 +29,8 @@ final class EditorSetViewModel: ObservableObject {
     @MainActor
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
         setDocument: setDocument,
-        onViewTap: { [weak self] in self?.showViewPicker() } ,
+        onViewTap: { [weak self] in self?.showViewPicker() },
+        onAITap: { [weak self] in self?.showAITool() },
         onSettingsTap: { [weak self] in self?.showSetSettings() } ,
         onCreateTap: { [weak self] in self?.createObject() },
         onSecondaryCreateTap: { [weak self] in self?.onSecondaryCreateTap() }
@@ -662,6 +663,10 @@ extension EditorSetViewModel {
     func showViewPicker() {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
         output?.showSetViewPicker(document: setDocument, subscriptionDetailsStorage: detailsStorage)
+    }
+    
+    func showAITool() {
+        output?.showAITool()
     }
     
     func showSetSettings() {
