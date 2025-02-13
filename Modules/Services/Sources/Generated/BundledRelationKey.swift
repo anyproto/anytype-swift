@@ -134,7 +134,7 @@ public enum BundledRelationKey: String, Sendable {
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     case iconEmoji = "iconEmoji"
 
-    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image, 5 - unsplash image. Value stored in coverId
+    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image. Value stored in coverId
     case coverType = "coverType"
 
     /// Image y offset of the provided image
