@@ -219,6 +219,7 @@
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Favorites";
@@ -229,6 +230,7 @@
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Log out";
+"Content Model" = "Content Model";
 
 // Action
 "Restore" = "Restore";
