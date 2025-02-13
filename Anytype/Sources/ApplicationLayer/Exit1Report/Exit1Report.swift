@@ -17,10 +17,11 @@ final class Exit1Report {
     private let stdoutDuplicator = StdOutDuplicator()
     
     func startReportSession() {
+        let filePath2 = FileManager.default.temporaryDirectory.appendingPathComponent(fileName, isDirectory: false)
+        let c = try? String(contentsOf: filePath2, encoding: .utf8)
+        
         if !lastSessionFinished, fileName.isNotEmpty {
             
-            let filePath = FileManager.default.temporaryDirectory.appendingPathComponent(fileName, isDirectory: false)
-            let c = try? String(contentsOf: filePath, encoding: .utf8)
             let attachment = Attachment(
                 path: FileManager.default.temporaryDirectory.path,
                 filename: fileName,
