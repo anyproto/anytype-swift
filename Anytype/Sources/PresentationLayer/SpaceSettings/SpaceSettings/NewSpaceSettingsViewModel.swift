@@ -86,10 +86,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         showInfoView.toggle()
     }
     
-    func onChangeIconTap() {
-        output?.onChangeIconSelected()
-    }
-    
     func onWallpaperTap() {
         output?.onWallpaperSelected()
     }

@@ -14,7 +14,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     @Published var showChangeTypeData: WidgetTypeChangeData?
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettingsData: AccountInfo?
-    @Published var newShowSpaceSettingsData: AccountInfo?
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -40,7 +39,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     func onSpaceSelected() {
         if FeatureFlags.newSettings {
-            newShowSpaceSettingsData = spaceInfo
+            pageNavigation?.open(.settings(.mainScreen(info: spaceInfo)))
         } else {
             showSpaceSettingsData = spaceInfo
         }
