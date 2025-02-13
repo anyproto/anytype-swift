@@ -16,7 +16,7 @@ struct SpaceView: Identifiable, Equatable {
     let writersLimit: Int?
     let chatId: String
     let isPinned: Bool
-    let uxType: SpaceUxType?
+    let uxType: SpaceUxType
 }
 
 extension SpaceView: DetailsModel {
@@ -34,7 +34,7 @@ extension SpaceView: DetailsModel {
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
         self.isPinned = details.spaceOrder.isNotEmpty
-        self.uxType = details.spaceUxTypeValue
+        self.uxType = details.spaceUxTypeValue ?? .data
     }
     
     static let subscriptionKeys: [BundledRelationKey] = .builder {

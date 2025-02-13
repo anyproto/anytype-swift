@@ -133,9 +133,15 @@ struct SpaceHubView: View {
                 .frame(width: 64, height: 64)
             VStack(alignment: .leading, spacing: 6) {
                 AnytypeText(space.spaceView.name.withPlaceholder, style: .bodySemibold).lineLimit(1)
-                AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
-                    .lineLimit(1)
-                    .opacity(0.6)
+                if FeatureFlags.spaceUxTypes {
+                    AnytypeText(space.spaceView.uxType.name, style: .relation3Regular)
+                        .lineLimit(1)
+                        .opacity(0.6)
+                } else {
+                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
+                        .lineLimit(1)
+                        .opacity(0.6)
+                }
                 Spacer.fixedHeight(1)
             }
             Spacer()
