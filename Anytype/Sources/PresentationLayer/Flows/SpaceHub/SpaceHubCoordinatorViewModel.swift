@@ -8,7 +8,7 @@ import AnytypeCore
 struct SpaceHubNavigationItem: Hashable { }
 
 @MainActor
-final class SpaceHubCoordinatorViewModel: ObservableObject {
+final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput {
     @Published var showSpaceManager = false
     @Published var showObjectIsNotAvailableAlert = false
     @Published var profileData: ObjectInfo?
@@ -25,6 +25,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceMembersData: SpaceMembersData?
     @Published var chatProvider = ChatActionProvider()
     @Published var bookmarkScreenData: BookmarkScreenData?
+    @Published var spaceCreateData: SpaceCreateData?
+    @Published var showSpaceTypeForCreate = false
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -189,6 +191,24 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     func onOpenBookmarkAsObject(_ data: BookmarkScreenData) {
         openObject(screenData: .editor(data.editorScreenData))
+    }
+    
+    func onSpaceTypeSelected(_ type: SpaceUxType) {
+        Task {
+            // After dismiss spaceCreateData, alert will appear again. Fix it.
+            await dismissAllPresented?()
+            spaceCreateData = SpaceCreateData(sceneId: sceneId, spaceUxType: type)
+        }
+    }
+    
+    // MARK: - SpaceHubModuleOutput
+    
+    func onSelectCreateObject() {
+        if FeatureFlags.spaceUxTypes {
+            showSpaceTypeForCreate = true
+        } else {
+            spaceCreateData = SpaceCreateData(sceneId: sceneId, spaceUxType: .data)
+        }
     }
     
     // MARK: - Private

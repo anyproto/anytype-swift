@@ -7,8 +7,8 @@ struct SpaceCreateView: View {
     @StateObject private var model: SpaceCreateViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(sceneId: String, output: (any SpaceCreateModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceCreateViewModel(sceneId: sceneId, output: output))
+    init(data: SpaceCreateData) {
+        _model = StateObject(wrappedValue: SpaceCreateViewModel(data: data))
     }
     
     var body: some View {
@@ -39,6 +39,7 @@ struct SpaceCreateView: View {
             dismiss()
         }
         .ignoreSafeAreaKeyboardLegacy()
+        .background(Color.Background.primary)
     }
 }
 

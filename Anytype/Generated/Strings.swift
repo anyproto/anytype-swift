@@ -1877,6 +1877,20 @@ internal enum Loc {
     internal enum Search {
       internal static let title = Loc.tr("Localizable", "Spaces.Search.Title", fallback: "Search spaces")
     }
+    internal enum UxType {
+      internal enum Chat {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Chat.Description", fallback: "For real-time conversations")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Chat.Title", fallback: "Chat")
+      }
+      internal enum Space {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Space.Description", fallback: "For organized content and data")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Space.Title", fallback: "Space")
+      }
+      internal enum Stream {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Stream.Description", fallback: "For broadcasting your vibe")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Stream.Title", fallback: "Stream")
+      }
+    }
   }
   internal enum StoreKitServiceError {
     internal static let needUserAction = Loc.tr("Localizable", "StoreKitServiceError.needUserAction", fallback: "Payment unsuccessfull, User Actions on Apple side required to pay.")

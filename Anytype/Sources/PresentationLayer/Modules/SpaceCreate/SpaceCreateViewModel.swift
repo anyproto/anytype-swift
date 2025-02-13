@@ -9,13 +9,12 @@ final class SpaceCreateViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let sceneId: String
+    private let data: SpaceCreateData
     
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    private weak var output: (any SpaceCreateModuleOutput)?
     
     // MARK: - State
     
@@ -26,10 +25,8 @@ final class SpaceCreateViewModel: ObservableObject {
     @Published var createLoadingState: Bool = false
     @Published var dismiss: Bool = false
     
-    init(sceneId: String, output: (any SpaceCreateModuleOutput)?) {
-        self.sceneId = sceneId
-        
-        self.output = output
+    init(data: SpaceCreateData) {
+        self.data = data
     }
     
     func onTapCreate() {
@@ -48,10 +45,9 @@ final class SpaceCreateViewModel: ObservableObject {
                 .iconOption(spaceIconOption)
             ])
             
-            try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+            try await spaceSetupManager.setActiveSpace(sceneId: data.sceneId, spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
-            output?.spaceCreateWillDismiss()
             dismissForLegacyOS()
         }
     }

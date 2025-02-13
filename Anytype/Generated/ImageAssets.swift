@@ -30,6 +30,11 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  enum Channel {
+    static let chat = ImageAsset.bundle(name: "Channel/Chat")
+    static let space = ImageAsset.bundle(name: "Channel/Space")
+    static let stream = ImageAsset.bundle(name: "Channel/Stream")
+  }
   enum Chat {
     enum SendMessage {
       static let active = ImageAsset.bundle(name: "Chat/SendMessage/active")

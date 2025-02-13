@@ -4,11 +4,10 @@ import Combine
 
 
 @MainActor
-final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
+final class SpaceHubViewModel: ObservableObject {
     @Published var spaces: [ParticipantSpaceViewData]?
     @Published var wallpapers: [String: SpaceWallpaperType] = [:]
     
-    @Published var showSpaceCreate = false
     @Published var showSettings = false
     @Published var createSpaceAvailable = false
     @Published var spaceIdToLeave: StringIdentifiable?
@@ -16,6 +15,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     @Published var profileIcon: Icon?
     
     let sceneId: String
+    private weak var output: (any SpaceHubModuleOutput)?
     
     var showPlusInNavbar: Bool {
         guard let spaces else { return false }
@@ -37,8 +37,13 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     @Injected(\.profileStorage)
     private var profileStorage: any ProfileStorageProtocol
     
-    init(sceneId: String) {
+    init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
         self.sceneId = sceneId
+        self.output = output
+    }
+    
+    func onTapCreateSpace() {
+        output?.onSelectCreateObject()
     }
     
     func onAppear() {
@@ -53,11 +58,6 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             UISelectionFeedbackGenerator().selectionChanged()
         }
-    }
-    
-    func spaceCreateWillDismiss() {
-        showSpaceCreate = false
-
     }
     
     func deleteSpace(spaceId: String) async throws {
