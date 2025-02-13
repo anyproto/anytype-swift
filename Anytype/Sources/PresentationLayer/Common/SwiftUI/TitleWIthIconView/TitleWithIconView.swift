@@ -38,8 +38,6 @@ struct TitleWithIconView: View {
             .foregroundColor(.Text.primary)
                 .lineLimit(style.lineLimit)
                 .multilineTextAlignment(.leading)
-        } else {
-            EmptyView()
         }
     }
 }
