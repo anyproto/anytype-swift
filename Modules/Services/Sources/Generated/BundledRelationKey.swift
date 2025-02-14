@@ -134,7 +134,7 @@ public enum BundledRelationKey: String, Sendable {
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     case iconEmoji = "iconEmoji"
 
-    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image. Value stored in coverId
+    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image, 5 - unsplash image. Value stored in coverId
     case coverType = "coverType"
 
     /// Image y offset of the provided image
@@ -383,4 +383,16 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Space order
     case spaceOrder = "spaceOrder"
+
+    /// Choose icon for the type among custom Anytype icons
+    case iconName = "iconName"
+
+    /// List of recommended featured relations
+    case recommendedFeaturedRelations = "recommendedFeaturedRelations"
+
+    /// List of recommended relations that are hidden in layout
+    case recommendedHiddenRelations = "recommendedHiddenRelations"
+
+    /// List of recommended file-specific relations
+    case recommendedFileRelations = "recommendedFileRelations"
 }

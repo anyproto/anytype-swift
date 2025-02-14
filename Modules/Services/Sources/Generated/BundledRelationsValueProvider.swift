@@ -142,6 +142,10 @@ public protocol BundledRelationsValueProvider {
     var mentions: [ObjectId] { get }
     var timestamp: Date? { get }
     var spaceOrder: String { get }
+    var iconName: String { get }
+    var recommendedFeaturedRelations: [ObjectId] { get }
+    var recommendedHiddenRelations: [ObjectId] { get }
+    var recommendedFileRelations: [ObjectId] { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -319,7 +323,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var iconEmoji: Emoji? {
         return value(for: BundledRelationKey.iconEmoji.rawValue)
     }
-    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image. Value stored in coverId
+    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image, 5 - unsplash image. Value stored in coverId
     var coverType: Int? {
         return value(for: BundledRelationKey.coverType.rawValue)
     }
@@ -656,5 +660,21 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Space order
     var spaceOrder: String {
         return value(for: BundledRelationKey.spaceOrder.rawValue)
+    }
+    /// Choose icon for the type among custom Anytype icons
+    var iconName: String {
+        return value(for: BundledRelationKey.iconName.rawValue)
+    }
+    /// List of recommended featured relations
+    var recommendedFeaturedRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedFeaturedRelations.rawValue)
+    }
+    /// List of recommended relations that are hidden in layout
+    var recommendedHiddenRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedHiddenRelations.rawValue)
+    }
+    /// List of recommended file-specific relations
+    var recommendedFileRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedFileRelations.rawValue)
     }
 }
