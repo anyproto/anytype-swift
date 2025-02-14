@@ -1058,15 +1058,6 @@
 "SpaceShare.Tip.Steps.2" = "Open Share section";
 "SpaceShare.Tip.Steps.3" = "Buat tautan undangan lalu bagikan";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Latar Belakang Dinamis";
-"SpaceHub.Tip.Title2" = "Sederhana dan Fleksibel";
-"SpaceHub.Tip.Title1" = "Selamat datang di Brankas";
-
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
-"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Brankas adalah rumah baru semua Ruangmu. Membuat, bergabung, atau berbagi Ruang—semuanya disimpan dengan aman di sini.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Tekan Lama untuk Kembali ke Gawit";
 "ReturnToWidgets.Tip.Text" = "Tekan lama tombol kembali untuk kembali ke gawit alih-alih menekannya berkali-kali.";

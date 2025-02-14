@@ -122,6 +122,10 @@ public struct DataviewView: Hashable, Identifiable, Sendable {
             $0.defaultObjectTypeID = defaultObjectTypeID ?? ""
         }
     }
+    
+    public var canSwitchItemName: Bool {
+        type == .gallery
+    }
 }
 
 public extension DataviewView {

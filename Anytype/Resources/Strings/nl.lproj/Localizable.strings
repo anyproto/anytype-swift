@@ -1058,15 +1058,6 @@
 "SpaceShare.Tip.Steps.2" = "Open delen sectie";
 "SpaceShare.Tip.Steps.3" = "Genereer een uitnodigingskoppeling en deel deze";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamische achtergronden";
-"SpaceHub.Tip.Title2" = "Eenvoudig & flexibel";
-"SpaceHub.Tip.Title1" = "Welkom in de kluis";
-
-"SpaceHub.Tip.Text3" = "Standaard vervagen we het pictogram van jouw ruimte als een achtergrond. Indien nodig, kun je het wijzigen in de ruimte-instellingen.";
-"SpaceHub.Tip.Text2" = "Je kunt nu eenvoudig de volgorde van jouw ruimten wijzigen door ze te slepen en neer te zetten. Zo navigeer je er nog gemakkelijker doorheen.";
-"SpaceHub.Tip.Text1" = "Kluis is het nieuwe thuis voor al jouw ruimten. Maak, neem deel of deel ruimten - alles is hier veilig opgeslagen.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Druk lang in om terug te keren naar widgets";
 "ReturnToWidgets.Tip.Text" = "Druk lang op de terugknop om terug te keren naar widgets in plaats van deze herhaaldelijk te tikken.";

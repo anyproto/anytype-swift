@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct MessageView: View {
     
@@ -97,11 +98,7 @@ struct MessageView: View {
         if let objects = data.linkedObjects {
             switch objects {
             case .list:
-                if !data.messageString.isEmpty {
-                    Spacer.fixedHeight(4)
-                } else {
-                    EmptyView()
-                }
+                attachmentFreeSpacing
             case .grid(let items):
                 MessageGridAttachmentsContainer(objects: items, spacing: 4) {
                     output?.didSelectAttachment(data: data, details: $0)
@@ -113,6 +110,8 @@ struct MessageView: View {
                 }
                 .padding(Constants.attachmentsPadding)
             }
+        } else {
+            attachmentFreeSpacing
         }
     }
     
@@ -126,12 +125,19 @@ struct MessageView: View {
                 }
                 .padding(Constants.attachmentsPadding)
             case .grid, .bookmark:
-                if !data.messageString.isEmpty {
-                    Spacer.fixedHeight(4)
-                } else {
-                    EmptyView()
-                }
+                attachmentFreeSpacing
             }
+        } else {
+            attachmentFreeSpacing
+        }
+    }
+    
+    @ViewBuilder
+    private var attachmentFreeSpacing: some View {
+        if !data.messageString.isEmpty {
+            Spacer.fixedHeight(4)
+        } else {
+            EmptyView()
         }
     }
     

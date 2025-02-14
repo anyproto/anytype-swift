@@ -1057,15 +1057,6 @@
 "SpaceShare.Tip.Steps.2" = "Open Share section";
 "SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Welcome to the Vault";
-
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
-"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
 "ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
