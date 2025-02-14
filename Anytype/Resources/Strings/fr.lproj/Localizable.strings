@@ -1057,15 +1057,6 @@
 "SpaceShare.Tip.Steps.2" = "Ouvrez la section Partage";
 "SpaceShare.Tip.Steps.3" = "Générez un lien d’invitation et partagez-le";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Arrière-plans dynamiques ";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Bienvenue dans le coffre-fort";
-
-"SpaceHub.Tip.Text3" = "Par défaut, nous utilisons une icône floutée de votre espace en tant qu'arrière-plan. Vous pouvez changer cela dans les paramètres de l'espace.";
-"SpaceHub.Tip.Text2" = "Vous pouvez maintenant facilement réorganiser vos espaces en utilisant glisser-déposer et les naviguer plus facilement.";
-"SpaceHub.Tip.Text1" = "Le coffre-fort est l'endroit rassemblant tous vos Espaces. Créer, joindre, ou partager des Espaces – tout est sauvé, ici, en sécurité.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Appui long pour retourner aux widgets";
 "ReturnToWidgets.Tip.Text" = "Appuyez longuement sur le bouton retour pour revenir aux widgets au lieu d'appuyer dessus à plusieurs reprises.";
