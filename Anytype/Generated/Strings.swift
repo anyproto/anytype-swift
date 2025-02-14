@@ -1220,6 +1220,16 @@ internal enum Loc {
       internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder", fallback: "Write a message...")
     }
   }
+  internal enum Migration {
+    internal static let subtitle = Loc.tr("Localizable", "Migration.subtitle", fallback: "This shouldn’t take long. Thanks for your patience.")
+    internal static let title = Loc.tr("Localizable", "Migration.title", fallback: "Migration is in progress...")
+    internal enum Error {
+      internal enum NotEnoughtSpace {
+        internal static let message = Loc.tr("Localizable", "Migration.Error.NotEnoughtSpace.message", fallback: "Please free up space and run the process again.")
+        internal static let title = Loc.tr("Localizable", "Migration.Error.NotEnoughtSpace.title", fallback: "Not enough space")
+      }
+    }
+  }
   internal enum Object {
     internal enum Deleted {
       internal static let placeholder = Loc.tr("Localizable", "Object.Deleted.Placeholder", fallback: "Deleted object")

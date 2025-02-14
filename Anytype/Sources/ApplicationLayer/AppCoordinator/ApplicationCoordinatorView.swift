@@ -27,6 +27,11 @@ struct ApplicationCoordinatorView: View {
             model.setDismissAllPresented(dismissAllPresented: $0)
         }
         .snackbar(toastBarData: $model.toastBarData)
+        
+        // migration
+        .fullScreenCover(item: $model.migrationData) {
+            MigrationView(data: $0)
+        }
     }
     
     @ViewBuilder

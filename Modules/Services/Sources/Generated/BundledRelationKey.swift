@@ -383,4 +383,16 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Space order
     case spaceOrder = "spaceOrder"
+
+    /// Choose icon for the type among custom Anytype icons
+    case iconName = "iconName"
+
+    /// List of recommended featured relations
+    case recommendedFeaturedRelations = "recommendedFeaturedRelations"
+
+    /// List of recommended relations that are hidden in layout
+    case recommendedHiddenRelations = "recommendedHiddenRelations"
+
+    /// List of recommended file-specific relations
+    case recommendedFileRelations = "recommendedFileRelations"
 }

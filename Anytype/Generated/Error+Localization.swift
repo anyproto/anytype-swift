@@ -274,6 +274,63 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: @retroact
     }
 }
 
+extension Anytype_Rpc.Account.Migrate.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Account.Migrate.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Migrate.badInput")
+            case .accountNotFound:
+                return String(localized: "Account.Migrate.accountNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Migrate.accountNotFound")
+            case .canceled:
+                return String(localized: "Account.Migrate.canceled", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Migrate.canceled")
+            case .notEnoughFreeSpace:
+                return String(localized: "Account.Migrate.notEnoughFreeSpace", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Migrate.notEnoughFreeSpace")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Account.MigrateCancel.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Account.MigrateCancel.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.MigrateCancel.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Account.Move.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -448,6 +505,9 @@ extension Anytype_Rpc.Account.Select.Response.Error: @retroactive LocalizedError
             case .accountLoadIsCanceled:
                 return String(localized: "Account.Select.accountLoadIsCanceled", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Account.Select.accountLoadIsCanceled")
+            case .accountStoreNotMigrated:
+                return String(localized: "Account.Select.accountStoreNotMigrated", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Select.accountStoreNotMigrated")
             case .configFileNotFound:
                 return String(localized: "Account.Select.configFileNotFound", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Account.Select.configFileNotFound")
