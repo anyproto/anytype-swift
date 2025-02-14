@@ -52,6 +52,9 @@ struct EditorSetCoordinatorView: View {
             .anytypeSheet(item: $model.setObjectCreationData) {
                 SetObjectCreationSettingsView(data: $0, output: model)
             }
+            .sheet(item: $model.aiToolData) {
+                AIToolView(data: $0)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

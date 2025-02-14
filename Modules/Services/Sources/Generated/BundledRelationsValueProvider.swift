@@ -104,6 +104,7 @@ public protocol BundledRelationsValueProvider {
     var iconOption: Int? { get }
     var spaceAccessibility: Int? { get }
     var spaceAccessType: Int? { get }
+    var spaceUxType: Int? { get }
     var sourceFilePath: String { get }
     var fileSyncStatus: Int? { get }
     var fileBackupStatus: Int? { get }
@@ -319,7 +320,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var iconEmoji: Emoji? {
         return value(for: BundledRelationKey.iconEmoji.rawValue)
     }
-    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image, 5 - unsplash image. Value stored in coverId
+    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image. Value stored in coverId
     var coverType: Int? {
         return value(for: BundledRelationKey.coverType.rawValue)
     }
@@ -506,6 +507,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Space access type, see enum model.SpaceAccessType
     var spaceAccessType: Int? {
         return value(for: BundledRelationKey.spaceAccessType.rawValue)
+    }
+    /// Space UX type, see enum model.SpaceUxType
+    var spaceUxType: Int? {
+        return value(for: BundledRelationKey.spaceUxType.rawValue)
     }
     /// File path or url with original object
     var sourceFilePath: String {

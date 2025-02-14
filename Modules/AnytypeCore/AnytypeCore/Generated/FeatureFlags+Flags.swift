@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .allContentWidgets)
     }
 
+    static var objectTypeWidgets: Bool {
+        value(for: .objectTypeWidgets)
+    }
+
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -66,8 +70,16 @@ public extension FeatureFlags {
         value(for: .newPlusMenu)
     }
 
+    static var spaceUxTypes: Bool {
+        value(for: .spaceUxTypes)
+    }
+
     static var firebasePushMessages: Bool {
         value(for: .firebasePushMessages)
+    }
+
+    static var aiToolInSet: Bool {
+        value(for: .aiToolInSet)
     }
 
     static var rainbowViews: Bool {
@@ -135,11 +147,14 @@ public extension FeatureFlags {
         .primitives,
         .memberProfile,
         .allContentWidgets,
+        .objectTypeWidgets,
         .openMediaFileInPreview,
         .openBookmarkAsLink,
         .newSettings,
         .newPlusMenu,
+        .spaceUxTypes,
         .firebasePushMessages,
+        .aiToolInSet,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

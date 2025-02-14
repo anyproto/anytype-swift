@@ -77,6 +77,13 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let objectTypeWidgets = FeatureDescription(
+        title: "Object Type widgets",
+        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
@@ -104,11 +111,25 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let spaceUxTypes = FeatureDescription(
+        title: "Space UX Types",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
     static let firebasePushMessages = FeatureDescription(
         title: "Firebase push messages",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let aiToolInSet = FeatureDescription(
+        title: "Add AI tool in Set / Collection",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
     )
     
     // MARK: - Debug

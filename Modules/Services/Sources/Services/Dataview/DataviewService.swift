@@ -184,6 +184,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.internalFlags = internalFlags
             $0.templateID = templateId
             $0.spaceID = spaceId
+            $0.createTypeWidgetIfMissing = FeatureFlags.objectTypeWidgets
             if let typeUniqueKey {
                 $0.objectTypeUniqueKey = typeUniqueKey.value
             }

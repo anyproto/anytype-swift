@@ -43,6 +43,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.templateID = templateId ?? ""
             $0.spaceID = spaceId
             $0.objectTypeUniqueKey = typeUniqueKey.value
+            $0.createTypeWidgetIfMissing = FeatureFlags.objectTypeWidgets
         }).invoke()
         
         return try response.details.toDetails()

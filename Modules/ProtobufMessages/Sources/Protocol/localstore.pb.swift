@@ -191,103 +191,48 @@ public struct Anytype_Model_ObjectStoreChecksums {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var bundledObjectTypes: String {
-    get {return _storage._bundledObjectTypes}
-    set {_uniqueStorage()._bundledObjectTypes = newValue}
-  }
+  public var bundledObjectTypes: String = String()
 
-  public var bundledRelations: String {
-    get {return _storage._bundledRelations}
-    set {_uniqueStorage()._bundledRelations = newValue}
-  }
+  public var bundledRelations: String = String()
 
-  public var bundledLayouts: String {
-    get {return _storage._bundledLayouts}
-    set {_uniqueStorage()._bundledLayouts = newValue}
-  }
+  public var bundledLayouts: String = String()
 
   /// increased in order to trigger all objects reindex
-  public var objectsForceReindexCounter: Int32 {
-    get {return _storage._objectsForceReindexCounter}
-    set {_uniqueStorage()._objectsForceReindexCounter = newValue}
-  }
+  public var objectsForceReindexCounter: Int32 = 0
 
   /// increased in order to fully reindex all objects
-  public var filesForceReindexCounter: Int32 {
-    get {return _storage._filesForceReindexCounter}
-    set {_uniqueStorage()._filesForceReindexCounter = newValue}
-  }
+  public var filesForceReindexCounter: Int32 = 0
 
   /// increased in order to remove indexes and reindex everything. Automatically triggers objects and files reindex(one time only)
-  public var idxRebuildCounter: Int32 {
-    get {return _storage._idxRebuildCounter}
-    set {_uniqueStorage()._idxRebuildCounter = newValue}
-  }
+  public var idxRebuildCounter: Int32 = 0
 
   /// DEPRECATED increased in order to perform fulltext indexing for all type of objects (useful when we change fulltext config)
-  public var fulltextRebuild: Int32 {
-    get {return _storage._fulltextRebuild}
-    set {_uniqueStorage()._fulltextRebuild = newValue}
-  }
+  public var fulltextRebuild: Int32 = 0
 
   /// DEPRECATED remove all the fulltext indexes and add to reindex queue after
-  public var fulltextErase: Int32 {
-    get {return _storage._fulltextErase}
-    set {_uniqueStorage()._fulltextErase = newValue}
-  }
+  public var fulltextErase: Int32 = 0
 
-  public var bundledTemplates: String {
-    get {return _storage._bundledTemplates}
-    set {_uniqueStorage()._bundledTemplates = newValue}
-  }
+  public var bundledTemplates: String = String()
 
   /// anytypeProfile and maybe some others in the feature
-  public var bundledObjects: Int32 {
-    get {return _storage._bundledObjects}
-    set {_uniqueStorage()._bundledObjects = newValue}
-  }
+  public var bundledObjects: Int32 = 0
 
-  public var filestoreKeysForceReindexCounter: Int32 {
-    get {return _storage._filestoreKeysForceReindexCounter}
-    set {_uniqueStorage()._filestoreKeysForceReindexCounter = newValue}
-  }
+  public var filestoreKeysForceReindexCounter: Int32 = 0
 
-  public var areOldFilesRemoved: Bool {
-    get {return _storage._areOldFilesRemoved}
-    set {_uniqueStorage()._areOldFilesRemoved = newValue}
-  }
+  public var areOldFilesRemoved: Bool = false
 
   /// DEPRECATED
-  public var areDeletedObjectsReindexed: Bool {
-    get {return _storage._areDeletedObjectsReindexed}
-    set {_uniqueStorage()._areDeletedObjectsReindexed = newValue}
-  }
+  public var areDeletedObjectsReindexed: Bool = false
 
-  public var linksErase: Int32 {
-    get {return _storage._linksErase}
-    set {_uniqueStorage()._linksErase = newValue}
-  }
+  public var linksErase: Int32 = 0
 
-  public var marketplaceForceReindexCounter: Int32 {
-    get {return _storage._marketplaceForceReindexCounter}
-    set {_uniqueStorage()._marketplaceForceReindexCounter = newValue}
-  }
+  public var marketplaceForceReindexCounter: Int32 = 0
 
-  public var reindexDeletedObjects: Int32 {
-    get {return _storage._reindexDeletedObjects}
-    set {_uniqueStorage()._reindexDeletedObjects = newValue}
-  }
-
-  public var reindexParticipants: Int32 {
-    get {return _storage._reindexParticipants}
-    set {_uniqueStorage()._reindexParticipants = newValue}
-  }
+  public var reindexDeletedObjects: Int32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
@@ -646,174 +591,104 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     14: .same(proto: "linksErase"),
     15: .same(proto: "marketplaceForceReindexCounter"),
     16: .same(proto: "reindexDeletedObjects"),
-    17: .same(proto: "reindexParticipants"),
   ]
 
-  fileprivate class _StorageClass {
-    var _bundledObjectTypes: String = String()
-    var _bundledRelations: String = String()
-    var _bundledLayouts: String = String()
-    var _objectsForceReindexCounter: Int32 = 0
-    var _filesForceReindexCounter: Int32 = 0
-    var _idxRebuildCounter: Int32 = 0
-    var _fulltextRebuild: Int32 = 0
-    var _fulltextErase: Int32 = 0
-    var _bundledTemplates: String = String()
-    var _bundledObjects: Int32 = 0
-    var _filestoreKeysForceReindexCounter: Int32 = 0
-    var _areOldFilesRemoved: Bool = false
-    var _areDeletedObjectsReindexed: Bool = false
-    var _linksErase: Int32 = 0
-    var _marketplaceForceReindexCounter: Int32 = 0
-    var _reindexDeletedObjects: Int32 = 0
-    var _reindexParticipants: Int32 = 0
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _bundledObjectTypes = source._bundledObjectTypes
-      _bundledRelations = source._bundledRelations
-      _bundledLayouts = source._bundledLayouts
-      _objectsForceReindexCounter = source._objectsForceReindexCounter
-      _filesForceReindexCounter = source._filesForceReindexCounter
-      _idxRebuildCounter = source._idxRebuildCounter
-      _fulltextRebuild = source._fulltextRebuild
-      _fulltextErase = source._fulltextErase
-      _bundledTemplates = source._bundledTemplates
-      _bundledObjects = source._bundledObjects
-      _filestoreKeysForceReindexCounter = source._filestoreKeysForceReindexCounter
-      _areOldFilesRemoved = source._areOldFilesRemoved
-      _areDeletedObjectsReindexed = source._areDeletedObjectsReindexed
-      _linksErase = source._linksErase
-      _marketplaceForceReindexCounter = source._marketplaceForceReindexCounter
-      _reindexDeletedObjects = source._reindexDeletedObjects
-      _reindexParticipants = source._reindexParticipants
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._bundledObjectTypes) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._bundledRelations) }()
-        case 3: try { try decoder.decodeSingularStringField(value: &_storage._bundledLayouts) }()
-        case 4: try { try decoder.decodeSingularInt32Field(value: &_storage._objectsForceReindexCounter) }()
-        case 5: try { try decoder.decodeSingularInt32Field(value: &_storage._filesForceReindexCounter) }()
-        case 6: try { try decoder.decodeSingularInt32Field(value: &_storage._idxRebuildCounter) }()
-        case 7: try { try decoder.decodeSingularInt32Field(value: &_storage._fulltextRebuild) }()
-        case 8: try { try decoder.decodeSingularStringField(value: &_storage._bundledTemplates) }()
-        case 9: try { try decoder.decodeSingularInt32Field(value: &_storage._bundledObjects) }()
-        case 10: try { try decoder.decodeSingularInt32Field(value: &_storage._filestoreKeysForceReindexCounter) }()
-        case 11: try { try decoder.decodeSingularInt32Field(value: &_storage._fulltextErase) }()
-        case 12: try { try decoder.decodeSingularBoolField(value: &_storage._areOldFilesRemoved) }()
-        case 13: try { try decoder.decodeSingularBoolField(value: &_storage._areDeletedObjectsReindexed) }()
-        case 14: try { try decoder.decodeSingularInt32Field(value: &_storage._linksErase) }()
-        case 15: try { try decoder.decodeSingularInt32Field(value: &_storage._marketplaceForceReindexCounter) }()
-        case 16: try { try decoder.decodeSingularInt32Field(value: &_storage._reindexDeletedObjects) }()
-        case 17: try { try decoder.decodeSingularInt32Field(value: &_storage._reindexParticipants) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.bundledObjectTypes) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.bundledRelations) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.bundledLayouts) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.objectsForceReindexCounter) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.filesForceReindexCounter) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.idxRebuildCounter) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self.fulltextRebuild) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.bundledTemplates) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.bundledObjects) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.filestoreKeysForceReindexCounter) }()
+      case 11: try { try decoder.decodeSingularInt32Field(value: &self.fulltextErase) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.areOldFilesRemoved) }()
+      case 13: try { try decoder.decodeSingularBoolField(value: &self.areDeletedObjectsReindexed) }()
+      case 14: try { try decoder.decodeSingularInt32Field(value: &self.linksErase) }()
+      case 15: try { try decoder.decodeSingularInt32Field(value: &self.marketplaceForceReindexCounter) }()
+      case 16: try { try decoder.decodeSingularInt32Field(value: &self.reindexDeletedObjects) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._bundledObjectTypes.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._bundledObjectTypes, fieldNumber: 1)
-      }
-      if !_storage._bundledRelations.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._bundledRelations, fieldNumber: 2)
-      }
-      if !_storage._bundledLayouts.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._bundledLayouts, fieldNumber: 3)
-      }
-      if _storage._objectsForceReindexCounter != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._objectsForceReindexCounter, fieldNumber: 4)
-      }
-      if _storage._filesForceReindexCounter != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._filesForceReindexCounter, fieldNumber: 5)
-      }
-      if _storage._idxRebuildCounter != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._idxRebuildCounter, fieldNumber: 6)
-      }
-      if _storage._fulltextRebuild != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._fulltextRebuild, fieldNumber: 7)
-      }
-      if !_storage._bundledTemplates.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._bundledTemplates, fieldNumber: 8)
-      }
-      if _storage._bundledObjects != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._bundledObjects, fieldNumber: 9)
-      }
-      if _storage._filestoreKeysForceReindexCounter != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._filestoreKeysForceReindexCounter, fieldNumber: 10)
-      }
-      if _storage._fulltextErase != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._fulltextErase, fieldNumber: 11)
-      }
-      if _storage._areOldFilesRemoved != false {
-        try visitor.visitSingularBoolField(value: _storage._areOldFilesRemoved, fieldNumber: 12)
-      }
-      if _storage._areDeletedObjectsReindexed != false {
-        try visitor.visitSingularBoolField(value: _storage._areDeletedObjectsReindexed, fieldNumber: 13)
-      }
-      if _storage._linksErase != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._linksErase, fieldNumber: 14)
-      }
-      if _storage._marketplaceForceReindexCounter != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._marketplaceForceReindexCounter, fieldNumber: 15)
-      }
-      if _storage._reindexDeletedObjects != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._reindexDeletedObjects, fieldNumber: 16)
-      }
-      if _storage._reindexParticipants != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._reindexParticipants, fieldNumber: 17)
-      }
+    if !self.bundledObjectTypes.isEmpty {
+      try visitor.visitSingularStringField(value: self.bundledObjectTypes, fieldNumber: 1)
+    }
+    if !self.bundledRelations.isEmpty {
+      try visitor.visitSingularStringField(value: self.bundledRelations, fieldNumber: 2)
+    }
+    if !self.bundledLayouts.isEmpty {
+      try visitor.visitSingularStringField(value: self.bundledLayouts, fieldNumber: 3)
+    }
+    if self.objectsForceReindexCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.objectsForceReindexCounter, fieldNumber: 4)
+    }
+    if self.filesForceReindexCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.filesForceReindexCounter, fieldNumber: 5)
+    }
+    if self.idxRebuildCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.idxRebuildCounter, fieldNumber: 6)
+    }
+    if self.fulltextRebuild != 0 {
+      try visitor.visitSingularInt32Field(value: self.fulltextRebuild, fieldNumber: 7)
+    }
+    if !self.bundledTemplates.isEmpty {
+      try visitor.visitSingularStringField(value: self.bundledTemplates, fieldNumber: 8)
+    }
+    if self.bundledObjects != 0 {
+      try visitor.visitSingularInt32Field(value: self.bundledObjects, fieldNumber: 9)
+    }
+    if self.filestoreKeysForceReindexCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.filestoreKeysForceReindexCounter, fieldNumber: 10)
+    }
+    if self.fulltextErase != 0 {
+      try visitor.visitSingularInt32Field(value: self.fulltextErase, fieldNumber: 11)
+    }
+    if self.areOldFilesRemoved != false {
+      try visitor.visitSingularBoolField(value: self.areOldFilesRemoved, fieldNumber: 12)
+    }
+    if self.areDeletedObjectsReindexed != false {
+      try visitor.visitSingularBoolField(value: self.areDeletedObjectsReindexed, fieldNumber: 13)
+    }
+    if self.linksErase != 0 {
+      try visitor.visitSingularInt32Field(value: self.linksErase, fieldNumber: 14)
+    }
+    if self.marketplaceForceReindexCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.marketplaceForceReindexCounter, fieldNumber: 15)
+    }
+    if self.reindexDeletedObjects != 0 {
+      try visitor.visitSingularInt32Field(value: self.reindexDeletedObjects, fieldNumber: 16)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_ObjectStoreChecksums, rhs: Anytype_Model_ObjectStoreChecksums) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._bundledObjectTypes != rhs_storage._bundledObjectTypes {return false}
-        if _storage._bundledRelations != rhs_storage._bundledRelations {return false}
-        if _storage._bundledLayouts != rhs_storage._bundledLayouts {return false}
-        if _storage._objectsForceReindexCounter != rhs_storage._objectsForceReindexCounter {return false}
-        if _storage._filesForceReindexCounter != rhs_storage._filesForceReindexCounter {return false}
-        if _storage._idxRebuildCounter != rhs_storage._idxRebuildCounter {return false}
-        if _storage._fulltextRebuild != rhs_storage._fulltextRebuild {return false}
-        if _storage._fulltextErase != rhs_storage._fulltextErase {return false}
-        if _storage._bundledTemplates != rhs_storage._bundledTemplates {return false}
-        if _storage._bundledObjects != rhs_storage._bundledObjects {return false}
-        if _storage._filestoreKeysForceReindexCounter != rhs_storage._filestoreKeysForceReindexCounter {return false}
-        if _storage._areOldFilesRemoved != rhs_storage._areOldFilesRemoved {return false}
-        if _storage._areDeletedObjectsReindexed != rhs_storage._areDeletedObjectsReindexed {return false}
-        if _storage._linksErase != rhs_storage._linksErase {return false}
-        if _storage._marketplaceForceReindexCounter != rhs_storage._marketplaceForceReindexCounter {return false}
-        if _storage._reindexDeletedObjects != rhs_storage._reindexDeletedObjects {return false}
-        if _storage._reindexParticipants != rhs_storage._reindexParticipants {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.bundledObjectTypes != rhs.bundledObjectTypes {return false}
+    if lhs.bundledRelations != rhs.bundledRelations {return false}
+    if lhs.bundledLayouts != rhs.bundledLayouts {return false}
+    if lhs.objectsForceReindexCounter != rhs.objectsForceReindexCounter {return false}
+    if lhs.filesForceReindexCounter != rhs.filesForceReindexCounter {return false}
+    if lhs.idxRebuildCounter != rhs.idxRebuildCounter {return false}
+    if lhs.fulltextRebuild != rhs.fulltextRebuild {return false}
+    if lhs.fulltextErase != rhs.fulltextErase {return false}
+    if lhs.bundledTemplates != rhs.bundledTemplates {return false}
+    if lhs.bundledObjects != rhs.bundledObjects {return false}
+    if lhs.filestoreKeysForceReindexCounter != rhs.filestoreKeysForceReindexCounter {return false}
+    if lhs.areOldFilesRemoved != rhs.areOldFilesRemoved {return false}
+    if lhs.areDeletedObjectsReindexed != rhs.areDeletedObjectsReindexed {return false}
+    if lhs.linksErase != rhs.linksErase {return false}
+    if lhs.marketplaceForceReindexCounter != rhs.marketplaceForceReindexCounter {return false}
+    if lhs.reindexDeletedObjects != rhs.reindexDeletedObjects {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

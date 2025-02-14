@@ -46,6 +46,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var syncStatusSpaceId: StringIdentifiable?
     @Published var setObjectCreationData: SetObjectCreationData?
     @Published var presentSettings = false
+    @Published var aiToolData: AIToolData?
     
     init(data: EditorListObject, showHeader: Bool) {
         self.data = data
@@ -72,6 +73,17 @@ final class EditorSetCoordinatorViewModel:
         setViewPickerData = SetViewData(
             document: document,
             subscriptionDetailsStorage: subscriptionDetailsStorage
+        )
+    }
+    
+    // MARK: - EditorSetModuleOutput - AI tool
+    
+    func showAITool() {
+        aiToolData = AIToolData(
+            id: data.objectId,
+            completion: { [weak self] screenData in
+                self?.showEditorScreen(data: screenData)
+            }
         )
     }
     

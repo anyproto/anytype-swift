@@ -400,6 +400,11 @@ internal enum Loc {
   internal static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   internal static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
   internal static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
+  internal enum AITool {
+    internal static let button = Loc.tr("Localizable", "AITool.button", fallback: "Generate")
+    internal static let placeholder = Loc.tr("Localizable", "AITool.placeholder", fallback: "For example, Summarise")
+    internal static let title = Loc.tr("Localizable", "AITool.title", fallback: "Ask AI")
+  }
   internal enum About {
     internal static func analyticsId(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.analyticsId", String(describing: p1), fallback: "Analytics ID: %@")
@@ -1867,6 +1872,20 @@ internal enum Loc {
     internal enum Search {
       internal static let title = Loc.tr("Localizable", "Spaces.Search.Title", fallback: "Search spaces")
     }
+    internal enum UxType {
+      internal enum Chat {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Chat.Description", fallback: "For real-time conversations")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Chat.Title", fallback: "Chat")
+      }
+      internal enum Space {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Space.Description", fallback: "For organized content and data")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Space.Title", fallback: "Space")
+      }
+      internal enum Stream {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Stream.Description", fallback: "For broadcasting your vibe")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Stream.Title", fallback: "Stream")
+      }
+    }
   }
   internal enum StoreKitServiceError {
     internal static let needUserAction = Loc.tr("Localizable", "StoreKitServiceError.needUserAction", fallback: "Payment unsuccessfull, User Actions on Apple side required to pay.")
@@ -2111,6 +2130,7 @@ internal enum Loc {
     internal enum Source {
       internal static let library = Loc.tr("Localizable", "Widgets.Source.Library", fallback: "Default sets")
       internal static let objects = Loc.tr("Localizable", "Widgets.Source.Objects", fallback: "Your objects")
+      internal static let suggested = Loc.tr("Localizable", "Widgets.Source.Suggested", fallback: "Suggested")
     }
   }
 }

@@ -11,6 +11,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     
     let onViewTap: () -> Void
+    let onAITap: () -> Void
     let onSettingsTap: () -> Void
     let onCreateTap: () -> Void
     let onSecondaryCreateTap: () -> Void
@@ -18,12 +19,14 @@ class SetHeaderSettingsViewModel: ObservableObject {
     init(
         setDocument: some SetDocumentProtocol,
         onViewTap: @escaping () -> Void,
+        onAITap: @escaping () -> Void,
         onSettingsTap: @escaping () -> Void,
         onCreateTap: @escaping () -> Void,
         onSecondaryCreateTap: @escaping () -> Void
     ) {
         self.setDocument = setDocument
         self.onViewTap = onViewTap
+        self.onAITap = onAITap
         self.onSettingsTap = onSettingsTap
         self.onCreateTap = onCreateTap
         self.onSecondaryCreateTap = onSecondaryCreateTap

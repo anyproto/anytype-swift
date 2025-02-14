@@ -11,9 +11,9 @@ struct WidgetAnytypeLibrarySource: Hashable {
 
 @MainActor
 protocol WidgetSourceSearchInteractorProtocol: AnyObject {
-    func objectSearch(text: String) async throws -> [ObjectDetails]
+    func objectsTypesSearch(text: String) async throws -> [ObjectDetails]
+    func objectsSearch(text: String) async throws -> [ObjectDetails]
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource]
-    func createNewObject(name: String) async throws -> ObjectDetails
 }
 
 @MainActor
@@ -21,38 +21,56 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: any DocumentsProviderProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
+    
     private let spaceId: String
+    private let widgetObjectId: String
     private let anytypeLibrary = AnytypeWidgetId.availableWidgets.map { $0.librarySource }
     
-    init(spaceId: String) {
+    private var widgetTypeIds: [String]?
+    
+    init(spaceId: String, widgetObjectId: String) {
         self.spaceId = spaceId
+        self.widgetObjectId = widgetObjectId
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol
     
-    func objectSearch(text: String) async throws -> [ObjectDetails] {
+    func objectsSearch(text: String) async throws -> [ObjectDetails] {
         try await searchService.search(text: text, spaceId: spaceId)
+    }
+    
+    func objectsTypesSearch(text: String) async throws -> [ObjectDetails] {
+        if widgetTypeIds.isNil {
+            let widgetObject = documentsProvider.document(objectId: widgetObjectId, spaceId: spaceId, mode: .preview)
+            try await widgetObject.open()
+            let sourceIds = widgetObject.children
+                .filter(\.isWidget)
+                .compactMap { widgetObject.targetObjectIdByLinkFor(widgetBlockId: $0.id) }
+            let objectTypes = objectTypeProvider.objectTypes(spaceId: spaceId)
+            let excludedExistedIds = objectTypes
+                .filter { sourceIds.contains($0.id) }
+                .map { $0.id }
+            let excludedTypeIds = objectTypes
+                .filter { $0.uniqueKey == ObjectTypeUniqueKey.template || $0.uniqueKey == ObjectTypeUniqueKey.objectType }
+                .map { $0.id }
+            widgetTypeIds = excludedExistedIds + excludedTypeIds
+        }
+        
+        return try await searchService.searchObjectsWithLayouts(
+            text: text,
+            layouts: [.objectType],
+            excludedIds: widgetTypeIds ?? [],
+            spaceId: spaceId
+        )
     }
     
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {
         guard text.isNotEmpty else { return anytypeLibrary }
         return anytypeLibrary.filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
-    }
-    
-    func createNewObject(name: String) async throws -> ObjectDetails {
-        let details = try await defaultObjectService.createDefaultObject(
-            name: name,
-            shouldDeleteEmptyObject: false,
-            spaceId: spaceId
-        )
-        AnytypeAnalytics.instance().logCreateObject(
-            objectType: details.analyticsType,
-            spaceId: details.spaceId,
-            route: .search
-        )
-        return details
     }
 }
 

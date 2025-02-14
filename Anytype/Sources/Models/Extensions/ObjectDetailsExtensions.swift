@@ -68,6 +68,10 @@ extension BundledRelationsValueProvider {
         return !isDeleted && !isArchived && isSupportedForOpening && !isHiddenDiscovery
     }
     
+    var isNotDeletedAndArchived: Bool {
+        return !isDeleted && !isArchived
+    }
+    
     var isTemplateType: Bool { objectType.isTemplateType }
     
     var canMakeTemplate: Bool {
@@ -81,6 +85,8 @@ extension BundledRelationsValueProvider {
     var isCollection: Bool { layoutValue.isCollection }
     
     var isSet: Bool { layoutValue.isSet }
+    
+    var isObjectType: Bool { layoutValue.isObjectType }
     
     var isSupportedForOpening: Bool { layoutValue.isSupportedForOpening }
     
