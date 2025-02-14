@@ -493,10 +493,10 @@ internal enum Loc {
   }
   internal enum Auth {
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "I have a Key")
+    internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "I already have the key")
     internal static let next = Loc.tr("Localizable", "Auth.Next", fallback: "Next")
     internal enum Button {
-      internal static let join = Loc.tr("Localizable", "Auth.Button.Join", fallback: "New Vault")
+      internal static let join = Loc.tr("Localizable", "Auth.Button.Join", fallback: "I am new here")
     }
     internal enum JoinFlow {
       internal enum Key {

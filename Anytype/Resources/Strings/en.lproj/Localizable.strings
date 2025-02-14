@@ -240,8 +240,8 @@
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Next" = "Next";
 
