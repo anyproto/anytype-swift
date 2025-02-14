@@ -70,6 +70,10 @@ public extension FeatureFlags {
         value(for: .firebasePushMessages)
     }
 
+    static var newOnboarding: Bool {
+        value(for: .newOnboarding)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -140,6 +144,7 @@ public extension FeatureFlags {
         .newSettings,
         .newPlusMenu,
         .firebasePushMessages,
+        .newOnboarding,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

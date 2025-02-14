@@ -111,6 +111,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let newOnboarding = FeatureDescription(
+        title: "New onboarding",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
