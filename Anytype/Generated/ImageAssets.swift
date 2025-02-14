@@ -159,6 +159,7 @@ internal extension ImageAsset {
     static let close = ImageAsset.bundle(name: "x22/close")
   }
   enum X24 {
+    static let ai = ImageAsset.bundle(name: "x24/AI")
     static let add = ImageAsset.bundle(name: "x24/Add")
     enum Arrow {
       static let down = ImageAsset.bundle(name: "x24/Arrow/Down")

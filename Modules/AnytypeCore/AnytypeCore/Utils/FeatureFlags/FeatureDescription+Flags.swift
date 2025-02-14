@@ -125,6 +125,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let aiToolInSet = FeatureDescription(
+        title: "Add AI tool in Set / Collection",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
