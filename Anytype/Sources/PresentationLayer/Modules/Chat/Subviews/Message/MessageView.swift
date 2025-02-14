@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct MessageView: View {
     

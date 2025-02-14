@@ -1,4 +1,4 @@
-@testable import Anytype
+@testable import AnytypeCore
 import Testing
 import Foundation
 

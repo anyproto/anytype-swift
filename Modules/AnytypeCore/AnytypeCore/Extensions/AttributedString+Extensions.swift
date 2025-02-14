@@ -1,6 +1,6 @@
 import Foundation
 
-extension AttributedString {
+public extension AttributedString {
     var isEmpty: Bool {
         characters.isEmpty
     }

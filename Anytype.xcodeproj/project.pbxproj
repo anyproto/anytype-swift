@@ -77,7 +77,6 @@
 		538ABD4E284F9F88000D3CCC /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4D284F9F88000D3CCC /* Collections */; };
 		538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4F284F9F88000D3CCC /* DequeModule */; };
 		538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD51284F9F88000D3CCC /* OrderedCollections */; };
-		741BB8882D5E4719004F9D46 /* AttributedStringTrimmingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741BB8872D5E4708004F9D46 /* AttributedStringTrimmingTests.swift */; };
 		7434DAC32D3916FF00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC22D3916FF00E18A0C /* AppTarget */; };
 		7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC42D3920BE00E18A0C /* AppTarget */; };
 		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
@@ -278,7 +277,6 @@
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		3DE5975E2C78BDE800883AF8 /* UserDefaultsStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsStorageMock.swift; path = AnyTypeTests/Markdown/Mocks/UserDefaultsStorageMock.swift; sourceTree = SOURCE_ROOT; };
 		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
-		741BB8872D5E4708004F9D46 /* AttributedStringTrimmingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringTrimmingTests.swift; sourceTree = "<group>"; };
 		7434DAC12D3916F000E18A0C /* AppTarget */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppTarget; path = Modules/AppTarget; sourceTree = "<group>"; };
 		74AD8EC42D12F2FD000EDFBE /* ChatMessageLimitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatMessageLimitsTests.swift; path = AnyTypeTests/Services/ChatMessageLimitsTests.swift; sourceTree = SOURCE_ROOT; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -504,7 +502,6 @@
 		2A44A7BA2C2D646200CC2022 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				741BB8872D5E4708004F9D46 /* AttributedStringTrimmingTests.swift */,
 				2A44A7B82C2D645300CC2022 /* VersionCompareTests.swift */,
 			);
 			path = Helpers;
@@ -1042,7 +1039,6 @@
 				3DA46B64273BEB1E007B7464 /* BeginingOfTextMarkdownListenerTests.swift in Sources */,
 				3DCEE13C273C1FAD00BC5565 /* TextViewExtension.swift in Sources */,
 				3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */,
-				741BB8882D5E4719004F9D46 /* AttributedStringTrimmingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
