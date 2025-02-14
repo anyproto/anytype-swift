@@ -74,7 +74,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             }
         }
         
-        return message
+        return message.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String {
