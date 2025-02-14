@@ -38,7 +38,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     // MARK: - HomeWidgetsModuleOutput
     
     func onSpaceSelected() {
-        showSpaceSettingsData = spaceInfo
+        if FeatureFlags.newSettings {
+            pageNavigation?.open(.settings(.mainScreen(info: spaceInfo)))
+        } else {
+            showSpaceSettingsData = spaceInfo
+        }
     }
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {

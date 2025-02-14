@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Kartu";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Teks";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nama Ruang";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Nirjudul";
 "Object.Deleted.Placeholder" = "Objek terhapus";
@@ -664,6 +661,7 @@
 "Link to" = "Tautkan ke";
 "Unknown" = "Tidak diketahui";
 "Settings" = "Setelan";
+"Preferences" = "Preferensi";
 "Views" = "Tampilan";
 "Filter" = "Saringan";
 "Sort" = "Urutkan";
@@ -709,6 +707,10 @@
 "Hide" = "Sembunyikan";
 "Apply" = "Terapkan";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Kolaborasi";
+"Members" = "Anggota";
+"Invite" = "Undang";
+"QR Code" = "Kode QR";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kamu yakin ingin menghapus brankas?";
@@ -880,6 +882,10 @@
 "Settings.SpaceName" = "Nama Ruang";
 "Settings.SpaceType" = "Tipe ruang";
 "Settings.VaultAndAccess" = "Brankas dan akses";
+"Settings.SpaceName" = "Nama Ruang";
+"Settings.Edit picture" = "Sunting gambar";
+"Settings.Updated" = "Informasi ruang diperbarui";
+"Settings.DataManagement" = "Manajemen Data";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Penyimpanan berkas";
@@ -891,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Untuk menghemat penyimpanan ruang pada perangkat lokal, anda dapat melepaskan semua berkas ke simpul cadangan terenkripsi kami. Berkas - berkas akan diunduh kembali saat kamu membuka mereka. ";
 "FileStorage.Local.Used" = "%@ digunakan";
 "FileStorage.OffloadTitle" = "Melepaskan berkas";
-"FileStorage.ManageFiles" = "Mengatur berkas";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Kamu melewati batas unggah berkas";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Ruang lain | %@";
 "FileStorage.LimitLegend.Free" = "Bebas | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Berkas tersinkronkan";
+"FilesList.Title" = "Bersihkan berkas";
 "FilesList.ForceDelete.Title" = "Apakah kamu yakin ingin menghapus berkas secara permanen?";
 
 // MARK: - Widget object list
@@ -1051,15 +1057,6 @@
 "SpaceShare.Tip.Steps.1" = "Ketuk gawit Ruang untuk mengakses setelan";
 "SpaceShare.Tip.Steps.2" = "Open Share section";
 "SpaceShare.Tip.Steps.3" = "Buat tautan undangan lalu bagikan";
-
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Latar Belakang Dinamis";
-"SpaceHub.Tip.Title2" = "Sederhana dan Fleksibel";
-"SpaceHub.Tip.Title1" = "Selamat datang di Brankas";
-
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
-"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Brankas adalah rumah baru semua Ruangmu. Membuat, bergabung, atau berbagi Ruang—semuanya disimpan dengan aman di sini.";
 
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Tekan Lama untuk Kembali ke Gawit";
@@ -1263,7 +1260,6 @@ Please provide specific details of your needs here.";
 "AllContent.Search.Empty.State.subtitle" = "Coba cari dengan kata kunci yang lain.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Hanya penyunting yang dapat mengirim pesan. Hubungi pemilik ruang untuk meminta akses.";
 "Chat.ReplyTo" = "Balas %@";
 "Chat.Empty.Title" = "Belum ada pesan di sini …";
 "Chat.Empty.Description" = "Tulis pesan untuk memulai obrolan";

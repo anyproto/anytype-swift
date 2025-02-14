@@ -4,29 +4,23 @@ import Combine
 import AnytypeCore
 import Services
 
-enum SpaceSettingsNavigationItem {
-    case spaceDetails
-}
 
 @MainActor
-final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
-
+final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
+    
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
     
-    @Published var path = NavigationPath()
-    
     @Published var showRemoteStorage = false
-    @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
     @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersData?
     @Published var showFiles = false
     @Published var showObjectTypeSearch = false
-    @Published var dismiss = false
-    @Published var showIconPickerSpaceId: StringIdentifiable?
+    
+    var pageNavigation: PageNavigation?
     
     let workspaceInfo: AccountInfo
     var accountSpaceId: String { workspaceInfo.accountSpaceId }
@@ -38,19 +32,19 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSetting
     // MARK: - SpaceSettingsModuleOutput
     
     func onSpaceDetailsSelected() {
-        path.append(SpaceSettingsNavigationItem.spaceDetails)
+        pageNavigation?.open(.settings(.spaceDetails(info: workspaceInfo)))
     }
     
-    func onChangeIconSelected() {
-        showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
+    func onWallpaperSelected() {
+        showWallpaperPicker.toggle()
+    }
+    
+    func onDefaultObjectTypeSelected() {
+        showObjectTypeSearch.toggle()
     }
     
     func onRemoteStorageSelected() {
         showRemoteStorage.toggle()
-    }
-    
-    func onPersonalizationSelected() {
-        showPersonalization.toggle()
     }
     
     func onSpaceShareSelected() {

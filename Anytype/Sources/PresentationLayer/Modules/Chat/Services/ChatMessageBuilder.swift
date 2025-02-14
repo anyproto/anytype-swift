@@ -12,7 +12,6 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     }
     
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
-    private let gridLayoutBuilder: any MessageAttachmentsGridLayoutBuilderProtocol = Container.shared.messageAttachmentsGridLayoutBuilder()
     private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
     
     private let spaceId: String
@@ -216,15 +215,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         if containsNotOnlyMediaFiles {
             return .list(linkedObjectsDetails)
         } else {
-            let gridItems = gridLayoutBuilder.makeGridRows(countItems: linkedObjectsDetails.count)
-            var prevIndex = 0
-            let items = gridItems.map { itemsCount in
-                let nextIndex = prevIndex + itemsCount
-                let items = linkedObjectsDetails[prevIndex..<nextIndex]
-                prevIndex = nextIndex
-                return Array(items)
-            }
-            return .grid(items)
+            return .grid(linkedObjectsDetails)
         }
     }
 }

@@ -18,6 +18,7 @@ struct FlowRelationsView: View {
             showIcon: viewModel.showIcon,
             canEditIcon: viewModel.canEditIcon,
             title: viewModel.title,
+            showTitle: true,
             style: .list
         )
     }

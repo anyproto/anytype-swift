@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Cartão";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nome do espaço";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Objeto excluído";
@@ -663,6 +660,7 @@
 "Link to" = "Vincular a";
 "Unknown" = "Desconhecido";
 "Settings" = "Configurações";
+"Preferences" = "Preferences";
 "Views" = "Exibições";
 "Filter" = "Filtro";
 "Sort" = "Ordenar";
@@ -708,6 +706,10 @@
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
 "Leave a space" = "Sair do espaço";
+"Collaboration" = "Collaboration";
+"Members" = "Membros";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Tem certeza de que deseja excluir seu cofre?";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Nome do espaço";
 "Settings.SpaceType" = "Categoria de espaço";
 "Settings.VaultAndAccess" = "Cofre e acesso";
+"Settings.SpaceName" = "Nome do espaço";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Armazenamento de arquivos";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Para economizar espaço no seu dispositivo local, você pode descarregar todos os seus arquivos no nosso servidor de backup criptografado. Os arquivos serão carregados novamente quando forem abertos.";
 "FileStorage.Local.Used" = "%@ usados";
 "FileStorage.OffloadTitle" = "Descarregar arquivos";
-"FileStorage.ManageFiles" = "Gerenciar arquivos";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Você excedeu o limite de upload";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Outros espaços | %@";
 "FileStorage.LimitLegend.Free" = "Gratuito | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Arquivos sincronizados";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Tem certeza de que deseja excluir permanentemente os arquivos?";
 
 // MARK: - Widget object list
@@ -1051,15 +1057,6 @@
 "SpaceShare.Tip.Steps.1" = "Toque no espaço para acessar as configurações";
 "SpaceShare.Tip.Steps.2" = "Abrir seção Compartilhar";
 "SpaceShare.Tip.Steps.3" = "Gerar um link de convite e compartilhá-lo";
-
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Plano de fundo dinâmico";
-"SpaceHub.Tip.Title2" = "Simples e Flexível";
-"SpaceHub.Tip.Title1" = "Bem-vindo ao Cofre";
-
-"SpaceHub.Tip.Text3" = "Por padrão, desfocamos o ícone do seu espaço como um plano de fundo. Se necessário, você pode alterá-lo nas configurações do espaço.";
-"SpaceHub.Tip.Text2" = "Agora você pode facilmente reordenar seus Espaços usando arrastar e soltar e navegar com mais facilidade.";
-"SpaceHub.Tip.Text1" = "O Cofre é a nova casa para todos os seus Espaços. Crie, junte ou compartilhe Espaços – tudo está armazenado em segurança aqui.";
 
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Pressione e segure para retornar aos Widgets";
@@ -1263,7 +1260,6 @@ forneça detalhes específicos das suas necessidades aqui.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Apenas editores podem enviar mensagens. Entre em contato com o proprietário para solicitar acesso.";
 "Chat.ReplyTo" = "Respondendo a %@";
 "Chat.Empty.Title" = "Ainda não há mensagens aqui...";
 "Chat.Empty.Description" = "Escreva primeiro para iniciar uma conversa";

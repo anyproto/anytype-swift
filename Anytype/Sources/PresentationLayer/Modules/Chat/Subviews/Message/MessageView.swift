@@ -1,10 +1,10 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct MessageView: View {
     
     private enum Constants {
-        static let attachmentsSize: CGFloat = 250
         static let attachmentsPadding: CGFloat = 4
     }
     
@@ -24,7 +24,7 @@ struct MessageView: View {
     }
     
     var body: some View {
-        HStack(alignment: .bottom, spacing: 8) {
+        HStack(alignment: .bottom, spacing: 6) {
             leadingView
             content
             trailingView
@@ -66,31 +66,25 @@ struct MessageView: View {
     private var bubble: some View {
         VStack(alignment: .leading, spacing: 0) {
             
-            linkedObjects
+            linkedObjectsForTop
             
             if !data.messageString.isEmpty {
-                
-                if data.linkedObjects.isNil {
-                    Spacer.fixedHeight(8)
-                } else {
-                    Spacer.fixedHeight(4)
-                }
-                
                 // Add spacing for date
                 (Text(data.messageString) + createDateTextForSpacing)
                     .anytypeStyle(.chatText)
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 8)
+                    .alignmentGuide(.timeVerticalAlignment) { $0[.bottom] }
+                    .padding(.vertical, 4)
             }
+            
+            linkedObjectsForBottom
         }
-        .overlay(alignment: .bottomTrailing) {
+        .overlay(alignment: Alignment(horizontal: .trailing, vertical: .timeVerticalAlignment)) {
             if !data.messageString.isEmpty {
                 createDate
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 8)
             }
         }
-        .frame(width: fixedBubbleWidth)
         .background(messageBackgorundColor)
         .cornerRadius(16, style: .continuous)
         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
@@ -100,17 +94,13 @@ struct MessageView: View {
     }
     
     @ViewBuilder
-    private var linkedObjects: some View {
+    private var linkedObjectsForTop: some View {
         if let objects = data.linkedObjects {
             switch objects {
-            case .list(let items):
-                MessageListAttachmentsViewContainer(objects: items) {
-                    output?.didSelectAttachment(data: data, details: $0)
-                }
-                .frame(width: Constants.attachmentsSize)
-                .padding(Constants.attachmentsPadding)
+            case .list:
+                attachmentFreeSpacing
             case .grid(let items):
-                MessageGridAttachmentsContainer(objects: items, oneSide: Constants.attachmentsSize, spacing: 4) {
+                MessageGridAttachmentsContainer(objects: items, spacing: 4) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
                 .padding(Constants.attachmentsPadding)
@@ -118,14 +108,37 @@ struct MessageView: View {
                 MessageObjectBigBookmarkView(details: item) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
-                .frame(width: Constants.attachmentsSize)
                 .padding(Constants.attachmentsPadding)
             }
+        } else {
+            attachmentFreeSpacing
         }
     }
     
-    private var fixedBubbleWidth: CGFloat? {
-        data.linkedObjects.isNotNil ? Constants.attachmentsSize + Constants.attachmentsPadding * 2 : nil
+    @ViewBuilder
+    private var linkedObjectsForBottom: some View {
+        if let objects = data.linkedObjects {
+            switch objects {
+            case .list(let items):
+                MessageListAttachmentsViewContainer(objects: items) {
+                    output?.didSelectAttachment(data: data, details: $0)
+                }
+                .padding(Constants.attachmentsPadding)
+            case .grid, .bookmark:
+                attachmentFreeSpacing
+            }
+        } else {
+            attachmentFreeSpacing
+        }
+    }
+    
+    @ViewBuilder
+    private var attachmentFreeSpacing: some View {
+        if !data.messageString.isEmpty {
+            Spacer.fixedHeight(4)
+        } else {
+            EmptyView()
+        }
     }
     
     private var createDate: some View {
@@ -200,12 +213,7 @@ struct MessageView: View {
     
     @ViewBuilder
     private var horizontalBubbleSpacing: some View {
-        switch data.authorIconMode {
-        case .show, .empty:
-            Spacer(minLength: 32)
-        case .hidden:
-            Spacer(minLength: 64)
-        }
+        Spacer(minLength: 26)
     }
     
     @ViewBuilder
@@ -250,4 +258,14 @@ struct MessageView: View {
     private var messageTimeColor: Color {
         return data.isYourMessage ? Color.Background.Chat.replySomeones : Color.Control.transparentActive
     }
+}
+
+private struct TimeVerticalAlignment: AlignmentID {
+    static func defaultValue(in context: ViewDimensions) -> CGFloat {
+        return context[.bottom]
+    }
+}
+
+private extension VerticalAlignment {
+    static let timeVerticalAlignment = VerticalAlignment(TimeVerticalAlignment.self)
 }

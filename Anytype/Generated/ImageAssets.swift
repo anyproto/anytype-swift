@@ -181,6 +181,7 @@ internal extension ImageAsset {
       static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
     }
     static let folder = ImageAsset.bundle(name: "x24/Folder")
+    static let member = ImageAsset.bundle(name: "x24/Member")
     static let mention = ImageAsset.bundle(name: "x24/Mention")
     static let more = ImageAsset.bundle(name: "x24/More")
     static let multiselect = ImageAsset.bundle(name: "x24/Multiselect")
@@ -203,6 +204,7 @@ internal extension ImageAsset {
     static let sharing = ImageAsset.bundle(name: "x24/Sharing")
     static let spaceSettings = ImageAsset.bundle(name: "x24/Space settings")
     static let status = ImageAsset.bundle(name: "x24/Status")
+    static let storage = ImageAsset.bundle(name: "x24/Storage")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
     static let text = ImageAsset.bundle(name: "x24/Text")
     static let tick = ImageAsset.bundle(name: "x24/Tick")
@@ -297,6 +299,7 @@ internal extension ImageAsset {
     static let paste = ImageAsset.bundle(name: "x32/Paste")
     static let plus = ImageAsset.bundle(name: "x32/Plus")
     static let properties = ImageAsset.bundle(name: "x32/Properties")
+    static let qrCode = ImageAsset.bundle(name: "x32/QRCode")
     static let remove = ImageAsset.bundle(name: "x32/Remove")
     static let rename = ImageAsset.bundle(name: "x32/Rename")
     static let replace = ImageAsset.bundle(name: "x32/Replace")

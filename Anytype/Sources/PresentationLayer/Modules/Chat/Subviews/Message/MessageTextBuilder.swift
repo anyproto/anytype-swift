@@ -23,7 +23,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         
         message.font = AnytypeFontBuilder.font(anytypeFont: font)
         message.kern = font.config.kern
-        var paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
         message.paragraphStyle = paragraphStyle
         
@@ -74,7 +74,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             }
         }
         
-        return message
+        return message.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String {

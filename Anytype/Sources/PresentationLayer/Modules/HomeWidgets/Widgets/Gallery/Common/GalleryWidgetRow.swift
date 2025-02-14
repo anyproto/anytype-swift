@@ -3,7 +3,7 @@ import SwiftUI
 
 struct GalleryWidgetRowModel {
     let objectId: String
-    let title: String
+    let title: String?
     let icon: Icon?
     let cover: ObjectHeaderCoverType?
     let onTap: @MainActor () -> Void
@@ -23,22 +23,9 @@ struct GalleryWidgetRow: View {
                     ObjectHeaderCoverView(objectCover: cover, fitImage: false)
                         .frame(height: 80)
                 }
-                ZStack(alignment: model.icon.isNotNil ? .leadingFirstTextBaseline : .leading) {
-                    HStack {
-                        Text(model.icon.isNotNil ? model.title.leftIndented : model.title)
-                            .anytypeStyle(.caption1Medium)
-                            .lineLimit(2)
-                            .foregroundColor(Color.Text.primary)
-                            .frame(maxHeight: .infinity, alignment: .top) // For equal height. Always height == 2 lines
-                        Spacer()
-                    }
-                    if let icon = model.icon {
-                        IconView(icon: icon)
-                            .frame(width: 16, height: 16)
-                            .alignmentGuide(.firstTextBaseline) { $0.height * 0.8 }
-                    }
+                if model.icon.isNotNil || model.title.isNotNil {
+                    info
                 }
-                .padding(EdgeInsets(top: 9, leading: 12, bottom: 11, trailing: 12))
             }
             .frame(width: 136)
             .fixTappableArea()
@@ -48,5 +35,26 @@ struct GalleryWidgetRow: View {
         }
         .cornerRadius(8, style: .continuous)
         .id(model.objectId)
+    }
+    
+    private var info: some View {
+        ZStack(alignment: model.icon.isNotNil ? .leadingFirstTextBaseline : .leading) {
+            if let title = model.title {
+                HStack {
+                    Text(model.icon.isNotNil ? title.leftIndented : title)
+                        .anytypeStyle(.caption1Medium)
+                        .lineLimit(2)
+                        .foregroundColor(Color.Text.primary)
+                        .frame(maxHeight: .infinity, alignment: .top) // For equal height. Always height == 2 lines
+                    Spacer()
+                }
+            }
+            if let icon = model.icon {
+                IconView(icon: icon)
+                    .frame(width: 16, height: 16)
+                    .alignmentGuide(.firstTextBaseline) { $0.height * 0.8 }
+            }
+        }
+        .padding(EdgeInsets(top: 9, leading: 12, bottom: 11, trailing: 12))
     }
 }

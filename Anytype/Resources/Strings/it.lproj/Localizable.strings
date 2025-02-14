@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Scheda";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Testo";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nome dello Spazio";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Oggetto eliminato";
@@ -663,6 +660,7 @@
 "Link to" = "Collega a";
 "Unknown" = "Sconosciuto";
 "Settings" = "Impostazioni";
+"Preferences" = "Preferences";
 "Views" = "Viste";
 "Filter" = "Filtro";
 "Sort" = "Ordina";
@@ -708,6 +706,10 @@
 "Hide" = "Nascondi";
 "Apply" = "Applica";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Membri";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Nome dello Spazio";
 "Settings.SpaceType" = "Tipo di spazio";
 "Settings.VaultAndAccess" = "Cassaforte e accesso";
+"Settings.SpaceName" = "Nome dello Spazio";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Archiviazione file";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Per risparmiare spazio sul tuo dispositivo locale, puoi liberare tutti i tuoi file trasferendoli al nostro nodo di backup criptato. I file verranno ricaricati quando li apri";
 "FileStorage.Local.Used" = "%@ utilizzati";
 "FileStorage.OffloadTitle" = "Libera file";
-"FileStorage.ManageFiles" = "Gestione file";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Hai superato il limite di caricamento dei file";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Altri spazi | %@";
 "FileStorage.LimitLegend.Free" = "Gratis | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "File sincronizzati";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Sei sicuro di voler eliminare definitivamente i file?";
 
 // MARK: - Widget object list
@@ -1050,15 +1056,6 @@
 "SpaceShare.Tip.Steps.1" = "Tocca il widget Spazio per accedere alle impostazioni";
 "SpaceShare.Tip.Steps.2" = "Apri sezione Condividi";
 "SpaceShare.Tip.Steps.3" = "Genera un link di invito e condividilo";
-
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Sfondi Dinamici";
-"SpaceHub.Tip.Title2" = "Semplice & Flessibile";
-"SpaceHub.Tip.Title1" = "Benvenuto nella Cassaforte";
-
-"SpaceHub.Tip.Text3" = "Per impostazione predefinita, sfumiamo l'icona del tuo spazio come sfondo. Se necessario, puoi modificarla nelle impostazioni dello spazio.";
-"SpaceHub.Tip.Text2" = "Ora puoi facilmente riordinare i tuoi Spazi usando il drag and drop e navigarli più facilmente.";
-"SpaceHub.Tip.Text1" = "La Cassaforte è la nuova casa per tutti i tuoi Spazi. Crea, unisciti o condividi Spazi - tutto è salvato qui in modo sicuro.";
 
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Premere a lungo per tornare ai widget";
@@ -1262,7 +1259,6 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "AllContent.Search.Empty.State.subtitle" = "Prova a cercare con parole chiave diverse.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Solo gli editor possono inviare messaggi. Contatta il proprietario per richiedere l'accesso.";
 "Chat.ReplyTo" = "Rispondi a %@";
 "Chat.Empty.Title" = "Ancora nessun messaggio qui...";
 "Chat.Empty.Description" = "Scrivi un primo messaggio per iniziare una conversazione";

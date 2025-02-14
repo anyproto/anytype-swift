@@ -20,7 +20,6 @@ struct SpaceHubCoordinatorView: View {
             .task { await model.setup() }
             
             .handleSharingTip()
-            .handleSpaceHubTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
             
@@ -90,7 +89,15 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)
                         }
-                    }
+                        builder.appendBuilder(for: SettingsScreenData.self) { data in
+                            switch data {
+                            case .mainScreen(let info):
+                                NewSpaceSettingsCoordinatorView(workspaceInfo: info)
+                            case .spaceDetails(let info):
+                                SpaceDetailsView(info: info)
+                            }
+                        }
+                     }
                 },
                 bottomPanel: {
                     if let spaceInfo = model.spaceInfo {

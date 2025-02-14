@@ -4,14 +4,12 @@ import Network
 
 
 // Monitors network connection and sends it to middleware
-@MainActor
-protocol NetworkConnectionStatusDaemonProtocol {
+protocol NetworkConnectionStatusDaemonProtocol: Sendable {
     func start() async
     func stop() async
 }
 
-@MainActor
-final class NetworkConnectionStatusDaemon: NetworkConnectionStatusDaemonProtocol {
+final class NetworkConnectionStatusDaemon: NetworkConnectionStatusDaemonProtocol, Sendable {
     private let nwPathMonitor = NWPathMonitor()
     
     nonisolated init() { }

@@ -22,11 +22,18 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
+    @Injected(\.fileLimitsStorage)
+    private var fileLimitsStorage: any FileLimitsStorageProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private let dateFormatter = DateFormatter.relativeDateFormatter
-    private weak var output: (any SpaceSettingsModuleOutput)?
+    private let storageInfoBuilder = SegmentInfoBuilder()
+    private weak var output: (any NewSpaceSettingsModuleOutput)?
     
     // MARK: - State
     
@@ -34,6 +41,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     private var owner: Participant?
+    private var inviteLink: URL?
     
     var spaceDisplayName: String {
         spaceName.isNotEmpty ? spaceName : Loc.untitled
@@ -60,8 +68,12 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowRemoteStorage = false
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
+    @Published var shareInviteLink: URL?
+    @Published var qrInviteLink: URL?
+    @Published var storageInfo = RemoteStorageSegmentInfo()
+    @Published var defaultObjectType: ObjectType?
     
-    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
     }
@@ -74,16 +86,16 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         showInfoView.toggle()
     }
     
-    func onChangeIconTap() {
-        output?.onChangeIconSelected()
+    func onWallpaperTap() {
+        output?.onWallpaperSelected()
+    }
+    
+    func onDefaultObjectTypeTap() {
+        output?.onDefaultObjectTypeSelected()
     }
     
     func onStorageTap() {
         output?.onRemoteStorageSelected()
-    }
-    
-    func onPersonalizationTap() {
-        output?.onPersonalizationSelected()
     }
     
     func onDeleteTap() {
@@ -112,7 +124,37 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         membershipUpgradeReason = .numberOfSharedSpaces
     }
     
-    func startJoiningTask() async {
+    func onInviteTap() {
+        Task {
+            try await generateInviteIfNeeded()
+            shareInviteLink = inviteLink
+        }
+    }
+    
+    func onQRCodeTap() {
+        Task {
+            try await generateInviteIfNeeded()
+            qrInviteLink = inviteLink
+        }
+    }
+    
+    // MARK: - Subscriptions
+    
+    func startSubscriptions() async {
+        async let storageTask: () = startStorageTask()
+        async let joiningTask: () = startJoiningTask()
+        async let participantTask: () = startParticipantTask()
+        async let defaultTypeTask: () = startDefaultTypeTask()
+        (_,_,_, _) = await (storageTask, joiningTask, participantTask, defaultTypeTask)
+    }
+    
+    private func startStorageTask() async {
+        for await nodeUsage in fileLimitsStorage.nodeUsage.values {
+            storageInfo = storageInfoBuilder.build(spaceId: workspaceInfo.accountSpaceId, nodeUsage: nodeUsage)
+        }
+    }
+    
+    private func startJoiningTask() async {
         for await participants in participantsSubscription.participantsPublisher.values {
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
@@ -120,10 +162,16 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
     }
     
-    func startParticipantTask() async {
+    private func startParticipantTask() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
             self.participantSpaceView = participantSpaceView
             updateViewState()
+        }
+    }
+    
+    private func startDefaultTypeTask() async {
+        for await defaultObjectType in objectTypeProvider.defaultObjectTypePublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            self.defaultObjectType = defaultObjectType
         }
     }
     
@@ -165,6 +213,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         } else {
             shareSection = .member
         }
+        
+        Task { try await generateInviteIfNeeded() }
     }
     
     private func buildInfoBlock(details: SpaceView) {
@@ -208,6 +258,13 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             info.append(
                 SettingsInfoModel(title: createdDateDetails.name, subtitle: date)
             )
+        }
+    }
+    
+    private func generateInviteIfNeeded() async throws {
+        if shareSection.isSharingAvailable && inviteLink.isNil {
+            let invite = try await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         }
     }
 }

@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Tarjeta";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Nombre del espacio";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Sin título";
 "Object.Deleted.Placeholder" = "Objeto eliminado";
@@ -663,6 +660,7 @@
 "Link to" = "Conectar a";
 "Unknown" = "Desconocido";
 "Settings" = "Ajustes";
+"Preferences" = "Preferencias";
 "Views" = "Vistas";
 "Filter" = "Filtrar";
 "Sort" = "Ordenar";
@@ -708,6 +706,10 @@
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
 "Leave a space" = "Abandonar un espacio";
+"Collaboration" = "Colaboración";
+"Members" = "Miembros";
+"Invite" = "Invitar";
+"QR Code" = "Código QR";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
@@ -879,6 +881,10 @@
 "Settings.SpaceName" = "Nombre del espacio";
 "Settings.SpaceType" = "Tipo de espacio";
 "Settings.VaultAndAccess" = "Arca y acceso";
+"Settings.SpaceName" = "Nombre del espacio";
+"Settings.Edit picture" = "Editar imagen";
+"Settings.Updated" = "Actualizada la información del espacio";
+"Settings.DataManagement" = "Gestión de datos";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Almacenamiento de archivos";
@@ -890,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Para ahorrar espacio en tu dispositivo local, puedes guardar todos tus archivos en nuestro nodo de respaldo cifrado. Los archivos se cargarán de nuevo cuando los abras.";
 "FileStorage.Local.Used" = "%@ utilizados";
 "FileStorage.OffloadTitle" = "Guardar en el nodo";
-"FileStorage.ManageFiles" = "Gestionar archivos";
+"FileStorage.CleanUpFiles" = "Limpiar archivos";
 "FileStorage.LimitError" = "Has superado el límite de carga de archivos";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Otros espacios | %@";
 "FileStorage.LimitLegend.Free" = "Libre | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Archivos sincronizados";
+"FilesList.Title" = "Limpiar archivos";
 "FilesList.ForceDelete.Title" = "¿Seguro que deseas eliminar definitivamente los archivos?";
 
 // MARK: - Widget object list
@@ -1050,15 +1056,6 @@
 "SpaceShare.Tip.Steps.1" = "Toca el widget del espacio para acceder a los ajustes.";
 "SpaceShare.Tip.Steps.2" = "Abre la sección Compartir.";
 "SpaceShare.Tip.Steps.3" = "Genera un enlace de invitación y compártelo.";
-
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Fondos dinámicos";
-"SpaceHub.Tip.Title2" = "Simple y flexible";
-"SpaceHub.Tip.Title1" = "Esta es tu arca";
-
-"SpaceHub.Tip.Text3" = "Por defecto, usamos el icono de tu espacio difuminado como fondo. Si quieres, puedes cambiarlo en los ajustes de espacio.";
-"SpaceHub.Tip.Text2" = "Ahora puedes arrastrar y colocar para reordenar tus espacios y navegar por ellos con más facilidad.";
-"SpaceHub.Tip.Text1" = "Tu arca es donde se guardan y protegen todos tus espacios: que crees, los que compartas y los que alguien comparta contigo.";
 
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Pulsación larga para volver a los widgets";
@@ -1262,7 +1259,6 @@ En concreto,
 "AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Solo pueden enviar mensajes los editores. Solicita acceso a la persona que ha creado esto.";
 "Chat.ReplyTo" = "Responder a %@";
 "Chat.Empty.Title" = "Aún no hay mensajes…";
 "Chat.Empty.Description" = "Escribe el primero para iniciar una conversación.";

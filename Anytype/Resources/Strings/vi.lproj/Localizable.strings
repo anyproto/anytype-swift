@@ -61,9 +61,6 @@
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Thẻ";
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Văn bản";
 
-// MARK: - Settings
-"Settings.SpaceName" = "Tên Không gian";
-
 // MARK: - Object
 "Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Đối tượng đã xoá";
@@ -664,6 +661,7 @@
 "Link to" = "Liên kết đến";
 "Unknown" = "Không rõ";
 "Settings" = "Cài đặt";
+"Preferences" = "Preferences";
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
@@ -709,6 +707,10 @@
 "Hide" = "Ẩn";
 "Apply" = "Apply";
 "Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Thành viên";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -880,6 +882,10 @@
 "Settings.SpaceName" = "Tên Không gian";
 "Settings.SpaceType" = "Space type";
 "Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceName" = "Tên Không gian";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
@@ -891,14 +897,14 @@
 "FileStorage.Local.Instruction" = "Để tiết kiệm bộ nhớ trống trên thiết bị cục bộ của bạn, bạn có thể san hết tất cả tập tin lên điểm sao lưu bảo mật của chúng tôi. Các tệp này sẽ được tải lại khi bạn mở chúng.";
 "FileStorage.Local.Used" = "Đã dùng %@";
 "FileStorage.OffloadTitle" = "San tập tin";
-"FileStorage.ManageFiles" = "Quản lý tập tin";
+"FileStorage.CleanUpFiles" = "Clean up files files";
 "FileStorage.LimitError" = "Bạn đã vượt quá giới hạn tải lên";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Các tệp đã đồng bộ";
+"FilesList.Title" = "Clean up files";
 "FilesList.ForceDelete.Title" = "Bạn có chắc chắn muốn xóa vĩnh viễn các tập tin?";
 
 // MARK: - Widget object list
@@ -1051,15 +1057,6 @@
 "SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
 "SpaceShare.Tip.Steps.2" = "Open Share section";
 "SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
-
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamic Backgrounds";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Welcome to the Vault";
-
-"SpaceHub.Tip.Text3" = "By default, we blur the icon of your space as a background. If needed, you can change it in the space-settings.";
-"SpaceHub.Tip.Text2" = "You can now easily reorder your Spaces using drag and drop and navigate them more easily.";
-"SpaceHub.Tip.Text1" = "Vault is the new home for all your Spaces. Create, join, or share Spaces – everything is securely stored here.";
 
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
@@ -1263,7 +1260,6 @@ Please provide specific details of your needs here.";
 "AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
 // MARK: - Chats
-"Chat.ReadOnly" = "Only editors can send messages. Contact the owner to request access.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "No messages here yet...";
 "Chat.Empty.Description" = "Write a first one to start a conversation";

@@ -34,11 +34,7 @@ struct HomeWidgetsCoordinatorView: View {
                 }
             }
             .sheet(item: $model.showSpaceSettingsData) {
-                if FeatureFlags.newSettings {
-                    NewSpaceSettingsCoordinatorView(workspaceInfo: $0)
-                } else {
-                    SpaceSettingsCoordinatorView(workspaceInfo: $0)
-                }
+                SpaceSettingsCoordinatorView(workspaceInfo: $0)
             }
     }
 }

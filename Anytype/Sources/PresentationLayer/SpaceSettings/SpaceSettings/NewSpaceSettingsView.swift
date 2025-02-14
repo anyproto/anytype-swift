@@ -8,24 +8,26 @@ struct NewSpaceSettingsView: View {
     @StateObject private var model: NewSpaceSettingsViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         _model = StateObject(wrappedValue: NewSpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
     }
     
     var body: some View {
         content
+            .homeBottomPanelHidden(true)
             .snackbar(toastBarData: $model.snackBarData)
             .onAppear {
                 model.onAppear()
             }
             .task {
-                await model.startJoiningTask()
-            }
-            .task {
-                await model.startParticipantTask()
+                await model.startSubscriptions()
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
+            }
+            .anytypeShareView(item: $model.shareInviteLink)
+            .anytypeSheet(item: $model.qrInviteLink) {
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
             }
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
                 SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
@@ -41,31 +43,15 @@ struct NewSpaceSettingsView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            DragIndicator()
             header
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    
                     spaceDetailsButton
-                    
-                    spaceSection
-                    
-                    SectionHeaderView(title: Loc.settings)
-                    
-                    if model.allowRemoteStorage {
-                        SettingsSectionItemView(
-                            name: Loc.SpaceSettings.remoteStorage,
-                            imageAsset: .Settings.fileStorage,
-                            onTap: { model.onStorageTap() }
-                        )
-                    }
-                    
-                    SettingsSectionItemView(
-                        name: Loc.personalization,
-                        imageAsset: .Settings.personalization,
-                        onTap: { model.onPersonalizationTap() }
-                    )
+                    sharing
+                    collaboration
+                    preferences
+                    dataManagement
                 }
             }
             .padding(.horizontal, 20)
@@ -73,7 +59,7 @@ struct NewSpaceSettingsView: View {
     }
     
     private var header: some View {
-        TitleView(title: Loc.SpaceSettings.title) {
+        PageNavigationHeader(title: "", rightView: {
             Menu {
                 Button(Loc.SpaceSettings.info) {
                     model.onInfoTap()
@@ -90,11 +76,12 @@ struct NewSpaceSettingsView: View {
                     }
                 }
             } label: {
-                Image(systemName: "ellipsis")
+                IconView(asset: .X24.more)
                     .foregroundStyle(Color.Control.active)
+                    .frame(width: 24, height: 24)
                     .padding()
             }
-        }
+        })
     }
     
     private var spaceDetailsButton: some View {
@@ -132,26 +119,62 @@ struct NewSpaceSettingsView: View {
     }
     
     @ViewBuilder
-    private var spaceSection: some View {
-        SectionHeaderView(title: Loc.Settings.spaceType)
+    private var sharing: some View {
+        if model.shareSection.isSharingAvailable {
+            Spacer.fixedHeight(8)
+            
+            HStack(spacing: 8) {
+                Button {
+                    model.onInviteTap()
+                } label: {
+                    HStack {
+                        Spacer()
+                        VStack(spacing: 0) {
+                            Image(asset: .X32.Island.addMember)
+                                .foregroundStyle(Color.Text.primary)
+                                .frame(width: 32, height: 32)
+                            AnytypeText(Loc.invite, style: .caption1Regular)
+                        }
+                        .padding(.vertical, 14)
+                        Spacer()
+                    }
+                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                }
+                
+                Button {
+                    model.onQRCodeTap()
+                } label: {
+                    HStack {
+                        Spacer()
+                        VStack(spacing: 0) {
+                            Image(asset: .X32.qrCode)
+                                .foregroundStyle(Color.Text.primary)
+                                .frame(width: 32, height: 32)
+                            AnytypeText(Loc.qrCode, style: .caption1Regular)
+                        }
+                        .padding(.vertical, 14)
+                        Spacer()
+                    }
+                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var collaboration: some View {
         
         switch model.shareSection {
         case .personal:
-            SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
+            EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
         case .owner(let joiningCount):
-            SettingsSectionItemView(
-                name: model.spaceAccessType,
-                decoration: .arrow(text: joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage),
-                onTap: { model.onShareTap() }
-            )
+            SectionHeaderView(title: Loc.collaboration)
+            RoundedButton(text: Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : nil) { model.onShareTap() }
         case .member:
-            SettingsSectionItemView(
-                name: model.spaceAccessType,
-                decoration: .arrow(text: Loc.SpaceShare.members),
-                onTap: { model.onMembersTap() }
-            )
+            SectionHeaderView(title: Loc.collaboration)
+            RoundedButton(text: Loc.members, icon: .X24.member) { model.onMembersTap() }
         }
     }
     
@@ -159,28 +182,15 @@ struct NewSpaceSettingsView: View {
         Group {
             switch state {
             case .unshareable:
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.share),
-                    onTap: { model.onShareTap() }
-                )
-                .disabled(true)
+                EmptyView()
             case .shareable:
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.share),
-                    onTap: { model.onShareTap() }
-                )
+                SectionHeaderView(title: Loc.collaboration)
+                RoundedButton(text: Loc.share, icon: .X24.member) { model.onShareTap() }
             case .reachedSharesLimit(let limit):
+                SectionHeaderView(title: Loc.collaboration)
                 VStack(alignment: .leading, spacing: 0) {
-                    SettingsSectionItemView(
-                        name: model.spaceAccessType,
-                        decoration: .arrow(text: Loc.share),
-                        showDivider: false,
-                        onTap: { model.onShareTap() }
-                    )
-                    .disabled(true)
-                    
+                    RoundedButton(text: Loc.share, icon: .X24.member) { }
+                        .disabled(true)
                     AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
                         .foregroundColor(.Text.primary)
                     Spacer.fixedHeight(10)
@@ -188,6 +198,45 @@ struct NewSpaceSettingsView: View {
                         model.onMembershipUpgradeTap()
                     }
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var preferences: some View {
+        SectionHeaderView(title: Loc.preferences)
+        RoundedButton(
+            text: Loc.defaultObjectType,
+            decoration: .init(objectType: model.defaultObjectType)
+        ) { model.onDefaultObjectTypeTap() }
+        Spacer.fixedHeight(8)
+        RoundedButton(text: Loc.wallpaper) { model.onWallpaperTap() }
+    }
+    
+    @ViewBuilder
+    private var dataManagement: some View {
+        if model.allowRemoteStorage {
+            SectionHeaderView(title: Loc.Settings.dataManagement)
+            Button {
+                model.onStorageTap()
+            } label: {
+                VStack(spacing: 0) {
+                    HStack(alignment: .center, spacing: 0) {
+                        Image(asset: .X24.storage)
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.Text.primary)
+                            .frame(width: 24, height: 24)
+                        Spacer.fixedWidth(8)
+                        AnytypeText(Loc.SpaceSettings.remoteStorage, style: .previewTitle1Regular)
+                        Spacer()
+                        IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+                    }
+                    .padding(20)
+                    
+                    RemoteStorageSegment(model: model.storageInfo, showLegend: false).padding(.horizontal, 16)
+                    Spacer.fixedHeight(16)
+                }
+                .border(12, color: .Shape.primary, lineWidth: 0.5)
             }
         }
     }

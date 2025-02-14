@@ -3,6 +3,7 @@ import UIKit
 import AnytypeCore
 import Services
 import ZIPFoundation
+import FirebaseMessaging
 
 
 @MainActor
@@ -30,8 +31,6 @@ final class DebugMenuViewModel: ObservableObject {
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
-    @Injected(\.pushNotificationService)
-    private var pushNotificationService: any PushNotificationServiceProtocol
     
     var shouldRunDebugProfilerOnNextStartup: Bool {
         get {
@@ -114,10 +113,9 @@ final class DebugMenuViewModel: ObservableObject {
     }
     
     func getNotificationToken() {
-        pushNotificationService.requestAccess()
-        Task {
-            try await Task.sleep(seconds: 5)
-            pushToken = pushNotificationService.token()?.identifiable
+        Messaging.messaging().token { [weak self] token, error in
+            guard let self, let token else { return }
+            pushToken = token.identifiable
         }
     }
     

@@ -9,19 +9,19 @@ final class SpaceDetailsViewModel: ObservableObject {
     @Published var spaceName = ""
     @Published var spaceDescription = ""
     @Published var spaceIcon: Icon?
+    @Published var toastBarData = ToastBarData.empty
+    @Published var showIconPickerSpaceId: StringIdentifiable?
     
     private let info: AccountInfo
     private var dataLoaded = false
-    private weak var output: (any SpaceSettingsModuleOutput)?
     
     @Injected(\.participantSpacesStorage)
     private var spacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     
-    init(info: AccountInfo, output: any SpaceSettingsModuleOutput) {
+    init(info: AccountInfo) {
         self.info = info
-        self.output = output
     }
     
     func setupSubscriptions() async {
@@ -39,7 +39,7 @@ final class SpaceDetailsViewModel: ObservableObject {
     
     // MARK: - Public
     func onChangeIconTap() {
-        output?.onChangeIconSelected()
+        showIconPickerSpaceId = info.accountSpaceId.identifiable
     }
     
     func onSaveTap() {
@@ -51,6 +51,8 @@ final class SpaceDetailsViewModel: ObservableObject {
                     .description(spaceDescription)
                 ]
             )
+            
+            toastBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
         }
     }
 
