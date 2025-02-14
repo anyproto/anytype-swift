@@ -14,10 +14,6 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     @Published var disableBackAction: Bool = false
     @Published var hideContent = false
     
-    var counter: String {
-        "\(step.rawValue) / \(JoinFlowStep.totalCount)"
-    }
-    
     // MARK: - State
     private let state = JoinFlowState()
     

@@ -50,15 +50,9 @@ struct JoinFlowView: View {
     }
     
     private var navigationBar : some View {
-        VStack(spacing: 13) {
-            HStack {
-                Spacer()
-                counter
-                Spacer()
-            }
-            .overlay(alignment: .leading, content: {
-                backButton
-            })
+        HStack {
+            backButton
+            Spacer()
         }
         .frame(height: 44)
     }
@@ -76,11 +70,6 @@ struct JoinFlowView: View {
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
         }
         .disabled(model.disableBackAction)
-    }
-    
-    private var counter : some View {
-        AnytypeText(model.counter, style: .authBody)
-            .foregroundColor(.Control.active)
     }
 }
 
