@@ -43,9 +43,6 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenVault(type: "General")
-        if #available(iOS 17.0, *) {
-            SpaceHubTip.didShowSpaceHub = true
-        }
     }
     
     func onSpaceTap(spaceId: String) {

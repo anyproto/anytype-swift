@@ -660,7 +660,7 @@
 "Link to" = "Lien vers";
 "Unknown" = "Inconnu";
 "Settings" = "Paramètres";
-"Preferences" = "Preferences";
+"Preferences" = "Préférences";
 "Views" = "Vues";
 "Filter" = "Filtre";
 "Sort" = "Trier";
@@ -708,8 +708,8 @@
 "Leave a space" = "Quitter l'espace";
 "Collaboration" = "Collaboration";
 "Members" = "Membres";
-"Invite" = "Invite";
-"QR Code" = "QR Code";
+"Invite" = "Inviter";
+"QR Code" = "Code QR";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -882,9 +882,9 @@
 "Settings.SpaceType" = "Type d'espace";
 "Settings.VaultAndAccess" = "Coffre et accès";
 "Settings.SpaceName" = "Nom de l'espace";
-"Settings.Edit picture" = "Edit picture";
-"Settings.Updated" = "Space information updated";
-"Settings.DataManagement" = "Data Management";
+"Settings.Edit picture" = "Modifier l'image";
+"Settings.Updated" = "Informations sur l'espace mises à jour";
+"Settings.DataManagement" = "Gestion de données";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Stockage des fichiers";
@@ -903,7 +903,7 @@
 "FileStorage.LimitLegend.Free" = "Gratuit | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Clean up files";
+"FilesList.Title" = "Nettoyer les fichiers";
 "FilesList.ForceDelete.Title" = "Êtes-vous sûr de vouloir supprimer définitivement les fichiers ?";
 
 // MARK: - Widget object list
@@ -1056,15 +1056,6 @@
 "SpaceShare.Tip.Steps.1" = ". Appuyez sur le widget de l’Espace pour accéder aux paramètres";
 "SpaceShare.Tip.Steps.2" = "Ouvrez la section Partage";
 "SpaceShare.Tip.Steps.3" = "Générez un lien d’invitation et partagez-le";
-
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Arrière-plans dynamiques ";
-"SpaceHub.Tip.Title2" = "Simple & Flexible";
-"SpaceHub.Tip.Title1" = "Bienvenue dans le coffre-fort";
-
-"SpaceHub.Tip.Text3" = "Par défaut, nous utilisons une icône floutée de votre espace en tant qu'arrière-plan. Vous pouvez changer cela dans les paramètres de l'espace.";
-"SpaceHub.Tip.Text2" = "Vous pouvez maintenant facilement réorganiser vos espaces en utilisant glisser-déposer et les naviguer plus facilement.";
-"SpaceHub.Tip.Text1" = "Le coffre-fort est l'endroit rassemblant tous vos Espaces. Créer, joindre, ou partager des Espaces – tout est sauvé, ici, en sécurité.";
 
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Appui long pour retourner aux widgets";
@@ -1316,3 +1307,9 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "ObjectSearchWithMeta.Create.Note" = "Nouvelle note";
 "ObjectSearchWithMeta.Create.Set" = "Nouvel ensemble";
 "ObjectSearchWithMeta.Create.Collection" = "Nouvelle collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration en cours...";
+"Migration.subtitle" = "Cela ne devrait pas prendre longtemps. Merci pour votre patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Espace insuffisant";
+"Migration.Error.NotEnoughtSpace.message" = "Veuillez libérer de l'espace et exécuter le processus à nouveau.";

@@ -1057,15 +1057,6 @@
 "SpaceShare.Tip.Steps.2" = "Apri sezione Condividi";
 "SpaceShare.Tip.Steps.3" = "Genera un link di invito e condividilo";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Sfondi Dinamici";
-"SpaceHub.Tip.Title2" = "Semplice & Flessibile";
-"SpaceHub.Tip.Title1" = "Benvenuto nella Cassaforte";
-
-"SpaceHub.Tip.Text3" = "Per impostazione predefinita, sfumiamo l'icona del tuo spazio come sfondo. Se necessario, puoi modificarla nelle impostazioni dello spazio.";
-"SpaceHub.Tip.Text2" = "Ora puoi facilmente riordinare i tuoi Spazi usando il drag and drop e navigarli più facilmente.";
-"SpaceHub.Tip.Text1" = "La Cassaforte è la nuova casa per tutti i tuoi Spazi. Crea, unisciti o condividi Spazi - tutto è salvato qui in modo sicuro.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Premere a lungo per tornare ai widget";
 "ReturnToWidgets.Tip.Text" = "Premere a lungo il pulsante indietro per tornare ai widget, invece di toccarlo ripetutamente.";
@@ -1315,3 +1306,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "ObjectSearchWithMeta.Create.Note" = "Nuova Nota";
 "ObjectSearchWithMeta.Create.Set" = "Nuovo Insieme";
 "ObjectSearchWithMeta.Create.Collection" = "Nuova Collezione";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

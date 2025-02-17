@@ -1058,15 +1058,6 @@
 "SpaceShare.Tip.Steps.2" = "Адкрыйце раздзел \"Абагуліць\"";
 "SpaceShare.Tip.Steps.3" = "Стварыце спасылку з запрашэннем і падзяліцеся ёю";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Дынамічныя фоны";
-"SpaceHub.Tip.Title2" = "Просты і гнуткі";
-"SpaceHub.Tip.Title1" = "Вітаем у сховішчы";
-
-"SpaceHub.Tip.Text3" = "Прадвызначана ў якасці фону размываецца значок вашай прасторы. Пры неабходнасці вы можаце змяніць гэта ў наладах прасторы.";
-"SpaceHub.Tip.Text2" = "Цяпер вы можаце лёгка змяняць парадак размяшчэння прастор з дапамогай перацягвання і зручнейшай навігацыі па іх.";
-"SpaceHub.Tip.Text1" = "Сховішча - гэта новая хата для ўсіх вашых прастор. Стварайце прасторы, далучайцеся да іх ці дзяліцеся імі - усё будзе надзейна захавана тут.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
 "ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
@@ -1316,3 +1307,9 @@
 "ObjectSearchWithMeta.Create.Note" = "New Note";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

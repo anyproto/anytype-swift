@@ -1058,15 +1058,6 @@
 "SpaceShare.Tip.Steps.2" = "Paylaşım bölümünü açın";
 "SpaceShare.Tip.Steps.3" = "Bir davet bağlantısı oluşturun ve paylaşın";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dinamik Arkaplanlar";
-"SpaceHub.Tip.Title2" = "Basit & Esnek";
-"SpaceHub.Tip.Title1" = "Kasaya Hoşgeldiniz";
-
-"SpaceHub.Tip.Text3" = "Alanınızın simgesini arka plan şeklinde varsayılan olarak bulanıklaştırırız. Gerekirse bunu alan ayarlarından değiştirebilirsiniz.";
-"SpaceHub.Tip.Text2" = "Artık sürükle ve bırak özelliğini kullanarak Alanlarınızı kolayca yeniden sıralayabilir ve daha kolay gezinebilirsiniz.";
-"SpaceHub.Tip.Text1" = "Kasalar tüm Alanlarınız için yeni yuvadır. Alanlar oluşturun, katılın veya paylaşın - her şey burada güvenli bir şekilde saklanır.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Widget'lara geri dönmek için basılı tutun";
 "ReturnToWidgets.Tip.Text" = "Widget'lara geri dönmek için tekrar tekrar dokunmak yerine geri düğmesine uzun süre basılı tutun.";
@@ -1317,3 +1308,9 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "ObjectSearchWithMeta.Create.Note" = "Yeni Not";
 "ObjectSearchWithMeta.Create.Set" = "Yeni Set";
 "ObjectSearchWithMeta.Create.Collection" = "Yeni Koleksiyon";
+
+// MARK: - Migration
+"Migration.title" = "Geçiş işlemi devam ediyor...";
+"Migration.subtitle" = "Bu uzun sürmeyecek. Sabrınız için teşekkürler.";
+"Migration.Error.NotEnoughtSpace.title" = "Yeterli yer yok";
+"Migration.Error.NotEnoughtSpace.message" = "Lütfen biraz yer açın ve işlemi tekrarlayın.";

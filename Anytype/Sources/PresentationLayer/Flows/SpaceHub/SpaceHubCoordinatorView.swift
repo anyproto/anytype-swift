@@ -20,7 +20,6 @@ struct SpaceHubCoordinatorView: View {
             .task { await model.setup() }
             
             .handleSharingTip()
-            .handleSpaceHubTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
             

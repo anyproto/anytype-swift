@@ -16,23 +16,9 @@ struct SetGalleryViewCell: View {
     private var content: some View {
         VStack(alignment: .leading, spacing: Constants.bottomCoverSpacing) {
             coverContent
-            VStack(alignment: .leading, spacing: 0) {
-                TitleWithIconView(
-                    icon: configuration.icon,
-                    showIcon: configuration.showIcon, 
-                    canEditIcon: configuration.canEditIcon,
-                    title: configuration.title,
-                    style: .gallery
-                )
-                
-                Spacer.fixedHeight(4)
-                
-                relations
-                
-                Spacer(minLength: 0)
+            if configuration.hasInfo {
+                infoContent
             }
-            .padding(.top, configuration.hasCover && configuration.coverType.isNotNil ? 0 : Constants.contentPadding )
-            .padding([.leading, .trailing, .bottom], Constants.contentPadding)
         }
         .background(Color.Background.primary)
         .frame(maxWidth: .infinity, minHeight: configuration.minHeight, alignment: .topLeading)
@@ -41,6 +27,22 @@ struct SetGalleryViewCell: View {
             RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.Shape.primary, lineWidth: 0.5)
         )
         .readSize { width = $0.width }
+    }
+    
+    private var infoContent: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            TitleWithIconView(
+                icon: configuration.icon,
+                showIcon: configuration.showIcon,
+                canEditIcon: configuration.canEditIcon,
+                title: configuration.title,
+                showTitle: configuration.showTitle,
+                style: .gallery
+            )                            
+            relations
+        }
+        .padding(.top, configuration.hasCover && configuration.coverType.isNotNil ? 0 : Constants.contentPadding )
+        .padding([.leading, .trailing, .bottom], Constants.contentPadding)
     }
     
     @ViewBuilder

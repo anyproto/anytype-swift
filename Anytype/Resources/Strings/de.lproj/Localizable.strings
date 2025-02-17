@@ -1059,15 +1059,6 @@
 "SpaceShare.Tip.Steps.2" = "Teilen-Bereich öffnen";
 "SpaceShare.Tip.Steps.3" = "Einladungslink erstellen und teilen";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Dynamische Hintergründe";
-"SpaceHub.Tip.Title2" = "Einfach & flexibel";
-"SpaceHub.Tip.Title1" = "Willkommen im Tresor";
-
-"SpaceHub.Tip.Text3" = "Standardmäßig wir das Icon deines Spaces verschwommen dargestellt um es als Hintergrundbild zu nutzen. Wenn notwendig, kann das in den Space Einstellungen geändert werden.";
-"SpaceHub.Tip.Text2" = "Spaces können nun einfach per Drag-and-Drop neu angeordnet werden und einfacher navigieren.";
-"SpaceHub.Tip.Text1" = "Der Tresor ist das neue Zuhause aller deiner Spaces. Erstelle Spaces, trete ihnen bei oder teile sie - alles wird hier sicher gespeichert.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Lang drücken, um zu den Widgets zurückzukehren";
 "ReturnToWidgets.Tip.Text" = "Lange auf die Zurück-Schaltfläche drücken, um zu den Widgets zurückzukehren, anstatt sie wiederholt anzutippen.";
@@ -1289,7 +1280,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Reply.Files" = "Dateien (%@)";
 "Chat.SendLimitAlert.Title" = "Moment mal! Turbotippen erkannt!";
 "Chat.SendLimitAlert.Message" = "Sieht so aus, als würdest du Nachrichten in Windeseile verschicken. Warte noch eine Sekunde bis zur nächsten Nachricht.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachmentsLimit.Alert" = "Du kannst nur %@ Anhänge auf einmal hochladen";
 "Chat.AttachedObject.Attach" = "Anhängen";
 "Chat.CreateObject.Dismiss.Title" = "Möchtest du diesen Bildschirm wirklich schließen?";
 "Chat.CreateObject.Dismiss.Message" = "Wenn du es verlässt, gehen alle deine Änderungen verloren.";
@@ -1316,3 +1307,9 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "ObjectSearchWithMeta.Create.Note" = "Neue Notiz";
 "ObjectSearchWithMeta.Create.Set" = "Neues Set";
 "ObjectSearchWithMeta.Create.Collection" = "Neue Sammlung";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "Das sollte nicht lange dauern. Danke für deine Geduld.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";

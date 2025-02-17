@@ -1058,15 +1058,6 @@
 "SpaceShare.Tip.Steps.2" = "Abrir seção Compartilhar";
 "SpaceShare.Tip.Steps.3" = "Gerar um link de convite e compartilhá-lo";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "Plano de fundo dinâmico";
-"SpaceHub.Tip.Title2" = "Simples e Flexível";
-"SpaceHub.Tip.Title1" = "Bem-vindo ao Cofre";
-
-"SpaceHub.Tip.Text3" = "Por padrão, desfocamos o ícone do seu espaço como um plano de fundo. Se necessário, você pode alterá-lo nas configurações do espaço.";
-"SpaceHub.Tip.Text2" = "Agora você pode facilmente reordenar seus Espaços usando arrastar e soltar e navegar com mais facilidade.";
-"SpaceHub.Tip.Text1" = "O Cofre é a nova casa para todos os seus Espaços. Crie, junte ou compartilhe Espaços – tudo está armazenado em segurança aqui.";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "Pressione e segure para retornar aos Widgets";
 "ReturnToWidgets.Tip.Text" = "Pressione e segure o botão voltar para retornar aos widgets em vez de tocá-lo repetidamente.";
@@ -1316,3 +1307,9 @@ forneça detalhes específicos das suas necessidades aqui.";
 "ObjectSearchWithMeta.Create.Note" = "Nova Nota";
 "ObjectSearchWithMeta.Create.Set" = "Novo Conjunto";
 "ObjectSearchWithMeta.Create.Collection" = "Nova Coleção";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

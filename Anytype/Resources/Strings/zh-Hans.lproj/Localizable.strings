@@ -1058,15 +1058,6 @@
 "SpaceShare.Tip.Steps.2" = "打开分享栏";
 "SpaceShare.Tip.Steps.3" = "生成一个邀请链接并分享它";
 
-// MARK: - Space Hub Tip
-"SpaceHub.Tip.Title3" = "动态背景";
-"SpaceHub.Tip.Title2" = "简单&灵活的";
-"SpaceHub.Tip.Title1" = "欢迎来到库！";
-
-"SpaceHub.Tip.Text3" = "默认情况下，我们会将您空间的图标作为背景模糊。如果需要，您可以在空间设置中更改它。";
-"SpaceHub.Tip.Text2" = "您现在可以轻松地通过拖放和导航来重新排序您的空间。";
-"SpaceHub.Tip.Text1" = "库是您所有空间的新的主页。创建、加入或共享空间 - 一切都安全地存放在这里。";
-
 // MARK: - Space switcher tip
 "ReturnToWidgets.Tip.Title" = "长按返回小部件";
 "ReturnToWidgets.Tip.Text" = "长按返回按钮返回小部件，而不是重复点击。";
@@ -1317,3 +1308,9 @@
 "ObjectSearchWithMeta.Create.Note" = "New Note";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";
