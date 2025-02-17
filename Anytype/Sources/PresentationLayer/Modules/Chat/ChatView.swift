@@ -115,7 +115,7 @@ struct ChatView: View {
                     model.onTapLinkTo(range: range)
                 },
                 onLinkAdded: { link in
-                    print(link)
+                    model.onLinkAdded(link: link)
                 }
             )
             .overlay(alignment: .top) {

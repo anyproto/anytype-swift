@@ -79,6 +79,8 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 if let attachment = try? await uploadFile(spaceId: spaceId, data: data) {
                     chatMessage.attachments.append(attachment)
                 }
+            case .localBookmark(let data):
+                break
             }
         }
         

@@ -40,6 +40,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.iconColorService)
     private var iconColorService: any IconColorServiceProtocol
+    @Injected(\.bookmarkService)
+    private var bookmarkService: any BookmarkServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -265,6 +267,27 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             willShowNextScreen: nil
         )
         output?.didSelectLinkToObject(data: data)
+    }
+    
+    func onLinkAdded(link: URL) {
+        let contains = linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
+        guard !contains else { return }
+        Task {
+            do {
+            linkedObjects.append(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
+            let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
+                if let index = linkedObjects.firstIndex(where: { $0.localBookmark?.url == link.absoluteString }) {
+                    let bookmark = ChatLocalBookmark(
+                        url: linkPreview.url,
+                        title: linkPreview.title,
+                        description: linkPreview.description_p,
+                        icon: .object(.empty(.page)),
+                        loading: false
+                    )
+                    linkedObjects[index] = .localBookmark(bookmark)
+                }
+            }
+        }
     }
     
     func onTapDeleteReply() {
