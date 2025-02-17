@@ -41,7 +41,7 @@
 
 // MARK: - Block Text
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
+"BlockText.ContentType.Title.Placeholder" = "ଅନାବର୍ତ୍ତିତ";
 "BlockText.ContentType.Description.Placeholder" = "ଏକ ବର୍ଣ୍ଣନା ଯୋଡନ୍ତୁ";
 "BlockText.ContentType.Toggle.Placeholder" = "ଟଗଲ ବ୍ଲକ";
 "BlockText.ContentType.Bulleted.Placeholder" = "ବୁଲେଟ୍ ତାଲିକା ଆଇଟମ୍";
@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "ଲେଖା";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
+"Object.Title.Placeholder" = "ଅନାବର୍ତ୍ତିତ";
 "Object.Deleted.Placeholder" = "ବିଲୋପ ହୋଇଥିବା ଅବଜେକ୍ଟ";
 
 // MARK: - Relation
@@ -70,7 +70,7 @@
 "Create relation" = "ସମ୍ପର୍କ ସୃଷ୍ଟି କରନ୍ତୁ '%@'";
 "Relation.View.Hint.Empty" = "ଖାଲି";
 "Relation.MyRelations" = "ମୋ ସମ୍ପର୍କ";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
+"Relation.AddedToLibrary" = "ସମ୍ପର୍କ '%@' ସୃଷ୍ଟି ହୋଇଛି";
 "Relation.Deleted" = "ବିଲୋପ ହୋଇଥିବା ସମ୍ପର୍କ";
 "Relation.From.Type" = "%@ ପ୍ରକାରରୁ";
 "Relation.EmptyState.title" = "କୌଣସି ବିକଳ୍ପ ନାହିଁ";
@@ -124,7 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "ଅବଜେକ୍ଟ";
 
-"Untitled" = "Untitled";
+"Untitled" = "ଅନାବର୍ତ୍ତିତ";
 "None" = "କିଛି ନାହିଁ";
 "Callout" = "କଲ୍ ଆଉଟ୍";
 "Toggle empty. Tap to create block." = "ଖାଲି ଟୋଗଲ୍ କରନ୍ତୁ | ବ୍ଲକ ସୃଷ୍ଟି କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ |";
@@ -142,13 +142,13 @@
 "History" = "History";
 "Objects" = "ଅବଜେକ୍ଟ";
 "All" = "ସମସ୍ତ";
-"Pages" = "Pages";
+"Pages" = "ପୃଷ୍ଠା";
 "Lists" = "ତାଲିକା";
-"Bookmarks" = "Bookmarks";
+"Bookmarks" = "ବୁକମାର୍କଗୁଡ଼ିକ";
 "Files" = "Files";
 "Media" = "ମିଡ଼ିଆ";
 "Lists" = "ତାଲିକା";
-"Dates" = "Dates";
+"Dates" = "ତାରିଖ";
 "Pinned" = "ପିନ୍ କରାଯାଇଛି";
 "Delete" = "ବିଲୋପ କରନ୍ତୁ";
 "Export" = "ରପ୍ତାନି";
@@ -160,11 +160,11 @@
 "Move" = "ଘୁଞ୍ଚାନ୍ତୁ";
 "Move to" = "ଏଠାକୁ ସ୍ଥାନାନ୍ତର କରନ୍ତୁ";
 "Back" = "ପଛକୁ ଯାଅନ୍ତୁ";
-"Pin" = "Pin";
+"Pin" = "ପିନ";
 "Unpin" = "ପିନ କରନ୍ତୁ ନାହିଁ";
 "Pin on top" = "ଶୀର୍ଷରେ ପିନ୍";
 "File block subtitle" = "ଫାଇଲକୁ ମୂଳ ଅବସ୍ଥାରେ ଗଚ୍ଛିତ କରନ୍ତୁ";
-"Image block subtitle" = "Upload and enrich the page with image";
+"Image block subtitle" = "ଫଟୋ ସହିତ ପୃଷ୍ଠା ଅପଲୋଡ୍ ଏବଂ ସମୃଦ୍ଧ କରନ୍ତୁ";
 "Video block subtitle" = "ଖେଳାଯିବାକୁ ଥିବା ଭିଡିଓ ଅପଲୋଡ୍ କରନ୍ତୁ";
 "Bookmark block subtitle" = "ସାରାଂଶ ସହିତ ଆପଣଙ୍କର ପ୍ରିୟ ଲିଙ୍କ୍ ସଞ୍ଚୟ କରନ୍ତୁ";
 "Code block subtitle" = "କୋଡ୍ ସ୍ନିପେଟ୍ କ୍ୟାପଚର୍ କରନ୍ତୁ";
@@ -188,7 +188,7 @@
 "Blue background" = "ନୀଳ ପୃଷ୍ଠଭୂମି";
 "Green background" = "ସବୁଜ ପୃଷ୍ଠଭୂମି";
 "Create new object" = "ନୂଆ ଅବଜେକ୍ଟ ତିଆରି କରନ୍ତୁ";
-"Create new object with name" = "Create new object \"%@\"";
+"Create new object with name" = "ନୂତନ ଅବଜେକ୍ଟ \"%@\" ସୃଷ୍ଟି କରନ୍ତୁ";
 "Cancel" = "ବାତିଲ କରନ୍ତୁ ";
 "Paste or type URL" = "ୟୁଆରେଲ ଟାଇପ କିମ୍ବା ପେଷ୍ଟ କରନ୍ତୁ";
 "No items match filter" = "କୌଣସି ଆଇଟମ୍ ଫିଲ୍ଟର ସହ ମେଳ ଖାଉନାହିଁ";
@@ -203,19 +203,19 @@
 "Okay" = "Okay";
 "Join" = "ଯୋଗ ଦିଅନ୍ତୁ";
 "Agreement Disclamer" = "ଜାରି ରଖିବା ଦ୍ୱାରା ଆପଣ [ବ୍ୟବହାର ସର୍ତ୍ତାବଳୀ](%@) ଏବଂ [ଗୋପନୀୟତା ନୀତି](%@) ସହ ରାଜି ହୁଅନ୍ତି।";
-"Lets Go" = "Let’s Go";
-"My spaces" = "My Spaces";
-"Open file" = "Open file";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
-"Unsupported deeplink" = "Unsupported deeplink";
-"Edit Profile" = "Edit Profile";
+"Lets Go" = "ଚାଲନ୍ତୁ ଆମେ ଯିବା";
+"My spaces" = "ମୋ ସ୍ଥାନ";
+"Open file" = "ଫାଇଲ୍ ଖୋଲନ୍ତୁ";
+"Open Set" = "ସେଟ୍ ଖୋଲନ୍ତୁ";
+"Create Set" = "ସେଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ";
+"Unsupported deeplink" = "ସମର୍ଥିତ ଡିପ୍ଲିଙ୍କ";
+"Edit Profile" = "ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା କରନ୍ତୁ";
 
 // Home
 "Favorites" = "ପସନ୍ଦ";
 "Recent" = "ଏବେକାର";
 "Bin" = "ବିନ";
-"All objects" = "All Objects";
+"All objects" = "ସମସ୍ତ ବସ୍ତୁ";
 
 // Settings
 "Wallpaper" = "ୱାଲପେପର୍‌";
@@ -277,7 +277,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "ଆପଣଙ୍କ ନାମ ସେଟ୍ କରନ୍ତୁ";
 "Auth.JoinFlow.Soul.Description" = "କେବଳ ସେହି ଲୋକମାନଙ୍କ ଦ୍ୱାରା ଦେଖନ୍ତି ଯେଉଁମାନଙ୍କ ସହିତ ଆପଣ କିଛି ଅଂଶୀଦାର କରନ୍ତି । ଏହି ନାମଗୁଡ଼ିକର କୌଣସି କେନ୍ଦ୍ରୀୟ ପଞ୍ଜୀକରଣ ନାହିଁ।";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "ଅନାବର୍ତ୍ତିତ";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "ଏହା ହେଉଛି ଆପଣଙ୍କ ଭଲ୍ଟ";
@@ -300,8 +300,8 @@
 "Layout" = "ଲେଆଉଟ୍‌";
 
 // Version history
-"VersionHistory.Title" = "Version History";
-"VersionHistory.Toast.message" = "Version %@ was restored";
+"VersionHistory.Title" = "ସଂସ୍କରଣ ଇତିହାସ";
+"VersionHistory.Toast.message" = "ସଂସ୍କରଣ %@ ପୁନରୁଦ୍ଧାର ହୋଇଛି";
 
 "Search" = "ସନ୍ଧାନ";
 "There is no emoji named" = "କୌଣସି ଇମୋଜି ନାମିତ ନାହିଁ";
@@ -326,7 +326,7 @@
 "Choose layout type" = "ଲେଆଉଟ୍ ପ୍ରକାର ବାଛନ୍ତୁ";
 
 "Templates" = "Templates";
-"Header" = "Header";
+"Header" = "ହେଡର";
 
 "Undo typing" = "ଟାଇପିଂ ପୂର୍ବବତ୍ କରନ୍ତୁ";
 "Undo" = "ପୂର୍ବବତ୍ କରନ୍ତୁ";
@@ -356,13 +356,13 @@
 "There is no object named" = "%@ ନାମକ କୌ ଣସି ବସ୍ତୁ ନାହିଁ ";
 "There is no type named" = "%@ ନାମକ କୌଣସି ପ୍ରକାର ନାହିଁ";
 "Create a new one or search for something else" = "ଏକ ନୂତନ ସୃଷ୍ଟି କରନ୍ତୁ କିମ୍ବା ଅନ୍ୟ କିଛି ଖୋଜନ୍ତୁ";
-"Search.Links.Show.title" = "Show related objects";
-"Search.Links.Header.title" = "Related to: %@";
-"Search.Links.Swipe.title" = "Related to";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
-"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"Search.Links.Show.title" = "ସମ୍ବନ୍ଧିତ ବସ୍ତୁ ଦେଖାନ୍ତୁ";
+"Search.Links.Header.title" = "ସମ୍ବନ୍ଧିତ: %@";
+"Search.Links.Swipe.title" = "ସମ୍ବନ୍ଧିତ";
+"GlobalSearch.EmptyState.subtitle" = "ନୂତନ ବସ୍ତୁ ସୃଷ୍ଟି କରନ୍ତୁ କିମ୍ୱା ଅନ୍ୟ କିଛି ସନ୍ଧାନ କରନ୍ତୁ";
+"GlobalSearch.EmptyFilteredState.title" = "କୌଣସି ସମ୍ବନ୍ଧୀୟ ବସ୍ତୁ ମିଳିଲା ନାହିଁ";
+"GlobalSearch.Swipe.Tip.title" = "ସମ୍ବନ୍ଧିତ ବସ୍ତୁଗୁଡିକ";
+"GlobalSearch.Swipe.Tip.subtitle" = "ସମ୍ବନ୍ଧିତ ବସ୍ତୁଗୁଡିକ ଦେଖିବାକୁ ବାମ ସ୍ୱାଇପ୍ କରନ୍ତୁ।";
 
 // MARK: - Home
 
@@ -401,7 +401,7 @@
 "Templates.Popup.Default" = "ଟେମ୍ପଲେଟ୍ ଡିଫଲ୍ଟ ଭାବରେ ସେଟ୍ ହୋଇଛି";
 
 "To Bin" = "ବିନ୍ କୁ";
-"Set as default" = "Set as default";
+"Set as default" = "ଡିଫଲ୍ଟ ଭାବରେ ସେଟ୍ କରନ୍ତୁ";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "ପ୍ରିୟରୁ ଅପସାରଣ କରନ୍ତୁ";
@@ -419,9 +419,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "ଏଠାରେ କୌଣସି ପ୍ରକାର ନାହିଁ | ଆପଣ କିଛି ଯୋଗ କରିପାରିବେ |";
 "EditSet.Popup.Sort.Types.Ascending" = "ଆରୋହଣ";
 "EditSet.Popup.Sort.Types.Descending" = "ଅବତରଣ";
-"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
-"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
-"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "ଶୀର୍ଷରେ";
+"EditSet.Popup.Sort.EmptyTypes.End" = "ଶୀର୍ଷରେ";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "ଖାଲି ମୂଲ୍ୟ ଦେଖାନ୍ତୁ";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "ସର୍ଟ କରିବାକୁ ଏକ ସମ୍ପର୍କ ବାଛନ୍ତୁ";
 
 // MARK: - Sets: Filters
@@ -461,31 +461,31 @@
 "EditSet.Popup.Filter.Condition.General.NotEmpty" = "ଖାଲି ନୁହେଁ";
 "EditSet.Popup.Filter.Condition.General.None" = "ସମସ୍ତ";
 
-"EditSet.Popup.Filter.Value.Checked" = "Checked";
+"EditSet.Popup.Filter.Value.Checked" = "ଯାଞ୍ଚ କରାଯାଇଛି";
 "EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
 
-"EditSet.Popup.Filter.Date.Option.Today" = "Today";
-"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
-"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
-"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
-"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
-"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
-"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
-"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
-"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
-"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+"EditSet.Popup.Filter.Date.Option.Today" = "ଆଜି";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "ଗତକାଲି";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "ଆସନ୍ତାକାଲି";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "ଶେଷ ସପ୍ତାହ";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "ଚଳିତ ସପ୍ତାହ";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "ପରବର୍ତ୍ତୀ ସପ୍ତାହ";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "ଗତ ମାସ";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "ଚଳିତ ମାସ";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "ଆସନ୍ତା ମାସ";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "କିଛି ଦିନ ପୂର୍ବର";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "ଆଜିଠାରୁ କେତେ ଦିନ ବାକି ଅଛି";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "ସଠିକ ତାରିଖ";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ କିଛି ଦିନ ପୂର୍ବେ";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ ଦିନ ପରେ";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "ଅନାବର୍ତ୍ତିତ";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
+"Set.FeaturedRelations.RelationsList" = "ସମ୍ପର୍କ:";
 "Set.FeaturedRelations.Relation" = "Relation:";
 "Set.FeaturedRelations.Type" = "Type:";
 
@@ -554,60 +554,60 @@
 "Yellow" = "Yellow";
 "Grey background" = "Grey background";
 "Teal background" = "Teal background";
-"Sky background" = "Sky background";
-"Yellow background" = "Yellow background";
-"Enter value" = "Enter value";
-"Select object" = "Select object";
-"Select file" = "Select file";
-"Select options" = "Select options";
-"Select option" = "Select option";
-"Select date" = "Select date";
-"Add email" = "Add email";
-"Add link" = "Add link";
-"Enter number" = "Enter number";
-"Enter text" = "Enter text";
-"Unsupported value" = "Unsupported value";
-"Select relation type" = "Select relation type";
-"CommonOpenErrorView.Message" = "No data found";
+"Sky background" = "ଆକାଶ ପୃଷ୍ଠଭୂମି";
+"Yellow background" = "ହଳଦିଆ ପୃଷ୍ଠଭୂମି";
+"Enter value" = "ମୂଲ୍ୟ ପ୍ରବେଶ କରନ୍ତୁ";
+"Select object" = "ଅବଜେକ୍ଟ ଚୟନ କରନ୍ତୁ";
+"Select file" = "ଫାଇଲ୍ ଚୟନ କରନ୍ତୁ";
+"Select options" = "ବିକଳ୍ପ ଚୟନ କରନ୍ତୁ";
+"Select option" = "ବିକଳ୍ପ ଚୟନ କରନ୍ତୁ";
+"Select date" = "ତାରିଖ ବାଛନ୍ତୁ";
+"Add email" = "ଇମେଲ୍ ଯୋଡନ୍ତୁ";
+"Add link" = "ଲିଙ୍କ୍ ଯୋଡ଼ନ୍ତୁ";
+"Enter number" = "ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ";
+"Enter text" = "ଟେକ୍ସଟ୍ ପ୍ରବେଶ କରନ୍ତୁ";
+"Unsupported value" = "ସମର୍ଥିତ ମୂଲ୍ୟ ନୁହେଁ";
+"Select relation type" = "ସମ୍ପର୍କ ପ୍ରକାର ଚୟନ କରନ୍ତୁ";
+"CommonOpenErrorView.Message" = "କୌଣସି ଡାଟା ମିଳିଲା ନାହିଁ";
 "AreYouSure" = "Are you sure?";
-"Nothing found" = "Nothing found";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"Nothing found" = "କିଛି ମିଳିଲା ନାହିଁ";
+"No type found text" = "କୌଣସି ପ୍ରକାର \"%@\" ମିଳିଲା ନାହିଁ। ଆପଣଙ୍କ ଅନୁରୋଧ ପରିବର୍ତ୍ତନ କରନ୍ତୁ କିମ୍ୱା ନୂତନ ପ୍ରକାର ସୃଷ୍ଟି କରନ୍ତୁ।";
+"Create type" = "ପ୍ରକାର ସୃଷ୍ଟି କରନ୍ତୁ";
 
 
-"Limit object types" = "Limit object types";
-"Type" = "Type";
+"Limit object types" = "ଅବଜେକ୍ଟ ପ୍ରକାର ସୀମିତ କରନ୍ତୁ";
+"Type" = "ପ୍ରକାର";
 "Types" = "Types";
-"No name" = "No name";
-"New relation" = "New relation";
-"Edit field" = "Edit field";
+"No name" = "କୌଣସି ନାମ ନାହିଁ";
+"New relation" = "ନୂଆ ସମ୍ପର୍କ";
+"Edit field" = "କ୍ଷେତ୍ର ସମ୍ପାଦନ କରନ୍ତୁ";
 "Non-existent object" = "Non-existent object";
 
-"Select all" = "Select all";
-"Unselect all" = "Unselect all";
-"Deselect all" = "Deselect all";
-"Deselect" = "Deselect";
-"Shared" = "Shared";
-"Sets" = "Sets";
-"Collections" = "Collections";
-"Default object type" = "Default object type";
-"Personalization" = "Personalization";
-"Choose default object type" = "Choose default object type";
-"About" = "About";
-"Appearance" = "Appearance";
-"Change wallpaper" = "Change wallpaper";
-"Application icon" = "Application icon";
-"Mode" = "Mode";
-"copied to clipboard" = "%@ copied to clipboard";
-"Create object from clipboard" = "Create object from clipboard";
-"Access to key from keychain" = "Access to key from keychain";
-"Back up your key" = "Back up your key";
-"Vault" = "Vault";
-"Access" = "Access";
-"Back up key" = "Back up key";
-"Removing cache" = "Removing cache";
-"Deletion error" = "Deletion error";
-"Start" = "Start";
+"Select all" = "ସମସ୍ତ ଚୟନ କରନ୍ତୁ";
+"Unselect all" = "ସମସ୍ତକୁ ଚୟନ କରନ୍ତୁ ନାହିଁ";
+"Deselect all" = "ସବୁକିଛି ବାଛନ୍ତୁ ନାହିଁ";
+"Deselect" = "ଡିସେଲେକ୍ଟ";
+"Shared" = "ସେୟାର କରାଯାଇଛି";
+"Sets" = "ସେଟ୍";
+"Collections" = "କଲେକ୍ସନ";
+"Default object type" = "ଡିଫଲ୍ଟ ଅବଜେକ୍ଟ ପ୍ରକାର";
+"Personalization" = "ବ୍ୟକ୍ତିଗତକରଣ";
+"Choose default object type" = "ଡିଫଲ୍ଟ ଅବଜେକ୍ଟ ପ୍ରକାର ଚୟନ କରନ୍ତୁ";
+"About" = "ବିଷୟରେ";
+"Appearance" = "ଦେଖାଯିବା";
+"Change wallpaper" = "ୱାଲପେପର୍ ବଦଳାନ୍ତୁ";
+"Application icon" = "ଆପ୍ଲିକେସନ ଆଇକନ";
+"Mode" = "ମୋଡ୍";
+"copied to clipboard" = "%@ କ୍ଲିପ୍ ବୋର୍ଡକୁ କପି ହୋଇଛି";
+"Create object from clipboard" = "କ୍ଲିପ୍ ବୋର୍ଡରୁ ବସ୍ତୁ ସୃଷ୍ଟି କରନ୍ତୁ";
+"Access to key from keychain" = "କୀଚେନ୍ ରୁ କୀ କୁ ଆକସେସ୍ କରନ୍ତୁ";
+"Back up your key" = "ଆପଣଙ୍କ ଚାବି ବ୍ୟାକ୍ ଅପ୍ କରନ୍ତୁ";
+"Vault" = "ଭଣ୍ଡାର";
+"Access" = "ଆକସେସ୍";
+"Back up key" = "ଚାବି ବ୍ୟାକ୍ ଅପ୍ କରନ୍ତୁ";
+"Removing cache" = "କ୍ୟାସ୍ ଦୂର କରିବା";
+"Deletion error" = "ବିଲୋପ ତ୍ରୁଟି";
+"Start" = "ଆରମ୍ଭ କରନ୍ତୁ";
 "On analytics" = "On analytics";
 "Select vault error" = "Select vault error";
 "Vault deleted" = "Vault deleted";
@@ -662,74 +662,74 @@
 "Link to" = "ଲିଙ୍କ୍ କରନ୍ତୁ";
 "Unknown" = "Unknown";
 "Settings" = "ସେଟିଂସମୂହ";
-"Preferences" = "Preferences";
-"Views" = "Views";
-"Filter" = "Filter";
-"Sort" = "Sort";
+"Preferences" = "ପସନ୍ଦ";
+"Views" = "ମତଗୁଡ଼ିକ";
+"Filter" = "ଫିଲ୍ଟର୍ କରନ୍ତୁ";
+"Sort" = "ସଜାନ୍ତୁ";
 "View" = "ଦେଖନ୍ତୁ";
-"Home" = "Home";
-"Highlight" = "Highlight";
+"Home" = "ଘର";
+"Highlight" = "ହାଇଲାଇଟ୍ କରନ୍ତୁ";
 "Create object" = "Create Object";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
-"Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
-"Tomorrow" = "Tomorrow";
-"Yesterday" = "Yesterday";
-"Today" = "Today";
-"No date" = "No date";
+"Web pages" = "ୱେବ୍ ପୃଷ୍ଠା";
+"Preview layout" = "ପ୍ରୀବ୍ୟୁ ଲେଆଉଟ୍";
+"Everywhere" = "ସବୁଠି";
+"Exact day" = "ସଠିକ ଦିନ";
+"Tomorrow" = "ଆସନ୍ତାକାଲି";
+"Yesterday" = "ଗତକାଲି";
+"Today" = "ଆଜି";
+"No date" = "କୌଣସି ତାରିଖ ନାହିଁ";
 "Clear" = "Clear";
-"Create option with" = "Create option ‘%@’";
-"Enter URL" = "Enter URL";
-"Enter email" = "Enter email";
-"Enter phone number" = "Enter phone number";
-"Enter number" = "Enter number";
-"Enter text" = "Enter text";
-"Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
-"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
-"Failed to sync, trying again..." = "Failed to sync, trying again...";
-"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
-"This object doesn't exist" = "This object doesn't exist";
-"Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
-"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete vault" = "Delete vault";
-"Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
-"New" = "New";
-"Blurred icon" = "Blurred\n icon";
-"My First Space" = "My First Space";
-"Copy space info" = "Copy space info";
-"Save" = "Save";
-"Set of" = "Set of %@";
+"Create option with" = "ବିକଳ୍ପ ସୃଷ୍ଟି କରନ୍ତୁ '%@'";
+"Enter URL" = "URL ପ୍ରବେଶ କରନ୍ତୁ";
+"Enter email" = "ଇମେଲ୍ ପ୍ରବେଶ କରନ୍ତୁ";
+"Enter phone number" = "ଫୋନ୍ ନମ୍ଵର୍ ପ୍ରବେଶ କରନ୍ତୁ";
+"Enter number" = "ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ";
+"Enter text" = "ଟେକ୍ସଟ୍ ପ୍ରବେଶ କରନ୍ତୁ";
+"Ok" = "ଠିକ୍‌ ଅଛି";
+"Error occurred. Please try again" = "ତ୍ରୁଟି ଘଟିଛି। ଦୟାକରି ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ";
+"Add" = "ଯୋଡନ୍ତୁ";
+"Companies, contacts, friends and family" = "କମ୍ପାନୀ, ଯୋଗାଯୋଗ, ବନ୍ଧୁ ଏବଂ ପରିବାର";
+"Failed to sync, trying again..." = "ସିଙ୍କ୍ କରିବାକୁ ବିଫଳ ହୋଇଛି, ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ...";
+"Sync.Status.Version.Outdated.Description" = "ସଂସ୍କରଣ ପୁରୁଣା ହୋଇଛି।";
+"This object doesn't exist" = "ଏହି ଅବଜେକ୍ଟ ବିଦ୍ୟମାନ ନାହିଁ";
+"Setting up encrypted storage\nPlease wait" = "ଏନକ୍ରିପ୍ଟେଡ୍ ଷ୍ଟୋରେଜ୍ ସେଟ୍ ଅପ୍ କରନ୍ତୁ\n ";
+"These objects will be deleted irrevocably" = "ଏହି ବସ୍ତୁଗୁଡିକ ବିଲୋପ ହେବ ।ଆପଣ ଏହି କ୍ରିୟାପୂର୍ବକ କରିପାରିବେ ନାହିଁ।";
+"Delete vault" = "ଭଣ୍ଡାର ମିଟାନ୍ତୁ";
+"Cancel deletion" = "ବିଲୋପ ବାତିଲ କରନ୍ତୁ";
+"Logout and clear data" = "ଲଗ୍ ଆଉଟ୍ ଏବଂ ଡାଟା ସଫା କରନ୍ତୁ";
+"New" = "ନୂଆ";
+"Blurred icon" = "ଧୁସର ଆଇକନ";
+"My First Space" = "ମୋର ପ୍ରଥମ ସ୍ଥାନ";
+"Copy space info" = "ସ୍ପେସ୍ ସୂଚନା କପି କରନ୍ତୁ";
+"Save" = "ସଞ୍ଚୟ କରନ୍ତୁ";
+"Set of" = "%@ ସେଟ୍ କରନ୍ତୁ";
 "New set" = "New set";
 "Show" = "Show";
 "Hide" = "Hide";
-"Apply" = "Apply";
-"Leave a space" = "Leave a space";
-"Collaboration" = "Collaboration";
+"Apply" = "ଆବେଦନ କରନ୍ତୁ";
+"Leave a space" = "ଏକ ସ୍ଥାନ ଛାଡ଼ନ୍ତୁ";
+"Collaboration" = "ସହଯୋଗ";
 "Members" = "Members";
-"Invite" = "Invite";
-"QR Code" = "QR Code";
+"Invite" = "ନିମନ୍ତ୍ରଣ";
+"QR Code" = "କ୍ୟୁଆର୍ କୋଡ୍";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+"DeletionAlert.title" = "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ ଆପଣଙ୍କ ଭଲ୍ଟ ବିଲୋପ କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?";
+"DeletionAlert.description" = "ଆପଣ ଅନ୍ୟ ସମସ୍ତ ଡିଭାଇସରେ ଲଗ୍ ଆଉଟ୍ ହେବେ।ଆପଣଙ୍କ ଭଲ୍ଟ ପୁନରୁଦ୍ଧାର କରିବାକୁ ଆପଣଙ୍କ ପାଖରେ 30 ଦିନ ରହିବ।";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
+"DataviewType.grid" = "ଗ୍ରିଡ୍";
+"DataviewType.list" = "ତାଲିକା";
 "DataviewType.gallery" = "ଗ୍ୟାଲେରୀ";
-"DataviewType.kanban" = "Kanban";
-"DataviewType.calendar" = "Calendar";
-"DataviewType.graph" = "Graph";
+"DataviewType.kanban" = "କାନ୍ବନ";
+"DataviewType.calendar" = "କ୍ୟାଲେଣ୍ଡର";
+"DataviewType.graph" = "ଗ୍ରାଫ୍ ";
 
 // MARK: - ObjectType
-"ObjectType.fallbackDescription" = "Blank canvas with no title";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
-"ObjectType.Search" = "Search for Type";
-"ObjectType.MyTypes" = "My Types";
+"ObjectType.fallbackDescription" = "କୌଣସି ଶୀର୍ଷକ ନଥିବା ଖାଲି କ୍ୟାନଭାସ୍";
+"ObjectType.SearchOrInstall" = "ଏକ ନୂତନ ପ୍ରକାର ସନ୍ଧାନ କିମ୍ୱା ସଂସ୍ଥାପନ କରନ୍ତୁ";
+"ObjectType.Search" = "ପ୍ରକାର ସନ୍ଧାନ କରନ୍ତୁ";
+"ObjectType.MyTypes" = "ମୋ ପ୍ରକାର";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
 "ObjectType.DeletedName" = "Deleted type";
 "ObjectType.editingType" = "You're editing type";
@@ -761,7 +761,7 @@
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "ନକଲ";
 "SimpleTableMenu.Item.Delete" = "ବିଲୋପ କରନ୍ତୁ";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "ସଜାନ୍ତୁ";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
@@ -793,7 +793,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "ନକଲ";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "ଅନାବର୍ତ୍ତିତ";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -836,7 +836,7 @@
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "ଲିଙ୍କ";
 "Widgets.Layout.Tree.Title" = "Tree";
-"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.List.Title" = "ତାଲିକା";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
 "Widgets.Layout.View.Title" = "ଦେଖନ୍ତୁ";
 "Widgets.Layout.Link.Description" = "Compact widget view";
@@ -926,7 +926,7 @@
 // MARK: - Space
 "Space.Status.Unknown" = "Unknown";
 "Space.Status.Loading" = "Loading";
-"Space.Status.Ok" = "Ok";
+"Space.Status.Ok" = "ଠିକ୍‌ ଅଛି";
 "Space.Status.Missing" = "Missing";
 "Space.Status.Error" = "Error";
 "Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
@@ -1269,7 +1269,7 @@ Please provide specific details of your needs here.";
 "Chat.Reactions.Empty.Title" = "No reactions yet";
 "Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
 "Chat.EditMessage" = "Edit Message";
-"Chat.Actions.Menu.Pages" = "Pages";
+"Chat.Actions.Menu.Pages" = "ପୃଷ୍ଠା";
 "Chat.Actions.Menu.Lists" = "ତାଲିକା";
 "Chat.Actions.Menu.Photos" = "Photos";
 "Chat.Actions.Menu.Files" = "Files";
@@ -1308,3 +1308,9 @@ Please provide specific details of your needs here.";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";
