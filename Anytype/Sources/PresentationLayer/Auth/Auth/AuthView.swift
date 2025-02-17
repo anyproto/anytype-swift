@@ -85,6 +85,7 @@ struct AuthView: View {
                 Image(asset: .NavigationBase.settings)
                     .foregroundColor(.Control.active)
             }
+            .disabled(model.inProgress)
         }
         .sheet(isPresented: $model.showSettings) {
             model.onSettingsAction()
@@ -95,6 +96,7 @@ struct AuthView: View {
         VStack(spacing: 12) {
             StandardButton(
                 Loc.Auth.Button.join,
+                inProgress: model.inProgress,
                 style: .primaryLarge,
                 action: {
                     model.onJoinButtonTap()
@@ -115,6 +117,7 @@ struct AuthView: View {
             .navigationDestination(isPresented: $model.showLoginFlow) {
                 model.onLoginAction()
             }
+            .disabled(model.inProgress)
         }
     }
     
@@ -128,6 +131,7 @@ struct AuthView: View {
         .multilineTextAlignment(.center)
         .padding(.horizontal, 38)
         .accentColor(.Auth.body)
+        .disabled(model.inProgress)
     }
 }
 

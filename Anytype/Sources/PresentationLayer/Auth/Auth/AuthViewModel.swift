@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import Services
 
 
 enum AuthViewModelError: Error {
@@ -13,7 +14,11 @@ final class AuthViewModel: ObservableObject {
     @Published var showLoginFlow: Bool = false
     @Published var showDebugMenu: Bool = false
     @Published var showSettings: Bool = false
+    @Published var inProgress = false
     @Published var opacity: Double = 1
+    
+    // MARK: - State
+    private let state = JoinFlowState()
     
     // MARK: - Private
     private weak var output: (any AuthViewModelOutput)?
@@ -22,6 +27,14 @@ final class AuthViewModel: ObservableObject {
     private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
     @Injected(\.appActionStorage)
     private var appActionsStorage: AppActionStorage
+    @Injected(\.authService)
+    private var authService: any AuthServiceProtocol
+    @Injected(\.seedService)
+    private var seedService: any SeedServiceProtocol
+    @Injected(\.usecaseService)
+    private var usecaseService: any UsecaseServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     
     private var subscription: AnyCancellable?
     
@@ -55,12 +68,15 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onJoinButtonTap() {
-        showJoinFlow.toggle()
-        changeContentOpacity(true)
+        if state.mnemonic.isEmpty {
+            createAccount()
+        } else {
+            onSuccess()
+        }
     }
     
     func onJoinAction() -> AnyView? {
-        output?.onJoinAction()
+        output?.onJoinAction(state: state)
     }
     
     func onLoginButtonTap() {
@@ -78,6 +94,46 @@ final class AuthViewModel: ObservableObject {
     
     func onSettingsAction() -> AnyView? {
         return output?.onSettingsAction()
+    }
+    
+    // MARK: - Create account step
+    
+    private func createAccount() {
+        Task {
+            AnytypeAnalytics.instance().logStartCreateAccount()
+            inProgress = true
+            
+            do {
+                state.mnemonic = try await authService.createWallet()
+                let iconOption = IconColorStorage.randomOption()
+                let account = try await authService.createAccount(
+                    name: state.soul,
+                    iconOption: iconOption,
+                    imagePath: ""
+                )
+                try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
+                try? await workspaceService.workspaceSetDetails(
+                    spaceId: account.info.accountSpaceId,
+                    details: [.name(Loc.myFirstSpace), .iconOption(iconOption)]
+                )
+                try? seedService.saveSeed(state.mnemonic)
+                
+                onSuccess()
+            } catch {
+                createAccountError(error)
+            }
+        }
+    }
+    
+    private func onSuccess() {
+        inProgress = false
+        showJoinFlow.toggle()
+        changeContentOpacity(true)
+    }
+    
+    private func createAccountError(_ error: some Error) {
+        inProgress = false
+//        output?.onError(error) //TODO
     }
     
     private func changeContentOpacity(_ hide: Bool) {

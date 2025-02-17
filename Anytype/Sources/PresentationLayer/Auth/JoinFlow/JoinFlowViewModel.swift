@@ -14,8 +14,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     @Published var disableBackAction: Bool = false
     @Published var hideContent = false
     
-    // MARK: - State
-    private let state = JoinFlowState()
+    private let state: JoinFlowState
     
     private weak var output: (any JoinFlowOutput)?
     @Injected(\.applicationStateService)
@@ -23,7 +22,8 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     
-    init(output: (any JoinFlowOutput)?) {
+    init(state: JoinFlowState, output: (any JoinFlowOutput)?) {
+        self.state = state
         self.output = output
     }
     

@@ -29,8 +29,8 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     
     // MARK: - AuthViewModelOutput
     
-    func onJoinAction() -> AnyView {
-        joinFlowCoordinator.startFlow()
+    func onJoinAction(state: JoinFlowState) -> AnyView {
+        joinFlowCoordinator.startFlow(state: state)
     }
     
     func onLoginAction() -> AnyView {

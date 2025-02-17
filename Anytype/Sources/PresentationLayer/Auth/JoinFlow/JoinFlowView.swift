@@ -5,8 +5,8 @@ struct JoinFlowView: View {
     @StateObject private var model: JoinFlowViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(output: (any JoinFlowOutput)?) {
-        _model = StateObject(wrappedValue: JoinFlowViewModel(output: output))
+    init(state: JoinFlowState, output: (any JoinFlowOutput)?) {
+        _model = StateObject(wrappedValue: JoinFlowViewModel(state: state, output: output))
     }
     
     var body: some View {
@@ -76,7 +76,7 @@ struct JoinFlowView: View {
 
 struct JoinFlowView_Previews : PreviewProvider {
     static var previews: some View {
-        JoinFlowView(output: nil)
+        JoinFlowView(state: JoinFlowState(), output: nil)
     }
 }
 
