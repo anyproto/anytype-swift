@@ -52,7 +52,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let createDateDay = dayDate(for: message.createdAtDate)
             
             let firstInSection = sectionDateDay.map { $0.timeIntervalSince1970 < createDateDay.timeIntervalSince1970 } ?? true
-            let lastInSectionDate = sectionDateDay ?? createDateDay
+            let lastInSectionDate = firstInSection ? createDateDay : (sectionDateDay ?? createDateDay)
             let lastInSection = nextMessage.map { dayDate(for: $0.createdAtDate).timeIntervalSince1970 > lastInSectionDate.timeIntervalSince1970 } ?? true
             let firstForCurrentUser = prevCreator != message.creator
             let prevDateIntervalIsBig = prevDateInterval.map { (message.createdAt - $0) > Constants.grouppingDateInterval } ?? true
