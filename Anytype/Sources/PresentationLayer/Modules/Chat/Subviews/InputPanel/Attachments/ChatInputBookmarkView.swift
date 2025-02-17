@@ -14,7 +14,7 @@ struct ChatInputBookmarkView: View {
             icon: icon,
             title: title,
             description: description,
-            isYour: true
+            style: .chatInput
         )
         .messageLinkObjectStyle()
         .messageLinkRemoveButton(onTapRemove: onTapRemove)

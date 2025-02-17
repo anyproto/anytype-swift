@@ -15,7 +15,7 @@ struct ChatInputObjectView: View {
             icon: icon,
             title: title,
             description: description,
-            isYour: true,
+            style: .chatInput,
             size: size
         )
         .messageLinkObjectStyle()

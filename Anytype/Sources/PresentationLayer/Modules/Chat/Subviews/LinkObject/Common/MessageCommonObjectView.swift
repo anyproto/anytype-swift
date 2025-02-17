@@ -7,7 +7,7 @@ struct MessageCommonObjectView: View {
     let icon: Icon
     let title: String
     let description: String
-    let isYour: Bool
+    let style: MessageAttachmentStyle
     let size: String?
     
     var body: some View {
@@ -18,19 +18,19 @@ struct MessageCommonObjectView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .anytypeStyle(.previewTitle2Medium)
-                    .foregroundColor(isYour ? .Text.white : .Text.primary)
+                    .foregroundColor(style.titleColor)
                 HStack(spacing: 6) {
                     Text(description)
                         .anytypeStyle(.relation3Regular)
                     if let size {
                         Circle()
-                            .fill(Color.Text.secondary)
+                            .fill(style.descriptionColor)
                             .frame(width: 3, height: 3)
                         Text(size)
                             .anytypeStyle(.relation3Regular)
                     }
                 }
-                .foregroundColor(isYour ? .Background.Chat.whiteTransparent : .Control.transparentActive)
+                .foregroundColor(style.descriptionColor)
             }
             .lineLimit(1)
             Spacer()

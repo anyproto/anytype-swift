@@ -15,7 +15,7 @@ struct MessageAttachmentView: View {
             icon: icon,
             title: title,
             description: description,
-            isYour: isYour,
+            style: isYour ? .messageYour : .messageOther,
             size: size
         )
         .frame(height: 64)

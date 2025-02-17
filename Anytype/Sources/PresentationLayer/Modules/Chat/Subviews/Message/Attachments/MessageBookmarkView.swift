@@ -14,7 +14,7 @@ struct MessageBookmarkView: View {
             icon: icon,
             title: title,
             description: description,
-            isYour: isYour
+            style: isYour ? .messageYour : .messageOther
         )
         .frame(height: 64)
         .frame(minWidth: 231)
