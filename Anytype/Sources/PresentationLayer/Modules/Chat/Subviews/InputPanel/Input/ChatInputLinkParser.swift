@@ -38,7 +38,7 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         let textLenDiff = replacedText.count - sourceText.string.count
         guard let match = matches.last, match.range.contains(range.location - textLenDiff) else { return nil }
         
-        let link = (replacedText as NSString).substring(with: match.range)
+        let link = (replacedText as NSString).substring(with: match.range).lowercased()
     
         guard let linkUrl = URL(string: link) else { return nil }
         
