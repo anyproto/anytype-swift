@@ -381,9 +381,6 @@ public enum BundledRelationKey: String, Sendable {
     /// Unix time representation of date object
     case timestamp = "timestamp"
 
-    /// List of recommended featured relations
-    case recommendedFeaturedRelations = "recommendedFeaturedRelations"
-
     /// Width of object's layout
     case layoutWidth = "layoutWidth"
 
@@ -393,15 +390,21 @@ public enum BundledRelationKey: String, Sendable {
     /// Space order
     case spaceOrder = "spaceOrder"
 
-    /// Default view type that will be used for new sets/collections
-    case defaultViewType = "defaultViewType"
+    /// Choose icon for the type among custom Anytype icons
+    case iconName = "iconName"
 
-    /// Default object type id that will be set to new sets/collections
-    case defaultTypeId = "defaultTypeId"
+    /// List of recommended featured relations
+    case recommendedFeaturedRelations = "recommendedFeaturedRelations"
 
     /// List of recommended relations that are hidden in layout
     case recommendedHiddenRelations = "recommendedHiddenRelations"
 
     /// List of recommended file-specific relations
     case recommendedFileRelations = "recommendedFileRelations"
+
+    /// Default view type that will be used for new sets/collections
+    case defaultViewType = "defaultViewType"
+
+    /// Default object type id that will be set to new sets/collections
+    case defaultTypeId = "defaultTypeId"
 }
