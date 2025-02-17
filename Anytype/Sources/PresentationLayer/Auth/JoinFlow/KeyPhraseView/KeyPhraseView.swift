@@ -39,58 +39,50 @@ struct KeyPhraseView: View {
             )
             .foregroundColor(.Auth.body)
             .multilineTextAlignment(.center)
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 20)
             
-            Spacer.fixedHeight(4)
-            
-            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .uxBodyRegular)
-                .foregroundColor(.Auth.inputText)
-                .padding(.vertical, 4)
-                .fixTappableArea()
-                .onTapGesture {
-                    model.showMoreInfo.toggle()
-                }
-            
-            Spacer.fixedHeight(12)
+            Spacer.fixedHeight(18)
             
             phraseTextView
             
-            if model.keyShown {
-                Spacer.fixedHeight(12)
-                StandardButton(
-                    Loc.Auth.JoinFlow.Key.Button.Copy.title,
-                    style: .secondarySmall,
-                    action: {
-                        model.onCopyButtonTap()
-                    }
-                )
-            }
+            Spacer.fixedHeight(18)
+            
+            readMore
         }
         .padding(.horizontal, UIDevice.isPad ? 75 : 0)
     }
     
+    private var readMore: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "plus.circle.fill")
+                .foregroundColor(.Auth.body)
+            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .button1Medium)
+                .foregroundColor(.Auth.body)
+        }
+        .fixTappableArea()
+        .onTapGesture {
+            model.showMoreInfo.toggle()
+        }
+    }
+    
     private var phraseTextView: some View {
-        PhraseTextView(
-            text: $model.key,
-            noninteractive: true,
-            alignTextToCenter: true,
-            hideWords: !model.keyShown
-        )
-        .disabled(true)
-        .blur(radius: model.keyShown ? 0 : 5)
-        .clipped()
+        Button {
+            model.onCopyButtonTap()
+        } label: {
+            PhraseTextView(
+                text: $model.key,
+                noninteractive: true,
+                alignTextToCenter: true,
+                hideWords: !model.keyShown
+            )
+            .disabled(true)
+            .blur(radius: model.keyShown ? 0 : 5)
+            .clipped()
+        }
     }
     
     private var buttons: some View {
         VStack(spacing: 0) {
-            if !model.keyShown {
-                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Tip.title, style: .caption1Regular)
-                    .foregroundColor(.Auth.body)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 28)
-                Spacer.fixedHeight(18)
-            }
-
             StandardButton(model.keyShown ? Loc.Auth.JoinFlow.Key.Button.Saved.title : Loc.Auth.JoinFlow.Key.Button.Show.title,
                 style: .primaryLarge,
                 action: {
