@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 
-struct MessageLinkImageView: View {
+struct ChatInputImageView: View {
 
     let imageId: String
     let onTapRemove: (() -> Void)?
@@ -15,9 +15,9 @@ struct MessageLinkImageView: View {
     }
 }
 
-extension MessageLinkImageView {
+extension ChatInputImageView {
     init(details: MessageAttachmentDetails, onTapRemove: ((MessageAttachmentDetails) -> Void)? = nil) {
-        self = MessageLinkImageView(
+        self = ChatInputImageView(
             imageId: details.id,
             onTapRemove: onTapRemove.map { c in { c(details) } }
         )

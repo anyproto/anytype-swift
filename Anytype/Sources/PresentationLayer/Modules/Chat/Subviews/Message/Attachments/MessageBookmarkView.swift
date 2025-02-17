@@ -2,32 +2,34 @@ import Foundation
 import SwiftUI
 import Services
 
-struct MessageObjectBookmarkView: View {
+struct MessageBookmarkView: View {
 
     let icon: Icon
     let title: String
     let description: String
+    let isYour: Bool
     
     var body: some View {
-        MessageLinkBookmarkView(
+        MessageCommonBookmarkView(
             icon: icon,
             title: title,
-            description: description
+            description: description,
+            isYour: isYour
         )
         .frame(height: 64)
         .frame(minWidth: 231)
-        .background(Color.Background.primary)
+        .background(Color.Shape.transperentSecondary)
         .cornerRadius(12, style: .continuous)
-        .border(12, color: Color.Shape.transperentSecondary)
     }
 }
 
-extension MessageObjectBookmarkView {
-    init(details: MessageAttachmentDetails) {
-        self = MessageObjectBookmarkView(
+extension MessageBookmarkView {
+    init(details: MessageAttachmentDetails, isYour: Bool) {
+        self = MessageBookmarkView(
             icon: details.objectIconImage,
             title: details.source ?? details.title,
-            description: details.title
+            description: details.title,
+            isYour: isYour
         )
     }
 }

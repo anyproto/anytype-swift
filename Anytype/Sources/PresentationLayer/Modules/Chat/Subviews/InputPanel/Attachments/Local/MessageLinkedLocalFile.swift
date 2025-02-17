@@ -23,7 +23,7 @@ struct MessageLinkedLocalFile: View {
         case .file:
             MessageLinkLocalBinaryFileView(path: fileData.path, type: fileData.type, sizeInBytes: fileData.sizeInBytes, onTapRemove: onTapRemove)
         case .video:
-            MessageInputVideoView(url: URL(fileURLWithPath: fileData.path), onTapRemove: onTapRemove)
+            ChatInputVideoView(url: URL(fileURLWithPath: fileData.path), onTapRemove: onTapRemove)
                 .id(fileData.path)
         }
     }
