@@ -16,6 +16,10 @@ final class AuthViewModel: ObservableObject {
     @Published var showSettings: Bool = false
     @Published var inProgress = false
     @Published var opacity: Double = 1
+    @Published var errorText: String? {
+        didSet { showError = errorText.isNotNil }
+    }
+    @Published var showError: Bool = false
     
     // MARK: - State
     private let state = JoinFlowState()
@@ -133,7 +137,7 @@ final class AuthViewModel: ObservableObject {
     
     private func createAccountError(_ error: some Error) {
         inProgress = false
-//        output?.onError(error) //TODO
+        errorText = error.localizedDescription
     }
     
     private func changeContentOpacity(_ hide: Bool) {

@@ -36,6 +36,9 @@ struct AuthView: View {
             model.onAppear()
         }
         .disablePresentationBackground()
+        .ifLet(model.errorText) { view, errorText in
+            view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {})
+        }
         .fitIPadToReadableContentGuide()
     }
     
