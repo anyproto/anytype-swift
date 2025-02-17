@@ -77,7 +77,7 @@ struct KeyPhraseView: View {
             )
             .disabled(true)
             .blur(radius: model.keyShown ? 0 : 5)
-            .clipped()
+            .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
     

@@ -118,6 +118,12 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let disableColorfulSeedPhrase = FeatureDescription(
+        title: "Disable colorful seed phrase",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

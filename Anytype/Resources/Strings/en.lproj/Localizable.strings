@@ -260,7 +260,6 @@
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
-"Auth.JoinFlow.Key.Show.Description" = "It gives you full ownership over your vault. It cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Next";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Not now";

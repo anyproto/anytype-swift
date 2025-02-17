@@ -540,9 +540,6 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!")
           }
         }
-        internal enum Show {
-          internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Show.Description", fallback: "It gives you full ownership over your vault. It cannot be recovered.")
-        }
       }
       internal enum Soul {
         internal static let button = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button", fallback: "Done")

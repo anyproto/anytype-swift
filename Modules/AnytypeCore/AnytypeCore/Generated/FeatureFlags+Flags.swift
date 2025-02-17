@@ -74,6 +74,10 @@ public extension FeatureFlags {
         value(for: .newOnboarding)
     }
 
+    static var disableColorfulSeedPhrase: Bool {
+        value(for: .disableColorfulSeedPhrase)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -145,6 +149,7 @@ public extension FeatureFlags {
         .newPlusMenu,
         .firebasePushMessages,
         .newOnboarding,
+        .disableColorfulSeedPhrase,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
