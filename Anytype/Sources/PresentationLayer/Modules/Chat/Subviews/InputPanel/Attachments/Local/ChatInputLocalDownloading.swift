@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MessageLinkLocalDownloading: View {
+struct ChatInputLocalDownloading: View {
     
     let onTapRemove: () -> Void
     

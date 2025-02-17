@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-struct MessageLinkedLocalPhotosFile: View {
+struct ChatInputLocalPhotosFile: View {
     
     let localFile: ChatLocalPhotosFile
     let onTapObject: () -> Void
@@ -17,9 +17,9 @@ struct MessageLinkedLocalPhotosFile: View {
     @ViewBuilder
     private var content: some View {
         if let fileData = localFile.data {
-            MessageLinkedLocalFile(fileData: fileData, onTapObject: onTapObject, onTapRemove: onTapRemove)
+            ChatInputLocalFile(fileData: fileData, onTapObject: onTapObject, onTapRemove: onTapRemove)
         } else {
-            MessageLinkLocalDownloading(onTapRemove: onTapRemove)
+            ChatInputLocalDownloading(onTapRemove: onTapRemove)
         }
     }
 }

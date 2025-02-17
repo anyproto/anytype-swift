@@ -1,7 +1,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct MessageLinkLocalBinaryFileView: View {
+struct ChatInputLocalBinaryFileView: View {
     
     let path: String
     let type: UTType
