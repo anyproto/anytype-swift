@@ -1309,7 +1309,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "ObjectSearchWithMeta.Create.Collection" = "Neue Sammlung";
 
 // MARK: - Migration
-"Migration.title" = "Migration is in progress...";
+"Migration.title" = "Migration läuft...";
 "Migration.subtitle" = "Das sollte nicht lange dauern. Danke für deine Geduld.";
-"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.title" = "Nicht genügend Platz";
 "Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";
