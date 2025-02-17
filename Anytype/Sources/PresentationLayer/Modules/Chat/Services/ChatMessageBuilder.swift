@@ -165,7 +165,9 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let description: String
             if replyChat.message.text.isNotEmpty {
                 // Without style. Request from designers.
-                description = messageTextBuilder.makeMessaeWithoutStyle(content: replyChat.message)
+                description = messageTextBuilder
+                    .makeMessaeWithoutStyle(content: replyChat.message)
+                    .replacingOccurrences(of: "\n+", with: "\n", options: .regularExpression)
             } else if fullMessage.replyAttachments.count == 1 {
                 description = replyAttachment?.title ?? ""
             } else if imagesCount == fullMessage.replyAttachments.count {
