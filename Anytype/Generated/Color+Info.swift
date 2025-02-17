@@ -261,6 +261,7 @@ extension UIColor.Background {
             ColorInfo(name: "bubbleYour", color: UIColor.Background.Chat.bubbleYour)
             ColorInfo(name: "replySomeones", color: UIColor.Background.Chat.replySomeones)
             ColorInfo(name: "replyYours", color: UIColor.Background.Chat.replyYours)
+            ColorInfo(name: "whiteTransparent", color: UIColor.Background.Chat.whiteTransparent)
             ColorInfo(name: "highlightedLight", color: UIColor.Background.highlightedLight)
             ColorInfo(name: "highlightedMedium", color: UIColor.Background.highlightedMedium)
             ColorInfo(name: "navigationPanel", color: UIColor.Background.navigationPanel)

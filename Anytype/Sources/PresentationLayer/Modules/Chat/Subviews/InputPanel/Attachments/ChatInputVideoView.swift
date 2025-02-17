@@ -1,7 +1,7 @@
 import SwiftUI
 import Services
 
-struct MessageInputVideoView: View {
+struct ChatInputVideoView: View {
     
     let url: URL?
     let onTapRemove: () -> Void
@@ -19,8 +19,8 @@ struct MessageInputVideoView: View {
     }
 }
 
-extension MessageInputVideoView {
+extension ChatInputVideoView {
     init(details: MessageAttachmentDetails, onTapRemove: @escaping () -> Void) {
-        self = MessageInputVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id), onTapRemove: onTapRemove)
+        self = ChatInputVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id), onTapRemove: onTapRemove)
     }
 }

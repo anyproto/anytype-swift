@@ -1,7 +1,7 @@
 import SwiftUI
 import Services
 
-struct MessageLinkedUploadedObject: View {
+struct ChatInputUploadedObject: View {
     
     let details: MessageAttachmentDetails
     let onTapObject: () -> Void
@@ -10,24 +10,24 @@ struct MessageLinkedUploadedObject: View {
     var body: some View {
         switch details.layoutValue {
         case .image:
-            MessageLinkImageView(details: details, onTapRemove: { _ in
+            ChatInputImageView(details: details, onTapRemove: { _ in
                 onTapRemove()
             })
             .onTapGesture {
                 onTapObject()
             }
         case .video:
-            MessageInputVideoView(details: details, onTapRemove: onTapRemove)
+            ChatInputVideoView(details: details, onTapRemove: onTapRemove)
                 .onTapGesture {
                     onTapObject()
                 }
         case .bookmark:
-            MessageLinkBookmarkContainerView(details: details, onTapRemove: onTapRemove)
+            ChatInputBookmarkView(details: details, onTapRemove: onTapRemove)
                 .onTapGesture {
                     onTapObject()
                 }
         default:
-            MessageLinkObjectContainerView(details: details, onTapRemove: { _ in
+            ChatInputObjectView(details: details, onTapRemove: { _ in
                 onTapRemove()
             })
             .onTapGesture {

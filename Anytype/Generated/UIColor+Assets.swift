@@ -185,6 +185,7 @@ extension UIColor {
         internal static let bubbleYour = UIColor(asset: Asset.Background.Chat.bubbleYour)
         internal static let replySomeones = UIColor(asset: Asset.Background.Chat.replySomeones)
         internal static let replyYours = UIColor(asset: Asset.Background.Chat.replyYours)
+        internal static let whiteTransparent = UIColor(asset: Asset.Background.Chat.whiteTransparent)
       }
       internal static let highlightedLight = UIColor(asset: Asset.Background.highlightedLight)
       internal static let highlightedMedium = UIColor(asset: Asset.Background.highlightedMedium)

@@ -11,7 +11,7 @@ struct MessageLinkLocalBinaryFileView: View {
     private var fileName: String { URL(fileURLWithPath: path).lastPathComponent }
     
     var body: some View {
-        MessageLinkObjectContainerView(
+        ChatInputObjectView(
             icon: .object(.file(mimeType: type.identifier, name: fileName)),
             title: fileName,
             description: Loc.file,
