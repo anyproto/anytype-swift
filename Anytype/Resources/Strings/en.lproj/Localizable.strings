@@ -1030,7 +1030,13 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Create a space";
+"SpaceCreate.Chat.Title" = "Create a chat";
+"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Stream.Title" = "Create a stream";
+
+"SpaceCreate.Chat.Name.Title" = "Chat name";
+"SpaceCreate.Space.Name.Title" = "Space name";
+"SpaceCreate.Stream.Name.Title" = "Stream name";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";

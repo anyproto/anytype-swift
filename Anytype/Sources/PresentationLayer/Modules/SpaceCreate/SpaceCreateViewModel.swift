@@ -9,7 +9,7 @@ final class SpaceCreateViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let data: SpaceCreateData
+    let data: SpaceCreateData
     
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
@@ -18,7 +18,7 @@ final class SpaceCreateViewModel: ObservableObject {
     
     // MARK: - State
     
-    @Published var spaceName: String = ""
+    @Published var spaceName = ""
     let spaceIconOption = IconColorStorage.randomOption()
     var spaceIcon: Icon { .object(.space(.name(name: spaceName, iconOption: spaceIconOption))) }
     @Published var spaceAccessType: SpaceAccessType = .private
