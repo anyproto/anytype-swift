@@ -1,9 +1,9 @@
 import SwiftUI
 
-enum CustomIconColor: String, CaseIterable {
+enum CustomIconColor: Int, CaseIterable {
     case gray
-    case amber
     case yellow
+    case amber
     case red
     case pink
     case purple
@@ -35,5 +35,9 @@ enum CustomIconColor: String, CaseIterable {
         case .green:
                 .System.green
         }
+    }
+    
+    var iconOption: Int {
+        rawValue + 1
     }
 }

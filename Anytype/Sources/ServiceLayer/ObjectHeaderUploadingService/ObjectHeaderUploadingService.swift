@@ -89,14 +89,23 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
                 AnytypeAnalytics.instance().logSetIcon()
                 try await detailsService.updateBundledDetails(
                     objectId: objectId,
-                    bundledDetails: [.iconEmoji(emojiUnicode), .iconObjectId("")]
+                    bundledDetails: iconBundledDetails(iconEmoji: emojiUnicode)
                 )
             case .upload(let itemProvider):
                 AnytypeAnalytics.instance().logSetIcon()
                 let safeSendableItemProvider = itemProvider.sendable()
                 let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
                 let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
-                try await detailsService.updateBundledDetails(objectId: objectId, bundledDetails: [.iconEmoji(""), .iconObjectId(fileDetails.id)])
+                try await detailsService.updateBundledDetails(
+                    objectId: objectId,
+                    bundledDetails: iconBundledDetails(objectId: fileDetails.id)
+                )
+            case let .customIcon(icon, color):
+                AnytypeAnalytics.instance().logSetIcon()
+                try await detailsService.updateBundledDetails(
+                    objectId: objectId,
+                    bundledDetails: iconBundledDetails(iconName: icon.rawValue, iconOption: color.iconOption)
+                )
             }
         case .removeIcon:
             AnytypeAnalytics.instance().logRemoveIcon()
@@ -105,5 +114,9 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
                 bundledDetails: [.iconEmoji(""), .iconObjectId("")]
             )
         }
+    }
+    
+    private func iconBundledDetails(objectId: String = "", iconName: String = "", iconEmoji: String = "", iconOption: Int = 1) -> [BundledDetails] {
+        return [.iconObjectId(objectId), .iconName(iconName), .iconEmoji(iconEmoji), .iconOption(iconOption)]
     }
 }

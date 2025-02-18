@@ -4,7 +4,7 @@ import SwiftUI
 struct ObjectTypeIconPicker: View {
     
     let isRemoveButtonAvailable: Bool
-    let onIconSelect: (_ emoji: CustomIcon) -> Void
+    let onIconSelect: (_ icon: CustomIcon, _ color: CustomIconColor) -> Void
     let removeIcon: () -> Void
     
     @Environment(\.dismiss) private var dismiss
@@ -19,8 +19,8 @@ struct ObjectTypeIconPicker: View {
         VStack(spacing: 0) {
             DragIndicator()
             navigationBarView
-            CustomIconGridView { icon in
-                onIconSelect(icon)
+            CustomIconGridView { icon, color in
+                onIconSelect(icon, color)
                 dismiss()
             }
         }
