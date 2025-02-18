@@ -25,7 +25,7 @@ final class TemplatesService: TemplatesServiceProtocol {
             $0.details = .with {
                 var fields = [String: Google_Protobuf_Value]()
                 fields[BundledRelationKey.targetObjectType.rawValue] = objectTypeId.protobufValue
-                fields[BundledRelationKey.layout.rawValue] = objectDetails.recommendedLayout?.protobufValue ?? DetailsLayout.note.rawValue.protobufValue
+                fields[BundledRelationKey.resolvedLayout.rawValue] = objectDetails.recommendedLayout?.protobufValue ?? DetailsLayout.note.rawValue.protobufValue
                 $0.fields = fields
             }
             $0.spaceID = objectDetails.spaceId

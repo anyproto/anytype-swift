@@ -38,3 +38,14 @@ extension PageNavigationHeader where TitleView == AnyView {
         self.rightView = rightView()
     }
 }
+
+extension PageNavigationHeader where TitleView == AnyView, RightView == AnyView {
+    init(title: String) {
+        self.titleView = AnytypeText(title, style: .uxTitle1Semibold)
+            .foregroundColor(.Text.primary)
+            .frame(height: 48)
+            .lineLimit(1)
+            .eraseToAnyView()
+        self.rightView = EmptyView().eraseToAnyView()
+    }
+}

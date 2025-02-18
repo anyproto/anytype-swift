@@ -72,8 +72,8 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var showDescription: Bool {
-        let isFeatured = setDocument.parsedRelations.featuredRelations
-            .contains { $0.key == BundledRelationKey.description.rawValue }
+        guard let details = setDocument.details else { return false }
+        let isFeatured = details.featuredRelations.contains { $0 == BundledRelationKey.description.rawValue }
         return isFeatured
     }
     

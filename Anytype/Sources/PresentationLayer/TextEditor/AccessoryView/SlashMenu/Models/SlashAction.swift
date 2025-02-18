@@ -73,7 +73,7 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: .asset(.X24.plus),
-                        title: Loc.newRelation
+                        title: Loc.newField
                     )
                 )
             case .relation(let relation):

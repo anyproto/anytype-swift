@@ -6,8 +6,8 @@ extension BundledRelationsValueProvider {
     public var isDone: Bool { done }
     
     public var layoutValue: DetailsLayout {
-        guard let number = layout, let layout = DetailsLayout(rawValue: number) else {
-            return .basic
+        guard let number = resolvedLayout, let layout = DetailsLayout(rawValue: number) else {
+            return .UNRECOGNIZED(resolvedLayout ?? -1)
         }
         
         return layout

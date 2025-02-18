@@ -72,15 +72,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 objectType: templateModel.isBundled ? .object(typeId: templateModel.id) : .custom,
                 route: data.setDocument.isCollection() ? .collection : .set
             )
-        case .blank:
-            onTemplateSelect(
-                objectTypeId: interactor.objectTypeId,
-                templateId: TemplateType.blank.id
-            )
-            AnytypeAnalytics.instance().logChangeDefaultTemplate(
-                objectType: nil,
-                route: data.setDocument.isCollection() ? .collection : .set
-            )
         case .addTemplate:
             onAddTemplateTap()
         }
@@ -267,12 +258,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     private func updateTemplatesList() {
         var templates = [TemplatePreviewModel]()
 
-        if !userTemplates.contains(where: { $0.decoration.isNotNil }) {
-            templates.append(.init(mode: .blank, alignment: .left, decoration: .border))
-        } else {
-            templates.append(.init(mode: .blank, alignment: .left, decoration: nil))
-        }
-        
         templates.append(contentsOf: userTemplates)
         if isTemplatesEditable {
             templates.append(.init(mode: .addTemplate, alignment: .center))

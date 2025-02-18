@@ -22,7 +22,7 @@ extension SupportedRelationFormat: Identifiable {
 }
 
 extension SupportedRelationFormat {
-
+    
     var iconAsset: ImageAsset {
         switch self {
         case .text: return RelationFormat.longText.iconAsset
@@ -38,7 +38,7 @@ extension SupportedRelationFormat {
         case .phone: return RelationFormat.phone.iconAsset
         }
     }
-
+    
     var title: String {
         switch self {
         case .text: return Loc.Relation.Format.Text.title
@@ -52,6 +52,34 @@ extension SupportedRelationFormat {
         case .phone: return Loc.Relation.Format.Phone.title
         case .tag: return Loc.Relation.Format.Tag.title
         case .object: return Loc.Relation.Format.Object.title
+        }
+    }
+    
+    
+    var format: RelationFormat {
+        switch self {
+        case .object:
+                .object
+        case .text:
+                .longText
+        case .number:
+                .number
+        case .status:
+                .status
+        case .tag:
+                .tag
+        case .date:
+                .date
+        case .file:
+                .file
+        case .checkbox:
+                .checkbox
+        case .url:
+                .url
+        case .email:
+                .email
+        case .phone:
+                .phone
         }
     }
 }

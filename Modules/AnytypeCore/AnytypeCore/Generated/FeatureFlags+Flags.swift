@@ -54,6 +54,10 @@ public extension FeatureFlags {
         value(for: .objectTypeWidgets)
     }
 
+    static var newTypeIcons: Bool {
+        value(for: .newTypeIcons)
+    }
+
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -84,6 +88,14 @@ public extension FeatureFlags {
 
     static var aiToolInSet: Bool {
         value(for: .aiToolInSet)
+    }
+
+    static var newOnboarding: Bool {
+        value(for: .newOnboarding)
+    }
+
+    static var disableColorfulSeedPhrase: Bool {
+        value(for: .disableColorfulSeedPhrase)
     }
 
     static var rainbowViews: Bool {
@@ -152,6 +164,7 @@ public extension FeatureFlags {
         .memberProfile,
         .allContentWidgets,
         .objectTypeWidgets,
+        .newTypeIcons,
         .openMediaFileInPreview,
         .openBookmarkAsLink,
         .newSettings,
@@ -160,6 +173,8 @@ public extension FeatureFlags {
         .enableStreamSpaceType,
         .firebasePushMessages,
         .aiToolInSet,
+        .newOnboarding,
+        .disableColorfulSeedPhrase,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

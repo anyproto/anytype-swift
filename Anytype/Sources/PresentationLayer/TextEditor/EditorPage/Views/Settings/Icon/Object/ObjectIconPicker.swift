@@ -12,7 +12,7 @@ struct ObjectIconPicker: View {
     var body: some View {
         Group {
             switch viewModel.detailsLayout {
-            case .basic, .set, .collection, .file, .image, .objectType, .chat:
+            case .basic, .set, .collection, .file, .image, .chat:
                 ObjectBasicIconPicker(
                     isRemoveButtonAvailable: viewModel.isRemoveButtonAvailable,
                     mediaPickerContentType: viewModel.mediaPickerContentType,
@@ -26,6 +26,30 @@ struct ObjectIconPicker: View {
                         viewModel.removeIcon()
                     }
                 )
+            case .objectType:
+                if FeatureFlags.newTypeIcons {
+                    ObjectTypeIconPicker(
+                        isRemoveButtonAvailable: viewModel.isRemoveButtonAvailable,
+                        onIconSelect: { _ in
+                            // TBD;
+                        }, removeIcon: {
+                            viewModel.removeIcon()
+                        })
+                } else {
+                    ObjectBasicIconPicker(
+                        isRemoveButtonAvailable: viewModel.isRemoveButtonAvailable,
+                        mediaPickerContentType: viewModel.mediaPickerContentType,
+                        onSelectItemProvider: { itemProvider in
+                            viewModel.uploadImage(from: itemProvider)
+                        },
+                        onSelectEmoji: { emoji in
+                            viewModel.setEmoji(emoji.emoji)
+                        },
+                        removeIcon: {
+                            viewModel.removeIcon()
+                        }
+                    )
+                }
             case .profile, .participant:
                 ObjectProfileIconPicker(
                     isRemoveEnabled: viewModel.isRemoveEnabled,

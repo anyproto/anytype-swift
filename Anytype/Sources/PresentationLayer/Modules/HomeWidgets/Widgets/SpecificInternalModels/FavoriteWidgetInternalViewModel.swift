@@ -39,7 +39,7 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
         self.spaceId = data.workspaceInfo.accountSpaceId
         self.output = data.output
         
-        let documentService = Container.shared.documentService.resolve()
+        let documentService = Container.shared.openedDocumentProvider.resolve()
         self.document = documentService.document(objectId: homeObjectId, spaceId: spaceId)
     }
     

@@ -113,6 +113,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
             defaultTemplateId: "",
             canCreateObjectOfThisType: false,
             recommendedRelations: [],
+            recommendedFeaturedRelations: [],
+            recommendedHiddenRelations: [],
             recommendedLayout: nil
         )
     }

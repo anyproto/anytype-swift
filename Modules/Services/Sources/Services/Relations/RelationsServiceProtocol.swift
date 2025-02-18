@@ -6,6 +6,7 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func removeFeaturedRelation(objectId: String, relationKey: String) async throws
     
     func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws
+    func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws
     func updateRelationOption(id: String, text: String, color: String?) async throws
 
     func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails
@@ -17,4 +18,16 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     
     func addRelationOption(spaceId: String, relationKey: String, optionText: String, color: String?) async throws -> String?
     func removeRelationOptions(ids: [String]) async throws
+    
+    // New api
+    func updateTypeRelations(
+        typeId: String,
+        recommendedRelationIds: [ObjectId],
+        recommendedFeaturedRelationsIds: [ObjectId],
+        recommendedHiddenRelationsIds: [ObjectId]
+    ) async throws
+    func updateRecommendedRelations(typeId: String, relationIds: [ObjectId]) async throws
+    func updateRecommendedFeaturedRelations(typeId: String, relationIds: [ObjectId]) async throws
+    func updateRecommendedHiddenRelations(typeId: String, relationIds: [ObjectId]) async throws
+    func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String]
 }

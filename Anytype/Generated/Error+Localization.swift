@@ -274,6 +274,63 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: @retroact
     }
 }
 
+extension Anytype_Rpc.Account.Migrate.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Account.Migrate.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Migrate.badInput")
+            case .accountNotFound:
+                return String(localized: "Account.Migrate.accountNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Migrate.accountNotFound")
+            case .canceled:
+                return String(localized: "Account.Migrate.canceled", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Migrate.canceled")
+            case .notEnoughFreeSpace:
+                return String(localized: "Account.Migrate.notEnoughFreeSpace", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Migrate.notEnoughFreeSpace")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Account.MigrateCancel.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Account.MigrateCancel.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.MigrateCancel.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Account.Move.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -448,6 +505,9 @@ extension Anytype_Rpc.Account.Select.Response.Error: @retroactive LocalizedError
             case .accountLoadIsCanceled:
                 return String(localized: "Account.Select.accountLoadIsCanceled", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Account.Select.accountLoadIsCanceled")
+            case .accountStoreNotMigrated:
+                return String(localized: "Account.Select.accountStoreNotMigrated", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Account.Select.accountStoreNotMigrated")
             case .configFileNotFound:
                 return String(localized: "Account.Select.configFileNotFound", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Account.Select.configFileNotFound")
@@ -6172,6 +6232,87 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: @retroactive
     }
 }
 
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.ListConflictingRelations.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.ListConflictingRelations.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.ListConflictingRelations.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.ListConflictingRelations.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.Recommended.FeaturedRelationsSet.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.FeaturedRelationsSet.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.Recommended.FeaturedRelationsSet.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.FeaturedRelationsSet.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.Recommended.RelationsSet.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.RelationsSet.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.Recommended.RelationsSet.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.RelationsSet.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -6619,6 +6760,33 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: @retroactive Locali
             case .noActiveInvite:
                 return String(localized: "Space.InviteGetCurrent.noActiveInvite", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Space.InviteGetCurrent.noActiveInvite")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Space.InviteGetGuest.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Space.InviteGetGuest.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.InviteGetGuest.badInput")
+            case .invalidSpaceType:
+                return String(localized: "Space.InviteGetGuest.invalidSpaceType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.InviteGetGuest.invalidSpaceType")
             case .UNRECOGNIZED:
                 return ""
         }

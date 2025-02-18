@@ -1308,3 +1308,9 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "ObjectSearchWithMeta.Create.Note" = "Yeni Not";
 "ObjectSearchWithMeta.Create.Set" = "Yeni Set";
 "ObjectSearchWithMeta.Create.Collection" = "Yeni Koleksiyon";
+
+// MARK: - Migration
+"Migration.title" = "Geçiş işlemi devam ediyor...";
+"Migration.subtitle" = "Bu uzun sürmeyecek. Sabrınız için teşekkürler.";
+"Migration.Error.NotEnoughtSpace.title" = "Yeterli yer yok";
+"Migration.Error.NotEnoughtSpace.message" = "Lütfen biraz yer açın ve işlemi tekrarlayın.";

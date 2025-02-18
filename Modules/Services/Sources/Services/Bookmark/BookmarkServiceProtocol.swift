@@ -16,4 +16,5 @@ public protocol BookmarkServiceProtocol: Sendable {
         origin: ObjectOrigin
     ) async throws -> ObjectDetails
     func fetchBookmarkContent(bookmarkId: String, url: AnytypeURL) async throws
+    func fetchLinkPreview(url: AnytypeURL) async throws -> LinkPreview
 }

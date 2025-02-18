@@ -6,8 +6,8 @@ struct ObjectLayoutPicker: View {
     @StateObject private var viewModel: ObjectLayoutPickerViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(mode: ObjectLayoutPickerMode, objectId: String, spaceId: String) {
-        self._viewModel = StateObject(wrappedValue: ObjectLayoutPickerViewModel(mode: mode, objectId: objectId, spaceId: spaceId))
+    init(mode: ObjectLayoutPickerMode, objectId: String, spaceId: String, analyticsType: AnalyticsObjectType) {
+        self._viewModel = StateObject(wrappedValue: ObjectLayoutPickerViewModel(mode: mode, objectId: objectId, spaceId: spaceId, analyticsType: analyticsType))
     }
     
     var body: some View {

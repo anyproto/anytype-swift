@@ -22,8 +22,9 @@ enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
     case simpleSet(EditorSimpleSetObject)
     
     case date(EditorDateObject)
-    case allContent(spaceId: String)
     case type(EditorTypeObject)
+    
+    case allContent(spaceId: String)
     
     var id: Int {
         hashValue

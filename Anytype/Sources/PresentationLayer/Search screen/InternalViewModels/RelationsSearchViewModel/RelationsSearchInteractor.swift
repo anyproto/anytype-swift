@@ -31,8 +31,8 @@ final class RelationsSearchInteractor {
         return RelationDetails(details: objectDetails)
     }
     
-    func addRelationToObject(relation: RelationDetails) async throws {
-        try await relationsInteractor.addRelationToObject(relation: relation)
+    func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws {
+        try await relationsInteractor.addRelationToType(relation: relation, isFeatured: isFeatured)
     }
     
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws {
