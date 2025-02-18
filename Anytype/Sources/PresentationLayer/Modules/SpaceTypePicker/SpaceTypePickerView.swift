@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct SpaceCreateTypePickerView: View {
     
@@ -27,15 +28,17 @@ struct SpaceCreateTypePickerView: View {
                     onSelectSpaceType(.data)
                 }
             )
-            SpaceTypePickerRow(
-                icon: .Channel.stream,
-                title: Loc.Spaces.UxType.Stream.title,
-                subtitle: Loc.Spaces.UxType.Stream.description,
-                onTap: {
-                    dismiss()
-                    onSelectSpaceType(.stream)
-                }
-            )
+            if FeatureFlags.enableStreamSpaceType {
+                SpaceTypePickerRow(
+                    icon: .Channel.stream,
+                    title: Loc.Spaces.UxType.Stream.title,
+                    subtitle: Loc.Spaces.UxType.Stream.description,
+                    onTap: {
+                        dismiss()
+                        onSelectSpaceType(.stream)
+                    }
+                )
+            }
         }
         .padding(.bottom, 16)
         .background(Color.Background.primary)

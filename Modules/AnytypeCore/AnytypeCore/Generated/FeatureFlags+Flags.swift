@@ -74,6 +74,10 @@ public extension FeatureFlags {
         value(for: .spaceUxTypes)
     }
 
+    static var enableStreamSpaceType: Bool {
+        value(for: .enableStreamSpaceType)
+    }
+
     static var firebasePushMessages: Bool {
         value(for: .firebasePushMessages)
     }
@@ -153,6 +157,7 @@ public extension FeatureFlags {
         .newSettings,
         .newPlusMenu,
         .spaceUxTypes,
+        .enableStreamSpaceType,
         .firebasePushMessages,
         .aiToolInSet,
         .rainbowViews,
