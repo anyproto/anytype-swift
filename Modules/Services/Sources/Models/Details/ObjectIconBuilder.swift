@@ -55,7 +55,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .space, .spaceView:
             return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName)
         case .objectType:
-            return objectTypeIcon(iconName: relations.iconName, iconOption: relations.iconOption, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
+            return objectTypeIcon(customIcon: relations.customIcon, customIconColor: relations.customIconColor, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         }
     }
     
@@ -87,11 +87,9 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         return .file(mimeType: fileMimeType, name: name)
     }
     
-    private func objectTypeIcon(iconName: String, iconOption: Int?, iconImage: String, iconEmoji: Emoji?) -> ObjectIcon? {
-        if FeatureFlags.newTypeIcons {
-            if iconName.isNotEmpty, let customIcon = CustomIcon(rawValue: iconName) {
-                return .customIcon(customIcon, CustomIconColor(iconOption: iconOption))
-            }
+    private func objectTypeIcon(customIcon: CustomIcon?, customIconColor: CustomIconColor?, iconImage: String, iconEmoji: Emoji?) -> ObjectIcon? {
+        if FeatureFlags.newTypeIcons, let customIcon {
+            return .customIcon(customIcon, customIconColor ?? CustomIconColor.default)
         }
         
         return basicIcon(iconImage: iconImage, iconEmoji: iconEmoji)

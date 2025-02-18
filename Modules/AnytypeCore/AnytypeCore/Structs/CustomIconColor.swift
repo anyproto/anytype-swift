@@ -16,12 +16,13 @@ public enum CustomIconColor: Int, CaseIterable, Sendable {
         rawValue + 1
     }
     
-    public init(iconOption: Int?) {
+    public static let `default`: CustomIconColor = .gray
+    
+    public init?(iconOption: Int?) {
         guard let iconOption else {
-            self = .gray
-            return
+            return nil
         }
         
-        self = Self(rawValue: iconOption - 1) ?? .gray
+        self.init(rawValue: iconOption - 1)
     }
 }
