@@ -104,7 +104,7 @@ struct TypeFieldsView: View {
     
     private func headerRow(_ data: TypeFieldsSectionRow) -> some View {
         ListSectionHeaderView(title: data.title, increasedTopPadding: true) {
-            if model.canEditRelationsList {
+            if model.canEditRelationsList && data.canCreateRelations {
                 Button(action: {
                     model.onAddRelationTap(section: data)
                 }, label: {

@@ -42,7 +42,7 @@ final class TypeFieldsRowBuilder {
                 }
             )
         } else {
-            data.append(.emptyRow(.fieldsMenu))
+            data.append(.emptyRow(.hidden))
         }
 
         return data
