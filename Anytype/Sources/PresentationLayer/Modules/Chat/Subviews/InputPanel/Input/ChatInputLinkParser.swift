@@ -60,13 +60,13 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         let matches = regex.matches(
             in: replacementText,
             options: [],
-            range: NSRange(location: 0, length: replacementText.utf16.count)
+            range: NSRange(location: 0, length: replacementText.count)
         )
         
         let changes = matches.compactMap { match -> ChatInputLinkParserChange? in
             let link = (replacementText as NSString).substring(with: match.range).lowercased()
             guard let linkUrl = URL(string: link) else { return nil }
-            let newRange = NSRange(location: match.range.location - range.location, length: match.range.length)
+            let newRange = NSRange(location: match.range.location + range.location, length: match.range.length)
             return .addLinkStyle(range: newRange, link: linkUrl)
         }
         
