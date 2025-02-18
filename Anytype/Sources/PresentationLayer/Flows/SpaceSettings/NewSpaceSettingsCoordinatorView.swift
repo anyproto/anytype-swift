@@ -17,7 +17,6 @@ struct NewSpaceSettingsCoordinatorView: View {
                 model.pageNavigation = pageNavigation
             }
         
-        
             .sheet(isPresented: $model.showRemoteStorage) {
                 RemoteStorageView(spaceId: model.accountSpaceId, output: model)
                     .sheet(isPresented: $model.showFiles) {

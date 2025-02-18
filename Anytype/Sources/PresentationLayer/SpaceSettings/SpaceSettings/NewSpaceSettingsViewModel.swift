@@ -72,14 +72,12 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var qrInviteLink: URL?
     @Published var storageInfo = RemoteStorageSegmentInfo()
     @Published var defaultObjectType: ObjectType?
+    @Published var showIconPickerSpaceId: StringIdentifiable?
+    
     
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
-    }
-    
-    func onSpaceDetailsTap() {
-        output?.onSpaceDetailsSelected()
     }
     
     func onInfoTap() {
@@ -135,6 +133,24 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         Task {
             try await generateInviteIfNeeded()
             qrInviteLink = inviteLink
+        }
+    }
+    
+    func onChangeIconTap() {
+        showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
+    }
+    
+    func onSaveTap() {
+        Task {
+            try await workspaceService.workspaceSetDetails(
+                spaceId: workspaceInfo.accountSpaceId,
+                details: [
+                    .name(spaceName),
+                    .description(spaceDescription)
+                ]
+            )
+            
+            snackBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
         }
     }
     
