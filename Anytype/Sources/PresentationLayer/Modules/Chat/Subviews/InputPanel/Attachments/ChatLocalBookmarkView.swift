@@ -17,7 +17,7 @@ extension ChatLocalBookmark {
             url: url.absoluteString,
             title: url.absoluteString,
             description: "Placeholder",
-            icon: .object(.empty(.page)),
+            icon: .object(.empty(.bookmark)),
             loading: true
         )
     }
@@ -38,6 +38,9 @@ struct ChatLocalBookmarkView: View {
         )
         .onTapGesture {
             onTapObject()
+        }
+        .if(model.loading) {
+            $0.redacted(reason: .placeholder)
         }
         .messageLinkObjectStyle()
         .messageLinkRemoveButton(onTapRemove: onTapRemove)
