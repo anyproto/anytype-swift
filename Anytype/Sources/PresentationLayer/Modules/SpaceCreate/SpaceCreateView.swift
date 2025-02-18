@@ -24,9 +24,19 @@ struct SpaceCreateView: View {
                     
                     RoundedTextFieldWithTitle(
                         title: FeatureFlags.spaceUxTypes ? model.data.nameTitle : Loc.Settings.spaceName,
+                        placeholder: Loc.Object.Title.placeholder,
                         text: $model.spaceName
                     )
                     .focused(.constant(true))
+                    
+                    if FeatureFlags.spaceUxTypes, let nameDescription = model.data.nameDescription {
+                        Spacer.fixedHeight(12)
+                        RoundedTextFieldWithTitle(
+                            title: nameDescription,
+                            placeholder: Loc.SpaceCreate.Stream.Placeholder.description,
+                            text: $model.spaceDescription
+                        )
+                    }
                     
                     if !FeatureFlags.spaceUxTypes {
                         SectionHeaderView(title: Loc.type)

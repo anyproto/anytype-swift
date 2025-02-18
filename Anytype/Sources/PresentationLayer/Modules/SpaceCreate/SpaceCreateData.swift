@@ -32,4 +32,13 @@ struct SpaceCreateData: Equatable, Identifiable, Hashable {
             return ""
         }
     }
+    
+    var nameDescription: String? {
+        switch spaceUxType {
+        case .stream:
+            return Loc.SpaceCreate.Stream.Name.description
+        default:
+            return nil
+        }
+    }
 }

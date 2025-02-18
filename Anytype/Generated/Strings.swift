@@ -1733,7 +1733,11 @@ internal enum Loc {
     internal enum Stream {
       internal static let title = Loc.tr("Localizable", "SpaceCreate.Stream.Title", fallback: "Create a stream")
       internal enum Name {
+        internal static let description = Loc.tr("Localizable", "SpaceCreate.Stream.Name.Description", fallback: "Stream description")
         internal static let title = Loc.tr("Localizable", "SpaceCreate.Stream.Name.Title", fallback: "Stream name")
+      }
+      internal enum Placeholder {
+        internal static let description = Loc.tr("Localizable", "SpaceCreate.Stream.Placeholder.Description", fallback: "Description")
       }
     }
   }

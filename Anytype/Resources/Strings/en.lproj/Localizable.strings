@@ -1038,6 +1038,9 @@
 "SpaceCreate.Space.Name.Title" = "Space name";
 "SpaceCreate.Stream.Name.Title" = "Stream name";
 
+"SpaceCreate.Stream.Name.Description" = "Stream description";
+"SpaceCreate.Stream.Placeholder.Description" = "Description";
+
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Cancel";
