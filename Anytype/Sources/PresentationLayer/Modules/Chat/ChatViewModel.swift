@@ -281,7 +281,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                         url: linkPreview.url,
                         title: linkPreview.title,
                         description: linkPreview.description_p,
-                        icon: .object(.empty(.page)),
+                        icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .object(.empty(.bookmark)),
                         loading: false
                     )
                     linkedObjects[index] = .localBookmark(bookmark)
