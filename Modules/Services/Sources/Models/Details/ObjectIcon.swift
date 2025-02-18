@@ -4,6 +4,7 @@ public enum ObjectIcon: Hashable, Sendable, Equatable {
     case basic(_ imageId: String)
     case profile(Profile)
     case emoji(Emoji)
+    case customIcon(CustomIcon, CustomIconColor)
     case bookmark(_ imageId: String)
     case space(Space)
     case todo(_ checked: Bool, _ objectId: String?)
@@ -24,7 +25,7 @@ public extension ObjectIcon {
             return imageId
         case .space(let data):
             return data.imageId
-        case .todo(_, _), .emoji(_), .placeholder(_), .file(_, _), .deleted, .empty(_):
+        case .todo, .emoji, .placeholder, .file, .deleted, .empty, .customIcon:
             return nil
         }
     }
