@@ -11,6 +11,12 @@ struct LoginView: View {
     
     var body: some View {
         content
+            .task(id: model.accountId) {
+                await model.selectAccount()
+            }
+            .task(id: model.entropy) {
+                await model.onEntropySet()
+            }
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .disablePresentationBackground()
@@ -50,6 +56,11 @@ struct LoginView: View {
         
             .sheet(isPresented: $model.showDebugMenu) {
                 PublicDebugMenuView()
+            }
+        
+            // migration
+            .fullScreenCover(item: $model.migrationData) {
+                MigrationView(data: $0)
             }
     }
     

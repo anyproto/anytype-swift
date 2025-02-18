@@ -5,12 +5,13 @@ import Services
 struct MessageListAttachmentsViewContainer: View {
 
     let objects: [MessageAttachmentDetails]
+    let isYour: Bool
     let onTapObject: (MessageAttachmentDetails) -> Void
     
     var body: some View {
         VStack(spacing: 4) {
             ForEach(objects, id: \.id) { details in
-                content(for: details)
+                content(for: details, isYour: isYour)
                     .onTapGesture {
                         if !details.loadingState {
                             onTapObject(details)
@@ -24,12 +25,12 @@ struct MessageListAttachmentsViewContainer: View {
     }
     
     @ViewBuilder
-    private func content(for details: MessageAttachmentDetails) -> some View {
+    private func content(for details: MessageAttachmentDetails, isYour: Bool) -> some View {
         switch details.layoutValue {
         case .bookmark:
-            MessageObjectBookmarkView(details: details)
+            MessageBookmarkView(details: details, isYour: isYour)
         default:
-            MessageObjectAttachmentView(details: details)
+            MessageAttachmentView(details: details, isYour: isYour)
         }
     }
 }

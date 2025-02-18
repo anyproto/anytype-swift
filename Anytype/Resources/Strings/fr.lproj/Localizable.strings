@@ -1307,3 +1307,9 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "ObjectSearchWithMeta.Create.Note" = "Nouvelle note";
 "ObjectSearchWithMeta.Create.Set" = "Nouvel ensemble";
 "ObjectSearchWithMeta.Create.Collection" = "Nouvelle collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration en cours...";
+"Migration.subtitle" = "Cela ne devrait pas prendre longtemps. Merci pour votre patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Espace insuffisant";
+"Migration.Error.NotEnoughtSpace.message" = "Veuillez libérer de l'espace et exécuter le processus à nouveau.";

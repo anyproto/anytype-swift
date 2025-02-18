@@ -36,12 +36,16 @@ struct AuthView: View {
             model.onAppear()
         }
         .disablePresentationBackground()
+        .ifLet(model.errorText) { view, errorText in
+            view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {})
+        }
         .fitIPadToReadableContentGuide()
     }
     
+    @ViewBuilder
     private var greetings: some View {
-        VStack(alignment: .center, spacing: 0) {
-            Image(asset: .localInternet)
+        if FeatureFlags.newOnboarding {
+            Image(asset: .communication)
                 .onTapGesture(count: 10) {
                     AudioServicesPlaySystemSound(1109)
                     model.showDebugMenu.toggle()
@@ -49,18 +53,29 @@ struct AuthView: View {
                 .sheet(isPresented: $model.showDebugMenu) {
                     DebugMenuView()
                 }
-            
-            Spacer.fixedHeight(20)
-            
-            AnytypeText(
-                Loc.Auth.Welcome.subtitle(AboutApp.anyprotoLink),
-                style: .uxCalloutRegular,
-                enableMarkdown: true
-            )
-            .foregroundColor(.Auth.body)
-            .accentColor(.Auth.inputText)
-            .multilineTextAlignment(.center)
-            .padding(.horizontal, UIDevice.isPad ? 85 : 38)
+        } else {
+            VStack(alignment: .center, spacing: 0) {
+                Image(asset: .localInternet)
+                    .onTapGesture(count: 10) {
+                        AudioServicesPlaySystemSound(1109)
+                        model.showDebugMenu.toggle()
+                    }
+                    .sheet(isPresented: $model.showDebugMenu) {
+                        DebugMenuView()
+                    }
+                
+                Spacer.fixedHeight(20)
+                
+                AnytypeText(
+                    Loc.Auth.Welcome.subtitle(AboutApp.anyprotoLink),
+                    style: .uxCalloutRegular,
+                    enableMarkdown: true
+                )
+                .foregroundColor(.Auth.body)
+                .accentColor(.Auth.inputText)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, UIDevice.isPad ? 85 : 38)
+            }
         }
     }
     
@@ -73,6 +88,7 @@ struct AuthView: View {
                 Image(asset: .NavigationBase.settings)
                     .foregroundColor(.Control.active)
             }
+            .disabled(model.inProgress)
         }
         .sheet(isPresented: $model.showSettings) {
             model.onSettingsAction()
@@ -83,6 +99,7 @@ struct AuthView: View {
         VStack(spacing: 12) {
             StandardButton(
                 Loc.Auth.Button.join,
+                inProgress: model.inProgress,
                 style: .primaryLarge,
                 action: {
                     model.onJoinButtonTap()
@@ -103,6 +120,7 @@ struct AuthView: View {
             .navigationDestination(isPresented: $model.showLoginFlow) {
                 model.onLoginAction()
             }
+            .disabled(model.inProgress)
         }
     }
     
@@ -116,6 +134,7 @@ struct AuthView: View {
         .multilineTextAlignment(.center)
         .padding(.horizontal, 38)
         .accentColor(.Auth.body)
+        .disabled(model.inProgress)
     }
 }
 

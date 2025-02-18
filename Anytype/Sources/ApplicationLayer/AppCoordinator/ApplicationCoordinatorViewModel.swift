@@ -28,6 +28,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     @Published var applicationState: ApplicationState = .initial
     @Published var toastBarData: ToastBarData = .empty
+    @Published var migrationData: MigrationModuleData?
     
     // MARK: - Initializers
 
@@ -124,7 +125,15 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         do {
             let seed = try seedService.obtainSeed()
             try await authService.walletRecovery(mnemonic: seed)
-            let account = try await authService.selectAccount(id: userId)
+            await selectAccount(id: userId)
+        } catch {
+            applicationStateService.state = .auth
+        }
+    }
+    
+    private func selectAccount(id: String) async {
+        do {
+            let account = try await authService.selectAccount(id: id)
             
             switch account.status {
             case .active:
@@ -134,6 +143,13 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             case .deleted:
                 applicationStateService.state = .auth
             }
+        } catch SelectAccountError.accountStoreNotMigrated {
+            migrationData = MigrationModuleData(
+                id: id,
+                onFinish: { [weak self] in
+                    await self?.selectAccount(id: id)
+                }
+            )
         } catch {
             applicationStateService.state = .auth
         }

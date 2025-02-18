@@ -41,7 +41,7 @@
 
 // MARK: - Block Text
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
+"BlockText.ContentType.Title.Placeholder" = "Senza titolo";
 "BlockText.ContentType.Description.Placeholder" = "Aggiungi una descrizione";
 "BlockText.ContentType.Toggle.Placeholder" = "Blocco espandibile";
 "BlockText.ContentType.Bulleted.Placeholder" = "Elemento di elenco puntato";
@@ -62,7 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Testo";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
+"Object.Title.Placeholder" = "Senza titolo";
 "Object.Deleted.Placeholder" = "Oggetto eliminato";
 
 // MARK: - Relation
@@ -124,7 +124,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Oggetto";
 
-"Untitled" = "Untitled";
+"Untitled" = "Senza titolo";
 "None" = "Nessuno";
 "Callout" = "Richiamo";
 "Toggle empty. Tap to create block." = "Interruttore vuoto. Tocca per creare un blocco.";
@@ -277,7 +277,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Imposta il tuo nome";
 "Auth.JoinFlow.Soul.Description" = "Visibile solo alle persone con cui condividi qualcosa. Non esiste un registro centrale di questi nomi.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "Senza titolo";
 "Auth.JoinFlow.Soul.Button" = "Entra nella mia Cassaforte";
 
 "Auth.JoinFlow.Vault.Title" = "Questa è la tua Cassaforte";
@@ -479,7 +479,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ giorni da adesso";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "Senza titolo";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -639,7 +639,7 @@
 "Deleted" = "Eliminato";
 "Download" = "Scarica";
 "Open object" = "Apri oggetto";
-"Open as Object" = "Open as Object";
+"Open as Object" = "Apri come Oggetto";
 "Open source" = "Apri fonte";
 "Into object" = "Nell'oggetto";
 "Add below" = "Aggiungi sotto";
@@ -660,7 +660,7 @@
 "Link to" = "Collega a";
 "Unknown" = "Sconosciuto";
 "Settings" = "Impostazioni";
-"Preferences" = "Preferences";
+"Preferences" = "Preferenze";
 "Views" = "Viste";
 "Filter" = "Filtro";
 "Sort" = "Ordina";
@@ -706,10 +706,10 @@
 "Hide" = "Nascondi";
 "Apply" = "Applica";
 "Leave a space" = "Leave a space";
-"Collaboration" = "Collaboration";
+"Collaboration" = "Collaborazione";
 "Members" = "Membri";
-"Invite" = "Invite";
-"QR Code" = "QR Code";
+"Invite" = "Invita";
+"QR Code" = "Codice QR";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
@@ -791,7 +791,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplica";
 "SetViewTypesPicker.Settings.Delete.View" = "Elimina vista";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nuova vista";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Senza titolo";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Non supportato";
@@ -882,9 +882,9 @@
 "Settings.SpaceType" = "Tipo di spazio";
 "Settings.VaultAndAccess" = "Cassaforte e accesso";
 "Settings.SpaceName" = "Nome dello Spazio";
-"Settings.Edit picture" = "Edit picture";
-"Settings.Updated" = "Space information updated";
-"Settings.DataManagement" = "Data Management";
+"Settings.Edit picture" = "Modifica foto";
+"Settings.Updated" = "Informazioni sullo spazio aggiornate";
+"Settings.DataManagement" = "Gestione Dati";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Archiviazione file";
@@ -896,14 +896,14 @@
 "FileStorage.Local.Instruction" = "Per risparmiare spazio sul tuo dispositivo locale, puoi liberare tutti i tuoi file trasferendoli al nostro nodo di backup criptato. I file verranno ricaricati quando li apri";
 "FileStorage.Local.Used" = "%@ utilizzati";
 "FileStorage.OffloadTitle" = "Libera file";
-"FileStorage.CleanUpFiles" = "Clean up files files";
+"FileStorage.CleanUpFiles" = "Pulisci i file";
 "FileStorage.LimitError" = "Hai superato il limite di caricamento dei file";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Altri spazi | %@";
 "FileStorage.LimitLegend.Free" = "Gratis | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Clean up files";
+"FilesList.Title" = "Pulisci i file";
 "FilesList.ForceDelete.Title" = "Sei sicuro di voler eliminare definitivamente i file?";
 
 // MARK: - Widget object list
@@ -937,7 +937,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Impostazioni dello Spazio";
 "SpaceSettings.RemoteStorage" = "Archiviazione remota";
-"SpaceSettings.Info" = "Space information";
+"SpaceSettings.Info" = "Informazioni sullo spazio";
 "SpaceSettings.NetworkId" = "ID della rete";
 "SpaceSettings.DeleteAlert.Title" = "Elimina spazio ‘%@’ ";
 "SpaceSettings.DeleteAlert.Message" = "Questo spazio verrà eliminato irrevocabilmente. Non è possibile annullare questa azione.";
@@ -1306,3 +1306,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "ObjectSearchWithMeta.Create.Note" = "Nuova Nota";
 "ObjectSearchWithMeta.Create.Set" = "Nuovo Insieme";
 "ObjectSearchWithMeta.Create.Collection" = "Nuova Collezione";
+
+// MARK: - Migration
+"Migration.title" = "Migrazione in corso...";
+"Migration.subtitle" = "Non dovrebbe volerci molto. Grazie per la pazienza.";
+"Migration.Error.NotEnoughtSpace.title" = "Spazio insufficiente";
+"Migration.Error.NotEnoughtSpace.message" = "Si prega di liberare un po' di spazio ed eseguire nuovamente il processo.";

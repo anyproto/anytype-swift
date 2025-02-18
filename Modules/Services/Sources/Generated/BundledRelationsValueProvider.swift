@@ -9,6 +9,7 @@ public typealias ObjectId = String
 public protocol BundledRelationsValueProvider {
 
     var tag: [ObjectId] { get }
+    var guestKey: String { get }
     var camera: String { get }
     var heightInPixels: Int? { get }
     var createdDate: Date? { get }
@@ -123,6 +124,8 @@ public protocol BundledRelationsValueProvider {
     var spaceAccountStatus: Int? { get }
     var spaceInviteFileCid: String { get }
     var spaceInviteFileKey: String { get }
+    var spaceInviteGuestFileCid: String { get }
+    var spaceInviteGuestFileKey: String { get }
     var participantPermissions: Int? { get }
     var identity: String { get }
     var participantStatus: Int? { get }
@@ -142,12 +145,24 @@ public protocol BundledRelationsValueProvider {
     var chatId: ObjectId { get }
     var mentions: [ObjectId] { get }
     var timestamp: Date? { get }
+    var layoutWidth: Int? { get }
+    var resolvedLayout: Int? { get }
     var spaceOrder: String { get }
+    var iconName: String { get }
+    var recommendedFeaturedRelations: [ObjectId] { get }
+    var recommendedHiddenRelations: [ObjectId] { get }
+    var recommendedFileRelations: [ObjectId] { get }
+    var defaultViewType: Int? { get }
+    var defaultTypeId: ObjectId { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
     var tag: [ObjectId] {
         return value(for: BundledRelationKey.tag.rawValue)
+    }
+    /// guest key to read public space
+    var guestKey: String {
+        return value(for: BundledRelationKey.guestKey.rawValue)
     }
     /// Camera used to capture image or video
     var camera: String {
@@ -320,7 +335,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var iconEmoji: Emoji? {
         return value(for: BundledRelationKey.iconEmoji.rawValue)
     }
-    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image. Value stored in coverId
+    /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image, 5 - unsplash image. Value stored in coverId
     var coverType: Int? {
         return value(for: BundledRelationKey.coverType.rawValue)
     }
@@ -583,6 +598,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var spaceInviteFileKey: String {
         return value(for: BundledRelationKey.spaceInviteFileKey.rawValue)
     }
+    /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
+    var spaceInviteGuestFileCid: String {
+        return value(for: BundledRelationKey.spaceInviteGuestFileCid.rawValue)
+    }
+    /// Encoded encryption key of invite file for guest user in the current space. It's stored in SpaceView
+    var spaceInviteGuestFileKey: String {
+        return value(for: BundledRelationKey.spaceInviteGuestFileKey.rawValue)
+    }
     /// Participant permissions. Possible values: models.ParticipantPermissions
     var participantPermissions: Int? {
         return value(for: BundledRelationKey.participantPermissions.rawValue)
@@ -658,8 +681,40 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var timestamp: Date? {
         return value(for: BundledRelationKey.timestamp.rawValue)
     }
+    /// Width of object's layout
+    var layoutWidth: Int? {
+        return value(for: BundledRelationKey.layoutWidth.rawValue)
+    }
+    /// Layout resolved based on object self layout and type recommended layout
+    var resolvedLayout: Int? {
+        return value(for: BundledRelationKey.resolvedLayout.rawValue)
+    }
     /// Space order
     var spaceOrder: String {
         return value(for: BundledRelationKey.spaceOrder.rawValue)
+    }
+    /// Choose icon for the type among custom Anytype icons
+    var iconName: String {
+        return value(for: BundledRelationKey.iconName.rawValue)
+    }
+    /// List of recommended featured relations
+    var recommendedFeaturedRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedFeaturedRelations.rawValue)
+    }
+    /// List of recommended relations that are hidden in layout
+    var recommendedHiddenRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedHiddenRelations.rawValue)
+    }
+    /// List of recommended file-specific relations
+    var recommendedFileRelations: [ObjectId] {
+        return value(for: BundledRelationKey.recommendedFileRelations.rawValue)
+    }
+    /// Default view type that will be used for new sets/collections
+    var defaultViewType: Int? {
+        return value(for: BundledRelationKey.defaultViewType.rawValue)
+    }
+    /// Default object type id that will be set to new sets/collections
+    var defaultTypeId: ObjectId {
+        return value(for: BundledRelationKey.defaultTypeId.rawValue)
     }
 }
