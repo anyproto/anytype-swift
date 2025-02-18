@@ -16,4 +16,18 @@ extension NSAttributedString {
         
         return containsNil
     }
+    
+    func containsNotNilAttribute(_ attrName: NSAttributedString.Key, in enumerationRange: NSRange) -> Bool {
+        
+        var containsNotNil = false
+        
+        enumerateAttribute(attrName, in: enumerationRange) { value, range, stop in
+            if value.isNotNil {
+                containsNotNil = true
+                stop.pointee = true
+            }
+        }
+        
+        return containsNotNil
+    }
 }

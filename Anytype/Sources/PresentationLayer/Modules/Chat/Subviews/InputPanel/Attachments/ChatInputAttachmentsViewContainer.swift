@@ -38,6 +38,12 @@ struct ChatInputAttachmentsViewContainer: View {
                             } onTapRemove: {
                                 onTapRemove(object)
                             }
+                        case .localBookmark(let data):
+                            ChatLocalBookmarkView(model: data) {
+                                onTapObject(object)
+                            } onTapRemove: {
+                                onTapRemove(object)
+                            }
                         }
                     }
                 }

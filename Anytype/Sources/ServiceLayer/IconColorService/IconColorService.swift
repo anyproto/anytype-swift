@@ -34,7 +34,7 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
         switch icon {
         case .object(let objectIcon):
             return try await object(icon: objectIcon)
-        case .asset, .image:
+        case .asset, .image, .url:
             throw CommonError.undefined
         }
     }

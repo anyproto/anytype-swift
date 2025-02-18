@@ -22,6 +22,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     private let anytypeCodeFont: AnytypeFont
     
     var linkTo: ((_ range: NSRange) -> Void)?
+    var linkParsed: ((_ url: URL) -> Void)?
     var defaultTypingAttributes: [NSAttributedString.Key : Any] = [:]
     
     // MARK: - State
@@ -30,6 +31,8 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     private var lastApplyedEditingState: Bool?
     @Injected(\.chatPasteboardHelper)
     private var chatPasteboardHelper: any ChatPasteboardHelperProtocol
+    @Injected(\.chatInputLinkParser)
+    private var chatInputLinkParser: any ChatInputLinkParserProtocol
     
     init(
         text: Binding<NSAttributedString>,
@@ -164,7 +167,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         switch change {
         case .turnInto, .addBlock, nil:
             // Doesn't support
-            return true
+            break
         case .addStyle(let markupType, let text, let range, let focusRange):
             let result = addStyle(textView: textView, type: markupType, text: text, range: range, focusRange: focusRange, removeAttribute: false)
             if !result {
@@ -172,6 +175,10 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             }
             return result
         }
+        
+        handleLinkInput(textView: textView, shouldChangeTextIn: range, replacementText: text)
+        
+        return true
     }
     
     // MARK: - AnytypeUITextViewDelegate
@@ -345,6 +352,22 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         
         if newHeight != height {
             height = newHeight
+        }
+    }
+    
+    private func handleLinkInput(textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) {
+        let linkChange = chatInputLinkParser.handleInput(sourceText: textView.attributedText, range: range, replacementText: text)
+        
+        switch linkChange {
+        case .addLinkStyle(let range, let link, _):
+            let containsLink = textView.textStorage.containsNotNilAttribute(.chatLinkToURL, in: range)
+            if !containsLink {
+                textView.textStorage.addAttribute(.chatLinkToURL, value: link, range: range)
+                textViewDidChange(textView)
+                linkParsed?(link)
+            }
+        case nil:
+            break
         }
     }
 }
