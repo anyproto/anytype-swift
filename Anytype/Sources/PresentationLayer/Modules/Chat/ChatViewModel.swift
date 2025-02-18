@@ -70,6 +70,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var textLimitReached = false
     @Published var typesForCreateObject: [ObjectType] = []
     private var photosItems: [PhotosPickerItem] = []
+    private var linkPreviewTasks: [URL: AnyCancellable] = [:]
     
     // List
     
@@ -272,22 +273,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func onLinkAdded(link: URL) {
         let contains = linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
         guard !contains else { return }
-        Task {
-            do {
-            linkedObjects.append(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
+        linkedObjects.append(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
+        let task = Task { [bookmarkService, weak self] in
             let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
-                if let index = linkedObjects.firstIndex(where: { $0.localBookmark?.url == link.absoluteString }) {
-                    let bookmark = ChatLocalBookmark(
-                        url: linkPreview.url,
-                        title: linkPreview.title,
-                        description: linkPreview.description_p,
-                        icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .object(.empty(.bookmark)),
-                        loading: false
-                    )
-                    linkedObjects[index] = .localBookmark(bookmark)
-                }
-            }
+            self?.updateLocalBookmark(linkPreview: linkPreview)
+            self?.linkPreviewTasks[link] = nil
         }
+        linkPreviewTasks[link] = task.cancellable()
     }
     
     func onTapDeleteReply() {
@@ -582,5 +574,17 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 }
             }
         )
+    }
+    
+    private func updateLocalBookmark(linkPreview: LinkPreview) {
+        guard let index = linkedObjects.firstIndex(where: { $0.localBookmark?.url == linkPreview.url }) else { return }
+        let bookmark = ChatLocalBookmark(
+            url: linkPreview.url,
+            title: linkPreview.title,
+            description: linkPreview.description_p,
+            icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .object(.empty(.bookmark)),
+            loading: false
+        )
+        linkedObjects[index] = .localBookmark(bookmark)
     }
 }
