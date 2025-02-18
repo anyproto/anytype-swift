@@ -348,6 +348,7 @@ internal enum Loc {
   internal static let tealBackground = Loc.tr("Localizable", "Teal background", fallback: "Teal background")
   internal static let templates = Loc.tr("Localizable", "Templates", fallback: "Templates")
   internal static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named", fallback: "There is no emoji named")
+  internal static let thereIsNoIconNamed = Loc.tr("Localizable", "There is no icon named", fallback: "There is no icon named")
   internal static func thereIsNoObjectNamed(_ p1: Any) -> String {
     return Loc.tr("Localizable", "There is no object named", String(describing: p1), fallback: "There is no object named %@")
   }
@@ -359,6 +360,7 @@ internal enum Loc {
   internal static let toBin = Loc.tr("Localizable", "To Bin", fallback: "To Bin")
   internal static let today = Loc.tr("Localizable", "Today", fallback: "Today")
   internal static let tomorrow = Loc.tr("Localizable", "Tomorrow", fallback: "Tomorrow")
+  internal static let tryToFindANewOne = Loc.tr("Localizable", "Try to find a new one", fallback: "Try to find a new one")
   internal static let tryToFindANewOneOrUploadYourImage = Loc.tr("Localizable", "Try to find a new one or upload your image", fallback: "Try to find a new one or upload your image")
   internal static let type = Loc.tr("Localizable", "Type", fallback: "Type")
   internal static let types = Loc.tr("Localizable", "Types", fallback: "Types")

@@ -303,7 +303,9 @@
 
 "Search" = "Search";
 "There is no emoji named" = "There is no emoji named";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "Random";

@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .allContentWidgets)
     }
 
+    static var newTypeIcons: Bool {
+        value(for: .newTypeIcons)
+    }
+
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -135,6 +139,7 @@ public extension FeatureFlags {
         .primitives,
         .memberProfile,
         .allContentWidgets,
+        .newTypeIcons,
         .openMediaFileInPreview,
         .openBookmarkAsLink,
         .newSettings,
