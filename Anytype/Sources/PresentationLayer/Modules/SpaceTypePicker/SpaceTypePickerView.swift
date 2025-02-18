@@ -41,6 +41,6 @@ struct SpaceCreateTypePickerView: View {
             }
         }
         .padding(.bottom, 16)
-        .background(Color.Background.primary)
+        .background(Color.Background.secondary)
     }
 }
