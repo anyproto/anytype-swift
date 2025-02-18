@@ -1221,7 +1221,7 @@ internal enum Loc {
     }
   }
   internal enum Migration {
-    internal static let subtitle = Loc.tr("Localizable", "Migration.subtitle", fallback: "This shouldn’t take long. Thanks for your patience.")
+    internal static let subtitle = Loc.tr("Localizable", "Migration.subtitle", fallback: "This may take some time. Please don’t close the app until the process is complete.")
     internal static let title = Loc.tr("Localizable", "Migration.title", fallback: "Migration is in progress...")
     internal enum Error {
       internal enum NotEnoughtSpace {
