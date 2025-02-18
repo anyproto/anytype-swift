@@ -1,4 +1,4 @@
-public enum CustomIcon: String, CaseIterable {
+public enum CustomIcon: String, CaseIterable, Sendable {
     case accessibility
     case addCircle
     case airplane

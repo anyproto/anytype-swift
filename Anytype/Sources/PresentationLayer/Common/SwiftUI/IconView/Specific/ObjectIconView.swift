@@ -14,6 +14,8 @@ struct ObjectIconView: View {
             ProfileIconView(icon: profile)
         case .emoji(let emoji):
             EmojiIconView(emoji: emoji)
+        case let .customIcon(icon, color):
+            CustomIconView(icon: icon, iconColor: color)
         case .bookmark(let imageId):
             BookmarkIconView(imageId: imageId)
         case .space(let space):
