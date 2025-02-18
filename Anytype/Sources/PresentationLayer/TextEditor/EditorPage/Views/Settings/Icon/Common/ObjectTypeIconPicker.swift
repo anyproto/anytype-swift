@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 
 struct ObjectTypeIconPicker: View {

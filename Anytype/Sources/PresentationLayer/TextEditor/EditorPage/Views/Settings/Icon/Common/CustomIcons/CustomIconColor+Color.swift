@@ -1,17 +1,7 @@
 import SwiftUI
+import AnytypeCore
 
-enum CustomIconColor: Int, CaseIterable {
-    case gray
-    case yellow
-    case amber
-    case red
-    case pink
-    case purple
-    case blue
-    case sky
-    case teal
-    case green
-    
+extension CustomIconColor {
     var color: Color {
         switch self {
         case .gray:
@@ -35,9 +25,5 @@ enum CustomIconColor: Int, CaseIterable {
         case .green:
                 .System.green
         }
-    }
-    
-    var iconOption: Int {
-        rawValue + 1
     }
 }
