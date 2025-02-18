@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MessageLinkLocalImageView: View {
+struct ChatInputLocalImageView: View {
     
     let contentsOfFile: String
     let onTapRemove: () -> Void

@@ -43,9 +43,9 @@ struct SoulView: View {
             )
                 .foregroundColor(.Auth.body)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 20)
             
-            Spacer.fixedHeight(16)
+            Spacer.fixedHeight(18)
             
             input
         }
@@ -62,11 +62,11 @@ struct SoulView: View {
         .textContentType(.password)
         .autocapitalization(.sentences)
         .foregroundColor(.Auth.inputText)
-        .padding(EdgeInsets(horizontal: 22, vertical: 23))
+        .padding(EdgeInsets(horizontal: 20, vertical: 20))
         .background(Color.Auth.input)
-        .accentColor(.Auth.inputText)
-        .cornerRadius(24)
-        .frame(height: 68)
+        .accentColor(.Text.tertiary)
+        .cornerRadius(16)
+        .frame(height: 64)
     }
 }
 

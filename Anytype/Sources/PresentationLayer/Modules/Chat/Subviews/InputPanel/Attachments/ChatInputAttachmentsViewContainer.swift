@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 
-struct MessageInputAttachmentsViewContainer: View {
+struct ChatInputAttachmentsViewContainer: View {
 
     let objects: [ChatLinkedObject]
     let onTapObject: (ChatLinkedObject) -> Void
@@ -21,19 +21,19 @@ struct MessageInputAttachmentsViewContainer: View {
                     ForEach(objects) { object in
                         switch object {
                         case .uploadedObject(let details):
-                            MessageLinkedUploadedObject(details: details) {
+                            ChatInputUploadedObject(details: details) {
                                 onTapObject(object)
                             } onTapRemove: {
                                 onTapRemove(object)
                             }
                         case .localPhotosFile(let localFile):
-                            MessageLinkedLocalPhotosFile(localFile: localFile) {
+                            ChatInputLocalPhotosFile(localFile: localFile) {
                                 onTapObject(object)
                             } onTapRemove: {
                                 onTapRemove(object)
                             }
                         case .localBinaryFile(let data):
-                            MessageLinkedLocalFile(fileData: data) {
+                            ChatInputLocalFile(fileData: data) {
                                 onTapObject(object)
                             } onTapRemove: {
                                 onTapRemove(object)

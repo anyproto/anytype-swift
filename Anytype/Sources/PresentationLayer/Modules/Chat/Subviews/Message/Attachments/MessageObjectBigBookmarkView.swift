@@ -17,27 +17,30 @@ struct MessageObjectBigBookmarkView: View {
                     .aspectRatio(CGSize(width: 1.91, height: 1), contentMode: .fill)
                     .cornerRadius(2)
             }
-            VStack(alignment: .leading, spacing: 2) {
-                if let host = source?.host(), host.isNotEmpty {
-                    Text(host)
-                        .anytypeStyle(.relation3Regular)
-                        .lineLimit(1)
-                        .foregroundStyle(Color.Control.transparentActive)
+            HStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 2) {
+                    if let host = source?.host(), host.isNotEmpty {
+                        Text(host)
+                            .anytypeStyle(.relation3Regular)
+                            .lineLimit(1)
+                            .foregroundStyle(Color.Control.transparentActive)
+                    }
+                    
+                    if title.isNotEmpty {
+                        Text(title)
+                            .anytypeStyle(.previewTitle2Medium)
+                            .lineLimit(1)
+                            .foregroundStyle(Color.Text.primary)
+                    }
+                    
+                    if description.isNotEmpty {
+                        Text(description)
+                            .anytypeStyle(.relation3Regular)
+                            .lineLimit(2)
+                            .foregroundStyle(Color.Text.secondary)
+                    }
                 }
-                
-                if title.isNotEmpty {
-                    Text(title)
-                        .anytypeStyle(.previewTitle2Medium)
-                        .lineLimit(1)
-                        .foregroundStyle(Color.Text.primary)
-                }
-                
-                if description.isNotEmpty {
-                    Text(description)
-                        .anytypeStyle(.relation3Regular)
-                        .lineLimit(2)
-                        .foregroundStyle(Color.Text.secondary)
-                }
+                Spacer()
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
