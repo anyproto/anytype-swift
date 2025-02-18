@@ -111,6 +111,19 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let newOnboarding = FeatureDescription(
+        title: "New onboarding",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let disableColorfulSeedPhrase = FeatureDescription(
+        title: "Disable colorful seed phrase",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
