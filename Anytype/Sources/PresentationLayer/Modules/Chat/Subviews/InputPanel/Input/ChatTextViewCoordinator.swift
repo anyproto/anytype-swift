@@ -359,7 +359,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         let linkChange = chatInputLinkParser.handleInput(sourceText: textView.attributedText, range: range, replacementText: text)
         
         switch linkChange {
-        case .addLinkStyle(let range, let link, _):
+        case .addLinkStyle(let range, let link):
             let containsLink = textView.textStorage.containsNotNilAttribute(.chatLinkToURL, in: range)
             if !containsLink {
                 textView.textStorage.addAttribute(.chatLinkToURL, value: link, range: range)

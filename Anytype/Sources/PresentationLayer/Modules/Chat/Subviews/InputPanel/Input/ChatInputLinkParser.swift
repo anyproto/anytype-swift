@@ -3,7 +3,7 @@ import UIKit
 import Factory
 
 enum ChatInputLinkParserChange: Equatable {
-    case addLinkStyle(range: NSRange, link: URL, text: NSAttributedString)
+    case addLinkStyle(range: NSRange, link: URL)
 }
 
 protocol ChatInputLinkParserProtocol: AnyObject {
@@ -20,7 +20,11 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
     
     // MARK: - ChatInputLinkParserProtocol
     
-    func handleInput(sourceText: NSAttributedString, range: NSRange, replacementText: String) -> ChatInputLinkParserChange? {
+    func handleInput(
+        sourceText: NSAttributedString,
+        range: NSRange,
+        replacementText: String
+    ) -> ChatInputLinkParserChange? {
         guard let regex else { return nil }
         
         guard replacementText == " " || replacementText == "\n" else { return nil }
@@ -33,7 +37,7 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         let matches = regex.matches(
             in: replacedText,
             options: [],
-            range: NSRange(location: 0, length: replacedText.utf16.count)
+            range: NSRange(location: 0, length: range.location + replacementText.count)
         )
         
         let textLenDiff = replacedText.count - sourceText.string.count
@@ -43,39 +47,30 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
     
         guard let linkUrl = URL(string: link) else { return nil }
         
-        return .addLinkStyle(range: match.range, link: linkUrl, text: replacedAttributedText)
+        return .addLinkStyle(range: match.range, link: linkUrl)
     }
-    
-    func handlePaste(sourceText: NSAttributedString, range: NSRange, replacementText: String) -> [ChatInputLinkParserChange] {
         
-    }
-    
-    // MARK: - Private
-    
-    func handle(
+    func handlePaste(
         sourceText: NSAttributedString,
         range: NSRange,
         replacementText: String
     ) -> [ChatInputLinkParserChange] {
-        let replacedAttributedText = sourceText.mutable
-        replacedAttributedText.replaceCharacters(in: range, with: replacementText)
+        guard let regex else { return [] }
         
-        let replacedText = replacedAttributedText.string
-
         let matches = regex.matches(
-            in: replacedText,
+            in: replacementText,
             options: [],
-            range: NSRange(location: 0, length: replacedText.utf16.count)
+            range: NSRange(location: 0, length: replacementText.utf16.count)
         )
         
-        let textLenDiff = replacedText.count - sourceText.string.count
-        guard let match = matches.last, match.range.contains(range.location - textLenDiff) else { return nil }
+        let changes = matches.compactMap { match -> ChatInputLinkParserChange? in
+            let link = (replacementText as NSString).substring(with: match.range).lowercased()
+            guard let linkUrl = URL(string: link) else { return nil }
+            let newRange = NSRange(location: match.range.location - range.location, length: match.range.length)
+            return .addLinkStyle(range: newRange, link: linkUrl)
+        }
         
-        let link = (replacedText as NSString).substring(with: match.range).lowercased()
-    
-        guard let linkUrl = URL(string: link) else { return nil }
-        
-        return .addLinkStyle(range: match.range, link: linkUrl, text: replacedAttributedText)
+        return changes
     }
 }
 
