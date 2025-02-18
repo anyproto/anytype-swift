@@ -61,52 +61,34 @@ struct ChatInputLinkParserTests {
     @Test(arguments: [
         // Paste
         (
-            NSAttributedString(string: "A h://a.b"),
-            NSRange(location: 9, length: 0),
             "c://d.e",
             [
                 ChatInputLinkParserChange.addLinkStyle(
-                    range: NSRange(location: 9, length: 7),
+                    range: NSRange(location: 0, length: 7),
                     link: URL(string: "c://d.e")!
                 )
             ]
         ),
         // Paste with text
         (
-            NSAttributedString(string: "A h://a.b"),
-            NSRange(location: 9, length: 0),
             "c://d.e ohoho f://g.h haha",
             [
                 ChatInputLinkParserChange.addLinkStyle(
-                    range: NSRange(location: 9, length: 7),
+                    range: NSRange(location: 0, length: 7),
                     link: URL(string: "c://d.e")!
                 ),
                 ChatInputLinkParserChange.addLinkStyle(
-                    range: NSRange(location: 23, length: 7),
+                    range: NSRange(location: 12, length: 7),
                     link: URL(string: "f://g.h")!
-                )
-            ]
-        ),
-        // Replace current link
-        (
-            NSAttributedString(string: "A h://a.b"),
-            NSRange(location: 2, length: 7),
-            "c://d.e",
-            [
-                ChatInputLinkParserChange.addLinkStyle(
-                    range: NSRange(location: 2, length: 7),
-                    link: URL(string: "c://d.e")!
                 )
             ]
         )
     ])
     func testHandlePaste(
-        _ source: NSAttributedString,
-        _ range: NSRange,
-        _ replacementText: String,
+        _ source: String,
         _ expectedResult: [ChatInputLinkParserChange]
     ) async throws {
-        let result = parser.handlePaste(sourceText: source, range: range, replacementText: replacementText)
+        let result = parser.handlePaste(text: source)
         #expect(result == expectedResult)
     }
 }

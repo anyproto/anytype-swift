@@ -8,7 +8,7 @@ enum ChatInputLinkParserChange: Equatable {
 
 protocol ChatInputLinkParserProtocol: AnyObject {
     func handleInput(sourceText: NSAttributedString, range: NSRange, replacementText: String) -> ChatInputLinkParserChange?
-    func handlePaste(sourceText: NSAttributedString, range: NSRange, replacementText: String) -> [ChatInputLinkParserChange]
+    func handlePaste(text: String) -> [ChatInputLinkParserChange]
 }
 
 final class ChatInputLinkParser: ChatInputLinkParserProtocol {
@@ -50,24 +50,19 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         return .addLinkStyle(range: match.range, link: linkUrl)
     }
         
-    func handlePaste(
-        sourceText: NSAttributedString,
-        range: NSRange,
-        replacementText: String
-    ) -> [ChatInputLinkParserChange] {
+    func handlePaste(text: String) -> [ChatInputLinkParserChange] {
         guard let regex else { return [] }
         
         let matches = regex.matches(
-            in: replacementText,
+            in: text,
             options: [],
-            range: NSRange(location: 0, length: replacementText.count)
+            range: NSRange(location: 0, length: text.count)
         )
         
         let changes = matches.compactMap { match -> ChatInputLinkParserChange? in
-            let link = (replacementText as NSString).substring(with: match.range).lowercased()
+            let link = (text as NSString).substring(with: match.range).lowercased()
             guard let linkUrl = URL(string: link) else { return nil }
-            let newRange = NSRange(location: match.range.location + range.location, length: match.range.length)
-            return .addLinkStyle(range: newRange, link: linkUrl)
+            return .addLinkStyle(range: match.range, link: linkUrl)
         }
         
         return changes
