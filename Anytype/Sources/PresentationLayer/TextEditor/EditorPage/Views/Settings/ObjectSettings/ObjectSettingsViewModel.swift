@@ -14,7 +14,6 @@ enum ObjectSettingsAction {
 @MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, ObjectHeaderModuleOutput {
     func undoRedoAction(objectId: String)
-    func layoutPickerAction(document: some BaseDocumentProtocol)
     func relationsAction(document: some BaseDocumentProtocol)
     func showVersionHistory(document: some BaseDocumentProtocol)
     func openPageAction(screenData: ScreenData)
@@ -28,7 +27,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 @MainActor
 final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
 
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
@@ -65,10 +64,6 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         }
     }
     
-    func onTapLayoutPicker() {
-        output?.layoutPickerAction(document: document)
-    }
-    
     func onTapIconPicker() {
         output?.showIconPicker(document: document)
     }
@@ -89,7 +84,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         guard let details = document.details else { return }
         
         if details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue }) {
-            try await relationsService.removeRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
+            try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
         } else {
             try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
         }

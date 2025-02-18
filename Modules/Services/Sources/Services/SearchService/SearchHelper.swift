@@ -99,7 +99,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = layouts.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.relationKey = BundledRelationKey.resolvedLayout.rawValue
         
         return filter
     }
@@ -126,7 +126,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = layouts.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.relationKey = BundledRelationKey.resolvedLayout.rawValue
         
         return filter
     }

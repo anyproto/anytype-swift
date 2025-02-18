@@ -9,7 +9,7 @@ enum SetViewSettings: CaseIterable {
         case .layout:
             return Loc.layout
         case .relations:
-            return Loc.relations
+            return Loc.fields
         case .filters:
             return Loc.EditSet.Popup.Filters.NavigationView.title
         case .sorts:

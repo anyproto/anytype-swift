@@ -280,18 +280,31 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         
         var updatesForRelations: [DocumentUpdate] = [.general, .details(id: objectId)]
         updatesForRelations.append(contentsOf: parsedRelationDependedDetailsEvents)
+        updatesForRelations.append(.details(id: details.type))
         
         guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
-        
-        let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            keys:  details.values.map(\.key),
-            spaceId: spaceId
+
+        let objectRelations = relationDetailsStorage.relationsDetails(
+            keys:  details.values.map(\.key), spaceId: spaceId
         )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details.objectType.recommendedRelations, spaceId: spaceId)
-        let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
+
+        let recommendedRelations = relationDetailsStorage.relationsDetails(
+            ids: details.objectType.recommendedRelations, spaceId: spaceId
+        )
+        
+        let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(
+            ids: details.objectType.recommendedFeaturedRelations, spaceId: spaceId
+        )
+        
+        let recommendedHiddenRelations = relationDetailsStorage.relationsDetails(
+            ids: details.objectType.recommendedHiddenRelations, spaceId: spaceId
+        )
+        
         let newRelations = relationBuilder.parsedRelations(
-            objectRelations: objectRelationsDetails,
-            typeRelations: typeRelationsDetails,
+            objectRelations: objectRelations,
+            recommendedRelations: recommendedRelations,
+            recommendedFeaturedRelations: recommendedFeaturedRelations,
+            recommendedHiddenRelations: recommendedHiddenRelations,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage

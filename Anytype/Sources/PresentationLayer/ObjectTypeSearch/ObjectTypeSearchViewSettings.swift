@@ -58,4 +58,14 @@ extension ObjectTypeSearchViewSettings {
         incudeNotForCreation: false,
         allowPaste: false
     )
+    
+    static let library = ObjectTypeSearchViewSettings(
+        showPins: false,
+        showLists: true,
+        showFiles: true,
+        showChat: false,
+        showTemplates: true,
+        incudeNotForCreation: true,
+        allowPaste: false
+    )
 }

@@ -97,11 +97,12 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        guard let typeId = document.details?.type else { return }
         relationsSearchData = RelationsSearchData(
-            objectId: document.objectId,
+            objectId: typeId,
             spaceId: document.spaceId,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
-            target: .object, 
+            target: .type(isFeatured: false),
             onRelationSelect: onSelect
         )
     }

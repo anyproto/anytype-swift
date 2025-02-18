@@ -27,7 +27,7 @@ struct NewSpaceSettingsCoordinatorView: View {
             .sheet(isPresented: $model.showWallpaperPicker) {
                 WallpaperPickerView(spaceId: model.accountSpaceId)
             }
-            .sheet(isPresented: $model.showObjectTypeSearch) {
+            .sheet(isPresented: $model.showDefaultObjectTypeSearch) {
                 ObjectTypeSearchView(
                     title: Loc.chooseDefaultObjectType,
                     spaceId: model.accountSpaceId,

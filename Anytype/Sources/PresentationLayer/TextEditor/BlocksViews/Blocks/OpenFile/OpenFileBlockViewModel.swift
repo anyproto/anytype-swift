@@ -7,7 +7,7 @@ final class OpenFileBlockViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
     
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     private var document: (any BaseDocumentProtocol)?

@@ -81,6 +81,7 @@ internal enum Loc {
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
   internal static let confirm = Loc.tr("Localizable", "Confirm", fallback: "Confirm")
   internal static let connecting = Loc.tr("Localizable", "Connecting", fallback: "Connecting...")
+  internal static let contentModel = Loc.tr("Localizable", "Content Model", fallback: "Content Model")
   internal static let copied = Loc.tr("Localizable", "Copied", fallback: "Copied")
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
@@ -100,7 +101,7 @@ internal enum Loc {
     return Loc.tr("Localizable", "Create option with", String(describing: p1), fallback: "Create option ‘%@’")
   }
   internal static func createRelation(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
+    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create field ‘%@’")
   }
   internal static let createSet = Loc.tr("Localizable", "Create Set", fallback: "Create Set")
   internal static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
@@ -149,7 +150,8 @@ internal enum Loc {
   internal static let failedToSyncTryingAgain = Loc.tr("Localizable", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
   internal static let favorite = Loc.tr("Localizable", "Favorite", fallback: "Favorite")
   internal static let favorites = Loc.tr("Localizable", "Favorites", fallback: "Favorites")
-  internal static let featuredRelations = Loc.tr("Localizable", "Featured relations", fallback: "Featured relations")
+  internal static let featuredRelations = Loc.tr("Localizable", "Featured relations", fallback: "Featured fields")
+  internal static let fields = Loc.tr("Localizable", "Fields", fallback: "Fields")
   internal static let file = Loc.tr("Localizable", "File", fallback: "File")
   internal static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle", fallback: "Store file in original state")
   internal static let files = Loc.tr("Localizable", "Files", fallback: "Files")
@@ -158,12 +160,14 @@ internal enum Loc {
   internal static let foreverFree = Loc.tr("Localizable", "Forever free", fallback: "Forever free")
   internal static let gallery = Loc.tr("Localizable", "Gallery", fallback: "Gallery")
   internal static let goBack = Loc.tr("Localizable", "Go back", fallback: "Go back")
+  internal static let gotIt = Loc.tr("Localizable", "Got it", fallback: "I got it!")
   internal static let gradients = Loc.tr("Localizable", "Gradients", fallback: "Gradients")
   internal static let green = Loc.tr("Localizable", "Green", fallback: "Green")
   internal static let greenBackground = Loc.tr("Localizable", "Green background", fallback: "Green background")
   internal static let grey = Loc.tr("Localizable", "Grey", fallback: "Grey")
   internal static let greyBackground = Loc.tr("Localizable", "Grey background", fallback: "Grey background")
   internal static let header = Loc.tr("Localizable", "Header", fallback: "Header")
+  internal static let hidden = Loc.tr("Localizable", "Hidden", fallback: "Hidden")
   internal static let hide = Loc.tr("Localizable", "Hide", fallback: "Hide")
   internal static let hideTypes = Loc.tr("Localizable", "Hide types", fallback: "Hide types")
   internal static let highlight = Loc.tr("Localizable", "Highlight", fallback: "Highlight")
@@ -214,7 +218,7 @@ internal enum Loc {
   internal static let myself = Loc.tr("Localizable", "Myself", fallback: "Myself")
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   internal static let new = Loc.tr("Localizable", "New", fallback: "New")
-  internal static let newRelation = Loc.tr("Localizable", "New relation", fallback: "New relation")
+  internal static let newField = Loc.tr("Localizable", "New field", fallback: "New field")
   internal static let newSet = Loc.tr("Localizable", "New set", fallback: "New set")
   internal static let next = Loc.tr("Localizable", "Next", fallback: "Next")
   internal static let noConnection = Loc.tr("Localizable", "No connection", fallback: "No connection")
@@ -235,6 +239,7 @@ internal enum Loc {
   internal static func objectSelected(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Object selected", p1, fallback: "Plural format key: \"%#@object@ selected\"")
   }
+  internal static let objectTypes = Loc.tr("Localizable", "Object Types", fallback: "Object Types")
   internal static let objects = Loc.tr("Localizable", "Objects", fallback: "Objects")
   internal static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
   internal static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
@@ -248,7 +253,7 @@ internal enum Loc {
     return Loc.tr("Localizable", "Open Type Error", String(describing: p1), fallback: "Not supported type \"%@\". You can open it via desktop.")
   }
   internal static let other = Loc.tr("Localizable", "Other", fallback: "Other")
-  internal static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other relations")
+  internal static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other fields")
   internal static let p2PConnecting = Loc.tr("Localizable", "P2P Connecting", fallback: "P2P Connecting...")
   internal static let p2PConnection = Loc.tr("Localizable", "P2P Connection", fallback: "P2P Connection")
   internal static let pages = Loc.tr("Localizable", "Pages", fallback: "Pages")
@@ -294,7 +299,6 @@ internal enum Loc {
   internal static let red = Loc.tr("Localizable", "Red", fallback: "Red")
   internal static let redBackground = Loc.tr("Localizable", "Red background", fallback: "Red background")
   internal static let redo = Loc.tr("Localizable", "Redo", fallback: "Redo")
-  internal static let relations = Loc.tr("Localizable", "Relations", fallback: "Relations")
   internal static let remove = Loc.tr("Localizable", "Remove", fallback: "Remove")
   internal static let removeFromFavorite = Loc.tr("Localizable", "Remove From Favorite", fallback: "Remove From Favorite")
   internal static let removePhoto = Loc.tr("Localizable", "Remove photo", fallback: "Remove photo")
@@ -316,7 +320,7 @@ internal enum Loc {
   internal static let selectObject = Loc.tr("Localizable", "Select object", fallback: "Select object")
   internal static let selectOption = Loc.tr("Localizable", "Select option", fallback: "Select option")
   internal static let selectOptions = Loc.tr("Localizable", "Select options", fallback: "Select options")
-  internal static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select relation type")
+  internal static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select field type")
   internal static let selectVaultError = Loc.tr("Localizable", "Select vault error", fallback: "Select vault error")
   internal static func selectedBlocks(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: \"%#@object@\"")
@@ -884,7 +888,7 @@ internal enum Loc {
       }
       internal enum Sort {
         internal enum Add {
-          internal static let searchPlaceholder = Loc.tr("Localizable", "EditSet.Popup.Sort.Add.SearchPlaceholder", fallback: "Сhoose a relation to sort")
+          internal static let searchPlaceholder = Loc.tr("Localizable", "EditSet.Popup.Sort.Add.SearchPlaceholder", fallback: "Сhoose a field to sort")
         }
         internal enum EmptyTypes {
           internal static let end = Loc.tr("Localizable", "EditSet.Popup.Sort.EmptyTypes.End", fallback: "On bottom")
@@ -960,7 +964,17 @@ internal enum Loc {
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
   }
   internal enum Fields {
+    internal static let addToType = Loc.tr("Localizable", "Fields.addToType", fallback: "Add to the current type")
+    internal static func created(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Fields.Created", String(describing: p1), fallback: "Field ‘%@’ has been created")
+    }
+    internal static let local = Loc.tr("Localizable", "Fields.local", fallback: "Local fields")
     internal static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Fields menu")
+    internal static let missingInfo = Loc.tr("Localizable", "Fields.missingInfo", fallback: "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.")
+    internal static let removeFromObject = Loc.tr("Localizable", "Fields.removeFromObject", fallback: "Remove from the object")
+    internal static func updated(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Fields.Updated", String(describing: p1), fallback: "Field ‘%@’ has been updated")
+    }
   }
   internal enum FileStorage {
     internal static let cleanUpFiles = Loc.tr("Localizable", "FileStorage.CleanUpFiles", fallback: "Clean up files files")
@@ -1286,16 +1300,12 @@ internal enum Loc {
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType", fallback: "Red pill")
   }
   internal enum ReindexingWarningAlert {
-    internal static let button = Loc.tr("Localizable", "ReindexingWarningAlert.Button", fallback: "I got it!")
     internal static let description = Loc.tr("Localizable", "ReindexingWarningAlert.Description", fallback: "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.")
     internal static let title = Loc.tr("Localizable", "ReindexingWarningAlert.Title", fallback: "Upgrading your search experience")
   }
   internal enum Relation {
-    internal static func addedToLibrary(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ has been created")
-    }
-    internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
-    internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
+    internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted field")
+    internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My fields")
     internal enum Create {
       internal enum Row {
         internal static func title(_ p1: Any) -> String {
@@ -1316,7 +1326,7 @@ internal enum Loc {
       internal static let description = Loc.tr("Localizable", "Relation.EmptyState.description", fallback: "Nothing found. Create first option to start.")
       internal static let title = Loc.tr("Localizable", "Relation.EmptyState.title", fallback: "No options")
       internal enum Blocked {
-        internal static let title = Loc.tr("Localizable", "Relation.EmptyState.Blocked.title", fallback: "The relation is empty")
+        internal static let title = Loc.tr("Localizable", "Relation.EmptyState.Blocked.title", fallback: "The field is empty")
       }
     }
     internal enum Format {
@@ -1385,6 +1395,7 @@ internal enum Loc {
       }
     }
     internal enum Origin {
+      internal static let api = Loc.tr("Localizable", "Relation.Origin.API", fallback: "API")
       internal static let bookmark = Loc.tr("Localizable", "Relation.Origin.Bookmark", fallback: "Bookmark")
       internal static let builtin = Loc.tr("Localizable", "Relation.Origin.Builtin", fallback: "Library installed")
       internal static let clipboard = Loc.tr("Localizable", "Relation.Origin.Clipboard", fallback: "Clipboard")
@@ -1396,7 +1407,7 @@ internal enum Loc {
     }
     internal enum Search {
       internal enum View {
-        internal static let placeholder = Loc.tr("Localizable", "Relation.Search.View.Placeholder", fallback: "Search or create a new relation")
+        internal static let placeholder = Loc.tr("Localizable", "Relation.Search.View.Placeholder", fallback: "Search or create a new field")
       }
     }
     internal enum View {
@@ -1497,8 +1508,8 @@ internal enum Loc {
     }
     internal enum FeaturedRelations {
       internal static let query = Loc.tr("Localizable", "Set.FeaturedRelations.Query", fallback: "Query")
-      internal static let relation = Loc.tr("Localizable", "Set.FeaturedRelations.Relation", fallback: "Relation:")
-      internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Relations:")
+      internal static let relation = Loc.tr("Localizable", "Set.FeaturedRelations.Relation", fallback: "Field:")
+      internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Fields:")
       internal static let type = Loc.tr("Localizable", "Set.FeaturedRelations.Type", fallback: "Type:")
     }
     internal enum SourceType {
@@ -1518,7 +1529,7 @@ internal enum Loc {
     internal enum View {
       internal static let unsupportedAlert = Loc.tr("Localizable", "Set.View.UnsupportedAlert", fallback: "View is unsupported on mobile")
       internal enum Empty {
-        internal static let subtitle = Loc.tr("Localizable", "Set.View.Empty.Subtitle", fallback: "Add search query to aggregate objects with equal types and relations in a live mode")
+        internal static let subtitle = Loc.tr("Localizable", "Set.View.Empty.Subtitle", fallback: "Add search query to aggregate objects with equal types and fields in a live mode")
         internal static let title = Loc.tr("Localizable", "Set.View.Empty.Title", fallback: "No query selected")
       }
       internal enum Kanban {
@@ -1575,7 +1586,7 @@ internal enum Loc {
           internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoFilters.Placeholder", fallback: "No filters")
         }
         internal enum NoRelations {
-          internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoRelations.Placeholder", fallback: "No relations")
+          internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoRelations.Placeholder", fallback: "No fields")
         }
         internal enum NoSorts {
           internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoSorts.Placeholder", fallback: "No sorts")
@@ -1955,11 +1966,10 @@ internal enum Loc {
     }
   }
   internal enum TemplateSelection {
-    internal static let blankTemplate = Loc.tr("Localizable", "TemplateSelection.blankTemplate", fallback: "Blank")
     internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
     internal enum Available {
       internal static func title(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "TemplateSelection.Available.Title", p1, fallback: "This type has %d templates")
+        return Loc.tr("Localizable", "TemplateSelection.Available.Title", p1, fallback: "Plural format key: \"%#@object@\"")
       }
     }
     internal enum ObjectType {

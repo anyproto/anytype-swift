@@ -30,7 +30,7 @@ final class RelationInfoViewModel: ObservableObject {
     var title: String {
         switch mode {
         case .create:
-            Loc.newRelation
+            Loc.newField
         case .edit:
             Loc.editField
         }
@@ -46,9 +46,8 @@ final class RelationInfoViewModel: ObservableObject {
     private let target: RelationsModuleTarget
     private let objectId: String
     private let spaceId: String
+    private let relationId: String
     
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     
@@ -69,7 +68,9 @@ final class RelationInfoViewModel: ObservableObject {
         
         self.name = data.name
         self.format = data.mode.format ?? SupportedRelationFormat.object
+        self.relationId = data.mode.relationId ?? ""
         handleFormatUpdate()
+        data.mode.limitedObjectTypes.flatMap { updateTypesRestriction(objectTypeIds: $0) }
     }
     
 }
@@ -91,8 +92,9 @@ extension RelationInfoViewModel {
     }
     
     func didTapAddButton() {
+        
         let relationDetails = RelationDetails(
-            id: "",
+            id: relationId,
             key: "",
             name: name,
             format: format.asRelationFormat,
@@ -106,26 +108,45 @@ extension RelationInfoViewModel {
             spaceId: ""
         )
         
-        createRelation(relationDetails: relationDetails)
+        switch mode {
+        case .create:
+            createRelation(relationDetails)
+        case .edit:
+            updateRelation(relationDetails)
+        }
     }
     
-    private func createRelation(relationDetails: RelationDetails) {
+    private func createRelation(_ relationDetails: RelationDetails) {
         Task {
             let createdRelation = try await relationsInteractor.createRelation(spaceId: spaceId, relation: relationDetails)
             
             switch target {
-            case .object:
-                try await relationsInteractor.addRelationToObject(relation: createdRelation)
+            case .type(let isFeatured):
+                try await relationsInteractor.addRelationToType(relation: createdRelation, isFeatured: isFeatured)
             case .dataview(let activeViewId):
                 try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId)
             }
             
-            relationDetailsAdded(relationDetails: createdRelation)
+            onSuccessfullAction(relationDetails: createdRelation)
         }
     }
     
-    private func relationDetailsAdded(relationDetails: RelationDetails) {
-        toastData = ToastBarData(text: Loc.Relation.addedToLibrary(relationDetails.name), showSnackBar: true)
+    private func updateRelation(_ details: RelationDetails) {
+        Task {
+            try await relationsInteractor.updateRelation(spaceId: spaceId, relation: details)
+            onSuccessfullAction(relationDetails: details)
+        }
+    }
+    
+    private func onSuccessfullAction(relationDetails: RelationDetails) {
+        let text = switch mode {
+        case .create:
+            Loc.Fields.created(relationDetails.name)
+        case .edit:
+            Loc.Fields.updated(relationDetails.name)
+        }
+        
+        toastData = ToastBarData(text: text, showSnackBar: true)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         output?.didPressConfirm(relationDetails)
     }

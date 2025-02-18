@@ -7,7 +7,9 @@ import AnytypeCore
 protocol RelationsBuilderProtocol: AnyObject {
     func parsedRelations(
         objectRelations: [RelationDetails],
-        typeRelations: [RelationDetails],
+        recommendedRelations: [RelationDetails],
+        recommendedFeaturedRelations: [RelationDetails],
+        recommendedHiddenRelations: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -19,73 +21,142 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     @Injected(\.singleRelationBuilder)
     private var builder: any SingleRelationBuilderProtocol
     
-    // MARK: - Internal functions
-    
     func parsedRelations(
         objectRelations: [RelationDetails],
-        typeRelations: [RelationDetails],
+        recommendedRelations: [RelationDetails],
+        recommendedFeaturedRelations: [RelationDetails],
+        recommendedHiddenRelations: [RelationDetails],
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> ParsedRelations {
-        guard let objectDetails = storage.get(id: objectId) else {
-            return .empty
-        }
+        guard let objectDetails = storage.get(id: objectId) else { return .empty }
         
-        var featuredRelations: [Relation] = []
-        var deletedRelations: [Relation] = []
-        var otherRelations: [Relation] = []
+        let systemRelations = buildSystemRelations(relationDetails: objectRelations, objectDetails: objectDetails, storage: storage)
         
-        
-        hackGlobalNameValue(
-            objectRelations: objectRelations,
+        let objectRelations = buildRelations(
+            relationDetails: objectRelations,
             objectDetails: objectDetails,
+            isFeatured: false,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
         )
-        .flatMap { featuredRelations.append($0) }
         
+        let featuredRelations = buildRelations(
+            relationDetails: recommendedFeaturedRelations,
+            objectDetails: objectDetails,
+            isFeatured: true,
+            relationValuesIsLocked: relationValuesIsLocked,
+            hackGlobalName: true,
+            storage: storage
+        ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
         
-        objectRelations.forEach { relationDetails in
-            guard !relationDetails.isHidden else { return }
-            guard relationDetails.key != BundledRelationKey.globalName.rawValue && relationDetails.key != BundledRelationKey.identity.rawValue else {
-                return // see hackGlobalNameValue
+        let mainSidebarRelations = buildRelations(
+            relationDetails: recommendedRelations,
+            objectDetails: objectDetails,
+            isFeatured: false,
+            relationValuesIsLocked: relationValuesIsLocked,
+            storage: storage
+        ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
+        
+        let hiddenRalations = buildRelations(
+            relationDetails: recommendedHiddenRelations,
+            objectDetails: objectDetails,
+            isFeatured: false,
+            relationValuesIsLocked: relationValuesIsLocked,
+            storage: storage
+        )
+        
+        let allConflictedRelations = objectRelations
+            .filter {
+                !mainSidebarRelations.map(\.id).contains($0.id) &&
+                !featuredRelations.map(\.id).contains($0.id) &&
+                !recommendedHiddenRelations.map(\.id).contains($0.id)
             }
-            
-            let value = builder.relation(
-                relationDetails: relationDetails,
-                details: objectDetails,
-                relationValuesIsLocked: relationValuesIsLocked,
-                storage: storage
-            )
-            
-            guard let value else { return }
-            
-            if value.isFeatured {
-                featuredRelations.append(value)
-            } else if value.isDeleted {
-                deletedRelations.append(value)
-            } else {
-                otherRelations.append(value)
-            }
-        }
         
-        let typeRelations: [Relation] = typeRelations.compactMap { relationDetails in
-            guard !relationDetails.isHidden else { return nil }
-            return builder.relation(
-                relationDetails: relationDetails,
-                details: objectDetails,
-                relationValuesIsLocked: relationValuesIsLocked,
-                storage: storage
-            )
-        }
+        let deletedRelations = allConflictedRelations.filter { $0.isDeleted }
+        
+        let conflictedRelationsWithoutDeleted = allConflictedRelations.filter { !$0.isDeleted }
+        let systemConflictedRelations = conflictedRelationsWithoutDeleted.filter { BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
+        let conflictedRelations = conflictedRelationsWithoutDeleted.filter { !BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
+        
+        let sidebarRelations = mainSidebarRelations + systemConflictedRelations
         
         return ParsedRelations(
             featuredRelations: featuredRelations,
+            sidebarRelations: sidebarRelations,
+            hiddenRelations: hiddenRalations,
+            conflictedRelations: conflictedRelations,
             deletedRelations: deletedRelations,
-            typeRelations: typeRelations,
-            otherRelations: otherRelations
+            systemRelations: systemRelations
         )
+    }
+    
+    private func buildRelations(
+        relationDetails: [RelationDetails],
+        objectDetails: ObjectDetails,
+        isFeatured: Bool,
+        relationValuesIsLocked: Bool,
+        hackGlobalName: Bool = false,
+        storage: ObjectDetailsStorage
+    ) -> [Relation] {
+        var relations: [Relation] = relationDetails.compactMap { relation in
+            guard isRelationCanBeAddedToList(relation) else {
+                return nil
+            }
+            return builder.relation(
+                relationDetails: relation,
+                details: objectDetails,
+                isFeatured: isFeatured,
+                relationValuesIsLocked: relationValuesIsLocked,
+                storage: storage
+            )
+        }
+        
+        if hackGlobalName {
+            hackGlobalNameValue(
+                objectRelations: relationDetails,
+                objectDetails: objectDetails,
+                relationValuesIsLocked: relationValuesIsLocked,
+                storage: storage
+            )
+            .flatMap { relations.append($0) }
+        }
+
+        return relations
+    }
+    
+    private func buildSystemRelations(
+        relationDetails: [RelationDetails],
+        objectDetails: ObjectDetails,
+        storage: ObjectDetailsStorage
+    ) -> [Relation] {
+        return relationDetails.compactMap { relation in
+            guard BundledRelationKey.systemKeys.map(\.rawValue).contains(relation.key) else {
+                return nil
+            }
+            return builder.relation(
+                relationDetails: relation,
+                details: objectDetails,
+                isFeatured: false,
+                relationValuesIsLocked: true,
+                storage: storage
+            )
+        }
+    }
+    
+    private func isRelationCanBeAddedToList(_ relation: RelationDetails) -> Bool {
+        guard !relation.isHidden else { return false }
+        
+        // We are filtering out description from the list of relations
+        guard relation.key != BundledRelationKey.description.rawValue else { return false }
+        
+        // See hackGlobalNameValue
+        guard relation.key != BundledRelationKey.globalName.rawValue && relation.key != BundledRelationKey.identity.rawValue else {
+            return false
+        }
+        
+        return true
     }
     
     //fallback to identiy if globalName is empty
@@ -99,6 +170,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             key: BundledRelationKey.globalName.rawValue,
             objectRelations: objectRelations,
             objectDetails: objectDetails,
+            isFeatured: true,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
         ), globaName.hasValue { return globaName }
@@ -107,6 +179,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             key: BundledRelationKey.identity.rawValue,
             objectRelations: objectRelations,
             objectDetails: objectDetails,
+            isFeatured: true,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
         ), identity.hasValue { return identity }
@@ -118,6 +191,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         key: String,
         objectRelations: [RelationDetails],
         objectDetails: ObjectDetails,
+        isFeatured: Bool,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation? {
@@ -128,6 +202,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         return builder.relation(
             relationDetails: details,
             details: objectDetails,
+            isFeatured: isFeatured,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
         )
