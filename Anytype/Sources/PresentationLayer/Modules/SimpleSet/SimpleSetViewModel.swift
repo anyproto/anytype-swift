@@ -15,7 +15,7 @@ final class SimpleSetViewModel: ObservableObject {
     @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
     @Published private var participantCanEdit = false
 
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     @Injected(\.simpleSetSubscriptionService)
     private var simpleSetSubscriptionService: any SimpleSetSubscriptionServiceProtocol
