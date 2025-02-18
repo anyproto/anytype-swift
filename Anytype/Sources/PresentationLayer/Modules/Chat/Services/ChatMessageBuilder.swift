@@ -8,7 +8,7 @@ protocol ChatMessageBuilderProtocol: AnyObject, Sendable {
 final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     
     private enum Constants {
-        static let grouppingDateInterval: Int = 5 * 60 // seconds
+        static let grouppingDateInterval: Int = 60 // seconds
     }
     
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()

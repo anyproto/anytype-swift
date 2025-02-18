@@ -37,7 +37,7 @@ struct MessageObjectBigBookmarkView: View {
                         Text(description)
                             .anytypeStyle(.relation3Regular)
                             .lineLimit(2)
-                            .foregroundStyle(Color.Text.secondary)
+                            .foregroundStyle(Color.Control.transparentActive)
                     }
                 }
                 Spacer()
