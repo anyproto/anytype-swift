@@ -152,8 +152,8 @@ struct ChatView: View {
     
     private var emptyView: some View {
         ChatEmptyStateView(
-            title: Loc.Chat.Empty.title,
-            description: Loc.Chat.Empty.description,
+            title: model.conversationType.isChat ? Loc.Chat.Empty.title : Loc.Stream.Empty.title,
+            description: model.conversationType.isChat ? Loc.Chat.Empty.description : Loc.Stream.Empty.description,
             action: {
                 model.onTapInviteLink()
             }

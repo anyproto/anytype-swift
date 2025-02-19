@@ -1923,6 +1923,12 @@ internal enum Loc {
     internal static let needUserAction = Loc.tr("Localizable", "StoreKitServiceError.needUserAction", fallback: "Payment unsuccessfull, User Actions on Apple side required to pay.")
     internal static let userCancelled = Loc.tr("Localizable", "StoreKitServiceError.userCancelled", fallback: "Purchase cancelled")
   }
+  internal enum Stream {
+    internal enum Empty {
+      internal static let description = Loc.tr("Localizable", "Stream.Empty.Description", fallback: "Invite people and start sharing your vibe!")
+      internal static let title = Loc.tr("Localizable", "Stream.Empty.Title", fallback: "This stream is empty.")
+    }
+  }
   internal enum StyleMenu {
     internal enum Color {
       internal enum TextColor {

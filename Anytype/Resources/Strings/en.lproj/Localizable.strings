@@ -1284,6 +1284,8 @@ Please provide specific details of your needs here.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Title" = "This chat is empty.";
 "Chat.Empty.Description" = "Invite people and start the conversation!";
+"Stream.Empty.Title" = "This stream is empty.";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe!";
 "Chat.Empty.Button.title" = "Share invite link";
 "Chat.DeleteMessage.Title" = "Delete this message?";
 "Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
