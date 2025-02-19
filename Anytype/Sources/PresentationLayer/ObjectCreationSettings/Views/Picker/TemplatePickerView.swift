@@ -85,7 +85,7 @@ struct TemplatePickerView: View {
             Spacer.fixedHeight(32)
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    AnytypeText(Loc.BlockText.ContentType.Title.placeholder, style: .title)
+                    AnytypeText(Loc.untitled, style: .title)
                         .foregroundColor(.Text.tertiary)
                     AnytypeText(Loc.TemplateSelection.Template.subtitle, style: .relation2Regular)
                         .foregroundColor(.Text.tertiary)

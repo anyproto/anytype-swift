@@ -7,7 +7,7 @@ final class CreateObjectView: UIView {
         
         var placeholder: String {
             switch self {
-            case .default: return Loc.Set.Create.ObjectTitle.placeholder
+            case .default: return Loc.untitled
             case .bookmark: return Loc.Set.Bookmark.Create.placeholder
             }
         }

@@ -75,7 +75,7 @@ struct SetHeaderSettingsView: View {
         }) {
             HStack(alignment: .center, spacing: 0) {
                 AnytypeText(
-                    model.viewName.isNotEmpty ? model.viewName : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled,
+                    model.viewName.isNotEmpty ? model.viewName : Loc.untitled,
                     style: .subheading
                 )
                 .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)

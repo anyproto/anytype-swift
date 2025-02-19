@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Deleted object";
 
 // MARK: - Relation
@@ -475,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
