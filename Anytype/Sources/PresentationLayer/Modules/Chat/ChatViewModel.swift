@@ -42,8 +42,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var iconColorService: any IconColorServiceProtocol
     @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -71,6 +71,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var messageTextLimit: String?
     @Published var textLimitReached = false
     @Published var typesForCreateObject: [ObjectType] = []
+    @Published var participantSpaceView: ParticipantSpaceViewData?
     private var photosItems: [PhotosPickerItem] = []
     private var linkPreviewTasks: [URL: AnyCancellable] = [:]
     
@@ -89,8 +90,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
-        workspaceStorage.spaceView(spaceId: spaceId)?.uxType.asConversationType ?? .chat
+        participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
     }
+    var isSpaceOwner: Bool { participantSpaceView?.isOwner ?? false }
 
     // Alerts
     
@@ -151,8 +153,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let participantsSub: () = subscribeOnParticipants()
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
+        async let spaceViewSub: () = subscribeOnSpaceView()
         
-        (_, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub)
+        (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub)
     }
     
     func subscribeOnMessages() async throws {
@@ -165,6 +168,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if prevChatIsEmpty, let message = messages.last {
                 collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
             }
+        }
+    }
+    
+    private func subscribeOnSpaceView() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            self.participantSpaceView = participantSpaceView
+            handleInviteLinkShow()
         }
     }
     
@@ -373,17 +383,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapCreateObject(type: ObjectType) {
         output?.didSelectCreateObject(type: type)
-    }
-    
-    func handleInviteLinkShow() {
-        guard !inviteLinkShown,
-              let spaceView = workspaceStorage.spaceView(spaceId: spaceId),
-              let createdDate = spaceView.createdDate,
-              Date().timeIntervalSince(createdDate) < 5 else {
-            return
-        }
-        output?.onInviteLinkSelected()
-        inviteLinkShown = true
     }
     
     // MARK: - MessageModuleOutput
@@ -608,5 +607,16 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             loading: false
         )
         linkedObjects[index] = .localBookmark(bookmark)
+    }
+    
+    private func handleInviteLinkShow() {
+        guard !inviteLinkShown,
+              isSpaceOwner,
+              let createdDate = participantSpaceView?.spaceView.createdDate,
+              Date().timeIntervalSince(createdDate) < 5 else {
+            return
+        }
+        output?.onInviteLinkSelected()
+        inviteLinkShown = true
     }
 }

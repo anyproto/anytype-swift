@@ -82,6 +82,7 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIV
         collectionViewContainer.addSubview(emptyView.view) {
             $0.pinToSuperview()
         }
+        
         view.addSubview(collectionViewContainer) {
             $0.pinToSuperview()
         }
