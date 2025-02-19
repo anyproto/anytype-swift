@@ -37,22 +37,9 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     
     // MARK: - State
     
-    let workspaceInfo: AccountInfo
-    private var participantSpaceView: ParticipantSpaceViewData?
-    private var joiningCount: Int = 0
-    private var owner: Participant?
-    private var inviteLink: URL?
-    
-    var spaceDisplayName: String {
-        spaceName.isNotEmpty ? spaceName : Loc.untitled
-    }
-    
-    var spaceDisplayDescription: String {
-        spaceDescription.isNotEmpty ? spaceDescription : spaceAccessType
-    }
-    
     @Published var spaceName = ""
     @Published var spaceDescription = ""
+    
     @Published var spaceAccessType = ""
     @Published var spaceIcon: Icon?
     
@@ -72,14 +59,25 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var qrInviteLink: URL?
     @Published var storageInfo = RemoteStorageSegmentInfo()
     @Published var defaultObjectType: ObjectType?
+    @Published var showIconPickerSpaceId: StringIdentifiable?
+    
+    let workspaceInfo: AccountInfo
+    private var participantSpaceView: ParticipantSpaceViewData?
+    private var joiningCount: Int = 0
+    private var owner: Participant?
+    private var inviteLink: URL?
+    
+    private var middlewareSpaceName = ""
+    private var middlewareSpaceDescription = ""
+    private var didSetup = false
+    var haveChanges: Bool {
+        middlewareSpaceName != spaceName || middlewareSpaceDescription != spaceDescription
+    }
+    
     
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
-    }
-    
-    func onSpaceDetailsTap() {
-        output?.onSpaceDetailsSelected()
     }
     
     func onInfoTap() {
@@ -138,6 +136,24 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
     }
     
+    func onChangeIconTap() {
+        showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
+    }
+    
+    func onSaveTap() {
+        Task {
+            try await workspaceService.workspaceSetDetails(
+                spaceId: workspaceInfo.accountSpaceId,
+                details: [
+                    .name(spaceName),
+                    .description(spaceDescription)
+                ]
+            )
+            
+            snackBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
+        }
+    }
+    
     // MARK: - Subscriptions
     
     func startSubscriptions() async {
@@ -184,13 +200,21 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
-        spaceName = spaceView.name
-        spaceDescription = spaceView.description
         allowDelete = participantSpaceView.canBeDeleted
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
         buildInfoBlock(details: spaceView)
+        
+        middlewareSpaceName = spaceView.name
+        middlewareSpaceDescription = spaceView.description
+        
+        if !didSetup {
+            spaceName = spaceView.name
+            spaceDescription = spaceView.description
+            didSetup = true
+        }
+        
         
         if participantSpaceView.isOwner {
             switch participantSpaceView.spaceView.spaceAccessType {
