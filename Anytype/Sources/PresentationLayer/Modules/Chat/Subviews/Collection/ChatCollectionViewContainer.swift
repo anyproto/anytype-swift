@@ -75,11 +75,11 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIV
         // Wrapping the collection in a container resolves this issue.
         let collectionViewContainer = UIView()
         
-        collectionViewContainer.addSubview(emptyView.view) {
+        collectionViewContainer.addSubview(collectionView) {
             $0.pinToSuperview()
         }
         
-        collectionViewContainer.addSubview(collectionView) {
+        collectionViewContainer.addSubview(emptyView.view) {
             $0.pinToSuperview()
         }
         view.addSubview(collectionViewContainer) {

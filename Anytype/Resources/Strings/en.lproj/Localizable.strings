@@ -1282,8 +1282,9 @@ Please provide specific details of your needs here.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Reply to %@";
-"Chat.Empty.Title" = "No messages here yet...";
-"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Empty.Title" = "This chat is empty.";
+"Chat.Empty.Description" = "Invite people and start the conversation!";
+"Chat.Empty.Button.title" = "Share invite link";
 "Chat.DeleteMessage.Title" = "Delete this message?";
 "Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
 "Chat.Reactions.Empty.Title" = "No reactions yet";

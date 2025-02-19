@@ -679,8 +679,11 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     internal enum Empty {
-      internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Write a first one to start a conversation")
-      internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages here yet...")
+      internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Invite people and start the conversation!")
+      internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "This chat is empty.")
+      internal enum Button {
+        internal static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Share invite link")
+      }
     }
     internal enum Participant {
       internal static let badge = Loc.tr("Localizable", "Chat.Participant.Badge", fallback: "(You)")

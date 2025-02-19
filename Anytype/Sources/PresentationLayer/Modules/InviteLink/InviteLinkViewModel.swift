@@ -100,7 +100,7 @@ final class InviteLinkViewModel: ObservableObject {
     private func updateView() {
         guard let participantSpaceView else { return }
         canDeleteLink = participantSpaceView.permissions.canDeleteLink
-        if participantSpaceView.spaceView.spaceAccessType != .shared {
+        if !participantSpaceView.spaceView.isShared {
             inviteLink = nil
         }
     }

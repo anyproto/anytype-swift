@@ -42,6 +42,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var iconColorService: any IconColorServiceProtocol
     @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -83,7 +85,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
     
+    private var inviteLinkShown = false
+    
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
+    var conversationType: ConversationType {
+        workspaceStorage.spaceView(spaceId: spaceId)?.uxType.asConversationType ?? .chat
+    }
 
     // Alerts
     
@@ -97,6 +104,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
+        if let spaceView = self.workspaceStorage.spaceView(spaceId: spaceId) {
+            
+        }
     }
     
     func onTapAddPageToMessage() {
@@ -133,6 +143,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapWidgets() {
         output?.onWidgetsSelected()
+    }
+    
+    func onTapInviteLink() {
+        output?.onInviteLinkSelected()
     }
     
     func startSubscriptions() async {
@@ -362,6 +376,17 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapCreateObject(type: ObjectType) {
         output?.didSelectCreateObject(type: type)
+    }
+    
+    func handleInviteLinkShow() {
+        guard !inviteLinkShown,
+              let spaceView = workspaceStorage.spaceView(spaceId: spaceId),
+              let createdDate = spaceView.createdDate,
+              Date().timeIntervalSince(createdDate) < 5 else {
+            return
+        }
+        output?.onInviteLinkSelected()
+        inviteLinkShown = true
     }
     
     // MARK: - MessageModuleOutput

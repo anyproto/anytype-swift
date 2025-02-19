@@ -27,6 +27,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var cameraData: SimpleCameraData?
     @Published var showSpaceSettingsData: AccountInfo?
     @Published var newLinkedObject: EditorScreenData?
+    @Published var inviteLinkData: SpaceShareData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -92,6 +93,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func onWidgetsSelected() {
         pageNavigation?.pushHome()
+    }
+    
+    func onInviteLinkSelected() {
+        inviteLinkData = SpaceShareData(workspaceInfo: info, route: .chat)
     }
     
     func didSelectCreateObject(type: ObjectType) {
