@@ -1,17 +1,7 @@
 import SwiftUI
+import Services
 
-enum CustomIconColor: String, CaseIterable {
-    case gray
-    case amber
-    case yellow
-    case red
-    case pink
-    case purple
-    case blue
-    case sky
-    case teal
-    case green
-    
+extension CustomIconColor {
     var color: Color {
         switch self {
         case .gray:

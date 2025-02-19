@@ -30,8 +30,8 @@ struct ObjectIconPicker: View {
                 if FeatureFlags.newTypeIcons {
                     ObjectTypeIconPicker(
                         isRemoveButtonAvailable: viewModel.isRemoveButtonAvailable,
-                        onIconSelect: { _ in
-                            // TBD;
+                        onIconSelect: { icon, color in
+                            viewModel.setIcon(icon, color: color)
                         }, removeIcon: {
                             viewModel.removeIcon()
                         })

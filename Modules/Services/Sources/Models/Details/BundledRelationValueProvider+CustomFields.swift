@@ -1,5 +1,6 @@
 import Foundation
 import ProtobufMessages
+import AnytypeCore
 
 extension BundledRelationsValueProvider {
     
@@ -97,5 +98,13 @@ extension BundledRelationsValueProvider {
     
     public var internalFlagsValue: [InternalFlag] {
         internalFlags.compactMap { InternalFlag(rawValue: $0) }
+    }
+    
+    public var customIcon: CustomIcon? {
+        CustomIcon(rawValue: iconName)
+    }
+    
+    public var customIconColor: CustomIconColor? {
+        CustomIconColor(iconOption: iconOption)
     }
 }
