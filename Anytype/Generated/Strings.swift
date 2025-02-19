@@ -1925,7 +1925,7 @@ internal enum Loc {
   }
   internal enum Stream {
     internal enum Empty {
-      internal static let description = Loc.tr("Localizable", "Stream.Empty.Description", fallback: "Invite people and start sharing your vibe!")
+      internal static let description = Loc.tr("Localizable", "Stream.Empty.Description", fallback: "Invite people and start sharing your vibe.")
       internal static let title = Loc.tr("Localizable", "Stream.Empty.Title", fallback: "This stream is empty.")
     }
   }
