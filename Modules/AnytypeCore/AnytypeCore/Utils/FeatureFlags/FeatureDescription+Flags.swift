@@ -61,7 +61,8 @@ public extension FeatureDescription {
     static let primitives = FeatureDescription(
         title: "New Primitives",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
         debugValue: false
     )
     
@@ -87,7 +88,8 @@ public extension FeatureDescription {
     static let newTypeIcons = FeatureDescription(
         title: "New type Icons",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
         debugValue: true
     )
     
@@ -108,7 +110,8 @@ public extension FeatureDescription {
     static let newSettings = FeatureDescription(
         title: "New settings",
         type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
     )
     
     static let newPlusMenu = FeatureDescription(
