@@ -43,7 +43,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     private func icon(relations: BundledRelationsValueProvider) -> ObjectIcon? {
         switch relations.layoutValue {
-        case .basic, .set, .collection, .image, .objectType, .chat:
+        case .basic, .set, .collection, .image, .chat:
             return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .profile, .participant:
             return profileIcon(iconImage: relations.iconImage, objectName: relations.objectName)
@@ -54,6 +54,8 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
             return nil
         case .space, .spaceView:
             return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName)
+        case .objectType:
+            return objectTypeIcon(customIcon: relations.customIcon, customIconColor: relations.customIconColor, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         }
     }
     
@@ -83,5 +85,13 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     private func fileIcon(fileMimeType: String, name: String) -> ObjectIcon {
         return .file(mimeType: fileMimeType, name: name)
+    }
+    
+    private func objectTypeIcon(customIcon: CustomIcon?, customIconColor: CustomIconColor?, iconImage: String, iconEmoji: Emoji?) -> ObjectIcon? {
+        if FeatureFlags.newTypeIcons, let customIcon {
+            return .customIcon(customIcon, customIconColor ?? CustomIconColor.default)
+        }
+        
+        return basicIcon(iconImage: iconImage, iconEmoji: iconEmoji)
     }
 }

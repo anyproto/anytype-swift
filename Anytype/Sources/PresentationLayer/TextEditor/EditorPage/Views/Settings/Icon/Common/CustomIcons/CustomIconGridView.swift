@@ -1,12 +1,15 @@
 import SwiftUI
+import Services
 
 
 struct CustomIconGridView: View {
     
-    let onIconSelect: (CustomIcon) -> ()
+    let onIconSelect: (CustomIcon, CustomIconColor) -> ()
     
     @State private var searchText = ""
     @State private var iconToPickColor: CustomIcon?
+    
+    private let defaultColor = CustomIconColor.gray
     
     var filteredIcons: [CustomIcon] {
         guard searchText.isNotEmpty else {
@@ -79,15 +82,12 @@ struct CustomIconGridView: View {
             spacing: 0
         ) {
             ForEach(icons, id: \.rawValue) { icon in
-                Image(asset: icon.imageAsset)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundStyle(iconToPickColor == icon ? Color.Control.transparentInactive : CustomIconColor.gray.color)
+                CustomIconView(icon: icon, color: iconToPickColor == icon ? Color.Control.transparentInactive : defaultColor.color)
                     .frame(width: 40, height: 40)
                     .padding(.top, 12)
                     .onTapGesture {
                         UISelectionFeedbackGenerator().selectionChanged()
-                        onIconSelect(icon)
+                        onIconSelect(icon, defaultColor)
                     }
                     .onLongPressGesture {
                         UISelectionFeedbackGenerator().selectionChanged()
@@ -97,7 +97,7 @@ struct CustomIconGridView: View {
                         $0.overlay(alignment: .bottom) {
                             CustomIconColorOverlay(icon: icon) { color in
                                 iconToPickColor = nil
-                                // onColorSelected TBD: color selection
+                                onIconSelect(icon, color)
                             }
                                 .offset(y: -56) // TBD: dynamic positioning
                         }
@@ -109,6 +109,6 @@ struct CustomIconGridView: View {
 
 struct CustomIconGridView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomIconGridView(onIconSelect: { _ in })
+        CustomIconGridView(onIconSelect: { _,_ in })
     }
 }

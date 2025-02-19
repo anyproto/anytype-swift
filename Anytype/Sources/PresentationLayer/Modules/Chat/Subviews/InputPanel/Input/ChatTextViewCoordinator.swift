@@ -191,9 +191,19 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             newStr.replaceCharacters(in: textView.selectedRange, with: pasteStr)
             textView.attributedText = newStr
             textView.selectedRange = newSelectedRange
+            textViewDidChange(textView)
+            
+            var links: [URL] = []
+            pasteStr.enumerateAttribute(.chatLinkToURL, in: pasteStr.wholeRange) { attr, _, _ in
+                if let link = attr as? URL {
+                    links.append(link)
+                }
+            }
+            
+            for link in links {
+                linkParsed?(link)
+            }
         }
-        
-        textViewDidChange(textView)
     }
     
     // MARK: - Private
@@ -359,7 +369,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         let linkChange = chatInputLinkParser.handleInput(sourceText: textView.attributedText, range: range, replacementText: text)
         
         switch linkChange {
-        case .addLinkStyle(let range, let link, _):
+        case .addLinkStyle(let range, let link):
             let containsLink = textView.textStorage.containsNotNilAttribute(.chatLinkToURL, in: range)
             if !containsLink {
                 textView.textStorage.addAttribute(.chatLinkToURL, value: link, range: range)

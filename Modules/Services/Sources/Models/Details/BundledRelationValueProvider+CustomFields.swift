@@ -1,5 +1,6 @@
 import Foundation
 import ProtobufMessages
+import AnytypeCore
 
 extension BundledRelationsValueProvider {
     
@@ -102,5 +103,13 @@ extension BundledRelationsValueProvider {
     public var spaceUxTypeValue: SpaceUxType? {
         guard let spaceUxType else { return nil }
         return SpaceUxType(rawValue: spaceUxType)
+    }
+    
+    public var customIcon: CustomIcon? {
+        CustomIcon(rawValue: iconName)
+    }
+    
+    public var customIconColor: CustomIconColor? {
+        CustomIconColor(iconOption: iconOption)
     }
 }

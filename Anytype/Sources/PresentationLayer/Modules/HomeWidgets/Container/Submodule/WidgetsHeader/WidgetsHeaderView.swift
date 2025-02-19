@@ -33,17 +33,16 @@ struct WidgetsHeaderView: View {
                 model.onTapSpaceSettings()
             }
         } rightView: {
-            Image(asset: .X24.spaceSettings)
-                .foregroundStyle(Color.Control.transparentActive)
-                .onTapGesture {
-                    model.onTapSpaceSettings()
-                }
+            if model.isOwner {
+                Image(asset: .X24.spaceSettings)
+                    .foregroundStyle(Color.Control.transparentActive)
+                    .onTapGesture {
+                        model.onTapSpaceSettings()
+                    }
+            }
         }
         .task {
-            await model.startSpaceTask()
-        }
-        .task {
-            await model.startParticipantTask()
+            await model.startSubscriptions()
         }
     }
 }
