@@ -150,13 +150,21 @@ struct ChatView: View {
     }
     
     private var emptyView: some View {
-        ChatEmptyStateView(
-            title: model.conversationType.isChat ? Loc.Chat.Empty.title : Loc.Stream.Empty.title,
-            description: model.conversationType.isChat ? Loc.Chat.Empty.description : Loc.Stream.Empty.description,
-            action: {
-                model.onTapInviteLink()
-            }
-        )
+        if model.isSpaceOwner {
+            ChatEmptyStateView(
+                title: model.conversationType.isChat ? Loc.Chat.Empty.title : Loc.Stream.Empty.title,
+                description: model.conversationType.isChat ? Loc.Chat.Empty.description : Loc.Stream.Empty.description,
+                action: {
+                    model.onTapInviteLink()
+                }
+            )
+        } else {
+            ChatEmptyStateView(
+                title: Loc.Chat.Empty.Default.title,
+                description: Loc.Chat.Empty.Default.description,
+                action: nil
+            )
+        }
     }
     
     @ViewBuilder

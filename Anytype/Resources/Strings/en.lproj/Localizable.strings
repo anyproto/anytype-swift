@@ -1282,6 +1282,8 @@ Please provide specific details of your needs here.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Default.Title" = "No messages here yet...";
+"Chat.Empty.Default.Description" = "Write a first one to start a conversation";
 "Chat.Empty.Title" = "This chat is empty.";
 "Chat.Empty.Description" = "Invite people and start the conversation!";
 "Stream.Empty.Title" = "This stream is empty.";
