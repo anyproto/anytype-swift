@@ -78,7 +78,7 @@ struct ChatInputLinkParserTests {
                     link: URL(string: "c://d.e")!
                 ),
                 ChatInputLinkParserChange.addLinkStyle(
-                    range: NSRange(location: 12, length: 7),
+                    range: NSRange(location: 14, length: 7),
                     link: URL(string: "f://g.h")!
                 )
             ]
