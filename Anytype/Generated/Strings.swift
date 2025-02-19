@@ -208,13 +208,14 @@ internal enum Loc {
   internal static func minXCharacters(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Min X characters", String(describing: p1), fallback: "Min %@ characters")
   }
+  internal static let misc = Loc.tr("Localizable", "Misc", fallback: "Misc")
   internal static let mode = Loc.tr("Localizable", "Mode", fallback: "Mode")
   internal static let moreInfo = Loc.tr("Localizable", "MoreInfo", fallback: "More info")
   internal static let move = Loc.tr("Localizable", "Move", fallback: "Move")
   internal static let moveTo = Loc.tr("Localizable", "Move to", fallback: "Move to")
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin", fallback: "Move To Bin")
+  internal static let myChannels = Loc.tr("Localizable", "My Channels", fallback: "My Channels")
   internal static let myFirstSpace = Loc.tr("Localizable", "My First Space", fallback: "My First Space")
-  internal static let mySpaces = Loc.tr("Localizable", "My spaces", fallback: "My Spaces")
   internal static let myself = Loc.tr("Localizable", "Myself", fallback: "Myself")
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   internal static let new = Loc.tr("Localizable", "New", fallback: "New")
@@ -1247,9 +1248,6 @@ internal enum Loc {
     internal enum Deleted {
       internal static let placeholder = Loc.tr("Localizable", "Object.Deleted.Placeholder", fallback: "Deleted object")
     }
-    internal enum Title {
-      internal static let placeholder = Loc.tr("Localizable", "Object.Title.Placeholder", fallback: "Untitled")
-    }
   }
   internal enum ObjectSearchWithMeta {
     internal enum Create {
@@ -1499,11 +1497,6 @@ internal enum Loc {
       }
       internal enum Error {
         internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Oops - something went wrong. Please try again")
-      }
-    }
-    internal enum Create {
-      internal enum ObjectTitle {
-        internal static let placeholder = Loc.tr("Localizable", "Set.Create.ObjectTitle.Placeholder", fallback: "Untitled")
       }
     }
     internal enum FeaturedRelations {

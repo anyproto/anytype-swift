@@ -31,10 +31,6 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     
     // MARK: - SpaceSettingsModuleOutput
     
-    func onSpaceDetailsSelected() {
-        pageNavigation?.open(.settings(.spaceDetails(info: workspaceInfo)))
-    }
-    
     func onWallpaperSelected() {
         showWallpaperPicker.toggle()
     }

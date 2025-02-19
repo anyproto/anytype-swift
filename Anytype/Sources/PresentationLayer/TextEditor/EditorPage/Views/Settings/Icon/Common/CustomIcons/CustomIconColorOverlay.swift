@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 
 struct CustomIconColorOverlay: View {
@@ -20,10 +21,7 @@ struct CustomIconColorOverlay: View {
                     UISelectionFeedbackGenerator().selectionChanged()
                     onColorSelected(color)
                 } label: {
-                    Image(asset: icon.imageAsset)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(color.color)
+                    CustomIconView(icon: icon, iconColor: color)
                         .frame(width: 40, height: 40)
                         .padding(8)
                 }

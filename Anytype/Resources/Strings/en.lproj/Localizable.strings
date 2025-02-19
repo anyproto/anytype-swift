@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Deleted object";
 
 // MARK: - Fields // old name: Relations
@@ -213,7 +212,7 @@
 "Join" = "Join";
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Lets Go" = "Let’s Go";
-"My spaces" = "My Spaces";
+"My Channels" = "My Channels";
 "Open file"= "Open file";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
@@ -231,6 +230,7 @@
 "Wallpaper" = "Wallpaper";
 "Log out" = "Log out";
 "Content Model" = "Content Model";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Restore";
@@ -485,10 +485,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
-
-// MARK: - Sets: Featured fields
+// MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
 "Set.FeaturedRelations.RelationsList" = "Fields:";
 "Set.FeaturedRelations.Relation" = "Field:";
