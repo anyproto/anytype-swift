@@ -1229,9 +1229,6 @@ internal enum Loc {
     internal enum Deleted {
       internal static let placeholder = Loc.tr("Localizable", "Object.Deleted.Placeholder", fallback: "Deleted object")
     }
-    internal enum Title {
-      internal static let placeholder = Loc.tr("Localizable", "Object.Title.Placeholder", fallback: "Untitled")
-    }
   }
   internal enum ObjectSearchWithMeta {
     internal enum Create {
@@ -1484,11 +1481,6 @@ internal enum Loc {
       }
       internal enum Error {
         internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message", fallback: "Oops - something went wrong. Please try again")
-      }
-    }
-    internal enum Create {
-      internal enum ObjectTitle {
-        internal static let placeholder = Loc.tr("Localizable", "Set.Create.ObjectTitle.Placeholder", fallback: "Untitled")
       }
     }
     internal enum FeaturedRelations {

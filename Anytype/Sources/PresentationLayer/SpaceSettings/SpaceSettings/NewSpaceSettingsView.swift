@@ -94,7 +94,7 @@ struct NewSpaceSettingsView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 AnytypeText(Loc.name, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
-                AnytypeTextField(placeholder: Loc.Object.Title.placeholder, font: .bodySemibold, text: $model.spaceName)
+                AnytypeTextField(placeholder: Loc.untitled, font: .bodySemibold, text: $model.spaceName)
                     .autocorrectionDisabled()
             }
             .padding(.horizontal, 16)
