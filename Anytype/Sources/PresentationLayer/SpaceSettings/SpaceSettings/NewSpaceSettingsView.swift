@@ -70,7 +70,9 @@ struct NewSpaceSettingsView: View {
                 model.onSaveTap()
             } label: {
                 AnytypeText(Loc.save, style: .previewTitle1Medium)
+                    .foregroundColor(model.haveChanges ? .Text.primary : .Text.tertiary)
             }
+            .disabled(!model.haveChanges)
         })
     }
     
