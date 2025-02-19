@@ -167,6 +167,7 @@ internal enum Asset {
       static let bubbleYour = ColorAsset(name: "Background/Chat/bubbleYour")
       static let replySomeones = ColorAsset(name: "Background/Chat/replySomeones")
       static let replyYours = ColorAsset(name: "Background/Chat/replyYours")
+      static let whiteTransparent = ColorAsset(name: "Background/Chat/whiteTransparent")
     }
     static let highlightedLight = ColorAsset(name: "Background/highlightedLight")
     static let highlightedMedium = ColorAsset(name: "Background/highlightedMedium")

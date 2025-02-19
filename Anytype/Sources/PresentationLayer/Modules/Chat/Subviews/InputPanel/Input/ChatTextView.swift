@@ -16,6 +16,7 @@ struct ChatTextView: UIViewRepresentable {
     let minHeight: CGFloat
     let maxHeight: CGFloat
     let linkTo: (_ range: NSRange) -> Void
+    let linkParsed: (_ url: URL) -> Void
     
     @State private var height: CGFloat = 0
     
@@ -60,6 +61,7 @@ struct ChatTextView: UIViewRepresentable {
     
     func updateUIView(_ textView: UITextView, context: Context) {
         context.coordinator.linkTo = linkTo
+        context.coordinator.linkParsed = linkParsed
         
         Task { @MainActor in
             // Async for fix "AttributeGraph: cycle detected through attribute"
@@ -80,6 +82,7 @@ struct ChatTextView: UIViewRepresentable {
         mention: .constant(.finish),
         minHeight: 54,
         maxHeight: 212,
-        linkTo: { _ in }
+        linkTo: { _ in },
+        linkParsed: { _ in }
     )
 }

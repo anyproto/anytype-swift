@@ -197,7 +197,6 @@ enum ShowDeletionWarningRoute: String {
 }
 
 enum ScreenOnboardingStep: String {
-    case vault = "Vault"
     case phrase = "Phrase"
     case soul = "Soul"
 }

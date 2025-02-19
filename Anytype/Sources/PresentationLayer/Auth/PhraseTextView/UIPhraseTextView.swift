@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 @MainActor
 class UIPhraseTextView: UITextView, UITextViewDelegate {
@@ -62,9 +63,8 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         textColor = UIColor.Auth.inputText
         tintColor = UIColor.Auth.inputText
         textContainer.lineFragmentPadding = 0.0
-        backgroundColor = UIColor.Shape.transperentSecondary
-        layer.opacity = 0.8
-        layer.cornerRadius = 24
+        backgroundColor = UIColor.Shape.transperentSecondary.withAlphaComponent(0.14)
+        layer.cornerRadius = 16
         layer.cornerCurve = .continuous
         textContentType = .password
         textContainerInset = UIEdgeInsets(top: 22, left: 22, bottom: 22, right: 22)
@@ -120,12 +120,24 @@ extension UIPhraseTextView {
         ]
         
         let words = text.components(separatedBy: " ")
-        let colors = Self.colors + Self.colors
-        let attributedWords: [NSAttributedString] = zip(words, colors).map { (word, color) in
-            attributes[NSAttributedString.Key.foregroundColor] = color
-            attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil
-            return NSAttributedString(string: word, attributes: attributes)
+        
+        let attributedWords: [NSAttributedString]
+        if FeatureFlags.disableColorfulSeedPhrase {
+            let color = UIColor.System.purple
+            attributedWords = words.map { word in
+                attributes[NSAttributedString.Key.foregroundColor] = color
+                attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil
+                return NSAttributedString(string: word, attributes: attributes)
+            }
+        } else {
+            let colors = Self.colors + Self.colors
+            attributedWords = zip(words, colors).map { (word, color) in
+                attributes[NSAttributedString.Key.foregroundColor] = color
+                attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil
+                return NSAttributedString(string: word, attributes: attributes)
+            }
         }
+        
         // hack to increase words spacing when view is noninteractive
         let separator = noninteractive ? "     " : " "
         return attributedWords.joined(with: separator)

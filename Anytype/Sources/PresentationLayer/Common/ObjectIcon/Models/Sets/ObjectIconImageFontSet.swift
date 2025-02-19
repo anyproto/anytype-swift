@@ -30,12 +30,12 @@ struct ObjectIconImageFontSet {
                 return emojiImageFont
             case .space:
                 return spaceImageFont
-            case .todo, .deleted, .file, .empty:
-                return nil
             case .placeholder:
                 return placeholderImageFont
+            case .todo, .deleted, .file, .empty, .customIcon:
+                return nil
             }
-        case .image, .asset:
+        case .image, .asset, .url:
             return nil
         }
     }

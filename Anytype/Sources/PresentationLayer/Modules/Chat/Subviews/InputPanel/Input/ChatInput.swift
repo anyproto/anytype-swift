@@ -18,6 +18,7 @@ struct ChatInput: View {
     let onTapCreateObject: (_ type: ObjectType) -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
+    let onLinkAdded: (_ url: URL) -> Void
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
@@ -82,7 +83,15 @@ struct ChatInput: View {
                     .allowsHitTesting(false)
                     .lineLimit(1)
             }
-            ChatTextView(text: $text, editing: $editing, mention: $mention, minHeight: 56, maxHeight: 156, linkTo: onTapLinkTo)
+            ChatTextView(
+                text: $text,
+                editing: $editing,
+                mention: $mention,
+                minHeight: 56,
+                maxHeight: 156,
+                linkTo: onTapLinkTo,
+                linkParsed: onLinkAdded
+            )
         }
     }
     

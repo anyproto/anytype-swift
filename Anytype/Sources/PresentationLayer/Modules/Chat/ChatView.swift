@@ -76,7 +76,7 @@ struct ChatView: View {
                 }
                 .disabled(model.sendMessageTaskInProgress)
             }
-            MessageInputAttachmentsViewContainer(objects: model.linkedObjects) {
+            ChatInputAttachmentsViewContainer(objects: model.linkedObjects) {
                 model.didSelectObject(linkedObject: $0)
             } onTapRemove: {
                 model.onTapRemoveLinkedObject(linkedObject: $0)
@@ -113,6 +113,9 @@ struct ChatView: View {
                 },
                 onTapLinkTo: { range in
                     model.onTapLinkTo(range: range)
+                },
+                onLinkAdded: { link in
+                    model.onLinkAdded(link: link)
                 }
             )
             .overlay(alignment: .top) {
