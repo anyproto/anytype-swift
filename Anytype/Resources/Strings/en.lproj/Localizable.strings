@@ -576,7 +576,7 @@
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
 
-
+"Chat" = "Chat";
 "Limit object types" = "Limit object types";
 "Type" = "Type";
 "Types" = "Types";
@@ -892,6 +892,8 @@
 "Settings.Edit picture" = "Edit picture";
 "Settings.Updated" = "Space information updated";
 "Settings.DataManagement" = "Data Management";
+"Settings.ChatEnabled" = "Chat is enabled";
+"Settings.ChatDisabled" = "Chat is disabled";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";

@@ -3,8 +3,10 @@ import Services
 
 
 enum RoundedButtonDecoration {
+    case chervon
     case badge(Int)
     case objectType(ObjectType)
+    case toggle(isOn: Bool, onToggle: (Bool) -> Void)
     
     init?(objectType: ObjectType?) {
         guard let objectType else { return nil }
@@ -41,8 +43,6 @@ struct RoundedButton: View {
                 AnytypeText(text, style: .previewTitle1Regular).foregroundColor(textColor)
                 Spacer()
                 decorationView
-                Spacer.fixedWidth(8)
-                IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
             }
             .padding(20)
             .border(12, color: .Shape.primary, lineWidth: 0.5)
@@ -52,16 +52,25 @@ struct RoundedButton: View {
     @ViewBuilder
     var decorationView: some View {
         switch decoration {
+        case .chervon:
+            Spacer.fixedWidth(8)
+            IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
         case .badge(let count):
             AnytypeText("\(count)", style: .caption1Regular)
                 .foregroundColor(.Control.white)
                 .padding(.horizontal, 5)
                 .background(Capsule().fill(Color.Control.transparentActive))
+            Spacer.fixedWidth(8)
+            IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
         case let .objectType(objectType):
             HStack(spacing: 8) {
                 IconView(objectType: objectType).frame(width: 20, height: 20)
                 AnytypeText(objectType.name, style: .previewTitle1Regular)
             }
+            Spacer.fixedWidth(8)
+            IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+        case let .toggle(isOn, onToggle):
+            AnytypeToggle(title: "", isOn: isOn) { onToggle($0) }
         case .none:
             EmptyView()
         }
