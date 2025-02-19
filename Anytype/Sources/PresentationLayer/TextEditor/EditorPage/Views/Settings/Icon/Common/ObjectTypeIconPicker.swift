@@ -1,5 +1,5 @@
 import SwiftUI
-import AnytypeCore
+import Services
 
 
 struct ObjectTypeIconPicker: View {

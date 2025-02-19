@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import AnytypeCore
+import Services
 
 struct CustomIconView: View {
     

@@ -1,4 +1,4 @@
-import AnytypeCore
+import Services
 
 
 extension CustomIcon {    
