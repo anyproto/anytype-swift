@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Testo";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Senza titolo";
 "Object.Deleted.Placeholder" = "Oggetto eliminato";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Unisciti";
 "Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Lets Go" = "Iniziamo!";
-"My spaces" = "I miei Spazi";
+"My Channels" = "My Channels";
 "Open file" = "Apri file";
 "Open Set" = "Apri Insieme";
 "Create Set" = "Crea un Insieme";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Disconnetti";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Ripristina";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Scansiona codice QR";
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore key from keychain" = "Ripristina la Chiave dal portachiavi";
-"Auth.LogIn" = "Ho una Chiave";
-"Auth.Button.Join" = "Nuova Cassaforte";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "Crea e collabora negli spazi che possiedi.Crittografati, offline & [open source](%@).";
 "Auth.Next" = "Avanti";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Questa è la tua Chiave";
-"Auth.JoinFlow.Key.Description" = "Ti dà piena proprietà sulla tua cassaforte.\nNon può essere recuperata.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Mostra la mia Chiave";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Avanti";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Salta";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Non ora";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copia negli appunti";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Leggi altro";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Puoi trovare questa chiave in seguito nelle impostazioni di Anytype";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Cos'è una Chiave?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "È rappresentata da una frase di recupero – 12 parole casuali da cui la tua cassaforte viene magicamente generata su questo dispositivo.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Imposta il tuo nome";
 "Auth.JoinFlow.Soul.Description" = "Visibile solo alle persone con cui condividi qualcosa. Non esiste un registro centrale di questi nomi.";
-"Auth.JoinFlow.Soul.Placeholder" = "Senza titolo";
-"Auth.JoinFlow.Soul.Button" = "Entra nella mia Cassaforte";
-
-"Auth.JoinFlow.Vault.Title" = "Questa è la tua Cassaforte";
-"Auth.JoinFlow.Vault.Description" = "Tutto al suo interno è crittografato.\nÈ prioritariamente locale – tutto funziona offline.\nSolo tu hai la chiave.";
-"Auth.JoinFlow.Vault.Button" = "Ottieni la mia Chiave";
+"Auth.JoinFlow.Soul.Placeholder" = "Nome";
+"Auth.JoinFlow.Soul.Button" = "Fatto";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usa portachiavi";
@@ -303,7 +298,9 @@
 
 "Search" = "Cerca";
 "There is no emoji named" = "Non esiste un emoji chiamato";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Prova a trovarne uno nuovo o carica la tua immagine";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "Casuale";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ giorni fa";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ giorni da adesso";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Senza titolo";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
