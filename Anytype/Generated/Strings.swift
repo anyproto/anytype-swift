@@ -67,6 +67,7 @@ internal enum Loc {
   internal static let changeIcon = Loc.tr("Localizable", "Change icon", fallback: "Change icon")
   internal static let changeType = Loc.tr("Localizable", "Change type", fallback: "Change type")
   internal static let changeWallpaper = Loc.tr("Localizable", "Change wallpaper", fallback: "Change wallpaper")
+  internal static let chat = Loc.tr("Localizable", "Chat", fallback: "Chat")
   internal static let chooseDefaultObjectType = Loc.tr("Localizable", "Choose default object type", fallback: "Choose default object type")
   internal static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   internal static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
@@ -1622,6 +1623,8 @@ internal enum Loc {
     }
   }
   internal enum Settings {
+    internal static let chatDisabled = Loc.tr("Localizable", "Settings.ChatDisabled", fallback: "Chat is disabled")
+    internal static let chatEnabled = Loc.tr("Localizable", "Settings.ChatEnabled", fallback: "Chat is enabled")
     internal static let dataManagement = Loc.tr("Localizable", "Settings.DataManagement", fallback: "Data Management")
     internal static let editPicture = Loc.tr("Localizable", "Settings.Edit picture", fallback: "Edit picture")
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
