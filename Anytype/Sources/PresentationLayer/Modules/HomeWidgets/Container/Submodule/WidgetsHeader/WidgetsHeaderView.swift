@@ -22,7 +22,7 @@ struct WidgetsHeaderView: View {
                         AnytypeText(model.spaceMembers, style: .relation2Regular)
                             .foregroundColor(.Control.transparentActive)
                     } else {
-                        AnytypeText(model.spaceAccessType, style: .relation2Regular)
+                        AnytypeText(model.spaceUxType, style: .relation2Regular)
                             .foregroundColor(.Control.transparentActive)
                     }
                 }
