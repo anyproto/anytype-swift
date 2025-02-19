@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "ଲେଖା";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "ଅନାବର୍ତ୍ତିତ";
 "Object.Deleted.Placeholder" = "ବିଲୋପ ହୋଇଥିବା ଅବଜେକ୍ଟ";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "ଯୋଗ ଦିଅନ୍ତୁ";
 "Agreement Disclamer" = "ଜାରି ରଖିବା ଦ୍ୱାରା ଆପଣ [ବ୍ୟବହାର ସର୍ତ୍ତାବଳୀ](%@) ଏବଂ [ଗୋପନୀୟତା ନୀତି](%@) ସହ ରାଜି ହୁଅନ୍ତି।";
 "Lets Go" = "ଚାଲନ୍ତୁ ଆମେ ଯିବା";
-"My spaces" = "ମୋ ସ୍ଥାନ";
+"My Channels" = "My Channels";
 "Open file" = "ଫାଇଲ୍ ଖୋଲନ୍ତୁ";
 "Open Set" = "ସେଟ୍ ଖୋଲନ୍ତୁ";
 "Create Set" = "ସେଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "ୱାଲପେପର୍‌";
 "Log out" = "ଲଗ ଆଉଟ";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "ପୁନରୁଦ୍ଧାର କରନ୍ତୁ";
@@ -240,8 +240,8 @@
 "Scan QR code" = "QR କୋଡ୍‍ ସ୍କାନ୍‍ କରନ୍ତୁ";
 "Auth.CameraPermissionTitle" = "ଦୟାକରି ଆକସେସ୍ ଅନୁମତି ଦିଅନ୍ତୁ";
 "Restore key from keychain" = "କୀଚେନ୍ ରୁ ଚାବି ପୁନରୁଦ୍ଧାର କରନ୍ତୁ";
-"Auth.LogIn" = "ମୋ ପାଖରେ ଏକ ଚାବି ଅଛି";
-"Auth.Button.Join" = "ନୂତନ ଭଲ୍ଟ";
+"Auth.LogIn" = "ମୋର ପୂର୍ବରୁ ଚାବି ଅଛି |";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "ଆପଣଙ୍କ ମାଲିକାନାରେ ଥିବା ସ୍ଥାନଗୁଡିକରେ ସୃଷ୍ଟି ଏବଂ ସହଯୋଗ କରନ୍ତୁ। ଏନକ୍ରିପ୍ଟେଡ୍, ଅଫ୍ଲାଇନ୍ ଏବଂ [ଖୋଲା](%@)।";
 "Auth.Next" = "ପରବର୍ତ୍ତୀ";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "ଏହା ହେଉଛି ତୁମର ଚାବି |";
-"Auth.JoinFlow.Key.Description" = "ଏହା ତୁମର ଭାଲ୍ଟ ଉପରେ ସମ୍ପୂର୍ଣ୍ଣ ମାଲିକାନା ଦେଇଥାଏ | \n ଏହା ପୁନରୁଦ୍ଧାର ହୋଇପାରିବ ନାହିଁ |";
-"Auth.JoinFlow.Key.Button.Show.Title" = "ମୋ ଚାବି ଦେଖାନ୍ତୁ |";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "ପରବର୍ତ୍ତୀ";
-"Auth.JoinFlow.Key.Button.Later.Title" = "ବାଦ୍ ଦିଅ";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Not now";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "କ୍ଲିପବୋର୍ଡକୁ କପି କରନ୍ତୁ";
-"Auth.JoinFlow.Key.Button.Info.Title" = "ଅଧିକ ପଢ";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "ଆପଣ ଏନିଟାଇପ ସେଟିଂସମୂହରେ ପରେ କି ପାଇପାରିବେ |";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "ଚାବି କ’ଣ?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "ଏହା ଏକ ପୁନରୁଦ୍ଧାର ବାକ୍ୟାଂଶ ଦ୍ୱାରା ଉପସ୍ଥାପିତ ହୋଇଛି - 12 ଟି ଅନିୟମିତ ଶବ୍ଦ ଯେଉଁଠାରୁ ଆପଣଙ୍କର ଭାଲ୍ଟ ଏହି ଉପକରଣରେ ଯାଦୁକରୀ ଭାବରେ ସୃଷ୍ଟି ହୋଇଥାଏ |";
@@ -277,14 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "ଆପଣଙ୍କ ନାମ ସେଟ୍ କରନ୍ତୁ";
 "Auth.JoinFlow.Soul.Description" = "କେବଳ ସେହି ଲୋକମାନଙ୍କ ଦ୍ୱାରା ଦେଖନ୍ତି ଯେଉଁମାନଙ୍କ ସହିତ ଆପଣ କିଛି ଅଂଶୀଦାର କରନ୍ତି । ଏହି ନାମଗୁଡ଼ିକର କୌଣସି କେନ୍ଦ୍ରୀୟ ପଞ୍ଜୀକରଣ ନାହିଁ।";
-"Auth.JoinFlow.Soul.Placeholder" = "ଅନାବର୍ତ୍ତିତ";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
-
-"Auth.JoinFlow.Vault.Title" = "ଏହା ହେଉଛି ଆପଣଙ୍କ ଭଲ୍ଟ";
-"Auth.JoinFlow.Vault.Description" = "ଭିତରେ ଥିବା ସମସ୍ତ ଜିନିଷ ଏନକ୍ରିପ୍ଟ ହୋଇଛି।\n
-ଏହା ସ୍ଥାନୀୟ-ପ୍ରଥମ - ସବୁକିଛି ଅଫଲାଇନରେ କାର୍ଯ୍ୟ କରେ।\n
-କେବଳ ଆପଣଙ୍କ ପାଖରେ ଚାବି ଅଛି।";
-"Auth.JoinFlow.Vault.Button" = "ମୋ ଚାବି ପ୍ରାପ୍ତ କରନ୍ତୁ";
+"Auth.JoinFlow.Soul.Placeholder" = "ନାମ";
+"Auth.JoinFlow.Soul.Button" = "ହେଲା";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "କିଚେନ ବ୍ୟବହାର କରନ୍ତୁ";
@@ -305,7 +298,9 @@
 
 "Search" = "ସନ୍ଧାନ";
 "There is no emoji named" = "କୌଣସି ଇମୋଜି ନାମିତ ନାହିଁ";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "ଏକ ନୂତନ ଖୋଜିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ କିମ୍ବା ଆପଣଙ୍କର ପ୍ରତିଛବି ଅପଲୋଡ୍ କରନ୍ତୁ ";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "ଇମୋଜି";
 "Random" = "ୟାଡୁୟାଡୁ";
@@ -479,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ କିଛି ଦିନ ପୂର୍ବେ";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ ଦିନ ପରେ";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "ଅନାବର୍ତ୍ତିତ";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
