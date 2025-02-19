@@ -104,9 +104,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
-        if let spaceView = self.workspaceStorage.spaceView(spaceId: spaceId) {
-            
-        }
     }
     
     func onTapAddPageToMessage() {
