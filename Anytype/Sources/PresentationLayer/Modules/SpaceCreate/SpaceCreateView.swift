@@ -24,7 +24,7 @@ struct SpaceCreateView: View {
                     
                     RoundedTextFieldWithTitle(
                         title: FeatureFlags.spaceUxTypes ? model.data.nameTitle : Loc.Settings.spaceName,
-                        placeholder: Loc.Object.Title.placeholder,
+                        placeholder: Loc.untitled,
                         text: $model.spaceName
                     )
                     .focused(.constant(true))
