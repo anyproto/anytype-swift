@@ -62,9 +62,27 @@ struct ObjectTypeSearchView: View {
         switch style {
         case .sheet:
             DragIndicator()
-            TitleView(title: title)
+            TitleView(title: title) {
+                if viewModel.settings.showPlusButton {
+                    Button {
+                        viewModel.createType(name: "")
+                    } label: {
+                        Image(asset: .X32.plus)
+                            .frame(width: 32, height: 32)
+                    }
+                }
+            }
         case .navbar:
-            PageNavigationHeader(title: title)
+            PageNavigationHeader(title: title) {
+                if viewModel.settings.showPlusButton {
+                    Button {
+                        viewModel.createType(name: "")
+                    } label: {
+                        Image(asset: .X32.plus)
+                            .frame(width: 32, height: 32)
+                    }
+                }
+            }
         }
     }
     
