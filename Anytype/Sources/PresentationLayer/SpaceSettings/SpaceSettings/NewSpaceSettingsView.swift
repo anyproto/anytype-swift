@@ -177,13 +177,10 @@ struct NewSpaceSettingsView: View {
         
         if let isChatOn = model.isChatOn {
             Spacer.fixedHeight(8)
-            RoundedButton(Loc.chat, decoration: .toggle(isOn: isChatOn, onToggle: { isOn in
+            RoundedButtonView(Loc.chat, decoration: .toggle(isOn: isChatOn, onToggle: { isOn in
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.toggleChatState(isOn: isOn)
-            })) {
-                UISelectionFeedbackGenerator().selectionChanged()
-                model.toggleChatState(isOn: !isChatOn)
-            }
+            }))
         }
     }
     
