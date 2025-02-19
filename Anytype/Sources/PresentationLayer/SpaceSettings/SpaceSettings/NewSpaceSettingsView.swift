@@ -67,6 +67,7 @@ struct NewSpaceSettingsView: View {
     private var header: some View {
         PageNavigationHeader(title: "", rightView: {
             Button {
+                UISelectionFeedbackGenerator().selectionChanged()
                 model.onSaveTap()
             } label: {
                 AnytypeText(Loc.save, style: .previewTitle1Medium)
