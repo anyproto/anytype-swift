@@ -82,7 +82,7 @@ private extension AnytypeWidgetId {
                 type: .favorite,
                 name: Loc.favorite,
                 description: nil,
-                icon: .object(.emoji(Emoji("⭐️")!))
+                icon: .asset(.SystemWidgets.favorites)
             )
         case .sets:
             return WidgetAnytypeLibrarySource(
@@ -103,14 +103,14 @@ private extension AnytypeWidgetId {
                 type: .recent,
                 name: Loc.Widgets.Library.RecentlyEdited.name,
                 description: nil,
-                icon: .object(.emoji(Emoji("📝")!))
+                icon: .asset(.SystemWidgets.recentlyEdited)
             )
         case .recentOpen:
             return WidgetAnytypeLibrarySource(
                 type: .recentOpen,
                 name: Loc.Widgets.Library.RecentlyOpened.name,
                 description: Loc.Widgets.Library.RecentlyOpened.description,
-                icon: .object(.emoji(Emoji("📅")!))
+                icon: .asset(.SystemWidgets.recentlyOpened)
             )
         case .pages:
             return WidgetAnytypeLibrarySource(
