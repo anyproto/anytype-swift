@@ -75,7 +75,9 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     }
     
     var isChatOn: Bool? {
-        switch participantSpaceView?.spaceView.uxType {
+        guard FeatureFlags.showHomeSpaceLevelChat(spaceId: workspaceInfo.accountSpaceId) else { return nil }
+        
+        return switch participantSpaceView?.spaceView.uxType {
         case .chat:
             true
         case .data:
