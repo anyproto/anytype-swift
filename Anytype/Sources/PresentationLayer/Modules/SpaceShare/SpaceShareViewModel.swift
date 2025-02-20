@@ -33,19 +33,15 @@ final class SpaceShareViewModel: ObservableObject {
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
     private var workspaceInfo: AccountInfo { data.workspaceInfo }
-    private let data: SpaceShareData
     
+    let data: SpaceShareData
     var accountSpaceId: String { workspaceInfo.accountSpaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
-    @Published var inviteLink: URL?
-    @Published var shareInviteLink: URL?
-    @Published var qrCodeInviteLink: URL?
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestAlertData?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
-    @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
     @Published var showUpgradeBadge = false
     @Published var canStopShare = false
@@ -74,58 +70,8 @@ final class SpaceShareViewModel: ObservableObject {
         }
     }
     
-    func onAppear() async {
-        AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
-        do {
-            let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-        } catch {}
-    }
-    
-    func onShareInvite() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .shareLink)
-        shareInviteLink = inviteLink
-    }
-    
-    func onCopyLink() {
-        AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
-        UIPasteboard.general.string = inviteLink?.absoluteString
-        toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
-    }
-    
-    func onDeleteSharingLink() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .revoke)
-        showDeleteLinkAlert = true
-    }
-    
-    func onGenerateInvite() async throws {
-        guard let spaceView = participantSpaceView?.spaceView else { return }
-        
-        AnytypeAnalytics.instance().logShareSpace()
-        
-        if !spaceView.isShared {
-            try await workspaceService.makeSharable(spaceId: accountSpaceId)
-        }
-        
-        let invite = try await workspaceService.generateInvite(spaceId: accountSpaceId)
-        inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-    }
-    
-    func onDeleteLinkCompleted() {
-        inviteLink = nil
-    }
-    
     func onStopSharing() {
         showStopSharingAlert = true
-    }
-    
-    func onStopSharingCompleted() {
-        inviteLink = nil
-    }
-    
-    func onShowQrCode() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .qr)
-        qrCodeInviteLink = inviteLink
     }
     
     func onMoreInfoTap() {

@@ -128,6 +128,13 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let enableStreamSpaceType = FeatureDescription(
+        title: "Enable stream space type",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
     static let firebasePushMessages = FeatureDescription(
         title: "Firebase push messages",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),

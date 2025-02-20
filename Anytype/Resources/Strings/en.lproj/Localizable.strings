@@ -1038,7 +1038,16 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Create a space";
+"SpaceCreate.Chat.Title" = "Create a chat";
+"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Stream.Title" = "Create a stream";
+
+"SpaceCreate.Chat.Name.Title" = "Chat name";
+"SpaceCreate.Space.Name.Title" = "Space name";
+"SpaceCreate.Stream.Name.Title" = "Stream name";
+
+"SpaceCreate.Stream.Name.Description" = "Stream description";
+"SpaceCreate.Stream.Placeholder.Description" = "Description";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
@@ -1275,8 +1284,13 @@ Please provide specific details of your needs here.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Reply to %@";
-"Chat.Empty.Title" = "No messages here yet...";
-"Chat.Empty.Description" = "Write a first one to start a conversation";
+"Chat.Empty.Default.Title" = "No messages here yet...";
+"Chat.Empty.Default.Description" = "Write a first one to start a conversation";
+"Chat.Empty.Title" = "This chat is empty.";
+"Chat.Empty.Description" = "Invite people and start the conversation!";
+"Stream.Empty.Title" = "This stream is empty.";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe.";
+"Chat.Empty.Button.title" = "Share invite link";
 "Chat.DeleteMessage.Title" = "Delete this message?";
 "Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
 "Chat.Reactions.Empty.Title" = "No reactions yet";

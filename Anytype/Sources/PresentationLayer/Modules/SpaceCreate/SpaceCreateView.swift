@@ -14,14 +14,34 @@ struct SpaceCreateView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SpaceCreate.title)
+            TitleView(title: FeatureFlags.spaceUxTypes ? model.data.title : Loc.SpaceCreate.Space.title)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {})
-                        .focused(.constant(true))
+                    Spacer.fixedHeight(8)
+                    IconView(icon: model.spaceIcon)
+                        .frame(width: 96, height: 96)
+                    Spacer.fixedHeight(20)
                     
-                    SectionHeaderView(title: Loc.type)
-                    SpaceTypeView(name: model.spaceAccessType.name)
+                    RoundedTextFieldWithTitle(
+                        title: FeatureFlags.spaceUxTypes ? model.data.nameTitle : Loc.Settings.spaceName,
+                        placeholder: Loc.untitled,
+                        text: $model.spaceName
+                    )
+                    .focused(.constant(true))
+                    
+                    if FeatureFlags.spaceUxTypes, let nameDescription = model.data.nameDescription {
+                        Spacer.fixedHeight(12)
+                        RoundedTextFieldWithTitle(
+                            title: nameDescription,
+                            placeholder: Loc.SpaceCreate.Stream.Placeholder.description,
+                            text: $model.spaceDescription
+                        )
+                    }
+                    
+                    if !FeatureFlags.spaceUxTypes {
+                        SectionHeaderView(title: Loc.type)
+                        SpaceTypeView(name: model.spaceAccessType.name)
+                    }
                 }
             }
             .safeAreaInset(edge: .bottom) {

@@ -3,17 +3,15 @@ import SwiftUI
 
 struct InviteLinkView: View {
     
-    let invite: URL?
-    let canDeleteLink: Bool
-    let onShareInvite: () -> Void
-    let onCopyLink: () -> Void
-    let onDeleteSharingLink: () -> Void
-    let onGenerateInvite: () async throws -> Void
-    let onShowQrCode: () -> Void
+    @StateObject private var model: InviteLinkViewModel
+    
+    init(data: SpaceShareData, output: (any InviteLinkModuleOutput)?) {
+        self._model = StateObject(wrappedValue: InviteLinkViewModel(data: data, output: output))
+    }
     
     var body: some View {
         Group {
-            if invite.isNotNil {
+            if model.inviteLink.isNotNil {
                 linkContent
             } else {
                 emptyLinkContent
@@ -25,6 +23,16 @@ struct InviteLinkView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 36)
         .shadow(radius: 16)
+        .task {
+            await model.startSubscription()
+        }
+        .anytypeSheet(item: $model.deleteLinkSpaceId) {
+            DeleteSharingLinkAlert(spaceId: $0.value) {
+                model.onDeleteLinkCompleted()
+            }
+        }
+        .snackbar(toastBarData: $model.toastBarData)
+        
     }
     
     var linkContent: some View {
@@ -35,11 +43,11 @@ struct InviteLinkView: View {
                 Spacer()
                 Menu {
                     Button(role: .destructive) {
-                        onDeleteSharingLink()
+                        model.onDeleteSharingLink()
                     } label: {
                         Text(Loc.SpaceShare.DeleteSharingLink.title)
                     }
-                    .disabled(!canDeleteLink)
+                    .disabled(!model.canDeleteLink)
                 } label: {
                     IconView(icon: .asset(.X24.more))
                         .frame(width: 24, height: 24)
@@ -47,9 +55,9 @@ struct InviteLinkView: View {
             }
             Spacer.fixedHeight(4)
             Button {
-                onCopyLink()
+                model.onCopyLink()
             } label: {
-                AnytypeText(invite?.absoluteString ?? "", style: .uxCalloutRegular)
+                AnytypeText(model.inviteLink?.absoluteString ?? "", style: .uxCalloutRegular)
                     .foregroundColor(.Text.secondary)
                     .lineLimit(1)
                     .frame(height: 48)
@@ -60,11 +68,11 @@ struct InviteLinkView: View {
                 .foregroundColor(.Text.secondary)
             Spacer.fixedHeight(20)
             StandardButton(Loc.SpaceShare.Invite.share, style: .primaryLarge) {
-                onShareInvite()
+                model.onShareInvite()
             }
             Spacer.fixedHeight(10)
             StandardButton(Loc.SpaceShare.Qr.button, style: .secondaryLarge) {
-                onShowQrCode()
+                model.onShowQrCode()
             }
         }
     }
@@ -78,7 +86,7 @@ struct InviteLinkView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(12)
             AsyncStandardButton(Loc.SpaceShare.Invite.generate, style: .primaryLarge) {
-                try await onGenerateInvite()
+                try await model.onGenerateInvite()
             }
         }
     }
