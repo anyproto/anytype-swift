@@ -83,10 +83,6 @@ extension SpaceView {
         return spaceIsLoading && spaceIsNotDeleted && spaceIsNotJoining
     }
     
-    var hasChat: Bool {
-        chatId.isNotEmpty
-    }
-    
     var showChat: Bool {
         (uxType == .chat || uxType == .stream) && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
