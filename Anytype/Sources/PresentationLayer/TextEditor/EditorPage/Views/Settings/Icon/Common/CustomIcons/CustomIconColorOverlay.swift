@@ -21,7 +21,10 @@ struct CustomIconColorOverlay: View {
                     UISelectionFeedbackGenerator().selectionChanged()
                     onColorSelected(color)
                 } label: {
-                    CustomIconView(icon: icon, iconColor: color)
+                    Image(asset: icon.imageAsset)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(color.color)
                         .frame(width: 40, height: 40)
                         .padding(8)
                 }
