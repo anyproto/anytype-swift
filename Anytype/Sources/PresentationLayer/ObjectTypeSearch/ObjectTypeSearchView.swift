@@ -121,8 +121,8 @@ struct ObjectTypeSearchView: View {
                     UISelectionFeedbackGenerator().selectionChanged()
                     viewModel.didSelectType(typeData.type, section: section)
                 } label: {
-                    HStack(spacing: 8) {                        
-                        typeData.type.iconView.frame(width: 18, height: 18)
+                    HStack(spacing: 8) {
+                        IconView(object: typeData.type.icon).frame(width: 18, height: 18)
                         
                         AnytypeText(typeData.type.name, style: .uxTitle2Medium)
                             .foregroundColor(.Text.primary)

@@ -188,7 +188,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             
             return InstalledObjectTypeViewModel(
                 id: type.id,
-                icon: type.icon,
+                icon: .object(type.icon),
                 title: type.name,
                 isSelected: isSelected,
                 onTap: { [weak self] in
