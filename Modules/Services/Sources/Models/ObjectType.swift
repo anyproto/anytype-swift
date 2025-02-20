@@ -106,6 +106,8 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.id,
             BundledRelationKey.name,
             BundledRelationKey.iconEmoji,
+            BundledRelationKey.iconName,
+            BundledRelationKey.iconOption,
             BundledRelationKey.description,
             BundledRelationKey.isHidden,
             BundledRelationKey.isReadonly,
