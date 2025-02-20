@@ -52,12 +52,18 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
 }
 
 extension SetContentViewItemConfiguration {
+    var shouldIncreaseCoverHeight: Bool {
+        hasCover && coverType.isNotNil && hasNoInfo
+    }
+    
     var hasInfo: Bool {
         !hasNoInfo
     }
+    
     private var hasNoInfo: Bool {
         !showTitle && !showIcon && !hasOneRelationWithValueAtLeast
     }
+    
     private var hasOneRelationWithValueAtLeast: Bool {
         relations.first { $0.hasValue } != nil
     }
