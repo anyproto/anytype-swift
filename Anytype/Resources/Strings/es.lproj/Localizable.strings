@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Sin título";
 "Object.Deleted.Placeholder" = "Objeto eliminado";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Unirte";
 "Agreement Disclamer" = "Al continuar, aceptas nuestros [términos de uso](%@) y nuestra [política de privacidad](%@).";
 "Lets Go" = "Adelante";
-"My spaces" = "Mis espacios";
+"My Channels" = "Mis canales";
 "Open file" = "Abrir archivo";
 "Open Set" = "Abrir conjunto";
 "Create Set" = "Crear conjunto";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Fondo de pantalla";
 "Log out" = "Cerrar sesión";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Restaurar";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Escanear código QR";
 "Auth.CameraPermissionTitle" = "Por favor, permite el acceso";
 "Restore key from keychain" = "Restablecer clave desde llavero";
-"Auth.LogIn" = "Tengo una clave";
-"Auth.Button.Join" = "Nueva arca";
+"Auth.LogIn" = "Ya tengo la clave";
+"Auth.Button.Join" = "Es mi primera vez";
 "Auth.Welcome.Subtitle" = "Crea y colabora en espacios de tu propiedad. Tecnología cifrada, sin conexión y de [código abierto](%@).";
 "Auth.Next" = "Siguiente";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Esta es tu clave";
-"Auth.JoinFlow.Key.Description" = "Te garantiza la propiedad absoluta de tu arca.\nNo se puede recuperar.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Ver mi clave";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Siguiente";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Omitir";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Ahora no";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copiar al portapapeles";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Más información";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Puedes ver esta clave más adelante en los ajustes de Anytype.";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "¿Qué es una clave?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Consiste en una frase de recuperación de 12 palabras con las que se genera mágicamente tu arca en este dispositivo.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Elige tu nombre";
 "Auth.JoinFlow.Soul.Description" = "Solo lo verán las personas con las que compartas algo. No existe un registro central de nombres.";
-"Auth.JoinFlow.Soul.Placeholder" = "Sin título";
-"Auth.JoinFlow.Soul.Button" = "Entrar en mi arca";
-
-"Auth.JoinFlow.Vault.Title" = "Esta es tu arca";
-"Auth.JoinFlow.Vault.Description" = "En su interior, todo está cifrado.\nSu base es local: todo funciona sin conexión.\nSolo tú tienes la clave.";
-"Auth.JoinFlow.Vault.Button" = "Obtener mi clave";
+"Auth.JoinFlow.Soul.Placeholder" = "Nombre";
+"Auth.JoinFlow.Soul.Button" = "Listo";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usar llavero";
@@ -303,7 +298,9 @@
 
 "Search" = "Buscar";
 "There is no emoji named" = "No hay ningún emoji llamado";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Busca otro distinto o carga una imagen.";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "Aleatorio";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "Hace %@ días";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "Dentro de %@ días";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Sin título";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Consulta";
