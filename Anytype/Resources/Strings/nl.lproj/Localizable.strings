@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Naamloos";
 "Object.Deleted.Placeholder" = "Verwijderd object";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Neem deel";
 "Agreement Disclamer" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Lets Go" = "Laten we beginnen";
-"My spaces" = "Mijn ruimten";
+"My Channels" = "My Channels";
 "Open file" = "Open bestand";
 "Open Set" = "Open set";
 "Create Set" = "Maak set";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Achtergrond";
 "Log out" = "Meld af";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Herstel";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Geef toegang";
 "Restore key from keychain" = "Herstel sleutel vanuit de sleutelhanger";
-"Auth.LogIn" = "Ik heb een sleutel";
-"Auth.Button.Join" = "Nieuwe kluis";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "Maak & werk samen in jouw ruimten. Versleuteld, offline & [open](%@).";
 "Auth.Next" = "Volgende";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dit is jouw sleutel";
-"Auth.JoinFlow.Key.Description" = "Het geeft je het volledige eigendom over jouw kluis..\nIHet kan niet worden hersteld.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Toon mijn sleutel";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Volgende";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Sla over";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Niet nu";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopieer naar klembord";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Lees meer";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Je kunt deze sleutel later terugvinden in de Anytype instellingen";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Wat is de sleutel?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Het bestaat uit een herstelzin –  12 willekeurige woorden van waaruit jouw kluis op magische wijze wordt aangemaakt op dit apparaat.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Voer jouw naam in";
 "Auth.JoinFlow.Soul.Description" = "Alleen zichtbaar voor mensen met wie je iets deelt. Er is geen centraal register van deze namen.";
-"Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
-
-"Auth.JoinFlow.Vault.Title" = "Dit is jouw kluis";
-"Auth.JoinFlow.Vault.Description" = "Alles hierbinnen is versleuteld. \nHet is local-first – alles werkt offline. \nAlleen jij hebt de sleutel.";
-"Auth.JoinFlow.Vault.Button" = "Verkrijg mijn sleutel";
+"Auth.JoinFlow.Soul.Placeholder" = "Naam";
+"Auth.JoinFlow.Soul.Button" = "Gereed";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
@@ -303,7 +298,9 @@
 
 "Search" = "Zoeken";
 "There is no emoji named" = "Er is geen emoji genaamd";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Probeer een nieuwe te vinden of upload jouw afbeelding";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "Willekeurig";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ dagen geleden";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dagen vanaf nu";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Naamloos";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Vraag";
