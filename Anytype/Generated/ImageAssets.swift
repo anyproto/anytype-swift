@@ -629,6 +629,13 @@ internal extension ImageAsset {
     static let checkboxUnchecked = ImageAsset.bundle(name: "System/Checkbox unchecked")
     static let textCheckMark = ImageAsset.bundle(name: "System/Text check mark")
   }
+  enum SystemWidgets {
+    static let bin = ImageAsset.bundle(name: "SystemWidgets/Bin")
+    static let favorites = ImageAsset.bundle(name: "SystemWidgets/Favorites")
+    static let members = ImageAsset.bundle(name: "SystemWidgets/Members")
+    static let recentlyEdited = ImageAsset.bundle(name: "SystemWidgets/RecentlyEdited")
+    static let recentlyOpened = ImageAsset.bundle(name: "SystemWidgets/RecentlyOpened")
+  }
   enum TaskLayout {
     static let done = ImageAsset.bundle(name: "TaskLayout/Done")
     static let empty = ImageAsset.bundle(name: "TaskLayout/Empty")
