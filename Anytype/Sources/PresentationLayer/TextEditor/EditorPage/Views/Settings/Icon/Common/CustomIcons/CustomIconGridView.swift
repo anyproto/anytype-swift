@@ -86,7 +86,11 @@ struct CustomIconGridView: View {
                     .padding(.top, 12)
                     .onTapGesture {
                         UISelectionFeedbackGenerator().selectionChanged()
-                        onIconSelect(icon, defaultColor)
+                        if let icontToPickColor = iconToPickColor, icontToPickColor != icon {
+                            iconToPickColor = nil
+                        } else {
+                            onIconSelect(icon, defaultColor)
+                        }
                     }
                     .onLongPressGesture {
                         UISelectionFeedbackGenerator().selectionChanged()
