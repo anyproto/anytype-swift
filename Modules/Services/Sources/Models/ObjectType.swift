@@ -9,10 +9,10 @@ public enum ObjectTypeIcon: Equatable, Hashable, Codable, Identifiable, Sendable
         if let icon {
             self = .customIcon(icon, iconColor ?? CustomIconColor.default)
         } else if let emoji {
-            self = .emoji(emoji)
+            self = .emoji(emoji)   
+        } else {
+            return nil
         }
-
-        return nil
     }
     
     public var id: String {
