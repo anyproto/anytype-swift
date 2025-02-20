@@ -13,3 +13,27 @@ lane :set_sentry_dsn_to_info_plist do |options|
         value: ENV["SENTRY_DSN"]
     )
 end
+
+lane :set_openai_token_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "OpenAIToken",
+        value: ENV["OPENAI_TOKEN"]
+    )
+end
+
+lane :set_ai_endpoint_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "AIEndpoint",
+        value: ENV["AI_ENDPOINT"]
+    )
+end
+
+lane :set_ai_model_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "AIModel",
+        value: ENV["AI_MODEL"]
+    )
+end

@@ -78,9 +78,11 @@ final class EditorSetCoordinatorViewModel:
     
     // MARK: - EditorSetModuleOutput - AI tool
     
-    func showAITool() {
+    func showAITool(objectIds: [String]) {
         aiToolData = AIToolData(
             id: data.objectId,
+            spaceId: data.spaceId,
+            objectIds: objectIds,
             completion: { [weak self] screenData in
                 self?.showEditorScreen(data: screenData)
             }

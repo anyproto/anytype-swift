@@ -1,9 +1,12 @@
 import Combine
 import Services
 import Foundation
+import AnytypeCore
 
 struct AIToolData: Identifiable {
     let id: String
+    let spaceId: String
+    let objectIds: [String]
     let completion: (ScreenData) -> Void
 }
 
@@ -15,6 +18,11 @@ final class AIToolViewModel: ObservableObject {
     @Published var inProgress = false
     @Published var dismiss = false
     
+    @Injected(\.aiListSummaryService)
+    private var aiListSummaryService: any AIListSummaryServiceProtocol
+    
+    private let aiConfigBuilder: any AIConfigBuilderProtocol = AIConfigBuilder()
+    
     private let data: AIToolData
     
     init(data: AIToolData) {
@@ -22,9 +30,22 @@ final class AIToolViewModel: ObservableObject {
     }
     
     func generate() async {
-        inProgress = true
-//        data.completion()
-        dismiss = true
+        guard let config = aiConfigBuilder.makeOpenAIConfig() else {
+            anytypeAssertionFailure("Endpoint, Model, Token should be set")
+            return
+        }
+        
+        do {
+            inProgress = true
+            let objectId = try await aiListSummaryService.aiListSummary(spaceId: data.spaceId, objectIds: data.objectIds, prompt: text, config: config)
+            data.completion(
+                .editor(.page(EditorPageObject(objectId: objectId, spaceId: data.spaceId)))
+            )
+            inProgress = false
+            dismiss = true
+        } catch {
+            anytypeAssertionFailure(error.localizedDescription)
+        }
     }
     
     func generateTap() {

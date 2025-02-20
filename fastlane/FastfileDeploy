@@ -58,6 +58,10 @@ platform :ios do
         no_badge: true
       )
     end
+
+    set_openai_token_to_info_plist
+    set_ai_endpoint_to_info_plist
+    set_ai_model_to_info_plist
     
     build_app(
       scheme: ENV["APP_TARGET"], 
