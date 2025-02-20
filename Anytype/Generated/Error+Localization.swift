@@ -1252,30 +1252,6 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: @retroactive LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if localizeError.isNotEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return String(localized: "BlockDataview.CreateBookmark.badInput", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "BlockDataview.CreateBookmark.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

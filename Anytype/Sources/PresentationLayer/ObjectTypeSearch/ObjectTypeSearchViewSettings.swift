@@ -6,6 +6,7 @@ struct ObjectTypeSearchViewSettings {
     let showTemplates: Bool
     let incudeNotForCreation: Bool
     let allowPaste: Bool
+    let showPlusButton: Bool
 }
 
 extension ObjectTypeSearchViewSettings {
@@ -16,7 +17,8 @@ extension ObjectTypeSearchViewSettings {
         showChat: true,
         showTemplates: false,
         incudeNotForCreation: false,
-        allowPaste: true
+        allowPaste: true,
+        showPlusButton: false
     )
     
     static let queryInSet = ObjectTypeSearchViewSettings(
@@ -26,7 +28,8 @@ extension ObjectTypeSearchViewSettings {
         showChat: false,
         showTemplates: true,
         incudeNotForCreation: true,
-        allowPaste: false
+        allowPaste: false,
+        showPlusButton: false
     )
     
     static let setByRelationNewObject = ObjectTypeSearchViewSettings(
@@ -36,7 +39,8 @@ extension ObjectTypeSearchViewSettings {
         showChat: false,
         showTemplates: false,
         incudeNotForCreation: false,
-        allowPaste: false
+        allowPaste: false,
+        showPlusButton: false
     )
     
     static let editorChangeType = ObjectTypeSearchViewSettings(
@@ -46,7 +50,8 @@ extension ObjectTypeSearchViewSettings {
         showChat: false,
         showTemplates: false,
         incudeNotForCreation: false,
-        allowPaste: false
+        allowPaste: false,
+        showPlusButton: false
     )
     
     static let spaceDefaultObject = ObjectTypeSearchViewSettings(
@@ -56,7 +61,8 @@ extension ObjectTypeSearchViewSettings {
         showChat: false,
         showTemplates: false,
         incudeNotForCreation: false,
-        allowPaste: false
+        allowPaste: false,
+        showPlusButton: false
     )
     
     static let library = ObjectTypeSearchViewSettings(
@@ -66,6 +72,7 @@ extension ObjectTypeSearchViewSettings {
         showChat: false,
         showTemplates: true,
         incudeNotForCreation: true,
-        allowPaste: false
+        allowPaste: false,
+        showPlusButton: true
     )
 }
