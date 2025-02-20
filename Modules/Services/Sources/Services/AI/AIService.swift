@@ -1,11 +1,11 @@
 import Foundation
 import ProtobufMessages
 
-public protocol AIListSummaryServiceProtocol: AnyObject, Sendable {
+public protocol AIServiceProtocol: AnyObject, Sendable {
     func aiListSummary(spaceId: String, objectIds: [String], prompt: String, config: AIProviderConfig) async throws -> String
 }
 
-final class AIListSummaryService: AIListSummaryServiceProtocol {
+final class AIService: AIServiceProtocol {
     func aiListSummary(spaceId: String, objectIds: [String], prompt: String, config: AIProviderConfig) async throws -> String {
         let result = try await ClientCommands.aIListSummary(.with {
             $0.spaceID = spaceId

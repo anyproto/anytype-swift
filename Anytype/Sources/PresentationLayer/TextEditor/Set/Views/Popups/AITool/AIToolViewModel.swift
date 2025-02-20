@@ -18,8 +18,8 @@ final class AIToolViewModel: ObservableObject {
     @Published var inProgress = false
     @Published var dismiss = false
     
-    @Injected(\.aiListSummaryService)
-    private var aiListSummaryService: any AIListSummaryServiceProtocol
+    @Injected(\.aiService)
+    private var aiService: any AIServiceProtocol
     
     private let aiConfigBuilder: any AIConfigBuilderProtocol = AIConfigBuilder()
     
@@ -37,7 +37,7 @@ final class AIToolViewModel: ObservableObject {
         
         do {
             inProgress = true
-            let objectId = try await aiListSummaryService.aiListSummary(spaceId: data.spaceId, objectIds: data.objectIds, prompt: text, config: config)
+            let objectId = try await aiService.aiListSummary(spaceId: data.spaceId, objectIds: data.objectIds, prompt: text, config: config)
             data.completion(
                 .editor(.page(EditorPageObject(objectId: objectId, spaceId: data.spaceId)))
             )
