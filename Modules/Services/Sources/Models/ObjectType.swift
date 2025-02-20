@@ -1,11 +1,35 @@
 import ProtobufMessages
 import AnytypeCore
 
+public enum ObjectTypeIcon: Equatable, Hashable, Codable, Identifiable, Sendable {
+    case emoji(Emoji)
+    case customIcon(CustomIcon, CustomIconColor)
+    
+    init?(icon: CustomIcon?, iconColor: CustomIconColor?, emoji: Emoji?) {
+        if let icon {
+            self = .customIcon(icon, iconColor ?? CustomIconColor.default)
+        } else if let emoji {
+            self = .emoji(emoji)
+        }
+
+        return nil
+    }
+    
+    public var id: String {
+        switch self {
+        case .emoji(let emoji):
+            emoji.id
+        case .customIcon(let customIcon, let customIconColor):
+            "\(customIcon.id)-\(customIconColor.id)"
+        }
+    }
+}
+
 public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     
     public let id: String
     public let name: String
-    public let iconEmoji: Emoji?
+    public let typeIcon: ObjectTypeIcon?
     public let description: String
     public let hidden: Bool
     public let readonly: Bool
@@ -23,7 +47,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     public init(
         id: String,
         name: String,
-        iconEmoji: Emoji?,
+        typeIcon: ObjectTypeIcon?,
         description: String,
         hidden: Bool,
         readonly: Bool,
@@ -39,7 +63,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     ) {
         self.id = id
         self.name = name
-        self.iconEmoji = iconEmoji
+        self.typeIcon = typeIcon
         self.description = description
         self.hidden = hidden
         self.readonly = readonly
@@ -61,7 +85,7 @@ extension ObjectType: DetailsModel {
         self.init(
             id: details.id,
             name: details.name,
-            iconEmoji: details.iconEmoji,
+            typeIcon: ObjectTypeIcon(icon: details.customIcon, iconColor: details.customIconColor, emoji: details.iconEmoji),
             description: details.description,
             hidden: details.isHidden,
             readonly: details.isReadonly,

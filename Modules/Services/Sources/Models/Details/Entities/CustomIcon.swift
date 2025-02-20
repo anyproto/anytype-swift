@@ -1,4 +1,4 @@
-public enum CustomIcon: String, CaseIterable, Sendable {
+public enum CustomIcon: String, CaseIterable, Sendable, Codable, Identifiable {
     case accessibility
     case addCircle
     case airplane
@@ -387,5 +387,7 @@ public enum CustomIcon: String, CaseIterable, Sendable {
     case water
     case wifi
     case wine
-    case woman    
+    case woman
+    
+    public var id: String { rawValue }
 }
