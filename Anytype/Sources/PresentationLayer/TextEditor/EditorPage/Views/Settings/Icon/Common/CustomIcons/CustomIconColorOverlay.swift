@@ -30,8 +30,8 @@ struct CustomIconColorOverlay: View {
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color(.systemBackground))
-                .shadow(radius: 8)
+                .fill(Color(.Background.secondary))
+                .shadow(radius: 4)
         )
     }
 }
