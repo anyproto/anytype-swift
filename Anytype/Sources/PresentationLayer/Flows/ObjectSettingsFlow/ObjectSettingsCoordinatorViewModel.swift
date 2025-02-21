@@ -15,7 +15,7 @@ final class ObjectSettingsCoordinatorViewModel:
     let spaceId: String
     private weak var output: (any ObjectSettingsCoordinatorOutput)?
     
-    @Published var coverPickerData: ObjectCoverPickerData?
+    @Published var coverPickerData: BaseDocumentIdentifiable?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var relationsListData: RelationsListData?
@@ -38,7 +38,7 @@ final class ObjectSettingsCoordinatorViewModel:
     }
     
     func showCoverPicker(document: some BaseDocumentProtocol) {
-        coverPickerData = ObjectCoverPickerData(document: document)
+        coverPickerData = BaseDocumentIdentifiable(document: document)
     }
     
     func showIconPicker(document: some BaseDocumentProtocol) {

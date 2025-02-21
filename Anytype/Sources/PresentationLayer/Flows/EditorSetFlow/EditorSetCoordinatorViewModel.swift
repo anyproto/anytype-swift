@@ -9,6 +9,16 @@ struct SetViewData: Identifiable {
     let subscriptionDetailsStorage: ObjectDetailsStorage
 }
 
+struct LayoutPickerData: Identifiable {
+    let objectId: String
+    let spaceId: String
+    let analyticsType: AnalyticsObjectType
+    
+    var id: String {
+        "\(objectId)-\(spaceId)"
+    }
+}
+
 @MainActor
 final class EditorSetCoordinatorViewModel:
     ObservableObject,
@@ -26,11 +36,15 @@ final class EditorSetCoordinatorViewModel:
     private var legacySetObjectCreationSettingsCoordinator: any SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
+    @Injected(\.templatesService)
+    private var templatesService: any TemplatesServiceProtocol
     
     @Injected(\.legacyToastPresenter)
     private var toastPresenter: any ToastPresenterProtocol
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
+    @Injected(\.legacyTemplatesCoordinator)
+    private var templatesCoordinator: any TemplatesCoordinatorProtocol
     
     var pageNavigation: PageNavigation?
     var dismissAllPresented: DismissAllPresented?
@@ -40,12 +54,14 @@ final class EditorSetCoordinatorViewModel:
     @Published var setViewSettingsData: SetSettingsData?
     @Published var setQueryData: SetQueryData?
     @Published var relationValueData: RelationValueData?
-    @Published var covertPickerData: ObjectCoverPickerData?
+    @Published var covertPickerData: BaseDocumentIdentifiable?
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var syncStatusSpaceId: StringIdentifiable?
     @Published var setObjectCreationData: SetObjectCreationData?
     @Published var presentSettings = false
+    @Published var layoutPickerData: LayoutPickerData?
+    @Published var showTypeFieldsDocument: BaseDocumentIdentifiable?
     
     init(data: EditorListObject, showHeader: Bool) {
         self.data = data
@@ -138,7 +154,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showCoverPicker(document: some BaseDocumentProtocol) {
-        covertPickerData = ObjectCoverPickerData(document: document)
+        covertPickerData = BaseDocumentIdentifiable(document: document)
     }
     
     func showIconPicker(document: some BaseDocumentProtocol) {
@@ -221,6 +237,38 @@ final class EditorSetCoordinatorViewModel:
         onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     ) {
         legacySetObjectCreationSettingsCoordinator.templateEditingHandler(setting: setting, onSetAsDefaultTempalte: onSetAsDefaultTempalte, onTemplateSelection: onTemplateSelection)
+    }
+    
+    func onObjectTypeLayoutTap(_ data: LayoutPickerData) {
+        layoutPickerData = data
+    }
+    
+    func onObjectTypeFieldsTap(document: some SetDocumentProtocol) {
+        showTypeFieldsDocument = document.document.identifiable
+    }
+    
+    func onObjectTypeTemplatesTap(objectId: String, spaceId: String) {
+        let data = TemplatePickerViewModelData(
+            mode: .typeTemplate,
+            typeId: objectId,
+            spaceId: spaceId,
+            defaultTemplateId: nil
+        )
+
+        templatesCoordinator.showTemplatesPicker(
+            data: data,
+            onSetAsDefaultTempalte: { [weak self] templateId in
+                self?.setTemplateAsDefault(objectId: objectId, templateId: templateId)
+            }
+        )
+    }
+    
+    private func setTemplateAsDefault(objectId: String, templateId: String) {
+        Task { @MainActor in
+            try? await templatesService.setTemplateAsDefaultForType(objectTypeId: objectId, templateId: templateId)
+            navigationContext.dismissTopPresented(animated: true, completion: nil)
+            toastPresenter.show(message: Loc.Templates.Popup.default)
+        }
     }
     
     // MARK: - Private
