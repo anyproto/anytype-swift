@@ -365,4 +365,12 @@ extension Container {
     var iconColorService: Factory<any IconColorServiceProtocol> {
         self { IconColorService() }.shared
     }
+    
+    var stdOutFileStream: Factory<any StdOutFileStreamProtocol> {
+        self { StdOutFileStream() }.singleton
+    }
+    
+    var appSessionTracker: Factory<any AppSessionTrackerProtocol> {
+        self { AppSessionTracker() }.singleton
+    }
 }

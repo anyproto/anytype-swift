@@ -2,8 +2,21 @@ import Foundation
 import Sentry
 import Logger
 import AnytypeCore
+import Factory
+
+enum AppSessionError: Error {
+    case sessionWithoutFinish
+}
 
 final class SentryConfigurator: AppConfiguratorProtocol {
+    
+    @Injected(\.appSessionTracker)
+    private var appSessionTracker: any AppSessionTrackerProtocol
+    
+    private enum Constants {
+        static let fileName = "stdout.txt"
+        static let contentType = "text/plain"
+    }
     
     func configure() {
         
@@ -36,14 +49,41 @@ final class SentryConfigurator: AppConfiguratorProtocol {
         let configProvider = Container.shared.middlewareConfigurationProvider.resolve()
         Task {
             let version = (try? await configProvider.libraryVersion()) ?? "undefined"
+            
+            let attachment = Attachment(
+                path: appSessionTracker.currentSessionReportPath,
+                filename: Constants.fileName,
+                contentType: Constants.contentType
+            )
+            
             SentrySDK.configureScope { scope in
                 scope.setContext(value: ["version" : version], key: "middleware")
                 scope.setTag(value: version, key: SentryTagKey.middlewareVersion.rawValue)
                 scope.setTag(value: BuildTypeProvider.buidType.rawValue, key: SentryTagKey.buidType.rawValue)
+                scope.addAttachment(attachment)
             }
         }
         
+        logOldAppSession()
+        
         AssertionLogger.shared.addHandler(SentryNonFatalLogger())
+    }
+    
+    private func logOldAppSession() {
+        if let report = appSessionTracker.oldSessionReport,
+            !report.sessionFinished,
+            !SentrySDK.crashedLastRun {
+
+            let attachment = Attachment(
+                path: report.reportPath,
+                filename: Constants.fileName,
+                contentType: Constants.contentType
+            )
+            
+            SentrySDK.capture(error: AppSessionError.sessionWithoutFinish) { scope in
+                scope.addAttachment(attachment)
+            }
+        }
     }
 }
 
