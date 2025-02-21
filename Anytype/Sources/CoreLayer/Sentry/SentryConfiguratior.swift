@@ -51,7 +51,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
         
         // Restore userId from old session
         let user = User()
-        user.userId = userDefaults.usersId
+        user.userId = userDefaults.analyticsId
         SentrySDK.setUser(user)
         
         let configProvider = Container.shared.middlewareConfigurationProvider.resolve()
