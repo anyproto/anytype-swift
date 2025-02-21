@@ -17,6 +17,7 @@ final class UserDefaultsStorageMock: UserDefaultsStorageProtocol {
     // Unused
     var showUnstableMiddlewareError: Bool { get { fatalError() } set { fatalError() } }
     var usersId: String { get { fatalError() } set { fatalError() } }
+    var analyticsId: String? { get { fatalError() } set { fatalError() } }
     var currentVersionOverride: String { get { fatalError() } set { fatalError() } }
     var installedAtDate: Date? { get { fatalError() } set { fatalError() } }
     var analyticsUserConsent: Bool { get { fatalError() } set { fatalError() } }
