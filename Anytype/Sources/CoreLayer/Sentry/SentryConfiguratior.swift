@@ -82,6 +82,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             
             SentrySDK.capture(error: AppSessionError.sessionWithoutFinish) { scope in
                 scope.addAttachment(attachment)
+                scope.setLevel(.fatal)
             }
         }
     }
