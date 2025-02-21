@@ -5,6 +5,12 @@ protocol StdOutFileStreamProtocol: AnyObject {
     var fileName: String { get }
 }
 
+#if RELEASE_ANYTYPE
+final class StdOutFileStream: StdOutFileStreamProtocol {
+    var folderURL: URL { FileManager.default.temporaryDirectory }
+    var fileName: String { "" }
+}
+#else
 final class StdOutFileStream: StdOutFileStreamProtocol {
     
     private let readQueue: DispatchQueue
@@ -82,3 +88,4 @@ final class StdOutFileStream: StdOutFileStreamProtocol {
         self.errPipe = errPipe
     }
 }
+#endif

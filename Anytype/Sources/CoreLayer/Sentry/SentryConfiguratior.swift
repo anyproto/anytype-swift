@@ -60,11 +60,16 @@ final class SentryConfigurator: AppConfiguratorProtocol {
                 scope.setContext(value: ["version" : version], key: "middleware")
                 scope.setTag(value: version, key: SentryTagKey.middlewareVersion.rawValue)
                 scope.setTag(value: BuildTypeProvider.buidType.rawValue, key: SentryTagKey.buidType.rawValue)
+                
+                #if !RELEASE_ANYTYPE
                 scope.addAttachment(attachment)
+                #endif
             }
         }
         
+        #if !RELEASE_ANYTYPE
         logOldAppSession()
+        #endif
         
         AssertionLogger.shared.addHandler(SentryNonFatalLogger())
     }
