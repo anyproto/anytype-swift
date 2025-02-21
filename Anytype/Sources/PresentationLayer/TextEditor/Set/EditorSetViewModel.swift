@@ -666,7 +666,10 @@ extension EditorSetViewModel {
     }
     
     func showAITool() {
-        output?.showAITool()
+        guard let objectDetails = recordsDict[setSubscriptionDataBuilder.subscriptionId],
+              objectDetails.isNotEmpty else { return }
+        let objectIds = objectDetails.map(\.id)
+        output?.showAITool(objectIds: objectIds)
     }
     
     func showSetSettings() {

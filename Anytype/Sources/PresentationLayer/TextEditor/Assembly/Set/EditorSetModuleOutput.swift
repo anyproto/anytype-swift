@@ -31,5 +31,5 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     // TODO: Open toast inside module
     func showFailureToast(message: String)
     
-    func showAITool()
+    func showAITool(objectIds: [String])
 }
