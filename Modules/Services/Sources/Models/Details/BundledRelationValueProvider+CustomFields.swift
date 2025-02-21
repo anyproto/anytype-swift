@@ -101,7 +101,7 @@ extension BundledRelationsValueProvider {
     }
     
     public var customIcon: CustomIcon? {
-        CustomIcon(rawValue: iconName)
+        CustomIcon(fromString: iconName)
     }
     
     public var customIconColor: CustomIconColor? {
