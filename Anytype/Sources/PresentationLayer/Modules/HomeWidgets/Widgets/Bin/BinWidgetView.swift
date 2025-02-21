@@ -13,13 +13,31 @@ struct BinWidgetView: View {
 
 private struct BinWidgetSubmoduleInternalView: View {
     
-    let data: WidgetSubmoduleData
+    @Binding private var homeState: HomeWidgetsState
+    @StateObject private var model: BinWidgetViewModel
     
     init(data: WidgetSubmoduleData) {
-        self.data = data
+        self._homeState = data.homeState
+        self._model = StateObject(wrappedValue: BinWidgetViewModel(data: data))
     }
     
     var body: some View {
-        Color.red.frame(height: 50)
+        LinkWidgetViewContainer(
+            title: Loc.bin,
+            icon: .Widget.bin,
+            isExpanded: .constant(false),
+            dragId: model.dragId,
+            homeState: $homeState,
+            allowMenuContent: true,
+            allowContent: false,
+            headerAction: {
+                model.onHeaderTap()
+            },
+            removeAction: nil,
+            menu: {
+                EmptyView()
+            },
+            content: { EmptyView() }
+        )
     }
 }
