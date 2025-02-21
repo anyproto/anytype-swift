@@ -12,9 +12,12 @@ final class SentryConfigurator: AppConfiguratorProtocol {
     
     @Injected(\.appSessionTracker)
     private var appSessionTracker: any AppSessionTrackerProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     private enum Constants {
         static let fileName = "stdout.txt"
+        static let oldSessionFileName = "stdout-old.txt"
         static let contentType = "text/plain"
     }
     
@@ -46,6 +49,11 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             options.environment = env
         }
         
+        // Restore userId from old session
+        let user = User()
+        user.userId = userDefaults.usersId
+        SentrySDK.setUser(user)
+        
         let configProvider = Container.shared.middlewareConfigurationProvider.resolve()
         Task {
             let version = (try? await configProvider.libraryVersion()) ?? "undefined"
@@ -65,11 +73,11 @@ final class SentryConfigurator: AppConfiguratorProtocol {
                 scope.addAttachment(attachment)
                 #endif
             }
+            
+            #if !RELEASE_ANYTYPE
+            logOldAppSession()
+            #endif
         }
-        
-        #if !RELEASE_ANYTYPE
-        logOldAppSession()
-        #endif
         
         AssertionLogger.shared.addHandler(SentryNonFatalLogger())
     }
@@ -81,7 +89,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
 
             let attachment = Attachment(
                 path: report.reportPath,
-                filename: Constants.fileName,
+                filename: Constants.oldSessionFileName,
                 contentType: Constants.contentType
             )
             
