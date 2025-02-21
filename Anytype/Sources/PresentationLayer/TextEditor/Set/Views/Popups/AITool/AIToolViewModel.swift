@@ -31,7 +31,9 @@ final class AIToolViewModel: ObservableObject {
     
     func generate() async {
         guard let config = aiConfigBuilder.makeOpenAIConfig() else {
-            anytypeAssertionFailure("Endpoint, Model, Token should be set")
+            anytypeAssertionFailure(
+                "Endpoint, Model, Token should be set, ask @joe_pusya to run it in debug mode"
+            )
             return
         }
         
