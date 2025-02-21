@@ -55,6 +55,12 @@ struct EditorSetCoordinatorView: View {
             .sheet(item: $model.aiToolData) {
                 AIToolView(data: $0)
             }
+            .sheet(item: $model.layoutPickerData) {
+                ObjectLayoutPicker(mode: .type, objectId: $0.objectId, spaceId: $0.spaceId, analyticsType: $0.analyticsType)
+            }
+            .sheet(item: $model.showTypeFieldsDocument) {
+                TypeFieldsView(document: $0.document)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

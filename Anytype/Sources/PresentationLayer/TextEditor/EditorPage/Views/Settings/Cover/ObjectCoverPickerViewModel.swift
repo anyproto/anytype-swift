@@ -15,10 +15,16 @@ enum ObjectCoverPickerAction {
     case removeCover
 }
 
-struct ObjectCoverPickerData: Identifiable {
+struct BaseDocumentIdentifiable: Identifiable {
     let document: any BaseDocumentProtocol
     
     var id: String { document.objectId }
+}
+
+extension BaseDocumentProtocol {
+    var identifiable: BaseDocumentIdentifiable {
+        BaseDocumentIdentifiable(document: self)
+    }
 }
 
 @MainActor
@@ -35,7 +41,7 @@ final class ObjectCoverPickerViewModel: ObservableObject {
         
     // MARK: - Initializer
     
-    init(data: ObjectCoverPickerData) {
+    init(data: BaseDocumentIdentifiable) {
         self.document = data.document
     }
 }

@@ -30,6 +30,11 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showSyncStatusInfo(spaceId: String)
     // TODO: Open toast inside module
     func showFailureToast(message: String)
-    
+
     func showAITool(objectIds: [String])
+
+    // Object type methods
+    func onObjectTypeLayoutTap(_ data: LayoutPickerData)
+    func onObjectTypeFieldsTap(document: some SetDocumentProtocol)
+    func onObjectTypeTemplatesTap(objectId: String, spaceId: String)
 }
