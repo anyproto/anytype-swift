@@ -59,7 +59,7 @@ struct RoundedButton: View {
                 .background(Capsule().fill(Color.Control.transparentActive))
         case let .objectType(objectType):
             HStack(spacing: 8) {
-                IconView(objectType: objectType).frame(width: 20, height: 20)
+                IconView(object: objectType.icon).frame(width: 20, height: 20)
                 AnytypeText(objectType.name, style: .previewTitle1Regular)
             }
         case .none:
