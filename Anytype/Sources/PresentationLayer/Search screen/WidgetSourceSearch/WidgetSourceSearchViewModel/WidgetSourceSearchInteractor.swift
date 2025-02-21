@@ -116,7 +116,7 @@ private extension AnytypeWidgetId {
             return WidgetAnytypeLibrarySource(
                 type: .bin,
                 name: Loc.bin,
-                description: Loc.Widgets.Library.RecentlyOpened.description,
+                description: nil,
                 icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.bin) : .object(.emoji(Emoji("🗑️")!))
             )
         case .pages:
