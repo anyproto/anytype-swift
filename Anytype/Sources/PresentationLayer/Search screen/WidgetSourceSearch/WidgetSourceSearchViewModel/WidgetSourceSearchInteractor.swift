@@ -112,6 +112,13 @@ private extension AnytypeWidgetId {
                 description: Loc.Widgets.Library.RecentlyOpened.description,
                 icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.recentlyOpened) : .object(.emoji(Emoji("📅")!))
             )
+        case .bin:
+            return WidgetAnytypeLibrarySource(
+                type: .bin,
+                name: Loc.bin,
+                description: Loc.Widgets.Library.RecentlyOpened.description,
+                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.bin) : .object(.emoji(Emoji("🗑️")!))
+            )
         case .pages:
             return WidgetAnytypeLibrarySource(
                 type: .pages,
