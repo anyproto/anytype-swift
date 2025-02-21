@@ -203,7 +203,7 @@
 "Join" = "Rejoindre";
 "Agreement Disclamer" = "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)";
 "Lets Go" = "C’est parti ";
-"My Channels" = "My Channels";
+"My Channels" = "Mes chaînes";
 "Open file" = "Ouvrir le fichier";
 "Open Set" = "Ouvrir le set";
 "Create Set" = "Créer un set";
@@ -219,7 +219,7 @@
 // Settings
 "Wallpaper" = "Fond d'écran";
 "Log out" = "Déconnexion";
-"Misc" = "Misc";
+"Misc" = "Divers";
 
 // Action
 "Restore" = "Restaurer";
@@ -298,9 +298,9 @@
 
 "Search" = "Rechercher";
 "There is no emoji named" = "Il n'y a pas d'émoji nommé";
-"There is no icon named" = "There is no icon named";
+"There is no icon named" = "Il n'y a pas d'icône nommée";
 "Try to find a new one or upload your image" = "Essayez de trouver une autre image ou mettez en ligne votre image";
-"Try to find a new one" = "Try to find a new one";
+"Try to find a new one" = "Essayez d'en trouver un nouveau";
 
 "Emoji" = "Emoji";
 "Random" = "Aléatoire";

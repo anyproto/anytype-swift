@@ -203,7 +203,7 @@
 "Join" = "Katıl";
 "Agreement Disclamer" = "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz";
 "Lets Go" = "Haydi Başlayalım";
-"My Channels" = "My Channels";
+"My Channels" = "Kanallarım";
 "Open file" = "Dosya aç";
 "Open Set" = "Set aç";
 "Create Set" = "Set oluştur";
@@ -219,7 +219,7 @@
 // Settings
 "Wallpaper" = "Duvar kağıdı";
 "Log out" = "Çıkış yap";
-"Misc" = "Misc";
+"Misc" = "Diğer";
 
 // Action
 "Restore" = "Geri yükle";

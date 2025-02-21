@@ -203,7 +203,7 @@
 "Join" = "Neem deel";
 "Agreement Disclamer" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Lets Go" = "Laten we beginnen";
-"My Channels" = "My Channels";
+"My Channels" = "Mijn kanalen";
 "Open file" = "Open bestand";
 "Open Set" = "Open set";
 "Create Set" = "Maak set";
@@ -219,7 +219,7 @@
 // Settings
 "Wallpaper" = "Achtergrond";
 "Log out" = "Meld af";
-"Misc" = "Misc";
+"Misc" = "Overig";
 
 // Action
 "Restore" = "Herstel";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Geef toegang";
 "Restore key from keychain" = "Herstel sleutel vanuit de sleutelhanger";
-"Auth.LogIn" = "I already have the key";
-"Auth.Button.Join" = "I am new here";
+"Auth.LogIn" = "Ik heb de sleutel al";
+"Auth.Button.Join" = "Ik ben nieuw hier";
 "Auth.Welcome.Subtitle" = "Maak & werk samen in jouw ruimten. Versleuteld, offline & [open](%@).";
 "Auth.Next" = "Volgende";
 
@@ -259,12 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dit is jouw sleutel";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
+"Auth.JoinFlow.Key.Description" = "Het geeft je volledige eigendom over je gegevens en gesprekken. Je kunt deze sleutel later vinden in de app instellingen.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tik om te onthullen";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Volgende";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Niet nu";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopieer naar klembord";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Lees meer over Sleutel";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Wat is de sleutel?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Het bestaat uit een herstelzin –  12 willekeurige woorden van waaruit jouw kluis op magische wijze wordt aangemaakt op dit apparaat.";
@@ -298,9 +298,9 @@
 
 "Search" = "Zoeken";
 "There is no emoji named" = "Er is geen emoji genaamd";
-"There is no icon named" = "There is no icon named";
+"There is no icon named" = "Er is geen icoon met naam";
 "Try to find a new one or upload your image" = "Probeer een nieuwe te vinden of upload jouw afbeelding";
-"Try to find a new one" = "Try to find a new one";
+"Try to find a new one" = "Probeer een nieuwe te vinden";
 
 "Emoji" = "Emoji";
 "Random" = "Willekeurig";

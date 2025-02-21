@@ -21,7 +21,10 @@ struct CustomIconColorOverlay: View {
                     UISelectionFeedbackGenerator().selectionChanged()
                     onColorSelected(color)
                 } label: {
-                    CustomIconView(icon: icon, iconColor: color)
+                    Image(asset: icon.imageAsset)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(color.color)
                         .frame(width: 40, height: 40)
                         .padding(8)
                 }
@@ -30,8 +33,8 @@ struct CustomIconColorOverlay: View {
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color(.systemBackground))
-                .shadow(radius: 8)
+                .fill(Color(.Background.secondary))
+                .shadow(radius: 4)
         )
     }
 }
