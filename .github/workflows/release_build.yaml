@@ -10,12 +10,12 @@ on:
       build_anytype_app:
         description: "Build Anytype Release"
         required: false
-        default: "true"
+        default: "false"
         type: boolean
       build_any_app:
         description: "Build Any App Release"
         required: false
-        default: "true"
+        default: "false"
         type: boolean
 
 jobs:
