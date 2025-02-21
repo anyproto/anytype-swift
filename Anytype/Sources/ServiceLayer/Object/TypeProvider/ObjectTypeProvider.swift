@@ -101,7 +101,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
         return ObjectType(
             id: id,
             name: Loc.ObjectType.deletedName,
-            iconEmoji: nil,
+            icon: .deleted,
             description: "",
             hidden: false,
             readonly: true,

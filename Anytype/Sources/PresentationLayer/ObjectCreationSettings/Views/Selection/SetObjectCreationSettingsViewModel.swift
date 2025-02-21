@@ -176,12 +176,10 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     private func updateObjectTypes(_ objectTypesConfig: ObjectTypesConfiguration) {
         var convertedObjectTypes = objectTypesConfig.objectTypes.map {  type in
             let isSelected = type.id == objectTypesConfig.objectTypeId
-            let icon = type.iconEmoji.flatMap { 
-                Icon.object(.emoji($0))
-            }
+            
             return InstalledObjectTypeViewModel(
                 id: type.id,
-                icon: icon,
+                icon: .object(type.icon),
                 title: type.name,
                 isSelected: isSelected,
                 onTap: { [weak self] in

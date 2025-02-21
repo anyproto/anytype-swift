@@ -1,6 +1,6 @@
 import SwiftUI
 
-public enum CustomIconColor: Int, CaseIterable, Sendable {
+public enum CustomIconColor: Int, CaseIterable, Sendable, Codable, Identifiable {
     case gray
     case yellow
     case amber
@@ -15,6 +15,8 @@ public enum CustomIconColor: Int, CaseIterable, Sendable {
     public var iconOption: Int {
         rawValue + 1
     }
+    
+    public var id: Int { rawValue }
     
     public static let `default`: CustomIconColor = .gray
     

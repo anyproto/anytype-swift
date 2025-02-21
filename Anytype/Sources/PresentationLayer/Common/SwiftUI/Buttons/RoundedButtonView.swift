@@ -60,7 +60,7 @@ struct RoundedButtonView: View {
             IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
         case let .objectType(objectType):
             HStack(spacing: 8) {
-                IconView(objectType: objectType).frame(width: 20, height: 20)
+                IconView(object: objectType.icon).frame(width: 20, height: 20)
                 AnytypeText(objectType.name, style: .previewTitle1Regular)
             }
             Spacer.fixedWidth(8)

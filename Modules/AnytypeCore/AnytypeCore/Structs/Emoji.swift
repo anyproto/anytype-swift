@@ -1,4 +1,4 @@
-public struct Emoji: Hashable, Codable, Sendable {
+public struct Emoji: Hashable, Codable, Sendable, Identifiable {
     
     public let value: String
     
@@ -11,4 +11,6 @@ public struct Emoji: Hashable, Codable, Sendable {
     }
     
     public static let lamp = Emoji("💡")!
+    
+    public var id: String { value }
 }
