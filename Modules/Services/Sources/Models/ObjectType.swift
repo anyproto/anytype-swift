@@ -1,11 +1,12 @@
 import ProtobufMessages
 import AnytypeCore
 
+
 public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     
     public let id: String
     public let name: String
-    public let iconEmoji: Emoji?
+    public let icon: ObjectIcon
     public let description: String
     public let hidden: Bool
     public let readonly: Bool
@@ -25,7 +26,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     public init(
         id: String,
         name: String,
-        iconEmoji: Emoji?,
+        icon: ObjectIcon,
         description: String,
         hidden: Bool,
         readonly: Bool,
@@ -43,7 +44,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     ) {
         self.id = id
         self.name = name
-        self.iconEmoji = iconEmoji
+        self.icon = icon
         self.description = description
         self.hidden = hidden
         self.readonly = readonly
@@ -67,7 +68,7 @@ extension ObjectType: DetailsModel {
         self.init(
             id: details.id,
             name: details.name,
-            iconEmoji: details.iconEmoji,
+            icon: details.objectIcon ?? .empty(.objectType),
             description: details.description,
             hidden: details.isHidden,
             readonly: details.isReadonly,
@@ -90,6 +91,8 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.id,
             BundledRelationKey.name,
             BundledRelationKey.iconEmoji,
+            BundledRelationKey.iconName,
+            BundledRelationKey.iconOption,
             BundledRelationKey.description,
             BundledRelationKey.isHidden,
             BundledRelationKey.isReadonly,
@@ -103,7 +106,8 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.uniqueKey,
             BundledRelationKey.spaceId,
             BundledRelationKey.defaultTemplateId,
-            BundledRelationKey.restrictions
+            BundledRelationKey.restrictions,
+            BundledRelationKey.resolvedLayout
         ]
     }
     

@@ -157,9 +157,9 @@ struct ObjectTypeSearchView: View {
                     viewModel.didSelectType(typeData.type, section: section)
                 } label: {
                     HStack(spacing: 8) {
-                        IconView(objectType: typeData.type).frame(width: 18, height: 18)
+                        IconView(object: typeData.type.icon).frame(width: 18, height: 18)
                         
-                        AnytypeText(typeData.type.name, style: .uxTitle2Medium)
+                        AnytypeText(typeData.type.displayName, style: .uxTitle2Medium)
                             .foregroundColor(.Text.primary)
                     }
                     .padding(.vertical, 15)

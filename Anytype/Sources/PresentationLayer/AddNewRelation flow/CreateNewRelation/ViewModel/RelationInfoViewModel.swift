@@ -216,7 +216,7 @@ private extension Array where Element == ObjectType {
         map {
             NewRelationRestrictionsSectionView.ObjectTypeModel(
                 id: $0.id,
-                emoji: $0.iconEmoji,
+                icon: $0.icon,
                 title: $0.name
             )
         }

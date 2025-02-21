@@ -219,7 +219,7 @@
 // Settings
 "Wallpaper" = "Fondo de pantalla";
 "Log out" = "Cerrar sesión";
-"Misc" = "Misc";
+"Misc" = "Varios";
 
 // Action
 "Restore" = "Restaurar";
@@ -259,12 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Esta es tu clave";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
+"Auth.JoinFlow.Key.Description" = "Te da la plena propiedad de tus datos y conversaciones. Podrás encontrar esta clave más adelante en los ajustes de la aplicación.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Pulsa para mostrar";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Siguiente";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Ahora no";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copiar al portapapeles";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Más información sobre la clave";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "¿Qué es una clave?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Consiste en una frase de recuperación de 12 palabras con las que se genera mágicamente tu arca en este dispositivo.";
@@ -298,9 +298,9 @@
 
 "Search" = "Buscar";
 "There is no emoji named" = "No hay ningún emoji llamado";
-"There is no icon named" = "There is no icon named";
+"There is no icon named" = "No hay ningún icono llamado";
 "Try to find a new one or upload your image" = "Busca otro distinto o carga una imagen.";
-"Try to find a new one" = "Try to find a new one";
+"Try to find a new one" = "Prueba a buscar otro";
 
 "Emoji" = "Emoji";
 "Random" = "Aleatorio";
@@ -1302,7 +1302,7 @@ En concreto,
 "ObjectSearchWithMeta.Create.Collection" = "Nueva colección";
 
 // MARK: - Migration
-"Migration.title" = "Migration is in progress...";
+"Migration.title" = "La migración está en curso…";
 "Migration.subtitle" = "No llevará mucho tiempo. Gracias por tu paciencia.";
-"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.title" = "No hay suficiente espacio";
 "Migration.Error.NotEnoughtSpace.message" = "Libera algo de espacio y vuelve a ejecutar el proceso.";

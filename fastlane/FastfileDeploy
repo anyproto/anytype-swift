@@ -59,6 +59,8 @@ platform :ios do
       )
     end
 
+    set_amplitude_api_key_to_info_plist
+    set_sentry_dsn_to_info_plist
     set_openai_token_to_info_plist
     set_ai_endpoint_to_info_plist
     set_ai_model_to_info_plist
