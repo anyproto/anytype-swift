@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Metin";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Başlıksız";
 "Object.Deleted.Placeholder" = "Silinen nesne";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Katıl";
 "Agreement Disclamer" = "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz";
 "Lets Go" = "Haydi Başlayalım";
-"My spaces" = "Alanlarım";
+"My Channels" = "Kanallarım";
 "Open file" = "Dosya aç";
 "Open Set" = "Set aç";
 "Create Set" = "Set oluştur";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Duvar kağıdı";
 "Log out" = "Çıkış yap";
+"Misc" = "Diğer";
 
 // Action
 "Restore" = "Geri yükle";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Karekodu tara";
 "Auth.CameraPermissionTitle" = "Lütfen erişime izin verin";
 "Restore key from keychain" = "Anahtarı keychain'den geri yükleme";
-"Auth.LogIn" = "Kurtarma anahtarım var";
-"Auth.Button.Join" = "Yeni Kasa";
+"Auth.LogIn" = "Anahtara zaten sahibim";
+"Auth.Button.Join" = "Burada yeniyim";
 "Auth.Welcome.Subtitle" = "Sahip olduğunuz alanlarda oluşturun ve işbirliği yapın. Şifreli, çevrimdışı ve [açık](%@)";
 "Auth.Next" = "Sonraki";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Bu senin anahtarın";
-"Auth.JoinFlow.Key.Description" = "Kasanız üzerinde size tam sahiplik sağlar.\nKurtarılamaz.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Anahtarımı Göster";
+"Auth.JoinFlow.Key.Description" = "Verileriniz ve konuşmalarınız üzerinde size tam sahiplik sağlar. Bu anahtarı daha sonra uygulama ayarlarında bulabilirsiniz.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Görüntülemek için Dokun";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Sonraki";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Atla";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Şimdi değil";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Panoya kopyala";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Devamını oku";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Bu anahtarı daha sonra Anytype ayarlarında bulabilirsiniz";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Anahtar hakkında daha fazlasını okuyun";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Anahtar nedir?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Kurtarma anahtarınız bu cihazda sadece sizin için oluşturulan 12 rastgele kelimeden oluşur.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Adınızı girin";
 "Auth.JoinFlow.Soul.Description" = "Yalnızca bir şey paylaştığınız kişiler tarafından görülür. Bu isimlerin merkezi bir kaydı yoktur.";
-"Auth.JoinFlow.Soul.Placeholder" = "Başlıksız";
-"Auth.JoinFlow.Soul.Button" = "Kasama gir";
-
-"Auth.JoinFlow.Vault.Title" = "Bu senin kasan";
-"Auth.JoinFlow.Vault.Description" = "İçerideki her şey şifrelenmiştir.\nYerel önceliklidir - her şey çevrimdışı çalışır.\nAnahtar yalnızca sizde vardır.";
-"Auth.JoinFlow.Vault.Button" = "Get my Key";
+"Auth.JoinFlow.Soul.Placeholder" = "İsim";
+"Auth.JoinFlow.Soul.Button" = "Bitti";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Keychain kullan";
@@ -303,7 +298,9 @@
 
 "Search" = "Ara";
 "There is no emoji named" = "İsimlendirilmiş bir emoji yok";
+"There is no icon named" = "Adında simge yok";
 "Try to find a new one or upload your image" = "Yeni bir tane bulmaya çalışın ya da kendi resminizi yükleyin";
+"Try to find a new one" = "Yeni bir tane bulmaya çalış.";
 
 "Emoji" = "Emoji";
 "Random" = "Rastgele";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ gün önce";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ gün sonra";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Başlıksız";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Sorgu";
@@ -1308,3 +1302,9 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "ObjectSearchWithMeta.Create.Note" = "Yeni Not";
 "ObjectSearchWithMeta.Create.Set" = "Yeni Set";
 "ObjectSearchWithMeta.Create.Collection" = "Yeni Koleksiyon";
+
+// MARK: - Migration
+"Migration.title" = "Geçiş işlemi devam ediyor...";
+"Migration.subtitle" = "Bu uzun sürmeyecek. Sabrınız için teşekkürler.";
+"Migration.Error.NotEnoughtSpace.title" = "Yeterli yer yok";
+"Migration.Error.NotEnoughtSpace.message" = "Lütfen biraz yer açın ve işlemi tekrarlayın.";

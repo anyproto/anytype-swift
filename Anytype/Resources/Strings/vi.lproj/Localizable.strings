@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Văn bản";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Đối tượng đã xoá";
 
 // MARK: - Relation
@@ -205,7 +204,7 @@
 "Join" = "Gia nhập";
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Lets Go" = "Let’s Go";
-"My spaces" = "My Spaces";
+"My Channels" = "My Channels";
 "Open file" = "Open file";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
@@ -221,6 +220,7 @@
 // Settings
 "Wallpaper" = "Hình nền";
 "Log out" = "Đăng xuất";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Khôi phục";
@@ -241,8 +241,8 @@
 "Scan QR code" = "Quét mã QR";
 "Auth.CameraPermissionTitle" = "Hãy cho phép truy cập";
 "Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Next" = "Tiếp";
 
@@ -260,13 +260,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Tiếp";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Để sau";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
@@ -278,12 +277,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Đặt tên của bạn";
 "Auth.JoinFlow.Soul.Description" = "Chỉ có thể thấy bởi những người mà bạn đã chia sẻ thứ gì đó cho. Không hề có một trung tâm ghi những cái tên này.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
-
-"Auth.JoinFlow.Vault.Title" = "Đây là Két của bạn";
-"Auth.JoinFlow.Vault.Description" = "Mọi thứ bên trong đều được mật hoá.\nNó ưu tiên tính cục bộ – dù ngoại tuyến mọi thứ vẫn chạy.\nChỉ mình bạn có khoá.";
-"Auth.JoinFlow.Vault.Button" = "Get my Key";
+"Auth.JoinFlow.Soul.Placeholder" = "Tên";
+"Auth.JoinFlow.Soul.Button" = "Xong";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Dùng móc khoá";
@@ -304,7 +299,9 @@
 
 "Search" = "Tìm kiếm";
 "There is no emoji named" = "Không có emoji tên";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "Ngẫu nhiên";
@@ -478,9 +475,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Truy vấn";
@@ -1307,3 +1301,9 @@ Please provide specific details of your needs here.";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

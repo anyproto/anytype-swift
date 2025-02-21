@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Тэкст";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Выдаліць аб'ект";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Далучыцца";
 "Agreement Disclamer" = "Працягваючы,  вы згаджаецеся з нашымі [Умовамі Выкарыстання](%@) і [Палітыкай Прыватнасці](%@)";
 "Lets Go" = "Паехалі";
-"My spaces" = "Мае прасторы";
+"My Channels" = "My Channels";
 "Open file" = "Open file";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Шпалеры";
 "Log out" = "Выйсці";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Аднавіць";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Сканіраваць QR-код";
 "Auth.CameraPermissionTitle" = "Калі ласка, дазвольце доступ";
 "Restore key from keychain" = "Аднавіць ключ з звязкі ключоў";
-"Auth.LogIn" = "У мяне ёсць ключ";
-"Auth.Button.Join" = "Новае Сховішча";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "Стварайце і супрацоўнічайце ва ўласных Прасторах. Зашыфравана, па-за сеткай і [адкрыта](%@).";
 "Auth.Next" = "Далей";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Гэта ваш Ключ";
-"Auth.JoinFlow.Key.Description" = "Дае поўны доступ да вашага Сховішча.\nНемагчыма аднавіць.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Паказаць мой ключ";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Далей";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Прапусціць";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Не зараз";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Капіяваць у буфер абмену";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Чытаць далей";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Вы можаце знайсці гэты ключ потым у наладах Anytype";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Што такое URL?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Фраза аднаўлення - 12 выпадковых слоў, з якіх магічным чынам ствараецца ваша Сховішча на гэтай прыладзе.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Увядзіце сваё імя";
 "Auth.JoinFlow.Soul.Description" = "Бачна толькі людзям, з якімі вы чымсьці падзяліліся. Адзінага спісу такіх імёнаў не існуе.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
-"Auth.JoinFlow.Soul.Button" = "Увайсці ў Сховішча";
-
-"Auth.JoinFlow.Vault.Title" = "Гэта тваё Сховішча";
-"Auth.JoinFlow.Vault.Description" = "Усё ўнутры зашыфравана.\nГэта лакальна - усё працуе па-за сеткай.\nТолькі ў вас ёсць ключ.";
-"Auth.JoinFlow.Vault.Button" = "Атрымаць мой ключ";
+"Auth.JoinFlow.Soul.Placeholder" = "Назва";
+"Auth.JoinFlow.Soul.Button" = "Гатова";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Выкарыстоўваць звязку ключоў";
@@ -303,7 +298,9 @@
 
 "Search" = "Пошук";
 "There is no emoji named" = "Няма эмодзі з такой назвай";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Паспрабуйце знайсці новы або загрузіце свой відарыс";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Эмодзі";
 "Random" = "Выпадкова";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ дзён таму";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дзён таму";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запыт";
@@ -1307,3 +1301,9 @@
 "ObjectSearchWithMeta.Create.Note" = "New Note";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

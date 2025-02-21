@@ -41,7 +41,7 @@
 
 // MARK: - Block Text
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
+"BlockText.ContentType.Title.Placeholder" = "Senza titolo";
 "BlockText.ContentType.Description.Placeholder" = "Aggiungi una descrizione";
 "BlockText.ContentType.Toggle.Placeholder" = "Blocco espandibile";
 "BlockText.ContentType.Bulleted.Placeholder" = "Elemento di elenco puntato";
@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Testo";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Oggetto eliminato";
 
 // MARK: - Relation
@@ -124,7 +123,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Oggetto";
 
-"Untitled" = "Untitled";
+"Untitled" = "Senza titolo";
 "None" = "Nessuno";
 "Callout" = "Richiamo";
 "Toggle empty. Tap to create block." = "Interruttore vuoto. Tocca per creare un blocco.";
@@ -204,7 +203,7 @@
 "Join" = "Unisciti";
 "Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Lets Go" = "Iniziamo!";
-"My spaces" = "I miei Spazi";
+"My Channels" = "My Channels";
 "Open file" = "Apri file";
 "Open Set" = "Apri Insieme";
 "Create Set" = "Crea un Insieme";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Disconnetti";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Ripristina";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Scansiona codice QR";
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore key from keychain" = "Ripristina la Chiave dal portachiavi";
-"Auth.LogIn" = "Ho una Chiave";
-"Auth.Button.Join" = "Nuova Cassaforte";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "Crea e collabora negli spazi che possiedi.Crittografati, offline & [open source](%@).";
 "Auth.Next" = "Avanti";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Questa è la tua Chiave";
-"Auth.JoinFlow.Key.Description" = "Ti dà piena proprietà sulla tua cassaforte.\nNon può essere recuperata.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Mostra la mia Chiave";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Avanti";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Salta";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Non ora";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copia negli appunti";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Leggi altro";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Puoi trovare questa chiave in seguito nelle impostazioni di Anytype";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Cos'è una Chiave?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "È rappresentata da una frase di recupero – 12 parole casuali da cui la tua cassaforte viene magicamente generata su questo dispositivo.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Imposta il tuo nome";
 "Auth.JoinFlow.Soul.Description" = "Visibile solo alle persone con cui condividi qualcosa. Non esiste un registro centrale di questi nomi.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
-"Auth.JoinFlow.Soul.Button" = "Entra nella mia Cassaforte";
-
-"Auth.JoinFlow.Vault.Title" = "Questa è la tua Cassaforte";
-"Auth.JoinFlow.Vault.Description" = "Tutto al suo interno è crittografato.\nÈ prioritariamente locale – tutto funziona offline.\nSolo tu hai la chiave.";
-"Auth.JoinFlow.Vault.Button" = "Ottieni la mia Chiave";
+"Auth.JoinFlow.Soul.Placeholder" = "Nome";
+"Auth.JoinFlow.Soul.Button" = "Fatto";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usa portachiavi";
@@ -303,7 +298,9 @@
 
 "Search" = "Cerca";
 "There is no emoji named" = "Non esiste un emoji chiamato";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Prova a trovarne uno nuovo o carica la tua immagine";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "Casuale";
@@ -478,9 +475,6 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ giorni fa";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ giorni da adesso";
 
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
-
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
 "Set.FeaturedRelations.RelationsList" = "Relazioni:";
@@ -639,7 +633,7 @@
 "Deleted" = "Eliminato";
 "Download" = "Scarica";
 "Open object" = "Apri oggetto";
-"Open as Object" = "Open as Object";
+"Open as Object" = "Apri come Oggetto";
 "Open source" = "Apri fonte";
 "Into object" = "Nell'oggetto";
 "Add below" = "Aggiungi sotto";
@@ -660,7 +654,7 @@
 "Link to" = "Collega a";
 "Unknown" = "Sconosciuto";
 "Settings" = "Impostazioni";
-"Preferences" = "Preferences";
+"Preferences" = "Preferenze";
 "Views" = "Viste";
 "Filter" = "Filtro";
 "Sort" = "Ordina";
@@ -706,10 +700,10 @@
 "Hide" = "Nascondi";
 "Apply" = "Applica";
 "Leave a space" = "Leave a space";
-"Collaboration" = "Collaboration";
+"Collaboration" = "Collaborazione";
 "Members" = "Membri";
-"Invite" = "Invite";
-"QR Code" = "QR Code";
+"Invite" = "Invita";
+"QR Code" = "Codice QR";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
@@ -791,7 +785,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplica";
 "SetViewTypesPicker.Settings.Delete.View" = "Elimina vista";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nuova vista";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Senza titolo";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Non supportato";
@@ -882,9 +876,9 @@
 "Settings.SpaceType" = "Tipo di spazio";
 "Settings.VaultAndAccess" = "Cassaforte e accesso";
 "Settings.SpaceName" = "Nome dello Spazio";
-"Settings.Edit picture" = "Edit picture";
-"Settings.Updated" = "Space information updated";
-"Settings.DataManagement" = "Data Management";
+"Settings.Edit picture" = "Modifica foto";
+"Settings.Updated" = "Informazioni sullo spazio aggiornate";
+"Settings.DataManagement" = "Gestione Dati";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Archiviazione file";
@@ -896,14 +890,14 @@
 "FileStorage.Local.Instruction" = "Per risparmiare spazio sul tuo dispositivo locale, puoi liberare tutti i tuoi file trasferendoli al nostro nodo di backup criptato. I file verranno ricaricati quando li apri";
 "FileStorage.Local.Used" = "%@ utilizzati";
 "FileStorage.OffloadTitle" = "Libera file";
-"FileStorage.CleanUpFiles" = "Clean up files files";
+"FileStorage.CleanUpFiles" = "Pulisci i file";
 "FileStorage.LimitError" = "Hai superato il limite di caricamento dei file";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Altri spazi | %@";
 "FileStorage.LimitLegend.Free" = "Gratis | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Clean up files";
+"FilesList.Title" = "Pulisci i file";
 "FilesList.ForceDelete.Title" = "Sei sicuro di voler eliminare definitivamente i file?";
 
 // MARK: - Widget object list
@@ -937,7 +931,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Impostazioni dello Spazio";
 "SpaceSettings.RemoteStorage" = "Archiviazione remota";
-"SpaceSettings.Info" = "Space information";
+"SpaceSettings.Info" = "Informazioni sullo spazio";
 "SpaceSettings.NetworkId" = "ID della rete";
 "SpaceSettings.DeleteAlert.Title" = "Elimina spazio ‘%@’ ";
 "SpaceSettings.DeleteAlert.Message" = "Questo spazio verrà eliminato irrevocabilmente. Non è possibile annullare questa azione.";
@@ -1306,3 +1300,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "ObjectSearchWithMeta.Create.Note" = "Nuova Nota";
 "ObjectSearchWithMeta.Create.Set" = "Nuovo Insieme";
 "ObjectSearchWithMeta.Create.Collection" = "Nuova Collezione";
+
+// MARK: - Migration
+"Migration.title" = "Migrazione in corso...";
+"Migration.subtitle" = "Non dovrebbe volerci molto. Grazie per la pazienza.";
+"Migration.Error.NotEnoughtSpace.title" = "Spazio insufficiente";
+"Migration.Error.NotEnoughtSpace.message" = "Si prega di liberare un po' di spazio ed eseguire nuovamente il processo.";

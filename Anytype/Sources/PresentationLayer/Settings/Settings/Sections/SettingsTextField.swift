@@ -9,7 +9,7 @@ struct SettingsTextField: View {
         VStack(alignment: .leading, spacing: 6) {
             AnytypeText(title, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
-            AnytypeTextField(placeholder: Loc.Object.Title.placeholder, font: .heading, text: $text)
+            AnytypeTextField(placeholder: Loc.untitled, font: .heading, text: $text)
                 .foregroundColor(.Text.primary)
                 .autocorrectionDisabled()
         }

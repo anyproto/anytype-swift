@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "텍스트";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "삭제된 개체";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Join";
 "Agreement Disclamer" = "계속 진행하면 [이용 약관](%@) 및 [개인정보 처리방침](%@)에 동의하는 것입니다";
 "Lets Go" = "Let’s Go";
-"My spaces" = "내 스페이스";
+"My Channels" = "My Channels";
 "Open file" = "파일 열기";
 "Open Set" = "세트 열기";
 "Create Set" = "세트 생성";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "배경화면";
 "Log out" = "로그아웃";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "복원";
@@ -240,8 +240,8 @@
 "Scan QR code" = "QR 코드 스캔";
 "Auth.CameraPermissionTitle" = "엑세스를 허용해주세요";
 "Restore key from keychain" = "키체인에서 키를 복원합니다";
-"Auth.LogIn" = "키가 있습니다";
-"Auth.Button.Join" = "새 보관소";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "당신의 스페이스에서 만들고 협업하세요. 암호화, 오프라인 및 공개(%@).";
 "Auth.Next" = "다음";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "당신의 키입니다";
-"Auth.JoinFlow.Key.Description" = "이것은 보관소에 대한 완전한 소유권을 부여합니다.\n이것은 복구할 수 없습니다.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "내 키를 보여주세요";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "다음";
-"Auth.JoinFlow.Key.Button.Later.Title" = "건너뛰기";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Not now";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "클립보드로 복사";
-"Auth.JoinFlow.Key.Button.Info.Title" = "더보기";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "나중에 Anytype 설정에서 이 키를 확인할 수 있습니다";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "키는 무엇인가요?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "이 장치에서 보관소가 마술처럼 생성되는 12개의 무작위 단어인 복구 문구로 표시됩니다.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "이름 설정";
 "Auth.JoinFlow.Soul.Description" = "공유한 사람들만 볼 수 있습니다. 이러한 이름에 대한 중앙 레지스트리는 없습니다.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
-
-"Auth.JoinFlow.Vault.Title" = "당신의 보관소입니다";
-"Auth.JoinFlow.Vault.Description" = "내부의 모든 것이 암호화되어 있습니다.\n로컬 우선이며 모든 것이 오프라인에서 동작합니다.\n키를 가진 사람은 당신뿐입니다.";
-"Auth.JoinFlow.Vault.Button" = "Get my Key";
+"Auth.JoinFlow.Soul.Placeholder" = "이름";
+"Auth.JoinFlow.Soul.Button" = "완료";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
@@ -303,7 +298,9 @@
 
 "Search" = "검색";
 "There is no emoji named" = "There is no emoji named";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "이모티콘";
 "Random" = "무작위";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -1306,3 +1300,9 @@ Please provide specific details of your needs here.";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

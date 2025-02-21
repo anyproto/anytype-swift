@@ -26,6 +26,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
     private let chatInputConverter: any ChatInputConverterProtocol = Container.shared.chatInputConverter()
     private let fileActionsService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
+    private let bookmarkService: any BookmarkServiceProtocol = Container.shared.bookmarkService()
     
     func createMessage(
         chatId: String,
@@ -79,6 +80,14 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 if let attachment = try? await uploadFile(spaceId: spaceId, data: data) {
                     chatMessage.attachments.append(attachment)
                 }
+            case .localBookmark(let data):
+                guard let url = AnytypeURL(string: data.url) else { continue }
+                if let bookmark = try? await bookmarkService.createBookmarkObject(spaceId: spaceId, url: url, origin: .none) {
+                    var attachment = ChatMessageAttachment()
+                    attachment.target = bookmark.id
+                    chatMessage.attachments.append(attachment)
+                }
+                break
             }
         }
         

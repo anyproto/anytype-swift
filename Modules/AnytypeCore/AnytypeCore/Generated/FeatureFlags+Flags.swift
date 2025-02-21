@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .allContentWidgets)
     }
 
+    static var newTypeIcons: Bool {
+        value(for: .newTypeIcons)
+    }
+
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -68,6 +72,14 @@ public extension FeatureFlags {
 
     static var firebasePushMessages: Bool {
         value(for: .firebasePushMessages)
+    }
+
+    static var newOnboarding: Bool {
+        value(for: .newOnboarding)
+    }
+
+    static var disableColorfulSeedPhrase: Bool {
+        value(for: .disableColorfulSeedPhrase)
     }
 
     static var rainbowViews: Bool {
@@ -135,11 +147,14 @@ public extension FeatureFlags {
         .primitives,
         .memberProfile,
         .allContentWidgets,
+        .newTypeIcons,
         .openMediaFileInPreview,
         .openBookmarkAsLink,
         .newSettings,
         .newPlusMenu,
         .firebasePushMessages,
+        .newOnboarding,
+        .disableColorfulSeedPhrase,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

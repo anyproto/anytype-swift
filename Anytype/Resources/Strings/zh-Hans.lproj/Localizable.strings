@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "正文";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "已删除的对象";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "加入";
 "Agreement Disclamer" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Lets Go" = "让我们开始！";
-"My spaces" = "我的空间";
+"My Channels" = "My Channels";
 "Open file" = "打开文件";
 "Open Set" = "打开集合";
 "Create Set" = "创建集合";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "壁纸";
 "Log out" = "退出登录";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "恢复";
@@ -240,8 +240,8 @@
 "Scan QR code" = "扫描二维码";
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore key from keychain" = "从钥匙串恢复密钥";
-"Auth.LogIn" = "我有一个密钥";
-"Auth.Button.Join" = "新建文库";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "在您自己的空间中进行创建和协作。加密，离线与[开源](%@)";
 "Auth.Next" = "下一步";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "这是您的密钥";
-"Auth.JoinFlow.Key.Description" = "它赋予您对数据的所有权限。\n它无法被恢复。 ";
-"Auth.JoinFlow.Key.Button.Show.Title" = "显示我的密钥";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "下一步";
-"Auth.JoinFlow.Key.Button.Later.Title" = "跳过";
+"Auth.JoinFlow.Key.Button.Later.Title" = "暂不";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "复制到剪贴板";
-"Auth.JoinFlow.Key.Button.Info.Title" = "了解更多";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "稍后你可以在 Anytype 设置里找到这个密钥";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "什么是密钥？
 ";
@@ -278,12 +277,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "设置昵称";
 "Auth.JoinFlow.Soul.Description" = "只有被您分享的用户可以查看。这里没有中心化的管理员。";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
-"Auth.JoinFlow.Soul.Button" = "进入我的文库";
-
-"Auth.JoinFlow.Vault.Title" = "这是您的文库";
-"Auth.JoinFlow.Vault.Description" = "所有数据均为加密存储。\n本地优先——所有操作均可离线进行。\n只有您本人拥有这段密钥。";
-"Auth.JoinFlow.Vault.Button" = "获得我的密钥";
+"Auth.JoinFlow.Soul.Placeholder" = "名称";
+"Auth.JoinFlow.Soul.Button" = "完成";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
@@ -304,7 +299,9 @@
 
 "Search" = "搜索";
 "There is no emoji named" = "没有 emoji 表情符号的命名";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "尝试查找新图片或上传图片";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "随机";
@@ -478,9 +475,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ 天前";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ 天后";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "查询";
@@ -1308,3 +1302,9 @@
 "ObjectSearchWithMeta.Create.Note" = "New Note";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

@@ -120,7 +120,7 @@ struct MessageView: View {
         if let objects = data.linkedObjects {
             switch objects {
             case .list(let items):
-                MessageListAttachmentsViewContainer(objects: items) {
+                MessageListAttachmentsViewContainer(objects: items, isYour: data.isYourMessage) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
                 .padding(Constants.attachmentsPadding)
@@ -256,7 +256,7 @@ struct MessageView: View {
     }
     
     private var messageTimeColor: Color {
-        return data.isYourMessage ? Color.Background.Chat.replySomeones : Color.Control.transparentActive
+        return data.isYourMessage ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive
     }
 }
 

@@ -19,6 +19,7 @@ protocol PasteboardHelperProtocol: Sendable {
     func obtainBlocksSlots() -> [String]?
     func obtainHTMLSlot() -> String?
     func obtainTextSlot() -> String?
+    func obtainUrlSlot() -> URL?
     func obtainAsFiles() -> [NSItemProvider]
     func obtainAllItems() -> [[String: Any]]
     
@@ -111,6 +112,17 @@ final class PasteboardHelper: PasteboardHelperProtocol, Sendable {
 
             if let text = text as? String {
                 return text
+            }
+        }
+        return nil
+    }
+    
+    func obtainUrlSlot() -> URL? {
+        if pasteboard.contains(pasteboardTypes: [UTType.url.identifier], inItemSet: nil) {
+            let value = pasteboard.value(forPasteboardType: UTType.url.identifier)
+
+            if let value = value as? URL {
+                return value
             }
         }
         return nil

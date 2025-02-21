@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Unbenannt";
 "Object.Deleted.Placeholder" = "Gelöschtes Objekt";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Beitreten";
 "Agreement Disclamer" = "Wenn Sie fortfahren, stimmen Sie den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@) zu";
 "Lets Go" = "Los geht’s";
-"My spaces" = "My Spaces";
+"My Channels" = "Meine Kanäle";
 "Open file" = "Datei öffnen";
 "Open Set" = "Set öffnen";
 "Create Set" = "Set erstellen";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Hintergrundbild";
 "Log out" = "Abmelden";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Wiederherstellen";
@@ -240,8 +240,8 @@
 "Scan QR code" = "QR-Code scannen";
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
 "Restore key from keychain" = "Schlüssel aus dem Schlüsselbund wiederherstellen";
-"Auth.LogIn" = "Ich habe einen Schlüssel";
-"Auth.Button.Join" = "Neuer Tresor";
+"Auth.LogIn" = "Ich habe bereits den Schlüssel";
+"Auth.Button.Join" = "Ich bin neu hier";
 "Auth.Welcome.Subtitle" = "Erstellen und kooperieren Sie in Bereichen, die ihnen gehören. Verschlüsselt, offline & offen(%@).";
 "Auth.Next" = "Weiter";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
-"Auth.JoinFlow.Key.Description" = "Damit hast du die volle Kontrolle über deinen Tresor.\nEr kann nicht wiederhergestellt werden.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Meinen Schlüssel anzeigen";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Weiter";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Nicht jetzt";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Mehr lesen";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Du findest diesen Schlüssel später in den Anytype-Einstellungen";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Was ist der Schlüssel?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Sie wird durch eine Wiederherstellungsphrase dargestellt - 12 zufällige Wörter, aus denen dein Tresor auf magische Weise auf diesem Gerät generiert wird.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Deinen Namen festlegen";
 "Auth.JoinFlow.Soul.Description" = "Nur von Leuten gesehen, mit denen du etwas teilst. Es gibt kein zentrales Register dieser Namen.";
-"Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
-"Auth.JoinFlow.Soul.Button" = "Meinen Schlüssel holen";
-
-"Auth.JoinFlow.Vault.Title" = "Dies ist dein Tresor";
-"Auth.JoinFlow.Vault.Description" = "Alles darin ist verschlüsselt.\nEs ist zuerst lokal – alles funktioniert offline.\nNur du hast den Schlüssel.";
-"Auth.JoinFlow.Vault.Button" = "Meinen Schlüssel holen";
+"Auth.JoinFlow.Soul.Placeholder" = "Name";
+"Auth.JoinFlow.Soul.Button" = "Fertig";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
@@ -303,7 +298,9 @@
 
 "Search" = "Suchen";
 "There is no emoji named" = "Es gibt kein Emoji mit dem Namen";
+"There is no icon named" = "Es gibt kein Symbol namens";
 "Try to find a new one or upload your image" = "Versuche ein neues zu finden oder lade dein Bild hoch";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "Zufällig";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "vor %@ Tagen";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "in %@ Tagen";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Unbenannt";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Abfrage";
@@ -1280,7 +1274,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.Reply.Files" = "Dateien (%@)";
 "Chat.SendLimitAlert.Title" = "Moment mal! Turbotippen erkannt!";
 "Chat.SendLimitAlert.Message" = "Sieht so aus, als würdest du Nachrichten in Windeseile verschicken. Warte noch eine Sekunde bis zur nächsten Nachricht.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachmentsLimit.Alert" = "Du kannst nur %@ Anhänge auf einmal hochladen";
 "Chat.AttachedObject.Attach" = "Anhängen";
 "Chat.CreateObject.Dismiss.Title" = "Möchtest du diesen Bildschirm wirklich schließen?";
 "Chat.CreateObject.Dismiss.Message" = "Wenn du es verlässt, gehen alle deine Änderungen verloren.";
@@ -1307,3 +1301,9 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "ObjectSearchWithMeta.Create.Note" = "Neue Notiz";
 "ObjectSearchWithMeta.Create.Set" = "Neues Set";
 "ObjectSearchWithMeta.Create.Collection" = "Neue Sammlung";
+
+// MARK: - Migration
+"Migration.title" = "Migration läuft...";
+"Migration.subtitle" = "Das sollte nicht lange dauern. Danke für deine Geduld.";
+"Migration.Error.NotEnoughtSpace.title" = "Nicht genügend Platz";
+"Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";

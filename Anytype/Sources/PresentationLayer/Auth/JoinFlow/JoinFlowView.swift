@@ -5,8 +5,8 @@ struct JoinFlowView: View {
     @StateObject private var model: JoinFlowViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(output: (any JoinFlowOutput)?) {
-        _model = StateObject(wrappedValue: JoinFlowViewModel(output: output))
+    init(state: JoinFlowState, output: (any JoinFlowOutput)?) {
+        _model = StateObject(wrappedValue: JoinFlowViewModel(state: state, output: output))
     }
     
     var body: some View {
@@ -50,15 +50,9 @@ struct JoinFlowView: View {
     }
     
     private var navigationBar : some View {
-        VStack(spacing: 13) {
-            HStack {
-                Spacer()
-                counter
-                Spacer()
-            }
-            .overlay(alignment: .leading, content: {
-                backButton
-            })
+        HStack {
+            backButton
+            Spacer()
         }
         .frame(height: 44)
     }
@@ -77,17 +71,12 @@ struct JoinFlowView: View {
         }
         .disabled(model.disableBackAction)
     }
-    
-    private var counter : some View {
-        AnytypeText(model.counter, style: .authBody)
-            .foregroundColor(.Control.active)
-    }
 }
 
 
 struct JoinFlowView_Previews : PreviewProvider {
     static var previews: some View {
-        JoinFlowView(output: nil)
+        JoinFlowView(state: JoinFlowState(), output: nil)
     }
 }
 

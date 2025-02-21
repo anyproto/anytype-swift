@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Objeto eliminado";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Junte-se";
 "Agreement Disclamer" = "Ao continuar, está a concordar com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)";
 "Lets Go" = "Let’s Go";
-"My spaces" = "My Spaces";
+"My Channels" = "My Channels";
 "Open file" = "Open file";
 "Open Set" = "Open Set";
 "Create Set" = "Create Set";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Papel de parede";
 "Log out" = "Encerrar sessão";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Restaurar";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Ler código QR";
 "Auth.CameraPermissionTitle" = "Por favor, permita o acesso";
 "Restore key from keychain" = "Restaurar chave do keychain";
-"Auth.LogIn" = "Eu tenho uma chave";
-"Auth.Button.Join" = "Nova conta";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "Crie e colabore em espaços que tú possuíste. Criptografados, “offline” e [open](%@).";
 "Auth.Next" = "Seguinte";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Esta é a tua chave";
-"Auth.JoinFlow.Key.Description" = "Ele fornece-te total posse do seu cofre.\nlt não pode ser recuperado.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Exibir minha chave";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Seguinte";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Saltar";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Not now";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copiar para área de transferência";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Ler mais";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Mais tarde, poderá encontrar a frase de recuperação nas configurações do Anytype";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "O que é a Chave?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Ele é representado por uma frase de recuperação - 12 palavras aleatórias a partir do qual o seu cofre é magicamente gerado neste dispositivo.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Definir seu nome";
 "Auth.JoinFlow.Soul.Description" = "Somente visto por pessoas com quem você compartilha algo. Não há registro central com esses nomes.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
-
-"Auth.JoinFlow.Vault.Title" = "Este é o seu Cofre";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
-"Auth.JoinFlow.Vault.Button" = "Get my Key";
+"Auth.JoinFlow.Soul.Placeholder" = "Nome";
+"Auth.JoinFlow.Soul.Button" = "Concluído";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usar keychain";
@@ -303,7 +298,9 @@
 
 "Search" = "Search";
 "There is no emoji named" = "There is no emoji named";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Tente encontrar um novo ou faça o upload da sua imagem";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Emoji";
 "Random" = "Random";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -1306,3 +1300,9 @@ Please provide specific details of your needs here.";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

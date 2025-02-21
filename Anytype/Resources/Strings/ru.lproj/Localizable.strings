@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
 "Object.Deleted.Placeholder" = "Удаленный объект";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Присоединись";
 "Agreement Disclamer" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@)";
 "Lets Go" = "Давайте начнём";
-"My spaces" = "Мои пространства";
+"My Channels" = "My Channels";
 "Open file" = "Открыть файл";
 "Open Set" = "Открыть набор";
 "Create Set" = "Создать Набор";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Обои";
 "Log out" = "Выйти";
+"Misc" = "Misc";
 
 // Action
 "Restore" = "Восстановить";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Сканировать QR-код";
 "Auth.CameraPermissionTitle" = "Пожалуйста, разрешите доступ";
 "Restore key from keychain" = "Восстановить Ключ из менеджера паролей";
-"Auth.LogIn" = "У меня есть Ключ";
-"Auth.Button.Join" = "Новое Хранилище";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
 "Auth.Welcome.Subtitle" = "Создавайте и участвуйте в пространствах которыми Вы владеете. Зашифровано, автономно и [открыто](%@).";
 "Auth.Next" = "Далее";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Это Ваш Ключ";
-"Auth.JoinFlow.Key.Description" = "Он даёт полный доступ к Вашему хранилищу. \nПри утрате он не может быть восстановлен.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Показать мой Ключ";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Далее";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Пропустить";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Не сейчас";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Копировать в буфер обмена";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Подробнее";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Вы можете найти этот ключ позже в настройках Anytype";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Что такое Ключ?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Фраза восстановления - это случайная комбинация из 12 слов. Волшебным образом из этих слов генерируется ваш аккаунт на устройстве.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Установите ваше имя";
 "Auth.JoinFlow.Soul.Description" = "Видим только людям, с которыми вы чем-то поделились. Централизованного реестра имен не существует.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
-"Auth.JoinFlow.Soul.Button" = "Войти в мое хранилище";
-
-"Auth.JoinFlow.Vault.Title" = "Это ваше Хранилище";
-"Auth.JoinFlow.Vault.Description" = "Все что внутри - зашифровано.\nИ автономно – все работает без сети.\nИ только у Вас есть ключ.";
-"Auth.JoinFlow.Vault.Button" = "Получить мой Ключ";
+"Auth.JoinFlow.Soul.Placeholder" = "Название";
+"Auth.JoinFlow.Soul.Button" = "Готово";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
@@ -303,7 +298,9 @@
 
 "Search" = "Поиск";
 "There is no emoji named" = "Нет эмодзи с таким именем";
+"There is no icon named" = "There is no icon named";
 "Try to find a new one or upload your image" = "Попробуйте найти новое или загрузите ваше изображение";
+"Try to find a new one" = "Try to find a new one";
 
 "Emoji" = "Эмодзи";
 "Random" = "Случайно";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ дней назад";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дней с настоящего времени";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запрос";
@@ -1309,3 +1303,9 @@
 "ObjectSearchWithMeta.Create.Note" = "Новая заметка";
 "ObjectSearchWithMeta.Create.Set" = "Новый Набор";
 "ObjectSearchWithMeta.Create.Collection" = "Новая коллекция";
+
+// MARK: - Migration
+"Migration.title" = "Migration is in progress...";
+"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";

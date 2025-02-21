@@ -77,6 +77,13 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let newTypeIcons = FeatureDescription(
+        title: "New type Icons",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
@@ -109,6 +116,19 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let newOnboarding = FeatureDescription(
+        title: "New onboarding",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let disableColorfulSeedPhrase = FeatureDescription(
+        title: "Disable colorful seed phrase",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     // MARK: - Debug

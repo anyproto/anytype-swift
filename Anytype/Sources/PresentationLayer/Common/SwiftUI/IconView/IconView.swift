@@ -16,6 +16,8 @@ struct IconView: View {
         case .image(let uIImage):
             Image(uiImage: uIImage)
                 .buttonDynamicForegroundStyle()
+        case .url(let url):
+            ImageUrlIconView(url: url)
         case nil:
             EmptyView()
         }
@@ -33,13 +35,5 @@ extension IconView {
     
     init(uiImage: UIImage) {
         self = IconView(icon: .image(uiImage))
-    }
-    
-    init(objectType: ObjectType) {
-        if let emoji = objectType.iconEmoji {
-            self = IconView(icon: .object(.emoji(emoji)))
-        } else {
-            self = IconView(icon: .object(.empty(.objectType)))
-        }
     }
 }

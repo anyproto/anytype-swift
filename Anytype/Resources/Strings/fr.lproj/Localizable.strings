@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texte";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Sans titre";
 "Object.Deleted.Placeholder" = "Objet supprimé";
 
 // MARK: - Relation
@@ -204,7 +203,7 @@
 "Join" = "Rejoindre";
 "Agreement Disclamer" = "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)";
 "Lets Go" = "C’est parti ";
-"My spaces" = "Mes espaces";
+"My Channels" = "Mes chaînes";
 "Open file" = "Ouvrir le fichier";
 "Open Set" = "Ouvrir le set";
 "Create Set" = "Créer un set";
@@ -220,6 +219,7 @@
 // Settings
 "Wallpaper" = "Fond d'écran";
 "Log out" = "Déconnexion";
+"Misc" = "Divers";
 
 // Action
 "Restore" = "Restaurer";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Scanner un QR code";
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
 "Restore key from keychain" = "Restaurer la clé depuis le trousseau";
-"Auth.LogIn" = "J'ai une clé";
-"Auth.Button.Join" = "Nouveau coffre-fort";
+"Auth.LogIn" = "J'ai déjà la clé";
+"Auth.Button.Join" = "Je suis nouveau ici";
 "Auth.Welcome.Subtitle" = "Créez et collaborez dans des espaces que vous possédez. Crypté, disponible hors ligne & [open](%@).";
 "Auth.Next" = "Suivant";
 
@@ -259,13 +259,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Ceci est votre clé";
-"Auth.JoinFlow.Key.Description" = "Elle vous donne la pleine propriété de votre coffre-fort.\nElle ne peut pas être récupérée.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Afficher ma clé";
+"Auth.JoinFlow.Key.Description" = "Elle vous permet d'être pleinement propriétaire de vos données et de vos conversations. Vous trouverez cette clé plus tard dans les paramètres de l'application.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Appuyez pour dévoiler";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Suivant";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Ignorer";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Plus tard";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copier dans le presse-papier";
-"Auth.JoinFlow.Key.Button.Info.Title" = "En savoir plus";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Vous pouvez trouver la phrase de récupération plus tard dans les paramètres de Anytype";
+"Auth.JoinFlow.Key.Button.Info.Title" = "En savoir plus sur la clé";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Qu'est-ce que la Clé ?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "La phrase de récupération est une combinaison aléatoire de 12 mots à partir desquels votre compte est généré comme par magie sur cet appareil.";
@@ -277,12 +276,8 @@
 
 "Auth.JoinFlow.Soul.Title" = "Saisissez votre nom";
 "Auth.JoinFlow.Soul.Description" = "Seulement vu par les personnes avec qui vous partagez quelque chose. Il n'y a pas de registre central des utilisateurs.";
-"Auth.JoinFlow.Soul.Placeholder" = "Sans titre";
-"Auth.JoinFlow.Soul.Button" = "Obtenir ma Clé";
-
-"Auth.JoinFlow.Vault.Title" = "Voici votre Coffre-fort";
-"Auth.JoinFlow.Vault.Description" = "Tout ce qui se trouve à l'intérieur est chiffré.\n Il est d'abord local – tout fonctionne hors ligne.\nVous seul avez la clé.";
-"Auth.JoinFlow.Vault.Button" = "Obtenir ma Clé";
+"Auth.JoinFlow.Soul.Placeholder" = "Nom";
+"Auth.JoinFlow.Soul.Button" = "Terminé";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Utiliser le trousseau";
@@ -303,7 +298,9 @@
 
 "Search" = "Rechercher";
 "There is no emoji named" = "Il n'y a pas d'émoji nommé";
+"There is no icon named" = "Il n'y a pas d'icône nommée";
 "Try to find a new one or upload your image" = "Essayez de trouver une autre image ou mettez en ligne votre image";
+"Try to find a new one" = "Essayez d'en trouver un nouveau";
 
 "Emoji" = "Emoji";
 "Random" = "Aléatoire";
@@ -477,9 +474,6 @@
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "Il y a %@ jours";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "Dans %@ jours";
-
-// MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Sans titre";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Requête";
@@ -1307,3 +1301,9 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "ObjectSearchWithMeta.Create.Note" = "Nouvelle note";
 "ObjectSearchWithMeta.Create.Set" = "Nouvel ensemble";
 "ObjectSearchWithMeta.Create.Collection" = "Nouvelle collection";
+
+// MARK: - Migration
+"Migration.title" = "Migration en cours...";
+"Migration.subtitle" = "Cela ne devrait pas prendre longtemps. Merci pour votre patience.";
+"Migration.Error.NotEnoughtSpace.title" = "Espace insuffisant";
+"Migration.Error.NotEnoughtSpace.message" = "Veuillez libérer de l'espace et exécuter le processus à nouveau.";
