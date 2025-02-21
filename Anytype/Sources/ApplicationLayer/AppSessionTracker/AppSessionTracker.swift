@@ -32,7 +32,7 @@ final class AppSessionTracker: AppSessionTrackerProtocol {
     var currentSessionReportPath: String = ""
     
     init() {
-        if fileName.isNotEmpty, !lastSessionIsDebug {
+        if fileName.isNotEmpty, !lastSessionIsDebug, !isDebuggerAttached() {
             oldSessionReport = AppSessionReport(
                 reportPath: stdOutFileStream.folderURL.appendingPathComponent(fileName).path,
                 sessionFinished: lastSessionFinished

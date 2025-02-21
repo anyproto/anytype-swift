@@ -28,6 +28,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
         
         guard let dsn = Bundle.main.object(forInfoDictionaryKey: Constant.dsn) as? String,
               dsn.isNotEmpty else { return }
+        let report = appSessionTracker.oldSessionReport
         
         SentrySDK.start { options in
             options.dsn = dsn
@@ -47,6 +48,20 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             #endif
             
             options.environment = env
+                        
+            options.onCrashedLastRun = { event in
+                guard let report else { return }
+                
+                let attachment = Attachment(
+                    path: report.reportPath,
+                    filename: Constants.oldSessionFileName,
+                    contentType: Constants.contentType
+                )
+                
+                SentrySDK.capture(event: event) { scope in
+                    scope.addAttachment(attachment)
+                }
+            }
         }
         
         // Restore userId from old session
@@ -75,14 +90,14 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             }
             
             #if !RELEASE_ANYTYPE
-            logOldAppSession()
+            logOldAppUnhandledSession()
             #endif
         }
         
         AssertionLogger.shared.addHandler(SentryNonFatalLogger())
     }
     
-    private func logOldAppSession() {
+    private func logOldAppUnhandledSession() {
         if let report = appSessionTracker.oldSessionReport,
             !report.sessionFinished,
             !SentrySDK.crashedLastRun {
