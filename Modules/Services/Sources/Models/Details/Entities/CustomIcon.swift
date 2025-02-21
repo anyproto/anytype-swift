@@ -1,4 +1,22 @@
 public enum CustomIcon: String, CaseIterable, Sendable, Codable, Identifiable {
+    init?(fromString string: String) {
+        // Convert string like "musical-notes" to "musicalNotes"
+        let processed = string
+            .split(separator: "-")
+            .enumerated()
+            .map { index, part in
+                if index == 0 {
+                    return part.lowercased()
+                }
+                return part.prefix(1).uppercased() + part.dropFirst().lowercased()
+            }
+            .joined()
+        
+        self.init(rawValue: processed)
+    }
+    
+    public var id: String { rawValue }
+    
     case accessibility
     case addCircle
     case airplane
@@ -388,6 +406,4 @@ public enum CustomIcon: String, CaseIterable, Sendable, Codable, Identifiable {
     case wifi
     case wine
     case woman
-    
-    public var id: String { rawValue }
 }
