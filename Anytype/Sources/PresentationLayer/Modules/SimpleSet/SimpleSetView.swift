@@ -15,16 +15,13 @@ struct SimpleSetView: View {
             content
         }
         .task {
-            await model.subscribeOnDetails()
-        }
-        .task {
-            await model.subscribeOnParticipant()
+            await model.startSubscriptions()
         }
         .task(item: model.state) { _ in
-            await model.startObjectsSubscription()
+            await model.subscribeOnObjects()
         }
         .onDisappear {
-            model.stopObjectsSubscription()
+            model.onDisappear()
         }
     }
     
