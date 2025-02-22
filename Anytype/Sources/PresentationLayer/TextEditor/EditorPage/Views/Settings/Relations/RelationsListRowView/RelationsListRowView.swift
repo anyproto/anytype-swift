@@ -48,7 +48,6 @@ struct RelationsListRowView: View {
             }
         }
         .frame(height: size.height)
-        .divider()
     }
     
     private var name: some View {

@@ -81,6 +81,7 @@ struct ChatCollectionView<
     
     func updateUIViewController(_ container: ChatCollectionViewContainer<BottomPanel, EmptyView>, context: Context) {
         container.bottomPanel.rootView = bottomPanel
+        container.emptyView.rootView = emptyView
         container.emptyView.view.isHidden = !showEmptyState
         context.coordinator.itemBuilder = itemBuilder
         context.coordinator.headerBuilder = headerBuilder

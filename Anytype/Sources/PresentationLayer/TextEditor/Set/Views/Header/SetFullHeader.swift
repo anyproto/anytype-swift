@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SetFullHeader: View {
     @State private var width: CGFloat = .zero
@@ -21,12 +22,21 @@ struct SetFullHeader: View {
             cover
             VStack(alignment: .leading, spacing: 8) {
                 titleView
-                description
-                featuredRelationsView
+                headerBlocks
             }
             .padding([.leading], 20)
         }
         .readSize { width = $0.width }
+    }
+    
+    @ViewBuilder
+    private var headerBlocks: some View {
+        if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
+            typeButtons
+        } else {
+            description
+            featuredRelationsView
+        }
     }
     
     private var inlineHeader: some View {
@@ -65,6 +75,37 @@ struct SetFullHeader: View {
     private func emptyCover(presentationStyle: ObjectHeaderEmptyUsecase) -> some View {
         Color.Background.primary
             .frame(height: presentationStyle == .full ? ObjectHeaderConstants.emptyViewHeight : ObjectHeaderConstants.emptyViewHeightCompact)
+    }
+    
+    private var typeButtons: some View {
+        HStack(spacing: 12) {
+            
+            if (model.details?.recommendedLayoutValue.isEditorLayout ?? false) && model.setDocument.document.permissions.canEditDetails {
+                StandardButton(
+                    .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
+                    style: .secondarySmall
+                ) {
+                    model.onObjectTypeLayoutTap()
+                }
+            }
+
+            StandardButton(
+                .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
+                style: .secondarySmall
+            ) {
+                model.onObjectTypeFieldsTap()
+            }
+            
+            StandardButton(
+                Loc.templates,
+                style: .secondarySmall
+            ) {
+                model.onObjectTypeTemplatesTap()
+            }
+
+            
+            Spacer()
+        }
     }
 }
 

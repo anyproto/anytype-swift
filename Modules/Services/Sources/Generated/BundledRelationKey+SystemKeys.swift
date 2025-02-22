@@ -94,10 +94,14 @@ public extension BundledRelationKey {
         .chatId,
         .hasChat,
         .timestamp,
+        .guestKey,
         .iconName,
-        .timestamp,
         .recommendedFeaturedRelations,
         .recommendedHiddenRelations,
         .recommendedFileRelations,
+        .layoutWidth,
+        .defaultViewType,
+        .defaultTypeId,
+        .resolvedLayout,
     ]
 }

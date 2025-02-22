@@ -61,7 +61,8 @@ public extension FeatureDescription {
     static let primitives = FeatureDescription(
         title: "New Primitives",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
         debugValue: false
     )
     
@@ -77,10 +78,18 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let objectTypeWidgets = FeatureDescription(
+        title: "Object Type widgets",
+        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+
     static let newTypeIcons = FeatureDescription(
         title: "New type Icons",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
         debugValue: true
     )
     
@@ -101,12 +110,27 @@ public extension FeatureDescription {
     static let newSettings = FeatureDescription(
         title: "New settings",
         type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
     )
     
     static let newPlusMenu = FeatureDescription(
         title: "New plus menu",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let spaceUxTypes = FeatureDescription(
+        title: "Space UX Types",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let enableStreamSpaceType = FeatureDescription(
+        title: "Enable stream space type",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
     )
@@ -118,6 +142,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let aiToolInSet = FeatureDescription(
+        title: "Add AI tool in Set / Collection",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+
     static let newOnboarding = FeatureDescription(
         title: "New onboarding",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
@@ -129,6 +160,14 @@ public extension FeatureDescription {
         title: "Disable colorful seed phrase",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
         defaultValue: true
+    )
+    
+    static let openTypeAsSet = FeatureDescription(
+        title: "Open type in Set View",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
     )
     
     // MARK: - Debug

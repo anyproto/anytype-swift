@@ -19,6 +19,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     public let canCreateObjectOfThisType: Bool
     
     public let recommendedRelations: [ObjectId]
+    public let recommendedFeaturedRelations: [ObjectId]
+    public let recommendedHiddenRelations: [ObjectId]
     public let recommendedLayout: DetailsLayout?
     
     public init(
@@ -36,6 +38,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         defaultTemplateId: String,
         canCreateObjectOfThisType: Bool,
         recommendedRelations: [ObjectId],
+        recommendedFeaturedRelations: [ObjectId],
+        recommendedHiddenRelations: [ObjectId],
         recommendedLayout: DetailsLayout?
     ) {
         self.id = id
@@ -52,6 +56,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         self.defaultTemplateId = defaultTemplateId
         self.canCreateObjectOfThisType = canCreateObjectOfThisType
         self.recommendedRelations = recommendedRelations
+        self.recommendedFeaturedRelations = recommendedFeaturedRelations
+        self.recommendedHiddenRelations = recommendedHiddenRelations
         self.recommendedLayout = recommendedLayout
     }
 }
@@ -74,6 +80,8 @@ extension ObjectType: DetailsModel {
             defaultTemplateId: details.defaultTemplateId,
             canCreateObjectOfThisType: !details.restrictionsValue.contains(.createObjectOfThisType),
             recommendedRelations: details.recommendedRelations,
+            recommendedFeaturedRelations: details.recommendedFeaturedRelations,
+            recommendedHiddenRelations: details.recommendedHiddenRelations,
             recommendedLayout: details.recommendedLayoutValue
         )
     }
@@ -92,11 +100,15 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.smartblockTypes,
             BundledRelationKey.sourceObject,
             BundledRelationKey.recommendedRelations,
+            BundledRelationKey.recommendedFeaturedRelations,
+            BundledRelationKey.recommendedHiddenRelations,
             BundledRelationKey.recommendedLayout,
             BundledRelationKey.uniqueKey,
             BundledRelationKey.spaceId,
             BundledRelationKey.defaultTemplateId,
-            BundledRelationKey.restrictions
+            BundledRelationKey.restrictions,
+            BundledRelationKey.resolvedLayout,
+            BundledRelationKey.type
         ]
     }
     

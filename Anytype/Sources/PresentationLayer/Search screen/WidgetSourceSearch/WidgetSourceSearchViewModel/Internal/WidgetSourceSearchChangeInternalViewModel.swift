@@ -8,7 +8,7 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     private lazy var document: any BaseDocumentProtocol = {

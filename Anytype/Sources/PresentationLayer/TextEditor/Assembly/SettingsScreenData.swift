@@ -3,6 +3,7 @@ import Services
 enum SettingsScreenData: Hashable, Codable, Equatable, Identifiable {
     // Anytype widget screens
     case mainScreen(info: AccountInfo)
+    case typeLibrary(spaceId: String)
     
     var id: Int {
         hashValue
@@ -11,7 +12,9 @@ enum SettingsScreenData: Hashable, Codable, Equatable, Identifiable {
     var spaceId: String {
         switch self {
         case .mainScreen(let info):
-            return info.accountSpaceId
+            info.accountSpaceId
+        case .typeLibrary(let spaceId):
+            spaceId
         }
     }
 }

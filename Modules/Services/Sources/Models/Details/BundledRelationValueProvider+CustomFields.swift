@@ -7,8 +7,8 @@ extension BundledRelationsValueProvider {
     public var isDone: Bool { done }
     
     public var layoutValue: DetailsLayout {
-        guard let number = layout, let layout = DetailsLayout(rawValue: number) else {
-            return .basic
+        guard let number = resolvedLayout, let layout = DetailsLayout(rawValue: number) else {
+            return .UNRECOGNIZED(resolvedLayout ?? -1)
         }
         
         return layout
@@ -98,6 +98,11 @@ extension BundledRelationsValueProvider {
     
     public var internalFlagsValue: [InternalFlag] {
         internalFlags.compactMap { InternalFlag(rawValue: $0) }
+    }
+    
+    public var spaceUxTypeValue: SpaceUxType? {
+        guard let spaceUxType else { return nil }
+        return SpaceUxType(rawValue: spaceUxType)
     }
     
     public var customIcon: CustomIcon? {

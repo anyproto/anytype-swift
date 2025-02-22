@@ -8,7 +8,7 @@ final class DateViewModel: ObservableObject {
     
     private let spaceId: String
     private weak var output: (any DateModuleOutput)?
-    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let dateFormatter = DateFormatter.defaultDateFormatter
     
     @Injected(\.accountManager)

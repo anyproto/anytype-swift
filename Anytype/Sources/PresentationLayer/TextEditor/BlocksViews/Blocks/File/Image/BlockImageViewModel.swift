@@ -6,7 +6,7 @@ import AnytypeCore
 struct BlockImageViewModel: BlockViewModelProtocol {
     typealias Action<T> = (_ arg: T) -> Void
     
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     var hashable: AnyHashable { info.id }

@@ -67,4 +67,38 @@ extension BaseDocumentProtocol {
             }
             .eraseToAnyPublisher()
     }
+    
+    var parsedRelationsPublisherForType: AnyPublisher<ParsedRelations, Never> {
+        subscibeFor(update: [.general, .details(id: objectId), .permissions]).compactMap { [weak self] _ in
+            self?.buildParsedRelationsForType()
+        }.eraseToAnyPublisher()
+    }
+    
+    // Temporary design: Move to the dedicated TypeDocument later
+    private func buildParsedRelationsForType() -> ParsedRelations {
+        guard let details else { return .empty }
+        
+        let relationDetailsStorage = Container.shared.relationDetailsStorage()
+        
+        let recommendedRelations = relationDetailsStorage
+            .relationsDetails(ids: details.recommendedRelations, spaceId: spaceId)
+            .filter { $0.key != BundledRelationKey.description.rawValue }
+        let recommendedFeaturedRelations = relationDetailsStorage
+            .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: spaceId)
+            .filter { $0.key != BundledRelationKey.description.rawValue }
+        let recommendedHiddenRelations = relationDetailsStorage
+            .relationsDetails(ids: details.recommendedHiddenRelations, spaceId: spaceId)
+            .filter { $0.key != BundledRelationKey.description.rawValue }
+        
+        
+        return Container.shared.relationsBuilder().parsedRelations(
+            objectRelations: [],
+            recommendedRelations: recommendedRelations,
+            recommendedFeaturedRelations: recommendedFeaturedRelations,
+            recommendedHiddenRelations: recommendedHiddenRelations,
+            objectId: objectId,
+            relationValuesIsLocked: !permissions.canEditRelationValues,
+            storage: detailsStorage
+        )
+    }
 }

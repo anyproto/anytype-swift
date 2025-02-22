@@ -67,6 +67,14 @@ struct SpaceHubCoordinatorView: View {
             .safariBookmarkObject($model.bookmarkScreenData) {
                 model.onOpenBookmarkAsObject($0)
             }
+            .sheet(item: $model.spaceCreateData) {
+                SpaceCreateView(data: $0)
+            }
+            .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
+                SpaceCreateTypePickerView { type in
+                    model.onSpaceTypeSelected(type)
+                }
+            }
     }
     
     private var content: some View {  
@@ -84,7 +92,7 @@ struct SpaceHubCoordinatorView: View {
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            SpaceHubView(sceneId: model.sceneId)
+                            SpaceHubView(sceneId: model.sceneId, output: model)
                         }
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)
@@ -93,6 +101,8 @@ struct SpaceHubCoordinatorView: View {
                             switch data {
                             case .mainScreen(let info):
                                 NewSpaceSettingsCoordinatorView(workspaceInfo: info)
+                            case .typeLibrary(let spaceId):
+                                ObjectTypesLibraryView(spaceId: spaceId)
                             }
                         }
                      }

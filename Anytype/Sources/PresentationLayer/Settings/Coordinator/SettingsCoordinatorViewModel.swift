@@ -7,7 +7,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
                                     SettingsAccountModuleOutput,
                                     AboutModuleOutput {
     
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol

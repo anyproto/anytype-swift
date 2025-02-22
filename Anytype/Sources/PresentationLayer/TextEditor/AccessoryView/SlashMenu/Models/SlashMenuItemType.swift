@@ -20,7 +20,7 @@ enum SlashMenuItemType {
         case .objects:
             return Loc.objects
         case .relations:
-            return Loc.relations
+            return Loc.fields
         case .other:
             return Loc.other
         case .actions:

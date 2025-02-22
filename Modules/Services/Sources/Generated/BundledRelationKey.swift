@@ -8,6 +8,9 @@ public enum BundledRelationKey: String, Sendable {
 
     case tag = "tag"
 
+    /// guest key to read public space
+    case guestKey = "guestKey"
+
     /// Camera used to capture image or video
     case camera = "camera"
 
@@ -272,6 +275,9 @@ public enum BundledRelationKey: String, Sendable {
     /// Space access type, see enum model.SpaceAccessType
     case spaceAccessType = "spaceAccessType"
 
+    /// Space UX type, see enum model.SpaceUxType
+    case spaceUxType = "spaceUxType"
+
     /// File path or url with original object
     case sourceFilePath = "sourceFilePath"
 
@@ -324,6 +330,12 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Encoded encryption key of invite file for current space. It stored in SpaceView
     case spaceInviteFileKey = "spaceInviteFileKey"
+
+    /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
+    case spaceInviteGuestFileCid = "spaceInviteGuestFileCid"
+
+    /// Encoded encryption key of invite file for guest user in the current space. It's stored in SpaceView
+    case spaceInviteGuestFileKey = "spaceInviteGuestFileKey"
 
     /// Participant permissions. Possible values: models.ParticipantPermissions
     case participantPermissions = "participantPermissions"
@@ -381,6 +393,12 @@ public enum BundledRelationKey: String, Sendable {
     /// Unix time representation of date object
     case timestamp = "timestamp"
 
+    /// Width of object's layout
+    case layoutWidth = "layoutWidth"
+
+    /// Layout resolved based on object self layout and type recommended layout
+    case resolvedLayout = "resolvedLayout"
+
     /// Space order
     case spaceOrder = "spaceOrder"
 
@@ -395,4 +413,10 @@ public enum BundledRelationKey: String, Sendable {
 
     /// List of recommended file-specific relations
     case recommendedFileRelations = "recommendedFileRelations"
+
+    /// Default view type that will be used for new sets/collections
+    case defaultViewType = "defaultViewType"
+
+    /// Default object type id that will be set to new sets/collections
+    case defaultTypeId = "defaultTypeId"
 }
