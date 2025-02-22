@@ -122,6 +122,11 @@ struct DebugMenuView: View {
                 let crash: [Int] = []
                 _ = crash[1]
             }
+            
+            StandardButton("Unhandled exit 🚪", style: .primaryLarge) {
+                exit(1)
+            }
+            
             StandardButton("Assert 🥲", style: .secondaryLarge) {
                 anytypeAssertionFailure("Test assert")
             }

@@ -11,6 +11,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
+    @Injected(\.appSessionTracker)
+    private var appSessionTracker: any AppSessionTrackerProtocol
     
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -22,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Fix SIGPIPE crashes
         signal(SIGPIPE, SIG_IGN)
+        
+        appSessionTracker.startReportSession()
         
         configurator.configure()
         
@@ -52,4 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        appSessionTracker.stopReportSession()
+    }
+
 }
