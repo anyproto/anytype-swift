@@ -170,6 +170,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let binWidgetFromLibrary = FeatureDescription(
+        title: "Bin widget from library",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -143,6 +143,12 @@ struct HomeWidgetSubmoduleView: View {
             } else {
                 EmptyView()
             }
+        case (.bin, _):
+            if FeatureFlags.binWidgetFromLibrary {
+                BinWidgetView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case _:
             EmptyView()
         }
