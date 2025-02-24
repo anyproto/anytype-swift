@@ -48,7 +48,7 @@ final class StdOutFileStream: StdOutFileStreamProtocol {
         
         readQueue = DispatchQueue(
             label: "io.anytype.stdout",
-            qos: .userInteractive,
+            qos: .utility,
             attributes: .concurrent
         )
         
