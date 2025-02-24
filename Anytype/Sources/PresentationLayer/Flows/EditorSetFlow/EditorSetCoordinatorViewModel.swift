@@ -63,6 +63,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var aiToolData: AIToolData?
     @Published var layoutPickerData: LayoutPickerData?
     @Published var showTypeFieldsDocument: BaseDocumentIdentifiable?
+    @Published var templatesPickerDocument: BaseDocumentIdentifiable?
     
     init(data: EditorListObject, showHeader: Bool) {
         self.data = data
@@ -261,12 +262,16 @@ final class EditorSetCoordinatorViewModel:
         showTypeFieldsDocument = document.document.identifiable
     }
     
-    func onObjectTypeTemplatesTap(objectId: String, spaceId: String) {
+    func onObjectTypeTemplatesTap(document: some SetDocumentProtocol) {
+        templatesPickerDocument = document.document.identifiable
+    }
+    
+    func onObjectTypeSingleTemplateTap(objectId: String, spaceId: String, defaultTemplateId: String?) {
         let data = TemplatePickerViewModelData(
             mode: .typeTemplate,
             typeId: objectId,
             spaceId: spaceId,
-            defaultTemplateId: nil
+            defaultTemplateId: defaultTemplateId
         )
 
         templatesCoordinator.showTemplatesPicker(

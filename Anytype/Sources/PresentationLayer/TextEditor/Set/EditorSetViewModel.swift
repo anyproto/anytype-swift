@@ -18,6 +18,8 @@ final class EditorSetViewModel: ObservableObject {
     @Published var showUpdateAlert = false
     @Published var showCommonOpenError = false
     @Published var relationsCount = 0
+    @Published var templatesCount = 0
+
     
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
@@ -76,6 +78,14 @@ final class EditorSetViewModel: ObservableObject {
         guard let details = setDocument.details else { return false }
         let isFeatured = details.featuredRelations.contains { $0 == BundledRelationKey.description.rawValue }
         return isFeatured
+    }
+    
+    var showObjectTypeTemplates: Bool {
+        guard let details = setDocument.details else { return false }
+        
+        let isSupportedLayout = details.recommendedLayoutValue.isEditorLayout
+        let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+        return isSupportedLayout && !isTemplate
     }
     
     var hasTargetObjectId: Bool {
@@ -154,7 +164,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onObjectTypeTemplatesTap() {
-        output?.onObjectTypeTemplatesTap(objectId: setDocument.objectId, spaceId: setDocument.spaceId)
+        output?.onObjectTypeTemplatesTap(document: setDocument)
     }
     
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -169,6 +179,8 @@ final class EditorSetViewModel: ObservableObject {
 
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
+    @Injected(\.templatesSubscription)
+    private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
     @Injected(\.searchService)
@@ -290,9 +302,23 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    func subscribeOnRelations() async {
+    func startSubscriptions() async {
         guard FeatureFlags.openTypeAsSet else { return }
         
+        async let templatesSub: () = subscribeOnTemplates()
+        async let relationsSub: () = subscribeOnRelations()
+    
+        (_, _) = await (templatesSub, relationsSub)
+    }
+    
+    private func subscribeOnTemplates() async {
+        let publisher = await templatesSubscription.startSubscription(objectType: setDocument.objectId, spaceId: setDocument.spaceId, update: nil)
+        for await templates in publisher.values {
+            templatesCount = templates.count
+        }
+    }
+    
+    private func subscribeOnRelations() async {
         for await relations in setDocument.document.parsedRelationsPublisherForType.values {
             let conflictingKeys = (try? await relationsService
                 .getConflictRelationsForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
