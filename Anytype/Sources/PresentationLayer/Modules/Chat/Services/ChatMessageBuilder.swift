@@ -13,6 +13,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
     private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
+    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     
     private let spaceId: String
     private let chatId: String
@@ -32,6 +33,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     
     func makeMessage(messages: [FullChatMessage], participants: [Participant], limits: any ChatMessageLimitsProtocol) async -> [MessageSectionData] {
         
+        let isStream = workspaceStorage.spaceView(spaceId: spaceId)?.uxType.isStream ?? false
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let canEdit = participant?.canEdit ?? false
         let yourProfileIdentity = participant?.identity
@@ -61,8 +63,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let lastForCurrentUser = nextMessage?.creator != message.creator
             
             let isYourMessage = message.creator == yourProfileIdentity
-            
             let authorParticipant = participants.first { $0.identity == message.creator }
+            let position: MessageHorizontalPosition = (isYourMessage && !isStream) ? .right : .left
             
             let messageModel = MessageViewData(
                 spaceId: spaceId,
@@ -78,13 +80,13 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     yourProfileIdentity: yourProfileIdentity
                 )
                 ,
-                isYourMessage: isYourMessage,
+                position: position,
                 linkedObjects: mapAttachments(fullMessage: fullMessage),
                 reactions: mapReactions(
                     fullMessage: fullMessage,
                     participants: participants,
                     yourProfileIdentity: yourProfileIdentity,
-                    isYourMessage: isYourMessage
+                    position: position
                 ),
                 canAddReaction: limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
                 nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
@@ -133,7 +135,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         fullMessage: FullChatMessage,
         participants: [Participant],
         yourProfileIdentity: String?,
-        isYourMessage: Bool
+        position: MessageHorizontalPosition
     ) -> [MessageReactionModel] {
         fullMessage.message.reactions.reactions.map { (key, value) -> MessageReactionModel in
             
@@ -150,7 +152,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 emoji: key,
                 content: content,
                 selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false,
-                isYourMessage: isYourMessage
+                position: position
             )
         }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
     }
