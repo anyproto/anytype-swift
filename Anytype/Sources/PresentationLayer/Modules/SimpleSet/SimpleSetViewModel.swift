@@ -100,6 +100,11 @@ final class SimpleSetViewModel: ObservableObject {
     
     // MARK: - Actions
     
+    func onObjectSelected(_ id: String) {
+        guard let details = details.first(where: { $0.id == id }) else { return }
+        output?.onObjectSelected(screenData: details.screenData())
+    }
+    
     func onDelete(objectId: String) {
         AnytypeAnalytics.instance().logMoveToBin(true)
         Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }

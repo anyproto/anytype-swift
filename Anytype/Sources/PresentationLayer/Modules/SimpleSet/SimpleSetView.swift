@@ -32,7 +32,19 @@ struct SimpleSetView: View {
         } else if model.sections.isEmpty {
             emptyState
         } else {
-            list
+            layoutView
+        }
+    }
+    
+    @ViewBuilder
+    private var layoutView: some View {
+        if let layout = model.state?.layout {
+            switch layout {
+            case .list:
+                list
+            case .gallery:
+                gallery
+            }
         }
     }
     
@@ -61,6 +73,19 @@ struct SimpleSetView: View {
         }
         .scrollIndicators(.never)
         .scrollDismissesKeyboard(.immediately)
+    }
+    
+    private var gallery: some View {
+        let imageIds: [String] = model.sections.flatMap { $0.rows.map(\.objectId) }
+        return ImagesGalleryView(
+            imageIds: imageIds,
+            onImageSelected: { imageId in
+                model.onObjectSelected(imageId)
+            },
+            onImageIdAppear: { imageId in
+                model.onAppearLastRow(imageId)
+            }
+        ).padding(.horizontal, 20)
     }
     
     private var emptyState: some View {
