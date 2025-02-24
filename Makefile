@@ -11,10 +11,11 @@ change-github-token:
 	./Scripts/change-token.sh
 
 generate-middle:
-	rm -rf /Modules/ProtobufMessages/Sources/Protocol/*
+	rm -rf Modules/ProtobufMessages/Sources/Protocol/*
 	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/commands.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Commands --other-name CommandsOther.swift
 	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/events.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Events --other-name EventsOther.swift
 	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/models.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Models --other-name ModelsOther.swift
+	cp -r Dependencies/Middleware/protobuf/localstore.pb.swift Modules/ProtobufMessages/Sources/Protocol
 	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
@@ -32,8 +33,6 @@ install-middle-local:
 	rm -fr Dependencies/Middleware/*
 	mkdir -p Dependencies/Middleware
 	cp -r ../anytype-heart/dist/ios/ Dependencies/Middleware
-	rm -rf Modules/ProtobufMessages/Sources/Protocol/*
-	cp -r Dependencies/Middleware/protobuf/*.swift Modules/ProtobufMessages/Sources/Protocol
 	make generate-middle
 
 build-middle-local:
