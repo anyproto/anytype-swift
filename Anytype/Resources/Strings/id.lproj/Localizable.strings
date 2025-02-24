@@ -203,7 +203,7 @@
 "Join" = "Gabung";
 "Agreement Disclamer" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Lets Go" = "Mulai!";
-"My Channels" = "My Channels";
+"My Channels" = "Kanalku";
 "Open file" = "Buka berkas";
 "Open Set" = "Buka Set";
 "Create Set" = "Buat Set";
@@ -219,7 +219,7 @@
 // Settings
 "Wallpaper" = "Latar belakang";
 "Log out" = "Keluar log";
-"Misc" = "Misc";
+"Misc" = "Lain-Lain";
 
 // Action
 "Restore" = "Pulihkan";
@@ -240,8 +240,8 @@
 "Scan QR code" = "Pindai kode QR";
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore key from keychain" = "Pulihkan frasa dari rantai kunci";
-"Auth.LogIn" = "I already have the key";
-"Auth.Button.Join" = "I am new here";
+"Auth.LogIn" = "Aku sudah punya kunci";
+"Auth.Button.Join" = "Aku pengguna baru";
 "Auth.Welcome.Subtitle" = "Buat dan berkolaborasi dalam ruang milikmu. Terenkripsi, offline, dan [terbuka](%@).";
 "Auth.Next" = "Lanjut";
 
@@ -260,12 +260,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Ini Kuncimu";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
+"Auth.JoinFlow.Key.Description" = "Kunci ini memberi kepemilikan penuh terhadap data dan percakapanmu. Kunci ini dapat dilihat lagi nanti di pengaturan aplikasi.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Ketuk untuk melihat";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Lanjut";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Tidak dulu";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Salin ke papan klip";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Lebih lanjut tentang Kunci";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Apa itu Kunci?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
@@ -299,9 +299,9 @@
 
 "Search" = "Telusuri";
 "There is no emoji named" = "Tidak ada emoji bernama";
-"There is no icon named" = "There is no icon named";
+"There is no icon named" = "Tidak ada ikon bernama";
 "Try to find a new one or upload your image" = "Coba cari yang lain atau unggah gambarmu sendiri";
-"Try to find a new one" = "Try to find a new one";
+"Try to find a new one" = "Carilah yang lain";
 
 "Emoji" = "Emoji";
 "Random" = "Acak";
@@ -1303,7 +1303,7 @@ Please provide specific details of your needs here.";
 "ObjectSearchWithMeta.Create.Collection" = "Koleksi Baru";
 
 // MARK: - Migration
-"Migration.title" = "Migration is in progress...";
+"Migration.title" = "Migrasi sedang berlangsung …";
 "Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
-"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
-"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";
+"Migration.Error.NotEnoughtSpace.title" = "Penyimpanan tidak cukup";
+"Migration.Error.NotEnoughtSpace.message" = "Bersihkan ruang penyimpanan lalu coba lagi.";
