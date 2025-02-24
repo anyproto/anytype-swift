@@ -10,8 +10,14 @@ final class BinWidgetViewModel: ObservableObject {
     
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @Injected(\.widgetActionsViewCommonMenuProvider)
+    private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
     
-    private let data: WidgetSubmoduleData
+    let data: WidgetSubmoduleData
+    
+    var widgetBlockId: String { data.widgetBlockId }
+    var widgetObject: any BaseDocumentProtocol { data.widgetObject }
+    weak var output: (any CommonWidgetModuleOutput)? { data.output }
     
     // MARK: - State
     
@@ -36,5 +42,13 @@ final class BinWidgetViewModel: ObservableObject {
         }
         binAlertData = BinConfirmationAlertData(ids: binIds)
         UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    func onDeleteWidgetTap() {
+        widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
+            widgetObject: data.widgetObject,
+            widgetBlockId: data.widgetBlockId,
+            homeState: data.homeState.wrappedValue
+        )
     }
 }

@@ -33,11 +33,32 @@ private struct BinWidgetSubmoduleInternalView: View {
             headerAction: {
                 model.onHeaderTap()
             },
-            removeAction: nil,
+            removeAction: {
+                model.onDeleteWidgetTap()
+            },
             menu: {
-                EmptyView()
+                menu
             },
             content: { EmptyView() }
         )
+        .anytypeSheet(item: $model.binAlertData) { data in
+            BinConfirmationAlert(data: data)
+        }
+        .snackbar(toastBarData: $model.toastData)
+    }
+    
+    @ViewBuilder
+    private var menu: some View {
+        WidgetCommonActionsMenuView(
+            items: [.addBelow, .changeSource, .remove],
+            widgetBlockId: model.widgetBlockId,
+            widgetObject: model.widgetObject,
+            homeState: homeState,
+            output: model.output
+        )
+        Divider()
+        AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
+            try await model.onEmptyBinTap()
+        }
     }
 }
