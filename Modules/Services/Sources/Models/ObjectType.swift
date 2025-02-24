@@ -107,7 +107,8 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.spaceId,
             BundledRelationKey.defaultTemplateId,
             BundledRelationKey.restrictions,
-            BundledRelationKey.resolvedLayout
+            BundledRelationKey.resolvedLayout,
+            BundledRelationKey.type
         ]
     }
     

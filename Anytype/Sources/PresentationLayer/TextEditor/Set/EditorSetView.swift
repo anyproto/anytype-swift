@@ -28,6 +28,9 @@ struct EditorSetView: View {
         .onAppear {
             model.onAppear()
         }
+        .task {
+            await model.startSubscriptions()
+        }
         .onDisappear {
             model.onDisappear()
         }

@@ -17,7 +17,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var relationValueData: RelationValueData?
     @Published var toastBarData: ToastBarData = .empty
     @Published var codeLanguageData: CodeLanguageListData?
-    @Published var covertPickerData: ObjectCoverPickerData?
+    @Published var covertPickerData: BaseDocumentIdentifiable?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var textIconPickerData: TextIconPickerData?
@@ -65,7 +65,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     func showCoverPicker(document: some BaseDocumentProtocol) {
-        covertPickerData = ObjectCoverPickerData(document: document)
+        covertPickerData = BaseDocumentIdentifiable(document: document)
     }
     
     func onSelectCodeLanguage(objectId: String, spaceId: String, blockId: String) {

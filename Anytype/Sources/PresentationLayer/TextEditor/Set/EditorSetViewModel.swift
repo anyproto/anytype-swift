@@ -17,6 +17,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var dismiss = false
     @Published var showUpdateAlert = false
     @Published var showCommonOpenError = false
+    @Published var relationsCount = 0
+    @Published var templatesCount = 0
+
     
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
@@ -75,6 +78,14 @@ final class EditorSetViewModel: ObservableObject {
         guard let details = setDocument.details else { return false }
         let isFeatured = details.featuredRelations.contains { $0 == BundledRelationKey.description.rawValue }
         return isFeatured
+    }
+    
+    var showObjectTypeTemplates: Bool {
+        guard let details = setDocument.details else { return false }
+        
+        let isSupportedLayout = details.recommendedLayoutValue.isEditorLayout
+        let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+        return isSupportedLayout && !isTemplate
     }
     
     var hasTargetObjectId: Bool {
@@ -138,6 +149,24 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Object type methods
+    
+    func onObjectTypeLayoutTap() {
+        output?.onObjectTypeLayoutTap(LayoutPickerData(
+            objectId: setDocument.objectId,
+            spaceId: setDocument.spaceId,
+            analyticsType: setDocument.details?.analyticsType ?? .custom
+        ))
+    }
+    
+    func onObjectTypeFieldsTap() {
+        output?.onObjectTypeFieldsTap(document: setDocument)
+    }
+    
+    func onObjectTypeTemplatesTap() {
+        output?.onObjectTypeTemplatesTap(document: setDocument)
+    }
+    
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor(document: setDocument.document) else {
             return BlockBackgroundColor.gray
@@ -150,6 +179,8 @@ final class EditorSetViewModel: ObservableObject {
 
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
+    @Injected(\.templatesSubscription)
+    private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
     @Injected(\.searchService)
@@ -170,6 +201,8 @@ final class EditorSetViewModel: ObservableObject {
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
     private var setGroupSubscriptionDataBuilder: any SetGroupSubscriptionDataBuilderProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     private let documentsProvider: any DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
@@ -268,6 +301,35 @@ final class EditorSetViewModel: ObservableObject {
             showRelationValueEditingView(key: relation.key)
         }
     }
+    
+    func startSubscriptions() async {
+        guard FeatureFlags.openTypeAsSet else { return }
+        
+        async let templatesSub: () = subscribeOnTemplates()
+        async let relationsSub: () = subscribeOnRelations()
+    
+        (_, _) = await (templatesSub, relationsSub)
+    }
+    
+    private func subscribeOnTemplates() async {
+        let publisher = await templatesSubscription.startSubscription(objectType: setDocument.objectId, spaceId: setDocument.spaceId, update: nil)
+        for await templates in publisher.values {
+            templatesCount = templates.count
+        }
+    }
+    
+    private func subscribeOnRelations() async {
+        for await relations in setDocument.document.parsedRelationsPublisherForType.values {
+            let conflictingKeys = (try? await relationsService
+                .getConflictRelationsForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
+            let conflictingRelations = relationDetailsStorage
+                .relationsDetails(ids: conflictingKeys, spaceId: setDocument.spaceId)
+                .filter { !$0.isHidden && !$0.isDeleted }
+
+            self.relationsCount = relations.installed.count + conflictingRelations.count
+        }
+    }
+ 
 
     func startSubscriptionIfNeeded(forceUpdate: Bool = false) async {
         guard setDocument.dataView.activeViewId.isNotEmpty else {
