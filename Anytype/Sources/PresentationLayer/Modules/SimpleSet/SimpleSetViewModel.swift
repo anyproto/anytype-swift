@@ -12,7 +12,7 @@ final class SimpleSetViewModel: ObservableObject {
         
     @Published var title = ""
     @Published var state: SimpleSetState?
-    @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
+    @Published var data = SimpleSetLayout.list([])
     @Published private var participantCanEdit = false
 
     @Injected(\.openedDocumentProvider)
@@ -60,7 +60,7 @@ final class SimpleSetViewModel: ObservableObject {
         for await details in setDocument.detailsPublisher.values {
             title = details.pageCellTitle
             setStateIfNeeded()
-            state?.layout = simpleSetlayout(from: details)
+            updateRows()
         }
     }
     
@@ -114,7 +114,18 @@ final class SimpleSetViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateRows() {
-        sections = details.isNotEmpty ? [listSectionData(title: nil, details: details)] : []
+        guard details.isNotEmpty else {
+            data = .list([])
+            return
+        }
+        if let setOf = setDocument.details?.filteredSetOf.first,
+           let objectType = try? objectTypeProvider.objectType(id: setOf),
+           objectType.isImageLayout {
+            let imagesIds = details.map(\.id)
+            data = .gallery(imagesIds)
+        } else {
+            data = .list([listSectionData(title: nil, details: details)])
+        }
     }
     
     private func listSectionData(title: String?, details: [ObjectDetails]) -> ListSectionData<String?, WidgetObjectListRowModel> {
@@ -131,13 +142,6 @@ final class SimpleSetViewModel: ObservableObject {
                 )
             }
         )
-    }
-    
-    private func simpleSetlayout(from details: ObjectDetails) -> SimpleSetLayout {
-        guard let setOf = details.filteredSetOf.first,
-              let objectType = try? objectTypeProvider.objectType(id: setOf) else { return .list }
-        
-        return objectType.simpleSetLayout
     }
     
     private func updateInitialIfNeeded() {

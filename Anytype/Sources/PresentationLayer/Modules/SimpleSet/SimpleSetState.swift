@@ -1,6 +1,5 @@
 struct SimpleSetState: Equatable {
     var limit = Constants.limit
-    var layout = SimpleSetLayout.list
     
     mutating func increaseLimit() {
         limit += Constants.limit
