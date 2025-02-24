@@ -47,9 +47,6 @@ rm -rf ${PROJECT_DIR}/Dependencies/Middleware/*
 mkdir -p ${PROJECT_DIR}/Dependencies/Middleware
 tar xzf ${LIB_PATH} -C ${PROJECT_DIR}/Dependencies/Middleware
 
-rm -rf ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol/*
-cp -r ${PROJECT_DIR}/Dependencies/Middleware/protobuf/*.swift ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol
-
 # Clean cache dir
 if [[ -d "$CACHE_DIR" ]]; then
 

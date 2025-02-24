@@ -123,6 +123,7 @@ extension Anytype_Rpc.Account {
             case failedToFetchRemoteNodeHasIncompatibleProtoVersion // = 110
             case accountIsDeleted // = 111
             case accountLoadIsCanceled // = 112
+            case accountStoreNotMigrated // = 113
             case configFileNotFound // = 200
             case configFileInvalid // = 201
             case configFileNetworkIDMismatch // = 202
@@ -147,6 +148,7 @@ extension Anytype_Rpc.Account {
               case 110: self = .failedToFetchRemoteNodeHasIncompatibleProtoVersion
               case 111: self = .accountIsDeleted
               case 112: self = .accountLoadIsCanceled
+              case 113: self = .accountStoreNotMigrated
               case 200: self = .configFileNotFound
               case 201: self = .configFileInvalid
               case 202: self = .configFileNetworkIDMismatch
@@ -169,6 +171,7 @@ extension Anytype_Rpc.Account {
               case .failedToFetchRemoteNodeHasIncompatibleProtoVersion: return 110
               case .accountIsDeleted: return 111
               case .accountLoadIsCanceled: return 112
+              case .accountStoreNotMigrated: return 113
               case .configFileNotFound: return 200
               case .configFileInvalid: return 201
               case .configFileNetworkIDMismatch: return 202
@@ -207,6 +210,7 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: CaseIterable {
     .failedToFetchRemoteNodeHasIncompatibleProtoVersion,
     .accountIsDeleted,
     .accountLoadIsCanceled,
+    .accountStoreNotMigrated,
     .configFileNotFound,
     .configFileInvalid,
     .configFileNetworkIDMismatch,
@@ -406,6 +410,7 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: SwiftProtobuf._ProtoNa
     110: .same(proto: "FAILED_TO_FETCH_REMOTE_NODE_HAS_INCOMPATIBLE_PROTO_VERSION"),
     111: .same(proto: "ACCOUNT_IS_DELETED"),
     112: .same(proto: "ACCOUNT_LOAD_IS_CANCELED"),
+    113: .same(proto: "ACCOUNT_STORE_NOT_MIGRATED"),
     200: .same(proto: "CONFIG_FILE_NOT_FOUND"),
     201: .same(proto: "CONFIG_FILE_INVALID"),
     202: .same(proto: "CONFIG_FILE_NETWORK_ID_MISMATCH"),

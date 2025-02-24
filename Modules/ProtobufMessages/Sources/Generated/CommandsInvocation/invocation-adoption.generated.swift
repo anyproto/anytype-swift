@@ -41,6 +41,16 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: ResponseE
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Account.Migrate.Response: ResultWithError {}
+extension Anytype_Rpc.Account.Migrate.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Account.MigrateCancel.Response: ResultWithError {}
+extension Anytype_Rpc.Account.MigrateCancel.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Account.Move.Response: ResultWithError {}
 extension Anytype_Rpc.Account.Move.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

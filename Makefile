@@ -1,27 +1,28 @@
 setup-middle:
-	./Scripts/middle-install.sh
-	make generate
+	./Scripts/middle-download.sh
+	make generate-middle
 
 setup-middle-ci:
-	./Scripts/middle-install.sh
-	make patch-commands-pb
+	./Scripts/middle-download.sh
 
 change-github-token:
 	# Token generation info:
 	# https://github.com/anyproto/anytype-swift?tab=readme-ov-file#use-pre-built-anytype-heart
 	./Scripts/change-token.sh
 
-generate:
+generate-middle:
+	rm -rf /Modules/ProtobufMessages/Sources/Protocol/*
+	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/commands.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Commands --other-name CommandsOther.swift
+	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/events.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Events --other-name EventsOther.swift
+	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/models.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Models --other-name ModelsOther.swift
 	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
+
+generate:
 	sourcery --config ./Modules/AnytypeCore/sourcery.yml
 	sourcery --config ./Anytype/GeneratorConfig/sourcery.yml
 	# We also have code generation in XCode Build phases for main target and widgets
-
-patch-commands-pb:
-	./Scripts/generate_response_extensions.sh ./Modules/ProtobufMessages/Sources/Protocol/commands.pb.swift
-
 
 update-xcfilelists:
 	./Tools/SwiftGen/swiftgen config generate-xcfilelists --config ./Tools/SwiftGen/swiftgen.yml --inputs ./Tools/SwiftGen/swiftgen-inputs-files.xcfilelist --outputs ./Tools/SwiftGen/swiftgen-outputs-files.xcfilelist
@@ -33,7 +34,7 @@ install-middle-local:
 	cp -r ../anytype-heart/dist/ios/ Dependencies/Middleware
 	rm -rf Modules/ProtobufMessages/Sources/Protocol/*
 	cp -r Dependencies/Middleware/protobuf/*.swift Modules/ProtobufMessages/Sources/Protocol
-	make generate
+	make generate-middle
 
 build-middle-local:
 	make -C ../anytype-heart build-ios
@@ -41,8 +42,12 @@ build-middle-local:
 
 setup-middle-local: build-middle-local install-middle-local
 
-setup-env:
+setup-env: setup-tools
 	brew install sourcery
 
 set-middle-version:
 	echo "MIDDLE_VERSION=$(v)" > Libraryfile
+
+setup-tools:
+	make release -C Tools/anytype-swift-filesplit
+	cp Tools/anytype-swift-filesplit/build/anytype-swift-filesplit ./build/anytype-swift-filesplit
