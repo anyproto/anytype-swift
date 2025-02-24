@@ -29,7 +29,11 @@ struct SetHeaderSettingsView: View {
     
     @ViewBuilder
     private var createView: some View {
-        compositeCreateButtons
+        if FeatureFlags.openTypeAsSet && model.isObjectType {
+            simpleCreateButton
+        } else {
+            compositeCreateButtons
+        }
     }
     
     private var settingButton: some View {
@@ -64,6 +68,14 @@ struct SetHeaderSettingsView: View {
             }
             .disabled(!model.isActiveCreateButton)
         }
+    }
+    
+    private var simpleCreateButton: some View {
+        StandardButton(Loc.new, style: .primaryXSmall) {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.onCreateTap()
+        }
+        .disabled(!model.isActiveCreateButton)
     }
     
     private var viewButton: some View {
