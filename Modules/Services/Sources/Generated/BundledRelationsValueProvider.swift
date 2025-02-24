@@ -54,6 +54,7 @@ public protocol BundledRelationsValueProvider {
     var author: [ObjectId] { get }
     var artist: String { get }
     var dueDate: Date? { get }
+    var duration: String { get }
     var iconEmoji: Emoji? { get }
     var coverType: Int? { get }
     var coverY: Int? { get }
@@ -154,6 +155,17 @@ public protocol BundledRelationsValueProvider {
     var recommendedFileRelations: [ObjectId] { get }
     var defaultViewType: Int? { get }
     var defaultTypeId: ObjectId { get }
+    var startDate: Date? { get }
+    var location: String { get }
+    var eventType: String { get }
+    var industry: String { get }
+    var size: String { get }
+    var foundingYear: Int? { get }
+    var cookingTime: String { get }
+    var servings: Int? { get }
+    var cuisine: String { get }
+    var courseType: String { get }
+    var difficulty: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -330,6 +342,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var dueDate: Date? {
         return value(for: BundledRelationKey.dueDate.rawValue)
+    }
+    var duration: String {
+        return value(for: BundledRelationKey.duration.rawValue)
     }
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     var iconEmoji: Emoji? {
@@ -716,5 +731,49 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Default object type id that will be set to new sets/collections
     var defaultTypeId: ObjectId {
         return value(for: BundledRelationKey.defaultTypeId.rawValue)
+    }
+    /// Some event start date
+    var startDate: Date? {
+        return value(for: BundledRelationKey.startDate.rawValue)
+    }
+    /// Some event or place location
+    var location: String {
+        return value(for: BundledRelationKey.location.rawValue)
+    }
+    /// Event type
+    var eventType: String {
+        return value(for: BundledRelationKey.eventType.rawValue)
+    }
+    /// Company or organization industry
+    var industry: String {
+        return value(for: BundledRelationKey.industry.rawValue)
+    }
+    /// Size of something in a text format with a custom measurement, e.g '10-20 people'
+    var size: String {
+        return value(for: BundledRelationKey.size.rawValue)
+    }
+    /// The year when the organisation was founded
+    var foundingYear: Int? {
+        return value(for: BundledRelationKey.foundingYear.rawValue)
+    }
+    /// Total cooking time in text format
+    var cookingTime: String {
+        return value(for: BundledRelationKey.cookingTime.rawValue)
+    }
+    /// Number of servings the recipe yields
+    var servings: Int? {
+        return value(for: BundledRelationKey.servings.rawValue)
+    }
+    /// Cuisine type associated with the recipe (e.g., Italian, Chinese)
+    var cuisine: String {
+        return value(for: BundledRelationKey.cuisine.rawValue)
+    }
+    /// Course type (e.g., appetizer, main course, dessert)
+    var courseType: String {
+        return value(for: BundledRelationKey.courseType.rawValue)
+    }
+    /// Difficulty level of the recipe (e.g., easy, medium, hard)
+    var difficulty: String {
+        return value(for: BundledRelationKey.difficulty.rawValue)
     }
 }

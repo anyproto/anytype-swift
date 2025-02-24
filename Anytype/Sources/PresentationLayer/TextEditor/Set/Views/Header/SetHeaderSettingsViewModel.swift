@@ -16,6 +16,8 @@ class SetHeaderSettingsViewModel: ObservableObject {
     let onCreateTap: () -> Void
     let onSecondaryCreateTap: () -> Void
     
+    var isObjectType: Bool { setDocument.details?.isObjectType ?? false }
+    
     init(
         setDocument: some SetDocumentProtocol,
         onViewTap: @escaping () -> Void,

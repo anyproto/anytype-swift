@@ -30,6 +30,8 @@ extension WidgetSource {
                 return [.compactList, .list, .tree]
             case .sets, .collections, .lists, .media, .bookmarks, .files:
                 return [.compactList, .list]
+            case .bin:
+                return [.link]
             }
         }
     }

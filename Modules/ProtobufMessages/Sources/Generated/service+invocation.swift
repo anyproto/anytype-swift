@@ -2844,4 +2844,14 @@ public struct ClientCommands {
         }
     }
 
+    public static func aIObjectCreateFromUrl(
+        _ request: Anytype_Rpc.AI.ObjectCreateFromUrl.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.ObjectCreateFromUrl.Request, Anytype_Rpc.AI.ObjectCreateFromUrl.Response> {
+        return Invocation(messageName: "AIObjectCreateFromUrl", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIObjectCreateFromUrl(requestData) ?? Data()
+            return try Anytype_Rpc.AI.ObjectCreateFromUrl.Response(serializedBytes: responseData)
+        }
+    }
+
 }
