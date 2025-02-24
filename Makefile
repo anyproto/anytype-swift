@@ -17,6 +17,7 @@ generate-middle:
 	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/models.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Models --other-name ModelsOther.swift
 	cp -r Dependencies/Middleware/protobuf/localstore.pb.swift Modules/ProtobufMessages/Sources/Protocol
 	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
+	# ./Scripts/invocation-adoption-gen.sh
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
 

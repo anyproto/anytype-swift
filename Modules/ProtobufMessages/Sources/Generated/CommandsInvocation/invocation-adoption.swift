@@ -161,11 +161,6 @@ extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: ResponseError
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Block.ListSetFields.Response: ResultWithError {}
-extension Anytype_Rpc.Block.ListSetFields.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.Block.ListSetVerticalAlign.Response: ResultWithError {}
 extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
