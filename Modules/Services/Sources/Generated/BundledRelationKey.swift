@@ -134,6 +134,8 @@ public enum BundledRelationKey: String, Sendable {
 
     case dueDate = "dueDate"
 
+    case duration = "duration"
+
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     case iconEmoji = "iconEmoji"
 
@@ -419,4 +421,37 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Default object type id that will be set to new sets/collections
     case defaultTypeId = "defaultTypeId"
+
+    /// Some event start date
+    case startDate = "startDate"
+
+    /// Some event or place location
+    case location = "location"
+
+    /// Event type
+    case eventType = "eventType"
+
+    /// Company or organization industry
+    case industry = "industry"
+
+    /// Size of something in a text format with a custom measurement, e.g '10-20 people'
+    case size = "size"
+
+    /// The year when the organisation was founded
+    case foundingYear = "foundingYear"
+
+    /// Total cooking time in text format
+    case cookingTime = "cookingTime"
+
+    /// Number of servings the recipe yields
+    case servings = "servings"
+
+    /// Cuisine type associated with the recipe (e.g., Italian, Chinese)
+    case cuisine = "cuisine"
+
+    /// Course type (e.g., appetizer, main course, dessert)
+    case courseType = "courseType"
+
+    /// Difficulty level of the recipe (e.g., easy, medium, hard)
+    case difficulty = "difficulty"
 }

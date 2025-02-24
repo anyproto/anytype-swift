@@ -76,6 +76,42 @@ extension Anytype_Rpc.AI.ListSummary.Response.Error: @retroactive LocalizedError
     }
 }
 
+extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "AI.ObjectCreateFromUrl.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.badInput")
+            case .rateLimitExceeded:
+                return String(localized: "AI.ObjectCreateFromUrl.rateLimitExceeded", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.rateLimitExceeded")
+            case .endpointNotReachable:
+                return String(localized: "AI.ObjectCreateFromUrl.endpointNotReachable", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.endpointNotReachable")
+            case .modelNotFound:
+                return String(localized: "AI.ObjectCreateFromUrl.modelNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.modelNotFound")
+            case .authRequired:
+                return String(localized: "AI.ObjectCreateFromUrl.authRequired", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.authRequired")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.AI.WritingTools.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
