@@ -10,7 +10,7 @@ public extension SpaceUxType {
     }
     
     var isData: Bool {
-        self == .isData
+        self == .data
     }
 }
 
