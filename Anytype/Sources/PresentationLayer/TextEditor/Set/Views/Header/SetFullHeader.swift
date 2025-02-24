@@ -32,6 +32,7 @@ struct SetFullHeader: View {
     @ViewBuilder
     private var headerBlocks: some View {
         if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
+            Spacer.fixedHeight(10)
             typeButtons
         } else {
             description
@@ -96,11 +97,13 @@ struct SetFullHeader: View {
                 model.onObjectTypeFieldsTap()
             }
             
-            StandardButton(
-                Loc.templates,
-                style: .secondarySmall
-            ) {
-                model.onObjectTypeTemplatesTap()
+            if model.showObjectTypeTemplates {
+                StandardButton(
+                    .textWithBadge(text: Loc.templates, badge: "\(model.templatesCount)"),
+                    style: .secondarySmall
+                ) {
+                    model.onObjectTypeTemplatesTap()
+                }
             }
 
             

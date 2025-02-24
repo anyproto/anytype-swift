@@ -29,7 +29,7 @@ struct EditorSetView: View {
             model.onAppear()
         }
         .task {
-            await model.subscribeOnRelations()
+            await model.startSubscriptions()
         }
         .onDisappear {
             model.onDisappear()
