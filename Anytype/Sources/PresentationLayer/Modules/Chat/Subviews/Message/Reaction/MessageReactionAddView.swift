@@ -3,7 +3,7 @@ import SwiftUI
 
 struct MessageReactionAddView: View {
     
-    let isYourMessage: Bool
+    let position: MessageHorizontalPosition
     let onTap: () -> Void
     
     var body: some View {
@@ -20,6 +20,6 @@ struct MessageReactionAddView: View {
 }
 
 #Preview {
-    MessageReactionAddView(isYourMessage: false, onTap: {})
-    MessageReactionAddView(isYourMessage: true, onTap: {})
+    MessageReactionAddView(position: .left, onTap: {})
+    MessageReactionAddView(position: .right, onTap: {})
 }

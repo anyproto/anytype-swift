@@ -7,7 +7,7 @@ struct MessageAttachmentView: View {
     let icon: Icon
     let title: String
     let description: String
-    let isYour: Bool
+    let position: MessageHorizontalPosition
     let size: String?
     
     var body: some View {
@@ -15,7 +15,7 @@ struct MessageAttachmentView: View {
             icon: icon,
             title: title,
             description: description,
-            style: isYour ? .messageYour : .messageOther,
+            style: position.isRight ? .messageYour : .messageOther,
             size: size
         )
         .frame(height: 64)
@@ -26,14 +26,14 @@ struct MessageAttachmentView: View {
 }
 
 extension MessageAttachmentView {
-    init(details: MessageAttachmentDetails, isYour: Bool) {
+    init(details: MessageAttachmentDetails, position: MessageHorizontalPosition) {
         let sizeInBytes = Int64(details.sizeInBytes ?? 0)
         let size = sizeInBytes > 0 ? ByteCountFormatter.fileFormatter.string(fromByteCount: sizeInBytes) : nil
         self = MessageAttachmentView(
             icon: details.objectIconImage,
             title: details.title,
             description: details.description,
-            isYour: isYour,
+            position: position,
             size: size
         )
     }

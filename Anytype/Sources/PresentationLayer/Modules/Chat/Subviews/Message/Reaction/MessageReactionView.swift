@@ -45,12 +45,12 @@ struct MessageReactionView: View {
 #Preview {
     VStack {
         MessageReactionView(
-            model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false, isYourMessage: false),
+            model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false, position: .left),
             onTap: {},
             onLongTap: {}
         )
         MessageReactionView(
-            model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true, isYourMessage: true),
+            model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true, position: .right),
             onTap: {},
             onLongTap: {}
         )
