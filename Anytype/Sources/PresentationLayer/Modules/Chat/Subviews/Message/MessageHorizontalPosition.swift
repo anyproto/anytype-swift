@@ -7,20 +7,10 @@ enum MessageHorizontalPosition: Hashable, Equatable {
 
 extension MessageHorizontalPosition {
     var isRight: Bool {
-        switch self {
-        case .right:
-            return true
-        default:
-            return false
-        }
+        self == .right
     }
     
     var isLeft: Bool {
-        switch self {
-        case .left:
-            return true
-        default:
-            return false
-        }
+        self == .left
     }
 }

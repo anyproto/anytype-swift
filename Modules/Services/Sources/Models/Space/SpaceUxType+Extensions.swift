@@ -2,30 +2,15 @@ import ProtobufMessages
 
 public extension SpaceUxType {
     var isStream: Bool {
-        switch self {
-        case .stream:
-            return true
-        default:
-            return false
-        }
+        self == .stream
     }
     
     var isChat: Bool {
-        switch self {
-        case .chat:
-            return true
-        default:
-            return false
-        }
+        self == .chat
     }
     
     var isData: Bool {
-        switch self {
-        case .data:
-            return true
-        default:
-            return false
-        }
+        self == .isData
     }
 }
 
