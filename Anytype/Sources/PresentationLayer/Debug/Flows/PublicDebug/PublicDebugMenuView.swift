@@ -60,9 +60,9 @@ struct PublicDebugMenuView: View {
                     model.onDebugRunProfiler()
                 }
                 
-                StandardButton("Export localstore 📁", style: .secondaryLarge) {
+                AsyncStandardButton("Export localstore 📁", style: .secondaryLarge) {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    model.getLocalStoreData()
+                    try await model.getLocalStoreData()
                 }
                 
                 AsyncStandardButton("Debug stat 🫵🐭", style: .secondaryLarge) {
