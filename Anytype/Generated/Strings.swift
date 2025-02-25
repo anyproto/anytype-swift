@@ -1738,25 +1738,12 @@ internal enum Loc {
   internal enum SpaceCreate {
     internal enum Chat {
       internal static let title = Loc.tr("Localizable", "SpaceCreate.Chat.Title", fallback: "Create a chat")
-      internal enum Name {
-        internal static let title = Loc.tr("Localizable", "SpaceCreate.Chat.Name.Title", fallback: "Chat name")
-      }
     }
     internal enum Space {
       internal static let title = Loc.tr("Localizable", "SpaceCreate.Space.Title", fallback: "Create a space")
-      internal enum Name {
-        internal static let title = Loc.tr("Localizable", "SpaceCreate.Space.Name.Title", fallback: "Space name")
-      }
     }
     internal enum Stream {
       internal static let title = Loc.tr("Localizable", "SpaceCreate.Stream.Title", fallback: "Create a stream")
-      internal enum Name {
-        internal static let description = Loc.tr("Localizable", "SpaceCreate.Stream.Name.Description", fallback: "Stream description")
-        internal static let title = Loc.tr("Localizable", "SpaceCreate.Stream.Name.Title", fallback: "Stream name")
-      }
-      internal enum Placeholder {
-        internal static let description = Loc.tr("Localizable", "SpaceCreate.Stream.Placeholder.Description", fallback: "Description")
-      }
     }
   }
   internal enum SpaceManager {

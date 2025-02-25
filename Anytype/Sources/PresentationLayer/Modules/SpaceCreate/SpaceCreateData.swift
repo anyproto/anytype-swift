@@ -19,26 +19,4 @@ struct SpaceCreateData: Equatable, Identifiable, Hashable {
             return ""
         }
     }
-    
-    var nameTitle: String {
-        switch spaceUxType {
-        case .chat:
-            return Loc.SpaceCreate.Chat.Name.title
-        case .data:
-            return Loc.SpaceCreate.Space.Name.title
-        case .stream:
-            return Loc.SpaceCreate.Stream.Name.title
-        case .UNRECOGNIZED(_):
-            return ""
-        }
-    }
-    
-    var nameDescription: String? {
-        switch spaceUxType {
-        case .stream:
-            return Loc.SpaceCreate.Stream.Name.description
-        default:
-            return nil
-        }
-    }
 }

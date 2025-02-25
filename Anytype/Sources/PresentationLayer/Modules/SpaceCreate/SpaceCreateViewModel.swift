@@ -19,7 +19,6 @@ final class SpaceCreateViewModel: ObservableObject {
     // MARK: - State
     
     @Published var spaceName = ""
-    @Published var spaceDescription = ""
     let spaceIconOption = IconColorStorage.randomOption()
     var spaceIcon: Icon { .object(.space(.name(name: spaceName, iconOption: spaceIconOption))) }
     @Published var spaceAccessType: SpaceAccessType = .private
@@ -39,7 +38,6 @@ final class SpaceCreateViewModel: ObservableObject {
             }
             let spaceId = try await workspaceService.createSpace(
                 name: spaceName,
-                description: spaceDescription,
                 iconOption: spaceIconOption,
                 accessType: spaceAccessType,
                 useCase: .empty,
