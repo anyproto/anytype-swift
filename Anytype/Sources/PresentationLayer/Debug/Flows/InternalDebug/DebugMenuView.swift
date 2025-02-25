@@ -93,9 +93,9 @@ struct DebugMenuView: View {
                 showLogs.toggle()
             }
             
-            StandardButton("Export localstore 📁", style: .secondaryLarge) {
+            AsyncStandardButton("Export localstore 📁", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.getLocalStoreData()
+                try await model.getLocalStoreData()
             }
             
             if case .done(url: let url) = model.debugRunProfilerData {
@@ -136,9 +136,9 @@ struct DebugMenuView: View {
                 showMembershipDebug.toggle()
             }
             
-            StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
+            AsyncStandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.getGoroutinesData()
+                try await model.getGoroutinesData()
             }
             StandardButton(model.debugRunProfilerData.text, style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
@@ -150,9 +150,9 @@ struct DebugMenuView: View {
                 try await model.debugStat()
             }
             
-            StandardButton("Export full directory 🤐", style: .secondaryLarge) {
+            AsyncStandardButton("Export full directory 🤐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.zipWorkingDirectory()
+                try await model.zipWorkingDirectory()
             }
             StandardButton("Import full directory 📲", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()

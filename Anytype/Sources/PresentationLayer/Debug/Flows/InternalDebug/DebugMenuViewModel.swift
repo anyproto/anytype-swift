@@ -58,27 +58,23 @@ final class DebugMenuViewModel: ObservableObject {
         }
     }
     
-    func getLocalStoreData() {
-        Task {
-            try await localAuthService.auth(reason: "Share local store")
-            let path = try await debugService.exportLocalStore()
-            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("localstore.zip")
-            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
-            shareUrlFile = zipFile
-        }
+    func getLocalStoreData() async throws {
+        try await localAuthService.auth(reason: "Share local store")
+        let path = try await debugService.exportLocalStore()
+        let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("localstore.zip")
+        try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
+        shareUrlFile = zipFile
     }
     
-    func getGoroutinesData() {
-        Task { shareUrlFile = try await debugService.exportStackGoroutinesZip() }
+    func getGoroutinesData() async throws {
+        shareUrlFile = try await debugService.exportStackGoroutinesZip()
     }
     
-    func zipWorkingDirectory() {
-        Task {
-            try await localAuthService.auth(reason: "Share working directory")
-            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
-            try FileManager.default.zipItem(at: localRepoService.middlewareRepoURL, to: zipFile)
-            shareUrlFile = zipFile
-        }
+    func zipWorkingDirectory() async throws {
+        try await localAuthService.auth(reason: "Share working directory")
+        let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
+        try FileManager.default.zipItem(at: localRepoService.middlewareRepoURL, to: zipFile)
+        shareUrlFile = zipFile
     }
     
     func unzipWorkingDirectory() {
