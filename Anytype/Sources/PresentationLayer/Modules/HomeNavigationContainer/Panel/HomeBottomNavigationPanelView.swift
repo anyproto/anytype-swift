@@ -47,11 +47,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 }
             }
         }
-        .overlay {
-            if #available(iOS 17.0, *) {
-                ReturnToWidgetsTipView()
-            }
-        }
         .padding(.vertical, 10)
         .if(FeatureFlags.homeTestSwipeGeature) { view in
             view.gesture(
