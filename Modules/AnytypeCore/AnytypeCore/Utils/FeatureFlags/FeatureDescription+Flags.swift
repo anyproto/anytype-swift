@@ -132,7 +132,7 @@ public extension FeatureDescription {
         title: "Enable stream space type",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        releaseAnyAppValue: false
     )
     
     static let firebasePushMessages = FeatureDescription(
@@ -146,7 +146,7 @@ public extension FeatureDescription {
         title: "Add AI tool in Set / Collection",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        releaseAnyAppValue: false
     )
 
     static let newOnboarding = FeatureDescription(
@@ -166,7 +166,7 @@ public extension FeatureDescription {
         title: "Open type in Set View",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
+        releaseAnyAppValue: false,
         debugValue: false
     )
     
