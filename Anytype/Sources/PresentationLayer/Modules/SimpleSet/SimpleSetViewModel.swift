@@ -12,7 +12,7 @@ final class SimpleSetViewModel: ObservableObject {
         
     @Published var title = ""
     @Published var state: SimpleSetState?
-    @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
+    @Published var data = SimpleSetLayout.list([])
     @Published private var participantCanEdit = false
 
     @Injected(\.openedDocumentProvider)
@@ -23,6 +23,8 @@ final class SimpleSetViewModel: ObservableObject {
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private let objectId: String
     private let spaceId: String
@@ -42,21 +44,34 @@ final class SimpleSetViewModel: ObservableObject {
         self.output = output
     }
     
-    func subscribeOnDetails() async {
+    func onDisappear() {
+        stopObjectsSubscription()
+    }
+    
+    // MARK: - Subscriptions
+    
+    func startSubscriptions() async {
+        async let detailsSub: () = subscribeOnDetails()
+        async let participantSub: () = subscribeOnParticipant()
+        (_,_) = await (detailsSub, participantSub)
+    }
+    
+    private func subscribeOnDetails() async {
         for await details in setDocument.detailsPublisher.values {
             title = details.pageCellTitle
             setStateIfNeeded()
+            updateRows()
         }
     }
     
-    func subscribeOnParticipant() async {
+    private func subscribeOnParticipant() async {
         for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
             participantCanEdit = participant.canEdit
             updateRows()
         }
     }
     
-    func startObjectsSubscription() async {
+    func subscribeOnObjects() async {
         guard let state, setDocument.canStartSubscription() else { return }
         await simpleSetSubscriptionService.startSubscription(
             setDocument: setDocument,
@@ -69,16 +84,25 @@ final class SimpleSetViewModel: ObservableObject {
             })
     }
     
-    func stopObjectsSubscription() {
+    private func stopObjectsSubscription() {
         Task {
             await simpleSetSubscriptionService.stopSubscription()
         }
     }
     
+    // MARK: - Pagination
+    
     func onAppearLastRow(_ id: String) {
         guard objectsToLoad > 0, details.last?.id == id else { return }
         objectsToLoad = 0
         state?.increaseLimit()
+    }
+    
+    // MARK: - Actions
+    
+    func onObjectSelected(_ id: String) {
+        guard let details = details.first(where: { $0.id == id }) else { return }
+        output?.onObjectSelected(screenData: details.screenData())
     }
     
     func onDelete(objectId: String) {
@@ -87,8 +111,21 @@ final class SimpleSetViewModel: ObservableObject {
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
+    // MARK: - Private
+    
     private func updateRows() {
-        sections = details.isNotEmpty ? [listSectionData(title: nil, details: details)] : []
+        guard details.isNotEmpty else {
+            data = .list([])
+            return
+        }
+        if let setOf = setDocument.details?.filteredSetOf.first,
+           let objectType = try? objectTypeProvider.objectType(id: setOf),
+           objectType.isImageLayout {
+            let imagesIds = details.map(\.id)
+            data = .gallery(imagesIds)
+        } else {
+            data = .list([listSectionData(title: nil, details: details)])
+        }
     }
     
     private func listSectionData(title: String?, details: [ObjectDetails]) -> ListSectionData<String?, WidgetObjectListRowModel> {

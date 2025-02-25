@@ -15,16 +15,13 @@ struct SimpleSetView: View {
             content
         }
         .task {
-            await model.subscribeOnDetails()
-        }
-        .task {
-            await model.subscribeOnParticipant()
+            await model.startSubscriptions()
         }
         .task(item: model.state) { _ in
-            await model.startObjectsSubscription()
+            await model.subscribeOnObjects()
         }
         .onDisappear {
-            model.stopObjectsSubscription()
+            model.onDisappear()
         }
     }
     
@@ -32,38 +29,69 @@ struct SimpleSetView: View {
     private var content: some View {
         if model.isInitial {
             Spacer()
-        } else if model.sections.isEmpty {
-            emptyState
         } else {
-            list
+            layoutView
         }
     }
     
-    private var list: some View {
-        PlainList {
-            ForEach(model.sections) { section in
-                if let title = section.data, title.isNotEmpty {
-                    ListSectionHeaderView(title: title)
-                        .padding(.horizontal, 20)
-                }
-                ForEach(section.rows, id: \.id) { row in
-                    WidgetObjectListRowView(model: row)
-                        .onAppear {
-                            model.onAppearLastRow(row.id)
-                        }
-                        .if(row.canArchive) {
-                            $0.swipeActions {
-                                Button(Loc.toBin, role: .destructive) {
-                                    model.onDelete(objectId: row.objectId)
+    @ViewBuilder
+    private var layoutView: some View {
+        switch model.data {
+        case let .list(sections):
+            list(with: sections)
+        case let .gallery(ids):
+            gallery(with: ids)
+        }
+    }
+    
+    @ViewBuilder
+    private func list(with sections: [ListSectionData<String?, WidgetObjectListRowModel>]) -> some View {
+        if sections.isNotEmpty {
+            PlainList {
+                ForEach(sections) { section in
+                    if let title = section.data, title.isNotEmpty {
+                        ListSectionHeaderView(title: title)
+                            .padding(.horizontal, 20)
+                    }
+                    ForEach(section.rows, id: \.id) { row in
+                        WidgetObjectListRowView(model: row)
+                            .onAppear {
+                                model.onAppearLastRow(row.id)
+                            }
+                            .if(row.canArchive) {
+                                $0.swipeActions {
+                                    Button(Loc.toBin, role: .destructive) {
+                                        model.onDelete(objectId: row.objectId)
+                                    }
                                 }
                             }
-                        }
+                    }
                 }
+                AnytypeNavigationSpacer(minHeight: 130)
             }
-            AnytypeNavigationSpacer(minHeight: 130)
+            .scrollIndicators(.never)
+            .scrollDismissesKeyboard(.immediately)
+        } else {
+            emptyState
         }
-        .scrollIndicators(.never)
-        .scrollDismissesKeyboard(.immediately)
+    }
+    
+    @ViewBuilder
+    private func gallery(with ids: [String]) -> some View {
+        if ids.isNotEmpty {
+            ImagesGalleryView(
+                imageIds: ids,
+                onImageSelected: { imageId in
+                    model.onObjectSelected(imageId)
+                },
+                onImageIdAppear: { imageId in
+                    model.onAppearLastRow(imageId)
+                }
+            )
+            .padding(.horizontal, 20)
+        } else {
+            emptyState
+        }
     }
     
     private var emptyState: some View {
