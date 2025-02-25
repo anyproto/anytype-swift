@@ -64,11 +64,8 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
             }
-            .anytypeSheet(item: $model.spaceProfileData) { _ in
-                ZStack {
-                    RoundedRectangle(cornerRadius: 8).frame(height: 300).foregroundStyle(Color.System.amber25)
-                    AnytypeText("TBD; space profile", style: .title)
-                }
+            .anytypeSheet(item: $model.spaceProfileData) {
+                SpaceProfileView(info: $0)
             }
             .safariBookmarkObject($model.bookmarkScreenData) {
                 model.onOpenBookmarkAsObject($0)
