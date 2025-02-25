@@ -1303,6 +1303,6 @@ En concreto,
 
 // MARK: - Migration
 "Migration.title" = "La migración está en curso…";
-"Migration.subtitle" = "No llevará mucho tiempo. Gracias por tu paciencia.";
+"Migration.subtitle" = "Esto puede llevar algún tiempo. No cierres la aplicación hasta que termine el proceso.";
 "Migration.Error.NotEnoughtSpace.title" = "No hay suficiente espacio";
 "Migration.Error.NotEnoughtSpace.message" = "Libera algo de espacio y vuelve a ejecutar el proceso.";
