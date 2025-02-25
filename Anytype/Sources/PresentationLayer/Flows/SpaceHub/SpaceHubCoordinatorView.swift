@@ -64,6 +64,12 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
             }
+            .anytypeSheet(item: $model.spaceProfileData) { _ in
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8).frame(height: 300).foregroundStyle(Color.System.amber25)
+                    AnytypeText("TBD; space profile", style: .title)
+                }
+            }
             .safariBookmarkObject($model.bookmarkScreenData) {
                 model.onOpenBookmarkAsObject($0)
             }
@@ -89,7 +95,7 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)
                         }
-                        builder.appendBuilder(for: SettingsScreenData.self) { data in
+                        builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
                             switch data {
                             case .mainScreen(let info):
                                 NewSpaceSettingsCoordinatorView(workspaceInfo: info)
