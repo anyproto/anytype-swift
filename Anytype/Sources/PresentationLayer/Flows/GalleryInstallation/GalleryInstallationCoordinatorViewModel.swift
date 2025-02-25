@@ -43,7 +43,6 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
             case .newSpace:
                 let spaceId = try await workspaceService.createSpace(
                     name: manifest.title,
-                    description: "",
                     iconOption: IconColorStorage.randomOption(),
                     accessType: .personal,
                     useCase: .none,
