@@ -803,6 +803,7 @@ internal extension ImageAsset {
       static let unlock = ImageAsset.bundle(name: "x32/Lock/Unlock")
     }
     static let mention = ImageAsset.bundle(name: "x32/Mention")
+    static let more = ImageAsset.bundle(name: "x32/More")
     enum MoveColumn {
       static let down = ImageAsset.bundle(name: "x32/Move Column/Down")
       static let `left` = ImageAsset.bundle(name: "x32/Move Column/Left")
