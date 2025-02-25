@@ -14,11 +14,11 @@ public extension DetailsLayout {
     
     static let supportedForCreation: [DetailsLayout] = supportedForCreationInSets + [.set, .collection]
     
-    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + fileLayout
+    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + [.objectType]
+
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
-    private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile]
+    private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-    private static let fileLayout: [DetailsLayout] = FeatureFlags.primitives ? [.objectType] : []
 }
 
 // MARK: - Computed properties
@@ -39,6 +39,7 @@ public extension DetailsLayout {
     var isParticipant: Bool { self == .participant }
     var isDate: Bool { self == .date }
     var isBookmark: Bool { self == .bookmark }
+    var isObjectType: Bool { self == .objectType }
     
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }

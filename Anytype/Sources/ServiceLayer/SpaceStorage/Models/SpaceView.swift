@@ -16,6 +16,7 @@ struct SpaceView: Identifiable, Equatable {
     let writersLimit: Int?
     let chatId: String
     let isPinned: Bool
+    let uxType: SpaceUxType
 }
 
 extension SpaceView: DetailsModel {
@@ -33,6 +34,7 @@ extension SpaceView: DetailsModel {
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
         self.isPinned = details.spaceOrder.isNotEmpty
+        self.uxType = details.spaceUxTypeValue ?? .data
     }
     
     static let subscriptionKeys: [BundledRelationKey] = .builder {
@@ -50,6 +52,7 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.sharedSpacesLimit
         BundledRelationKey.chatId
         BundledRelationKey.spaceOrder
+        BundledRelationKey.spaceUxType
     }
 }
 
@@ -80,12 +83,8 @@ extension SpaceView {
         return spaceIsLoading && spaceIsNotDeleted && spaceIsNotJoining
     }
     
-    var hasChat: Bool {
-        chatId.isNotEmpty
-    }
-    
     var showChat: Bool {
-        hasChat && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
+        (uxType == .chat || uxType == .stream) && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {

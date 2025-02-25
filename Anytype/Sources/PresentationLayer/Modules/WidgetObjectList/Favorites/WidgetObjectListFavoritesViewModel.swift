@@ -15,7 +15,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     private var favoriteSubscriptionService: any FavoriteSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
-    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     
     // MARK: - State
     

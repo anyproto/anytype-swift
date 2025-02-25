@@ -27,6 +27,8 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
     private let fileActionsService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     private let bookmarkService: any BookmarkServiceProtocol = Container.shared.bookmarkService()
+    private let aiService: any AIServiceProtocol = Container.shared.aiService()
+    private let aiConfigBuilder: any AIConfigBuilderProtocol = AIConfigBuilder()
     
     func createMessage(
         chatId: String,
@@ -82,10 +84,19 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 }
             case .localBookmark(let data):
                 guard let url = AnytypeURL(string: data.url) else { continue }
-                if let bookmark = try? await bookmarkService.createBookmarkObject(spaceId: spaceId, url: url, origin: .none) {
-                    var attachment = ChatMessageAttachment()
-                    attachment.target = bookmark.id
-                    chatMessage.attachments.append(attachment)
+                if FeatureFlags.aiToolInSet {
+                    if let config = aiConfigBuilder.makeOpenAIConfig(),
+                        let bookmark = try? await aiService.aiObjectCreateFromUrl(spaceId: spaceId, url: url, config: config) {
+                        var attachment = ChatMessageAttachment()
+                        attachment.target = bookmark.id
+                        chatMessage.attachments.append(attachment)
+                    }
+                } else {
+                    if let bookmark = try? await bookmarkService.createBookmarkObject(spaceId: spaceId, url: url, origin: .none) {
+                        var attachment = ChatMessageAttachment()
+                        attachment.target = bookmark.id
+                        chatMessage.attachments.append(attachment)
+                    }
                 }
                 break
             }

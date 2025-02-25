@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .allContentWidgets)
     }
 
+    static var objectTypeWidgets: Bool {
+        value(for: .objectTypeWidgets)
+    }
+
     static var newTypeIcons: Bool {
         value(for: .newTypeIcons)
     }
@@ -70,8 +74,20 @@ public extension FeatureFlags {
         value(for: .newPlusMenu)
     }
 
+    static var spaceUxTypes: Bool {
+        value(for: .spaceUxTypes)
+    }
+
+    static var enableStreamSpaceType: Bool {
+        value(for: .enableStreamSpaceType)
+    }
+
     static var firebasePushMessages: Bool {
         value(for: .firebasePushMessages)
+    }
+
+    static var aiToolInSet: Bool {
+        value(for: .aiToolInSet)
     }
 
     static var newOnboarding: Bool {
@@ -80,6 +96,14 @@ public extension FeatureFlags {
 
     static var disableColorfulSeedPhrase: Bool {
         value(for: .disableColorfulSeedPhrase)
+    }
+
+    static var openTypeAsSet: Bool {
+        value(for: .openTypeAsSet)
+    }
+
+    static var binWidgetFromLibrary: Bool {
+        value(for: .binWidgetFromLibrary)
     }
 
     static var rainbowViews: Bool {
@@ -147,14 +171,20 @@ public extension FeatureFlags {
         .primitives,
         .memberProfile,
         .allContentWidgets,
+        .objectTypeWidgets,
         .newTypeIcons,
         .openMediaFileInPreview,
         .openBookmarkAsLink,
         .newSettings,
         .newPlusMenu,
+        .spaceUxTypes,
+        .enableStreamSpaceType,
         .firebasePushMessages,
+        .aiToolInSet,
         .newOnboarding,
         .disableColorfulSeedPhrase,
+        .openTypeAsSet,
+        .binWidgetFromLibrary,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -9,6 +9,7 @@ public typealias ObjectId = String
 public protocol BundledRelationsValueProvider {
 
     var tag: [ObjectId] { get }
+    var guestKey: String { get }
     var camera: String { get }
     var heightInPixels: Int? { get }
     var createdDate: Date? { get }
@@ -53,6 +54,7 @@ public protocol BundledRelationsValueProvider {
     var author: [ObjectId] { get }
     var artist: String { get }
     var dueDate: Date? { get }
+    var duration: String { get }
     var iconEmoji: Emoji? { get }
     var coverType: Int? { get }
     var coverY: Int? { get }
@@ -104,6 +106,7 @@ public protocol BundledRelationsValueProvider {
     var iconOption: Int? { get }
     var spaceAccessibility: Int? { get }
     var spaceAccessType: Int? { get }
+    var spaceUxType: Int? { get }
     var sourceFilePath: String { get }
     var fileSyncStatus: Int? { get }
     var fileBackupStatus: Int? { get }
@@ -122,6 +125,8 @@ public protocol BundledRelationsValueProvider {
     var spaceAccountStatus: Int? { get }
     var spaceInviteFileCid: String { get }
     var spaceInviteFileKey: String { get }
+    var spaceInviteGuestFileCid: String { get }
+    var spaceInviteGuestFileKey: String { get }
     var participantPermissions: Int? { get }
     var identity: String { get }
     var participantStatus: Int? { get }
@@ -141,16 +146,35 @@ public protocol BundledRelationsValueProvider {
     var chatId: ObjectId { get }
     var mentions: [ObjectId] { get }
     var timestamp: Date? { get }
+    var layoutWidth: Int? { get }
+    var resolvedLayout: Int? { get }
     var spaceOrder: String { get }
     var iconName: String { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
     var recommendedHiddenRelations: [ObjectId] { get }
     var recommendedFileRelations: [ObjectId] { get }
+    var defaultViewType: Int? { get }
+    var defaultTypeId: ObjectId { get }
+    var startDate: Date? { get }
+    var location: String { get }
+    var eventType: String { get }
+    var industry: String { get }
+    var size: String { get }
+    var foundingYear: Int? { get }
+    var cookingTime: String { get }
+    var servings: Int? { get }
+    var cuisine: String { get }
+    var courseType: String { get }
+    var difficulty: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
     var tag: [ObjectId] {
         return value(for: BundledRelationKey.tag.rawValue)
+    }
+    /// guest key to read public space
+    var guestKey: String {
+        return value(for: BundledRelationKey.guestKey.rawValue)
     }
     /// Camera used to capture image or video
     var camera: String {
@@ -318,6 +342,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var dueDate: Date? {
         return value(for: BundledRelationKey.dueDate.rawValue)
+    }
+    var duration: String {
+        return value(for: BundledRelationKey.duration.rawValue)
     }
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     var iconEmoji: Emoji? {
@@ -511,6 +538,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var spaceAccessType: Int? {
         return value(for: BundledRelationKey.spaceAccessType.rawValue)
     }
+    /// Space UX type, see enum model.SpaceUxType
+    var spaceUxType: Int? {
+        return value(for: BundledRelationKey.spaceUxType.rawValue)
+    }
     /// File path or url with original object
     var sourceFilePath: String {
         return value(for: BundledRelationKey.sourceFilePath.rawValue)
@@ -581,6 +612,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Encoded encryption key of invite file for current space. It stored in SpaceView
     var spaceInviteFileKey: String {
         return value(for: BundledRelationKey.spaceInviteFileKey.rawValue)
+    }
+    /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
+    var spaceInviteGuestFileCid: String {
+        return value(for: BundledRelationKey.spaceInviteGuestFileCid.rawValue)
+    }
+    /// Encoded encryption key of invite file for guest user in the current space. It's stored in SpaceView
+    var spaceInviteGuestFileKey: String {
+        return value(for: BundledRelationKey.spaceInviteGuestFileKey.rawValue)
     }
     /// Participant permissions. Possible values: models.ParticipantPermissions
     var participantPermissions: Int? {
@@ -657,6 +696,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var timestamp: Date? {
         return value(for: BundledRelationKey.timestamp.rawValue)
     }
+    /// Width of object's layout
+    var layoutWidth: Int? {
+        return value(for: BundledRelationKey.layoutWidth.rawValue)
+    }
+    /// Layout resolved based on object self layout and type recommended layout
+    var resolvedLayout: Int? {
+        return value(for: BundledRelationKey.resolvedLayout.rawValue)
+    }
     /// Space order
     var spaceOrder: String {
         return value(for: BundledRelationKey.spaceOrder.rawValue)
@@ -676,5 +723,57 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// List of recommended file-specific relations
     var recommendedFileRelations: [ObjectId] {
         return value(for: BundledRelationKey.recommendedFileRelations.rawValue)
+    }
+    /// Default view type that will be used for new sets/collections
+    var defaultViewType: Int? {
+        return value(for: BundledRelationKey.defaultViewType.rawValue)
+    }
+    /// Default object type id that will be set to new sets/collections
+    var defaultTypeId: ObjectId {
+        return value(for: BundledRelationKey.defaultTypeId.rawValue)
+    }
+    /// Some event start date
+    var startDate: Date? {
+        return value(for: BundledRelationKey.startDate.rawValue)
+    }
+    /// Some event or place location
+    var location: String {
+        return value(for: BundledRelationKey.location.rawValue)
+    }
+    /// Event type
+    var eventType: String {
+        return value(for: BundledRelationKey.eventType.rawValue)
+    }
+    /// Company or organization industry
+    var industry: String {
+        return value(for: BundledRelationKey.industry.rawValue)
+    }
+    /// Size of something in a text format with a custom measurement, e.g '10-20 people'
+    var size: String {
+        return value(for: BundledRelationKey.size.rawValue)
+    }
+    /// The year when the organisation was founded
+    var foundingYear: Int? {
+        return value(for: BundledRelationKey.foundingYear.rawValue)
+    }
+    /// Total cooking time in text format
+    var cookingTime: String {
+        return value(for: BundledRelationKey.cookingTime.rawValue)
+    }
+    /// Number of servings the recipe yields
+    var servings: Int? {
+        return value(for: BundledRelationKey.servings.rawValue)
+    }
+    /// Cuisine type associated with the recipe (e.g., Italian, Chinese)
+    var cuisine: String {
+        return value(for: BundledRelationKey.cuisine.rawValue)
+    }
+    /// Course type (e.g., appetizer, main course, dessert)
+    var courseType: String {
+        return value(for: BundledRelationKey.courseType.rawValue)
+    }
+    /// Difficulty level of the recipe (e.g., easy, medium, hard)
+    var difficulty: String {
+        return value(for: BundledRelationKey.difficulty.rawValue)
     }
 }

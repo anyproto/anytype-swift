@@ -36,6 +36,18 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
     
+    func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws {
+        try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = objectId
+            $0.details = fields.map { key, value in
+                Anytype_Model_Detail.with {
+                    $0.key = key
+                    $0.value = value
+                }
+            }
+        }).invoke()
+    }
+    
     public func updateRelationOption(id: String, text: String, color: String?) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = id
@@ -56,7 +68,7 @@ final class RelationsService: RelationsServiceProtocol {
 
     public func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails {
         let result = try await ClientCommands.objectCreateRelation(.with {
-            $0.details = relationDetails.asCreateMiddleware
+            $0.details = relationDetails.asMiddleware
             $0.spaceID = spaceId
         }).invoke()
         
@@ -112,5 +124,64 @@ final class RelationsService: RelationsServiceProtocol {
         try await ClientCommands.relationListRemoveOption(.with {
             $0.optionIds = ids
         }).invoke()
+    }
+    
+    // MARK: - New api
+    func updateRecommendedRelations(typeId: String, relationIds: [String]) async throws {
+        try await ClientCommands.objectTypeRecommendedRelationsSet(.with {
+            $0.typeObjectID = typeId
+            $0.relationObjectIds = relationIds
+        }).invoke()
+    }
+    
+    func updateRecommendedFeaturedRelations(typeId: String, relationIds: [String]) async throws {
+        try await ClientCommands.objectTypeRecommendedFeaturedRelationsSet(.with {
+            $0.typeObjectID = typeId
+            $0.relationObjectIds = relationIds
+        }).invoke()
+    }
+    
+    func updateRecommendedHiddenRelations(typeId: String, relationIds: [ObjectId]) async throws {
+        try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = typeId
+            $0.details = [
+                Anytype_Model_Detail.with {
+                    $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
+                    $0.value = relationIds.protobufValue
+                }
+            ]
+        }).invoke()
+    }
+    
+    func updateTypeRelations(
+        typeId: String,
+        recommendedRelationIds: [ObjectId],
+        recommendedFeaturedRelationsIds: [ObjectId],
+        recommendedHiddenRelationsIds: [ObjectId]
+    ) async throws {
+        try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = typeId
+            $0.details = [
+                Anytype_Model_Detail.with {
+                    $0.key = BundledRelationKey.recommendedRelations.rawValue
+                    $0.value = recommendedRelationIds.protobufValue
+                },
+                Anytype_Model_Detail.with {
+                    $0.key = BundledRelationKey.recommendedFeaturedRelations.rawValue
+                    $0.value = recommendedFeaturedRelationsIds.protobufValue
+                },
+                Anytype_Model_Detail.with {
+                    $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
+                    $0.value = recommendedHiddenRelationsIds.protobufValue
+                }
+            ]
+        }).invoke()
+    }
+    
+    func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String] {
+        try await ClientCommands.objectTypeListConflictingRelations(.with {
+            $0.spaceID = spaceId
+            $0.typeObjectID = typeId
+        }).invoke().relationIds
     }
 }

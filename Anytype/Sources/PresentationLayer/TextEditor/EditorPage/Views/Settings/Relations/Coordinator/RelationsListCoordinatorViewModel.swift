@@ -31,24 +31,6 @@ final class RelationsListCoordinatorViewModel:
     
     // MARK: - RelationsListModuleOutput
     
-    func addNewRelationAction(document: some BaseDocumentProtocol) {
-        relationsSearchData = RelationsSearchData(
-            objectId: document.objectId,
-            spaceId: document.spaceId,
-            excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
-            target: .object, 
-            onRelationSelect: { relationDetails, isNew in
-                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
-                    format: relationDetails.format,
-                    isNew: isNew,
-                    type: .menu,
-                    key: relationDetails.analyticsKey,
-                    spaceId: document.spaceId
-                )
-            }
-        )
-    }
-    
     func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
         let relation = document.parsedRelations.installed.first { $0.key == relationKey }
         guard let relation = relation else {

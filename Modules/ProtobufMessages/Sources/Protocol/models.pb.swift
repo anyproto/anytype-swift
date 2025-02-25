@@ -62,6 +62,9 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 
   /// Container for account data in tech space
   case accountObject // = 545
+
+  /// used to show virtual objects, like AI response generated on the fly
+  case ephemeralVirtualObject // = 546
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -98,6 +101,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 537: self = .chatObject
     case 544: self = .chatDerivedObject
     case 545: self = .accountObject
+    case 546: self = .ephemeralVirtualObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -132,6 +136,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .chatObject: return 537
     case .chatDerivedObject: return 544
     case .accountObject: return 545
+    case .ephemeralVirtualObject: return 546
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -171,6 +176,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .chatObject,
     .chatDerivedObject,
     .accountObject,
+    .ephemeralVirtualObject,
   ]
 }
 
@@ -606,6 +612,56 @@ extension Anytype_Model_SpaceAccessType: CaseIterable {
     .private,
     .personal,
     .shared,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// chat-first UX
+  case chat // = 0
+
+  /// objects-first UX
+  case data // = 1
+
+  /// stream UX (chat with limited amount of owners)
+  case stream // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .chat
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .chat
+    case 1: self = .data
+    case 2: self = .stream
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .chat: return 0
+    case .data: return 1
+    case .stream: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_SpaceUxType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_SpaceUxType] = [
+    .chat,
+    .data,
+    .stream,
   ]
 }
 
@@ -2130,6 +2186,7 @@ public struct Anytype_Model_Block {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
+      /// can be set for detached(without TargetObjectId) inline sets
       public var source: [String] = []
 
       public var views: [Anytype_Model_Block.Content.Dataview.View] = []
@@ -2146,6 +2203,7 @@ public struct Anytype_Model_Block {
 
       public var relationLinks: [Anytype_Model_RelationLink] = []
 
+      /// empty for original set/collection objects and for detached inline sets
       public var targetObjectID: String = String()
 
       public var isCollection: Bool = false
@@ -4086,6 +4144,12 @@ public struct Anytype_Model_ObjectType {
   /// restricts creating objects of this type for users
   public var restrictObjectCreation: Bool = false
 
+  /// color of object type icon
+  public var iconColor: Int64 = 0
+
+  /// name of object type icon
+  public var iconName: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum Layout: SwiftProtobuf.Enum {
@@ -5526,7 +5590,7 @@ public struct Anytype_Model_InvitePayload {
 
   public var creatorName: String = String()
 
-  public var inviteKey: Data = Data()
+  public var aclKey: Data = Data()
 
   public var spaceID: String = String()
 
@@ -5536,10 +5600,58 @@ public struct Anytype_Model_InvitePayload {
 
   public var spaceIconEncryptionKeys: [Anytype_Model_FileEncryptionKey] = []
 
+  public var inviteType: Anytype_Model_InvitePayload.InviteType = .joinAsMember
+
+  public var guestKey: Data = Data()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum InviteType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+
+    /// aclKey contains the key to sign the ACL record
+    case joinAsMember // = 0
+
+    /// guestKey contains the privateKey of the guest user
+    case joinAsGuest // = 1
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .joinAsMember
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .joinAsMember
+      case 1: self = .joinAsGuest
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .joinAsMember: return 0
+      case .joinAsGuest: return 1
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
 
   public init() {}
 }
+
+#if swift(>=4.2)
+
+extension Anytype_Model_InvitePayload.InviteType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_InvitePayload.InviteType] = [
+    .joinAsMember,
+    .joinAsGuest,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 public struct Anytype_Model_IdentityProfile {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -6199,6 +6311,7 @@ extension Anytype_Model_SpaceStatus: @unchecked Sendable {}
 extension Anytype_Model_ParticipantPermissions: @unchecked Sendable {}
 extension Anytype_Model_ParticipantStatus: @unchecked Sendable {}
 extension Anytype_Model_SpaceAccessType: @unchecked Sendable {}
+extension Anytype_Model_SpaceUxType: @unchecked Sendable {}
 extension Anytype_Model_ImageKind: @unchecked Sendable {}
 extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
 extension Anytype_Model_SpaceShareableStatus: @unchecked Sendable {}
@@ -6335,6 +6448,7 @@ extension Anytype_Model_Import.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Import.ErrorCode: @unchecked Sendable {}
 extension Anytype_Model_Invite: @unchecked Sendable {}
 extension Anytype_Model_InvitePayload: @unchecked Sendable {}
+extension Anytype_Model_InvitePayload.InviteType: @unchecked Sendable {}
 extension Anytype_Model_IdentityProfile: @unchecked Sendable {}
 extension Anytype_Model_FileInfo: @unchecked Sendable {}
 extension Anytype_Model_FileEncryptionKey: @unchecked Sendable {}
@@ -6389,6 +6503,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     537: .same(proto: "ChatObject"),
     544: .same(proto: "ChatDerivedObject"),
     545: .same(proto: "AccountObject"),
+    546: .same(proto: "EphemeralVirtualObject"),
   ]
 }
 
@@ -6467,6 +6582,14 @@ extension Anytype_Model_SpaceAccessType: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "Private"),
     1: .same(proto: "Personal"),
     2: .same(proto: "Shared"),
+  ]
+}
+
+extension Anytype_Model_SpaceUxType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Chat"),
+    1: .same(proto: "Data"),
+    2: .same(proto: "Stream"),
   ]
 }
 
@@ -9796,6 +9919,8 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     12: .same(proto: "key"),
     13: .same(proto: "revision"),
     14: .same(proto: "restrictObjectCreation"),
+    15: .same(proto: "iconColor"),
+    16: .same(proto: "iconName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9818,6 +9943,8 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 12: try { try decoder.decodeSingularStringField(value: &self.key) }()
       case 13: try { try decoder.decodeSingularInt64Field(value: &self.revision) }()
       case 14: try { try decoder.decodeSingularBoolField(value: &self.restrictObjectCreation) }()
+      case 15: try { try decoder.decodeSingularInt64Field(value: &self.iconColor) }()
+      case 16: try { try decoder.decodeSingularStringField(value: &self.iconName) }()
       default: break
       }
     }
@@ -9866,6 +9993,12 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.restrictObjectCreation != false {
       try visitor.visitSingularBoolField(value: self.restrictObjectCreation, fieldNumber: 14)
     }
+    if self.iconColor != 0 {
+      try visitor.visitSingularInt64Field(value: self.iconColor, fieldNumber: 15)
+    }
+    if !self.iconName.isEmpty {
+      try visitor.visitSingularStringField(value: self.iconName, fieldNumber: 16)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9884,6 +10017,8 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.key != rhs.key {return false}
     if lhs.revision != rhs.revision {return false}
     if lhs.restrictObjectCreation != rhs.restrictObjectCreation {return false}
+    if lhs.iconColor != rhs.iconColor {return false}
+    if lhs.iconName != rhs.iconName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -11663,11 +11798,13 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "creatorIdentity"),
     2: .same(proto: "creatorName"),
-    3: .same(proto: "inviteKey"),
+    3: .same(proto: "aclKey"),
     4: .same(proto: "spaceId"),
     5: .same(proto: "spaceName"),
     6: .same(proto: "spaceIconCid"),
     7: .same(proto: "spaceIconEncryptionKeys"),
+    8: .same(proto: "inviteType"),
+    9: .same(proto: "guestKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -11678,11 +11815,13 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.creatorIdentity) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.creatorName) }()
-      case 3: try { try decoder.decodeSingularBytesField(value: &self.inviteKey) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.aclKey) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.spaceIconCid) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.spaceIconEncryptionKeys) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
+      case 9: try { try decoder.decodeSingularBytesField(value: &self.guestKey) }()
       default: break
       }
     }
@@ -11695,8 +11834,8 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.creatorName.isEmpty {
       try visitor.visitSingularStringField(value: self.creatorName, fieldNumber: 2)
     }
-    if !self.inviteKey.isEmpty {
-      try visitor.visitSingularBytesField(value: self.inviteKey, fieldNumber: 3)
+    if !self.aclKey.isEmpty {
+      try visitor.visitSingularBytesField(value: self.aclKey, fieldNumber: 3)
     }
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 4)
@@ -11710,20 +11849,35 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.spaceIconEncryptionKeys.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.spaceIconEncryptionKeys, fieldNumber: 7)
     }
+    if self.inviteType != .joinAsMember {
+      try visitor.visitSingularEnumField(value: self.inviteType, fieldNumber: 8)
+    }
+    if !self.guestKey.isEmpty {
+      try visitor.visitSingularBytesField(value: self.guestKey, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_InvitePayload, rhs: Anytype_Model_InvitePayload) -> Bool {
     if lhs.creatorIdentity != rhs.creatorIdentity {return false}
     if lhs.creatorName != rhs.creatorName {return false}
-    if lhs.inviteKey != rhs.inviteKey {return false}
+    if lhs.aclKey != rhs.aclKey {return false}
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.spaceName != rhs.spaceName {return false}
     if lhs.spaceIconCid != rhs.spaceIconCid {return false}
     if lhs.spaceIconEncryptionKeys != rhs.spaceIconEncryptionKeys {return false}
+    if lhs.inviteType != rhs.inviteType {return false}
+    if lhs.guestKey != rhs.guestKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_InvitePayload.InviteType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "JoinAsMember"),
+    1: .same(proto: "JoinAsGuest"),
+  ]
 }
 
 extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

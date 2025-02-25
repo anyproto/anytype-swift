@@ -9,13 +9,13 @@ protocol ObjectTypeViewModelOutput: AnyObject, ObjectTypeObjectsListViewModelOut
     func onFieldsTap()
     func onSyncStatusTap()
     
-    func showTemplatesPicker(defaultTemplateId: String?)
+    func showTemplatesPicker(defaultTemplateId: String)
     func setTemplateAsDefault(templateId: String)
 }
 
 @MainActor
 protocol  ObjectTypeObjectsListViewModelOutput: AnyObject {
-    func onOpenObjectTap(objectId: String)
+    func onOpenObjectTap(details: ObjectDetails)
     func onOpenSetTap(objectId: String)
     func onCreateNewObjectTap()
 }
@@ -44,7 +44,7 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     let document: any BaseDocumentProtocol
     
     init(data: EditorTypeObject) {
-        self.document = Container.shared.documentService().document(objectId: data.objectId, spaceId: data.spaceId)
+        self.document = Container.shared.openedDocumentProvider().document(objectId: data.objectId, spaceId: data.spaceId)
     }
     
     // MARK: - ObjectTypeViewModelOutput
@@ -64,7 +64,7 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
         showSyncStatusInfo.toggle()
     }
     
-    func showTemplatesPicker(defaultTemplateId: String?) {
+    func showTemplatesPicker(defaultTemplateId: String) {
         let data = TemplatePickerViewModelData(
             mode: .typeTemplate,
             typeId: document.objectId,
@@ -88,8 +88,9 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     }
     
     // MARK: - ObjectTypeObjectsListViewModelOutput
-    func onOpenObjectTap(objectId: String) {
-        pageNavigation?.open(.editor(.page(EditorPageObject(objectId: objectId, spaceId: document.spaceId))))
+    func onOpenObjectTap(details: ObjectDetails) {
+        let screenData = ScreenData(details: details, mode: .handling)
+        pageNavigation?.open(screenData)
     }
     
     func onOpenSetTap(objectId: String) {
@@ -108,10 +109,10 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
                 shouldSelectTemplate: true,
                 spaceId: document.spaceId,
                 origin: .builtin,
-                templateId: nil
+                templateId: details.defaultTemplateId
             )
             
-            onOpenObjectTap(objectId: newDetails.id)
+            onOpenObjectTap(details: newDetails)
         }
     }
 }

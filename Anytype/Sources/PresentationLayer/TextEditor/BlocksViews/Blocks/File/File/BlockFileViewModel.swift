@@ -13,7 +13,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     let showFilePicker: (String) -> ()
     let onFileOpen: (ScreenData) -> ()
     
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     private var document: (any BaseDocumentProtocol)?

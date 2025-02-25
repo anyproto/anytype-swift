@@ -1,4 +1,4 @@
 enum RelationsModuleTarget {
-    case object
+    case type(isFeatured: Bool)
     case dataview(activeViewId: String)
 }

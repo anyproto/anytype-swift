@@ -2,19 +2,21 @@ import SwiftUI
 
 struct ListSectionHeaderView<Content>: View where Content: View {
     let title: String
+    let titleColor: Color
     let increasedTopPadding: Bool
     let hasRightContent: Bool
     let rightContent: () -> Content
     
-    init(title: String, increasedTopPadding: Bool = true, @ViewBuilder rightContent: @escaping () -> Content) {
+    init(title: String, titleColor: Color = .Text.secondary, increasedTopPadding: Bool = true, @ViewBuilder rightContent: @escaping () -> Content) {
         self.title = title
+        self.titleColor = titleColor
         self.increasedTopPadding = increasedTopPadding
         self.hasRightContent = true
         self.rightContent = rightContent
     }
     
     var body: some View {
-        SectionHeaderView<Content>(title: title, increasedTopPadding: increasedTopPadding, rightContent: rightContent)
+        SectionHeaderView<Content>(title: title, titleColor: titleColor, increasedTopPadding: increasedTopPadding, rightContent: rightContent)
             .if(hasRightContent) {
                 $0.divider(spacing: 0, alignment: .leading)
             }
@@ -22,8 +24,9 @@ struct ListSectionHeaderView<Content>: View where Content: View {
 }
 
 extension ListSectionHeaderView where Content == EmptyView {
-    init(title: String, increasedTopPadding: Bool = true) {
+    init(title: String, titleColor: Color = .Text.secondary, increasedTopPadding: Bool = true) {
         self.title = title
+        self.titleColor = titleColor
         self.increasedTopPadding = increasedTopPadding
         self.hasRightContent = false
         self.rightContent = { EmptyView() }

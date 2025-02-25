@@ -10,6 +10,10 @@ struct SetHeaderSettingsView: View {
             HStack(alignment: .center, spacing: 0) {
                 viewButton
                 Spacer()
+                if FeatureFlags.aiToolInSet {
+                    aiButton
+                    Spacer.fixedWidth(16)
+                }
                 settingButton
                 
                 if !model.isActiveHeader || model.isActiveCreateButton {
@@ -29,7 +33,22 @@ struct SetHeaderSettingsView: View {
     
     @ViewBuilder
     private var createView: some View {
-        compositeCreateButtons
+        if FeatureFlags.openTypeAsSet && model.isObjectType {
+            simpleCreateButton
+        } else {
+            compositeCreateButtons
+        }
+    }
+    
+    private var aiButton: some View {
+        Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.onAITap()
+        }) {
+            Image(asset: .X24.ai)
+                .foregroundColor(model.isActiveHeader ? .Control.active : .Control.inactive)
+        }
+        .disabled(!model.isActiveHeader)
     }
     
     private var settingButton: some View {
@@ -66,6 +85,14 @@ struct SetHeaderSettingsView: View {
         }
     }
     
+    private var simpleCreateButton: some View {
+        StandardButton(Loc.new, style: .primaryXSmall) {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.onCreateTap()
+        }
+        .disabled(!model.isActiveCreateButton)
+    }
+    
     private var viewButton: some View {
         Button(action: {
             UISelectionFeedbackGenerator().selectionChanged()
@@ -94,6 +121,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
             model: SetHeaderSettingsViewModel(
                 setDocument: Container.shared.documentsProvider().setDocument(objectId: "", spaceId: ""),
                 onViewTap: {},
+                onAITap: {},
                 onSettingsTap: {},
                 onCreateTap:{},
                 onSecondaryCreateTap: {}

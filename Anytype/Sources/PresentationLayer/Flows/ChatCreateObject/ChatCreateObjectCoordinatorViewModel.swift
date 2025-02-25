@@ -7,7 +7,7 @@ final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
     
     // MARK: DI
     
-    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     
     // MARK: State
     let data: EditorScreenData

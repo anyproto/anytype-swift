@@ -19,3 +19,9 @@ extension HomeWidgetsState {
         self == .readonly
     }
 }
+
+extension HomeWidgetsState {
+    var analyticsWidgetContext: AnalyticsWidgetContext {
+        isEditWidgets ? .editor : .home
+    }
+}

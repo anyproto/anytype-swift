@@ -25,6 +25,8 @@ extension AnytypeWidgetId {
             return .sets
         case .collections:
             return .collections
+        case .bin:
+            return .bin
         case .pages:
             return .pages
         case .lists:

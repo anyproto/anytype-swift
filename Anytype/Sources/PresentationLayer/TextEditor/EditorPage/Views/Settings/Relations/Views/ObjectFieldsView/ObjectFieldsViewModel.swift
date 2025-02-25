@@ -8,6 +8,7 @@ import Combine
 @MainActor
 final class ObjectFieldsViewModel: ObservableObject {
     @Published var sections = [RelationsSection]()
+    @Published var showConflictingInfo = false
     
     var typeId: String? { document.details?.objectType.id }
     
@@ -37,7 +38,7 @@ final class ObjectFieldsViewModel: ObservableObject {
     
     func setupSubscriptions() async {
         for await relations in document.parsedRelationsPublisher.values {
-            sections = sectionsBuilder.buildObjectSections(from: relations)
+            sections = sectionsBuilder.buildObjectSections(parsedRelations: relations)
         }
     }
     
@@ -45,14 +46,14 @@ final class ObjectFieldsViewModel: ObservableObject {
         if !addedToObject {
             Task { @MainActor in
                 try await relationsService.addRelations(objectId: document.objectId, relationKeys: [relation.key])
-                changeRelationFeaturedState(relation: relation)
+                changeRelationFeaturedState(relation)
             }
         } else {
-            changeRelationFeaturedState(relation: relation)
+            changeRelationFeaturedState(relation)
         }
     }
     
-    private func changeRelationFeaturedState(relation: Relation) {
+    private func changeRelationFeaturedState(_ relation: Relation) {
         Task {
             let relationDetails = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: document.spaceId)
             if relation.isFeatured {
@@ -66,20 +67,31 @@ final class ObjectFieldsViewModel: ObservableObject {
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func handleTapOnRelation(relation: Relation) {
+    func handleTapOnRelation(_ relation: Relation) {
         output?.editRelationValueAction(document: document, relationKey: relation.key)
     }
     
-    func removeRelation(relation: Relation) {
+    func removeRelation(_ relation: Relation) {
         Task {
             try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
             let relationDetails = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: document.spaceId)
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey, route: .object)
         }
     }
     
     func onEditTap() {
         guard let typeId else { return }
         output?.showTypeRelationsView(typeId: typeId)
+    }
+    
+    func addRelationToType(_ relation: Relation) {
+        Task {
+            guard let details = document.details else { return }
+            
+            var newRecommendedRelations = document.parsedRelations.sidebarRelations
+            newRecommendedRelations.append(relation)
+            
+            try await relationsService.updateRecommendedRelations(typeId: details.type, relationIds: newRecommendedRelations.map(\.id))
+        }
     }
 }
