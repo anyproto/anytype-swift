@@ -1304,6 +1304,6 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 
 // MARK: - Migration
 "Migration.title" = "Migration läuft...";
-"Migration.subtitle" = "Das sollte nicht lange dauern. Danke für deine Geduld.";
+"Migration.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";
 "Migration.Error.NotEnoughtSpace.title" = "Nicht genügend Platz";
 "Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";
