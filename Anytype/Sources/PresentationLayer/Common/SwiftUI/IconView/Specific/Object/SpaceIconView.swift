@@ -15,6 +15,9 @@ struct SpaceIconView: View {
         case .imageId(let imageId):
             ImageIdIconView(imageId: imageId)
                 .objectIconCornerRadius()
+        case .localPath(let path):
+            LocalIconView(contentsOfFile: path)
+                .objectIconCornerRadius()
         }
     }
 }
