@@ -28,6 +28,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var fileLimitsStorage: any FileLimitsStorageProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.spaceSettingsInfoBuilder)
+    private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
@@ -40,7 +42,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var spaceName = ""
     @Published var spaceDescription = ""
     
-    @Published var spaceAccessType = ""
     @Published var spaceIcon: Icon?
     
     @Published var info = [SettingsInfoModel]()
@@ -203,12 +204,13 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         let spaceView = participantSpaceView.spaceView
         
         spaceIcon = spaceView.objectIconImage
-        spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = participantSpaceView.canBeDeleted
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
-        buildInfoBlock(details: spaceView)
+        info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
+            self?.snackBarData = .init(text: Loc.copiedToClipboard($0), showSnackBar: true)
+        }
         
         middlewareSpaceName = spaceView.name
         middlewareSpaceDescription = spaceView.description
@@ -243,50 +245,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
         
         Task { try await generateInviteIfNeeded() }
-    }
-    
-    private func buildInfoBlock(details: SpaceView) {
-        
-        info.removeAll()
-        
-        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .spaceId, spaceId: workspaceInfo.accountSpaceId) {
-            info.append(
-                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
-                    UIPasteboard.general.string = details.targetSpaceId
-                    self?.snackBarData = .init(text: Loc.copiedToClipboard(spaceRelationDetails.name), showSnackBar: true)
-                })
-            )
-        }
-        
-        if let creatorDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .creator, spaceId: workspaceInfo.accountSpaceId) {
-            
-            if let owner {
-                let displayName = owner.globalName.isNotEmpty ? owner.globalName : owner.identity
-                
-                info.append(
-                    SettingsInfoModel(title: creatorDetails.name, subtitle: displayName, onTap: { [weak self] in
-                        guard let self else { return }
-                        UIPasteboard.general.string = displayName
-                        snackBarData = .init(text: Loc.copiedToClipboard(creatorDetails.name), showSnackBar: true)
-                    })
-                )
-            }
-        }
-        
-        info.append(
-            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: workspaceInfo.networkId, onTap: { [weak self] in
-                guard let self else { return }
-                UIPasteboard.general.string = workspaceInfo.networkId
-                snackBarData = .init(text: Loc.copiedToClipboard(Loc.SpaceSettings.networkId), showSnackBar: true)
-            })
-        )
-        
-        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .createdDate, spaceId: workspaceInfo.accountSpaceId),
-           let date = details.createdDate.map({ dateFormatter.string(from: $0) }) {
-            info.append(
-                SettingsInfoModel(title: createdDateDetails.name, subtitle: date)
-            )
-        }
     }
     
     private func generateInviteIfNeeded() async throws {

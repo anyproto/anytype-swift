@@ -1,6 +1,6 @@
 import Services
 
-enum SettingsScreenData: Hashable, Codable, Equatable, Identifiable {
+enum SpaceInfoScreenData: Hashable, Codable, Equatable, Identifiable {
     // Anytype widget screens
     case mainScreen(info: AccountInfo)
     case typeLibrary(spaceId: String)
