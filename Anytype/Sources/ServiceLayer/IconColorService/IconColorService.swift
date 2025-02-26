@@ -53,6 +53,12 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
             case .name(_, let iconOption):
                 let color = IconColorStorage.iconColor(iconOption: iconOption)
                 return optimizeColor(UIColor(color)).suColor
+            case .localPath(let path):
+                guard let image = UIImage(contentsOfFile: path) else {
+                    throw CommonError.undefined
+                }
+                let color = try image.averageColor()
+                return optimizeColor(color).suColor
             }
         default:
             throw CommonError.undefined
