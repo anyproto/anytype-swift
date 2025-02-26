@@ -1,12 +1,18 @@
 import Foundation
 import SwiftUI
 
+struct LocalObjectIconPickerData: Identifiable {
+    let id = UUID()
+    let fileData: FileData?
+    let output: any LocalObjectIconPickerOutput
+}
+
 struct LocalObjectIconPickerView: View {
     
     @StateObject private var model: LocalObjectIconPickerViewModel
     
-    init(fileData: FileData?, output: (any LocalObjectIconPickerOutput)?) {
-        self._model = StateObject(wrappedValue: LocalObjectIconPickerViewModel(fileData: fileData, output: output))
+    init(data: LocalObjectIconPickerData) {
+        self._model = StateObject(wrappedValue: LocalObjectIconPickerViewModel(data: data))
     }
     
     var body: some View {

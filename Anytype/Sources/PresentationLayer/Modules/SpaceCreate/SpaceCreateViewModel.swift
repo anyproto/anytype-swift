@@ -5,6 +5,11 @@ import UIKit
 import AnytypeCore
 
 @MainActor
+protocol SpaceCreateModuleOutput: AnyObject {
+    func onIconPickerSelected(fileData: FileData?, output: any LocalObjectIconPickerOutput)
+}
+
+@MainActor
 final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput {
     
     // MARK: - DI
@@ -24,14 +29,15 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     @Published var spaceIcon: Icon
     @Published var spaceAccessType: SpaceAccessType = .private
     @Published var createLoadingState = false
-    @Published var showLocalIconPicker = false
     @Published var dismiss: Bool = false
     
     var fileData: FileData?
     private let spaceIconOption: Int
+    private weak var output: (any SpaceCreateModuleOutput)?
     
-    init(data: SpaceCreateData) {
+    init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
         self.data = data
+        self.output = output
         self.spaceIconOption = IconColorStorage.randomOption()
         self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption)))
     }
@@ -71,6 +77,10 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     func updateNameIconIfNeeded(_ name: String) {
         guard fileData.isNil else { return }
         spaceIcon = .object(.space(.name(name: name, iconOption: spaceIconOption)))
+    }
+    
+    func onIconTapped() {
+        output?.onIconPickerSelected(fileData: fileData, output: self)
     }
     
     // MARK: - LocalObjectIconPickerOutput

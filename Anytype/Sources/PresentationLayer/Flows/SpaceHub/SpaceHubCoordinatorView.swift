@@ -68,7 +68,7 @@ struct SpaceHubCoordinatorView: View {
                 model.onOpenBookmarkAsObject($0)
             }
             .sheet(item: $model.spaceCreateData) {
-                SpaceCreateView(data: $0)
+                SpaceCreateCoordinatorView(data: $0)
             }
             .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
                 SpaceCreateTypePickerView { type in
