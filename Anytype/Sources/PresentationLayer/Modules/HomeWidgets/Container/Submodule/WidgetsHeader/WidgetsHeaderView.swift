@@ -33,7 +33,7 @@ struct WidgetsHeaderView: View {
                 model.onTapSpaceSettings()
             }
         } rightView: {
-            if model.isOwner {
+            if model.canEdit {
                 Image(asset: .X24.spaceSettings)
                     .foregroundStyle(Color.Control.transparentActive)
                     .onTapGesture {
