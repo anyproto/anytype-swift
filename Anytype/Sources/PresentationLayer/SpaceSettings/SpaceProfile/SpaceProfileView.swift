@@ -11,7 +11,10 @@ struct SpaceProfileView: View {
     
     var body: some View {
         content
+            .task { await model.setup() }
             .task { await model.setupSubscriptions() }
+
+            .anytypeShareView(item: $model.shareInviteLink)
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
                 SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
@@ -20,6 +23,9 @@ struct SpaceProfileView: View {
             }
             .anytypeSheet(isPresented: $model.showInfoView) {
                 SpaceSettingsInfoView(info: model.settingsInfo)
+            }
+            .anytypeSheet(item: $model.qrInviteLink) {
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
             }
             .snackbar(toastBarData: $model.snackBarData)
     }
@@ -36,14 +42,11 @@ struct SpaceProfileView: View {
                 AnytypeText(model.spaceDescription, style: .uxCalloutRegular)
                 Spacer.fixedHeight(12)
             }
-            RoundedRectangle(cornerRadius: 12).frame(height: 78).foregroundStyle(Color.System.amber50).overlay(alignment: .center) {
-                AnytypeText("Share buttons here", style: .bodySemibold)
-            }.padding()
+            sharing
             Spacer.fixedHeight(24)
         }
         .background(Color.Background.secondary)
     }
-
     
     private var header: some View {
         HStack {
@@ -70,6 +73,49 @@ struct SpaceProfileView: View {
             
             Spacer.fixedWidth(12)
         }.frame(height: 48)
+    }
+    
+    @ViewBuilder
+    private var sharing: some View {
+        if model.inviteLink.isNotNil {
+            Spacer.fixedHeight(8)
+            
+            HStack(spacing: 8) {
+                Button {
+                    model.onInviteTap()
+                } label: {
+                    HStack {
+                        Spacer()
+                        VStack(spacing: 0) {
+                            Image(asset: .X32.Island.addMember)
+                                .foregroundStyle(Color.Text.primary)
+                                .frame(width: 32, height: 32)
+                            AnytypeText(Loc.invite, style: .caption1Regular)
+                        }
+                        .padding(.vertical, 14)
+                        Spacer()
+                    }
+                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                }
+                
+                Button {
+                    model.onQRCodeTap()
+                } label: {
+                    HStack {
+                        Spacer()
+                        VStack(spacing: 0) {
+                            Image(asset: .X32.qrCode)
+                                .foregroundStyle(Color.Text.primary)
+                                .frame(width: 32, height: 32)
+                            AnytypeText(Loc.qrCode, style: .caption1Regular)
+                        }
+                        .padding(.vertical, 14)
+                        Spacer()
+                    }
+                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                }
+            }.padding(.horizontal, 16)
+        }
     }
 }
 

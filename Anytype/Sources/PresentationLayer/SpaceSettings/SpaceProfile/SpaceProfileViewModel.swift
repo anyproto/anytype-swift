@@ -19,16 +19,26 @@ final class SpaceProfileViewModel: ObservableObject {
     @Published var settingsInfo = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     
+    @Published var shareInviteLink: URL?
+    @Published var qrInviteLink: URL?
+    @Published var inviteLink: URL?
+    
     let workspaceInfo: AccountInfo
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.spaceSettingsInfoBuilder)
     private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
+    
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
+    
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private var owner: Participant?
-    private var spaceView: SpaceView?
+    private var participantSpaceView: ParticipantSpaceViewData?
     
     init(info: AccountInfo) {
         self.workspaceInfo = info
@@ -39,6 +49,10 @@ final class SpaceProfileViewModel: ObservableObject {
         async let ownerTask: () = startOwnerTask()
         
         (_) = await (participantTask, ownerTask)
+    }
+    
+    func setup() async {
+        await generateInviteIfPossible()
     }
     
     func onInfoTap() {
@@ -54,11 +68,24 @@ final class SpaceProfileViewModel: ObservableObject {
         showSpaceLeaveAlert.toggle()
     }
     
+    func onQRCodeTap() {
+        qrInviteLink = inviteLink
+    }
+    
+    func onInviteTap() {
+        shareInviteLink = inviteLink
+    }
+    
     // MARK: - Private
+    
+    private func generateInviteIfPossible() async {
+        guard let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId) else { return }
+        inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+    }
     
     private func startParticipantTask() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
-            spaceView = participantSpaceView.spaceView
+            self.participantSpaceView = participantSpaceView
             
             spaceIcon = participantSpaceView.spaceView.objectIconImage
             spaceName = participantSpaceView.spaceView.name
@@ -80,8 +107,8 @@ final class SpaceProfileViewModel: ObservableObject {
     }
     
     private func updateSettingsInfo() {
-        guard let spaceView else { return }
-        settingsInfo = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
+        guard let participantSpaceView else { return }
+        settingsInfo = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: participantSpaceView.spaceView, owner: owner) { [weak self] in
             self?.snackBarData = .init(text: Loc.copiedToClipboard($0), showSnackBar: true)
         }
     }
