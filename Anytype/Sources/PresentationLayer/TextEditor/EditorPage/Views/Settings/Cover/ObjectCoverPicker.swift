@@ -8,7 +8,7 @@ struct ObjectCoverPicker: View {
     
     @State private var index: Int = 0
     
-    init(data: ObjectCoverPickerData) {
+    init(data: BaseDocumentIdentifiable) {
         self._viewModel = StateObject(wrappedValue: ObjectCoverPickerViewModel(data: data))
     }
     

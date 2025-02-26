@@ -22,6 +22,8 @@ extension ObjectOrigin {
             return Loc.Relation.Origin.builtin
         case .bookmark:
             return Loc.Relation.Origin.bookmark
+        case .api:
+            return Loc.Relation.Origin.api
         }
     }
 }

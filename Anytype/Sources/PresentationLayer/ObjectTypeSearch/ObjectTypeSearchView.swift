@@ -3,6 +3,10 @@ import Services
 import WrappingHStack
 import AnytypeCore
 
+enum ObjectTypeSearchNavigationHeaderStyle {
+    case sheet
+    case navbar
+}
 
 struct ObjectTypeSearchView: View {
     private typealias SectionData = ObjectTypeSearchViewModel.SectionData
@@ -10,15 +14,18 @@ struct ObjectTypeSearchView: View {
     private typealias ObjectTypeData =  ObjectTypeSearchViewModel.ObjectTypeData
     
     let title: String
+    let style: ObjectTypeSearchNavigationHeaderStyle
     @StateObject private var viewModel: ObjectTypeSearchViewModel
     
     init(
         title: String,
         spaceId: String,
         settings: ObjectTypeSearchViewSettings,
+        style: ObjectTypeSearchNavigationHeaderStyle = .sheet,
         onSelect: @escaping (TypeSelectionResult) -> Void
     ) {
         self.title = title
+        self.style = style
         _viewModel = StateObject(
             wrappedValue: ObjectTypeSearchViewModel(
                 spaceId: spaceId,
@@ -30,8 +37,7 @@ struct ObjectTypeSearchView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator()
-            TitleView(title: title)
+            header
             SearchBar(text: $viewModel.searchText, focused: false, placeholder: Loc.search)
             content
             pasteButton
@@ -48,6 +54,35 @@ struct ObjectTypeSearchView: View {
         }
         .task {
             await viewModel.handlePasteboard()
+        }
+    }
+    
+    @ViewBuilder
+    private var header: some View {
+        switch style {
+        case .sheet:
+            DragIndicator()
+            TitleView(title: title) {
+                if viewModel.settings.showPlusButton {
+                    Button {
+                        viewModel.createType(name: "")
+                    } label: {
+                        Image(asset: .X32.plus)
+                            .frame(width: 32, height: 32)
+                    }
+                }
+            }
+        case .navbar:
+            PageNavigationHeader(title: title) {
+                if viewModel.settings.showPlusButton {
+                    Button {
+                        viewModel.createType(name: "")
+                    } label: {
+                        Image(asset: .X32.plus)
+                            .frame(width: 32, height: 32)
+                    }
+                }
+            }
         }
     }
     
@@ -124,7 +159,7 @@ struct ObjectTypeSearchView: View {
                     HStack(spacing: 8) {
                         IconView(object: typeData.type.icon).frame(width: 18, height: 18)
                         
-                        AnytypeText(typeData.type.name, style: .uxTitle2Medium)
+                        AnytypeText(typeData.type.displayName, style: .uxTitle2Medium)
                             .foregroundColor(.Text.primary)
                     }
                     .padding(.vertical, 15)
@@ -193,15 +228,16 @@ extension ObjectTypeSearchView {
         title: String,
         spaceId: String,
         settings: ObjectTypeSearchViewSettings,
-        onSelect: @escaping (_ type: ObjectType) -> Void
+        style: ObjectTypeSearchNavigationHeaderStyle = .sheet,
+        onTypeSelect: @escaping (_ type: ObjectType) -> Void
     ) {
-        self.init(title: title, spaceId: spaceId, settings: settings) { result in
+        self.init(title: title, spaceId: spaceId, settings: settings, style: style, onSelect: { result in
             switch result {
             case .objectType(let type):
-                onSelect(type)
+                onTypeSelect(type)
             case .createFromPasteboard:
                 anytypeAssertionFailure("Unsupported action createFromPasteboard")
             }
-        }
+        })
     }
 }

@@ -155,6 +155,10 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
     }
     
+    func onObjectTypesTap() {
+        output?.onObjectTypesSelected()
+    }
+    
     // MARK: - Subscriptions
     
     func startSubscriptions() async {

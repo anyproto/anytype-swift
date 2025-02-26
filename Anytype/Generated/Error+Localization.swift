@@ -1252,30 +1252,6 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: @retroactive LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if localizeError.isNotEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return String(localized: "BlockDataview.CreateBookmark.badInput", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "BlockDataview.CreateBookmark.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -6226,6 +6202,87 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: @retroactive
             case .badInput:
                 return String(localized: "ObjectRelation.RemoveFeatured.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "ObjectRelation.RemoveFeatured.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.ListConflictingRelations.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.ListConflictingRelations.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.ListConflictingRelations.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.ListConflictingRelations.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.Recommended.FeaturedRelationsSet.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.FeaturedRelationsSet.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.Recommended.FeaturedRelationsSet.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.FeaturedRelationsSet.readonlyObjectType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "ObjectType.Recommended.RelationsSet.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.RelationsSet.badInput")
+            case .readonlyObjectType:
+                return String(localized: "ObjectType.Recommended.RelationsSet.readonlyObjectType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "ObjectType.Recommended.RelationsSet.readonlyObjectType")
             case .UNRECOGNIZED:
                 return ""
         }

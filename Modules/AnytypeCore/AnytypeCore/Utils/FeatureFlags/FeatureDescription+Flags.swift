@@ -131,6 +131,14 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let openTypeAsSet = FeatureDescription(
+        title: "Open type in Set View",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

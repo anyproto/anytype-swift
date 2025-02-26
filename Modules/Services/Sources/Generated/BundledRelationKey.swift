@@ -381,6 +381,12 @@ public enum BundledRelationKey: String, Sendable {
     /// Unix time representation of date object
     case timestamp = "timestamp"
 
+    /// Width of object's layout
+    case layoutWidth = "layoutWidth"
+
+    /// Layout resolved based on object self layout and type recommended layout
+    case resolvedLayout = "resolvedLayout"
+
     /// Space order
     case spaceOrder = "spaceOrder"
 
@@ -395,4 +401,10 @@ public enum BundledRelationKey: String, Sendable {
 
     /// List of recommended file-specific relations
     case recommendedFileRelations = "recommendedFileRelations"
+
+    /// Default view type that will be used for new sets/collections
+    case defaultViewType = "defaultViewType"
+
+    /// Default object type id that will be set to new sets/collections
+    case defaultTypeId = "defaultTypeId"
 }

@@ -19,7 +19,7 @@ struct ObjectTypeCoordinator: View {
                 ObjectIconPicker(data: $0)
             }
             .sheet(item: $model.layoutPickerObjectId) {
-                ObjectLayoutPicker(mode: .type, objectId: $0.value, spaceId: model.document.spaceId)
+                ObjectLayoutPicker(mode: .type, objectId: $0.value, spaceId: model.document.spaceId, analyticsType: model.document.details?.analyticsType ?? .custom)
             }
             .sheet(isPresented: $model.showTypeFields) {
                 TypeFieldsView(document: model.document)

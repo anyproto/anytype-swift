@@ -141,11 +141,15 @@ public protocol BundledRelationsValueProvider {
     var chatId: ObjectId { get }
     var mentions: [ObjectId] { get }
     var timestamp: Date? { get }
+    var layoutWidth: Int? { get }
+    var resolvedLayout: Int? { get }
     var spaceOrder: String { get }
     var iconName: String { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
     var recommendedHiddenRelations: [ObjectId] { get }
     var recommendedFileRelations: [ObjectId] { get }
+    var defaultViewType: Int? { get }
+    var defaultTypeId: ObjectId { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -657,6 +661,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var timestamp: Date? {
         return value(for: BundledRelationKey.timestamp.rawValue)
     }
+    /// Width of object's layout
+    var layoutWidth: Int? {
+        return value(for: BundledRelationKey.layoutWidth.rawValue)
+    }
+    /// Layout resolved based on object self layout and type recommended layout
+    var resolvedLayout: Int? {
+        return value(for: BundledRelationKey.resolvedLayout.rawValue)
+    }
     /// Space order
     var spaceOrder: String {
         return value(for: BundledRelationKey.spaceOrder.rawValue)
@@ -676,5 +688,13 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// List of recommended file-specific relations
     var recommendedFileRelations: [ObjectId] {
         return value(for: BundledRelationKey.recommendedFileRelations.rawValue)
+    }
+    /// Default view type that will be used for new sets/collections
+    var defaultViewType: Int? {
+        return value(for: BundledRelationKey.defaultViewType.rawValue)
+    }
+    /// Default object type id that will be set to new sets/collections
+    var defaultTypeId: ObjectId {
+        return value(for: BundledRelationKey.defaultTypeId.rawValue)
     }
 }

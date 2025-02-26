@@ -55,6 +55,7 @@ struct NewSpaceSettingsView: View {
                     spaceDetails
                     sharing
                     collaboration
+                    contentModel
                     preferences
                     dataManagement
                     misc
@@ -198,6 +199,12 @@ struct NewSpaceSettingsView: View {
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    private var contentModel: some View {
+        SectionHeaderView(title: Loc.contentModel)
+        RoundedButton(Loc.objectTypes, icon: .X24.objectType) { model.onObjectTypesTap() }
     }
     
     @ViewBuilder

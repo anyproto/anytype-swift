@@ -704,6 +704,7 @@ internal extension ImageAsset {
     static let multiselect = ImageAsset.bundle(name: "x24/Multiselect")
     static let name = ImageAsset.bundle(name: "x24/Name")
     static let number = ImageAsset.bundle(name: "x24/Number")
+    static let objectType = ImageAsset.bundle(name: "x24/Object Type")
     static let object = ImageAsset.bundle(name: "x24/Object")
     static let openToEdit = ImageAsset.bundle(name: "x24/Open to Edit")
     static let `open` = ImageAsset.bundle(name: "x24/Open")

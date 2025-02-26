@@ -4086,6 +4086,12 @@ public struct Anytype_Model_ObjectType {
   /// restricts creating objects of this type for users
   public var restrictObjectCreation: Bool = false
 
+  /// color of object type icon
+  public var iconColor: Int64 = 0
+
+  /// name of object type icon
+  public var iconName: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum Layout: SwiftProtobuf.Enum {
@@ -9796,6 +9802,8 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     12: .same(proto: "key"),
     13: .same(proto: "revision"),
     14: .same(proto: "restrictObjectCreation"),
+    15: .same(proto: "iconColor"),
+    16: .same(proto: "iconName"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9818,6 +9826,8 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 12: try { try decoder.decodeSingularStringField(value: &self.key) }()
       case 13: try { try decoder.decodeSingularInt64Field(value: &self.revision) }()
       case 14: try { try decoder.decodeSingularBoolField(value: &self.restrictObjectCreation) }()
+      case 15: try { try decoder.decodeSingularInt64Field(value: &self.iconColor) }()
+      case 16: try { try decoder.decodeSingularStringField(value: &self.iconName) }()
       default: break
       }
     }
@@ -9866,6 +9876,12 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.restrictObjectCreation != false {
       try visitor.visitSingularBoolField(value: self.restrictObjectCreation, fieldNumber: 14)
     }
+    if self.iconColor != 0 {
+      try visitor.visitSingularInt64Field(value: self.iconColor, fieldNumber: 15)
+    }
+    if !self.iconName.isEmpty {
+      try visitor.visitSingularStringField(value: self.iconName, fieldNumber: 16)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9884,6 +9900,8 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.key != rhs.key {return false}
     if lhs.revision != rhs.revision {return false}
     if lhs.restrictObjectCreation != rhs.restrictObjectCreation {return false}
+    if lhs.iconColor != rhs.iconColor {return false}
+    if lhs.iconName != rhs.iconName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

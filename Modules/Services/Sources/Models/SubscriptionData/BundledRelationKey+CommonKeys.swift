@@ -15,7 +15,7 @@ public extension BundledRelationKey {
     
     static var iconKeys: [BundledRelationKey] {
         return .builder {
-            BundledRelationKey.layout
+            BundledRelationKey.resolvedLayout
             BundledRelationKey.iconImage
             BundledRelationKey.iconEmoji
             BundledRelationKey.titleKeys
@@ -26,7 +26,7 @@ public extension BundledRelationKey {
     static var objectIconImageKeys: [BundledRelationKey] {
         return .builder {
             BundledRelationKey.isDeleted
-            BundledRelationKey.layout
+            BundledRelationKey.resolvedLayout
             BundledRelationKey.done
             BundledRelationKey.iconKeys
             BundledRelationKey.fileMimeType

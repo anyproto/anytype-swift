@@ -45,7 +45,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
-    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
     
     // MARK: - State

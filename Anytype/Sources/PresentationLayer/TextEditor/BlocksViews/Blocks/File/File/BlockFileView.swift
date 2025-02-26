@@ -10,7 +10,7 @@ struct BlockFileMediaData: Hashable {
 
 final class BlockFileView: UIView, BlockContentView {
 
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     private var document: (any BaseDocumentProtocol)?

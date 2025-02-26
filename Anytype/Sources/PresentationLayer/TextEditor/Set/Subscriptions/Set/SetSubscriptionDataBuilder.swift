@@ -49,7 +49,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
             BundledRelationKey.snippet
             BundledRelationKey.description
             BundledRelationKey.type
-            BundledRelationKey.layout
+            BundledRelationKey.resolvedLayout
             BundledRelationKey.isDeleted
             BundledRelationKey.done
             BundledRelationKey.coverId

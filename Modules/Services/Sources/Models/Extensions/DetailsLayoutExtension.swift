@@ -14,11 +14,11 @@ public extension DetailsLayout {
     
     static let supportedForCreation: [DetailsLayout] = supportedForCreationInSets + [.set, .collection]
     
-    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + fileLayout
+    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + [.objectType]
+
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
-    private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile]
+    private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-    private static let fileLayout: [DetailsLayout] = FeatureFlags.primitives ? [.objectType] : []
 }
 
 // MARK: - Computed properties
@@ -43,6 +43,8 @@ public extension DetailsLayout {
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }
     var isList: Bool { Self.listLayouts.contains(self) }
+    
+    var isObjectType: Bool { self == .objectType }
 }
 
 public extension Optional where Wrapped == DetailsLayout {

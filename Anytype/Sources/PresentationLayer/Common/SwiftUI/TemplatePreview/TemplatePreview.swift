@@ -18,16 +18,6 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
     var content: some View {
         Group {
             switch viewModel.model.mode {
-            case .blank:
-                wrapped(shouldIncludeShimmer: false) {
-                    AnytypeText(
-                        Loc.TemplateSelection.blankTemplate,
-                        style: .caption2Medium
-                    )
-                    .foregroundColor(.Text.tertiary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 16)
-                }
             case let .installed(templateModel):
                 wrapped(shouldIncludeShimmer: true) {
                     switch templateModel.style {

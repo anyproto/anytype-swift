@@ -96,6 +96,8 @@ struct SpaceHubCoordinatorView: View {
                             switch data {
                             case .mainScreen(let info):
                                 NewSpaceSettingsCoordinatorView(workspaceInfo: info)
+                            case .typeLibrary(let spaceId):
+                                ObjectTypesLibraryView(spaceId: spaceId)
                             }
                         }
                      }

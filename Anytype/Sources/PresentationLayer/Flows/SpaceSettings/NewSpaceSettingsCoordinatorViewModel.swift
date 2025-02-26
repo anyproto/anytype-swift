@@ -10,7 +10,7 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     @Published var showRemoteStorage = false
@@ -18,9 +18,9 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersData?
     @Published var showFiles = false
-    @Published var showObjectTypeSearch = false
     
     var pageNavigation: PageNavigation?
+    @Published var showDefaultObjectTypeSearch = false
     
     let workspaceInfo: AccountInfo
     var accountSpaceId: String { workspaceInfo.accountSpaceId }
@@ -36,7 +36,7 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     }
     
     func onDefaultObjectTypeSelected() {
-        showObjectTypeSearch.toggle()
+        showDefaultObjectTypeSearch.toggle()
     }
     
     func onRemoteStorageSelected() {
@@ -53,7 +53,11 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     
     func onSelectDefaultObjectType(type: ObjectType) {
         objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
-        showObjectTypeSearch = false
+        showDefaultObjectTypeSearch = false
+    }
+    
+    func onObjectTypesSelected() {
+        pageNavigation?.open(.spaceInfo(.typeLibrary(spaceId: accountSpaceId)))
     }
     
     // MARK: - RemoteStorageModuleOutput
@@ -65,7 +69,7 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     // MARK: - PersonalizationModuleOutput
     
     func onDefaultTypeSelected() {
-        showObjectTypeSearch = true
+        showDefaultObjectTypeSearch = true
     }
     
     func onWallpaperChangeSelected() {

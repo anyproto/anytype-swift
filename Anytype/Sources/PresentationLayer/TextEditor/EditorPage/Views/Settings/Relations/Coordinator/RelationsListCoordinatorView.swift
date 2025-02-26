@@ -12,19 +12,10 @@ struct RelationsListCoordinatorView: View {
     }
     
     var body: some View {
-        Group {
-            if FeatureFlags.primitives {
-                ObjectFieldsView(
-                    document: model.document,
-                    output: model
-                )
-            } else {
-                RelationsListView(
-                    document: model.document,
-                    output: model
-                )
-            }
-        }
+        ObjectFieldsView(
+            document: model.document,
+            output: model
+        )
         .sheet(item: $model.relationValueData) { data in
             RelationValueCoordinatorView(data: data, output: model)
         }

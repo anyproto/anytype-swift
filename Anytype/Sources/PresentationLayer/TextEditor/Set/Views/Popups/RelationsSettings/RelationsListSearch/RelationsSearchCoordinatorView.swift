@@ -26,7 +26,7 @@ struct RelationsSearchCoordinatorView: View {
                     excludedRelationsIds: model.data.excludedRelationsIds,
                     target: model.data.target,
                     interactor: RelationsSearchInteractor(
-                        relationsInteractor: RelationsInteractor(objectId: model.data.objectId)
+                        relationsInteractor: RelationsInteractor(objectId: model.data.objectId, spaceId: model.data.spaceId)
                     ),
                     onSelect: {
                         model.onSelectRelation($0)

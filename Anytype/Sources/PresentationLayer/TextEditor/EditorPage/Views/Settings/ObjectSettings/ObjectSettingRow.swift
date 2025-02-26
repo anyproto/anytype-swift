@@ -35,7 +35,7 @@ struct ObjectSettingRow: View {
     private var decoration: some View {
         Group {
             switch setting {
-            case .icon, .cover, .layout, .relations, .history:
+            case .icon, .cover, .relations, .history:
                 Image(asset: .arrowForward)
             case .description(let isVisible):
                 AnytypeText(isVisible ? Loc.hide : Loc.show, style: .previewTitle1Regular).foregroundColor(Color.Text.secondary)

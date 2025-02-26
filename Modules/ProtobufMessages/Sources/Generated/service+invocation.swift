@@ -1184,6 +1184,36 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectTypeRecommendedRelationsSet(
+        _ request: Anytype_Rpc.ObjectType.Recommended.RelationsSet.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.Recommended.RelationsSet.Request, Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response> {
+        return Invocation(messageName: "ObjectTypeRecommendedRelationsSet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeRecommendedRelationsSet(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func objectTypeRecommendedFeaturedRelationsSet(
+        _ request: Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Request, Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response> {
+        return Invocation(messageName: "ObjectTypeRecommendedFeaturedRelationsSet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeRecommendedFeaturedRelationsSet(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func objectTypeListConflictingRelations(
+        _ request: Anytype_Rpc.ObjectType.ListConflictingRelations.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.ListConflictingRelations.Request, Anytype_Rpc.ObjectType.ListConflictingRelations.Response> {
+        return Invocation(messageName: "ObjectTypeListConflictingRelations", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeListConflictingRelations(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.ListConflictingRelations.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func historyShowVersion(
         _ request: Anytype_Rpc.History.ShowVersion.Request = .init()
     ) -> Invocation<Anytype_Rpc.History.ShowVersion.Request, Anytype_Rpc.History.ShowVersion.Response> {

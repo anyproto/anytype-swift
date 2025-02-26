@@ -6,20 +6,23 @@ import AnytypeCore
 @MainActor
 final class ObjectTypeViewModel: ObservableObject {
     @Published var details: ObjectDetails?
-    @Published var relationsCount: Int = 0
     
     @Published var templates = [TemplatePreviewViewModel]()
+    @Published var templatesCount = 0
     @Published var syncStatusData: SyncStatusData?
     
     @Published var typeName = ""
+    @Published var relationsCount: Int = 0
     
     @Published var toastBarData: ToastBarData = .empty
     @Published var showDeleteConfirmation = false
+    @Published var showTemplates = false
     
     let document: any BaseDocumentProtocol
-    var isEditorLayout: Bool { details?.recommendedLayoutValue?.isEditorLayout ?? false }
+    var canEditDetails: Bool { document.permissions.canEditDetails }
+    var isEditorLayout: Bool { document.details?.recommendedLayoutValue.isEditorLayout ?? false }
     var canArchive: Bool { document.permissions.canArchive }
-    weak var output: (any ObjectTypeViewModelOutput)?
+    private(set) weak var output: (any ObjectTypeViewModelOutput)?
     
     private var defaultTemplateId: String? { details?.defaultTemplateId }
     private var rawTemplates: [ObjectDetails] = []
@@ -35,6 +38,10 @@ final class ObjectTypeViewModel: ObservableObject {
     private var detailsService: any DetailsServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     private var nameChangeTask: Task<(), any Error>?
     private var dismiss: DismissAction?
@@ -48,9 +55,9 @@ final class ObjectTypeViewModel: ObservableObject {
         async let detailsSubscription: () = subscribeOnDetails()
         async let templatesSubscription: () = subscribeOnTemplates()
         async let syncStatusSubscription: () = subscribeOnSyncStatus()
-        async let fieldsSubscription: () = subscribeOnFields()
+        async let relationsSubscription: () = subscribeOnRelations()
         
-        (_, _, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription, fieldsSubscription)
+        (_, _, _, _) = await (detailsSubscription, templatesSubscription, syncStatusSubscription, relationsSubscription)
     }
     
     func setDismissHandler(dismiss: DismissAction) {
@@ -61,8 +68,6 @@ final class ObjectTypeViewModel: ObservableObject {
         switch model.mode {
         case .installed:
             output?.showTemplatesPicker(defaultTemplateId: model.mode.id)
-        case .blank:
-            output?.showTemplatesPicker(defaultTemplateId: nil)
         case .addTemplate:
             onAddTemplateTap()
         }
@@ -89,6 +94,10 @@ final class ObjectTypeViewModel: ObservableObject {
         nameChangeTask = Task {
             try await Task.sleep(seconds: 0.5)
             try await detailsService.updateBundledDetails(objectId: document.objectId, bundledDetails: [.name(name)])
+            
+            if name != details?.objectName {
+                AnytypeAnalytics.instance().logSetObjectTitle(objectType: document.details?.analyticsType)
+            }
         }
     }
     
@@ -107,11 +116,20 @@ final class ObjectTypeViewModel: ObservableObject {
         for await details in document.detailsPublisher.values {
             if !didInitialSetup {
                 typeName = details.objectName
+                AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType)
                 didInitialSetup = true
             }
             
             self.details = details
-            buildTemplates()
+            
+            if let recommendedLayout = details.recommendedLayoutValue {
+                let isSupportedLayout = recommendedLayout.isEditorLayout
+                let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+                showTemplates = isSupportedLayout && !isTemplate
+                if showTemplates { buildTemplates() }
+            } else {
+                showTemplates = false
+            }
         }
     }
     
@@ -131,22 +149,21 @@ final class ObjectTypeViewModel: ObservableObject {
         }
     }
     
-    func subscribeOnFields() async {
-        for await relations in document.parsedRelationsPublisher.values {
-            relationsCount = relations.all.count
+    func subscribeOnRelations() async {
+        for await relations in document.parsedRelationsPublisherForType.values {
+            let conflictingKeys = (try? await relationsService
+                .getConflictRelationsForType(typeId: document.objectId, spaceId: document.spaceId)) ?? []
+            let conflictingRelations = relationDetailsStorage
+                .relationsDetails(ids: conflictingKeys, spaceId: document.spaceId)
+                .filter { !$0.isHidden && !$0.isDeleted }
+
+            self.relationsCount = relations.installed.count + conflictingRelations.count
         }
     }
     
     // Adding ephemeral Blank template and create new template button
     private func buildTemplates() {
         var templates = [TemplatePreviewModel]()
-        
-        let isBlankTemplateDefault = !rawTemplates.contains { $0.id == defaultTemplateId }
-        templates.append(TemplatePreviewModel(
-            mode: .blank,
-            alignment: .left,
-            decoration: isBlankTemplateDefault ? .defaultBadge : nil
-        ))
         
         let middlewareTemplates = rawTemplates.map { details in
             let isDefault = details.id == defaultTemplateId
@@ -155,8 +172,9 @@ final class ObjectTypeViewModel: ObservableObject {
         }
         
         templates += middlewareTemplates
+        templatesCount = middlewareTemplates.count
 
-        if isEditorLayout {
+        if canEditDetails {
             templates.append(.init(mode: .addTemplate, alignment: .center))
         }
         
