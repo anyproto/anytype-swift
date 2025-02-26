@@ -1305,6 +1305,6 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 
 // MARK: - Migration
 "Migration.title" = "Geçiş işlemi devam ediyor...";
-"Migration.subtitle" = "Bu uzun sürmeyecek. Sabrınız için teşekkürler.";
+"Migration.subtitle" = "Bu işlem biraz zaman alabilir. Lütfen işlem tamamlanana kadar uygulamayı kapatmayın.";
 "Migration.Error.NotEnoughtSpace.title" = "Yeterli yer yok";
 "Migration.Error.NotEnoughtSpace.message" = "Lütfen biraz yer açın ve işlemi tekrarlayın.";

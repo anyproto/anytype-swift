@@ -1304,6 +1304,6 @@ Please provide specific details of your needs here.";
 
 // MARK: - Migration
 "Migration.title" = "Migrasi sedang berlangsung …";
-"Migration.subtitle" = "This shouldn’t take long. Thanks for your patience.";
+"Migration.subtitle" = "Ini mungkin perlu beberapa waktu. Mohon tidak menutup aplikasi hingga proses selesai.";
 "Migration.Error.NotEnoughtSpace.title" = "Penyimpanan tidak cukup";
 "Migration.Error.NotEnoughtSpace.message" = "Bersihkan ruang penyimpanan lalu coba lagi.";

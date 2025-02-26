@@ -1305,6 +1305,6 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
 // MARK: - Migration
 "Migration.title" = "Bezig met migreren...";
-"Migration.subtitle" = "Dit zou niet lang moeten duren. Bedankt voor jouw geduld.";
+"Migration.subtitle" = "Dit kan enige tijd duren. Sluit de app alsjeblieft niet voordat het proces is voltooid.";
 "Migration.Error.NotEnoughtSpace.title" = "Niet genoeg ruimte";
 "Migration.Error.NotEnoughtSpace.message" = "Maak alsjeblieft ruimte vrij en voer het proces opnieuw uit.";
