@@ -11,7 +11,7 @@ struct SimpleSetView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            PageNavigationHeader(title: model.title) {}
+            LargeNavigationHeader(title: model.title)
             content
         }
         .task {
