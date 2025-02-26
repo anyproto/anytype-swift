@@ -41,7 +41,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     
     @Published var spaceName = ""
     @Published var spaceDescription = ""
-    
     @Published var spaceIcon: Icon?
     
     @Published var info = [SettingsInfoModel]()
@@ -61,20 +60,13 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var storageInfo = RemoteStorageSegmentInfo()
     @Published var defaultObjectType: ObjectType?
     @Published var showIconPickerSpaceId: StringIdentifiable?
+    @Published var editingData: SettingsInfoEditingViewData?
     
     let workspaceInfo: AccountInfo
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     private var owner: Participant?
     private var inviteLink: URL?
-    
-    private var middlewareSpaceName = ""
-    private var middlewareSpaceDescription = ""
-    private var didSetup = false
-    var haveChanges: Bool {
-        middlewareSpaceName != spaceName || middlewareSpaceDescription != spaceDescription
-    }
-    
     
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
@@ -141,22 +133,32 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
     }
     
-    func onSaveTap() {
-        Task {
-            try await workspaceService.workspaceSetDetails(
-                spaceId: workspaceInfo.accountSpaceId,
-                details: [
-                    .name(spaceName),
-                    .description(spaceDescription)
-                ]
-            )
-            
-            snackBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
-        }
-    }
-    
     func onObjectTypesTap() {
         output?.onObjectTypesSelected()
+    }
+    
+    func onTitleTap() {
+        editingData = SettingsInfoEditingViewData(
+            title: Loc.name,
+            placeholder: Loc.untitled,
+            initialValue: spaceName,
+            onSave: { [weak self] in
+                guard let self else { return }
+                saveDetails(name: $0, description: spaceDescription)
+            }
+        )
+    }
+    
+    func onDescriptionTap() {
+        editingData = SettingsInfoEditingViewData(
+            title: Loc.description,
+            placeholder: Loc.description,
+            initialValue: spaceDescription,
+            onSave: { [weak self] in
+                guard let self else { return }
+                saveDetails(name: spaceName, description: $0)
+            }
+        )
     }
     
     // MARK: - Subscriptions
@@ -198,6 +200,20 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     
     // MARK: - Private
     
+    private func saveDetails(name: String, description: String) {
+        Task {
+            try await workspaceService.workspaceSetDetails(
+                spaceId: workspaceInfo.accountSpaceId,
+                details: [
+                    .name(name),
+                    .description(description)
+                ]
+            )
+            
+            snackBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
+        }
+    }
+    
     private func updateViewState() {
         guard let participantSpaceView else { return }
         
@@ -212,14 +228,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             self?.snackBarData = .init(text: Loc.copiedToClipboard($0), showSnackBar: true)
         }
         
-        middlewareSpaceName = spaceView.name
-        middlewareSpaceDescription = spaceView.description
-        
-        if !didSetup {
-            spaceName = spaceView.name
-            spaceDescription = spaceView.description
-            didSetup = true
-        }
+        spaceName = spaceView.name
+        spaceDescription = spaceView.description
         
         shareSection = buildShareSection(participantSpaceView: participantSpaceView)
         

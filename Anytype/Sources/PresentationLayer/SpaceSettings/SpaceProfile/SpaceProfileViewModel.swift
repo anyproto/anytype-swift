@@ -88,7 +88,7 @@ final class SpaceProfileViewModel: ObservableObject {
             self.participantSpaceView = participantSpaceView
             
             spaceIcon = participantSpaceView.spaceView.objectIconImage
-            spaceName = participantSpaceView.spaceView.name
+            spaceName = participantSpaceView.spaceView.title
             spaceDescription = participantSpaceView.spaceView.description
             
             allowDelete = participantSpaceView.canBeDeleted
