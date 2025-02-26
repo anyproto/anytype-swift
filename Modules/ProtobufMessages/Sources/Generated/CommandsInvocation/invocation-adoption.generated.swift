@@ -161,6 +161,11 @@ extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: ResponseError
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Block.ListSetFields.Response: ResultWithError {}
+extension Anytype_Rpc.Block.ListSetFields.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Block.ListSetVerticalAlign.Response: ResultWithError {}
 extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -218,11 +223,6 @@ extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error: ResponseError
 
 extension Anytype_Rpc.BlockBookmark.Fetch.Response: ResultWithError {}
 extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -1187,6 +1187,21 @@ extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: ResponseError
 
 extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

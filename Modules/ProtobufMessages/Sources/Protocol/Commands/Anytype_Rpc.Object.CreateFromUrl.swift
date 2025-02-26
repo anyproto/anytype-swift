@@ -42,6 +42,8 @@ extension Anytype_Rpc.Object {
 
         public var withChat: Bool = false
 
+        public var templateID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -176,6 +178,7 @@ extension Anytype_Rpc.Object.CreateFromUrl.Request: SwiftProtobuf.Message, Swift
     4: .same(proto: "details"),
     5: .same(proto: "addPageContent"),
     6: .same(proto: "withChat"),
+    7: .same(proto: "templateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -190,6 +193,7 @@ extension Anytype_Rpc.Object.CreateFromUrl.Request: SwiftProtobuf.Message, Swift
       case 4: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.addPageContent) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.withChat) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
       default: break
       }
     }
@@ -218,6 +222,9 @@ extension Anytype_Rpc.Object.CreateFromUrl.Request: SwiftProtobuf.Message, Swift
     if self.withChat != false {
       try visitor.visitSingularBoolField(value: self.withChat, fieldNumber: 6)
     }
+    if !self.templateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -228,6 +235,7 @@ extension Anytype_Rpc.Object.CreateFromUrl.Request: SwiftProtobuf.Message, Swift
     if lhs._details != rhs._details {return false}
     if lhs.addPageContent != rhs.addPageContent {return false}
     if lhs.withChat != rhs.withChat {return false}
+    if lhs.templateID != rhs.templateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

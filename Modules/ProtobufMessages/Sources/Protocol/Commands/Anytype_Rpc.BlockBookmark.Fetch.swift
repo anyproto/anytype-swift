@@ -29,6 +29,8 @@ extension Anytype_Rpc.BlockBookmark {
 
         public var url: String = String()
 
+        public var templateID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -152,6 +154,7 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Request: SwiftProtobuf.Message, SwiftP
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
     3: .same(proto: "url"),
+    4: .same(proto: "templateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -163,6 +166,7 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Request: SwiftProtobuf.Message, SwiftP
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
       default: break
       }
     }
@@ -178,6 +182,9 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Request: SwiftProtobuf.Message, SwiftP
     if !self.url.isEmpty {
       try visitor.visitSingularStringField(value: self.url, fieldNumber: 3)
     }
+    if !self.templateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -185,6 +192,7 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Request: SwiftProtobuf.Message, SwiftP
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.url != rhs.url {return false}
+    if lhs.templateID != rhs.templateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

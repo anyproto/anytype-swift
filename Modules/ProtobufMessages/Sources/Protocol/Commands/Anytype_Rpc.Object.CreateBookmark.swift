@@ -36,6 +36,8 @@ extension Anytype_Rpc.Object {
 
         public var withChat: Bool = false
 
+        public var templateID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -165,6 +167,7 @@ extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, Swif
     1: .same(proto: "details"),
     2: .same(proto: "spaceId"),
     3: .same(proto: "withChat"),
+    4: .same(proto: "templateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -176,6 +179,7 @@ extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, Swif
       case 1: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.withChat) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
       default: break
       }
     }
@@ -195,6 +199,9 @@ extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, Swif
     if self.withChat != false {
       try visitor.visitSingularBoolField(value: self.withChat, fieldNumber: 3)
     }
+    if !self.templateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -202,6 +209,7 @@ extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, Swif
     if lhs._details != rhs._details {return false}
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.withChat != rhs.withChat {return false}
+    if lhs.templateID != rhs.templateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

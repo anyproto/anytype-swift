@@ -10,8 +10,8 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.BlockDataview {
-    public struct CreateBookmark {
+extension Anytype_Rpc.ObjectType {
+    public struct ListConflictingRelations {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -23,13 +23,9 @@ extension Anytype_Rpc.BlockDataview {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var contextID: String = String()
-
-        public var blockID: String = String()
-
-        public var url: String = String()
-
         public var spaceID: String = String()
+
+        public var typeObjectID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -41,8 +37,8 @@ extension Anytype_Rpc.BlockDataview {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error {
-          get {return _error ?? Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error()}
+        public var error: Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error {
+          get {return _error ?? Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -50,7 +46,7 @@ extension Anytype_Rpc.BlockDataview {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
-        public var id: String = String()
+        public var relationIds: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -59,7 +55,7 @@ extension Anytype_Rpc.BlockDataview {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code = .null
+          public var code: Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -69,9 +65,8 @@ extension Anytype_Rpc.BlockDataview {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
+            case readonlyObjectType // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -83,6 +78,7 @@ extension Anytype_Rpc.BlockDataview {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .readonlyObjectType
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -92,6 +88,7 @@ extension Anytype_Rpc.BlockDataview {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .readonlyObjectType: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -103,28 +100,29 @@ extension Anytype_Rpc.BlockDataview {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error? = nil
       }
 
       public init() {}
     }    }
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
+    .readonlyObjectType,
   ]
 }
-extension Anytype_Rpc.BlockDataview.CreateBookmark: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Request: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.ListConflictingRelations: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error.Code: @unchecked Sendable {}
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.protoMessageName + ".CreateBookmark"
+extension Anytype_Rpc.ObjectType.ListConflictingRelations: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.protoMessageName + ".ListConflictingRelations"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -136,19 +134,17 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.CreateBookmark, rhs: Anytype_Rpc.BlockDataview.CreateBookmark) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.ListConflictingRelations, rhs: Anytype_Rpc.ObjectType.ListConflictingRelations) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.CreateBookmark.protoMessageName + ".Request"
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.ListConflictingRelations.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "contextId"),
-    2: .same(proto: "blockId"),
-    3: .same(proto: "url"),
-    4: .same(proto: "spaceId"),
+    1: .same(proto: "spaceId"),
+    2: .same(proto: "typeObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -157,46 +153,36 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Request: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.url) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.typeObjectID) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
-    }
-    if !self.blockID.isEmpty {
-      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
-    }
-    if !self.url.isEmpty {
-      try visitor.visitSingularStringField(value: self.url, fieldNumber: 3)
-    }
     if !self.spaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 4)
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if !self.typeObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.typeObjectID, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.CreateBookmark.Request, rhs: Anytype_Rpc.BlockDataview.CreateBookmark.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.blockID != rhs.blockID {return false}
-    if lhs.url != rhs.url {return false}
+  public static func ==(lhs: Anytype_Rpc.ObjectType.ListConflictingRelations.Request, rhs: Anytype_Rpc.ObjectType.ListConflictingRelations.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.typeObjectID != rhs.typeObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.CreateBookmark.protoMessageName + ".Response"
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.ListConflictingRelations.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "id"),
+    2: .same(proto: "relationIds"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -206,7 +192,7 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response: SwiftProtobuf.Messa
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.relationIds) }()
       default: break
       }
     }
@@ -220,22 +206,22 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response: SwiftProtobuf.Messa
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 2)
+    if !self.relationIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.relationIds, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.CreateBookmark.Response, rhs: Anytype_Rpc.BlockDataview.CreateBookmark.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.ListConflictingRelations.Response, rhs: Anytype_Rpc.ObjectType.ListConflictingRelations.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.id != rhs.id {return false}
+    if lhs.relationIds != rhs.relationIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.BlockDataview.CreateBookmark.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.ListConflictingRelations.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -264,7 +250,7 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error, rhs: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error, rhs: Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -272,11 +258,12 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: SwiftProtobuf
   }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "READONLY_OBJECT_TYPE"),
   ]
 }
 
