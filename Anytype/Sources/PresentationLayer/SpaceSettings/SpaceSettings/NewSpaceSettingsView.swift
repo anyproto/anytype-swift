@@ -15,7 +15,6 @@ struct NewSpaceSettingsView: View {
     var body: some View {
         content
             .homeBottomPanelHidden(true)
-            .snackbar(toastBarData: $model.snackBarData)
             .onAppear {
                 model.onAppear()
             }
@@ -44,6 +43,7 @@ struct NewSpaceSettingsView: View {
             .anytypeSheet(isPresented: $model.showInfoView) {
                 SpaceSettingsInfoView(info: model.info)
             }
+            .snackbar(toastBarData: $model.snackBarData)
     }
     
     private var content: some View {
@@ -168,12 +168,12 @@ struct NewSpaceSettingsView: View {
             EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
-        case .owner(let joiningCount):
+        case .ownerOrEditor(let joiningCount):
             SectionHeaderView(title: Loc.collaboration)
             RoundedButton(Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : nil) { model.onShareTap() }
-        case .member:
+        case .viewer:
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member) { model.onMembersTap() }
+            RoundedButton(Loc.members, icon: .X24.member) { model.onShareTap() }
         }
     }
     

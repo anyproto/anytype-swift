@@ -24,3 +24,23 @@ extension SpaceSettingsShareSection {
         }
     }
 }
+
+enum NewSpaceSettingsShareSection {
+    case personal
+    case `private`(state: PrivateSpaceSettingsShareSection)
+    case ownerOrEditor(joiningCount: Int)
+    case viewer
+}
+
+extension NewSpaceSettingsShareSection {
+    var isSharingAvailable: Bool {
+        switch self {
+        case .personal, .private, .viewer:
+            false
+        case .ownerOrEditor:
+            true
+        }
+    }
+}
+
+

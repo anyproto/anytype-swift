@@ -23,7 +23,7 @@ final class WidgetsHeaderViewModel: ObservableObject {
     @Published var spaceAccessType = ""
     @Published var spaceMembers = ""
     @Published var sharedSpace = false
-    @Published var isOwner = false
+    @Published var canEdit = false
     
     init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
         self.accountSpaceId = spaceId
@@ -56,7 +56,7 @@ final class WidgetsHeaderViewModel: ObservableObject {
     
     private func startParticipantSpaceViewTask() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: accountSpaceId).values {
-            isOwner = participantSpaceView.isOwner
+            canEdit = participantSpaceView.canEdit
         }
     }
     

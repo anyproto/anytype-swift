@@ -267,7 +267,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 return
             }
             
-            if spaceView.isOwner {
+            if spaceView.canEdit {
                 navigationPath.push(data)
             } else {
                 await dismissAllPresented?()

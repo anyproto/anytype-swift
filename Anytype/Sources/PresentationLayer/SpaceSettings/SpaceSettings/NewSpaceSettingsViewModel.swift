@@ -54,7 +54,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
-    @Published var shareSection: SpaceSettingsShareSection = .personal
+    @Published var shareSection: NewSpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
@@ -221,30 +221,32 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             didSetup = true
         }
         
+        shareSection = buildShareSection(participantSpaceView: participantSpaceView)
         
-        if participantSpaceView.isOwner {
+        Task { try await generateInviteIfNeeded() }
+    }
+    
+    private func buildShareSection(participantSpaceView: ParticipantSpaceViewData) -> NewSpaceSettingsShareSection {
+        if participantSpaceView.canEdit {
             switch participantSpaceView.spaceView.spaceAccessType {
             case .personal, .UNRECOGNIZED, .none:
-                shareSection = .personal
+                return .personal
             case .private:
                 guard participantSpaceView.canBeShared, let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo else {
-                    shareSection = .private(state: .unshareable)
-                    break
+                    return .private(state: .unshareable)
                 }
                 
                 if spaceSharingInfo.limitsAllowSharing {
-                    shareSection = .private(state: .shareable)
+                    return .private(state: .shareable)
                 } else {
-                    shareSection = .private(state: .reachedSharesLimit(limit: spaceSharingInfo.sharedSpacesLimit))
+                    return .private(state: .reachedSharesLimit(limit: spaceSharingInfo.sharedSpacesLimit))
                 }
             case .shared:
-                shareSection = .owner(joiningCount: joiningCount)
+                return .ownerOrEditor(joiningCount: joiningCount)
             }
         } else {
-            shareSection = .member
+            return .viewer
         }
-        
-        Task { try await generateInviteIfNeeded() }
     }
     
     private func generateInviteIfNeeded() async throws {
