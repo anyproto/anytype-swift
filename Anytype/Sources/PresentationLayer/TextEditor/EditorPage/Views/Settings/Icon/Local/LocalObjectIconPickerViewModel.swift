@@ -22,10 +22,10 @@ final class LocalObjectIconPickerViewModel: ObservableObject {
 
     private weak var output: (any LocalObjectIconPickerOutput)?
     
-    init(fileData: FileData?, output: (any LocalObjectIconPickerOutput)?) {
-        self.fileData = fileData
+    init(data: LocalObjectIconPickerData) {
+        self.fileData = data.fileData
         self.isRemoveEnabled = fileData.isNotNil
-        self.output = output
+        self.output = data.output
     }
     
     func onSelectItemProvider(_ itemProvider: NSItemProvider) {
