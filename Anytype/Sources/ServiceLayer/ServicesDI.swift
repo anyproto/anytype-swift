@@ -373,4 +373,8 @@ extension Container {
     var appSessionTracker: Factory<any AppSessionTrackerProtocol> {
         self { AppSessionTracker() }.singleton
     }
+    
+    var spaceSettingsInfoBuilder: Factory<any SpaceSettingsInfoBuilderProtocol> {
+        self { SpaceSettingsInfoBuilder() }
+    }
 }
