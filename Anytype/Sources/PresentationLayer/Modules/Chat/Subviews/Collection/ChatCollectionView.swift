@@ -48,10 +48,6 @@ struct ChatCollectionView<
         collectionView.delegate = context.coordinator
         collectionView.scrollsToTop = false
         
-        if #available(iOS 17.4, *) {
-            collectionView.contentAlignmentPoint = CGPoint(x: 0, y: 1)
-        }
-        
         if #available(iOS 16.4, *) {
             collectionView.keyboardDismissMode = .interactive
         } else {
