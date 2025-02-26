@@ -19,6 +19,7 @@ struct ImagesGalleryView: View {
                     galleryItem(for: imageId)
                 }
             }
+            .padding(.vertical, 8)
         }
         .scrollIndicators(.never)
         .scrollDismissesKeyboard(.immediately)
