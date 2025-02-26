@@ -5,7 +5,7 @@ import UIKit
 import AnytypeCore
 
 @MainActor
-final class SpaceCreateViewModel: ObservableObject {
+final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput {
     
     // MARK: - DI
     
@@ -15,19 +15,25 @@ final class SpaceCreateViewModel: ObservableObject {
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileActionsService: any FileActionsServiceProtocol
     
     // MARK: - State
     
     @Published var spaceName = ""
-    @Published var spaceDescription = ""
-    let spaceIconOption = IconColorStorage.randomOption()
-    var spaceIcon: Icon { .object(.space(.name(name: spaceName, iconOption: spaceIconOption))) }
+    @Published var spaceIcon: Icon
     @Published var spaceAccessType: SpaceAccessType = .private
-    @Published var createLoadingState: Bool = false
+    @Published var createLoadingState = false
+    @Published var showLocalIconPicker = false
     @Published var dismiss: Bool = false
+    
+    var fileData: FileData?
+    private let spaceIconOption: Int
     
     init(data: SpaceCreateData) {
         self.data = data
+        self.spaceIconOption = IconColorStorage.randomOption()
+        self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption)))
     }
     
     func onTapCreate() {
@@ -39,7 +45,6 @@ final class SpaceCreateViewModel: ObservableObject {
             }
             let spaceId = try await workspaceService.createSpace(
                 name: spaceName,
-                description: spaceDescription,
                 iconOption: spaceIconOption,
                 accessType: spaceAccessType,
                 useCase: .empty,
@@ -47,12 +52,10 @@ final class SpaceCreateViewModel: ObservableObject {
                 uxType: data.spaceUxType
             )
             
-            // Hack: remove after middleware fix
-            // https://linear.app/anytype/issue/IOS-3588/new-space-auto-renames-to-onboarding-22-without-name
-            try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [
-                .name(spaceName),
-                .iconOption(spaceIconOption)
-            ])
+            if let fileData {
+                let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: fileData, origin: .none)
+                try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
+            }
             
             try await spaceSetupManager.setActiveSpace(sceneId: data.sceneId, spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
@@ -63,6 +66,22 @@ final class SpaceCreateViewModel: ObservableObject {
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsSpaceCreate()
+    }
+    
+    func updateNameIconIfNeeded(_ name: String) {
+        guard fileData.isNil else { return }
+        spaceIcon = .object(.space(.name(name: name, iconOption: spaceIconOption)))
+    }
+    
+    // MARK: - LocalObjectIconPickerOutput
+    
+    func localFileDataDidChanged(_ data: FileData?) {
+        fileData = data
+        if let path = fileData?.path {
+            spaceIcon = .object(.space(.localPath(path)))
+        } else {
+            spaceIcon = .object(.space(.name(name: spaceName, iconOption: spaceIconOption)))
+        }
     }
     
     // MARK: - Private

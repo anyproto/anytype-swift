@@ -17,26 +17,14 @@ struct SpaceCreateView: View {
             TitleView(title: FeatureFlags.spaceUxTypes ? model.data.title : Loc.SpaceCreate.Space.title)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    Spacer.fixedHeight(8)
-                    IconView(icon: model.spaceIcon)
-                        .frame(width: 96, height: 96)
-                    Spacer.fixedHeight(20)
+                    iconSection
                     
                     RoundedTextFieldWithTitle(
-                        title: FeatureFlags.spaceUxTypes ? model.data.nameTitle : Loc.Settings.spaceName,
+                        title: FeatureFlags.spaceUxTypes ? Loc.name : Loc.Settings.spaceName,
                         placeholder: Loc.untitled,
                         text: $model.spaceName
                     )
                     .focused(.constant(true))
-                    
-                    if FeatureFlags.spaceUxTypes, let nameDescription = model.data.nameDescription {
-                        Spacer.fixedHeight(12)
-                        RoundedTextFieldWithTitle(
-                            title: nameDescription,
-                            placeholder: Loc.SpaceCreate.Stream.Placeholder.description,
-                            text: $model.spaceDescription
-                        )
-                    }
                     
                     if !FeatureFlags.spaceUxTypes {
                         SectionHeaderView(title: Loc.type)
@@ -60,6 +48,28 @@ struct SpaceCreateView: View {
         }
         .ignoreSafeAreaKeyboardLegacy()
         .background(Color.Background.primary)
+        .onChange(of: model.spaceName) {
+            model.updateNameIconIfNeeded($0)
+        }
+        .sheet(isPresented: $model.showLocalIconPicker) {
+            LocalObjectIconPickerView(fileData: model.fileData, output: model)
+        }
+    }
+    
+    private var iconSection: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(8)
+            IconView(icon: model.spaceIcon)
+                .frame(width: 96, height: 96)
+            Spacer.fixedHeight(6)
+            AnytypeText(Loc.changeIcon, style: .uxCalloutMedium)
+                .foregroundColor(.Control.active)
+            Spacer.fixedHeight(20)
+        }
+        .fixTappableArea()
+        .onTapGesture {
+            model.showLocalIconPicker.toggle()
+        }
     }
 }
 
