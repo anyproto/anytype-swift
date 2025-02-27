@@ -296,5 +296,19 @@
         <string>%d 天</string>
       </dict>
     </dict>
+    <key>TemplateSelection.Available.Title</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>This type has %d templates</string>
+      </dict>
+    </dict>
   </dict>
 </plist>
