@@ -86,6 +86,10 @@ public extension FeatureFlags {
         value(for: .openTypeAsSet)
     }
 
+    static var anyAppBetaTip: Bool {
+        value(for: .anyAppBetaTip)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -160,6 +164,7 @@ public extension FeatureFlags {
         .newOnboarding,
         .disableColorfulSeedPhrase,
         .openTypeAsSet,
+        .anyAppBetaTip,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
