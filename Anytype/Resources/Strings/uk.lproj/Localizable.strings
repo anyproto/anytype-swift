@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Видалений об'єкт";
 
-// MARK: - Relation
-"Featured relations" = "Вибрані зв'язки";
-"Create relation" = "Створити зв'язок ’%@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "пусто";
-"Relation.MyRelations" = "Мої відносини";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
-"Relation.Deleted" = "Видалене відношення";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "З типу %@";
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Create “%@”";
 "Relation.View.Create.title" = "Create option";
 "Relation.View.Edit.title" = "Edit option";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "Ел. пошта";
 "Relation.Format.Phone.Title" = "Номер телефону";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Use case";
 "Relation.Origin.Builtin" = "Library installed";
 "Relation.Origin.Bookmark" = "Закладка";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Медіа";
 "Alignment" = "Вирівнювання";
 "Actions" = "Дії";
-"Relations" = "Відносини";
+"Fields" = "Fields";
 "History" = "History";
 "Objects" = "Об'єкти";
 "All" = "Все";
@@ -209,6 +218,7 @@
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Обрані";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "Шпалери";
 "Log out" = "Вийти";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Виберіть шаблон";
 "TemplatePicker.Buttons.UseTemplate" = "Використовувати шаблон";
 "TemplateSelection.SelectTemplate" = "Обрати шаблон";
-"TemplateSelection.blankTemplate" = "Порожньо";
 "TemplateSelection.Template.Subtitle" = "Шаблон";
 "TemplateSelection.ObjectType.Subtitle" = "Тип об'єкта";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
 "EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Оберіть відношення для сортування";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Фільтри";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запит";
-"Set.FeaturedRelations.RelationsList" = "Відносини:";
-"Set.FeaturedRelations.Relation" = "Зв’язок:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Тип:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Згрупувати за";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Колір стовпців";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Без відношень";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "Без фільтрів";
 "Set.View.Settings.NoSorts.Placeholder" = "Без сортування";
 "Set.View.Settings.Objects.Applied.Title" = "%d застосовано";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Жодного запиту не вибрано";
-"Set.View.Empty.Subtitle" = "Додайте пошуковий запит для групування об'єктів з однаковими типами та зв'язками в режимі реального часу";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -559,7 +569,7 @@
 "Enter number" = "Введіть номер";
 "Enter text" = "Введіть текст";
 "Unsupported value" = "Непідтримуване значення";
-"Select relation type" = "Виберіть тип відношення";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "No data found";
 "AreYouSure" = "Ви впевнені?";
 "Nothing found" = "Nothing found";
@@ -571,7 +581,7 @@
 "Type" = "Тип";
 "Types" = "Types";
 "No name" = "Без назви";
-"New relation" = "Новий зв'язок";
+"New field" = "New field";
 "Edit field" = "Edit field";
 "Non-existent object" = "Відсутній об'єкт";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Відновити з в'язки ключів";
 "Edit" = "Редагувати";
+"Hidden" = "Hidden";
 "In this object" = "В цьому об'єкті";
-"Other relations" = "Інші відносини";
+"Other relations" = "Other fields";
 "Collection of objects" = "Колекція об'єктів";
 "Designed to capture thoughts quickly" = "Розроблено для швидкого захоплення думок";
 "Action-focused layout with a checkbox" = "Макет, орієнтований на дію, з прапорцем";
@@ -699,6 +710,7 @@
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "Apply";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaboration";
 "Members" = "Members";
@@ -1285,16 +1297,12 @@ Please provide specific details of your needs here.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";

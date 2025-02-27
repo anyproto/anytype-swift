@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Выдаліць аб'ект";
 
-// MARK: - Relation
-"Featured relations" = "Абраныя ўласцівасці";
-"Create relation" = "Стварыць уласцівасць ‘%@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "пуста";
-"Relation.MyRelations" = "Мае ўласцівасці";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
-"Relation.Deleted" = "Выдаленая ўласцівасць";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "З тыпу %@";
 "Relation.EmptyState.title" = "Няма опцый";
 "Relation.EmptyState.description" = "Нічога не знойдзена. Стварыце першую опцыю для пачатку.";
-"Relation.EmptyState.Blocked.title" = "Уласцівасць пустая";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Стварыць “%@”";
 "Relation.View.Create.title" = "Сварыць опцыю";
 "Relation.View.Edit.title" = "Рэдагаваць опцыю";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "Эл. пошта";
 "Relation.Format.Phone.Title" = "Нумар тэлефона";
 
-"Relation.Search.View.Placeholder" = "Шукайце або стварыце новую ўласцівасць";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Выкарыстанне";
 "Relation.Origin.Builtin" = "Бібліятэка ўсталяваная";
 "Relation.Origin.Bookmark" = "Закладка";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Медыя";
 "Alignment" = "Выраўноўванне";
 "Actions" = "Дзеянні";
-"Relations" = "Уласцівасці";
+"Fields" = "Fields";
 "History" = "Гісторыя";
 "Objects" = "Аб'екты";
 "All" = "Усе";
@@ -209,6 +218,7 @@
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Абранае";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "Шпалеры";
 "Log out" = "Выйсці";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Выберыце шаблон";
 "TemplatePicker.Buttons.UseTemplate" = "Выкарыстоўваць шаблон";
 "TemplateSelection.SelectTemplate" = "Абраць шаблон";
-"TemplateSelection.blankTemplate" = "Пуста";
 "TemplateSelection.Template.Subtitle" = "Шаблон";
 "TemplateSelection.ObjectType.Subtitle" = "Тып аб'екта";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Зверху";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Знізу";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Паказаць пустыя значэнні";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Абярыце ўласцівасць для сартавання";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Фільтры";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запыт";
-"Set.FeaturedRelations.RelationsList" = "Уласцівасці:";
-"Set.FeaturedRelations.Relation" = "Уласцівасць:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Тып:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Згрупаваць па";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Каляровыя слупкі";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Няма ўласцівасцяў";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "Без фільтраў";
 "Set.View.Settings.NoSorts.Placeholder" = "Няма сартаванняў";
 "Set.View.Settings.Objects.Applied.Title" = "%d прыменена";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Запыт не выбраны";
-"Set.View.Empty.Subtitle" = "Дадайце пошукавы запыт, каб згрупаваць аб'екты з аднолькавымі тыпамі і ўласцівасцямі ў рэжыме рэальнага часу";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Выгляд не падтрымліваецца на мабільных прыладах";
@@ -559,7 +569,7 @@
 "Enter number" = "Увядзіце нумар";
 "Enter text" = "Увядзіце тэкст";
 "Unsupported value" = "Значэнне не падтрымліваецца";
-"Select relation type" = "Выбраць тып уласцівасці";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Даныя не знойдзеныя";
 "AreYouSure" = "Вы ўпэўнены?";
 "Nothing found" = "Нічога не знойдзена";
@@ -571,7 +581,7 @@
 "Type" = "Тып";
 "Types" = "Тыпы";
 "No name" = "Без назвы";
-"New relation" = "Новая ўласцівасць";
+"New field" = "New field";
 "Edit field" = "Edit field";
 "Non-existent object" = "Неіснуючы аб'ект";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Мы не змаглі атрымаць даныя з вашага сховішча, паколькі ваша версія састарэлая. Калі ласка, абнавіце Anytype да апошняй версіі.";
 "Restore from keychain" = "Аднавіць з звязкі ключоў";
 "Edit" = "Рэдагаваць";
+"Hidden" = "Hidden";
 "In this object" = "У гэтым аб'екце";
-"Other relations" = "Іншыя ўласцівасці";
+"Other relations" = "Other fields";
 "Collection of objects" = "Калекцыя аб'ектаў";
 "Designed to capture thoughts quickly" = "Прызначаны для хуткага запісу думак";
 "Action-focused layout with a checkbox" = "Макет, арыентаваны на дзеянні, з птушкай";
@@ -700,6 +711,7 @@
 "Show" = "Паказаць";
 "Hide" = "Схаваць";
 "Apply" = "Apply";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaboration";
 "Members" = "Удзельнікі";
@@ -1285,16 +1297,12 @@
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "Тут пуста.";
 "EmptyView.Default.subtitle" = "Стварыце свае першыя аб'екты, каб пачаць працу.";
 "EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";

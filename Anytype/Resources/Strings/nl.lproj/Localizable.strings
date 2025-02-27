@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Verwijderd object";
 
-// MARK: - Relation
-"Featured relations" = "Aanbevolen relaties";
-"Create relation" = "Maak relatie '%@'";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Velden menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "leeg";
-"Relation.MyRelations" = "Mijn relaties";
-"Relation.AddedToLibrary" = "Relatie %@ is gemaakt";
-"Relation.Deleted" = "Verwijderde relatie";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "Van type %@";
 "Relation.EmptyState.title" = "Geen opties";
 "Relation.EmptyState.description" = "Niets gevonden. Maak een eerste optie om te starten.";
-"Relation.EmptyState.Blocked.title" = "De relatie is leeg";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Maak \"%@\"";
 "Relation.View.Create.title" = "Maak optie";
 "Relation.View.Edit.title" = "Bewerk optie";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-mailadres";
 "Relation.Format.Phone.Title" = "Telefoonnummer";
 
-"Relation.Search.View.Placeholder" = "Zoek of maak een nieuwe relatie";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Gebruikerstoepassing";
 "Relation.Origin.Builtin" = "Bibliotheek geïnstalleerd";
 "Relation.Origin.Bookmark" = "Bladwijzer";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Media";
 "Alignment" = "Uitlijning";
 "Actions" = "Acties";
-"Relations" = "Relaties";
+"Fields" = "Velden";
 "History" = "Geschiedenis";
 "Objects" = "Objecten";
 "All" = "Alles";
@@ -209,6 +218,7 @@
 "Create Set" = "Maak set";
 "Unsupported deeplink" = "Niet-ondersteunde deeplink";
 "Edit Profile" = "Bewerk profiel";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Favorieten";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "Achtergrond";
 "Log out" = "Meld af";
+"Content Model" = "Content Model";
 "Misc" = "Overig";
 
 // Action
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Sjabloon kiezen";
 "TemplatePicker.Buttons.UseTemplate" = "Sjabloon gebruiken";
 "TemplateSelection.SelectTemplate" = "Sjabloon selecteren";
-"TemplateSelection.blankTemplate" = "Leeg";
 "TemplateSelection.Template.Subtitle" = "Sjabloon";
 "TemplateSelection.ObjectType.Subtitle" = "Objecttype";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Bovenaan";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Onderaan";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Toon lege waarden";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Kies een relatie om te sorteren";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filters";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Vraag";
-"Set.FeaturedRelations.RelationsList" = "Relaties:";
-"Set.FeaturedRelations.Relation" = "Relatie:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Groepeer op";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Kleur kolommen";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Geen relaties";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "Geen filters";
 "Set.View.Settings.NoSorts.Placeholder" = "Geen sortering";
 "Set.View.Settings.Objects.Applied.Title" = "%d toegepast";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Geen zoekopdracht geselecteerd";
-"Set.View.Empty.Subtitle" = "Voeg zoekopdracht toe om objecten te verzamelen met vergelijkbare types en relaties in een live omgeving";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Weergave wordt niet ondersteund op mobiel";
@@ -559,7 +569,7 @@
 "Enter number" = "Voer nummer in";
 "Enter text" = "Voer tekst in";
 "Unsupported value" = "Niet-ondersteunde waarde";
-"Select relation type" = "Selecteer relatie type";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
 "AreYouSure" = "Weet je het zeker?";
 "Nothing found" = "Niets gevonden";
@@ -571,7 +581,7 @@
 "Type" = "Type";
 "Types" = "Types";
 "No name" = "Geen naam";
-"New relation" = "Nieuwe relatie";
+"New field" = "New field";
 "Edit field" = "Veld bewerken";
 "Non-existent object" = "Niet-bestaand object";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "We konden jouw kluisgegevens niet ophalen omdat jouw versie verouderd is. Update Anytype naar de nieuwste versie.";
 "Restore from keychain" = "Herstellen vanuit de sleutelhanger";
 "Edit" = "Bewerk";
+"Hidden" = "Hidden";
 "In this object" = "Binnen dit object";
-"Other relations" = "Andere relaties";
+"Other relations" = "Other fields";
 "Collection of objects" = "Verzameling van objecten";
 "Designed to capture thoughts quickly" = "Ontworpen om snel gedachten te bewaren";
 "Action-focused layout with a checkbox" = "Actiegerichte lay-out met een checkbox";
@@ -699,6 +710,7 @@
 "Show" = "Toon";
 "Hide" = "Verberg";
 "Apply" = "Pas toe";
+"Got it" = "I got it!";
 "Leave a space" = "Verlaat een ruimte";
 "Collaboration" = "Samenwerking";
 "Members" = "Leden";
@@ -1286,16 +1298,12 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";
 "ReindexingWarningAlert.Description" = "We hebben een nieuwe zoekbibliotheek geïmplementeerd voor snellere en nauwkeurigere resultaten.\nOpnieuw indexeren kan een paar minuten duren.";
-"ReindexingWarningAlert.Button" = "Ik snap het!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "Het is hier leeg.";
 "EmptyView.Default.subtitle" = "Maak je eerste objecten om te beginnen.";
 "EmptyView.Bin.title" = "Jouw prullenmand is leeg.";
 "EmptyView.Bin.subtitle" = "Het lijkt erop dat je alles netjes en georganiseerd hebt!";
-
-// MARK: - Fields
-"Fields.menu" = "Velden menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Nieuwe pagina";

@@ -12,6 +12,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var showSpaceManager = false
     @Published var showObjectIsNotAvailableAlert = false
     @Published var profileData: ObjectInfo?
+    @Published var spaceProfileData: AccountInfo?
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
@@ -281,8 +282,18 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case .bookmark(let data):
             await dismissAllPresented?()
             bookmarkScreenData = data
-        case .settings(let data):
-            navigationPath.push(data)
+        case .spaceInfo(let data):
+            guard let spaceView = participantSpacesStorage.participantSpaceView(spaceId: data.spaceId) else {
+                return
+            }
+            
+            if spaceView.canEdit {
+                navigationPath.push(data)
+            } else {
+                await dismissAllPresented?()
+                spaceProfileData = spaceInfo
+            }
+            
         case nil:
             return
         }

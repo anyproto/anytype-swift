@@ -41,7 +41,7 @@
 
 // MARK: - Block Text
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
+"BlockText.ContentType.Title.Placeholder" = "Без названия";
 "BlockText.ContentType.Description.Placeholder" = "Добавить описание";
 "BlockText.ContentType.Toggle.Placeholder" = "Переключить блокировку";
 "BlockText.ContentType.Bulleted.Placeholder" = "Элемент маркированного списка";
@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Удаленный объект";
 
-// MARK: - Relation
-"Featured relations" = "Избранные свойства";
-"Create relation" = "Создать свойство ‘%@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Меню полей";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "пусто";
-"Relation.MyRelations" = "Мои свойства";
-"Relation.AddedToLibrary" = "Связь %@ была создана";
-"Relation.Deleted" = "Удалённое свойство";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "Из типа %@";
 "Relation.EmptyState.title" = "Опций нет";
 "Relation.EmptyState.description" = "Ничего не найдено. Создайте первую опцию для начала.";
-"Relation.EmptyState.Blocked.title" = "Отношение пустое";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Создать %@";
 "Relation.View.Create.title" = "Создать параметр";
 "Relation.View.Edit.title" = "Изменить вариант";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-mail";
 "Relation.Format.Phone.Title" = "Номер телефона";
 
-"Relation.Search.View.Placeholder" = "Найти или создать новую связь";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Вариант использования";
 "Relation.Origin.Builtin" = "Библиотеки установлены.";
 "Relation.Origin.Bookmark" = "Закладка";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -123,7 +132,7 @@
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Объект";
 
-"Untitled" = "Untitled";
+"Untitled" = "Без названия";
 "None" = "Нет";
 "Callout" = "Врезка";
 "Toggle empty. Tap to create block." = "Пусто. Нажмите, чтобы создать блок.";
@@ -137,7 +146,7 @@
 "Media" = "Медиа-файлы";
 "Alignment" = "Выравнивание";
 "Actions" = "Действия";
-"Relations" = "Свойства";
+"Fields" = "Поля";
 "History" = "История";
 "Objects" = "Объекты";
 "All" = "Все";
@@ -203,12 +212,13 @@
 "Join" = "Присоединись";
 "Agreement Disclamer" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@)";
 "Lets Go" = "Давайте начнём";
-"My Channels" = "My Channels";
+"My Channels" = "Мои каналы";
 "Open file" = "Открыть файл";
 "Open Set" = "Открыть набор";
 "Create Set" = "Создать Набор";
 "Unsupported deeplink" = "Неподдерживаемая ссылка";
 "Edit Profile" = "Редактировать профиль";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Избранное";
@@ -219,7 +229,8 @@
 // Settings
 "Wallpaper" = "Обои";
 "Log out" = "Выйти";
-"Misc" = "Misc";
+"Content Model" = "Content Model";
+"Misc" = "Прочее";
 
 // Action
 "Restore" = "Восстановить";
@@ -240,8 +251,8 @@
 "Scan QR code" = "Сканировать QR-код";
 "Auth.CameraPermissionTitle" = "Пожалуйста, разрешите доступ";
 "Restore key from keychain" = "Восстановить Ключ из менеджера паролей";
-"Auth.LogIn" = "I already have the key";
-"Auth.Button.Join" = "I am new here";
+"Auth.LogIn" = "У меня уже есть ключ";
+"Auth.Button.Join" = "Я новичок здесь";
 "Auth.Welcome.Subtitle" = "Создавайте и участвуйте в пространствах которыми Вы владеете. Зашифровано, автономно и [открыто](%@).";
 "Auth.Next" = "Далее";
 
@@ -259,12 +270,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Это Ваш Ключ";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
+"Auth.JoinFlow.Key.Description" = "Это дает вам полное право собственности на ваши данные и разговоры. Вы можете найти этот ключ позже в настройках приложения.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Нажмите, чтобы показать";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Далее";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Не сейчас";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Копировать в буфер обмена";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Подробнее о Ключе";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Что такое Ключ?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Фраза восстановления - это случайная комбинация из 12 слов. Волшебным образом из этих слов генерируется ваш аккаунт на устройстве.";
@@ -298,9 +309,9 @@
 
 "Search" = "Поиск";
 "There is no emoji named" = "Нет эмодзи с таким именем";
-"There is no icon named" = "There is no icon named";
+"There is no icon named" = "Нет эмодзи с таким именем";
 "Try to find a new one or upload your image" = "Попробуйте найти новое или загрузите ваше изображение";
-"Try to find a new one" = "Try to find a new one";
+"Try to find a new one" = "Попробуйте найти новый";
 
 "Emoji" = "Эмодзи";
 "Random" = "Случайно";
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Выберите шаблон";
 "TemplatePicker.Buttons.UseTemplate" = "Использовать шаблон";
 "TemplateSelection.SelectTemplate" = "Выбрать шаблон";
-"TemplateSelection.blankTemplate" = "Пусто";
 "TemplateSelection.Template.Subtitle" = "Шаблон";
 "TemplateSelection.ObjectType.Subtitle" = "Тип объекта";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Наверху";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Снизу";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Показать пустые значения";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Выберите свойство для сортировки";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Фильтры";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Запрос";
-"Set.FeaturedRelations.RelationsList" = "Свойства:";
-"Set.FeaturedRelations.Relation" = "Свойство:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Тип:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Группировать по";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Цветные столбцы";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Нет свойств";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "Нет фильтров";
 "Set.View.Settings.NoSorts.Placeholder" = "Нет сортировок";
 "Set.View.Settings.Objects.Applied.Title" = "%d применено";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Не выбрано ни одного запроса";
-"Set.View.Empty.Subtitle" = "Добавьте поисковый запрос для агрегирования объектов с одинаковыми типами и свойствами в режиме реального времени.";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Просмотр не поддерживается на мобильном телефоне";
@@ -559,7 +569,7 @@
 "Enter number" = "Введите число";
 "Enter text" = "Введите текст";
 "Unsupported value" = "Неподдерживаемое значение";
-"Select relation type" = "Выберите тип свойства";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Данные не найдены";
 "AreYouSure" = "Вы уверены?";
 "Nothing found" = "Ничего не найдено";
@@ -571,7 +581,7 @@
 "Type" = "Тип";
 "Types" = "Типы";
 "No name" = "Без названия";
-"New relation" = "Новое свойство";
+"New field" = "New field";
 "Edit field" = "Редактировать поле";
 "Non-existent object" = "Несуществующий объект";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Нам не удалось получить данные вашего хранилища, потому что ваша версия устарела. Пожалуйста, обновите Anytype до последней версии.";
 "Restore from keychain" = "Восстановить из связки ключей";
 "Edit" = "Изменить";
+"Hidden" = "Hidden";
 "In this object" = "В этом объекте";
-"Other relations" = "Другие свойства";
+"Other relations" = "Other fields";
 "Collection of objects" = "Коллекция объектов";
 "Designed to capture thoughts quickly" = "Создано для быстрой записи мыслей";
 "Action-focused layout with a checkbox" = "Действующий макет с галочкой";
@@ -633,7 +644,7 @@
 "Deleted" = "Удалено";
 "Download" = "Скачать";
 "Open object" = "Открыть объект";
-"Open as Object" = "Open as Object";
+"Open as Object" = "Открыть как объект";
 "Open source" = "Открыть источник";
 "Into object" = "В объект";
 "Add below" = "Добавить ниже";
@@ -654,7 +665,7 @@
 "Link to" = "Связать с";
 "Unknown" = "Неизвестно";
 "Settings" = "Настройки";
-"Preferences" = "Preferences";
+"Preferences" = "Настройки";
 "Views" = "Представления";
 "Filter" = "Фильтр";
 "Sort" = "Сортировка";
@@ -699,11 +710,12 @@
 "Show" = "Показать";
 "Hide" = "Скрыть";
 "Apply" = "Применить";
+"Got it" = "I got it!";
 "Leave a space" = "Покинуть пространство";
-"Collaboration" = "Collaboration";
+"Collaboration" = "Совместная работа";
 "Members" = "Участники";
-"Invite" = "Invite";
-"QR Code" = "QR Code";
+"Invite" = "Пригласить";
+"QR Code" = "QR-код";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
@@ -785,7 +797,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дублировать";
 "SetViewTypesPicker.Settings.Delete.View" = "Удалить вид";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Новый вид";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Без названия";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Не поддерживается";
@@ -876,9 +888,9 @@
 "Settings.SpaceType" = "Тип пространства";
 "Settings.VaultAndAccess" = "Хранилище и доступ";
 "Settings.SpaceName" = "Название пространства";
-"Settings.Edit picture" = "Edit picture";
-"Settings.Updated" = "Space information updated";
-"Settings.DataManagement" = "Data Management";
+"Settings.Edit picture" = "Редактировать фотографию";
+"Settings.Updated" = "Информация о пространстве обновлена";
+"Settings.DataManagement" = "Управление данными";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файловое хранилище";
@@ -890,14 +902,14 @@
 "FileStorage.Local.Instruction" = "Чтобы сохранить место на вашем локальном устройстве, вы можете выгрузить все ваши файлы в наш зашифрованный узел резервного копирования. Файлы будут загружены обратно, когда вы откроете их.";
 "FileStorage.Local.Used" = "%@ использовано";
 "FileStorage.OffloadTitle" = "Выгрузить файлы";
-"FileStorage.CleanUpFiles" = "Clean up files files";
+"FileStorage.CleanUpFiles" = "Очистка файлов";
 "FileStorage.LimitError" = "Вы превысили лимит загрузки файлов";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Другие пространства | %@";
 "FileStorage.LimitLegend.Free" = "Освободить | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Clean up files";
+"FilesList.Title" = "Очистка файлов";
 "FilesList.ForceDelete.Title" = "Вы действительно хотите безвозвратно удалить этот файл?";
 
 // MARK: - Widget object list
@@ -931,7 +943,7 @@
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Настройки пространства";
 "SpaceSettings.RemoteStorage" = "Удалённое хранилище";
-"SpaceSettings.Info" = "Space information";
+"SpaceSettings.Info" = "Информация о пространстве";
 "SpaceSettings.NetworkId" = "ID сети";
 "SpaceSettings.DeleteAlert.Title" = "Удалить пространство \"%@\"";
 "SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";
@@ -1276,7 +1288,7 @@
 "Chat.Reply.Files" = "Файлы (%@)";
 "Chat.SendLimitAlert.Title" = "Удерживаем! Обнаружен Turbo typing!";
 "Chat.SendLimitAlert.Message" = "Похоже, вы отправляете сообщения со скоростью молнии. Дайте секунду перед следующим.";
-"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachmentsLimit.Alert" = "Вы можете загружать только %@ файлов за раз";
 "Chat.AttachedObject.Attach" = "Прикрепить";
 "Chat.CreateObject.Dismiss.Title" = "Вы уверены, что хотите закрыть этот экран?";
 "Chat.CreateObject.Dismiss.Message" = "Если вы покинете, все ваши изменения будут потеряны.";
@@ -1287,16 +1299,12 @@
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
 "ReindexingWarningAlert.Description" = "Мы внедрили новую библиотеку поиска для более быстрых и точных результатов.\nПереиндексация может занять несколько минут.";
-"ReindexingWarningAlert.Button" = "Я понял!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "Здесь пусто.";
 "EmptyView.Default.subtitle" = "Здесь пусто. Создайте свои первые объекты, чтобы начать работу.";
 "EmptyView.Bin.title" = "Ваша корзина пуста.";
 "EmptyView.Bin.subtitle" = "Похоже, у вас всё аккуратно и организовано!";
-
-// MARK: - Fields
-"Fields.menu" = "Меню полей";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Новая страница";
@@ -1305,7 +1313,7 @@
 "ObjectSearchWithMeta.Create.Collection" = "Новая коллекция";
 
 // MARK: - Migration
-"Migration.title" = "Migration is in progress...";
-"Migration.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";
-"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
-"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";
+"Migration.title" = "Миграция в процессе...";
+"Migration.subtitle" = "Это может занять некоторое время. Пожалуйста, не закрывайте приложение, пока процесс не завершится.";
+"Migration.Error.NotEnoughtSpace.title" = "Недостаточно места";
+"Migration.Error.NotEnoughtSpace.message" = "Пожалуйста, освободите пространство и запустите процесс снова.";

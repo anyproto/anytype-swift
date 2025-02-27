@@ -28,6 +28,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var fileLimitsStorage: any FileLimitsStorageProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.spaceSettingsInfoBuilder)
+    private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
@@ -39,8 +41,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     
     @Published var spaceName = ""
     @Published var spaceDescription = ""
-    
-    @Published var spaceAccessType = ""
     @Published var spaceIcon: Icon?
     
     @Published var info = [SettingsInfoModel]()
@@ -53,26 +53,20 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
-    @Published var shareSection: SpaceSettingsShareSection = .personal
+    @Published var shareSection: NewSpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
     @Published var storageInfo = RemoteStorageSegmentInfo()
     @Published var defaultObjectType: ObjectType?
     @Published var showIconPickerSpaceId: StringIdentifiable?
+    @Published var editingData: SettingsInfoEditingViewData?
     
     let workspaceInfo: AccountInfo
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     private var owner: Participant?
     private var inviteLink: URL?
-    
-    private var middlewareSpaceName = ""
-    private var middlewareSpaceDescription = ""
-    private var didSetup = false
-    var haveChanges: Bool {
-        middlewareSpaceName != spaceName || middlewareSpaceDescription != spaceDescription
-    }
     
     var isChatOn: Bool? {
         guard FeatureFlags.showHomeSpaceLevelChat(spaceId: workspaceInfo.accountSpaceId) else { return nil }
@@ -86,7 +80,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             nil
         }
     }
-    
     
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
@@ -153,20 +146,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
     }
     
-    func onSaveTap() {
-        Task {
-            try await workspaceService.workspaceSetDetails(
-                spaceId: workspaceInfo.accountSpaceId,
-                details: [
-                    .name(spaceName),
-                    .description(spaceDescription)
-                ]
-            )
-            
-            snackBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
-        }
-    }
-    
     func onObjectTypesTap() {
         output?.onObjectTypesSelected()
     }
@@ -179,6 +158,30 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             
             snackBarData = ToastBarData(text: isOn ? Loc.Settings.chatEnabled : Loc.Settings.chatDisabled, showSnackBar: true)
         }
+    }
+
+    func onTitleTap() {
+        editingData = SettingsInfoEditingViewData(
+            title: Loc.name,
+            placeholder: Loc.untitled,
+            initialValue: spaceName,
+            onSave: { [weak self] in
+                guard let self else { return }
+                saveDetails(name: $0, description: spaceDescription)
+            }
+        )
+    }
+    
+    func onDescriptionTap() {
+        editingData = SettingsInfoEditingViewData(
+            title: Loc.description,
+            placeholder: Loc.description,
+            initialValue: spaceDescription,
+            onSave: { [weak self] in
+                guard let self else { return }
+                saveDetails(name: spaceName, description: $0)
+            }
+        )
     }
     
     // MARK: - Subscriptions
@@ -220,95 +223,62 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     
     // MARK: - Private
     
+    private func saveDetails(name: String, description: String) {
+        Task {
+            try await workspaceService.workspaceSetDetails(
+                spaceId: workspaceInfo.accountSpaceId,
+                details: [
+                    .name(name),
+                    .description(description)
+                ]
+            )
+            
+            snackBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
+        }
+    }
+    
     private func updateViewState() {
         guard let participantSpaceView else { return }
         
         let spaceView = participantSpaceView.spaceView
         
         spaceIcon = spaceView.objectIconImage
-        spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = participantSpaceView.canBeDeleted
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
-        buildInfoBlock(details: spaceView)
-        
-        middlewareSpaceName = spaceView.name
-        middlewareSpaceDescription = spaceView.description
-        
-        if !didSetup {
-            spaceName = spaceView.name
-            spaceDescription = spaceView.description
-            didSetup = true
+        info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
+            self?.snackBarData = .init(text: Loc.copiedToClipboard($0), showSnackBar: true)
         }
         
+        spaceName = spaceView.name
+        spaceDescription = spaceView.description
         
-        if participantSpaceView.isOwner {
-            switch participantSpaceView.spaceView.spaceAccessType {
-            case .personal, .UNRECOGNIZED, .none:
-                shareSection = .personal
-            case .private:
-                guard participantSpaceView.canBeShared, let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo else {
-                    shareSection = .private(state: .unshareable)
-                    break
-                }
-                
-                if spaceSharingInfo.limitsAllowSharing {
-                    shareSection = .private(state: .shareable)
-                } else {
-                    shareSection = .private(state: .reachedSharesLimit(limit: spaceSharingInfo.sharedSpacesLimit))
-                }
-            case .shared:
-                shareSection = .owner(joiningCount: joiningCount)
-            }
-        } else {
-            shareSection = .member
-        }
+        shareSection = buildShareSection(participantSpaceView: participantSpaceView)
         
         Task { try await generateInviteIfNeeded() }
     }
     
-    private func buildInfoBlock(details: SpaceView) {
-        
-        info.removeAll()
-        
-        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .spaceId, spaceId: workspaceInfo.accountSpaceId) {
-            info.append(
-                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
-                    UIPasteboard.general.string = details.targetSpaceId
-                    self?.snackBarData = .init(text: Loc.copiedToClipboard(spaceRelationDetails.name), showSnackBar: true)
-                })
-            )
-        }
-        
-        if let creatorDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .creator, spaceId: workspaceInfo.accountSpaceId) {
-            
-            if let owner {
-                let displayName = owner.globalName.isNotEmpty ? owner.globalName : owner.identity
+    private func buildShareSection(participantSpaceView: ParticipantSpaceViewData) -> NewSpaceSettingsShareSection {
+        if participantSpaceView.canEdit {
+            switch participantSpaceView.spaceView.spaceAccessType {
+            case .personal, .UNRECOGNIZED, .none:
+                return .personal
+            case .private:
+                guard participantSpaceView.canBeShared, let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo else {
+                    return .private(state: .unshareable)
+                }
                 
-                info.append(
-                    SettingsInfoModel(title: creatorDetails.name, subtitle: displayName, onTap: { [weak self] in
-                        guard let self else { return }
-                        UIPasteboard.general.string = displayName
-                        snackBarData = .init(text: Loc.copiedToClipboard(creatorDetails.name), showSnackBar: true)
-                    })
-                )
+                if spaceSharingInfo.limitsAllowSharing {
+                    return .private(state: .shareable)
+                } else {
+                    return .private(state: .reachedSharesLimit(limit: spaceSharingInfo.sharedSpacesLimit))
+                }
+            case .shared:
+                return .ownerOrEditor(joiningCount: joiningCount)
             }
-        }
-        
-        info.append(
-            SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: workspaceInfo.networkId, onTap: { [weak self] in
-                guard let self else { return }
-                UIPasteboard.general.string = workspaceInfo.networkId
-                snackBarData = .init(text: Loc.copiedToClipboard(Loc.SpaceSettings.networkId), showSnackBar: true)
-            })
-        )
-        
-        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .createdDate, spaceId: workspaceInfo.accountSpaceId),
-           let date = details.createdDate.map({ dateFormatter.string(from: $0) }) {
-            info.append(
-                SettingsInfoModel(title: createdDateDetails.name, subtitle: date)
-            )
+        } else {
+            return .viewer
         }
     }
     

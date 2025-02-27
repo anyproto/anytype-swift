@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Oggetto eliminato";
 
-// MARK: - Relation
-"Featured relations" = "Relazioni in evidenza";
-"Create relation" = "Crea relazione ‘%@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Menu campi";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "vuoto";
-"Relation.MyRelations" = "Le mie relazioni";
-"Relation.AddedToLibrary" = "La relazione '%@' è stata creata";
-"Relation.Deleted" = "Relazione eliminata";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "Dal tipo %@";
 "Relation.EmptyState.title" = "Nessuna opzione";
 "Relation.EmptyState.description" = "Nessun risultato. Crea la prima opzione per iniziare.";
-"Relation.EmptyState.Blocked.title" = "La relazione è vuota";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Crea “%@”";
 "Relation.View.Create.title" = "Crea opzione";
 "Relation.View.Edit.title" = "Modifica opzione";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Numero di telefono";
 
-"Relation.Search.View.Placeholder" = "Cerca o crea una nuova relazione";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Caso d'uso";
 "Relation.Origin.Builtin" = "Libreria installata";
 "Relation.Origin.Bookmark" = "Segnalibro";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Multimedia";
 "Alignment" = "Allineamento";
 "Actions" = "Azioni";
-"Relations" = "Relazioni";
+"Fields" = "Campi";
 "History" = "History";
 "Objects" = "Oggetti";
 "All" = "Tutto";
@@ -203,12 +212,13 @@
 "Join" = "Unisciti";
 "Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Lets Go" = "Iniziamo!";
-"My Channels" = "My Channels";
+"My Channels" = "I miei Canali";
 "Open file" = "Apri file";
 "Open Set" = "Apri Insieme";
 "Create Set" = "Crea un Insieme";
 "Unsupported deeplink" = "Deeplink non supportato";
 "Edit Profile" = "Modifica il Profilo";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Preferiti";
@@ -219,7 +229,8 @@
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Disconnetti";
-"Misc" = "Misc";
+"Content Model" = "Content Model";
+"Misc" = "Varie";
 
 // Action
 "Restore" = "Ripristina";
@@ -240,8 +251,8 @@
 "Scan QR code" = "Scansiona codice QR";
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore key from keychain" = "Ripristina la Chiave dal portachiavi";
-"Auth.LogIn" = "I already have the key";
-"Auth.Button.Join" = "I am new here";
+"Auth.LogIn" = "Ho già la chiave";
+"Auth.Button.Join" = "Sono nuovo qui";
 "Auth.Welcome.Subtitle" = "Crea e collabora negli spazi che possiedi.Crittografati, offline & [open source](%@).";
 "Auth.Next" = "Avanti";
 
@@ -259,12 +270,12 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Questa è la tua Chiave";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
+"Auth.JoinFlow.Key.Description" = "Ti dà la piena proprietà dei tuoi dati e conversazioni. Puoi trovare questa chiave in seguito nelle impostazioni dell'app.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Toccare per rivelare";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Avanti";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Non ora";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copia negli appunti";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Per saperne di più sulla Chiave";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Cos'è una Chiave?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "È rappresentata da una frase di recupero – 12 parole casuali da cui la tua cassaforte viene magicamente generata su questo dispositivo.";
@@ -298,9 +309,9 @@
 
 "Search" = "Cerca";
 "There is no emoji named" = "Non esiste un emoji chiamato";
-"There is no icon named" = "There is no icon named";
+"There is no icon named" = "Non esiste un'icona denominata";
 "Try to find a new one or upload your image" = "Prova a trovarne uno nuovo o carica la tua immagine";
-"Try to find a new one" = "Try to find a new one";
+"Try to find a new one" = "Prova a trovarne una nuova";
 
 "Emoji" = "Emoji";
 "Random" = "Casuale";
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Scegli modello";
 "TemplatePicker.Buttons.UseTemplate" = "Utilizza modello";
 "TemplateSelection.SelectTemplate" = "Seleziona modello";
-"TemplateSelection.blankTemplate" = "Vuoto";
 "TemplateSelection.Template.Subtitle" = "Modello";
 "TemplateSelection.ObjectType.Subtitle" = "Tipo di oggetto";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "In alto";
 "EditSet.Popup.Sort.EmptyTypes.End" = "In basso";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Mostra valori vuoti";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Scegli una relazione per ordinare";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtri";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relazioni:";
-"Set.FeaturedRelations.Relation" = "Relazione:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Tipo:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Raggruppa per";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Colore colonne";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Nessuna relazione";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "Nessun filtro";
 "Set.View.Settings.NoSorts.Placeholder" = "Nessun ordinamento";
 "Set.View.Settings.Objects.Applied.Title" = "%d applicato";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Nessuna query selezionata";
-"Set.View.Empty.Subtitle" = "Aggiungi una query di ricerca per aggregare gli Oggetti con Tipi e Relazioni uguali in modalità live";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "La vista non è supportata sul cellulare";
@@ -559,7 +569,7 @@
 "Enter number" = "Inserisci numero";
 "Enter text" = "Inserisci testo";
 "Unsupported value" = "Valore non supportato";
-"Select relation type" = "Selezione il tipo della Relazione";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Nessun dato trovato";
 "AreYouSure" = "Sei sicuro/a?";
 "Nothing found" = "Nessun risultato trovato";
@@ -571,7 +581,7 @@
 "Type" = "Tipo";
 "Types" = "Types";
 "No name" = "Nessun nome";
-"New relation" = "Nuova relazione";
+"New field" = "New field";
 "Edit field" = "Modifica del campo";
 "Non-existent object" = "Oggetto inesistente";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Non siamo riusciti a recuperare i dati della tua cassaforte perché la tua versione è obsoleta. Per favore aggiorna Anytype all'ultima versione disponibile.";
 "Restore from keychain" = "Ripristina dal portachiavi";
 "Edit" = "Modifica";
+"Hidden" = "Hidden";
 "In this object" = "In questo oggetto";
-"Other relations" = "Altre relazioni";
+"Other relations" = "Other fields";
 "Collection of objects" = "Collezione di oggetti";
 "Designed to capture thoughts quickly" = "Progettato per catturare rapidamente i pensieri";
 "Action-focused layout with a checkbox" = "Layout focalizzato sull'azione con casella di controllo";
@@ -699,6 +710,7 @@
 "Show" = "Mostra";
 "Hide" = "Nascondi";
 "Apply" = "Applica";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaborazione";
 "Members" = "Membri";
@@ -1284,16 +1296,12 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
 "ReindexingWarningAlert.Description" = "Abbiamo implementato una nuova libreria di ricerca per risultati più rapidi e precisi.\nLa reindicizzazione potrebbe richiedere alcuni minuti.";
-"ReindexingWarningAlert.Button" = "Ho capito!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "È vuoto qui.";
 "EmptyView.Default.subtitle" = "Crea i tuoi primi oggetti per iniziare.";
 "EmptyView.Bin.title" = "Il tuo cestino è vuoto.";
 "EmptyView.Bin.subtitle" = "Sembra che tu sia tutto in ordine e organizzato!";
-
-// MARK: - Fields
-"Fields.menu" = "Menu campi";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Nuova Pagina";
@@ -1303,6 +1311,6 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 // MARK: - Migration
 "Migration.title" = "Migrazione in corso...";
-"Migration.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";
+"Migration.subtitle" = "Questo potrebbe richiedere un po 'di tempo. Si prega di non chiudere l'app fino a quando il processo è completato.";
 "Migration.Error.NotEnoughtSpace.title" = "Spazio insufficiente";
 "Migration.Error.NotEnoughtSpace.message" = "Si prega di liberare un po' di spazio ed eseguire nuovamente il processo.";

@@ -15,7 +15,6 @@ struct NewSpaceSettingsView: View {
     var body: some View {
         content
             .homeBottomPanelHidden(true)
-            .snackbar(toastBarData: $model.snackBarData)
             .onAppear {
                 model.onAppear()
             }
@@ -32,6 +31,9 @@ struct NewSpaceSettingsView: View {
             .sheet(item: $model.showIconPickerSpaceId) {
                 SpaceObjectIconPickerView(spaceId: $0.value)
             }
+            .sheet(item: $model.editingData) {
+                SettingsInfoEditingView($0)
+            }
             .anytypeSheet(item: $model.qrInviteLink) {
                 QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
             }
@@ -44,6 +46,7 @@ struct NewSpaceSettingsView: View {
             .anytypeSheet(isPresented: $model.showInfoView) {
                 SpaceSettingsInfoView(info: model.info)
             }
+            .snackbar(toastBarData: $model.snackBarData)
     }
     
     private var content: some View {
@@ -66,16 +69,7 @@ struct NewSpaceSettingsView: View {
     }
     
     private var header: some View {
-        PageNavigationHeader(title: "", rightView: {
-            Button {
-                UISelectionFeedbackGenerator().selectionChanged()
-                model.onSaveTap()
-            } label: {
-                AnytypeText(Loc.save, style: .previewTitle1Medium)
-                    .foregroundColor(model.haveChanges ? .Text.primary : .Text.tertiary)
-            }
-            .disabled(!model.haveChanges)
-        })
+        PageNavigationHeader(title: "")
     }
     
     private var spaceDetails: some View {
@@ -93,25 +87,37 @@ struct NewSpaceSettingsView: View {
             
             Spacer.fixedHeight(24)
             
-            VStack(alignment: .leading, spacing: 4) {
-                AnytypeText(Loc.name, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
-                AnytypeTextField(placeholder: Loc.untitled, font: .bodySemibold, text: $model.spaceName)
-                    .autocorrectionDisabled()
+            Button {
+                model.onTitleTap()
+            } label: {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        AnytypeText(Loc.name, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
+                        AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .bodySemibold)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .border(12, color: .Shape.primary, lineWidth: 0.5)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .border(12, color: .Shape.primary, lineWidth: 0.5)
             
             Spacer.fixedHeight(12)
             
-            VStack(alignment: .leading, spacing: 4) {
-                AnytypeText(Loc.name, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
-                AnytypeTextField(placeholder: Loc.description, font: .bodyRegular, text: $model.spaceDescription)
-                    .autocorrectionDisabled()
+            Button {
+                model.onDescriptionTap()
+            } label: {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        AnytypeText(Loc.description, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
+                        AnytypeText(model.spaceDescription.isNotEmpty ? model.spaceDescription : Loc.empty, style: .bodyRegular)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .border(12, color: .Shape.primary, lineWidth: 0.5)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .border(12, color: .Shape.primary, lineWidth: 0.5)
             
             Spacer()
         }
@@ -167,12 +173,12 @@ struct NewSpaceSettingsView: View {
             EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
-        case .owner(let joiningCount):
+        case .ownerOrEditor(let joiningCount):
             SectionHeaderView(title: Loc.collaboration)
             RoundedButton(Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : .chervon) { model.onShareTap() }
-        case .member:
+        case .viewer:
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member) { model.onMembersTap() }
+            RoundedButton(Loc.members, icon: .X24.member) { model.onShareTap() }
         }
         
         if let isChatOn = model.isChatOn {
