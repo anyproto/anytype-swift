@@ -70,7 +70,7 @@ struct ConversationEmptyStateView: View {
                 Spacer.fixedHeight(10)
                 StandardButton(
                     Loc.Chat.Empty.Button.title,
-                    style: .secondarySmall,
+                    style: .transparentXSmall,
                     action: action
                 )
             }
