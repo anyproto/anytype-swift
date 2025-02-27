@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Objek terhapus";
 
-// MARK: - Relation
-"Featured relations" = "Hubungan yang penting";
-"Create relation" = "Buat relasi ‘%@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "kosong";
-"Relation.MyRelations" = "Relasiku";
-"Relation.AddedToLibrary" = "Relasi '%@' telah dibuat";
-"Relation.Deleted" = "Relasi terhapus";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.EmptyState.title" = "Tidak ada opsi";
 "Relation.EmptyState.description" = "Tidak ada yang ditemukan. Buat opsi pertama untuk memulai.";
-"Relation.EmptyState.Blocked.title" = "Relasi kosong";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Buat “%@”";
 "Relation.View.Create.title" = "Buat opsi";
 "Relation.View.Edit.title" = "Sunting opsi";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "Surel";
 "Relation.Format.Phone.Title" = "Nomor telepon";
 
-"Relation.Search.View.Placeholder" = "Telusuri atau buat relasi baru";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Penggunaan";
 "Relation.Origin.Builtin" = "Pustaka terpasang";
 "Relation.Origin.Bookmark" = "Markah";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Media";
 "Alignment" = "Perataan";
 "Actions" = "Tindakan";
-"Relations" = "Relasi";
+"Fields" = "Fields";
 "History" = "History";
 "Objects" = "Objek";
 "All" = "Semua";
@@ -209,6 +218,7 @@
 "Create Set" = "Buat Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Sunting Profil";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Favorit";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "Latar belakang";
 "Log out" = "Keluar log";
+"Content Model" = "Content Model";
 "Misc" = "Lain-Lain";
 
 // Action
@@ -380,7 +391,6 @@
 "TemplatePicker.ChooseTemplate" = "Pilih templat";
 "TemplatePicker.Buttons.UseTemplate" = "Gunakan templat";
 "TemplateSelection.SelectTemplate" = "Pilih templat";
-"TemplateSelection.blankTemplate" = "Kosong";
 "TemplateSelection.Template.Subtitle" = "Templat";
 "TemplateSelection.ObjectType.Subtitle" = "Tipe objek";
 
@@ -418,7 +428,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Di atas";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Di bawah";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Tampilkan nilai kosong";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Pilih sebuah relasi untuk diurutkan ";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Saringan";
@@ -478,8 +488,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Pertanyaan";
-"Set.FeaturedRelations.RelationsList" = "Relasi:";
-"Set.FeaturedRelations.Relation" = "Relasi:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Tipe:";
 
 // MARK: - Set.Bookmarks
@@ -495,7 +505,7 @@
 "Set.View.Settings.GroupBy.Title" = "Kelompokkan berdasarkan";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Warna kolom";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Tidak ada hubungan";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "Tidak ada saringan";
 "Set.View.Settings.NoSorts.Placeholder" = "Tidak ada urutan";
 "Set.View.Settings.Objects.Applied.Title" = "%d direrapkan";
@@ -510,7 +520,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Tidak ada queri terpilih";
-"Set.View.Empty.Subtitle" = "Tambahkan pencarian kueri untuk mengumpulkan objek dengan tipe dan relasi yang sama dalam mode langsung";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Tampilan ini belum didukung di perangkat mobile";
@@ -560,7 +570,7 @@
 "Enter number" = "Masukkan angka";
 "Enter text" = "Masukkan teks";
 "Unsupported value" = "Nilai tak didukung";
-"Select relation type" = "Pilih jenis relasi";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Tidak ada data yang ditemukan";
 "AreYouSure" = "Apakah kamu yakin?";
 "Nothing found" = "Nothing found";
@@ -572,7 +582,7 @@
 "Type" = "Tipe";
 "Types" = "Tipe";
 "No name" = "Tanpa nama";
-"New relation" = "Relasi baru";
+"New field" = "New field";
 "Edit field" = "Edit field";
 "Non-existent object" = "Objek tidak ada";
 
@@ -607,8 +617,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Kami tidak dapat mengambil data brankasmu karena versi aplikasi sudah kedaluwarsa. Silakan perbarui Anytype terlebih dahulu.";
 "Restore from keychain" = "Memulihkan dari rantai kunci";
 "Edit" = "Sunting";
+"Hidden" = "Hidden";
 "In this object" = "Di objek ini";
-"Other relations" = "Hubungan lain";
+"Other relations" = "Other fields";
 "Collection of objects" = "Kumpulan dari objek";
 "Designed to capture thoughts quickly" = "Didesain untuk menangkap pemikiran dengan cepat";
 "Action-focused layout with a checkbox" = "Tata letak berfokus pada aksi dengan sebuah centang";
@@ -700,6 +711,7 @@
 "Show" = "Tampilkan";
 "Hide" = "Sembunyikan";
 "Apply" = "Terapkan";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Kolaborasi";
 "Members" = "Anggota";
@@ -1285,16 +1297,12 @@ Please provide specific details of your needs here.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
 "ReindexingWarningAlert.Description" = "Kami menerapkan pustaka penelusuran baru untuk pencarian yang lebih cepat dan akurat.\nPengindeksan ulang membutuhkan waktu beberapa menit.";
-"ReindexingWarningAlert.Button" = "Mantap!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "Di sini kosong.";
 "EmptyView.Default.subtitle" = "Buat objek pertamamu untuk memulai.";
 "EmptyView.Bin.title" = "Bak sampah kosong.";
 "EmptyView.Bin.subtitle" = "Kamu orangnya rapi dan tertata, ya?";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Halaman Baru";
