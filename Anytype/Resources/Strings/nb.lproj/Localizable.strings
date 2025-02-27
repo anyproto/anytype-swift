@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Slettet objekt";
 
-// MARK: - Relation
-"Featured relations" = "Utvalgte relasjoner";
-"Create relation" = "Lag relasjon ’%@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "tom";
-"Relation.MyRelations" = "Mine relasjoner";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
-"Relation.Deleted" = "Slettet relasjon";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "Fra type %@";
 "Relation.EmptyState.title" = "Ingen valg";
 "Relation.EmptyState.description" = "Fant ingenting. Opprett første alternativ for å starte.";
-"Relation.EmptyState.Blocked.title" = "Relasjonen er tom";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Opprett “%@”";
 "Relation.View.Create.title" = "Opprett alternativ";
 "Relation.View.Edit.title" = "Rediger valg";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-post";
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
-"Relation.Search.View.Placeholder" = "Søk eller opprett en ny relasjon";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Eksempel";
 "Relation.Origin.Builtin" = "Bibliotek installert";
 "Relation.Origin.Bookmark" = "Bokmerke";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Media";
 "Alignment" = "Justering";
 "Actions" = "Handlinger";
-"Relations" = "Relasjoner";
+"Fields" = "Fields";
 "History" = "Historikk";
 "Objects" = "Objekter";
 "All" = "Alle";
@@ -209,6 +218,7 @@
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Favoritter";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "Bakgrunnsbilde";
 "Log out" = "Logg ut";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Velg mal";
 "TemplatePicker.Buttons.UseTemplate" = "Bruk mal";
 "TemplateSelection.SelectTemplate" = "Velg mal";
-"TemplateSelection.blankTemplate" = "Tom";
 "TemplateSelection.Template.Subtitle" = "Mal";
 "TemplateSelection.ObjectType.Subtitle" = "Objekttype";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
 "EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Velg en relasjon for sortering";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtre";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Spørring";
-"Set.FeaturedRelations.RelationsList" = "Relasjoner:";
-"Set.FeaturedRelations.Relation" = "Relasjon:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Gruppér etter";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Fargelegg kolonner";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Ingen relasjoner";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "Ingen filtre";
 "Set.View.Settings.NoSorts.Placeholder" = "Ingen sorteringer";
 "Set.View.Settings.Objects.Applied.Title" = "%d brukt";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Ingen spørring valgt";
-"Set.View.Empty.Subtitle" = "Legg til søk etter objekter med samme typer og relasjoner i en live-modus";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -559,7 +569,7 @@
 "Enter number" = "Skriv inn tall";
 "Enter text" = "Skriv inn tekst";
 "Unsupported value" = "Ikke-støttet verdi";
-"Select relation type" = "Velg relasjonstype";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
 "AreYouSure" = "Er du sikker?";
 "Nothing found" = "Ingenting funnet";
@@ -571,7 +581,7 @@
 "Type" = "Type";
 "Types" = "Types";
 "No name" = "Ingen navn";
-"New relation" = "Ny relasjon";
+"New field" = "New field";
 "Edit field" = "Edit field";
 "Non-existent object" = "Ikke-eksisterende objekt";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Vi kunne ikke hente data fra hvelvet ditt fordi din versjon er utdatert. Vennligst oppdater Anytype til den nyeste versjonen.";
 "Restore from keychain" = "Gjenopprett fra nøkkelring";
 "Edit" = "Rediger";
+"Hidden" = "Hidden";
 "In this object" = "I dette objektet";
-"Other relations" = "Andre relasjoner";
+"Other relations" = "Other fields";
 "Collection of objects" = "Samling av objekter";
 "Designed to capture thoughts quickly" = "Utformet for å raskt notere tanker";
 "Action-focused layout with a checkbox" = "Handlingsfokusert oppsett med avkrysningsboks";
@@ -699,6 +710,7 @@
 "Show" = "Vis";
 "Hide" = "Skjul";
 "Apply" = "Apply";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaboration";
 "Members" = "Medlemmer";
@@ -1284,16 +1296,12 @@ Please provide specific details of your needs here.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
