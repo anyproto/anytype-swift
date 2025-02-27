@@ -215,7 +215,7 @@ struct ObjectTypeSearchView: View {
             }
         }
         
-        if !data.type.readonly {
+        if data.type.isDeletable {
             Button(Loc.delete, role: .destructive) {
                 viewModel.deleteType(data.type)
             }
