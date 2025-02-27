@@ -92,7 +92,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     var conversationType: ConversationType {
         participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
     }
-    var isSpaceOwner: Bool { participantSpaceView?.isOwner ?? false }
+    var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
     // Alerts
     
@@ -611,7 +611,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private func handleInviteLinkShow() {
         guard !inviteLinkShown,
-              isSpaceOwner,
+              participantPermissions == .owner,
               let createdDate = participantSpaceView?.spaceView.createdDate,
               Date().timeIntervalSince(createdDate) < 5 else {
             return

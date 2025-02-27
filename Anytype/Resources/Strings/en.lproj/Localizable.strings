@@ -1255,7 +1255,8 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Action.Reply" = "Reply";
-"Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
 // MARK: - Date
@@ -1280,10 +1281,10 @@ Please provide specific details of your needs here.";
 "Chat.ReplyTo" = "Reply to %@";
 "Chat.Empty.Default.Title" = "No messages here yet...";
 "Chat.Empty.Default.Description" = "Write a first one to start a conversation";
-"Chat.Empty.Title" = "This chat is empty.";
-"Chat.Empty.Description" = "Invite people and start the conversation!";
-"Stream.Empty.Title" = "This stream is empty.";
-"Stream.Empty.Description" = "Invite people and start sharing your vibe.";
+"Chat.Empty.Title" = "This chat is empty";
+"Chat.Empty.Description" = "Invite people and start the conversation";
+"Stream.Empty.Title" = "This stream is empty";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe";
 "Chat.Empty.Button.title" = "Share invite link";
 "Chat.DeleteMessage.Title" = "Delete this message?";
 "Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
