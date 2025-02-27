@@ -338,5 +338,21 @@
         <string>%d jours</string>
       </dict>
     </dict>
+    <key>TemplateSelection.Available.Title</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Ce type dispose de %d modèle</string>
+        <key>other</key>
+        <string>Ce type dispose de %d modèles</string>
+      </dict>
+    </dict>
   </dict>
 </plist>

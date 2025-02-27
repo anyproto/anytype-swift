@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "ବିଲୋପ ହୋଇଥିବା ଅବଜେକ୍ଟ";
 
-// MARK: - Relation
-"Featured relations" = "ଫିଚର ସମ୍ବନ୍ଧ";
-"Create relation" = "ସମ୍ପର୍କ ସୃଷ୍ଟି କରନ୍ତୁ '%@'";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "ଖାଲି";
-"Relation.MyRelations" = "ମୋ ସମ୍ପର୍କ";
-"Relation.AddedToLibrary" = "ସମ୍ପର୍କ '%@' ସୃଷ୍ଟି ହୋଇଛି";
-"Relation.Deleted" = "ବିଲୋପ ହୋଇଥିବା ସମ୍ପର୍କ";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "%@ ପ୍ରକାରରୁ";
 "Relation.EmptyState.title" = "କୌଣସି ବିକଳ୍ପ ନାହିଁ";
 "Relation.EmptyState.description" = "କିଛି ମିଳିଲା ନାହିଁ। ଆରମ୍ଭ କରିବାକୁ ପ୍ରଥମ ବିକଳ୍ପ ସୃଷ୍ଟି କରନ୍ତୁ।";
-"Relation.EmptyState.Blocked.title" = "ସମ୍ପର୍କ ଖାଲି ଅଛି";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "“%@” ତିଆରି କରନ୍ତୁ";
 "Relation.View.Create.title" = "ତିଆରି କରନ୍ତୁ ବିକଳ୍ପ";
 "Relation.View.Edit.title" = "ବିକଳ୍ପ ସମ୍ପାଦନ କରନ୍ତୁ";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "ଇମେଲ୍";
 "Relation.Format.Phone.Title" = "ଫୋନ୍ ନମ୍ବର";
 
-"Relation.Search.View.Placeholder" = "ସନ୍ଧାନ କରନ୍ତୁ କିମ୍ୱା ଏକ ନୂତନ ସମ୍ପର୍କ ସୃଷ୍ଟି କରନ୍ତୁ";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "କେସ୍ ବ୍ୟବହାର କରନ୍ତୁ";
 "Relation.Origin.Builtin" = "ଲାଇବ୍ରେରୀ ସଂସ୍ଥାପିତ ହୋଇଛି";
 "Relation.Origin.Bookmark" = "Bookmark";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "ମିଡ଼ିଆ";
 "Alignment" = "ଶ୍ରେଣୀବଦ୍ଧତା ";
 "Actions" = "କାର୍ଯ୍ୟ";
-"Relations" = "ସମ୍ପର୍କ";
+"Fields" = "Fields";
 "History" = "History";
 "Objects" = "ଅବଜେକ୍ଟ";
 "All" = "ସମସ୍ତ";
@@ -209,6 +218,7 @@
 "Create Set" = "ସେଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ";
 "Unsupported deeplink" = "ସମର୍ଥିତ ଡିପ୍ଲିଙ୍କ";
 "Edit Profile" = "ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା କରନ୍ତୁ";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "ପସନ୍ଦ";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "ୱାଲପେପର୍‌";
 "Log out" = "ଲଗ ଆଉଟ";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "ଟେମ୍ପଲେଟ୍ ବାଛନ୍ତୁ";
 "TemplatePicker.Buttons.UseTemplate" = "ଟେମ୍ପଲେଟ ବ୍ୟବହାର କରନ୍ତୁ";
 "TemplateSelection.SelectTemplate" = "ଟେମ୍ପଲେଟ୍ ଚୟନ କରନ୍ତୁ";
-"TemplateSelection.blankTemplate" = "ଖାଲି";
 "TemplateSelection.Template.Subtitle" = "ଟେମ୍ପଲେଟ୍";
 "TemplateSelection.ObjectType.Subtitle" = "ବସ୍ତୁ ପ୍ରକାର";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "ଶୀର୍ଷରେ";
 "EditSet.Popup.Sort.EmptyTypes.End" = "ଶୀର୍ଷରେ";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "ଖାଲି ମୂଲ୍ୟ ଦେଖାନ୍ତୁ";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "ସର୍ଟ କରିବାକୁ ଏକ ସମ୍ପର୍କ ବାଛନ୍ତୁ";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "ଫିଲ୍ଟର୍";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "ସମ୍ପର୍କ:";
-"Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -559,7 +569,7 @@
 "Enter number" = "ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ";
 "Enter text" = "ଟେକ୍ସଟ୍ ପ୍ରବେଶ କରନ୍ତୁ";
 "Unsupported value" = "ସମର୍ଥିତ ମୂଲ୍ୟ ନୁହେଁ";
-"Select relation type" = "ସମ୍ପର୍କ ପ୍ରକାର ଚୟନ କରନ୍ତୁ";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "କୌଣସି ଡାଟା ମିଳିଲା ନାହିଁ";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "କିଛି ମିଳିଲା ନାହିଁ";
@@ -571,7 +581,7 @@
 "Type" = "ପ୍ରକାର";
 "Types" = "Types";
 "No name" = "କୌଣସି ନାମ ନାହିଁ";
-"New relation" = "ନୂଆ ସମ୍ପର୍କ";
+"New field" = "New field";
 "Edit field" = "କ୍ଷେତ୍ର ସମ୍ପାଦନ କରନ୍ତୁ";
 "Non-existent object" = "Non-existent object";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
+"Hidden" = "Hidden";
 "In this object" = "In this object";
-"Other relations" = "Other relations";
+"Other relations" = "Other fields";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
@@ -699,6 +710,7 @@
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "ଆବେଦନ କରନ୍ତୁ";
+"Got it" = "I got it!";
 "Leave a space" = "ଏକ ସ୍ଥାନ ଛାଡ଼ନ୍ତୁ";
 "Collaboration" = "ସହଯୋଗ";
 "Members" = "Members";
@@ -1284,16 +1296,12 @@ Please provide specific details of your needs here.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";

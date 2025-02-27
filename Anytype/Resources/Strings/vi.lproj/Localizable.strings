@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Đối tượng đã xoá";
 
-// MARK: - Relation
-"Featured relations" = "Các liên hệ nổi bật";
-"Create relation" = "Tạo liên hệ '%@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "trống";
-"Relation.MyRelations" = "Các liên hệ của tôi";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
-"Relation.Deleted" = "Liên hệ đã xoá";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "Của loại '%@'";
 "Relation.EmptyState.title" = "Không có lựa chọn";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Tạo “%@”";
 "Relation.View.Create.title" = "Tạo lựa chọn";
 "Relation.View.Edit.title" = "Sửa tùy chọn";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Số điện thoại";
 
-"Relation.Search.View.Placeholder" = "Tìm hoặc tạo một liên hệ mới";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Trường hợp sử dụng";
 "Relation.Origin.Builtin" = "Cài từ thư viện";
 "Relation.Origin.Bookmark" = "Dấu trang";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Đa phương tiện";
 "Alignment" = "Căn lề";
 "Actions" = "Các thao tác";
-"Relations" = "Các liên hệ";
+"Fields" = "Fields";
 "History" = "Lịch sử";
 "Objects" = "Các đối tượng";
 "All" = "Tất cả";
@@ -210,6 +219,7 @@
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Ưa thích";
@@ -220,6 +230,7 @@
 // Settings
 "Wallpaper" = "Hình nền";
 "Log out" = "Đăng xuất";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -380,7 +391,6 @@
 "TemplatePicker.ChooseTemplate" = "Chọn mẫu";
 "TemplatePicker.Buttons.UseTemplate" = "Dùng mẫu";
 "TemplateSelection.SelectTemplate" = "Chọn mẫu";
-"TemplateSelection.blankTemplate" = "Trống";
 "TemplateSelection.Template.Subtitle" = "Mẫu";
 "TemplateSelection.ObjectType.Subtitle" = "Loại đối tượng";
 
@@ -418,7 +428,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Lên đầu";
 "EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Bộ lọc";
@@ -478,8 +488,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Truy vấn";
-"Set.FeaturedRelations.RelationsList" = "Các liên hệ:";
-"Set.FeaturedRelations.Relation" = "Liên hệ:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Loại:";
 
 // MARK: - Set.Bookmarks
@@ -495,7 +505,7 @@
 "Set.View.Settings.GroupBy.Title" = "Nhóm theo";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Tô màu cột";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "Đã áp dụng %d";
@@ -510,7 +520,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Chưa có truy vấn được chọn";
-"Set.View.Empty.Subtitle" = "Thêm truy vấn tìm kiếm để tập hợp các đối tượng cùng loại hoặc liên hệ theo thời gian thực ";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -560,7 +570,7 @@
 "Enter number" = "Nhập số";
 "Enter text" = "Nhập văn bản";
 "Unsupported value" = "Giá trị không được hỗ trợ";
-"Select relation type" = "Chọn loại liên hệ";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Không tìm thấy dữ liệu nào";
 "AreYouSure" = "Bạn chắc chưa?";
 "Nothing found" = "Không tìm thấy gì";
@@ -572,7 +582,7 @@
 "Type" = "Loại";
 "Types" = "Loại";
 "No name" = "Không tên";
-"New relation" = "Liên hệ mới";
+"New field" = "New field";
 "Edit field" = "Edit field";
 "Non-existent object" = "Đối tượng không tồn tại";
 
@@ -607,8 +617,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Chỉnh sửa";
+"Hidden" = "Hidden";
 "In this object" = "Của đối tượng này";
-"Other relations" = "Các liên hệ khác";
+"Other relations" = "Other fields";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
@@ -700,6 +711,7 @@
 "Show" = "Hiện";
 "Hide" = "Ẩn";
 "Apply" = "Apply";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaboration";
 "Members" = "Thành viên";
@@ -1285,16 +1297,12 @@ Please provide specific details of your needs here.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";

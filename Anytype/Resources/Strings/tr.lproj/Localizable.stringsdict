@@ -338,5 +338,21 @@
         <string>%d gün</string>
       </dict>
     </dict>
+    <key>TemplateSelection.Available.Title</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Bu türde %d şablon var</string>
+        <key>other</key>
+        <string>Bu türde %d şablon var</string>
+      </dict>
+    </dict>
   </dict>
 </plist>
