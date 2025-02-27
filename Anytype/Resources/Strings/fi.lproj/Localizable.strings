@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Poistettu kohde";
 
-// MARK: - Relation
-"Featured relations" = "Poimitut suhteet";
-"Create relation" = "Luo suhde ‘%@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "tyhjä";
-"Relation.MyRelations" = "Suhteeni";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
-"Relation.Deleted" = "Poistettu suhde";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "Tyypistä %@";
 "Relation.EmptyState.title" = "Ei valintoja";
 "Relation.EmptyState.description" = "Mitään ei löytynyt. Luo ensimmäinen valinta aloittaaksesi.";
-"Relation.EmptyState.Blocked.title" = "Tämä suhde on tyhjä";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Luo “%@”";
 "Relation.View.Create.title" = "Luo valinta";
 "Relation.View.Edit.title" = "Muokkaa valintaa";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Puhelinnumero";
 
-"Relation.Search.View.Placeholder" = "Etsi tai luo uusi suhde";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Käyttökohde";
 "Relation.Origin.Builtin" = "Kirjasto asennettu";
 "Relation.Origin.Bookmark" = "Kirjanmerkki";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Media";
 "Alignment" = "Alignment";
 "Actions" = "Actions";
-"Relations" = "Relations";
+"Fields" = "Fields";
 "History" = "History";
 "Objects" = "Objektit";
 "All" = "All";
@@ -209,6 +218,7 @@
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Suosikit";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "Taustakuva";
 "Log out" = "Kirjaudu ulos";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Choose template";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
-"TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Template";
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
 "EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filters";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
-"Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Ei kyselyä valittuna";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -559,7 +569,7 @@
 "Enter number" = "Syötä numero";
 "Enter text" = "Syötä teksti";
 "Unsupported value" = "Ei tuettu arvo";
-"Select relation type" = "Valitse suhteen tyyppi";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Tietoja ei löytynyt";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "Mitään ei löytynyt";
@@ -571,7 +581,7 @@
 "Type" = "Tyyppi";
 "Types" = "Types";
 "No name" = "Ei nimeä";
-"New relation" = "Uusi suhde";
+"New field" = "New field";
 "Edit field" = "Edit field";
 "Non-existent object" = "Non-existent object";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
+"Hidden" = "Hidden";
 "In this object" = "In this object";
-"Other relations" = "Other relations";
+"Other relations" = "Other fields";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
@@ -699,6 +710,7 @@
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "Apply";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaboration";
 "Members" = "Members";
@@ -1284,16 +1296,12 @@ Please provide specific details of your needs here.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
