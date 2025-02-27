@@ -37,6 +37,7 @@ struct SpaceHubView: View {
                         if #available(iOS 17.0, *) {
                             if FeatureFlags.anyAppBetaTip {
                                 HomeAnyAppWidgetTipView()
+                                    .padding(.horizontal, 8)
                             }
                         }
                         ForEach(spaces) {
