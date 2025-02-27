@@ -177,6 +177,14 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let anyAppBetaTip = FeatureDescription(
+        title: "Show any app beta alert",
+        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

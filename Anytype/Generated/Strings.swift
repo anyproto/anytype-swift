@@ -504,6 +504,12 @@ internal enum Loc {
       }
     }
   }
+  internal enum AnyApp {
+    internal enum BetaAlert {
+      internal static let description = Loc.tr("Localizable", "AnyApp.BetaAlert.Description", fallback: "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.")
+      internal static let title = Loc.tr("Localizable", "AnyApp.BetaAlert.Title", fallback: "Welcome to the Alpha version")
+    }
+  }
   internal enum Auth {
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
     internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "I already have the key")

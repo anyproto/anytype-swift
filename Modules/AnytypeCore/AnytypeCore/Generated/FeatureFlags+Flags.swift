@@ -106,6 +106,10 @@ public extension FeatureFlags {
         value(for: .binWidgetFromLibrary)
     }
 
+    static var anyAppBetaTip: Bool {
+        value(for: .anyAppBetaTip)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -185,6 +189,7 @@ public extension FeatureFlags {
         .disableColorfulSeedPhrase,
         .openTypeAsSet,
         .binWidgetFromLibrary,
+        .anyAppBetaTip,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
