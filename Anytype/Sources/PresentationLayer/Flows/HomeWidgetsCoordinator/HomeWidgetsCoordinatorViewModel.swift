@@ -10,7 +10,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     let spaceInfo: AccountInfo
     var pageNavigation: PageNavigation?
     
-    @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeChangeData?
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettingsData: AccountInfo?
@@ -23,13 +22,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     }
     
     func onFinishCreateSource(screenData: ScreenData?) {
-        if let screenData {
-            pageNavigation?.open(screenData)
-        }
-    }
-    
-    func onFinishChangeSource(screenData: ScreenData?) {
-        showChangeSourceData = nil
         if let screenData {
             pageNavigation?.open(screenData)
         }
@@ -56,15 +48,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     func onObjectSelected(screenData: ScreenData) {
         pageNavigation?.open(screenData)
-    }
-    
-    func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
-        showChangeSourceData = WidgetChangeSourceSearchModuleModel(
-            widgetObjectId: spaceInfo.widgetsId,
-            spaceId: spaceInfo.accountSpaceId,
-            widgetId: widgetId,
-            context: context
-        )
     }
     
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {

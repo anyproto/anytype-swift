@@ -3,7 +3,6 @@ import SwiftUI
 
 enum WidgetMenuItem: String {
     case addBelow
-    case changeSource
     case changeType
     case remove
 }
@@ -30,14 +29,6 @@ struct WidgetCommonActionsMenuView: View {
         case .addBelow:
             Button(Loc.Widgets.Actions.addBelow) {
                 model.provider.onAddBelowTap(
-                    widgetBlockId: widgetBlockId,
-                    homeState: homeState,
-                    output: output
-                )
-            }
-        case .changeSource:
-            Button(Loc.Widgets.Actions.changeSource) {
-                model.provider.onChangeSourceTap(
                     widgetBlockId: widgetBlockId,
                     homeState: homeState,
                     output: output

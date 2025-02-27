@@ -5,7 +5,6 @@ import AnytypeCore
 public protocol BlockWidgetServiceProtocol: Sendable {
     func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, limit: Int, position: WidgetPosition) async throws
     func removeWidgetBlock(contextId: String, widgetBlockId: String) async throws
-    func setSourceId(contextId: String, widgetBlockId: String, sourceId: String) async throws
     func setLayout(contextId: String, widgetBlockId: String, layout: BlockWidget.Layout) async throws
     func setViewId(contextId: String, widgetBlockId: String, viewId: String) async throws
 }
@@ -35,14 +34,6 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
         try await ClientCommands.blockListDelete(.with {
             $0.contextID = contextId
             $0.blockIds = [widgetBlockId]
-        }).invoke()
-    }
-    
-    public func setSourceId(contextId: String, widgetBlockId: String, sourceId: String) async throws {
-        _ = try? await ClientCommands.blockWidgetSetTargetId(.with {
-            $0.contextID = contextId
-            $0.blockID = widgetBlockId
-            $0.targetID = sourceId
         }).invoke()
     }
     

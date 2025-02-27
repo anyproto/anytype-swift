@@ -50,7 +50,7 @@ private struct BinWidgetSubmoduleInternalView: View {
     @ViewBuilder
     private var menu: some View {
         WidgetCommonActionsMenuView(
-            items: [.addBelow, .changeSource, .remove],
+            items: [.addBelow, .remove],
             widgetBlockId: model.widgetBlockId,
             widgetObject: model.widgetObject,
             homeState: homeState,
