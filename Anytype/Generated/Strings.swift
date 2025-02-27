@@ -2075,7 +2075,6 @@ internal enum Loc {
       internal static func binConfirm(_ p1: Int) -> String {
         return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1, fallback: "Plural format key: \"%#@object@\"")
       }
-      internal static let changeSource = Loc.tr("Localizable", "Widgets.Actions.ChangeSource", fallback: "Change Source")
       internal static let changeWidgetType = Loc.tr("Localizable", "Widgets.Actions.ChangeWidgetType", fallback: "Change Widget Type")
       internal static let editWidgets = Loc.tr("Localizable", "Widgets.Actions.EditWidgets", fallback: "Edit Widgets")
       internal static let emptyBin = Loc.tr("Localizable", "Widgets.Actions.EmptyBin", fallback: "Empty Bin")

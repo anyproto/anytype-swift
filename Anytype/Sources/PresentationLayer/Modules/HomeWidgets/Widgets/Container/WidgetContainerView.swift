@@ -4,7 +4,6 @@ import AnytypeCore
 
 enum WidgetMenuItem: String {
     case addBelow
-    case changeSource
     case changeType
     case remove
 }
@@ -29,7 +28,7 @@ struct WidgetContainerView<Content: View>: View {
         name: String,
         icon: ImageAsset? = nil,
         dragId: String?,
-        menuItems: [WidgetMenuItem] = [.addBelow, .changeSource, .changeType, .remove],
+        menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,
@@ -101,10 +100,6 @@ struct WidgetContainerView<Content: View>: View {
         case .addBelow:
             Button(Loc.Widgets.Actions.addBelow) {
                 model.onAddBelowTap()
-            }
-        case .changeSource:
-            Button(Loc.Widgets.Actions.changeSource) {
-                model.onChangeSourceTap()
             }
         case .changeType:
             Button(Loc.Widgets.Actions.changeWidgetType) {

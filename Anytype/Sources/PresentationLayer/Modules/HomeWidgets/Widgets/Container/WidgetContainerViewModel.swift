@@ -66,11 +66,6 @@ final class WidgetContainerViewModel: ObservableObject {
         homeState = .editWidgets
         UISelectionFeedbackGenerator().selectionChanged()
     }
-    
-    func onChangeSourceTap() {
-        output?.onChangeSource(widgetId: widgetBlockId, context: analyticsContext())
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
 
     func onChangeTypeTap() {
         output?.onChangeWidgetType(widgetId: widgetBlockId, context: analyticsContext())
