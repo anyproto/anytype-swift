@@ -44,6 +44,10 @@ extension Participant {
         permission == .owner
     }
     
+    var isEditor: Bool {
+        permission == .writer
+    }
+    
     var canEdit: Bool {
         permission.canEdit
     }

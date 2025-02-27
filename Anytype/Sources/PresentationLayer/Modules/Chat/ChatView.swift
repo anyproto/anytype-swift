@@ -90,6 +90,7 @@ struct ChatView: View {
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
                 disableAddButton: model.sendMessageTaskInProgress,
                 createObjectTypes: model.typesForCreateObject,
+                conversationType: model.conversationType,
                 onTapAddPage: {
                     model.onTapAddPageToMessage()
                 },
@@ -150,21 +151,13 @@ struct ChatView: View {
     }
     
     private var emptyView: some View {
-        if model.isSpaceOwner {
-            ChatEmptyStateView(
-                title: model.conversationType.isChat ? Loc.Chat.Empty.title : Loc.Stream.Empty.title,
-                description: model.conversationType.isChat ? Loc.Chat.Empty.description : Loc.Stream.Empty.description,
-                action: {
-                    model.onTapInviteLink()
-                }
-            )
-        } else {
-            ChatEmptyStateView(
-                title: Loc.Chat.Empty.Default.title,
-                description: Loc.Chat.Empty.Default.description,
-                action: nil
-            )
-        }
+        ConversationEmptyStateView(
+            conversationType: model.conversationType,
+            participantPermissions: model.participantPermissions,
+            action: {
+                model.onTapInviteLink()
+            }
+        )
     }
     
     @ViewBuilder

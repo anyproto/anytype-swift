@@ -686,8 +686,8 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     internal enum Empty {
-      internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Invite people and start the conversation!")
-      internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "This chat is empty.")
+      internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Invite people and start the conversation")
+      internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "This chat is empty")
       internal enum Button {
         internal static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Share invite link")
       }
@@ -1245,7 +1245,12 @@ internal enum Loc {
       internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder", fallback: "Untitled Chat")
     }
     internal enum Input {
-      internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder", fallback: "Write a message...")
+      internal enum Chat {
+        internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.Chat.EmptyPlaceholder", fallback: "Write a message...")
+      }
+      internal enum Stream {
+        internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.Stream.EmptyPlaceholder", fallback: "Broadcast")
+      }
     }
   }
   internal enum Migration {
@@ -1925,8 +1930,8 @@ internal enum Loc {
   }
   internal enum Stream {
     internal enum Empty {
-      internal static let description = Loc.tr("Localizable", "Stream.Empty.Description", fallback: "Invite people and start sharing your vibe.")
-      internal static let title = Loc.tr("Localizable", "Stream.Empty.Title", fallback: "This stream is empty.")
+      internal static let description = Loc.tr("Localizable", "Stream.Empty.Description", fallback: "Invite people and start sharing your vibe")
+      internal static let title = Loc.tr("Localizable", "Stream.Empty.Title", fallback: "This stream is empty")
     }
   }
   internal enum StyleMenu {
