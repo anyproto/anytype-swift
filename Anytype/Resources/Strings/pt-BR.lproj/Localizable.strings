@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "Objeto excluído";
 
-// MARK: - Relation
-"Featured relations" = "Relações destacadas";
-"Create relation" = "Criar relacionamento %@’";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Menu de campos";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "vazio";
-"Relation.MyRelations" = "Meus relacionamentos";
-"Relation.AddedToLibrary" = "A relação ‘%@ foi criada";
-"Relation.Deleted" = "Relação apagada";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "Do tipo \"%@\"";
 "Relation.EmptyState.title" = "Nenhuma opção";
 "Relation.EmptyState.description" = "Nada foi encontrado. Crie a primeira opção para começar.";
-"Relation.EmptyState.Blocked.title" = "A relação está vazia";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "Criar \"%@”";
 "Relation.View.Create.title" = "Criar opção";
 "Relation.View.Edit.title" = "Editar opção";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Número de telefone";
 
-"Relation.Search.View.Placeholder" = "Pesquisar ou criar uma relação";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "Caso de uso";
 "Relation.Origin.Builtin" = "Biblioteca instalada";
 "Relation.Origin.Bookmark" = "Marcador";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "Mídias";
 "Alignment" = "Alinhamento";
 "Actions" = "Ações";
-"Relations" = "Relações";
+"Fields" = "Fields";
 "History" = "Histórico";
 "Objects" = "Objetos";
 "All" = "Todos";
@@ -209,6 +218,7 @@
 "Create Set" = "Criar Conjunto";
 "Unsupported deeplink" = "Bloco não suportado";
 "Edit Profile" = "Editar Perfil";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "Favoritos";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "Plano de fundo";
 "Log out" = "Sair";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Escolher modelo";
 "TemplatePicker.Buttons.UseTemplate" = "Utilizar modelo";
 "TemplateSelection.SelectTemplate" = "Selecionar modelo";
-"TemplateSelection.blankTemplate" = "Em branco";
 "TemplateSelection.Template.Subtitle" = "Modelo";
 "TemplateSelection.ObjectType.Subtitle" = "Tipo de objeto";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "No topo";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Na parte inferior";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Mostrar valores vazios";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Escolha uma relação para classificar";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtros";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Consulta";
-"Set.FeaturedRelations.RelationsList" = "Relações:";
-"Set.FeaturedRelations.Relation" = "Relação:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Tipo:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Agrupar por";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Colunas de cor";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Nenhuma relação";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "Sem filtros";
 "Set.View.Settings.NoSorts.Placeholder" = "Sem ordenação";
 "Set.View.Settings.Objects.Applied.Title" = "%d aplicado";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Nenhuma consulta selecionada";
-"Set.View.Empty.Subtitle" = "Adicione termos de pesquisa para agregar objetos com tipos iguais e relações no modo Live";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "A exibição não é suportada no celular";
@@ -559,7 +569,7 @@
 "Enter number" = "Inserir número";
 "Enter text" = "Inserir texto";
 "Unsupported value" = "Valor não suportado";
-"Select relation type" = "Selecionar tipo de relação";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "Dados não encontrados";
 "AreYouSure" = "Você tem certeza?";
 "Nothing found" = "Nada encontrado";
@@ -571,7 +581,7 @@
 "Type" = "Tipo";
 "Types" = "Tipos";
 "No name" = "Sem nome";
-"New relation" = "Nova relação";
+"New field" = "New field";
 "Edit field" = "Editar campo";
 "Non-existent object" = "Objeto não existente";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Não foi possível recuperar os dados do seu cofre porque sua versão está desatualizada. Por favor, atualize o Anytype para a versão mais recente.";
 "Restore from keychain" = "Restaurar do keychain";
 "Edit" = "Editar";
+"Hidden" = "Hidden";
 "In this object" = "Neste objeto";
-"Other relations" = "Outras relações";
+"Other relations" = "Other fields";
 "Collection of objects" = "Coleção de objetos";
 "Designed to capture thoughts quickly" = "Projetado para capturar pensamentos rapidamente";
 "Action-focused layout with a checkbox" = "Layout focado em ações com uma caixa de seleção";
@@ -699,6 +710,7 @@
 "Show" = "Exibir";
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
+"Got it" = "I got it!";
 "Leave a space" = "Sair do espaço";
 "Collaboration" = "Collaboration";
 "Members" = "Membros";
@@ -1285,16 +1297,12 @@ forneça detalhes específicos das suas necessidades aqui.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Melhorando sua experiência de pesquisa";
 "ReindexingWarningAlert.Description" = "Implementamos uma nova biblioteca de pesquisa para resultados mais rápidos e precisos.\nA reindexação pode levar alguns minutos.";
-"ReindexingWarningAlert.Button" = "Deixa comigo!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Sua lixeira está vazia.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Menu de campos";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Nova Página";
