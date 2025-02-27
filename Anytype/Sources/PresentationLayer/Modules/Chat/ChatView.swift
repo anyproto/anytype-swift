@@ -39,7 +39,7 @@ struct ChatView: View {
             await model.startSubscriptions()
         }
         .throwingTask {
-            try await model.subscribeOnMessages()
+            try await model.startMessageSubscription()
         }
         .task(id: model.photosItemsTask) {
             await model.updatePickerItems()
