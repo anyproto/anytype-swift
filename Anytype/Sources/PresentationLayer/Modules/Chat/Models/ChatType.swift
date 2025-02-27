@@ -2,7 +2,7 @@ import Services
 
 enum ConversationType {
     case chat
-    case channel
+    case stream
     
     var isChat: Bool {
         self == .chat
@@ -15,7 +15,7 @@ extension SpaceUxType {
         case .chat:
             return .chat
         case .stream:
-            return .channel
+            return .stream
         case .data, .UNRECOGNIZED(_):
             return nil
         }
