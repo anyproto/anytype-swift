@@ -2164,6 +2164,9 @@ internal enum Loc {
         internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name", fallback: "Recently opened")
       }
     }
+    internal enum List {
+      internal static let empty = Loc.tr("Localizable", "Widgets.List.Empty", fallback: "There is no widgets yet")
+    }
     internal enum Source {
       internal static let library = Loc.tr("Localizable", "Widgets.Source.Library", fallback: "Default sets")
       internal static let objects = Loc.tr("Localizable", "Widgets.Source.Objects", fallback: "Your objects")

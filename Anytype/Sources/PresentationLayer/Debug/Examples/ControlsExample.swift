@@ -49,6 +49,9 @@ struct ControlsExample: View {
                         
                         makeTwoByLineButtonVariants(title: "Destructive XSmall - Light", style: .warningXSmall).colorScheme(.light)
                         makeTwoByLineButtonVariants(title: "Destructive XSmall - Dark", style: .warningXSmall).colorScheme(.dark)
+                        
+                        makeTwoByLineButtonVariants(title: "Transparent XSmall - Light", style: .transparentXSmall).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Transparent XSmall - Dark", style: .transparentXSmall).colorScheme(.dark)
                     }
                     
                     Group {
