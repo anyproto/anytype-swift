@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "삭제된 개체";
 
-// MARK: - Relation
-"Featured relations" = "주요 관계";
-"Create relation" = "‘%@’ 관계 생성";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "비어 있음";
-"Relation.MyRelations" = "내 관계";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
-"Relation.Deleted" = "삭제된 관계";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "%@ 유형으로 부터";
 "Relation.EmptyState.title" = "옵션 없음";
 "Relation.EmptyState.description" = "찾을 수 없습니다. 첫 번째 옵션을 생성하여 시작합니다.";
-"Relation.EmptyState.Blocked.title" = "관계가 비어 있습니다";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "\"%@\" 만들기";
 "Relation.View.Create.title" = "옵션 생성";
 "Relation.View.Edit.title" = "옵션 편집";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "이메일";
 "Relation.Format.Phone.Title" = "전화번호";
 
-"Relation.Search.View.Placeholder" = "새 관계 검색 또는 생성";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "활용 예시";
 "Relation.Origin.Builtin" = "라이브러리 설치됨";
 "Relation.Origin.Bookmark" = "북마크";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "미디어";
 "Alignment" = "정렬";
 "Actions" = "액션";
-"Relations" = "관계";
+"Fields" = "Fields";
 "History" = "히스토리";
 "Objects" = "오브젝트";
 "All" = "All";
@@ -209,6 +218,7 @@
 "Create Set" = "세트 생성";
 "Unsupported deeplink" = "지원하지 않는 딥링크";
 "Edit Profile" = "프로필 수정";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "즐겨찾기";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "배경화면";
 "Log out" = "로그아웃";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -379,7 +390,6 @@
 "TemplatePicker.ChooseTemplate" = "Choose template";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
-"TemplateSelection.blankTemplate" = "Blank";
 "TemplateSelection.Template.Subtitle" = "Template";
 "TemplateSelection.ObjectType.Subtitle" = "Object type";
 
@@ -417,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "상단";
 "EditSet.Popup.Sort.EmptyTypes.End" = "하단";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "빈 값 표시";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "정렬할 관계 선택";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "필터";
@@ -477,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
-"Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -494,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
@@ -509,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -559,7 +569,7 @@
 "Enter number" = "번호 입력";
 "Enter text" = "텍스트 입력";
 "Unsupported value" = "지원되지 않는 값";
-"Select relation type" = "관계 유형 선택";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "데이터를 찾을 수 없습니다";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "아무것도 찾을 수 없음";
@@ -571,7 +581,7 @@
 "Type" = "유형";
 "Types" = "유형";
 "No name" = "이름 없음";
-"New relation" = "새 관계";
+"New field" = "New field";
 "Edit field" = "Edit field";
 "Non-existent object" = "Non-existent object";
 
@@ -606,8 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
+"Hidden" = "Hidden";
 "In this object" = "In this object";
-"Other relations" = "Other relations";
+"Other relations" = "Other fields";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
@@ -699,6 +710,7 @@
 "Show" = "표시하기";
 "Hide" = "숨기기";
 "Apply" = "Apply";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaboration";
 "Members" = "Members";
@@ -1284,16 +1296,12 @@ Please provide specific details of your needs here.";
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "I got it!";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "휴지통이 비어있음.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
