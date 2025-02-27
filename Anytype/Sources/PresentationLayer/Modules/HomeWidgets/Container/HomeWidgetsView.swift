@@ -68,9 +68,6 @@ private struct HomeWidgetsInternalView: View {
                         )
                     }
                     if #available(iOS 17.0, *) {
-                        if FeatureFlags.anyAppBetaTip {
-                            HomeAnyAppWidgetTipView()
-                        }
                         WidgetSwipeTipView()
                     }
                     ForEach(model.widgetBlocks) { widgetInfo in

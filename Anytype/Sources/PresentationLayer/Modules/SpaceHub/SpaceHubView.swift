@@ -34,6 +34,11 @@ struct SpaceHubView: View {
                 VStack(spacing: 8) {
                     ScrollView {
                         Spacer.fixedHeight(4)
+                        if #available(iOS 17.0, *) {
+                            if FeatureFlags.anyAppBetaTip {
+                                HomeAnyAppWidgetTipView()
+                            }
+                        }
                         ForEach(spaces) {
                             spaceCard($0)
                         }
