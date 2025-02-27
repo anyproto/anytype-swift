@@ -18,6 +18,7 @@ enum StandardButtonStyle {
     case primaryXSmall
     case secondaryXSmall
     case warningXSmall
+    case transparentXSmall
     
     case primaryXSmallStretched
     
