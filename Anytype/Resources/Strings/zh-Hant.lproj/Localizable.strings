@@ -64,17 +64,25 @@
 // MARK: - Object
 "Object.Deleted.Placeholder" = "已刪除物件";
 
-// MARK: - Relation
-"Featured relations" = "精選關聯";
-"Create relation" = "建立關聯 \"%@\"";
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Field ‘%@’ has been created";
+"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.menu" = "Fields menu";
+"Fields.local" = "Local fields";
+"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured fields";
+"Create relation" = "Create field ‘%@’";
 "Relation.View.Hint.Empty" = "空的";
-"Relation.MyRelations" = "我的關聯";
-"Relation.AddedToLibrary" = "Relation ‘%@’ has been created";
-"Relation.Deleted" = "已刪除的關聯";
+"Relation.MyRelations" = "My fields";
+"Relation.Deleted" = "Deleted field";
 "Relation.From.Type" = "來自類型 %@";
 "Relation.EmptyState.title" = "無選項";
 "Relation.EmptyState.description" = "什麼也沒有。建立第一個選項以開始。";
-"Relation.EmptyState.Blocked.title" = "關聯是空的";
+"Relation.EmptyState.Blocked.title" = "The field is empty";
 "Relation.Create.Row.title" = "建立 \"%@\"";
 "Relation.View.Create.title" = "建立選項";
 "Relation.View.Edit.title" = "編輯選項";
@@ -98,7 +106,7 @@
 "Relation.Format.Email.Title" = "email";
 "Relation.Format.Phone.Title" = "電話號碼";
 
-"Relation.Search.View.Placeholder" = "搜尋或建立新關聯";
+"Relation.Search.View.Placeholder" = "Search or create a new field";
 
 // Origin Relation
 
@@ -110,6 +118,7 @@
 "Relation.Origin.UseCase" = "使用案例";
 "Relation.Origin.Builtin" = "資料庫已安裝";
 "Relation.Origin.Bookmark" = "書籤";
+"Relation.Origin.API" = "API";
 
 // MARK: - Import Type Relation
 
@@ -137,7 +146,7 @@
 "Media" = "媒體";
 "Alignment" = "對齊";
 "Actions" = "操作";
-"Relations" = "關聯";
+"Fields" = "Fields";
 "History" = "歷史記錄";
 "Objects" = "物件";
 "All" = "全部";
@@ -209,6 +218,7 @@
 "Create Set" = "Create Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
+"Object Types" = "Object Types";
 
 // Home
 "Favorites" = "我的最愛";
@@ -219,6 +229,7 @@
 // Settings
 "Wallpaper" = "桌布";
 "Log out" = "登出";
+"Content Model" = "Content Model";
 "Misc" = "Misc";
 
 // Action
@@ -380,7 +391,6 @@
 "TemplatePicker.ChooseTemplate" = "選擇範本";
 "TemplatePicker.Buttons.UseTemplate" = "使用範本";
 "TemplateSelection.SelectTemplate" = "選取範本";
-"TemplateSelection.blankTemplate" = "空白";
 "TemplateSelection.Template.Subtitle" = "範本";
 "TemplateSelection.ObjectType.Subtitle" = "物件類型";
 
@@ -418,7 +428,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "在頂部";
 "EditSet.Popup.Sort.EmptyTypes.End" = "在底部";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "顯示空值";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "選擇一個關聯以進行排序";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "篩選";
@@ -478,8 +488,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "查詢";
-"Set.FeaturedRelations.RelationsList" = "關聯：";
-"Set.FeaturedRelations.Relation" = "關聯：";
+"Set.FeaturedRelations.RelationsList" = "Fields:";
+"Set.FeaturedRelations.Relation" = "Field:";
 "Set.FeaturedRelations.Type" = "類型：";
 
 // MARK: - Set.Bookmarks
@@ -495,7 +505,7 @@
 "Set.View.Settings.GroupBy.Title" = "群組";
 "Set.View.Settings.GroupBackgroundColors.Title" = "顏色欄";
 
-"Set.View.Settings.NoRelations.Placeholder" = "沒有關聯";
+"Set.View.Settings.NoRelations.Placeholder" = "No fields";
 "Set.View.Settings.NoFilters.Placeholder" = "沒有篩選";
 "Set.View.Settings.NoSorts.Placeholder" = "沒有排序";
 "Set.View.Settings.Objects.Applied.Title" = "%d 已套用";
@@ -510,7 +520,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "未指定查詢";
-"Set.View.Empty.Subtitle" = "添加搜索查詢實時顯示具有相同類型和關聯的物件";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "移動裝置上不支援檢視";
@@ -560,7 +570,7 @@
 "Enter number" = "輸入數字";
 "Enter text" = "輸入文本";
 "Unsupported value" = "不支援的值";
-"Select relation type" = "選擇關聯類型";
+"Select relation type" = "Select field type";
 "CommonOpenErrorView.Message" = "尚無資料";
 "AreYouSure" = "您確定嗎?";
 "Nothing found" = "未找到任何內容";
@@ -572,7 +582,7 @@
 "Type" = "類型";
 "Types" = "類型";
 "No name" = "無名稱";
-"New relation" = "新增關聯";
+"New field" = "New field";
 "Edit field" = "Edit field";
 "Non-existent object" = "不存在的物件";
 
@@ -607,8 +617,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "我們無法取得您的帳戶數據，因為您的版本已過時。請將 Anytype 更新到最新版本。";
 "Restore from keychain" = "從鑰匙圈復原";
 "Edit" = "編輯";
+"Hidden" = "Hidden";
 "In this object" = "在此物件內";
-"Other relations" = "其他關聯";
+"Other relations" = "Other fields";
 "Collection of objects" = "物件集錦";
 "Designed to capture thoughts quickly" = "專為快速捕捉想法而設計";
 "Action-focused layout with a checkbox" = "具有核取方塊的操作重點版型";
@@ -700,6 +711,7 @@
 "Show" = "顯示";
 "Hide" = "隱藏";
 "Apply" = "Apply";
+"Got it" = "I got it!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaboration";
 "Members" = "成員";
@@ -1288,16 +1300,12 @@
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
 "ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
-"ReindexingWarningAlert.Button" = "我知道了！";
 
 // MARK: - Empty view
 "EmptyView.Default.title" = "It’s empty here.";
 "EmptyView.Default.subtitle" = "Create your first objects to get started.";
 "EmptyView.Bin.title" = "Your bin is empty.";
 "EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
-
-// MARK: - Fields
-"Fields.menu" = "Fields menu";
 
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
