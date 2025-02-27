@@ -10,12 +10,6 @@ protocol WidgetActionsViewCommonMenuProviderProtocol: AnyObject {
         homeState: HomeWidgetsState
     )
     
-    func onChangeSourceTap(
-        widgetBlockId: String,
-        homeState: HomeWidgetsState,
-        output: (any CommonWidgetModuleOutput)?
-    )
-    
     func onChangeTypeTap(
         widgetBlockId: String,
         homeState: HomeWidgetsState,
@@ -55,15 +49,6 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
                 widgetBlockId: widgetBlockId
             )
         }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
-    func onChangeSourceTap(
-        widgetBlockId: String,
-        homeState: HomeWidgetsState,
-        output: (any CommonWidgetModuleOutput)?
-    ) {
-        output?.onChangeSource(widgetId: widgetBlockId, context: homeState.analyticsWidgetContext)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     

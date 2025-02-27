@@ -22,7 +22,7 @@ struct WidgetContainerView<Content: View>: View {
         name: String,
         icon: ImageAsset? = nil,
         dragId: String?,
-        menuItems: [WidgetMenuItem] = [.addBelow, .changeSource, .changeType, .remove],
+        menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,
