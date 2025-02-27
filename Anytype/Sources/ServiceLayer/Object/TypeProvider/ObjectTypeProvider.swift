@@ -112,6 +112,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
             uniqueKey: .empty,
             defaultTemplateId: "",
             canCreateObjectOfThisType: false,
+            isDeletable: false,
             recommendedRelations: [],
             recommendedFeaturedRelations: [],
             recommendedHiddenRelations: [],

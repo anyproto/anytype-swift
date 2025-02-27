@@ -21,6 +21,7 @@ extension ObjectType {
         uniqueKey: .empty,
         defaultTemplateId: "",
         canCreateObjectOfThisType: true,
+        isDeletable: false,
         recommendedRelations: [],
         recommendedFeaturedRelations: [],
         recommendedHiddenRelations: [],
