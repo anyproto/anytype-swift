@@ -60,17 +60,17 @@ struct NewRelationRestrictionsSectionView_Previews: PreviewProvider {
             model: [
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    icon: .customIcon(.man, .gray),
+                    icon: .customIcon(CustomIconData(icon: .man, customColor: .gray)),
                     title: "custom icon title 1"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    icon: .customIcon(.transgender, .pink),
+                    icon: .customIcon(CustomIconData(icon: .transgender, customColor: .pink)),
                     title: "custom icon title 2"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    icon: .customIcon(.telescope, .amber),
+                    icon: .customIcon(CustomIconData(icon: .telescope, customColor: .amber)),
                     title: "custom icon title 3"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(

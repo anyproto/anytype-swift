@@ -34,7 +34,7 @@ extension MessageAttachmentDetails {
             description: "Placeholder",
             sizeInBytes: nil,
             layoutValue: .basic,
-            objectIconImage: .object(.empty(.page)),
+            objectIconImage: .object(.defaultObjectIcon),
             source: nil,
             loadingState: true
         )
