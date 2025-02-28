@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Gelöschtes Objekt";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Fields menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
-"Fields.addToType" = "Add to the current type";
-"Fields.removeFromObject" = "Remove from the object";
+"Fields.Created" = "Feld ‚%@‘ wurde erstellt";
+"Fields.Updated" = "Feld ‚%@‘ wurde aktualisiert";
+"Fields.menu" = "Felder-Menü";
+"Fields.local" = "Lokale Felder";
+"Fields.missingInfo" = "Manche Felder sind in diesem Objekttyp nicht enthalten. Bitte füge sie hinzu, wenn du sie in allen Objekten dieses Typs sehen willst, oder entferne sie.";
+"Fields.addToType" = "Zum aktuellen Typ hinzufügen";
+"Fields.removeFromObject" = "Aus dem Objekt entfernen";
 
 
 "Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Create relation" = "Feld ‚%@‘ erstellen";
 "Relation.View.Hint.Empty" = "leer";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "Meine Felder";
+"Relation.Deleted" = "Gelöschtes Feld";
 "Relation.From.Type" = "Vom Typ \"%@\"";
 "Relation.EmptyState.title" = "Keine Optionen";
 "Relation.EmptyState.description" = "Nichts gefunden. Erstelle zuerst eine Option zum Starten.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "Das Feld ist leer";
 "Relation.Create.Row.title" = "„%@“ erstellen";
 "Relation.View.Create.title" = "Option erstellen";
 "Relation.View.Edit.title" = "Option bearbeiten";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-Mail";
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Suchen oder ein neues Feld erstellen";
 
 // Origin Relation
 
@@ -218,7 +218,7 @@
 "Create Set" = "Set erstellen";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Profil bearbeiten";
-"Object Types" = "Object Types";
+"Object Types" = "Objekttypen";
 
 // Home
 "Favorites" = "Favoriten";
@@ -229,7 +229,7 @@
 // Settings
 "Wallpaper" = "Hintergrundbild";
 "Log out" = "Abmelden";
-"Content Model" = "Content Model";
+"Content Model" = "Inhaltsmodell";
 "Misc" = "Misc";
 
 // Action
@@ -270,7 +270,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Description" = "Er gibt dir vollen Besitz über deine Daten und Unterhaltungen. Du findest diesen Schlüssel später in den App-Einstellungen.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Zum Aufdecken antippen";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Weiter";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Nicht jetzt";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Ganz oben";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Ganz unten";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Leere Werte anzeigen";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Wähle ein Feld zum Sortieren aus";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filter";
@@ -487,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Abfrage";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.RelationsList" = "Felder:";
+"Set.FeaturedRelations.Relation" = "Feld:";
 "Set.FeaturedRelations.Type" = "Typ:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Gruppieren nach";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Farbspalten";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "Keine Felder";
 "Set.View.Settings.NoFilters.Placeholder" = "Keine Filter";
 "Set.View.Settings.NoSorts.Placeholder" = "Keine Sortierung";
 "Set.View.Settings.Objects.Applied.Title" = "%d angewendet";
@@ -569,7 +569,7 @@
 "Enter number" = "Zahl eingeben";
 "Enter text" = "Text eingeben";
 "Unsupported value" = "Nicht unterstützter Wert";
-"Select relation type" = "Select field type";
+"Select relation type" = "Feldtyp auswählen";
 "CommonOpenErrorView.Message" = "Keine Daten gefunden";
 "AreYouSure" = "Sind Sie sicher?";
 "Nothing found" = "Nichts gefunden";
@@ -581,7 +581,7 @@
 "Type" = "Typ";
 "Types" = "Typen";
 "No name" = "Kein Name";
-"New field" = "New field";
+"New field" = "Neues Feld";
 "Edit field" = "Feld bearbeiten";
 "Non-existent object" = "Nicht existentes Objekt";
 
@@ -616,9 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Wir konnten Ihre Tresordaten nicht abrufen, da Ihre Version veraltet ist. Bitte aktualisieren Sie Anytype auf die neueste Version.";
 "Restore from keychain" = "Von Schlüsselbund wiederherstellen";
 "Edit" = "Bearbeiten";
-"Hidden" = "Hidden";
+"Hidden" = "Ausgeblendet";
 "In this object" = "In diesem Objekt";
-"Other relations" = "Other fields";
+"Other relations" = "Andere Felder";
 "Collection of objects" = "Sammlung von Objekten";
 "Designed to capture thoughts quickly" = "Entwickelt um schnell Gedanken zu erfassen";
 "Action-focused layout with a checkbox" = "Aktionsfokussiertes Layout mit Checkbox";
@@ -710,7 +710,7 @@
 "Show" = "Zeigen";
 "Hide" = "Verstecken";
 "Apply" = "Anwenden";
-"Got it" = "I got it!";
+"Got it" = "Verstanden!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Zusammenarbeit";
 "Members" = "Mitglieder";
@@ -1310,8 +1310,12 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "ObjectSearchWithMeta.Create.Set" = "Neues Set";
 "ObjectSearchWithMeta.Create.Collection" = "Neue Sammlung";
 
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Willkommen zur Alpha-Version";
+"AnyApp.BetaAlert.Description" = "Du bist der Zeit voraus! Einige Funktionen befinden sich noch in der Entwicklung oder sind noch nicht produktionsreif – bleib dran für Aktualisierungen.";
+
 // MARK: - Migration
 "Migration.title" = "Migration läuft...";
-"Migration.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";
+"Migration.subtitle" = "Dies kann einige Zeit dauern. Bitte schließe die App nicht, bis der Vorgang abgeschlossen ist.";
 "Migration.Error.NotEnoughtSpace.title" = "Nicht genügend Platz";
 "Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";
