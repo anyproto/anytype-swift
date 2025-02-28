@@ -106,7 +106,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
     }
     
     private func uploadFile(spaceId: String, data: FileData) async throws -> ChatMessageAttachment {
-        let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+        let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none, createTypeWidgetIfMissing: FeatureFlags.objectTypeWidgets)
         var attachment = ChatMessageAttachment()
         attachment.target = fileDetails.id
         return attachment
