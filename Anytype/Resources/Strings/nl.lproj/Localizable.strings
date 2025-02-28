@@ -1311,6 +1311,10 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "ObjectSearchWithMeta.Create.Set" = "Nieuwe set";
 "ObjectSearchWithMeta.Create.Collection" = "Nieuwe collectie";
 
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
+"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+
 // MARK: - Migration
 "Migration.title" = "Bezig met migreren...";
 "Migration.subtitle" = "Dit kan enige tijd duren. Sluit de app alsjeblieft niet voordat het proces is voltooid.";
