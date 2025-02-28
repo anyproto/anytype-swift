@@ -1818,6 +1818,9 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.Approve.Toast", String(describing: p1), fallback: "You approved %@'s request.")
       }
     }
+    internal enum CopyInviteLink {
+      internal static let title = Loc.tr("Localizable", "SpaceShare.CopyInviteLink.Title", fallback: "Copy invite link")
+    }
     internal enum DeleteSharingLink {
       internal static let message = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Message", fallback: "New members won’t be able to join the space. You can generate a new link anytime")
       internal static let title = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Title", fallback: "Delete link")
@@ -1837,6 +1840,9 @@ internal enum Loc {
       }
       internal static let share = Loc.tr("Localizable", "SpaceShare.Invite.Share", fallback: "Share invite link")
       internal static let title = Loc.tr("Localizable", "SpaceShare.Invite.Title", fallback: "Invite link")
+      internal enum Stream {
+        internal static let description = Loc.tr("Localizable", "SpaceShare.Invite.Stream.Description", fallback: "Share this link so that others can join your Stream.")
+      }
     }
     internal enum Join {
       internal static let button = Loc.tr("Localizable", "SpaceShare.Join.Button", fallback: "Request to join")
@@ -1872,6 +1878,9 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space.")
       }
       internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove member")
+    }
+    internal enum Share {
+      internal static let link = Loc.tr("Localizable", "SpaceShare.Share.link", fallback: "Share link")
     }
     internal enum StopSharing {
       internal static let action = Loc.tr("Localizable", "SpaceShare.StopSharing.Action", fallback: "Stop sharing")

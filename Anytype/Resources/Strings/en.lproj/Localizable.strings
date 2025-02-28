@@ -974,7 +974,9 @@
 "SpaceShare.Permissions.Grand.View" = "View";
 "SpaceShare.Invite.Title" = "Invite link";
 "SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
 "SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Share.link" = "Share link";
 "SpaceShare.Invite.Generate" = "Generate invite link";
 "SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
 "SpaceShare.JoinRequest" = "Join request";
@@ -982,6 +984,7 @@
 "SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Approve";
 "SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
