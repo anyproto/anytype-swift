@@ -71,7 +71,7 @@ extension ObjectType: DetailsModel {
         self.init(
             id: details.id,
             name: details.name,
-            icon: details.objectIcon ?? .empty(.objectType),
+            icon: details.objectIcon ?? .emptyTypeIcon,
             description: details.description,
             hidden: details.isHidden,
             readonly: details.isReadonly,

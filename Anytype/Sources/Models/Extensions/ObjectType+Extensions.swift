@@ -10,7 +10,7 @@ extension ObjectType {
     public static let emptyType: ObjectType = ObjectType(
         id: "",
         name: "",
-        icon: .empty(.objectType),
+        icon: .defaultObjectIcon,
         description: "",
         hidden: false,
         readonly: false,

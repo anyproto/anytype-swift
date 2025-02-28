@@ -22,7 +22,7 @@ struct ObjectIconExample: View {
                         demoBlock { IconView(icon: .object(.basic(iconId))) }
                         AnytypeText("Object Icon Empty (page)", style: .subheading)
                             .foregroundColor(.Text.primary)
-                        demoBlock { IconView(icon: .object(.empty(.page))) }
+                        demoBlock { IconView(icon: .object(.defaultObjectIcon)) }
                         AnytypeText("Profile Icon", style: .subheading)
                             .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.profile(.imageId(iconId)))) }

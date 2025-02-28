@@ -89,7 +89,8 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     private func objectTypeIcon(customIcon: CustomIcon?, customIconColor: CustomIconColor?, iconImage: String, iconEmoji: Emoji?) -> ObjectIcon? {
         if FeatureFlags.newTypeIcons, let customIcon {
-            return .customIcon(customIcon, customIconColor ?? CustomIconColor.default)
+            let data = CustomIconData(icon: customIcon, customColor: customIconColor ?? CustomIconColor.default)
+            return .customIcon(data)
         }
         
         return basicIcon(iconImage: iconImage, iconEmoji: iconEmoji)

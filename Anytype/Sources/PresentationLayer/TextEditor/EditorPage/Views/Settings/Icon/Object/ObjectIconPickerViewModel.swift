@@ -12,7 +12,7 @@ enum ObjectIconPickerAction {
     enum IconSource {
         case emoji(emojiUnicode: String)
         case upload(itemProvider: NSItemProvider)
-        case customIcon(icon: CustomIcon, color: CustomIconColor)
+        case customIcon(data: CustomIconData)
     }
     
     case setIcon(IconSource)
@@ -57,7 +57,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     }
     
     func setIcon(_ icon: CustomIcon, color: CustomIconColor) {
-        handleIconAction(document: document, action: .setIcon(.customIcon(icon: icon, color: color)))
+        handleIconAction(document: document, action: .setIcon(.customIcon(data: CustomIconData(icon: icon, customColor: color))))
     }
     
     func removeIcon() {

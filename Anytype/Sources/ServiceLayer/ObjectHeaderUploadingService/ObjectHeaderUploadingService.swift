@@ -100,11 +100,11 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
                     objectId: objectId,
                     bundledDetails: iconBundledDetails(objectId: fileDetails.id)
                 )
-            case let .customIcon(icon, color):
+            case let .customIcon(data):
                 AnytypeAnalytics.instance().logSetIcon()
                 try await detailsService.updateBundledDetails(
                     objectId: objectId,
-                    bundledDetails: iconBundledDetails(iconName: icon.rawValue, iconOption: color.iconOption)
+                    bundledDetails: iconBundledDetails(iconName: data.icon.rawValue, iconOption: data.color.iconOption)
                 )
             }
         case .removeIcon:
@@ -116,7 +116,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
         }
     }
     
-    private func iconBundledDetails(objectId: String = "", iconName: String = "", iconEmoji: String = "", iconOption: Int = 1) -> [BundledDetails] {
-        return [.iconObjectId(objectId), .iconName(iconName), .iconEmoji(iconEmoji), .iconOption(iconOption)]
+    private func iconBundledDetails(objectId: String = "", iconName: String = "", iconEmoji: String = "", iconOption: Int? = nil) -> [BundledDetails] {
+        return [.iconObjectId(objectId), .iconName(iconName), .iconEmoji(iconEmoji), .iconOption(iconOption ?? 1)]
     }
 }
