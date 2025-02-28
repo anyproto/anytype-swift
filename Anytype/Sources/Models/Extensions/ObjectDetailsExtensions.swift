@@ -95,6 +95,10 @@ extension BundledRelationsValueProvider {
     var isSupportedForOpening: Bool { layoutValue.isSupportedForOpening }
     
     var isVisibleLayout: Bool { layoutValue.isVisible }
+    
+    var displayName: String {
+         return globalName.isNotEmpty ? globalName : identity
+     }
 }
 
 extension ObjectDetails {
