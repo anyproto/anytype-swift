@@ -90,6 +90,10 @@ public extension FeatureFlags {
         value(for: .anyAppBetaTip)
     }
 
+    static var disableRestoreLastScreen: Bool {
+        value(for: .disableRestoreLastScreen)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -165,6 +169,7 @@ public extension FeatureFlags {
         .disableColorfulSeedPhrase,
         .openTypeAsSet,
         .anyAppBetaTip,
+        .disableRestoreLastScreen,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

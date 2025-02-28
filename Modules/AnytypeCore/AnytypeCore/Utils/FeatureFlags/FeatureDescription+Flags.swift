@@ -147,6 +147,14 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let disableRestoreLastScreen = FeatureDescription(
+        title: "Disable restore last opened screen",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
