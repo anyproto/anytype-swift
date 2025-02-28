@@ -110,6 +110,10 @@ public extension FeatureFlags {
         value(for: .anyAppBetaTip)
     }
 
+    static var disableRestoreLastScreen: Bool {
+        value(for: .disableRestoreLastScreen)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -190,6 +194,7 @@ public extension FeatureFlags {
         .openTypeAsSet,
         .binWidgetFromLibrary,
         .anyAppBetaTip,
+        .disableRestoreLastScreen,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

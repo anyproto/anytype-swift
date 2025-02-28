@@ -1310,6 +1310,10 @@ Please provide specific details of your needs here.";
 "ObjectSearchWithMeta.Create.Set" = "Set Baru";
 "ObjectSearchWithMeta.Create.Collection" = "Koleksi Baru";
 
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
+"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+
 // MARK: - Migration
 "Migration.title" = "Migrasi sedang berlangsung …";
 "Migration.subtitle" = "Ini mungkin perlu beberapa waktu. Mohon tidak menutup aplikasi hingga proses selesai.";

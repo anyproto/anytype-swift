@@ -49,7 +49,7 @@ struct ObjectRelationOptionView: View {
     ObjectRelationOptionView(
         option: ObjectRelationOption(
             id: "",
-            icon: .object(.empty(.page)),
+            icon: .object(.defaultObjectIcon),
             title: "File",
             type: "File",
             isArchived: false,

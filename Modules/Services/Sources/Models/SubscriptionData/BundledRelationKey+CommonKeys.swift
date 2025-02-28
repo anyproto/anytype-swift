@@ -18,6 +18,7 @@ public extension BundledRelationKey {
             BundledRelationKey.resolvedLayout
             BundledRelationKey.iconImage
             BundledRelationKey.iconEmoji
+            BundledRelationKey.iconName
             BundledRelationKey.titleKeys
             BundledRelationKey.iconOption
         }.uniqued()
@@ -40,6 +41,7 @@ public extension BundledRelationKey {
             BundledRelationKey.titleKeys
             BundledRelationKey.iconImage
             BundledRelationKey.iconEmoji
+            BundledRelationKey.iconName
             BundledRelationKey.iconOption
             BundledRelationKey.coverId
             BundledRelationKey.coverType

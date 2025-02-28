@@ -39,7 +39,7 @@ final class ProfileViewModel: ObservableObject {
             subId: subId,
             spaceId: info.spaceId,
             objectId: info.objectId,
-            additionalKeys: [.identity, .identityProfileLink]
+            additionalKeys: [.identity, .identityProfileLink, .globalName]
         ) { [weak self] details in
             await self?.handleProfileDetails(details)
         }

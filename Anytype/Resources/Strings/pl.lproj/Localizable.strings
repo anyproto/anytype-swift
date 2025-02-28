@@ -1309,6 +1309,10 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "ObjectSearchWithMeta.Create.Set" = "New Set";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
 
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
+"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+
 // MARK: - Migration
 "Migration.title" = "Migration is in progress...";
 "Migration.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";

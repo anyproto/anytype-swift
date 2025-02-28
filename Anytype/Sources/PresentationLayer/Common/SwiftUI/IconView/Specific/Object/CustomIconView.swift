@@ -2,6 +2,17 @@ import Foundation
 import SwiftUI
 import Services
 
+extension CustomIconDataColor {
+    var color: Color {
+        switch self {
+        case .selected(let color):
+            color.color
+        case .placeholder:
+            .Shape.transperentPrimary
+        }
+    }
+}
+
 struct CustomIconView: View {
     
     private struct Config {
@@ -27,6 +38,11 @@ struct CustomIconView: View {
     let icon: CustomIcon
     let color: Color
     
+    init(icon: CustomIcon, iconColor: CustomIconDataColor) {
+        self.icon = icon
+        self.color = iconColor.color
+    }
+    
     var body: some View {
         GeometryReader { reader in
             Image(asset: icon.imageAsset)
@@ -42,12 +58,5 @@ struct CustomIconView: View {
         let side = min(size.width, size.height)
         let config = Self.configs.first(where: { $0.side <= side }) ?? Self.configs.last ?? .zero
         return config.padding
-    }
-}
-
-extension CustomIconView {
-    init(icon: CustomIcon, iconColor: CustomIconColor) {
-        self.icon = icon
-        self.color = iconColor.color
     }
 }

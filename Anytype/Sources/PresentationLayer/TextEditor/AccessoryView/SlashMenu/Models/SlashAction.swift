@@ -54,7 +54,7 @@ enum SlashAction {
             case .date:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: .object(.empty(.date)),
+                        iconData: .asset(.EmptyIcon.date),
                         title: Loc.selectDate
                     )
                 )

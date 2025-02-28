@@ -17,6 +17,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     public let uniqueKey: ObjectTypeUniqueKey
     public let defaultTemplateId: String
     public let canCreateObjectOfThisType: Bool
+    public let isDeletable: Bool
     
     public let recommendedRelations: [ObjectId]
     public let recommendedFeaturedRelations: [ObjectId]
@@ -37,6 +38,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         uniqueKey: ObjectTypeUniqueKey,
         defaultTemplateId: String,
         canCreateObjectOfThisType: Bool,
+        isDeletable: Bool,
         recommendedRelations: [ObjectId],
         recommendedFeaturedRelations: [ObjectId],
         recommendedHiddenRelations: [ObjectId],
@@ -55,6 +57,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         self.uniqueKey = uniqueKey
         self.defaultTemplateId = defaultTemplateId
         self.canCreateObjectOfThisType = canCreateObjectOfThisType
+        self.isDeletable = isDeletable
         self.recommendedRelations = recommendedRelations
         self.recommendedFeaturedRelations = recommendedFeaturedRelations
         self.recommendedHiddenRelations = recommendedHiddenRelations
@@ -68,7 +71,7 @@ extension ObjectType: DetailsModel {
         self.init(
             id: details.id,
             name: details.name,
-            icon: details.objectIcon ?? .empty(.objectType),
+            icon: details.objectIcon ?? .emptyTypeIcon,
             description: details.description,
             hidden: details.isHidden,
             readonly: details.isReadonly,
@@ -79,6 +82,7 @@ extension ObjectType: DetailsModel {
             uniqueKey: details.uniqueKeyValue,
             defaultTemplateId: details.defaultTemplateId,
             canCreateObjectOfThisType: !details.restrictionsValue.contains(.createObjectOfThisType),
+            isDeletable: !details.restrictionsValue.contains(.delete),
             recommendedRelations: details.recommendedRelations,
             recommendedFeaturedRelations: details.recommendedFeaturedRelations,
             recommendedHiddenRelations: details.recommendedHiddenRelations,
@@ -92,6 +96,7 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.name,
             BundledRelationKey.iconEmoji,
             BundledRelationKey.iconName,
+            BundledRelationKey.iconImage,
             BundledRelationKey.iconOption,
             BundledRelationKey.description,
             BundledRelationKey.isHidden,

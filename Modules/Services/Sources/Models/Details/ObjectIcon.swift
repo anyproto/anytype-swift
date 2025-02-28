@@ -4,14 +4,13 @@ public enum ObjectIcon: Hashable, Sendable, Equatable, Codable {
     case basic(_ imageId: String)
     case profile(Profile)
     case emoji(Emoji)
-    case customIcon(CustomIcon, CustomIconColor)
+    case customIcon(CustomIconData)
     case bookmark(_ imageId: String)
     case space(Space)
     case todo(_ checked: Bool, _ objectId: String?)
     case placeholder(_ name: String)
     case file(mimeType: String, name: String)
     case deleted
-    case empty(EmptyType)
 }
 
 public extension ObjectIcon {
@@ -25,7 +24,16 @@ public extension ObjectIcon {
             return imageId
         case .space(let data):
             return data.imageId
-        case .todo, .emoji, .placeholder, .file, .deleted, .empty, .customIcon:
+        case .todo, .emoji, .placeholder, .file, .deleted, .customIcon:
+            return nil
+        }
+    }
+    
+    var customIcon: CustomIcon? {
+        switch self {
+        case .customIcon(let data):
+            return data.icon
+        default:
             return nil
         }
     }
@@ -71,14 +79,3 @@ public extension ObjectIcon {
     }
 }
 
-public extension ObjectIcon {
-    enum EmptyType: Hashable, Sendable, Codable {
-        case page
-        case list
-        case bookmark
-        case chat
-        case objectType
-        case tag
-        case date
-    }
-}
