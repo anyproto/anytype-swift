@@ -44,7 +44,7 @@ extension SpacePermissions {
 
         canBeArchived = spaceView.isActive
         canCancelJoinRequest = spaceView.accountStatus == .spaceJoining
-        canDeleteLink = isOwner && !isLocalMode
+        canDeleteLink = isOwner && !isLocalMode && !spaceView.uxType.isStream // we don't have revoke method for stream guest link now
         canEditPermissions = isOwner && !isLocalMode
     }
 }
