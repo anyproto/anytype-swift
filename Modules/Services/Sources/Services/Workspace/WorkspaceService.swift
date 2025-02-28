@@ -19,6 +19,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func stopSharing(spaceId: String) async throws
     func makeSharable(spaceId: String) async throws
     func getCurrentInvite(spaceId: String) async throws -> SpaceInvite
+    func getGuestInvite(spaceId: String) async throws -> SpaceInvite
     func requestApprove(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func requestDecline(spaceId: String, identity: String) async throws
     func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
@@ -148,6 +149,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         let result = try await ClientCommands.spaceInviteGetCurrent(.with {
             $0.spaceID = spaceId
         }).invoke(ignoreLogErrors: .noActiveInvite)
+        return result.asModel()
+    }
+    
+    public func getGuestInvite(spaceId: String) async throws -> SpaceInvite {
+        let result = try await ClientCommands.spaceInviteGetGuest(.with {
+            $0.spaceID = spaceId
+        }).invoke()
         return result.asModel()
     }
     

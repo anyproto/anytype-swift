@@ -11,7 +11,6 @@ struct SpaceProfileView: View {
     
     var body: some View {
         content
-            .task { await model.setup() }
             .task { await model.setupSubscriptions() }
 
             .anytypeShareView(item: $model.shareInviteLink)
