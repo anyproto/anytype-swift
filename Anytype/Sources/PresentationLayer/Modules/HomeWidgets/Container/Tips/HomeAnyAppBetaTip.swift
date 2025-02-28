@@ -28,6 +28,5 @@ struct HomeAnyAppWidgetTipView: View {
     
     var body: some View {
         TipView(tip)
-            .tipBackground(Color.Background.primary)
     }
 }
