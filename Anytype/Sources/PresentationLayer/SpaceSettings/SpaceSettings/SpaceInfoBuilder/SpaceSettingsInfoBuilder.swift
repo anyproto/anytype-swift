@@ -36,11 +36,9 @@ final class SpaceSettingsInfoBuilder: SpaceSettingsInfoBuilderProtocol {
         if let creatorDetails = try? relationDetailsStorage.relationsDetails(bundledKey: .creator, spaceId: workspaceInfo.accountSpaceId) {
             
             if let owner {
-                let displayName = owner.globalName.isNotEmpty ? owner.globalName : owner.identity
-                
                 info.append(
-                    SettingsInfoModel(title: creatorDetails.name, subtitle: displayName, onTap: {
-                        UIPasteboard.general.string = displayName
+                    SettingsInfoModel(title: creatorDetails.name, subtitle: owner.displayName, onTap: {
+                        UIPasteboard.general.string = owner.displayName
                         onCopyToClipboard(creatorDetails.name)
                     })
                 )

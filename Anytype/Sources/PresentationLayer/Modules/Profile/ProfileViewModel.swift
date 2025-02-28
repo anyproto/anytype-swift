@@ -6,7 +6,7 @@ import AnytypeCore
 @MainActor
 final class ProfileViewModel: ObservableObject {
     
-    @Published var details: ObjectDetails?
+    @Published var details: Participant?
     @Published var showSettings = false
     
     var isOwner: Bool {
@@ -39,13 +39,13 @@ final class ProfileViewModel: ObservableObject {
             subId: subId,
             spaceId: info.spaceId,
             objectId: info.objectId,
-            additionalKeys: [.identity, .identityProfileLink]
+            additionalKeys: Participant.subscriptionKeys
         ) { [weak self] details in
             await self?.handleProfileDetails(details)
         }
     }
     
     private func handleProfileDetails(_ details: ObjectDetails) async {
-        self.details = details
+        self.details = try? Participant(details: details)
     }
 }

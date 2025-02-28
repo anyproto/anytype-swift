@@ -1,14 +1,14 @@
 import AnytypeCore
 
 public protocol ObjectIconBuilderProtocol {
-    func objectIcon(relations: BundledRelationsValueProvider) -> ObjectIcon?
+    func objectIcon(relations: BundledRelationsValueProvider) -> ObjectIcon
     func profileIcon(iconImage: String, objectName: String) -> ObjectIcon?
 }
 
 public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     public init() { }
     
-    public func objectIcon(relations: BundledRelationsValueProvider) -> ObjectIcon? {
+    public func objectIcon(relations: BundledRelationsValueProvider) -> ObjectIcon {
         guard !relations.isDeleted else {
             return .deleted
         }
@@ -28,7 +28,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
             return .todo(relations.isDone, relations.id)
         }
         
-        return nil
+        return .empty(emptyIconType(layoutValue: relations.layoutValue))
     }
     
     public func profileIcon(iconImage: String, objectName: String) -> ObjectIcon? {
@@ -93,5 +93,25 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         }
         
         return basicIcon(iconImage: iconImage, iconEmoji: iconEmoji)
+    }
+    
+    private func emptyIconType(layoutValue: DetailsLayout) -> ObjectIcon.EmptyType {
+        switch layoutValue {
+        case .basic, .profile, .participant, .todo, .note, .space, .file, .image, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView:
+            return .page
+        case .set, .collection:
+            return .list
+        case .bookmark:
+            return .bookmark
+        case .chat, .chatDerived:
+            return .chat
+        case .objectType:
+            return .objectType
+        case .tag:
+            return .tag
+        case .date:
+            return .date
+        }
     }
 }

@@ -68,7 +68,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 spaceId: spaceId,
                 chatId: chatId,
                 authorName: authorParticipant?.title ?? "",
-                authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
+                authorIcon: authorParticipant.map { .object($0.icon) } ?? Icon.object(.profile(.placeholder)),
                 authorId: authorParticipant?.id,
                 createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
                 messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, isYourMessage: isYourMessage),
@@ -140,8 +140,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let content: MessageReactionModelContent
             
             if value.ids.count == 1, let firstId = value.ids.first {
-                let icon = participants.first(where: { $0.identity == firstId })?.icon.map({ Icon.object($0) })
-                content = .icon(icon ?? Icon.object(.profile(.placeholder)))
+                let icon = participants.first(where: { $0.identity == firstId })?.icon
+                content = .icon(.object(icon ?? .profile(.placeholder)))
             } else {
                 content = .count(value.ids.count)
             }

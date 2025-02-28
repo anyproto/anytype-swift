@@ -42,14 +42,10 @@ final class MessageParticipantsReactionViewModel: ObservableObject {
         }
 
         let participantsData = reactedParticipants.map { participant in
-            var icon: Icon? = nil
-            if let objectIcon = participant.icon {
-                icon = .object(objectIcon)
-            }
             let type = try? objectTypeProvider.objectType(id: participant.type).name
             return ObjectCellData(
                 id: participant.id,
-                icon: icon,
+                icon: .object(participant.icon),
                 title: participant.localName.withPlaceholder,
                 type: type ?? "",
                 canArchive: false,

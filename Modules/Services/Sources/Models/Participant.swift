@@ -10,7 +10,8 @@ public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsM
     public let id: String
     public let localName: String
     public let globalName: String
-    public let icon: ObjectIcon?
+    public let description: String
+    public let icon: ObjectIcon
     public let status: ParticipantStatus
     public let permission: ParticipantPermissions
     public let identity: String
@@ -22,6 +23,7 @@ public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsM
         self.id = details.id
         self.localName = details.objectName
         self.globalName = details.globalName
+        self.description = details.description
         self.icon = details.objectIcon
         guard let status = details.participantStatusValue else {
             anytypeAssertionFailure("Participant status error", info: ["value": details.participantStatus?.description ?? "nil"])

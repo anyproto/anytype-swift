@@ -161,7 +161,7 @@ final class SpaceShareViewModel: ObservableObject {
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
             return SpaceShareParticipantViewModel(
                 id: participant.id,
-                icon: participant.icon?.icon,
+                icon: participant.icon.icon,
                 name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
                 status: participantStatus(participant),
                 action: participantAction(participant),

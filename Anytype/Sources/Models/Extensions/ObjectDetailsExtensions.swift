@@ -28,7 +28,7 @@ extension BundledRelationsValueProvider {
     }
     
     var objectIconImage: Icon {
-        return objectIcon.map { .object($0) } ?? .object(.empty(emptyIconType))
+        return .object(objectIcon)
     }
     
     var objectType: ObjectType {
@@ -87,26 +87,6 @@ extension BundledRelationsValueProvider {
     var isSupportedForOpening: Bool { layoutValue.isSupportedForOpening }
     
     var isVisibleLayout: Bool { layoutValue.isVisible }
-    
-    private var emptyIconType: ObjectIcon.EmptyType {
-        switch layoutValue {
-        case .basic, .profile, .participant, .todo, .note, .space, .file, .image, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView:
-            return .page
-        case .set, .collection:
-            return .list
-        case .bookmark:
-            return .bookmark
-        case .chat, .chatDerived:
-            return .chat
-        case .objectType:
-            return .objectType
-        case .tag:
-            return .tag
-        case .date:
-            return .date
-        }
-    }
 }
 
 extension ObjectDetails {

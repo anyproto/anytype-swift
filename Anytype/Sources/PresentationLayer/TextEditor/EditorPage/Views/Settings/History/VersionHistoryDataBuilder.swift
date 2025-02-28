@@ -75,9 +75,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
             for versions in values {
                 let versionsByAuthor = versions.compactMap { version -> VersionHistoryItem? in
                     guard let participant = participants[version.authorID] else { return nil }
-                    if let icon = participant.icon {
-                        groupIcons.append(icon)
-                    }
+                    groupIcons.append(participant.icon)
                     return buildVersionHistoryItem(for: version, participant: participant)
                 }
                 versionsByAuthors.append(versionsByAuthor)

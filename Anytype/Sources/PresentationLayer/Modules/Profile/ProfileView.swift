@@ -30,7 +30,7 @@ struct ProfileView: View {
             .background(Color.Background.secondary)
     }
     
-    private func content(_ details: ObjectDetails) -> some View {
+    private func content(_ details: Participant) -> some View {
         VStack(spacing: 0) {
             DragIndicator()
             actionRow
@@ -63,28 +63,28 @@ struct ProfileView: View {
         }
     }
     
-    private func viewWithDescription(_ details: ObjectDetails) -> some View {
+    private func viewWithDescription(_ details: Participant) -> some View {
         Group {
             Spacer.fixedHeight(30)
-            IconView(icon: details.objectIconImage).frame(width: 112, height: 112)
+            IconView(object: details.icon).frame(width: 112, height: 112)
             Spacer.fixedHeight(12)
-            AnytypeText(details.name, style: .heading).lineLimit(1)
+            AnytypeText(details.localName, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
-            AnytypeText(details.identity, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
+            AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
             Spacer.fixedHeight(4)
             AnytypeText(details.description, style: .previewTitle2Regular)
             Spacer.fixedHeight(78)
         }
     }
     
-    private func viewWithoutDescription(_ details: ObjectDetails) -> some View {
+    private func viewWithoutDescription(_ details: Participant) -> some View {
         Group {
             Spacer.fixedHeight(30)
-            IconView(icon: details.objectIconImage).frame(width: 184, height: 184)
+            IconView(object: details.icon).frame(width: 184, height: 184)
             Spacer.fixedHeight(12)
-            AnytypeText(details.name, style: .heading).lineLimit(1)
+            AnytypeText(details.localName, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
-            AnytypeText(details.identity, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
+            AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
             Spacer.fixedHeight(84)
         }
     }
