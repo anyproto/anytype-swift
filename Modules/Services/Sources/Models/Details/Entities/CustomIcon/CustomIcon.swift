@@ -1,5 +1,5 @@
 public enum CustomIcon: String, CaseIterable, Sendable, Codable, Identifiable {
-    init?(fromString string: String) {
+    public init?(fromString string: String) {
         // Convert string like "musical-notes" to "musicalNotes"
         let processed = string
             .split(separator: "-")
@@ -13,6 +13,22 @@ public enum CustomIcon: String, CaseIterable, Sendable, Codable, Identifiable {
             .joined()
         
         self.init(rawValue: processed)
+    }
+    
+    public var stringRepresentation: String {
+        // Convert string like "musicalNotes" to "musical-notes"
+        let rawValue = self.rawValue
+        
+        // Step 1: Find all capital letters and insert a separator before them
+        var result = ""
+        for (index, char) in rawValue.enumerated() {
+            if char.isUppercase && index > 0 {
+                result.append("-")
+            }
+            result.append(char.lowercased())
+        }
+        
+        return result
     }
     
     public var id: String { rawValue }

@@ -104,7 +104,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
                 AnytypeAnalytics.instance().logSetIcon()
                 try await detailsService.updateBundledDetails(
                     objectId: objectId,
-                    bundledDetails: iconBundledDetails(iconName: data.icon.rawValue, iconOption: data.color.iconOption)
+                    bundledDetails: iconBundledDetails(iconName: data.icon.stringRepresentation, iconOption: data.color.iconOption)
                 )
             }
         case .removeIcon:
