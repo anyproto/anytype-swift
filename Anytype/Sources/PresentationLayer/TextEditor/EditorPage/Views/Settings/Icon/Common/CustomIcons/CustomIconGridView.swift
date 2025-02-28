@@ -80,7 +80,7 @@ struct CustomIconGridView: View {
     
     private func makeGridView(icons: [CustomIcon]) -> some View {
         LazyVGrid(columns: columns, spacing: 0) {
-            ForEach(icons, id: \.rawValue) { icon in
+            ForEach(icons) { icon in
                 Image(asset: icon.imageAsset)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
