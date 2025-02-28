@@ -64,6 +64,8 @@ struct SpaceShareView: View {
                 }
                 .safeAreaInset(edge: .bottom) {
                     InviteLinkCoordinatorView(data: model.data)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 36)
                 }
             }
         }
