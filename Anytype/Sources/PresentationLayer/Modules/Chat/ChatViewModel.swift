@@ -154,21 +154,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
         async let spaceViewSub: () = subscribeOnSpaceView()
+        async let messagesSub: () = subscribeOnMessages()
         
-        (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub)
+        (_, _, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, messagesSub)
     }
     
-    func subscribeOnMessages() async throws {
+    func startMessageSubscription() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
-        for await messages in await chatStorage.messagesPublisher.values {
-            let prevChatIsEmpty = self.messages.isEmpty
-            self.messages = messages
-            self.dataLoaded = true
-            await updateMessages()
-            if prevChatIsEmpty, let message = messages.last {
-                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
-            }
-        }
     }
     
     private func subscribeOnSpaceView() async {
@@ -472,6 +464,18 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     // MARK: - Private
+    
+    private func subscribeOnMessages() async {
+        for await messages in await chatStorage.messagesPublisher.values {
+            let prevChatIsEmpty = self.messages.isEmpty
+            self.messages = messages
+            self.dataLoaded = true
+            await updateMessages()
+            if prevChatIsEmpty, let message = messages.last {
+                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+            }
+        }
+    }
     
     private func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
