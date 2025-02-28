@@ -21,6 +21,7 @@ struct SpaceTypePickerRow: View {
                         .anytypeStyle(.caption1Regular)
                         .foregroundStyle(Color.Text.secondary)
                 }
+                .padding(.bottom, 2)
                 Spacer()
             }
             .lineLimit(1)
