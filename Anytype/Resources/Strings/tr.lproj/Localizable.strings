@@ -1311,6 +1311,10 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "ObjectSearchWithMeta.Create.Set" = "Yeni Set";
 "ObjectSearchWithMeta.Create.Collection" = "Yeni Koleksiyon";
 
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Alpha sürümüne hoş geldiniz";
+"AnyApp.BetaAlert.Description" = "Eğrinin önündesiniz! Bazı özellikler hala geliştirme aşamasındadır veya üretime hazır değildir. Güncellemeler için bizi izlemeye devam edin.";
+
 // MARK: - Migration
 "Migration.title" = "Geçiş işlemi devam ediyor...";
 "Migration.subtitle" = "Bu işlem biraz zaman alabilir. Lütfen işlem tamamlanana kadar uygulamayı kapatmayın.";

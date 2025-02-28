@@ -1309,6 +1309,10 @@ En concreto,
 "ObjectSearchWithMeta.Create.Set" = "Nuevo conjunto";
 "ObjectSearchWithMeta.Create.Collection" = "Nueva colección";
 
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
+"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+
 // MARK: - Migration
 "Migration.title" = "La migración está en curso…";
 "Migration.subtitle" = "Esto puede llevar algún tiempo. No cierres la aplicación hasta que termine el proceso.";

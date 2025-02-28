@@ -1310,6 +1310,10 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "ObjectSearchWithMeta.Create.Set" = "Nouvel ensemble";
 "ObjectSearchWithMeta.Create.Collection" = "Nouvelle collection";
 
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
+"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+
 // MARK: - Migration
 "Migration.title" = "Migration en cours...";
 "Migration.subtitle" = "Cela peut prendre un certain temps. Veuillez ne pas fermer l'application avant que le processus soit terminé.";
