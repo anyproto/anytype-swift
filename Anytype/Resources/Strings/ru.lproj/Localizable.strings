@@ -1312,6 +1312,10 @@
 "ObjectSearchWithMeta.Create.Set" = "Новый Набор";
 "ObjectSearchWithMeta.Create.Collection" = "Новая коллекция";
 
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
+"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+
 // MARK: - Migration
 "Migration.title" = "Миграция в процессе...";
 "Migration.subtitle" = "Это может занять некоторое время. Пожалуйста, не закрывайте приложение, пока процесс не завершится.";
