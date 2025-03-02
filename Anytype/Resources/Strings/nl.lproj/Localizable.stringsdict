@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>This type has %d template</string>
+        <string>Dit type heeft %d sjabloon</string>
         <key>other</key>
-        <string>This type has %d templates</string>
+        <string>Dit type heeft %d sjablonen</string>
       </dict>
     </dict>
   </dict>
