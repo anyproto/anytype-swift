@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Verwijderd object";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.Created" = "Veld '%@' is gemaakt";
+"Fields.Updated" = "Veld '%@' is bijgewerkt";
 "Fields.menu" = "Velden menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
-"Fields.addToType" = "Add to the current type";
-"Fields.removeFromObject" = "Remove from the object";
+"Fields.local" = "Lokale velden";
+"Fields.missingInfo" = "Sommige velden zijn niet inbegrepen in het objecttype. Voeg ze alsjeblieft toe als je ze in alle objecten van dit type wilt zien, of verwijder ze.";
+"Fields.addToType" = "Voeg toe aan het huidige type";
+"Fields.removeFromObject" = "Verwijder uit het object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Aanbevolen velden";
+"Create relation" = "Maak optie '%@' aan";
 "Relation.View.Hint.Empty" = "leeg";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "Mijn velden";
+"Relation.Deleted" = "Verwijderd veld";
 "Relation.From.Type" = "Van type %@";
 "Relation.EmptyState.title" = "Geen opties";
 "Relation.EmptyState.description" = "Niets gevonden. Maak een eerste optie om te starten.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "Het veld is leeg";
 "Relation.Create.Row.title" = "Maak \"%@\"";
 "Relation.View.Create.title" = "Maak optie";
 "Relation.View.Edit.title" = "Bewerk optie";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-mailadres";
 "Relation.Format.Phone.Title" = "Telefoonnummer";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Zoek of maak een nieuw veld";
 
 // Origin Relation
 
@@ -218,7 +218,7 @@
 "Create Set" = "Maak set";
 "Unsupported deeplink" = "Niet-ondersteunde deeplink";
 "Edit Profile" = "Bewerk profiel";
-"Object Types" = "Object Types";
+"Object Types" = "Objecttypes";
 
 // Home
 "Favorites" = "Favorieten";
@@ -229,7 +229,7 @@
 // Settings
 "Wallpaper" = "Achtergrond";
 "Log out" = "Meld af";
-"Content Model" = "Content Model";
+"Content Model" = "Inhoud model";
 "Misc" = "Overig";
 
 // Action
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Bovenaan";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Onderaan";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Toon lege waarden";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Kies een veld om te sorteren";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filters";
@@ -487,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Vraag";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.RelationsList" = "Velden:";
+"Set.FeaturedRelations.Relation" = "Veld:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Groepeer op";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Kleur kolommen";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "Geen velden";
 "Set.View.Settings.NoFilters.Placeholder" = "Geen filters";
 "Set.View.Settings.NoSorts.Placeholder" = "Geen sortering";
 "Set.View.Settings.Objects.Applied.Title" = "%d toegepast";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Geen zoekopdracht geselecteerd";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Voeg zoekopdracht toe om objecten met gelijke typen en relaties in een live modus te verzamelen";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Weergave wordt niet ondersteund op mobiel";
@@ -569,7 +569,7 @@
 "Enter number" = "Voer nummer in";
 "Enter text" = "Voer tekst in";
 "Unsupported value" = "Niet-ondersteunde waarde";
-"Select relation type" = "Select field type";
+"Select relation type" = "Selecteer veld type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
 "AreYouSure" = "Weet je het zeker?";
 "Nothing found" = "Niets gevonden";
@@ -581,7 +581,7 @@
 "Type" = "Type";
 "Types" = "Types";
 "No name" = "Geen naam";
-"New field" = "New field";
+"New field" = "Nieuw veld";
 "Edit field" = "Veld bewerken";
 "Non-existent object" = "Niet-bestaand object";
 
@@ -616,9 +616,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "We konden jouw kluisgegevens niet ophalen omdat jouw versie verouderd is. Update Anytype naar de nieuwste versie.";
 "Restore from keychain" = "Herstellen vanuit de sleutelhanger";
 "Edit" = "Bewerk";
-"Hidden" = "Hidden";
+"Hidden" = "Verborgen";
 "In this object" = "Binnen dit object";
-"Other relations" = "Other fields";
+"Other relations" = "Andere velden";
 "Collection of objects" = "Verzameling van objecten";
 "Designed to capture thoughts quickly" = "Ontworpen om snel gedachten te bewaren";
 "Action-focused layout with a checkbox" = "Actiegerichte lay-out met een checkbox";
@@ -710,7 +710,7 @@
 "Show" = "Toon";
 "Hide" = "Verberg";
 "Apply" = "Pas toe";
-"Got it" = "I got it!";
+"Got it" = "Ik snap het!";
 "Leave a space" = "Verlaat een ruimte";
 "Collaboration" = "Samenwerking";
 "Members" = "Leden";
@@ -1312,8 +1312,8 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "ObjectSearchWithMeta.Create.Collection" = "Nieuwe collectie";
 
 // MARK: - Any App
-"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
-"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+"AnyApp.BetaAlert.Title" = "Welkom bij de Alpha versie";
+"AnyApp.BetaAlert.Description" = "Je loopt voor op de rest! Sommige functies zijn nog in ontwikkeling of niet klaar voor productie – blijf in de gaten houden voor updates.";
 
 // MARK: - Migration
 "Migration.title" = "Bezig met migreren...";
