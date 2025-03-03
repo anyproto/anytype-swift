@@ -11,8 +11,12 @@ struct ChatHeaderView: View {
     
     var body: some View {
         PageNavigationHeader {
-            AnytypeText(model.title, style: .uxTitle1Semibold)
-                .lineLimit(1)
+            IncreaseTapButton {
+                model.tapSettings()
+            } label: {
+                AnytypeText(model.title, style: .uxTitle1Semibold)
+                    .lineLimit(1)
+            }
         } rightView: {
             IncreaseTapButton {
                 model.tapSettings()
