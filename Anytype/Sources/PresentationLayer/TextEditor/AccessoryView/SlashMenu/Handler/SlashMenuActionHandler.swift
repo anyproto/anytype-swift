@@ -42,7 +42,7 @@ final class SlashMenuActionHandler {
         case let .style(style):
             try await handleStyle(style, attributedString: textView?.attributedText.sendable(), blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
         case let .media(media):
-            try await actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+            try await handleMediaAction(media, textView: textView, blockInformation: blockInformation)
         case let .objects(action):
             switch action {
             case .linkTo:
@@ -222,5 +222,26 @@ final class SlashMenuActionHandler {
         case .paste:
             textView?.paste(self)
         }
+    }
+    
+    private func handleMediaAction(
+        _ media: SlashActionMedia,
+        textView: UITextView?,
+        blockInformation: BlockInformation
+    ) async throws {
+        let blockId = try await actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+        
+//        switch media {
+//        case .file:
+//            router.sho
+//        case .image:
+//            <#code#>
+//        case .video:
+//            <#code#>
+//        case .audio:
+//            <#code#>
+//        case .bookmark, .codeSnippet:
+//            break
+//        }
     }
 }
