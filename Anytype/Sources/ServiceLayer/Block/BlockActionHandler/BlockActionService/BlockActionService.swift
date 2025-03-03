@@ -37,16 +37,18 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     // MARK: Actions
 
-    func addChild(info: BlockInformation, parentId: String) async throws {
+    func addChild(info: BlockInformation, parentId: String) async throws -> String {
         try await add(info: info, targetBlockId: parentId, position: .inner)
     }
 
-    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws {
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws -> String {
         let blockId = try await blockService.add(contextId: documentId, targetId: targetBlockId, info: info, position: position)
         
         if setFocus {
             cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
         }
+        
+        return blockId
     }
 
     func setAndSplit(

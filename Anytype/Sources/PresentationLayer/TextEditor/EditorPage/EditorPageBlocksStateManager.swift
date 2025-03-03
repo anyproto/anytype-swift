@@ -429,7 +429,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .delete:
             actionHandler.delete(blockIds: elements.map { $0.blockId } )
         case .addBlockBelow:
-            elements.forEach { actionHandler.addBlock(.text(.text), blockId: $0.blockId, spaceId: document.spaceId) }
+            elements.forEach { element in
+                Task {
+                    try await actionHandler.addBlock(.text(.text), blockId: element.blockId, spaceId: document.spaceId)
+                }
+            }
         case .duplicate:
             elements.forEach { actionHandler.duplicate(blockId: $0.blockId, spaceId: document.spaceId) }
         case .turnInto:

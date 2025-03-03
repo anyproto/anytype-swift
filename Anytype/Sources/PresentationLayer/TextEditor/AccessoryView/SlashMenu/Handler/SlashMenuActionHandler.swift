@@ -42,7 +42,7 @@ final class SlashMenuActionHandler {
         case let .style(style):
             try await handleStyle(style, attributedString: textView?.attributedText.sendable(), blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
         case let .media(media):
-            actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+            try await actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
         case let .objects(action):
             switch action {
             case .linkTo:
@@ -73,8 +73,9 @@ final class SlashMenuActionHandler {
             switch action {
             case .newRealtion:
                 router.showAddRelationInfoView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
-                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
-                    
+                    Task {
+                        try await self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
+                    }
                     AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
                         format: relation.format,
                         isNew: isNew,
@@ -84,7 +85,7 @@ final class SlashMenuActionHandler {
                     )
                 }
             case .relation(let relation):
-                actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+                try await actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
             }
         case let .other(other):
             switch other {
@@ -99,7 +100,7 @@ final class SlashMenuActionHandler {
                 
                 cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
             default:
-                actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+                try await actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
             }
         case let .color(color):
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])
