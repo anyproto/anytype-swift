@@ -94,6 +94,10 @@ modify_swift_file() {
         # macOS version
         sed -i '' \
             -e 's/\(public struct Response\) {/\1: ResultWithError {/' \
+            -e 's/\(public struct Response: Sendable\) {/\1, ResultWithError {/' \
+            -e 's/\(public struct Response: @unchecked Sendable\) {/\1, ResultWithError {/' \
+            -e 's/\(public struct Error: Sendable\) {/\1, ResponseError {\
+            public var isNull: Bool { code == .null \&\& description_p.isEmpty }/' \
             -e 's/\(public struct Error\) {/\1: ResponseError {\
           public var isNull: Bool { code == .null \&\& description_p.isEmpty }/' \
             "$file_path"
@@ -101,6 +105,10 @@ modify_swift_file() {
         # Linux/Unix version
         sed -i \
             -e 's/\(public struct Response\) {/\1: ResultWithError {/' \
+            -e 's/\(public struct Response: Sendable\) {/\1, ResultWithError {/' \
+            -e 's/\(public struct Response: @unchecked Sendable\) {/\1, ResultWithError {/' \
+            -e 's/\(public struct Error: Sendable\) {/\1, ResponseError {\
+            public var isNull: Bool { code == .null \&\& description_p.isEmpty }/' \
             -e 's/\(public struct Error\) {/\1: ResponseError {\
           public var isNull: Bool { code == .null \&\& description_p.isEmpty }/' \
             "$file_path"
