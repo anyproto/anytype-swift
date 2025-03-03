@@ -93,8 +93,9 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) async throws -> String {
         assertionFailure()
+        return ""
     }
     
     func toggleWholeBlockMarkup(_ attributedString: SafeNSAttributedString?, markup: MarkupType, info: BlockInformation) -> SafeNSAttributedString? {
