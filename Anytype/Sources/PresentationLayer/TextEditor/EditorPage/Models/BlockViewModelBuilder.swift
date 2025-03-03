@@ -20,6 +20,7 @@ final class BlockViewModelBuilder {
     private let editorPageBlocksStateManager: EditorPageBlocksStateManager
     private let markupChanger: any BlockMarkupChangerProtocol
     private let slashMenuActionHandler: SlashMenuActionHandler
+    private let mediaBlockActionsProvider: any MediaBlockActionsProviderProtocol
     private weak var output: (any EditorPageModuleOutput)?
     
     @Injected(\.blockTableService)
@@ -49,6 +50,7 @@ final class BlockViewModelBuilder {
         keyboardActionHandler: some KeyboardActionHandlerProtocol,
         markupChanger: some BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler,
+        mediaBlockActionsProvider: some MediaBlockActionsProviderProtocol,
         editorPageBlocksStateManager: EditorPageBlocksStateManager,
         output: (any EditorPageModuleOutput)?
     ) {
@@ -66,6 +68,7 @@ final class BlockViewModelBuilder {
         self.keyboardActionHandler = keyboardActionHandler
         self.markupChanger = markupChanger
         self.slashMenuActionHandler = slashMenuActionHandler
+        self.mediaBlockActionsProvider = mediaBlockActionsProvider
         self.editorPageBlocksStateManager = editorPageBlocksStateManager
         self.output = output
     }
@@ -244,7 +247,7 @@ final class BlockViewModelBuilder {
                     documentId: documentId,
                     spaceId: spaceId,
                     showFilePicker: { [weak self] blockId in
-                        self?.showFilePicker(blockId: blockId)
+                        self?.mediaBlockActionsProvider.openFilePicker(blockId: blockId)
                     },
                     onFileOpen: { [weak router] data in
                         router?.showEditorScreen(data: data)
@@ -256,7 +259,7 @@ final class BlockViewModelBuilder {
                     spaceId: spaceId,
                     blockInformationProvider: blockInformationProvider,
                     showIconPicker: { [weak self] blockId in
-                        self?.showMediaPicker(type: .images, blockId: blockId)
+                        self?.mediaBlockActionsProvider.openImagePicker(blockId: blockId)
                     },
                     onImageOpen: { [weak router] data in
                         router?.showEditorScreen(data: data)
@@ -267,7 +270,7 @@ final class BlockViewModelBuilder {
                     informantionProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showVideoPicker: { [weak self] blockId in
-                        self?.showMediaPicker(type: .videos, blockId: blockId)
+                        self?.mediaBlockActionsProvider.openVideoPicker(blockId: blockId)
                     }
                 )
             case .audio:
@@ -277,7 +280,7 @@ final class BlockViewModelBuilder {
                     informationProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showAudioPicker: { [weak self] blockId in
-                        self?.showFilePicker(blockId: blockId, types: [.audio])
+                        self?.mediaBlockActionsProvider.openAudioPicker(blockId: blockId)
                     }
                 )
             }
@@ -409,29 +412,6 @@ final class BlockViewModelBuilder {
         }
     }
     // MARK: - Actions
-    
-    private var subscriptions = [AnyCancellable]()
-    
-    private func showMediaPicker(type: MediaPickerContentType, blockId: String) {
-        router.showImagePicker(contentType: type) { [weak self] itemProvider in
-            guard let itemProvider = itemProvider else { return }
-            
-            self?.handler.uploadMediaFile(
-                uploadingSource: .itemProvider(itemProvider),
-                type: type,
-                blockId: blockId
-            )
-        }
-    }
-    
-    private func showFilePicker(blockId: String, types: [UTType] = [.item]) {
-        let model = AnytypePicker.ViewModel(types: types)
-        model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
-            self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId)
-        }.store(in: &subscriptions)
-        
-        router.showFilePicker(model: model)
-    }
     
     private func showBookmarkBar(info: BlockInformation) {
         router.showBookmarkBar() { [weak self] url in
