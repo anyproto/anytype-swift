@@ -50,8 +50,8 @@ final class AudioBlockContentView: UIView, BlockContentView {
 
     private func apply(configuration: AudioBlockContentConfiguration) {
         
-        if document?.objectId != configuration.documentId, let spaceId = document?.spaceId {
-            document = documentService.document(objectId: configuration.documentId, spaceId: spaceId)
+        if document?.objectId != configuration.documentId {
+            document = documentService.document(objectId: configuration.documentId, spaceId: configuration.spaceId)
         }
         
         if targetObjectId != configuration.file.metadata.targetObjectId {
