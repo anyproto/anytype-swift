@@ -454,4 +454,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Difficulty level of the recipe (e.g., easy, medium, hard)
     case difficulty = "difficulty"
+
+    /// Automatically generated widget targets. Used to avoid creating widget if was removed by user
+    case autoWidgetTargets = "autoWidgetTargets"
 }

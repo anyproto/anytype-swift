@@ -166,6 +166,7 @@ public protocol BundledRelationsValueProvider {
     var cuisine: String { get }
     var courseType: String { get }
     var difficulty: String { get }
+    var autoWidgetTargets: [ObjectId] { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -775,5 +776,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Difficulty level of the recipe (e.g., easy, medium, hard)
     var difficulty: String {
         return value(for: BundledRelationKey.difficulty.rawValue)
+    }
+    /// Automatically generated widget targets. Used to avoid creating widget if was removed by user
+    var autoWidgetTargets: [ObjectId] {
+        return value(for: BundledRelationKey.autoWidgetTargets.rawValue)
     }
 }
