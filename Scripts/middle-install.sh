@@ -30,13 +30,17 @@ mkdir -p ${CACHE_DIR}
 LIB_PATH=${CACHE_DIR}/lib-${MIDDLE_VERSION}.gz
 
 if [[ ! -f "$LIB_PATH" ]]; then
-    if ! curl https://maven.pkg.github.com/anyproto/anytype-heart/io.anyproto/anytype-heart-ios/${MIDDLE_VERSION}/anytype-heart-ios-${MIDDLE_VERSION}.gz -f --header "Authorization: token ${token}" -L --output ${LIB_PATH}; then
+    LIB_PATH_TMP=${CACHE_DIR}/lib-tmp.gz
+
+    if ! curl https://maven.pkg.github.com/anyproto/anytype-heart/io.anyproto/anytype-heart-ios/${MIDDLE_VERSION}/anytype-heart-ios-${MIDDLE_VERSION}.gz -f --header "Authorization: token ${token}" -L --output ${LIB_PATH_TMP}; then
         RED='\033[0;31m'
         TERMINATOR='\n\e[0m'
         printf "${RED}Error downloading middleware, check out token provided${TERMINATOR}"
         printf "use \"make change-github-token\" command to update token"
         exit 1
     fi
+
+    mv "$LIB_PATH_TMP" "$LIB_PATH"
 fi
 
 rm -rf ${PROJECT_DIR}/Dependencies/Middleware/*
