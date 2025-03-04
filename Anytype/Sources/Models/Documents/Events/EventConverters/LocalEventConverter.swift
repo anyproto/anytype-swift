@@ -10,30 +10,34 @@ final class LocalEventConverter {
         self.infoContainer = infoContainer
     }
     
-    func convert(_ event: LocalEvent) -> DocumentUpdate? {
+    func convert(_ event: LocalEvent) -> [DocumentUpdate] {
         switch event {
-        case .setToggled, .general:
-            return .general
+        case .general:
+            return [.general]
+        case let .setToggled(blockId):
+            // block - update state in toggle block if it is empty
+            // general - update list of blocks if toggle block contains children
+            return [.block(blockId: blockId), .general]
         case let .setStyle(blockId):
-            return .block(blockId: blockId)
+            return [.block(blockId: blockId)]
         case let .setText(blockId: blockId, text: text):
-            return blockSetTextUpdate(blockId: blockId, text: text)
+            return [blockSetTextUpdate(blockId: blockId, text: text)]
         case .setLoadingState(blockId: let blockId):
             guard var info = infoContainer.get(id: blockId) else {
                 anytypeAssertionFailure("setLoadingState. Can't find model", info: ["blockId": "\(blockId)"])
-                return nil
+                return []
             }
             guard case var .file(content) = info.content else {
                 anytypeAssertionFailure("Not file content of block for setLoading action", info: ["blockId": "\(blockId)"])
-                return nil
+                return []
             }
             
             content.state = .uploading
             info = info.updated(content: .file(content))
             infoContainer.add(info)
-            return .block(blockId: blockId)
+            return [.block(blockId: blockId)]
         case .reload(blockId: let blockId):
-            return .block(blockId: blockId)
+            return [.block(blockId: blockId)]
         }
     }
         
