@@ -11,30 +11,30 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Model_Block.Content {
-    public struct Widget: Sendable {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
+extension Anytype_Model_Block.Content.Dataview {
+    public struct ObjectOrder: Sendable {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
 
-      public var layout: Anytype_Model_Block.Content.Widget.Layout = .link
+        public var viewID: String = String()
 
-      public var limit: Int32 = 0
+        public var groupID: String = String()
 
-      public var viewID: String = String()
+        public var objectIds: [String] = []
 
-      public var unknownFields = SwiftProtobuf.UnknownStorage()
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {}
-    }    
+        public init() {}
+      }    
 }
 
-extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Widget"
+extension Anytype_Model_Block.Content.Dataview.ObjectOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".ObjectOrder"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "layout"),
-    2: .same(proto: "limit"),
-    3: .same(proto: "viewId"),
+    1: .same(proto: "viewId"),
+    2: .same(proto: "groupId"),
+    3: .same(proto: "objectIds"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -43,31 +43,31 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.layout != .link {
-      try visitor.visitSingularEnumField(value: self.layout, fieldNumber: 1)
-    }
-    if self.limit != 0 {
-      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 2)
-    }
     if !self.viewID.isEmpty {
-      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 1)
+    }
+    if !self.groupID.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupID, fieldNumber: 2)
+    }
+    if !self.objectIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectIds, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_Block.Content.Widget, rhs: Anytype_Model_Block.Content.Widget) -> Bool {
-    if lhs.layout != rhs.layout {return false}
-    if lhs.limit != rhs.limit {return false}
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.ObjectOrder, rhs: Anytype_Model_Block.Content.Dataview.ObjectOrder) -> Bool {
     if lhs.viewID != rhs.viewID {return false}
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.objectIds != rhs.objectIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

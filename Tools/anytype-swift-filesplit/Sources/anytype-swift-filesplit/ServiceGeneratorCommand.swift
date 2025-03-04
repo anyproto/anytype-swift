@@ -14,6 +14,9 @@ struct ServiceGeneratorCommand: ParsableCommand {
     @Option(name: .long, help: "File name for other data")
     private var otherName: String
     
+    @Option(name: .long, help: "Max depth")
+    private var maxDepth: Int = 3
+    
     func run() throws {
         let fileManager = FileManager.default
         
@@ -24,7 +27,7 @@ struct ServiceGeneratorCommand: ParsableCommand {
         try fileManager.createDirectory(atPath: outputDir, withIntermediateDirectories: true, attributes: nil)
         
         let source = try String(contentsOfFile: path, encoding: .utf8)
-        let parser = FileSplitrer(source: source, otherName: otherName)
+        let parser = FileSplitrer(source: source, otherName: otherName, maxDepth: maxDepth)
         let results = parser.split()
         
         let outputUrl = URL(string: outputDir)!

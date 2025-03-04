@@ -39,48 +39,6 @@ extension Anytype_Model_Block.Content {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public enum State: SwiftProtobuf.Enum, Swift.CaseIterable {
-        public typealias RawValue = Int
-        case empty // = 0
-        case fetching // = 1
-        case done // = 2
-        case error // = 3
-        case UNRECOGNIZED(Int)
-
-        public init() {
-          self = .empty
-        }
-
-        public init?(rawValue: Int) {
-          switch rawValue {
-          case 0: self = .empty
-          case 1: self = .fetching
-          case 2: self = .done
-          case 3: self = .error
-          default: self = .UNRECOGNIZED(rawValue)
-          }
-        }
-
-        public var rawValue: Int {
-          switch self {
-          case .empty: return 0
-          case .fetching: return 1
-          case .done: return 2
-          case .error: return 3
-          case .UNRECOGNIZED(let i): return i
-          }
-        }
-
-        // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static let allCases: [Anytype_Model_Block.Content.Bookmark.State] = [
-          .empty,
-          .fetching,
-          .done,
-          .error,
-        ]
-
-      }
-
       public init() {}
     }    
 }
@@ -157,15 +115,6 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension Anytype_Model_Block.Content.Bookmark.State: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Empty"),
-    1: .same(proto: "Fetching"),
-    2: .same(proto: "Done"),
-    3: .same(proto: "Error"),
-  ]
 }
 
 // If the compiler emits an error on this type, it is because this file

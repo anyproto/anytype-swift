@@ -11,15 +11,16 @@ public struct SplitResult: Equatable {
 public class FileSplitrer {
     let source: String
     let otherName: String
-    let maxDepth = 3
+    let maxDepth: Int
     var imports: [ImportDeclSyntax] = []
     var fileprivateItems: [CodeBlockItemSyntax] = []
     var result: [String: SourceFileSyntax] = [:]
     var otherItems: [CodeBlockItemSyntax] = []
     
-    public init(source: String, otherName: String) {
+    public init(source: String, otherName: String, maxDepth: Int = 3) {
         self.source = source
         self.otherName = otherName
+        self.maxDepth = maxDepth
     }
     
     public func split() -> [SplitResult] {

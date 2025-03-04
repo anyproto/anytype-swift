@@ -11,24 +11,24 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Model_Block.Content {
-    public struct Div: Sendable {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
+extension Anytype_Model_Block.Content.Dataview {
+    public struct Tag: Sendable {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
 
-      public var style: Anytype_Model_Block.Content.Div.Style = .line
+        public var ids: [String] = []
 
-      public var unknownFields = SwiftProtobuf.UnknownStorage()
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public init() {}
-    }    
+        public init() {}
+      }    
 }
 
-extension Anytype_Model_Block.Content.Div: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Div"
+extension Anytype_Model_Block.Content.Dataview.Tag: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Tag"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "style"),
+    1: .same(proto: "ids"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -37,21 +37,21 @@ extension Anytype_Model_Block.Content.Div: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.style != .line {
-      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 1)
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_Block.Content.Div, rhs: Anytype_Model_Block.Content.Div) -> Bool {
-    if lhs.style != rhs.style {return false}
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Tag, rhs: Anytype_Model_Block.Content.Dataview.Tag) -> Bool {
+    if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
