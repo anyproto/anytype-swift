@@ -63,6 +63,10 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = true }
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
+        
+        #if RELEASE_ANYAPP
+            await storeKitService.activatePromoTier()
+        #endif
     }
     
     func cleanStateAfterLogout() async {
