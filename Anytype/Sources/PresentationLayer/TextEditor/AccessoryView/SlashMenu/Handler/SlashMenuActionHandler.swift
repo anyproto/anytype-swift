@@ -9,6 +9,8 @@ final class SlashMenuActionHandler {
     private let router: any EditorRouterProtocol
     private let document: any BaseDocumentProtocol
     private let cursorManager: EditorCursorManager
+    private let mediaBlockActionsProvider: any MediaBlockActionsProviderProtocol
+    
     private weak var textView: UITextView?
     
     @Injected(\.pasteboardBlockDocumentService)
@@ -20,12 +22,14 @@ final class SlashMenuActionHandler {
         document: some BaseDocumentProtocol,
         actionHandler: some BlockActionHandlerProtocol,
         router: some EditorRouterProtocol,
-        cursorManager: EditorCursorManager
+        cursorManager: EditorCursorManager,
+        mediaBlockActionsProvider: some MediaBlockActionsProviderProtocol
     ) {
         self.document = document
         self.actionHandler = actionHandler
         self.router = router
         self.cursorManager = cursorManager
+        self.mediaBlockActionsProvider = mediaBlockActionsProvider
     }
     
     func handle(
@@ -42,7 +46,7 @@ final class SlashMenuActionHandler {
         case let .style(style):
             try await handleStyle(style, attributedString: textView?.attributedText.sendable(), blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
         case let .media(media):
-            actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+            try await handleMediaAction(media, textView: textView, blockInformation: blockInformation)
         case let .objects(action):
             switch action {
             case .linkTo:
@@ -73,8 +77,9 @@ final class SlashMenuActionHandler {
             switch action {
             case .newRealtion:
                 router.showAddRelationInfoView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
-                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
-                    
+                    Task {
+                        try await self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
+                    }
                     AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
                         format: relation.format,
                         isNew: isNew,
@@ -84,7 +89,7 @@ final class SlashMenuActionHandler {
                     )
                 }
             case .relation(let relation):
-                actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+                try await actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
             }
         case let .other(other):
             switch other {
@@ -99,7 +104,7 @@ final class SlashMenuActionHandler {
                 
                 cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
             default:
-                actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+                try await actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
             }
         case let .color(color):
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])
@@ -220,6 +225,27 @@ final class SlashMenuActionHandler {
             try await pasteboardService.copy(document: document, blocksIds: [blockId], selectedTextRange: NSRange())
         case .paste:
             textView?.paste(self)
+        }
+    }
+    
+    private func handleMediaAction(
+        _ media: SlashActionMedia,
+        textView: UITextView?,
+        blockInformation: BlockInformation
+    ) async throws {
+        let blockId = try await actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+        
+        switch media {
+        case .file:
+            mediaBlockActionsProvider.openFilePicker(blockId: blockId)
+        case .image:
+            mediaBlockActionsProvider.openImagePicker(blockId: blockId)
+        case .video:
+            mediaBlockActionsProvider.openVideoPicker(blockId: blockId)
+        case .audio:
+            mediaBlockActionsProvider.openAudioPicker(blockId: blockId)
+        case .bookmark, .codeSnippet:
+            break
         }
     }
 }

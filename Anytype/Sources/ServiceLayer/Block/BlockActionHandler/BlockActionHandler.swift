@@ -283,23 +283,21 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     }
 
 
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) async throws -> String {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead")
-            return
+            throw CommonError.undefined
         }
             
-        guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
+        guard let newBlock = BlockBuilder.createNewBlock(type: type) else { throw CommonError.undefined }
 
         guard let isTextAndEmpty = blockText?.value.string.isEmpty
-            ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
+            ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { throw CommonError.undefined }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
         
         AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type, spaceId: spaceId)
-        Task {
-            try await service.add(info: newBlock, targetBlockId: blockId, position: position)
-        }
+        return try await service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 
     func createAndFetchBookmark(

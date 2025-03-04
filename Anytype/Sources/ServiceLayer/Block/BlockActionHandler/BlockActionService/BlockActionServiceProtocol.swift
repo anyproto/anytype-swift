@@ -9,8 +9,10 @@ protocol BlockActionServiceProtocol {
     func upload(blockId: String, filePath: String) async throws
     func turnInto(_ style: BlockText.Style, blockId: String) async throws
     func turnIntoObject(blockId: String, spaceId: String) async throws -> String?
-    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws
-    func addChild(info: BlockInformation, parentId: String) async throws
+    @discardableResult
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws -> String
+    @discardableResult
+    func addChild(info: BlockInformation, parentId: String) async throws -> String
     func delete(blockIds: [String])
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> String
     func setAndSplit(
@@ -42,7 +44,7 @@ protocol BlockActionServiceProtocol {
 }
 
 extension BlockActionServiceProtocol {
-    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition) async throws {
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition) async throws -> String {
         try await add(info: info, targetBlockId: targetBlockId, position: position, setFocus: true)
     }
 }

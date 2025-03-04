@@ -20,7 +20,8 @@ protocol BlockActionHandlerProtocol: AnyObject, Sendable {
     func createEmptyBlock(parentId: String, spaceId: String)
     func addLink(targetDetails: ObjectDetails, blockId: String)
     func changeMarkup(blockIds: [String], markType: MarkupType)
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String)
+    @discardableResult
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) async throws -> String
     func toggleWholeBlockMarkup(
         _ attributedString: SafeNSAttributedString?,
         markup: MarkupType,
@@ -62,7 +63,8 @@ protocol BlockActionHandlerProtocol: AnyObject, Sendable {
 }
 
 extension BlockActionHandlerProtocol {
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString? = nil, spaceId: String) {
-        addBlock(type, blockId: blockId, blockText: blockText, position: nil, spaceId: spaceId)
+    @discardableResult
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString? = nil, spaceId: String) async throws -> String {
+        try await addBlock(type, blockId: blockId, blockText: blockText, position: nil, spaceId: spaceId)
     }
 }
