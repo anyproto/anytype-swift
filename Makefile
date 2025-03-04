@@ -22,11 +22,11 @@ generate-middle: setup-tools
 	# ./Scripts/invocation-adoption-gen.sh
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
+	sourcery --config ./Anytype/GeneratorConfig/sourcery.yml
 
 generate:
-	sourcery --config ./Modules/AnytypeCore/sourcery.yml
-	sourcery --config ./Anytype/GeneratorConfig/sourcery.yml
 	# We also have code generation in XCode Build phases for main target and widgets
+	sourcery --config ./Modules/AnytypeCore/sourcery.yml
 
 update-xcfilelists:
 	./Tools/SwiftGen/swiftgen config generate-xcfilelists --config ./Tools/SwiftGen/swiftgen.yml --inputs ./Tools/SwiftGen/swiftgen-inputs-files.xcfilelist --outputs ./Tools/SwiftGen/swiftgen-outputs-files.xcfilelist

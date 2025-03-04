@@ -1,6 +1,6 @@
 configurations:
   - sources:
-      - ../../Modules/ProtobufMessages/Sources/Protocol/commands.pb.swift
+      - ../../Modules/ProtobufMessages/Sources/Protocol/Commands
     templates:
       - Templates/error-localization.stencil
     output:
