@@ -81,3 +81,6 @@ fastlane/README.md
 # GitHub Actions
 vendor/
 .bundle/
+
+# Cache
+.libcache/
