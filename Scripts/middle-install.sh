@@ -4,6 +4,8 @@
 
 BASEDIR=$(dirname $0)
 PROJECT_DIR=${BASEDIR}/..
+CACHE_DIR=${PROJECT_DIR}/.libcache
+CACHE_LIMIT=10
 
 . ${BASEDIR}/common.sh --source-only
 
@@ -23,24 +25,39 @@ else
     token=$(keychain-environment-variable MIDDLEWARE_TOKEN)
 fi
 
-curl https://maven.pkg.github.com/anyproto/anytype-heart/io.anyproto/anytype-heart-ios/${MIDDLE_VERSION}/anytype-heart-ios-${MIDDLE_VERSION}.gz -f --header "Authorization: token ${token}" -L --output ${PROJECT_DIR}/lib.gz
+mkdir -p ${CACHE_DIR}
 
-if [ $?  -eq  0 ]
-then
-    rm -rf ${PROJECT_DIR}/Dependencies/Middleware/*
-    mkdir -p ${PROJECT_DIR}/Dependencies/Middleware
-    tar xzf lib.gz -C ${PROJECT_DIR}/Dependencies/Middleware
-    rm lib.gz
+LIB_PATH=${CACHE_DIR}/lib-${MIDDLE_VERSION}.gz
 
-    rm -rf ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol/*
-    cp -r ${PROJECT_DIR}/Dependencies/Middleware/protobuf/*.swift ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol
-
-    GREEN='\033[0;32m'
-    printf "${GREEN}Success"
-    echo -e "\a" # play sound
-else
-    RED='\033[0;31m'
-    TERMINATOR='\n\e[0m'
-    printf "${RED}Error downloading middleware, check out token provided${TERMINATOR}"
-    printf "use \"make change-github-token\" command to update token"
+if [[ ! -f "$LIB_PATH" ]]; then
+    if ! curl https://maven.pkg.github.com/anyproto/anytype-heart/io.anyproto/anytype-heart-ios/${MIDDLE_VERSION}/anytype-heart-ios-${MIDDLE_VERSION}.gz -f --header "Authorization: token ${token}" -L --output ${LIB_PATH}; then
+        RED='\033[0;31m'
+        TERMINATOR='\n\e[0m'
+        printf "${RED}Error downloading middleware, check out token provided${TERMINATOR}"
+        printf "use \"make change-github-token\" command to update token"
+        exit 1
+    fi
 fi
+
+rm -rf ${PROJECT_DIR}/Dependencies/Middleware/*
+mkdir -p ${PROJECT_DIR}/Dependencies/Middleware
+tar xzf ${LIB_PATH} -C ${PROJECT_DIR}/Dependencies/Middleware
+
+rm -rf ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol/*
+cp -r ${PROJECT_DIR}/Dependencies/Middleware/protobuf/*.swift ${PROJECT_DIR}/Modules/ProtobufMessages/Sources/Protocol
+
+# Clean cache dir
+if [[ -d "$CACHE_DIR" ]]; then
+
+    FILE_COUNT=$(find "$CACHE_DIR" -type f -name "lib-*.gz" | wc -l | tr -d ' ')
+    if [[ $FILE_COUNT -gt $CACHE_LIMIT ]]; then
+        echo "Remove cache:"
+        find "$CACHE_DIR" -type f -name "lib-*.gz" -exec stat -f "%m %N" {} + | sort -n | head -n $(($FILE_COUNT - $CACHE_LIMIT)) | cut -d ' ' -f2- | tee /dev/stderr | while IFS= read -r file; do
+            rm -f -- "$file"
+        done
+    fi
+fi
+
+GREEN='\033[0;32m'
+printf "${GREEN}Success"
+echo -e "\a" # play sound
