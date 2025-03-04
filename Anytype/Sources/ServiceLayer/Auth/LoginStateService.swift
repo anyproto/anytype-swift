@@ -5,7 +5,7 @@ protocol LoginStateServiceProtocol: AnyObject, Sendable {
     var isFirstLaunchAfterRegistration: Bool { get }
     var isFirstLaunchAfterAuthorization: Bool { get }
     func setupStateAfterLoginOrAuth(account: AccountData) async
-    func setupStateAfterAuth()
+    func setupStateAfterAuth() async
     func setupStateAfterRegistration(account: AccountData) async
     func cleanStateAfterLogout() async
     func setupStateBeforeLoginOrAuth() async
@@ -49,9 +49,13 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await startSubscriptions()
     }
     
-    func setupStateAfterAuth() {
+    func setupStateAfterAuth() async {
         isFirstLaunchAfterAuthorizationStorage.value = true
         if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
+        
+        #if RELEASE_ANYAPP
+            await storeKitService.activatePromoTier()
+        #endif
     }
     
     func setupStateAfterRegistration(account: AccountData) async {

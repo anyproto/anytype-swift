@@ -64,6 +64,7 @@ platform :ios do
     set_openai_token_to_info_plist
     set_ai_endpoint_to_info_plist
     set_ai_model_to_info_plist
+    set_anyapp_membership_secret_to_info_plist
     
     build_app(
       scheme: ENV["APP_TARGET"], 

@@ -37,3 +37,11 @@ lane :set_ai_model_to_info_plist do |options|
         value: ENV["AI_MODEL"]
     )
 end
+
+lane :set_anyapp_membership_secret_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "AnyAppMembershipTierSecret",
+        value: ENV["ANY_APP_MEMBERSHIP_TIER_SECRET"]
+    )
+end

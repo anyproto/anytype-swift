@@ -4,6 +4,8 @@
 <dict>
 	<key>AIModel</key>
 	<string></string>
+	<key>AnyAppMembershipTierSecret</key>
+	<string></string>
 	<key>AIEndpoint</key>
 	<string></string>
 	<key>OpenAIToken</key>
