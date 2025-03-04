@@ -173,7 +173,8 @@ extension Anytype_Model_Block.Content {
       public init() {}
 
       fileprivate var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
-    }    }
+    }    
+}
 
 extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

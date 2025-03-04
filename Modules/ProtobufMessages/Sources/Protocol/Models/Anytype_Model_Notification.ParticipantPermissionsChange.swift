@@ -25,7 +25,8 @@ extension Anytype_Model_Notification {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Notification.ParticipantPermissionsChange: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.ParticipantPermissionsChange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

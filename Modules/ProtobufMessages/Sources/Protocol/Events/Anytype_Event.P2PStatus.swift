@@ -19,7 +19,8 @@ extension Anytype_Event {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Event.P2PStatus: @unchecked Sendable {}
 
 extension Anytype_Event.P2PStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

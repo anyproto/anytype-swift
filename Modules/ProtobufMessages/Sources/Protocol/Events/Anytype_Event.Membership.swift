@@ -19,7 +19,8 @@ extension Anytype_Event {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Event.Membership: @unchecked Sendable {}
 
 extension Anytype_Event.Membership: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -464,7 +464,8 @@ extension Anytype_Rpc.BlockDataview {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

@@ -29,7 +29,8 @@ extension Anytype_Model_Notification {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Notification.RequestToJoin: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.RequestToJoin: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

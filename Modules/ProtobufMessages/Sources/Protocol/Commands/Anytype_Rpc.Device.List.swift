@@ -97,7 +97,8 @@ extension Anytype_Rpc.Device {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Device.List.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

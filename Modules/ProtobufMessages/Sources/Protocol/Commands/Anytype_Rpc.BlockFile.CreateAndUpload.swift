@@ -121,7 +121,8 @@ extension Anytype_Rpc.BlockFile {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

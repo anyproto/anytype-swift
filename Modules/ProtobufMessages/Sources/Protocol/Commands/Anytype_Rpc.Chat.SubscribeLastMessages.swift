@@ -109,7 +109,8 @@ extension Anytype_Rpc.Chat {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

@@ -123,7 +123,8 @@ extension Anytype_Event.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Object.Subscription: @unchecked Sendable {}
 extension Anytype_Event.Object.Subscription.Add: @unchecked Sendable {}
 extension Anytype_Event.Object.Subscription.Remove: @unchecked Sendable {}

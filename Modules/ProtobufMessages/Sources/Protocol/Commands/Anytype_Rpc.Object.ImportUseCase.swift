@@ -140,7 +140,8 @@ extension Anytype_Rpc.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

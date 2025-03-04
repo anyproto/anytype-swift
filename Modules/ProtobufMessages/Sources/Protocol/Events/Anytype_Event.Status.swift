@@ -19,7 +19,8 @@ extension Anytype_Event {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Event.Status: @unchecked Sendable {}
 
 extension Anytype_Event.Status: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

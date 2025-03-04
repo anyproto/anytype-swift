@@ -30,7 +30,8 @@ extension Anytype_Rpc {
     public init() {}
 
     fileprivate var _error: Anytype_Rpc.GenericErrorResponse.Error? = nil
-  }    }
+  }    
+}
 extension Anytype_Rpc.GenericErrorResponse: @unchecked Sendable {}
 
 extension Anytype_Rpc.GenericErrorResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

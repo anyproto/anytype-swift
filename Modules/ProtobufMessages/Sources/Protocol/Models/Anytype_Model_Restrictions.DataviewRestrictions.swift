@@ -23,7 +23,8 @@ extension Anytype_Model_Restrictions {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Restrictions.DataviewRestrictions: @unchecked Sendable {}
 
 extension Anytype_Model_Restrictions.DataviewRestrictions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

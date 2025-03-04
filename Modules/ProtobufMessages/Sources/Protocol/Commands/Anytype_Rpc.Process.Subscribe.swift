@@ -95,7 +95,8 @@ extension Anytype_Rpc.Process {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Process.Subscribe.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

@@ -42,7 +42,8 @@ extension Anytype_Event.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Object.Restrictions: @unchecked Sendable {}
 extension Anytype_Event.Object.Restrictions.Set: @unchecked Sendable {}
 

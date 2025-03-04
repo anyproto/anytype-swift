@@ -21,7 +21,8 @@ extension Anytype_Rpc.LinkPreview {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Rpc.LinkPreview.Request: @unchecked Sendable {}
 
 extension Anytype_Rpc.LinkPreview.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

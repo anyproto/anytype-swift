@@ -22,7 +22,8 @@ extension Anytype_Model_ChatMessage {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_ChatMessage.Reactions: @unchecked Sendable {}
 
 extension Anytype_Model_ChatMessage.Reactions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

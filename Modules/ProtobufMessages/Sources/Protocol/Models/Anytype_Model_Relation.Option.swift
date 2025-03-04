@@ -30,7 +30,8 @@ extension Anytype_Model_Relation {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Relation.Option: @unchecked Sendable {}
 
 extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

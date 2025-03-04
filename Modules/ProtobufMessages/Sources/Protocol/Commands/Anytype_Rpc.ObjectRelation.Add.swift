@@ -109,7 +109,8 @@ extension Anytype_Rpc.ObjectRelation {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.ObjectRelation.Add.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

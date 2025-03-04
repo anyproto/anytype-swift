@@ -105,7 +105,8 @@ extension Anytype_Rpc.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Object.Close.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

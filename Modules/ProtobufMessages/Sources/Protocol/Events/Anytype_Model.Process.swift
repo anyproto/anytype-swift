@@ -80,7 +80,8 @@ extension Anytype_Model {
     public init() {}
 
     fileprivate var _progress: Anytype_Model.Process.Progress? = nil
-  }    }
+  }    
+}
 extension Anytype_Model.Process: @unchecked Sendable {}
 
 extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

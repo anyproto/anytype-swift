@@ -23,7 +23,8 @@ extension Anytype_Model_ObjectView {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_ObjectView.BlockParticipant: @unchecked Sendable {}
 
 extension Anytype_Model_ObjectView.BlockParticipant: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

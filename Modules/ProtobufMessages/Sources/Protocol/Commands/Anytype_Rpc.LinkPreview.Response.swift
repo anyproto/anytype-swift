@@ -85,7 +85,8 @@ extension Anytype_Rpc.LinkPreview {
 
       fileprivate var _error: Anytype_Rpc.LinkPreview.Response.Error? = nil
       fileprivate var _linkPreview: Anytype_Model_LinkPreview? = nil
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.LinkPreview.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

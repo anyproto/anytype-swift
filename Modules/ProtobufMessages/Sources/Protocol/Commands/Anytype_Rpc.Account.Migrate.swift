@@ -117,7 +117,8 @@ extension Anytype_Rpc.Account {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Account.Migrate.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

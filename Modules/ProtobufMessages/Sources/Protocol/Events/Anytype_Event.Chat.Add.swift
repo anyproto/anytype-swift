@@ -34,7 +34,8 @@ extension Anytype_Event.Chat {
       public init() {}
 
       fileprivate var _message: Anytype_Model_ChatMessage? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Chat.Add: @unchecked Sendable {}
 
 extension Anytype_Event.Chat.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

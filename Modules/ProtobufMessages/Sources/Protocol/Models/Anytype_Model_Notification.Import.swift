@@ -31,7 +31,8 @@ extension Anytype_Model_Notification {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Notification.Import: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.Import: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

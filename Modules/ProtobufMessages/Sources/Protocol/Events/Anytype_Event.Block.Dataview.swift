@@ -800,7 +800,8 @@ extension Anytype_Event.Block {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

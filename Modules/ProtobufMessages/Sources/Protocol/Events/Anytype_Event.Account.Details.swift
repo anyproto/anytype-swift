@@ -32,7 +32,8 @@ extension Anytype_Event.Account {
       public init() {}
 
       fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Account.Details: @unchecked Sendable {}
 
 extension Anytype_Event.Account.Details: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

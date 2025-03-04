@@ -19,7 +19,8 @@ extension Anytype_Rpc {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Rpc.App: @unchecked Sendable {}
 
 extension Anytype_Rpc.App: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

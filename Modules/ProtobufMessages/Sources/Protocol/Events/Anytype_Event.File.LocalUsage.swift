@@ -21,7 +21,8 @@ extension Anytype_Event.File {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.File.LocalUsage: @unchecked Sendable {}
 
 extension Anytype_Event.File.LocalUsage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

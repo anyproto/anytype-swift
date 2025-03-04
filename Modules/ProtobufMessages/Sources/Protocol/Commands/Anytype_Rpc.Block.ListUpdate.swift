@@ -192,7 +192,8 @@ extension Anytype_Rpc.Block {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Rpc.Block.ListUpdate: @unchecked Sendable {}
 extension Anytype_Rpc.Block.ListUpdate.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Block.ListUpdate.Request.OneOf_Field: @unchecked Sendable {}

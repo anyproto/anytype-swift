@@ -209,7 +209,8 @@ extension Anytype_Rpc.Account {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Account.ConfigUpdate.Timezones: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

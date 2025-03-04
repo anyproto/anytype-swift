@@ -19,7 +19,8 @@ extension Anytype_Model.Process {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Model.Process.SaveFile: @unchecked Sendable {}
 
 extension Anytype_Model.Process.SaveFile: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

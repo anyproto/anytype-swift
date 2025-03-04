@@ -111,7 +111,8 @@ extension Anytype_Rpc.Initial {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Initial.SetParameters.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

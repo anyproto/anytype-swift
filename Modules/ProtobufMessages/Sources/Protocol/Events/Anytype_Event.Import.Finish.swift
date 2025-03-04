@@ -25,7 +25,8 @@ extension Anytype_Event.Import {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Import.Finish: @unchecked Sendable {}
 
 extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

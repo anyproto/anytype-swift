@@ -107,7 +107,8 @@ extension Anytype_Rpc.Navigation {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Navigation.ListObjects.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

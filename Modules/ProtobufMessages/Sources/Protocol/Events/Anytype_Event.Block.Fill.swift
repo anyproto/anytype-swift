@@ -745,7 +745,8 @@ extension Anytype_Event.Block {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Block.Fill: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.Details: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.DatabaseRecords: @unchecked Sendable {}

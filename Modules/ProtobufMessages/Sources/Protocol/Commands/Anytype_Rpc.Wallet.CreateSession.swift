@@ -154,7 +154,8 @@ extension Anytype_Rpc.Wallet {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Wallet.CreateSession.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

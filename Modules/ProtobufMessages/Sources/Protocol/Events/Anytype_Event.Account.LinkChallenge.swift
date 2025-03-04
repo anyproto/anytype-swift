@@ -50,7 +50,8 @@ extension Anytype_Event.Account {
       public init() {}
 
       fileprivate var _clientInfo: Anytype_Event.Account.LinkChallenge.ClientInfo? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Account.LinkChallenge: @unchecked Sendable {}
 extension Anytype_Event.Account.LinkChallenge.ClientInfo: @unchecked Sendable {}
 

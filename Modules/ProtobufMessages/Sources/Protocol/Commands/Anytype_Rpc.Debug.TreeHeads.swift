@@ -111,7 +111,8 @@ extension Anytype_Rpc.Debug {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Debug.TreeHeads.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

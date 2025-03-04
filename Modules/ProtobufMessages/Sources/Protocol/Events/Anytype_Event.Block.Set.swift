@@ -1104,7 +1104,8 @@ extension Anytype_Event.Block {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Block.Set: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Relation: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Relation.Key: @unchecked Sendable {}

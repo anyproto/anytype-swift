@@ -61,7 +61,8 @@ extension Anytype_Model_Block.Content {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

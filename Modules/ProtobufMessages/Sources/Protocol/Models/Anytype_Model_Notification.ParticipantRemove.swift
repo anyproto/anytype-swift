@@ -29,7 +29,8 @@ extension Anytype_Model_Notification {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Notification.ParticipantRemove: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.ParticipantRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

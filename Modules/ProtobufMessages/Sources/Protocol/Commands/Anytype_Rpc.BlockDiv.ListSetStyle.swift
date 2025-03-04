@@ -113,7 +113,8 @@ extension Anytype_Rpc.BlockDiv {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

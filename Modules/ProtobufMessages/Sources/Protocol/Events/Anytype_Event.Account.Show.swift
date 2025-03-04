@@ -34,7 +34,8 @@ extension Anytype_Event.Account {
       public init() {}
 
       fileprivate var _account: Anytype_Model_Account? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Account.Show: @unchecked Sendable {}
 
 extension Anytype_Event.Account.Show: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

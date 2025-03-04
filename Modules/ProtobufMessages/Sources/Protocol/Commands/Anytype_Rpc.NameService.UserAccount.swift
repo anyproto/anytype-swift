@@ -127,7 +127,8 @@ extension Anytype_Rpc.NameService {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

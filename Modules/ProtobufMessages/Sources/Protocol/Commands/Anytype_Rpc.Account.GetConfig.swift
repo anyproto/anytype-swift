@@ -39,7 +39,8 @@ extension Anytype_Rpc.Account {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Rpc.Account.GetConfig: @unchecked Sendable {}
 extension Anytype_Rpc.Account.GetConfig.Get: @unchecked Sendable {}
 extension Anytype_Rpc.Account.GetConfig.Get.Request: @unchecked Sendable {}

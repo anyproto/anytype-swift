@@ -134,7 +134,8 @@ extension Anytype_Rpc.BlockText {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

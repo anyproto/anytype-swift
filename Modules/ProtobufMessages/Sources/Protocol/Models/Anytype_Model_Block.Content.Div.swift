@@ -49,7 +49,8 @@ extension Anytype_Model_Block.Content {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

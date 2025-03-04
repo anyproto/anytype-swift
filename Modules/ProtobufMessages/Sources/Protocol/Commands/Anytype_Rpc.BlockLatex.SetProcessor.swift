@@ -113,7 +113,8 @@ extension Anytype_Rpc.BlockLatex {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

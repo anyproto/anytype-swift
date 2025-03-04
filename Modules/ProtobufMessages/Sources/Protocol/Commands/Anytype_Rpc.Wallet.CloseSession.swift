@@ -97,7 +97,8 @@ extension Anytype_Rpc.Wallet {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Wallet.CloseSession.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

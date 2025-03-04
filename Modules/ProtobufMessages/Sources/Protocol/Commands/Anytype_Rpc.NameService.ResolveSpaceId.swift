@@ -107,7 +107,8 @@ extension Anytype_Rpc.NameService {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

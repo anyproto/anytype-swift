@@ -32,7 +32,8 @@ extension Anytype_Event.Chat {
       public init() {}
 
       fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Chat.UpdateReactions: @unchecked Sendable {}
 
 extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

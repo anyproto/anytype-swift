@@ -23,7 +23,8 @@ extension Anytype_Event.File {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.File.LimitReached: @unchecked Sendable {}
 
 extension Anytype_Event.File.LimitReached: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

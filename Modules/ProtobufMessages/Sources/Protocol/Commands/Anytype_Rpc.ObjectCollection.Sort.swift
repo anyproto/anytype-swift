@@ -109,7 +109,8 @@ extension Anytype_Rpc.ObjectCollection {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.ObjectCollection.Sort.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

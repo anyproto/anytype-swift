@@ -158,7 +158,8 @@ extension Anytype_Rpc.Debug {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Debug.AnystoreObjectChanges.Request.OrderBy: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

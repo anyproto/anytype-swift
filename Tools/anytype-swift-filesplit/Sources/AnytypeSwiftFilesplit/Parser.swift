@@ -113,7 +113,7 @@ public class FileSplitrer {
             newStructDecl.memberBlock.members = members
         }
         newStructDecl.leadingTrivia = Trivia.newlines(1) + (extensions != nil ? .spaces(4) : .spaces(0))
-        newStructDecl.trailingTrivia = extensions != nil ? .spaces(4) : .spaces(0)
+        newStructDecl.trailingTrivia = extensions != nil ? .spaces(4).merging(.newlines(1)) : .spaces(0)
                 
         let sourceFile = SourceFileSyntax {
             imports
@@ -139,7 +139,7 @@ public class FileSplitrer {
     private func parseEnum(_ enumDecl: EnumDeclSyntax, depth: Int, extensions: String?) {
         var newEnumDecl = enumDecl
         newEnumDecl.leadingTrivia = Trivia.newlines(1) + (extensions != nil ? .spaces(4) : .spaces(0))
-        newEnumDecl.trailingTrivia = extensions != nil ? .spaces(4) : .spaces(0)
+        newEnumDecl.trailingTrivia = extensions != nil ? .spaces(4).merging(.newlines(1)) : .spaces(0)
         
         let sourceFile = SourceFileSyntax {
             imports

@@ -25,7 +25,8 @@ extension Anytype_Model_Object {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Object.ChangePayload: @unchecked Sendable {}
 
 extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

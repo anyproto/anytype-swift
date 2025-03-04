@@ -108,7 +108,8 @@ extension Anytype_Event.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Object.Details: @unchecked Sendable {}
 extension Anytype_Event.Object.Details.Amend: @unchecked Sendable {}
 extension Anytype_Event.Object.Details.Amend.KeyValue: @unchecked Sendable {}

@@ -110,7 +110,8 @@ extension Anytype_Rpc.Broadcast {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

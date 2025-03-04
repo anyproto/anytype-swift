@@ -30,7 +30,8 @@ extension Anytype_Event.Membership {
       public init() {}
 
       fileprivate var _data: Anytype_Model_Membership? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Membership.Update: @unchecked Sendable {}
 
 extension Anytype_Event.Membership.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

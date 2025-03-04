@@ -634,7 +634,8 @@ extension Anytype_Event {
     public init() {}
 
     fileprivate var _storage = _StorageClass.defaultInstance
-  }    }
+  }    
+}
 extension Anytype_Event.Message: @unchecked Sendable {}
 
 extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

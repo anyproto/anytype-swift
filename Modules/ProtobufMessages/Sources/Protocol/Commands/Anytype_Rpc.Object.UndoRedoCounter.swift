@@ -23,7 +23,8 @@ extension Anytype_Rpc.Object {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Rpc.Object.UndoRedoCounter: @unchecked Sendable {}
 
 extension Anytype_Rpc.Object.UndoRedoCounter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

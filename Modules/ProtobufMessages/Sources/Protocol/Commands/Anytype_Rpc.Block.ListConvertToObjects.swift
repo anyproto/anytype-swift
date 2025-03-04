@@ -128,7 +128,8 @@ extension Anytype_Rpc.Block {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

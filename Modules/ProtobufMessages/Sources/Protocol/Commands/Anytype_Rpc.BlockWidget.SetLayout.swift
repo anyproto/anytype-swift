@@ -111,7 +111,8 @@ extension Anytype_Rpc.BlockWidget {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

@@ -103,7 +103,8 @@ extension Anytype_Rpc.BlockVideo {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockVideo.SetName.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

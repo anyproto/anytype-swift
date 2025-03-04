@@ -139,7 +139,8 @@ extension Anytype_Rpc.Log {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Log.Send.Request.Level: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

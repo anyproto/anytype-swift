@@ -116,7 +116,8 @@ extension Anytype_Rpc.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Object.ImportExperience.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

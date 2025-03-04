@@ -39,7 +39,8 @@ extension Anytype_Event.Space {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Space.SyncStatus: @unchecked Sendable {}
 extension Anytype_Event.Space.SyncStatus.Update: @unchecked Sendable {}
 

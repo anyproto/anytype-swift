@@ -31,7 +31,8 @@ extension Anytype_Rpc.History {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Rpc.History.Version: @unchecked Sendable {}
 
 extension Anytype_Rpc.History.Version: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -113,7 +113,8 @@ extension Anytype_Rpc.BlockBookmark {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

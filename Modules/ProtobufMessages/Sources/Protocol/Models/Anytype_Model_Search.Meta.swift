@@ -43,7 +43,8 @@ extension Anytype_Model_Search {
     public init() {}
 
     fileprivate var _relationDetails: SwiftProtobuf.Google_Protobuf_Struct? = nil
-  }    }
+  }    
+}
 extension Anytype_Model_Search.Meta: @unchecked Sendable {}
 
 extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

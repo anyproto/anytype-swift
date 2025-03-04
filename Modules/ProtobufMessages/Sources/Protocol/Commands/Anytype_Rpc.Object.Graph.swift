@@ -170,7 +170,8 @@ extension Anytype_Rpc.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

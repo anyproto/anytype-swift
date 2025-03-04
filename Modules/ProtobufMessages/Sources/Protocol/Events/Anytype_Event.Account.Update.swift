@@ -40,7 +40,8 @@ extension Anytype_Event.Account {
 
       fileprivate var _config: Anytype_Model_Account.Config? = nil
       fileprivate var _status: Anytype_Model_Account.Status? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Account.Update: @unchecked Sendable {}
 
 extension Anytype_Event.Account.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -19,7 +19,8 @@ extension Anytype_Model.Process {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Model.Process.Migration: @unchecked Sendable {}
 
 extension Anytype_Model.Process.Migration: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

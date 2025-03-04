@@ -59,7 +59,8 @@ extension Anytype_Model_Account {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Account.Info: @unchecked Sendable {}
 
 extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

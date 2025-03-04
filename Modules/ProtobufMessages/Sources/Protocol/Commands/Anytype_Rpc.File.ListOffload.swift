@@ -110,7 +110,8 @@ extension Anytype_Rpc.File {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.File.ListOffload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

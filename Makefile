@@ -1,4 +1,4 @@
-FILE_SPLITTER = ./build/anytype-swift-filesplit
+FILE_SPLITTER = ./build/anytype-swift-filesplit-v1
 
 setup-middle:
 	./Scripts/middle-download.sh
@@ -53,5 +53,5 @@ set-middle-version:
 setup-tools:
 	@if [ ! -f "$(FILE_SPLITTER)" ]; then \
 		make release -C Tools/anytype-swift-filesplit; \
-		cp Tools/anytype-swift-filesplit/build/anytype-swift-filesplit FILE_SPLITTER; \
+		cp Tools/anytype-swift-filesplit/build/anytype-swift-filesplit $(FILE_SPLITTER); \
 	fi

@@ -114,7 +114,8 @@ extension Anytype_Rpc.Publishing {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Publishing.Create.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

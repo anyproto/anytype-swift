@@ -136,7 +136,8 @@ extension Anytype_Rpc.File {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.File.Upload.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

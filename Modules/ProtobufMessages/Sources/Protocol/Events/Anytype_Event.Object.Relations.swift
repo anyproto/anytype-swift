@@ -49,7 +49,8 @@ extension Anytype_Event.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Object.Relations: @unchecked Sendable {}
 extension Anytype_Event.Object.Relations.Amend: @unchecked Sendable {}
 extension Anytype_Event.Object.Relations.Remove: @unchecked Sendable {}

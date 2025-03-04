@@ -21,7 +21,8 @@ extension Anytype_Event.Block {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Block.Delete: @unchecked Sendable {}
 
 extension Anytype_Event.Block.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -144,7 +144,8 @@ extension Anytype_Event.User {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.User.Block: @unchecked Sendable {}
 extension Anytype_Event.User.Block.Join: @unchecked Sendable {}
 extension Anytype_Event.User.Block.Left: @unchecked Sendable {}

@@ -106,7 +106,8 @@ extension Anytype_Rpc.Membership {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

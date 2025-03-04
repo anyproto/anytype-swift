@@ -19,7 +19,8 @@ extension Anytype_Model_Metadata {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Metadata.Payload: @unchecked Sendable {}
 
 extension Anytype_Model_Metadata.Payload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -209,7 +209,8 @@ extension Anytype_Model_Block.Content {
       public init() {}
 
       fileprivate var _marks: Anytype_Model_Block.Content.Text.Marks? = nil
-    }    }
+    }    
+}
 
 extension Anytype_Model_Block.Content.Text.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

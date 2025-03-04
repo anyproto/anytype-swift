@@ -128,7 +128,8 @@ extension Anytype_Rpc.Space {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Space.Join.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

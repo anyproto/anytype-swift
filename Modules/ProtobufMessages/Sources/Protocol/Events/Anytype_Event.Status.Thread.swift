@@ -184,7 +184,8 @@ extension Anytype_Event.Status {
 
       fileprivate var _summary: Anytype_Event.Status.Thread.Summary? = nil
       fileprivate var _cafe: Anytype_Event.Status.Thread.Cafe? = nil
-    }    }
+    }    
+}
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

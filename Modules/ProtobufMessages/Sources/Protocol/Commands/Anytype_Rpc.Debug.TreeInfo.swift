@@ -23,7 +23,8 @@ extension Anytype_Rpc.Debug {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Rpc.Debug.TreeInfo: @unchecked Sendable {}
 
 extension Anytype_Rpc.Debug.TreeInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -103,7 +103,8 @@ extension Anytype_Rpc.Template {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Template.CreateFromObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

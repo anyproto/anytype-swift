@@ -124,7 +124,8 @@ extension Anytype_Rpc.Relation {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Relation.ListWithValue.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

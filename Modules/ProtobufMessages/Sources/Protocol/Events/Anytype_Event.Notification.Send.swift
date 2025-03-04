@@ -30,7 +30,8 @@ extension Anytype_Event.Notification {
       public init() {}
 
       fileprivate var _notification: Anytype_Model_Notification? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Notification.Send: @unchecked Sendable {}
 
 extension Anytype_Event.Notification.Send: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

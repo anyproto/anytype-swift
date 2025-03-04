@@ -564,7 +564,8 @@ extension Anytype_Rpc.Object {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.Object.Import.Request.Mode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

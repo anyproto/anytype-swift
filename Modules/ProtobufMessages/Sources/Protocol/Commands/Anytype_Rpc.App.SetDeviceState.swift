@@ -125,7 +125,8 @@ extension Anytype_Rpc.App {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.App.SetDeviceState.Request.DeviceState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

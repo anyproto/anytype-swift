@@ -56,7 +56,8 @@ extension Anytype_Rpc.GenericErrorResponse {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.GenericErrorResponse.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

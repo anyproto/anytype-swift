@@ -23,7 +23,8 @@ extension Anytype_Model_Notification {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-  }    }
+  }    
+}
 extension Anytype_Model_Notification.ParticipantRequestDecline: @unchecked Sendable {}
 
 extension Anytype_Model_Notification.ParticipantRequestDecline: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

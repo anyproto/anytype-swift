@@ -30,7 +30,8 @@ extension Anytype_Event.Process {
       public init() {}
 
       fileprivate var _process: Anytype_Model.Process? = nil
-    }    }
+    }    
+}
 extension Anytype_Event.Process.Done: @unchecked Sendable {}
 
 extension Anytype_Event.Process.Done: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

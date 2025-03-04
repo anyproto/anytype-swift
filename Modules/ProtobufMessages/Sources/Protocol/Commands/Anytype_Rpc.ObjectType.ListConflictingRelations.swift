@@ -104,7 +104,8 @@ extension Anytype_Rpc.ObjectType {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

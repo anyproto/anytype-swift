@@ -38,7 +38,8 @@ extension Anytype_Model_Account {
     public init() {}
 
     fileprivate var _extra: SwiftProtobuf.Google_Protobuf_Struct? = nil
-  }    }
+  }    
+}
 extension Anytype_Model_Account.Config: @unchecked Sendable {}
 
 extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

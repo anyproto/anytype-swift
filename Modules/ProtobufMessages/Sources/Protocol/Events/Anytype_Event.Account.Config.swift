@@ -50,7 +50,8 @@ extension Anytype_Event.Account {
       }
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Account.Config: @unchecked Sendable {}
 extension Anytype_Event.Account.Config.Update: @unchecked Sendable {}
 

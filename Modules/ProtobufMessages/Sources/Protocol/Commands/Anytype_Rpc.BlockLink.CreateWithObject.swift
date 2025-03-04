@@ -171,7 +171,8 @@ extension Anytype_Rpc.BlockLink {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.

@@ -21,7 +21,8 @@ extension Anytype_Event.Chat {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Chat.Delete: @unchecked Sendable {}
 
 extension Anytype_Event.Chat.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

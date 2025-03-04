@@ -22,7 +22,8 @@ extension Anytype_Event.Account {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
-    }    }
+    }    
+}
 extension Anytype_Event.Account.LinkChallengeHide: @unchecked Sendable {}
 
 extension Anytype_Event.Account.LinkChallengeHide: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

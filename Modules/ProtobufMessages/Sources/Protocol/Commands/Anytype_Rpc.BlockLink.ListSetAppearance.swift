@@ -119,7 +119,8 @@ extension Anytype_Rpc.BlockLink {
       }
 
       public init() {}
-    }    }
+    }    
+}
 
 extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
