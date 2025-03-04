@@ -114,6 +114,10 @@ public extension FeatureFlags {
         value(for: .disableRestoreLastScreen)
     }
 
+    static var spaceHubNewTitle: Bool {
+        value(for: .spaceHubNewTitle)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -195,6 +199,7 @@ public extension FeatureFlags {
         .binWidgetFromLibrary,
         .anyAppBetaTip,
         .disableRestoreLastScreen,
+        .spaceHubNewTitle,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

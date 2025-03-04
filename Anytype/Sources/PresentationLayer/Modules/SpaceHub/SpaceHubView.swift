@@ -77,7 +77,7 @@ struct SpaceHubView: View {
     private var navBar: some View {
         HStack(alignment: .center, spacing: 0) {
             Spacer()
-            AnytypeText(Loc.myChannels, style: .uxTitle1Semibold)
+            AnytypeText(FeatureFlags.spaceHubNewTitle ? Loc.myChannels : Loc.mySpaces, style: .uxTitle1Semibold)
             Spacer()
         }
         .padding(.horizontal, 16)

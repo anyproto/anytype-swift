@@ -217,6 +217,7 @@ internal enum Loc {
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin", fallback: "Move To Bin")
   internal static let myChannels = Loc.tr("Localizable", "My Channels", fallback: "My Channels")
   internal static let myFirstSpace = Loc.tr("Localizable", "My First Space", fallback: "My First Space")
+  internal static let mySpaces = Loc.tr("Localizable", "My spaces", fallback: "My Spaces")
   internal static let myself = Loc.tr("Localizable", "Myself", fallback: "Myself")
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   internal static let new = Loc.tr("Localizable", "New", fallback: "New")
