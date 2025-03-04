@@ -1,3 +1,5 @@
+FILE_SPLITTER = ./build/anytype-swift-filesplit
+
 setup-middle:
 	./Scripts/middle-download.sh
 	make generate-middle
@@ -10,11 +12,11 @@ change-github-token:
 	# https://github.com/anyproto/anytype-swift?tab=readme-ov-file#use-pre-built-anytype-heart
 	./Scripts/change-token.sh
 
-generate-middle:
+generate-middle: setup-tools
 	rm -rf Modules/ProtobufMessages/Sources/Protocol/*
-	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/commands.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Commands --other-name CommandsOther.swift
-	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/events.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Events --other-name EventsOther.swift
-	./build/anytype-swift-filesplit --path ./Dependencies/Middleware/protobuf/models.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Models --other-name ModelsOther.swift
+	$(FILE_SPLITTER) --path ./Dependencies/Middleware/protobuf/commands.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Commands --other-name CommandsOther.swift
+	$(FILE_SPLITTER) --path ./Dependencies/Middleware/protobuf/events.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Events --other-name EventsOther.swift
+	$(FILE_SPLITTER) --path ./Dependencies/Middleware/protobuf/models.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Models --other-name ModelsOther.swift
 	cp -r Dependencies/Middleware/protobuf/localstore.pb.swift Modules/ProtobufMessages/Sources/Protocol
 	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
 	# ./Scripts/invocation-adoption-gen.sh
@@ -42,12 +44,14 @@ build-middle-local:
 
 setup-middle-local: build-middle-local install-middle-local
 
-setup-env: setup-tools
+setup-env:
 	brew install sourcery
 
 set-middle-version:
 	echo "MIDDLE_VERSION=$(v)" > Libraryfile
 
 setup-tools:
-	make release -C Tools/anytype-swift-filesplit
-	cp Tools/anytype-swift-filesplit/build/anytype-swift-filesplit ./build/anytype-swift-filesplit
+	@if [ ! -f "$(FILE_SPLITTER)" ]; then \
+		make release -C Tools/anytype-swift-filesplit; \
+		cp Tools/anytype-swift-filesplit/build/anytype-swift-filesplit FILE_SPLITTER; \
+	fi
