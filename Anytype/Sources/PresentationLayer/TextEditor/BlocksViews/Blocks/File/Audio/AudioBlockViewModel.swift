@@ -93,6 +93,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
                 file: fileData,
                 trackId: info.id,
                 documentId: documentId,
+                spaceId: spaceId,
                 audioPlayerViewDelegate: self
             ).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),

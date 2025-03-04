@@ -11,7 +11,7 @@ protocol TypesPinStorageProtocol: Sendable {
 final class TypesPinStorage: TypesPinStorageProtocol, Sendable {
     
     private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
-    private let storage = UserDefaultStorage<[String: [ObjectType]]>(key: "widgetCollapsedIds", defaultValue: [:]) // accidentally used wrong key, preserve as is or migrate later
+    private let storage = UserDefaultStorage<[String: [ObjectType]]>(key: "pinnedTypes", defaultValue: [:])
     
     func getPins(spaceId: String) throws -> [ObjectType] {
         if let pins = storage.value[spaceId] {

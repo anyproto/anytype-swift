@@ -198,7 +198,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             case let .addBlock(type, newText):
                 Task { @MainActor in
                     try await setNewText(attributedString: newText.sendable())
-                    actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top, spaceId: document.spaceId)
+                    try await actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top, spaceId: document.spaceId)
                     resetSubject.send(nil)
                 }
             case let .addStyle(style, currentText, styleRange, focusRange):

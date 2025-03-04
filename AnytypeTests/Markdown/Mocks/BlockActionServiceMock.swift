@@ -50,7 +50,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol, @unchecked Senda
     var addChildNumberOfCalls = 0
     var addChildInfo: BlockInformation?
     var addChildParentId: String?
-    func addChild(info: BlockInformation, parentId: String) {
+    func addChild(info: BlockInformation, parentId: String) async throws -> String {
         if addChildStub {
             addChildNumberOfCalls += 1
             addChildInfo = info
@@ -58,6 +58,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol, @unchecked Senda
         } else {
             assertionFailure()
         }
+        return ""
     }
     
     var addStub = false
@@ -66,7 +67,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol, @unchecked Senda
     var addTargetBlockId: String?
     var addPosition: BlockPosition?
     var addSetFocus: Bool?
-    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) {
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws -> String {
         if addStub {
             addNumberOfCalls += 1
             addInfo = info
@@ -76,6 +77,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol, @unchecked Senda
         } else {
             assertionFailure()
         }
+        return ""
     }
     
     var deleteStub = false
