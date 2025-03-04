@@ -40,6 +40,9 @@ struct MessageView: View {
             bubble
             reactions
         }
+        .if(UIDevice.isPad) {
+            $0.frame(maxWidth: 350, alignment: data.position.isRight ? .trailing : .leading)
+        }
     }
     
     @ViewBuilder
