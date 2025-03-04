@@ -11,11 +11,11 @@ final class ChatHeaderViewModel: ObservableObject {
     @Published private(set) var icon: Icon?
     
     private let spaceId: String
-    private let onTapSettings: () -> Void
+    private let onTapOpenWidgets: () -> Void
     
-    init(spaceId: String, onTapSettings: @escaping () -> Void) {
+    init(spaceId: String, onTapOpenWidgets: @escaping () -> Void) {
         self.spaceId = spaceId
-        self.onTapSettings = onTapSettings
+        self.onTapOpenWidgets = onTapOpenWidgets
     }
     
     func subscribe() async {
@@ -25,7 +25,7 @@ final class ChatHeaderViewModel: ObservableObject {
         }
     }
     
-    func tapSettings() {
-        onTapSettings()
+    func tapOpenWidgets() {
+        onTapOpenWidgets()
     }
 }
