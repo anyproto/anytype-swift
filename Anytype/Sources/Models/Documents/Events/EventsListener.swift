@@ -100,7 +100,7 @@ actor EventsListener: EventsListenerProtocol {
     
     private func handle(events: EventsBunch) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
-        let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
+        let localUpdates = events.localEvents.flatMap { localConverter.convert($0) }
         let markupUpdates = mentionMarkupEventProvider.updateMentionsEvent()
 
         let builderChangedIds = IndentationBuilder.build(
@@ -110,16 +110,10 @@ actor EventsListener: EventsListenerProtocol {
         let builderUpdates: [DocumentUpdate] = builderChangedIds.map { .block(blockId: $0) }
     
         let updates = middlewareUpdates + markupUpdates + localUpdates + builderUpdates
-        receiveUpdates(updates.filteredUpdates)
+        receiveUpdates(updates)
     }
     
     private func receiveUpdates(_ updates: [DocumentUpdate]) {
         onUpdatesReceive?(updates)
-    }
-}
-
-private extension Array where Element == DocumentUpdate {
-    var filteredUpdates: Self {
-        contains(.general) ? [.general] : self
     }
 }
