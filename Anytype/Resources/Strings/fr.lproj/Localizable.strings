@@ -3,12 +3,12 @@
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Texte";
-"TextStyle.Text.Subtitle" = "Commencez à écrire du texte";
+"TextStyle.Text.Subtitle" = "Commencez simplement à écrire en texte brut ";
 
 "TextStyle.Title.Title" = "Titre";
 "TextStyle.Title.Subtitle" = "Titre de grande section";
 
-"TextStyle.Heading.Title" = "Titre";
+"TextStyle.Heading.Title" = "En tête";
 "TextStyle.Heading.Subtitle" = "Titre moyen";
 
 "TextStyle.Subheading.Title" = "Sous-titre";
@@ -44,12 +44,12 @@
 "BlockText.ContentType.Title.Placeholder" = "Sans titre";
 "BlockText.ContentType.Description.Placeholder" = "Ajouter une description";
 "BlockText.ContentType.Toggle.Placeholder" = "Bloc dépliable";
-"BlockText.ContentType.Bulleted.Placeholder" = "Élément de liste à puces";
+"BlockText.ContentType.Bulleted.Placeholder" = "Item de liste à puces";
 "BlockText.ContentType.Checkbox.Placeholder" = "Case à cocher";
-"BlockText.ContentType.Numbered.Placeholder" = "Élément de liste numérotée";
-"BlockText.ContentType.Quote.Placeholder" = "Texte mis en évidence";
+"BlockText.ContentType.Numbered.Placeholder" = "Item de liste numérotée";
+"BlockText.ContentType.Quote.Placeholder" = "Texte surligné";
 "BlockText.ContentType.Header.Placeholder" = "Titre";
-"BlockText.ContentType.Header2.Placeholder" = "Titre";
+"BlockText.ContentType.Header2.Placeholder" = "En tête";
 "BlockText.ContentType.Header3.Placeholder" = "Sous-titre";
 
 // MARK: - Block Link
@@ -69,7 +69,7 @@
 "Fields.Updated" = "Le champ ‘%@’ a été mis à jour";
 "Fields.menu" = "Menu des champs";
 "Fields.local" = "Champs locaux";
-"Fields.missingInfo" = "Certains champs ne sont pas inclus dans le type d'objet. Veuillez les ajouter si vous souhaitez les voir apparaître dans tous les objets de ce type, ou bien les supprimer.";
+"Fields.missingInfo" = "Certains champs ne sont pas inclus dans le type d'objet. Veuillez les ajouter si vous souhaitez les voir dans tous les objets de ce type, ou bien supprime-les. ";
 "Fields.addToType" = "Ajouter au type actuel";
 "Fields.removeFromObject" = "Retirer de l’objet";
 
@@ -151,11 +151,11 @@
 "Objects" = "Objets";
 "All" = "Tout";
 "Pages" = "Pages";
-"Lists" = "Groupes";
+"Lists" = "Listes";
 "Bookmarks" = "Signets";
 "Files" = "Fichiers";
 "Media" = "Média";
-"Lists" = "Groupes";
+"Lists" = "Listes";
 "Dates" = "Dates";
 "Pinned" = "Épinglé";
 "Delete" = "Supprimer";
@@ -902,7 +902,7 @@
 "FileStorage.Local.Instruction" = "Afin d'économiser de l'espace sur votre appareil, vous pouvez décharger tous vos fichiers vers notre nœud de sauvegarde chiffré. Les fichiers seront rechargés lorsque vous les ouvrirez.";
 "FileStorage.Local.Used" = "%@ utilisé";
 "FileStorage.OffloadTitle" = "Décharger les fichiers";
-"FileStorage.CleanUpFiles" = "Clean up files files";
+"FileStorage.CleanUpFiles" = "Fichiers \"fichiers nettoyés\"";
 "FileStorage.LimitError" = "Vous avez dépassé la limite d'envoi de fichiers";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Autres espaces | %@";
@@ -1275,7 +1275,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.Reactions.Empty.Subtitle" = "Probablement quelqu'un vient de supprimer la réaction ou un problème technique est survenu";
 "Chat.EditMessage" = "Modifier le message";
 "Chat.Actions.Menu.Pages" = "Pages";
-"Chat.Actions.Menu.Lists" = "Groupes";
+"Chat.Actions.Menu.Lists" = "Listes";
 "Chat.Actions.Menu.Photos" = "Photos";
 "Chat.Actions.Menu.Files" = "Fichiers";
 "Chat.Actions.Menu.Camera" = "Caméra";
