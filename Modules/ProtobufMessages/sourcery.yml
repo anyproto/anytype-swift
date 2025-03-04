@@ -1,7 +1,0 @@
-configurations:
-  - sources:
-      - Sources/Protocol/Commands
-    templates:
-      - Templates/invocation-adoption.stencil
-    output:
-      Sources/Generated/CommandsInvocation

@@ -2,7 +2,7 @@ SOURCE_DIR="Sources/Protocol/Commands"
 TEMPLATE="Templates/invocation-adoption.stencil"
 OUTPUT_DIR="Sources/Generated/CommandsInvocation"
 
-cd Modules/ProtobufMessages
+cd ../
 
 if [ -d "$OUTPUT_DIR" ]; then
     rm -rf "$OUTPUT_DIR"
@@ -16,6 +16,6 @@ for file in "$SOURCE_DIR"/*.swift; do
         filename_noext="${filename%.*}"
         output_file="$OUTPUT_DIR/${filename_noext}+InvocationGenerated.swift"
 
-        sourcery --sources "$file" --templates "$TEMPLATE" --output "$output_file"
+        sourcery --quiet --sources "$file" --templates "$TEMPLATE" --output "$output_file"
     fi
 done

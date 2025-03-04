@@ -1,0 +1,14 @@
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// DO NOT EDIT
+
+
+extension Anytype_Rpc.BlockDataview.Relation.Add.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
