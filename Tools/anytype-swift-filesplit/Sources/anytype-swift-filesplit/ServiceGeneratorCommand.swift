@@ -17,18 +17,6 @@ struct ServiceGeneratorCommand: ParsableCommand {
     func run() throws {
         let fileManager = FileManager.default
         
-//        let path = "/Users/mikhail/Developer/anytype/anytype-swift/Dependencies/Middleware/protobuf/commands.pb.swift"
-//        let outputDir = "/Users/mikhail/Developer/anytype/anytype-swift/Modules/ProtobufMessages/Sources/Protocol/Commands"
-//        let otherName = "CommandsOther.swift"
-        
-//        let path = "/Users/mikhail/Developer/anytype/anytype-swift/Dependencies/Middleware/protobuf/events.pb.swift"
-//        let outputDir = "/Users/mikhail/Developer/anytype/anytype-swift/Modules/ProtobufMessages/Sources/Protocol/Events"
-//        let otherName = "EventsOther.swift"
-        
-//        let path = "/Users/mikhail/Developer/anytype/anytype-swift/Dependencies/Middleware/protobuf/models.pb.swift"
-//        let outputDir = "/Users/mikhail/Developer/anytype/anytype-swift/Modules/ProtobufMessages/Sources/Protocol/Models"
-//        let otherName = "ModelsOther.swift"
-        
         if fileManager.fileExists(atPath: outputDir) {
             try fileManager.removeItem(atPath: outputDir)
         }

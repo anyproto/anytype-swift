@@ -59,27 +59,6 @@ public class FileSplitrer {
         switch itemSyntax.item {
         case .decl(let declSyntax):
             parseDeclSyntax(declSyntax, depth: depth, extensions: nil)
-//            if declSyntax.isFileprivate {
-//                fileprivateItems.append(itemSyntax)
-//            } else if let structV = declSyntax.as(StructDeclSyntax.self) {
-//                parseStruct(structV, depth: depth, extensions: nil)
-//            } else if let importV = declSyntax.as(ImportDeclSyntax.self) {
-//                imports.append(importV)
-//            } else if let enumV = declSyntax.as(EnumDeclSyntax.self) {
-//                parseEnum(enumV, depth: depth, extensions: nil)
-//            } else if let extensionV = declSyntax.as(ExtensionDeclSyntax.self) {
-//                let name = extensionV.extendedType.formatted().description.split(separator: ".").prefix(maxDepth).joined(separator: ".")
-//                if var fileSyntax = result[name] {
-//                    fileSyntax.statements.append(itemSyntax)
-//                    result[name] = fileSyntax
-//                } else {
-//                    otherItems.append(itemSyntax)
-//                }
-//            } else if let ifConfigDecl = declSyntax.as(IfConfigDeclSyntax.self) {
-//                parseIfConfigDeclSyntax(ifConfigDecl, depth: depth)
-//            } else {
-//                otherItems.append(itemSyntax)
-//            }
         case .stmt(let stmtSyntax):
             otherItems.append(itemSyntax)
         case .expr(let exprSyntax):
@@ -106,30 +85,21 @@ public class FileSplitrer {
                 otherItems.append(itemSyntax)
             }
         } else if let ifConfigDecl = declSyntax.as(IfConfigDeclSyntax.self) {
-            parseIfConfigDeclSyntax(ifConfigDecl, depth: depth)
+            parseIfConfigDeclSyntax(ifConfigDecl, itemSyntax: itemSyntax, depth: depth)
         } else {
             otherItems.append(itemSyntax)
         }
     }
     
-    private func parseIfConfigDeclSyntax(_ decl: IfConfigDeclSyntax, depth: Int) {
+    private func parseIfConfigDeclSyntax(_ decl: IfConfigDeclSyntax, itemSyntax: CodeBlockItemSyntax, depth: Int) {
         for clasuse in decl.clauses {
             switch clasuse.elements {
             case .statements(let data):
                 for item in data {
                     parseCodeBlockItemSyntax(item, depth: depth)
                 }
-            case .switchCases(let data):
-                // TODO: Add to other
-                break
-            case .decls(let data):
-                break
-            case .postfixExpression(let data):
-                break
-            case .attributes(let data):
-                break
-            case .none:
-                break
+            default:
+                otherItems.append(itemSyntax)
             }
         }
     }
