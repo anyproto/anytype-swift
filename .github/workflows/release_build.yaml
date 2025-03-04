@@ -101,5 +101,6 @@ jobs:
           OPENAI_TOKEN: ${{ secrets.OPENAI_TOKEN }}
           AI_ENDPOINT: ${{ secrets.AI_ENDPOINT }}
           AI_MODEL: ${{ secrets.AI_MODEL }}
+          ANY_APP_MEMBERSHIP_TIER_SECRET: ${{ secrets.ANY_APP_MEMBERSHIP_TIER_SECRET }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
