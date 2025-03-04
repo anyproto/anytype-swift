@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Oggetto eliminato";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
+"Fields.Created" = "È stato creato il campo ‘%@’";
+"Fields.Updated" = "Il campo ‘%@’ è stato aggiornato";
 "Fields.menu" = "Menu campi";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
-"Fields.addToType" = "Add to the current type";
-"Fields.removeFromObject" = "Remove from the object";
+"Fields.local" = "Campi locali";
+"Fields.missingInfo" = "Alcuni campi non sono inclusi nel tipo di oggetto. Aggiungerli se si desidera vederli in tutti gli oggetti di questo tipo, oppure rimuoverli.";
+"Fields.addToType" = "Aggiungi al tipo corrente";
+"Fields.removeFromObject" = "Rimuovi dall'oggetto";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Campi in evidenza";
+"Create relation" = "Crea il campo '%@'";
 "Relation.View.Hint.Empty" = "vuoto";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "I miei campi";
+"Relation.Deleted" = "Campo eliminato";
 "Relation.From.Type" = "Dal tipo %@";
 "Relation.EmptyState.title" = "Nessuna opzione";
 "Relation.EmptyState.description" = "Nessun risultato. Crea la prima opzione per iniziare.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "Il campo è vuoto";
 "Relation.Create.Row.title" = "Crea “%@”";
 "Relation.View.Create.title" = "Crea opzione";
 "Relation.View.Edit.title" = "Modifica opzione";
@@ -218,7 +218,7 @@
 "Create Set" = "Crea un Insieme";
 "Unsupported deeplink" = "Deeplink non supportato";
 "Edit Profile" = "Modifica il Profilo";
-"Object Types" = "Object Types";
+"Object Types" = "Tipi di Oggetto";
 
 // Home
 "Favorites" = "Preferiti";
@@ -487,8 +487,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.RelationsList" = "Campi:";
+"Set.FeaturedRelations.Relation" = "Campo:";
 "Set.FeaturedRelations.Type" = "Tipo:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Raggruppa per";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Colore colonne";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "Nessun campo";
 "Set.View.Settings.NoFilters.Placeholder" = "Nessun filtro";
 "Set.View.Settings.NoSorts.Placeholder" = "Nessun ordinamento";
 "Set.View.Settings.Objects.Applied.Title" = "%d applicato";
@@ -581,7 +581,7 @@
 "Type" = "Tipo";
 "Types" = "Types";
 "No name" = "Nessun nome";
-"New field" = "New field";
+"New field" = "Nuovo campo";
 "Edit field" = "Modifica del campo";
 "Non-existent object" = "Oggetto inesistente";
 
@@ -618,7 +618,7 @@
 "Edit" = "Modifica";
 "Hidden" = "Hidden";
 "In this object" = "In questo oggetto";
-"Other relations" = "Other fields";
+"Other relations" = "Altri campi";
 "Collection of objects" = "Collezione di oggetti";
 "Designed to capture thoughts quickly" = "Progettato per catturare rapidamente i pensieri";
 "Action-focused layout with a checkbox" = "Layout focalizzato sull'azione con casella di controllo";
