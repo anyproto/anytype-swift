@@ -32,9 +32,6 @@ extension Anytype_Rpc.Wallet {
         /// Mnemonic of a wallet to recover
         public var mnemonic: String = String()
 
-        /// optional, default fts language
-        public var fulltextPrimaryLanguage: String = String()
-
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -154,7 +151,6 @@ extension Anytype_Rpc.Wallet.Recover.Request: SwiftProtobuf.Message, SwiftProtob
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "rootPath"),
     2: .same(proto: "mnemonic"),
-    3: .same(proto: "fulltextPrimaryLanguage"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -165,7 +161,6 @@ extension Anytype_Rpc.Wallet.Recover.Request: SwiftProtobuf.Message, SwiftProtob
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.rootPath) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.mnemonic) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
       default: break
       }
     }
@@ -178,16 +173,12 @@ extension Anytype_Rpc.Wallet.Recover.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.mnemonic.isEmpty {
       try visitor.visitSingularStringField(value: self.mnemonic, fieldNumber: 2)
     }
-    if !self.fulltextPrimaryLanguage.isEmpty {
-      try visitor.visitSingularStringField(value: self.fulltextPrimaryLanguage, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Wallet.Recover.Request, rhs: Anytype_Rpc.Wallet.Recover.Request) -> Bool {
     if lhs.rootPath != rhs.rootPath {return false}
     if lhs.mnemonic != rhs.mnemonic {return false}
-    if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

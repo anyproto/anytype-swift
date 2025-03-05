@@ -4,13 +4,13 @@ import AnytypeCore
 import DeepLinks
 
 protocol MessageTextBuilderProtocol: Sendable {
-    func makeMessage(content: ChatMessageContent, spaceId: String, isYourMessage: Bool, font: AnytypeFont) -> AttributedString
+    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> AttributedString
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String
 }
 
 extension MessageTextBuilderProtocol {
-    func makeMessage(content: ChatMessageContent, spaceId: String, isYourMessage: Bool) -> AttributedString {
-        makeMessage(content: content, spaceId: spaceId, isYourMessage: isYourMessage, font: .chatText)
+    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition) -> AttributedString {
+        makeMessage(content: content, spaceId: spaceId, position: position, font: .chatText)
     }
 }
 
@@ -18,7 +18,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     
     private let deepLinkParser: any DeepLinkParserProtocol = Container.shared.deepLinkParser()
     
-    func makeMessage(content: ChatMessageContent, spaceId: String, isYourMessage: Bool, font: AnytypeFont) -> AttributedString {
+    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> AttributedString {
         var message = AttributedString(content.text)
         
         message.font = AnytypeFontBuilder.font(anytypeFont: font)
@@ -27,7 +27,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
         message.paragraphStyle = paragraphStyle
         
-        message.foregroundColor = isYourMessage ? Color.Text.white : Color.Text.primary
+        message.foregroundColor = position.isRight ? Color.Text.white : Color.Text.primary
         
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)
@@ -78,7 +78,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     }
     
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String {
-        NSAttributedString(makeMessage(content: content, spaceId: "", isYourMessage: true)).string
+        NSAttributedString(makeMessage(content: content, spaceId: "", position: .right)).string
     }
     
     private func createLinkToObject(_ objectId: String, spaceId: String) -> URL? {

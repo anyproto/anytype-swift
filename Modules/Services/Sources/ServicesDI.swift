@@ -147,4 +147,8 @@ public extension Container {
     var accountMigrationService: Factory<AccountMigrationServiceProtocol> {
         self { AccountMigrationService() }.shared
     }
+    
+    var aiService: Factory<AIServiceProtocol> {
+        self { AIService() }.shared
+    }
 }

@@ -6,7 +6,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func installObjects(spaceId: String, objectIds: [String]) async throws -> [String]
     func installObject(spaceId: String, objectId: String) async throws -> ObjectDetails
     
-    func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool) async throws -> String
+    func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool, uxType: SpaceUxType) async throws -> String
     func workspaceOpen(spaceId: String, withChat: Bool) async throws -> AccountInfo
     func workspaceSetDetails(spaceId: String, details: [WorkspaceSetDetails]) async throws
     func workspaceExport(spaceId: String, path: String) async throws -> String
@@ -19,6 +19,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func stopSharing(spaceId: String) async throws
     func makeSharable(spaceId: String) async throws
     func getCurrentInvite(spaceId: String) async throws -> SpaceInvite
+    func getGuestInvite(spaceId: String) async throws -> SpaceInvite
     func requestApprove(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func requestDecline(spaceId: String, identity: String) async throws
     func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
@@ -47,11 +48,12 @@ final class WorkspaceService: WorkspaceServiceProtocol {
 		return try ObjectDetails(protobufStruct: result.details)
     }
     
-    public func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool) async throws -> String {
+    public func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool, uxType: SpaceUxType) async throws -> String {
         let result = try await ClientCommands.workspaceCreate(.with {
             $0.details.fields[BundledRelationKey.name.rawValue] = name.protobufValue
             $0.details.fields[BundledRelationKey.iconOption.rawValue] = iconOption.protobufValue
             $0.details.fields[BundledRelationKey.spaceAccessType.rawValue] = accessType.rawValue.protobufValue
+            $0.details.fields[BundledRelationKey.spaceUxType.rawValue] = uxType.rawValue.protobufValue
             $0.useCase = useCase.toMiddleware()
             $0.withChat = withChat
         }).invoke()
@@ -147,6 +149,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         let result = try await ClientCommands.spaceInviteGetCurrent(.with {
             $0.spaceID = spaceId
         }).invoke(ignoreLogErrors: .noActiveInvite)
+        return result.asModel()
+    }
+    
+    public func getGuestInvite(spaceId: String) async throws -> SpaceInvite {
+        let result = try await ClientCommands.spaceInviteGetGuest(.with {
+            $0.spaceID = spaceId
+        }).invoke()
         return result.asModel()
     }
     

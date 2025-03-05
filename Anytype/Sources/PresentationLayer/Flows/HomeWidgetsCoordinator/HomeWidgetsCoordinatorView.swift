@@ -20,11 +20,6 @@ struct HomeWidgetsCoordinatorView: View {
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
-            .sheet(item: $model.showChangeSourceData) {
-                WidgetChangeSourceSearchView(data: $0) {
-                    model.onFinishChangeSource(screenData: $0)
-                }
-            }
             .sheet(item: $model.showChangeTypeData) {
                 WidgetTypeChangeView(data: $0)
             }

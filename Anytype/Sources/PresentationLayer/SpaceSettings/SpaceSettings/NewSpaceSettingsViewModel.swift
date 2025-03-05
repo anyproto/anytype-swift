@@ -68,6 +68,19 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var owner: Participant?
     private var inviteLink: URL?
     
+    var isChatOn: Bool? {
+        guard FeatureFlags.showHomeSpaceLevelChat(spaceId: workspaceInfo.accountSpaceId) else { return nil }
+        
+        return switch participantSpaceView?.spaceView.uxType {
+        case .chat:
+            true
+        case .data:
+            false
+        case .stream, .none, .UNRECOGNIZED:
+            nil
+        }
+    }
+    
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
@@ -137,6 +150,16 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         output?.onObjectTypesSelected()
     }
     
+    func toggleChatState(isOn: Bool) {
+        Task {
+            try await workspaceService.workspaceSetDetails(spaceId: workspaceInfo.accountSpaceId, details: [
+                .spaceUxType(isOn ? .chat : .data)
+            ])
+            
+            snackBarData = ToastBarData(text: isOn ? Loc.Settings.chatEnabled : Loc.Settings.chatDisabled, showSnackBar: true)
+        }
+    }
+
     func onTitleTap() {
         editingData = SettingsInfoEditingViewData(
             title: Loc.name,
@@ -260,7 +283,13 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     }
     
     private func generateInviteIfNeeded() async throws {
-        if shareSection.isSharingAvailable && inviteLink.isNil {
+        guard let participantSpaceView else { return }
+        guard shareSection.isSharingAvailable && inviteLink.isNil else { return }
+        
+        if participantSpaceView.spaceView.uxType.isStream {
+            let invite = try await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+        } else {
             let invite = try await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
             inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         }

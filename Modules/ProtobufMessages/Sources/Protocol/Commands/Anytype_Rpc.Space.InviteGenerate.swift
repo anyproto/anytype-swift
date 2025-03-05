@@ -26,7 +26,43 @@ extension Anytype_Rpc.Space {
 
         public var spaceID: String = String()
 
+        public var inviteType: Anytype_Rpc.Space.InviteGenerate.Request.InviteType = .member
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public enum InviteType: SwiftProtobuf.Enum, Swift.CaseIterable {
+          public typealias RawValue = Int
+          case member // = 0
+          case guest // = 1
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .member
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .member
+            case 1: self = .guest
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .member: return 0
+            case .guest: return 1
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+          // The compiler won't synthesize support with the UNRECOGNIZED case.
+          public static let allCases: [Anytype_Rpc.Space.InviteGenerate.Request.InviteType] = [
+            .member,
+            .guest,
+          ]
+
+        }
 
         public init() {}
       }
@@ -155,6 +191,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
   public static let protoMessageName: String = Anytype_Rpc.Space.InviteGenerate.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
+    2: .same(proto: "inviteType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -164,6 +201,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
       default: break
       }
     }
@@ -173,14 +211,25 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
+    if self.inviteType != .member {
+      try visitor.visitSingularEnumField(value: self.inviteType, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Space.InviteGenerate.Request, rhs: Anytype_Rpc.Space.InviteGenerate.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.inviteType != rhs.inviteType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Rpc.Space.InviteGenerate.Request.InviteType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Member"),
+    1: .same(proto: "Guest"),
+  ]
 }
 
 extension Anytype_Rpc.Space.InviteGenerate.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

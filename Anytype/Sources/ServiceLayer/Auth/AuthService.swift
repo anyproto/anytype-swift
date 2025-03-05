@@ -65,7 +65,7 @@ final class AuthService: AuthServiceProtocol, Sendable {
 
     func accountRecover() async throws {
         try await authMiddleService.accountRecover()
-        loginStateService.setupStateAfterAuth()
+        await loginStateService.setupStateAfterAuth()
     }
     
     func selectAccount(id: String) async throws -> AccountData {

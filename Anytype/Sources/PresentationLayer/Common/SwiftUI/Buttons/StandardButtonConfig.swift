@@ -251,6 +251,24 @@ extension StandardButtonStyle {
                 radius: 6,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
+        case .transparentXSmall:
+            return StandardButtonConfig(
+                normal: StandardButtonConfig.Style(
+                    textColor: .Text.inversion,
+                    backgroundColor: .Control.transparentActive
+                ),
+                higlighted: StandardButtonConfig.Style(
+                    overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))
+                ),
+                disabled: StandardButtonConfig.Style(
+                    backgroundColor: .Control.transparentInactive
+                ),
+                textFont: .caption1Medium,
+                height: 28,
+                stretchSize: false,
+                radius: 6,
+                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
+            )
         case .upgradeBadge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(

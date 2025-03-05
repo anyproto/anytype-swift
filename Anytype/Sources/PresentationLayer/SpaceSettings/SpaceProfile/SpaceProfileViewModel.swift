@@ -39,6 +39,7 @@ final class SpaceProfileViewModel: ObservableObject {
     
     private var owner: Participant?
     private var participantSpaceView: ParticipantSpaceViewData?
+    private var linkUpdated: Bool = false
     
     init(info: AccountInfo) {
         self.workspaceInfo = info
@@ -49,10 +50,6 @@ final class SpaceProfileViewModel: ObservableObject {
         async let ownerTask: () = startOwnerTask()
         
         (_) = await (participantTask, ownerTask)
-    }
-    
-    func setup() async {
-        await generateInviteIfPossible()
     }
     
     func onInfoTap() {
@@ -78,9 +75,17 @@ final class SpaceProfileViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func generateInviteIfPossible() async {
-        guard let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId) else { return }
-        inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+    private func generateInviteIfPossible(spaceView: SpaceView) async {
+        guard !linkUpdated else { return }
+        defer { linkUpdated = true }
+        
+        if spaceView.uxType.isStream {
+            guard let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId) else { return }
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+        } else {
+            guard let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId) else { return }
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+        }
     }
     
     private func startParticipantTask() async {
@@ -95,6 +100,7 @@ final class SpaceProfileViewModel: ObservableObject {
             allowLeave = participantSpaceView.canLeave
             
             updateSettingsInfo()
+            await generateInviteIfPossible(spaceView: participantSpaceView.spaceView)
         }
     }
     

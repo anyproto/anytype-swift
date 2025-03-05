@@ -1,0 +1,22 @@
+import Foundation
+import Services
+
+struct SpaceCreateData: Equatable, Identifiable, Hashable {
+    let sceneId: String
+    let spaceUxType: SpaceUxType
+    
+    var id: Int { hashValue }
+    
+    var title: String {
+        switch spaceUxType {
+        case .chat:
+            return Loc.SpaceCreate.Chat.title
+        case .data:
+            return Loc.SpaceCreate.Space.title
+        case .stream:
+            return Loc.SpaceCreate.Stream.title
+        case .UNRECOGNIZED(_):
+            return ""
+        }
+    }
+}

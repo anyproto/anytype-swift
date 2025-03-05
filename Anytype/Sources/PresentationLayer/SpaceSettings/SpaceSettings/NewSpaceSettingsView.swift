@@ -168,7 +168,6 @@ struct NewSpaceSettingsView: View {
     
     @ViewBuilder
     private var collaboration: some View {
-        
         switch model.shareSection {
         case .personal:
             EmptyView()
@@ -176,10 +175,18 @@ struct NewSpaceSettingsView: View {
             privateSpaceSetting(state: state)
         case .ownerOrEditor(let joiningCount):
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : nil) { model.onShareTap() }
+            RoundedButton(Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : .chervon) { model.onShareTap() }
         case .viewer:
             SectionHeaderView(title: Loc.collaboration)
             RoundedButton(Loc.members, icon: .X24.member) { model.onShareTap() }
+        }
+        
+        if let isChatOn = model.isChatOn {
+            Spacer.fixedHeight(8)
+            RoundedButtonView(Loc.chat, decoration: .toggle(isOn: isChatOn, onToggle: { isOn in
+                UISelectionFeedbackGenerator().selectionChanged()
+                model.toggleChatState(isOn: isOn)
+            }))
         }
     }
     
@@ -190,11 +197,11 @@ struct NewSpaceSettingsView: View {
                 EmptyView()
             case .shareable:
                 SectionHeaderView(title: Loc.collaboration)
-                RoundedButton(Loc.share, icon: .X24.member) { model.onShareTap() }
+                RoundedButton(Loc.share, icon: .X24.member, decoration: .chervon) { model.onShareTap() }
             case .reachedSharesLimit(let limit):
                 SectionHeaderView(title: Loc.collaboration)
                 VStack(alignment: .leading, spacing: 0) {
-                    RoundedButton(Loc.share, icon: .X24.member) { }
+                    RoundedButton(Loc.share, icon: .X24.member, decoration: .chervon) { }
                         .disabled(true)
                     AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
                         .foregroundColor(.Text.primary)
@@ -210,7 +217,7 @@ struct NewSpaceSettingsView: View {
     @ViewBuilder
     private var contentModel: some View {
         SectionHeaderView(title: Loc.contentModel)
-        RoundedButton(Loc.objectTypes, icon: .X24.objectType) { model.onObjectTypesTap() }
+        RoundedButton(Loc.objectTypes, icon: .X24.objectType, decoration: .chervon) { model.onObjectTypesTap() }
     }
     
     @ViewBuilder
@@ -221,7 +228,7 @@ struct NewSpaceSettingsView: View {
             decoration: .init(objectType: model.defaultObjectType)
         ) { model.onDefaultObjectTypeTap() }
         Spacer.fixedHeight(8)
-        RoundedButton(Loc.wallpaper) { model.onWallpaperTap() }
+        RoundedButton(Loc.wallpaper, decoration: .chervon) { model.onWallpaperTap() }
     }
     
     @ViewBuilder
