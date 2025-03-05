@@ -82,7 +82,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
-    
+    // Scroll to unreaded first time after open
+    private var scrollToFirstUnreaded = true
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
 
     // Alerts
@@ -160,7 +161,15 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func subscribeOnChatState() async {
         for await chatState in chatStorage.chatStateStream {
-            // TODO: Handle chat state
+            if scrollToFirstUnreaded {
+                scrollToFirstUnreaded = false
+                let orderId = chatState.messages.oldestOrderID
+                do {
+                    // TODO: Show unreaded immedienlty after open. Waiting middleware api.
+                    let message = try await chatStorage.loadPagesTo(orderId: orderId)
+                    collectionViewScrollProxy.scrollTo(itemId: message.id)
+                } catch {}
+            }
         }
     }
     

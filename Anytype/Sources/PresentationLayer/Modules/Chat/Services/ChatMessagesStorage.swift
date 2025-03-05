@@ -10,6 +10,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func loadNextPage() async throws
     func loadPrevPage() async throws
     func loadPagesTo(messageId: String) async throws
+    func loadPagesTo(orderId: String) async throws -> ChatMessage
     func attachments(message: ChatMessage) async -> [ObjectDetails]
     func attachments(ids: [String]) async -> [ObjectDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
@@ -156,6 +157,32 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         
         await addNewMessages(messages: allLoadedMessages)
         updateFullMessages()
+    }
+    
+    func loadPagesTo(orderId: String) async throws -> ChatMessage {
+        if let message = allMessages.values.first(where: { $0.orderID == orderId }) {
+            return message
+        }
+        
+        let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: orderId, afterOrderId: nil, limit: Constants.pageSize)
+        let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: nil, afterOrderId: orderId, limit: Constants.pageSize)
+        
+        // TODO: Waiting middleware api
+        guard let firstAfterOrderId = loadedMessagesAfter.first?.orderID else {
+            throw CommonError.undefined
+        }
+        let replyMessage = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: firstAfterOrderId, afterOrderId: nil, limit: 1).last
+        
+        guard let replyMessage else {
+            throw CommonError.undefined
+        }
+        
+        let allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
+        allMessages.removeAll()
+        
+        await addNewMessages(messages: allLoadedMessages)
+        updateFullMessages()
+        return replyMessage
     }
     
     func attachments(message: ChatMessage) async -> [ObjectDetails] {
