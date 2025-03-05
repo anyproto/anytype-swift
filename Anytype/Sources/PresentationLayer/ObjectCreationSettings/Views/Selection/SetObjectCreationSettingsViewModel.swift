@@ -180,7 +180,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             return InstalledObjectTypeViewModel(
                 id: type.id,
                 icon: .object(type.icon),
-                title: type.name,
+                title: type.displayName,
                 isSelected: isSelected,
                 onTap: { [weak self] in
                     self?.setObjectType(type)

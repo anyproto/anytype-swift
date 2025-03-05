@@ -36,7 +36,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             iconImage: details.objectIconImage,
             title: title,
             highlights: highlights,
-            objectTypeName: details.objectType.name,
+            objectTypeName: details.objectType.displayName,
             editorScreenData: ScreenData(details: details, blockId: meta.first?.blockID),
             score: score,
             canArchive: details.permissions(participantCanEdit: participantCanEdit).canArchive

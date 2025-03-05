@@ -382,7 +382,7 @@ private extension SingleRelationBuilder {
                     return Relation.Object.Option(
                         id: type.id,
                         icon: nil,
-                        title: type.name,
+                        title: type.displayName,
                         type: "",
                         isArchived: type.isArchived,
                         isDeleted: type.isDeleted,
@@ -408,7 +408,7 @@ private extension SingleRelationBuilder {
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImage,
                     title: objectDetail.title,
-                    type: objectDetail.objectType.name,
+                    type: objectDetail.objectType.displayName,
                     isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted,
                     editorScreenData: objectDetail.screenData()

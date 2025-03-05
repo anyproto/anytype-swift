@@ -126,7 +126,7 @@ private extension RelationFilterBuilder {
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImage,
                     title: objectDetail.title,
-                    type: objectDetail.objectType.name,
+                    type: objectDetail.objectType.displayName,
                     isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted,
                     editorScreenData: objectDetail.screenData()

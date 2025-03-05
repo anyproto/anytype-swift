@@ -18,7 +18,7 @@ extension MessageAttachmentDetails {
         self = MessageAttachmentDetails(
             id: details.id,
             title: details.title,
-            description: details.objectType.name,
+            description: details.objectType.displayName,
             sizeInBytes: details.sizeInBytes,
             layoutValue: details.layoutValue,
             objectIconImage: details.objectIconImage,

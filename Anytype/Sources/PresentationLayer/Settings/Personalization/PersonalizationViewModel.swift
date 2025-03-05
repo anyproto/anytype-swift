@@ -29,7 +29,7 @@ final class PersonalizationViewModel: ObservableObject {
     
     private func setupSubscriptions() {
         objectTypeProvider.defaultObjectTypePublisher(spaceId: spaceId)
-            .map { $0.name }
+            .map { $0.displayName }
             .receiveOnMain()
             .assign(to: &$objectType)
     }

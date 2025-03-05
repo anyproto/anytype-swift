@@ -72,6 +72,6 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
-        return details.objectType.name
+        return details.objectType.displayName
     }
 }
