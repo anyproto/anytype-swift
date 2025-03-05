@@ -80,7 +80,7 @@ platform :ios do
     tag_name = "#{prefix}/#{version}/#{build_number}"
 
     add_git_tag(tag: tag_name)
-    push_git_tags(tag: tag_name)
+    sh("git push origin refs/tags/#{tag_name} --no-verify")
   
     appInfo = settings[:app_info]
     old_tag_name = sh("git describe --first-parent --tags --abbrev=0 HEAD~").chomp
