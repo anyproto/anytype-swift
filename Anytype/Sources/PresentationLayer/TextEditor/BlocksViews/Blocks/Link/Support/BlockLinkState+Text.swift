@@ -39,7 +39,7 @@ extension BlockLinkState {
         }
 
         return NSAttributedString(
-            string: type.name,
+            string: type.displayName,
             attributes: [
                 .font: UIFont.relation2Regular,
                 .foregroundColor: UIColor.Text.secondary,

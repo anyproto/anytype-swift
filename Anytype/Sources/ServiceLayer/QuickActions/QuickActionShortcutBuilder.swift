@@ -47,7 +47,7 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     private func buildCreateObjectShortcutItem(type: ObjectType) -> UIApplicationShortcutItem {
         UIApplicationShortcutItem(
             type: Constants.newObject.rawValue,
-            localizedTitle: Loc.QuickAction.create(type.name),
+            localizedTitle: Loc.QuickAction.create(type.displayName),
             localizedSubtitle: nil,
             icon: UIApplicationShortcutIcon(type: .add),
             userInfo: [Constants.typeId.rawValue: type.id as any NSSecureCoding]

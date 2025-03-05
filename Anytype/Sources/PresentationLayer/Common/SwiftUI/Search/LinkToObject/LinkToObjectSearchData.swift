@@ -20,7 +20,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.searchKind = searchKind ?? .object(details.id)
         self.title = details.title
         self.description = details.description
-        self.callout = details.objectType.name
+        self.callout = details.objectType.displayName
         self.typeId = details.objectType.id
         self.iconImage = details.objectIconImage
         self.screenData = details.screenData()

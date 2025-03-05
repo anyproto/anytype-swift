@@ -58,7 +58,7 @@ struct ChatInput: View {
                     Button {
                         onTapCreateObject(type)
                     } label: {
-                        Text(type.name)
+                        Text(type.displayName)
                     }
                 }
             } label: {
