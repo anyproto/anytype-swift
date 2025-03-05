@@ -29,6 +29,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Published var applicationState: ApplicationState = .initial
     @Published var toastBarData: ToastBarData = .empty
     @Published var migrationData: MigrationModuleData?
+    @Published var selectAccountTaskId: String?
     
     // MARK: - Initializers
 
@@ -126,12 +127,14 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             let seed = try seedService.obtainSeed()
             try await authService.walletRecovery(mnemonic: seed)
             await selectAccount(id: userId)
+        } catch is CancellationError {
+            // Ignore cancellations
         } catch {
             applicationStateService.state = .auth
         }
     }
     
-    private func selectAccount(id: String) async {
+    func selectAccount(id: String) async {
         do {
             let account = try await authService.selectAccount(id: id)
             
@@ -149,7 +152,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             migrationData = MigrationModuleData(
                 id: id,
                 onFinish: { [weak self] in
-                    await self?.selectAccount(id: id)
+                    self?.selectAccountTaskId = id
                 }
             )
         } catch {
