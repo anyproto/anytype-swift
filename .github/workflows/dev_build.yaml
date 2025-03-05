@@ -10,6 +10,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
   main:
     runs-on: ${{ vars.RUNNER }}
@@ -48,9 +52,6 @@ jobs:
           SLACK_URL_BUILD_TESTS: ${{ secrets.SLACK_URL_BUILD_TESTS }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
-
-      - name: Bump Version
-        run: bundle exec fastlane increment_build_and_push
       
       - name: Build and upload to Testflight
         run: |

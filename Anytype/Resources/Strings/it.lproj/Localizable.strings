@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Numero di telefono";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Cerca o crea un nuovo campo";
 
 // Origin Relation
 
@@ -229,7 +229,7 @@
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Disconnetti";
-"Content Model" = "Content Model";
+"Content Model" = "Modello di contenuto";
 "Misc" = "Varie";
 
 // Action
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "In alto";
 "EditSet.Popup.Sort.EmptyTypes.End" = "In basso";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Mostra valori vuoti";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Scegliere un campo da ordinare";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtri";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Nessuna query selezionata";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Aggiungere una query di ricerca per aggregare oggetti con tipi e campi uguali in modalità live";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "La vista non è supportata sul cellulare";
@@ -569,7 +569,7 @@
 "Enter number" = "Inserisci numero";
 "Enter text" = "Inserisci testo";
 "Unsupported value" = "Valore non supportato";
-"Select relation type" = "Select field type";
+"Select relation type" = "Selezionare il tipo di campo";
 "CommonOpenErrorView.Message" = "Nessun dato trovato";
 "AreYouSure" = "Sei sicuro/a?";
 "Nothing found" = "Nessun risultato trovato";
@@ -616,7 +616,7 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Non siamo riusciti a recuperare i dati della tua cassaforte perché la tua versione è obsoleta. Per favore aggiorna Anytype all'ultima versione disponibile.";
 "Restore from keychain" = "Ripristina dal portachiavi";
 "Edit" = "Modifica";
-"Hidden" = "Hidden";
+"Hidden" = "Nascosto";
 "In this object" = "In questo oggetto";
 "Other relations" = "Altri campi";
 "Collection of objects" = "Collezione di oggetti";
@@ -710,7 +710,7 @@
 "Show" = "Mostra";
 "Hide" = "Nascondi";
 "Apply" = "Applica";
-"Got it" = "I got it!";
+"Got it" = "Ho capito!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Collaborazione";
 "Members" = "Membri";
@@ -1310,8 +1310,8 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "ObjectSearchWithMeta.Create.Collection" = "Nuova Collezione";
 
 // MARK: - Any App
-"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
-"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+"AnyApp.BetaAlert.Title" = "Benvenuto nella versione Alpha";
+"AnyApp.BetaAlert.Description" = "Siete in anticipo sulla curva! Alcune funzioni sono ancora in fase di sviluppo o non pronte per la produzione: restate sintonizzati per gli aggiornamenti.";
 
 // MARK: - Migration
 "Migration.title" = "Migrazione in corso...";
