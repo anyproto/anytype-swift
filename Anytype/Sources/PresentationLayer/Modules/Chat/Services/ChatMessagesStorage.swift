@@ -200,6 +200,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     deinit {
+        subscription?.cancel()
+        subscription = nil
         // Implemented in swift 6.1 https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
         Task { [chatService, chatObjectId] in
             try await chatService.unsubscribeLastMessages(chatObjectId: chatObjectId)
