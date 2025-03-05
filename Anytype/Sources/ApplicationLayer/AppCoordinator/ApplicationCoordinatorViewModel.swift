@@ -127,8 +127,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             let seed = try seedService.obtainSeed()
             try await authService.walletRecovery(mnemonic: seed)
             await selectAccount(id: userId)
-        } catch is CancellationError {
-            // Ignore cancellations
         } catch {
             applicationStateService.state = .auth
         }
