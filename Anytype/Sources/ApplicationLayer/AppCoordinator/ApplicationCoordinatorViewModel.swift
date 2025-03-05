@@ -150,6 +150,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
                     await self?.selectAccount(id: id)
                 }
             )
+        } catch is CancellationError {
+            // Ignore cancellations
         } catch {
             applicationStateService.state = .auth
         }
