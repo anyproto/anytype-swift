@@ -1,5 +1,6 @@
 import ProtobufMessages
 import AnytypeCore
+import Foundation
 
 
 public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
@@ -24,6 +25,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     public let recommendedHiddenRelations: [ObjectId]
     public let recommendedLayout: DetailsLayout?
     
+    public let lastUsedDate: Date?
+    
     public init(
         id: String,
         name: String,
@@ -42,7 +45,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         recommendedRelations: [ObjectId],
         recommendedFeaturedRelations: [ObjectId],
         recommendedHiddenRelations: [ObjectId],
-        recommendedLayout: DetailsLayout?
+        recommendedLayout: DetailsLayout?,
+        lastUsedDate: Date?
     ) {
         self.id = id
         self.name = name
@@ -62,6 +66,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         self.recommendedFeaturedRelations = recommendedFeaturedRelations
         self.recommendedHiddenRelations = recommendedHiddenRelations
         self.recommendedLayout = recommendedLayout
+        self.lastUsedDate = lastUsedDate
     }
 }
 
@@ -86,7 +91,8 @@ extension ObjectType: DetailsModel {
             recommendedRelations: details.recommendedRelations,
             recommendedFeaturedRelations: details.recommendedFeaturedRelations,
             recommendedHiddenRelations: details.recommendedHiddenRelations,
-            recommendedLayout: details.recommendedLayoutValue
+            recommendedLayout: details.recommendedLayoutValue,
+            lastUsedDate: details.lastUsedDate
         )
     }
     
@@ -113,7 +119,8 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.defaultTemplateId,
             BundledRelationKey.restrictions,
             BundledRelationKey.resolvedLayout,
-            BundledRelationKey.type
+            BundledRelationKey.type,
+            BundledRelationKey.lastUsedDate
         ]
     }
     
