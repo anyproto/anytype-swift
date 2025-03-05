@@ -60,9 +60,9 @@ public class FileSplitrer {
         switch itemSyntax.item {
         case .decl(let declSyntax):
             parseDeclSyntax(declSyntax, depth: depth, extensions: nil)
-        case .stmt(let stmtSyntax):
+        case .stmt:
             otherItems.append(itemSyntax)
-        case .expr(let exprSyntax):
+        case .expr:
             otherItems.append(itemSyntax)
         }
     }
