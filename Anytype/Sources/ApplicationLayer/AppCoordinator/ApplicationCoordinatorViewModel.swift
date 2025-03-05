@@ -143,6 +143,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             case .deleted:
                 applicationStateService.state = .auth
             }
+        } catch is CancellationError {
+            // Ignore cancellations
         } catch SelectAccountError.accountStoreNotMigrated {
             migrationData = MigrationModuleData(
                 id: id,
@@ -150,8 +152,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
                     await self?.selectAccount(id: id)
                 }
             )
-        } catch is CancellationError {
-            // Ignore cancellations
         } catch {
             applicationStateService.state = .auth
         }
