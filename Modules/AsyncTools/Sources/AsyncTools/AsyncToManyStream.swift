@@ -1,19 +1,21 @@
 import Foundation
 import os
 
-final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable where T: Sendable {
+public final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable where T: Sendable {
     
-    typealias Element = T
-    typealias AsyncIterator = AsyncStream<T>.AsyncIterator
+    public typealias Element = T
+    public typealias AsyncIterator = AsyncStream<T>.AsyncIterator
 
     private var continuations: [UUID: AsyncStream<T>.Continuation] = [:]
     private let lock = OSAllocatedUnfairLock()
     
-    func makeAsyncIterator() -> AsyncIterator {
+    public init() {}
+    
+    public func makeAsyncIterator() -> AsyncIterator {
         subscribe().makeAsyncIterator()
     }
 
-    func subscribe() -> AsyncStream<T> {
+    public func subscribe() -> AsyncStream<T> {
         return AsyncStream { continuation in
             let id = UUID()
             self.continuations[id] = continuation
@@ -24,7 +26,7 @@ final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable where T: Se
         }
     }
 
-    func send(_ value: T) {
+    public func send(_ value: T) {
         lock.lock()
         defer { lock.unlock() }
         for continuation in continuations.values {
@@ -32,7 +34,7 @@ final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable where T: Se
         }
     }
 
-    func finish() {
+    public func finish() {
         lock.lock()
         defer { lock.unlock() }
         for continuation in continuations.values {

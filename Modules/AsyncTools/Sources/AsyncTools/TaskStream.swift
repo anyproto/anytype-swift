@@ -1,6 +1,6 @@
 import Foundation
 
-extension AsyncStream {
+public extension AsyncStream {
     static func task(@_inheritActorContext @_implicitSelfCapture _ operation: @Sendable @escaping @isolated(any) (_ iterator: (Element) -> Void) async -> Void)
     -> AsyncStream<Element> where Element: Sendable {
         

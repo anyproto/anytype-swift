@@ -3,7 +3,7 @@ import OrderedCollections
 import Services
 import AnytypeCore
 import ProtobufMessages
-import AsyncAlgorithms
+import AsyncTools
 
 protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func startSubscriptionIfNeeded() async throws
@@ -62,12 +62,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     var messagesStream: AnyAsyncSequence<[FullChatMessage]> {
-        AsyncStream.task { iterator in
-            for await _ in merge(syncStream, [[ChatUpdate.messages]].async).filter({ $0.contains(.messages) }) {
-                if let fullAllMessages {
-                    iterator(fullAllMessages)
-                }
-            }
+        AsyncStream.convertData(mergeFirstValue(syncStream, [.messages])) {
+            await fullAllMessages
         }.eraseToAnyAsyncSequence()
     }
     
