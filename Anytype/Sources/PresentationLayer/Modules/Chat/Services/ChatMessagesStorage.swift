@@ -14,7 +14,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func attachments(ids: [String]) async -> [ObjectDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
     func updateVisibleRange(starMessageId: String, endMessageId: String) async
-    var messagesStream: AnyAsyncSequence<[FullChatMessage]> { get async }
+    var messagesStream: AnyAsyncSequence<[FullChatMessage]> { get }
 }
 
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
@@ -61,9 +61,15 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         self.chatObjectId = chatObjectId
     }
     
-    var messagesStream: AnyAsyncSequence<[FullChatMessage]> {
+    nonisolated var messagesStream: AnyAsyncSequence<[FullChatMessage]> {
         AsyncStream.convertData(mergeFirstValue(syncStream, [.messages])) {
             await fullAllMessages
+        }.eraseToAnyAsyncSequence()
+    }
+    
+    nonisolated var chatStateStream: AnyAsyncSequence<ChatState> {
+        AsyncStream.convertData(mergeFirstValue(syncStream, [.state])) {
+            await chatState
         }.eraseToAnyAsyncSequence()
     }
     
