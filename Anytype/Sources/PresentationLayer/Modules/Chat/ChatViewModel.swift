@@ -146,7 +146,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
-        for await messages in await chatStorage.messagesPublisher.values {
+        for await messages in await chatStorage.messagesStream {
             let prevChatIsEmpty = self.messages.isEmpty
             self.messages = messages
             self.dataLoaded = true

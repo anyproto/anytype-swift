@@ -1,9 +1,9 @@
 import Foundation
 import OrderedCollections
 import Services
-@preconcurrency import Combine
 import AnytypeCore
 import ProtobufMessages
+import AsyncAlgorithms
 
 protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func startSubscriptionIfNeeded() async throws
@@ -14,7 +14,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func attachments(ids: [String]) async -> [ObjectDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
     func updateVisibleRange(starMessageId: String, endMessageId: String) async
-    var messagesPublisher: AnyPublisher<[FullChatMessage], Never> { get async }
+    var messagesStream: AnyAsyncSequence<[FullChatMessage]> { get async }
 }
 
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
@@ -41,7 +41,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     // MARK: - Subscriptions State
     
     private var subscriptionStarted = false
-    private var subscriptions: [AnyCancellable] = []
+    private var subscription: Task<Void, Never>?
     private var subscriptionStartMessageId: String?
     private var subscriptionEndMessageId: String?
     private var subscribedAttachmentIds = Set<String>()
@@ -51,16 +51,24 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private var attachmentsDetails: [String: ObjectDetails] = [:]
     private var allMessages = OrderedDictionary<String, ChatMessage>()
     private var replies = [String: ChatMessage]()
-    @Published
     private var fullAllMessages: [FullChatMessage]?
+    private var chatState: ChatState?
     
-    var messagesPublisher: AnyPublisher<[FullChatMessage], Never> {
-        $fullAllMessages.compactMap { $0 }.eraseToAnyPublisher()
-    }
+    private let syncStream = AsyncToManyStream<[ChatUpdate]>()
     
     init(spaceId: String, chatObjectId: String) {
         self.spaceId = spaceId
         self.chatObjectId = chatObjectId
+    }
+    
+    var messagesStream: AnyAsyncSequence<[FullChatMessage]> {
+        AsyncStream.task { iterator in
+            for await _ in merge(syncStream, [[ChatUpdate.messages]].async).filter({ $0.contains(.messages) }) {
+                if let fullAllMessages {
+                    iterator(fullAllMessages)
+                }
+            }
+        }.eraseToAnyAsyncSequence()
     }
     
     func updateVisibleRange(starMessageId: String, endMessageId: String) async {
@@ -91,10 +99,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         
         updateFullMessages()
         
-        EventBunchSubscribtion.default.addHandler { [weak self] events in
-            guard events.contextId == self?.chatObjectId else { return }
-            await self?.handle(events: events)
-        }.store(in: &subscriptions)
+        subscription = Task { [weak self] in
+            for await events in await EventBunchSubscribtion.default.stream() {
+                if events.contextId == self?.chatObjectId {
+                    await self?.handle(events: events)
+                }
+            }
+        }
     }
     
     func loadNextPage() async throws {
@@ -168,6 +179,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     // MARK: - Private
     
     private func handle(events: EventsBunch) async {
+        var updates: Set<ChatUpdate> = []
+        
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
@@ -178,7 +191,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 if let firstMessage = allMessages.values.first, let lastMessage = allMessages.values.last,
                    firstMessage.orderID < data.orderID, lastMessage.orderID > data.orderID {
                     await addNewMessages(messages: [data.message])
-                    updateFullMessages()
+                    updates.insert(.messages)
                     break
                 }
                 
@@ -186,7 +199,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 let topMeessag = try? await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: data.orderID, afterOrderId: nil, limit: 1).first
                 if allMessages.values.last?.id == topMeessag?.id {
                     await addNewMessages(messages: [data.message])
-                    updateFullMessages()
+                    updates.insert(.messages)
                     break
                 }
                 
@@ -194,36 +207,45 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 let bottomMessage = try? await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: nil, afterOrderId: data.orderID, limit: 1).first
                 if allMessages.values.first?.id == bottomMessage?.id {
                     await addNewMessages(messages: [data.message])
-                    updateFullMessages()
+                    updates.insert(.messages)
                     break
                 }
                 
             case let .chatDelete(data):
                 if allMessages[data.id].isNotNil {
                     allMessages.removeAll { $0.key == data.id }
-                    updateFullMessages()
+                    updates.insert(.messages)
                 }
             case let .chatUpdate(data):
                 if allMessages[data.message.id].isNotNil {
                     allMessages[data.message.id] = data.message
                     await updateAttachmentSubscription()
-                    updateFullMessages()
+                    updates.insert(.messages)
                 }
             case let .chatUpdateReactions(data):
                 if allMessages[data.id].isNotNil {
                     allMessages[data.id]?.reactions = data.reactions
-                    updateFullMessages()
+                    updates.insert(.messages)
                 }
             case let .chatUpdateReadStatus(data):
-                // TODO: Support
-                break
+                for messageId in data.ids {
+                    if allMessages[messageId].isNotNil {
+                        allMessages[messageId]?.read = data.isRead
+                        updates.insert(.messages)
+                    }
+                }
             case let .chatStateUpdate(data):
-                // TODO: Support
-                break
+                chatState = data.state
+                updates.insert(.state)
             default:
                 break
             }
         }
+        
+        if updates.contains(.messages) {
+            updateFullMessages(notify: false)
+        }
+        syncStream.send(Array(updates))
     }
     
     private func addNewMessages(messages: [ChatMessage]) async {
@@ -243,7 +265,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         guard newAttachmentsIds.isNotEmpty else { return }
         do {
             let newAttachmentsDetails = try await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds))
-            updateAttachments(details: newAttachmentsDetails)
+            await updateAttachments(details: newAttachmentsDetails)
         } catch {}
     }
     
@@ -266,7 +288,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         chat1.orderID < chat2.orderID
     }
     
-    private func updateAttachments(details: [ObjectDetails], notifyChanges: Bool = false) {
+    private func updateAttachments(details: [ObjectDetails], notifyChanges: Bool = false) async {
         let newAttachments = details
             .reduce(into: [String: ObjectDetails]()) { $0[$1.id] = $1 }
         
@@ -279,7 +301,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
     }
     
-    private func updateFullMessages() {
+    private func updateFullMessages(notify: Bool = true) {
         let newFullAllMessages = allMessages.values.map { message in
             let replyMessage = allMessages[message.replyToMessageID] ?? replies[message.replyToMessageID]
             let replyAttachments = replyMessage?.attachments.compactMap { attachmentsDetails[$0.target] } ?? []
@@ -292,6 +314,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
         if fullAllMessages != newFullAllMessages {
             fullAllMessages = newFullAllMessages
+            if notify {
+                syncStream.send([.messages])
+            }
         }
     }
     

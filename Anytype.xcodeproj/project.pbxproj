@@ -88,6 +88,7 @@
 		7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC42D3920BE00E18A0C /* AppTarget */; };
 		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
 		74AD8EC52D12F2FD000EDFBE /* ChatMessageLimitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD8EC42D12F2FD000EDFBE /* ChatMessageLimitsTests.swift */; };
+		74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 74B35D252D5B39C500AC9879 /* AsyncAlgorithms */; };
 		862D559A2A8F78330018103F /* AnytypeShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */; };
 		86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */; };
@@ -361,6 +362,7 @@
 				2A30B2082BB44A0C00206806 /* QRCode in Frameworks */,
 				2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */,
 				C99A53AC28A1380300B3E5F4 /* ShimmerSwift in Frameworks */,
+				74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */,
 				538ABD4E284F9F88000D3CCC /* Collections in Frameworks */,
 				2A94B5D329B88E95009AE2A7 /* Sentry in Frameworks */,
 				1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */,
@@ -759,6 +761,7 @@
 				2ADB57852CB6B6FE00BFC386 /* Cache */,
 				7434DAC22D3916FF00E18A0C /* AppTarget */,
 				2E63D9B62D56520C008A733A /* FirebaseMessaging */,
+				74B35D252D5B39C500AC9879 /* AsyncAlgorithms */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -908,6 +911,7 @@
 				2A10D84E2C53A5F00088BB46 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */,
 				2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				74B35D242D5B39C500AC9879 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 			);
 			preferredProjectObjectVersion = 52;
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
@@ -2335,7 +2339,15 @@
 			repositoryURL = "https://github.com/apple/swift-collections";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.4;
+				version = 1.1.4;
+			};
+		};
+		74B35D242D5B39C500AC9879 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 		C9433E52293EA5EF001662EA /* XCRemoteSwiftPackageReference "SwiftEntryKit" */ = {
@@ -2524,6 +2536,11 @@
 		7434DAC62D39212E00E18A0C /* AppTarget */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppTarget;
+		};
+		74B35D252D5B39C500AC9879 /* AsyncAlgorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 74B35D242D5B39C500AC9879 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
+			productName = AsyncAlgorithms;
 		};
 		86E69DD52A938CE8009F2221 /* SecureService */ = {
 			isa = XCSwiftPackageProductDependency;
