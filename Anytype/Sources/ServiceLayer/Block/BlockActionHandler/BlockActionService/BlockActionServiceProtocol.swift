@@ -44,6 +44,7 @@ protocol BlockActionServiceProtocol {
 }
 
 extension BlockActionServiceProtocol {
+    @discardableResult
     func add(info: BlockInformation, targetBlockId: String, position: BlockPosition) async throws -> String {
         try await add(info: info, targetBlockId: targetBlockId, position: position, setFocus: true)
     }
