@@ -70,8 +70,8 @@
 "Fields.menu" = "Fields menu";
 "Fields.local" = "Local fields";
 "Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
-"Fields.addToType" = "Add to the current type";
-"Fields.removeFromObject" = "Remove from the object";
+"Fields.addToType" = "Tambahkan ke tipe saat ini";
+"Fields.removeFromObject" = "Hapus dari objek";
 
 
 "Featured relations" = "Featured fields";
@@ -218,7 +218,7 @@
 "Create Set" = "Buat Set";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Sunting Profil";
-"Object Types" = "Object Types";
+"Object Types" = "Tipe Objek";
 
 // Home
 "Favorites" = "Favorit";
@@ -617,7 +617,7 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "Kami tidak dapat mengambil data brankasmu karena versi aplikasi sudah kedaluwarsa. Silakan perbarui Anytype terlebih dahulu.";
 "Restore from keychain" = "Memulihkan dari rantai kunci";
 "Edit" = "Sunting";
-"Hidden" = "Hidden";
+"Hidden" = "Disembunyikan";
 "In this object" = "Di objek ini";
 "Other relations" = "Other fields";
 "Collection of objects" = "Kumpulan dari objek";
@@ -711,7 +711,7 @@
 "Show" = "Tampilkan";
 "Hide" = "Sembunyikan";
 "Apply" = "Terapkan";
-"Got it" = "I got it!";
+"Got it" = "Mengerti!";
 "Leave a space" = "Leave a space";
 "Collaboration" = "Kolaborasi";
 "Members" = "Anggota";
@@ -1311,7 +1311,7 @@ Please provide specific details of your needs here.";
 "ObjectSearchWithMeta.Create.Collection" = "Koleksi Baru";
 
 // MARK: - Any App
-"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
+"AnyApp.BetaAlert.Title" = "Selamat datang di versi Alpha";
 "AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
 
 // MARK: - Migration
