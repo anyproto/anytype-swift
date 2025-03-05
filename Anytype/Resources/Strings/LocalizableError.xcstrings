@@ -72,20 +72,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Noe gikk galt, vennligst prøv på nytt"
+            "value" : "입력에 문제가 있습니다. 다시 시도해 주세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noe gikk galt, vennligst prøv på nytt"
           }
         },
         "or" : {
@@ -221,20 +221,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Feil på vår side, prøv på nytt senere"
+            "value" : "저희 측에 오류가 발생했습니다. 나중에 다시 시도하세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fout aan onze kant, probeer het later opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feil på vår side, prøv på nytt senere"
           }
         },
         "or" : {
@@ -370,20 +370,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Kan ikke koble til, sjekk internettforbindelsen din"
+            "value" : "연결할 수 없습니다. 인터넷 연결을 확인해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kan niet verbinden, controleer jouw internetverbinding"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kan ikke koble til, sjekk internettforbindelsen din"
           }
         },
         "or" : {
@@ -519,20 +519,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name cannot be reserved"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Dette navnet kan ikke reserveres"
+            "value" : "해당 이름은 예약할 수 없습니다."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deze naam kan niet worden gereserveerd"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dette navnet kan ikke reserveres"
           }
         },
         "or" : {
@@ -668,20 +668,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name has invalid characters"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Navnet har ugyldige tegn"
+            "value" : "이름에 유효하지 않은 문자가 포함됨"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Naam bevat ongeldige tekens"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet har ugyldige tegn"
           }
         },
         "or" : {
@@ -817,20 +817,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is already reserved"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Dette navnet er allerede tatt"
+            "value" : "예약된 이름입니다."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deze naam is al in gereserveerd"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dette navnet er allerede tatt"
           }
         },
         "or" : {
@@ -966,20 +966,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Du er ikke logget inn! 😵‍💫"
+            "value" : "로그인되어 있지 않습니다! 😵‍💫"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Je bent niet ingelogd! 😵‍💫"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du er ikke logget inn! 😵‍💫"
           }
         },
         "or" : {
@@ -1115,20 +1115,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Feil på vår side, prøv på nytt senere"
+            "value" : "저희 측에 오류가 발생했습니다. 나중에 다시 시도하세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fout aan onze kant, probeer het later opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feil på vår side, prøv på nytt senere"
           }
         },
         "or" : {
@@ -1264,20 +1264,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is not available for this tier"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Navnet er ikke tilgjengelig for dette nivået"
+            "value" : "해당 멤버십에서는 이름을 사용할 수 없습니다"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Naam is niet beschikbaar voor dit abonnement"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet er ikke tilgjengelig for dette nivået"
           }
         },
         "or" : {
@@ -1413,20 +1413,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tier not found, try again later"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Fant ikke nivå, prøv på nytt senere"
+            "value" : "멤버십을 찾을 수 없습니다. 나중에 다시 시도해 주세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abonnement niet gevonden, probeer het later opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fant ikke nivå, prøv på nytt senere"
           }
         },
         "or" : {
@@ -1562,20 +1562,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too long"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Navnet er for langt"
+            "value" : "이름이 너무 깁니다."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Naam is te lang"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet er for langt"
           }
         },
         "or" : {
@@ -1711,20 +1711,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too short"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Navnet er for kort"
+            "value" : "이름이 너무 짧습니다"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Naam is te kort"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet er for kort"
           }
         },
         "or" : {
@@ -1860,20 +1860,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Noe gikk galt, vennligst prøv på nytt"
+            "value" : "입력에 문제가 있습니다. 다시 시도해 주세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noe gikk galt, vennligst prøv på nytt"
           }
         },
         "or" : {
@@ -2009,20 +2009,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Feil på vår side, prøv på nytt senere"
+            "value" : "저희 측에 오류가 발생했습니다. 나중에 다시 시도하세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fout aan onze kant, probeer het later opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feil på vår side, prøv på nytt senere"
           }
         },
         "or" : {
@@ -2158,20 +2158,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Du er ikke logget inn! 😵‍💫"
+            "value" : "로그인되어 있지 않습니다! 😵‍💫"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Je bent niet ingelogd! 😵‍💫"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du er ikke logget inn! 😵‍💫"
           }
         },
         "or" : {
@@ -2307,20 +2307,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Feil på vår side, prøv på nytt senere"
+            "value" : "저희 측에 오류가 발생했습니다. 나중에 다시 시도하세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fout aan onze kant, probeer het later opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feil på vår side, prøv på nytt senere"
           }
         },
         "or" : {
@@ -2456,20 +2456,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Noe gikk galt, vennligst prøv på nytt"
+            "value" : "입력에 문제가 있습니다. 다시 시도해 주세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noe gikk galt, vennligst prøv på nytt"
           }
         },
         "or" : {
@@ -2605,20 +2605,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Kan ikke koble til, sjekk internettforbindelsen din"
+            "value" : "연결할 수 없습니다. 인터넷 연결을 확인해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kan niet verbinden, controleer jouw internetverbinding"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kan ikke koble til, sjekk internettforbindelsen din"
           }
         },
         "or" : {
@@ -2754,20 +2754,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Noe gikk galt, vennligst prøv på nytt"
+            "value" : "입력에 문제가 있습니다. 다시 시도해 주세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noe gikk galt, vennligst prøv på nytt"
           }
         },
         "or" : {
@@ -2903,20 +2903,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Kan ikke koble til, sjekk internettforbindelsen din"
+            "value" : "연결할 수 없습니다. 인터넷 연결을 확인해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kan niet verbinden, controleer jouw internetverbinding"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kan ikke koble til, sjekk internettforbindelsen din"
           }
         },
         "or" : {
@@ -3052,20 +3052,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Noe gikk galt, vennligst prøv på nytt"
+            "value" : "입력에 문제가 있습니다. 다시 시도해 주세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noe gikk galt, vennligst prøv på nytt"
           }
         },
         "or" : {
@@ -3201,20 +3201,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Kan ikke koble til, sjekk internettforbindelsen din"
+            "value" : "연결할 수 없습니다. 인터넷 연결을 확인해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kan niet verbinden, controleer jouw internetverbinding"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kan ikke koble til, sjekk internettforbindelsen din"
           }
         },
         "or" : {
@@ -3350,20 +3350,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Noe gikk galt, vennligst prøv på nytt"
+            "value" : "입력에 문제가 있습니다. 다시 시도해 주세요"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noe gikk galt, vennligst prøv på nytt"
           }
         },
         "or" : {
@@ -3499,20 +3499,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Du er ikke logget inn! 😵‍💫"
+            "value" : "로그인되어 있지 않습니다! 😵‍💫"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Je bent niet ingelogd! 😵‍💫"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du er ikke logget inn! 😵‍💫"
           }
         },
         "or" : {
@@ -3648,20 +3648,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -3797,20 +3797,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -3946,20 +3946,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -4095,20 +4095,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -4244,20 +4244,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -4393,20 +4393,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -4542,20 +4542,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -4691,20 +4691,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -4840,20 +4840,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -4989,20 +4989,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -5138,20 +5138,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Invitasjonen eksisterer ikke. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 초대가 존재하지 않습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "De uitnodiging bestaat niet. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invitasjonen eksisterer ikke. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -5287,20 +5287,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -5436,20 +5436,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -5585,20 +5585,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -5734,20 +5734,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -5883,20 +5883,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -6032,20 +6032,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Invitasjonslenken kunne ikke behandles. Den kan inneholde feil i formatet eller ugyldige data."
+            "value" : "초대 링크를 확인할 수 없습니다. 형식이 잘못되었거나 잘못된 데이터가 포함되어 있을 수 있습니다."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "De uitnodigingslink kon niet worden doorgezet. Het zou fouten in het formaat of ongeldige gegevens kunnen bevatten."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invitasjonslenken kunne ikke behandles. Den kan inneholde feil i formatet eller ugyldige data."
           }
         },
         "or" : {
@@ -6181,20 +6181,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Invitasjonen eksisterer ikke. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 초대가 존재하지 않습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "De uitnodiging bestaat niet. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invitasjonen eksisterer ikke. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -6330,20 +6330,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Invitasjonslenken kunne ikke behandles. Den kan inneholde feil i formatet eller ugyldige data."
+            "value" : "초대 링크를 확인할 수 없습니다. 형식이 잘못되었거나 잘못된 데이터가 포함되어 있을 수 있습니다."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "De uitnodigingslink kon niet worden doorgezet. Het zou fouten in het formaat of ongeldige gegevens kunnen bevatten."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invitasjonslenken kunne ikke behandles. Den kan inneholde feil i formatet eller ugyldige data."
           }
         },
         "or" : {
@@ -6479,20 +6479,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Invitasjonen eksisterer ikke. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 초대가 존재하지 않습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "De uitnodiging bestaat niet. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invitasjonen eksisterer ikke. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -6628,20 +6628,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -6777,20 +6777,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -6926,20 +6926,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -7075,20 +7075,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -7224,20 +7224,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -7373,20 +7373,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -7522,20 +7522,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Forespørselen eksisterer ikke lenger. Ingen handlinger er nødvendige, men vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "요청이 더 이상 존재하지 않습니다. 별도의 조치가 필요하지는 않지만 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het verzoek bestaat niet meer. Er zijn geen acties nodig, maar zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forespørselen eksisterer ikke lenger. Ingen handlinger er nødvendige, men vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -7671,20 +7671,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -7820,20 +7820,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -7969,20 +7969,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -8118,20 +8118,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -8267,20 +8267,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -8416,20 +8416,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Forespørselen eksisterer ikke lenger. Ingen handlinger er nødvendige, men vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "요청이 더 이상 존재하지 않습니다. 별도의 조치가 필요하지는 않지만 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het verzoek bestaat niet meer. Er zijn geen acties nodig, maar zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forespørselen eksisterer ikke lenger. Ingen handlinger er nødvendige, men vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -8565,20 +8565,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -8714,20 +8714,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -8863,20 +8863,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -9012,20 +9012,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -9096,19 +9096,19 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "be" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ой! Запыт не выкананы. Праверце падключэнне да Інтэрнэту і паўтарыце спробу."
+            "state" : "translated",
+            "value" : "Для гэтай прасторы дасягнуты ліміт. Калі ласка, абнавіце сваё членства або звярніцеся ў службу падтрымкі за дапамогай."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
+            "state" : "translated",
+            "value" : "Limit für diesen Bereich erreicht. Bitte erweitere deine Mitgliedschaft oder kontaktiere den Support für Hilfe."
           }
         },
         "en" : {
@@ -9119,122 +9119,122 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¡Huy! La solicitud ha fallado. Comprueba tu conexión a Internet e inténtalo de nuevo."
+            "state" : "translated",
+            "value" : "Has alcanzado el límite de este espacio. Amplía tu suscripción o ponte en contacto con el soporte técnico."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "state" : "translated",
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ups! Żądanie nie powiodło się. Sprawdź swoje połączenie internetowe i spróbuj ponownie."
+            "state" : "translated",
+            "value" : "Osiągnięto limit dla tej przestrzeni. Ulepsz swoje członkostwo lub skontaktuj się z pomocą techniczną."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Opa! A solicitação falhou. Por favor, verifique sua conexão com a Internet e tente novamente."
+            "state" : "translated",
+            "value" : "Limite atingido para este espaço. Por favor, atualize seu membro ou entre em contato com o suporte para assistência."
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Упс! Ошибка запроса. Пожалуйста, проверьте подключение к Интернету и повторите попытку."
+            "state" : "translated",
+            "value" : "Достигнут лимит для этого пространства. Пожалуйста, обновите ваше членство или обратитесь в службу поддержки."
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Hay aksi! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Упс! Запит не вдалося виконати. Будь ласка, перевірте підключення до Інтернету і спробуйте ще раз."
+            "state" : "translated",
+            "value" : "Досягнута межа для цього простору. Будь ласка, оновіть ваш членство або зверніться до служби підтримки за допомогою."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -9310,20 +9310,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -9459,20 +9459,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -9608,20 +9608,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -9757,20 +9757,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Tilgangsrettigheter kunne ikke tildeles medlemmet i rommet. Vennligst sørg for at de riktige tilgangsrettighetene er tildelt."
+            "value" : "스페이스 구성원에게 엑세스 권한을 할당할 수 없습니다. 엑세스 권한이 제대로 할당되었는지 확인해 보세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Toegangsrechten konden niet worden toegewezen aan het lid van de ruimte. Zorg er alsjeblieft voor dat de juiste toegangsrechten zijn toegewezen."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tilgangsrettigheter kunne ikke tildeles medlemmet i rommet. Vennligst sørg for at de riktige tilgangsrettighetene er tildelt."
           }
         },
         "or" : {
@@ -9906,20 +9906,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -10055,20 +10055,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -10204,20 +10204,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -10353,20 +10353,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Medlemmet i rommet kunne ikke bli funnet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "스페이스 구성원을 찾을 수 없습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lid van de ruimte kon niet worden gevonden. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medlemmet i rommet kunne ikke bli funnet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -10502,20 +10502,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -10651,20 +10651,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -10800,20 +10800,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -10949,20 +10949,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -11098,20 +11098,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -11247,20 +11247,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Medlemmet i rommet kunne ikke bli funnet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "스페이스 구성원을 찾을 수 없습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lid van de ruimte kon niet worden gevonden. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medlemmet i rommet kunne ikke bli funnet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -11396,20 +11396,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -11545,20 +11545,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -11694,20 +11694,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Forespørselen kunne ikke bli godkjent med disse tilgangsrettighetene. Vennligst sørg for at de riktige tilgangsrettighetene er tildelt."
+            "value" : "해당 엑세스 권한으로는 요청을 승인할 수 없습니다. 엑세스 권한이 제대로 할당되었는지 확인해 보세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het verzoek kon niet worden goedgekeurd met deze toegangsrechten. Zorg er alsjeblieft voor dat de juiste toegangsrechten zijn toegewezen."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forespørselen kunne ikke bli godkjent med disse tilgangsrettighetene. Vennligst sørg for at de riktige tilgangsrettighetene er tildelt."
           }
         },
         "or" : {
@@ -11843,20 +11843,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -11992,20 +11992,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Forespørselen eksisterer ikke lenger. Ingen handlinger er nødvendige, men vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "요청이 더 이상 존재하지 않습니다. 별도의 조치가 필요하지는 않지만 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het verzoek bestaat niet meer. Er zijn geen acties nodig, maar zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forespørselen eksisterer ikke lenger. Ingen handlinger er nødvendige, men vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -12141,20 +12141,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -12290,20 +12290,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -12439,20 +12439,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -12588,20 +12588,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -12737,20 +12737,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -12886,20 +12886,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Forespørselen eksisterer ikke lenger. Ingen handlinger er nødvendige, men vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "요청이 더 이상 존재하지 않습니다. 별도의 조치가 필요하지는 않지만 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het verzoek bestaat niet meer. Er zijn geen acties nodig, maar zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forespørselen eksisterer ikke lenger. Ingen handlinger er nødvendige, men vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -13035,20 +13035,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -13184,20 +13184,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 더 이상 공유되지 않는 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut til at rommet ikke lenger er delt. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -13333,20 +13333,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -13482,20 +13482,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
@@ -13631,20 +13631,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
+            "value" : "이 스페이스의 한도에 도달했습니다. 멤버십을 업그레이드하거나 지원팀에 문의하여 도움을 받으세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grensen er nådd for dette rommet. Vennligst oppgrader medlemskapet ditt eller kontakt support for hjelp."
           }
         },
         "or" : {
@@ -13780,20 +13780,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
+            "value" : "이런! 문제가 발생했습니다. 나중에 다시 시도해 주세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Noe gikk galt. Vennligst prøv igjen senere."
           }
         },
         "or" : {
@@ -13929,20 +13929,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
+            "value" : "이런! 요청이 실패했습니다. 인터넷 연결을 확인한 후 다시 시도하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Forespørselen mislyktes. Vennligst sjekk internettforbindelsen din og prøv igjen."
           }
         },
         "or" : {
@@ -14078,20 +14078,20 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
+            "value" : "해당 스페이스가 삭제된 것 같습니다. 장치가 동기화되었는지 확인하세요."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det ser ut som om rommet har blitt slettet. Vennligst sørg for at enhetene dine er synkronisert."
           }
         },
         "or" : {
