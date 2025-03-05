@@ -15,6 +15,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func reply(message: ChatMessage) async -> ChatMessage?
     func updateVisibleRange(starMessageId: String, endMessageId: String) async
     var messagesStream: AnyAsyncSequence<[FullChatMessage]> { get }
+    var chatStateStream: AnyAsyncSequence<ChatState> { get }
 }
 
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {

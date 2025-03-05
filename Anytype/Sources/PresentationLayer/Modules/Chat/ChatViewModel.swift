@@ -140,8 +140,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let participantsSub: () = subscribeOnParticipants()
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
+        async let chatStateSub: () = subscribeOnChatState()
         
-        (_, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub)
+        (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, chatStateSub)
     }
     
     func subscribeOnMessages() async throws {
@@ -154,6 +155,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if prevChatIsEmpty, let message = messages.last {
                 collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
             }
+        }
+    }
+    
+    func subscribeOnChatState() async {
+        for await chatState in chatStorage.chatStateStream {
+            // TODO: Handle chat state
         }
     }
     
