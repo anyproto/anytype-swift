@@ -309,7 +309,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>This type has %d templates</string>
+        <string>Tipe ini memiliki %d templat</string>
       </dict>
     </dict>
   </dict>
