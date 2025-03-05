@@ -29,6 +29,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Published var applicationState: ApplicationState = .initial
     @Published var toastBarData: ToastBarData = .empty
     @Published var migrationData: MigrationModuleData?
+    @Published var selectAccountTaskId: String?
     
     // MARK: - Initializers
 
@@ -131,7 +132,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         }
     }
     
-    private func selectAccount(id: String) async {
+    func selectAccount(id: String) async {
         do {
             let account = try await authService.selectAccount(id: id)
             
@@ -143,11 +144,13 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             case .deleted:
                 applicationStateService.state = .auth
             }
+        } catch is CancellationError {
+            // Ignore cancellations
         } catch SelectAccountError.accountStoreNotMigrated {
             migrationData = MigrationModuleData(
                 id: id,
                 onFinish: { [weak self] in
-                    await self?.selectAccount(id: id)
+                    self?.selectAccountTaskId = id
                 }
             )
         } catch {
