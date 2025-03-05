@@ -4,5 +4,3 @@ enum ChatUpdate {
     case messages
     case state
 }
-
-struct ChatUpdate2 {}
