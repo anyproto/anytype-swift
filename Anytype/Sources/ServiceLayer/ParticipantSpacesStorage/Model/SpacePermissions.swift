@@ -11,6 +11,7 @@ struct SpacePermissions: Equatable {
     let canCancelJoinRequest: Bool
     let canDeleteLink: Bool
     let canEditPermissions: Bool
+    let canApproveRequests: Bool
 }
 
 extension SpacePermissions {
@@ -46,5 +47,6 @@ extension SpacePermissions {
         canCancelJoinRequest = spaceView.accountStatus == .spaceJoining
         canDeleteLink = isOwner && !isLocalMode
         canEditPermissions = isOwner && !isLocalMode
+        canApproveRequests = isOwner
     }
 }
