@@ -1,5 +1,6 @@
 import SwiftUI
 import PhotosUI
+import AnytypeCore
 
 struct ChatView: View {
     
@@ -153,6 +154,14 @@ struct ChatView: View {
         ChatEmptyStateView()
     }
     
+    private var actionView: some View {
+        ChatActionPanelView(model: model.actionModel) {
+            model.onTapScrollToBottom()
+        } onTapMention: {
+            model.onTapMention()
+        }
+    }
+    
     @ViewBuilder
     private var mainView: some View {
         ChatCollectionView(
@@ -165,6 +174,8 @@ struct ChatView: View {
             MessageView(data: $0, output: model)
         } headerBuilder: {
             ChatMessageHeaderView(text: $0)
+        } actionView: {
+            actionView
         } scrollToTop: {
             await model.scrollToTop()
         } scrollToBottom: {

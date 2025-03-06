@@ -12,23 +12,65 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Chat {
-    public struct SubscribeLastMessages: Sendable {
+    public struct Read: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+      public enum ReadType: SwiftProtobuf.Enum, Swift.CaseIterable {
+        public typealias RawValue = Int
+        case messages // = 0
+        case replies // = 1
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .messages
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .messages
+          case 1: self = .replies
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .messages: return 0
+          case .replies: return 1
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static let allCases: [Anytype_Rpc.Chat.Read.ReadType] = [
+          .messages,
+          .replies,
+        ]
+
+      }
+
       public struct Request: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// Identifier for the chat
+        public var type: Anytype_Rpc.Chat.Read.ReadType = .messages
+
+        /// id of the chat object
         public var chatObjectID: String = String()
 
-        /// Number of max last messages to return and subscribe
-        public var limit: Int32 = 0
+        /// read from this orderId; if empty - read from the beginning of the chat
+        public var afterOrderID: String = String()
+
+        /// read til this orderId
+        public var beforeOrderID: String = String()
+
+        /// dbTimestamp from the last processed ChatState event(or GetMessages). Used to prevent race conditions
+        public var lastDbTimestamp: Int64 = 0
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -40,8 +82,8 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error {
-          get {return _error ?? Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error()}
+        public var error: Anytype_Rpc.Chat.Read.Response.Error {
+          get {return _error ?? Anytype_Rpc.Chat.Read.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -49,21 +91,14 @@ extension Anytype_Rpc.Chat {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
-        /// List of messages
-        public var messages: [Anytype_Model_ChatMessage] = []
-
-        /// Number of messages before the returned messages
-        public var numMessagesBefore: Int32 = 0
-
-        /// Chat state
-        public var chatState: Anytype_Model_ChatState {
-          get {return _chatState ?? Anytype_Model_ChatState()}
-          set {_chatState = newValue}
+        public var event: Anytype_ResponseEvent {
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
-        /// Returns true if `chatState` has been explicitly set.
-        public var hasChatState: Bool {return self._chatState != nil}
-        /// Clears the value of `chatState`. Subsequent reads from it will return its default value.
-        public mutating func clearChatState() {self._chatState = nil}
+        /// Returns true if `event` has been explicitly set.
+        public var hasEvent: Bool {return self._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -72,7 +107,7 @@ extension Anytype_Rpc.Chat {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Chat.Read.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -82,9 +117,10 @@ extension Anytype_Rpc.Chat {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
+
+            /// chat is empty or invalid beforeOrderId/lastDbState
+            case messagesNotFound // = 100
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -96,6 +132,7 @@ extension Anytype_Rpc.Chat {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 100: self = .messagesNotFound
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -105,15 +142,17 @@ extension Anytype_Rpc.Chat {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .messagesNotFound: return 100
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Chat.Read.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
+              .messagesNotFound,
             ]
 
           }
@@ -123,16 +162,16 @@ extension Anytype_Rpc.Chat {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error? = nil
-        fileprivate var _chatState: Anytype_Model_ChatState? = nil
+        fileprivate var _error: Anytype_Rpc.Chat.Read.Response.Error? = nil
+        fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".SubscribeLastMessages"
+extension Anytype_Rpc.Chat.Read: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".Read"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -144,17 +183,27 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages, rhs: Anytype_Rpc.Chat.SubscribeLastMessages) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Read, rhs: Anytype_Rpc.Chat.Read) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeLastMessages.protoMessageName + ".Request"
+extension Anytype_Rpc.Chat.Read.ReadType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "chatObjectId"),
-    2: .same(proto: "limit"),
+    0: .same(proto: "messages"),
+    1: .same(proto: "replies"),
+  ]
+}
+
+extension Anytype_Rpc.Chat.Read.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Read.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
+    2: .same(proto: "chatObjectId"),
+    3: .same(proto: "afterOrderId"),
+    4: .same(proto: "beforeOrderId"),
+    5: .same(proto: "lastDbTimestamp"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -163,38 +212,51 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.afterOrderID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.beforeOrderID) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.lastDbTimestamp) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.chatObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 1)
+    if self.type != .messages {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
     }
-    if self.limit != 0 {
-      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 2)
+    if !self.chatObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 2)
+    }
+    if !self.afterOrderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterOrderID, fieldNumber: 3)
+    }
+    if !self.beforeOrderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.beforeOrderID, fieldNumber: 4)
+    }
+    if self.lastDbTimestamp != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastDbTimestamp, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages.Request, rhs: Anytype_Rpc.Chat.SubscribeLastMessages.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Read.Request, rhs: Anytype_Rpc.Chat.Read.Request) -> Bool {
+    if lhs.type != rhs.type {return false}
     if lhs.chatObjectID != rhs.chatObjectID {return false}
-    if lhs.limit != rhs.limit {return false}
+    if lhs.afterOrderID != rhs.afterOrderID {return false}
+    if lhs.beforeOrderID != rhs.beforeOrderID {return false}
+    if lhs.lastDbTimestamp != rhs.lastDbTimestamp {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeLastMessages.protoMessageName + ".Response"
+extension Anytype_Rpc.Chat.Read.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Read.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "messages"),
-    3: .same(proto: "numMessagesBefore"),
-    4: .same(proto: "chatState"),
+    2: .same(proto: "event"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -204,9 +266,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.numMessagesBefore) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._chatState) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
       default: break
       }
     }
@@ -220,30 +280,22 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.messages.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.messages, fieldNumber: 2)
-    }
-    if self.numMessagesBefore != 0 {
-      try visitor.visitSingularInt32Field(value: self.numMessagesBefore, fieldNumber: 3)
-    }
-    try { if let v = self._chatState {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages.Response, rhs: Anytype_Rpc.Chat.SubscribeLastMessages.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Read.Response, rhs: Anytype_Rpc.Chat.Read.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.messages != rhs.messages {return false}
-    if lhs.numMessagesBefore != rhs.numMessagesBefore {return false}
-    if lhs._chatState != rhs._chatState {return false}
+    if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeLastMessages.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Chat.Read.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Read.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -272,7 +324,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error, rhs: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Read.Response.Error, rhs: Anytype_Rpc.Chat.Read.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -280,11 +332,12 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: SwiftProtobuf.M
   }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Chat.Read.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    100: .same(proto: "MESSAGES_NOT_FOUND"),
   ]
 }
 

@@ -18,6 +18,7 @@ extension Anytype_Event.Chat {
 
       public var id: String = String()
 
+      /// orderId of the message, used for sorting
       public var orderID: String = String()
 
       public var message: Anytype_Model_ChatMessage {

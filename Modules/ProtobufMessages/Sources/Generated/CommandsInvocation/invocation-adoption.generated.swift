@@ -596,6 +596,11 @@ extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.Read.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.Read.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

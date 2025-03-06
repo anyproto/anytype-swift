@@ -3031,6 +3031,33 @@ extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: @retroactive Localiz
     }
 }
 
+extension Anytype_Rpc.Chat.Read.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.Read.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.Read.badInput")
+            case .messagesNotFound:
+                return String(localized: "Chat.Read.messagesNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.Read.messagesNotFound")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

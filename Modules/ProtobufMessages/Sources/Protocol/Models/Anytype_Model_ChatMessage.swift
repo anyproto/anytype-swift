@@ -28,6 +28,9 @@ public struct Anytype_Model_ChatMessage: Sendable {
 
   public var modifiedAt: Int64 = 0
 
+  /// Message received and added to db at
+  public var addedAt: Int64 = 0
+
   /// Identifier for the message being replied to
   public var replyToMessageID: String = String()
 
@@ -54,6 +57,9 @@ public struct Anytype_Model_ChatMessage: Sendable {
   /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
   public mutating func clearReactions() {self._reactions = nil}
 
+  /// Message read status
+  public var read: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -70,10 +76,12 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     3: .same(proto: "creator"),
     4: .same(proto: "createdAt"),
     9: .same(proto: "modifiedAt"),
+    11: .same(proto: "addedAt"),
     5: .same(proto: "replyToMessageId"),
     6: .same(proto: "message"),
     7: .same(proto: "attachments"),
     8: .same(proto: "reactions"),
+    10: .same(proto: "read"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -91,6 +99,8 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
       case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
       case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.read) }()
+      case 11: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
       default: break
       }
     }
@@ -128,6 +138,12 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if self.modifiedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.modifiedAt, fieldNumber: 9)
     }
+    if self.read != false {
+      try visitor.visitSingularBoolField(value: self.read, fieldNumber: 10)
+    }
+    if self.addedAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.addedAt, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -137,10 +153,12 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.creator != rhs.creator {return false}
     if lhs.createdAt != rhs.createdAt {return false}
     if lhs.modifiedAt != rhs.modifiedAt {return false}
+    if lhs.addedAt != rhs.addedAt {return false}
     if lhs.replyToMessageID != rhs.replyToMessageID {return false}
     if lhs._message != rhs._message {return false}
     if lhs.attachments != rhs.attachments {return false}
     if lhs._reactions != rhs._reactions {return false}
+    if lhs.read != rhs.read {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
