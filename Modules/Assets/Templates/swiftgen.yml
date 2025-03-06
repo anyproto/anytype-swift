@@ -21,3 +21,10 @@ xcassets:
         output: ../Sources/Assets/Generated/Color+Info.swift
         params:
           publicAccess: true
+  - inputs:
+      - ../Sources/Assets/Resources/Assets.xcassets
+    outputs:
+      - templatePath: image-swift5.stencil
+        output: ../Sources/Assets/Generated/ImageAssets.swift
+        params:
+          publicAccess: true

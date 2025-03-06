@@ -1,9 +1,8 @@
 import Foundation
 import UIKit
 import SwiftUI
-import AnytypeCore
 
-extension UIImage {
+public extension UIImage {
     convenience init?(asset: ImageAsset) {
         switch asset {
         case let .bundle(name):
@@ -15,14 +14,14 @@ extension UIImage {
     }
 }
 
-extension UIImageView {
+public extension UIImageView {
     convenience init(asset: ImageAsset) {
         let image = UIImage(asset: asset)
         self.init(image: image)
     }
 }
 
-extension Image {
+public extension Image {
     init(asset: ImageAsset) {
         switch asset {
         case let .bundle(name):

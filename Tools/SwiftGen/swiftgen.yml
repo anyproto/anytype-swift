@@ -1,12 +1,6 @@
 input_dir: ../../
 output_dir: ../../
 
-xcassets:
-  - inputs:
-      - Anytype/Resources/Assets.xcassets
-    outputs:
-      - templateName: image-swift5
-        output: Anytype/Generated/ImageAssets.swift
 strings:
   inputs: 
     - Anytype/Resources/Strings/en.lproj/Localizable.strings
