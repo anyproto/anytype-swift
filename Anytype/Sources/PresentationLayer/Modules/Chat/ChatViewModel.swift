@@ -82,7 +82,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
-    
+    // Scroll to unreaded first time after open
+    private var scrollToFirstUnreaded = true
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
 
     // Alerts
@@ -140,19 +141,34 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let participantsSub: () = subscribeOnParticipants()
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
+        async let chatStateSub: () = subscribeOnChatState()
         
-        (_, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub)
+        (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, chatStateSub)
     }
     
     func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
-        for await messages in await chatStorage.messagesPublisher.values {
+        for await messages in chatStorage.messagesStream {
             let prevChatIsEmpty = self.messages.isEmpty
             self.messages = messages
             self.dataLoaded = true
             await updateMessages()
             if prevChatIsEmpty, let message = messages.last {
                 collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+            }
+        }
+    }
+    
+    func subscribeOnChatState() async {
+        for await chatState in chatStorage.chatStateStream {
+            if scrollToFirstUnreaded {
+                scrollToFirstUnreaded = false
+                let orderId = chatState.messages.oldestOrderID
+                do {
+                    // TODO: Show unreaded immedienlty after open. Waiting middleware api.
+                    let message = try await chatStorage.loadPagesTo(orderId: orderId)
+                    collectionViewScrollProxy.scrollTo(itemId: message.id)
+                } catch {}
             }
         }
     }
