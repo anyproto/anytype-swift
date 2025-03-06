@@ -214,8 +214,8 @@
 "Lets Go" = "Let’s Go";
 "My Channels" = "My Channels";
 "Open file"= "Open file";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
 "Object Types" = "Object Types";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "Copy link";
 
 // Object Type
-"Set" = "Set";
+"Set" = "Query";
 "Collection" = "Collection";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
@@ -486,7 +486,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
+"Set.FeaturedRelations.Query" = "Select query";
 "Set.FeaturedRelations.RelationsList" = "Properties:";
 "Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Type:";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
@@ -590,7 +590,7 @@
 "Deselect all" = "Deselect all";
 "Deselect" = "Deselect";
 "Shared" = "Shared";
-"Sets" = "Sets";
+"Sets" = "Queries";
 "Collections" = "Collections";
 "Default object type" = "Default object type";
 "Personalization" = "Personalization";
@@ -705,8 +705,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
-"Set of" = "Set of %@";
-"New set" = "New set";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "Apply";
@@ -811,13 +811,13 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Inline collection";
 "Content.DataView.InlineSet.NoSource" = "No source";
 "Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Untitled collection";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
@@ -846,7 +846,7 @@
 "Widgets.Layout.Link.Description" = "Compact widget view";
 "Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
 "Widgets.Layout.List.Description" = "Widget with a list view";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
@@ -1306,7 +1306,7 @@ Please provide specific details of your needs here.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
 
 // MARK: - Any App
