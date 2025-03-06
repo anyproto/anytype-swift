@@ -377,4 +377,8 @@ extension Container {
     var spaceSettingsInfoBuilder: Factory<any SpaceSettingsInfoBuilderProtocol> {
         self { SpaceSettingsInfoBuilder() }
     }
+    
+    var pushNotificationService: Factory<any PushNotificationServiceProtocol> {
+        self { PushNotificationService() }.singleton
+    }
 }
