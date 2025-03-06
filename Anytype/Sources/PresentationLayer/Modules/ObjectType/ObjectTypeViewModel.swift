@@ -124,7 +124,7 @@ final class ObjectTypeViewModel: ObservableObject {
             
             if let recommendedLayout = details.recommendedLayoutValue {
                 let isSupportedLayout = recommendedLayout.isEditorLayout
-                let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+                let isTemplate = details.isTemplateType
                 showTemplates = isSupportedLayout && !isTemplate
                 if showTemplates { buildTemplates() }
             } else {
