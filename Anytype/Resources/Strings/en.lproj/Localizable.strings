@@ -1282,10 +1282,9 @@ Please provide specific details of your needs here.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Reply to %@";
-"Chat.Empty.Default.Title" = "No messages here yet...";
-"Chat.Empty.Default.Description" = "Write a first one to start a conversation";
-"Chat.Empty.Title" = "This chat is empty";
-"Chat.Empty.Description" = "Invite people and start the conversation";
+"Chat.Empty.Title" = "No messages yet";
+"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
+"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
 "Stream.Empty.Title" = "This stream is empty";
 "Stream.Empty.Description" = "Invite people and start sharing your vibe";
 "Chat.Empty.Button.title" = "Share invite link";
