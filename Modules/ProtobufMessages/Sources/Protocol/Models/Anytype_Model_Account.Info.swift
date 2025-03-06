@@ -57,6 +57,9 @@ extension Anytype_Model_Account {
     /// network id to which anytype is connected
     public var networkID: String = String()
 
+    /// we have Any PK AND Ethereum PK derived from one seed phrase
+    public var ethereumAddress: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -81,6 +84,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     104: .same(proto: "timeZone"),
     105: .same(proto: "analyticsId"),
     106: .same(proto: "networkId"),
+    107: .same(proto: "ethereumAddress"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -104,6 +108,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
       case 105: try { try decoder.decodeSingularStringField(value: &self.analyticsID) }()
       case 106: try { try decoder.decodeSingularStringField(value: &self.networkID) }()
+      case 107: try { try decoder.decodeSingularStringField(value: &self.ethereumAddress) }()
       default: break
       }
     }
@@ -155,6 +160,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.networkID.isEmpty {
       try visitor.visitSingularStringField(value: self.networkID, fieldNumber: 106)
     }
+    if !self.ethereumAddress.isEmpty {
+      try visitor.visitSingularStringField(value: self.ethereumAddress, fieldNumber: 107)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -174,6 +182,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.timeZone != rhs.timeZone {return false}
     if lhs.analyticsID != rhs.analyticsID {return false}
     if lhs.networkID != rhs.networkID {return false}
+    if lhs.ethereumAddress != rhs.ethereumAddress {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
