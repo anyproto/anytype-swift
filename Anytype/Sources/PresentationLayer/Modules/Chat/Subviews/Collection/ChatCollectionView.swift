@@ -9,6 +9,7 @@ struct ChatCollectionView<
     ItemView: View,
     HeaderView: View,
     BottomPanel: View,
+    ActionView: View,
     EmptyView: View>: UIViewControllerRepresentable where Item.ID == String, Section.Item == Item {
     
     let items: [Section]
@@ -18,11 +19,13 @@ struct ChatCollectionView<
     let showEmptyState: Bool
     let itemBuilder: (Item) -> ItemView
     let headerBuilder: (Section.Header) -> HeaderView
+    @ViewBuilder
+    let actionView: ActionView
     let scrollToTop: () async -> Void
     let scrollToBottom: () async -> Void
     let handleVisibleRange: (_ fromId: String, _ toId: String) -> Void
     
-    func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView> {
+    func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView, ActionView> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
             configuration.showsSeparators = false
@@ -47,6 +50,7 @@ struct ChatCollectionView<
         collectionView.allowsSelection = false
         collectionView.delegate = context.coordinator
         collectionView.scrollsToTop = false
+        collectionView.showsVerticalScrollIndicator = false
         
         if #available(iOS 16.4, *) {
             collectionView.keyboardDismissMode = .interactive
@@ -62,22 +66,28 @@ struct ChatCollectionView<
         bottomPanel.view.backgroundColor = .clear
         bottomPanel.sizingOptions = [.intrinsicContentSize]
         
-        let emptyView = UIHostingController(rootView: emptyView)
-        emptyView.view.backgroundColor = .clear
-        emptyView.sizingOptions = [.intrinsicContentSize]
-        
         if #available(iOS 16.4, *) {
             bottomPanel.safeAreaRegions = SafeAreaRegions()
         }
         
-        let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel, emptyView: emptyView)
+        let emptyView = UIHostingController(rootView: emptyView)
+        emptyView.view.backgroundColor = .clear
+        emptyView.sizingOptions = [.intrinsicContentSize]
+
+        let actionView = UIHostingController(rootView: actionView)
+        actionView.view.backgroundColor = .clear
+        actionView.sizingOptions = [.intrinsicContentSize]
+        
+        let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel, emptyView: emptyView, actionView: actionView)
         container.contentInset = UIEdgeInsets(top: PageNavigationHeaderConstants.height, left: 0, bottom: 10, right: 0)
         return container
     }
     
-    func updateUIViewController(_ container: ChatCollectionViewContainer<BottomPanel, EmptyView>, context: Context) {
+    func updateUIViewController(_ container: ChatCollectionViewContainer<BottomPanel, EmptyView, ActionView>, context: Context) {
         container.bottomPanel.rootView = bottomPanel
+        container.emptyView.rootView = emptyView
         container.emptyView.view.isHidden = !showEmptyState
+        container.actionView.rootView = actionView
         context.coordinator.itemBuilder = itemBuilder
         context.coordinator.headerBuilder = headerBuilder
         context.coordinator.scrollToTop = scrollToTop

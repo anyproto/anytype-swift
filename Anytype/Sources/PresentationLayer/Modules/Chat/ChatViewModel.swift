@@ -72,6 +72,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var photosItems: [PhotosPickerItem] = []
     private var linkPreviewTasks: [URL: AnyCancellable] = [:]
     
+    // Actions
+    
+    @Published var actionModel: ChatActionPanelModel = .hidden
+    
     // List
     
     @Published var mentionSearchState = ChatTextMention.finish
@@ -160,6 +164,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func subscribeOnChatState() async {
+        guard FeatureFlags.chatCounters else { return }
         for await chatState in chatStorage.chatStateStream {
             if scrollToFirstUnreaded {
                 scrollToFirstUnreaded = false
@@ -170,6 +175,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                     collectionViewScrollProxy.scrollTo(itemId: message.id)
                 } catch {}
             }
+            actionModel = ChatActionPanelModel(
+                showScrollToBottom: chatState.messages.counter > 0,
+                srollToBottomCounter: Int(chatState.messages.counter),
+                showMentions: chatState.mentions.counter > 0,
+                mentionsCounter: Int(chatState.mentions.counter)
+            )
         }
     }
     
@@ -378,6 +389,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapCreateObject(type: ObjectType) {
         output?.didSelectCreateObject(type: type)
+    }
+    
+    func onTapScrollToBottom() {
+        // TODO: Implement scroll to bottom
+    }
+    
+    func onTapMention() {
+        // TODO: Implement scroll to mention
     }
     
     // MARK: - MessageModuleOutput
