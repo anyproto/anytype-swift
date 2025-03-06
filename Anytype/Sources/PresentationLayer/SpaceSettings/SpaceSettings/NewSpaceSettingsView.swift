@@ -125,7 +125,7 @@ struct NewSpaceSettingsView: View {
     
     @ViewBuilder
     private var sharing: some View {
-        if model.shareSection.isSharingAvailable {
+        if model.inviteLink.isNotNil {
             Spacer.fixedHeight(8)
             
             HStack(spacing: 8) {
