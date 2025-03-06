@@ -94,6 +94,10 @@ public extension FeatureFlags {
         value(for: .disableRestoreLastScreen)
     }
 
+    static var chatCounters: Bool {
+        value(for: .chatCounters)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -170,6 +174,7 @@ public extension FeatureFlags {
         .openTypeAsSet,
         .anyAppBetaTip,
         .disableRestoreLastScreen,
+        .chatCounters,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
