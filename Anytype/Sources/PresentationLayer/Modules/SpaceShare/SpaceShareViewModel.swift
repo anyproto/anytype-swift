@@ -51,6 +51,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canStopShare = false
     @Published var canDeleteLink = false
     @Published var canRemoveMember = false
+    @Published var canApproveRequests = false
     @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
@@ -154,6 +155,7 @@ final class SpaceShareViewModel: ObservableObject {
             && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
         canDeleteLink = participantSpaceView.permissions.canDeleteLink
+        canApproveRequests = participantSpaceView.permissions.canApproveRequests
         
         updateUpgradeViewState()
         
@@ -203,10 +205,12 @@ final class SpaceShareViewModel: ObservableObject {
     private func participantAction(_ participant: Participant) -> SpaceShareParticipantViewModel.Action? {
         switch participant.status {
         case .joining:
+            guard canApproveRequests else { return nil }
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
                 self?.showRequestAlert(participant: participant)
             })
         case .removing:
+            guard canApproveRequests else { return nil }
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
                 AnytypeAnalytics.instance().logApproveLeaveRequest()
                 try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
