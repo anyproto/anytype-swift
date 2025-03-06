@@ -1,0 +1,23 @@
+xcassets:
+  - inputs:
+      - ../Sources/Assets/Resources/SystemColors.xcassets
+      - ../Sources/Assets/Resources/ComponentColors.xcassets
+    outputs:
+      - templatePath: swift5.stencil
+        output: ../Sources/Assets/Generated/Assets.swift
+        params:
+          publicAccess: true
+      - templatePath: swift5_Colors.stencil
+        output: ../Sources/Assets/Generated/UIColor+Assets.swift
+        params:
+          className: UIColor
+          publicAccess: true
+      - templatePath: swift5_Colors.stencil
+        output: ../Sources/Assets/Generated/Color+Assets.swift
+        params:
+          className: Color
+          publicAccess: true
+      - templatePath: colors-info.stencil
+        output: ../Sources/Assets/Generated/Color+Info.swift
+        params:
+          publicAccess: true

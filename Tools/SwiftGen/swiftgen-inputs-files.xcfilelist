@@ -4,5 +4,3 @@ $(SRCROOT)/Anytype/Resources/Strings/en.lproj/Localizable.stringsdict
 
 # xcassets
 $(SRCROOT)/Anytype/Resources/Assets.xcassets
-$(SRCROOT)/Anytype/Resources/ComponentColors.xcassets
-$(SRCROOT)/Anytype/Resources/SystemColors.xcassets
