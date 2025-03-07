@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Objek terhapus";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Fields menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Tambahkan ke tipe saat ini";
 "Fields.removeFromObject" = "Hapus dari objek";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "kosong";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.EmptyState.title" = "Tidak ada opsi";
 "Relation.EmptyState.description" = "Tidak ada yang ditemukan. Buat opsi pertama untuk memulai.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "Buat “%@”";
 "Relation.View.Create.title" = "Buat opsi";
 "Relation.View.Edit.title" = "Sunting opsi";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "Surel";
 "Relation.Format.Phone.Title" = "Nomor telepon";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "Media";
 "Alignment" = "Perataan";
 "Actions" = "Tindakan";
-"Fields" = "Fields";
+"Fields" = "Properti";
 "History" = "History";
 "Objects" = "Objek";
 "All" = "Semua";
@@ -214,8 +214,8 @@
 "Lets Go" = "Mulai!";
 "My Channels" = "Kanalku";
 "Open file" = "Buka berkas";
-"Open Set" = "Buka Set";
-"Create Set" = "Buat Set";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Sunting Profil";
 "Object Types" = "Tipe Objek";
@@ -346,7 +346,7 @@
 "Actions.CopyLink" = "Salin tautan";
 
 // Object Type
-"Set" = "Set";
+"Set" = "Query";
 "Collection" = "Koleksi";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Gulir untuk memilih tempat";
@@ -428,7 +428,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Di atas";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Di bawah";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Tampilkan nilai kosong";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Saringan";
@@ -487,9 +487,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ hari dari sekarang";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Pertanyaan";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "Pilih kueri";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Tipe:";
 
 // MARK: - Set.Bookmarks
@@ -505,7 +505,7 @@
 "Set.View.Settings.GroupBy.Title" = "Kelompokkan berdasarkan";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Warna kolom";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "Tidak ada saringan";
 "Set.View.Settings.NoSorts.Placeholder" = "Tidak ada urutan";
 "Set.View.Settings.Objects.Applied.Title" = "%d direrapkan";
@@ -520,7 +520,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Tidak ada queri terpilih";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Tampilan ini belum didukung di perangkat mobile";
@@ -530,7 +530,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Kueri ini bisa berubah hanya pada tampilan komputer";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Ubah Set menjadi Koleksi";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Ubah kueri";
 
 // MARK: - Collection: empty view
@@ -570,7 +570,7 @@
 "Enter number" = "Masukkan angka";
 "Enter text" = "Masukkan teks";
 "Unsupported value" = "Nilai tak didukung";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "Tidak ada data yang ditemukan";
 "AreYouSure" = "Apakah kamu yakin?";
 "Nothing found" = "Nothing found";
@@ -582,8 +582,8 @@
 "Type" = "Tipe";
 "Types" = "Tipe";
 "No name" = "Tanpa nama";
-"New field" = "New field";
-"Edit field" = "Edit field";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Objek tidak ada";
 
 "Select all" = "Pilih semua";
@@ -591,7 +591,7 @@
 "Deselect all" = "Batal pilih semua";
 "Deselect" = "Batal pilih";
 "Shared" = "Berbagi";
-"Sets" = "Set";
+"Sets" = "Queries";
 "Collections" = "Koleksi";
 "Default object type" = "Tipe objek bawaan";
 "Personalization" = "Personalisasi";
@@ -619,7 +619,7 @@
 "Edit" = "Sunting";
 "Hidden" = "Disembunyikan";
 "In this object" = "Di objek ini";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "Kumpulan dari objek";
 "Designed to capture thoughts quickly" = "Didesain untuk menangkap pemikiran dengan cepat";
 "Action-focused layout with a checkbox" = "Tata letak berfokus pada aksi dengan sebuah centang";
@@ -706,8 +706,8 @@
 "My First Space" = "Ruang Pertamaku";
 "Copy space info" = "Salin info ruang";
 "Save" = "Simpan";
-"Set of" = "Set dari %@";
-"New set" = "Set baru";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Tampilkan";
 "Hide" = "Sembunyikan";
 "Apply" = "Terapkan";
@@ -812,13 +812,13 @@
 "Content.Common.Error" = "Ada yang salah, coba lagi";
 "Content.Bookmark.Add" = "Tambahkan sebuah penanda web";
 "Content.Bookmark.Loading" = "Memuat, mohon tunggu...";
-"Content.DataView.InlineSet.Subtitle" = "Set dalam baris";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Koleksi dalam baris";
 "Content.DataView.InlineSet.NoSource" = "Tidak ada sumber";
 "Content.DataView.InlineSet.NoData" = "Tidak ada data";
-"Content.DataView.InlineSet.Untitled" = "Set tidak berjudul";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Koleksi tidak berjudul";
-"Content.DataView.InlineSet.Toast.Failure" = "Set dalam-baris ini tidak memiliki sebuah sumber";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "ditautkan pada";
@@ -847,7 +847,7 @@
 "Widgets.Layout.Link.Description" = "Tampilan gawit ringkas";
 "Widgets.Layout.Tree.Description" = "Gawit dengan struktur hierarkis";
 "Widgets.Layout.List.Description" = "Gawit dengan tampilan daftar";
-"Widgets.Layout.View.Description" = "Gawit dengan tata letak Set atau Koleksi";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Gawit dengan tampilan daftar ringkas";
 "Widgets.Empty.Title" = "Tidak ada objek di sini";
 "Widgets.Empty.CreateObject" = "Buat Objek";
@@ -1307,7 +1307,7 @@ Please provide specific details of your needs here.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Halaman Baru";
 "ObjectSearchWithMeta.Create.Note" = "Catatan Baru";
-"ObjectSearchWithMeta.Create.Set" = "Set Baru";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Koleksi Baru";
 
 // MARK: - Any App
