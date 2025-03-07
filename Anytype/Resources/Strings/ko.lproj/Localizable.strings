@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "삭제된 개체";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Fields menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "비어 있음";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "%@ 유형으로 부터";
 "Relation.EmptyState.title" = "옵션 없음";
 "Relation.EmptyState.description" = "찾을 수 없습니다. 첫 번째 옵션을 생성하여 시작합니다.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "\"%@\" 만들기";
 "Relation.View.Create.title" = "옵션 생성";
 "Relation.View.Edit.title" = "옵션 편집";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "이메일";
 "Relation.Format.Phone.Title" = "전화번호";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "미디어";
 "Alignment" = "정렬";
 "Actions" = "액션";
-"Fields" = "Fields";
+"Fields" = "속성";
 "History" = "히스토리";
 "Objects" = "오브젝트";
 "All" = "All";
@@ -214,8 +214,8 @@
 "Lets Go" = "Let’s Go";
 "My Channels" = "My Channels";
 "Open file" = "파일 열기";
-"Open Set" = "세트 열기";
-"Create Set" = "세트 생성";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "지원하지 않는 딥링크";
 "Edit Profile" = "프로필 수정";
 "Object Types" = "Object Types";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "Copy link";
 
 // Object Type
-"Set" = "세트";
+"Set" = "Query";
 "Collection" = "컬렉션";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "상단";
 "EditSet.Popup.Sort.EmptyTypes.End" = "하단";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "빈 값 표시";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "필터";
@@ -486,9 +486,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "Select query";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
@@ -569,7 +569,7 @@
 "Enter number" = "번호 입력";
 "Enter text" = "텍스트 입력";
 "Unsupported value" = "지원되지 않는 값";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "데이터를 찾을 수 없습니다";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "아무것도 찾을 수 없음";
@@ -581,8 +581,8 @@
 "Type" = "유형";
 "Types" = "유형";
 "No name" = "이름 없음";
-"New field" = "New field";
-"Edit field" = "Edit field";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Non-existent object";
 
 "Select all" = "전체 선택";
@@ -590,7 +590,7 @@
 "Deselect all" = "전체 선택 해제";
 "Deselect" = "선택 해제";
 "Shared" = "Shared";
-"Sets" = "세트";
+"Sets" = "Queries";
 "Collections" = "컬렉션";
 "Default object type" = "기본 오브젝트 유형";
 "Personalization" = "Personalization";
@@ -618,7 +618,7 @@
 "Edit" = "Edit";
 "Hidden" = "Hidden";
 "In this object" = "In this object";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
@@ -705,8 +705,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
-"Set of" = "Set of %@";
-"New set" = "신규 세트";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "표시하기";
 "Hide" = "숨기기";
 "Apply" = "Apply";
@@ -811,13 +811,13 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "외부 북마크 추가";
 "Content.Bookmark.Loading" = "로딩 중입니다. 잠시만 기다려주세요...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Inline collection";
 "Content.DataView.InlineSet.NoSource" = "No source";
 "Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Untitled collection";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
@@ -846,7 +846,7 @@
 "Widgets.Layout.Link.Description" = "Compact widget view";
 "Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
 "Widgets.Layout.List.Description" = "Widget with a list view";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
@@ -1306,7 +1306,7 @@ Please provide specific details of your needs here.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
 
 // MARK: - Any App
