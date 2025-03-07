@@ -67,7 +67,7 @@ struct KeyPhraseView: View {
     
     private var phraseTextView: some View {
         Button {
-            model.onCopyButtonTap()
+            model.onPhraseTap()
         } label: {
             PhraseTextView(
                 text: $model.key,
