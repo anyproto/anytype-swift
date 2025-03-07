@@ -1,9 +1,2 @@
 # strings
 $(SRCROOT)/Anytype/Generated/Strings.swift
-
-# xcassets
-$(SRCROOT)/Anytype/Generated/Assets.swift
-$(SRCROOT)/Anytype/Generated/Color+Assets.swift
-$(SRCROOT)/Anytype/Generated/Color+Info.swift
-$(SRCROOT)/Anytype/Generated/ImageAssets.swift
-$(SRCROOT)/Anytype/Generated/UIColor+Assets.swift

@@ -25,9 +25,9 @@
 {% macro casesBlock assets %}
   {% for asset in assets %}
   {% if asset.type == "image" %}
-  static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{imageType}}.bundle(name: "{{asset.value}}")
+  {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{imageType}}.bundle(name: "{{asset.value}}")
   {% elif asset.items and ( forceNamespaces == "true" or asset.isNamespaced == "true" ) %}
-  enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+  {{accessModifier}} enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
     {% filter indent:2," ",true %}{% call casesBlock asset.items %}{% endfilter %}
   }
   {% elif asset.items %}
@@ -36,7 +36,7 @@
   {% endfor %}
 {% endmacro %}
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
-{{accessModifier}} extension {{imageType}} {
+extension {{imageType}} {
   {% if catalogs.count > 1 or param.forceFileNameEnum %}
   {% for catalog in catalogs %}
   {{accessModifier}} enum {{catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
@@ -52,7 +52,7 @@
 // MARK: - Implementation Details
 {% if resourceCount.image > 0 %}
 
-{{accessModifier}} enum {{imageType}}: Hashable {
+{{accessModifier}} enum {{imageType}}: Hashable, Sendable {
   case bundle(name: String)
   case system(name: String)
 }

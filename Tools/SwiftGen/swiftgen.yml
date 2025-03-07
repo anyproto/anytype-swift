@@ -1,28 +1,6 @@
 input_dir: ../../
 output_dir: ../../
 
-xcassets:
-  - inputs:
-      - Anytype/Resources/SystemColors.xcassets
-      - Anytype/Resources/ComponentColors.xcassets
-    outputs:
-      - templateName: swift5
-        output: Anytype/Generated/Assets.swift
-      - templateName: swift5_Colors
-        output: Anytype/Generated/UIColor+Assets.swift
-        params:
-          className: UIColor
-      - templateName: swift5_Colors
-        output: Anytype/Generated/Color+Assets.swift
-        params:
-          className: Color
-      - templateName: colors-info
-        output: Anytype/Generated/Color+Info.swift
-  - inputs:
-      - Anytype/Resources/Assets.xcassets
-    outputs:
-      - templateName: image-swift5
-        output: Anytype/Generated/ImageAssets.swift
 strings:
   inputs: 
     - Anytype/Resources/Strings/en.lproj/Localizable.strings

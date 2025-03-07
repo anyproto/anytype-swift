@@ -16,7 +16,7 @@ import SwiftUI
   
   // MARK: - {{asset.name}}
   {% if asset.isNamespaced == "true" %}
-  enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+  {{accessModifier}} enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
     {% filter indent:2," ",true %}
     {% call casesBlock asset.items %}{% endfilter %}
   }
