@@ -1,5 +1,5 @@
 import Foundation
-import Combine
+@preconcurrency import Combine
 import Services
 
 struct MigrationModuleData: Identifiable {

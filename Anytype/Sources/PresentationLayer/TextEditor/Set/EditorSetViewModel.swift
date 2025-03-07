@@ -1,4 +1,4 @@
-import Combine
+@preconcurrency import Combine
 import Services
 import AnytypeCore
 import SwiftUI

@@ -1,6 +1,6 @@
 import UIKit
 
-enum SlashMenuItemType {
+enum SlashMenuItemType: Sendable {
     case style
     case media
     case objects
