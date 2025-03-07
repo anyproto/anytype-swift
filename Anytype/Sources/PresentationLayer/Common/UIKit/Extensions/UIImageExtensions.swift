@@ -28,6 +28,7 @@ extension UIImage {
         return UIImage.dynamicImage(light: lightImage, dark: darkImage)
     }
     
+    @MainActor
     func circleImage(width: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
         cropToSquare()
         .scaled(to: CGSize(width: width, height: width))
@@ -44,6 +45,7 @@ extension UIImage {
     /// Specifying NO means that the bitmap must include an alpha channel to handle any partially
     /// transparent pixels
     /// - Returns: Rounded image.
+    @MainActor
     func rounded(radius: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
         guard radius > 0 else { return self }
         
@@ -90,6 +92,7 @@ extension UIImage {
         return roundedImage ?? self
     }
     
+    @MainActor
     static func linearGradient(size: CGSize,
                          startColor: UIColor,
                          endColor: UIColor,
@@ -261,6 +264,7 @@ extension UIImage {
         return backgroundView.drawToImage()
     }
 
+    @MainActor
     static func circleImage(
         size: CGSize,
         fillColor: UIColor,

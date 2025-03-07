@@ -11,6 +11,7 @@ struct SlashMenuComparator {
     private let predicate: (String) -> Bool
     private let result: SlashMenuItemFilterMatch
     
+    @MainActor
     static func match(slashAction: SlashAction, string: String) -> SlashActionFilterMatch? {
         let data = slashAction.displayData
         let lowecasedTitle = data.title?.lowercased()

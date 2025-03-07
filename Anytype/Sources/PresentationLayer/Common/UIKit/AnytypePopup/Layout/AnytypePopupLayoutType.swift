@@ -9,6 +9,7 @@ enum AnytypePopupLayoutType {
     case adaptiveTextRelationDetails(layoutGuide: UILayoutGuide)
     case alert(height: CGFloat)
 
+    @MainActor
     var layout: any FloatingPanelLayout {
         switch self {
         case .intrinsic, .alert:

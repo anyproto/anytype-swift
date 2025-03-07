@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+
 final class ImageBuilder {
         
     private let imageStorage: some ImageStorageProtocol = ImageStorage.shared
@@ -44,6 +45,7 @@ extension ImageBuilder: ImageBuilderProtocol {
         return self
     }
     
+    @MainActor
     func build() -> UIImage {
         var key = """
         \(ImageBuilder.self).

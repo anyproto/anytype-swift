@@ -8,6 +8,7 @@ protocol ImageBuilderProtocol {
     func setTextColor(_ textColor: UIColor) -> any ImageBuilderProtocol
     func setFont(_ font: UIFont) -> any ImageBuilderProtocol
     
+    @MainActor
     func build() -> UIImage
     
 }

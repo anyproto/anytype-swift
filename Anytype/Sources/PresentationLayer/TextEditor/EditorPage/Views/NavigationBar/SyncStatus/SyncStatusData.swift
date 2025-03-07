@@ -14,6 +14,7 @@ struct SyncStatusData: Equatable {
     var isLocalOnly: Bool { networkId.isEmpty }
     var isNotLocalOnly: Bool { !isLocalOnly }
     
+    @MainActor
     var icon: SyncStatusIconType {
         guard isNotLocalOnly else {
             return .image(makeIcon(color: .Control.active))
@@ -36,6 +37,7 @@ struct SyncStatusData: Equatable {
         }
     }
     
+    @MainActor
     private func makeIcon(color: UIColor, diameter: Double = 8) -> UIImage {
         ImageBuilder(
             ImageGuideline(
