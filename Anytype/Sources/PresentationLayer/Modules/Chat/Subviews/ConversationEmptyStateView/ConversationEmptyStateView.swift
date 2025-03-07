@@ -22,18 +22,18 @@ struct ConversationEmptyStateView: View {
         case .owner:
             emptyStateView(
                 title: Loc.Chat.Empty.title,
-                description: Loc.Chat.Empty.description,
+                description: Loc.Chat.Empty.Owner.description,
                 action: action
             )
         case .writer:
             emptyStateView(
-                title: Loc.Chat.Empty.Default.title,
-                description: Loc.Chat.Empty.Default.description,
+                title: Loc.Chat.Empty.title,
+                description: Loc.Chat.Empty.Editor.description,
                 action: nil
             )
         case .reader, .noPermissions, .UNRECOGNIZED, nil:
             emptyStateView(
-                title: Loc.Chat.Empty.Default.title,
+                title: Loc.Chat.Empty.title,
                 description: "",
                 action: nil
             )
