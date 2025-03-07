@@ -10,13 +10,12 @@ enum TypeFieldsMoveError: Error {
     case movingSectionToItself
 }
 
-protocol TypeFieldsMoveHandlerProtocol {
+protocol TypeFieldsMoveHandlerProtocol: Sendable {
     func onMove(from: IndexSet, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws
 }
 
-final class TypeFieldsMoveHandler {
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+final class TypeFieldsMoveHandler: Sendable {
+    private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
     
     func onMove(from: Int, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
         guard let fromRow = relationRows[safe: from], case let .relation(fromRelation) = fromRow else {

@@ -1,6 +1,6 @@
 import UIKit
 
-struct MediaFileScreenData: Hashable {
+struct MediaFileScreenData: Hashable, Sendable {
     let items: [PreviewRemoteItem]
     let startAtIndex: Int
     let sourceView: UIView?
