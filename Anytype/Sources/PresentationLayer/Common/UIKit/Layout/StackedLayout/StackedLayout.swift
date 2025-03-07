@@ -326,14 +326,17 @@ public extension UIView.Stack {
     
 }
 
+@MainActor
 public protocol FixedGapViewConstraintProtocol: UIView {
     var fixedConstraint: NSLayoutConstraint? { get set }
 }
 
+@MainActor
 public protocol MinMaxGapViewConstraintProtocol: UIView {
     var minConstraint: NSLayoutConstraint? { get set }
     var maxConstraint: NSLayoutConstraint? { get set }
 }
+
 
 private final class GapView: UIView, FixedGapViewConstraintProtocol, MinMaxGapViewConstraintProtocol {
     var minConstraint: NSLayoutConstraint?

@@ -11,6 +11,7 @@ enum SlashAction {
     case background(BlockBackgroundColor)
     case alignment(SlashActionAlignment)
 
+    @MainActor
     var displayData: NewSlashMenuItemDisplayData {
         switch self {
         case let .actions(action):

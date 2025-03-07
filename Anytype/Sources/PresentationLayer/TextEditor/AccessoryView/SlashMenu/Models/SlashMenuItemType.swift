@@ -34,6 +34,7 @@ enum SlashMenuItemType: Sendable {
         }
     }
     
+    @MainActor
     var iconName: Icon {
         switch self {
         case .style:
@@ -69,6 +70,7 @@ enum SlashMenuItemType: Sendable {
         }
     }
 
+    @MainActor
     var displayData: SlashMenuItemDisplayData {
         SlashMenuItemDisplayData(iconData: iconName, title: self.title)
     }
