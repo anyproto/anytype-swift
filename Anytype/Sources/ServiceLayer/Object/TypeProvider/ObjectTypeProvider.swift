@@ -116,7 +116,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
             recommendedRelations: [],
             recommendedFeaturedRelations: [],
             recommendedHiddenRelations: [],
-            recommendedLayout: nil
+            recommendedLayout: nil,
+            lastUsedDate: .distantPast
         )
     }
     
