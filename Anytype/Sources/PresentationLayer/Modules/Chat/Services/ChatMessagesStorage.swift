@@ -170,14 +170,14 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: orderId, limit: Constants.pageSize)
         let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: orderId, limit: Constants.pageSize, includeBoundary: true)
         
-        let allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
-        allMessages.removeAll()
-        
         let replyMessage = loadedMessagesAfter.first { $0.orderID == orderId }
         
         guard let replyMessage else {
             throw CommonError.undefined
         }
+        
+        let allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
+        allMessages.removeAll()
         
         await addNewMessages(messages: allLoadedMessages)
         updateFullMessages()
