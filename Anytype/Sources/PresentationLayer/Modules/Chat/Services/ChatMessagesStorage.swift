@@ -117,7 +117,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     func loadNextPage() async throws {
         guard let first = allMessages.values.first else {
-            anytypeAssertionFailure("Last message not found")
+            anytypeAssertionFailure("First message not found")
             return
         }
         let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, limit: Constants.pageSize)
