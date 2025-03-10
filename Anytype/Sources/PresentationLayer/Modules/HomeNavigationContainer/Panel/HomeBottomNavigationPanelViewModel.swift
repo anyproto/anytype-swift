@@ -129,6 +129,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
             
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .navigation)
             
+            try? await objectActionsService.updateBundledDetails(contextID: type.id, details: [ .lastUsedDate(Date.now)])
+            
             output?.onCreateObjectSelected(screenData: details.screenData())
         }
     }
@@ -153,7 +155,11 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                 .filter { Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
                 .reordered(by: Constants.favoriteTypesUniqueKeys.map(\.value), transform: \.uniqueKey.value)
             
-            otherObjectTypes = types.filter { !Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
+            otherObjectTypes = types
+                .filter { !Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
+                .sorted {
+                    $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
+                }
         }
     }
     
