@@ -6,6 +6,7 @@ public struct InsetConstraints {
     let topConstraint: NSLayoutConstraint
     let bottomConstraint: NSLayoutConstraint
 
+    @MainActor
     func update(with insets: UIEdgeInsets) {
         leadingConstraint.constant = insets.left
         trailingConstraint.constant = -insets.right
