@@ -12,6 +12,7 @@ public struct LayoutProperty<Anchor: LayoutAnchorType> {
     
 }
 
+@MainActor
 public extension LayoutProperty where Anchor: LayoutAnchor {
     
     /// Returns a constraint that defines one item’s attribute as equal
@@ -88,6 +89,7 @@ public extension LayoutProperty where Anchor: LayoutAnchor {
     
 }
 
+@MainActor
 public extension LayoutProperty where Anchor: LayoutDimension {
     
     /// Returns a constraint that defines a constant size for the anchor’s size attribute.

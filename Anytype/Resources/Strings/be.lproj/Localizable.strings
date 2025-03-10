@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Выдаліць аб'ект";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Fields menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "пуста";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "З тыпу %@";
 "Relation.EmptyState.title" = "Няма опцый";
 "Relation.EmptyState.description" = "Нічога не знойдзена. Стварыце першую опцыю для пачатку.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "Стварыць “%@”";
 "Relation.View.Create.title" = "Сварыць опцыю";
 "Relation.View.Edit.title" = "Рэдагаваць опцыю";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "Эл. пошта";
 "Relation.Format.Phone.Title" = "Нумар тэлефона";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "Медыя";
 "Alignment" = "Выраўноўванне";
 "Actions" = "Дзеянні";
-"Fields" = "Fields";
+"Fields" = "Уласцівасці";
 "History" = "Гісторыя";
 "Objects" = "Аб'екты";
 "All" = "Усе";
@@ -214,8 +214,8 @@
 "Lets Go" = "Паехалі";
 "My Channels" = "My Channels";
 "Open file" = "Open file";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
 "Object Types" = "Object Types";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "Скапіяваць спасылку";
 
 // Object Type
-"Set" = "Набор";
+"Set" = "Query";
 "Collection" = "Калекцыя";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Пракруціце, каб выбраць месца";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Зверху";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Знізу";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Паказаць пустыя значэнні";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Фільтры";
@@ -486,9 +486,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дзён таму";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Запыт";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "Выберыце запыт";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Тып:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Згрупаваць па";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Каляровыя слупкі";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "Без фільтраў";
 "Set.View.Settings.NoSorts.Placeholder" = "Няма сартаванняў";
 "Set.View.Settings.Objects.Applied.Title" = "%d прыменена";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Запыт не выбраны";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Выгляд не падтрымліваецца на мабільных прыладах";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Гэты запыт можна змяніць толькі на камп'ютары";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Пераўтварыць набор у калекцыю";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Змяніць запыт";
 
 // MARK: - Collection: empty view
@@ -569,7 +569,7 @@
 "Enter number" = "Увядзіце нумар";
 "Enter text" = "Увядзіце тэкст";
 "Unsupported value" = "Значэнне не падтрымліваецца";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "Даныя не знойдзеныя";
 "AreYouSure" = "Вы ўпэўнены?";
 "Nothing found" = "Нічога не знойдзена";
@@ -581,8 +581,8 @@
 "Type" = "Тып";
 "Types" = "Тыпы";
 "No name" = "Без назвы";
-"New field" = "New field";
-"Edit field" = "Edit field";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Неіснуючы аб'ект";
 
 "Select all" = "Выбраць усё";
@@ -590,7 +590,7 @@
 "Deselect all" = "Зняць вылучэнне";
 "Deselect" = "Зняць вылучэнне";
 "Shared" = "Абагуленае";
-"Sets" = "Наборы";
+"Sets" = "Queries";
 "Collections" = "Калекцыі";
 "Default object type" = "Прадвызначаны тып аб'екта";
 "Personalization" = "Персаналізацыя";
@@ -618,7 +618,7 @@
 "Edit" = "Рэдагаваць";
 "Hidden" = "Hidden";
 "In this object" = "У гэтым аб'екце";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "Калекцыя аб'ектаў";
 "Designed to capture thoughts quickly" = "Прызначаны для хуткага запісу думак";
 "Action-focused layout with a checkbox" = "Макет, арыентаваны на дзеянні, з птушкай";
@@ -706,8 +706,8 @@
 "My First Space" = "Мая першая прастора";
 "Copy space info" = "Скапіраваць інфармацыю пра прастору";
 "Save" = "Save";
-"Set of" = "Set of %@";
-"New set" = "Новы набор";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Паказаць";
 "Hide" = "Схаваць";
 "Apply" = "Apply";
@@ -812,13 +812,13 @@
 "Content.Common.Error" = "Нешта пайшло не так, паспрабуйце яшчэ раз.";
 "Content.Bookmark.Add" = "Дадайце вэб-закладку";
 "Content.Bookmark.Loading" = "Загрузка, калі ласка пачакайце...";
-"Content.DataView.InlineSet.Subtitle" = "Убудаваны набор";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Убудаваная калекцыя";
 "Content.DataView.InlineSet.NoSource" = "Няма крыніцы";
 "Content.DataView.InlineSet.NoData" = "Без даты";
-"Content.DataView.InlineSet.Untitled" = "Набор без назвы";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Калекцыя без назвы";
-"Content.DataView.InlineSet.Toast.Failure" = "Гэты ўбудаваны набор не мае крыніцы";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "звязаны з";
@@ -847,7 +847,7 @@
 "Widgets.Layout.Link.Description" = "Кампактны віджэт";
 "Widgets.Layout.Tree.Description" = "Віджэт з іерархічнай структурай";
 "Widgets.Layout.List.Description" = "Віджэт са спісам";
-"Widgets.Layout.View.Description" = "Віджэт з наборам або калекцыяй";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Віджэт з кампактным выглядам спісу";
 "Widgets.Empty.Title" = "Тут пакуль няма аб'ектаў";
 "Widgets.Empty.CreateObject" = "Стварыць Аб'ект";
@@ -1307,7 +1307,7 @@
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
 
 // MARK: - Any App

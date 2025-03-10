@@ -6,6 +6,7 @@ enum CustomTextViewFirstResponderChange {
     case resign
 }
 
+@MainActor
 protocol CustomTextViewDelegate: AnyObject {
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange)
     func willBeginEditing()

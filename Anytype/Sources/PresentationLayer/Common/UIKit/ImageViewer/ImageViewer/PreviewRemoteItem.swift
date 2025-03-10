@@ -7,7 +7,7 @@ enum PreviewRemoteItemType {
     case file
 }
 
-final class PreviewRemoteItem: NSObject, QLPreviewItem, Identifiable, PreviewMediaHandlingOutput {
+final class PreviewRemoteItem: NSObject, QLPreviewItem, Identifiable, PreviewMediaHandlingOutput, @unchecked Sendable {
     let id: String
     let fileDetails: FileDetails
     let didUpdateContentSubject = PassthroughSubject<Void, Never>()

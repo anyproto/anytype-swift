@@ -1,6 +1,6 @@
 import Foundation
 
-struct SlashMenuItem {
+struct SlashMenuItem: Sendable {
     let type: SlashMenuItemType
     let children: [SlashAction]
 }

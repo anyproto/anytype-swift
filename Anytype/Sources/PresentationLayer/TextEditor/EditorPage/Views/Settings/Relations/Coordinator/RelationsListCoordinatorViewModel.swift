@@ -55,6 +55,7 @@ final class RelationsListCoordinatorViewModel:
     }
     
     func showTypeRelationsView(typeId: String) {
+        AnytypeAnalytics.instance().logScreenEditType(route: .object)
         objectTypeData = EditorTypeObject(objectId: typeId, spaceId: document.spaceId)
     }
     

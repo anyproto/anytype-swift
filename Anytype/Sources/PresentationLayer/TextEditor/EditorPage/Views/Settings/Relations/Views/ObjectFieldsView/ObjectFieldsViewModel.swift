@@ -85,13 +85,19 @@ final class ObjectFieldsViewModel: ObservableObject {
     }
     
     func addRelationToType(_ relation: Relation) {
+        AnytypeAnalytics.instance().logAddConflictRelation()
+        guard let details = document.details else { return }
+        
+        var newRecommendedRelations = document.parsedRelations.sidebarRelations
+        newRecommendedRelations.append(relation)
+        
         Task {
-            guard let details = document.details else { return }
-            
-            var newRecommendedRelations = document.parsedRelations.sidebarRelations
-            newRecommendedRelations.append(relation)
-            
             try await relationsService.updateRecommendedRelations(typeId: details.type, relationIds: newRecommendedRelations.map(\.id))
         }
+    }
+    
+    func onConflictingInfoTap() {
+        AnytypeAnalytics.instance().logConflictFieldHelp()
+        showConflictingInfo.toggle()
     }
 }

@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 struct SimpleTableSlashMenuComparator {
     static func matchDefaultTable(slashAction: SlashAction, inputString: String) -> SlashActionFilterMatch? {
         let tableString = "table"
@@ -7,6 +8,7 @@ struct SimpleTableSlashMenuComparator {
         guard inputString.contains(tableString) else {
             return SlashMenuComparator.match(slashAction: slashAction, string: inputString)
         }
+        
 
         guard let rangeOfPath = inputString.range(of: tableString) else {
             return .init(action: slashAction, filterMatch: .fullTitle)

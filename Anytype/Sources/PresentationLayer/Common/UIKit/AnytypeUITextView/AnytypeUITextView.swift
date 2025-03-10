@@ -50,6 +50,7 @@ final class AnytypeUITextView: UITextView {
         let lenght = self.offset(from: fixedStart, to: fixedEnd)
         self.textStorage.replaceCharacters(in: NSRange(location: location, length: lenght), with: "")
         self.selectedRange = NSRange(location: location, length: 0)
+        delegate?.textViewDidChange?(self)
     }
     
     override func position(from position: UITextPosition, offset: Int) -> UITextPosition? {
@@ -84,7 +85,7 @@ final class AnytypeUITextView: UITextView {
             
             let value = self.textStorage.attribute(attribute, at: newOffset, longestEffectiveRange: &effectiveRange, in: textRange)
             
-            if value != nil, effectiveRange != textRange {
+            if value != nil {
                 let isUpper: Bool
                 
                 switch direction {

@@ -57,6 +57,7 @@ final class ObjectTypeCoordinatorModel: ObservableObject, ObjectTypeViewModelOut
     }
     
     func onFieldsTap() {
+        AnytypeAnalytics.instance().logScreenEditType(route: .type)
         showTypeFields.toggle()
     }
     

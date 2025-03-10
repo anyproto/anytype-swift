@@ -68,4 +68,15 @@ enum TypeFieldsSectionRow: String, Identifiable, Equatable {
             true
         }
     }
+    
+    var analyticsValue: String {
+        switch self {
+        case .header:
+            return "Featured"
+        case .fieldsMenu:
+            return "Recommended"
+        case .hidden:
+            return "Hidden"
+        }
+    }
 }

@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+
 final class GradientImageBuilder {
 
     // MARK: - Private variables
@@ -8,7 +9,8 @@ final class GradientImageBuilder {
     private let imageStorage: some ImageStorageProtocol = ImageStorage.shared
     
     // MARK: - Public func
-
+    
+    @MainActor
     func image(size: CGSize, color: GradientColor, point: GradientPoint) -> UIImage {
         let key = """
         \(GradientImageBuilder.self).

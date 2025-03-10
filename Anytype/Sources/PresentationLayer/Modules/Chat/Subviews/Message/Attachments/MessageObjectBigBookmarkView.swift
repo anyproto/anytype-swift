@@ -42,7 +42,7 @@ struct MessageObjectBigBookmarkView: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 12)
             .padding(.vertical, 8)
         }
         .background(Color.Shape.transperentSecondary)

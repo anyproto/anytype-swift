@@ -157,7 +157,7 @@ struct TypeFieldsView: View {
     private var localFieldsSection: some View {
         VStack(spacing: 0) {
             Button(action: {
-                model.showConflictingInfo.toggle()
+                model.onConflictingInfoTap()
             }, label: {
                 ListSectionHeaderView(title: Loc.Fields.local, increasedTopPadding: true) {
                     Image(systemName: "questionmark.circle.fill").foregroundStyle(Color.Control.active)

@@ -4,12 +4,12 @@ import Combine
 import UIKit
 
 struct ChatCollectionView<
-    Item: Hashable & Identifiable,
-    Section: Hashable & Identifiable & ChatCollectionSection,
+    Item: Hashable & Identifiable & Sendable,
+    Section: Hashable & Identifiable & ChatCollectionSection & Sendable,
     ItemView: View,
     HeaderView: View,
     BottomPanel: View,
-    EmptyView: View>: UIViewControllerRepresentable where Item.ID == String, Section.Item == Item {
+    EmptyView: View>: UIViewControllerRepresentable where Item.ID == String, Section.Item == Item, Section.ID: Sendable {
     
     let items: [Section]
     let scrollProxy: ChatCollectionScrollProxy

@@ -124,7 +124,7 @@ final class ObjectTypeViewModel: ObservableObject {
             
             if let recommendedLayout = details.recommendedLayoutValue {
                 let isSupportedLayout = recommendedLayout.isEditorLayout
-                let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+                let isTemplate = details.isTemplateType
                 showTemplates = isSupportedLayout && !isTemplate
                 if showTemplates { buildTemplates() }
             } else {
@@ -156,6 +156,7 @@ final class ObjectTypeViewModel: ObservableObject {
             let conflictingRelations = relationDetailsStorage
                 .relationsDetails(ids: conflictingKeys, spaceId: document.spaceId)
                 .filter { !$0.isHidden && !$0.isDeleted }
+                .filter { $0.key != BundledRelationKey.description.rawValue }
 
             self.relationsCount = relations.installed.count + conflictingRelations.count
         }

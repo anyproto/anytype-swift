@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Objeto excluído";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Menu de campos";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "vazio";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "Do tipo \"%@\"";
 "Relation.EmptyState.title" = "Nenhuma opção";
 "Relation.EmptyState.description" = "Nada foi encontrado. Crie a primeira opção para começar.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "Criar \"%@”";
 "Relation.View.Create.title" = "Criar opção";
 "Relation.View.Edit.title" = "Editar opção";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Número de telefone";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "Mídias";
 "Alignment" = "Alinhamento";
 "Actions" = "Ações";
-"Fields" = "Fields";
+"Fields" = "Propriedades";
 "History" = "Histórico";
 "Objects" = "Objetos";
 "All" = "Todos";
@@ -214,8 +214,8 @@
 "Lets Go" = "Vamos lá";
 "My Channels" = "My Channels";
 "Open file" = "Abrir arquivo";
-"Open Set" = "Abrir conjunto";
-"Create Set" = "Criar Conjunto";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Bloco não suportado";
 "Edit Profile" = "Editar Perfil";
 "Object Types" = "Object Types";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "Copiar link";
 
 // Object Type
-"Set" = "Conjunto";
+"Set" = "Query";
 "Collection" = "Coleção";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Role para selecionar um local";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "No topo";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Na parte inferior";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Mostrar valores vazios";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtros";
@@ -486,9 +486,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dias a partir de agora";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Consulta";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "Selecione a consulta";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Tipo:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Agrupar por";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Colunas de cor";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "Sem filtros";
 "Set.View.Settings.NoSorts.Placeholder" = "Sem ordenação";
 "Set.View.Settings.Objects.Applied.Title" = "%d aplicado";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Nenhuma consulta selecionada";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "A exibição não é suportada no celular";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Esta consulta só pode ser alterada na versão desktop";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Transformar conjunto em coleção";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Mudar consulta";
 
 // MARK: - Collection: empty view
@@ -569,7 +569,7 @@
 "Enter number" = "Inserir número";
 "Enter text" = "Inserir texto";
 "Unsupported value" = "Valor não suportado";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "Dados não encontrados";
 "AreYouSure" = "Você tem certeza?";
 "Nothing found" = "Nada encontrado";
@@ -581,8 +581,8 @@
 "Type" = "Tipo";
 "Types" = "Tipos";
 "No name" = "Sem nome";
-"New field" = "New field";
-"Edit field" = "Editar campo";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Objeto não existente";
 
 "Select all" = "Selecionar todos";
@@ -590,7 +590,7 @@
 "Deselect all" = "Desmarcar todos";
 "Deselect" = "Desmarcar";
 "Shared" = "Compartilhado";
-"Sets" = "Conjuntos";
+"Sets" = "Queries";
 "Collections" = "Coleções";
 "Default object type" = "Tipo de objeto padrão";
 "Personalization" = "Personalização";
@@ -618,7 +618,7 @@
 "Edit" = "Editar";
 "Hidden" = "Hidden";
 "In this object" = "Neste objeto";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "Coleção de objetos";
 "Designed to capture thoughts quickly" = "Projetado para capturar pensamentos rapidamente";
 "Action-focused layout with a checkbox" = "Layout focado em ações com uma caixa de seleção";
@@ -705,8 +705,8 @@
 "My First Space" = "Meu Primeiro Espaço";
 "Copy space info" = "Copiar informações do espaço";
 "Save" = "Salvar";
-"Set of" = "Conjunto de %@";
-"New set" = "Novo conjunto";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Exibir";
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
@@ -811,13 +811,13 @@
 "Content.Common.Error" = "Algo deu errado, tente novamente";
 "Content.Bookmark.Add" = "Adicionar um marcador da web";
 "Content.Bookmark.Loading" = "Carregando, por favor aguarde...";
-"Content.DataView.InlineSet.Subtitle" = "Conjunto em linha";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Coleção em linha";
 "Content.DataView.InlineSet.NoSource" = "Não há fonte";
 "Content.DataView.InlineSet.NoData" = "Sem dados";
-"Content.DataView.InlineSet.Untitled" = "Conjunto sem título";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Coleção sem título";
-"Content.DataView.InlineSet.Toast.Failure" = "Esse conjunto não tem uma fonte";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "vinculado a";
@@ -846,7 +846,7 @@
 "Widgets.Layout.Link.Description" = "Visualização compacta do widget";
 "Widgets.Layout.Tree.Description" = "Widget com uma estrutura hierárquica";
 "Widgets.Layout.List.Description" = "Widget com uma visualização em lista";
-"Widgets.Layout.View.Description" = "Widget com um layout de Conjunto ou Coleção";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Widget com uma visualização em lista compacta";
 "Widgets.Empty.Title" = "Não há objetos aqui";
 "Widgets.Empty.CreateObject" = "Criar Objeto";
@@ -1307,7 +1307,7 @@ forneça detalhes específicos das suas necessidades aqui.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Nova Página";
 "ObjectSearchWithMeta.Create.Note" = "Nova Nota";
-"ObjectSearchWithMeta.Create.Set" = "Novo Conjunto";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Nova Coleção";
 
 // MARK: - Any App

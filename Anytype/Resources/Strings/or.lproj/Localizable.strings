@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "ବିଲୋପ ହୋଇଥିବା ଅବଜେକ୍ଟ";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Fields menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "ଖାଲି";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "%@ ପ୍ରକାରରୁ";
 "Relation.EmptyState.title" = "କୌଣସି ବିକଳ୍ପ ନାହିଁ";
 "Relation.EmptyState.description" = "କିଛି ମିଳିଲା ନାହିଁ। ଆରମ୍ଭ କରିବାକୁ ପ୍ରଥମ ବିକଳ୍ପ ସୃଷ୍ଟି କରନ୍ତୁ।";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "“%@” ତିଆରି କରନ୍ତୁ";
 "Relation.View.Create.title" = "ତିଆରି କରନ୍ତୁ ବିକଳ୍ପ";
 "Relation.View.Edit.title" = "ବିକଳ୍ପ ସମ୍ପାଦନ କରନ୍ତୁ";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "ଇମେଲ୍";
 "Relation.Format.Phone.Title" = "ଫୋନ୍ ନମ୍ବର";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "ମିଡ଼ିଆ";
 "Alignment" = "ଶ୍ରେଣୀବଦ୍ଧତା ";
 "Actions" = "କାର୍ଯ୍ୟ";
-"Fields" = "Fields";
+"Fields" = "Properties";
 "History" = "History";
 "Objects" = "ଅବଜେକ୍ଟ";
 "All" = "ସମସ୍ତ";
@@ -214,8 +214,8 @@
 "Lets Go" = "ଚାଲନ୍ତୁ ଆମେ ଯିବା";
 "My Channels" = "My Channels";
 "Open file" = "ଫାଇଲ୍ ଖୋଲନ୍ତୁ";
-"Open Set" = "ସେଟ୍ ଖୋଲନ୍ତୁ";
-"Create Set" = "ସେଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "ସମର୍ଥିତ ଡିପ୍ଲିଙ୍କ";
 "Edit Profile" = "ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା କରନ୍ତୁ";
 "Object Types" = "Object Types";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "ଲିଙ୍କ୍ କପି କରନ୍ତୁ";
 
 // Object Type
-"Set" = "ସେଟ୍ କରନ୍ତୁ";
+"Set" = "Query";
 "Collection" = "କଲେକ୍ସନ";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "ଏକ ସ୍ଥାନ ବାଛିବା ପାଇଁ ସ୍କ୍ରୋଲ୍ କରନ୍ତୁ";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "ଶୀର୍ଷରେ";
 "EditSet.Popup.Sort.EmptyTypes.End" = "ଶୀର୍ଷରେ";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "ଖାଲି ମୂଲ୍ୟ ଦେଖାନ୍ତୁ";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "ଫିଲ୍ଟର୍";
@@ -486,9 +486,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ ଦିନ ପରେ";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "Select query";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
@@ -569,7 +569,7 @@
 "Enter number" = "ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ";
 "Enter text" = "ଟେକ୍ସଟ୍ ପ୍ରବେଶ କରନ୍ତୁ";
 "Unsupported value" = "ସମର୍ଥିତ ମୂଲ୍ୟ ନୁହେଁ";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "କୌଣସି ଡାଟା ମିଳିଲା ନାହିଁ";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "କିଛି ମିଳିଲା ନାହିଁ";
@@ -581,8 +581,8 @@
 "Type" = "ପ୍ରକାର";
 "Types" = "Types";
 "No name" = "କୌଣସି ନାମ ନାହିଁ";
-"New field" = "New field";
-"Edit field" = "କ୍ଷେତ୍ର ସମ୍ପାଦନ କରନ୍ତୁ";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Non-existent object";
 
 "Select all" = "ସମସ୍ତ ଚୟନ କରନ୍ତୁ";
@@ -590,7 +590,7 @@
 "Deselect all" = "ସବୁକିଛି ବାଛନ୍ତୁ ନାହିଁ";
 "Deselect" = "ଡିସେଲେକ୍ଟ";
 "Shared" = "ସେୟାର କରାଯାଇଛି";
-"Sets" = "ସେଟ୍";
+"Sets" = "Queries";
 "Collections" = "କଲେକ୍ସନ";
 "Default object type" = "ଡିଫଲ୍ଟ ଅବଜେକ୍ଟ ପ୍ରକାର";
 "Personalization" = "ବ୍ୟକ୍ତିଗତକରଣ";
@@ -618,7 +618,7 @@
 "Edit" = "Edit";
 "Hidden" = "Hidden";
 "In this object" = "In this object";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
@@ -705,8 +705,8 @@
 "My First Space" = "ମୋର ପ୍ରଥମ ସ୍ଥାନ";
 "Copy space info" = "ସ୍ପେସ୍ ସୂଚନା କପି କରନ୍ତୁ";
 "Save" = "ସଞ୍ଚୟ କରନ୍ତୁ";
-"Set of" = "%@ ସେଟ୍ କରନ୍ତୁ";
-"New set" = "New set";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Show";
 "Hide" = "Hide";
 "Apply" = "ଆବେଦନ କରନ୍ତୁ";
@@ -811,13 +811,13 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Inline collection";
 "Content.DataView.InlineSet.NoSource" = "No source";
 "Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Untitled collection";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
@@ -846,7 +846,7 @@
 "Widgets.Layout.Link.Description" = "Compact widget view";
 "Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
 "Widgets.Layout.List.Description" = "Widget with a list view";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
@@ -1306,7 +1306,7 @@ Please provide specific details of your needs here.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
 
 // MARK: - Any App

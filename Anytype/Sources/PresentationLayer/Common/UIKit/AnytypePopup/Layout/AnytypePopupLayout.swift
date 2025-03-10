@@ -3,8 +3,8 @@ import FloatingPanel
 import CoreGraphics
 import UIKit
 
-
-open class AnytypePopupLayout: FloatingPanelLayout {
+@MainActor
+open class AnytypePopupLayout: @preconcurrency FloatingPanelLayout {
     
     public let position: FloatingPanelPosition = .bottom
     public let initialState: FloatingPanelState

@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 protocol FilterableItemsView {
     func setFilterText(filterText: String)
 }
