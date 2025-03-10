@@ -3,6 +3,7 @@ import Sentry
 import Logger
 import AnytypeCore
 import Factory
+import Services
 
 enum AppSessionError: Error {
     case sessionWithoutFinish
@@ -12,8 +13,8 @@ final class SentryConfigurator: AppConfiguratorProtocol {
     
     @Injected(\.appSessionTracker)
     private var appSessionTracker: any AppSessionTrackerProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.userInfoService)
+    private var userInfoService: any UserInfoServiceProtocol
     
     private enum Constants {
         static let fileName = "stdout.txt"
@@ -66,7 +67,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
         
         // Restore userId from old session
         let user = User()
-        user.userId = userDefaults.analyticsId
+        user.userId = userInfoService.getAnalyticsId()
         SentrySDK.setUser(user)
         
         let configProvider = Container.shared.middlewareConfigurationProvider.resolve()

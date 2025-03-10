@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 @preconcurrency import Combine
 
-protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
+public protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
     var installedConfigurationsPublisher: AnyPublisher<Void, Never> { get }
     func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws
     func addConfiguration(fileBase64Content: String, setupAsCurrent: Bool) throws

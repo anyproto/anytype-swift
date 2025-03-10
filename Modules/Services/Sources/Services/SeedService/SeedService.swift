@@ -1,9 +1,14 @@
 import SecureService
 
+public protocol SeedServiceProtocol: AnyObject, Sendable {
+    func obtainSeed() throws -> String
+    func saveSeed(_ seed: String) throws
+    func removeSeed() throws
+}
+
 final class SeedService: SeedServiceProtocol {
     
-    @Injected(\.keychainStore)
-    private var keychainStore: any KeychainStoreProtocol
+    private let keychainStore: any KeychainStoreProtocol = Container.shared.keychainStore()
     
     func removeSeed() throws {
         try keychainStore.removeItem(queryable: query())

@@ -56,6 +56,9 @@
 		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
 		2E8165BB2CB6B9830037D0BF /* LocalizableWidget.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ACE06512B7CD96D009AA7B6 /* LocalizableWidget.strings */; };
 		2EE54B5E2D7B440D00138A12 /* AnytypeNSE.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2EE54B572D7B440D00138A12 /* AnytypeNSE.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2EE774842D7F1EF600FA2C26 /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE774832D7F1EF600FA2C26 /* Services */; };
+		2EE774862D7F1EF600FA2C26 /* Services in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2EE774832D7F1EF600FA2C26 /* Services */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2EE774882D7F200A00FA2C26 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE774872D7F200A00FA2C26 /* Factory */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */; };
@@ -163,6 +166,17 @@
 				2A90C46E285B5A9100B6B44E /* ProtobufMessages in Embed Frameworks */,
 				2A90C46B285B5A9100B6B44E /* Services in Embed Frameworks */,
 				2A90C468285B5A9100B6B44E /* AnytypeCore in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2EE774852D7F1EF600FA2C26 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2EE774862D7F1EF600FA2C26 /* Services in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,6 +437,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EE774842D7F1EF600FA2C26 /* Services in Frameworks */,
+				2EE774882D7F200A00FA2C26 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -825,6 +841,7 @@
 				2EE54B532D7B440D00138A12 /* Sources */,
 				2EE54B542D7B440D00138A12 /* Frameworks */,
 				2EE54B552D7B440D00138A12 /* Resources */,
+				2EE774852D7F1EF600FA2C26 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -835,6 +852,8 @@
 			);
 			name = AnytypeNSE;
 			packageProductDependencies = (
+				2EE774832D7F1EF600FA2C26 /* Services */,
+				2EE774872D7F200A00FA2C26 /* Factory */,
 			);
 			productName = AnytypeNSE;
 			productReference = 2EE54B572D7B440D00138A12 /* AnytypeNSE.appex */;
@@ -1723,6 +1742,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = AnytypeNSE/AnytypeNSE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1792,6 +1812,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = AnytypeNSE/AnytypeNSE.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -1868,6 +1889,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = AnytypeNSE/AnytypeNSE.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -1944,6 +1966,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = AnytypeNSE/AnytypeNSE.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -2831,6 +2854,15 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		2EE774832D7F1EF600FA2C26 /* Services */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Services;
+		};
+		2EE774872D7F200A00FA2C26 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 		2EEE411D2C1080AD000AB88B /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -18,7 +18,7 @@ struct InitialCoordinatorView: View {
             model.onAppear()
         }
         .alert(Loc.Initial.UnstableMiddle.title, isPresented: $model.showWarningAlert) {
-            if model.userDefaults.usersId.isNotEmpty {
+            if model.userId.isNotEmpty {
                 Button(Loc.Initial.UnstableMiddle.logout) {
                     model.contunueWithLogout()
                 }

@@ -1,4 +1,5 @@
 import Foundation
+import SecureService
 // Automatically export Factory when import Servies
 @_exported import Factory
 
@@ -146,5 +147,25 @@ public extension Container {
     
     var accountMigrationService: Factory<AccountMigrationServiceProtocol> {
         self { AccountMigrationService() }.shared
+    }
+    
+    var userInfoService: Factory<UserInfoServiceProtocol> {
+        self { UserInfoService() }.shared
+    }
+    
+    var keychainStore: Factory<any KeychainStoreProtocol> {
+        self { KeychainStore() }.shared
+    }
+    
+    var seedService: Factory<SeedServiceProtocol> {
+        self { SeedService() }.shared
+    }
+    
+    var localRepoService: Factory<any LocalRepoServiceProtocol> {
+        self { LocalRepoService() }.shared
+    }
+    
+    var serverConfigurationStorage: Factory<any ServerConfigurationStorageProtocol> {
+        self { ServerConfigurationStorage() }.singleton
     }
 }

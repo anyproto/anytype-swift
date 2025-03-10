@@ -1,5 +1,4 @@
 import Foundation
-import SecureService
 import Services
 import SharedContentManager
 import DeepLinks
@@ -43,18 +42,6 @@ extension Container {
     
     var pasteboardBlockService: Factory<any PasteboardBlockServiceProtocol> {
         self { PasteboardBlockService() }
-    }
-    
-    var localRepoService: Factory<any LocalRepoServiceProtocol> {
-        self { LocalRepoService() }.shared
-    }
-    
-    var keychainStore: Factory<any KeychainStoreProtocol> {
-        self { KeychainStore() }.shared
-    }
-    
-    var seedService: Factory<any SeedServiceProtocol> {
-        self { SeedService() }.shared
     }
     
     var usecaseService: Factory<any UsecaseServiceProtocol> {
@@ -211,10 +198,6 @@ extension Container {
     
     var workspacesSubscriptionBuilder: Factory<any WorkspacesSubscriptionBuilderProtocol> {
         self { WorkspacesSubscriptionBuilder() }.shared
-    }
-    
-    var serverConfigurationStorage: Factory<any ServerConfigurationStorageProtocol> {
-        self { ServerConfigurationStorage() }.singleton
     }
     
     var authService: Factory<any AuthServiceProtocol> {

@@ -9,6 +9,8 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     @Injected(\.userDefaultsStorage)
     var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.userInfoService)
+    var userInfoService: any UserInfoServiceProtocol
     @Injected(\.middlewareConfigurationProvider)
     private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
     @Injected(\.applicationStateService)
@@ -26,6 +28,8 @@ final class InitialCoordinatorViewModel: ObservableObject {
     @Published var middlewareShareFile: URL? = nil
     @Published var localStoreURL: URL? = nil
     
+    var userId: String { userInfoService.getUserId() }
+    
     func onAppear() {
         checkCrash()
         AppIconManager.shared.migrateIcons()
@@ -37,7 +41,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     }
     
     func contunueWithLogout() {
-        userDefaults.usersId = ""
+        userInfoService.clearUserId()
         showLoginOrAuth()
         userDefaults.showUnstableMiddlewareError = false
     }
@@ -73,7 +77,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     // MARK: - Private
     
     private func showLoginOrAuth() {
-        if userDefaults.usersId.isNotEmpty {
+        if userId.isNotEmpty {
             applicationStateService.state = .login
         } else {
             applicationStateService.state = .auth
@@ -87,7 +91,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
                 let version = try await middlewareConfigurationProvider.libraryVersion()
                 let isUnstableVersion = !version.hasPrefix("v")
                 if isUnstableVersion {
-                    if (userDefaults.usersId.isEmpty || userDefaults.showUnstableMiddlewareError) {
+                    if (userId.isEmpty || userDefaults.showUnstableMiddlewareError) {
                         showWarningAlert.toggle()
                     } else {
                         showLoginOrAuth()

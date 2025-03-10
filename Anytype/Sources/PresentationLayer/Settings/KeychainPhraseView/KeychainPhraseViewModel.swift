@@ -1,5 +1,6 @@
 import SwiftUI
 import LocalAuthentication
+import Services
 
 @MainActor
 class KeychainPhraseViewModel: ObservableObject {

@@ -2,7 +2,7 @@ import Security
 import LocalAuthentication
 import Foundation
 
-public protocol KeychainStoreProtocol {
+public protocol KeychainStoreProtocol: Sendable {
     func storeItem(item: String, queryable: SecureStoreQueryable) throws
     func retreiveItem(queryable: SecureStoreQueryable) throws -> String
     func contains(queryable: SecureStoreQueryable) -> Bool
