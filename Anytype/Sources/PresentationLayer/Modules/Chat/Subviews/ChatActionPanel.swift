@@ -46,10 +46,11 @@ struct ChatActionPanelView: View {
                 .cornerRadius(16)
                 .overlay(alignment: .topTrailing) {
                     Text(text)
-                        .anytypeStyle(.caption1Regular)
+                        .anytypeFontStyle(.caption1Regular) // Without line height multiple
+                        .background(Color.red)
                         .foregroundStyle(Color.Control.white)
+                        .frame(height: 20)
                         .padding(.horizontal, 6)
-                        .padding(.vertical, 1)
                         .background(
                             Capsule()
                                 .fill(Color.Control.transparentActive)
