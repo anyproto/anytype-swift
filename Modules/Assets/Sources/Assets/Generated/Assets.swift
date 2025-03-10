@@ -12,15 +12,15 @@
 
 // Deprecated typealiases
 @available(*, deprecated, renamed: "ColorAsset.Color", message: "This typealias will be removed in SwiftGen 7.0")
-internal typealias AssetColorTypeAlias = ColorAsset.Color
+public typealias AssetColorTypeAlias = ColorAsset.Color
 
 // swiftlint:disable superfluous_disable_command file_length implicit_return
 
 // MARK: - Asset Catalogs
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
-internal enum Asset {
-  internal enum Dark {
+public enum Asset {
+  public enum Dark {
     static let blue = ColorAsset(name: "Dark/blue")
     static let green = ColorAsset(name: "Dark/green")
     static let grey = ColorAsset(name: "Dark/grey")
@@ -32,7 +32,7 @@ internal enum Asset {
     static let teal = ColorAsset(name: "Dark/teal")
     static let yellow = ColorAsset(name: "Dark/yellow")
   }
-  internal enum Light {
+  public enum Light {
     static let blue = ColorAsset(name: "Light/blue")
     static let green = ColorAsset(name: "Light/green")
     static let grey = ColorAsset(name: "Light/grey")
@@ -44,7 +44,7 @@ internal enum Asset {
     static let teal = ColorAsset(name: "Light/teal")
     static let yellow = ColorAsset(name: "Light/yellow")
   }
-  internal enum System {
+  public enum System {
     static let amber100 = ColorAsset(name: "System/amber100")
     static let amber125 = ColorAsset(name: "System/amber125")
     static let amber25 = ColorAsset(name: "System/amber25")
@@ -60,7 +60,7 @@ internal enum Asset {
     static let teal = ColorAsset(name: "System/teal")
     static let yellow = ColorAsset(name: "System/yellow")
   }
-  internal enum VeryLight {
+  public enum VeryLight {
     static let blue = ColorAsset(name: "VeryLight/blue")
     static let green = ColorAsset(name: "VeryLight/green")
     static let grey = ColorAsset(name: "VeryLight/grey")
@@ -74,8 +74,8 @@ internal enum Asset {
   }
 
   // MARK: - Custom
-  internal enum Additional {
-    internal enum Indicator {
+  public enum Additional {
+    public enum Indicator {
       static let selected = ColorAsset(name: "Additional/Indicator/selected")
       static let unselected = ColorAsset(name: "Additional/Indicator/unselected")
     }
@@ -83,7 +83,7 @@ internal enum Asset {
     static let separator = ColorAsset(name: "Additional/separator")
     static let space = ColorAsset(name: "Additional/space")
   }
-  internal enum Auth {
+  public enum Auth {
     static let body = ColorAsset(name: "Auth/body")
     static let caption = ColorAsset(name: "Auth/caption")
     static let dot = ColorAsset(name: "Auth/dot")
@@ -94,11 +94,11 @@ internal enum Asset {
     static let modalContent = ColorAsset(name: "Auth/modalContent")
     static let text = ColorAsset(name: "Auth/text")
   }
-  internal enum BackgroundCustom {
+  public enum BackgroundCustom {
     static let black = ColorAsset(name: "BackgroundCustom/black")
     static let material = ColorAsset(name: "BackgroundCustom/material")
   }
-  internal enum BottomAlert {
+  public enum BottomAlert {
     static let blueEnd = ColorAsset(name: "BottomAlert/blueEnd")
     static let blueStart = ColorAsset(name: "BottomAlert/blueStart")
     static let greenEnd = ColorAsset(name: "BottomAlert/greenEnd")
@@ -106,7 +106,7 @@ internal enum Asset {
     static let redEnd = ColorAsset(name: "BottomAlert/redEnd")
     static let redStart = ColorAsset(name: "BottomAlert/redStart")
   }
-  internal enum CoverGradients {
+  public enum CoverGradients {
     static let blueEnd = ColorAsset(name: "CoverGradients/blueEnd")
     static let bluePinkEnd = ColorAsset(name: "CoverGradients/bluePinkEnd")
     static let bluePinkStart = ColorAsset(name: "CoverGradients/bluePinkStart")
@@ -124,8 +124,8 @@ internal enum Asset {
     static let yellowEnd = ColorAsset(name: "CoverGradients/yellowEnd")
     static let yellowStart = ColorAsset(name: "CoverGradients/yellowStart")
   }
-  internal enum Gradients {
-    internal enum UpdateAlert {
+  public enum Gradients {
+    public enum UpdateAlert {
       static let darkBlue = ColorAsset(name: "Gradients/UpdateAlert/darkBlue")
       static let green = ColorAsset(name: "Gradients/UpdateAlert/green")
       static let lightBlue = ColorAsset(name: "Gradients/UpdateAlert/lightBlue")
@@ -142,17 +142,17 @@ internal enum Asset {
     static let orange = ColorAsset(name: "Gradients/orange")
     static let white = ColorAsset(name: "Gradients/white")
   }
-  internal enum Launch {
+  public enum Launch {
     static let circle = ColorAsset(name: "Launch/circle")
   }
-  internal enum ModalScreen {
+  public enum ModalScreen {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")
   }
-  internal enum Shadow {
+  public enum Shadow {
     static let primary = ColorAsset(name: "Shadow/primary")
   }
-  internal enum Widget {
+  public enum Widget {
     static let actionsBackground = ColorAsset(name: "Widget/actionsBackground")
     static let bottomPanel = ColorAsset(name: "Widget/bottomPanel")
     static let divider = ColorAsset(name: "Widget/divider")
@@ -161,8 +161,8 @@ internal enum Asset {
   }
 
   // MARK: - DesignSystem
-  internal enum Background {
-    internal enum Chat {
+  public enum Background {
+    public enum Chat {
       static let bubbleSomeones = ColorAsset(name: "Background/Chat/bubbleSomeones")
       static let bubbleYour = ColorAsset(name: "Background/Chat/bubbleYour")
       static let replySomeones = ColorAsset(name: "Background/Chat/replySomeones")
@@ -176,7 +176,7 @@ internal enum Asset {
     static let secondary = ColorAsset(name: "Background/secondary")
     static let widget = ColorAsset(name: "Background/widget")
   }
-  internal enum Control {
+  public enum Control {
     static let accent = ColorAsset(name: "Control/accent")
     static let active = ColorAsset(name: "Control/active")
     static let button = ColorAsset(name: "Control/button")
@@ -185,7 +185,7 @@ internal enum Asset {
     static let transparentInactive = ColorAsset(name: "Control/transparentInactive")
     static let white = ColorAsset(name: "Control/white")
   }
-  internal enum Shape {
+  public enum Shape {
     static let primary = ColorAsset(name: "Shape/primary")
     static let secondary = ColorAsset(name: "Shape/secondary")
     static let tertiary = ColorAsset(name: "Shape/tertiary")
@@ -193,7 +193,7 @@ internal enum Asset {
     static let transperentSecondary = ColorAsset(name: "Shape/transperentSecondary")
     static let transperentTertiary = ColorAsset(name: "Shape/transperentTertiary")
   }
-  internal enum Text {
+  public enum Text {
     static let inversion = ColorAsset(name: "Text/inversion")
     static let primary = ColorAsset(name: "Text/primary")
     static let secondary = ColorAsset(name: "Text/secondary")
@@ -205,21 +205,21 @@ internal enum Asset {
 
 // MARK: - Implementation Details
 
-internal final class ColorAsset: Sendable {
-  internal let name: String
+public final class ColorAsset: Sendable {
+  public let name: String
 
   #if os(macOS)
-  internal typealias Color = NSColor
+  public typealias Color = NSColor
   #elseif os(iOS) || os(tvOS) || os(watchOS)
-  internal typealias Color = UIColor
+  public typealias Color = UIColor
   #endif
 
   @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-  internal var color: Color { Color(asset: self) }
+  public var color: Color { Color(asset: self) }
 
   #if os(iOS) || os(tvOS)
   @available(iOS 11.0, tvOS 11.0, *)
-  internal func color(compatibleWith traitCollection: UITraitCollection) -> Color {
+  public func color(compatibleWith traitCollection: UITraitCollection) -> Color {
     let bundle = BundleToken.bundle
     guard let color = Color(named: name, in: bundle, compatibleWith: traitCollection) else {
       fatalError("Unable to load color asset named \(name).")
@@ -233,7 +233,7 @@ internal final class ColorAsset: Sendable {
   }
 }
 
-internal extension ColorAsset.Color {
+public extension ColorAsset.Color {
   @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
   convenience init(asset: ColorAsset) {
     let bundle = BundleToken.bundle
