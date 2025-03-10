@@ -1298,4 +1298,8 @@ extension AnytypeAnalytics {
     func logConflictFieldHelp() {
         logEvent("ClickConflictFieldHelp")
     }
+    
+    func logAddConflictRelation() {
+        logEvent("AddConflictRelation")
+    }
 }

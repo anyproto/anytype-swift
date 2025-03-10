@@ -134,10 +134,11 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     func onAddConflictRelation(_ relation: RelationDetails) {
-        Task {            
-            var newRecommendedRelations = parsedRelations.sidebarRelations.map(\.id)
-            newRecommendedRelations.append(relation.id)
-            
+        AnytypeAnalytics.instance().logAddConflictRelation()
+        var newRecommendedRelations = parsedRelations.sidebarRelations.map(\.id)
+        newRecommendedRelations.append(relation.id)
+        
+        Task {
             try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: newRecommendedRelations)
             if let details = document.details { try await updateConflictRelations(details: details) }
         }
