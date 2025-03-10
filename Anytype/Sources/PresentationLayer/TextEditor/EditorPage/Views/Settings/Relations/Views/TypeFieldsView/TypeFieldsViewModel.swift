@@ -108,6 +108,11 @@ final class TypeFieldsViewModel: ObservableObject {
         )
     }
     
+    func onConflictingInfoTap() {
+        AnytypeAnalytics.instance().logConflictFieldHelp()
+        showConflictingInfo.toggle()
+    }
+    
     func onDeleteRelation(_ row: TypeFieldsRelationRow) {
         Task {
             let relationsId = row.relation.id

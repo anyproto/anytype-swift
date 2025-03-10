@@ -94,4 +94,9 @@ final class ObjectFieldsViewModel: ObservableObject {
             try await relationsService.updateRecommendedRelations(typeId: details.type, relationIds: newRecommendedRelations.map(\.id))
         }
     }
+    
+    func onConflictingInfoTap() {
+        AnytypeAnalytics.instance().logConflictFieldHelp()
+        showConflictingInfo.toggle()
+    }
 }

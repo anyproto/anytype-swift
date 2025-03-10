@@ -1294,4 +1294,8 @@ extension AnytypeAnalytics {
     func logClickQuote() {
         logEvent("ClickQuote")
     }
+    
+    func logConflictFieldHelp() {
+        logEvent("ClickConflictFieldHelp")
+    }
 }
