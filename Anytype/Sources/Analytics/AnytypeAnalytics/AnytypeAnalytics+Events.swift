@@ -1302,4 +1302,13 @@ extension AnytypeAnalytics {
     func logAddConflictRelation() {
         logEvent("AddConflictRelation")
     }
+    
+    func logScreenEditType(route: EditTypeRoute) {
+        logEvent(
+            "ScreenEditType",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route.rawValue,
+            ]
+        )
+    }
 }
