@@ -120,7 +120,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             anytypeAssertionFailure("Last message not found")
             return
         }
-        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, afterOrderId: nil, limit: Constants.pageSize)
+        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, limit: Constants.pageSize)
         guard messages.isNotEmpty else { return }
         await addNewMessages(messages: messages)
         if allMessages.count > Constants.maxCacheSize {
@@ -134,7 +134,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             anytypeAssertionFailure("Last message not found")
             return
         }
-        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: nil, afterOrderId: last.orderID, limit: Constants.pageSize)
+        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: last.orderID, limit: Constants.pageSize)
         guard messages.isNotEmpty else { return }
         await addNewMessages(messages: messages)
         if allMessages.count > Constants.maxCacheSize {
@@ -152,8 +152,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             throw CommonError.undefined
         }
         
-        let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: replyMessage.orderID, afterOrderId: nil, limit: Constants.pageSize)
-        let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: nil, afterOrderId: replyMessage.orderID, limit: Constants.pageSize)
+        let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: replyMessage.orderID, limit: Constants.pageSize)
+        let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: replyMessage.orderID, limit: Constants.pageSize)
         
         let allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
         allMessages.removeAll()
@@ -167,21 +167,17 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             return message
         }
         
-        let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: orderId, afterOrderId: nil, limit: Constants.pageSize)
-        let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: nil, afterOrderId: orderId, limit: Constants.pageSize)
+        let loadedMessagesBefore = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: orderId, limit: Constants.pageSize)
+        let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: orderId, limit: Constants.pageSize, includeBoundary: true)
         
-        // TODO: Waiting middleware api
-        guard let firstAfterOrderId = loadedMessagesAfter.first?.orderID else {
-            throw CommonError.undefined
-        }
-        let replyMessage = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: firstAfterOrderId, afterOrderId: nil, limit: 1).last
+        let allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
+        allMessages.removeAll()
+        
+        let replyMessage = loadedMessagesAfter.first { $0.orderID == orderId }
         
         guard let replyMessage else {
             throw CommonError.undefined
         }
-        
-        let allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
-        allMessages.removeAll()
         
         await addNewMessages(messages: allLoadedMessages)
         updateFullMessages()
@@ -231,7 +227,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 }
                 
                 // If next
-                let topMeessag = try? await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: data.orderID, afterOrderId: nil, limit: 1).first
+                let topMeessag = try? await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: data.orderID, limit: 1).first
                 if allMessages.values.last?.id == topMeessag?.id {
                     await addNewMessages(messages: [data.message])
                     updates.insert(.messages)
@@ -239,7 +235,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 }
                 
                 // If prev
-                let bottomMessage = try? await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: nil, afterOrderId: data.orderID, limit: 1).first
+                let bottomMessage = try? await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: data.orderID, limit: 1).first
                 if allMessages.values.first?.id == bottomMessage?.id {
                     await addNewMessages(messages: [data.message])
                     updates.insert(.messages)
