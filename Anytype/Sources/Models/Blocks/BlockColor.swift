@@ -70,6 +70,7 @@ enum BlockColor: CaseIterable {
         }
     }
     
+    @MainActor
     var image: UIImage {
         UIImage.circleImage(
             size: .init(width: 22, height: 22),

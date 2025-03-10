@@ -48,7 +48,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             return false
         }
         
-        if queryObject.uniqueKey == ObjectTypeUniqueKey.template {
+        if queryObject.isTemplateType {
             return false
         }
         

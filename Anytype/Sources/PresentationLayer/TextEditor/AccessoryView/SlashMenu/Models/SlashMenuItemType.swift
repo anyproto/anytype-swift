@@ -1,6 +1,6 @@
 import UIKit
 
-enum SlashMenuItemType {
+enum SlashMenuItemType: Sendable {
     case style
     case media
     case objects
@@ -34,6 +34,7 @@ enum SlashMenuItemType {
         }
     }
     
+    @MainActor
     var iconName: Icon {
         switch self {
         case .style:
@@ -69,6 +70,7 @@ enum SlashMenuItemType {
         }
     }
 
+    @MainActor
     var displayData: SlashMenuItemDisplayData {
         SlashMenuItemDisplayData(iconData: iconName, title: self.title)
     }

@@ -11,7 +11,7 @@ enum ScreenType {
 }
 
 
-enum ScreenData: Hashable, Identifiable {
+enum ScreenData: Hashable, Identifiable, Sendable {
     case editor(EditorScreenData)
     case alert(AlertScreenData)
     case preview(MediaFileScreenData)
