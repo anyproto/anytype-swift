@@ -3,7 +3,7 @@ import SwiftUI
 
 extension Relation {
     
-    struct Object: RelationProtocol, Hashable, Identifiable {
+    struct Object: RelationProtocol, Hashable, Identifiable, Sendable {
         let id: String
         let key: String
         let name: String
@@ -31,7 +31,7 @@ extension Relation {
 
 extension Relation.Object {
 
-    struct Option: Hashable, Identifiable {
+    struct Option: Hashable, Identifiable, Sendable {
         let id: String
         
         let icon: Icon?
