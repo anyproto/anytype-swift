@@ -24,8 +24,7 @@ let package = Package(
             ],
             path: "Sources",
             swiftSettings: [
-                // Waiting swift-protobuf
-                .swiftLanguageMode(.v5)
+                .swiftLanguageMode(.v6)
             ],
             linkerSettings: [
                 .linkedLibrary("c++"),
