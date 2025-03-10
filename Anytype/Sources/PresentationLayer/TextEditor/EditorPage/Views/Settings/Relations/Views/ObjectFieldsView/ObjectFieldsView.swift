@@ -72,7 +72,7 @@ struct ObjectFieldsView: View {
         Group {
             if section.isMissingFields {
                 Button {
-                    model.showConflictingInfo.toggle()
+                    model.onConflictingInfoTap()
                 } label: {
                     ListSectionHeaderView(title: section.title) {
                         Image(systemName: "questionmark.circle.fill").foregroundStyle(Color.Control.active)

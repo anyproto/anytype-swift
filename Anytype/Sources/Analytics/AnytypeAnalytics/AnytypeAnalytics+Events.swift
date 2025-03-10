@@ -1294,4 +1294,31 @@ extension AnytypeAnalytics {
     func logClickQuote() {
         logEvent("ClickQuote")
     }
+    
+    // nil if group was not changed
+    func logReorderRelation(group: String?) {
+        logEvent(
+            "ReorderRelation",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.id: group ?? "SameGroup",
+            ]
+        )
+    }
+    
+    func logConflictFieldHelp() {
+        logEvent("ClickConflictFieldHelp")
+    }
+    
+    func logAddConflictRelation() {
+        logEvent("AddConflictRelation")
+    }
+    
+    func logScreenEditType(route: EditTypeRoute) {
+        logEvent(
+            "ScreenEditType",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route.rawValue,
+            ]
+        )
+    }
 }
