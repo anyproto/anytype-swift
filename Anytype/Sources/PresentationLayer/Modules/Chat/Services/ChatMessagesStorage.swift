@@ -51,6 +51,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     // MARK: - Message State
     
     private var attachmentsDetails: [String: ObjectDetails] = [:]
+    // Key - Message id
     private var allMessages = OrderedDictionary<String, ChatMessage>()
     private var replies = [String: ChatMessage]()
     private var fullAllMessages: [FullChatMessage]?
@@ -82,6 +83,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let notFoundValue = Constants.subscriptionMessageIntervalForAttachments * -100
         let currentStartMessageIndex = subscriptionStartMessageId.map { allMessages.index(forKey: $0) ?? notFoundValue } ?? notFoundValue
         let currentEndMessageIndex = subscriptionEndMessageId.map { allMessages.index(forKey: $0) ?? notFoundValue } ?? notFoundValue
+        
+        try? await markAsRead(starMessageId: starMessageId, endMessageId: endMessageId)
         
         guard abs(startMessageIndex - currentStartMessageIndex) > Constants.subscriptionMessageIntervalForAttachments
                 || abs(endMessageIndex - currentEndMessageIndex) > Constants.subscriptionMessageIntervalForAttachments else { return }
@@ -379,6 +382,21 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         ) { [weak self] details in
             await self?.updateAttachments(details: details, notifyChanges: true)
         }
+    }
+    
+    private func markAsRead(starMessageId: String, endMessageId: String) async throws {
+        guard let afterOrderId = allMessages[starMessageId]?.orderID,
+              let beforeOrderId = allMessages[endMessageId]?.orderID,
+              let chatState,
+              chatState.dbTimestamp > 0 else { return }
+        
+        try? await chatService.readMessages(
+            chatObjectId: chatObjectId,
+            afterOrderId: afterOrderId,
+            beforeOrderId: beforeOrderId,
+            type: .messages,
+            lastDbTimestamp: chatState.dbTimestamp
+        )
     }
 }
 

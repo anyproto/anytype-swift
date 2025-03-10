@@ -10,6 +10,13 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     func unsubscribeLastMessages(chatObjectId: String) async throws
     func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws
     func deleteMessage(chatObjectId: String, messageId: String) async throws
+    func readMessages(
+        chatObjectId: String,
+        afterOrderId: String,
+        beforeOrderId: String,
+        type: ChatReadStateType,
+        lastDbTimestamp: Int64
+    ) async throws
 }
 
 final class ChatService: ChatServiceProtocol {
@@ -73,6 +80,22 @@ final class ChatService: ChatServiceProtocol {
         try await ClientCommands.chatDeleteMessage(.with {
             $0.chatObjectID = chatObjectId
             $0.messageID = messageId
+        }).invoke()
+    }
+    
+    func readMessages(
+        chatObjectId: String,
+        afterOrderId: String,
+        beforeOrderId: String,
+        type: ChatReadStateType,
+        lastDbTimestamp: Int64
+    ) async throws {
+        try await ClientCommands.chatReadMessages(.with {
+            $0.chatObjectID = chatObjectId
+            $0.afterOrderID = afterOrderId
+            $0.beforeOrderID = beforeOrderId
+            $0.lastDbTimestamp = lastDbTimestamp
+            $0.type = type
         }).invoke()
     }
 }
