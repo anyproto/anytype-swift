@@ -30,6 +30,8 @@ extension Anytype_Rpc.Chat {
         /// Number of max last messages to return and subscribe
         public var limit: Int32 = 0
 
+        public var subID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -155,6 +157,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message,
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "chatObjectId"),
     2: .same(proto: "limit"),
+    3: .same(proto: "subId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -165,6 +168,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message,
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
       case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       default: break
       }
     }
@@ -177,12 +181,16 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Request: SwiftProtobuf.Message,
     if self.limit != 0 {
       try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 2)
     }
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.SubscribeLastMessages.Request, rhs: Anytype_Rpc.Chat.SubscribeLastMessages.Request) -> Bool {
     if lhs.chatObjectID != rhs.chatObjectID {return false}
     if lhs.limit != rhs.limit {return false}
+    if lhs.subID != rhs.subID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

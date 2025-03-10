@@ -18,6 +18,8 @@ extension Anytype_Event.Chat {
 
       public var id: String = String()
 
+      public var subIds: [String] = []
+
       /// Chat state. dbState should be persisted after rendered
       public var state: Anytype_Model_ChatState {
         get {return _state ?? Anytype_Model_ChatState()}
@@ -40,7 +42,8 @@ extension Anytype_Event.Chat.Delete: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".Delete"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "state"),
+    2: .same(proto: "subIds"),
+    3: .same(proto: "state"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -50,7 +53,8 @@ extension Anytype_Event.Chat.Delete: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._state) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._state) }()
       default: break
       }
     }
@@ -64,14 +68,18 @@ extension Anytype_Event.Chat.Delete: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
+    if !self.subIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 2)
+    }
     try { if let v = self._state {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Chat.Delete, rhs: Anytype_Event.Chat.Delete) -> Bool {
     if lhs.id != rhs.id {return false}
+    if lhs.subIds != rhs.subIds {return false}
     if lhs._state != rhs._state {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
