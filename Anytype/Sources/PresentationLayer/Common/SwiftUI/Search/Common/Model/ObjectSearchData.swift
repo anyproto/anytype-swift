@@ -21,7 +21,7 @@ struct ObjectSearchData: SearchDataProtocol {
         self.details = details
         self.title = details.title
         self.description = details.description
-        self.callout = details.objectType.name
+        self.callout = details.objectType.displayName
         self.typeId = details.objectType.id
         
         self.blockId = details.id

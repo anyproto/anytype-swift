@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Verwijderd object";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Veld '%@' is gemaakt";
-"Fields.Updated" = "Veld '%@' is bijgewerkt";
-"Fields.menu" = "Velden menu";
-"Fields.local" = "Lokale velden";
-"Fields.missingInfo" = "Sommige velden zijn niet inbegrepen in het objecttype. Voeg ze alsjeblieft toe als je ze in alle objecten van dit type wilt zien, of verwijder ze.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Voeg toe aan het huidige type";
 "Fields.removeFromObject" = "Verwijder uit het object";
 
 
-"Featured relations" = "Aanbevolen velden";
-"Create relation" = "Maak optie '%@' aan";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "leeg";
-"Relation.MyRelations" = "Mijn velden";
-"Relation.Deleted" = "Verwijderd veld";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "Van type %@";
 "Relation.EmptyState.title" = "Geen opties";
 "Relation.EmptyState.description" = "Niets gevonden. Maak een eerste optie om te starten.";
-"Relation.EmptyState.Blocked.title" = "Het veld is leeg";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "Maak \"%@\"";
 "Relation.View.Create.title" = "Maak optie";
 "Relation.View.Edit.title" = "Bewerk optie";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-mailadres";
 "Relation.Format.Phone.Title" = "Telefoonnummer";
 
-"Relation.Search.View.Placeholder" = "Zoek of maak een nieuw veld";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "Media";
 "Alignment" = "Uitlijning";
 "Actions" = "Acties";
-"Fields" = "Velden";
+"Fields" = "Eigenschappen";
 "History" = "Geschiedenis";
 "Objects" = "Objecten";
 "All" = "Alles";
@@ -214,8 +214,8 @@
 "Lets Go" = "Laten we beginnen";
 "My Channels" = "Mijn kanalen";
 "Open file" = "Open bestand";
-"Open Set" = "Open set";
-"Create Set" = "Maak set";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Niet-ondersteunde deeplink";
 "Edit Profile" = "Bewerk profiel";
 "Object Types" = "Objecttypes";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "Kopieer link";
 
 // Object Type
-"Set" = "Stel in";
+"Set" = "Query";
 "Collection" = "Verzameling";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll om een plaats te selecteren";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Bovenaan";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Onderaan";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Toon lege waarden";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Kies een veld om te sorteren";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filters";
@@ -486,9 +486,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dagen vanaf nu";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Vraag";
-"Set.FeaturedRelations.RelationsList" = "Velden:";
-"Set.FeaturedRelations.Relation" = "Veld:";
+"Set.FeaturedRelations.Query" = "Selecteer zoekopdracht";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Groepeer op";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Kleur kolommen";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Geen velden";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "Geen filters";
 "Set.View.Settings.NoSorts.Placeholder" = "Geen sortering";
 "Set.View.Settings.Objects.Applied.Title" = "%d toegepast";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Geen zoekopdracht geselecteerd";
-"Set.View.Empty.Subtitle" = "Voeg zoekopdracht toe om objecten met gelijke typen en relaties in een live modus te verzamelen";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Weergave wordt niet ondersteund op mobiel";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Deze zoekopdracht kan alleen op het bureaublad worden gewijzigd";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Zet set om naar collectie";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Verander zoekopdracht";
 
 // MARK: - Collection: empty view
@@ -569,7 +569,7 @@
 "Enter number" = "Voer nummer in";
 "Enter text" = "Voer tekst in";
 "Unsupported value" = "Niet-ondersteunde waarde";
-"Select relation type" = "Selecteer veld type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
 "AreYouSure" = "Weet je het zeker?";
 "Nothing found" = "Niets gevonden";
@@ -581,8 +581,8 @@
 "Type" = "Type";
 "Types" = "Types";
 "No name" = "Geen naam";
-"New field" = "Nieuw veld";
-"Edit field" = "Veld bewerken";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Niet-bestaand object";
 
 "Select all" = "Selecteer alle";
@@ -590,7 +590,7 @@
 "Deselect all" = "Deselecteer alle";
 "Deselect" = "Deselecteer";
 "Shared" = "Gedeeld";
-"Sets" = "Sets";
+"Sets" = "Queries";
 "Collections" = "Collecties";
 "Default object type" = "Standaard objecttype";
 "Personalization" = "Personalisatie";
@@ -618,7 +618,7 @@
 "Edit" = "Bewerk";
 "Hidden" = "Verborgen";
 "In this object" = "Binnen dit object";
-"Other relations" = "Andere velden";
+"Other relations" = "Other properties";
 "Collection of objects" = "Verzameling van objecten";
 "Designed to capture thoughts quickly" = "Ontworpen om snel gedachten te bewaren";
 "Action-focused layout with a checkbox" = "Actiegerichte lay-out met een checkbox";
@@ -705,8 +705,8 @@
 "My First Space" = "Mijn eerste ruimte";
 "Copy space info" = "Kopieer ruimte informatie";
 "Save" = "Sla op";
-"Set of" = "Set van %@";
-"New set" = "Nieuwe set";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Toon";
 "Hide" = "Verberg";
 "Apply" = "Pas toe";
@@ -811,13 +811,13 @@
 "Content.Common.Error" = "Er is iets verkeerd gegaan, probeer het opnieuw";
 "Content.Bookmark.Add" = "Voeg een webbladwijzer toe";
 "Content.Bookmark.Loading" = "Laden, even geduld...";
-"Content.DataView.InlineSet.Subtitle" = "Set in lijn";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Collectie in lijn";
 "Content.DataView.InlineSet.NoSource" = "Geen bron";
 "Content.DataView.InlineSet.NoData" = "Geen gegevens";
-"Content.DataView.InlineSet.Untitled" = "Naamloze set";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
-"Content.DataView.InlineSet.Toast.Failure" = "Deze set in lijn heeft geen bron";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "gelinkt naar";
@@ -846,7 +846,7 @@
 "Widgets.Layout.Link.Description" = "Compacte widget weergave";
 "Widgets.Layout.Tree.Description" = "Widget met een hiërarchische structuur";
 "Widgets.Layout.List.Description" = "Widget met een lijstweergave";
-"Widgets.Layout.View.Description" = "Widget met een set of collectie lay-out";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Widget met een compacte lijstweergave";
 "Widgets.Empty.Title" = "Er zijn hier geen objecten";
 "Widgets.Empty.CreateObject" = "Maak object";
@@ -1308,7 +1308,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Nieuwe pagina";
 "ObjectSearchWithMeta.Create.Note" = "Nieuwe notitie";
-"ObjectSearchWithMeta.Create.Set" = "Nieuwe set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Nieuwe collectie";
 
 // MARK: - Any App

@@ -24,7 +24,7 @@ extension ObjectRelationOption {
         id = objectDetails.id
         icon = objectDetails.objectIconImage
         title = objectDetails.title
-        type = objectDetails.objectType.name
+        type = objectDetails.objectType.displayName
         isArchived = objectDetails.isArchived
         isDeleted = objectDetails.isDeleted
         objectScreenData = ScreenData(details: objectDetails, openMediaFileAsObject: true)

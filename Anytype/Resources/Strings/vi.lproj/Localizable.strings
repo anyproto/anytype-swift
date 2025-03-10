@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Đối tượng đã xoá";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Fields menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "trống";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "Của loại '%@'";
 "Relation.EmptyState.title" = "Không có lựa chọn";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "Tạo “%@”";
 "Relation.View.Create.title" = "Tạo lựa chọn";
 "Relation.View.Edit.title" = "Sửa tùy chọn";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Số điện thoại";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "Đa phương tiện";
 "Alignment" = "Căn lề";
 "Actions" = "Các thao tác";
-"Fields" = "Fields";
+"Fields" = "Thuộc tính";
 "History" = "Lịch sử";
 "Objects" = "Các đối tượng";
 "All" = "Tất cả";
@@ -215,8 +215,8 @@
 "Lets Go" = "Let’s Go";
 "My Channels" = "My Channels";
 "Open file" = "Open file";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
 "Object Types" = "Object Types";
@@ -346,7 +346,7 @@
 "Actions.CopyLink" = "Chép link";
 
 // Object Type
-"Set" = "Tập";
+"Set" = "Query";
 "Collection" = "Bộ";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
@@ -428,7 +428,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Lên đầu";
 "EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Bộ lọc";
@@ -487,9 +487,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Truy vấn";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "Chọn truy vấn";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Loại:";
 
 // MARK: - Set.Bookmarks
@@ -505,7 +505,7 @@
 "Set.View.Settings.GroupBy.Title" = "Nhóm theo";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Tô màu cột";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "Đã áp dụng %d";
@@ -520,7 +520,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Chưa có truy vấn được chọn";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -530,7 +530,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Chuyển Tập thành Bộ";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
@@ -570,7 +570,7 @@
 "Enter number" = "Nhập số";
 "Enter text" = "Nhập văn bản";
 "Unsupported value" = "Giá trị không được hỗ trợ";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "Không tìm thấy dữ liệu nào";
 "AreYouSure" = "Bạn chắc chưa?";
 "Nothing found" = "Không tìm thấy gì";
@@ -582,8 +582,8 @@
 "Type" = "Loại";
 "Types" = "Loại";
 "No name" = "Không tên";
-"New field" = "New field";
-"Edit field" = "Edit field";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Đối tượng không tồn tại";
 
 "Select all" = "Chọn hết";
@@ -591,7 +591,7 @@
 "Deselect all" = "Bỏ chọn hết";
 "Deselect" = "Deselect";
 "Shared" = "Shared";
-"Sets" = "Các tập";
+"Sets" = "Queries";
 "Collections" = "Các bộ";
 "Default object type" = "Loại đối tượng mặc định";
 "Personalization" = "Cá nhân hóa";
@@ -619,7 +619,7 @@
 "Edit" = "Chỉnh sửa";
 "Hidden" = "Hidden";
 "In this object" = "Của đối tượng này";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
@@ -706,8 +706,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
-"Set of" = "Set of %@";
-"New set" = "Tập mới";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Hiện";
 "Hide" = "Ẩn";
 "Apply" = "Apply";
@@ -812,13 +812,13 @@
 "Content.Common.Error" = "Đã xảy ra lỗi, vui lòng thử lại";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Đang tải, vui lòng đợi...";
-"Content.DataView.InlineSet.Subtitle" = "Tập trong hàng";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Bộ trong hàng";
 "Content.DataView.InlineSet.NoSource" = "Không có nguồn";
 "Content.DataView.InlineSet.NoData" = "Không có dữ liệu";
-"Content.DataView.InlineSet.Untitled" = "Tập không tên";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Bộ không tên";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
@@ -847,7 +847,7 @@
 "Widgets.Layout.Link.Description" = "Compact widget view";
 "Widgets.Layout.Tree.Description" = "Widget có cấu trúc thứ bậc";
 "Widgets.Layout.List.Description" = "Widget có hiện danh sách";
-"Widgets.Layout.View.Description" = "Widget có bố cục Tập hoặc Bộ";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Widget có hiện danh sách thu gọn";
 "Widgets.Empty.Title" = "Ở đây không có đối tượng nào";
 "Widgets.Empty.CreateObject" = "Tạo Đối tượng";
@@ -1307,7 +1307,7 @@ Please provide specific details of your needs here.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
 
 // MARK: - Any App

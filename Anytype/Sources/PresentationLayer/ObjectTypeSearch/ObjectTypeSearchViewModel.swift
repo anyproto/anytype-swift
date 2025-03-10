@@ -139,7 +139,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 let newTypeDetails = try await workspaceService.installObject(spaceId: spaceId, objectId: type.id)
                 let newType = ObjectType(details: newTypeDetails)
                 
-                toastData = ToastBarData(text: Loc.ObjectType.addedToLibrary(type.name), showSnackBar: true)
+                toastData = ToastBarData(text: Loc.ObjectType.addedToLibrary(type.displayName), showSnackBar: true)
                 
                 onSelect(.objectType(type: newType))
             } else {

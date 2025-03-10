@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Silinen nesne";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "'%@' alanı oluşturuldu";
-"Fields.Updated" = "'%@' alanı güncellendi";
-"Fields.menu" = "Alanlar menüsü";
-"Fields.local" = "Yerel alanlar";
-"Fields.missingInfo" = "Bazı alanlar nesne türüne dahil edilmez. Bu türdeki tüm nesnelerde görmek istiyorsanız lütfen bunları ekleyin veya kaldırın.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Geçerli türe ekle";
 "Fields.removeFromObject" = "Nesneden sil";
 
 
-"Featured relations" = "Öne çıkan alanlar";
-"Create relation" = "'%@' alanını oluştur";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "boş";
-"Relation.MyRelations" = "Alanlarım";
-"Relation.Deleted" = "Alanı sil";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "%@ türünden";
 "Relation.EmptyState.title" = "Seçenek yok";
 "Relation.EmptyState.description" = "Hiçbir şey bulunamadı. Başlamak için ilk seçeneği oluşturun.";
-"Relation.EmptyState.Blocked.title" = "Bu alan geçersiz";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "\"%@\" oluştur";
 "Relation.View.Create.title" = "Seçenek oluştur";
 "Relation.View.Edit.title" = "Seçeneği düzenle";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-Posta";
 "Relation.Format.Phone.Title" = "Telefon numarası";
 
-"Relation.Search.View.Placeholder" = "Arama yapın veya yeni bir alan oluşturun";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "Medya";
 "Alignment" = "Hizalama";
 "Actions" = "Eylemler";
-"Fields" = "Alanlar";
+"Fields" = "Özellikler";
 "History" = "Geçmiş";
 "Objects" = "Nesneler";
 "All" = "Hepsi";
@@ -214,8 +214,8 @@
 "Lets Go" = "Haydi Başlayalım";
 "My Channels" = "Kanallarım";
 "Open file" = "Dosya aç";
-"Open Set" = "Set aç";
-"Create Set" = "Set oluştur";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Desteklenmeyen derin bağlantı";
 "Edit Profile" = "Profili Düzenle";
 "Object Types" = "Nesne Türleri";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "Bağlantıyı kopyala";
 
 // Object Type
-"Set" = "Ayarla";
+"Set" = "Query";
 "Collection" = "Koleksiyon";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Yer seçmek için kaydır";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "En yukarıda";
 "EditSet.Popup.Sort.EmptyTypes.End" = "En altta";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Boş değerleri göster";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Sıralamak için bir alan seç";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtreler";
@@ -486,9 +486,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ gün sonra";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Sorgu";
-"Set.FeaturedRelations.RelationsList" = "Alanlar:";
-"Set.FeaturedRelations.Relation" = "Alan:";
+"Set.FeaturedRelations.Query" = "Sorgu seç";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Tür:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Grupla";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Sütunları renklendir";
 
-"Set.View.Settings.NoRelations.Placeholder" = "Alan yok";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "Filtre yok";
 "Set.View.Settings.NoSorts.Placeholder" = "Sıralama yok";
 "Set.View.Settings.Objects.Applied.Title" = "%d uygulandı";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Sorgu seçilmedi";
-"Set.View.Empty.Subtitle" = "Canlı modda eşit türlere ve alanlara sahip nesneleri toplamak için arama sorgusu ekleyin";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Görünüm mobil cihazlarda desteklenmiyor";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Bu sorgu sadece masaüstünde değiştirilebilir";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Seti koleksiyona dönüştür";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Sorguyu değiştir";
 
 // MARK: - Collection: empty view
@@ -569,7 +569,7 @@
 "Enter number" = "Numara gir";
 "Enter text" = "Metin gir";
 "Unsupported value" = "Desteklenmeyen değer";
-"Select relation type" = "Alan türünü seçin";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "Veri bulunamadı";
 "AreYouSure" = "Emin misiniz?";
 "Nothing found" = "Hiçbir şey bulunamadı";
@@ -581,8 +581,8 @@
 "Type" = "Tür";
 "Types" = "Türler";
 "No name" = "İsim yok";
-"New field" = "Yeni alan";
-"Edit field" = "Alanı düzenle";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Var olmayan nesne";
 
 "Select all" = "Tümünü seç";
@@ -590,7 +590,7 @@
 "Deselect all" = "Tüm seçimi kaldır";
 "Deselect" = "Seçimi kaldır";
 "Shared" = "Paylaşılan";
-"Sets" = "Setler";
+"Sets" = "Queries";
 "Collections" = "Koleksiyonlar";
 "Default object type" = "Varsayılan nesne türü";
 "Personalization" = "Kişiselleştirme";
@@ -618,7 +618,7 @@
 "Edit" = "Düzenle";
 "Hidden" = "Gizli";
 "In this object" = "Bu nesnede";
-"Other relations" = "Diğer alanlar";
+"Other relations" = "Other properties";
 "Collection of objects" = "Nesnelerin koleksiyonu";
 "Designed to capture thoughts quickly" = "Düşünceleri hızlıca yakalamak için tasarlandı";
 "Action-focused layout with a checkbox" = "Onay kutusu ile eylem odaklı düzen";
@@ -705,8 +705,8 @@
 "My First Space" = "Benim İlk Alanım";
 "Copy space info" = "Alan bilgisini kopyala";
 "Save" = "Kaydet";
-"Set of" = "%@ seti";
-"New set" = "Yeni Set";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Göster";
 "Hide" = "Gizle";
 "Apply" = "Uygula";
@@ -811,13 +811,13 @@
 "Content.Common.Error" = "Bir şeyler ters gitti tekrar deneyin.";
 "Content.Bookmark.Add" = "Bir web yer imi ekle";
 "Content.Bookmark.Loading" = "Yükleniyor, lütfen bekleyin...";
-"Content.DataView.InlineSet.Subtitle" = "Satır içi set";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Satır içi koleksiyon";
 "Content.DataView.InlineSet.NoSource" = "Kaynak yok";
 "Content.DataView.InlineSet.NoData" = "Veri Yok";
-"Content.DataView.InlineSet.Untitled" = "Başlıksız set";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Başlıksız koleksiyon";
-"Content.DataView.InlineSet.Toast.Failure" = "Bu satır içi setin bir kaynağı yok";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "şuraya bağlı:";
@@ -847,7 +847,7 @@
 "Widgets.Layout.Link.Description" = "Kompakt widget görünümü";
 "Widgets.Layout.Tree.Description" = "Hiyerarşik yapıya sahip widget";
 "Widgets.Layout.List.Description" = "Liste görünümlü widget";
-"Widgets.Layout.View.Description" = "Set veya Koleksiyon düzenine sahip Widget";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Kompakt bir liste görünümüne sahip widget";
 "Widgets.Empty.Title" = "Burada hiç nesne yok";
 "Widgets.Empty.CreateObject" = "Nesne oluştur";
@@ -1308,7 +1308,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Yeni Sayfa";
 "ObjectSearchWithMeta.Create.Note" = "Yeni Not";
-"ObjectSearchWithMeta.Create.Set" = "Yeni Set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Yeni Koleksiyon";
 
 // MARK: - Any App
