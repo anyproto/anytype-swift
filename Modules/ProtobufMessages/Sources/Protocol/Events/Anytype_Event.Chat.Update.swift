@@ -27,6 +27,8 @@ extension Anytype_Event.Chat {
       /// Clears the value of `message`. Subsequent reads from it will return its default value.
       public mutating func clearMessage() {self._message = nil}
 
+      public var subIds: [String] = []
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -40,6 +42,7 @@ extension Anytype_Event.Chat.Update: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "message"),
+    3: .same(proto: "subIds"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -50,6 +53,7 @@ extension Anytype_Event.Chat.Update: SwiftProtobuf.Message, SwiftProtobuf._Messa
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
       default: break
       }
     }
@@ -66,12 +70,16 @@ extension Anytype_Event.Chat.Update: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try { if let v = self._message {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    if !self.subIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Chat.Update, rhs: Anytype_Event.Chat.Update) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._message != rhs._message {return false}
+    if lhs.subIds != rhs.subIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

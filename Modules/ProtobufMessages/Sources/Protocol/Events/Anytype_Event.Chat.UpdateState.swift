@@ -11,38 +11,32 @@
 import SwiftProtobuf
 
 extension Anytype_Event.Chat {
-    public struct UpdateReactions: Sendable {
+    public struct UpdateState: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      public var id: String = String()
-
-      public var reactions: Anytype_Model_ChatMessage.Reactions {
-        get {return _reactions ?? Anytype_Model_ChatMessage.Reactions()}
-        set {_reactions = newValue}
+      public var state: Anytype_Model_ChatState {
+        get {return _state ?? Anytype_Model_ChatState()}
+        set {_state = newValue}
       }
-      /// Returns true if `reactions` has been explicitly set.
-      public var hasReactions: Bool {return self._reactions != nil}
-      /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
-      public mutating func clearReactions() {self._reactions = nil}
-
-      public var subIds: [String] = []
+      /// Returns true if `state` has been explicitly set.
+      public var hasState: Bool {return self._state != nil}
+      /// Clears the value of `state`. Subsequent reads from it will return its default value.
+      public mutating func clearState() {self._state = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
 
-      fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
+      fileprivate var _state: Anytype_Model_ChatState? = nil
     }    
 }
 
-extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateReactions"
+extension Anytype_Event.Chat.UpdateState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateState"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "reactions"),
-    3: .same(proto: "subIds"),
+    1: .same(proto: "state"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -51,9 +45,7 @@ extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
-      case 3: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._state) }()
       default: break
       }
     }
@@ -64,22 +56,14 @@ extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtob
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    try { if let v = self._reactions {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    try { if let v = self._state {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.subIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Chat.UpdateReactions, rhs: Anytype_Event.Chat.UpdateReactions) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs._reactions != rhs._reactions {return false}
-    if lhs.subIds != rhs.subIds {return false}
+  public static func ==(lhs: Anytype_Event.Chat.UpdateState, rhs: Anytype_Event.Chat.UpdateState) -> Bool {
+    if lhs._state != rhs._state {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

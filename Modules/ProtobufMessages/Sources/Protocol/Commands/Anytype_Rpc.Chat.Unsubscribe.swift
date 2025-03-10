@@ -27,6 +27,8 @@ extension Anytype_Rpc.Chat {
         /// Identifier for the chat
         public var chatObjectID: String = String()
 
+        public var subID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -134,6 +136,7 @@ extension Anytype_Rpc.Chat.Unsubscribe.Request: SwiftProtobuf.Message, SwiftProt
   public static let protoMessageName: String = Anytype_Rpc.Chat.Unsubscribe.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "chatObjectId"),
+    2: .same(proto: "subId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -143,6 +146,7 @@ extension Anytype_Rpc.Chat.Unsubscribe.Request: SwiftProtobuf.Message, SwiftProt
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       default: break
       }
     }
@@ -152,11 +156,15 @@ extension Anytype_Rpc.Chat.Unsubscribe.Request: SwiftProtobuf.Message, SwiftProt
     if !self.chatObjectID.isEmpty {
       try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 1)
     }
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.Unsubscribe.Request, rhs: Anytype_Rpc.Chat.Unsubscribe.Request) -> Bool {
     if lhs.chatObjectID != rhs.chatObjectID {return false}
+    if lhs.subID != rhs.subID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

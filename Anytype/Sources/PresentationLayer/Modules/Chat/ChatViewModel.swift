@@ -72,6 +72,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var photosItems: [PhotosPickerItem] = []
     private var linkPreviewTasks: [URL: AnyCancellable] = [:]
     
+    // Actions
+    
+    @Published var actionModel: ChatActionPanelModel = .hidden
+    
     // List
     
     @Published var mentionSearchState = ChatTextMention.finish
@@ -82,7 +86,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
-    
+    // Scroll to unreaded first time after open
+    private var scrollToFirstUnreaded = true
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
 
     // Alerts
@@ -140,13 +145,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let participantsSub: () = subscribeOnParticipants()
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
+        async let chatStateSub: () = subscribeOnChatState()
         
-        (_, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub)
+        (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, chatStateSub)
     }
     
     func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
-        for await messages in await chatStorage.messagesPublisher.values {
+        for await messages in chatStorage.messagesStream {
             let prevChatIsEmpty = self.messages.isEmpty
             self.messages = messages
             self.dataLoaded = true
@@ -154,6 +160,27 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if prevChatIsEmpty, let message = messages.last {
                 collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
             }
+        }
+    }
+    
+    func subscribeOnChatState() async {
+        guard FeatureFlags.chatCounters else { return }
+        for await chatState in chatStorage.chatStateStream {
+            if scrollToFirstUnreaded {
+                scrollToFirstUnreaded = false
+                let orderId = chatState.messages.oldestOrderID
+                do {
+                    // TODO: Show unreaded immedienlty after open. Waiting middleware api.
+                    let message = try await chatStorage.loadPagesTo(orderId: orderId)
+                    collectionViewScrollProxy.scrollTo(itemId: message.id)
+                } catch {}
+            }
+            actionModel = ChatActionPanelModel(
+                showScrollToBottom: chatState.messages.counter > 0,
+                srollToBottomCounter: Int(chatState.messages.counter),
+                showMentions: chatState.mentions.counter > 0,
+                mentionsCounter: Int(chatState.mentions.counter)
+            )
         }
     }
     
@@ -362,6 +389,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapCreateObject(type: ObjectType) {
         output?.didSelectCreateObject(type: type)
+    }
+    
+    func onTapScrollToBottom() {
+        // TODO: Implement scroll to bottom
+    }
+    
+    func onTapMention() {
+        // TODO: Implement scroll to mention
     }
     
     // MARK: - MessageModuleOutput
