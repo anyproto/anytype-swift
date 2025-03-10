@@ -1295,6 +1295,16 @@ extension AnytypeAnalytics {
         logEvent("ClickQuote")
     }
     
+    // nil if group was not changed
+    func logReorderRelation(group: String?) {
+        logEvent(
+            "ReorderRelation",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.id: group ?? "SameGroup",
+            ]
+        )
+    }
+    
     func logConflictFieldHelp() {
         logEvent("ClickConflictFieldHelp")
     }
