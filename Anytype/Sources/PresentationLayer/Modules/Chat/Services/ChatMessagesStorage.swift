@@ -229,9 +229,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                     updates.insert(.messages)
                 }
             case let .chatUpdateReadStatus(data):
-                if messages.chatUpdateReadStatus(data) {
-                    updates.insert(.messages)
-                }
+                _ = messages.chatUpdateReadStatus(data)
             case let .chatStateUpdate(data):
                 chatState = data.state
                 updates.insert(.state)
