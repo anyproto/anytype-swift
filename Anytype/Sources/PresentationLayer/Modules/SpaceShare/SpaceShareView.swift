@@ -31,7 +31,7 @@ struct SpaceShareView: View {
                 SpaceParticipantRemoveView(model: model)
             }
             .anytypeSheet(isPresented: $model.showStopSharingAlert) {
-                StopSharingAlert(spaceId: model.accountSpaceId) {}
+                StopSharingAlert(spaceId: model.spaceId) {}
             }
             .anytypeSheet(item: $model.participantInfo) {
                 ProfileView(info: $0)

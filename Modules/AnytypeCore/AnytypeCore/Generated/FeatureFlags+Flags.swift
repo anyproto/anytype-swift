@@ -118,6 +118,10 @@ public extension FeatureFlags {
         value(for: .spaceHubNewTitle)
     }
 
+    static var chatLayoutInsideSpace: Bool {
+        value(for: .chatLayoutInsideSpace)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -200,6 +204,7 @@ public extension FeatureFlags {
         .anyAppBetaTip,
         .disableRestoreLastScreen,
         .spaceHubNewTitle,
+        .chatLayoutInsideSpace,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
