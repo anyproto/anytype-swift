@@ -49,8 +49,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private var subscribedAttachmentIds = Set<String>()
     
     // MARK: - Message State
-    
-    private var attachmentsDetails: [String: ObjectDetails] = [:]
+    private var attachmentsStorage = ChatMessageAttachmentsStorage()
+//    private var attachmentsDetails: [String: ObjectDetails] = [:]
     // Key - Message id
     private var allMessages = OrderedDictionary<String, ChatMessage>()
     private var replies = [String: ChatMessage]()
@@ -190,7 +190,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     func attachments(ids: [String]) async -> [ObjectDetails] {
-        attachmentsDetails.filter { ids.contains($0.key) }.map { $0.value }
+//        attachmentsDetails.filter { ids.contains($0.key) }.map { $0.value }
     }
     
     func reply(message: ChatMessage) async -> ChatMessage? {
@@ -268,13 +268,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     private func loadAttachments(messages: [ChatMessage]) async {
-        let loadedAttachmentsIds = Set(attachmentsDetails.keys)
+        let loadedAttachmentsIds = Set(attachmentsStorage.ids)
         let attachmentsInMessage = Set(messages.flatMap { $0.attachments.map(\.target) })
         let newAttachmentsIds = attachmentsInMessage.subtracting(loadedAttachmentsIds)
         guard newAttachmentsIds.isNotEmpty else { return }
         do {
             let newAttachmentsDetails = try await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds))
-            await updateAttachments(details: newAttachmentsDetails)
+            await attachmentsStorage.update(details: newAttachmentsDetails)
         } catch {}
     }
     
@@ -297,26 +297,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         chat1.orderID < chat2.orderID
     }
     
-    private func updateAttachments(details: [ObjectDetails], notifyChanges: Bool = false) async {
-        let newAttachments = details
-            .reduce(into: [String: ObjectDetails]()) { $0[$1.id] = $1 }
-        
-        if attachmentsDetails != newAttachments {
-            attachmentsDetails.merge(newAttachments, uniquingKeysWith: { $1 })
-            
-            if notifyChanges {
-                updateFullMessages()
-            }
-        }
-    }
-    
     private func updateFullMessages(notify: Bool = true) {
         let newFullAllMessages = allMessages.values.map { message in
             let replyMessage = allMessages[message.replyToMessageID] ?? replies[message.replyToMessageID]
-            let replyAttachments = replyMessage?.attachments.compactMap { attachmentsDetails[$0.target] } ?? []
+            let replyAttachments = replyMessage?.attachments.compactMap { attachmentsStorage.details(id: $0.target) } ?? []
             return FullChatMessage(
                 message: message,
-                attachments: message.attachments.compactMap { attachmentsDetails[$0.target] },
+                attachments: message.attachments.compactMap { attachmentsStorage.details(id: $0.target) },
                 reply: replyMessage,
                 replyAttachments: replyAttachments
             )
@@ -354,7 +341,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             objectIds: Array(attachmentIds),
             additionalKeys: [.sizeInBytes, .source, .picture]
         ) { [weak self] details in
-            await self?.updateAttachments(details: details, notifyChanges: true)
+            await self?.handleAttachmentSubscription(details: details)
         }
     }
     
@@ -371,6 +358,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             type: .messages,
             lastDbTimestamp: chatState.dbTimestamp
         )
+    }
+    
+    private func handleAttachmentSubscription(details: [ObjectDetails]) {
+        let updated = attachmentsStorage.update(details: details)
+        if updated {
+            updateFullMessages()
+        }
     }
 }
 
