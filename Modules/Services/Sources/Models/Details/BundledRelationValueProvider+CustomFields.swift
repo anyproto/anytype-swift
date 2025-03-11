@@ -7,6 +7,7 @@ extension BundledRelationsValueProvider {
     public var isDone: Bool { done }
     
     public var layoutValue: DetailsLayout {
+        // use "resolvedLayout"; "layout" is deprecated
         guard let number = resolvedLayout, let layout = DetailsLayout(rawValue: number) else {
             return .UNRECOGNIZED(resolvedLayout ?? -1)
         }
