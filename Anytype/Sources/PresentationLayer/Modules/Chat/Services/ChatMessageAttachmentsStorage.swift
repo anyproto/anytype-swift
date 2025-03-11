@@ -25,7 +25,13 @@ struct ChatMessageAttachmentsStorage: Sendable {
         }
     }
     
-    var ids: [String] {
-        Array(attachmentsDetails.keys)
+    mutating func remove(ids: [String]) {
+        for id in ids {
+            attachmentsDetails.removeValue(forKey: id)
+        }
+    }
+    
+    var ids: some Collection<String> {
+        attachmentsDetails.keys
     }
 }
