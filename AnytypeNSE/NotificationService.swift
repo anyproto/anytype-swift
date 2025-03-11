@@ -17,28 +17,22 @@ class NotificationService: UNNotificationServiceExtension {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
-        if let bestAttemptContent = bestAttemptContent {
-            Task {
-                
-                if let accountData = try? await getAccountData() {
-                    bestAttemptContent.title = "analyticsId \(accountData.info.analyticsId)"
-                    contentHandler(bestAttemptContent)
-                } else {
-//                    let userId = userInfoService.getUserId()
-//                    let  middlewareNetworkMode = serverConfigurationStorage.currentConfiguration().middlewareNetworkMode.rawValue
-//                    let path = serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
-                    bestAttemptContent.title = "nothing changed = \("")"
-                    contentHandler(bestAttemptContent)
-                }
+        Task {
+            let content = UNMutableNotificationContent()
+            if (try? await getAccountData()) != nil {
+                content.title = "successful auth"
+            } else {
+                content.title = "failed auth"
             }
+            contentHandler(content)
         }
     }
     
     override func serviceExtensionTimeWillExpire() {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
-        if let contentHandler = contentHandler, let bestAttemptContent = bestAttemptContent {
-            bestAttemptContent.title = "TimeWillExpire"
+        if let contentHandler, let bestAttemptContent {
+            bestAttemptContent.title = "time will expire"
             contentHandler(bestAttemptContent)
         }
     }
@@ -49,10 +43,9 @@ class NotificationService: UNNotificationServiceExtension {
             return nil
         }
         let rootPath = localRepoService.middlewareRepoPath
-//        if let seed = try? seedService.obtainSeed() {
-//            try await authMiddleService.walletRecovery(rootPath: rootPath, mnemonic: seed)
-//        }
-        return try? await authMiddleService.selectAccount(
+        let seed = try seedService.obtainSeed()
+        try await authMiddleService.walletRecovery(rootPath: rootPath, mnemonic: seed)
+        return try await authMiddleService.selectAccount(
             id: userId,
             rootPath: rootPath,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
