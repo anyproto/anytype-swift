@@ -245,6 +245,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func onObjectTypeFieldsTap(document: some SetDocumentProtocol) {
+        AnytypeAnalytics.instance().logScreenEditType(route: .type)
         showTypeFieldsDocument = document.document.identifiable
     }
     

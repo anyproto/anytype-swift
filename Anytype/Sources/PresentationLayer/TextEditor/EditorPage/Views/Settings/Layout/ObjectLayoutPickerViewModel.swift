@@ -39,7 +39,6 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
-        AnytypeAnalytics.instance().logLayoutChange(layout)
         Task { @MainActor in
             switch mode {
             case .type:
@@ -49,6 +48,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
                 AnytypeAnalytics.instance().logChangeRecommendedLayout(objectType: analyticsType, layout: layout)
             case .object:
                 try await detailsService.setLayout(objectId: objectId, detailsLayout: layout)
+                AnytypeAnalytics.instance().logLayoutChange(layout)
             }
             UISelectionFeedbackGenerator().selectionChanged()
         }
