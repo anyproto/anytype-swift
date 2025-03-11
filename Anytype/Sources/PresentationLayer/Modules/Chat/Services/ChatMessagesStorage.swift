@@ -50,7 +50,6 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     // MARK: - Message State
     private var attachmentsStorage = ChatMessageAttachmentsStorage()
-//    private var attachmentsDetails: [String: ObjectDetails] = [:]
     // Key - Message id
     private var allMessages = OrderedDictionary<String, ChatMessage>()
     private var replies = [String: ChatMessage]()
@@ -190,7 +189,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     func attachments(ids: [String]) async -> [ObjectDetails] {
-//        attachmentsDetails.filter { ids.contains($0.key) }.map { $0.value }
+        attachmentsStorage.details(ids: ids)
     }
     
     func reply(message: ChatMessage) async -> ChatMessage? {
@@ -274,7 +273,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         guard newAttachmentsIds.isNotEmpty else { return }
         do {
             let newAttachmentsDetails = try await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds))
-            await attachmentsStorage.update(details: newAttachmentsDetails)
+            attachmentsStorage.update(details: newAttachmentsDetails)
         } catch {}
     }
     
@@ -360,7 +359,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         )
     }
     
-    private func handleAttachmentSubscription(details: [ObjectDetails]) {
+    private func handleAttachmentSubscription(details: [ObjectDetails]) async {
         let updated = attachmentsStorage.update(details: details)
         if updated {
             updateFullMessages()

@@ -1,7 +1,8 @@
 import Services
 
-struct ChatMessageAttachmentsStorage {
-    private(set) var attachmentsDetails: [String: ObjectDetails] = [:]
+struct ChatMessageAttachmentsStorage: Sendable {
+    
+    private var attachmentsDetails: [String: ObjectDetails] = [:]
     
     func details(ids: [String]) -> [ObjectDetails] {
         ids.compactMap { attachmentsDetails[$0] }
@@ -12,7 +13,7 @@ struct ChatMessageAttachmentsStorage {
     }
     
     @discardableResult
-    mutating func update(details: [ObjectDetails]) async -> Bool {
+    mutating func update(details: [ObjectDetails]) -> Bool {
         let newAttachments = details
             .reduce(into: [String: ObjectDetails]()) { $0[$1.id] = $1 }
         
