@@ -8,6 +8,8 @@ extension KeychainError: @retroactive LocalizedError {
             return Loc.Keychain.Error.stringToDataConversionError
         case .data2StringItemConversionError:
             return Loc.Keychain.Error.dataToStringConversionError
+        case .itemNotFound:
+            return Loc.Keychain.Error.Item.Not.found
         case .unknownError(let message):
             return NSLocalizedString(message, comment: "")
         case .keychainError(let status):

@@ -1076,6 +1076,11 @@ internal enum Loc {
       internal static let dataToStringConversionError = Loc.tr("Localizable", "Keychain.Error.Data to String conversion error", fallback: "Data to String conversion error")
       internal static let stringToDataConversionError = Loc.tr("Localizable", "Keychain.Error.String to Data conversion error", fallback: "String to Data conversion error")
       internal static let unknownKeychainError = Loc.tr("Localizable", "Keychain.Error.Unknown Keychain Error", fallback: "Unknown Keychain Error")
+      internal enum Item {
+        internal enum Not {
+          internal static let found = Loc.tr("Localizable", "Keychain.Error.Item.Not.Found", fallback: "Phrase not found")
+        }
+      }
     }
     internal enum Key {
       internal static let description = Loc.tr("Localizable", "Keychain.Key.description", fallback: "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.")

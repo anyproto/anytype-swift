@@ -69,6 +69,8 @@ public final class KeychainStore: KeychainStoreProtocol {
                     throw KeychainError.data2StringItemConversionError
             }
             currentToken = itemToken
+        } else if status == errSecItemNotFound {
+            throw KeychainError.itemNotFound
         } else {
             throw KeychainError.keychainError(status: status)
         }
