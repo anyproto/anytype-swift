@@ -24,6 +24,18 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
     
+    func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws {
+        try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = objectId
+            $0.details = [
+                Anytype_Model_Detail.with {
+                    $0.key = BundledRelationKey.featuredRelations.rawValue
+                    $0.value = featuredRelationIds.protobufValue
+                }
+            ]
+        }).invoke()
+    }
+    
     public func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId

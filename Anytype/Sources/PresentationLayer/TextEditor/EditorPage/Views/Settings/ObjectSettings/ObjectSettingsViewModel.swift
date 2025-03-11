@@ -31,9 +31,12 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
+    @Injected(\.objectSettingsBuilder)
+    private var settingsBuilder: any ObjectSettingsBuilderProtocol
+    @Injected(\.objectSettingsConflictManager)
+    private var conflictManager: any ObjectSettingsPrimitivesConflictManagerProtocol
     
     private weak var output: (any ObjectSettingsModelOutput)?
-    private let settingsBuilder = ObjectSettingBuilder()
     
     private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
@@ -42,6 +45,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     let objectId: String
     let spaceId: String
     @Published var settings: [ObjectSetting] = []
+    @Published var showConflictAlert = false
     
     init(
         objectId: String,
@@ -88,6 +92,15 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         } else {
             try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
         }
+    }
+    
+    func onTapResolveConflict() {
+        showConflictAlert.toggle()
+    }
+    
+    func onTapResolveConflictApprove() async throws {
+        guard let details = document.details else { return }
+        try await conflictManager.resolveConflicts(details: details)
     }
     
     // MARK: - ObjectActionsOutput
