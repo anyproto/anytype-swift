@@ -189,8 +189,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     func reply(message: ChatMessage) async -> ChatMessage? {
         guard message.replyToMessageID.isNotEmpty else { return nil }
-        return messages.message(id: message.replyToMessageID)
-                ?? replies[message.replyToMessageID]
+        return messages.message(id: message.replyToMessageID) ?? replies[message.replyToMessageID]
     }
     
     deinit {
