@@ -29,6 +29,9 @@ extension Anytype_Rpc.Wallet {
         /// Path to a wallet directory
         public var rootPath: String = String()
 
+        /// optional, default fts language
+        public var fulltextPrimaryLanguage: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -151,6 +154,7 @@ extension Anytype_Rpc.Wallet.Create.Request: SwiftProtobuf.Message, SwiftProtobu
   public static let protoMessageName: String = Anytype_Rpc.Wallet.Create.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "rootPath"),
+    2: .same(proto: "fulltextPrimaryLanguage"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -160,6 +164,7 @@ extension Anytype_Rpc.Wallet.Create.Request: SwiftProtobuf.Message, SwiftProtobu
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.rootPath) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
       default: break
       }
     }
@@ -169,11 +174,15 @@ extension Anytype_Rpc.Wallet.Create.Request: SwiftProtobuf.Message, SwiftProtobu
     if !self.rootPath.isEmpty {
       try visitor.visitSingularStringField(value: self.rootPath, fieldNumber: 1)
     }
+    if !self.fulltextPrimaryLanguage.isEmpty {
+      try visitor.visitSingularStringField(value: self.fulltextPrimaryLanguage, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Wallet.Create.Request, rhs: Anytype_Rpc.Wallet.Create.Request) -> Bool {
     if lhs.rootPath != rhs.rootPath {return false}
+    if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

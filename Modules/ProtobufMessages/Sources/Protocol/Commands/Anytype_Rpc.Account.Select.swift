@@ -48,6 +48,9 @@ extension Anytype_Rpc.Account {
         /// optional, if empty json api will not be started; 127.0.0.1:31009 should be the default one
         public var jsonApiListenAddr: String = String()
 
+        /// optional, default fts language
+        public var fulltextPrimaryLanguage: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -246,6 +249,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     5: .same(proto: "networkCustomConfigFilePath"),
     6: .same(proto: "preferYamuxTransport"),
     7: .same(proto: "jsonApiListenAddr"),
+    8: .same(proto: "fulltextPrimaryLanguage"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -261,6 +265,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
       case 5: try { try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
       default: break
       }
     }
@@ -288,6 +293,9 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.jsonApiListenAddr.isEmpty {
       try visitor.visitSingularStringField(value: self.jsonApiListenAddr, fieldNumber: 7)
     }
+    if !self.fulltextPrimaryLanguage.isEmpty {
+      try visitor.visitSingularStringField(value: self.fulltextPrimaryLanguage, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -299,6 +307,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {return false}
     if lhs.preferYamuxTransport != rhs.preferYamuxTransport {return false}
     if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {return false}
+    if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

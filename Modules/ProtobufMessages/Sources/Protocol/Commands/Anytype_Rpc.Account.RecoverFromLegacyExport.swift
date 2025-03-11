@@ -30,6 +30,9 @@ extension Anytype_Rpc.Account {
 
         public var icon: Int64 = 0
 
+        /// optional, default fts language
+        public var fulltextPrimaryLanguage: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -145,6 +148,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Request: SwiftProtobuf.Mes
     1: .same(proto: "path"),
     2: .same(proto: "rootPath"),
     3: .same(proto: "icon"),
+    4: .same(proto: "fulltextPrimaryLanguage"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -156,6 +160,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Request: SwiftProtobuf.Mes
       case 1: try { try decoder.decodeSingularStringField(value: &self.path) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.rootPath) }()
       case 3: try { try decoder.decodeSingularInt64Field(value: &self.icon) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
       default: break
       }
     }
@@ -171,6 +176,9 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Request: SwiftProtobuf.Mes
     if self.icon != 0 {
       try visitor.visitSingularInt64Field(value: self.icon, fieldNumber: 3)
     }
+    if !self.fulltextPrimaryLanguage.isEmpty {
+      try visitor.visitSingularStringField(value: self.fulltextPrimaryLanguage, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -178,6 +186,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Request: SwiftProtobuf.Mes
     if lhs.path != rhs.path {return false}
     if lhs.rootPath != rhs.rootPath {return false}
     if lhs.icon != rhs.icon {return false}
+    if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

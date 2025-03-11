@@ -3202,6 +3202,30 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: @retroactive Lo
     }
 }
 
+extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.SubscribeToMessagePreviews.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.SubscribeToMessagePreviews.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.ToggleMessageReaction.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

@@ -11,51 +11,39 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.Wallet {
-    public struct Recover: Sendable {
+extension Anytype_Rpc.Chat {
+    public struct SubscribeToMessagePreviews: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      ///*
-      /// Front end to middleware request-to-recover-a wallet with this mnemonic and a rootPath
       public struct Request: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
-
-        /// Path to a wallet directory
-        public var rootPath: String = String()
-
-        /// Mnemonic of a wallet to recover
-        public var mnemonic: String = String()
-
-        /// optional, default fts language
-        public var fulltextPrimaryLanguage: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
       }
 
-      ///*
-      /// Middleware-to-front-end response, that can contain a NULL error or a non-NULL error
       public struct Response: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// Error while trying to recover a wallet
-        public var error: Anytype_Rpc.Wallet.Recover.Response.Error {
-          get {return _error ?? Anytype_Rpc.Wallet.Recover.Response.Error()}
+        public var error: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error {
+          get {return _error ?? Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
+
+        public var subID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -64,7 +52,7 @@ extension Anytype_Rpc.Wallet {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Wallet.Recover.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -72,16 +60,11 @@ extension Anytype_Rpc.Wallet {
 
           public enum Code: SwiftProtobuf.Enum, Swift.CaseIterable {
             public typealias RawValue = Int
-
-            /// No error; wallet successfully recovered
             case null // = 0
-
-            /// Any other errors
             case unknownError // = 1
 
-            /// Root path or mnemonic is wrong
+            /// ...
             case badInput // = 2
-            case failedToCreateLocalRepo // = 101
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -93,7 +76,6 @@ extension Anytype_Rpc.Wallet {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .failedToCreateLocalRepo
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -103,17 +85,15 @@ extension Anytype_Rpc.Wallet {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .failedToCreateLocalRepo: return 101
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Wallet.Recover.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
-              .failedToCreateLocalRepo,
             ]
 
           }
@@ -123,15 +103,15 @@ extension Anytype_Rpc.Wallet {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Wallet.Recover.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Wallet.Recover: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Wallet.protoMessageName + ".Recover"
+extension Anytype_Rpc.Chat.SubscribeToMessagePreviews: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".SubscribeToMessagePreviews"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -143,60 +123,36 @@ extension Anytype_Rpc.Wallet.Recover: SwiftProtobuf.Message, SwiftProtobuf._Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Wallet.Recover, rhs: Anytype_Rpc.Wallet.Recover) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews, rhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Wallet.Recover.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Wallet.Recover.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "rootPath"),
-    2: .same(proto: "mnemonic"),
-    3: .same(proto: "fulltextPrimaryLanguage"),
-  ]
+extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeToMessagePreviews.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.rootPath) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.mnemonic) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
-      default: break
-      }
-    }
+    // Load everything into unknown fields
+    while try decoder.nextFieldNumber() != nil {}
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.rootPath.isEmpty {
-      try visitor.visitSingularStringField(value: self.rootPath, fieldNumber: 1)
-    }
-    if !self.mnemonic.isEmpty {
-      try visitor.visitSingularStringField(value: self.mnemonic, fieldNumber: 2)
-    }
-    if !self.fulltextPrimaryLanguage.isEmpty {
-      try visitor.visitSingularStringField(value: self.fulltextPrimaryLanguage, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Wallet.Recover.Request, rhs: Anytype_Rpc.Wallet.Recover.Request) -> Bool {
-    if lhs.rootPath != rhs.rootPath {return false}
-    if lhs.mnemonic != rhs.mnemonic {return false}
-    if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
+  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Request, rhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Request) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Wallet.Recover.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Wallet.Recover.protoMessageName + ".Response"
+extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeToMessagePreviews.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "subId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -206,6 +162,7 @@ extension Anytype_Rpc.Wallet.Recover.Response: SwiftProtobuf.Message, SwiftProto
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       default: break
       }
     }
@@ -219,18 +176,22 @@ extension Anytype_Rpc.Wallet.Recover.Response: SwiftProtobuf.Message, SwiftProto
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Wallet.Recover.Response, rhs: Anytype_Rpc.Wallet.Recover.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response, rhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response) -> Bool {
     if lhs._error != rhs._error {return false}
+    if lhs.subID != rhs.subID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Wallet.Recover.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Wallet.Recover.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -259,7 +220,7 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Wallet.Recover.Response.Error, rhs: Anytype_Rpc.Wallet.Recover.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error, rhs: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -267,12 +228,11 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error: SwiftProtobuf.Message, Swif
   }
 }
 
-extension Anytype_Rpc.Wallet.Recover.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "FAILED_TO_CREATE_LOCAL_REPO"),
   ]
 }
 

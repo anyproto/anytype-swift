@@ -29,6 +29,9 @@ extension Anytype_Rpc.Account {
 
         public var rootPath: String = String()
 
+        /// optional, default fts language
+        public var fulltextPrimaryLanguage: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -155,6 +158,7 @@ extension Anytype_Rpc.Account.Migrate.Request: SwiftProtobuf.Message, SwiftProto
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "rootPath"),
+    3: .same(proto: "fulltextPrimaryLanguage"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -165,6 +169,7 @@ extension Anytype_Rpc.Account.Migrate.Request: SwiftProtobuf.Message, SwiftProto
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.rootPath) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
       default: break
       }
     }
@@ -177,12 +182,16 @@ extension Anytype_Rpc.Account.Migrate.Request: SwiftProtobuf.Message, SwiftProto
     if !self.rootPath.isEmpty {
       try visitor.visitSingularStringField(value: self.rootPath, fieldNumber: 2)
     }
+    if !self.fulltextPrimaryLanguage.isEmpty {
+      try visitor.visitSingularStringField(value: self.fulltextPrimaryLanguage, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Migrate.Request, rhs: Anytype_Rpc.Account.Migrate.Request) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.rootPath != rhs.rootPath {return false}
+    if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
