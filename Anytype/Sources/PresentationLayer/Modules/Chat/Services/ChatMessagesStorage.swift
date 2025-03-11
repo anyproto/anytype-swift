@@ -14,7 +14,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func attachments(message: ChatMessage) async -> [ObjectDetails]
     func attachments(ids: [String]) async -> [ObjectDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
-    func updateVisibleRange(starMessageId: String, endMessageId: String) async
+    func updateVisibleRange(startMessageId: String, endMessageId: String) async
     var messagesStream: AnyAsyncSequence<[FullChatMessage]> { get }
     var chatStateStream: AnyAsyncSequence<ChatState> { get }
 }
@@ -49,12 +49,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private var subscribedAttachmentIds = Set<String>()
     
     // MARK: - Message State
-    
-    private var attachmentsDetails: [String: ObjectDetails] = [:]
-    // Key - Message id
-    private var allMessages = OrderedDictionary<String, ChatMessage>()
+    private var attachments = ChatMessageAttachmentsStorage()
+    private var messages = ChatInternalMessageStorage()
     private var replies = [String: ChatMessage]()
-    private var fullAllMessages: [FullChatMessage]?
+    private var fullMessages: [FullChatMessage]?
     private var chatState: ChatState?
     
     private let syncStream = AsyncToManyStream<[ChatUpdate]>()
@@ -66,7 +64,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     nonisolated var messagesStream: AnyAsyncSequence<[FullChatMessage]> {
         AsyncStream.convertData(mergeFirstValue(syncStream, [.messages])) {
-            await fullAllMessages
+            await fullMessages
         }.eraseToAnyAsyncSequence()
     }
     
@@ -76,20 +74,20 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }.eraseToAnyAsyncSequence()
     }
     
-    func updateVisibleRange(starMessageId: String, endMessageId: String) async {
-        let startMessageIndex = allMessages.index(forKey: starMessageId) ?? 0
-        let endMessageIndex = allMessages.index(forKey: endMessageId) ?? 0
+    func updateVisibleRange(startMessageId: String, endMessageId: String) async {
+        let startMessageIndex = messages.index(messageId: startMessageId) ?? 0
+        let endMessageIndex = messages.index(messageId: endMessageId) ?? 0
         
         let notFoundValue = Constants.subscriptionMessageIntervalForAttachments * -100
-        let currentStartMessageIndex = subscriptionStartMessageId.map { allMessages.index(forKey: $0) ?? notFoundValue } ?? notFoundValue
-        let currentEndMessageIndex = subscriptionEndMessageId.map { allMessages.index(forKey: $0) ?? notFoundValue } ?? notFoundValue
+        let currentStartMessageIndex = subscriptionStartMessageId.map { messages.index(messageId: $0) ?? notFoundValue } ?? notFoundValue
+        let currentEndMessageIndex = subscriptionEndMessageId.map { messages.index(messageId: $0) ?? notFoundValue } ?? notFoundValue
         
-        try? await markAsRead(starMessageId: starMessageId, endMessageId: endMessageId)
+        try? await markAsRead(startMessageId: startMessageId, endMessageId: endMessageId)
         
         guard abs(startMessageIndex - currentStartMessageIndex) > Constants.subscriptionMessageIntervalForAttachments
                 || abs(endMessageIndex - currentEndMessageIndex) > Constants.subscriptionMessageIntervalForAttachments else { return }
         
-        subscriptionStartMessageId = starMessageId
+        subscriptionStartMessageId = startMessageId
         subscriptionEndMessageId = endMessageId
         await updateAttachmentSubscription()
     }
@@ -116,35 +114,31 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     func loadNextPage() async throws {
-        guard let first = allMessages.values.first else {
+        guard let first = messages.first else {
             anytypeAssertionFailure("First message not found")
             return
         }
-        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, limit: Constants.pageSize)
-        guard messages.isNotEmpty else { return }
-        await addNewMessages(messages: messages)
-        if allMessages.count > Constants.maxCacheSize {
-            allMessages.removeLast(allMessages.count - Constants.maxCacheSize)
-        }
+        let newMessages = try await chatService.getMessages(chatObjectId: chatObjectId, beforeOrderId: first.orderID, limit: Constants.pageSize)
+        guard newMessages.isNotEmpty else { return }
+        await addNewMessages(messages: newMessages)
+        messages.cleaLast(maxCache: Constants.maxCacheSize)
         updateFullMessages()
     }
     
     func loadPrevPage() async throws {
-        guard let last = allMessages.values.last else {
+        guard let last = messages.last else {
             anytypeAssertionFailure("Last message not found")
             return
         }
-        let messages = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: last.orderID, limit: Constants.pageSize)
-        guard messages.isNotEmpty else { return }
-        await addNewMessages(messages: messages)
-        if allMessages.count > Constants.maxCacheSize {
-            allMessages.removeFirst(allMessages.count - Constants.maxCacheSize)
-        }
+        let newMessages = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: last.orderID, limit: Constants.pageSize)
+        guard newMessages.isNotEmpty else { return }
+        await addNewMessages(messages: newMessages)
+        messages.cleanFirst(maxCache: Constants.maxCacheSize)
         updateFullMessages()
     }
     
     func loadPagesTo(messageId: String) async throws {
-        guard allMessages[messageId].isNil else { return }
+        guard messages.message(id: messageId).isNil else { return }
         
         let replyMessage = try await chatService.getMessagesByIds(chatObjectId: chatObjectId, messageIds: [messageId]).first
         
@@ -156,14 +150,14 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         let loadedMessagesAfter = try await chatService.getMessages(chatObjectId: chatObjectId, afterOrderId: replyMessage.orderID, limit: Constants.pageSize)
         
         let allLoadedMessages = loadedMessagesBefore + [replyMessage] + loadedMessagesAfter
-        allMessages.removeAll()
+        messages.removeAll()
         
         await addNewMessages(messages: allLoadedMessages)
         updateFullMessages()
     }
     
     func loadPagesTo(orderId: String) async throws -> ChatMessage {
-        if let message = allMessages.values.first(where: { $0.orderID == orderId }) {
+        if let message = messages.message(orderId: orderId) {
             return message
         }
         
@@ -177,7 +171,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
         
         let allLoadedMessages = loadedMessagesBefore + loadedMessagesAfter
-        allMessages.removeAll()
+        messages.removeAll()
         
         await addNewMessages(messages: allLoadedMessages)
         updateFullMessages()
@@ -190,12 +184,12 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     func attachments(ids: [String]) async -> [ObjectDetails] {
-        attachmentsDetails.filter { ids.contains($0.key) }.map { $0.value }
+        attachments.details(ids: ids)
     }
     
     func reply(message: ChatMessage) async -> ChatMessage? {
         guard message.replyToMessageID.isNotEmpty else { return nil }
-        return allMessages[message.replyToMessageID] ?? replies[message.replyToMessageID]
+        return messages.message(id: message.replyToMessageID) ?? replies[message.replyToMessageID]
     }
     
     deinit {
@@ -212,37 +206,30 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private func handle(events: EventsBunch) async {
         var updates: Set<ChatUpdate> = []
         
+        var updateRepliesAndAttachments = true
+        
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
-                if let firstMessage = allMessages.values.first, let lastMessage = allMessages.values.last,
-                   firstMessage.orderID <= data.afterOrderID, lastMessage.orderID >= data.afterOrderID {
-                    await addNewMessages(messages: [data.message])
+                if messages.chatAdd(data) {
                     updates.insert(.messages)
+                    updateRepliesAndAttachments = true
                 }
             case let .chatDelete(data):
-                if allMessages[data.id].isNotNil {
-                    allMessages.removeAll { $0.key == data.id }
+                if messages.chatDelete(data) {
                     updates.insert(.messages)
                 }
             case let .chatUpdate(data):
-                if allMessages[data.message.id].isNotNil {
-                    allMessages[data.message.id] = data.message
-                    await updateAttachmentSubscription()
+                if messages.chatUpdate(data) {
                     updates.insert(.messages)
+                    updateRepliesAndAttachments = true
                 }
             case let .chatUpdateReactions(data):
-                if allMessages[data.id].isNotNil {
-                    allMessages[data.id]?.reactions = data.reactions
+                if messages.chatUpdateReactions(data) {
                     updates.insert(.messages)
                 }
             case let .chatUpdateReadStatus(data):
-                for messageId in data.ids {
-                    if allMessages[messageId].isNotNil {
-                        allMessages[messageId]?.read = data.isRead
-                        updates.insert(.messages)
-                    }
-                }
+                _ = messages.chatUpdateReadStatus(data)
             case let .chatStateUpdate(data):
                 chatState = data.state
                 updates.insert(.state)
@@ -251,78 +238,83 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             }
         }
         
+        if updateRepliesAndAttachments {
+            await loadReplies()
+            await loadAttachments()
+        }
+        
         if updates.contains(.messages) {
             updateFullMessages(notify: false)
         }
         syncStream.send(Array(updates))
     }
     
-    private func addNewMessages(messages: [ChatMessage]) async {
-        let messageDict = messages.reduce(into: [String: ChatMessage](), { $0[$1.id] = $1 })
-        allMessages.merge(messageDict, uniquingKeysWith: { $1 })
-        allMessages.sort { sortChat($0.value, $1.value) }
+    private func addNewMessages(messages newMessages: [ChatMessage]) async {
+        messages.add(newMessages)
         
-        let newReplies = await loadReplies(messages: messages)
-        await loadAttachments(messages: messages + newReplies)
+        await loadAttachments()
         await updateAttachmentSubscription()
     }
     
-    private func loadAttachments(messages: [ChatMessage]) async {
-        let loadedAttachmentsIds = Set(attachmentsDetails.keys)
-        let attachmentsInMessage = Set(messages.flatMap { $0.attachments.map(\.target) })
+    private func loadAttachments() async {
+        let loadedAttachmentsIds = Set(attachments.ids)
+        
+        let attachmentsForVisibleMessages = messages.messages.flatMap { $0.attachments.map(\.target) }
+        let attachmentsForReplies = replies.values.flatMap { $0.attachments.map(\.target) }
+        let attachmentsInMessage = Set(attachmentsForVisibleMessages + attachmentsForReplies)
+        
         let newAttachmentsIds = attachmentsInMessage.subtracting(loadedAttachmentsIds)
+        let oldAttachmentsIds = loadedAttachmentsIds.subtracting(attachmentsInMessage)
+        
+        // Clean Old
+        attachments.remove(ids: Array(oldAttachmentsIds))
+        
+        // Download New
         guard newAttachmentsIds.isNotEmpty else { return }
         do {
             let newAttachmentsDetails = try await seachService.searchObjects(spaceId: spaceId, objectIds: Array(newAttachmentsIds))
-            await updateAttachments(details: newAttachmentsDetails)
+            attachments.update(details: newAttachmentsDetails)
         } catch {}
     }
     
-    private func loadReplies(messages: [ChatMessage]) async -> [ChatMessage] {
-        let loadedIds = Set(messages.map(\.id) + replies.keys + allMessages.keys)
-        let repliesIds = Set(messages.filter { $0.replyToMessageID.isNotEmpty }.map(\.replyToMessageID))
-        let notLoadedIds = repliesIds.subtracting(loadedIds)
-        guard notLoadedIds.isNotEmpty else { return [] }
+    private func loadReplies() async {
+        let loadedIds = messages.ids + replies.keys
+        let repliesIds = Set(messages.messages.filter { $0.replyToMessageID.isNotEmpty }.map(\.replyToMessageID))
+        let newRepliesIds = repliesIds.subtracting(loadedIds)
+        let oldRepliesIds = repliesIds.subtracting(replies.keys)
+        
+        // Clean Old
+        for oldId in oldRepliesIds {
+            replies.removeValue(forKey: oldId)
+        }
+        
+        // Download New
+        guard newRepliesIds.isNotEmpty else { return }
         do {
-            let newReplies = try await chatService.getMessagesByIds(chatObjectId: chatObjectId, messageIds: Array(notLoadedIds))
+            let newReplies = try await chatService.getMessagesByIds(chatObjectId: chatObjectId, messageIds: Array(newRepliesIds))
             for reply in newReplies {
                 replies[reply.id] = reply
             }
-            return newReplies
         } catch {}
-        return []
     }
     
     private func sortChat(_ chat1: ChatMessage, _ chat2: ChatMessage) -> Bool {
         chat1.orderID < chat2.orderID
     }
     
-    private func updateAttachments(details: [ObjectDetails], notifyChanges: Bool = false) async {
-        let newAttachments = details
-            .reduce(into: [String: ObjectDetails]()) { $0[$1.id] = $1 }
-        
-        if attachmentsDetails != newAttachments {
-            attachmentsDetails.merge(newAttachments, uniquingKeysWith: { $1 })
-            
-            if notifyChanges {
-                updateFullMessages()
-            }
-        }
-    }
-    
     private func updateFullMessages(notify: Bool = true) {
-        let newFullAllMessages = allMessages.values.map { message in
-            let replyMessage = allMessages[message.replyToMessageID] ?? replies[message.replyToMessageID]
-            let replyAttachments = replyMessage?.attachments.compactMap { attachmentsDetails[$0.target] } ?? []
+        let newFullAllMessages = messages.messages.map { message in
+            let replyMessage = messages.message(id: message.replyToMessageID) ?? replies[message.replyToMessageID]
+            let replyAttachments = replyMessage?.attachments.compactMap { attachments.details(id: $0.target) } ?? []
             return FullChatMessage(
                 message: message,
-                attachments: message.attachments.compactMap { attachmentsDetails[$0.target] },
+                attachments: message.attachments.compactMap { attachments.details(id: $0.target) },
                 reply: replyMessage,
                 replyAttachments: replyAttachments
             )
         }
-        if fullAllMessages != newFullAllMessages {
-            fullAllMessages = newFullAllMessages
+        if fullMessages != newFullAllMessages {
+            fullMessages = newFullAllMessages
             if notify {
                 syncStream.send([.messages])
             }
@@ -331,8 +323,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func updateAttachmentSubscription() async {
         guard let subscriptionStartMessageId, let subscriptionEndMessageId,
-              let startMessageIndex = allMessages.index(forKey: subscriptionStartMessageId),
-              let endMessageIndex = allMessages.index(forKey: subscriptionEndMessageId)  else { return }
+              let startMessageIndex = messages.index(messageId: subscriptionStartMessageId),
+              let endMessageIndex = messages.index(messageId: subscriptionEndMessageId)  else { return }
         
         let startIndex = startMessageIndex - Constants.subsctiptionMessageOverLimitForAttachments
         let endIndex = endMessageIndex + Constants.subsctiptionMessageOverLimitForAttachments
@@ -340,7 +332,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         var attachmentIds = Set<String>()
         
         for index in startIndex...endIndex {
-            if let message = allMessages.values[safe: index] {
+            if let message = messages.message(index: index) {
                 let ids = message.attachments.map(\.target)
                 attachmentIds = attachmentIds.union(ids)
             }
@@ -354,13 +346,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             objectIds: Array(attachmentIds),
             additionalKeys: [.sizeInBytes, .source, .picture]
         ) { [weak self] details in
-            await self?.updateAttachments(details: details, notifyChanges: true)
+            await self?.handleAttachmentSubscription(details: details)
         }
     }
     
-    private func markAsRead(starMessageId: String, endMessageId: String) async throws {
-        guard let afterOrderId = allMessages[starMessageId]?.orderID,
-              let beforeOrderId = allMessages[endMessageId]?.orderID,
+    private func markAsRead(startMessageId: String, endMessageId: String) async throws {
+        guard let afterOrderId = messages.message(id: startMessageId)?.orderID,
+              let beforeOrderId = messages.message(id: endMessageId)?.orderID,
               let chatState,
               chatState.dbTimestamp > 0 else { return }
         
@@ -371,6 +363,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             type: .messages,
             lastDbTimestamp: chatState.dbTimestamp
         )
+    }
+    
+    private func handleAttachmentSubscription(details: [ObjectDetails]) async {
+        let updated = attachments.update(details: details)
+        if updated {
+            updateFullMessages()
+        }
     }
 }
 

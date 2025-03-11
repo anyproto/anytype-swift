@@ -374,7 +374,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func visibleRangeChanged(fromId: String, toId: String) {
         Task {
-            await chatStorage.updateVisibleRange(starMessageId: fromId, endMessageId: toId)
+            await chatStorage.updateVisibleRange(startMessageId: fromId, endMessageId: toId)
         }
     }
     
