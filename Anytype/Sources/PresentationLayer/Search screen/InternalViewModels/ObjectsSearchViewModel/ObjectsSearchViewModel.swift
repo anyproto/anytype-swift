@@ -125,7 +125,7 @@ private extension SearchObjectRowView.Model {
         self.id = details.id
         self.icon = details.objectIconImage
         self.title = title
-        self.subtitle = details.objectType.name
+        self.subtitle = details.objectType.displayName
         self.style = .default
         self.isChecked = false
     }

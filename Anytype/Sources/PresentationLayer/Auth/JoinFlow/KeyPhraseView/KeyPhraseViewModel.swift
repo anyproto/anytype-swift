@@ -36,6 +36,7 @@ final class KeyPhraseViewModel: ObservableObject {
         } else {
             AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
             keyShown = true
+            copy()
         }
     }
     
@@ -44,15 +45,22 @@ final class KeyPhraseViewModel: ObservableObject {
         output?.onNext()
     }
     
-    func onCopyButtonTap() {
-        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
-        UISelectionFeedbackGenerator().selectionChanged()
-        UIPasteboard.general.string = state.mnemonic
-        snackBar = .init(text: Loc.copied, showSnackBar: true)
+    func onPhraseTap() {
+        keyShown.toggle()
+        if keyShown {
+            copy()
+        }
     }
     
     func keyPhraseMoreInfo() -> AnyView? {
         AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .moreInfo)
         return output?.keyPhraseMoreInfo()
+    }
+    
+    private func copy() {
+        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
+        UISelectionFeedbackGenerator().selectionChanged()
+        UIPasteboard.general.string = state.mnemonic
+        snackBar = .init(text: Loc.copied, showSnackBar: true)
     }
 }

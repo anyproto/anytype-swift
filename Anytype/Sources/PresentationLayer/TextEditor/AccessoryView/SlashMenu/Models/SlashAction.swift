@@ -11,6 +11,7 @@ enum SlashAction {
     case background(BlockBackgroundColor)
     case alignment(SlashActionAlignment)
 
+    @MainActor
     var displayData: NewSlashMenuItemDisplayData {
         switch self {
         case let .actions(action):
@@ -62,7 +63,7 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: objectType.objectIconImage,
-                        title: objectType.name,
+                        title: objectType.displayName,
                         subtitle: objectType.description
                     )
                 )

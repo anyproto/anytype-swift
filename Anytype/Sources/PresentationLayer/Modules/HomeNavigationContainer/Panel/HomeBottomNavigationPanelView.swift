@@ -86,7 +86,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     Button {
                         model.onTapCreateObject(type: type)
                     } label: {
-                        Text(type.name)
+                        Text(type.displayName)
                     }
                 }
                 Divider()
@@ -95,7 +95,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         Button {
                             model.onTapCreateObject(type: type)
                         } label: {
-                            Text(type.name)
+                            Text(type.displayName)
                         }
                     }
                 }

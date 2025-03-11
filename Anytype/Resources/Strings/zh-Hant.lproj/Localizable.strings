@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "已刪除物件";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Fields menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "空的";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "來自類型 %@";
 "Relation.EmptyState.title" = "無選項";
 "Relation.EmptyState.description" = "什麼也沒有。建立第一個選項以開始。";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "建立 \"%@\"";
 "Relation.View.Create.title" = "建立選項";
 "Relation.View.Edit.title" = "編輯選項";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "email";
 "Relation.Format.Phone.Title" = "電話號碼";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "媒體";
 "Alignment" = "對齊";
 "Actions" = "操作";
-"Fields" = "Fields";
+"Fields" = "屬性";
 "History" = "歷史記錄";
 "Objects" = "物件";
 "All" = "全部";
@@ -214,8 +214,8 @@
 "Lets Go" = "Let’s Go";
 "My Channels" = "My Channels";
 "Open file" = "開啟檔案";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
 "Object Types" = "Object Types";
@@ -346,7 +346,7 @@
 "Actions.CopyLink" = "複製連結";
 
 // Object Type
-"Set" = "集合";
+"Set" = "Query";
 "Collection" = "集錦";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "滾動以選取位置";
@@ -428,7 +428,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "在頂部";
 "EditSet.Popup.Sort.EmptyTypes.End" = "在底部";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "顯示空值";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "篩選";
@@ -487,9 +487,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ 天後";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "查詢";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "指定查詢";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "類型：";
 
 // MARK: - Set.Bookmarks
@@ -505,7 +505,7 @@
 "Set.View.Settings.GroupBy.Title" = "群組";
 "Set.View.Settings.GroupBackgroundColors.Title" = "顏色欄";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "沒有篩選";
 "Set.View.Settings.NoSorts.Placeholder" = "沒有排序";
 "Set.View.Settings.Objects.Applied.Title" = "%d 已套用";
@@ -520,7 +520,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "未指定查詢";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "移動裝置上不支援檢視";
@@ -530,7 +530,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "此查詢只能在電腦端更改";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "將集合轉換為集錦";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "更改查詢";
 
 // MARK: - Collection: empty view
@@ -570,7 +570,7 @@
 "Enter number" = "輸入數字";
 "Enter text" = "輸入文本";
 "Unsupported value" = "不支援的值";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "尚無資料";
 "AreYouSure" = "您確定嗎?";
 "Nothing found" = "未找到任何內容";
@@ -582,8 +582,8 @@
 "Type" = "類型";
 "Types" = "類型";
 "No name" = "無名稱";
-"New field" = "New field";
-"Edit field" = "Edit field";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "不存在的物件";
 
 "Select all" = "選取全部";
@@ -591,7 +591,7 @@
 "Deselect all" = "取消全選";
 "Deselect" = "取消選擇";
 "Shared" = "分享";
-"Sets" = "集合";
+"Sets" = "Queries";
 "Collections" = "集錦";
 "Default object type" = "預設物件類型";
 "Personalization" = "個人化";
@@ -619,7 +619,7 @@
 "Edit" = "編輯";
 "Hidden" = "Hidden";
 "In this object" = "在此物件內";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "物件集錦";
 "Designed to capture thoughts quickly" = "專為快速捕捉想法而設計";
 "Action-focused layout with a checkbox" = "具有核取方塊的操作重點版型";
@@ -706,8 +706,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
-"Set of" = "Set of %@";
-"New set" = "新增集合";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "顯示";
 "Hide" = "隱藏";
 "Apply" = "Apply";
@@ -813,13 +813,13 @@
 "Content.Common.Error" = "出了點問題，再試一次";
 "Content.Bookmark.Add" = "添加網頁書籤";
 "Content.Bookmark.Loading" = "正在載入，請稍候...";
-"Content.DataView.InlineSet.Subtitle" = "內嵌集合";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "內嵌集錦";
 "Content.DataView.InlineSet.NoSource" = "沒有來源";
 "Content.DataView.InlineSet.NoData" = "無資料";
-"Content.DataView.InlineSet.Untitled" = "未命名的集合";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "未命名集錦";
-"Content.DataView.InlineSet.Toast.Failure" = "此內嵌集合沒有來源";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "連結至";
@@ -848,7 +848,7 @@
 "Widgets.Layout.Link.Description" = "緊湊檢視小工具";
 "Widgets.Layout.Tree.Description" = "具有分層結構的小工具";
 "Widgets.Layout.List.Description" = "帶有列表檢視的小工具";
-"Widgets.Layout.View.Description" = "帶有集合或集錦的小工具";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "具有緊湊列表檢視的小工具";
 "Widgets.Empty.Title" = "這裡沒有物件";
 "Widgets.Empty.CreateObject" = "建立物件";
@@ -1310,7 +1310,7 @@
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
 
 // MARK: - Any App

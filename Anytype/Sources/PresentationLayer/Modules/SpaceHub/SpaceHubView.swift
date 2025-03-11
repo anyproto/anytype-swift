@@ -22,6 +22,9 @@ struct SpaceHubView: View {
             .anytypeSheet(item: $model.spaceIdToLeave) {
                 SpaceLeaveAlert(spaceId: $0.value)
             }
+            .anytypeSheet(item: $model.spaceIdToDelete) {
+                SpaceDeleteAlert(spaceId: $0.value)
+            }
             .homeBottomPanelHidden(true)
     }
     

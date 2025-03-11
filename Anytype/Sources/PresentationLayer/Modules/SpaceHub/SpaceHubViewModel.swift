@@ -11,6 +11,7 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var showSettings = false
     @Published var createSpaceAvailable = false
     @Published var spaceIdToLeave: StringIdentifiable?
+    @Published var spaceIdToDelete: StringIdentifiable?
     
     @Published var profileIcon: Icon?
     
@@ -28,8 +29,6 @@ final class SpaceHubViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
-    @Injected(\.workspaceService)
-    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.spaceOrderService)
@@ -58,7 +57,7 @@ final class SpaceHubViewModel: ObservableObject {
     }
     
     func deleteSpace(spaceId: String) async throws {
-        try await workspaceService.deleteSpace(spaceId: spaceId)
+        spaceIdToDelete = spaceId.identifiable
     }
     
     func leaveSpace(spaceId: String) {

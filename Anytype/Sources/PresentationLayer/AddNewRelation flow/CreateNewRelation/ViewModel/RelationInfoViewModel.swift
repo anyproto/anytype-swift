@@ -217,7 +217,7 @@ private extension Array where Element == ObjectType {
             NewRelationRestrictionsSectionView.ObjectTypeModel(
                 id: $0.id,
                 icon: $0.icon,
-                title: $0.name
+                title: $0.displayName
             )
         }
     }

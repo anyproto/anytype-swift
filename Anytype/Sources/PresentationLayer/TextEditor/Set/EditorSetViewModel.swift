@@ -1,4 +1,4 @@
-import Combine
+@preconcurrency import Combine
 import Services
 import AnytypeCore
 import SwiftUI
@@ -84,7 +84,7 @@ final class EditorSetViewModel: ObservableObject {
         guard let details = setDocument.details else { return false }
         
         let isSupportedLayout = details.recommendedLayoutValue.isEditorLayout
-        let isTemplate = details.uniqueKeyValue == ObjectTypeUniqueKey.template
+        let isTemplate = details.isTemplateType
         return isSupportedLayout && !isTemplate
     }
     

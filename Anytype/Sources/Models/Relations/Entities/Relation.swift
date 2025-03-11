@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-enum Relation: Hashable, Identifiable {
+enum Relation: Hashable, Identifiable, Sendable {
     case text(Text)
     case number(Text)
     case status(Status)

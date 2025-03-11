@@ -70,7 +70,7 @@ final class MentionsViewModel {
     
     func subtitle(for mention: MentionObject) -> String {
         return if let type = mention.type {
-            !type.isDateType ? type.name : ""
+            !type.isDateType ? type.displayName : ""
         } else {
             Loc.Mention.Subtitle.placeholder
         }

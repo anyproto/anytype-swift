@@ -46,7 +46,7 @@ final class MessageParticipantsReactionViewModel: ObservableObject {
             if let objectIcon = participant.icon {
                 icon = .object(objectIcon)
             }
-            let type = try? objectTypeProvider.objectType(id: participant.type).name
+            let type = try? objectTypeProvider.objectType(id: participant.type).displayName
             return ObjectCellData(
                 id: participant.id,
                 icon: icon,

@@ -23,6 +23,9 @@ struct ApplicationCoordinatorView: View {
         .task {
             await model.startFileHandler()
         }
+        .task(item: model.selectAccountTaskId) { accountId in
+            await model.selectAccount(id: accountId)
+        }
         .onChange(of: dismissAllPresented) {
             model.setDismissAllPresented(dismissAllPresented: $0)
         }

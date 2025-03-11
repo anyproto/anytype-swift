@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Slettet objekt";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Fields menu";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "tom";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "Fra type %@";
 "Relation.EmptyState.title" = "Ingen valg";
 "Relation.EmptyState.description" = "Fant ingenting. Opprett første alternativ for å starte.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "Opprett “%@”";
 "Relation.View.Create.title" = "Opprett alternativ";
 "Relation.View.Edit.title" = "Rediger valg";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-post";
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "Media";
 "Alignment" = "Justering";
 "Actions" = "Handlinger";
-"Fields" = "Fields";
+"Fields" = "Egenskaper";
 "History" = "Historikk";
 "Objects" = "Objekter";
 "All" = "Alle";
@@ -214,8 +214,8 @@
 "Lets Go" = "Let’s Go";
 "My Channels" = "My Channels";
 "Open file" = "Open file";
-"Open Set" = "Open Set";
-"Create Set" = "Create Set";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Edit Profile";
 "Object Types" = "Object Types";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "Kopier lenke";
 
 // Object Type
-"Set" = "Sett";
+"Set" = "Query";
 "Collection" = "Samling";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll for å velge et sted";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
 "EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtre";
@@ -486,9 +486,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dager fra nå";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Spørring";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "Velg spørring";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Gruppér etter";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Fargelegg kolonner";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "Ingen filtre";
 "Set.View.Settings.NoSorts.Placeholder" = "Ingen sorteringer";
 "Set.View.Settings.Objects.Applied.Title" = "%d brukt";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Ingen spørring valgt";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "View is unsupported on mobile";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Denne spørringen kan bare endres i skrivebordsappen";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Gjør sett til samling";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Endre spørring";
 
 // MARK: - Collection: empty view
@@ -569,7 +569,7 @@
 "Enter number" = "Skriv inn tall";
 "Enter text" = "Skriv inn tekst";
 "Unsupported value" = "Ikke-støttet verdi";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
 "AreYouSure" = "Er du sikker?";
 "Nothing found" = "Ingenting funnet";
@@ -581,8 +581,8 @@
 "Type" = "Type";
 "Types" = "Types";
 "No name" = "Ingen navn";
-"New field" = "New field";
-"Edit field" = "Edit field";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Ikke-eksisterende objekt";
 
 "Select all" = "Velg alle";
@@ -590,7 +590,7 @@
 "Deselect all" = "Fjern alle";
 "Deselect" = "Deselect";
 "Shared" = "Delt";
-"Sets" = "Sett";
+"Sets" = "Queries";
 "Collections" = "Samlinger";
 "Default object type" = "Standard objekttype";
 "Personalization" = "Personlig tilpasning";
@@ -618,7 +618,7 @@
 "Edit" = "Rediger";
 "Hidden" = "Hidden";
 "In this object" = "I dette objektet";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "Samling av objekter";
 "Designed to capture thoughts quickly" = "Utformet for å raskt notere tanker";
 "Action-focused layout with a checkbox" = "Handlingsfokusert oppsett med avkrysningsboks";
@@ -705,8 +705,8 @@
 "My First Space" = "My First Space";
 "Copy space info" = "Copy space info";
 "Save" = "Save";
-"Set of" = "Set of %@";
-"New set" = "Nytt sett";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Vis";
 "Hide" = "Skjul";
 "Apply" = "Apply";
@@ -811,13 +811,13 @@
 "Content.Common.Error" = "Noe gikk galt, vennligst prøv på nytt";
 "Content.Bookmark.Add" = "Legg til bokmerke";
 "Content.Bookmark.Loading" = "Laster inn, vennligst vent...";
-"Content.DataView.InlineSet.Subtitle" = "Innfelt sett";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Innfelt samling";
 "Content.DataView.InlineSet.NoSource" = "Ingen kilde";
 "Content.DataView.InlineSet.NoData" = "Ingen data";
-"Content.DataView.InlineSet.Untitled" = "Navnløst sett";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Navnløs samling";
-"Content.DataView.InlineSet.Toast.Failure" = "Dette innfelte settet har ingen kilde";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "koblet til";
@@ -846,7 +846,7 @@
 "Widgets.Layout.Link.Description" = "Kompakt widgetvisning";
 "Widgets.Layout.Tree.Description" = "Widget med hierarkisk struktur";
 "Widgets.Layout.List.Description" = "Widget med listevisning";
-"Widgets.Layout.View.Description" = "Widget med sett- eller samlingsoppsett";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Widget med kompakt listevisning";
 "Widgets.Empty.Title" = "Det er ingen objekter her";
 "Widgets.Empty.CreateObject" = "Opprett objekt";
@@ -1306,7 +1306,7 @@ Please provide specific details of your needs here.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "New Page";
 "ObjectSearchWithMeta.Create.Note" = "New Note";
-"ObjectSearchWithMeta.Create.Set" = "New Set";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "New Collection";
 
 // MARK: - Any App

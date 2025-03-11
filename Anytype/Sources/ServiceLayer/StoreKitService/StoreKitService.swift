@@ -16,7 +16,7 @@ enum StoreKitServiceError: String, LocalizedError {
     }
 }
 
-public struct StoreKitPurchaseSuccess {
+public struct StoreKitPurchaseSuccess: Sendable {
     let middlewareValidationError: (any Error)?
     
     static let noError = StoreKitPurchaseSuccess(middlewareValidationError: nil)

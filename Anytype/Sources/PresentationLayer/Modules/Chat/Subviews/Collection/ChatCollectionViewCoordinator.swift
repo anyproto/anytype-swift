@@ -4,10 +4,10 @@ import Combine
 import UIKit
 
 final class ChatCollectionViewCoordinator<
-    Section: Hashable & ChatCollectionSection & Identifiable,
-    Item: Hashable & Identifiable,
+    Section: Hashable & ChatCollectionSection & Identifiable & Sendable,
+    Item: Hashable & Identifiable & Sendable,
     DataView: View,
-    HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item {
+    HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item, Section.ID: Sendable {
     
     private let distanceForLoadNextPage: CGFloat = 300
     private var canCallScrollToTop = false

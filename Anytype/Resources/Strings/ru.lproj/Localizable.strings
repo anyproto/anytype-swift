@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Удаленный объект";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Field ‘%@’ has been created";
-"Fields.Updated" = "Field ‘%@’ has been updated";
-"Fields.menu" = "Меню полей";
-"Fields.local" = "Local fields";
-"Fields.missingInfo" = "Some fields are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
 
-"Featured relations" = "Featured fields";
-"Create relation" = "Create field ‘%@’";
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
 "Relation.View.Hint.Empty" = "пусто";
-"Relation.MyRelations" = "My fields";
-"Relation.Deleted" = "Deleted field";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
 "Relation.From.Type" = "Из типа %@";
 "Relation.EmptyState.title" = "Опций нет";
 "Relation.EmptyState.description" = "Ничего не найдено. Создайте первую опцию для начала.";
-"Relation.EmptyState.Blocked.title" = "The field is empty";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
 "Relation.Create.Row.title" = "Создать %@";
 "Relation.View.Create.title" = "Создать параметр";
 "Relation.View.Edit.title" = "Изменить вариант";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-mail";
 "Relation.Format.Phone.Title" = "Номер телефона";
 
-"Relation.Search.View.Placeholder" = "Search or create a new field";
+"Relation.Search.View.Placeholder" = "Search or create a new property";
 
 // Origin Relation
 
@@ -146,7 +146,7 @@
 "Media" = "Медиа-файлы";
 "Alignment" = "Выравнивание";
 "Actions" = "Действия";
-"Fields" = "Поля";
+"Fields" = "Свойства";
 "History" = "История";
 "Objects" = "Объекты";
 "All" = "Все";
@@ -214,8 +214,8 @@
 "Lets Go" = "Давайте начнём";
 "My Channels" = "Мои каналы";
 "Open file" = "Открыть файл";
-"Open Set" = "Открыть набор";
-"Create Set" = "Создать Набор";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
 "Unsupported deeplink" = "Неподдерживаемая ссылка";
 "Edit Profile" = "Редактировать профиль";
 "Object Types" = "Object Types";
@@ -345,7 +345,7 @@
 "Actions.CopyLink" = "Скопировать ссылку";
 
 // Object Type
-"Set" = "Набор";
+"Set" = "Query";
 "Collection" = "Коллекция";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Прокрутите для выбора места";
@@ -427,7 +427,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Наверху";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Снизу";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Показать пустые значения";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a field to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Фильтры";
@@ -486,9 +486,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дней с настоящего времени";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Запрос";
-"Set.FeaturedRelations.RelationsList" = "Fields:";
-"Set.FeaturedRelations.Relation" = "Field:";
+"Set.FeaturedRelations.Query" = "Выберите запрос";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
 "Set.FeaturedRelations.Type" = "Тип:";
 
 // MARK: - Set.Bookmarks
@@ -504,7 +504,7 @@
 "Set.View.Settings.GroupBy.Title" = "Группировать по";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Цветные столбцы";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No fields";
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
 "Set.View.Settings.NoFilters.Placeholder" = "Нет фильтров";
 "Set.View.Settings.NoSorts.Placeholder" = "Нет сортировок";
 "Set.View.Settings.Objects.Applied.Title" = "%d применено";
@@ -519,7 +519,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Не выбрано ни одного запроса";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and fields in a live mode";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Просмотр не поддерживается на мобильном телефоне";
@@ -529,7 +529,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Этот запрос может быть изменен только на компьютере";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Превратить Множество в Коллекцию";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Изменить запрос";
 
 // MARK: - Collection: empty view
@@ -569,7 +569,7 @@
 "Enter number" = "Введите число";
 "Enter text" = "Введите текст";
 "Unsupported value" = "Неподдерживаемое значение";
-"Select relation type" = "Select field type";
+"Select relation type" = "Select property type";
 "CommonOpenErrorView.Message" = "Данные не найдены";
 "AreYouSure" = "Вы уверены?";
 "Nothing found" = "Ничего не найдено";
@@ -581,8 +581,8 @@
 "Type" = "Тип";
 "Types" = "Типы";
 "No name" = "Без названия";
-"New field" = "New field";
-"Edit field" = "Редактировать поле";
+"New field" = "New property";
+"Edit field" = "Edit property";
 "Non-existent object" = "Несуществующий объект";
 
 "Select all" = "Выбрать все";
@@ -590,7 +590,7 @@
 "Deselect all" = "Снять выделение";
 "Deselect" = "Снять выделение";
 "Shared" = "Общие";
-"Sets" = "Наборы";
+"Sets" = "Queries";
 "Collections" = "Коллекции";
 "Default object type" = "Тип объекта по умолчанию";
 "Personalization" = "Персонализация";
@@ -618,7 +618,7 @@
 "Edit" = "Изменить";
 "Hidden" = "Hidden";
 "In this object" = "В этом объекте";
-"Other relations" = "Other fields";
+"Other relations" = "Other properties";
 "Collection of objects" = "Коллекция объектов";
 "Designed to capture thoughts quickly" = "Создано для быстрой записи мыслей";
 "Action-focused layout with a checkbox" = "Действующий макет с галочкой";
@@ -705,8 +705,8 @@
 "My First Space" = "Моё первое пространство";
 "Copy space info" = "Скопировать информацию о пространстве";
 "Save" = "Сохранить";
-"Set of" = "Набор %@";
-"New set" = "Новый набор";
+"Set of" = "Query of %@";
+"New set" = "New query";
 "Show" = "Показать";
 "Hide" = "Скрыть";
 "Apply" = "Применить";
@@ -811,13 +811,13 @@
 "Content.Common.Error" = "Что-то пошло не так, попробуйте еще раз";
 "Content.Bookmark.Add" = "Добавить веб-закладку";
 "Content.Bookmark.Loading" = "Загружается, подождите...";
-"Content.DataView.InlineSet.Subtitle" = "Встроенный набор";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
 "Content.DataView.InlineCollection.Subtitle" = "Встроенная коллекция";
 "Content.DataView.InlineSet.NoSource" = "Нет источника";
 "Content.DataView.InlineSet.NoData" = "Нет данных";
-"Content.DataView.InlineSet.Untitled" = "Набор без названия";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
 "Content.DataView.InlineCollection.Untitled" = "Коллекция без названия";
-"Content.DataView.InlineSet.Toast.Failure" = "Этот набор не имеет источника";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "связано с";
@@ -846,7 +846,7 @@
 "Widgets.Layout.Link.Description" = "Компактный режим виджета";
 "Widgets.Layout.Tree.Description" = "Виджет с иерархической структурой";
 "Widgets.Layout.List.Description" = "Виджет в виде списка";
-"Widgets.Layout.View.Description" = "Виджет с макетом наборов или коллекций";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
 "Widgets.Layout.CompactList.Description" = "Виджет в виде компактного списка";
 "Widgets.Empty.Title" = "Нет объектов";
 "Widgets.Empty.CreateObject" = "Создать объект";
@@ -1309,7 +1309,7 @@
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Новая страница";
 "ObjectSearchWithMeta.Create.Note" = "Новая заметка";
-"ObjectSearchWithMeta.Create.Set" = "Новый Набор";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Новая коллекция";
 
 // MARK: - Any App

@@ -1,4 +1,4 @@
-public enum DeepLink: Equatable {
+public enum DeepLink: Equatable, Sendable {
     case createObjectFromWidget
     case showSharingExtension
     case galleryImport(type: String, source: String)

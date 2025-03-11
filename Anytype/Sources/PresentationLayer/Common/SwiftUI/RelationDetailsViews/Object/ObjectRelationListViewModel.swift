@@ -87,7 +87,7 @@ final class ObjectRelationListViewModel: ObservableObject {
     }
     
     func objectRelationTypeItems() -> [ObjectRelationTypeItem]? {
-        let typesNames = interactor.limitedObjectTypes.map { $0.name }
+        let typesNames = interactor.limitedObjectTypes.map { $0.displayName }
         
         guard typesNames.isNotEmpty else { return nil }
         

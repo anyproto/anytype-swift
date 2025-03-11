@@ -421,7 +421,7 @@ extension StyleView: UICollectionViewDelegate {
 
 // MARK: - FloatingPanelControllerDelegate
 
-extension StyleView: FloatingPanelControllerDelegate {
+extension StyleView: @preconcurrency FloatingPanelControllerDelegate {
     func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
         let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
         // If panel moved more than a half of its hight than hide panel
@@ -432,6 +432,7 @@ extension StyleView: FloatingPanelControllerDelegate {
     }
 }
 
+@MainActor
 private extension UIImage {
     static func highlightImage() -> UIImage? {
         let frame = CGRect(x: 0, y: 0, width: 70, height: 24)

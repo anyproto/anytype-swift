@@ -1,7 +1,7 @@
 import AnytypeCore
 import Services
 
-struct ParsedRelations: Equatable {
+struct ParsedRelations: Equatable, Sendable {
     
     let featuredRelations: [Relation]
     let sidebarRelations: [Relation]

@@ -363,3 +363,8 @@ enum DeleteRelationRoute: String {
     case type = "Type"
     case object = "Object"
 }
+
+enum EditTypeRoute: String {
+    case object = "Object"
+    case type = "Type"
+}

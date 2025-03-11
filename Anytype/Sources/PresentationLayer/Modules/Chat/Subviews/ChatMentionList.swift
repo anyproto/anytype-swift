@@ -47,7 +47,7 @@ struct ChatMentionList: View {
     private func textContent(for model: MentionObjectModel) -> some View {
         VStack(alignment: .leading) {
             title(for: model)
-            Text(model.object.details.objectType.name)
+            Text(model.object.details.objectType.displayName)
                 .anytypeStyle(.relation2Regular)
                 .foregroundStyle(Color.Text.secondary)
                 .lineLimit(1)

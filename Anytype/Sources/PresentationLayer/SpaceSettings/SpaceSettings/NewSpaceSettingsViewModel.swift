@@ -55,18 +55,18 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowRemoteStorage = false
     @Published var shareSection: NewSpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
-    @Published var shareInviteLink: URL?
-    @Published var qrInviteLink: URL?
     @Published var storageInfo = RemoteStorageSegmentInfo()
     @Published var defaultObjectType: ObjectType?
     @Published var showIconPickerSpaceId: StringIdentifiable?
     @Published var editingData: SettingsInfoEditingViewData?
+    @Published var shareInviteLink: URL?
+    @Published var qrInviteLink: URL?
+    @Published private(set) var inviteLink: URL?
     
     let workspaceInfo: AccountInfo
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     private var owner: Participant?
-    private var inviteLink: URL?
     
     var isChatOn: Bool? {
         guard FeatureFlags.showHomeSpaceLevelChat(spaceId: workspaceInfo.accountSpaceId) else { return nil }
