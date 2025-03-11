@@ -6,7 +6,7 @@ import Combine
 import AnytypeCore
 
 struct SpaceShareData: Identifiable, Hashable {
-    let workspaceInfo: AccountInfo
+    let spaceId: String
     let route: SettingsSpaceShareRoute
     var id: Int { hashValue }
 }
@@ -24,18 +24,19 @@ final class SpaceShareViewModel: ObservableObject {
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: any WorkspacesStorageProtocol
     
-    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
     private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
-    private var workspaceInfo: AccountInfo { data.workspaceInfo }
     
     let data: SpaceShareData
-    var accountSpaceId: String { workspaceInfo.accountSpaceId }
+    var spaceId: String { data.spaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var toastBarData: ToastBarData = .empty
@@ -65,7 +66,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func startSpaceViewTask() async {
-        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: accountSpaceId).values {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
             updateView()
         }
@@ -92,7 +93,8 @@ final class SpaceShareViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateView() {
-        guard let participantSpaceView else { return }
+        let workspaceInfo = workspacesStorage.workspaceInfo(spaceId: spaceId)
+        guard let participantSpaceView, let workspaceInfo else { return }
         
         canStopShare = participantSpaceView.canStopSharing
         canChangeReaderToWriter = participantSpaceView.permissions.canEditPermissions

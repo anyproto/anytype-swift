@@ -201,6 +201,14 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let chatLayoutInsideSpace = FeatureDescription(
+        title: "Chat Layout Inside Space",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -44,7 +44,7 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     }
     
     func onSpaceShareSelected() {
-        showSpaceShareData = SpaceShareData(workspaceInfo: workspaceInfo, route: .settings)
+        showSpaceShareData = SpaceShareData(spaceId: workspaceInfo.accountSpaceId, route: .settings)
     }
     
     func onSpaceMembersSelected() {

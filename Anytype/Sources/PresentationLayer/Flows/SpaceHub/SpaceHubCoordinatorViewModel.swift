@@ -110,7 +110,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         } else if let widgetData = navigationPath.lastPathElement as? HomeWidgetData {
             userDefaults.lastOpenedScreen = .widgets(spaceId: widgetData.info.accountSpaceId)
         } else if let chatData = navigationPath.lastPathElement as? ChatCoordinatorData {
-            userDefaults.lastOpenedScreen = .chat(spaceId: chatData.spaceInfo.accountSpaceId)
+            userDefaults.lastOpenedScreen = .chat(chatData)
         } else {
             userDefaults.lastOpenedScreen = nil
         }
@@ -148,8 +148,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             try? await open(data: .editor(editorData))
         case .widgets(let spaceId):
             try? await openSpace(spaceId: spaceId, addWidgets: true)
-        case .chat(let spaceId):
-            try? await openSpace(spaceId: spaceId)
+        case .chat(let data):
+            if FeatureFlags.chatLayoutInsideSpace {
+                // TODO: Implenet
+                break
+            } else {
+                try? await openSpace(spaceId: data.spaceId)
+            }
         case .none:
             return
         }
@@ -293,7 +298,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
                 await dismissAllPresented?()
                 spaceProfileData = spaceInfo
             }
-            
+        case .chat(let data):
+            navigationPath.push(data)
         case nil:
             return
         }
@@ -343,7 +349,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         .builder {
             SpaceHubNavigationItem()
             if spaceView.showChat {
-                ChatCoordinatorData(chatId: spaceView.chatId, spaceInfo: spaceInfo)
+                ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceInfo.accountSpaceId)
                 if addWidgets {
                     HomeWidgetData(info: spaceInfo)
                 }
@@ -496,7 +502,7 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     
     func onShareSelected() {
         guard let spaceInfo else { return }
-        showSpaceShareData = SpaceShareData(workspaceInfo: spaceInfo, route: .navigation)
+        showSpaceShareData = SpaceShareData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
     }
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {

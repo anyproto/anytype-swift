@@ -45,6 +45,8 @@ extension ScreenData {
             } else {
                 self = .editor(page)
             }
+        case .chat:
+            self = .chat(ChatCoordinatorData(chatId: details.chatId, spaceId: details.spaceId))
         }
     }
 }
