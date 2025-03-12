@@ -5,6 +5,7 @@ lane :set_all_env_to_info_plist do |options|
     set_ai_endpoint_to_info_plist
     set_ai_model_to_info_plist
     set_anyapp_membership_secret_to_info_plist
+    set_join_stream_url
 end
     
 lane :set_amplitude_api_key_to_info_plist do |options|
