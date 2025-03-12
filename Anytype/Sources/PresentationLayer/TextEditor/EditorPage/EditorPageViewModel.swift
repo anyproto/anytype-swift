@@ -237,7 +237,7 @@ extension EditorPageViewModel {
             }
             
             if let objectDetails = document.details {
-                AnytypeAnalytics.instance().logScreenObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue, spaceId: objectDetails.spaceId)
+                AnytypeAnalytics.instance().logScreenObject(type: objectDetails.analyticsType, layout: objectDetails.resolvedLayoutValue, spaceId: objectDetails.spaceId)
             }
             
             output?.setModuleInput(input: EditorPageModuleInputContainer(model: self), objectId: document.objectId)

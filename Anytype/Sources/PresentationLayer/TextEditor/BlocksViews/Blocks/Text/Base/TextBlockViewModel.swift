@@ -168,6 +168,6 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     
     private func styleFromDetails(objectDetails: ObjectDetails?) -> Style {
         guard let objectDetails else { return .none }
-        return objectDetails.layoutValue == .todo ? .todo : .none
+        return objectDetails.resolvedLayoutValue == .todo ? .todo : .none
     }
 }
