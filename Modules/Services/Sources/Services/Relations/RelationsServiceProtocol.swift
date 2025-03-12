@@ -4,6 +4,7 @@ import SwiftProtobuf
 public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func addFeaturedRelation(objectId: String, relationKey: String) async throws
     func removeFeaturedRelation(objectId: String, relationKey: String) async throws
+    func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws
     
     func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws
     func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws

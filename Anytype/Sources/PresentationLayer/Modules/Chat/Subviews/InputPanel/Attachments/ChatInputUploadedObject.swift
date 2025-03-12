@@ -8,7 +8,7 @@ struct ChatInputUploadedObject: View {
     let onTapRemove: () -> Void
     
     var body: some View {
-        switch details.layoutValue {
+        switch details.resolvedLayoutValue {
         case .image:
             ChatInputImageView(details: details, onTapRemove: { _ in
                 onTapRemove()

@@ -214,7 +214,7 @@ final class ShareOptionsViewModel: ObservableObject {
     private func validateLinkToObject() {
         guard let linkObjectDetails else { return }
         
-        if !saveAsType.supportedLayouts.contains(linkObjectDetails.layoutValue) {
+        if !saveAsType.supportedLayouts.contains(linkObjectDetails.resolvedLayoutValue) {
             self.linkObjectDetails = nil
         }
         

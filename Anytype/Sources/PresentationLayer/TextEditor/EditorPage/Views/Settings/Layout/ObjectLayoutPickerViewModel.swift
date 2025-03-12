@@ -60,7 +60,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
             case .type:
                 selectedLayout = details.recommendedLayoutValue ?? .basic
             case .object:
-                selectedLayout = details.layoutValue
+                selectedLayout = details.resolvedLayoutValue
             }
         }
     }

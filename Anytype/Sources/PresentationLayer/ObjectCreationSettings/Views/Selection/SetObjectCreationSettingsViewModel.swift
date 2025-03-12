@@ -295,7 +295,7 @@ extension TemplatePreviewModel {
                     onCoverTap: {}
                 ),
                 isBundled: objectDetails.templateIsBundled,
-                style: objectDetails.layoutValue == .todo ? .todo(objectDetails.isDone) : .none
+                style: objectDetails.resolvedLayoutValue == .todo ? .todo(objectDetails.isDone) : .none
             )
             ),
             alignment: objectDetails.layoutAlignValue,

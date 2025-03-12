@@ -4,7 +4,6 @@ import ProtobufMessages
 import SwiftProtobuf
 
 class MockRelationsService: RelationsServiceProtocol {
-    
     // Last call data storage
     var lastAddFeaturedRelation: (objectId: String, relationKey: String)?
     var lastRemoveFeaturedRelation: (objectId: String, relationKey: String)?
@@ -148,6 +147,10 @@ class MockRelationsService: RelationsServiceProtocol {
     func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String] {
         assertionFailure()
         return []
+    }
+    
+    func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws {
+        assertionFailure()
     }
 
     // Convenience method to reset all last call data

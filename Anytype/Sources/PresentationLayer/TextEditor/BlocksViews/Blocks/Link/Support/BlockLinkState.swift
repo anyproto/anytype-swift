@@ -29,11 +29,11 @@ struct BlockLinkState: Hashable, Equatable {
             description = ""
         }
 
-        let documentCover = (details.layoutValue != .note && blockLink.appearance.relations.contains(.cover)) ?
+        let documentCover = (details.resolvedLayoutValue != .note && blockLink.appearance.relations.contains(.cover)) ?
         details.documentCover : nil
 
         var iconSize = blockLink.appearance.iconSize
-        if details.layoutValue == .todo {
+        if details.resolvedLayoutValue == .todo {
             iconSize = .small
         }
 
@@ -49,7 +49,7 @@ struct BlockLinkState: Hashable, Equatable {
             iconSize: iconSize,
             descriptionState: blockLink.appearance.description,
             documentCover: documentCover,
-            objectLayout: details.layoutValue,
+            objectLayout: details.resolvedLayoutValue,
             screenData: details.screenData()
         )
     }

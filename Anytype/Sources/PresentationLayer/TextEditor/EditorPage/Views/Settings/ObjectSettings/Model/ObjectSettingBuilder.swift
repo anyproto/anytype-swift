@@ -1,7 +1,14 @@
 import Services
 import AnytypeCore
 
-final class ObjectSettingBuilder {
+protocol ObjectSettingsBuilderProtocol {
+    func build(details: ObjectDetails, permissions: ObjectPermissions) -> [ObjectSetting]
+}
+
+final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
+    @Injected(\.objectSettingsConflictManager)
+    private var conflictManager: any ObjectSettingsPrimitivesConflictManagerProtocol
+    
     func build(details: ObjectDetails, permissions: ObjectPermissions) -> [ObjectSetting] {
         .builder {
            
@@ -21,6 +28,16 @@ final class ObjectSettingBuilder {
             if permissions.canShowVersionHistory {
                 ObjectSetting.history
             }
+            
+            if conflictManager.haveLayoutConflicts(details: details) {
+                ObjectSetting.resolveConflict
+            }
         }
+    }
+}
+
+extension Container {
+    var objectSettingsBuilder: Factory<any ObjectSettingsBuilderProtocol> {
+        self { ObjectSettingsBuilder() }.shared
     }
 }

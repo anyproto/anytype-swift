@@ -31,7 +31,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     private lazy var onCoverTap = { [weak self] in
         guard let self, document.mode.isHandling else { return }
-        guard document.details?.layoutValue != .note else { return }
+        guard document.details?.resolvedLayoutValue != .note else { return }
         guard document.permissions.canChangeCover else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         output?.showCoverPicker(document: document)

@@ -17,14 +17,14 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
             return objectIcon
         }
         
-        if relations.layoutValue.isFileOrMedia {
+        if relations.resolvedLayoutValue.isFileOrMedia {
             return fileIcon(
                 fileMimeType: relations.fileMimeType,
                 name: FileDetails.formattedFileName(relations.name, fileExt: relations.fileExt)
             )
         }
         
-        if relations.layoutValue == .todo {
+        if relations.resolvedLayoutValue == .todo {
             return .todo(relations.isDone, relations.id)
         }
         
@@ -42,7 +42,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     // MARK: - Private
     
     private func icon(relations: BundledRelationsValueProvider) -> ObjectIcon? {
-        switch relations.layoutValue {
+        switch relations.resolvedLayoutValue {
         case .basic, .set, .collection, .image, .chat:
             return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .profile, .participant:

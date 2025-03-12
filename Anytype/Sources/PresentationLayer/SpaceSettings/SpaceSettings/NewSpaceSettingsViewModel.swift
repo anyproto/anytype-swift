@@ -142,6 +142,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             title: Loc.name,
             placeholder: Loc.untitled,
             initialValue: spaceName,
+            font: .bodySemibold,
             onSave: { [weak self] in
                 guard let self else { return }
                 saveDetails(name: $0, description: spaceDescription)
@@ -154,6 +155,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             title: Loc.description,
             placeholder: Loc.description,
             initialValue: spaceDescription,
+            font: .bodyRegular,
             onSave: { [weak self] in
                 guard let self else { return }
                 saveDetails(name: spaceName, description: $0)

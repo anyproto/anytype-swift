@@ -16,6 +16,11 @@ struct ObjectSettingsView: View {
     var body: some View {
         settings
             .background(Color.Background.secondary)
+            .anytypeSheet(isPresented: $viewModel.showConflictAlert) {
+                ObjectSettingsResolveConflictAlert {
+                    try await viewModel.onTapResolveConflictApprove()
+                }
+            }
     }
     
     private var settings: some View {
@@ -58,6 +63,8 @@ struct ObjectSettingsView: View {
                 viewModel.onTapRelations()
             case .history:
                 viewModel.onTapHistory()
+            case .resolveConflict:
+                viewModel.onTapResolveConflict()
             }
         }
     }

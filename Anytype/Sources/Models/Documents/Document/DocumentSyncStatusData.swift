@@ -19,7 +19,7 @@ extension BaseDocumentProtocol {
     
     var syncStatusDataPublisher: AnyPublisher<DocumentSyncStatusData, Never> {
         subscribeForDetails(objectId: objectId)
-            .map { $0.layoutValue }
+            .map { $0.resolvedLayoutValue }
             .combineLatest(syncStatusPublisher)
             .map { DocumentSyncStatusData(syncStatus: $1, layout: $0) }
             .removeDuplicates()

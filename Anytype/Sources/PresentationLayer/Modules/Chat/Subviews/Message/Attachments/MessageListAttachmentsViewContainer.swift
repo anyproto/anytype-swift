@@ -26,7 +26,7 @@ struct MessageListAttachmentsViewContainer: View {
     
     @ViewBuilder
     private func content(for details: MessageAttachmentDetails, isYour: Bool) -> some View {
-        switch details.layoutValue {
+        switch details.resolvedLayoutValue {
         case .bookmark:
             MessageBookmarkView(details: details, isYour: isYour)
         default:

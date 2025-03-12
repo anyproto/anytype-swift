@@ -6,7 +6,7 @@ struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
     let title: String
     let description: String
     let sizeInBytes: Int?
-    let layoutValue: DetailsLayout
+    let resolvedLayoutValue: DetailsLayout
     let objectIconImage: Icon
     let source: String?
     let loadingState: Bool
@@ -20,7 +20,7 @@ extension MessageAttachmentDetails {
             title: details.title,
             description: details.objectType.displayName,
             sizeInBytes: details.sizeInBytes,
-            layoutValue: details.layoutValue,
+            resolvedLayoutValue: details.resolvedLayoutValue,
             objectIconImage: details.objectIconImage,
             source: source,
             loadingState: false
@@ -33,7 +33,7 @@ extension MessageAttachmentDetails {
             title: "Placeholder",
             description: "Placeholder",
             sizeInBytes: nil,
-            layoutValue: .basic,
+            resolvedLayoutValue: .basic,
             objectIconImage: .object(.defaultObjectIcon),
             source: nil,
             loadingState: true

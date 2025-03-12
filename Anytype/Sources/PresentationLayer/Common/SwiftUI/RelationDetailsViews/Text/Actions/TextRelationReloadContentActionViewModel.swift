@@ -23,7 +23,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
         relationKey: String,
         delegate: (any TextRelationActionButtonViewModelDelegate)?
     ) {
-        guard objectDetails.layoutValue == .bookmark,
+        guard objectDetails.resolvedLayoutValue == .bookmark,
               relationKey == BundledRelationKey.source.rawValue else { return nil }
         
         self.objectDetails = objectDetails
