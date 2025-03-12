@@ -6,7 +6,7 @@ import UIKit
 final class FirebaseConfigurator: AppConfiguratorProtocol {
     
     func configure() {
-        guard FeatureFlags.firebasePushMessages else { return }
+        guard FeatureFlags.enablePushMessages else { return }
         
         FirebaseApp.configure()
         
