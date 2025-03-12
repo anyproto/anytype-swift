@@ -49,7 +49,7 @@ class NotificationService: UNNotificationServiceExtension {
             id: userId,
             rootPath: rootPath,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
-            configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
+            configPath: serverConfigurationStorage.currentConfigurationPath()?.path
         )
     }
 }

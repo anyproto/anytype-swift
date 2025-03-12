@@ -38,7 +38,7 @@ final class AuthService: AuthServiceProtocol, Sendable {
             imagePath: imagePath,
             iconOption: iconOption,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
-            configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
+            configPath: serverConfigurationStorage.currentConfigurationPath()?.path
         )
 
         let middleTime = Int(((CFAbsoluteTimeGetCurrent() - start) * 1_000)) // milliseconds
@@ -75,7 +75,7 @@ final class AuthService: AuthServiceProtocol, Sendable {
             id: id,
             rootPath: rootPath,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
-            configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
+            configPath: serverConfigurationStorage.currentConfigurationPath()?.path
         )
         
         let analyticsId = account.info.analyticsId
