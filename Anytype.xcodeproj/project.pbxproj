@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0422D8EDAD005C552B /* Assets.xcassets */; };
+		0303ED0522D8EDAD005C552B /* SystemAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0422D8EDAD005C552B /* SystemAssets.xcassets */; };
 		0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D575230186CA000527B1 /* LocalAuthentication.framework */; };
 		03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03A46A42231417D6009AC10C /* InfoPlist.strings */; };
 		03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C5C53A22DF785000DD91DE /* Security.framework */; };
@@ -184,7 +184,7 @@
 
 /* Begin PBXFileReference section */
 		0303ECFB22D8EDAA005C552B /* Anytype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Anytype.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0303ED0422D8EDAD005C552B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Anytype/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		0303ED0422D8EDAD005C552B /* SystemAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SystemAssets.xcassets; path = Anytype/Resources/SystemAssets.xcassets; sourceTree = SOURCE_ROOT; };
 		0318D575230186CA000527B1 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		03A46A41231417D6009AC10C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		03C5C53A22DF785000DD91DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -470,7 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				3D6977812CAE9ED0003F5A91 /* Video */,
-				0303ED0422D8EDAD005C552B /* Assets.xcassets */,
+				0303ED0422D8EDAD005C552B /* SystemAssets.xcassets */,
 				0339382422EF571600589108 /* Strings */,
 				3D6977892CAE9EE9003F5A91 /* Fonts */,
 				3D6977912CAE9EEC003F5A91 /* Preview Content */,
@@ -906,7 +906,7 @@
 				2E29780E2CB6B8170017204D /* Localizable.stringsdict in Resources */,
 				2A9BC1352BD175E8007AFCDF /* LocalizableError.xcstrings in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
-				0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */,
+				0303ED0522D8EDAD005C552B /* SystemAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
