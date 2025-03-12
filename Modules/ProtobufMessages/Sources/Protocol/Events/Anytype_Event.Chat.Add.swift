@@ -20,6 +20,8 @@ extension Anytype_Event.Chat {
 
       public var orderID: String = String()
 
+      public var afterOrderID: String = String()
+
       public var message: Anytype_Model_ChatMessage {
         get {return _message ?? Anytype_Model_ChatMessage()}
         set {_message = newValue}
@@ -28,6 +30,10 @@ extension Anytype_Event.Chat {
       public var hasMessage: Bool {return self._message != nil}
       /// Clears the value of `message`. Subsequent reads from it will return its default value.
       public mutating func clearMessage() {self._message = nil}
+
+      public var subIds: [String] = []
+
+      public var dependencies: [SwiftProtobuf.Google_Protobuf_Struct] = []
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -42,7 +48,10 @@ extension Anytype_Event.Chat.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "orderId"),
+    6: .same(proto: "afterOrderId"),
     3: .same(proto: "message"),
+    4: .same(proto: "subIds"),
+    5: .same(proto: "dependencies"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -54,6 +63,9 @@ extension Anytype_Event.Chat.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.orderID) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.dependencies) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.afterOrderID) }()
       default: break
       }
     }
@@ -73,13 +85,25 @@ extension Anytype_Event.Chat.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try { if let v = self._message {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
+    if !self.subIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 4)
+    }
+    if !self.dependencies.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.dependencies, fieldNumber: 5)
+    }
+    if !self.afterOrderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterOrderID, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Chat.Add, rhs: Anytype_Event.Chat.Add) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.orderID != rhs.orderID {return false}
+    if lhs.afterOrderID != rhs.afterOrderID {return false}
     if lhs._message != rhs._message {return false}
+    if lhs.subIds != rhs.subIds {return false}
+    if lhs.dependencies != rhs.dependencies {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

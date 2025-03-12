@@ -2794,6 +2794,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func chatSubscribeToMessagePreviews(
+        _ request: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.SubscribeToMessagePreviews.Request, Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response> {
+        return Invocation(messageName: "ChatSubscribeToMessagePreviews", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatSubscribeToMessagePreviews(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectChatAdd(
         _ request: Anytype_Rpc.Object.ChatAdd.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.ChatAdd.Request, Anytype_Rpc.Object.ChatAdd.Response> {
