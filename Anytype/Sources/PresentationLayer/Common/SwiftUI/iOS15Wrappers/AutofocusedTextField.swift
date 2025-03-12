@@ -38,18 +38,10 @@ private struct NewAutofocusedTextField: View {
     let placeholder: String
     let font: AnytypeFont
     let shouldSkipFocusOnFilled: Bool
-    let axis: Axis
+    var axis: Axis = .horizontal
     @Binding var text: String
     
     @FocusState private var isFocused: Bool
-    
-    init(placeholder: String, font: AnytypeFont, shouldSkipFocusOnFilled: Bool, axis: Axis = .horizontal, text: Binding<String>) {
-        self.placeholder = placeholder
-        self.font = font
-        self.shouldSkipFocusOnFilled = shouldSkipFocusOnFilled
-        self.axis = axis
-        _text = text
-    }
     
     var body: some View {
         AnytypeTextField(placeholder: placeholder, font: font, axis: axis, text: $text)
