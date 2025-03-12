@@ -12,6 +12,8 @@
 	<string></string>
 	<key>AmplitudeApiKey</key>
 	<string></string>
+	<key>JoinStreamURL</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

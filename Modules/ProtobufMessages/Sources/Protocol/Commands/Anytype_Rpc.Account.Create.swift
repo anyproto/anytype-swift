@@ -62,6 +62,9 @@ extension Anytype_Rpc.Account {
         /// optional, if empty json api will not be started; 127.0.0.1:31009 should be the default one
         public var jsonApiListenAddr: String = String()
 
+        /// anytype:// schema URL to join an embed stream
+        public var joinStreamURL: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         ///TODO: Remove if not needed, GO-1926
@@ -249,6 +252,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     7: .same(proto: "networkCustomConfigFilePath"),
     8: .same(proto: "preferYamuxTransport"),
     9: .same(proto: "jsonApiListenAddr"),
+    10: .same(proto: "joinStreamUrl"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -273,6 +277,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
       case 7: try { try decoder.decodeSingularStringField(value: &self.networkCustomConfigFilePath) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.joinStreamURL) }()
       default: break
       }
     }
@@ -310,6 +315,9 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.jsonApiListenAddr.isEmpty {
       try visitor.visitSingularStringField(value: self.jsonApiListenAddr, fieldNumber: 9)
     }
+    if !self.joinStreamURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.joinStreamURL, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -323,6 +331,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.networkCustomConfigFilePath != rhs.networkCustomConfigFilePath {return false}
     if lhs.preferYamuxTransport != rhs.preferYamuxTransport {return false}
     if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {return false}
+    if lhs.joinStreamURL != rhs.joinStreamURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
