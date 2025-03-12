@@ -219,6 +219,8 @@
 "Unsupported deeplink" = "Desteklenmeyen derin bağlantı";
 "Edit Profile" = "Profili Düzenle";
 "Object Types" = "Nesne Türleri";
+"Resolve layout conflict" = "Resolve layout conflict";
+"Reset to default" = "Reset to default";
 
 // Home
 "Favorites" = "Favoriler";
@@ -1320,3 +1322,6 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Migration.subtitle" = "Bu işlem biraz zaman alabilir. Lütfen işlem tamamlanana kadar uygulamayı kapatmayın.";
 "Migration.Error.NotEnoughtSpace.title" = "Yeterli yer yok";
 "Migration.Error.NotEnoughtSpace.message" = "Lütfen biraz yer açın ve işlemi tekrarlayın.";
+
+// MARK: - Primitives
+"Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";
