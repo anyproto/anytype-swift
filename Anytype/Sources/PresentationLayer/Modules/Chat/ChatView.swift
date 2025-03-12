@@ -191,8 +191,8 @@ struct ChatView: View {
         switch data {
         case .message(let data):
             MessageView(data: data, output: model)
-        case .unread(let id):
-            Color.red.frame(height: 30)
+        case .unread:
+            ChatMessageHeaderView(text: Loc.Chat.newMessages)
         }
     }
 }

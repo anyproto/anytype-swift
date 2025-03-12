@@ -2,7 +2,12 @@ import SwiftUI
 import Services
 
 protocol ChatMessageBuilderProtocol: AnyObject, Sendable {
-    func makeMessage(messages: [FullChatMessage], participants: [Participant], limits: any ChatMessageLimitsProtocol) async -> [MessageSectionData]
+    func makeMessage(
+        messages: [FullChatMessage],
+        participants: [Participant],
+        firstUnreadMessageOrderId: String?,
+        limits: any ChatMessageLimitsProtocol
+    ) async -> [MessageSectionData]
 }
 
 final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
@@ -30,7 +35,12 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         self.chatId = chatId
     }
     
-    func makeMessage(messages: [FullChatMessage], participants: [Participant], limits: any ChatMessageLimitsProtocol) async -> [MessageSectionData] {
+    func makeMessage(
+        messages: [FullChatMessage],
+        participants: [Participant],
+        firstUnreadMessageOrderId: String?,
+        limits: any ChatMessageLimitsProtocol
+    ) async -> [MessageSectionData] {
         
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let canEdit = participant?.canEdit ?? false
@@ -63,6 +73,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let isYourMessage = message.creator == yourProfileIdentity
             
             let authorParticipant = participants.first { $0.identity == message.creator }
+            let isUnread = message.orderID == firstUnreadMessageOrderId
+            let nextIsUnread = nextMessage?.orderID == firstUnreadMessageOrderId
             
             let messageModel = MessageViewData(
                 spaceId: spaceId,
@@ -87,7 +99,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     isYourMessage: isYourMessage
                 ),
                 canAddReaction: limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
-                nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
+                nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorIconMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage,
                 canDelete: isYourMessage && canEdit,
@@ -97,6 +109,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 reply: fullMessage.reply
             )
             
+            let unreadItem: MessageSectionItem? = isUnread ? .unread("\(message.id)-unread") : nil
+            
             if firstInSection {
                 if let currentSectionData {
                     newMessageBlocks.append(currentSectionData)
@@ -104,13 +118,15 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 currentSectionData = MessageSectionData(
                     header: dateFormatter.string(from: createDateDay),
                     id: createDateDay.hashValue,
-                    items: [.message(messageModel)]
+                    items: []
                 )
                 sectionDateDay = createDateDay
-            } else {
-                currentSectionData?.items.append(.message(messageModel))
             }
             
+            if let unreadItem {
+                currentSectionData?.items.append(unreadItem)
+            }
+            currentSectionData?.items.append(.message(messageModel))
             
             prevCreator = message.creator
             prevDateInterval = message.createdAt
