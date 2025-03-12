@@ -62,9 +62,9 @@ enum TypeFieldsSectionRow: String, Identifiable, Equatable {
     
     var canCreateRelations: Bool {
         switch self {
-        case .hidden:
+        case .hidden, .header:
             false
-        case .fieldsMenu, .header:
+        case .fieldsMenu:
             true
         }
     }

@@ -24,7 +24,7 @@ struct MessageGridAttachmentsContainer: View {
                 Button {
                     onTapObject(object)
                 } label: {
-                    switch object.layoutValue {
+                    switch object.resolvedLayoutValue {
                     case .video:
                         MessageVideoView(details: object)
                     default: // image and other types (for bugs)

@@ -147,7 +147,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     
     func addLink(targetDetails: ObjectDetails, blockId: String) {
         Task {
-            let isBookmarkType = targetDetails.layoutValue == .bookmark
+            let isBookmarkType = targetDetails.resolvedLayoutValue == .bookmark
             AnytypeAnalytics.instance().logCreateLink(
                 spaceId: targetDetails.spaceId,
                 objectType: targetDetails.objectType.analyticsType

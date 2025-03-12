@@ -103,7 +103,7 @@ final class BlockViewModelBuilder {
     // remove after https://linear.app/anytype/issue/IOS-3806/%5Bepic%5D-release-x-or-ios-or-file-layout
     private func createOpenFileButtonIfNeeded() -> EditorItem? {
         guard let details = document.details else { return nil }
-        guard details.layoutValue.isFileOrMedia else { return nil }
+        guard details.resolvedLayoutValue.isFileOrMedia else { return nil }
         
         let model = OpenFileBlockViewModel(
             info: .file(fileDetails: FileDetails(objectDetails: details)),
@@ -120,7 +120,7 @@ final class BlockViewModelBuilder {
     // remove after https://linear.app/anytype/issue/IOS-3806/%5Bepic%5D-release-x-or-ios-or-file-layout
     private func removeBlockFileIfNeeded(_ items: [EditorItem]) -> [EditorItem] {
         guard let details = document.details else { return items }
-        guard details.layoutValue.isFileOrMedia else { return items }
+        guard details.resolvedLayoutValue.isFileOrMedia else { return items }
         
         let index = items.firstIndex { item in
             if case let .block(block) = item {
