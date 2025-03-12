@@ -13,4 +13,5 @@ protocol MessageModuleOutput: AnyObject {
     func didSelectDeleteMessage(message: MessageViewData)
     func didSelectEditMessage(message: MessageViewData) async
     func didSelectAuthor(authorId: String)
+    func didSelectUnread(message: MessageViewData)
 }

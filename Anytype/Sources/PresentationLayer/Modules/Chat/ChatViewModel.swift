@@ -462,6 +462,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
     }
     
+    func didSelectUnread(message: MessageViewData) {
+        Task {
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID)
+        }
+    }
+    
     // MARK: - ChatActionProviderHandler
     
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
