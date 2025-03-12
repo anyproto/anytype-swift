@@ -4,16 +4,18 @@ struct SettingsInfoEditingViewData: Identifiable {
     let title: String
     let placeholder: String
     let initialValue: String
+    let font: AnytypeFont
     
     let onSave: (String) -> Void
     
-    var id: String { title + placeholder + initialValue }
+    var id: String { title + placeholder + initialValue + String(describing: font) }
 }
 
 struct SettingsInfoEditingView: View {
     private let title: String
     private let placeholder: String
     private let initialValue: String
+    private let font: AnytypeFont
     
     private let onSave: (String) -> Void
     
@@ -23,6 +25,7 @@ struct SettingsInfoEditingView: View {
         title = data.title
         placeholder = data.placeholder
         initialValue = data.initialValue
+        font = data.font
         onSave = data.onSave
     }
     
@@ -64,7 +67,7 @@ struct SettingsInfoEditingView: View {
     private var editingView: some View {
         VStack(alignment: .leading, spacing: 4) {
             AnytypeText(title, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
-            AutofocusedTextField(placeholder: placeholder, font: .bodySemibold, text: $value)
+            AutofocusedTextField(placeholder: placeholder, font: font, text: $value)
                 .autocorrectionDisabled()
         }
         .padding(.horizontal, 16)
