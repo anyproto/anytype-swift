@@ -897,8 +897,6 @@ extension ImageAsset {
       public static let list = ImageAsset.bundle(name: "x54/View/List")
     }
   }
-  public enum Emoji {
-  }
   public enum Membership {
     public static let banner1 = ImageAsset.bundle(name: "Membership/banner_1")
     public static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
@@ -923,6 +921,9 @@ extension ImageAsset {
   public static let relationLockedSmall = ImageAsset.bundle(name: "relation_locked_small")
   public static let relationNew = ImageAsset.bundle(name: "relation_new")
   public static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
+  public enum RightAttribute {
+    public static let disclosure = ImageAsset.bundle(name: "Right Attribute/Disclosure")
+  }
   public static let handPointLeft = ImageAsset.bundle(name: "HandPointLeft")
   public static let webPage = ImageAsset.bundle(name: "web_page")
   public static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")

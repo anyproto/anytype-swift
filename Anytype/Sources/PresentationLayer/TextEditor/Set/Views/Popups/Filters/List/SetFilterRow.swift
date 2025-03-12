@@ -37,7 +37,7 @@ struct SetFilterRow: View {
             Spacer()
             
             if editMode?.wrappedValue == .inactive {
-                Image(asset: .arrowForward)
+                Image(asset: .RightAttribute.disclosure)
             }
         }
         .frame(height: 68)

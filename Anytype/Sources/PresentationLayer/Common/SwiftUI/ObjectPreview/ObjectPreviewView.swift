@@ -133,7 +133,7 @@ struct ObjectPreviewView: View {
                 AnytypeText(value, style: .uxBodyRegular)
                 .foregroundColor(.Text.secondary)
                 Spacer.fixedWidth(10)
-                Image(asset: .arrowForward)
+                Image(asset: .RightAttribute.disclosure)
             }
             .frame(height: 52)
         }

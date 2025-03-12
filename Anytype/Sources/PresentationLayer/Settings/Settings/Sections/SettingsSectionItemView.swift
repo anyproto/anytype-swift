@@ -62,7 +62,7 @@ struct SettingsSectionItemView: View {
                     AnytypeText(text, style: .bodyRegular)
                         .dynamicForegroundStyle(color: .Text.secondary, disabledColor: .Text.tertiary)
                         .lineLimit(1)
-                    Image(asset: .arrowForward)
+                    Image(asset: .RightAttribute.disclosure)
                         .renderingMode(.template)
                         .dynamicForegroundStyle(color: .Text.tertiary, disabledColor: .Control.inactive)
                 }
