@@ -219,6 +219,8 @@
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Sunting Profil";
 "Object Types" = "Tipe Objek";
+"Resolve layout conflict" = "Resolve layout conflict";
+"Reset to default" = "Reset to default";
 
 // Home
 "Favorites" = "Favorit";
@@ -1319,3 +1321,6 @@ Please provide specific details of your needs here.";
 "Migration.subtitle" = "Ini mungkin perlu beberapa waktu. Mohon tidak menutup aplikasi hingga proses selesai.";
 "Migration.Error.NotEnoughtSpace.title" = "Penyimpanan tidak cukup";
 "Migration.Error.NotEnoughtSpace.message" = "Bersihkan ruang penyimpanan lalu coba lagi.";
+
+// MARK: - Primitives
+"Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";

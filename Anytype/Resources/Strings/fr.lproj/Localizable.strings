@@ -219,6 +219,8 @@
 "Unsupported deeplink" = "Lien profond non pris en charge";
 "Edit Profile" = "Modifier le profil";
 "Object Types" = "Types d'objets";
+"Resolve layout conflict" = "Resolve layout conflict";
+"Reset to default" = "Reset to default";
 
 // Home
 "Favorites" = "Favoris";
@@ -1319,3 +1321,6 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Migration.subtitle" = "Cela peut prendre un certain temps. Veuillez ne pas fermer l'application avant que le processus soit terminé.";
 "Migration.Error.NotEnoughtSpace.title" = "Espace insuffisant";
 "Migration.Error.NotEnoughtSpace.message" = "Veuillez libérer de l'espace et exécuter le processus à nouveau.";
+
+// MARK: - Primitives
+"Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";
