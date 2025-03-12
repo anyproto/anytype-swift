@@ -96,14 +96,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         guard !subscriptionStarted else {
             return
         }
-    
-        let messages = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
-        await addNewMessages(messages: messages)
-        
-        subscriptionStarted = true
-        
-        updateFullMessages()
-        
+
         subscription = Task { [weak self] in
             for await events in await EventBunchSubscribtion.default.stream() {
                 if events.contextId == self?.chatObjectId {
@@ -111,6 +104,24 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 }
             }
         }
+        
+        let response = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
+
+        // Setup chat state as first
+        chatState = response.chatState
+        syncStream.send([.state])
+        
+        let unreadOrderId = response.chatState.messages.oldestOrderID
+        if unreadOrderId.isNotEmpty {
+            // Load messages for unred bounce
+            _ = try? await loadPagesTo(orderId: unreadOrderId)
+        } else {
+            // Apply subscription state
+            await addNewMessages(messages: response.messages)
+            updateFullMessages()
+        }
+        
+        subscriptionStarted = true
     }
     
     func loadNextPage() async throws {

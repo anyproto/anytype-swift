@@ -6,7 +6,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     func getMessagesByIds(chatObjectId: String, messageIds: [String]) async throws -> [ChatMessage]
     func addMessage(chatObjectId: String, message: ChatMessage) async throws -> String
     func updateMessage(chatObjectId: String, message: ChatMessage) async throws
-    func subscribeLastMessages(chatObjectId: String, limit: Int?) async throws -> [ChatMessage]
+    func subscribeLastMessages(chatObjectId: String, limit: Int?) async throws -> ChatSubscribeLastMessagesResponse
     func unsubscribeLastMessages(chatObjectId: String) async throws
     func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws
     func deleteMessage(chatObjectId: String, messageId: String) async throws
@@ -64,12 +64,12 @@ final class ChatService: ChatServiceProtocol {
         }).invoke()
     }
     
-    func subscribeLastMessages(chatObjectId: String, limit: Int?) async throws -> [ChatMessage] {
+    func subscribeLastMessages(chatObjectId: String, limit: Int?) async throws -> ChatSubscribeLastMessagesResponse {
         let result = try await ClientCommands.chatSubscribeLastMessages(.with {
             $0.chatObjectID = chatObjectId
             $0.limit = Int32(limit ?? 0)
         }).invoke()
-        return result.messages
+        return result
     }
     
     func unsubscribeLastMessages(chatObjectId: String) async throws {
