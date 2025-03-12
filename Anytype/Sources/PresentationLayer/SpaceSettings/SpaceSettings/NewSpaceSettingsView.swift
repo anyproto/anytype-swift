@@ -248,7 +248,7 @@ struct NewSpaceSettingsView: View {
                         Spacer.fixedWidth(8)
                         AnytypeText(Loc.SpaceSettings.remoteStorage, style: .previewTitle1Regular)
                         Spacer()
-                        IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+                        Image(asset: .RightAttribute.disclosure)
                     }
                     .padding(20)
                     

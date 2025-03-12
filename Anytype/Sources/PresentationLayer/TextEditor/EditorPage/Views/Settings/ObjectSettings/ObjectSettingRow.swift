@@ -38,7 +38,7 @@ struct ObjectSettingRow: View {
         Group {
             switch setting {
             case .icon, .cover, .relations, .history:
-                Image(asset: .arrowForward)
+                Image(asset: .RightAttribute.disclosure)
             case .description(let isVisible):
                 AnytypeText(isVisible ? Loc.hide : Loc.show, style: .previewTitle1Regular).foregroundColor(Color.Text.secondary)
             case .resolveConflict:

@@ -48,7 +48,7 @@ struct RelationCalendarView: View {
                 AnytypeText(Loc.Date.Open.Action.title, style: .bodyRegular)
                     .foregroundColor(.Text.primary)
                 Spacer()
-                Image(asset: .X24.Arrow.right)
+                Image(asset: .RightAttribute.disclosure)
                     .foregroundColor(.Control.active)
             }
         }
