@@ -171,7 +171,7 @@ struct ChatView: View {
             emptyView: emptyView,
             showEmptyState: model.showEmptyState
         ) {
-            MessageView(data: $0, output: model)
+            cell(data: $0)
         } headerBuilder: {
             ChatMessageHeaderView(text: $0)
         } actionView: {
@@ -184,5 +184,15 @@ struct ChatView: View {
             model.visibleRangeChanged(fromId: fromId, toId: toId)
         }
         .messageYourBackgroundColor(model.messageYourBackgroundColor)
+    }
+    
+    @ViewBuilder
+    private func cell(data: MessageSectionItem) -> some View {
+        switch data {
+        case .message(let data):
+            MessageView(data: data, output: model)
+        case .unread(let id):
+            Color.red.frame(height: 30)
+        }
     }
 }

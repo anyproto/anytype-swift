@@ -104,11 +104,11 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 currentSectionData = MessageSectionData(
                     header: dateFormatter.string(from: createDateDay),
                     id: createDateDay.hashValue,
-                    items: [messageModel]
+                    items: [.message(messageModel)]
                 )
                 sectionDateDay = createDateDay
             } else {
-                currentSectionData?.items.append(messageModel)
+                currentSectionData?.items.append(.message(messageModel))
             }
             
             
