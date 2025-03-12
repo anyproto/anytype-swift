@@ -5,7 +5,7 @@ import AnytypeCore
 extension BundledRelationsValueProvider {
 
     var pageCellTitle: String {
-        switch layoutValue {
+        switch resolvedLayoutValue {
         case .note:
             return snippet
         default:
@@ -23,7 +23,7 @@ extension BundledRelationsValueProvider {
     }
 
     var subtitle: String {
-        switch layoutValue {
+        switch resolvedLayoutValue {
         case .note:
             return description
         default:

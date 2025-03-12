@@ -17,7 +17,7 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
         
         let typeId = details.isTemplateType ? details.targetObjectType : details.type
         guard let type = try? objectTypeProvider.objectType(id: typeId) else { return false }
-        let layoutsInObjectAndTypeAreDifferent = details.layoutValue != type.recommendedLayout
+        let layoutsInObjectAndTypeAreDifferent = details.resolvedLayoutValue != type.recommendedLayout
         if layoutsInObjectAndTypeAreDifferent { return true }
         
         let haveAnyLegacyFeaturedRelations = relationDetailsStorage
