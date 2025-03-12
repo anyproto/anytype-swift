@@ -69,7 +69,7 @@ struct SettingsInfoEditingView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .border(12, color: .System.amber50, lineWidth: 0.5)
+        .border(12, color: .System.amber50, lineWidth: 2)
         .padding(.horizontal, 16)
     }
 }
