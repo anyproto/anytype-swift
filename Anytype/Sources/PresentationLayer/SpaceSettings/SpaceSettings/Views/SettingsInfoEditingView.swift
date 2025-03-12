@@ -67,7 +67,7 @@ struct SettingsInfoEditingView: View {
     private var editingView: some View {
         VStack(alignment: .leading, spacing: 4) {
             AnytypeText(title, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
-            AutofocusedTextField(placeholder: placeholder, font: font, text: $value)
+            AutofocusedTextField(placeholder: placeholder, font: font, axis: .vertical, text: $value)
                 .autocorrectionDisabled()
         }
         .padding(.horizontal, 16)
