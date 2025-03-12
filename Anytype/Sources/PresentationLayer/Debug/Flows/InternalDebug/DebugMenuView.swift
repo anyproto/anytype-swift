@@ -159,9 +159,15 @@ struct DebugMenuView: View {
                 model.unzipWorkingDirectory()
             }
             Button {
-                model.getNotificationToken()
+                model.getFirebaseNotificationToken()
             } label: {
-                Text("Notification Token 🔔")
+                Text("Firebase notification Token 🔔")
+            }
+            
+            Button {
+                model.getAppleNotificationToken()
+            } label: {
+                Text("Apple notification Token 🔔")
             }
         }
     }
