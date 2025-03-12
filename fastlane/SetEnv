@@ -1,3 +1,12 @@
+lane :set_all_env_to_info_plist do |options|
+    set_amplitude_api_key_to_info_plist
+    set_sentry_dsn_to_info_plist
+    set_openai_token_to_info_plist
+    set_ai_endpoint_to_info_plist
+    set_ai_model_to_info_plist
+    set_anyapp_membership_secret_to_info_plist
+end
+    
 lane :set_amplitude_api_key_to_info_plist do |options|
     set_info_plist_value(
         path: "./Anytype/Supporting files/Info.plist", 
@@ -43,5 +52,13 @@ lane :set_anyapp_membership_secret_to_info_plist do |options|
         path: "./Anytype/Supporting files/Info.plist", 
         key: "AnyAppMembershipTierSecret",
         value: ENV["ANY_APP_MEMBERSHIP_TIER_SECRET"]
+    )
+end
+
+lane :set_join_stream_url do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "JoinStreamURL",
+        value: ENV["JOIN_STREAM_URL"]
     )
 end

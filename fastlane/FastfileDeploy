@@ -62,12 +62,7 @@ platform :ios do
 
     increment_build_number(build_number: build_number, xcodeproj: xcodeproj, skip_info_plist: true)
     
-    set_amplitude_api_key_to_info_plist
-    set_sentry_dsn_to_info_plist
-    set_openai_token_to_info_plist
-    set_ai_endpoint_to_info_plist
-    set_ai_model_to_info_plist
-    set_anyapp_membership_secret_to_info_plist
+    set_all_env_to_info_plist
     
     build_app(
       scheme: ENV["APP_TARGET"], 
