@@ -412,7 +412,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapMention() {
-        // TODO: Implement scroll to mention
+        guard let chatState else { return }
+        Task {
+            let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
+            collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+        }
     }
     
     // MARK: - MessageModuleOutput

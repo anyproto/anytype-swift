@@ -404,6 +404,14 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             type: .messages,
             lastDbTimestamp: chatState.dbTimestamp
         )
+        
+        try? await chatService.readMessages(
+            chatObjectId: chatObjectId,
+            afterOrderId: afterOrderId,
+            beforeOrderId: beforeOrderId,
+            type: .replies,
+            lastDbTimestamp: chatState.dbTimestamp
+        )
     }
     
     private func handleAttachmentSubscription(details: [ObjectDetails]) async {
