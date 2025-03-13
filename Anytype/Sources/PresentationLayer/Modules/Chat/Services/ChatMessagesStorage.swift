@@ -363,7 +363,6 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func markAsRead(startMessageId: String, endMessageId: String) async throws {
         guard let chatState,
-              chatState.dbTimestamp > 0,
               chatState.messages.oldestOrderID.isNotEmpty,
               let afterOrderId = messages.message(id: startMessageId)?.orderID,
               let beforeOrderId = messages.message(id: endMessageId)?.orderID,

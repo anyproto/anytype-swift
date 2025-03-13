@@ -87,6 +87,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var messages: [FullChatMessage] = []
     private var chatState: ChatState?
     private var participants: [Participant] = []
+    private var firstUnreadMessageOrderId: String?
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
 
     // Alerts
@@ -155,6 +156,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             let prevChatIsEmpty = self.messages.isEmpty
             self.messages = messages
             self.dataLoaded = true
+            if prevChatIsEmpty {
+                firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
+            }
             await updateMessages()
             if prevChatIsEmpty {
                 if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
@@ -519,6 +523,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         let newMessageBlocks = await chatMessageBuilder.makeMessage(
             messages: messages,
             participants: participants,
+            firstUnreadMessageOrderId: firstUnreadMessageOrderId,
             limits: chatMessageLimits
         )
         guard newMessageBlocks != mesageBlocks else { return }
