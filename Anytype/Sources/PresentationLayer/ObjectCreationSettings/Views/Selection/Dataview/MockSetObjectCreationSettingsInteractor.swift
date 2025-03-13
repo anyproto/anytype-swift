@@ -34,7 +34,7 @@ struct MockTemplatePreviewModel: Identifiable {
     let model: TemplatePreviewModel
 }
 
-extension MockTemplatePreviewModel {
+extension MockTemplatePreviewModel: @unchecked Sendable {
     static let allPreviews = [
         templateWithTitle,
         onlyIcon,
