@@ -31,6 +31,8 @@ final class DebugMenuViewModel: ObservableObject {
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
+    @Injected(\.applePushNotificationService)
+    private var applePushNotificationService: any ApplePushNotificationServiceProtocol
     
     var shouldRunDebugProfilerOnNextStartup: Bool {
         get {
@@ -108,11 +110,15 @@ final class DebugMenuViewModel: ObservableObject {
         shareUrlFile = try await debugService.debugStat()
     }
     
-    func getNotificationToken() {
+    func getFirebaseNotificationToken() {
         Messaging.messaging().token { [weak self] token, error in
             guard let self, let token else { return }
             pushToken = token.identifiable
         }
+    }
+    
+    func getAppleNotificationToken() {
+        pushToken = applePushNotificationService.token()?.identifiable
     }
     
     // MARK: - Private
