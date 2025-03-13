@@ -1227,6 +1227,7 @@ internal enum Loc {
     internal enum Action {
       internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction", fallback: "Add Reaction")
       internal static let reply = Loc.tr("Localizable", "Message.Action.Reply", fallback: "Reply")
+      internal static let unread = Loc.tr("Localizable", "Message.Action.Unread", fallback: "Mark Unread")
     }
     internal enum ChatTitle {
       internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder", fallback: "Untitled Chat")

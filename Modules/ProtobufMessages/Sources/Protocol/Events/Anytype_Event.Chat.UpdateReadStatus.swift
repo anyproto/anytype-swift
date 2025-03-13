@@ -20,6 +20,8 @@ extension Anytype_Event.Chat {
 
       public var isRead: Bool = false
 
+      public var subIds: [String] = []
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -31,6 +33,7 @@ extension Anytype_Event.Chat.UpdateReadStatus: SwiftProtobuf.Message, SwiftProto
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "ids"),
     2: .same(proto: "isRead"),
+    3: .same(proto: "subIds"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -41,6 +44,7 @@ extension Anytype_Event.Chat.UpdateReadStatus: SwiftProtobuf.Message, SwiftProto
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.isRead) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
       default: break
       }
     }
@@ -53,12 +57,16 @@ extension Anytype_Event.Chat.UpdateReadStatus: SwiftProtobuf.Message, SwiftProto
     if self.isRead != false {
       try visitor.visitSingularBoolField(value: self.isRead, fieldNumber: 2)
     }
+    if !self.subIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Chat.UpdateReadStatus, rhs: Anytype_Event.Chat.UpdateReadStatus) -> Bool {
     if lhs.ids != rhs.ids {return false}
     if lhs.isRead != rhs.isRead {return false}
+    if lhs.subIds != rhs.subIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

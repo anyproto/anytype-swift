@@ -85,9 +85,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
     
     private var messages: [FullChatMessage] = []
+    private var chatState: ChatState?
     private var participants: [Participant] = []
-    // Scroll to unreaded first time after open
-    private var scrollToFirstUnreaded = true
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
 
     // Alerts
@@ -157,8 +156,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             self.messages = messages
             self.dataLoaded = true
             await updateMessages()
-            if prevChatIsEmpty, let message = messages.last {
-                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+            if prevChatIsEmpty {
+                if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
+                    collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
+                } else if let message = messages.last {
+                    collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+                }
             }
         }
     }
@@ -166,15 +169,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func subscribeOnChatState() async {
         guard FeatureFlags.chatCounters else { return }
         for await chatState in chatStorage.chatStateStream {
-            if scrollToFirstUnreaded {
-                scrollToFirstUnreaded = false
-                let orderId = chatState.messages.oldestOrderID
-                do {
-                    // TODO: Show unreaded immedienlty after open. Waiting middleware api.
-                    let message = try await chatStorage.loadPagesTo(orderId: orderId)
-                    collectionViewScrollProxy.scrollTo(itemId: message.id)
-                } catch {}
-            }
+            self.chatState = chatState
             actionModel = ChatActionPanelModel(
                 showScrollToBottom: chatState.messages.counter > 0,
                 srollToBottomCounter: Int(chatState.messages.counter),
@@ -465,6 +460,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func didSelectAuthor(authorId: String) {
         output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
+    }
+    
+    func didSelectUnread(message: MessageViewData) {
+        Task {
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID)
+        }
     }
     
     // MARK: - ChatActionProviderHandler

@@ -616,6 +616,11 @@ extension Anytype_Rpc.Chat.ToggleMessageReaction.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Chat.Unread.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.Unread.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Chat.Unsubscribe.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.Unsubscribe.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

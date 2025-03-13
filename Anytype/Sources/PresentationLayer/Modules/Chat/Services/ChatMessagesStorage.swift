@@ -96,14 +96,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         guard !subscriptionStarted else {
             return
         }
-    
-        let messages = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
-        await addNewMessages(messages: messages)
-        
-        subscriptionStarted = true
-        
-        updateFullMessages()
-        
+
         subscription = Task { [weak self] in
             for await events in await EventBunchSubscribtion.default.stream() {
                 if events.contextId == self?.chatObjectId {
@@ -111,6 +104,24 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 }
             }
         }
+        
+        let response = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
+
+        // Setup chat state as first
+        chatState = response.chatState
+        syncStream.send([.state])
+        
+        let unreadOrderId = response.chatState.messages.oldestOrderID
+        if unreadOrderId.isNotEmpty {
+            // Load messages for unred bounce
+            _ = try? await loadPagesTo(orderId: unreadOrderId)
+        } else {
+            // Apply subscription state
+            await addNewMessages(messages: response.messages)
+            updateFullMessages()
+        }
+        
+        subscriptionStarted = true
     }
     
     func loadNextPage() async throws {
@@ -351,10 +362,13 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     private func markAsRead(startMessageId: String, endMessageId: String) async throws {
-        guard let afterOrderId = messages.message(id: startMessageId)?.orderID,
+        guard let chatState,
+              chatState.dbTimestamp > 0,
+              chatState.messages.oldestOrderID.isNotEmpty,
+              let afterOrderId = messages.message(id: startMessageId)?.orderID,
               let beforeOrderId = messages.message(id: endMessageId)?.orderID,
-              let chatState,
-              chatState.dbTimestamp > 0 else { return }
+              chatState.messages.oldestOrderID <= beforeOrderId
+              else { return }
         
         try? await chatService.readMessages(
             chatObjectId: chatObjectId,

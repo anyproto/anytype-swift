@@ -25,6 +25,8 @@ extension Anytype_Event.Chat {
       /// Clears the value of `state`. Subsequent reads from it will return its default value.
       public mutating func clearState() {self._state = nil}
 
+      public var subIds: [String] = []
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -37,6 +39,7 @@ extension Anytype_Event.Chat.UpdateState: SwiftProtobuf.Message, SwiftProtobuf._
   public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateState"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "state"),
+    2: .same(proto: "subIds"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -46,6 +49,7 @@ extension Anytype_Event.Chat.UpdateState: SwiftProtobuf.Message, SwiftProtobuf._
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._state) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
       default: break
       }
     }
@@ -59,11 +63,15 @@ extension Anytype_Event.Chat.UpdateState: SwiftProtobuf.Message, SwiftProtobuf._
     try { if let v = self._state {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    if !self.subIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Chat.UpdateState, rhs: Anytype_Event.Chat.UpdateState) -> Bool {
     if lhs._state != rhs._state {return false}
+    if lhs.subIds != rhs.subIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

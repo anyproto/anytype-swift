@@ -228,6 +228,14 @@ struct MessageView: View {
         
         Divider()
         
+        #if DEBUG
+        Button {
+            output?.didSelectUnread(message: data)
+        } label: {
+            Text(Loc.Message.Action.unread)
+        }
+        #endif
+        
         Button {
             output?.didSelectReplyTo(message: data)
         } label: {
