@@ -24,6 +24,7 @@ final class AnytypeDestinationBuilderHolder {
         }
     }
     
+    @MainActor
     func build(_ typedData: Any) -> AnyView {
         let key = Self.identifier(for: type(of: typedData))
         if let builder = builders[key], let view = builder(typedData) {

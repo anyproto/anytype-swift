@@ -5,5 +5,6 @@ import UIKit
 protocol ApplicationWindowInsetsProvider {
     
     /// Window insets
+    @MainActor
     var mainWindowInsets: UIEdgeInsets { get }
 }

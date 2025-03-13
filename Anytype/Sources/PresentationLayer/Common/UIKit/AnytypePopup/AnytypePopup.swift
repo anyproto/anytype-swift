@@ -7,6 +7,7 @@ import AnytypeCore
 
 // TODO: Delete it
 // Use Native SwiftUI navigation
+@MainActor
 class AnytypePopup: FloatingPanelController {
 
     struct Configuration {
@@ -80,6 +81,7 @@ class AnytypePopup: FloatingPanelController {
 
 // MARK: - RelationDetailsViewModelDelegate
 
+@MainActor
 extension AnytypePopup: AnytypePopupProxy {
     func updateBottomInset() {
         updateSurfaceViewMargins()
@@ -105,7 +107,7 @@ extension AnytypePopup: AnytypePopupProxy {
 
 // MARK: - FloatingPanelControllerDelegate
 
-extension AnytypePopup: FloatingPanelControllerDelegate {
+extension AnytypePopup: @preconcurrency FloatingPanelControllerDelegate {
     
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor size: CGSize) -> any FloatingPanelLayout {
         viewModel.popupLayout.layout

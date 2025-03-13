@@ -9,7 +9,7 @@ final class AnytypeImageDownloader {
     static func retrieveImage(
         with url: URL,
         options: KingfisherOptionsInfo? = nil,
-        completionHandler: @escaping (UIImage?, Data?) -> Void)
+        completionHandler: @escaping @Sendable (UIImage?, Data?) -> Void)
     {
         KingfisherManager.shared.retrieveImage(with: url, options: options) { result in
             switch result {
@@ -43,7 +43,7 @@ extension AnytypeImageDownloader {
         imageId: String,
         width: CGFloat,
         options: KingfisherOptionsInfo? = nil,
-        completionHandler: @escaping (UIImage?, Data?) -> Void)
+        completionHandler: @escaping @Sendable (UIImage?, Data?) -> Void)
     {
         let imageMetadata = ImageMetadata(id: imageId, width: .width(width))
         guard let url = imageMetadata.contentUrl else {

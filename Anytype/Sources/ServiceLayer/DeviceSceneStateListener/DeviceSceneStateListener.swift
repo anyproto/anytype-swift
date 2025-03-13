@@ -2,6 +2,7 @@ import Services
 import Factory
 
 protocol DeviceSceneStateListenerProtocol {
+    @MainActor
     func start()
 }
 

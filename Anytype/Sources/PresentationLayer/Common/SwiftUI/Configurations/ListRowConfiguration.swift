@@ -5,19 +5,20 @@ struct ListRowConfiguration: Hashable, Identifiable {
     
     let id: String
     
-    private let viewBuilder: () -> AnyView
+    private let viewBuilder: @MainActor () -> AnyView
     private let contentHash: Int
     
     init(
         id: String,
         contentHash: Int,
-        @ViewBuilder viewBuilder: @escaping () -> AnyView
+        @ViewBuilder viewBuilder: @escaping @MainActor () -> AnyView
     ) {
         self.id = id
         self.contentHash = contentHash
         self.viewBuilder = viewBuilder
     }
     
+    @MainActor
     func makeView() -> AnyView {
         viewBuilder()
     }

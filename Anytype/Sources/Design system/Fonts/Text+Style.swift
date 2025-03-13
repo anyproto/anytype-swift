@@ -1,6 +1,7 @@
 import SwiftUI
 
 
+@MainActor
 extension Text {
     func anytypeStyle(_ style: AnytypeFont) -> some View {
         self
@@ -15,6 +16,7 @@ extension Text {
     }
 }
 
+@MainActor
 extension TextField {
     func anytypeFontStyle(_ style: AnytypeFont) -> some View {
         self
