@@ -23,7 +23,7 @@ struct ChatCollectionView<
     let actionView: ActionView
     let scrollToTop: () async -> Void
     let scrollToBottom: () async -> Void
-    let handleVisibleRange: (_ fromId: String, _ toId: String) -> Void
+    let handleVisibleRange: (_ from: Item, _ to: Item) -> Void
     
     func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView, ActionView> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in

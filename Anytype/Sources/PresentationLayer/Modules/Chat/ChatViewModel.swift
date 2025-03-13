@@ -175,12 +175,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         guard FeatureFlags.chatCounters else { return }
         for await chatState in chatStorage.chatStateStream {
             self.chatState = chatState
-            actionModel = ChatActionPanelModel(
-                showScrollToBottom: chatState.messages.counter > 0,
-                srollToBottomCounter: Int(chatState.messages.counter),
-                showMentions: chatState.mentions.counter > 0,
-                mentionsCounter: Int(chatState.mentions.counter)
-            )
+            updateActions()
         }
     }
     
@@ -372,10 +367,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
     }
     
-    func visibleRangeChanged(fromId: String, toId: String) {
+    func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
+        guard let fromMessage = from.messageData, let toMessage = to.messageData else { return }
         Task {
-            bottomVisibleOrderId = await chatStorage.message(id: toId)?.orderID
-            await chatStorage.updateVisibleRange(startMessageId: fromId, endMessageId: toId)
+            bottomVisibleOrderId = toMessage.message.orderID
+            await chatStorage.updateVisibleRange(startMessageId: fromMessage.message.id, endMessageId: toMessage.message.id)
+            updateActions()
         }
     }
     
@@ -648,5 +645,23 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             loading: false
         )
         linkedObjects[index] = .localBookmark(bookmark)
+    }
+    
+    private func updateActions() {
+        guard let chatState else { return }
+        
+        let lastIsNotVisible: Bool
+        if let lastMessage = messages.last, let bottomVisibleOrderId {
+            lastIsNotVisible = lastMessage.message.orderID > bottomVisibleOrderId
+        } else {
+            lastIsNotVisible = false
+        }
+        
+        actionModel = ChatActionPanelModel(
+            showScrollToBottom: chatState.messages.counter > 0 || lastIsNotVisible,
+            srollToBottomCounter: Int(chatState.messages.counter),
+            showMentions: chatState.mentions.counter > 0,
+            mentionsCounter: Int(chatState.mentions.counter)
+        )
     }
 }
