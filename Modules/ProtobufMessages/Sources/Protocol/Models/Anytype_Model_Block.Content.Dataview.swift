@@ -17,6 +17,7 @@ extension Anytype_Model_Block.Content {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
+      /// can be set for detached(without TargetObjectId) inline sets
       public var source: [String] = []
 
       public var views: [Anytype_Model_Block.Content.Dataview.View] = []
@@ -33,6 +34,7 @@ extension Anytype_Model_Block.Content {
 
       public var relationLinks: [Anytype_Model_RelationLink] = []
 
+      /// empty for original set/collection objects and for detached inline sets
       public var targetObjectID: String = String()
 
       public var isCollection: Bool = false
