@@ -4,6 +4,8 @@ import ProtobufMessages
 // Events Handling
 
 extension ChatInternalMessageStorage {
+    
+    @discardableResult
     mutating func chatAdd(_ data: Anytype_Event.Chat.Add) -> Bool {
         if let firstMessage = first,
             let lastMessage = last,
@@ -16,10 +18,12 @@ extension ChatInternalMessageStorage {
         return false
     }
     
+    @discardableResult
     mutating func chatDelete(_ data: Anytype_Event.Chat.Delete) -> Bool {
         remove(messageId: data.id).isNotNil
     }
     
+    @discardableResult
     mutating func chatUpdate(_ data: Anytype_Event.Chat.Update) -> Bool {
         if message(id: data.message.id).isNotNil {
             update(data.message)
@@ -28,6 +32,7 @@ extension ChatInternalMessageStorage {
         return false
     }
     
+    @discardableResult
     mutating func chatUpdateReactions(_ data: Anytype_Event.Chat.UpdateReactions) -> Bool {
         if var message = message(id: data.id) {
             message.reactions = data.reactions
@@ -37,6 +42,7 @@ extension ChatInternalMessageStorage {
         return false
     }
     
+    @discardableResult
     mutating func chatUpdateReadStatus(_ data: Anytype_Event.Chat.UpdateReadStatus) -> Bool {
         var updated = false
         for messageId in data.ids {

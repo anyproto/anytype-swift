@@ -88,6 +88,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var chatState: ChatState?
     private var participants: [Participant] = []
     private var firstUnreadMessageOrderId: String?
+    private var bottomVisibleOrderId: String?
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
 
     // Alerts
@@ -373,6 +374,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func visibleRangeChanged(fromId: String, toId: String) {
         Task {
+            bottomVisibleOrderId = await chatStorage.message(id: toId)?.orderID
             await chatStorage.updateVisibleRange(startMessageId: fromId, endMessageId: toId)
         }
     }
@@ -391,7 +393,22 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapScrollToBottom() {
-        // TODO: Implement scroll to bottom
+        if let bottomVisibleOrderId, let chatState, let firstUnreadMessageOrderId,
+            firstUnreadMessageOrderId > bottomVisibleOrderId,
+            bottomVisibleOrderId < chatState.messages.oldestOrderID {
+            // Scroll to unread messages if user above on it
+            Task {
+                let message = try await chatStorage.loadPagesTo(orderId: chatState.messages.oldestOrderID)
+                collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+            }
+        } else {
+            // Scroll to bottom if unser inside unread section
+            Task {
+                let lastMessage = try await chatStorage.markAsReadAll()
+                try await chatStorage.loadPagesTo(messageId: lastMessage.id)
+                collectionViewScrollProxy.scrollTo(itemId: lastMessage.id, position: .bottom, animated: true)
+            }
+        }
     }
     
     func onTapMention() {
