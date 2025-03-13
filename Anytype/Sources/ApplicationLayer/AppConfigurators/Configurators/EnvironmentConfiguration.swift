@@ -5,7 +5,7 @@ import AppTarget
 final class EnvironmentConfiguration: AppConfiguratorProtocol {
         
     func configure() {
-        #if DEBUG
+        #if DEBUG || RELEASE_NIGHTLY
             CoreEnvironment.targetType = .debug
         #elseif RELEASE_ANYTYPE
             CoreEnvironment.targetType = .releaseAnytype

@@ -7,7 +7,7 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
 
     func configure() {
         // Check analytics feature flag
-        #if DEBUG
+        #if DEBUG || RELEASE_NIGHTLY
         
         AnytypeAnalytics.instance().setIsEnabled(FeatureFlags.analytics)
         
@@ -32,7 +32,7 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
     private func log(eventType: String, eventProperties: [AnyHashable : Any]?) {
         
         // Log
-        #if DEBUG
+        #if DEBUG || RELEASE_NIGHTLY
         
         let info = eventProperties.map { Dictionary(uniqueKeysWithValues: $0.map { key, value in ("\(key)", "\(value)") } ) }
         AnalyticsLogger.shared.log(eventType, info: info)
