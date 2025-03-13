@@ -14,7 +14,9 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func attachments(message: ChatMessage) async -> [ObjectDetails]
     func attachments(ids: [String]) async -> [ObjectDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
+    func message(id: String) async -> ChatMessage?
     func updateVisibleRange(startMessageId: String, endMessageId: String) async
+    func markAsReadAll() async throws -> ChatMessage
     var messagesStream: AnyAsyncSequence<[FullChatMessage]> { get }
     var chatStateStream: AnyAsyncSequence<ChatState> { get }
 }
@@ -24,6 +26,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private enum Constants {
         static let pageSize = 100
         static let maxCacheSize = 1000
+        static let lastMessagesMaxCacheSize = 10
         // As user scroll N messages, we update the attachments subscription. Not every message.
         static let subscriptionMessageIntervalForAttachments = 20
         // Subscribe to visible cells attachments AND N top and N bottom. Should be more "interval" value for better experience.
@@ -51,6 +54,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     // MARK: - Message State
     private var attachments = ChatMessageAttachmentsStorage()
     private var messages = ChatInternalMessageStorage()
+    // Need the last message to scroll down. Messages may not store the last message.
+    private var lastMessages = ChatInternalMessageStorage()
     private var replies = [String: ChatMessage]()
     private var fullMessages: [FullChatMessage]?
     private var chatState: ChatState?
@@ -110,6 +115,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         // Setup chat state as first
         chatState = response.chatState
         syncStream.send([.state])
+        
+        lastMessages.add(response.messages)
         
         let unreadOrderId = response.chatState.messages.oldestOrderID
         if unreadOrderId.isNotEmpty {
@@ -203,6 +210,22 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         return messages.message(id: message.replyToMessageID) ?? replies[message.replyToMessageID]
     }
     
+    func message(id: String) async -> ChatMessage? {
+        return messages.message(id: id)
+    }
+    
+    func markAsReadAll() async throws -> ChatMessage {
+        guard let chatState, let last = lastMessages.last else { throw CommonError.undefined }
+        try await chatService.readMessages(
+            chatObjectId: chatObjectId,
+            afterOrderId: "",
+            beforeOrderId: last.orderID,
+            type: .messages,
+            lastDbTimestamp: chatState.dbTimestamp
+        )
+        return last
+    }
+    
     deinit {
         subscription?.cancel()
         subscription = nil
@@ -226,21 +249,24 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                     updates.insert(.messages)
                     updateRepliesAndAttachments = true
                 }
+                lastMessages.chatAdd(data)
             case let .chatDelete(data):
                 if messages.chatDelete(data) {
                     updates.insert(.messages)
                 }
+                lastMessages.chatDelete(data)
             case let .chatUpdate(data):
                 if messages.chatUpdate(data) {
                     updates.insert(.messages)
                     updateRepliesAndAttachments = true
                 }
+                lastMessages.chatUpdate(data)
             case let .chatUpdateReactions(data):
                 if messages.chatUpdateReactions(data) {
                     updates.insert(.messages)
                 }
             case let .chatUpdateReadStatus(data):
-                _ = messages.chatUpdateReadStatus(data)
+                messages.chatUpdateReadStatus(data)
             case let .chatStateUpdate(data):
                 chatState = data.state
                 updates.insert(.state)
@@ -248,6 +274,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 break
             }
         }
+        
+        lastMessages.cleanFirst(maxCache: Constants.lastMessagesMaxCacheSize)
         
         if updateRepliesAndAttachments {
             await loadReplies()
