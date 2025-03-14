@@ -98,6 +98,10 @@ public extension FeatureFlags {
         value(for: .chatCounters)
     }
 
+    static var httpsLinkForObjectCopy: Bool {
+        value(for: .httpsLinkForObjectCopy)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -175,6 +179,7 @@ public extension FeatureFlags {
         .anyAppBetaTip,
         .disableRestoreLastScreen,
         .chatCounters,
+        .httpsLinkForObjectCopy,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
