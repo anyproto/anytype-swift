@@ -1247,6 +1247,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tepki Ekle";
 "Message.Action.Reply" = "Yanıtla";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
 "Message.ChatTitle.Placeholder" = "Başlıksız Sohbet";
 
@@ -1296,6 +1298,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.CreateObject.Dismiss.Ok" = "Evet, kapat";
 "Chat.Attach.Page.title" = "Sayfa Ekle";
 "Chat.Attach.List.title" = "Liste Ekle";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";
