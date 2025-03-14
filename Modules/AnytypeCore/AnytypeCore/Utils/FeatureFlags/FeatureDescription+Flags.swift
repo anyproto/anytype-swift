@@ -163,6 +163,12 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let httpsLinkForObjectCopy = FeatureDescription(
+        title: "https link for objects copy action",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

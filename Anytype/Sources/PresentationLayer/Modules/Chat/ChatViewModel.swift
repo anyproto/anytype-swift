@@ -489,6 +489,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID)
         }
     }
+
+    func didSelectCopyPlainText(message: MessageViewData) {
+        UIPasteboard.general.string = NSAttributedString(message.messageString).string
+    }
     
     // MARK: - ChatActionProviderHandler
     
