@@ -199,7 +199,7 @@ struct ChatView: View {
         case .message(let data):
             MessageView(data: data, output: model)
         case .unread:
-            ChatMessageHeaderView(text: Loc.Chat.newMessages)
+            ChatMessageUnreadView()
         }
     }
 }

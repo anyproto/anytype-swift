@@ -7,9 +7,15 @@ struct ChatMessageHeaderView: View {
         HStack {
             Spacer()
             Text(text)
-                .anytypeStyle(.caption1Medium)
-                .foregroundColor(.Control.transparentActive)
+                .anytypeFontStyle(.caption1Medium)
+                .foregroundColor(.Text.primary)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 5)
+                .background(Color.Background.navigationPanel)
+                .background(.ultraThinMaterial)
+                .cornerRadius(16)
                 .frame(height: 50)
+                .lineLimit(1)
             Spacer()
         }
     }
