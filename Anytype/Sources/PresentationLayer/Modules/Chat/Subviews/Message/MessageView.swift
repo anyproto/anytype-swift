@@ -228,10 +228,20 @@ struct MessageView: View {
         
         Divider()
         
-        Button {
-            output?.didSelectReplyTo(message: data)
-        } label: {
-            Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
+        if data.canReply {
+            Button {
+                output?.didSelectReplyTo(message: data)
+            } label: {
+                Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
+            }
+        }
+        
+        if !data.messageString.isEmpty {   
+            Button {
+                output?.didSelectCopyPlainText(message: data)
+            } label: {
+                Label(Loc.Message.Action.copyPlainText, systemImage: "document.on.document")
+            }
         }
         
         if data.canEdit {

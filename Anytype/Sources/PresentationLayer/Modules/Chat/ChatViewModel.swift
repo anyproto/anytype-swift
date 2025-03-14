@@ -432,6 +432,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
     }
     
+    func didSelectCopyPlainText(message: MessageViewData) {
+        UIPasteboard.general.string = NSAttributedString(message.messageString).string
+    }
+    
     // MARK: - ChatActionProviderHandler
     
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
