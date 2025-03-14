@@ -42,6 +42,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var iconColorService: any IconColorServiceProtocol
     @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -69,6 +71,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var messageTextLimit: String?
     @Published var textLimitReached = false
     @Published var typesForCreateObject: [ObjectType] = []
+    @Published var participantSpaceView: ParticipantSpaceViewData?
     private var photosItems: [PhotosPickerItem] = []
     private var linkPreviewTasks: [URL: AnyCancellable] = [:]
     
@@ -83,7 +86,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var messages: [FullChatMessage] = []
     private var participants: [Participant] = []
     
+    private var inviteLinkShown = false
+    
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
+    var conversationType: ConversationType {
+        participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
+    }
+    var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
     // Alerts
     
@@ -135,25 +144,29 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onWidgetsSelected()
     }
     
+    func onTapInviteLink() {
+        output?.onInviteLinkSelected()
+    }
+    
     func startSubscriptions() async {
         async let permissionsSub: () = subscribeOnPermissions()
         async let participantsSub: () = subscribeOnParticipants()
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
+        async let spaceViewSub: () = subscribeOnSpaceView()
+        async let messagesSub: () = subscribeOnMessages()
         
-        (_, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub)
+        (_, _, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, messagesSub)
     }
     
-    func subscribeOnMessages() async throws {
+    func startMessageSubscription() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
-        for await messages in await chatStorage.messagesPublisher.values {
-            let prevChatIsEmpty = self.messages.isEmpty
-            self.messages = messages
-            self.dataLoaded = true
-            await updateMessages()
-            if prevChatIsEmpty, let message = messages.last {
-                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
-            }
+    }
+    
+    private func subscribeOnSpaceView() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            self.participantSpaceView = participantSpaceView
+            handleInviteLinkShow()
         }
     }
     
@@ -452,6 +465,18 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     // MARK: - Private
     
+    private func subscribeOnMessages() async {
+        for await messages in await chatStorage.messagesPublisher.values {
+            let prevChatIsEmpty = self.messages.isEmpty
+            self.messages = messages
+            self.dataLoaded = true
+            await updateMessages()
+            if prevChatIsEmpty, let message = messages.last {
+                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+            }
+        }
+    }
+    
     private func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants
@@ -586,5 +611,16 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             loading: false
         )
         linkedObjects[index] = .localBookmark(bookmark)
+    }
+    
+    private func handleInviteLinkShow() {
+        guard !inviteLinkShown,
+              participantPermissions == .owner,
+              let createdDate = participantSpaceView?.spaceView.createdDate,
+              Date().timeIntervalSince(createdDate) < 5 else {
+            return
+        }
+        output?.onInviteLinkSelected()
+        inviteLinkShown = true
     }
 }

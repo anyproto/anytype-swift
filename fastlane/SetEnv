@@ -1,3 +1,13 @@
+lane :set_all_env_to_info_plist do |options|
+    set_amplitude_api_key_to_info_plist
+    set_sentry_dsn_to_info_plist
+    set_openai_token_to_info_plist
+    set_ai_endpoint_to_info_plist
+    set_ai_model_to_info_plist
+    set_anyapp_membership_secret_to_info_plist
+    set_join_stream_url
+end
+    
 lane :set_amplitude_api_key_to_info_plist do |options|
     set_info_plist_value(
         path: "./Anytype/Supporting files/Info.plist", 
@@ -11,5 +21,45 @@ lane :set_sentry_dsn_to_info_plist do |options|
         path: "./Anytype/Supporting files/Info.plist", 
         key: "SentryDSN",
         value: ENV["SENTRY_DSN"]
+    )
+end
+
+lane :set_openai_token_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "OpenAIToken",
+        value: ENV["OPENAI_TOKEN"]
+    )
+end
+
+lane :set_ai_endpoint_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "AIEndpoint",
+        value: ENV["AI_ENDPOINT"]
+    )
+end
+
+lane :set_ai_model_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "AIModel",
+        value: ENV["AI_MODEL"]
+    )
+end
+
+lane :set_anyapp_membership_secret_to_info_plist do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "AnyAppMembershipTierSecret",
+        value: ENV["ANY_APP_MEMBERSHIP_TIER_SECRET"]
+    )
+end
+
+lane :set_join_stream_url do |options|
+    set_info_plist_value(
+        path: "./Anytype/Supporting files/Info.plist", 
+        key: "JoinStreamURL",
+        value: ENV["JOIN_STREAM_URL"]
     )
 end

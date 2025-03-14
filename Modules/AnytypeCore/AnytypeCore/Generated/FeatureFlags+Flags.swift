@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .allContentWidgets)
     }
 
+    static var objectTypeWidgets: Bool {
+        value(for: .objectTypeWidgets)
+    }
+
     static var newTypeIcons: Bool {
         value(for: .newTypeIcons)
     }
@@ -70,8 +74,24 @@ public extension FeatureFlags {
         value(for: .newPlusMenu)
     }
 
+    static var spaceUxTypes: Bool {
+        value(for: .spaceUxTypes)
+    }
+
+    static var enableStreamSpaceType: Bool {
+        value(for: .enableStreamSpaceType)
+    }
+
+    static var firebasePushMessages: Bool {
+        value(for: .firebasePushMessages)
+    }
+
     static var enablePushMessages: Bool {
         value(for: .enablePushMessages)
+    }
+
+    static var aiToolInSet: Bool {
+        value(for: .aiToolInSet)
     }
 
     static var newOnboarding: Bool {
@@ -86,12 +106,28 @@ public extension FeatureFlags {
         value(for: .openTypeAsSet)
     }
 
+    static var binWidgetFromLibrary: Bool {
+        value(for: .binWidgetFromLibrary)
+    }
+
     static var anyAppBetaTip: Bool {
         value(for: .anyAppBetaTip)
     }
 
     static var disableRestoreLastScreen: Bool {
         value(for: .disableRestoreLastScreen)
+    }
+
+    static var spaceHubNewTitle: Bool {
+        value(for: .spaceHubNewTitle)
+    }
+
+    static var chatLayoutInsideSpace: Bool {
+        value(for: .chatLayoutInsideSpace)
+    }
+
+    static var joinStream: Bool {
+        value(for: .joinStream)
     }
 
     static var httpsLinkForObjectCopy: Bool {
@@ -163,17 +199,26 @@ public extension FeatureFlags {
         .primitives,
         .memberProfile,
         .allContentWidgets,
+        .objectTypeWidgets,
         .newTypeIcons,
         .openMediaFileInPreview,
         .openBookmarkAsLink,
         .newSettings,
         .newPlusMenu,
+        .spaceUxTypes,
+        .enableStreamSpaceType,
+        .firebasePushMessages,
         .enablePushMessages,
+        .aiToolInSet,
         .newOnboarding,
         .disableColorfulSeedPhrase,
         .openTypeAsSet,
+        .binWidgetFromLibrary,
         .anyAppBetaTip,
         .disableRestoreLastScreen,
+        .spaceHubNewTitle,
+        .chatLayoutInsideSpace,
+        .joinStream,
         .httpsLinkForObjectCopy,
         .rainbowViews,
         .showAlertOnAssert,

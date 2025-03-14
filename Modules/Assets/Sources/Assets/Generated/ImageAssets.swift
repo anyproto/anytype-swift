@@ -547,6 +547,11 @@ extension ImageAsset {
     public static let wine = ImageAsset.bundle(name: "CustomIcons/wine")
     public static let woman = ImageAsset.bundle(name: "CustomIcons/woman")
   }
+  public enum Channel {
+    public static let chat = ImageAsset.bundle(name: "Channel/Chat")
+    public static let space = ImageAsset.bundle(name: "Channel/Space")
+    public static let stream = ImageAsset.bundle(name: "Channel/Stream")
+  }
   public enum Chat {
     public enum SendMessage {
       public static let active = ImageAsset.bundle(name: "Chat/SendMessage/active")
@@ -624,6 +629,13 @@ extension ImageAsset {
     public static let checkboxUnchecked = ImageAsset.bundle(name: "System/Checkbox unchecked")
     public static let textCheckMark = ImageAsset.bundle(name: "System/Text check mark")
   }
+  public enum SystemWidgets {
+    public static let bin = ImageAsset.bundle(name: "SystemWidgets/Bin")
+    public static let favorites = ImageAsset.bundle(name: "SystemWidgets/Favorites")
+    public static let members = ImageAsset.bundle(name: "SystemWidgets/Members")
+    public static let recentlyEdited = ImageAsset.bundle(name: "SystemWidgets/RecentlyEdited")
+    public static let recentlyOpened = ImageAsset.bundle(name: "SystemWidgets/RecentlyOpened")
+  }
   public enum TaskLayout {
     public static let done = ImageAsset.bundle(name: "TaskLayout/Done")
     public static let empty = ImageAsset.bundle(name: "TaskLayout/Empty")
@@ -671,6 +683,7 @@ extension ImageAsset {
     public static let close = ImageAsset.bundle(name: "x22/close")
   }
   public enum X24 {
+    public static let ai = ImageAsset.bundle(name: "x24/AI")
     public static let add = ImageAsset.bundle(name: "x24/Add")
     public enum Arrow {
       public static let down = ImageAsset.bundle(name: "x24/Arrow/Down")

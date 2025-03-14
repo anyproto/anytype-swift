@@ -16,7 +16,8 @@ struct WidgetSourceSearchView: View {
                  itemCreationMode: .unavailable,
                  internalViewModel: WidgetSourceSearchViewModel(
                      interactor: WidgetSourceSearchInteractor(
-                        spaceId: data.spaceId
+                        spaceId: data.spaceId,
+                        widgetObjectId: data.widgetObjectId
                      ),
                      internalModel: WidgetSourceSearchSelectInternalViewModel(data: data, onSelect: onSelect)
                  )

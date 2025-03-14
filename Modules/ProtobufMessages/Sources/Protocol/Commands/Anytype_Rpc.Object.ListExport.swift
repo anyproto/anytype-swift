@@ -64,7 +64,7 @@ extension Anytype_Rpc.Object {
 
         public var includeBacklinks: Bool = false
 
-        public var includeSpace: Bool = false
+        public var includeRelationsHeaderInMarkdown: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -228,7 +228,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     11: .same(proto: "noProgress"),
     12: .same(proto: "linksStateFilters"),
     13: .same(proto: "includeBacklinks"),
-    14: .same(proto: "includeSpace"),
+    14: .same(proto: "includeRelationsHeaderInMarkdown"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -249,7 +249,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
       case 11: try { try decoder.decodeSingularBoolField(value: &self.noProgress) }()
       case 12: try { try decoder.decodeSingularMessageField(value: &self._linksStateFilters) }()
       case 13: try { try decoder.decodeSingularBoolField(value: &self.includeBacklinks) }()
-      case 14: try { try decoder.decodeSingularBoolField(value: &self.includeSpace) }()
+      case 14: try { try decoder.decodeSingularBoolField(value: &self.includeRelationsHeaderInMarkdown) }()
       default: break
       }
     }
@@ -296,8 +296,8 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     if self.includeBacklinks != false {
       try visitor.visitSingularBoolField(value: self.includeBacklinks, fieldNumber: 13)
     }
-    if self.includeSpace != false {
-      try visitor.visitSingularBoolField(value: self.includeSpace, fieldNumber: 14)
+    if self.includeRelationsHeaderInMarkdown != false {
+      try visitor.visitSingularBoolField(value: self.includeRelationsHeaderInMarkdown, fieldNumber: 14)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -315,7 +315,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     if lhs.noProgress != rhs.noProgress {return false}
     if lhs._linksStateFilters != rhs._linksStateFilters {return false}
     if lhs.includeBacklinks != rhs.includeBacklinks {return false}
-    if lhs.includeSpace != rhs.includeSpace {return false}
+    if lhs.includeRelationsHeaderInMarkdown != rhs.includeRelationsHeaderInMarkdown {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

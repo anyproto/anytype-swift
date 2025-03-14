@@ -56,6 +56,11 @@ final class HomeWidgetsViewModel: ObservableObject {
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
+            
+            // Reset panel for empty state
+            if newWidgetBlocks.isEmpty && homeState == .editWidgets {
+                homeState = .readwrite
+            }
         }
     }
     

@@ -19,7 +19,7 @@ public struct Anytype_Model_InvitePayload: @unchecked Sendable {
 
   public var creatorName: String = String()
 
-  public var inviteKey: Data = Data()
+  public var aclKey: Data = Data()
 
   public var spaceID: String = String()
 
@@ -28,6 +28,10 @@ public struct Anytype_Model_InvitePayload: @unchecked Sendable {
   public var spaceIconCid: String = String()
 
   public var spaceIconEncryptionKeys: [Anytype_Model_FileEncryptionKey] = []
+
+  public var inviteType: Anytype_Model_InvitePayload.InviteType = .joinAsMember
+
+  public var guestKey: Data = Data()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -39,11 +43,13 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "creatorIdentity"),
     2: .same(proto: "creatorName"),
-    3: .same(proto: "inviteKey"),
+    3: .same(proto: "aclKey"),
     4: .same(proto: "spaceId"),
     5: .same(proto: "spaceName"),
     6: .same(proto: "spaceIconCid"),
     7: .same(proto: "spaceIconEncryptionKeys"),
+    8: .same(proto: "inviteType"),
+    9: .same(proto: "guestKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -54,11 +60,13 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.creatorIdentity) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.creatorName) }()
-      case 3: try { try decoder.decodeSingularBytesField(value: &self.inviteKey) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.aclKey) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.spaceIconCid) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.spaceIconEncryptionKeys) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
+      case 9: try { try decoder.decodeSingularBytesField(value: &self.guestKey) }()
       default: break
       }
     }
@@ -71,8 +79,8 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.creatorName.isEmpty {
       try visitor.visitSingularStringField(value: self.creatorName, fieldNumber: 2)
     }
-    if !self.inviteKey.isEmpty {
-      try visitor.visitSingularBytesField(value: self.inviteKey, fieldNumber: 3)
+    if !self.aclKey.isEmpty {
+      try visitor.visitSingularBytesField(value: self.aclKey, fieldNumber: 3)
     }
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 4)
@@ -86,17 +94,25 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.spaceIconEncryptionKeys.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.spaceIconEncryptionKeys, fieldNumber: 7)
     }
+    if self.inviteType != .joinAsMember {
+      try visitor.visitSingularEnumField(value: self.inviteType, fieldNumber: 8)
+    }
+    if !self.guestKey.isEmpty {
+      try visitor.visitSingularBytesField(value: self.guestKey, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_InvitePayload, rhs: Anytype_Model_InvitePayload) -> Bool {
     if lhs.creatorIdentity != rhs.creatorIdentity {return false}
     if lhs.creatorName != rhs.creatorName {return false}
-    if lhs.inviteKey != rhs.inviteKey {return false}
+    if lhs.aclKey != rhs.aclKey {return false}
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.spaceName != rhs.spaceName {return false}
     if lhs.spaceIconCid != rhs.spaceIconCid {return false}
     if lhs.spaceIconEncryptionKeys != rhs.spaceIconEncryptionKeys {return false}
+    if lhs.inviteType != rhs.inviteType {return false}
+    if lhs.guestKey != rhs.guestKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

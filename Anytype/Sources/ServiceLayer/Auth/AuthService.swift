@@ -15,6 +15,8 @@ final class AuthService: AuthServiceProtocol, Sendable {
     private let authMiddleService: any AuthMiddleServiceProtocol = Container.shared.authMiddleService()
     private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
 
+    private let joinStreamUrl = FeatureFlags.joinStream ? Bundle.main.object(forInfoDictionaryKey: "JoinStreamURL") as? String ?? "" : ""
+    
     private lazy var rootPath: String = {
         localRepoService.middlewareRepoPath
     }()
@@ -38,6 +40,7 @@ final class AuthService: AuthServiceProtocol, Sendable {
             imagePath: imagePath,
             iconOption: iconOption,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
+            joinStreamUrl: joinStreamUrl,
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )
 
@@ -65,7 +68,7 @@ final class AuthService: AuthServiceProtocol, Sendable {
 
     func accountRecover() async throws {
         try await authMiddleService.accountRecover()
-        loginStateService.setupStateAfterAuth()
+        await loginStateService.setupStateAfterAuth()
     }
     
     func selectAccount(id: String) async throws -> AccountData {
@@ -75,6 +78,7 @@ final class AuthService: AuthServiceProtocol, Sendable {
             id: id,
             rootPath: rootPath,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
+            joinStreamUrl: joinStreamUrl,
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )
         

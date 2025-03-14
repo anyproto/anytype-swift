@@ -4,6 +4,153 @@
 import Foundation
 import ProtobufMessages
 
+extension Anytype_Rpc.AI.Autofill.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "AI.Autofill.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.Autofill.badInput")
+            case .rateLimitExceeded:
+                return String(localized: "AI.Autofill.rateLimitExceeded", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.Autofill.rateLimitExceeded")
+            case .endpointNotReachable:
+                return String(localized: "AI.Autofill.endpointNotReachable", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.Autofill.endpointNotReachable")
+            case .modelNotFound:
+                return String(localized: "AI.Autofill.modelNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.Autofill.modelNotFound")
+            case .authRequired:
+                return String(localized: "AI.Autofill.authRequired", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.Autofill.authRequired")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.AI.ListSummary.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "AI.ListSummary.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ListSummary.badInput")
+            case .rateLimitExceeded:
+                return String(localized: "AI.ListSummary.rateLimitExceeded", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ListSummary.rateLimitExceeded")
+            case .endpointNotReachable:
+                return String(localized: "AI.ListSummary.endpointNotReachable", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ListSummary.endpointNotReachable")
+            case .modelNotFound:
+                return String(localized: "AI.ListSummary.modelNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ListSummary.modelNotFound")
+            case .authRequired:
+                return String(localized: "AI.ListSummary.authRequired", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ListSummary.authRequired")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "AI.ObjectCreateFromUrl.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.badInput")
+            case .rateLimitExceeded:
+                return String(localized: "AI.ObjectCreateFromUrl.rateLimitExceeded", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.rateLimitExceeded")
+            case .endpointNotReachable:
+                return String(localized: "AI.ObjectCreateFromUrl.endpointNotReachable", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.endpointNotReachable")
+            case .modelNotFound:
+                return String(localized: "AI.ObjectCreateFromUrl.modelNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.modelNotFound")
+            case .authRequired:
+                return String(localized: "AI.ObjectCreateFromUrl.authRequired", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.ObjectCreateFromUrl.authRequired")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.AI.WritingTools.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "AI.WritingTools.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.WritingTools.badInput")
+            case .rateLimitExceeded:
+                return String(localized: "AI.WritingTools.rateLimitExceeded", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.WritingTools.rateLimitExceeded")
+            case .endpointNotReachable:
+                return String(localized: "AI.WritingTools.endpointNotReachable", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.WritingTools.endpointNotReachable")
+            case .modelNotFound:
+                return String(localized: "AI.WritingTools.modelNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.WritingTools.modelNotFound")
+            case .authRequired:
+                return String(localized: "AI.WritingTools.authRequired", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.WritingTools.authRequired")
+            case .languageNotSupported:
+                return String(localized: "AI.WritingTools.languageNotSupported", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "AI.WritingTools.languageNotSupported")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -6760,6 +6907,33 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: @retroactive Locali
             case .noActiveInvite:
                 return String(localized: "Space.InviteGetCurrent.noActiveInvite", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Space.InviteGetCurrent.noActiveInvite")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Space.InviteGetGuest.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Space.InviteGetGuest.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.InviteGetGuest.badInput")
+            case .invalidSpaceType:
+                return String(localized: "Space.InviteGetGuest.invalidSpaceType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.InviteGetGuest.invalidSpaceType")
             case .UNRECOGNIZED:
                 return ""
         }
