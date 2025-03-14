@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Objek terhapus";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Property ‘%@’ has been created";
-"Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
-"Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Properti '%@' telah dibuat";
+"Fields.Updated" = "Properti '%@' telah diperbarui";
+"Fields.menu" = "Menu properti";
+"Fields.local" = "Properti lokal";
+"Fields.missingInfo" = "Beberapa properti tidak dimasukkan dalam tipe objek ini. Silakan tambahkan jika kamu ingin melihatnya pada semua objek dalam tipe ini, atau hapus saja propertinya.";
 "Fields.addToType" = "Tambahkan ke tipe saat ini";
 "Fields.removeFromObject" = "Hapus dari objek";
 
 
-"Featured relations" = "Featured properties";
-"Create relation" = "Create property ‘%@’";
+"Featured relations" = "Properti pilihan";
+"Create relation" = "Buat properti '%@'";
 "Relation.View.Hint.Empty" = "kosong";
-"Relation.MyRelations" = "My properties";
-"Relation.Deleted" = "Deleted property";
+"Relation.MyRelations" = "Propertiku";
+"Relation.Deleted" = "Properti terhapus";
 "Relation.From.Type" = "Dari tipe %@";
 "Relation.EmptyState.title" = "Tidak ada opsi";
 "Relation.EmptyState.description" = "Tidak ada yang ditemukan. Buat opsi pertama untuk memulai.";
-"Relation.EmptyState.Blocked.title" = "The property is empty";
+"Relation.EmptyState.Blocked.title" = "Propertinya kosong";
 "Relation.Create.Row.title" = "Buat “%@”";
 "Relation.View.Create.title" = "Buat opsi";
 "Relation.View.Edit.title" = "Sunting opsi";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "Surel";
 "Relation.Format.Phone.Title" = "Nomor telepon";
 
-"Relation.Search.View.Placeholder" = "Search or create a new property";
+"Relation.Search.View.Placeholder" = "Telusuri atau buat properti baru";
 
 // Origin Relation
 
@@ -219,8 +219,8 @@
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Sunting Profil";
 "Object Types" = "Tipe Objek";
-"Resolve layout conflict" = "Resolve layout conflict";
-"Reset to default" = "Reset to default";
+"Resolve layout conflict" = "Lerai konflik tata letak";
+"Reset to default" = "Atur ulang ke bawaan";
 
 // Home
 "Favorites" = "Favorit";
@@ -490,8 +490,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Pilih kueri";
-"Set.FeaturedRelations.RelationsList" = "Properties:";
-"Set.FeaturedRelations.Relation" = "Property:";
+"Set.FeaturedRelations.RelationsList" = "Properti:";
+"Set.FeaturedRelations.Relation" = "Properti:";
 "Set.FeaturedRelations.Type" = "Tipe:";
 
 // MARK: - Set.Bookmarks
@@ -507,7 +507,7 @@
 "Set.View.Settings.GroupBy.Title" = "Kelompokkan berdasarkan";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Warna kolom";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No properties";
+"Set.View.Settings.NoRelations.Placeholder" = "Tidak ada properti";
 "Set.View.Settings.NoFilters.Placeholder" = "Tidak ada saringan";
 "Set.View.Settings.NoSorts.Placeholder" = "Tidak ada urutan";
 "Set.View.Settings.Objects.Applied.Title" = "%d direrapkan";
@@ -572,7 +572,7 @@
 "Enter number" = "Masukkan angka";
 "Enter text" = "Masukkan teks";
 "Unsupported value" = "Nilai tak didukung";
-"Select relation type" = "Select property type";
+"Select relation type" = "Pilih jenis properti";
 "CommonOpenErrorView.Message" = "Tidak ada data yang ditemukan";
 "AreYouSure" = "Apakah kamu yakin?";
 "Nothing found" = "Nothing found";
@@ -584,8 +584,8 @@
 "Type" = "Tipe";
 "Types" = "Tipe";
 "No name" = "Tanpa nama";
-"New field" = "New property";
-"Edit field" = "Edit property";
+"New field" = "Properti baru";
+"Edit field" = "Sunting properti";
 "Non-existent object" = "Objek tidak ada";
 
 "Select all" = "Pilih semua";
@@ -621,7 +621,7 @@
 "Edit" = "Sunting";
 "Hidden" = "Disembunyikan";
 "In this object" = "Di objek ini";
-"Other relations" = "Other properties";
+"Other relations" = "Properti lain";
 "Collection of objects" = "Kumpulan dari objek";
 "Designed to capture thoughts quickly" = "Didesain untuk menangkap pemikiran dengan cepat";
 "Action-focused layout with a checkbox" = "Tata letak berfokus pada aksi dengan sebuah centang";
@@ -1246,6 +1246,8 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tambahkan Reaksi";
 "Message.Action.Reply" = "Balas";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Salin Teks Polos";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
 "Message.ChatTitle.Placeholder" = "Obrolan Nirjudul";
 
@@ -1295,6 +1297,7 @@ Please provide specific details of your needs here.";
 "Chat.CreateObject.Dismiss.Ok" = "Ya, tutup";
 "Chat.Attach.Page.title" = "Lampirkan Halaman";
 "Chat.Attach.List.title" = "Lampirkan Daftar";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
@@ -1323,4 +1326,4 @@ Please provide specific details of your needs here.";
 "Migration.Error.NotEnoughtSpace.message" = "Bersihkan ruang penyimpanan lalu coba lagi.";
 
 // MARK: - Primitives
-"Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";
+"Primitives.LayoutConflict.Description" = "Tata letak ini berbeda dengan tata letak bawaan tipe ini. Samakan?";
