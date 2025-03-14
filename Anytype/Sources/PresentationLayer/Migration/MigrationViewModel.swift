@@ -8,6 +8,7 @@ struct MigrationModuleData: Identifiable {
 }
 
 enum MigrationState: Equatable {
+    case initial
     case progress
     case error(title: String, message: String)
 }
@@ -19,9 +20,9 @@ final class MigrationViewModel: ObservableObject {
     private var activeProcess: Process?
     
     @Published var progress: CGFloat = 0
-    @Published var startFlowId = UUID().uuidString
+    @Published var startFlowId: String?
     @Published var dismiss = false
-    @Published var state = MigrationState.progress
+    @Published var state = MigrationState.initial
     
     @Injected(\.accountMigrationService)
     private var accountMigrationService: any AccountMigrationServiceProtocol
@@ -30,18 +31,33 @@ final class MigrationViewModel: ObservableObject {
     @Injected(\.processSubscriptionService)
     private var processSubscriptionService: any ProcessSubscriptionServiceProtocol
     
+    private weak var output: (any MigrationModuleOutput)?
     private var processSubscription: AnyCancellable?
     
     // MARK: - Initializer
     
-    init(data: MigrationModuleData) {
+    init(data: MigrationModuleData, output: (any MigrationModuleOutput)?) {
         self.data = data
+        self.output = output
     }
     
     func startFlow() async {
         async let processSubscription: () = subscribeOnProcess()
         async let migration: () = startMigration()
         (_, _) = await (processSubscription, migration)
+    }
+    
+    func startUpdate() {
+        state = .progress
+        startFlowId = UUID().uuidString
+    }
+    
+    func readMore() {
+        output?.onReadMoreTap()
+    }
+    
+    func onDebugTap() {
+        output?.onDebugTap()
     }
     
     private func subscribeOnProcess() async {
