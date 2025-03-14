@@ -666,8 +666,14 @@ extension AnytypeAnalytics {
             ])
     }
     
-    func logSearchResult(spaceId: String) {
-        logEvent("SearchResult", spaceId: spaceId)
+    func logSearchResult(spaceId: String, objectType: String? = nil) {
+        logEvent(
+            "SearchResult",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType
+            ].compactMapValues { $0 }
+        )
     }
     
     func logSearchInput(spaceId: String, route: SearchInputRoute? = nil) {

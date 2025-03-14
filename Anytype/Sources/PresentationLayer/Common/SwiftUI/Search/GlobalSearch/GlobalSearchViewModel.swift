@@ -72,6 +72,7 @@ final class GlobalSearchViewModel: ObservableObject {
     func onSectionChanged(_ section: ObjectTypeSection) {
         sectionChanged = true
         state.section = section
+        AnytypeAnalytics.instance().logChangeLibraryType(type: section.analyticsValue)
     }
     
     func onSearchTextChanged() {
@@ -84,7 +85,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSelect(searchData: SearchWithMetaModel) {
-        AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId)
+        AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId, objectType: state.section.analyticsValue)
         dismiss.toggle()
         moduleData.onSelect(searchData.editorScreenData)
     }
