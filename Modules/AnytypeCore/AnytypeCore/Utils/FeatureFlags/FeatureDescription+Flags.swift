@@ -155,6 +155,14 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let chatCounters = FeatureDescription(
+        title: "Counters",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: true
+    )
+    
     static let httpsLinkForObjectCopy = FeatureDescription(
         title: "https link for objects copy action",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),

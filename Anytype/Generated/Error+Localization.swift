@@ -3031,6 +3031,33 @@ extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: @retroactive Localiz
     }
 }
 
+extension Anytype_Rpc.Chat.ReadMessages.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.ReadMessages.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.ReadMessages.badInput")
+            case .messagesNotFound:
+                return String(localized: "Chat.ReadMessages.messagesNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.ReadMessages.messagesNotFound")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3097,6 +3124,30 @@ extension Anytype_Rpc.Chat.ToggleMessageReaction.Response.Error: @retroactive Lo
             case .badInput:
                 return String(localized: "Chat.ToggleMessageReaction.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Chat.ToggleMessageReaction.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Chat.Unread.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.Unread.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.Unread.badInput")
             case .UNRECOGNIZED:
                 return ""
         }

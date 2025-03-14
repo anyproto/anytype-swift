@@ -1,5 +1,6 @@
 import SwiftUI
 import PhotosUI
+import AnytypeCore
 
 struct ChatView: View {
     
@@ -153,6 +154,14 @@ struct ChatView: View {
         ChatEmptyStateView()
     }
     
+    private var actionView: some View {
+        ChatActionPanelView(model: model.actionModel) {
+            model.onTapScrollToBottom()
+        } onTapMention: {
+            model.onTapMention()
+        }
+    }
+    
     @ViewBuilder
     private var mainView: some View {
         ChatCollectionView(
@@ -162,16 +171,28 @@ struct ChatView: View {
             emptyView: emptyView,
             showEmptyState: model.showEmptyState
         ) {
-            MessageView(data: $0, output: model)
+            cell(data: $0)
         } headerBuilder: {
             ChatMessageHeaderView(text: $0)
+        } actionView: {
+            actionView
         } scrollToTop: {
             await model.scrollToTop()
         } scrollToBottom: {
             await model.scrollToBottom()
-        } handleVisibleRange: { fromId, toId in
-            model.visibleRangeChanged(fromId: fromId, toId: toId)
+        } handleVisibleRange: { from, to in
+            model.visibleRangeChanged(from: from, to: to)
         }
         .messageYourBackgroundColor(model.messageYourBackgroundColor)
+    }
+    
+    @ViewBuilder
+    private func cell(data: MessageSectionItem) -> some View {
+        switch data {
+        case .message(let data):
+            MessageView(data: data, output: model)
+        case .unread:
+            ChatMessageHeaderView(text: Loc.Chat.newMessages)
+        }
     }
 }

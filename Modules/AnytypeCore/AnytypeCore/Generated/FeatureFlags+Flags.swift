@@ -94,6 +94,10 @@ public extension FeatureFlags {
         value(for: .disableRestoreLastScreen)
     }
 
+    static var chatCounters: Bool {
+        value(for: .chatCounters)
+    }
+
     static var httpsLinkForObjectCopy: Bool {
         value(for: .httpsLinkForObjectCopy)
     }
@@ -174,6 +178,7 @@ public extension FeatureFlags {
         .openTypeAsSet,
         .anyAppBetaTip,
         .disableRestoreLastScreen,
+        .chatCounters,
         .httpsLinkForObjectCopy,
         .rainbowViews,
         .showAlertOnAssert,

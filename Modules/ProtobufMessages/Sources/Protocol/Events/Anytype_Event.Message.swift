@@ -621,12 +621,30 @@ extension Anytype_Event {
       set {_uniqueStorage()._value = .chatUpdateReactions(newValue)}
     }
 
+    /// received to update per-message read status (if needed to highlight the unread messages in the UI)
+    public var chatUpdateReadStatus: Anytype_Event.Chat.UpdateReadStatus {
+      get {
+        if case .chatUpdateReadStatus(let v)? = _storage._value {return v}
+        return Anytype_Event.Chat.UpdateReadStatus()
+      }
+      set {_uniqueStorage()._value = .chatUpdateReadStatus(newValue)}
+    }
+
     public var chatDelete: Anytype_Event.Chat.Delete {
       get {
         if case .chatDelete(let v)? = _storage._value {return v}
         return Anytype_Event.Chat.Delete()
       }
       set {_uniqueStorage()._value = .chatDelete(newValue)}
+    }
+
+    /// in case new unread messages received or chat state changed (e.g. message read on another device)
+    public var chatStateUpdate: Anytype_Event.Chat.UpdateState {
+      get {
+        if case .chatStateUpdate(let v)? = _storage._value {return v}
+        return Anytype_Event.Chat.UpdateState()
+      }
+      set {_uniqueStorage()._value = .chatStateUpdate(newValue)}
     }
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -715,7 +733,9 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     128: .same(proto: "chatAdd"),
     129: .same(proto: "chatUpdate"),
     130: .same(proto: "chatUpdateReactions"),
+    134: .same(proto: "chatUpdateReadStatus"),
     131: .same(proto: "chatDelete"),
+    133: .same(proto: "chatStateUpdate"),
   ]
 
   fileprivate class _StorageClass {
@@ -1666,6 +1686,32 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
         }()
         case 132: try { try decoder.decodeSingularStringField(value: &_storage._spaceID) }()
+        case 133: try {
+          var v: Anytype_Event.Chat.UpdateState?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatStateUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatStateUpdate(v)
+          }
+        }()
+        case 134: try {
+          var v: Anytype_Event.Chat.UpdateReadStatus?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatUpdateReadStatus(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatUpdateReadStatus(v)
+          }
+        }()
         case 201: try {
           var v: Anytype_Event.Account.Details?
           var hadOneofValue = false
@@ -2030,6 +2076,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try visitor.visitSingularStringField(value: _storage._spaceID, fieldNumber: 132)
       }
       switch _storage._value {
+      case .chatStateUpdate?: try {
+        guard case .chatStateUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 133)
+      }()
+      case .chatUpdateReadStatus?: try {
+        guard case .chatUpdateReadStatus(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 134)
+      }()
       case .accountDetails?: try {
         guard case .accountDetails(let v)? = _storage._value else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 201)

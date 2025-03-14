@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Chat {
-    public struct GetMessages: Sendable {
+    public struct Unread: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,18 +24,10 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// id of the chat object
         public var chatObjectID: String = String()
 
-        /// OrderId of the message after which to get messages
         public var afterOrderID: String = String()
-
-        /// OrderId of the message before which to get messages
-        public var beforeOrderID: String = String()
-
-        public var limit: Int32 = 0
-
-        /// If true, include a message at the boundary (afterOrderId or beforeOrderId)
-        public var includeBoundary: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -47,8 +39,8 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Chat.GetMessages.Response.Error {
-          get {return _error ?? Anytype_Rpc.Chat.GetMessages.Response.Error()}
+        public var error: Anytype_Rpc.Chat.Unread.Response.Error {
+          get {return _error ?? Anytype_Rpc.Chat.Unread.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -56,16 +48,14 @@ extension Anytype_Rpc.Chat {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
-        public var messages: [Anytype_Model_ChatMessage] = []
-
-        public var chatState: Anytype_Model_ChatState {
-          get {return _chatState ?? Anytype_Model_ChatState()}
-          set {_chatState = newValue}
+        public var event: Anytype_ResponseEvent {
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
         }
-        /// Returns true if `chatState` has been explicitly set.
-        public var hasChatState: Bool {return self._chatState != nil}
-        /// Clears the value of `chatState`. Subsequent reads from it will return its default value.
-        public mutating func clearChatState() {self._chatState = nil}
+        /// Returns true if `event` has been explicitly set.
+        public var hasEvent: Bool {return self._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        public mutating func clearEvent() {self._event = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -74,7 +64,7 @@ extension Anytype_Rpc.Chat {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Chat.GetMessages.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Chat.Unread.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -84,8 +74,6 @@ extension Anytype_Rpc.Chat {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
             case UNRECOGNIZED(Int)
 
@@ -112,7 +100,7 @@ extension Anytype_Rpc.Chat {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Chat.GetMessages.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Chat.Unread.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -125,16 +113,16 @@ extension Anytype_Rpc.Chat {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Chat.GetMessages.Response.Error? = nil
-        fileprivate var _chatState: Anytype_Model_ChatState? = nil
+        fileprivate var _error: Anytype_Rpc.Chat.Unread.Response.Error? = nil
+        fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Chat.GetMessages: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".GetMessages"
+extension Anytype_Rpc.Chat.Unread: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".Unread"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -146,20 +134,17 @@ extension Anytype_Rpc.Chat.GetMessages: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.GetMessages, rhs: Anytype_Rpc.Chat.GetMessages) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Unread, rhs: Anytype_Rpc.Chat.Unread) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.GetMessages.protoMessageName + ".Request"
+extension Anytype_Rpc.Chat.Unread.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Unread.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "chatObjectId"),
-    4: .same(proto: "afterOrderId"),
-    2: .same(proto: "beforeOrderId"),
-    3: .same(proto: "limit"),
-    5: .same(proto: "includeBoundary"),
+    2: .same(proto: "chatObjectId"),
+    3: .same(proto: "afterOrderId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -168,11 +153,8 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.beforeOrderID) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.afterOrderID) }()
-      case 5: try { try decoder.decodeSingularBoolField(value: &self.includeBoundary) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.afterOrderID) }()
       default: break
       }
     }
@@ -180,40 +162,27 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.chatObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 1)
-    }
-    if !self.beforeOrderID.isEmpty {
-      try visitor.visitSingularStringField(value: self.beforeOrderID, fieldNumber: 2)
-    }
-    if self.limit != 0 {
-      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 3)
+      try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 2)
     }
     if !self.afterOrderID.isEmpty {
-      try visitor.visitSingularStringField(value: self.afterOrderID, fieldNumber: 4)
-    }
-    if self.includeBoundary != false {
-      try visitor.visitSingularBoolField(value: self.includeBoundary, fieldNumber: 5)
+      try visitor.visitSingularStringField(value: self.afterOrderID, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.GetMessages.Request, rhs: Anytype_Rpc.Chat.GetMessages.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Unread.Request, rhs: Anytype_Rpc.Chat.Unread.Request) -> Bool {
     if lhs.chatObjectID != rhs.chatObjectID {return false}
     if lhs.afterOrderID != rhs.afterOrderID {return false}
-    if lhs.beforeOrderID != rhs.beforeOrderID {return false}
-    if lhs.limit != rhs.limit {return false}
-    if lhs.includeBoundary != rhs.includeBoundary {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.GetMessages.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.GetMessages.protoMessageName + ".Response"
+extension Anytype_Rpc.Chat.Unread.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Unread.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "messages"),
-    3: .same(proto: "chatState"),
+    2: .same(proto: "event"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -223,8 +192,7 @@ extension Anytype_Rpc.Chat.GetMessages.Response: SwiftProtobuf.Message, SwiftPro
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._chatState) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
       default: break
       }
     }
@@ -238,26 +206,22 @@ extension Anytype_Rpc.Chat.GetMessages.Response: SwiftProtobuf.Message, SwiftPro
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.messages.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.messages, fieldNumber: 2)
-    }
-    try { if let v = self._chatState {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.GetMessages.Response, rhs: Anytype_Rpc.Chat.GetMessages.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Unread.Response, rhs: Anytype_Rpc.Chat.Unread.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.messages != rhs.messages {return false}
-    if lhs._chatState != rhs._chatState {return false}
+    if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.GetMessages.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.GetMessages.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Chat.Unread.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.Unread.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -286,7 +250,7 @@ extension Anytype_Rpc.Chat.GetMessages.Response.Error: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.GetMessages.Response.Error, rhs: Anytype_Rpc.Chat.GetMessages.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.Unread.Response.Error, rhs: Anytype_Rpc.Chat.Unread.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -294,7 +258,7 @@ extension Anytype_Rpc.Chat.GetMessages.Response.Error: SwiftProtobuf.Message, Sw
   }
 }
 
-extension Anytype_Rpc.Chat.GetMessages.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Chat.Unread.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),

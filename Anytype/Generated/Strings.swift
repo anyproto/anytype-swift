@@ -641,6 +641,7 @@ internal enum Loc {
   }
   internal enum Chat {
     internal static let editMessage = Loc.tr("Localizable", "Chat.EditMessage", fallback: "Edit Message")
+    internal static let newMessages = Loc.tr("Localizable", "Chat.NewMessages", fallback: "New messages")
     internal static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
     }
@@ -1230,6 +1231,7 @@ internal enum Loc {
       internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction", fallback: "Add Reaction")
       internal static let copyPlainText = Loc.tr("Localizable", "Message.Action.CopyPlainText", fallback: "Copy Plain Text")
       internal static let reply = Loc.tr("Localizable", "Message.Action.Reply", fallback: "Reply")
+      internal static let unread = Loc.tr("Localizable", "Message.Action.Unread", fallback: "Mark Unread")
     }
     internal enum ChatTitle {
       internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder", fallback: "Untitled Chat")
