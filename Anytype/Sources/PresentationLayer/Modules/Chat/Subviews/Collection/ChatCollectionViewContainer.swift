@@ -137,9 +137,11 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIV
                 self?.setBottomContentOffset()
             }
         } else {
-            
             collectionView.contentInset = newInsets
             collectionView.scrollIndicatorInsets = newInsets
+            if nearBottom {
+                setBottomContentOffset()
+            }
         }
         
         bottomTopConstraint?.constant = -contentInset.bottom
