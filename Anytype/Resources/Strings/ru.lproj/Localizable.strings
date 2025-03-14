@@ -1248,6 +1248,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "Добавить реакцию";
 "Message.Action.Reply" = "Ответить";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
 "Message.ChatTitle.Placeholder" = "Чат без названия";
 
@@ -1297,6 +1299,7 @@
 "Chat.CreateObject.Dismiss.Ok" = "Да, закрыть";
 "Chat.Attach.Page.title" = "Прикрепить страницу";
 "Chat.Attach.List.title" = "Прикрепить список";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";

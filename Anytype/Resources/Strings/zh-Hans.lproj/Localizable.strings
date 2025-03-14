@@ -1247,6 +1247,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
 "Message.Action.Reply" = "回复";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "写一段话…";
 "Message.ChatTitle.Placeholder" = "未命名对话";
 
@@ -1296,6 +1298,7 @@
 "Chat.CreateObject.Dismiss.Ok" = "Yes, close";
 "Chat.Attach.Page.title" = "Attach Page";
 "Chat.Attach.List.title" = "Attach List";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";

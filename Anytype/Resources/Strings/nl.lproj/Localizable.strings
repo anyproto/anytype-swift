@@ -1247,6 +1247,8 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Voeg reactie toe";
 "Message.Action.Reply" = "Antwoord";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Schrijf een bericht...";
 "Message.ChatTitle.Placeholder" = "Naamloze chat";
 
@@ -1296,6 +1298,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.CreateObject.Dismiss.Ok" = "Ja, sluiten";
 "Chat.Attach.Page.title" = "Voeg pagina bij";
 "Chat.Attach.List.title" = "Voeg lijst bij";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";

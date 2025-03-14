@@ -1245,6 +1245,8 @@ En concreto,
 // MARK: - Messages
 "Message.Action.AddReaction" = "Añadir reacción";
 "Message.Action.Reply" = "Responder";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Escribe un mensaje...";
 "Message.ChatTitle.Placeholder" = "Chat sin título";
 
@@ -1294,6 +1296,7 @@ En concreto,
 "Chat.CreateObject.Dismiss.Ok" = "Sí, cerrarla";
 "Chat.Attach.Page.title" = "Adjuntar página";
 "Chat.Attach.List.title" = "Adjuntar lista";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";

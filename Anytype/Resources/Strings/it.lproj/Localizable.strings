@@ -1245,6 +1245,8 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Aggiungi una Reazione";
 "Message.Action.Reply" = "Rispondi";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Scrivi un messaggio...";
 "Message.ChatTitle.Placeholder" = "Chat senza titolo";
 
@@ -1294,6 +1296,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.CreateObject.Dismiss.Ok" = "Sì, chiudi";
 "Chat.Attach.Page.title" = "Allega Pagina";
 "Chat.Attach.List.title" = "Allega Lista";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
