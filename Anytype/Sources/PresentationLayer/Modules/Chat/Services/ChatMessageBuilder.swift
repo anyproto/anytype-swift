@@ -86,7 +86,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     yourProfileIdentity: yourProfileIdentity,
                     isYourMessage: isYourMessage
                 ),
-                canAddReaction: limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+                canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+                canReply: canEdit,
                 nextSpacing: lastInSection ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 authorIconMode: isYourMessage ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage,
