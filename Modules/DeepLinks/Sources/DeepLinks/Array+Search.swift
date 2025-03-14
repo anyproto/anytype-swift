@@ -1,6 +1,6 @@
 import Foundation
 
-extension Array where Element == URLQueryItem {
+public extension Array where Element == URLQueryItem {
     func stringValue(key: String) -> String? {
         first(where: { $0.name == key })?.value
     }

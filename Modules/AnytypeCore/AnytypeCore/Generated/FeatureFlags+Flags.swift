@@ -94,6 +94,10 @@ public extension FeatureFlags {
         value(for: .disableRestoreLastScreen)
     }
 
+    static var httpsLinkForObjectCopy: Bool {
+        value(for: .httpsLinkForObjectCopy)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -170,6 +174,7 @@ public extension FeatureFlags {
         .openTypeAsSet,
         .anyAppBetaTip,
         .disableRestoreLastScreen,
+        .httpsLinkForObjectCopy,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
