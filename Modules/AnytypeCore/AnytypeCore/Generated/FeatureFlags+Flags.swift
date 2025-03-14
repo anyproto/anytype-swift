@@ -126,6 +126,10 @@ public extension FeatureFlags {
         value(for: .chatLayoutInsideSpace)
     }
 
+    static var joinStream: Bool {
+        value(for: .joinStream)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -210,6 +214,7 @@ public extension FeatureFlags {
         .disableRestoreLastScreen,
         .spaceHubNewTitle,
         .chatLayoutInsideSpace,
+        .joinStream,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

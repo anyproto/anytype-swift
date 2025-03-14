@@ -15,7 +15,7 @@ final class AuthService: AuthServiceProtocol, Sendable {
     private let authMiddleService: any AuthMiddleServiceProtocol = Container.shared.authMiddleService()
     private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
 
-    private let joinStreamUrl = Bundle.main.object(forInfoDictionaryKey: "JoinStreamURL") as? String ?? ""
+    private let joinStreamUrl = FeatureFlags.joinStream ? Bundle.main.object(forInfoDictionaryKey: "JoinStreamURL") as? String ?? "" : ""
     
     private lazy var rootPath: String = {
         localRepoService.middlewareRepoPath

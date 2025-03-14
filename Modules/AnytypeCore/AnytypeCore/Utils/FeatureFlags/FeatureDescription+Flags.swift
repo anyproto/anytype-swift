@@ -216,6 +216,14 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let joinStream = FeatureDescription(
+        title: "Join to stream after login",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
