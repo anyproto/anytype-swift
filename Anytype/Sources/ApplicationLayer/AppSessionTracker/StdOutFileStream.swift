@@ -5,7 +5,7 @@ protocol StdOutFileStreamProtocol: AnyObject {
     var fileName: String { get }
 }
 
-#if RELEASE_ANYTYPE
+#if RELEASE_ANYTYPE || DEBUG
 final class StdOutFileStream: StdOutFileStreamProtocol {
     var folderURL: URL { FileManager.default.temporaryDirectory }
     var fileName: String { "" }
@@ -48,7 +48,9 @@ final class StdOutFileStream: StdOutFileStreamProtocol {
         
         readQueue = DispatchQueue(
             label: "io.anytype.stdout",
-            qos: .utility,
+            // It's OK. StdOutFileStream works only in test builds.
+            // Tihs proprity probably guarantee that all logs will be write before the crash.
+            qos: .userInteractive,
             attributes: .concurrent
         )
         

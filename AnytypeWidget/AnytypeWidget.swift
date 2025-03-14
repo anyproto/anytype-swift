@@ -39,7 +39,7 @@ struct SimpleEntry: TimelineEntry {
 struct AnytypeWidgetEntryView : View {
     var entry: StaticProvider.Entry
 
-    #if DEBUG
+    #if DEBUG || RELEASE_NIGHTLY
         private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .debug)
     #elseif RELEASE_ANYTYPE
         private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .releaseAnytype)

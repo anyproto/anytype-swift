@@ -37,7 +37,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             options.swiftAsyncStacktraces = true
             options.enableAppHangTracking = false
             
-            #if DEBUG
+            #if DEBUG || RELEASE_NIGHTLY
             options.attachViewHierarchy = true
             options.enableTimeToFullDisplayTracing = true
             options.tracesSampleRate = 1.0

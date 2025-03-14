@@ -3,7 +3,7 @@ import Services
 
 extension AccountData {
     var allowMembership: Bool {
-        #if DEBUG || RELEASE_ANYTYPE
+        #if DEBUG || RELEASE_NIGHTLY || RELEASE_ANYTYPE
             return isInProdOrStagingNetwork
         #else
             return false
