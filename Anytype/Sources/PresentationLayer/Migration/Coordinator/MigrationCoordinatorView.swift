@@ -14,7 +14,7 @@ struct MigrationCoordinatorView: View {
             output: model
         )
         .sheet(isPresented: $model.showMigrationInfo) {
-            PublicDebugMenuView()
+            MigrationReadMoreView()
         }
         .sheet(isPresented: $model.showPublicDebugMenu) {
             PublicDebugMenuView()

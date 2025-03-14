@@ -15,7 +15,7 @@ final class MigrationCoordinatorViewModel: ObservableObject, MigrationModuleOutp
     // MARK: - MigrationModuleOutput
     
     func onReadMoreTap() {
-        
+        showMigrationInfo.toggle()
     }
     
     func onDebugTap() {

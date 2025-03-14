@@ -48,6 +48,7 @@ final class MigrationViewModel: ObservableObject {
     }
     
     func startUpdate() {
+        clearProcessData()
         state = .progress
         startFlowId = UUID().uuidString
     }
@@ -88,9 +89,7 @@ final class MigrationViewModel: ObservableObject {
     }
     
     func tryAgainTapped() {
-        clearProcessData()
-        state = .progress
-        startFlowId = UUID().uuidString
+        startUpdate()
     }
     
     private func clearProcessData() {

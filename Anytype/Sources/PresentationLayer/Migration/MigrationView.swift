@@ -45,11 +45,11 @@ struct MigrationView: View {
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(8)
             AnytypeText(Loc.Migration.Initial.subtitle1, style: .calloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(8)
             AnytypeText(Loc.Migration.Initial.subtitle2, style: .calloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
             Spacer()
             
@@ -81,7 +81,7 @@ struct MigrationView: View {
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(8)
             AnytypeText(Loc.Migration.Progress.subtitle, style: .calloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
         }
     }
