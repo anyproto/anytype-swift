@@ -20,13 +20,13 @@ struct ChatActionPanelView: View {
         VStack(spacing: 12) {
             
             if model.showMentions {
-                button(asset: .X24.mention, text: "\(model.mentionsCounter)") {
+                button(asset: .X24.mention, count: model.mentionsCounter) {
                     onTapMention()
                 }
             }
             
             if model.showScrollToBottom {
-                button(asset: .X24.Arrow.down, text: "\(model.srollToBottomCounter)") {
+                button(asset: .X24.Arrow.down, count: model.srollToBottomCounter) {
                     onTapScrollToBottom()
                 }
             }
@@ -35,7 +35,7 @@ struct ChatActionPanelView: View {
         .padding(.vertical, 8)
     }
     
-    private func button(asset: ImageAsset, text: String, action: @escaping () -> Void) -> some View {
+    private func button(asset: ImageAsset, count: Int, action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
@@ -45,18 +45,20 @@ struct ChatActionPanelView: View {
                 .background(.ultraThinMaterial)
                 .cornerRadius(16)
                 .overlay(alignment: .topTrailing) {
-                    Text(text)
-                        .anytypeFontStyle(.caption1Regular) // Without line height multiple
-                        .foregroundStyle(Color.Control.white)
-                        .frame(height: 20)
-                        .padding(.horizontal, 6)
-                        .background(
-                            Capsule()
-                                .fill(Color.Control.transparentActive)
-                                .background(.ultraThinMaterial)
-                                .clipShape(Capsule()) // From iOS 17: Delete clip and use .fill for material
-                        )
-                        .offset(x: 6, y: -6)
+                    if count > 0 {
+                        Text("\(count)")
+                            .anytypeFontStyle(.caption1Regular) // Without line height multiple
+                            .foregroundStyle(Color.Control.white)
+                            .frame(height: 20)
+                            .padding(.horizontal, 6)
+                            .background(
+                                Capsule()
+                                    .fill(Color.Control.transparentActive)
+                                    .background(.ultraThinMaterial)
+                                    .clipShape(Capsule()) // From iOS 17: Delete clip and use .fill for material
+                            )
+                            .offset(x: 6, y: -6)
+                    }
                 }
         }
     }

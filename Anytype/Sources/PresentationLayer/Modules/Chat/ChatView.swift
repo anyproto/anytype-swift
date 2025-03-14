@@ -180,8 +180,8 @@ struct ChatView: View {
             await model.scrollToTop()
         } scrollToBottom: {
             await model.scrollToBottom()
-        } handleVisibleRange: { fromId, toId in
-            model.visibleRangeChanged(fromId: fromId, toId: toId)
+        } handleVisibleRange: { from, to in
+            model.visibleRangeChanged(from: from, to: to)
         }
         .messageYourBackgroundColor(model.messageYourBackgroundColor)
     }

@@ -13,3 +13,14 @@ enum MessageSectionItem: Equatable, Hashable, Identifiable {
         }
     }
 }
+
+extension MessageSectionItem {
+    var messageData: MessageViewData? {
+        switch self {
+        case .message(let data):
+            return data
+        case .unread:
+            return nil
+        }
+    }
+}
