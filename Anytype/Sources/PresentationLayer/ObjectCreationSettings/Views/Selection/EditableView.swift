@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 protocol ContextualMenuItemsProvider {
     @ViewBuilder
     var contextMenuItems: AnyView { get }

@@ -9,6 +9,7 @@ struct KeyboardDismiss {
         self.window = window
     }
     
+    @MainActor
     func callAsFunction() {
         window?.endEditing(true)
     }

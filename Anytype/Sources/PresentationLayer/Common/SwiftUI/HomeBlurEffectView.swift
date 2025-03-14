@@ -48,7 +48,9 @@ final class HomeBlurEffectUIView: UIView {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.setBlurRadius()
+            MainActor.assumeIsolated {
+                self?.setBlurRadius()
+            }
         }
     }
     

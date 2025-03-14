@@ -22,6 +22,7 @@ struct KeyboardEvent {
         endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
     }
     
+    @MainActor
     func animate(_ animation: @escaping () -> Void) {
         guard let animationDuration, let animationCurve else {
             animation()

@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 final class SlashMenuAssembly {
     static func menuController(
         cellData: [SlashMenuCellData] = [],

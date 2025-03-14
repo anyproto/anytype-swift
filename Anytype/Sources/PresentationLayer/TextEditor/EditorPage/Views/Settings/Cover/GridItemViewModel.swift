@@ -34,6 +34,7 @@ struct GridItemSection<Item: GridItemViewModel>: Identifiable {
 protocol GridItemViewModel: Identifiable, GridItemViewRepresentable {}
 
 protocol GridItemViewRepresentable {
+    @MainActor
     var view: AnyView { get }
 }
 
