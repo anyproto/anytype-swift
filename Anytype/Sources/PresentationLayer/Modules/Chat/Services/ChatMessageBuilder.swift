@@ -176,8 +176,8 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let replyAuthor = participants.first { $0.identity == fullMessage.reply?.creator }
             let replyAttachment = fullMessage.replyAttachments.first
             
-            let imagesCount = fullMessage.replyAttachments.count(where: \.layoutValue.isImage)
-            let filesCout = fullMessage.replyAttachments.count(where: \.layoutValue.isFile)
+            let imagesCount = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isImage)
+            let filesCout = fullMessage.replyAttachments.count(where: \.resolvedLayoutValue.isFile)
             
             let description: String
             if replyChat.message.text.isNotEmpty {
@@ -214,7 +214,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         
         if fullMessage.attachments.count == 1,
            let attachment = fullMessage.attachments.first,
-           attachment.layoutValue.isBookmark {
+           attachment.resolvedLayoutValue.isBookmark {
             return .bookmark(attachment)
         }
         
@@ -229,7 +229,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         
         let linkedObjectsDetails = attachmentsDetails.sorted { $0.id > $1.id }
         
-        let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.layoutValue != .image && $0.layoutValue != .video }
+        let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.resolvedLayoutValue != .image && $0.resolvedLayoutValue != .video }
         
         if containsNotOnlyMediaFiles {
             return .list(linkedObjectsDetails)

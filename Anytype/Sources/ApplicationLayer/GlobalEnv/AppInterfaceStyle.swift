@@ -18,17 +18,20 @@ final class AppInterfaceStyle {
         self.defaultStyle = Container.shared.userDefaultsStorage().userInterfaceStyle
     }
     
+    @MainActor
     func setDefaultStyle(_ style: UIUserInterfaceStyle) {
         defaultStyle = style
         userDefaults.userInterfaceStyle = style
         updateUserInterfaceStyle()
     }
     
+    @MainActor
     func overrideDefaultStyle(_ style: UIUserInterfaceStyle?) {
         defaultStyleOverride = style
         updateUserInterfaceStyle()
     }
     
+    @MainActor
     private func updateUserInterfaceStyle() {
         if let defaultStyleOverride {
             window?.overrideUserInterfaceStyle = defaultStyleOverride

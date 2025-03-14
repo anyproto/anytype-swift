@@ -11,8 +11,10 @@ struct PositionCatcher: View {
             )
         }
         .frame(width: 0, height: 0)
-        .onPreferenceChange(PositionCatcherKey.self) {
-            onChange($0.origin)
+        .onPreferenceChange(PositionCatcherKey.self) { data in
+            MainActor.assumeIsolated {
+                onChange(data.origin)
+            }
         }
     }
 }

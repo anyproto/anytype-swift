@@ -87,7 +87,7 @@ struct SetFullHeader: View {
                     style: .secondarySmall
                 ) {
                     model.onObjectTypeLayoutTap()
-                }
+                }.minimumScaleFactor(0.5)
             }
 
             StandardButton(
@@ -95,7 +95,7 @@ struct SetFullHeader: View {
                 style: .secondarySmall
             ) {
                 model.onObjectTypeFieldsTap()
-            }
+            }.minimumScaleFactor(0.5)
             
             if model.showObjectTypeTemplates {
                 StandardButton(
@@ -103,7 +103,7 @@ struct SetFullHeader: View {
                     style: .secondarySmall
                 ) {
                     model.onObjectTypeTemplatesTap()
-                }
+                }.minimumScaleFactor(0.5)
             }
 
             

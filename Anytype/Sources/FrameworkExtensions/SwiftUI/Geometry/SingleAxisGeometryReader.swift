@@ -29,6 +29,10 @@ struct SingleAxisGeometryReader<Content: View>: View
                 proxy in
                 Color.clear.preference(key: SizeKey.self, value: axis == .horizontal ? proxy.size.width : proxy.size.height)
             })
-            .onPreferenceChange(SizeKey.self) { size = $0 }
+            .onPreferenceChange(SizeKey.self) { newSize in
+                MainActor.assumeIsolated {
+                    size = newSize
+                }
+            }
     }
 }

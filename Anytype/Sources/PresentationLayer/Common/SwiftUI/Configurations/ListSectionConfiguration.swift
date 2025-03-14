@@ -5,14 +5,15 @@ struct ListSectionConfiguration: Hashable, Identifiable {
     
     let id: String
     let rows: [ListRowConfiguration]
-    @EquatableNoop var viewBuilder: () -> AnyView
+    @EquatableNoop var viewBuilder: @MainActor () -> AnyView
     
-    init(id: String, rows: [ListRowConfiguration], @ViewBuilder viewBuilder: @escaping () -> AnyView) {
+    init(id: String, rows: [ListRowConfiguration], @ViewBuilder viewBuilder: @escaping @MainActor () -> AnyView) {
         self.id = id
         self.rows = rows
         self.viewBuilder = viewBuilder
     }
     
+    @MainActor
     func makeView() -> some View {
         viewBuilder()
     }

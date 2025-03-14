@@ -68,7 +68,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     private func updateState(details: ObjectDetails) {
         isRemoveButtonAvailable = details.objectIcon != nil
-        detailsLayout = details.layoutValue
+        detailsLayout = details.resolvedLayoutValue
         isRemoveEnabled = makeIsRemoveEnabled(details: details)
     }
     

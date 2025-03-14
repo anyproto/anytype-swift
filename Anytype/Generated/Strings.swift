@@ -308,6 +308,8 @@ internal enum Loc {
   internal static func resendIn(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Resend in", String(describing: p1), fallback: "Resend in %@ sec")
   }
+  internal static let resetToDefault = Loc.tr("Localizable", "Reset to default", fallback: "Reset to default")
+  internal static let resolveLayoutConflict = Loc.tr("Localizable", "Resolve layout conflict", fallback: "Resolve layout conflict")
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   internal static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain", fallback: "Restore from keychain")
   internal static let restoreKeyFromKeychain = Loc.tr("Localizable", "Restore key from keychain", fallback: "Restore Key from the keychain")
@@ -1289,6 +1291,11 @@ internal enum Loc {
   internal enum PermissionChangeNotification {
     internal static func text(_ p1: Any, _ p2: Any) -> String {
       return Loc.tr("Localizable", "PermissionChangeNotification.Text", String(describing: p1), String(describing: p2), fallback: "Your access rights were changed to **%@** in the **%@** space.")
+    }
+  }
+  internal enum Primitives {
+    internal enum LayoutConflict {
+      internal static let description = Loc.tr("Localizable", "Primitives.LayoutConflict.Description", fallback: "This layout differs from the type's default. Reset to match?")
     }
   }
   internal enum QuickAction {

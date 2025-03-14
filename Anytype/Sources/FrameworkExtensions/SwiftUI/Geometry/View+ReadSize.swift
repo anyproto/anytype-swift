@@ -18,8 +18,10 @@ private struct SizeCatcher: View {
                 value: geometry.size
             )
         }
-        .onPreferenceChange(SizeCatcherKey.self) {
-            onChange($0)
+        .onPreferenceChange(SizeCatcherKey.self) { data in
+            MainActor.assumeIsolated {
+                onChange(data)
+            }
         }
     }
 }

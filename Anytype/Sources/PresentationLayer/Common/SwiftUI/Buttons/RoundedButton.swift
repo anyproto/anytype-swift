@@ -42,10 +42,11 @@ struct RoundedButton: View {
                 Spacer()
                 decorationView
                 Spacer.fixedWidth(8)
-                IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+                Image(asset: .RightAttribute.disclosure)
             }
-            .padding(20)
-            .border(12, color: .Shape.primary, lineWidth: 0.5)
+            .padding(.vertical, 20)
+            .padding(.horizontal, 16)
+            .border(16, color: .Shape.primary, lineWidth: 0.5)
         }
     }
     

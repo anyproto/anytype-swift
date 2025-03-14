@@ -65,7 +65,7 @@ struct SettingsView: View {
                         onTap: { model.onAboutTap() }
                     )
                     
-                    #if DEBUG
+                    #if DEBUG || RELEASE_NIGHTLY
                     SettingsSectionItemView(
                         name: "Debug",
                         imageAsset: .Settings.debug,

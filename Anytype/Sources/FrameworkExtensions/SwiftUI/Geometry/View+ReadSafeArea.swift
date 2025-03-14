@@ -18,8 +18,10 @@ private struct SafeAreaCatcher: View {
                 value: geometry.safeAreaInsets
             )
         }
-        .onPreferenceChange(SafeAreaCatcherKey.self) {
-            onChange($0)
+        .onPreferenceChange(SafeAreaCatcherKey.self) { data in
+            MainActor.assumeIsolated {
+                onChange(data)
+            }
         }
     }
 }

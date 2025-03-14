@@ -111,8 +111,8 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
-    static let firebasePushMessages = FeatureDescription(
-        title: "Firebase push messages",
+    static let enablePushMessages = FeatureDescription(
+        title: "Firebase config and enable push messages",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false

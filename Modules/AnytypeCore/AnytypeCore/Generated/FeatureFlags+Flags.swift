@@ -70,8 +70,8 @@ public extension FeatureFlags {
         value(for: .newPlusMenu)
     }
 
-    static var firebasePushMessages: Bool {
-        value(for: .firebasePushMessages)
+    static var enablePushMessages: Bool {
+        value(for: .enablePushMessages)
     }
 
     static var newOnboarding: Bool {
@@ -168,7 +168,7 @@ public extension FeatureFlags {
         .openBookmarkAsLink,
         .newSettings,
         .newPlusMenu,
-        .firebasePushMessages,
+        .enablePushMessages,
         .newOnboarding,
         .disableColorfulSeedPhrase,
         .openTypeAsSet,

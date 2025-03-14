@@ -92,34 +92,42 @@ struct NewSpaceSettingsView: View {
             } label: {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        AnytypeText(Loc.name, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
-                        AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .bodySemibold)
+                        AnytypeText(Loc.name, style: .caption1Regular).foregroundColor(.Text.secondary)
+                        if model.spaceName.isNotEmpty {
+                            AnytypeText(model.spaceName, style: .bodySemibold)
+                        } else {
+                            AnytypeText(Loc.untitled, style: .bodySemibold).foregroundColor(.Text.tertiary)
+                        }
                     }
                     Spacer()
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
-                .border(12, color: .Shape.primary, lineWidth: 0.5)
+                .border(16, color: .Shape.primary, lineWidth: 0.5)
             }
             
-            Spacer.fixedHeight(12)
+            Spacer.fixedHeight(8)
             
             Button {
                 model.onDescriptionTap()
             } label: {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        AnytypeText(Loc.description, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
-                        AnytypeText(model.spaceDescription.isNotEmpty ? model.spaceDescription : Loc.empty, style: .bodyRegular)
+                        AnytypeText(Loc.description, style: .caption1Regular).foregroundColor(.Text.secondary)
+                        if model.spaceDescription.isNotEmpty {
+                            AnytypeText(model.spaceDescription, style: .bodyRegular)
+                                .multilineTextAlignment(.leading)
+                        } else {
+                            AnytypeText(Loc.empty, style: .bodyRegular).foregroundColor(.Text.tertiary)
+                                .multilineTextAlignment(.leading)
+                        }
                     }
                     Spacer()
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
-                .border(12, color: .Shape.primary, lineWidth: 0.5)
+                .border(16, color: .Shape.primary, lineWidth: 0.5)
             }
-            
-            Spacer()
         }
     }
     
@@ -143,7 +151,7 @@ struct NewSpaceSettingsView: View {
                         .padding(.vertical, 14)
                         Spacer()
                     }
-                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                    .border(16, color: .Shape.primary, lineWidth: 0.5)
                 }
                 
                 Button {
@@ -160,7 +168,7 @@ struct NewSpaceSettingsView: View {
                         .padding(.vertical, 14)
                         Spacer()
                     }
-                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                    .border(16, color: .Shape.primary, lineWidth: 0.5)
                 }
             }
         }
@@ -240,7 +248,7 @@ struct NewSpaceSettingsView: View {
                         Spacer.fixedWidth(8)
                         AnytypeText(Loc.SpaceSettings.remoteStorage, style: .previewTitle1Regular)
                         Spacer()
-                        IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+                        Image(asset: .RightAttribute.disclosure)
                     }
                     .padding(20)
                     
