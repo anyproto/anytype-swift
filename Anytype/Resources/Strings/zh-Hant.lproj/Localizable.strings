@@ -1249,6 +1249,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
 "Message.Action.Reply" = "Reply";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Write a message...";
 "Message.ChatTitle.Placeholder" = "Untitled Chat";
 
@@ -1298,6 +1300,7 @@
 "Chat.CreateObject.Dismiss.Ok" = "Yes, close";
 "Chat.Attach.Page.title" = "Attach Page";
 "Chat.Attach.List.title" = "Attach List";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
