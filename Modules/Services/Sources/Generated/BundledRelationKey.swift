@@ -272,6 +272,9 @@ public enum BundledRelationKey: String, Sendable {
     /// Space access type, see enum model.SpaceAccessType
     case spaceAccessType = "spaceAccessType"
 
+    /// Space UX type, see enum model.SpaceUxType
+    case spaceUxType = "spaceUxType"
+
     /// File path or url with original object
     case sourceFilePath = "sourceFilePath"
 
@@ -407,4 +410,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Default object type id that will be set to new sets/collections
     case defaultTypeId = "defaultTypeId"
+
+    /// Automatically generated widget. Used to avoid creating widget if was removed by user
+    case autoWidgetTargets = "autoWidgetTargets"
 }

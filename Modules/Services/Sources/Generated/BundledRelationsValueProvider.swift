@@ -104,6 +104,7 @@ public protocol BundledRelationsValueProvider {
     var iconOption: Int? { get }
     var spaceAccessibility: Int? { get }
     var spaceAccessType: Int? { get }
+    var spaceUxType: Int? { get }
     var sourceFilePath: String { get }
     var fileSyncStatus: Int? { get }
     var fileBackupStatus: Int? { get }
@@ -150,6 +151,7 @@ public protocol BundledRelationsValueProvider {
     var recommendedFileRelations: [ObjectId] { get }
     var defaultViewType: Int? { get }
     var defaultTypeId: ObjectId { get }
+    var autoWidgetTargets: [ObjectId] { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -515,6 +517,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var spaceAccessType: Int? {
         return value(for: BundledRelationKey.spaceAccessType.rawValue)
     }
+    /// Space UX type, see enum model.SpaceUxType
+    var spaceUxType: Int? {
+        return value(for: BundledRelationKey.spaceUxType.rawValue)
+    }
     /// File path or url with original object
     var sourceFilePath: String {
         return value(for: BundledRelationKey.sourceFilePath.rawValue)
@@ -696,5 +702,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Default object type id that will be set to new sets/collections
     var defaultTypeId: ObjectId {
         return value(for: BundledRelationKey.defaultTypeId.rawValue)
+    }
+    /// Automatically generated widget. Used to avoid creating widget if was removed by user
+    var autoWidgetTargets: [ObjectId] {
+        return value(for: BundledRelationKey.autoWidgetTargets.rawValue)
     }
 }

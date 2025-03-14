@@ -2795,12 +2795,12 @@ public struct ClientCommands {
     }
 
     public static func chatReadMessages(
-        _ request: Anytype_Rpc.Chat.Read.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Chat.Read.Request, Anytype_Rpc.Chat.Read.Response> {
+        _ request: Anytype_Rpc.Chat.ReadMessages.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.ReadMessages.Request, Anytype_Rpc.Chat.ReadMessages.Response> {
         return Invocation(messageName: "ChatReadMessages", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatReadMessages(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.Read.Response(serializedBytes: responseData)
+            return try Anytype_Rpc.Chat.ReadMessages.Response(serializedBytes: responseData)
         }
     }
 

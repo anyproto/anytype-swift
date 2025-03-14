@@ -3031,7 +3031,7 @@ extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Chat.Read.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.ReadMessages.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
         if localizeError.isNotEmpty {
@@ -3047,11 +3047,11 @@ extension Anytype_Rpc.Chat.Read.Response.Error: @retroactive LocalizedError {
             case .unknownError:
                 return ""
             case .badInput:
-                return String(localized: "Chat.Read.badInput", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Chat.Read.badInput")
+                return String(localized: "Chat.ReadMessages.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.ReadMessages.badInput")
             case .messagesNotFound:
-                return String(localized: "Chat.Read.messagesNotFound", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Chat.Read.messagesNotFound")
+                return String(localized: "Chat.ReadMessages.messagesNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.ReadMessages.messagesNotFound")
             case .UNRECOGNIZED:
                 return ""
         }

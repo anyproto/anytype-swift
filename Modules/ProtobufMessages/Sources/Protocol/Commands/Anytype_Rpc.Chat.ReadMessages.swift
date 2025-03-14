@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Chat {
-    public struct Read: Sendable {
+    public struct ReadMessages: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -46,7 +46,7 @@ extension Anytype_Rpc.Chat {
         }
 
         // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static let allCases: [Anytype_Rpc.Chat.Read.ReadType] = [
+        public static let allCases: [Anytype_Rpc.Chat.ReadMessages.ReadType] = [
           .messages,
           .replies,
         ]
@@ -58,7 +58,7 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var type: Anytype_Rpc.Chat.Read.ReadType = .messages
+        public var type: Anytype_Rpc.Chat.ReadMessages.ReadType = .messages
 
         /// id of the chat object
         public var chatObjectID: String = String()
@@ -82,8 +82,8 @@ extension Anytype_Rpc.Chat {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Chat.Read.Response.Error {
-          get {return _error ?? Anytype_Rpc.Chat.Read.Response.Error()}
+        public var error: Anytype_Rpc.Chat.ReadMessages.Response.Error {
+          get {return _error ?? Anytype_Rpc.Chat.ReadMessages.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -107,7 +107,7 @@ extension Anytype_Rpc.Chat {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Chat.Read.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Chat.ReadMessages.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -148,7 +148,7 @@ extension Anytype_Rpc.Chat {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Chat.Read.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Chat.ReadMessages.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -162,7 +162,7 @@ extension Anytype_Rpc.Chat {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Chat.Read.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Chat.ReadMessages.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
@@ -170,8 +170,8 @@ extension Anytype_Rpc.Chat {
     }    
 }
 
-extension Anytype_Rpc.Chat.Read: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".Read"
+extension Anytype_Rpc.Chat.ReadMessages: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.protoMessageName + ".ReadMessages"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -183,21 +183,21 @@ extension Anytype_Rpc.Chat.Read: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.Read, rhs: Anytype_Rpc.Chat.Read) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.ReadMessages, rhs: Anytype_Rpc.Chat.ReadMessages) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Chat.Read.ReadType: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Chat.ReadMessages.ReadType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "messages"),
     1: .same(proto: "replies"),
   ]
 }
 
-extension Anytype_Rpc.Chat.Read.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.Read.protoMessageName + ".Request"
+extension Anytype_Rpc.Chat.ReadMessages.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.ReadMessages.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "type"),
     2: .same(proto: "chatObjectId"),
@@ -241,7 +241,7 @@ extension Anytype_Rpc.Chat.Read.Request: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.Read.Request, rhs: Anytype_Rpc.Chat.Read.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.ReadMessages.Request, rhs: Anytype_Rpc.Chat.ReadMessages.Request) -> Bool {
     if lhs.type != rhs.type {return false}
     if lhs.chatObjectID != rhs.chatObjectID {return false}
     if lhs.afterOrderID != rhs.afterOrderID {return false}
@@ -252,8 +252,8 @@ extension Anytype_Rpc.Chat.Read.Request: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 }
 
-extension Anytype_Rpc.Chat.Read.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.Read.protoMessageName + ".Response"
+extension Anytype_Rpc.Chat.ReadMessages.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.ReadMessages.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "event"),
@@ -286,7 +286,7 @@ extension Anytype_Rpc.Chat.Read.Response: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.Read.Response, rhs: Anytype_Rpc.Chat.Read.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.ReadMessages.Response, rhs: Anytype_Rpc.Chat.ReadMessages.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -294,8 +294,8 @@ extension Anytype_Rpc.Chat.Read.Response: SwiftProtobuf.Message, SwiftProtobuf._
   }
 }
 
-extension Anytype_Rpc.Chat.Read.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Chat.Read.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Chat.ReadMessages.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Chat.ReadMessages.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -324,7 +324,7 @@ extension Anytype_Rpc.Chat.Read.Response.Error: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Chat.Read.Response.Error, rhs: Anytype_Rpc.Chat.Read.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Chat.ReadMessages.Response.Error, rhs: Anytype_Rpc.Chat.ReadMessages.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -332,7 +332,7 @@ extension Anytype_Rpc.Chat.Read.Response.Error: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension Anytype_Rpc.Chat.Read.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Chat.ReadMessages.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
