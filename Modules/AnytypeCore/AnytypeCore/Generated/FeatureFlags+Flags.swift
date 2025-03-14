@@ -130,6 +130,10 @@ public extension FeatureFlags {
         value(for: .joinStream)
     }
 
+    static var httpsLinkForObjectCopy: Bool {
+        value(for: .httpsLinkForObjectCopy)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -215,6 +219,7 @@ public extension FeatureFlags {
         .spaceHubNewTitle,
         .chatLayoutInsideSpace,
         .joinStream,
+        .httpsLinkForObjectCopy,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
