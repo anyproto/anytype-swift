@@ -63,7 +63,7 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: objectType.objectIconImage,
-                        title: objectType.displayName,
+                        title: objectType.objectName.isEmpty ? Loc.untitled : objectType.objectName,
                         subtitle: objectType.description
                     )
                 )
