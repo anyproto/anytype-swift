@@ -1,6 +1,8 @@
 import UIKit
 
 extension UIApplication: ApplicationWindowInsetsProvider {
+    
+    @MainActor
     var mainWindowInsets: UIEdgeInsets {
         guard let firstWindow = keyWindow else { return .zero }
         return firstWindow.safeAreaInsets

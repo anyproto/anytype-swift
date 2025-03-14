@@ -219,6 +219,8 @@
 "Unsupported deeplink" = "Niet-ondersteunde deeplink";
 "Edit Profile" = "Bewerk profiel";
 "Object Types" = "Objecttypes";
+"Resolve layout conflict" = "Resolve layout conflict";
+"Reset to default" = "Reset to default";
 
 // Home
 "Favorites" = "Favorieten";
@@ -1320,3 +1322,6 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Migration.subtitle" = "Dit kan enige tijd duren. Sluit de app alsjeblieft niet voordat het proces is voltooid.";
 "Migration.Error.NotEnoughtSpace.title" = "Niet genoeg ruimte";
 "Migration.Error.NotEnoughtSpace.message" = "Maak alsjeblieft ruimte vrij en voer het proces opnieuw uit.";
+
+// MARK: - Primitives
+"Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";

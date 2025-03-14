@@ -141,6 +141,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+
+    static let enablePushMessages = FeatureDescription(
+        title: "Firebase config and enable push messages",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: false
+    )
     
     static let aiToolInSet = FeatureDescription(
         title: "Add AI tool in Set / Collection",

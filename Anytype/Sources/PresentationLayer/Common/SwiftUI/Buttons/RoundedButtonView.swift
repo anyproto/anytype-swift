@@ -41,8 +41,9 @@ struct RoundedButtonView: View {
             Spacer()
             decorationView
         }
-        .padding(20)
-        .border(12, color: .Shape.primary, lineWidth: 0.5)
+        .padding(.vertical, 20)
+        .padding(.horizontal, 16)
+        .border(16, color: .Shape.primary, lineWidth: 0.5)
     }
     
     @ViewBuilder
@@ -57,14 +58,14 @@ struct RoundedButtonView: View {
                 .padding(.horizontal, 5)
                 .background(Capsule().fill(Color.Control.transparentActive))
             Spacer.fixedWidth(8)
-            IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+            IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case let .objectType(objectType):
             HStack(spacing: 8) {
                 IconView(object: objectType.icon).frame(width: 20, height: 20)
                 AnytypeText(objectType.name, style: .previewTitle1Regular)
             }
             Spacer.fixedWidth(8)
-            IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+            IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case let .toggle(isOn, onToggle):
             AnytypeToggle(title: "", isOn: isOn) { onToggle($0) }
         case .none:

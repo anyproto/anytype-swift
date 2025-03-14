@@ -1,17 +1,21 @@
 import UIKit
 import AnytypeCore
 
+@MainActor
 protocol SceneStateNotifierProtocol {
     func addListener(_ listner: some SceneStateListener)
     func willEnterForeground(_ notification: Notification)
     func didEnterBackground(_ notification: Notification)
 }
 
+@MainActor
 final class SceneStateNotifier: SceneStateNotifierProtocol {
     private var listeners: [Weak<any SceneStateListener>] = []
     
-    init() {
-        setupObservers()
+    nonisolated init() {
+        Task {
+            await setupObservers()
+        }
     }
     
     // MARK: - SceneStateNotifierProtocol

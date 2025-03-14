@@ -82,6 +82,7 @@ struct JoinFlowView_Previews : PreviewProvider {
 
 extension JoinFlowView {
     enum Constants {
+        @MainActor
         static let offsetFactor = UIDevice.isPad ? 3.5 : 4.5
         static let topOffset: CGFloat = 36
     }

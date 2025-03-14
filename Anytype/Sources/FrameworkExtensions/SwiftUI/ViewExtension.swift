@@ -1,7 +1,8 @@
 import SwiftUI
 
 
-extension View {    
+@MainActor
+extension View {
     func alertView(isShowing: Binding<Bool>, errorText: String, onButtonTap: @escaping () -> () = {}) -> some View {
         AlertView(isShowing: isShowing, errorText: errorText, presenting: self, onButtonTap: onButtonTap)
     }

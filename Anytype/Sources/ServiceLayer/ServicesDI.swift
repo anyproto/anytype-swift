@@ -381,4 +381,8 @@ extension Container {
     var spaceSettingsInfoBuilder: Factory<any SpaceSettingsInfoBuilderProtocol> {
         self { SpaceSettingsInfoBuilder() }
     }
+    
+    var applePushNotificationService: Factory<any ApplePushNotificationServiceProtocol> {
+        self { ApplePushNotificationService() }.singleton
+    }
 }

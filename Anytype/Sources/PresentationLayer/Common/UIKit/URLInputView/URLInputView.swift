@@ -101,7 +101,9 @@ final class URLInputView: UIView {
             object: textField,
             queue: .main,
             using: { [weak self] _ in
-                self?.updateDoneButton()
+                MainActor.assumeIsolated {
+                    self?.updateDoneButton()
+                }
             })
     }
     

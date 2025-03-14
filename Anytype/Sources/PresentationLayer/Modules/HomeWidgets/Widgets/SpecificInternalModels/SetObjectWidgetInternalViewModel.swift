@@ -179,7 +179,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     }
     
     private func updateDone(details: ObjectDetails) {
-        guard details.layoutValue == .todo else { return }
+        guard details.resolvedLayoutValue == .todo else { return }
         
         Task {
             try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])

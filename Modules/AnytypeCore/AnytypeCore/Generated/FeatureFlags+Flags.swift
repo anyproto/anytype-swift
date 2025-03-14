@@ -86,6 +86,10 @@ public extension FeatureFlags {
         value(for: .firebasePushMessages)
     }
 
+    static var enablePushMessages: Bool {
+        value(for: .enablePushMessages)
+    }
+
     static var aiToolInSet: Bool {
         value(for: .aiToolInSet)
     }
@@ -196,6 +200,7 @@ public extension FeatureFlags {
         .spaceUxTypes,
         .enableStreamSpaceType,
         .firebasePushMessages,
+        .enablePushMessages,
         .aiToolInSet,
         .newOnboarding,
         .disableColorfulSeedPhrase,

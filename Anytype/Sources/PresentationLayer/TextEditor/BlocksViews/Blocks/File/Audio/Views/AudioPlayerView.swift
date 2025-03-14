@@ -16,6 +16,7 @@ protocol AudioPlayerViewDelegate: AnyObject {
     func pauseCurrentAudio()
 }
 
+@MainActor
 protocol AudioPlayerViewInput: AnyObject {
     func trackTimeChanged(_ timeInSeconds: Double)
     func play()

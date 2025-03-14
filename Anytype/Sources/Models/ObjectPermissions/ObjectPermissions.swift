@@ -40,10 +40,10 @@ extension ObjectPermissions {
         let isTemplateType = details.isTemplateType
         
         let caEditRelations = !isLocked && !isArchive && participantCanEdit && !isVersionMode
-        let canEdit = caEditRelations && !details.layoutValue.isFileOrMedia
+        let canEdit = caEditRelations && !details.resolvedLayoutValue.isFileOrMedia
         let canApplyUneditableActions = participantCanEdit && !isArchive
         
-        let specificTypes = !details.layoutValue.isList && !details.layoutValue.isParticipant
+        let specificTypes = !details.resolvedLayoutValue.isList && !details.resolvedLayoutValue.isParticipant
         
         self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplateType
         self.canDelete = isArchive && participantCanEdit
@@ -59,15 +59,15 @@ extension ObjectPermissions {
         
         self.canCreateWidget = details.isVisibleLayout
                                 && !isTemplateType
-                                && details.layoutValue != .participant
+                                && details.resolvedLayoutValue != .participant
                                 && canApplyUneditableActions
         
         self.canFavorite = canApplyUneditableActions && !isTemplateType
         self.canLinkItself = canApplyUneditableActions && !isTemplateType
         self.canLock = specificTypes && canApplyUneditableActions && !isTemplateType
-        self.canChangeIcon = details.layoutValue.haveIcon && canEdit
-        self.canChangeCover = details.layoutValue.haveCover && canEdit
-        self.canChangeLayout = details.layoutValue.isEditorLayout && canEdit // && !objectRestrictions.contains(.layoutChange)
+        self.canChangeIcon = details.resolvedLayoutValue.haveIcon && canEdit
+        self.canChangeCover = details.resolvedLayoutValue.haveCover && canEdit
+        self.canChangeLayout = details.resolvedLayoutValue.isEditorLayout && canEdit // && !objectRestrictions.contains(.layoutChange)
         self.canEditDetails = !objectRestrictions.contains(.details)
         self.canEditRelationValues = caEditRelations && canEditDetails
         self.canEditRelationsList = canEditRelationValues && !objectRestrictions.contains(.relations)
@@ -89,7 +89,7 @@ extension ObjectPermissions {
         
         self.canEditBlocks = editBlocks.canEdit
         self.canShowVersionHistory = details.isVisibleLayout
-                                    && details.layoutValue != .participant
+                                    && details.resolvedLayoutValue != .participant
                                     && !details.templateIsBundled
         self.canRestoreVersionHistory = !isLocked && !isArchive && participantCanEdit
     }

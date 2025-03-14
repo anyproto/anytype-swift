@@ -45,7 +45,7 @@ extension BundledRelationsValueProvider {
     }
     
     var editorViewType: ScreenType {
-        switch layoutValue {
+        switch resolvedLayoutValue {
         case .basic, .profile, .todo, .note, .space, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag:
             return .page
@@ -85,22 +85,22 @@ extension BundledRelationsValueProvider {
     var isTemplateType: Bool { objectType.isTemplateType }
     
     var canMakeTemplate: Bool {
-        layoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty
+        resolvedLayoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty
     }
     
     // MARK: - DetailsLayout proxy
     
-    var isList: Bool { layoutValue.isList }
+    var isList: Bool { resolvedLayoutValue.isList }
     
-    var isCollection: Bool { layoutValue.isCollection }
+    var isCollection: Bool { resolvedLayoutValue.isCollection }
     
-    var isSet: Bool { layoutValue.isSet }
+    var isSet: Bool { resolvedLayoutValue.isSet }
     
-    var isObjectType: Bool { layoutValue.isObjectType }
+    var isObjectType: Bool { resolvedLayoutValue.isObjectType }
     
-    var isSupportedForOpening: Bool { layoutValue.isSupportedForOpening }
+    var isSupportedForOpening: Bool { resolvedLayoutValue.isSupportedForOpening }
     
-    var isVisibleLayout: Bool { layoutValue.isVisible }
+    var isVisibleLayout: Bool { resolvedLayoutValue.isVisible }
     
     var displayName: String {
          return globalName.isNotEmpty ? globalName : identity
