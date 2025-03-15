@@ -912,6 +912,10 @@ extension ImageAsset {
     public static let tierExplorerSmall = ImageAsset.bundle(name: "Membership/tier_explorer_small")
   }
   public static let createNewObject = ImageAsset.bundle(name: "createNewObject")
+  public enum Migration {
+    public static let data = ImageAsset.bundle(name: "Migration/Data")
+    public static let loading = ImageAsset.bundle(name: "Migration/Loading")
+  }
   public static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")
   public static let templateMakeDefault = ImageAsset.bundle(name: "template_make_default")
   public static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")

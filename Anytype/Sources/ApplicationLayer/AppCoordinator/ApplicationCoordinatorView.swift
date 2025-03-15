@@ -33,7 +33,7 @@ struct ApplicationCoordinatorView: View {
         
         // migration
         .fullScreenCover(item: $model.migrationData) {
-            MigrationView(data: $0)
+            MigrationCoordinatorView(data: $0)
         }
     }
     
