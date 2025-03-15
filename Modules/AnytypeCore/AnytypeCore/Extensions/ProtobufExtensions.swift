@@ -25,6 +25,13 @@ public extension Bool {
     }
 }
 
+public extension Date {
+    var protobufValue: Google_Protobuf_Value {
+        // Cast to int to remove decimal part for middleware
+        Google_Protobuf_Value(integerLiteral: Int64(timeIntervalSince1970))
+    }
+}
+
 public extension Array where Element == String {
     var protobufValue: Google_Protobuf_Value {
         Google_Protobuf_Value(
