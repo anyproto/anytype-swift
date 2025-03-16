@@ -67,8 +67,8 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
-"Fields.local" = "Local properties";
+"Fields.menu" = "属性菜单";
+"Fields.local" = "本地属性";
 "Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
@@ -225,7 +225,7 @@
 // Home
 "Favorites" = "收藏夹";
 "Recent" = "最近";
-"Bin" = "废纸篓";
+"Bin" = "回收站";
 "All objects" = "所有对象";
 
 // Settings
@@ -408,13 +408,13 @@
 "Templates.Popup.Removed" = "模板已删除";
 "Templates.Popup.Default" = "此模板已设置为默认";
 
-"To Bin" = "移到废纸篓";
+"To Bin" = "移入回收站";
 "Set as default" = "设为默认";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "从收藏夹中删除";
 "Add To Favorite" = "加入收藏夹";
-"Move To Bin" = "移动到废纸篓";
+"Move To Bin" = "移动到回收站";
 
 
 "LinkAppearance.Description.None.Title" = "无";
@@ -836,7 +836,7 @@
 "Widgets.Actions.RemoveWidget" = "删除小部件";
 "Widgets.Actions.EditWidgets" = "编辑小部件";
 "Widgets.Actions.AddWidget" = "添加小部件";
-"Widgets.Actions.EmptyBin" = "清空废纸篓";
+"Widgets.Actions.EmptyBin" = "清空回收站";
 "Widgets.Actions.AddBelow" = "在下面添加";
 "Widgets.Actions.NewObject" = "新建对象";
 "Widgets.Actions.SeeAllObjects" = "查看所有对象";
@@ -939,7 +939,7 @@
 "Space.Status.RemoteWaitingDeletion" = "正等待删除";
 "Space.Status.RemoteDeleted" = "远程已删除";
 "Space.Status.SpaceDeleted" = "已删除";
-"Space.Status.SpaceActive" = "正在进行";
+"Space.Status.SpaceActive" = "生效";
 "Space.Status.SpaceJoining" = "正在加入";
 "Space.Status.SpaceRemoving" = "删除中";
 
