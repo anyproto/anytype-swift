@@ -5,12 +5,17 @@ struct MigrationView: View {
     @StateObject private var model: MigrationViewModel
     @Environment(\.dismiss) var dismiss
     
+    @State private var topOffcet: CGFloat = .zero
+    
     init(data: MigrationModuleData, output: (any MigrationModuleOutput)?) {
         _model = StateObject(wrappedValue: MigrationViewModel(data: data, output: output))
     }
     
     var body: some View {
         content
+            .readSize { size in
+                topOffcet = size.height / 3.5
+            }
             .task(item: model.startFlowId) { _ in
                 await model.startFlow()
             }
@@ -37,8 +42,8 @@ struct MigrationView: View {
     
     private var initialState: some View {
         VStack(spacing: 0) {
-            Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .color(.blue))
+            Spacer.fixedHeight(topOffcet)
+            IllustrationView(icon: .Illustration.loading, color: .blue)
             Spacer.fixedHeight(16)
             AnytypeText(Loc.Migration.Initial.title, style: .title)
                 .foregroundColor(.Text.primary)
@@ -73,8 +78,8 @@ struct MigrationView: View {
     
     private var progressState: some View {
         VStack(spacing: 0) {
-            CircularProgressBar(progress: $model.progress)
-                .frame(width: 88, height: 88)
+            Spacer.fixedHeight(topOffcet)
+            progressHeader
             Spacer.fixedHeight(20)
             AnytypeText(Loc.Migration.Progress.title, style: .heading)
                 .foregroundColor(.Text.primary)
@@ -83,13 +88,22 @@ struct MigrationView: View {
             AnytypeText(Loc.Migration.Progress.subtitle, style: .calloutRegular)
                 .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
+            Spacer()
+        }
+    }
+    
+    private var progressHeader: some View {
+        ZStack {
+            IllustrationView(icon: nil, color: .blue)
+            CircularProgressBar(progress: $model.progress)
+                .frame(width: 80, height: 80)
         }
     }
     
     private func errorState(title: String, message: String) -> some View {
         VStack(spacing: 0) {
-            Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.exclamation, style: .color(.red))
+            Spacer.fixedHeight(topOffcet)
+            IllustrationView(icon: .Illustration.exclamation, color: .red)
             Spacer.fixedHeight(16)
             AnytypeText(title, style: .heading)
                 .foregroundColor(.Text.primary)

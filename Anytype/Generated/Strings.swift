@@ -1258,7 +1258,7 @@ internal enum Loc {
     }
     internal enum Progress {
       internal static let subtitle = Loc.tr("Localizable", "Migration.Progress.subtitle", fallback: "This may take some time. Please don’t close the app until the process is complete.")
-      internal static let title = Loc.tr("Localizable", "Migration.Progress.title", fallback: "Migration is in progress...")
+      internal static let title = Loc.tr("Localizable", "Migration.Progress.title", fallback: "Update is in progress...")
     }
     internal enum ReadMore {
       internal static let description1 = Loc.tr("Localizable", "Migration.ReadMore.description1", fallback: "You'll see a loading screen during the update. Once finished, you can continue using the app normally.")
