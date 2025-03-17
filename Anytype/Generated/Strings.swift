@@ -1371,7 +1371,7 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Relation.Format.Number.Title", fallback: "Number")
       }
       internal enum Object {
-        internal static let title = Loc.tr("Localizable", "Relation.Format.Object.Title", fallback: "Object")
+        internal static let title = Loc.tr("Localizable", "Relation.Format.Object.Title", fallback: "Object relation")
       }
       internal enum Phone {
         internal static let title = Loc.tr("Localizable", "Relation.Format.Phone.Title", fallback: "Phone number")
