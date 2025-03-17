@@ -340,12 +340,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
-        case .deepLink(let deepLink):
-            try await handleDeepLink(deepLink: deepLink)
+        case .deepLink(let deepLink, let source):
+            try await handleDeepLink(deepLink: deepLink, source: source)
         }
     }
         
-    private func handleDeepLink(deepLink: DeepLink) async throws {
+    private func handleDeepLink(deepLink: DeepLink, source: DeepLinkSource) async throws {
         switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
@@ -356,7 +356,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .invite(let cid, let key):
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
         case let .object(objectId, spaceId, cid, key):
-            await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
+            await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key, source: source)
         case .membership(let tierId):
             guard accountManager.account.allowMembership else { return }
             membershipTierId = tierId.identifiable
@@ -365,12 +365,15 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
-    private func handleObjectDeelpink(objectId: String, spaceId: String, cid: String?, key: String?) async {
+    private func handleObjectDeelpink(objectId: String, spaceId: String, cid: String?, key: String?, source: DeepLinkSource) async {
         let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
         do {
             try await document.open()
             guard let editorData = document.details?.screenData() else { return }
             try? await open(data: editorData)
+            if source.isExternal {
+                AnytypeAnalytics.instance().logOpenObjectByLink(type: .object)
+            }
         } catch {
             guard let cid, let key else {
                 showObjectIsNotAvailableAlert = true
@@ -378,6 +381,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             }
             
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
+            if source.isExternal {
+                AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite)
+            }
         }
     }
 

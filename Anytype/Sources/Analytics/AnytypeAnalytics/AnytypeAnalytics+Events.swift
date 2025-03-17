@@ -1327,4 +1327,13 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logOpenObjectByLink(type: OpenObjectByLinkType) {
+        logEvent(
+            "OpenObjectByLink",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+            ]
+        )
+    }
 }
