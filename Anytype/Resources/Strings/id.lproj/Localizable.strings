@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "Opsi ini akan dihapus secara permanen dari ruang Anda.";
 "Relation.Object.Delete.Alert.Description" = "Objek ini akan dipindah ke Bak Sampah.";
 
-"Relation.Format.Object.Title" = "Objek";
+"Relation.Format.Object.Title" = "Relasi objek";
 "Relation.Format.Text.Title" = "Teks";
 "Relation.Format.Number.Title" = "Angka";
 "Relation.Format.Status.Title" = "Pilih";
@@ -221,6 +221,9 @@
 "Object Types" = "Tipe Objek";
 "Resolve layout conflict" = "Lerai konflik tata letak";
 "Reset to default" = "Atur ulang ke bawaan";
+
+"Add property" = "Tambahkan properti";
+"Search or create new" = "Search or create new";
 
 // Home
 "Favorites" = "Favorit";
@@ -1320,10 +1323,23 @@ Please provide specific details of your needs here.";
 "AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
 
 // MARK: - Migration
-"Migration.title" = "Migrasi sedang berlangsung …";
-"Migration.subtitle" = "Ini mungkin perlu beberapa waktu. Mohon tidak menutup aplikasi hingga proses selesai.";
+"Migration.Initial.title" = "New Version Update";
+"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
+"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
+"Migration.Initial.startUpdate" = "Start Update";
+"Migration.Initial.readMore" = "Read More";
+
+"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.subtitle" = "Ini mungkin perlu beberapa waktu. Mohon tidak menutup aplikasi hingga proses selesai.";
 "Migration.Error.NotEnoughtSpace.title" = "Penyimpanan tidak cukup";
 "Migration.Error.NotEnoughtSpace.message" = "Bersihkan ruang penyimpanan lalu coba lagi.";
+
+"Migration.ReadMore.option1" = "What to Expect";
+"Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
+"Migration.ReadMore.option2" = "Your Data Remains Safe";
+"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
+"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+
 
 // MARK: - Primitives
 "Primitives.LayoutConflict.Description" = "Tata letak ini berbeda dengan tata letak bawaan tipe ini. Samakan?";
