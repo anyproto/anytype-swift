@@ -12,7 +12,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
             content
             Spacer()
         }
-        .frame(height: 68)
+        .frame(height: data.isMinimal ? 52 : 68)
         .newDivider()
         .padding(.horizontal, 16)
     }
@@ -36,18 +36,23 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
                 .lineLimit(1)
                 .frame(height: 20)
             
-            if data.shouldShowDescription {
-                Spacer.fixedHeight(1)
-                AnytypeText(data.description, style: data.descriptionFont)
-                    .foregroundColor(data.descriptionTextColor)
+            switch data.mode {
+            case .full(let descriptionInfo, let callout):
+                if let descriptionInfo {
+                    Spacer.fixedHeight(1)
+                    AnytypeText(descriptionInfo.description, style: descriptionInfo.descriptionFont)
+                        .foregroundColor(descriptionInfo.descriptionTextColor)
+                        .lineLimit(1)
+                }
+                
+                if let callout {
+                    Spacer.fixedHeight(2)
+                    AnytypeText(callout, style: .relation2Regular)
+                    .foregroundColor(.Text.secondary)
                     .lineLimit(1)
-            }
-            
-            if data.shouldShowCallout {
-                Spacer.fixedHeight(2)
-                AnytypeText(data.callout, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
-                .lineLimit(1)
+                }
+            case .minimal:
+                EmptyView()
             }
             
             Spacer()
