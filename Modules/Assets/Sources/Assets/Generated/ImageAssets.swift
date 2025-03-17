@@ -897,6 +897,10 @@ extension ImageAsset {
       public static let list = ImageAsset.bundle(name: "x54/View/List")
     }
   }
+  public enum Illustration {
+    public static let exclamation = ImageAsset.bundle(name: "Illustration/Exclamation")
+    public static let loading = ImageAsset.bundle(name: "Illustration/Loading")
+  }
   public enum Membership {
     public static let banner1 = ImageAsset.bundle(name: "Membership/banner_1")
     public static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
