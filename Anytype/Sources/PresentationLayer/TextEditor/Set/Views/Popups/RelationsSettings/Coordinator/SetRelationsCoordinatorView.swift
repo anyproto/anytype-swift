@@ -1,4 +1,6 @@
 import SwiftUI
+import AnytypeCore
+
 
 struct SetRelationsCoordinatorView: View {
     @StateObject private var model: SetRelationsCoordinatorViewModel
@@ -14,7 +16,11 @@ struct SetRelationsCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.relationsSearchData) { data in
-            RelationsSearchCoordinatorView(data: data)
+            if FeatureFlags.newPropertiesCreation {
+                RelationCreationView(data: data)
+            } else {
+                RelationsSearchCoordinatorView(data: data)
+            }
         }
     }
 }

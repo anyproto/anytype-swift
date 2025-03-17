@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 "Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
-"Relation.Format.Object.Title" = "Object";
+"Relation.Format.Object.Title" = "Object relation";
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Number";
 "Relation.Format.Status.Title" = "Select";
@@ -221,6 +221,9 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+
+"Add property" = "Add property";
+"Search or create new" = "Search or create new";
 
 // Home
 "Favorites" = "Favorites";
