@@ -9,11 +9,8 @@ struct ObjectSearchData: SearchDataProtocol {
     let title: String
     let description: String
     let callout: String
-    let typeId: String
     
     let blockId: String
-    
-    let screenData: ScreenData
     
     let details: ObjectDetails
     
@@ -22,10 +19,8 @@ struct ObjectSearchData: SearchDataProtocol {
         self.title = details.title
         self.description = details.description
         self.callout = details.objectType.displayName
-        self.typeId = details.objectType.id
         
         self.blockId = details.id
-        self.screenData = details.screenData()
     }
 }
 
@@ -45,10 +40,6 @@ extension ObjectSearchData {
     
     var shouldShowCallout: Bool {
         callout.isNotEmpty
-    }
-    
-    var verticalInset: CGFloat {
-        16
     }
 
     var iconImage: Icon? {
