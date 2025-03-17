@@ -169,6 +169,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let newPropertiesCreation = FeatureDescription(
+        title: "New properties creation flow",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

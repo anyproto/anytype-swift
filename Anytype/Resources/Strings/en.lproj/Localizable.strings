@@ -222,6 +222,9 @@
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
 
+"Add property" = "Add property";
+"Search or create new" = "Search or create new";
+
 // Home
 "Favorites" = "Favorites";
 "Recent" = "Recent";

@@ -20,6 +20,7 @@ internal enum Loc {
   internal static let addEmail = Loc.tr("Localizable", "Add email", fallback: "Add email")
   internal static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
   internal static let addPhone = Loc.tr("Localizable", "Add phone", fallback: "Add phone")
+  internal static let addProperty = Loc.tr("Localizable", "Add property", fallback: "Add property")
   internal static let addToFavorite = Loc.tr("Localizable", "Add To Favorite", fallback: "Add To Favorite")
   internal static func agreementDisclamer(_ p1: Any, _ p2: Any) -> String {
     return Loc.tr("Localizable", "Agreement Disclamer", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)")
@@ -317,6 +318,7 @@ internal enum Loc {
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   internal static let search = Loc.tr("Localizable", "Search", fallback: "Search")
   internal static let searchForLanguage = Loc.tr("Localizable", "Search for language", fallback: "Search for language")
+  internal static let searchOrCreateNew = Loc.tr("Localizable", "Search or create new", fallback: "Search or create new")
   internal static let selectAll = Loc.tr("Localizable", "Select all", fallback: "Select all")
   internal static let selectDate = Loc.tr("Localizable", "Select date", fallback: "Select date")
   internal static let selectFile = Loc.tr("Localizable", "Select file", fallback: "Select file")

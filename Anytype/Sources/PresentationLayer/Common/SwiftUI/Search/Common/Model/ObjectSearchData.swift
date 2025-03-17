@@ -27,7 +27,6 @@ struct ObjectSearchData: SearchDataProtocol {
         self.blockId = details.id
         self.screenData = details.screenData()
     }
-
 }
 
 extension ObjectSearchData {

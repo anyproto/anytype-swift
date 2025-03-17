@@ -102,6 +102,10 @@ public extension FeatureFlags {
         value(for: .httpsLinkForObjectCopy)
     }
 
+    static var newPropertiesCreation: Bool {
+        value(for: .newPropertiesCreation)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -180,6 +184,7 @@ public extension FeatureFlags {
         .disableRestoreLastScreen,
         .chatCounters,
         .httpsLinkForObjectCopy,
+        .newPropertiesCreation,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

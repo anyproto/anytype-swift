@@ -1,5 +1,7 @@
 import SwiftUI
 import Services
+import AnytypeCore
+
 
 struct TypeFieldsView: View {
     
@@ -19,7 +21,11 @@ struct TypeFieldsView: View {
         content
             .task { await model.setupSubscriptions() }
             .sheet(item: $model.relationsSearchData) { data in
-                RelationsSearchCoordinatorView(data: data)
+                if FeatureFlags.newPropertiesCreation {
+                    RelationCreationView(data: data)
+                } else {
+                    RelationsSearchCoordinatorView(data: data)
+                }
             }
             .sheet(item: $model.relationData) {
                 RelationInfoCoordinatorView(data: $0, output: nil)
