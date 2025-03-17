@@ -43,7 +43,7 @@ struct MigrationView: View {
     private var initialState: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(topOffcet)
-            IllustrationView(icon: .Illustration.loading, style: .color(.blue))
+            IllustrationView(icon: .Illustration.loading, color: .blue)
             Spacer.fixedHeight(16)
             AnytypeText(Loc.Migration.Initial.title, style: .title)
                 .foregroundColor(.Text.primary)
@@ -94,7 +94,7 @@ struct MigrationView: View {
     
     private var progressHeader: some View {
         ZStack {
-            IllustrationView(icon: nil, style: .color(.blue))
+            IllustrationView(icon: nil, color: .blue)
             CircularProgressBar(progress: $model.progress)
                 .frame(width: 80, height: 80)
         }
@@ -103,7 +103,7 @@ struct MigrationView: View {
     private func errorState(title: String, message: String) -> some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(topOffcet)
-            IllustrationView(icon: .Illustration.exclamation, style: .color(.red))
+            IllustrationView(icon: .Illustration.exclamation, color: .red)
             Spacer.fixedHeight(16)
             AnytypeText(title, style: .heading)
                 .foregroundColor(.Text.primary)

@@ -23,29 +23,18 @@ enum IllustrationViewColor {
         }
     }
 }
-    
-enum IllustrationViewStyle {
-    case color(IllustrationViewColor)
-    
-    fileprivate var imageColor: Color {
-        switch self {
-        case .color(let color):
-            return color.imageColor
-        }
-    }
-}
 
 struct IllustrationView: View {
     
     let icon: ImageAsset?
-    let style: IllustrationViewStyle
+    let color: IllustrationViewColor
     
     var body: some View {
         ZStack {
             background
             if let icon {
                 Image(asset: icon)
-                    .foregroundColor(style.imageColor)
+                    .foregroundColor(color.imageColor)
             }
         }
         .frame(height: 104)
@@ -54,19 +43,16 @@ struct IllustrationView: View {
     
     @ViewBuilder
     private var background: some View {
-        switch style {
-        case .color(let color):
-            GeometryReader { reader in
-                RadialGradient(
-                    colors: color.gradient,
-                    center: .center,
-                    startRadius: 0,
-                    endRadius: 50
-                )
-                .frame(width: reader.size.height, height: reader.size.height)
-                .scaleEffect(CGSize(width: reader.size.width / 104, height: 1.0))
-                .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
-            }
+        GeometryReader { reader in
+            RadialGradient(
+                colors: color.gradient,
+                center: .center,
+                startRadius: 0,
+                endRadius: 50
+            )
+            .frame(width: reader.size.height, height: reader.size.height)
+            .scaleEffect(CGSize(width: reader.size.width / 104, height: 1.0))
+            .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
         }
     }
 }
