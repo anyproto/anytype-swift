@@ -64,7 +64,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
                     objectId: data.objectId,
                     spaceId: data.spaceId,
                     target: data.target,
-                    mode: .create
+                    mode: .create(format: format)
                 )
             }
         }
