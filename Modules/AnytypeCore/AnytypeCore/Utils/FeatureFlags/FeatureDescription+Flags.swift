@@ -176,6 +176,12 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let fixChatEmptyState = FeatureDescription(
+        title: "Fix chat empty state",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

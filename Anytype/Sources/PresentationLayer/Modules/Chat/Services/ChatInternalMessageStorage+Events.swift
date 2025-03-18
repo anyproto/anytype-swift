@@ -1,5 +1,6 @@
 import Services
 import ProtobufMessages
+import AnytypeCore
 
 // Events Handling
 
@@ -7,6 +8,11 @@ extension ChatInternalMessageStorage {
     
     @discardableResult
     mutating func chatAdd(_ data: Anytype_Event.Chat.Add) -> Bool {
+        if FeatureFlags.fixChatEmptyState, messages.isEmpty {
+            add(data.message)
+            return true
+        }
+        
         if let firstMessage = first,
             let lastMessage = last,
            firstMessage.orderID <= data.afterOrderID,
