@@ -13,7 +13,7 @@ struct RelationCreationView: View {
     }
     
     private var content: some View {
-        SearchView(title: Loc.addProperty, placeholder: Loc.searchOrCreateNew, searchData: model.rows) { searchText in
+        SearchView(title: Loc.addProperty, placeholder: Loc.searchOrCreateNew, searchData: model.rows, emptyViewMode: .property) { searchText in
             await model.search(text: searchText)
         } onSelect: { selectedItem in
             model.onRelationTap(selectedItem)

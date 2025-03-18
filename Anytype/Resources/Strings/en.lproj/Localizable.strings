@@ -367,6 +367,7 @@
 // MARK: - Main search
 "There is no object named" = "There is no object named %@";
 "There is no type named" = "There is no type named %@";
+"There is no property named" = "There is no property named %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
 "Search.Links.Show.title" = "Show related objects";
 "Search.Links.Header.title" = "Related to: %@";

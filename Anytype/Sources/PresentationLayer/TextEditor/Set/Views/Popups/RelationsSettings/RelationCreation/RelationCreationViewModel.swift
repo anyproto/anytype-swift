@@ -40,6 +40,12 @@ final class RelationCreationViewModel: ObservableObject {
             return
         }
         
+        
+        guard results.isNotEmpty else {
+            rows = []
+            return
+        }
+        
         rows = [
             SearchDataSection(searchData: results.map{ RelationSearchData(details: $0)}, sectionName: Loc.existingProperties)
         ]

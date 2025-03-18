@@ -362,6 +362,9 @@ internal enum Loc {
   internal static func thereIsNoObjectNamed(_ p1: Any) -> String {
     return Loc.tr("Localizable", "There is no object named", String(describing: p1), fallback: "There is no object named %@")
   }
+  internal static func thereIsNoPropertyNamed(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "There is no property named", String(describing: p1), fallback: "There is no property named %@")
+  }
   internal static func thereIsNoTypeNamed(_ p1: Any) -> String {
     return Loc.tr("Localizable", "There is no type named", String(describing: p1), fallback: "There is no type named %@")
   }
