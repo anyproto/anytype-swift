@@ -223,7 +223,9 @@
 "Reset to default" = "Atur ulang ke bawaan";
 
 "Add property" = "Tambahkan properti";
-"Search or create new" = "Search or create new";
+"Search or create new" = "Telusuri atau buat baru";
+"Existing properties" = "Existing properties";
+"Properties formats" = "Properties formats";
 
 // Home
 "Favorites" = "Favorit";
@@ -367,6 +369,7 @@
 // MARK: - Main search
 "There is no object named" = "Tidak ada objek bernama %@";
 "There is no type named" = "Tidak ada tipe bernama %@";
+"There is no property named" = "There is no property named %@";
 "Create a new one or search for something else" = "Buat baru atau telusuri yang lain";
 "Search.Links.Show.title" = "Tampilkan objek terkait";
 "Search.Links.Header.title" = "Terkait dengan: %@";
@@ -1249,7 +1252,7 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tambahkan Reaksi";
 "Message.Action.Reply" = "Balas";
-"Message.Action.Unread" = "Mark Unread";
+"Message.Action.Unread" = "Tandai Belum Dibaca";
 "Message.Action.CopyPlainText" = "Salin Teks Polos";
 "Message.Input.EmptyPlaceholder" = "Tulis pesan …";
 "Message.ChatTitle.Placeholder" = "Obrolan Nirjudul";
@@ -1300,7 +1303,7 @@ Please provide specific details of your needs here.";
 "Chat.CreateObject.Dismiss.Ok" = "Ya, tutup";
 "Chat.Attach.Page.title" = "Lampirkan Halaman";
 "Chat.Attach.List.title" = "Lampirkan Daftar";
-"Chat.NewMessages" = "New messages";
+"Chat.NewMessages" = "Pesan baru";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
@@ -1323,22 +1326,22 @@ Please provide specific details of your needs here.";
 "AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
 
 // MARK: - Migration
-"Migration.Initial.title" = "New Version Update";
-"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
-"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
-"Migration.Initial.startUpdate" = "Start Update";
-"Migration.Initial.readMore" = "Read More";
+"Migration.Initial.title" = "Pembaruan Versi";
+"Migration.Initial.subtitle1" = "Kami sedang mempersiapkan fitur obrolan, termasuk hitungan pesan, notifikasi, dan fitur lainnya yang diperlukan untuk pengalaman obrolan yang mulus.";
+"Migration.Initial.subtitle2" = "Ini mungkin akan memakan waktu sebentar, namun jangan khawatir, datamu tetap aman.";
+"Migration.Initial.startUpdate" = "Mulai Pembaruan";
+"Migration.Initial.readMore" = "Selengkapnya";
 
-"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.title" = "Pembaruan sedang berlangsung …";
 "Migration.Progress.subtitle" = "Ini mungkin perlu beberapa waktu. Mohon tidak menutup aplikasi hingga proses selesai.";
 "Migration.Error.NotEnoughtSpace.title" = "Penyimpanan tidak cukup";
 "Migration.Error.NotEnoughtSpace.message" = "Bersihkan ruang penyimpanan lalu coba lagi.";
 
 "Migration.ReadMore.option1" = "What to Expect";
 "Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
-"Migration.ReadMore.option2" = "Your Data Remains Safe";
-"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
-"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+"Migration.ReadMore.option2" = "Datamu Tetap Aman";
+"Migration.ReadMore.description2" = "Selama pembaruan ini, datamu tetap aman. Pembaruan ini dilakukan langsung di perangkatmu, dan data yang tersinkronisasi tidak akan terdampak. Kami hanya akan menyalinnya ke format yang baru. Cadangan lokal berisi seluruh datamu dalam format yang lama akan dibuat di perangkat ini.";
+"Migration.ReadMore.description3" = "Kami mempertahankan cadangan ini untuk proses awakutu dan pembantuan apabila hal yang tidak diinginkan terjadi selama proses pembaruan.";
 
 
 // MARK: - Primitives
