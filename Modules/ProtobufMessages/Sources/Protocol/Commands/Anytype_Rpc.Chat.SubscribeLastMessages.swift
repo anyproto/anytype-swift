@@ -57,6 +57,16 @@ extension Anytype_Rpc.Chat {
         /// Number of messages before the returned messages
         public var numMessagesBefore: Int32 = 0
 
+        /// Chat state
+        public var chatState: Anytype_Model_ChatState {
+          get {return _chatState ?? Anytype_Model_ChatState()}
+          set {_chatState = newValue}
+        }
+        /// Returns true if `chatState` has been explicitly set.
+        public var hasChatState: Bool {return self._chatState != nil}
+        /// Clears the value of `chatState`. Subsequent reads from it will return its default value.
+        public mutating func clearChatState() {self._chatState = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -116,6 +126,7 @@ extension Anytype_Rpc.Chat {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error? = nil
+        fileprivate var _chatState: Anytype_Model_ChatState? = nil
       }
 
       public init() {}
@@ -191,6 +202,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
     1: .same(proto: "error"),
     2: .same(proto: "messages"),
     3: .same(proto: "numMessagesBefore"),
+    4: .same(proto: "chatState"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -202,6 +214,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.messages) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.numMessagesBefore) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._chatState) }()
       default: break
       }
     }
@@ -221,6 +234,9 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
     if self.numMessagesBefore != 0 {
       try visitor.visitSingularInt32Field(value: self.numMessagesBefore, fieldNumber: 3)
     }
+    try { if let v = self._chatState {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -228,6 +244,7 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: SwiftProtobuf.Message
     if lhs._error != rhs._error {return false}
     if lhs.messages != rhs.messages {return false}
     if lhs.numMessagesBefore != rhs.numMessagesBefore {return false}
+    if lhs._chatState != rhs._chatState {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

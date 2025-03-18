@@ -422,24 +422,6 @@ public enum BundledRelationKey: String, Sendable {
     /// Default object type id that will be set to new sets/collections
     case defaultTypeId = "defaultTypeId"
 
-    /// Some event start date
-    case startDate = "startDate"
-
-    /// Some event or place location
-    case location = "location"
-
-    /// Event type
-    case eventType = "eventType"
-
-    /// Company or organization industry
-    case industry = "industry"
-
-    /// Size of something in a text format with a custom measurement, e.g '10-20 people'
-    case size = "size"
-
-    /// The year when the organisation was founded
-    case foundingYear = "foundingYear"
-
     /// Total cooking time in text format
     case cookingTime = "cookingTime"
 

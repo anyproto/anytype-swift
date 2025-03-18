@@ -155,12 +155,6 @@ public protocol BundledRelationsValueProvider {
     var recommendedFileRelations: [ObjectId] { get }
     var defaultViewType: Int? { get }
     var defaultTypeId: ObjectId { get }
-    var startDate: Date? { get }
-    var location: String { get }
-    var eventType: String { get }
-    var industry: String { get }
-    var size: String { get }
-    var foundingYear: Int? { get }
     var cookingTime: String { get }
     var servings: Int? { get }
     var cuisine: String { get }
@@ -732,30 +726,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Default object type id that will be set to new sets/collections
     var defaultTypeId: ObjectId {
         return value(for: BundledRelationKey.defaultTypeId.rawValue)
-    }
-    /// Some event start date
-    var startDate: Date? {
-        return value(for: BundledRelationKey.startDate.rawValue)
-    }
-    /// Some event or place location
-    var location: String {
-        return value(for: BundledRelationKey.location.rawValue)
-    }
-    /// Event type
-    var eventType: String {
-        return value(for: BundledRelationKey.eventType.rawValue)
-    }
-    /// Company or organization industry
-    var industry: String {
-        return value(for: BundledRelationKey.industry.rawValue)
-    }
-    /// Size of something in a text format with a custom measurement, e.g '10-20 people'
-    var size: String {
-        return value(for: BundledRelationKey.size.rawValue)
-    }
-    /// The year when the organisation was founded
-    var foundingYear: Int? {
-        return value(for: BundledRelationKey.foundingYear.rawValue)
     }
     /// Total cooking time in text format
     var cookingTime: String {
