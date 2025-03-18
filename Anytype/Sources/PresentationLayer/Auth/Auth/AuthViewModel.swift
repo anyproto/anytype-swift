@@ -115,11 +115,7 @@ final class AuthViewModel: ObservableObject {
                     iconOption: iconOption,
                     imagePath: ""
                 )
-                try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
-                try? await workspaceService.workspaceSetDetails(
-                    spaceId: account.info.accountSpaceId,
-                    details: [.name(Loc.myFirstSpace), .iconOption(iconOption)]
-                )
+                try await setDefaultSpaceInfo(account.info.accountSpaceId, iconOption: iconOption)
                 try? seedService.saveSeed(state.mnemonic)
                 
                 onSuccess()
@@ -127,6 +123,15 @@ final class AuthViewModel: ObservableObject {
                 createAccountError(error)
             }
         }
+    }
+    
+    private func setDefaultSpaceInfo(_ spaceId: String, iconOption: Int) async throws {
+        guard spaceId.isNotEmpty else { return }
+        try await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
+        try? await workspaceService.workspaceSetDetails(
+            spaceId: spaceId,
+            details: [.name(Loc.myFirstSpace), .iconOption(iconOption)]
+        )
     }
     
     private func onSuccess() {
