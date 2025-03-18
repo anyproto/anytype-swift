@@ -224,6 +224,8 @@
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
+"Existing properties" = "Existing properties";
+"Properties formats" = "Properties formats";
 
 // Home
 "Favorites" = "Favoritos";
@@ -366,6 +368,7 @@
 // MARK: - Main search
 "There is no object named" = "No hay ningún objeto llamado %@";
 "There is no type named" = "No hay ningún tipo llamado %@";
+"There is no property named" = "There is no property named %@";
 "Create a new one or search for something else" = "Crea uno nuevo o busca otro distinto.";
 "Search.Links.Show.title" = "Mostrar objetos relacionados";
 "Search.Links.Header.title" = "Relacionado con: %@";
@@ -1328,7 +1331,7 @@ En concreto,
 "Migration.Initial.startUpdate" = "Start Update";
 "Migration.Initial.readMore" = "Read More";
 
-"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.title" = "Update is in progress...";
 "Migration.Progress.subtitle" = "Esto puede llevar algún tiempo. No cierres la aplicación hasta que termine el proceso.";
 "Migration.Error.NotEnoughtSpace.title" = "No hay suficiente espacio";
 "Migration.Error.NotEnoughtSpace.message" = "Libera algo de espacio y vuelve a ejecutar el proceso.";
