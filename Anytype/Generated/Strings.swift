@@ -147,6 +147,7 @@ internal enum Loc {
   internal static let errorWalletRecoverVault = Loc.tr("Localizable", "Error wallet recover vault", fallback: "Error wallet recover vault")
   internal static let everywhere = Loc.tr("Localizable", "Everywhere", fallback: "Everywhere")
   internal static let exactDay = Loc.tr("Localizable", "Exact day", fallback: "Exact day")
+  internal static let existingProperties = Loc.tr("Localizable", "Existing properties", fallback: "Existing properties")
   internal static let export = Loc.tr("Localizable", "Export", fallback: "Export")
   internal static let failedToSyncTryingAgain = Loc.tr("Localizable", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
   internal static let favorite = Loc.tr("Localizable", "Favorite", fallback: "Favorite")
