@@ -114,6 +114,10 @@ public extension FeatureFlags {
         value(for: .anyAppBetaTip)
     }
 
+    static var guideUseCaseForDataSpace: Bool {
+        value(for: .guideUseCaseForDataSpace)
+    }
+
     static var disableRestoreLastScreen: Bool {
         value(for: .disableRestoreLastScreen)
     }
@@ -223,6 +227,7 @@ public extension FeatureFlags {
         .openTypeAsSet,
         .binWidgetFromLibrary,
         .anyAppBetaTip,
+        .guideUseCaseForDataSpace,
         .disableRestoreLastScreen,
         .spaceHubNewTitle,
         .chatLayoutInsideSpace,

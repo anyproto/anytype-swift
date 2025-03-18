@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 struct SpaceCreateData: Equatable, Identifiable, Hashable {
     let sceneId: String
@@ -17,6 +18,16 @@ struct SpaceCreateData: Equatable, Identifiable, Hashable {
             return Loc.SpaceCreate.Stream.title
         case .UNRECOGNIZED(_):
             return ""
+        }
+    }
+}
+
+extension SpaceUxType {
+    var useCase: UseCase {
+        switch self {
+        case .chat: return .none
+        case .data: return FeatureFlags.guideUseCaseForDataSpace ? .guideOnly : .empty
+        default: return .empty
         }
     }
 }
