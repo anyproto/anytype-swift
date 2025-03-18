@@ -142,6 +142,10 @@ public extension FeatureFlags {
         value(for: .newPropertiesCreation)
     }
 
+    static var fixChatEmptyState: Bool {
+        value(for: .fixChatEmptyState)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -230,6 +234,7 @@ public extension FeatureFlags {
         .joinStream,
         .httpsLinkForObjectCopy,
         .newPropertiesCreation,
+        .fixChatEmptyState,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
