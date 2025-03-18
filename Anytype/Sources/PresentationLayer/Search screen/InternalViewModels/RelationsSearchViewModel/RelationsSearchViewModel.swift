@@ -87,9 +87,9 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     private func addRelation(relation: RelationDetails) {
         switch target {
-        case .type(let isFeatured):
+        case .type(let data):
             Task { @MainActor in
-                try await interactor.addRelationToType(relation: relation, isFeatured: isFeatured)
+                try await interactor.addRelationToType(relation: relation, isFeatured: data.isFeatured)
                 onSelect(relation)
             }
         case .dataview(let activeViewId):

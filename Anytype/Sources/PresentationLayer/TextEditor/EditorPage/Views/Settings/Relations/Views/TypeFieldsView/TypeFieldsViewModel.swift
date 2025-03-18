@@ -83,23 +83,29 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     func onRelationTap(_ data: TypeFieldsRelationRow) {
+        guard let details = document.details else { return }
         guard let format = data.relation.format else { return }
+        
+        let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(details.recommendedFeaturedRelations) : .recommendedRelations(details.recommendedRelations)
         
         relationData = RelationInfoData(
             name: data.relation.name,
             objectId: document.objectId,
             spaceId: document.spaceId,
-            target: .type(isFeatured: data.relation.isFeatured),
+            target: .type(typeData),
             mode: .edit(relationId: data.relation.id, format: format, limitedObjectTypes: data.relation.limitedObjectTypes)
         )
     }
     
     func onAddRelationTap(section: TypeFieldsSectionRow) {
+        guard let details = document.details else { return }
+        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(details.recommendedFeaturedRelations) : .recommendedRelations(details.recommendedRelations)
+        
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,
             spaceId: document.spaceId,
             excludedRelationsIds: relationRows.compactMap(\.relationId),
-            target: .type(isFeatured: section.isFeatured),
+            target: .type(typeData),
             onRelationSelect: { [spaceId = document.spaceId] details, isNew in
                 AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
                     format: details.format, isNew: isNew, type: .type, key: details.analyticsKey, spaceId: spaceId

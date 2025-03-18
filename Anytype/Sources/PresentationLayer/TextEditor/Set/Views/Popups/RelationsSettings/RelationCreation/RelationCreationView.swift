@@ -14,9 +14,9 @@ struct RelationCreationView: View {
     
     private var content: some View {
         SearchView(title: Loc.addProperty, placeholder: Loc.searchOrCreateNew, searchData: model.rows) { searchText in
-            print(searchText)
+            await model.search(text: searchText)
         } onSelect: { selectedItem in
-            print(selectedItem)
+            model.onRelationTap(selectedItem)
         }
     }
 
