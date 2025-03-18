@@ -49,13 +49,15 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             defer {
                 createLoadingState = false
             }
+            let uxType = data.spaceUxType
+            let useCase: UseCase = uxType == .chat ? .none : .empty
             let spaceId = try await workspaceService.createSpace(
                 name: spaceName,
                 iconOption: spaceIconOption,
                 accessType: spaceAccessType,
-                useCase: .empty,
+                useCase: useCase,
                 withChat: FeatureFlags.homeSpaceLevelChat,
-                uxType: data.spaceUxType
+                uxType: uxType
             )
             
             if let fileData {
