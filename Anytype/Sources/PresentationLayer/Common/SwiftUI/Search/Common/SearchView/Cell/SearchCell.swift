@@ -20,10 +20,17 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
     @ViewBuilder
     private var icon: some View {
         if let iconImage = data.iconImage {
-            IconView(icon: iconImage)
-                .frame(width: 48, height: 48)
-                .allowsHitTesting(false)
-            Spacer.fixedWidth(12)
+            if data.isMinimal {
+                IconView(icon: iconImage)
+                    .frame(width: 24, height: 24)
+                    .allowsHitTesting(false)
+                Spacer.fixedWidth(10)
+            } else {
+                IconView(icon: iconImage)
+                    .frame(width: 48, height: 48)
+                    .allowsHitTesting(false)
+                Spacer.fixedWidth( 12)
+            }
         }
     }
     
@@ -31,7 +38,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer()
             
-            AnytypeText(data.title, style: .previewTitle2Medium)
+            AnytypeText(data.title, style: data.isMinimal ? .uxBodyRegular : .previewTitle2Medium)
                 .foregroundColor(.Text.primary)
                 .lineLimit(1)
                 .frame(height: 20)
