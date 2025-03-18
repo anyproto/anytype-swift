@@ -225,6 +225,8 @@
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
+"Existing properties" = "Existing properties";
+"Properties formats" = "Properties formats";
 
 // Home
 "Favorites" = "Ưa thích";
@@ -367,6 +369,7 @@
 // MARK: - Main search
 "There is no object named" = "Không có đối tượng tên %@";
 "There is no type named" = "Không có loại tên %@";
+"There is no property named" = "There is no property named %@";
 "Create a new one or search for something else" = "Tạo một cái mới hoặc tìm cái nào đấy khác";
 "Search.Links.Show.title" = "Hiện các đối tượng liên quan";
 "Search.Links.Header.title" = "Liên quan đến: %@";
@@ -1329,7 +1332,7 @@ Please provide specific details of your needs here.";
 "Migration.Initial.startUpdate" = "Start Update";
 "Migration.Initial.readMore" = "Read More";
 
-"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.title" = "Update is in progress...";
 "Migration.Progress.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";
 "Migration.Error.NotEnoughtSpace.title" = "Not enough space";
 "Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";
