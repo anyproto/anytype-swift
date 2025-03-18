@@ -127,7 +127,7 @@ final class AuthViewModel: ObservableObject {
     
     private func setDefaultSpaceInfo(_ spaceId: String, iconOption: Int) async throws {
         guard spaceId.isNotEmpty else { return }
-        try await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
+        try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
         try? await workspaceService.workspaceSetDetails(
             spaceId: spaceId,
             details: [.name(Loc.myFirstSpace), .iconOption(iconOption)]
