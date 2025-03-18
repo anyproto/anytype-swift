@@ -228,7 +228,7 @@ public extension FeatureDescription {
         title: "Counters",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
+        releaseAnyAppValue: true,
         debugValue: true
     )
     
