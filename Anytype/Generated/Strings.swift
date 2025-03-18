@@ -294,6 +294,7 @@ internal enum Loc {
   internal static let previewLayout = Loc.tr("Localizable", "Preview layout", fallback: "Preview layout")
   internal static let profile = Loc.tr("Localizable", "Profile", fallback: "Profile")
   internal static let progress = Loc.tr("Localizable", "Progress...", fallback: "Progress...")
+  internal static let propertiesFormats = Loc.tr("Localizable", "Properties formats", fallback: "Properties formats")
   internal static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   internal static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")
   internal static let qrCode = Loc.tr("Localizable", "QR Code", fallback: "QR Code")
@@ -361,6 +362,9 @@ internal enum Loc {
   internal static let thereIsNoIconNamed = Loc.tr("Localizable", "There is no icon named", fallback: "There is no icon named")
   internal static func thereIsNoObjectNamed(_ p1: Any) -> String {
     return Loc.tr("Localizable", "There is no object named", String(describing: p1), fallback: "There is no object named %@")
+  }
+  internal static func thereIsNoPropertyNamed(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "There is no property named", String(describing: p1), fallback: "There is no property named %@")
   }
   internal static func thereIsNoTypeNamed(_ p1: Any) -> String {
     return Loc.tr("Localizable", "There is no type named", String(describing: p1), fallback: "There is no type named %@")

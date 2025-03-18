@@ -4,9 +4,12 @@ import AnytypeCore
 
 
 @MainActor
-final class RelationCreationViewModel: ObservableObject {
+final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinatorViewOutput {
     
     @Published var rows: [SearchDataSection<RelationSearchData>] = []
+    @Published var newRelationData: RelationInfoData?
+    
+    var dismiss: DismissAction?
     
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
@@ -24,41 +27,65 @@ final class RelationCreationViewModel: ObservableObject {
         self.data = data
     }
     
-    func setupSubscriptions() async {
-        async let subscription: () = subscribe()
-        
-        (_) = await (subscription)
-    }
-    
-    // MARK: - Private
-    private func subscribe() async {
-        
-    }
-    
     func search(text: String) async {
-        guard let results = try? await searchService.searchRelations(text: text, excludedIds: data.excludedRelationsIds, spaceId: data.spaceId) else {
-            return
+        let propertyFormats = SupportedRelationFormat.allCases.filter {
+            if text.isEmpty { return true }
+            return $0.title.lowercased().contains(text.lowercased())
         }
+        let existingProperties = (try? await searchService.searchRelations(text: text, excludedIds: data.excludedRelationsIds, spaceId: data.spaceId)) ?? []
         
-        rows = [
-            SearchDataSection(searchData: results.map{ RelationSearchData(details: $0)}, sectionName: Loc.existingProperties)
-        ]
-    }
-    
-    func onRelationTap(_ row: RelationSearchData) {
-        Task {
-            switch data.target {
-            case let .type(data):
-                try await addRelationToType(relation: row.details, typeData: data)
-            case .dataview(let activeViewId):
-                try await addRelationToDataview(objectId: data.objectId, relation: row.details, activeViewId: activeViewId)
+        
+        rows = .builder {
+            if propertyFormats.isNotEmpty {
+                SearchDataSection(
+                    searchData: propertyFormats.map{ RelationSearchData.new($0) },
+                    sectionName: Loc.propertiesFormats
+                )
             }
             
-            data.onRelationSelect(row.details, false) // isNew = false
+            if existingProperties.isNotEmpty {
+                SearchDataSection(
+                    searchData: existingProperties.map{ RelationSearchData.existing($0) },
+                    sectionName: Loc.existingProperties
+                )
+            }
         }
     }
     
+    func onRowTap(_ row: RelationSearchData) {
+        Task {
+            switch row {
+            case .existing(let details):
+                try await onExistingPropertyTap(details)
+                data.onRelationSelect(details, false) // isNew = false
+            case .new(let format):
+                newRelationData = RelationInfoData(
+                    name: "",
+                    objectId: data.objectId,
+                    spaceId: data.spaceId,
+                    target: data.target,
+                    mode: .create(format: format)
+                )
+            }
+        }
+    }
+    
+    // MARK: - RelationInfoCoordinatorViewOutput
+    func didPressConfirm(_ relation: RelationDetails) {
+        data.onRelationSelect(relation, true) // isNew = true
+        dismiss?()
+    }
+    
     // MARK: - Private
+    
+    private func onExistingPropertyTap(_ details: RelationDetails) async throws {
+        switch data.target {
+        case let .type(data):
+            try await addRelationToType(relation: details, typeData: data)
+        case .dataview(let activeViewId):
+            try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId)
+        }
+    }
     
     private func addRelationToType(relation: RelationDetails, typeData: RelationsModuleTypeData) async throws {
         switch typeData {

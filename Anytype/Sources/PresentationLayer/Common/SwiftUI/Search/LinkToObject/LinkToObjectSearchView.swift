@@ -15,6 +15,7 @@ struct LinkToObjectSearchView: View {
             title: Loc.linkTo,
             placeholder: Loc.Editor.LinkToObject.searchPlaceholder,
             searchData: model.searchData,
+            emptyViewMode: .object,
             search:  { text in
                 await model.search(text: text)
             },
