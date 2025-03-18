@@ -85,7 +85,7 @@ extension BundledRelationsValueProvider {
     var isTemplateType: Bool { objectType.isTemplateType }
     
     var canMakeTemplate: Bool {
-        resolvedLayoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty
+        resolvedLayoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty && !isObjectType
     }
     
     // MARK: - DetailsLayout proxy

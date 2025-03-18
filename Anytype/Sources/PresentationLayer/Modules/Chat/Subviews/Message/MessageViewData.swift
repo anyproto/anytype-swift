@@ -14,6 +14,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let linkedObjects: MessageLinkedObjectsLayout?
     let reactions: [MessageReactionModel]
     let canAddReaction: Bool
+    let canReply: Bool
     let nextSpacing: MessageViewSpacing
     let authorIconMode: MessageAuthorIconMode
     let showAuthorName: Bool

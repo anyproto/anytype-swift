@@ -10,6 +10,7 @@ final class ChatCollectionViewCoordinator<
     HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item, Section.ID: Sendable {
     
     private let distanceForLoadNextPage: CGFloat = 300
+    private let visibleDelta: CGFloat = 10
     private var canCallScrollToTop = false
     private var canCallScrollToBottom = false
     private var scrollToTopUpdateTask: AnyCancellable?
@@ -25,7 +26,7 @@ final class ChatCollectionViewCoordinator<
     var lastScrollProxy: ChatCollectionScrollProxy?
     var itemBuilder: ((Item) -> DataView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
-    var handleVisibleRange: ((_ fromId: String, _ toId: String) -> Void)?
+    var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
     
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
@@ -154,6 +155,9 @@ final class ChatCollectionViewCoordinator<
             }
         }
         
+        if let collectionView = scrollView as? UICollectionView {
+            updateVisibleRangeIfNeeded(collectionView: collectionView)
+        }
     }
     
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
@@ -164,17 +168,25 @@ final class ChatCollectionViewCoordinator<
         decelerating = false
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard !dataSourceApplyTransaction else { return }
-        updateVisibleRangeIfNeeded(collectionView: collectionView)
-    }
-    
     // MARK: - Private
     
     private func updateVisibleRangeIfNeeded(collectionView: UICollectionView) {
         guard let handleVisibleRange else { return }
         
-        let visibleIndexes = collectionView.indexPathsForVisibleItems.sorted(by: <)
+        let cells = collectionView.visibleCells
+        
+        var visibleIndexes: [IndexPath] = []
+        
+        let boundsWithoutInsets = collectionView.bounds.inset(by: collectionView.adjustedContentInset)
+        
+        for cell in cells {
+            let intersection = cell.frame.intersection(boundsWithoutInsets)
+            if (cell.frame.height - intersection.height) < visibleDelta, let indexPath = collectionView.indexPath(for: cell) {
+                visibleIndexes.append(indexPath)
+            }
+        }
+        
+        visibleIndexes.sort()
         
         if let first = visibleIndexes.first,
            let firstItem = dataSource?.itemIdentifier(for: first),
@@ -184,9 +196,10 @@ final class ChatCollectionViewCoordinator<
             let newRange = [firstItem.id, lastItem.id]
             if oldVisibleRange != newRange {
                 oldVisibleRange = newRange
-                handleVisibleRange(firstItem.id, lastItem.id)
+                handleVisibleRange(firstItem, lastItem)
             }
         }
+
     }
     
     private func appyScrollProxy(collectionView: UICollectionView, scrollProxy: ChatCollectionScrollProxy, fallbackScrollToBottom: Bool) {

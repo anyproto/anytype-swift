@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "Seçenek, alanınızdan kalıcı olarak kaldırılacaktır.";
 "Relation.Object.Delete.Alert.Description" = "Nesne Çöp Kutusuna taşınacaktır.";
 
-"Relation.Format.Object.Title" = "Nesne";
+"Relation.Format.Object.Title" = "Object relation";
 "Relation.Format.Text.Title" = "Metin";
 "Relation.Format.Number.Title" = "Sayı";
 "Relation.Format.Status.Title" = "Seç";
@@ -221,6 +221,9 @@
 "Object Types" = "Nesne Türleri";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+
+"Add property" = "Add property";
+"Search or create new" = "Search or create new";
 
 // Home
 "Favorites" = "Favoriler";
@@ -1247,6 +1250,8 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tepki Ekle";
 "Message.Action.Reply" = "Yanıtla";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
 "Message.ChatTitle.Placeholder" = "Başlıksız Sohbet";
 
@@ -1296,6 +1301,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.CreateObject.Dismiss.Ok" = "Evet, kapat";
 "Chat.Attach.Page.title" = "Sayfa Ekle";
 "Chat.Attach.List.title" = "Liste Ekle";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";
@@ -1318,10 +1324,23 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "AnyApp.BetaAlert.Description" = "Eğrinin önündesiniz! Bazı özellikler hala geliştirme aşamasındadır veya üretime hazır değildir. Güncellemeler için bizi izlemeye devam edin.";
 
 // MARK: - Migration
-"Migration.title" = "Geçiş işlemi devam ediyor...";
-"Migration.subtitle" = "Bu işlem biraz zaman alabilir. Lütfen işlem tamamlanana kadar uygulamayı kapatmayın.";
+"Migration.Initial.title" = "New Version Update";
+"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
+"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
+"Migration.Initial.startUpdate" = "Start Update";
+"Migration.Initial.readMore" = "Read More";
+
+"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.subtitle" = "Bu işlem biraz zaman alabilir. Lütfen işlem tamamlanana kadar uygulamayı kapatmayın.";
 "Migration.Error.NotEnoughtSpace.title" = "Yeterli yer yok";
 "Migration.Error.NotEnoughtSpace.message" = "Lütfen biraz yer açın ve işlemi tekrarlayın.";
+
+"Migration.ReadMore.option1" = "What to Expect";
+"Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
+"Migration.ReadMore.option2" = "Your Data Remains Safe";
+"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
+"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+
 
 // MARK: - Primitives
 "Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";

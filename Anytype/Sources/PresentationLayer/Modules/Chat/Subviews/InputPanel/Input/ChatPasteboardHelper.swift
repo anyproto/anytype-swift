@@ -18,6 +18,8 @@ final class ChatPasteboardHelper: ChatPasteboardHelperProtocol {
             return parseAttributedString(string)
         } else if let url = pasteboardHelper.obtainUrlSlot() {
             return parseUrl(url)
+        } else if let string = pasteboardHelper.obtainString() {
+            return NSAttributedString(string: string)
         }
         return nil
     }

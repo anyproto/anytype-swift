@@ -17,8 +17,8 @@ struct CircularProgressBar: View {
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
-                    Color.System.amber50,
-                    style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round)
+                    Color.Dark.blue,
+                    style: StrokeStyle(lineWidth: 8, lineJoin: .round)
                 )
                 .rotationEffect(.degrees(-90))
                 .animation(.linear, value: progress)

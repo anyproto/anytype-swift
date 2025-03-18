@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "Эта опция будет удалена из вашего рабочего пространства.";
 "Relation.Object.Delete.Alert.Description" = "Этот объект будет перемещен в корзину.";
 
-"Relation.Format.Object.Title" = "Объект";
+"Relation.Format.Object.Title" = "Object relation";
 "Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Число";
 "Relation.Format.Status.Title" = "Выбрать";
@@ -221,6 +221,9 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+
+"Add property" = "Добавить свойство";
+"Search or create new" = "Search or create new";
 
 // Home
 "Favorites" = "Избранное";
@@ -1248,6 +1251,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "Добавить реакцию";
 "Message.Action.Reply" = "Ответить";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Написать сообщение...";
 "Message.ChatTitle.Placeholder" = "Чат без названия";
 
@@ -1297,6 +1302,7 @@
 "Chat.CreateObject.Dismiss.Ok" = "Да, закрыть";
 "Chat.Attach.Page.title" = "Прикрепить страницу";
 "Chat.Attach.List.title" = "Прикрепить список";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
@@ -1319,10 +1325,23 @@
 "AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
 
 // MARK: - Migration
-"Migration.title" = "Миграция в процессе...";
-"Migration.subtitle" = "Это может занять некоторое время. Пожалуйста, не закрывайте приложение, пока процесс не завершится.";
+"Migration.Initial.title" = "New Version Update";
+"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
+"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
+"Migration.Initial.startUpdate" = "Start Update";
+"Migration.Initial.readMore" = "Read More";
+
+"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.subtitle" = "Это может занять некоторое время. Пожалуйста, не закрывайте приложение, пока процесс не завершится.";
 "Migration.Error.NotEnoughtSpace.title" = "Недостаточно места";
 "Migration.Error.NotEnoughtSpace.message" = "Пожалуйста, освободите пространство и запустите процесс снова.";
+
+"Migration.ReadMore.option1" = "What to Expect";
+"Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
+"Migration.ReadMore.option2" = "Your Data Remains Safe";
+"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
+"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+
 
 // MARK: - Primitives
 "Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";

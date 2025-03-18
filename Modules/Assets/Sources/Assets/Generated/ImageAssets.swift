@@ -910,6 +910,10 @@ extension ImageAsset {
       public static let list = ImageAsset.bundle(name: "x54/View/List")
     }
   }
+  public enum Illustration {
+    public static let exclamation = ImageAsset.bundle(name: "Illustration/Exclamation")
+    public static let loading = ImageAsset.bundle(name: "Illustration/Loading")
+  }
   public enum Membership {
     public static let banner1 = ImageAsset.bundle(name: "Membership/banner_1")
     public static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
@@ -925,6 +929,10 @@ extension ImageAsset {
     public static let tierExplorerSmall = ImageAsset.bundle(name: "Membership/tier_explorer_small")
   }
   public static let createNewObject = ImageAsset.bundle(name: "createNewObject")
+  public enum Migration {
+    public static let data = ImageAsset.bundle(name: "Migration/Data")
+    public static let loading = ImageAsset.bundle(name: "Migration/Loading")
+  }
   public static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")
   public static let templateMakeDefault = ImageAsset.bundle(name: "template_make_default")
   public static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")

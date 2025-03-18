@@ -67,8 +67,8 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
-"Fields.local" = "Local properties";
+"Fields.menu" = "属性菜单";
+"Fields.local" = "本地属性";
 "Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "此选项将从您的空间永久删除。";
 "Relation.Object.Delete.Alert.Description" = "对象将被移动到回收站。";
 
-"Relation.Format.Object.Title" = "对象";
+"Relation.Format.Object.Title" = "Object relation";
 "Relation.Format.Text.Title" = "正文";
 "Relation.Format.Number.Title" = "数目";
 "Relation.Format.Status.Title" = "选择";
@@ -222,10 +222,13 @@
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
 
+"Add property" = "Add property";
+"Search or create new" = "Search or create new";
+
 // Home
 "Favorites" = "收藏夹";
 "Recent" = "最近";
-"Bin" = "废纸篓";
+"Bin" = "回收站";
 "All objects" = "所有对象";
 
 // Settings
@@ -408,13 +411,13 @@
 "Templates.Popup.Removed" = "模板已删除";
 "Templates.Popup.Default" = "此模板已设置为默认";
 
-"To Bin" = "移到废纸篓";
+"To Bin" = "移入回收站";
 "Set as default" = "设为默认";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "从收藏夹中删除";
 "Add To Favorite" = "加入收藏夹";
-"Move To Bin" = "移动到废纸篓";
+"Move To Bin" = "移动到回收站";
 
 
 "LinkAppearance.Description.None.Title" = "无";
@@ -836,7 +839,7 @@
 "Widgets.Actions.RemoveWidget" = "删除小部件";
 "Widgets.Actions.EditWidgets" = "编辑小部件";
 "Widgets.Actions.AddWidget" = "添加小部件";
-"Widgets.Actions.EmptyBin" = "清空废纸篓";
+"Widgets.Actions.EmptyBin" = "清空回收站";
 "Widgets.Actions.AddBelow" = "在下面添加";
 "Widgets.Actions.NewObject" = "新建对象";
 "Widgets.Actions.SeeAllObjects" = "查看所有对象";
@@ -939,7 +942,7 @@
 "Space.Status.RemoteWaitingDeletion" = "正等待删除";
 "Space.Status.RemoteDeleted" = "远程已删除";
 "Space.Status.SpaceDeleted" = "已删除";
-"Space.Status.SpaceActive" = "正在进行";
+"Space.Status.SpaceActive" = "生效";
 "Space.Status.SpaceJoining" = "正在加入";
 "Space.Status.SpaceRemoving" = "删除中";
 
@@ -1247,6 +1250,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
 "Message.Action.Reply" = "回复";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "写一段话…";
 "Message.ChatTitle.Placeholder" = "未命名对话";
 
@@ -1296,6 +1301,7 @@
 "Chat.CreateObject.Dismiss.Ok" = "Yes, close";
 "Chat.Attach.Page.title" = "Attach Page";
 "Chat.Attach.List.title" = "Attach List";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
@@ -1318,10 +1324,23 @@
 "AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
 
 // MARK: - Migration
-"Migration.title" = "Migration is in progress...";
-"Migration.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";
+"Migration.Initial.title" = "New Version Update";
+"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
+"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
+"Migration.Initial.startUpdate" = "Start Update";
+"Migration.Initial.readMore" = "Read More";
+
+"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";
 "Migration.Error.NotEnoughtSpace.title" = "Not enough space";
 "Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";
+
+"Migration.ReadMore.option1" = "What to Expect";
+"Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
+"Migration.ReadMore.option2" = "Your Data Remains Safe";
+"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
+"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+
 
 // MARK: - Primitives
 "Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";

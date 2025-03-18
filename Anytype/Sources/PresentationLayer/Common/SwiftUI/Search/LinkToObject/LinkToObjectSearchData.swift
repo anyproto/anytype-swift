@@ -4,65 +4,53 @@ import AnytypeCore
 
 struct LinkToObjectSearchData: SearchDataProtocol {
     let id = UUID()
-
-    let searchKind: LinkToObjectSearchViewModel.SearchKind
     
     let title: String
-    let description: String
-    let callout: String
-    let typeId: String
-    
     let iconImage: Icon?
     
-    let screenData: ScreenData
+    let searchKind: LinkToObjectSearchViewModel.SearchKind
+    let mode: SerchDataPresentationMode
 
     init(details: ObjectDetails, searchKind: LinkToObjectSearchViewModel.SearchKind? = nil) {
-        self.searchKind = searchKind ?? .object(details.id)
         self.title = details.title
-        self.description = details.description
-        self.callout = details.objectType.displayName
-        self.typeId = details.objectType.id
         self.iconImage = details.objectIconImage
-        self.screenData = details.screenData()
+        
+        
+        let searchKind = searchKind ?? .object(details.id)
+        self.searchKind = searchKind
+        
+        self.mode = .full(
+            descriptionInfo: (searchKind.shouldShowDescription && details.description.isNotEmpty) ? SearchDataDescriptionInfo(
+                description: details.description,
+                descriptionTextColor: .Text.primary,
+                descriptionFont: .relation3Regular
+            ) : nil,
+            callout: (searchKind.shouldShowCallout && details.objectType.displayName.isNotEmpty) ? details.objectType.displayName : nil
+        )
     }
 
     init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: Icon?) {
-        self.searchKind = searchKind
         self.title = searchTitle
         self.iconImage = iconImage
-        self.description = ""
-        self.callout = ""
-        self.typeId = ""
-        self.screenData = .editor(.page(EditorPageObject(objectId: "", spaceId: "")))
+        self.searchKind = searchKind
+        
+        self.mode = .full(descriptionInfo: nil, callout: nil)
     }
     
 }
 
-extension LinkToObjectSearchData {
-    
+private extension LinkToObjectSearchViewModel.SearchKind {
     var shouldShowDescription: Bool {
-        switch searchKind {
-        case .object, .openObject: return description.isNotEmpty
-        case .web, .createObject, .removeLink, .copyLink, .openURL: return false
+        switch self {
+        case .object, .openObject: true
+        case .web, .createObject, .removeLink, .copyLink, .openURL: false
         }
     }
     
-    var descriptionTextColor: Color {
-        .Text.primary
-    }
-    
-    var descriptionFont: AnytypeFont {
-        .relation3Regular
-    }
-
     var shouldShowCallout: Bool {
-        switch searchKind {
-        case .object: return callout.isNotEmpty
-        case .web, .createObject, .openURL, .openObject, .removeLink, .copyLink: return false
+        switch self {
+        case .object: true
+        case .web, .createObject, .openURL, .openObject, .removeLink, .copyLink: false
         }
-    }
-    
-    var verticalInset: CGFloat {
-        20
     }
 }

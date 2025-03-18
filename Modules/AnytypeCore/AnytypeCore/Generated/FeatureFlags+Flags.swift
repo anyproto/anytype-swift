@@ -126,12 +126,20 @@ public extension FeatureFlags {
         value(for: .chatLayoutInsideSpace)
     }
 
+    static var chatCounters: Bool {
+        value(for: .chatCounters)
+    }
+
     static var joinStream: Bool {
         value(for: .joinStream)
     }
 
     static var httpsLinkForObjectCopy: Bool {
         value(for: .httpsLinkForObjectCopy)
+    }
+
+    static var newPropertiesCreation: Bool {
+        value(for: .newPropertiesCreation)
     }
 
     static var rainbowViews: Bool {
@@ -218,8 +226,10 @@ public extension FeatureFlags {
         .disableRestoreLastScreen,
         .spaceHubNewTitle,
         .chatLayoutInsideSpace,
+        .chatCounters,
         .joinStream,
         .httpsLinkForObjectCopy,
+        .newPropertiesCreation,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -215,6 +215,14 @@ public extension FeatureDescription {
         releaseAnyAppValue: false,
         debugValue: true
     )
+        
+    static let chatCounters = FeatureDescription(
+        title: "Counters",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: true
+    )
     
     static let joinStream = FeatureDescription(
         title: "Join to stream after login",
@@ -223,11 +231,18 @@ public extension FeatureDescription {
         releaseAnyAppValue: true,
         debugValue: false
     )
-    
+
     static let httpsLinkForObjectCopy = FeatureDescription(
         title: "https link for objects copy action",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
         defaultValue: true
+    )
+    
+    static let newPropertiesCreation = FeatureDescription(
+        title: "New properties creation flow",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

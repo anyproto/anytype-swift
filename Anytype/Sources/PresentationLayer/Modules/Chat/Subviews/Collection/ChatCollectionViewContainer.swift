@@ -1,11 +1,12 @@
 import SwiftUI
 import UIKit
 
-final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIViewController {
+final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, ActionView: View>: UIViewController {
     
     let collectionView: UICollectionView
     let bottomPanel: UIHostingController<BottomPanel>
     let emptyView: UIHostingController<EmptyView>
+    let actionView: UIHostingController<ActionView>
     
     private let bottomBlurEffectView = HomeBlurEffectUIView()
     private var bottomTopConstraint: NSLayoutConstraint?
@@ -18,10 +19,16 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIV
     private var keyboardListener: KeyboardEventsListnerHelper?
     private var restoreZeroScrollViewOffset = false
     
-    init(collectionView: UICollectionView, bottomPanel: UIHostingController<BottomPanel>, emptyView: UIHostingController<EmptyView>) {
+    init(
+        collectionView: UICollectionView,
+        bottomPanel: UIHostingController<BottomPanel>,
+        emptyView: UIHostingController<EmptyView>,
+        actionView: UIHostingController<ActionView>
+    ) {
         self.collectionView = collectionView
         self.bottomPanel = bottomPanel
         self.emptyView = emptyView
+        self.actionView = actionView
         super.init(nibName: nil, bundle: nil)
         
         bottomBlurEffectView.direction = .bottomToTop
@@ -79,9 +86,11 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIV
             $0.pinToSuperview()
         }
         
+        addChild(emptyView)
         collectionViewContainer.addSubview(emptyView.view) {
             $0.pinToSuperview()
         }
+        emptyView.didMove(toParent: self)
         
         view.addSubview(collectionViewContainer) {
             $0.pinToSuperview()
@@ -97,6 +106,13 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View>: UIV
             $0.bottom.equal(to: view.keyboardLayoutGuide.topAnchor)
         }
         bottomPanel.didMove(toParent: self)
+        
+        addChild(actionView)
+        view.addSubview(actionView.view) {
+            $0.bottom.equal(to: bottomPanel.view.topAnchor)
+            $0.trailing.equal(to: view.trailingAnchor)
+        }
+        actionView.didMove(toParent: self)
         
         bottomTopConstraint = bottomBlurEffectView.topAnchor.constraint(equalTo: bottomPanel.view.topAnchor, constant: 0)
         bottomTopConstraint?.isActive = true

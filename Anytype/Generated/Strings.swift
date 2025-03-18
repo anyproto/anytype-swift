@@ -20,6 +20,7 @@ internal enum Loc {
   internal static let addEmail = Loc.tr("Localizable", "Add email", fallback: "Add email")
   internal static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
   internal static let addPhone = Loc.tr("Localizable", "Add phone", fallback: "Add phone")
+  internal static let addProperty = Loc.tr("Localizable", "Add property", fallback: "Add property")
   internal static let addToFavorite = Loc.tr("Localizable", "Add To Favorite", fallback: "Add To Favorite")
   internal static func agreementDisclamer(_ p1: Any, _ p2: Any) -> String {
     return Loc.tr("Localizable", "Agreement Disclamer", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)")
@@ -319,6 +320,7 @@ internal enum Loc {
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   internal static let search = Loc.tr("Localizable", "Search", fallback: "Search")
   internal static let searchForLanguage = Loc.tr("Localizable", "Search for language", fallback: "Search for language")
+  internal static let searchOrCreateNew = Loc.tr("Localizable", "Search or create new", fallback: "Search or create new")
   internal static let selectAll = Loc.tr("Localizable", "Select all", fallback: "Select all")
   internal static let selectDate = Loc.tr("Localizable", "Select date", fallback: "Select date")
   internal static let selectFile = Loc.tr("Localizable", "Select file", fallback: "Select file")
@@ -648,6 +650,7 @@ internal enum Loc {
   }
   internal enum Chat {
     internal static let editMessage = Loc.tr("Localizable", "Chat.EditMessage", fallback: "Edit Message")
+    internal static let newMessages = Loc.tr("Localizable", "Chat.NewMessages", fallback: "New messages")
     internal static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
     }
@@ -1243,7 +1246,9 @@ internal enum Loc {
   internal enum Message {
     internal enum Action {
       internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction", fallback: "Add Reaction")
+      internal static let copyPlainText = Loc.tr("Localizable", "Message.Action.CopyPlainText", fallback: "Copy Plain Text")
       internal static let reply = Loc.tr("Localizable", "Message.Action.Reply", fallback: "Reply")
+      internal static let unread = Loc.tr("Localizable", "Message.Action.Unread", fallback: "Mark Unread")
     }
     internal enum ChatTitle {
       internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder", fallback: "Untitled Chat")
@@ -1258,13 +1263,29 @@ internal enum Loc {
     }
   }
   internal enum Migration {
-    internal static let subtitle = Loc.tr("Localizable", "Migration.subtitle", fallback: "This may take some time. Please don’t close the app until the process is complete.")
-    internal static let title = Loc.tr("Localizable", "Migration.title", fallback: "Migration is in progress...")
     internal enum Error {
       internal enum NotEnoughtSpace {
         internal static let message = Loc.tr("Localizable", "Migration.Error.NotEnoughtSpace.message", fallback: "Please free up space and run the process again.")
         internal static let title = Loc.tr("Localizable", "Migration.Error.NotEnoughtSpace.title", fallback: "Not enough space")
       }
+    }
+    internal enum Initial {
+      internal static let readMore = Loc.tr("Localizable", "Migration.Initial.readMore", fallback: "Read More")
+      internal static let startUpdate = Loc.tr("Localizable", "Migration.Initial.startUpdate", fallback: "Start Update")
+      internal static let subtitle1 = Loc.tr("Localizable", "Migration.Initial.subtitle1", fallback: "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.")
+      internal static let subtitle2 = Loc.tr("Localizable", "Migration.Initial.subtitle2", fallback: "It might take a little while, but don't worry, your data is safe.")
+      internal static let title = Loc.tr("Localizable", "Migration.Initial.title", fallback: "New Version Update")
+    }
+    internal enum Progress {
+      internal static let subtitle = Loc.tr("Localizable", "Migration.Progress.subtitle", fallback: "This may take some time. Please don’t close the app until the process is complete.")
+      internal static let title = Loc.tr("Localizable", "Migration.Progress.title", fallback: "Update is in progress...")
+    }
+    internal enum ReadMore {
+      internal static let description1 = Loc.tr("Localizable", "Migration.ReadMore.description1", fallback: "You'll see a loading screen during the update. Once finished, you can continue using the app normally.")
+      internal static let description2 = Loc.tr("Localizable", "Migration.ReadMore.description2", fallback: "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.")
+      internal static let description3 = Loc.tr("Localizable", "Migration.ReadMore.description3", fallback: "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.")
+      internal static let option1 = Loc.tr("Localizable", "Migration.ReadMore.option1", fallback: "What to Expect")
+      internal static let option2 = Loc.tr("Localizable", "Migration.ReadMore.option2", fallback: "Your Data Remains Safe")
     }
   }
   internal enum Object {
@@ -1372,7 +1393,7 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Relation.Format.Number.Title", fallback: "Number")
       }
       internal enum Object {
-        internal static let title = Loc.tr("Localizable", "Relation.Format.Object.Title", fallback: "Object")
+        internal static let title = Loc.tr("Localizable", "Relation.Format.Object.Title", fallback: "Object relation")
       }
       internal enum Phone {
         internal static let title = Loc.tr("Localizable", "Relation.Format.Phone.Title", fallback: "Phone number")

@@ -368,3 +368,8 @@ enum EditTypeRoute: String {
     case object = "Object"
     case type = "Type"
 }
+
+enum OpenObjectByLinkType: String {
+    case object = "Object"
+    case invite = "Invite"
+}

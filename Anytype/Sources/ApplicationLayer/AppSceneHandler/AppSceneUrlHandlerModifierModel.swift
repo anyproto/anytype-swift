@@ -15,16 +15,16 @@ final class AppSceneUrlHandlerModifierModel: ObservableObject {
     
     @Published var safariUrl: URL?
     
-    func onOpenURL(_ url: URL) -> Bool {
+    func onOpenURL(_ url: URL, source: DeepLinkSource = .internal) -> Bool {
         let urlWithScheme = url.urlByAddingHttpIfSchemeIsEmpty()
         
         if let deepLink = deepLinkParser.parse(url: urlWithScheme) {
-            appActionStorage.action = .deepLink(deepLink)
+            appActionStorage.action = .deepLink(deepLink, source)
             return true
         }
         
         if let link = universalLinkParser.parse(url: urlWithScheme) {
-            appActionStorage.action = .deepLink(link.toDeepLink())
+            appActionStorage.action = .deepLink(link.toDeepLink(), source)
             return true
         }
         

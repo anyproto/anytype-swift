@@ -20,7 +20,11 @@ struct RelationsListCoordinatorView: View {
             RelationValueCoordinatorView(data: data, output: model)
         }
         .sheet(item: $model.relationsSearchData) {
-            RelationsSearchCoordinatorView(data: $0)
+            if FeatureFlags.newPropertiesCreation {
+                RelationCreationView(data: $0)
+            } else {
+                RelationsSearchCoordinatorView(data: $0)
+            }
         }
         .sheet(item: $model.objectTypeData) {
             TypeFieldsView(data: $0)

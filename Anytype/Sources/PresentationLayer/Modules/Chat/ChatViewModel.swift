@@ -75,6 +75,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var photosItems: [PhotosPickerItem] = []
     private var linkPreviewTasks: [URL: AnyCancellable] = [:]
     
+    // Actions
+    
+    @Published var actionModel: ChatActionPanelModel = .hidden
+    
     // List
     
     @Published var mentionSearchState = ChatTextMention.finish
@@ -84,10 +88,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
     
     private var messages: [FullChatMessage] = []
+    private var chatState: ChatState?
     private var participants: [Participant] = []
-    
     private var inviteLinkShown = false
-    
+    private var firstUnreadMessageOrderId: String?
+    private var bottomVisibleOrderId: String?
+
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
         participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
@@ -154,19 +160,36 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
         async let spaceViewSub: () = subscribeOnSpaceView()
-        async let messagesSub: () = subscribeOnMessages()
+        async let chatStateSub: () = subscribeOnChatState()
         
-        (_, _, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, messagesSub)
+        (_, _, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, chatStateSub)
     }
     
-    func startMessageSubscription() async throws {
+    func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
+        for await messages in chatStorage.messagesStream {
+            let prevChatIsEmpty = self.messages.isEmpty
+            self.messages = messages
+            self.dataLoaded = true
+            if prevChatIsEmpty {
+                firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
+            }
+            await updateMessages()
+            if prevChatIsEmpty {
+                if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
+                    collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
+                } else if let message = messages.last {
+                    collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+                }
+            }
+        }
     }
-    
-    private func subscribeOnSpaceView() async {
-        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
-            self.participantSpaceView = participantSpaceView
-            handleInviteLinkShow()
+
+    func subscribeOnChatState() async {
+        guard FeatureFlags.chatCounters else { return }
+        for await chatState in chatStorage.chatStateStream {
+            self.chatState = chatState
+            updateActions()
         }
     }
     
@@ -358,9 +381,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
     }
     
-    func visibleRangeChanged(fromId: String, toId: String) {
+    func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
+        guard let fromMessage = from.messageData, let toMessage = to.messageData else { return }
         Task {
-            await chatStorage.updateVisibleRange(starMessageId: fromId, endMessageId: toId)
+            bottomVisibleOrderId = toMessage.message.orderID
+            await chatStorage.updateVisibleRange(startMessageId: fromMessage.message.id, endMessageId: toMessage.message.id)
+            updateActions()
         }
     }
     
@@ -375,6 +401,33 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapCreateObject(type: ObjectType) {
         output?.didSelectCreateObject(type: type)
+    }
+    
+    func onTapScrollToBottom() {
+        if let bottomVisibleOrderId, let chatState, let firstUnreadMessageOrderId,
+            firstUnreadMessageOrderId > bottomVisibleOrderId,
+            bottomVisibleOrderId < chatState.messages.oldestOrderID {
+            // Scroll to unread messages if user above on it
+            Task {
+                let message = try await chatStorage.loadPagesTo(orderId: chatState.messages.oldestOrderID)
+                collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+            }
+        } else {
+            // Scroll to bottom if unser inside unread section
+            Task {
+                let lastMessage = try await chatStorage.markAsReadAll()
+                try await chatStorage.loadPagesTo(messageId: lastMessage.id)
+                collectionViewScrollProxy.scrollTo(itemId: lastMessage.id, position: .bottom, animated: true)
+            }
+        }
+    }
+    
+    func onTapMention() {
+        guard let chatState else { return }
+        Task {
+            let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
+            collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+        }
     }
     
     // MARK: - MessageModuleOutput
@@ -445,6 +498,16 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
     }
     
+    func didSelectUnread(message: MessageViewData) {
+        Task {
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID)
+        }
+    }
+
+    func didSelectCopyPlainText(message: MessageViewData) {
+        UIPasteboard.general.string = NSAttributedString(message.messageString).string
+    }
+    
     // MARK: - ChatActionProviderHandler
     
     func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
@@ -464,18 +527,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     // MARK: - Private
-    
-    private func subscribeOnMessages() async {
-        for await messages in await chatStorage.messagesPublisher.values {
-            let prevChatIsEmpty = self.messages.isEmpty
-            self.messages = messages
-            self.dataLoaded = true
-            await updateMessages()
-            if prevChatIsEmpty, let message = messages.last {
-                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
-            }
-        }
-    }
     
     private func subscribeOnParticipants() async {
         for await participants in participantSubscription.participantsPublisher.values {
@@ -504,10 +555,18 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
+    private func subscribeOnSpaceView() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            self.participantSpaceView = participantSpaceView
+            handleInviteLinkShow()
+        }
+    }
+    
     private func updateMessages() async {
         let newMessageBlocks = await chatMessageBuilder.makeMessage(
             messages: messages,
             participants: participants,
+            firstUnreadMessageOrderId: firstUnreadMessageOrderId,
             limits: chatMessageLimits
         )
         guard newMessageBlocks != mesageBlocks else { return }
@@ -622,5 +681,23 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
         output?.onInviteLinkSelected()
         inviteLinkShown = true
+    }
+    
+    private func updateActions() {
+        guard let chatState else { return }
+        
+        let lastIsNotVisible: Bool
+        if let lastMessage = messages.last, let bottomVisibleOrderId {
+            lastIsNotVisible = lastMessage.message.orderID > bottomVisibleOrderId
+        } else {
+            lastIsNotVisible = false
+        }
+        
+        actionModel = ChatActionPanelModel(
+            showScrollToBottom: chatState.messages.counter > 0 || lastIsNotVisible,
+            srollToBottomCounter: Int(chatState.messages.counter),
+            showMentions: chatState.mentions.counter > 0,
+            mentionsCounter: Int(chatState.mentions.counter)
+        )
     }
 }

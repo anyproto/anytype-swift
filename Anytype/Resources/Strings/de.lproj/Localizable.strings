@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "Die Option wird dauerhaft aus Ihrem Bereich entfernt.";
 "Relation.Object.Delete.Alert.Description" = "Das Objekt wird in den Papierkorb verschoben.";
 
-"Relation.Format.Object.Title" = "Objekt";
+"Relation.Format.Object.Title" = "Object relation";
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Nummer";
 "Relation.Format.Status.Title" = "Auswählen";
@@ -221,6 +221,9 @@
 "Object Types" = "Objekttypen";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+
+"Add property" = "Add property";
+"Search or create new" = "Search or create new";
 
 // Home
 "Favorites" = "Favoriten";
@@ -1246,6 +1249,8 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Reaktion hinzufügen";
 "Message.Action.Reply" = "Antworten";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
 "Message.Input.EmptyPlaceholder" = "Eine Nachricht schreiben...";
 "Message.ChatTitle.Placeholder" = "Unbenannter Chat ";
 
@@ -1295,6 +1300,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.CreateObject.Dismiss.Ok" = "Ja, schließen";
 "Chat.Attach.Page.title" = "Seite anhängen";
 "Chat.Attach.List.title" = "Liste anhängen";
+"Chat.NewMessages" = "New messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";
@@ -1317,10 +1323,23 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "AnyApp.BetaAlert.Description" = "Du bist der Zeit voraus! Einige Funktionen befinden sich noch in der Entwicklung oder sind noch nicht produktionsreif – bleib dran für Aktualisierungen.";
 
 // MARK: - Migration
-"Migration.title" = "Migration läuft...";
-"Migration.subtitle" = "Dies kann einige Zeit dauern. Bitte schließe die App nicht, bis der Vorgang abgeschlossen ist.";
+"Migration.Initial.title" = "New Version Update";
+"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
+"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
+"Migration.Initial.startUpdate" = "Start Update";
+"Migration.Initial.readMore" = "Read More";
+
+"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.subtitle" = "Dies kann einige Zeit dauern. Bitte schließe die App nicht, bis der Vorgang abgeschlossen ist.";
 "Migration.Error.NotEnoughtSpace.title" = "Nicht genügend Platz";
 "Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";
+
+"Migration.ReadMore.option1" = "What to Expect";
+"Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
+"Migration.ReadMore.option2" = "Your Data Remains Safe";
+"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
+"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+
 
 // MARK: - Primitives
 "Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";

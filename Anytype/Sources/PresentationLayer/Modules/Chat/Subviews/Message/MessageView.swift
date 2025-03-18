@@ -231,10 +231,28 @@ struct MessageView: View {
         
         Divider()
         
+        #if DEBUG || RELEASE_NIGHTLY
         Button {
-            output?.didSelectReplyTo(message: data)
+            output?.didSelectUnread(message: data)
         } label: {
-            Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
+            Text(Loc.Message.Action.unread)
+        }
+        #endif
+        
+        if data.canReply {
+            Button {
+                output?.didSelectReplyTo(message: data)
+            } label: {
+                Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
+            }
+        }
+        
+        if !data.messageString.isEmpty {   
+            Button {
+                output?.didSelectCopyPlainText(message: data)
+            } label: {
+                Label(Loc.Message.Action.copyPlainText, systemImage: "document.on.document")
+            }
         }
         
         if data.canEdit {

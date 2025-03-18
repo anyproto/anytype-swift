@@ -150,7 +150,7 @@ final class AuthViewModel: ObservableObject {
         switch action {
         case .createObjectFromQuickAction:
             throw AuthViewModelError.unsupportedAppAction
-        case .deepLink(let deeplink):
+        case .deepLink(let deeplink, _):
             switch deeplink {
             case .networkConfig(let config):
                 try updateNetworkConfig(config)
