@@ -25,6 +25,8 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
     let searchData: [SearchDataSection<SearchData>]
     let emptyViewMode: SearchViewEmptyViewMode
     
+    var dismissOnSelect = true
+    
     var search: (_ text: String) async -> Void
     var onSelect: (_ searchData: SearchData) -> Void
     
@@ -59,7 +61,7 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
                         ForEach(section.searchData) { searchData in
                             Button(
                                 action: {
-                                    dismiss()
+                                    if dismissOnSelect { dismiss() }
                                     onSelect(searchData)
                                 }
                             ) {

@@ -2,20 +2,35 @@ import Services
 import SwiftUI
 import AnytypeCore
 
-struct RelationSearchData: SearchDataProtocol {
+enum RelationSearchData: SearchDataProtocol {
+    case existing(RelationDetails)
+    case new(SupportedRelationFormat)
     
-    let id = UUID()
-    
-    let title: String
-    let iconImage: Icon?
-    
-    let mode = SerchDataPresentationMode.minimal
-    
-    let details: RelationDetails
-    
-    init(details: RelationDetails) {
-        self.title = details.name
-        self.iconImage = Icon.asset(details.format.iconAsset)
-        self.details = details
+    var id: String {
+        switch self {
+        case .existing(let details):
+            details.id
+        case .new(let format):
+            format.id
+        }
     }
+    
+    var iconImage: Icon? {
+        switch self {
+        case .existing(let details):
+            Icon.asset(details.format.iconAsset)
+        case .new(let format):
+            Icon.asset(format.iconAsset)
+        }
+    }
+    var title: String {
+        switch self {
+        case .existing(let details):
+            details.name
+        case .new(let format):
+            format.title
+        }
+    }
+
+    var mode: SerchDataPresentationMode { .minimal }
 }
