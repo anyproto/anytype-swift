@@ -8,6 +8,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     func updateMessage(chatObjectId: String, message: ChatMessage) async throws
     func subscribeLastMessages(chatObjectId: String, limit: Int?) async throws -> ChatSubscribeLastMessagesResponse
     func unsubscribeLastMessages(chatObjectId: String) async throws
+    func subscribeToMessagePreviews() async throws -> String
     func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws
     func deleteMessage(chatObjectId: String, messageId: String) async throws
     func readMessages(
@@ -77,6 +78,11 @@ final class ChatService: ChatServiceProtocol {
         try await ClientCommands.chatUnsubscribe(.with {
             $0.chatObjectID = chatObjectId
         }).invoke()
+    }
+    
+    func subscribeToMessagePreviews() async throws -> String {
+        let result = try await ClientCommands.chatSubscribeToMessagePreviews().invoke()
+        return result.subID
     }
     
     func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws {

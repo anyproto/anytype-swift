@@ -16,6 +16,7 @@ struct SpaceView: Identifiable, Equatable {
     let writersLimit: Int?
     let chatId: String
     let isPinned: Bool
+    let unreadMessagesCount: Int
 }
 
 extension SpaceView: DetailsModel {
@@ -33,6 +34,7 @@ extension SpaceView: DetailsModel {
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
         self.isPinned = details.spaceOrder.isNotEmpty
+        self.unreadMessagesCount = 0
     }
     
     static let subscriptionKeys: [BundledRelationKey] = .builder {
@@ -107,6 +109,25 @@ extension SpaceView {
     func canChangeReaderToWriter(participants: [Participant]) -> Bool {
         guard let writersLimit else { return true }
         return writersLimit > activeWriters(participants: participants)
+    }
+    
+    func updateUnreadMessagesCount(_ count: Int) -> SpaceView {
+        SpaceView(
+            id: id,
+            name: name,
+            description: description,
+            objectIconImage: objectIconImage,
+            targetSpaceId: targetSpaceId,
+            createdDate: createdDate,
+            accountStatus: accountStatus,
+            localStatus: localStatus,
+            spaceAccessType: spaceAccessType,
+            readersLimit: readersLimit,
+            writersLimit: writersLimit,
+            chatId: chatId,
+            isPinned: isPinned,
+            unreadMessagesCount: count
+        )
     }
     
     private func activeReaders(participants: [Participant]) -> Int {

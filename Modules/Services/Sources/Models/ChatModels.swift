@@ -7,6 +7,7 @@ public typealias ChatMessageAttachmentType = Anytype_Model_ChatMessage.Attachmen
 public typealias ChatMessageContent = Anytype_Model_ChatMessage.MessageContent
 public typealias ChatState = Anytype_Model_ChatState
 public typealias ChatMessagesReadType = Anytype_Rpc.Chat.ReadMessages.ReadType
+public typealias ChatUpdateState = Anytype_Event.Chat.UpdateState
 
 public extension ChatMessage {
     var createdAtDate: Date {

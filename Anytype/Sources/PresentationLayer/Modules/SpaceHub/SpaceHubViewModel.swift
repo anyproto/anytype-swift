@@ -35,6 +35,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private var spaceOrderService: any SpaceOrderServiceProtocol
     @Injected(\.profileStorage)
     private var profileStorage: any ProfileStorageProtocol
+    @Injected(\.chatMessagesPreviewsStorage)
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     
     init(sceneId: String) {
         self.sceneId = sceneId
@@ -84,8 +86,9 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
+        async let messagesPreviewsSub: () = subscribeOnMessagesPreviews()
         
-        (_, _, _) = await (spacesSub, wallpapersSub, profileSub)
+        (_, _, _, _) = await (spacesSub, wallpapersSub, profileSub, messagesPreviewsSub)
     }
     
     // MARK: - Private
@@ -105,6 +108,24 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private func subscribeOnProfile() async {
         for await profile in profileStorage.profilePublisher.values {
             profileIcon = profile.icon
+        }
+    }
+    
+    private func subscribeOnMessagesPreviews() async {
+        await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
+        for await preview in chatMessagesPreviewsStorage.previewStream {
+            if preview.counter > 0, var spaces,
+               let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId })
+            {
+                // TODO: enrich spaces every time on spaces update
+                let space = spaces[spaceIndex]
+                spaces[spaceIndex] = ParticipantSpaceViewData(
+                    spaceView: space.spaceView.updateUnreadMessagesCount(preview.counter),
+                    participant: space.participant,
+                    permissions: space.permissions
+                )
+                self.spaces = spaces
+            }
         }
     }
 }
