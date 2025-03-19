@@ -115,10 +115,10 @@ struct NewSpaceSettingsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         AnytypeText(Loc.description, style: .caption1Regular).foregroundColor(.Text.secondary)
                         if model.spaceDescription.isNotEmpty {
-                            AnytypeText(model.spaceDescription, style: .bodyRegular)
+                            AnytypeText(model.spaceDescription, style: .previewTitle1Regular)
                                 .multilineTextAlignment(.leading)
                         } else {
-                            AnytypeText(Loc.empty, style: .bodyRegular).foregroundColor(.Text.tertiary)
+                            AnytypeText(Loc.addADescription, style: .previewTitle1Regular).foregroundColor(.Text.tertiary)
                                 .multilineTextAlignment(.leading)
                         }
                     }
@@ -271,12 +271,12 @@ struct NewSpaceSettingsView: View {
         Spacer.fixedHeight(8)
         
         if model.allowDelete {
-            RoundedButton(Loc.SpaceSettings.deleteButton, textColor: .Dark.red) {
+            RoundedButton(Loc.SpaceSettings.deleteButton, textColor: .System.red) {
                 model.onDeleteTap()
             }
         }
         if model.allowLeave {
-            RoundedButton(Loc.SpaceSettings.leaveButton, textColor: .Dark.red) {
+            RoundedButton(Loc.SpaceSettings.leaveButton, textColor: .System.red) {
                 model.onLeaveTap()
             }
         }

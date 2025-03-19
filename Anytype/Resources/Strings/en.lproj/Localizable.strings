@@ -204,6 +204,7 @@
 "Unsupported" = "Unsupported";
 "Name" = "Name";
 "Description" = "Description";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Paste processing...";
 "Anytype Library" = "Anytype Library";
 "Copied" = "Copied";

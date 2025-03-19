@@ -49,7 +49,6 @@ struct RelationCalendarView: View {
                     .foregroundColor(.Text.primary)
                 Spacer()
                 Image(asset: .RightAttribute.disclosure)
-                    .foregroundColor(.Control.active)
             }
         }
         .frame(height: 44)

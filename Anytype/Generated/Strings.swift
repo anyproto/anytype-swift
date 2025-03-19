@@ -16,6 +16,7 @@ internal enum Loc {
   internal static let actionFocusedLayoutWithACheckbox = Loc.tr("Localizable", "Action-focused layout with a checkbox", fallback: "Action-focused layout with a checkbox")
   internal static let actions = Loc.tr("Localizable", "Actions", fallback: "Actions")
   internal static let add = Loc.tr("Localizable", "Add", fallback: "Add")
+  internal static let addADescription = Loc.tr("Localizable", "Add a description", fallback: "Add a description...")
   internal static let addBelow = Loc.tr("Localizable", "Add below", fallback: "Add below")
   internal static let addEmail = Loc.tr("Localizable", "Add email", fallback: "Add email")
   internal static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
