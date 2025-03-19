@@ -2,8 +2,6 @@ import Foundation
 import SwiftProtobuf
 
 public protocol RelationsServiceProtocol: AnyObject, Sendable {
-    func addFeaturedRelation(objectId: String, relationKey: String) async throws
-    func removeFeaturedRelation(objectId: String, relationKey: String) async throws
     func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws
     
     func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws
@@ -31,4 +29,6 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func updateRecommendedFeaturedRelations(typeId: String, relationIds: [ObjectId]) async throws
     func updateRecommendedHiddenRelations(typeId: String, relationIds: [ObjectId]) async throws
     func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String]
+    
+    func toggleDescription(objectId: String, isOn: Bool) async throws
 }
