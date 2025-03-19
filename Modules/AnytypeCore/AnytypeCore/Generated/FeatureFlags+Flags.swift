@@ -102,6 +102,10 @@ public extension FeatureFlags {
         value(for: .fixChatEmptyState)
     }
 
+    static var pluralNames: Bool {
+        value(for: .pluralNames)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -180,6 +184,7 @@ public extension FeatureFlags {
         .httpsLinkForObjectCopy,
         .newPropertiesCreation,
         .fixChatEmptyState,
+        .pluralNames,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
