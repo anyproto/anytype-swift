@@ -224,6 +224,8 @@
 
 "Add property" = "Добавить свойство";
 "Search or create new" = "Search or create new";
+"Existing properties" = "Existing properties";
+"Properties formats" = "Properties formats";
 
 // Home
 "Favorites" = "Избранное";
@@ -366,6 +368,7 @@
 // MARK: - Main search
 "There is no object named" = "Нет объекта с именем %@";
 "There is no type named" = "Нет типа с именем %@";
+"There is no property named" = "There is no property named %@";
 "Create a new one or search for something else" = "Создайте новый или найдите что-то другое";
 "Search.Links.Show.title" = "Показать связанные проекты";
 "Search.Links.Header.title" = "Связан с %@";
@@ -1331,7 +1334,7 @@
 "Migration.Initial.startUpdate" = "Start Update";
 "Migration.Initial.readMore" = "Read More";
 
-"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.title" = "Update is in progress...";
 "Migration.Progress.subtitle" = "Это может занять некоторое время. Пожалуйста, не закрывайте приложение, пока процесс не завершится.";
 "Migration.Error.NotEnoughtSpace.title" = "Недостаточно места";
 "Migration.Error.NotEnoughtSpace.message" = "Пожалуйста, освободите пространство и запустите процесс снова.";

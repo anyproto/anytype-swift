@@ -224,6 +224,8 @@
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
+"Existing properties" = "Existing properties";
+"Properties formats" = "Properties formats";
 
 // Home
 "Favorites" = "Favorieten";
@@ -366,6 +368,7 @@
 // MARK: - Main search
 "There is no object named" = "Er is geen object genaamd %@";
 "There is no type named" = "Er is geen type genaamd %@";
+"There is no property named" = "There is no property named %@";
 "Create a new one or search for something else" = "Maak een nieuwe of zoek naar iets anders";
 "Search.Links.Show.title" = "Toon verwante objecten";
 "Search.Links.Header.title" = "Gerelateerd aan: %@";
@@ -1330,7 +1333,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Migration.Initial.startUpdate" = "Start Update";
 "Migration.Initial.readMore" = "Read More";
 
-"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.title" = "Update is in progress...";
 "Migration.Progress.subtitle" = "Dit kan enige tijd duren. Sluit de app alsjeblieft niet voordat het proces is voltooid.";
 "Migration.Error.NotEnoughtSpace.title" = "Niet genoeg ruimte";
 "Migration.Error.NotEnoughtSpace.message" = "Maak alsjeblieft ruimte vrij en voer het proces opnieuw uit.";

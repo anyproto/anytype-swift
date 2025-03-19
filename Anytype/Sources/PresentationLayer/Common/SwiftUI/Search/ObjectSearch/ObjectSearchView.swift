@@ -14,6 +14,7 @@ struct ObjectSearchView: View {
             title: model.title,
             placeholder: Loc.search,
             searchData: model.searchData,
+            emptyViewMode: .object,
             search:  { text in
                 await model.search(text: text)
             },

@@ -3,6 +3,10 @@ import ProtobufMessages
 
 public struct RelationLink: Hashable, Sendable {
     public let key: String
+    
+    public init(key: String) {
+        self.key = key
+    }
 }
 
 public extension RelationLink {

@@ -14,6 +14,7 @@ struct SpaceSearchView: View {
             title: Loc.Spaces.Search.title,
             placeholder: Loc.Spaces.Search.title,
             searchData: model.searchData,
+            emptyViewMode: .object,
             search:  { text in
                 model.search(text: text)
             },

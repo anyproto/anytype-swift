@@ -224,6 +224,8 @@
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
+"Existing properties" = "Existing properties";
+"Properties formats" = "Properties formats";
 
 // Home
 "Favorites" = "Favoriten";
@@ -366,6 +368,7 @@
 // MARK: - Main search
 "There is no object named" = "Es gibt kein Objekt mit dem Namen %@";
 "There is no type named" = "Es gibt keinen Typ mit dem Namen %@";
+"There is no property named" = "There is no property named %@";
 "Create a new one or search for something else" = "Erstelle ein neues oder suche nach etwas anderem";
 "Search.Links.Show.title" = "Zugehörige Objekte anzeigen";
 "Search.Links.Header.title" = "Zugehörig zu: %@";
@@ -1329,7 +1332,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Migration.Initial.startUpdate" = "Start Update";
 "Migration.Initial.readMore" = "Read More";
 
-"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.title" = "Update is in progress...";
 "Migration.Progress.subtitle" = "Dies kann einige Zeit dauern. Bitte schließe die App nicht, bis der Vorgang abgeschlossen ist.";
 "Migration.Error.NotEnoughtSpace.title" = "Nicht genügend Platz";
 "Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";

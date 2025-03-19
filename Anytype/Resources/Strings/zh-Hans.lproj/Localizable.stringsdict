@@ -309,7 +309,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>This type has %d templates</string>
+        <string>此类型有 %d 个模板</string>
       </dict>
     </dict>
   </dict>

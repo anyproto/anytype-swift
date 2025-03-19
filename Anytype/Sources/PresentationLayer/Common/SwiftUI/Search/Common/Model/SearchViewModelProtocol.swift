@@ -20,12 +20,8 @@ protocol SearchDataProtocol: Identifiable {
 
 extension SearchDataProtocol {
     var isMinimal: Bool {
-        switch mode {
-        case .full:
-            false
-        case .minimal:
-            true
-        }
+        if case .minimal = mode { return true }
+        return false
     }
 }
 

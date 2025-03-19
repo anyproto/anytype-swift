@@ -20,7 +20,7 @@ final class RelationsSearchCoordinatorViewModel: ObservableObject, RelationInfoC
             objectId: data.objectId,
             spaceId: data.spaceId,
             target: data.target,
-            mode: .create
+            mode: .create(format: nil)
         )
     }
     

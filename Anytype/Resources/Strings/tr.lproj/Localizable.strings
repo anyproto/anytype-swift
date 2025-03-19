@@ -224,6 +224,8 @@
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
+"Existing properties" = "Existing properties";
+"Properties formats" = "Properties formats";
 
 // Home
 "Favorites" = "Favoriler";
@@ -366,6 +368,7 @@
 // MARK: - Main search
 "There is no object named" = "%@ isimli nesne yok";
 "There is no type named" = "%@ isimli tür yok";
+"There is no property named" = "There is no property named %@";
 "Create a new one or search for something else" = "Yeni bir tane oluşturun ya da başka bir şey arayın";
 "Search.Links.Show.title" = "İlgili nesneleri göster";
 "Search.Links.Header.title" = "%@ ile ilişkili";
@@ -1330,7 +1333,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Migration.Initial.startUpdate" = "Start Update";
 "Migration.Initial.readMore" = "Read More";
 
-"Migration.Progress.title" = "Migration is in progress...";
+"Migration.Progress.title" = "Update is in progress...";
 "Migration.Progress.subtitle" = "Bu işlem biraz zaman alabilir. Lütfen işlem tamamlanana kadar uygulamayı kapatmayın.";
 "Migration.Error.NotEnoughtSpace.title" = "Yeterli yer yok";
 "Migration.Error.NotEnoughtSpace.message" = "Lütfen biraz yer açın ve işlemi tekrarlayın.";

@@ -121,8 +121,8 @@ extension RelationInfoViewModel {
             let createdRelation = try await relationsInteractor.createRelation(spaceId: spaceId, relation: relationDetails)
             
             switch target {
-            case .type(let isFeatured):
-                try await relationsInteractor.addRelationToType(relation: createdRelation, isFeatured: isFeatured)
+            case .type(let data):
+                try await relationsInteractor.addRelationToType(relation: createdRelation, isFeatured: data.isFeatured)
             case .dataview(let activeViewId):
                 try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId)
             }
