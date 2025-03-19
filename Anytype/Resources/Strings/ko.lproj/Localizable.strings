@@ -204,6 +204,7 @@
 "Unsupported" = "Unsupported";
 "Name" = "이름";
 "Description" = "설명";
+"Add a description" = "Add a description...";
 "Paste processing..." = "붙여넣기 처리중...";
 "Anytype Library" = "Anytype 라이브러리";
 "Copied" = "복사됨";
