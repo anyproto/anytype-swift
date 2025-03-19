@@ -115,10 +115,10 @@ struct NewSpaceSettingsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         AnytypeText(Loc.description, style: .caption1Regular).foregroundColor(.Text.secondary)
                         if model.spaceDescription.isNotEmpty {
-                            AnytypeText(model.spaceDescription, style: .bodyRegular)
+                            AnytypeText(model.spaceDescription, style: .previewTitle1Regular)
                                 .multilineTextAlignment(.leading)
                         } else {
-                            AnytypeText(Loc.empty, style: .bodyRegular).foregroundColor(.Text.tertiary)
+                            AnytypeText(Loc.empty, style: .previewTitle1Regular).foregroundColor(.Text.tertiary)
                                 .multilineTextAlignment(.leading)
                         }
                     }

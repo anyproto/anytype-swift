@@ -155,7 +155,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             title: Loc.description,
             placeholder: Loc.description,
             initialValue: spaceDescription,
-            font: .bodyRegular,
+            font: .previewTitle1Regular,
             onSave: { [weak self] in
                 guard let self else { return }
                 saveDetails(name: spaceName, description: $0)
