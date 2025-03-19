@@ -10,56 +10,112 @@
 
 import Foundation
 import SwiftProtobuf
-public struct Anytype_Model_ObjectType: Sendable {
+public struct Anytype_Model_ObjectType: @unchecked Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// leave empty in case you want to create the new one
-  public var url: String = String()
+  public var url: String {
+    get {return _storage._url}
+    set {_uniqueStorage()._url = newValue}
+  }
 
-  /// name of objectType (can be localized for bundled types)
-  public var name: String = String()
+  /// name of objectType in singular form (can be localized for bundled types)
+  public var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
 
   /// cannot contain more than one Relation with the same RelationType
-  public var relationLinks: [Anytype_Model_RelationLink] = []
+  public var relationLinks: [Anytype_Model_RelationLink] {
+    get {return _storage._relationLinks}
+    set {_uniqueStorage()._relationLinks = newValue}
+  }
 
-  public var layout: Anytype_Model_ObjectType.Layout = .basic
+  public var layout: Anytype_Model_ObjectType.Layout {
+    get {return _storage._layout}
+    set {_uniqueStorage()._layout = newValue}
+  }
 
   /// emoji symbol
-  public var iconEmoji: String = String()
+  public var iconEmoji: String {
+    get {return _storage._iconEmoji}
+    set {_uniqueStorage()._iconEmoji = newValue}
+  }
 
-  public var description_p: String = String()
+  public var description_p: String {
+    get {return _storage._description_p}
+    set {_uniqueStorage()._description_p = newValue}
+  }
 
-  public var hidden: Bool = false
+  public var hidden: Bool {
+    get {return _storage._hidden}
+    set {_uniqueStorage()._hidden = newValue}
+  }
 
-  public var readonly: Bool = false
+  public var readonly: Bool {
+    get {return _storage._readonly}
+    set {_uniqueStorage()._readonly = newValue}
+  }
 
-  public var types: [Anytype_Model_SmartBlockType] = []
+  public var types: [Anytype_Model_SmartBlockType] {
+    get {return _storage._types}
+    set {_uniqueStorage()._types = newValue}
+  }
 
   /// sets locally to hide object type from set and some other places
-  public var isArchived: Bool = false
+  public var isArchived: Bool {
+    get {return _storage._isArchived}
+    set {_uniqueStorage()._isArchived = newValue}
+  }
 
-  public var installedByDefault: Bool = false
+  public var installedByDefault: Bool {
+    get {return _storage._installedByDefault}
+    set {_uniqueStorage()._installedByDefault = newValue}
+  }
 
   /// name of objectType (can be localized for bundled types)
-  public var key: String = String()
+  public var key: String {
+    get {return _storage._key}
+    set {_uniqueStorage()._key = newValue}
+  }
 
   /// revision of system objectType. Used to check if we should change type content or not
-  public var revision: Int64 = 0
+  public var revision: Int64 {
+    get {return _storage._revision}
+    set {_uniqueStorage()._revision = newValue}
+  }
 
   /// restricts creating objects of this type for users
-  public var restrictObjectCreation: Bool = false
+  public var restrictObjectCreation: Bool {
+    get {return _storage._restrictObjectCreation}
+    set {_uniqueStorage()._restrictObjectCreation = newValue}
+  }
 
   /// color of object type icon
-  public var iconColor: Int64 = 0
+  public var iconColor: Int64 {
+    get {return _storage._iconColor}
+    set {_uniqueStorage()._iconColor = newValue}
+  }
 
   /// name of object type icon
-  public var iconName: String = String()
+  public var iconName: String {
+    get {return _storage._iconName}
+    set {_uniqueStorage()._iconName = newValue}
+  }
+
+  /// name of objectType in plural form (can be localized for bundled types)
+  public var pluralName: String {
+    get {return _storage._pluralName}
+    set {_uniqueStorage()._pluralName = newValue}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -81,104 +137,182 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     14: .same(proto: "restrictObjectCreation"),
     15: .same(proto: "iconColor"),
     16: .same(proto: "iconName"),
+    17: .same(proto: "pluralName"),
   ]
 
+  fileprivate class _StorageClass {
+    var _url: String = String()
+    var _name: String = String()
+    var _relationLinks: [Anytype_Model_RelationLink] = []
+    var _layout: Anytype_Model_ObjectType.Layout = .basic
+    var _iconEmoji: String = String()
+    var _description_p: String = String()
+    var _hidden: Bool = false
+    var _readonly: Bool = false
+    var _types: [Anytype_Model_SmartBlockType] = []
+    var _isArchived: Bool = false
+    var _installedByDefault: Bool = false
+    var _key: String = String()
+    var _revision: Int64 = 0
+    var _restrictObjectCreation: Bool = false
+    var _iconColor: Int64 = 0
+    var _iconName: String = String()
+    var _pluralName: String = String()
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _url = source._url
+      _name = source._name
+      _relationLinks = source._relationLinks
+      _layout = source._layout
+      _iconEmoji = source._iconEmoji
+      _description_p = source._description_p
+      _hidden = source._hidden
+      _readonly = source._readonly
+      _types = source._types
+      _isArchived = source._isArchived
+      _installedByDefault = source._installedByDefault
+      _key = source._key
+      _revision = source._revision
+      _restrictObjectCreation = source._restrictObjectCreation
+      _iconColor = source._iconColor
+      _iconName = source._iconName
+      _pluralName = source._pluralName
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
-      case 4: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.iconEmoji) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      case 7: try { try decoder.decodeSingularBoolField(value: &self.hidden) }()
-      case 8: try { try decoder.decodeRepeatedEnumField(value: &self.types) }()
-      case 9: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
-      case 10: try { try decoder.decodeSingularBoolField(value: &self.readonly) }()
-      case 11: try { try decoder.decodeSingularBoolField(value: &self.installedByDefault) }()
-      case 12: try { try decoder.decodeSingularStringField(value: &self.key) }()
-      case 13: try { try decoder.decodeSingularInt64Field(value: &self.revision) }()
-      case 14: try { try decoder.decodeSingularBoolField(value: &self.restrictObjectCreation) }()
-      case 15: try { try decoder.decodeSingularInt64Field(value: &self.iconColor) }()
-      case 16: try { try decoder.decodeSingularStringField(value: &self.iconName) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._url) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 3: try { try decoder.decodeRepeatedMessageField(value: &_storage._relationLinks) }()
+        case 4: try { try decoder.decodeSingularEnumField(value: &_storage._layout) }()
+        case 5: try { try decoder.decodeSingularStringField(value: &_storage._iconEmoji) }()
+        case 6: try { try decoder.decodeSingularStringField(value: &_storage._description_p) }()
+        case 7: try { try decoder.decodeSingularBoolField(value: &_storage._hidden) }()
+        case 8: try { try decoder.decodeRepeatedEnumField(value: &_storage._types) }()
+        case 9: try { try decoder.decodeSingularBoolField(value: &_storage._isArchived) }()
+        case 10: try { try decoder.decodeSingularBoolField(value: &_storage._readonly) }()
+        case 11: try { try decoder.decodeSingularBoolField(value: &_storage._installedByDefault) }()
+        case 12: try { try decoder.decodeSingularStringField(value: &_storage._key) }()
+        case 13: try { try decoder.decodeSingularInt64Field(value: &_storage._revision) }()
+        case 14: try { try decoder.decodeSingularBoolField(value: &_storage._restrictObjectCreation) }()
+        case 15: try { try decoder.decodeSingularInt64Field(value: &_storage._iconColor) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._iconName) }()
+        case 17: try { try decoder.decodeSingularStringField(value: &_storage._pluralName) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.url.isEmpty {
-      try visitor.visitSingularStringField(value: self.url, fieldNumber: 1)
-    }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
-    }
-    if !self.relationLinks.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 3)
-    }
-    if self.layout != .basic {
-      try visitor.visitSingularEnumField(value: self.layout, fieldNumber: 4)
-    }
-    if !self.iconEmoji.isEmpty {
-      try visitor.visitSingularStringField(value: self.iconEmoji, fieldNumber: 5)
-    }
-    if !self.description_p.isEmpty {
-      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 6)
-    }
-    if self.hidden != false {
-      try visitor.visitSingularBoolField(value: self.hidden, fieldNumber: 7)
-    }
-    if !self.types.isEmpty {
-      try visitor.visitPackedEnumField(value: self.types, fieldNumber: 8)
-    }
-    if self.isArchived != false {
-      try visitor.visitSingularBoolField(value: self.isArchived, fieldNumber: 9)
-    }
-    if self.readonly != false {
-      try visitor.visitSingularBoolField(value: self.readonly, fieldNumber: 10)
-    }
-    if self.installedByDefault != false {
-      try visitor.visitSingularBoolField(value: self.installedByDefault, fieldNumber: 11)
-    }
-    if !self.key.isEmpty {
-      try visitor.visitSingularStringField(value: self.key, fieldNumber: 12)
-    }
-    if self.revision != 0 {
-      try visitor.visitSingularInt64Field(value: self.revision, fieldNumber: 13)
-    }
-    if self.restrictObjectCreation != false {
-      try visitor.visitSingularBoolField(value: self.restrictObjectCreation, fieldNumber: 14)
-    }
-    if self.iconColor != 0 {
-      try visitor.visitSingularInt64Field(value: self.iconColor, fieldNumber: 15)
-    }
-    if !self.iconName.isEmpty {
-      try visitor.visitSingularStringField(value: self.iconName, fieldNumber: 16)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._url.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._url, fieldNumber: 1)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 2)
+      }
+      if !_storage._relationLinks.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._relationLinks, fieldNumber: 3)
+      }
+      if _storage._layout != .basic {
+        try visitor.visitSingularEnumField(value: _storage._layout, fieldNumber: 4)
+      }
+      if !_storage._iconEmoji.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._iconEmoji, fieldNumber: 5)
+      }
+      if !_storage._description_p.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._description_p, fieldNumber: 6)
+      }
+      if _storage._hidden != false {
+        try visitor.visitSingularBoolField(value: _storage._hidden, fieldNumber: 7)
+      }
+      if !_storage._types.isEmpty {
+        try visitor.visitPackedEnumField(value: _storage._types, fieldNumber: 8)
+      }
+      if _storage._isArchived != false {
+        try visitor.visitSingularBoolField(value: _storage._isArchived, fieldNumber: 9)
+      }
+      if _storage._readonly != false {
+        try visitor.visitSingularBoolField(value: _storage._readonly, fieldNumber: 10)
+      }
+      if _storage._installedByDefault != false {
+        try visitor.visitSingularBoolField(value: _storage._installedByDefault, fieldNumber: 11)
+      }
+      if !_storage._key.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._key, fieldNumber: 12)
+      }
+      if _storage._revision != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._revision, fieldNumber: 13)
+      }
+      if _storage._restrictObjectCreation != false {
+        try visitor.visitSingularBoolField(value: _storage._restrictObjectCreation, fieldNumber: 14)
+      }
+      if _storage._iconColor != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._iconColor, fieldNumber: 15)
+      }
+      if !_storage._iconName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._iconName, fieldNumber: 16)
+      }
+      if !_storage._pluralName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._pluralName, fieldNumber: 17)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_ObjectType, rhs: Anytype_Model_ObjectType) -> Bool {
-    if lhs.url != rhs.url {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.relationLinks != rhs.relationLinks {return false}
-    if lhs.layout != rhs.layout {return false}
-    if lhs.iconEmoji != rhs.iconEmoji {return false}
-    if lhs.description_p != rhs.description_p {return false}
-    if lhs.hidden != rhs.hidden {return false}
-    if lhs.readonly != rhs.readonly {return false}
-    if lhs.types != rhs.types {return false}
-    if lhs.isArchived != rhs.isArchived {return false}
-    if lhs.installedByDefault != rhs.installedByDefault {return false}
-    if lhs.key != rhs.key {return false}
-    if lhs.revision != rhs.revision {return false}
-    if lhs.restrictObjectCreation != rhs.restrictObjectCreation {return false}
-    if lhs.iconColor != rhs.iconColor {return false}
-    if lhs.iconName != rhs.iconName {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._url != rhs_storage._url {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._relationLinks != rhs_storage._relationLinks {return false}
+        if _storage._layout != rhs_storage._layout {return false}
+        if _storage._iconEmoji != rhs_storage._iconEmoji {return false}
+        if _storage._description_p != rhs_storage._description_p {return false}
+        if _storage._hidden != rhs_storage._hidden {return false}
+        if _storage._readonly != rhs_storage._readonly {return false}
+        if _storage._types != rhs_storage._types {return false}
+        if _storage._isArchived != rhs_storage._isArchived {return false}
+        if _storage._installedByDefault != rhs_storage._installedByDefault {return false}
+        if _storage._key != rhs_storage._key {return false}
+        if _storage._revision != rhs_storage._revision {return false}
+        if _storage._restrictObjectCreation != rhs_storage._restrictObjectCreation {return false}
+        if _storage._iconColor != rhs_storage._iconColor {return false}
+        if _storage._iconName != rhs_storage._iconName {return false}
+        if _storage._pluralName != rhs_storage._pluralName {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
