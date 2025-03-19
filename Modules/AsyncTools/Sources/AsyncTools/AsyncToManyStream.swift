@@ -17,6 +17,9 @@ public final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable wher
 
     public func subscribe() -> AsyncStream<T> {
         return AsyncStream { continuation in
+            lock.lock()
+            defer { lock.unlock() }
+            
             let id = UUID()
             self.continuations[id] = continuation
 
