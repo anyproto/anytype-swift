@@ -118,7 +118,7 @@ struct NewSpaceSettingsView: View {
                             AnytypeText(model.spaceDescription, style: .previewTitle1Regular)
                                 .multilineTextAlignment(.leading)
                         } else {
-                            AnytypeText(Loc.empty, style: .previewTitle1Regular).foregroundColor(.Text.tertiary)
+                            AnytypeText(Loc.addADescription, style: .previewTitle1Regular).foregroundColor(.Text.tertiary)
                                 .multilineTextAlignment(.leading)
                         }
                     }
