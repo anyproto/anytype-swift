@@ -1,6 +1,7 @@
 import Services
 import SwiftUI
 import Combine
+import AnytypeCore
 
 
 @MainActor
@@ -112,6 +113,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     }
     
     private func subscribeOnMessagesPreviews() async {
+        guard FeatureFlags.countersOnSpaceHub else { return }
+        
         await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
         for await preview in chatMessagesPreviewsStorage.previewStream {
             if preview.counter > 0, var spaces,

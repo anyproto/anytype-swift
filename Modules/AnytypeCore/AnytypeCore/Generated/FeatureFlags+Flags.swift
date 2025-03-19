@@ -102,6 +102,10 @@ public extension FeatureFlags {
         value(for: .fixChatEmptyState)
     }
 
+    static var countersOnSpaceHub: Bool {
+        value(for: .countersOnSpaceHub)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -180,6 +184,7 @@ public extension FeatureFlags {
         .httpsLinkForObjectCopy,
         .newPropertiesCreation,
         .fixChatEmptyState,
+        .countersOnSpaceHub,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
