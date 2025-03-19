@@ -94,6 +94,7 @@ extension ObjectType: DetailsModel {
         return [
             BundledRelationKey.id,
             BundledRelationKey.name,
+            BundledRelationKey.pluralName,
             BundledRelationKey.iconEmoji,
             BundledRelationKey.iconName,
             BundledRelationKey.iconImage,
