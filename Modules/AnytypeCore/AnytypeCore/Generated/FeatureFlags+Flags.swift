@@ -38,14 +38,6 @@ public extension FeatureFlags {
         value(for: .newSpacesLoading)
     }
 
-    static var primitives: Bool {
-        value(for: .primitives)
-    }
-
-    static var memberProfile: Bool {
-        value(for: .memberProfile)
-    }
-
     static var allContentWidgets: Bool {
         value(for: .allContentWidgets)
     }
@@ -172,8 +164,6 @@ public extension FeatureFlags {
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .newSpacesLoading,
-        .primitives,
-        .memberProfile,
         .allContentWidgets,
         .newTypeIcons,
         .openMediaFileInPreview,

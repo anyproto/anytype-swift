@@ -249,12 +249,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func showScreen(spaceId: String, data: ScreenData?) async throws {
         switch data {
         case .alert(let alertScreenData):
-            if FeatureFlags.memberProfile {
-                await showAlert(alertScreenData)
-            } else { // fallback to page screen
-                let pageObject = EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)
-                navigationPath.push(EditorScreenData.page(pageObject))
-            }
+            await showAlert(alertScreenData)
         case .preview(let mediaFileScreenData):
             await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):

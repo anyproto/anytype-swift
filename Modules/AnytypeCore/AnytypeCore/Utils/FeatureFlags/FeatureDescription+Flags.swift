@@ -46,29 +46,16 @@ public extension FeatureDescription {
     
     static let pinnedSpaces = FeatureDescription(
         title: "Pinned Spaces",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false
     )
     
     static let newSpacesLoading = FeatureDescription(
         title: "Spaces loading indicator",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false
-    )
-    
-    static let primitives = FeatureDescription(
-        title: "New Primitives",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let memberProfile = FeatureDescription(
-        title: "Space member profile",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
-        defaultValue: true
     )
     
     static let allContentWidgets = FeatureDescription(
@@ -80,8 +67,7 @@ public extension FeatureDescription {
     static let newTypeIcons = FeatureDescription(
         title: "New type Icons",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let openMediaFileInPreview = FeatureDescription(
@@ -100,8 +86,8 @@ public extension FeatureDescription {
     
     static let newSettings = FeatureDescription(
         title: "New settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let newPlusMenu = FeatureDescription(
