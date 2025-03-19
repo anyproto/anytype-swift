@@ -8,6 +8,9 @@ public enum BundledRelationKey: String, Sendable {
 
     case tag = "tag"
 
+    /// guest key to read public space
+    case guestKey = "guestKey"
+
     /// Camera used to capture image or video
     case camera = "camera"
 
@@ -130,6 +133,8 @@ public enum BundledRelationKey: String, Sendable {
     case artist = "artist"
 
     case dueDate = "dueDate"
+
+    case duration = "duration"
 
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     case iconEmoji = "iconEmoji"
@@ -328,6 +333,12 @@ public enum BundledRelationKey: String, Sendable {
     /// Encoded encryption key of invite file for current space. It stored in SpaceView
     case spaceInviteFileKey = "spaceInviteFileKey"
 
+    /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
+    case spaceInviteGuestFileCid = "spaceInviteGuestFileCid"
+
+    /// Encoded encryption key of invite file for guest user in the current space. It's stored in SpaceView
+    case spaceInviteGuestFileKey = "spaceInviteGuestFileKey"
+
     /// Participant permissions. Possible values: models.ParticipantPermissions
     case participantPermissions = "participantPermissions"
 
@@ -411,6 +422,21 @@ public enum BundledRelationKey: String, Sendable {
     /// Default object type id that will be set to new sets/collections
     case defaultTypeId = "defaultTypeId"
 
-    /// Automatically generated widget. Used to avoid creating widget if was removed by user
+    /// Total cooking time in text format
+    case cookingTime = "cookingTime"
+
+    /// Number of servings the recipe yields
+    case servings = "servings"
+
+    /// Cuisine type associated with the recipe (e.g., Italian, Chinese)
+    case cuisine = "cuisine"
+
+    /// Course type (e.g., appetizer, main course, dessert)
+    case courseType = "courseType"
+
+    /// Difficulty level of the recipe (e.g., easy, medium, hard)
+    case difficulty = "difficulty"
+
+    /// Automatically generated widget targets. Used to avoid creating widget if was removed by user
     case autoWidgetTargets = "autoWidgetTargets"
 }

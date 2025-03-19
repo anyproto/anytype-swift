@@ -5,6 +5,7 @@ public enum UseCase: Sendable {
     case none
     case getStarted
     case empty
+    case guideOnly
 }
 
 extension UseCase {
@@ -13,6 +14,7 @@ extension UseCase {
         case .none: return .none
         case .getStarted: return .getStarted
         case .empty: return .empty
+        case .guideOnly: return .guideOnly
         }
     }
 }

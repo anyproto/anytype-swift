@@ -18,10 +18,6 @@ struct SpaceShareView: View {
             .task {
                 await model.startSpaceViewTask()
             }
-            .task {
-                await model.onAppear()
-            }
-            .anytypeShareView(item: $model.shareInviteLink)
             .snackbar(toastBarData: $model.toastBarData)
             .anytypeSheet(item: $model.requestAlertModel) { alertModel in
                 SpaceRequestAlert(data: alertModel) { reason in
@@ -34,18 +30,8 @@ struct SpaceShareView: View {
             .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
                 SpaceParticipantRemoveView(model: model)
             }
-            .anytypeSheet(isPresented: $model.showDeleteLinkAlert) {
-                DeleteSharingLinkAlert(spaceId: model.accountSpaceId) {
-                    model.onDeleteLinkCompleted()
-                }
-            }
             .anytypeSheet(isPresented: $model.showStopSharingAlert) {
-                StopSharingAlert(spaceId: model.accountSpaceId) {
-                    model.onStopSharingCompleted()
-                }
-            }
-            .anytypeSheet(item: $model.qrCodeInviteLink) {
-                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+                StopSharingAlert(spaceId: model.spaceId) {}
             }
             .anytypeSheet(item: $model.participantInfo) {
                 ProfileView(info: $0)
@@ -77,25 +63,13 @@ struct SpaceShareView: View {
                     .padding(.horizontal, 16)
                 }
                 .safeAreaInset(edge: .bottom) {
-                    inviteView
+                    InviteLinkCoordinatorView(data: model.data)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 36)
                 }
             }
         }
         .animation(.default, value: model.upgradeTooltipData)
-    }
-    
-    private var inviteView: some View {
-        InviteLinkView(invite: model.inviteLink, canDeleteLink: model.canDeleteLink) {
-            model.onShareInvite()
-        } onCopyLink: {
-            model.onCopyLink()
-        } onDeleteSharingLink: {
-            model.onDeleteSharingLink()
-        } onGenerateInvite: {
-            try await model.onGenerateInvite()
-        } onShowQrCode: {
-            model.onShowQrCode()
-        }
     }
     
     private var rightNavigationButton: some View {

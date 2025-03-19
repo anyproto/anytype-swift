@@ -6,7 +6,7 @@ import SwiftUI
 enum LastOpenedScreen: Codable {
     case editor(EditorScreenData)
     case widgets(spaceId: String)
-    case chat(spaceId: String)
+    case chat(ChatCoordinatorData)
     
     var spaceId: String {
         switch self {
@@ -14,8 +14,8 @@ enum LastOpenedScreen: Codable {
             data.spaceId
         case .widgets(let spaceId):
             spaceId
-        case .chat(let spaceId):
-            spaceId
+        case .chat(let data):
+            data.spaceId
         }
     }
 }

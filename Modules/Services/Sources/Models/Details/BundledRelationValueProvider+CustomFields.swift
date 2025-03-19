@@ -101,6 +101,11 @@ extension BundledRelationsValueProvider {
         internalFlags.compactMap { InternalFlag(rawValue: $0) }
     }
     
+    public var spaceUxTypeValue: SpaceUxType? {
+        guard let spaceUxType else { return nil }
+        return SpaceUxType(rawValue: spaceUxType)
+    }
+    
     public var customIcon: CustomIcon? {
         CustomIcon(fromString: iconName)
     }

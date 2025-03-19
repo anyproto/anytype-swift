@@ -51,6 +51,9 @@ extension Anytype_Rpc.Account {
         /// optional, default fts language
         public var fulltextPrimaryLanguage: String = String()
 
+        /// anytype:// schema URL to join an embed stream
+        public var joinStreamURL: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -250,6 +253,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     6: .same(proto: "preferYamuxTransport"),
     7: .same(proto: "jsonApiListenAddr"),
     8: .same(proto: "fulltextPrimaryLanguage"),
+    9: .same(proto: "joinStreamURL"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -266,6 +270,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
       case 6: try { try decoder.decodeSingularBoolField(value: &self.preferYamuxTransport) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.jsonApiListenAddr) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.joinStreamURL) }()
       default: break
       }
     }
@@ -296,6 +301,9 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.fulltextPrimaryLanguage.isEmpty {
       try visitor.visitSingularStringField(value: self.fulltextPrimaryLanguage, fieldNumber: 8)
     }
+    if !self.joinStreamURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.joinStreamURL, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -308,6 +316,7 @@ extension Anytype_Rpc.Account.Select.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.preferYamuxTransport != rhs.preferYamuxTransport {return false}
     if lhs.jsonApiListenAddr != rhs.jsonApiListenAddr {return false}
     if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
+    if lhs.joinStreamURL != rhs.joinStreamURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

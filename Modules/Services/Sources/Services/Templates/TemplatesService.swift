@@ -1,5 +1,6 @@
 import ProtobufMessages
 import SwiftProtobuf
+import AnytypeCore
 
 public protocol TemplatesServiceProtocol: Sendable {
     func cloneTemplate(blockId: String) async throws
@@ -29,6 +30,7 @@ final class TemplatesService: TemplatesServiceProtocol {
             }
             $0.spaceID = objectDetails.spaceId
             $0.objectTypeUniqueKey = ObjectTypeUniqueKey.template.value
+            $0.createTypeWidgetIfMissing = FeatureFlags.objectTypeWidgets
         }).invoke()
         
         return response.objectID

@@ -8,6 +8,7 @@ public enum WorkspaceSetDetails: Sendable {
     case description(String)
     case iconObjectId(String)
     case iconOption(Int)
+    case spaceUxType(SpaceUxType)
 }
 
 extension WorkspaceSetDetails {
@@ -18,6 +19,7 @@ extension WorkspaceSetDetails {
         case .description: BundledRelationKey.description.rawValue
         case .iconObjectId: BundledRelationKey.iconImage.rawValue
         case .iconOption: BundledRelationKey.iconOption.rawValue
+        case .spaceUxType: BundledRelationKey.spaceUxType.rawValue
         }
     }
     
@@ -27,6 +29,7 @@ extension WorkspaceSetDetails {
         case .description(let string): string.protobufValue
         case .iconObjectId(let objectId): objectId.protobufValue
         case .iconOption(let iconOption): iconOption.protobufValue
+        case .spaceUxType(let spaceUxType): spaceUxType.rawValue.protobufValue
         }
     }
 }
