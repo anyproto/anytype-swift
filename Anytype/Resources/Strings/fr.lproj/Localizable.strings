@@ -204,6 +204,7 @@
 "Unsupported" = "Non pris en charge";
 "Name" = "Nom";
 "Description" = "Description";
+"Add a description" = "Ajoutez une description...";
 "Paste processing..." = "En train de coller...";
 "Anytype Library" = "Bibliothèque Anytype";
 "Copied" = "Copié";

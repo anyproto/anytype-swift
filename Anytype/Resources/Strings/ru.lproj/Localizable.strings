@@ -204,6 +204,7 @@
 "Unsupported" = "Не поддерживается";
 "Name" = "Название";
 "Description" = "Описание";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Обработка вставки...";
 "Anytype Library" = "Библиотека Anytype";
 "Copied" = "Скопировано";

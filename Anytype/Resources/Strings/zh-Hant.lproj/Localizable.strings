@@ -204,6 +204,7 @@
 "Unsupported" = "不支援";
 "Name" = "名稱";
 "Description" = "描述";
+"Add a description" = "Add a description...";
 "Paste processing..." = "貼上處理中...";
 "Anytype Library" = "Anytype 資料庫";
 "Copied" = "已複製";

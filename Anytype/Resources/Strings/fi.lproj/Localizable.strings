@@ -204,6 +204,7 @@
 "Unsupported" = "Ei tuettu";
 "Name" = "Nimi";
 "Description" = "Kuvaus";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Sijoitus käynnissä...";
 "Anytype Library" = "Anytype Kirjasto";
 "Copied" = "Kopioitu";

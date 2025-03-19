@@ -205,6 +205,7 @@
 "Unsupported" = "Không được hỗ trợ";
 "Name" = "Tên";
 "Description" = "Mô tả";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Paste processing...";
 "Anytype Library" = "Thư viện Anytype";
 "Copied" = "Đã sao chép";

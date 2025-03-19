@@ -204,6 +204,7 @@
 "Unsupported" = "Ikke støttet";
 "Name" = "Navn";
 "Description" = "Beskrivelse";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Behandler innliming...";
 "Anytype Library" = "Anytype bibliotek";
 "Copied" = "Kopiert";

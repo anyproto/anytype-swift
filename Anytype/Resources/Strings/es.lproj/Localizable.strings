@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Objeto eliminado";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Property ‘%@’ has been created";
-"Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
-"Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
-"Fields.addToType" = "Add to the current type";
-"Fields.removeFromObject" = "Remove from the object";
+"Fields.Created" = "Se ha creado la propiedad «%@».";
+"Fields.Updated" = "Se ha actualizado la propiedad «%@».";
+"Fields.menu" = "Menú de propiedades";
+"Fields.local" = "Propiedades locales";
+"Fields.missingInfo" = "Algunas propiedades no están incluidas en el tipo de objeto. Añádelas al tipo si quieres verlas en todos los objetos de este tipo, o bien quítalas.";
+"Fields.addToType" = "Añadir al tipo actual";
+"Fields.removeFromObject" = "Quitar del objeto";
 
 
-"Featured relations" = "Featured properties";
-"Create relation" = "Create property ‘%@’";
+"Featured relations" = "Propiedades destacadas";
+"Create relation" = "Crear propiedad «%@»";
 "Relation.View.Hint.Empty" = "vacío";
-"Relation.MyRelations" = "My properties";
-"Relation.Deleted" = "Deleted property";
+"Relation.MyRelations" = "Mis propiedades";
+"Relation.Deleted" = "Propiedad eliminada";
 "Relation.From.Type" = "Del tipo %@";
 "Relation.EmptyState.title" = "Sin opciones";
 "Relation.EmptyState.description" = "No se ha encontrado nada. Crea la primera opción para comenzar.";
-"Relation.EmptyState.Blocked.title" = "The property is empty";
+"Relation.EmptyState.Blocked.title" = "La propiedad está vacía";
 "Relation.Create.Row.title" = "Crear “%@”";
 "Relation.View.Create.title" = "Crear opción ";
 "Relation.View.Edit.title" = "Editar opción";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "Correo electrónico";
 "Relation.Format.Phone.Title" = "Número de teléfono";
 
-"Relation.Search.View.Placeholder" = "Search or create a new property";
+"Relation.Search.View.Placeholder" = "Busca una propiedad o créala";
 
 // Origin Relation
 
@@ -204,6 +204,7 @@
 "Unsupported" = "No compatible";
 "Name" = "Nombre";
 "Description" = "Descripción";
+"Add a description" = "Añadir una descripción…";
 "Paste processing..." = "Procesando pegado…";
 "Anytype Library" = "Biblioteca de Anytype";
 "Copied" = "Copiado";

@@ -204,6 +204,7 @@
 "Unsupported" = "Niet ondersteund";
 "Name" = "Naam";
 "Description" = "Beschrijving";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Bezig met plakken...";
 "Anytype Library" = "Anytype bibliotheek";
 "Copied" = "Gekopieerd";
