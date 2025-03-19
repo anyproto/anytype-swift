@@ -204,6 +204,7 @@
 "Unsupported" = "暂不支持";
 "Name" = "名称";
 "Description" = "描述";
+"Add a description" = "Add a description...";
 "Paste processing..." = "粘贴处理...";
 "Anytype Library" = "Anytype 文库";
 "Copied" = "已复制";
