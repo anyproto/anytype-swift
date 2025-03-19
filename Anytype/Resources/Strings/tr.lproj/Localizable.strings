@@ -204,6 +204,7 @@
 "Unsupported" = "Desteklenmiyor";
 "Name" = "İsim";
 "Description" = "Açıklama";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Yapıştırma işleniyor...";
 "Anytype Library" = "Anytype Kitaplığı";
 "Copied" = "Kopyalandı";
