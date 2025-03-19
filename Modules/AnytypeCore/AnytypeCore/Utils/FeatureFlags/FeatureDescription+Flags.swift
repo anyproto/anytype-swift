@@ -67,8 +67,7 @@ public extension FeatureDescription {
     static let newTypeIcons = FeatureDescription(
         title: "New type Icons",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let openMediaFileInPreview = FeatureDescription(
@@ -87,8 +86,8 @@ public extension FeatureDescription {
     
     static let newSettings = FeatureDescription(
         title: "New settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let newPlusMenu = FeatureDescription(
