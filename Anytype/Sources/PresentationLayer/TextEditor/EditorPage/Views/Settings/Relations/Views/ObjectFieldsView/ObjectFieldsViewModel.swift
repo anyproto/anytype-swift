@@ -42,31 +42,6 @@ final class ObjectFieldsViewModel: ObservableObject {
         }
     }
     
-    func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
-        if !addedToObject {
-            Task { @MainActor in
-                try await relationsService.addRelations(objectId: document.objectId, relationKeys: [relation.key])
-                changeRelationFeaturedState(relation)
-            }
-        } else {
-            changeRelationFeaturedState(relation)
-        }
-    }
-    
-    private func changeRelationFeaturedState(_ relation: Relation) {
-        Task {
-            let relationDetails = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: document.spaceId)
-            if relation.isFeatured {
-                try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
-                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
-            } else {
-                try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
-                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
-            }
-        }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
     func handleTapOnRelation(_ relation: Relation) {
         output?.editRelationValueAction(document: document, relationKey: relation.key)
     }
