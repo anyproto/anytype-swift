@@ -228,7 +228,7 @@ public extension FeatureDescription {
         title: "Counters",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
+        releaseAnyAppValue: false,
         debugValue: true
     )
     
@@ -251,12 +251,6 @@ public extension FeatureDescription {
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         defaultValue: false,
         debugValue: true
-    )
-    
-    static let fixChatEmptyState = FeatureDescription(
-        title: "Fix chat empty state",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: true
     )
     
     static let fixChatEmptyState = FeatureDescription(
