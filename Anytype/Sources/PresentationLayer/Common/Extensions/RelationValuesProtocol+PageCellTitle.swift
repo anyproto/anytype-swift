@@ -25,6 +25,15 @@ extension BundledRelationsValueProvider {
 
         return objectName.withPlaceholder
     }
+    
+    var pluralTitle: String {
+        if isDeleted {
+            // TODO: Move to editor
+            return Loc.nonExistentObject
+        }
+
+        return pluralName.isNotEmpty ? pluralName : title
+    }
 
     var subtitle: String {
         switch resolvedLayoutValue {
