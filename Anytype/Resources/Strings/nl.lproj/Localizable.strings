@@ -278,7 +278,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dit is jouw sleutel";
-"Auth.JoinFlow.Key.Description" = "Het geeft je volledige eigendom over je gegevens en gesprekken. Je kunt deze sleutel later vinden in de app instellingen.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Tik om te onthullen";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Volgende";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Niet nu";
