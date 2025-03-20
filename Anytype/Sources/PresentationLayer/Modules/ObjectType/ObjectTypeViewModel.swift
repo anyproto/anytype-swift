@@ -115,7 +115,7 @@ final class ObjectTypeViewModel: ObservableObject {
     func subscribeOnDetails() async {
         for await details in document.detailsPublisher.values {
             if !didInitialSetup {
-                typeName = details.objectName
+                typeName = FeatureFlags.pluralNames ? details.pluralTitle : details.title
                 AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType)
                 didInitialSetup = true
             }
