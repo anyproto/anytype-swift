@@ -372,3 +372,8 @@ enum OpenObjectByLinkType: String {
     case object = "Object"
     case invite = "Invite"
 }
+
+enum OpenObjectByLinkRoute: String {
+    case app = "App"
+    case web = "Web"
+}

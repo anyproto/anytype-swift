@@ -366,9 +366,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             try await document.open()
             guard let editorData = document.details?.screenData() else { return }
             try? await open(data: editorData)
-            if source.isExternal {
-                AnytypeAnalytics.instance().logOpenObjectByLink(type: .object)
-            }
+            AnytypeAnalytics.instance().logOpenObjectByLink(type: .object, route: source.isExternal ? .web : .app)
         } catch {
             guard let cid, let key else {
                 showObjectIsNotAvailableAlert = true
@@ -376,9 +374,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             }
             
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
-            if source.isExternal {
-                AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite)
-            }
+            AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite, route: source.isExternal ? .web : .app)
         }
     }
 
