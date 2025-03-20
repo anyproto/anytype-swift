@@ -4,12 +4,16 @@ import AnytypeCore
 
 extension BundledRelationsValueProvider {
 
-    var pageCellTitle: String {
+    var setTitle: String {
         switch resolvedLayoutValue {
         case .note:
             return snippet
         default:
-            return name
+            if FeatureFlags.pluralNames {
+                return pluralName.isNotEmpty ? pluralName : name
+            } else {
+                return name
+            }
         }
     }
 

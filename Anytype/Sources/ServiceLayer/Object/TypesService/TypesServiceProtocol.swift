@@ -5,7 +5,7 @@ enum TypesServiceError: Error {
 }
 
 protocol TypesServiceProtocol: Sendable {
-    func createType(name: String, spaceId: String) async throws -> ObjectType
+    func createType(name: String, pluralName: String, icon: CustomIcon?, color: CustomIconColor?, spaceId: String) async throws -> ObjectType
     func deleteType(typeId: String, spaceId: String) async throws
     
     func searchObjectTypes(
