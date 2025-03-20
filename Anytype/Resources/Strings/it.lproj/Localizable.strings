@@ -278,7 +278,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Questa è la tua Chiave";
-"Auth.JoinFlow.Key.Description" = "Ti dà la piena proprietà dei tuoi dati e conversazioni. Puoi trovare questa chiave in seguito nelle impostazioni dell'app.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Toccare per rivelare";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Avanti";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Non ora";
