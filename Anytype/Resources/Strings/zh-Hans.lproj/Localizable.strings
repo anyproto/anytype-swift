@@ -278,7 +278,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "这是您的密钥";
-"Auth.JoinFlow.Key.Description" = "它代表着您对自己数据的完全所有权。您未来还可在应用程序的设置中找到此密钥。";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "点按以显示";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "下一步";
 "Auth.JoinFlow.Key.Button.Later.Title" = "暂不";
