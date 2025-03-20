@@ -523,7 +523,7 @@ internal enum Loc {
     }
     internal enum JoinFlow {
       internal enum Key {
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "It gives you full ownership over your data and conversations. You can find this key later in app settings.")
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.")
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "This is your Key")
         internal enum Button {
           internal enum Copy {
