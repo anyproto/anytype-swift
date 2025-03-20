@@ -4,6 +4,7 @@ import AsyncTools
 
 protocol ChatMessagesPreviewsStorageProtocol: AnyObject, Sendable {
     func startSubscriptionIfNeeded() async
+    func previews() async -> [ChatMessagePreview]
     var previewStream: AnyAsyncSequence<ChatMessagePreview> { get }
 }
 
@@ -16,7 +17,9 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     
     private var subscriptionId: String? = nil
     private var subscription: Task<Void, Never>?
+    
     private var preview: ChatMessagePreview?
+    private var previewsBySpace: [String: ChatMessagePreview] = [:]
     
     private let syncStream = AsyncToManyStream<[ChatMessagePreview]>()
     
@@ -40,15 +43,19 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         do {
             subscriptionId = try await chatService.subscribeToMessagePreviews()
         } catch {
-            anytypeAssertionFailure("Subscribe to message previews error", info: ["previewsError": error.localizedDescription])
+            anytypeAssertionFailure("Subscribe to messages previews error", info: ["previewsError": error.localizedDescription])
         }
+    }
+    
+    func previews() async -> [ChatMessagePreview] {
+        Array(previewsBySpace.values)
     }
     
     
     deinit {
         subscription?.cancel()
         subscription = nil
-        // TODO: unsubscribe
+        // TODO: unsubscribe, waiting for middle
     }
     
     // MARK: - Private
@@ -77,6 +84,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
             counter: Int(state.state.messages.counter)
         )
         self.preview = preview
+        self.previewsBySpace[event.spaceID] = preview
         return preview
     }
 }

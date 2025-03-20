@@ -95,7 +95,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
-            self.spaces = spaces
+            let previews = await chatMessagesPreviewsStorage.previews()
+            updateSpaces(spaces, previews: previews)
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
         }
     }
@@ -117,18 +118,24 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         
         await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
         for await preview in chatMessagesPreviewsStorage.previewStream {
-            if preview.counter > 0, var spaces,
-               let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId })
-            {
-                // TODO: enrich spaces every time on spaces update
-                let space = spaces[spaceIndex]
-                spaces[spaceIndex] = ParticipantSpaceViewData(
-                    spaceView: space.spaceView.updateUnreadMessagesCount(preview.counter),
-                    participant: space.participant,
-                    permissions: space.permissions
-                )
-                self.spaces = spaces
+            updateSpaces(spaces, previews: [preview])
+        }
+    }
+    
+    private func updateSpaces(_ spaces: [ParticipantSpaceViewData]?, previews: [ChatMessagePreview]) {
+        let enrichedSpaces = enrichSpaces(spaces, previews: previews)
+        self.spaces = enrichedSpaces
+    }
+    
+    private func enrichSpaces(_ spaces: [ParticipantSpaceViewData]?, previews: [ChatMessagePreview]) -> [ParticipantSpaceViewData]? {
+        guard var spaces else { return nil }
+        
+        for preview in previews {
+            if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
+                spaces[spaceIndex] = spaces[spaceIndex].updateUnreadMessagesCount(preview.counter)
             }
         }
+        
+        return spaces
     }
 }
