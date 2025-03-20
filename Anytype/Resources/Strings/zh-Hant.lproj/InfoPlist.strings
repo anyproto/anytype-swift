@@ -1,5 +1,5 @@
 "NSFaceIDUsageDescription" = "用 Face ID 來取回安全儲存在鑰匙圈中的助記詞";
-"NSCameraUsageDescription" = "Allow camera access to scan QR codes, capture photos, and attach them to messages";
+"NSCameraUsageDescription" = "允許相機權限以掃描 QR 碼、拍攝照片並將其附加到訊息中";
 "NSLocalNetworkUsageDescription" = "用本地網路存取可以直接地與附近的設備同步數據";
 "NSPhotoLibraryAddUsageDescription" = "需要存取權限才能將選定的圖像儲存到您的資料庫中";
-"NSMicrophoneUsageDescription" = "Allow microphone access to record videos and attach them to messages";
+"NSMicrophoneUsageDescription" = "允許麥克風權限以錄製影片並將其附加到訊息中";
