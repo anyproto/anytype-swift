@@ -53,7 +53,7 @@ struct NewTypeCreationView: View {
                     .frame(width: 32, height: 32)
             }
             Spacer.fixedWidth(10)
-            AnytypeTextField(placeholder: Loc.name, font: .heading, text: $model.name)
+            AnytypeTextField(placeholder: Loc.puzzle, font: .heading, text: $model.name)
             Spacer()
             Spacer.fixedWidth(8)
         }
@@ -66,7 +66,7 @@ struct NewTypeCreationView: View {
         HStack(alignment: .center, spacing: 0) {
             VStack(alignment: .leading, spacing: 4) {
                 AnytypeText(Loc.pluralName, style: .caption1Regular).foregroundColor(.Text.secondary)
-                AnytypeTextField(placeholder: Loc.name, font: .previewTitle1Regular, text: $model.pluralName)
+                AnytypeTextField(placeholder: Loc.puzzles, font: .previewTitle1Regular, text: $model.pluralName)
             }
             Spacer()
         }

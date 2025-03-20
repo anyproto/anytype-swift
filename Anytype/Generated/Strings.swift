@@ -300,6 +300,8 @@ internal enum Loc {
   internal static let propertiesFormats = Loc.tr("Localizable", "Properties formats", fallback: "Properties formats")
   internal static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   internal static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")
+  internal static let puzzle = Loc.tr("Localizable", "Puzzle", fallback: "Puzzle")
+  internal static let puzzles = Loc.tr("Localizable", "Puzzles", fallback: "Puzzles")
   internal static let qrCode = Loc.tr("Localizable", "QR Code", fallback: "QR Code")
   internal static let random = Loc.tr("Localizable", "Random", fallback: "Random")
   internal static let recent = Loc.tr("Localizable", "Recent", fallback: "Recent")
