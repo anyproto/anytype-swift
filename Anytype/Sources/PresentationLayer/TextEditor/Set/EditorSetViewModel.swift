@@ -227,7 +227,7 @@ final class EditorSetViewModel: ObservableObject {
             output: output
         )
         self.externalActiveViewId = data.activeViewId
-        self.titleString = setDocument.details?.pageCellTitle ?? ""
+        self.titleString = setDocument.details?.setTitle ?? ""
         self.descriptionString = setDocument.details?.description ?? ""
         
         self.showHeader = showHeader
@@ -401,7 +401,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func setupTitle() {
         if let details = setDocument.details {
-            titleString = details.pageCellTitle
+            titleString = details.setTitle
 
             titleSubscription = $titleString.sink { [weak self] newValue in
                 self?.updateTextFieldData(newValue: newValue, blockId: CustomRelationKey.title.rawValue) {

@@ -97,6 +97,7 @@ internal enum Loc {
   internal static func createNewObjectWithName(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create new object with name", String(describing: p1), fallback: "Create new object \"%@\"")
   }
+  internal static let createNewType = Loc.tr("Localizable", "Create new type", fallback: "Create new type")
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create Object")
   internal static let createObjectFromClipboard = Loc.tr("Localizable", "Create object from clipboard", fallback: "Create object from clipboard")
   internal static func createOptionWith(_ p1: Any) -> String {
@@ -290,6 +291,7 @@ internal enum Loc {
   internal static let pink = Loc.tr("Localizable", "Pink", fallback: "Pink")
   internal static let pinkBackground = Loc.tr("Localizable", "Pink background", fallback: "Pink background")
   internal static let pinned = Loc.tr("Localizable", "Pinned", fallback: "Pinned")
+  internal static let pluralName = Loc.tr("Localizable", "Plural name", fallback: "Plural name")
   internal static let preferences = Loc.tr("Localizable", "Preferences", fallback: "Preferences")
   internal static let preview = Loc.tr("Localizable", "Preview", fallback: "Preview")
   internal static let previewLayout = Loc.tr("Localizable", "Preview layout", fallback: "Preview layout")

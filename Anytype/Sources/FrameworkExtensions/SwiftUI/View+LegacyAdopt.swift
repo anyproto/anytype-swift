@@ -37,3 +37,15 @@ extension View {
         }
     }
 }
+
+@available(iOS, deprecated: 17.0)
+extension View {
+    @ViewBuilder
+    func onChangeIfiOS17<V>(of value: V, initial: Bool = false, _ action: @escaping (_ oldValue: V, _ newValue: V) -> Void) -> some View where V : Equatable {
+        if #available(iOS 17.0, *) {
+            onChange(of: value, initial: initial, action)
+        } else {
+            self
+        }
+    }
+}

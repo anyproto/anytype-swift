@@ -1,8 +1,17 @@
 import SwiftUI
 
-public enum CustomIconDataColor: Hashable, Sendable, Equatable, Codable {
+public enum CustomIconDataColor: Hashable, Sendable, Equatable, Codable, Identifiable {
     case placeholder
     case selected(CustomIconColor)
+    
+    public var id: String {
+        switch self {
+        case .placeholder:
+            "placeholder"
+        case .selected(let color):
+            String(describing: color)
+        }
+    }
     
     public var iconOption: Int? {
         switch self {
@@ -14,7 +23,7 @@ public enum CustomIconDataColor: Hashable, Sendable, Equatable, Codable {
     }
 }
 
-public struct CustomIconData: Hashable, Sendable, Equatable, Codable {
+public struct CustomIconData: Hashable, Sendable, Equatable, Codable, Identifiable {
     public let icon: CustomIcon
     public let color: CustomIconDataColor
     
@@ -27,6 +36,8 @@ public struct CustomIconData: Hashable, Sendable, Equatable, Codable {
         self.icon = placeholderIcon
         self.color = .placeholder
     }
+    
+    public var id: String { icon.id + color.id }
 }
 
 
