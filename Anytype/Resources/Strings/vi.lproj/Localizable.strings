@@ -279,7 +279,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Tiếp";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Để sau";
