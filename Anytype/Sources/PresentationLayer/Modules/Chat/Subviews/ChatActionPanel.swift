@@ -47,6 +47,7 @@ struct ChatActionPanelView: View {
                 .overlay(alignment: .topTrailing) {
                     if count > 0 {
                         CounterView(count: count)
+                            .offset(x: 6, y: -6)
                     }
                 }
         }

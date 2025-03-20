@@ -10,12 +10,12 @@ struct CounterView: View {
             .foregroundStyle(Color.Control.white)
             .frame(height: 20)
             .padding(.horizontal, 6)
+            .frame(minWidth: 20)
             .background(
                 Capsule()
                     .fill(Color.Control.transparentActive)
                     .background(.ultraThinMaterial)
                     .clipShape(Capsule()) // From iOS 17: Delete clip and use .fill for material
             )
-            .offset(x: 6, y: -6)
     }
 }
