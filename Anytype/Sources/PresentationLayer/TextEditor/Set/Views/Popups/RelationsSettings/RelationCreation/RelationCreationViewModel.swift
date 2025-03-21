@@ -19,7 +19,8 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     private var dataviewService: any DataviewServiceProtocol
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
-    
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let data: RelationsSearchData
     
@@ -57,7 +58,10 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
             switch row {
             case .existing(let details):
                 try await onExistingPropertyTap(details)
+                try? await objectActionsService.updateBundledDetails(contextID: details.id, details: [ .lastUsedDate(Date.now)])
+                
                 data.onRelationSelect(details, false) // isNew = false
+                dismiss?()
             case .new(let format):
                 newRelationData = RelationInfoData(
                     name: "",
