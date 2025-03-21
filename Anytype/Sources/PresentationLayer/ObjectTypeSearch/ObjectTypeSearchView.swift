@@ -46,7 +46,7 @@ struct ObjectTypeSearchView: View {
         
         .snackbar(toastBarData: $viewModel.toastData)
         .anytypeSheet(item: $viewModel.newTypeName) {
-            NewTypeCreationView(name: $0.value) { name, pluralName, icon, color in
+            NewTypeCreationView(name: $0.value, mode: .create) { name, pluralName, icon, color in
                 viewModel.onCreateTypeSubmit(name: name, pluralName: pluralName, icon: icon, color: color)
             }
         }

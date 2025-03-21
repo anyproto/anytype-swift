@@ -26,8 +26,9 @@ final class NewTypeCreationViewModel: ObservableObject {
     
     private let completion: (_ name: String, _ pluralName: String, _ icon: CustomIcon?, _ color: CustomIconColor?) -> ()
     
-    init(name: String, completion: @escaping (_ name: String, _ pluralName: String, _ icon: CustomIcon?, _ color: CustomIconColor?) -> ()) {
+    init(name: String, pluralName: String, completion: @escaping (_ name: String, _ pluralName: String, _ icon: CustomIcon?, _ color: CustomIconColor?) -> ()) {
         self.name = name
+        self.pluralName = pluralName
         self.completion = completion
     }
     
