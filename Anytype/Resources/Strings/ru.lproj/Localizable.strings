@@ -197,12 +197,14 @@
 "Green background" = "Зелёный фон";
 "Create new object" = "Создать новый объект";
 "Create new object with name" = "Создать новый набор \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Отмена";
 "Paste or type URL" = "Вставить или ввести URL-адрес";
 "No items match filter" = "Нет элементов, соответствующих фильтру";
 "Unsupported block" = "Неподдерживаемый блок";
 "Unsupported" = "Не поддерживается";
 "Name" = "Название";
+"Plural name" = "Plural name";
 "Description" = "Описание";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Обработка вставки...";
@@ -222,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Добавить свойство";
 "Search or create new" = "Search or create new";
