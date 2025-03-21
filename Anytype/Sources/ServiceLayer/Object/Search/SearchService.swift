@@ -139,8 +139,8 @@ final class SearchService: SearchServiceProtocol, Sendable {
     
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
+            relation: BundledRelationKey.lastUsedDate,
+            type: .desc
         )
         
         let filters: [DataviewFilter] = .builder {
