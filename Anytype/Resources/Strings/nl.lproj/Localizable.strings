@@ -197,12 +197,14 @@
 "Green background" = "Groene achtergrond";
 "Create new object" = "Maak nieuw object";
 "Create new object with name" = "Maak nieuw object \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Annuleren";
 "Paste or type URL" = "Plak of type URL";
 "No items match filter" = "Geen items die met filter overeenkomen";
 "Unsupported block" = "Blok niet ondersteund";
 "Unsupported" = "Niet ondersteund";
 "Name" = "Naam";
+"Plural name" = "Plural name";
 "Description" = "Beschrijving";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Bezig met plakken...";
@@ -222,6 +224,8 @@
 "Object Types" = "Objecttypes";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
