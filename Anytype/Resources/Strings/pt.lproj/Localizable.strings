@@ -197,12 +197,14 @@
 "Green background" = "Fundo verde";
 "Create new object" = "Criar novo objeto";
 "Create new object with name" = "Create new object \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Cancelar";
 "Paste or type URL" = "Colar ou digitar URL";
 "No items match filter" = "Sem itens correspondentes ao filtro";
 "Unsupported block" = "Bloco não suportado";
 "Unsupported" = "Unsupported";
 "Name" = "Nome";
+"Plural name" = "Plural name";
 "Description" = "Descrição";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Colar processamento...";
@@ -222,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
