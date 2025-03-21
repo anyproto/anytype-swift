@@ -38,6 +38,8 @@ final class EditorSetCoordinatorViewModel:
     private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
+    @Injected(\.detailsService)
+    private var detailsService: any DetailsServiceProtocol
     
     @Injected(\.legacyToastPresenter)
     private var toastPresenter: any ToastPresenterProtocol
@@ -63,6 +65,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var layoutPickerData: LayoutPickerData?
     @Published var showTypeFieldsDocument: BaseDocumentIdentifiable?
     @Published var templatesPickerDocument: BaseDocumentIdentifiable?
+    @Published var objectTypeName: ObjectTypeName?
     
     init(data: EditorListObject, showHeader: Bool) {
         self.data = data
@@ -119,6 +122,22 @@ final class EditorSetCoordinatorViewModel:
         ) { [weak self] type in
             queryData.onSelect(type.id)
             self?.setQueryData = nil
+        }
+    }
+    
+    // MARK: - Primitives - Object type
+    func showTypeNameEditor(objectTypeName: ObjectTypeName) {
+        self.objectTypeName = objectTypeName
+    }
+    
+    func onObjectTypeNameUpdate(singular: String, plural: String, icon: CustomIcon?, color: CustomIconColor?) {
+        Task {
+            try await detailsService.updateBundledDetails(objectId: data.objectId, bundledDetails: .builder {
+                BundledDetails.name(singular)
+                BundledDetails.pluralName(plural)
+                if let icon { BundledDetails.iconName(icon.stringRepresentation) }
+                if let color { BundledDetails.iconOption(color.iconOption) }
+            })
         }
     }
     

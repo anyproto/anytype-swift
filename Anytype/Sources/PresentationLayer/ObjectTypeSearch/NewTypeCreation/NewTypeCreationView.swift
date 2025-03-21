@@ -7,6 +7,13 @@ enum NewTypeCreationViewMode {
     case edit
 }
 
+struct ObjectTypeName: Identifiable {
+    let singular: String
+    let plural: String
+    
+    var id: String { singular + plural }
+}
+
 struct NewTypeCreationView: View {
     @StateObject private var model: NewTypeCreationViewModel
     @Environment(\.dismiss) private var dismiss
@@ -37,7 +44,7 @@ struct NewTypeCreationView: View {
         VStack(spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.createNewType, style: .uxTitle1Semibold)
+            title
             Spacer.fixedHeight(12)
             nameInput
             Spacer.fixedHeight(12)
@@ -79,6 +86,15 @@ struct NewTypeCreationView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .border(16, color: .Shape.primary, lineWidth: 0.5)
+    }
+    
+    private var title: some View {
+        switch mode {
+        case .create:
+            AnytypeText(Loc.createNewType, style: .uxTitle1Semibold)
+        case .edit:
+            AnytypeText(Loc.editType, style: .uxTitle1Semibold)
+        }
     }
     
     private var button: some View {

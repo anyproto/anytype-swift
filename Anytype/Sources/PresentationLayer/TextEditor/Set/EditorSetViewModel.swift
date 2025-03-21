@@ -362,6 +362,12 @@ final class EditorSetViewModel: ObservableObject {
         return pagitationDataDict[groupId] ?? EditorSetPaginationData.empty
     }
     
+    func onTypeTitleTap() {
+        guard let details else { return }
+        
+        output?.showTypeNameEditor(objectTypeName: ObjectTypeName(singular: details.name, plural: details.pluralName))
+    }
+    
     // MARK: - Private
     
     private func onDataChange(_ update: SetDocumentUpdate) async {
