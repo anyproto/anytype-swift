@@ -65,7 +65,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var layoutPickerData: LayoutPickerData?
     @Published var showTypeFieldsDocument: BaseDocumentIdentifiable?
     @Published var templatesPickerDocument: BaseDocumentIdentifiable?
-    @Published var objectTypeName: ObjectTypeName?
+    @Published var objectTypeInfo: ObjectTypeInfo?
     
     init(data: EditorListObject, showHeader: Bool) {
         self.data = data
@@ -126,17 +126,17 @@ final class EditorSetCoordinatorViewModel:
     }
     
     // MARK: - Primitives - Object type
-    func showTypeNameEditor(objectTypeName: ObjectTypeName) {
-        self.objectTypeName = objectTypeName
+    func showTypeInfoEditor(info: ObjectTypeInfo) {
+        self.objectTypeInfo = info
     }
     
-    func onObjectTypeNameUpdate(singular: String, plural: String, icon: CustomIcon?, color: CustomIconColor?) {
+    func onObjectTypeNameUpdate(info: ObjectTypeInfo) {
         Task {
             try await detailsService.updateBundledDetails(objectId: data.objectId, bundledDetails: .builder {
-                BundledDetails.name(singular)
-                BundledDetails.pluralName(plural)
-                if let icon { BundledDetails.iconName(icon.stringRepresentation) }
-                if let color { BundledDetails.iconOption(color.iconOption) }
+                BundledDetails.name(info.singularName)
+                BundledDetails.pluralName(info.pluralName)
+                BundledDetails.iconName(info.icon?.stringRepresentation ?? "")
+                BundledDetails.iconOption(info.color?.iconOption ?? CustomIconColor.default.iconOption)
             })
         }
     }

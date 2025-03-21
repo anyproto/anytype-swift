@@ -38,5 +38,5 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func onObjectTypeSingleTemplateTap(objectId: String, spaceId: String, defaultTemplateId: String?)
     
     // Object type ~ Primitives
-    func showTypeNameEditor(objectTypeName: ObjectTypeName)
+    func showTypeInfoEditor(info: ObjectTypeInfo)
 }

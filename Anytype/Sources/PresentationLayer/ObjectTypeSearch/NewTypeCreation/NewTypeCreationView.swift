@@ -7,11 +7,13 @@ enum NewTypeCreationViewMode {
     case edit
 }
 
-struct ObjectTypeName: Identifiable {
-    let singular: String
-    let plural: String
+struct ObjectTypeInfo: Identifiable {
+    let singularName: String
+    let pluralName: String
+    let icon: CustomIcon?
+    let color: CustomIconColor?
     
-    var id: String { singular + plural }
+    var id: String { singularName + pluralName + String(describing: icon?.id) + String(describing: color?.id) }
 }
 
 struct NewTypeCreationView: View {
@@ -19,8 +21,8 @@ struct NewTypeCreationView: View {
     @Environment(\.dismiss) private var dismiss
     private let mode: NewTypeCreationViewMode
     
-    init(name: String, pluralName: String = "", mode: NewTypeCreationViewMode, completion: @escaping (_ name: String, _ pluralName: String, _ icon: CustomIcon?, _ color: CustomIconColor?) -> ()) {
-        _model = StateObject(wrappedValue: NewTypeCreationViewModel(name: name, pluralName: pluralName, completion: completion))
+    init(info: ObjectTypeInfo, mode: NewTypeCreationViewMode, completion: @escaping (_ info: ObjectTypeInfo) -> ()) {
+        _model = StateObject(wrappedValue: NewTypeCreationViewModel(info: info, completion: completion))
         self.mode = mode
     }
     

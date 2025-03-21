@@ -365,7 +365,14 @@ final class EditorSetViewModel: ObservableObject {
     func onTypeTitleTap() {
         guard let details else { return }
         
-        output?.showTypeNameEditor(objectTypeName: ObjectTypeName(singular: details.name, plural: details.pluralName))
+        output?.showTypeInfoEditor(
+            info: ObjectTypeInfo(
+                singularName: details.name,
+                pluralName: details.pluralName,
+                icon: details.customIcon,
+                color: details.customIconColor
+            )
+        )
     }
     
     // MARK: - Private
