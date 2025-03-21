@@ -328,6 +328,15 @@ public enum BundledRelationKey: String, Sendable {
     /// Encoded encryption key of invite file for current space. It stored in SpaceView
     case spaceInviteFileKey = "spaceInviteFileKey"
 
+    /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
+    case spaceInviteGuestFileCid = "spaceInviteGuestFileCid"
+
+    /// Encoded encryption key of invite file for guest user in the current space. It's stored in SpaceView
+    case spaceInviteGuestFileKey = "spaceInviteGuestFileKey"
+
+    /// Guest key to read public space
+    case guestKey = "guestKey"
+
     /// Participant permissions. Possible values: models.ParticipantPermissions
     case participantPermissions = "participantPermissions"
 

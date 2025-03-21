@@ -1300,6 +1300,11 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Space.InviteGetGuest.Response: ResultWithError {}
+extension Anytype_Rpc.Space.InviteGetGuest.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Space.InviteRevoke.Response: ResultWithError {}
 extension Anytype_Rpc.Space.InviteRevoke.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

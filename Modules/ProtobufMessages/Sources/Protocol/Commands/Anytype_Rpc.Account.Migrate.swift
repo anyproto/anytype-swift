@@ -62,6 +62,8 @@ extension Anytype_Rpc.Account {
 
           public var description_p: String = String()
 
+          public var requiredSpace: Int64 = 0
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public enum Code: SwiftProtobuf.Enum, Swift.CaseIterable {
@@ -238,6 +240,7 @@ extension Anytype_Rpc.Account.Migrate.Response.Error: SwiftProtobuf.Message, Swi
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
+    3: .same(proto: "requiredSpace"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -248,6 +251,7 @@ extension Anytype_Rpc.Account.Migrate.Response.Error: SwiftProtobuf.Message, Swi
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.requiredSpace) }()
       default: break
       }
     }
@@ -260,12 +264,16 @@ extension Anytype_Rpc.Account.Migrate.Response.Error: SwiftProtobuf.Message, Swi
     if !self.description_p.isEmpty {
       try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
     }
+    if self.requiredSpace != 0 {
+      try visitor.visitSingularInt64Field(value: self.requiredSpace, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Migrate.Response.Error, rhs: Anytype_Rpc.Account.Migrate.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
+    if lhs.requiredSpace != rhs.requiredSpace {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
