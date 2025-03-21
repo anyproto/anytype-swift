@@ -91,7 +91,7 @@ private extension Array where Element == ObjectDetails {
 private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
-        let title = details.title
+        let title = FeatureFlags.pluralNames ? details.pluralName : details.title
         self.id = details.id
         self.icon = details.objectIconImage
         self.title = title
