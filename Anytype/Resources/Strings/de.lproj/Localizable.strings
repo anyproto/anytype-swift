@@ -197,12 +197,14 @@
 "Green background" = "Grüner Hintergrund";
 "Create new object" = "Neues Objekt erstellen";
 "Create new object with name" = "Neues Objekt „%@“ erstellen";
+"Create new type" = "Create new type";
 "Cancel" = "Abbrechen";
 "Paste or type URL" = "URL einfügen oder eingeben";
 "No items match filter" = "Keine Gegenstände konnten mit diesem Filter gefunden werden";
 "Unsupported block" = "Nicht unterstützter Block";
 "Unsupported" = "Nicht unterstützt";
 "Name" = "Name";
+"Plural name" = "Plural name";
 "Description" = "Beschreibung";
 "Add a description" = "Beschreibung hinzufügen...";
 "Paste processing..." = "Wird eingefügt...";
@@ -222,6 +224,8 @@
 "Object Types" = "Objekttypen";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Auf Standardeinstellung zurücksetzen";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Eigenschaft hinzufügen";
 "Search or create new" = "Suchen oder neu erstellen";
