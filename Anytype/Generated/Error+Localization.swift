@@ -6817,6 +6817,33 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: @retroactive Locali
     }
 }
 
+extension Anytype_Rpc.Space.InviteGetGuest.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Space.InviteGetGuest.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.InviteGetGuest.badInput")
+            case .invalidSpaceType:
+                return String(localized: "Space.InviteGetGuest.invalidSpaceType", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.InviteGetGuest.invalidSpaceType")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Space.InviteRevoke.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

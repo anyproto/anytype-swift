@@ -123,6 +123,9 @@ public protocol BundledRelationsValueProvider {
     var spaceAccountStatus: Int? { get }
     var spaceInviteFileCid: String { get }
     var spaceInviteFileKey: String { get }
+    var spaceInviteGuestFileCid: String { get }
+    var spaceInviteGuestFileKey: String { get }
+    var guestKey: String { get }
     var participantPermissions: Int? { get }
     var identity: String { get }
     var participantStatus: Int? { get }
@@ -592,6 +595,18 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Encoded encryption key of invite file for current space. It stored in SpaceView
     var spaceInviteFileKey: String {
         return value(for: BundledRelationKey.spaceInviteFileKey.rawValue)
+    }
+    /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
+    var spaceInviteGuestFileCid: String {
+        return value(for: BundledRelationKey.spaceInviteGuestFileCid.rawValue)
+    }
+    /// Encoded encryption key of invite file for guest user in the current space. It's stored in SpaceView
+    var spaceInviteGuestFileKey: String {
+        return value(for: BundledRelationKey.spaceInviteGuestFileKey.rawValue)
+    }
+    /// Guest key to read public space
+    var guestKey: String {
+        return value(for: BundledRelationKey.guestKey.rawValue)
     }
     /// Participant permissions. Possible values: models.ParticipantPermissions
     var participantPermissions: Int? {
