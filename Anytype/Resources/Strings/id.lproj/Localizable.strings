@@ -197,12 +197,14 @@
 "Green background" = "Latar belakang hijau";
 "Create new object" = "Buat objek baru";
 "Create new object with name" = "Buat objek baru \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Batal";
 "Paste or type URL" = "Tempel atau ketik URL";
 "No items match filter" = "Tidak ada kecocokan";
 "Unsupported block" = "Balok tak didukung";
 "Unsupported" = "Tidak didukung";
 "Name" = "Nama";
+"Plural name" = "Plural name";
 "Description" = "Deskripsi";
 "Add a description" = "Tambahkan deskripsi …";
 "Paste processing..." = "Memproses penempelan ...";
@@ -222,6 +224,8 @@
 "Object Types" = "Tipe Objek";
 "Resolve layout conflict" = "Lerai konflik tata letak";
 "Reset to default" = "Atur ulang ke bawaan";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Tambahkan properti";
 "Search or create new" = "Telusuri atau buat baru";

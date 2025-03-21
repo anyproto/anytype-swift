@@ -197,12 +197,14 @@
 "Green background" = "ସବୁଜ ପୃଷ୍ଠଭୂମି";
 "Create new object" = "ନୂଆ ଅବଜେକ୍ଟ ତିଆରି କରନ୍ତୁ";
 "Create new object with name" = "ନୂତନ ଅବଜେକ୍ଟ \"%@\" ସୃଷ୍ଟି କରନ୍ତୁ";
+"Create new type" = "Create new type";
 "Cancel" = "ବାତିଲ କରନ୍ତୁ ";
 "Paste or type URL" = "ୟୁଆରେଲ ଟାଇପ କିମ୍ବା ପେଷ୍ଟ କରନ୍ତୁ";
 "No items match filter" = "କୌଣସି ଆଇଟମ୍ ଫିଲ୍ଟର ସହ ମେଳ ଖାଉନାହିଁ";
 "Unsupported block" = "ଅସମର୍ଥିତ ବ୍ଲକ";
 "Unsupported" = "Unsupported";
 "Name" = "ନାମ";
+"Plural name" = "Plural name";
 "Description" = "ଵର୍ଣ୍ଣନା";
 "Add a description" = "Add a description...";
 "Paste processing..." = "ପେଷ୍ଟ ପ୍ରୋସେସିଂ...";
@@ -222,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";

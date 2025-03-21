@@ -197,12 +197,14 @@
 "Green background" = "Зялёны фон";
 "Create new object" = "Стварыць новы аб'ект";
 "Create new object with name" = "Create new object \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Скасаваць";
 "Paste or type URL" = "Устаўце або ўвядзіце URL";
 "No items match filter" = "Няма элементаў, якія супадаюць з фільтрам";
 "Unsupported block" = "Блок не падтрымліваецца";
 "Unsupported" = "Не падтрымліваецца";
 "Name" = "Назва";
+"Plural name" = "Plural name";
 "Description" = "Апісанне";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Апрацоўка ўстаўкі...";
@@ -222,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Дадаць уласцівасць";
 "Search or create new" = "Search or create new";
