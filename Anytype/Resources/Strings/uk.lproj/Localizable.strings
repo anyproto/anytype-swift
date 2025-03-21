@@ -197,12 +197,14 @@
 "Green background" = "Зелене тло";
 "Create new object" = "Створити об'єкт";
 "Create new object with name" = "Create new object \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Скасувати";
 "Paste or type URL" = "Вставити або ввести URL-адресу";
 "No items match filter" = "Немає збігів із цим фільтром";
 "Unsupported block" = "Непідтримуваний блок";
 "Unsupported" = "Unsupported";
 "Name" = "Назва";
+"Plural name" = "Plural name";
 "Description" = "Опис";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Обробка вставки...";
@@ -222,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
