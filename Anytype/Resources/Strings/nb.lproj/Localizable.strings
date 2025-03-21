@@ -197,12 +197,14 @@
 "Green background" = "Grønn bakgrunn";
 "Create new object" = "Opprett nytt objekt";
 "Create new object with name" = "Create new object \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Avbryt";
 "Paste or type URL" = "Lim inn eller skriv URL";
 "No items match filter" = "Ingen elementer samsvarer med filteret";
 "Unsupported block" = "Blokk støttet ikke";
 "Unsupported" = "Ikke støttet";
 "Name" = "Navn";
+"Plural name" = "Plural name";
 "Description" = "Beskrivelse";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Behandler innliming...";
@@ -222,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
