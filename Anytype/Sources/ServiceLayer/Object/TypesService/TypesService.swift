@@ -57,7 +57,8 @@ final class TypesService: TypesServiceProtocol, Sendable {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
-            type: .desc
+            type: .desc,
+            includeTime: true
         )
                 
         var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles : DetailsLayout.visibleLayouts
@@ -101,7 +102,8 @@ final class TypesService: TypesServiceProtocol, Sendable {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
-            type: .desc
+            type: .desc,
+            includeTime: true
         )
         
         let filters: [DataviewFilter] = .builder {
