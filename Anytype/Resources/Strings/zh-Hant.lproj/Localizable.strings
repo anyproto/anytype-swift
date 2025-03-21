@@ -197,12 +197,14 @@
 "Green background" = "綠色背景";
 "Create new object" = "建立新物件";
 "Create new object with name" = "Create new object \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "取消";
 "Paste or type URL" = "貼上或輸入網址";
 "No items match filter" = "没有符合篩選的項目";
 "Unsupported block" = "不支援的區塊";
 "Unsupported" = "不支援";
 "Name" = "名稱";
+"Plural name" = "Plural name";
 "Description" = "描述";
 "Add a description" = "Add a description...";
 "Paste processing..." = "貼上處理中...";
@@ -222,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
