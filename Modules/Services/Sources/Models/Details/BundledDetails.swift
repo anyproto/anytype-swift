@@ -5,6 +5,7 @@ import SwiftProtobuf
 
 public enum BundledDetails: Sendable {
     case name(String)
+    case pluralName(String)
     case iconEmoji(String)
     case iconObjectId(String)
     case iconName(String)
@@ -22,6 +23,7 @@ extension BundledDetails {
     var key: String {
         switch self {
         case .name: BundledRelationKey.name.rawValue
+        case .pluralName: BundledRelationKey.pluralName.rawValue
         case .iconEmoji: BundledRelationKey.iconEmoji.rawValue
         case .iconObjectId: BundledRelationKey.iconImage.rawValue
         case .iconName: BundledRelationKey.iconName.rawValue
@@ -38,6 +40,7 @@ extension BundledDetails {
     var value: Google_Protobuf_Value {
         switch self {
         case .name(let string): string.protobufValue
+        case .pluralName(let string): string.protobufValue
         case .iconEmoji(let string): string.protobufValue
         case .iconObjectId(let string): string.protobufValue
         case .iconName(let string): string.protobufValue

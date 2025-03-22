@@ -12,7 +12,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     @Published var searchText = ""
     @Published var showPasteButton = false
-    @Published var newTypeName: StringIdentifiable?
+    @Published var newTypeInfo: ObjectTypeInfo?
     @Published var toastData: ToastBarData = .empty
     @Published var participantCanEdit = false
     
@@ -165,15 +165,15 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func createType(name: String) {
         if FeatureFlags.pluralNames {
-            newTypeName = name.identifiable
+            newTypeInfo = ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil)
         } else {
-            onCreateTypeSubmit(name: name, pluralName: name, icon: nil, color: nil)
+            onCreateTypeSubmit(info: ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil))
         }
     }
 
-    func onCreateTypeSubmit(name: String, pluralName: String, icon: CustomIcon?, color: CustomIconColor?) {
+    func onCreateTypeSubmit(info: ObjectTypeInfo) {
         Task {
-            let type = try await typesService.createType(name: name, pluralName: pluralName, icon: icon, color: color, spaceId: spaceId)
+            let type = try await typesService.createType(name: info.singularName, pluralName: info.pluralName, icon: info.icon, color: info.color, spaceId: spaceId)
             onSelect(.objectType(type: type))
         }
     }
