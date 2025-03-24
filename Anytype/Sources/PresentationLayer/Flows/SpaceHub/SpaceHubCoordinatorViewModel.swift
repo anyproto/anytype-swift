@@ -362,19 +362,21 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     private func handleObjectDeelpink(objectId: String, spaceId: String, cid: String?, key: String?, source: DeepLinkSource) async {
         let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
+        let route = source.isExternal ? OpenObjectByLinkRoute.web : OpenObjectByLinkRoute.app
         do {
             try await document.open()
             guard let editorData = document.details?.screenData() else { return }
             try? await open(data: editorData)
-            AnytypeAnalytics.instance().logOpenObjectByLink(type: .object, route: source.isExternal ? .web : .app)
+            AnytypeAnalytics.instance().logOpenObjectByLink(type: .object, route: route)
         } catch {
             guard let cid, let key else {
                 showObjectIsNotAvailableAlert = true
+                AnytypeAnalytics.instance().logOpenObjectByLink(type: .notShared, route: route)
                 return
             }
             
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
-            AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite, route: source.isExternal ? .web : .app)
+            AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite, route: route)
         }
     }
 
