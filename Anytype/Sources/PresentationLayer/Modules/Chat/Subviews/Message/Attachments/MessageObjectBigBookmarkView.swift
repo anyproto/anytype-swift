@@ -14,7 +14,7 @@ struct MessageObjectBigBookmarkView: View {
         VStack(alignment: .leading, spacing: 0) {
             if pictureId.isNotEmpty {
                 ImageIdIconView(imageId: pictureId, square: false, side: .height)
-                    .aspectRatio(CGSize(width: 1.91, height: 1), contentMode: .fill)
+                    .aspectRatio(CGSize(width: 1.91, height: 1), contentMode: .fit)
                     .cornerRadius(2)
             }
             HStack(spacing: 0) {

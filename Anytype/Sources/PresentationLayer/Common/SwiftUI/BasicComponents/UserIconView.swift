@@ -43,7 +43,7 @@ struct UserIconView: View {
     private func imageIcon(_ imageId: String) -> some View {
         KFImage
             .url(
-                ImageMetadata(id: imageId, width: Constants.size.width.asImageWidth)
+                ImageMetadata(id: imageId, width: Constants.size.width)
                     .contentUrl
             )
             .setProcessors(

@@ -45,7 +45,7 @@ extension AnytypeImageDownloader {
         options: KingfisherOptionsInfo? = nil,
         completionHandler: @escaping @Sendable (UIImage?, Data?) -> Void)
     {
-        let imageMetadata = ImageMetadata(id: imageId, width: .width(width))
+        let imageMetadata = ImageMetadata(id: imageId, side: .width(width))
         guard let url = imageMetadata.contentUrl else {
             anytypeAssertionFailure("Url is nil")
             completionHandler(nil, nil)
@@ -55,7 +55,7 @@ extension AnytypeImageDownloader {
     }
     
     static func retrieveImage(imageId: String, width: CGFloat) async -> UIImage? {
-        let imageMetadata = ImageMetadata(id: imageId, width: .width(width))
+        let imageMetadata = ImageMetadata(id: imageId, side: .width(width))
         guard let url = imageMetadata.contentUrl else {
             anytypeAssertionFailure("Url is nil")
             return nil

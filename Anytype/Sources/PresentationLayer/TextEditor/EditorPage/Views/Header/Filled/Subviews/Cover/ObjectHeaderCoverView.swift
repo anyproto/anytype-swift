@@ -38,7 +38,7 @@ struct ObjectHeaderCoverView: View {
     
     private func imageWithId(_ imageId: String, _ size: CGSize, _ fitImage: Bool) -> some View {
         CachedAsyncImage(
-            url: ImageMetadata(id: imageId, width: .width(size.width)).contentUrl
+            url: ImageMetadata(id: imageId, side: .width(size.width)).contentUrl
         ) { image in
             image.resizable()
                 .if(fitImage) {
