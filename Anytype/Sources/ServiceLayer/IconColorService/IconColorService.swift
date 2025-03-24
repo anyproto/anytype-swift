@@ -44,7 +44,7 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
         case .space(let spaceIcon):
             switch spaceIcon {
             case .imageId(let imageId):
-                guard let url = ImageMetadata(id: imageId, width: .width(10)).contentUrl else {
+                guard let url = ImageMetadata(id: imageId, side: .width(10)).contentUrl else {
                     throw CommonError.undefined
                 }
                 let image = try await KingfisherManager.shared.retrieveImage(with: .network(url)).image

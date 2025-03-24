@@ -248,7 +248,7 @@ struct MessageView: View {
             Button {
                 output?.didSelectCopyPlainText(message: data)
             } label: {
-                Label(Loc.Message.Action.copyPlainText, systemImage: "document.on.document")
+                Label(Loc.Message.Action.copyPlainText, systemImage: "doc.on.doc")
             }
         }
         

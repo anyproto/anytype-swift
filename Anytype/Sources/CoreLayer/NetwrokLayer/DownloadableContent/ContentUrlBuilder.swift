@@ -55,27 +55,30 @@ private extension ContentUrlBuilder {
         var components = initialComponents
         components.path = "\(Constants.imageSubPath)\(imageMetadata.id)"
         
-        switch imageMetadata.width {
+        switch imageMetadata.side {
         case .width(let width):
-            components.queryItems = [makeCustomWidthQueryItem(width: width)]
+            components.queryItems = [makeCustomSideQueryItem(size: width, name: Constants.widthQueryItemName)]
+            return components.url
+        case .height(let width):
+            components.queryItems = [makeCustomSideQueryItem(size: width, name: Constants.heightQueryItemName)]
             return components.url
         case .original:
             return components.url
         }
     }
     
-    static func makeCustomWidthQueryItem(width: CGFloat) -> URLQueryItem {
-        let adjustedWidth = Int(width * UIScreen.main.scale)
+    static func makeCustomSideQueryItem(size: CGFloat, name: String) -> URLQueryItem {
+        let adjustedSize = Int(size * UIScreen.main.scale)
         
         let queryItemValue: String = {
-            guard adjustedWidth > 0 else {
-                return Constants.defaultWidth
+            guard adjustedSize > 0 else {
+                return Constants.defaultSize
             }
             
-            return "\(adjustedWidth)"
+            return "\(adjustedSize)"
         }()
         
-        return URLQueryItem(name: Constants.widthQueryItemName, value: queryItemValue)
+        return URLQueryItem(name: name, value: queryItemValue)
     }
 }
 
@@ -88,7 +91,8 @@ private extension ContentUrlBuilder {
         static let fileSubPath = "/file/"
         
         static let widthQueryItemName = "width"
-        static let defaultWidth = "700"
+        static let heightQueryItemName = "height"
+        static let defaultSize = "700"
         
     }
     

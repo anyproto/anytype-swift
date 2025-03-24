@@ -15,7 +15,7 @@ final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
     
     init(fileDetails: FileDetails, previewImage: UIImage?) {
         self.fileDetails = fileDetails
-        let imageId = ImageMetadata(id: fileDetails.id, width: .original)
+        let imageId = ImageMetadata(id: fileDetails.id, side: .original)
         self.imageSource = .middleware(imageId)
         self.previewImage = previewImage
     }
