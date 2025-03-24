@@ -106,6 +106,10 @@ public extension FeatureFlags {
         value(for: .pluralNames)
     }
 
+    static var countersOnSpaceHub: Bool {
+        value(for: .countersOnSpaceHub)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -185,6 +189,7 @@ public extension FeatureFlags {
         .newPropertiesCreation,
         .fixChatEmptyState,
         .pluralNames,
+        .countersOnSpaceHub,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -174,6 +174,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let countersOnSpaceHub = FeatureDescription(
+        title: "Counters on Space Hub",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

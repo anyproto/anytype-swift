@@ -1,6 +1,7 @@
 import Services
 import SwiftUI
 import Combine
+import AnytypeCore
 
 
 @MainActor
@@ -35,6 +36,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private var spaceOrderService: any SpaceOrderServiceProtocol
     @Injected(\.profileStorage)
     private var profileStorage: any ProfileStorageProtocol
+    @Injected(\.chatMessagesPreviewsStorage)
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     
     init(sceneId: String) {
         self.sceneId = sceneId
@@ -84,14 +87,16 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
+        async let messagesPreviewsSub: () = subscribeOnMessagesPreviews()
         
-        (_, _, _) = await (spacesSub, wallpapersSub, profileSub)
+        (_, _, _, _) = await (spacesSub, wallpapersSub, profileSub, messagesPreviewsSub)
     }
     
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
-            self.spaces = spaces
+            let previews = await chatMessagesPreviewsStorage.previews()
+            updateSpaces(spaces, previews: previews)
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
         }
     }
@@ -106,5 +111,31 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         for await profile in profileStorage.profilePublisher.values {
             profileIcon = profile.icon
         }
+    }
+    
+    private func subscribeOnMessagesPreviews() async {
+        guard FeatureFlags.countersOnSpaceHub else { return }
+        
+        await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
+        for await preview in chatMessagesPreviewsStorage.previewStream {
+            updateSpaces(spaces, previews: [preview])
+        }
+    }
+    
+    private func updateSpaces(_ spaces: [ParticipantSpaceViewData]?, previews: [ChatMessagePreview]) {
+        let enrichedSpaces = enrichSpaces(spaces, previews: previews)
+        self.spaces = enrichedSpaces
+    }
+    
+    private func enrichSpaces(_ spaces: [ParticipantSpaceViewData]?, previews: [ChatMessagePreview]) -> [ParticipantSpaceViewData]? {
+        guard var spaces else { return nil }
+        
+        for preview in previews {
+            if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
+                spaces[spaceIndex] = spaces[spaceIndex].updateUnreadMessagesCount(preview.counter)
+            }
+        }
+        
+        return spaces
     }
 }
