@@ -61,6 +61,12 @@ struct EditorSetCoordinatorView: View {
             .anytypeSheet(item: $model.templatesPickerDocument) {
                 ObjectTypeTemplatePickerView(document: $0.document, output: model)
             }
+            .anytypeSheet(item: $model.objectTypeInfo) {
+                NewTypeCreationView(info: $0, mode: .edit) { info in
+                    model.onObjectTypeNameUpdate(info: info)
+                }
+            }
+
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

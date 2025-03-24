@@ -153,17 +153,27 @@ extension SetFullHeader {
         }
     }
 
+    @ViewBuilder
     private var titleView: some View {
-        AutofocusedTextField(
-            placeholder: Loc.untitled,
-            font: .title,
-            shouldSkipFocusOnFilled: true,
-            text: $model.titleString
-        )
-        .padding([.trailing], 20)
-        .foregroundStyle(Color.Text.primary)
-        .disableAutocorrection(true)
-        .disabled(!model.setDocument.setPermissions.canEditTitle)
+        if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
+            Button {
+                model.onTypeTitleTap()
+            } label: {
+                AnytypeText(model.titleString.isNotEmpty ? model.titleString : Loc.untitled, style: .title)
+                    .padding([.trailing], 20)
+            }.disabled(!model.setDocument.setPermissions.canEditTitle)
+        } else {
+            AutofocusedTextField(
+                placeholder: Loc.untitled,
+                font: .title,
+                shouldSkipFocusOnFilled: true,
+                text: $model.titleString
+            )
+            .padding([.trailing], 20)
+            .foregroundStyle(Color.Text.primary)
+            .disableAutocorrection(true)
+            .disabled(!model.setDocument.setPermissions.canEditTitle)
+        }
     }
 
     private var featuredRelationsView: some View {

@@ -24,10 +24,14 @@ final class NewTypeCreationViewModel: ObservableObject {
     @Injected(\.typesService)
     private var typesService: any TypesServiceProtocol
     
-    private let completion: (_ name: String, _ pluralName: String, _ icon: CustomIcon?, _ color: CustomIconColor?) -> ()
+    private let completion: (_ info: ObjectTypeInfo) -> ()
     
-    init(name: String, completion: @escaping (_ name: String, _ pluralName: String, _ icon: CustomIcon?, _ color: CustomIconColor?) -> ()) {
-        self.name = name
+    init(info: ObjectTypeInfo, completion: @escaping (_ info: ObjectTypeInfo) -> ()) {
+        self.name = info.singularName
+        self.pluralName = info.pluralName
+        self.icon = info.icon
+        self.color = info.color
+    
         self.completion = completion
     }
     
@@ -39,7 +43,7 @@ final class NewTypeCreationViewModel: ObservableObject {
     
     func onSaveTap() {
         dismiss?()
-        completion(name, pluralName, icon, color)
+        completion(ObjectTypeInfo(singularName: name, pluralName: pluralName, icon: icon, color: color))
     }
     
     func onIconTap() {

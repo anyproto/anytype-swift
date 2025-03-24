@@ -2,13 +2,28 @@ import SwiftUI
 import AnytypeCore
 import Services
 
+enum NewTypeCreationViewMode {
+    case create
+    case edit
+}
+
+struct ObjectTypeInfo: Identifiable {
+    let singularName: String
+    let pluralName: String
+    let icon: CustomIcon?
+    let color: CustomIconColor?
+    
+    var id: String { singularName + pluralName + String(describing: icon?.id) + String(describing: color?.id) }
+}
 
 struct NewTypeCreationView: View {
     @StateObject private var model: NewTypeCreationViewModel
     @Environment(\.dismiss) private var dismiss
+    private let mode: NewTypeCreationViewMode
     
-    init(name: String, completion: @escaping (_ name: String, _ pluralName: String, _ icon: CustomIcon?, _ color: CustomIconColor?) -> ()) {
-        _model = StateObject(wrappedValue: NewTypeCreationViewModel(name: name, completion: completion))
+    init(info: ObjectTypeInfo, mode: NewTypeCreationViewMode, completion: @escaping (_ info: ObjectTypeInfo) -> ()) {
+        _model = StateObject(wrappedValue: NewTypeCreationViewModel(info: info, completion: completion))
+        self.mode = mode
     }
     
     var body: some View {
@@ -31,13 +46,13 @@ struct NewTypeCreationView: View {
         VStack(spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.createNewType, style: .uxTitle1Semibold)
+            title
             Spacer.fixedHeight(12)
             nameInput
             Spacer.fixedHeight(12)
             pluralNameInput
             Spacer.fixedHeight(12)
-            StandardButton(Loc.create, style: .primaryLarge) { model.onSaveTap() }
+            button
             Spacer.fixedHeight(15)
         }
         .padding(.horizontal, 16)
@@ -73,5 +88,23 @@ struct NewTypeCreationView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .border(16, color: .Shape.primary, lineWidth: 0.5)
+    }
+    
+    private var title: some View {
+        switch mode {
+        case .create:
+            AnytypeText(Loc.createNewType, style: .uxTitle1Semibold)
+        case .edit:
+            AnytypeText(Loc.editType, style: .uxTitle1Semibold)
+        }
+    }
+    
+    private var button: some View {
+        switch mode {
+        case .create:
+            StandardButton(Loc.create, style: .primaryLarge) { model.onSaveTap() }
+        case .edit:
+            StandardButton(Loc.save, style: .primaryLarge) { model.onSaveTap() }
+        }
     }
 }
