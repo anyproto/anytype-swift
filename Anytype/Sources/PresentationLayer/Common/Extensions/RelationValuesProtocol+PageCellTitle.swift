@@ -4,12 +4,16 @@ import AnytypeCore
 
 extension BundledRelationsValueProvider {
 
-    var pageCellTitle: String {
+    var setTitle: String {
         switch resolvedLayoutValue {
         case .note:
             return snippet
         default:
-            return name
+            if FeatureFlags.pluralNames {
+                return pluralName.isNotEmpty ? pluralName : name
+            } else {
+                return name
+            }
         }
     }
 
@@ -20,6 +24,15 @@ extension BundledRelationsValueProvider {
         }
 
         return objectName.withPlaceholder
+    }
+    
+    var pluralTitle: String {
+        if isDeleted {
+            // TODO: Move to editor
+            return Loc.nonExistentObject
+        }
+
+        return pluralName.isNotEmpty ? pluralName : title
     }
 
     var subtitle: String {

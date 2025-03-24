@@ -168,6 +168,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let pluralNames = FeatureDescription(
+        title: "Plura type names",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: true
+    )
+    
     static let countersOnSpaceHub = FeatureDescription(
         title: "Counters on Space Hub",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),

@@ -1097,20 +1097,6 @@ extension AnytypeAnalytics {
         logEvent("DuplicateBlock", spaceId: spaceId)
     }
     
-    func logFeatureRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey) {
-        logEvent("FeatureRelation", spaceId: spaceId, withEventProperties: [
-            AnalyticsEventsPropertiesKey.relationKey: key.value,
-            AnalyticsEventsPropertiesKey.format: format.analyticsName
-        ])
-    }
-    
-    func logUnfeatureRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey) {
-        logEvent("UnfeatureRelation", spaceId: spaceId, withEventProperties: [
-            AnalyticsEventsPropertiesKey.relationKey: key.value,
-            AnalyticsEventsPropertiesKey.format: format.analyticsName
-        ])
-    }
-    
     func logDeleteRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey? = nil, route: DeleteRelationRoute) {
         logEvent("DeleteRelation", spaceId: spaceId, withEventProperties: [
             AnalyticsEventsPropertiesKey.relationKey: key?.value ?? "",

@@ -46,6 +46,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         var keys: [String] = Array<BundledRelationKey>.builder {
             BundledRelationKey.id
             BundledRelationKey.name
+            BundledRelationKey.pluralName
             BundledRelationKey.snippet
             BundledRelationKey.description
             BundledRelationKey.type

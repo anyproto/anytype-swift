@@ -32,6 +32,7 @@ public extension BundledRelationKey {
             BundledRelationKey.iconKeys
             BundledRelationKey.fileMimeType
             BundledRelationKey.name
+            BundledRelationKey.pluralName
         }.uniqued()
     }
     

@@ -102,6 +102,10 @@ public extension FeatureFlags {
         value(for: .fixChatEmptyState)
     }
 
+    static var pluralNames: Bool {
+        value(for: .pluralNames)
+    }
+
     static var countersOnSpaceHub: Bool {
         value(for: .countersOnSpaceHub)
     }
@@ -184,6 +188,7 @@ public extension FeatureFlags {
         .httpsLinkForObjectCopy,
         .newPropertiesCreation,
         .fixChatEmptyState,
+        .pluralNames,
         .countersOnSpaceHub,
         .rainbowViews,
         .showAlertOnAssert,

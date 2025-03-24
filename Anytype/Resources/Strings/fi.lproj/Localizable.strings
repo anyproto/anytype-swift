@@ -197,13 +197,16 @@
 "Green background" = "Green background";
 "Create new object" = "Luo uusi objekti";
 "Create new object with name" = "Create new object \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Peruuta";
 "Paste or type URL" = "Sijoita tai kirjoita URL";
 "No items match filter" = "Yksikään kohde ei vastaa filtteröintiä";
 "Unsupported block" = "Tukematon pala";
 "Unsupported" = "Ei tuettu";
 "Name" = "Nimi";
+"Plural name" = "Plural name";
 "Description" = "Kuvaus";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Sijoitus käynnissä...";
 "Anytype Library" = "Anytype Kirjasto";
 "Copied" = "Kopioitu";
@@ -221,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
@@ -277,7 +282,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Tämä on Avaimesi";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Seuraava";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Not now";

@@ -10,20 +10,6 @@ final class RelationsService: RelationsServiceProtocol {
     
     // MARK: - RelationsServiceProtocol
     
-    public func addFeaturedRelation(objectId: String, relationKey: String) async throws {
-        try await ClientCommands.objectRelationAddFeatured(.with {
-            $0.contextID = objectId
-            $0.relations = [relationKey]
-        }).invoke()
-    }
-    
-    public func removeFeaturedRelation(objectId: String, relationKey: String) async throws {
-        try await ClientCommands.objectRelationRemoveFeatured(.with {
-            $0.contextID = objectId
-            $0.relations = [relationKey]
-        }).invoke()
-    }
-    
     func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId
@@ -196,4 +182,21 @@ final class RelationsService: RelationsServiceProtocol {
             $0.typeObjectID = typeId
         }).invoke().relationIds
     }
+    
+    // Only one relation that use legacy api is description. It's visibility is stored on per object basis.
+    // All other relations visibility are stored in type now
+    public func toggleDescription(objectId: String, isOn: Bool) async throws {
+        if isOn {
+            try await ClientCommands.objectRelationAddFeatured(.with {
+                $0.contextID = objectId
+                $0.relations = [BundledRelationKey.description.rawValue]
+            }).invoke()
+        } else {
+            try await ClientCommands.objectRelationRemoveFeatured(.with {
+                $0.contextID = objectId
+                $0.relations = [BundledRelationKey.description.rawValue]
+            }).invoke()
+        }
+    }
+    
 }

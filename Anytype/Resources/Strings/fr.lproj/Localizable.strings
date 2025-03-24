@@ -197,13 +197,16 @@
 "Green background" = "Fond vert";
 "Create new object" = "Créer un nouvel objet";
 "Create new object with name" = "Créer un nouvel objet \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Annuler";
 "Paste or type URL" = "Coller ou saisir l'URL";
 "No items match filter" = "Aucun élément ne correspond au filtre";
 "Unsupported block" = "Bloc non pris en charge";
 "Unsupported" = "Non pris en charge";
 "Name" = "Nom";
+"Plural name" = "Plural name";
 "Description" = "Description";
+"Add a description" = "Ajoutez une description...";
 "Paste processing..." = "En train de coller...";
 "Anytype Library" = "Bibliothèque Anytype";
 "Copied" = "Copié";
@@ -221,6 +224,8 @@
 "Object Types" = "Types d'objets";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Rechercher ou créer un nouveau";
@@ -277,7 +282,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Ceci est votre clé";
-"Auth.JoinFlow.Key.Description" = "Elle vous permet d'être pleinement propriétaire de vos données et de vos conversations. Vous trouverez cette clé plus tard dans les paramètres de l'application.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Appuyez pour dévoiler";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Suivant";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Plus tard";

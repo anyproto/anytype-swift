@@ -9,16 +9,18 @@ public class SearchHelper {
         relation: BundledRelationKey,
         type: DataviewSort.TypeEnum,
         noCollate: Bool = false,
+        includeTime: Bool = false,
         emptyPlacement: EmptyPlacement? = nil
     ) -> DataviewSort {
-        sort(relationKey: relation.rawValue, type: type, noCollate: noCollate, emptyPlacement: emptyPlacement)
+        sort(relationKey: relation.rawValue, type: type, noCollate: noCollate, includeTime: includeTime, emptyPlacement: emptyPlacement)
     }
     
-    public static func sort(relationKey: String, type: DataviewSort.TypeEnum, noCollate: Bool = false, emptyPlacement: EmptyPlacement? = nil) -> DataviewSort {
+    public static func sort(relationKey: String, type: DataviewSort.TypeEnum, noCollate: Bool = false, includeTime: Bool = false, emptyPlacement: EmptyPlacement? = nil) -> DataviewSort {
         var sort = DataviewSort()
         sort.relationKey = relationKey
         sort.type = type
         sort.noCollate = noCollate // https://linear.app/anytype/issue/IOS-3813/add-nocollate-parameter-to-sort-model-for-spaceorder
+        sort.includeTime = includeTime
         if let emptyPlacement { sort.emptyPlacement = emptyPlacement }
          
         return sort

@@ -197,12 +197,14 @@
 "Green background" = "Green background";
 "Create new object" = "Create new object";
 "Create new object with name" = "Create new object \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Cancel";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
 "Unsupported block" = "Unsupported block";
 "Unsupported" = "Unsupported";
 "Name" = "Name";
+"Plural name" = "Plural name";
 "Description" = "Description";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Paste processing...";
@@ -222,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
@@ -278,7 +282,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Next";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Not now";

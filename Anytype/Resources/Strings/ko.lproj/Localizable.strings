@@ -197,13 +197,16 @@
 "Green background" = "초록색 배경";
 "Create new object" = "새  오브젝트 생성";
 "Create new object with name" = "\"%@\" 오브젝트 생성";
+"Create new type" = "Create new type";
 "Cancel" = "취소";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "필터와 일치하는 항목 없음";
 "Unsupported block" = "지원하지 않는 블록";
 "Unsupported" = "Unsupported";
 "Name" = "이름";
+"Plural name" = "Plural name";
 "Description" = "설명";
+"Add a description" = "Add a description...";
 "Paste processing..." = "붙여넣기 처리중...";
 "Anytype Library" = "Anytype 라이브러리";
 "Copied" = "복사됨";
@@ -221,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Add property";
 "Search or create new" = "Search or create new";
@@ -277,7 +282,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "당신의 키입니다";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your data and conversations. You can find this key later in app settings.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "다음";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Not now";

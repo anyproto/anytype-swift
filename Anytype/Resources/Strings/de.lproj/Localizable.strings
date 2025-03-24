@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Gelöschtes Objekt";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Property ‘%@’ has been created";
-"Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
-"Fields.local" = "Local properties";
+"Fields.Created" = "Eigenschaft ‚%@‘ wurde erstellt";
+"Fields.Updated" = "Eigenschaft ‚%@‘ wurde aktualisiert";
+"Fields.menu" = "Eigenschaften-Menü";
+"Fields.local" = "Lokale Eigenschaften";
 "Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
 "Fields.addToType" = "Zum aktuellen Typ hinzufügen";
 "Fields.removeFromObject" = "Aus dem Objekt entfernen";
 
 
 "Featured relations" = "Featured properties";
-"Create relation" = "Create property ‘%@’";
+"Create relation" = "Eigenschaft ‚%@‘ erstellen";
 "Relation.View.Hint.Empty" = "leer";
-"Relation.MyRelations" = "My properties";
-"Relation.Deleted" = "Deleted property";
+"Relation.MyRelations" = "Meine Eigenschaften";
+"Relation.Deleted" = "Gelöschte Eigenschaft";
 "Relation.From.Type" = "Vom Typ \"%@\"";
 "Relation.EmptyState.title" = "Keine Optionen";
 "Relation.EmptyState.description" = "Nichts gefunden. Erstelle zuerst eine Option zum Starten.";
-"Relation.EmptyState.Blocked.title" = "The property is empty";
+"Relation.EmptyState.Blocked.title" = "Die Eigenschaft ist leer";
 "Relation.Create.Row.title" = "„%@“ erstellen";
 "Relation.View.Create.title" = "Option erstellen";
 "Relation.View.Edit.title" = "Option bearbeiten";
@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "Die Option wird dauerhaft aus Ihrem Bereich entfernt.";
 "Relation.Object.Delete.Alert.Description" = "Das Objekt wird in den Papierkorb verschoben.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Objektbeziehung";
 "Relation.Format.Text.Title" = "Text";
 "Relation.Format.Number.Title" = "Nummer";
 "Relation.Format.Status.Title" = "Auswählen";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-Mail";
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
-"Relation.Search.View.Placeholder" = "Search or create a new property";
+"Relation.Search.View.Placeholder" = "Eigenschaft suchen oder neu erstellen";
 
 // Origin Relation
 
@@ -197,13 +197,16 @@
 "Green background" = "Grüner Hintergrund";
 "Create new object" = "Neues Objekt erstellen";
 "Create new object with name" = "Neues Objekt „%@“ erstellen";
+"Create new type" = "Create new type";
 "Cancel" = "Abbrechen";
 "Paste or type URL" = "URL einfügen oder eingeben";
 "No items match filter" = "Keine Gegenstände konnten mit diesem Filter gefunden werden";
 "Unsupported block" = "Nicht unterstützter Block";
 "Unsupported" = "Nicht unterstützt";
 "Name" = "Name";
+"Plural name" = "Plural name";
 "Description" = "Beschreibung";
+"Add a description" = "Beschreibung hinzufügen...";
 "Paste processing..." = "Wird eingefügt...";
 "Anytype Library" = "Anytype-Bibliothek";
 "Copied" = "Kopiert";
@@ -215,17 +218,19 @@
 "My Channels" = "Meine Kanäle";
 "Open file" = "Datei öffnen";
 "Open Set" = "Open Query";
-"Create Set" = "Create Query";
+"Create Set" = "Abfrage erstellen";
 "Unsupported deeplink" = "Unsupported deeplink";
 "Edit Profile" = "Profil bearbeiten";
 "Object Types" = "Objekttypen";
 "Resolve layout conflict" = "Resolve layout conflict";
-"Reset to default" = "Reset to default";
+"Reset to default" = "Auf Standardeinstellung zurücksetzen";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
-"Add property" = "Add property";
-"Search or create new" = "Search or create new";
-"Existing properties" = "Existing properties";
-"Properties formats" = "Properties formats";
+"Add property" = "Eigenschaft hinzufügen";
+"Search or create new" = "Suchen oder neu erstellen";
+"Existing properties" = "Vorhandene Eigenschaften";
+"Properties formats" = "Formate der Eigenschaften";
 
 // Home
 "Favorites" = "Favoriten";
@@ -277,7 +282,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
-"Auth.JoinFlow.Key.Description" = "Er gibt dir vollen Besitz über deine Daten und Unterhaltungen. Du findest diesen Schlüssel später in den App-Einstellungen.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Zum Aufdecken antippen";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Weiter";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Nicht jetzt";
@@ -352,7 +357,7 @@
 "Actions.CopyLink" = "Link kopieren";
 
 // Object Type
-"Set" = "Query";
+"Set" = "Abfrage";
 "Collection" = "Sammlung";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scrollen, um einen Ort auszuwählen";
@@ -368,7 +373,7 @@
 // MARK: - Main search
 "There is no object named" = "Es gibt kein Objekt mit dem Namen %@";
 "There is no type named" = "Es gibt keinen Typ mit dem Namen %@";
-"There is no property named" = "There is no property named %@";
+"There is no property named" = "Es gibt keine Eigenschaft namens %@";
 "Create a new one or search for something else" = "Erstelle ein neues oder suche nach etwas anderem";
 "Search.Links.Show.title" = "Zugehörige Objekte anzeigen";
 "Search.Links.Header.title" = "Zugehörig zu: %@";
@@ -495,8 +500,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Abfrage auswählen";
-"Set.FeaturedRelations.RelationsList" = "Properties:";
-"Set.FeaturedRelations.Relation" = "Property:";
+"Set.FeaturedRelations.RelationsList" = "Eigenschaften:";
+"Set.FeaturedRelations.Relation" = "Eigenschaft:";
 "Set.FeaturedRelations.Type" = "Typ:";
 
 // MARK: - Set.Bookmarks
@@ -512,7 +517,7 @@
 "Set.View.Settings.GroupBy.Title" = "Gruppieren nach";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Farbspalten";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No properties";
+"Set.View.Settings.NoRelations.Placeholder" = "Keine Eigenschaften";
 "Set.View.Settings.NoFilters.Placeholder" = "Keine Filter";
 "Set.View.Settings.NoSorts.Placeholder" = "Keine Sortierung";
 "Set.View.Settings.Objects.Applied.Title" = "%d angewendet";
@@ -537,7 +542,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Diese Abfrage kann nur auf dem Desktop geändert werden";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Abfrage in Sammlung umwandeln";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Abfrage ändern";
 
 // MARK: - Collection: empty view
@@ -577,7 +582,7 @@
 "Enter number" = "Zahl eingeben";
 "Enter text" = "Text eingeben";
 "Unsupported value" = "Nicht unterstützter Wert";
-"Select relation type" = "Select property type";
+"Select relation type" = "Eigenschaftstyp auswählen";
 "CommonOpenErrorView.Message" = "Keine Daten gefunden";
 "AreYouSure" = "Sind Sie sicher?";
 "Nothing found" = "Nichts gefunden";
@@ -589,8 +594,8 @@
 "Type" = "Typ";
 "Types" = "Typen";
 "No name" = "Kein Name";
-"New field" = "New property";
-"Edit field" = "Edit property";
+"New field" = "Neue Eigenschaft";
+"Edit field" = "Eigenschaft bearbeiten";
 "Non-existent object" = "Nicht existentes Objekt";
 
 "Select all" = "Alles auswählen";
@@ -598,7 +603,7 @@
 "Deselect all" = "Alle abwählen";
 "Deselect" = "Abwählen";
 "Shared" = "Geteilt";
-"Sets" = "Queries";
+"Sets" = "Abfragen";
 "Collections" = "Sammlungen";
 "Default object type" = "Standard Objekttyp";
 "Personalization" = "Personalisierung";
@@ -626,7 +631,7 @@
 "Edit" = "Bearbeiten";
 "Hidden" = "Ausgeblendet";
 "In this object" = "In diesem Objekt";
-"Other relations" = "Other properties";
+"Other relations" = "Andere Eigenschaften";
 "Collection of objects" = "Sammlung von Objekten";
 "Designed to capture thoughts quickly" = "Entwickelt um schnell Gedanken zu erfassen";
 "Action-focused layout with a checkbox" = "Aktionsfokussiertes Layout mit Checkbox";
@@ -713,8 +718,8 @@
 "My First Space" = "Mein erster Space";
 "Copy space info" = "Spaceinformationen kopieren";
 "Save" = "Speichern";
-"Set of" = "Query of %@";
-"New set" = "New query";
+"Set of" = "Abfrage von %@";
+"New set" = "Neue Abfrage";
 "Show" = "Zeigen";
 "Hide" = "Verstecken";
 "Apply" = "Anwenden";
@@ -823,7 +828,7 @@
 "Content.DataView.InlineCollection.Subtitle" = "Inline-Sammlung";
 "Content.DataView.InlineSet.NoSource" = "Keine Quelle";
 "Content.DataView.InlineSet.NoData" = "Keine Daten";
-"Content.DataView.InlineSet.Untitled" = "Untitled query";
+"Content.DataView.InlineSet.Untitled" = "Unbenannte Abfrage";
 "Content.DataView.InlineCollection.Untitled" = "Unbenannte Sammlung";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
 
@@ -1252,8 +1257,8 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Reaktion hinzufügen";
 "Message.Action.Reply" = "Antworten";
-"Message.Action.Unread" = "Mark Unread";
-"Message.Action.CopyPlainText" = "Copy Plain Text";
+"Message.Action.Unread" = "Als ungelesen markieren";
+"Message.Action.CopyPlainText" = "Klartext kopieren";
 "Message.Input.EmptyPlaceholder" = "Eine Nachricht schreiben...";
 "Message.ChatTitle.Placeholder" = "Unbenannter Chat ";
 
@@ -1303,7 +1308,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Chat.CreateObject.Dismiss.Ok" = "Ja, schließen";
 "Chat.Attach.Page.title" = "Seite anhängen";
 "Chat.Attach.List.title" = "Liste anhängen";
-"Chat.NewMessages" = "New messages";
+"Chat.NewMessages" = "Neue Nachrichten";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Dein Sucherlebnis wird aufgewertet";
@@ -1318,7 +1323,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Neue Seite";
 "ObjectSearchWithMeta.Create.Note" = "Neue Notiz";
-"ObjectSearchWithMeta.Create.Set" = "New Query";
+"ObjectSearchWithMeta.Create.Set" = "Neue Abfrage";
 "ObjectSearchWithMeta.Create.Collection" = "Neue Sammlung";
 
 // MARK: - Any App
@@ -1329,17 +1334,17 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Migration.Initial.title" = "New Version Update";
 "Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
 "Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
-"Migration.Initial.startUpdate" = "Start Update";
-"Migration.Initial.readMore" = "Read More";
+"Migration.Initial.startUpdate" = "Aktualisierung starten";
+"Migration.Initial.readMore" = "Weiterlesen";
 
-"Migration.Progress.title" = "Update is in progress...";
+"Migration.Progress.title" = "Aktualisierung ist im Gang...";
 "Migration.Progress.subtitle" = "Dies kann einige Zeit dauern. Bitte schließe die App nicht, bis der Vorgang abgeschlossen ist.";
 "Migration.Error.NotEnoughtSpace.title" = "Nicht genügend Platz";
 "Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";
 
-"Migration.ReadMore.option1" = "What to Expect";
+"Migration.ReadMore.option1" = "Was dich erwartet";
 "Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
-"Migration.ReadMore.option2" = "Your Data Remains Safe";
+"Migration.ReadMore.option2" = "Deine Daten bleiben sicher";
 "Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
 "Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
 

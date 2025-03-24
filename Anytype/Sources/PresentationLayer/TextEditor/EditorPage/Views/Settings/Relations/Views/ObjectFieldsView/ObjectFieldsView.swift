@@ -1,5 +1,7 @@
 import SwiftUI
 import Services
+import AnytypeCore
+
 
 struct ObjectFieldsView: View {
     
@@ -101,16 +103,19 @@ struct ObjectFieldsView: View {
     }
     
     private func rowWithoutActions(with relation: Relation, addedToObject: Bool) -> some View {
+        // Deprecated design
+        // TODO: Support new rows without stars and deletion
+        // https://www.figma.com/design/16UsBI2PLwydmAC4wJfyu8/%5BM%5D-All-content-%26-Type?node-id=19264-38639&t=fgXeqZbpBgUNrB2C-4
         RelationsListRowView(
             editingMode: .constant(false),
             starButtonAvailable: false,
             showLocks: false,
             addedToObject: addedToObject,
             relation: relation
-        ) {
-            model.removeRelation($0)
-        } onStarTap: {
-            model.changeRelationFeaturedState(relation: $0, addedToObject: addedToObject)
+        ) { _ in
+            anytypeAssertionFailure("Deprecated row delete call")
+        } onStarTap: { _ in
+            anytypeAssertionFailure("Deprecated onStarTap call")
         } onEditTap: {
             model.handleTapOnRelation($0)
         }

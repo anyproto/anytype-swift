@@ -5,8 +5,6 @@ import SwiftProtobuf
 
 class MockRelationsService: RelationsServiceProtocol {
     // Last call data storage
-    var lastAddFeaturedRelation: (objectId: String, relationKey: String)?
-    var lastRemoveFeaturedRelation: (objectId: String, relationKey: String)?
     var lastUpdateRelation: (objectId: String, relationKey: String, value: Google_Protobuf_Value)?
     var lastUpdateRelationOption: (id: String, text: String, color: String?)?
     var lastCreateRelation: (spaceId: String, relationDetails: RelationDetails)?
@@ -22,8 +20,6 @@ class MockRelationsService: RelationsServiceProtocol {
     var lastUpdateFeaturedRelations: [ObjectId]?
 
     // Configurable async result handlers (optional error throwing)
-    var addFeaturedRelationError: (any Error)?
-    var removeFeaturedRelationError: (any Error)?
     var updateRelationError: (any Error)?
     var updateRelationOptionError: (any Error)?
     var createRelationError: (any Error)?
@@ -35,20 +31,6 @@ class MockRelationsService: RelationsServiceProtocol {
     var updateTypeRelationsError: (any Error)?
     var updateRecommendedRelationsError: (any Error)?
     var updateFeaturedRelationsError: (any Error)?
-
-    func addFeaturedRelation(objectId: String, relationKey: String) async throws {
-        lastAddFeaturedRelation = (objectId, relationKey)
-        if let error = addFeaturedRelationError {
-            throw error
-        }
-    }
-    
-    func removeFeaturedRelation(objectId: String, relationKey: String) async throws {
-        lastRemoveFeaturedRelation = (objectId, relationKey)
-        if let error = removeFeaturedRelationError {
-            throw error
-        }
-    }
     
     func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws {
         lastUpdateRelation = (objectId, relationKey, value)
@@ -152,11 +134,13 @@ class MockRelationsService: RelationsServiceProtocol {
     func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws {
         assertionFailure()
     }
+    
+    func toggleDescription(objectId: String, isOn: Bool) async throws {
+        assertionFailure()
+    }
 
     // Convenience method to reset all last call data
     func reset() {
-        lastAddFeaturedRelation = nil
-        lastRemoveFeaturedRelation = nil
         lastUpdateRelation = nil
         lastUpdateRelationOption = nil
         lastCreateRelation = nil

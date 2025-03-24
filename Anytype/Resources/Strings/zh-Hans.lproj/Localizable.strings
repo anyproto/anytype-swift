@@ -197,13 +197,16 @@
 "Green background" = "浮萍绿背景";
 "Create new object" = "创建新对象";
 "Create new object with name" = "创建对象 “%@”";
+"Create new type" = "Create new type";
 "Cancel" = "取消";
 "Paste or type URL" = "粘贴或输入URL网址";
 "No items match filter" = "没有与筛选匹配的项目";
 "Unsupported block" = "不支持的数据块";
 "Unsupported" = "暂不支持";
 "Name" = "名称";
+"Plural name" = "Plural name";
 "Description" = "描述";
+"Add a description" = "Add a description...";
 "Paste processing..." = "粘贴处理...";
 "Anytype Library" = "Anytype 文库";
 "Copied" = "已复制";
@@ -221,6 +224,8 @@
 "Object Types" = "对象类型";
 "Resolve layout conflict" = "解决布局冲突";
 "Reset to default" = "重置为默认值";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "添加属性";
 "Search or create new" = "搜索或新建";
@@ -277,7 +282,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "这是您的密钥";
-"Auth.JoinFlow.Key.Description" = "它代表着您对自己数据的完全所有权。您未来还可在应用程序的设置中找到此密钥。";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "点按以显示";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "下一步";
 "Auth.JoinFlow.Key.Button.Later.Title" = "暂不";

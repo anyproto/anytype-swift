@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.Space {
-    public struct InviteView: Sendable {
+    public struct InviteGetGuest: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,9 +24,7 @@ extension Anytype_Rpc.Space {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var inviteCid: String = String()
-
-        public var inviteFileKey: String = String()
+        public var spaceID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -38,8 +36,8 @@ extension Anytype_Rpc.Space {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Space.InviteView.Response.Error {
-          get {return _error ?? Anytype_Rpc.Space.InviteView.Response.Error()}
+        public var error: Anytype_Rpc.Space.InviteGetGuest.Response.Error {
+          get {return _error ?? Anytype_Rpc.Space.InviteGetGuest.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -47,15 +45,9 @@ extension Anytype_Rpc.Space {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
-        public var spaceID: String = String()
+        public var inviteCid: String = String()
 
-        public var spaceName: String = String()
-
-        public var spaceIconCid: String = String()
-
-        public var creatorName: String = String()
-
-        public var isGuestUserInvite: Bool = false
+        public var inviteFileKey: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -64,7 +56,7 @@ extension Anytype_Rpc.Space {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Space.InviteView.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Space.InviteGetGuest.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -75,9 +67,7 @@ extension Anytype_Rpc.Space {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case inviteNotFound // = 101
-            case inviteBadContent // = 102
-            case spaceIsDeleted // = 103
+            case invalidSpaceType // = 101
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -89,9 +79,7 @@ extension Anytype_Rpc.Space {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .inviteNotFound
-              case 102: self = .inviteBadContent
-              case 103: self = .spaceIsDeleted
+              case 101: self = .invalidSpaceType
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -101,21 +89,17 @@ extension Anytype_Rpc.Space {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .inviteNotFound: return 101
-              case .inviteBadContent: return 102
-              case .spaceIsDeleted: return 103
+              case .invalidSpaceType: return 101
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Space.InviteView.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.Space.InviteGetGuest.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
-              .inviteNotFound,
-              .inviteBadContent,
-              .spaceIsDeleted,
+              .invalidSpaceType,
             ]
 
           }
@@ -125,15 +109,15 @@ extension Anytype_Rpc.Space {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Space.InviteView.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Space.InviteGetGuest.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Space.InviteView: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Space.protoMessageName + ".InviteView"
+extension Anytype_Rpc.Space.InviteGetGuest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.protoMessageName + ".InviteGetGuest"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -145,17 +129,16 @@ extension Anytype_Rpc.Space.InviteView: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Space.InviteView, rhs: Anytype_Rpc.Space.InviteView) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Space.InviteGetGuest, rhs: Anytype_Rpc.Space.InviteGetGuest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Space.InviteView.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Space.InviteView.protoMessageName + ".Request"
+extension Anytype_Rpc.Space.InviteGetGuest.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.InviteGetGuest.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "inviteCid"),
-    2: .same(proto: "inviteFileKey"),
+    1: .same(proto: "spaceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -164,40 +147,32 @@ extension Anytype_Rpc.Space.InviteView.Request: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.inviteCid) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.inviteFileKey) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.inviteCid.isEmpty {
-      try visitor.visitSingularStringField(value: self.inviteCid, fieldNumber: 1)
-    }
-    if !self.inviteFileKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.inviteFileKey, fieldNumber: 2)
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Space.InviteView.Request, rhs: Anytype_Rpc.Space.InviteView.Request) -> Bool {
-    if lhs.inviteCid != rhs.inviteCid {return false}
-    if lhs.inviteFileKey != rhs.inviteFileKey {return false}
+  public static func ==(lhs: Anytype_Rpc.Space.InviteGetGuest.Request, rhs: Anytype_Rpc.Space.InviteGetGuest.Request) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Space.InviteView.protoMessageName + ".Response"
+extension Anytype_Rpc.Space.InviteGetGuest.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.InviteGetGuest.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "spaceId"),
-    3: .same(proto: "spaceName"),
-    4: .same(proto: "spaceIconCid"),
-    5: .same(proto: "creatorName"),
-    6: .same(proto: "isGuestUserInvite"),
+    2: .same(proto: "inviteCid"),
+    3: .same(proto: "inviteFileKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -207,11 +182,8 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.spaceName) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.spaceIconCid) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.creatorName) }()
-      case 6: try { try decoder.decodeSingularBoolField(value: &self.isGuestUserInvite) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.inviteCid) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.inviteFileKey) }()
       default: break
       }
     }
@@ -225,38 +197,26 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.spaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
+    if !self.inviteCid.isEmpty {
+      try visitor.visitSingularStringField(value: self.inviteCid, fieldNumber: 2)
     }
-    if !self.spaceName.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceName, fieldNumber: 3)
-    }
-    if !self.spaceIconCid.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceIconCid, fieldNumber: 4)
-    }
-    if !self.creatorName.isEmpty {
-      try visitor.visitSingularStringField(value: self.creatorName, fieldNumber: 5)
-    }
-    if self.isGuestUserInvite != false {
-      try visitor.visitSingularBoolField(value: self.isGuestUserInvite, fieldNumber: 6)
+    if !self.inviteFileKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.inviteFileKey, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Space.InviteView.Response, rhs: Anytype_Rpc.Space.InviteView.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Space.InviteGetGuest.Response, rhs: Anytype_Rpc.Space.InviteGetGuest.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.spaceID != rhs.spaceID {return false}
-    if lhs.spaceName != rhs.spaceName {return false}
-    if lhs.spaceIconCid != rhs.spaceIconCid {return false}
-    if lhs.creatorName != rhs.creatorName {return false}
-    if lhs.isGuestUserInvite != rhs.isGuestUserInvite {return false}
+    if lhs.inviteCid != rhs.inviteCid {return false}
+    if lhs.inviteFileKey != rhs.inviteFileKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Space.InviteView.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Space.InviteView.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Space.InviteGetGuest.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Space.InviteGetGuest.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -285,7 +245,7 @@ extension Anytype_Rpc.Space.InviteView.Response.Error: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Space.InviteView.Response.Error, rhs: Anytype_Rpc.Space.InviteView.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Space.InviteGetGuest.Response.Error, rhs: Anytype_Rpc.Space.InviteGetGuest.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -293,14 +253,12 @@ extension Anytype_Rpc.Space.InviteView.Response.Error: SwiftProtobuf.Message, Sw
   }
 }
 
-extension Anytype_Rpc.Space.InviteView.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Space.InviteGetGuest.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "INVITE_NOT_FOUND"),
-    102: .same(proto: "INVITE_BAD_CONTENT"),
-    103: .same(proto: "SPACE_IS_DELETED"),
+    101: .same(proto: "INVALID_SPACE_TYPE"),
   ]
 }
 
