@@ -264,4 +264,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    // Pulse handles URLSession on main thread.
+    // Enable only if you needs to handle session requests.
+    static let networkHTTPSRequestsLogger = FeatureDescription(
+        title: "Enable network requests logger for images and other https requests",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
 }
