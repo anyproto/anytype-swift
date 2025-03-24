@@ -19,7 +19,9 @@ final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
     
     private func enableRemoteLogger() {
         invocationHandler.enableLogger = true
-        EventLogger.setupLgger()
+        if FeatureFlags.networkHTTPSRequestsLogger {
+            EventLogger.setupLgger()
+        }
     }
     
     private func disableRemoteLogger() {

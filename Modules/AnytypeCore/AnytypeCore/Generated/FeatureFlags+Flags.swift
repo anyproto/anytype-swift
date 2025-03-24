@@ -162,6 +162,10 @@ public extension FeatureFlags {
         value(for: .versionHistoryPaginationTest)
     }
 
+    static var networkHTTPSRequestsLogger: Bool {
+        value(for: .networkHTTPSRequestsLogger)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -202,6 +206,7 @@ public extension FeatureFlags {
         .membershipTestTiers,
         .failReceiptValidation,
         .showGlobalSearchScore,
-        .versionHistoryPaginationTest
+        .versionHistoryPaginationTest,
+        .networkHTTPSRequestsLogger
     ]
 }
