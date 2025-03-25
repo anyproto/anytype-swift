@@ -27,16 +27,6 @@ extension AnytypeWidgetId {
             return .collections
         case .bin:
             return .bin
-        case .pages:
-            return .pages
-        case .lists:
-            return .lists
-        case .media:
-            return .media
-        case .bookmarks:
-            return .bookmarks
-        case .files:
-            return .files
         }
     }
 }

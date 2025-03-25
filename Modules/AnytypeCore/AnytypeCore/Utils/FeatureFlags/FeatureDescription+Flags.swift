@@ -58,12 +58,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let allContentWidgets = FeatureDescription(
-        title: "All content widgets",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
-        defaultValue: false
-    )
-    
     static let objectTypeWidgets = FeatureDescription(
         title: "Object Type widgets",
         type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "11"),

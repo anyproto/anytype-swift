@@ -38,10 +38,6 @@ public extension FeatureFlags {
         value(for: .newSpacesLoading)
     }
 
-    static var allContentWidgets: Bool {
-        value(for: .allContentWidgets)
-    }
-
     static var objectTypeWidgets: Bool {
         value(for: .objectTypeWidgets)
     }
@@ -216,7 +212,6 @@ public extension FeatureFlags {
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .newSpacesLoading,
-        .allContentWidgets,
         .objectTypeWidgets,
         .newTypeIcons,
         .openMediaFileInPreview,
