@@ -58,7 +58,7 @@ final class SimpleSetViewModel: ObservableObject {
     
     private func subscribeOnDetails() async {
         for await details in setDocument.detailsPublisher.values {
-            title = details.pageCellTitle
+            title = details.setTitle
             setStateIfNeeded()
             updateRows()
         }

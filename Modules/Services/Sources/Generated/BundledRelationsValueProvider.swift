@@ -9,7 +9,6 @@ public typealias ObjectId = String
 public protocol BundledRelationsValueProvider {
 
     var tag: [ObjectId] { get }
-    var guestKey: String { get }
     var camera: String { get }
     var heightInPixels: Int? { get }
     var createdDate: Date? { get }
@@ -127,6 +126,7 @@ public protocol BundledRelationsValueProvider {
     var spaceInviteFileKey: String { get }
     var spaceInviteGuestFileCid: String { get }
     var spaceInviteGuestFileKey: String { get }
+    var guestKey: String { get }
     var participantPermissions: Int? { get }
     var identity: String { get }
     var participantStatus: Int? { get }
@@ -161,15 +161,12 @@ public protocol BundledRelationsValueProvider {
     var courseType: String { get }
     var difficulty: String { get }
     var autoWidgetTargets: [ObjectId] { get }
+    var pluralName: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
     var tag: [ObjectId] {
         return value(for: BundledRelationKey.tag.rawValue)
-    }
-    /// guest key to read public space
-    var guestKey: String {
-        return value(for: BundledRelationKey.guestKey.rawValue)
     }
     /// Camera used to capture image or video
     var camera: String {
@@ -616,6 +613,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var spaceInviteGuestFileKey: String {
         return value(for: BundledRelationKey.spaceInviteGuestFileKey.rawValue)
     }
+    /// Guest key to read public space
+    var guestKey: String {
+        return value(for: BundledRelationKey.guestKey.rawValue)
+    }
     /// Participant permissions. Possible values: models.ParticipantPermissions
     var participantPermissions: Int? {
         return value(for: BundledRelationKey.participantPermissions.rawValue)
@@ -750,5 +751,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Automatically generated widget targets. Used to avoid creating widget if was removed by user
     var autoWidgetTargets: [ObjectId] {
         return value(for: BundledRelationKey.autoWidgetTargets.rawValue)
+    }
+    /// Name of Object type in plural form
+    var pluralName: String {
+        return value(for: BundledRelationKey.pluralName.rawValue)
     }
 }

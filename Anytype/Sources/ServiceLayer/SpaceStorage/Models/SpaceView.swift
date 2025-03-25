@@ -125,6 +125,7 @@ extension SpaceView {
             writersLimit: writersLimit,
             chatId: chatId,
             isPinned: isPinned,
+            uxType: uxType,
             unreadMessagesCount: count
         )
     }

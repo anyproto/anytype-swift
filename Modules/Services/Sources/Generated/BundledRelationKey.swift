@@ -8,9 +8,6 @@ public enum BundledRelationKey: String, Sendable {
 
     case tag = "tag"
 
-    /// guest key to read public space
-    case guestKey = "guestKey"
-
     /// Camera used to capture image or video
     case camera = "camera"
 
@@ -339,6 +336,9 @@ public enum BundledRelationKey: String, Sendable {
     /// Encoded encryption key of invite file for guest user in the current space. It's stored in SpaceView
     case spaceInviteGuestFileKey = "spaceInviteGuestFileKey"
 
+    /// Guest key to read public space
+    case guestKey = "guestKey"
+
     /// Participant permissions. Possible values: models.ParticipantPermissions
     case participantPermissions = "participantPermissions"
 
@@ -439,4 +439,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Automatically generated widget targets. Used to avoid creating widget if was removed by user
     case autoWidgetTargets = "autoWidgetTargets"
+
+    /// Name of Object type in plural form
+    case pluralName = "pluralName"
 }

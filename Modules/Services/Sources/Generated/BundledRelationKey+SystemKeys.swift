@@ -103,5 +103,6 @@ public extension BundledRelationKey {
         .defaultViewType,
         .defaultTypeId,
         .resolvedLayout,
+        .pluralName,
     ]
 }
