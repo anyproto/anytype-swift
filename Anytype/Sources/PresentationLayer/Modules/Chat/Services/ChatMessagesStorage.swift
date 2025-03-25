@@ -45,6 +45,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     // MARK: - Subscriptions State
     
+    private let subId = "ChatMessagesStorage-\(UUID().uuidString)"
     private var subscriptionStarted = false
     private var subscription: Task<Void, Never>?
     private var subscriptionStartMessageId: String?
@@ -110,7 +111,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             }
         }
         
-        let response = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
+        let response = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, subId: subId, limit: Constants.pageSize)
 
         // Setup chat state as first
         chatState = response.chatState
@@ -230,8 +231,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         subscription?.cancel()
         subscription = nil
         // Implemented in swift 6.1 https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
-        Task { [chatService, chatObjectId] in
-            try await chatService.unsubscribeLastMessages(chatObjectId: chatObjectId)
+        Task { [chatService, chatObjectId, subId] in
+            try await chatService.unsubscribeLastMessages(chatObjectId: chatObjectId, subId: subId)
         }
     }
     
@@ -245,29 +246,35 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatAdd(data):
+                guard data.subIds.contains(subId) else { break }
                 if messages.chatAdd(data) {
                     updates.insert(.messages)
                     updateRepliesAndAttachments = true
                 }
                 lastMessages.chatAdd(data)
             case let .chatDelete(data):
+                guard data.subIds.contains(subId) else { break }
                 if messages.chatDelete(data) {
                     updates.insert(.messages)
                 }
                 lastMessages.chatDelete(data)
             case let .chatUpdate(data):
+                guard data.subIds.contains(subId) else { break }
                 if messages.chatUpdate(data) {
                     updates.insert(.messages)
                     updateRepliesAndAttachments = true
                 }
                 lastMessages.chatUpdate(data)
             case let .chatUpdateReactions(data):
+                guard data.subIds.contains(subId) else { break }
                 if messages.chatUpdateReactions(data) {
                     updates.insert(.messages)
                 }
             case let .chatUpdateReadStatus(data):
+                guard data.subIds.contains(subId) else { break }
                 messages.chatUpdateReadStatus(data)
             case let .chatStateUpdate(data):
+                guard data.subIds.contains(subId) else { break }
                 chatState = data.state
                 updates.insert(.state)
             default:
