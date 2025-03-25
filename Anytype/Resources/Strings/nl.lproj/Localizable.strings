@@ -588,7 +588,7 @@
 "Nothing found" = "Niets gevonden";
 "No type found text" = "Geen type \"%@\" gevonden. Wijzig uw verzoek of maak een nieuw type.";
 "Create type" = "Maak type";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "Beperkt objecttypes";
 "Type" = "Type";
