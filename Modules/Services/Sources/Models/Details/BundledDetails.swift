@@ -5,6 +5,7 @@ import SwiftProtobuf
 
 public enum BundledDetails: Sendable {
     case name(String)
+    case pluralName(String)
     case iconEmoji(String)
     case iconObjectId(String)
     case iconName(String)
@@ -14,37 +15,42 @@ public enum BundledDetails: Sendable {
     case done(Bool)
     case description(String)
     case recommendedLayout(Int)
+    case lastUsedDate(Date)
 }
 
 extension BundledDetails {
     
     var key: String {
         switch self {
-        case .name: return BundledRelationKey.name.rawValue
-        case .iconEmoji: return BundledRelationKey.iconEmoji.rawValue
-        case .iconObjectId: return BundledRelationKey.iconImage.rawValue
-        case .iconName: return BundledRelationKey.iconName.rawValue
-        case .iconOption: return BundledRelationKey.iconOption.rawValue
-        case .coverId: return BundledRelationKey.coverId.rawValue
-        case .coverType: return BundledRelationKey.coverType.rawValue
-        case .done: return BundledRelationKey.done.rawValue
-        case .description: return BundledRelationKey.description.rawValue
-        case .recommendedLayout: return BundledRelationKey.recommendedLayout.rawValue
+        case .name: BundledRelationKey.name.rawValue
+        case .pluralName: BundledRelationKey.pluralName.rawValue
+        case .iconEmoji: BundledRelationKey.iconEmoji.rawValue
+        case .iconObjectId: BundledRelationKey.iconImage.rawValue
+        case .iconName: BundledRelationKey.iconName.rawValue
+        case .iconOption: BundledRelationKey.iconOption.rawValue
+        case .coverId: BundledRelationKey.coverId.rawValue
+        case .coverType: BundledRelationKey.coverType.rawValue
+        case .done: BundledRelationKey.done.rawValue
+        case .description: BundledRelationKey.description.rawValue
+        case .recommendedLayout: BundledRelationKey.recommendedLayout.rawValue
+        case .lastUsedDate: BundledRelationKey.lastUsedDate.rawValue
         }
     }
     
     var value: Google_Protobuf_Value {
         switch self {
-        case .name(let string): return string.protobufValue
-        case .iconEmoji(let string): return string.protobufValue
-        case .iconObjectId(let string): return string.protobufValue
-        case .iconName(let string): return string.protobufValue
-        case .iconOption(let int): return int.protobufValue
-        case .coverId(let string): return string.protobufValue
-        case .coverType(let coverType): return coverType.rawValue.protobufValue
-        case .done(let bool): return bool.protobufValue
-        case .description(let string): return string.protobufValue
-        case .recommendedLayout(let layout): return layout.protobufValue
+        case .name(let string): string.protobufValue
+        case .pluralName(let string): string.protobufValue
+        case .iconEmoji(let string): string.protobufValue
+        case .iconObjectId(let string): string.protobufValue
+        case .iconName(let string): string.protobufValue
+        case .iconOption(let int): int.protobufValue
+        case .coverId(let string): string.protobufValue
+        case .coverType(let coverType): coverType.rawValue.protobufValue
+        case .done(let bool): bool.protobufValue
+        case .description(let string): string.protobufValue
+        case .recommendedLayout(let layout): layout.protobufValue
+        case .lastUsedDate(let date): date.protobufValue
         }
     }
     

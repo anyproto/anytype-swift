@@ -20,7 +20,8 @@ extension SpaceView {
             writersLimit: nil,
             chatId: "",
             isPinned: false,
-            uxType: .data
+            uxType: .data,
+            unreadMessagesCount: 0
         )
     }
 }

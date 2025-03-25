@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 import Services
+import AnytypeCore
+
 
 @MainActor
 final class LinkWidgetViewModel: ObservableObject {
@@ -40,7 +42,7 @@ final class LinkWidgetViewModel: ObservableObject {
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.linkedObjectDetails = details
-                self?.name = details.title
+                self?.name = FeatureFlags.pluralNames ? details.pluralTitle : details.title
             }
             .store(in: &subscriptions)
     }

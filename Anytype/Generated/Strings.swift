@@ -16,6 +16,7 @@ internal enum Loc {
   internal static let actionFocusedLayoutWithACheckbox = Loc.tr("Localizable", "Action-focused layout with a checkbox", fallback: "Action-focused layout with a checkbox")
   internal static let actions = Loc.tr("Localizable", "Actions", fallback: "Actions")
   internal static let add = Loc.tr("Localizable", "Add", fallback: "Add")
+  internal static let addADescription = Loc.tr("Localizable", "Add a description", fallback: "Add a description...")
   internal static let addBelow = Loc.tr("Localizable", "Add below", fallback: "Add below")
   internal static let addEmail = Loc.tr("Localizable", "Add email", fallback: "Add email")
   internal static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
@@ -97,6 +98,7 @@ internal enum Loc {
   internal static func createNewObjectWithName(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create new object with name", String(describing: p1), fallback: "Create new object \"%@\"")
   }
+  internal static let createNewType = Loc.tr("Localizable", "Create new type", fallback: "Create new type")
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create Object")
   internal static let createObjectFromClipboard = Loc.tr("Localizable", "Create object from clipboard", fallback: "Create object from clipboard")
   internal static func createOptionWith(_ p1: Any) -> String {
@@ -133,6 +135,7 @@ internal enum Loc {
   internal static let edit = Loc.tr("Localizable", "Edit", fallback: "Edit")
   internal static let editField = Loc.tr("Localizable", "Edit field", fallback: "Edit property")
   internal static let editProfile = Loc.tr("Localizable", "Edit Profile", fallback: "Edit Profile")
+  internal static let editType = Loc.tr("Localizable", "Edit type", fallback: "Edit type")
   internal static let emailSuccessfullyValidated = Loc.tr("Localizable", "Email successfully validated", fallback: "Email successfully validated")
   internal static let emoji = Loc.tr("Localizable", "Emoji", fallback: "Emoji")
   internal static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")
@@ -291,6 +294,7 @@ internal enum Loc {
   internal static let pink = Loc.tr("Localizable", "Pink", fallback: "Pink")
   internal static let pinkBackground = Loc.tr("Localizable", "Pink background", fallback: "Pink background")
   internal static let pinned = Loc.tr("Localizable", "Pinned", fallback: "Pinned")
+  internal static let pluralName = Loc.tr("Localizable", "Plural name", fallback: "Plural name")
   internal static let preferences = Loc.tr("Localizable", "Preferences", fallback: "Preferences")
   internal static let preview = Loc.tr("Localizable", "Preview", fallback: "Preview")
   internal static let previewLayout = Loc.tr("Localizable", "Preview layout", fallback: "Preview layout")
@@ -299,6 +303,8 @@ internal enum Loc {
   internal static let propertiesFormats = Loc.tr("Localizable", "Properties formats", fallback: "Properties formats")
   internal static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   internal static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")
+  internal static let puzzle = Loc.tr("Localizable", "Puzzle", fallback: "Puzzle")
+  internal static let puzzles = Loc.tr("Localizable", "Puzzles", fallback: "Puzzles")
   internal static let qrCode = Loc.tr("Localizable", "QR Code", fallback: "QR Code")
   internal static let random = Loc.tr("Localizable", "Random", fallback: "Random")
   internal static let recent = Loc.tr("Localizable", "Recent", fallback: "Recent")
@@ -529,7 +535,7 @@ internal enum Loc {
     }
     internal enum JoinFlow {
       internal enum Key {
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "It gives you full ownership over your data and conversations. You can find this key later in app settings.")
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.")
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "This is your Key")
         internal enum Button {
           internal enum Copy {

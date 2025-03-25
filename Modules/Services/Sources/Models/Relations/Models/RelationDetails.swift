@@ -74,7 +74,8 @@ extension RelationDetails: DetailsModel {
             BundledRelationKey.isReadonly,
             BundledRelationKey.relationMaxCount,
             BundledRelationKey.sourceObject,
-            BundledRelationKey.spaceId
+            BundledRelationKey.spaceId,
+            BundledRelationKey.lastUsedDate
         ]
     }
     

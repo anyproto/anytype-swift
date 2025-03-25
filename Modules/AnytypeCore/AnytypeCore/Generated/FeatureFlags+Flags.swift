@@ -38,14 +38,6 @@ public extension FeatureFlags {
         value(for: .newSpacesLoading)
     }
 
-    static var primitives: Bool {
-        value(for: .primitives)
-    }
-
-    static var memberProfile: Bool {
-        value(for: .memberProfile)
-    }
-
     static var allContentWidgets: Bool {
         value(for: .allContentWidgets)
     }
@@ -150,6 +142,14 @@ public extension FeatureFlags {
         value(for: .fixChatEmptyState)
     }
 
+    static var pluralNames: Bool {
+        value(for: .pluralNames)
+    }
+
+    static var countersOnSpaceHub: Bool {
+        value(for: .countersOnSpaceHub)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -202,6 +202,10 @@ public extension FeatureFlags {
         value(for: .versionHistoryPaginationTest)
     }
 
+    static var networkHTTPSRequestsLogger: Bool {
+        value(for: .networkHTTPSRequestsLogger)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -212,8 +216,6 @@ public extension FeatureFlags {
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .newSpacesLoading,
-        .primitives,
-        .memberProfile,
         .allContentWidgets,
         .objectTypeWidgets,
         .newTypeIcons,
@@ -240,6 +242,8 @@ public extension FeatureFlags {
         .httpsLinkForObjectCopy,
         .newPropertiesCreation,
         .fixChatEmptyState,
+        .pluralNames,
+        .countersOnSpaceHub,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -252,6 +256,7 @@ public extension FeatureFlags {
         .membershipTestTiers,
         .failReceiptValidation,
         .showGlobalSearchScore,
-        .versionHistoryPaginationTest
+        .versionHistoryPaginationTest,
+        .networkHTTPSRequestsLogger
     ]
 }

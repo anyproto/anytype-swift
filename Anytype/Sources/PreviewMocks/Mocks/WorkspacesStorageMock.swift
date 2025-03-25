@@ -30,7 +30,8 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
                 writersLimit: nil,
                 chatId: "",
                 isPinned: false,
-                uxType: .data
+                uxType: .data,
+                unreadMessagesCount: 0
             )
         ]
     }

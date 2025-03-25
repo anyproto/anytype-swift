@@ -42,8 +42,14 @@ struct ObjectTypeSearchView: View {
             content
             pasteButton
         }
-        .snackbar(toastBarData: $viewModel.toastData)
         .background(Color.Background.secondary)
+        
+        .snackbar(toastBarData: $viewModel.toastData)
+        .anytypeSheet(item: $viewModel.newTypeInfo) {
+            NewTypeCreationView(info: $0, mode: .create) { info in
+                viewModel.onCreateTypeSubmit(info: info)
+            }
+        }
         
         .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
         .task {

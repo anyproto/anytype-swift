@@ -56,7 +56,7 @@ extension BundledRelationsValueProvider {
         case .objectType:
             return .type
         case .participant:
-            return FeatureFlags.memberProfile ? .participant : .page
+            return .participant
         case .image, .video, .audio, .file, .pdf:
             return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
         case .bookmark:

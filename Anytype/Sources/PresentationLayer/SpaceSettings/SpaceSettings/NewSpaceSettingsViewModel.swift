@@ -176,9 +176,9 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     func onDescriptionTap() {
         editingData = SettingsInfoEditingViewData(
             title: Loc.description,
-            placeholder: Loc.description,
+            placeholder: Loc.addADescription,
             initialValue: spaceDescription,
-            font: .bodyRegular,
+            font: .previewTitle1Regular,
             onSave: { [weak self] in
                 guard let self else { return }
                 saveDetails(name: spaceName, description: $0)

@@ -22,28 +22,30 @@ struct ImageIdIconView: View {
     
     var body: some View {
         GeometryReader { reader in
-            let side: CGFloat = side(size: reader.size)
             CachedAsyncImage(
-                url: ImageMetadata(id: imageId, width: .width(side)).contentUrl
+                url: ImageMetadata(id: imageId, side: side(size: reader.size)).contentUrl
             ) { image in
                 image.resizable().scaledToFill()
             } placeholder: {
                 LoadingPlaceholderIconView()
             }
             .if(square) {
-                $0.frame(width: side, height: side)
+                let side = min(reader.size.width, reader.size.height)
+                return $0.frame(width: side, height: side)
+            } else: {
+                return $0.frame(width: reader.size.width, height: reader.size.height)
             }
         }
     }
     
-    private func side(size: CGSize) -> CGFloat {
+    private func side(size: CGSize) -> ImageSide {
         switch side {
         case .width:
-            return size.width
+            return .width(size.width)
         case .height:
-            return size.height
+            return .height(size.height)
         case .minSide:
-            return min(size.width, size.height)
+            return .width(min(size.width, size.height))
         }
     }
 }

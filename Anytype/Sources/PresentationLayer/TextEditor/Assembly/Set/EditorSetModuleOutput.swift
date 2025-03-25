@@ -38,4 +38,7 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func onObjectTypeFieldsTap(document: some SetDocumentProtocol)
     func onObjectTypeTemplatesTap(document: some SetDocumentProtocol)
     func onObjectTypeSingleTemplateTap(objectId: String, spaceId: String, defaultTemplateId: String?)
+    
+    // Object type ~ Primitives
+    func showTypeInfoEditor(info: ObjectTypeInfo)
 }

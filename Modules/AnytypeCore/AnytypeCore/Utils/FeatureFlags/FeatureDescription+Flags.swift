@@ -46,30 +46,16 @@ public extension FeatureDescription {
     
     static let pinnedSpaces = FeatureDescription(
         title: "Pinned Spaces",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false
     )
     
     static let newSpacesLoading = FeatureDescription(
         title: "Spaces loading indicator",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false
-    )
-    
-    static let primitives = FeatureDescription(
-        title: "New Primitives",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
-    static let memberProfile = FeatureDescription(
-        title: "Space member profile",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "9"),
-        defaultValue: true
     )
     
     static let allContentWidgets = FeatureDescription(
@@ -88,9 +74,7 @@ public extension FeatureDescription {
     static let newTypeIcons = FeatureDescription(
         title: "New type Icons",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: true
+        defaultValue: true
     )
     
     static let openMediaFileInPreview = FeatureDescription(
@@ -109,9 +93,8 @@ public extension FeatureDescription {
     
     static let newSettings = FeatureDescription(
         title: "New settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let newPlusMenu = FeatureDescription(
@@ -259,6 +242,19 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let pluralNames = FeatureDescription(
+        title: "Plura type names",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
+        defaultValue: true
+    )
+    
+    static let countersOnSpaceHub = FeatureDescription(
+        title: "Counters on Space Hub",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
@@ -345,6 +341,15 @@ public extension FeatureDescription {
     
     static let versionHistoryPaginationTest = FeatureDescription(
         title: "Version history pagination test - 15",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    // Pulse handles URLSession on main thread.
+    // Enable only if you needs to handle session requests.
+    static let networkHTTPSRequestsLogger = FeatureDescription(
+        title: "Enable network requests logger for images and other https requests",
         type: .debug,
         defaultValue: false,
         debugValue: false

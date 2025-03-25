@@ -197,13 +197,16 @@
 "Green background" = "Зелёный фон";
 "Create new object" = "Создать новый объект";
 "Create new object with name" = "Создать новый набор \"%@\"";
+"Create new type" = "Create new type";
 "Cancel" = "Отмена";
 "Paste or type URL" = "Вставить или ввести URL-адрес";
 "No items match filter" = "Нет элементов, соответствующих фильтру";
 "Unsupported block" = "Неподдерживаемый блок";
 "Unsupported" = "Не поддерживается";
 "Name" = "Название";
+"Plural name" = "Plural name";
 "Description" = "Описание";
+"Add a description" = "Add a description...";
 "Paste processing..." = "Обработка вставки...";
 "Anytype Library" = "Библиотека Anytype";
 "Copied" = "Скопировано";
@@ -221,6 +224,8 @@
 "Object Types" = "Object Types";
 "Resolve layout conflict" = "Resolve layout conflict";
 "Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
 
 "Add property" = "Добавить свойство";
 "Search or create new" = "Search or create new";
@@ -277,7 +282,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Это Ваш Ключ";
-"Auth.JoinFlow.Key.Description" = "Это дает вам полное право собственности на ваши данные и разговоры. Вы можете найти этот ключ позже в настройках приложения.";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Нажмите, чтобы показать";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Далее";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Не сейчас";

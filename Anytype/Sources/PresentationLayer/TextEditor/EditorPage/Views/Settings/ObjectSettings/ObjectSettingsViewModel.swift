@@ -87,11 +87,8 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     func onTapDescription() async throws {
         guard let details = document.details else { return }
         
-        if details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue }) {
-            try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
-        } else {
-            try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
-        }
+        let descriptionIsOn = details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue })
+        try await relationsService.toggleDescription(objectId: document.objectId, isOn: !descriptionIsOn)
     }
     
     func onTapResolveConflict() {

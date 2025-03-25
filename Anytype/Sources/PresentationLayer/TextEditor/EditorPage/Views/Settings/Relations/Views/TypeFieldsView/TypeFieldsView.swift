@@ -96,7 +96,7 @@ struct TypeFieldsView: View {
                     relationRow(relation)
                         .divider()
                 case .emptyRow:
-                    Rectangle().foregroundStyle(Color.Background.secondary).frame(height: 52)
+                    Rectangle().foregroundStyle(Color.clear).frame(height: 52)
                 }
             }
             .onDrop(of: [.text], delegate: TypeFieldsDropDelegate(

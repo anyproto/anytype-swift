@@ -153,9 +153,13 @@ struct SpaceHubView: View {
                 }
                 Spacer.fixedHeight(1)
             }
+            
             Spacer()
+            
             if space.spaceView.isLoading && FeatureFlags.newSpacesLoading {
                 DotsView().frame(width: 30, height: 6)
+            } else if space.spaceView.unreadMessagesCount > 0 {
+                CounterView(count: space.spaceView.unreadMessagesCount)
             } else if space.spaceView.isPinned {
                 Image(asset: .X24.pin).frame(width: 22, height: 22)
             }

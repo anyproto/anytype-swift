@@ -11,21 +11,14 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
     case types
     
     static var searchSupportedSection: [ObjectTypeSection] {
-        if FeatureFlags.primitives && !FeatureFlags.newSettings {
+        if !FeatureFlags.newSettings {
             return allCases
         } else {
             return allCases.filter { $0 != .types }
         }
     }
     
-    static var allContentSupportedSections: [ObjectTypeSection] {
-        let supportedSections = allCases.filter { $0 != .all }
-        if FeatureFlags.primitives {
-            return supportedSections
-        } else {
-            return supportedSections.filter { $0 != .types }
-        }
-    }
+    static var allContentSupportedSections: [ObjectTypeSection] { allCases.filter { $0 != .all } }
     
     var title: String {
         switch self {
