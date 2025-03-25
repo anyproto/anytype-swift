@@ -588,7 +588,7 @@
 "Nothing found" = "Hiçbir şey bulunamadı";
 "No type found text" = "\"%@\" türü bulunamadı. İsteğinizi değiştirin veya yeni tür oluşturun.";
 "Create type" = "Tür oluştur";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "Nesne türlerini sınırla";
 "Type" = "Tür";
