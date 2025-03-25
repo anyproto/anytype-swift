@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 import Services
 
-enum NewTypeCreationViewMode {
+enum ObjectTypeInfoViewMode {
     case create
     case edit
 }
@@ -16,13 +16,13 @@ struct ObjectTypeInfo: Identifiable {
     var id: String { singularName + pluralName + String(describing: icon?.id) + String(describing: color?.id) }
 }
 
-struct NewTypeCreationView: View {
-    @StateObject private var model: NewTypeCreationViewModel
+struct ObjectTypeInfoView: View {
+    @StateObject private var model: ObjectTypeInfoViewModel
     @Environment(\.dismiss) private var dismiss
-    private let mode: NewTypeCreationViewMode
+    private let mode: ObjectTypeInfoViewMode
     
-    init(info: ObjectTypeInfo, mode: NewTypeCreationViewMode, completion: @escaping (_ info: ObjectTypeInfo) -> ()) {
-        _model = StateObject(wrappedValue: NewTypeCreationViewModel(info: info, completion: completion))
+    init(info: ObjectTypeInfo, mode: ObjectTypeInfoViewMode, completion: @escaping (_ info: ObjectTypeInfo) -> ()) {
+        _model = StateObject(wrappedValue: ObjectTypeInfoViewModel(info: info, completion: completion))
         self.mode = mode
     }
     

@@ -4,7 +4,7 @@ import AnytypeCore
 
 
 @MainActor
-final class NewTypeCreationViewModel: ObservableObject {
+final class ObjectTypeInfoViewModel: ObservableObject {
     @Published var showIconPicker = false
     
     @Published var name = ""
