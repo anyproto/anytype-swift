@@ -588,7 +588,7 @@
 "Nothing found" = "Mitään ei löytynyt";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Luo tyyppi";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "Rajoita objekti tyyppejä";
 "Type" = "Tyyppi";
